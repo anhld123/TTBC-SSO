@@ -1,0 +1,24 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- Author: Trung -->
+ 
+<struts>
+    <package name="privileage_manager" extends="struts-default,json-default">        
+        <action name="selectPrivi4UserGroup" 
+                class="vbsp.ims.action.UserGroupAction" method="selectPrivileage">
+            <result name="success">select_privileage.jsp</result>
+        </action>      
+        
+        <action name="selectOwnerReports" 
+                class="vbsp.ims.action.UserGroupAction" method="selectOwnerReports">
+            <result name="success">select_privileage_report.jsp</result>
+        </action>
+        
+        <action name="saveOwnerReports" 
+                class="vbsp.ims.action.UserGroupAction" method="saveReports">
+            <result type="json"></result>
+        </action>
+    </package>    
+</struts>

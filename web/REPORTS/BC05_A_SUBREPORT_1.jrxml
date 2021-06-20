@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TCTD-BC05_SUBREPORT_1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="c60a92fa-6103-4521-84f2-48cc64882079">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="290"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Official dispatch of IT\\Xay dung CSDL\\jasper report\\QD16 new\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 'ABC' NAME,'XYZ' POSITION,'1' TYPE,'3.TYPE 1' NAME_OF_TYPE FROM DUAL]]>
+	</queryString>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="POSITION" class="java.lang.String"/>
+	<field name="TYPE" class="java.lang.String"/>
+	<field name="NAME_OF_TYPE" class="java.lang.String"/>
+	<group name="TYPE">
+		<groupExpression><![CDATA[$F{TYPE}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="60">
+			<staticText>
+				<reportElement uuid="356550d0-16a4-4b6c-b88e-f928de916aab" x="14" y="0" width="278" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[I - Đặc điểm hoạt động của tổ chức tín dụng ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3263c435-d0c0-4186-a61f-540cfdda6c13" x="14" y="16" width="278" height="30"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[    1. Giấy phép thành lập và hoạt động:
+Thời hạn có giá trị: 99 năm
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b9142205-4b0e-4bfe-9847-87aba042fab1" x="14" y="45" width="278" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[    2. Hình thức sở hữu vốn: Nhà nước sở hữu. ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="d3849f62-1b25-4386-9f47-86269440b80e" x="291" y="0" width="100" height="15" isRemoveLineWhenBlank="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[Chức danh:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f4093364-defa-4f80-8beb-a2f7818e5eac" x="14" y="0" width="100" height="15" isRemoveLineWhenBlank="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[Tên: ]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="541">
+			<staticText>
+				<reportElement uuid="93646bad-a4b9-4e86-999a-cb6e2d0bb110" x="14" y="28" width="377" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional"/>
+				</textElement>
+				<text><![CDATA[II - Kỳ kế toán, đơn vị tiền tệ sử dụng trong kế toán]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="449f6ca4-e50a-479e-b5a2-a897a5e7ddf9" x="14" y="42" width="377" height="36"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[    1. Kỳ kế toán năm (bắt đầu từ ngày 01/01 kết thúc vào ngày 31/12)
+    2. Đơn vị tiền tệ sử dụng trong kế toán: Đồng Việt Nam (VNĐ)
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="99d1770d-b319-4cf7-9ec8-27a4a9718131" x="26" y="0" width="88" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[5. Trụ sở chính: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9619a5dd-66cf-4e99-9177-4261e24a3d0c" x="26" y="14" width="265" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[6. Tổng số cán bộ, công nhân : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fffb6e4e-f04e-4f24-8270-9ea34a3e4080" x="292" y="0" width="100" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional"/>
+				</textElement>
+				<text><![CDATA[Số chi nhánh: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="04f12638-79ee-4e90-8a65-cf970b5a004c" x="14" y="77" width="258" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[III - Chuẩn mực và Chế độ kế toán áp dụng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0a7a7a44-e9b0-4252-a3b6-605cf2809417" x="14" y="91" width="534" height="34"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[    - Báo cáo về tuân thủ các chuẩn mực kế toán Việt Nam – VAS hoặc các chuẩn mực kế toán kế toán quốc
+ tế – IAS:
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3b4f9d6b-d644-404f-b711-bcf61bcf2a39" x="162" y="211" width="386" height="16"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Báo cáo quyết toán số cấp bù chênh lệch lãi suất và chi phí quản lý; Báo cáo
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="20c3abc0-9454-403c-9c97-010287cff3c8" x="14" y="211" width="133" height="16"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[   - Cơ sở điều chỉnh các sai sót:
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0ac932ee-60ae-4302-9c68-8bf4edf49f55" x="468" y="151" width="80" height="17"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[là số]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b435606a-cdcc-4313-bd0a-d388a0a9e837" x="14" y="167" width="534" height="29"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[cấp bù chênh lệch lãi suất và chi phí quản lý từ Ngân sách Nhà nước; Quỹ tiền lương cán bộ nhân viên
+NHCSXH.
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0e7abb50-9cb1-41ac-94aa-47c93fc4836f" x="63" y="108" width="485" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Về cơ bản NHCSXH tuân thủ các chuẩn mực kế toán Việt Nam ngoại trừ chuẩn mực doanh
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4d987503-7c08-44d1-b7fc-b03cf3894528" x="155" y="138" width="393" height="14"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[là kế toán bằng máy vi tính.
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="714f60f9-d9a2-4934-80bb-4e02856a69f3" x="14" y="195" width="86" height="17"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[   - Hợp nhất báo cáo:
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2ebd10a6-7d9b-4822-9a7c-9245471bf2b4" x="14" y="138" width="144" height="14"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[   - Hình thức kế toán áp dụng:
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="61e98e97-3066-4e72-a91e-0d0bd36b043b" x="14" y="226" width="534" height="17"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[quyết toán quỹ tiền lương và các biên bản kiểm tra (có phát hiện sai sót về hạch toán kế toán).
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="716033c9-e4b7-4634-aac4-467fa843358b" x="14" y="124" width="534" height="15"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[thu và chuẩn mực chi phí (Dự phòng rủi ro).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5856e9f6-4417-457c-8a09-00451a395b8e" x="14" y="151" width="534" height="17"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[   - Các cơ sở đánh giá được sử dụng trong quá trình lập BCTC và các ước tính kế toán quan trọng:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8c943184-4c3a-4ea2-a039-ef51b0fe5c36" x="114" y="195" width="434" height="17"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[NHCSXH không có
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cbe5c188-3f5a-48af-b43e-6c8198fa5faa" x="14" y="242" width="295" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[IV - Chính sách kế toán áp dụng tại tổ chức tín dụng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7af6b060-920a-462f-a511-41ed0906b2e7" x="14" y="427" width="534" height="16"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[tính và hạch toán, lãi vẫn được chi trả
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="53c5174d-0fc3-41da-b025-656fb23e0205" x="14" y="470" width="534" height="49" isRemoveLineWhenBlank="true"/>
+				<box leftPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[   - Nguyên tắc ghi nhận khoản vay: Theo giá gốc.
+    + Các khoản cho vay được thể hiện trong BCTC là số nợ gốc trừ đi bất kỳ các khoản dự phòng khó đòi nào.
+   - Các nguyên tắc phân loại nợ và đánh giá rủi ro tín dụng: Nợ bị rủi ro của NHCSXH bao gồm các loại sau:
+   ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="01f8aee6-a88a-4db1-946a-b19e87ee2798" x="14" y="396" width="534" height="17"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[   - Kế toán chi phí lãi: Theo phương pháp dự chi, là việc tính và hạch toán dần vào tài khoản chi phí theo định ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a75fbc06-06bc-46d5-90c0-91402bc44148" x="232" y="442" width="316" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Theo số phí và hoa hồng thực thu.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="58fea0cf-3a7a-4f7f-9314-348bbfbf8d73" x="14" y="456" width="253" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" isUnderline="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[   6. Kế toán đối với cho vay khách hàng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="edb5e18e-bf05-4cbd-9f3c-3f015d5e7892" x="14" y="336" width="534" height="47"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[    2. Nguyên tắc thực hiện hợp nhất báo cáo tài chính: NHCSXH không có
+    3. Công cụ tài chính phái sinh và kế toán phòng ngừa rủi ro: NHCSXH không có
+   4. Kế toán thu nhập lãi, chi phí lãi và ngừng dự thu lãi:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="da347f31-ce45-4381-9be5-4c2df2d17fc5" x="14" y="442" width="253" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[   5. Kế toán các khoản thu từ phí và hoa hồng:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b14660c2-cfc5-4def-990b-e6edbfc5cd00" x="14" y="270" width="534" height="67"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[    Các nghiệp vụ phát sinh bằng ngoại tệ trong năm được ghi theo nguyên tệ và quy đổi ra đồng Việt Nam theo
+tỷ giá do Ngân hàng Nhà nước Việt Nam công bố tại thời điểm lập báo cáo tài chính. Chênh lệch tỷ giá thực tế
+phát sinh trong kỳ và chênh lệch tỷ giá do đánh giá lại số dư các khoản mục tiền tệ tại thời điểm cuối năm được
+kết chuyển vào doanh thu hoặc chi phí trong năm tài chính.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2550fcea-62f9-4966-b7e2-4d5b856a1a39" x="14" y="382" width="534" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[   - Kế toán thu nhập lãi: Theo phương pháp thực thu.
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fc83fcb2-324e-4815-9ac2-1391a915ab9b" x="14" y="256" width="102" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[    1. Chuyển đổi tiền tệ: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3e4f78d2-4e4d-4e6c-8936-0260bc279a88" x="14" y="412" width="534" height="16"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[kỳ những khoản lãi sẽ phải trả tại một thời điểm nhất định trong tương lai, không phụ thuộc việc tại thời điểm
+]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="2a19d72e-e600-48cd-bb44-d19e32a77d70" x="0" y="519" width="497" height="22"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["SUBREPORT_IV_2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

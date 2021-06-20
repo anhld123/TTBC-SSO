@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="eom_task_help_pkg" extends="struts-default,json-default">                
+        <action name="eth_list_all_task" class="vbsp.ims.eom_help.EOMTaskHelpAction"
+        method="list_all_task">
+            <result name="success">eom_task_help_direct.jsp</result>            
+        </action>                                                                  
+        
+        <action name="eom_build_module_combo"  
+                class="vbsp.ims.eom_help.EOMTaskHelpAction" 
+                method="build_module_combo">
+            <result name="success" type="json"></result>
+        </action>
+        
+        <action name="eom_build_status_combo"  
+                class="vbsp.ims.eom_help.EOMBuildCombo" 
+                method="build_status_combo">
+            <result name="success" type="json"></result>
+        </action>
+        
+<!--        <action name="eom_build_period_combo"  
+                class="vbsp.ims.eom_help.EOMTaskHelpAction" 
+                method="build_period_combo">
+            <result name="success" type="json"></result>
+        </action>-->
+        
+        <action name="eom_load_task_of_module"  
+                class="vbsp.ims.eom_help.EOMTaskHelpAction" 
+                method="list_all_task">
+            <result name="success">WEB-INF/eom_task_help-main_tbl.jsp</result>    
+        </action>
+        
+        <action name="eom_view_sub_task"  
+                class="vbsp.ims.eom_help.EOMTaskHelpAction" 
+                method="list_all_sub_task">
+            <result name="success">WEB-INF/eom_subtask_help-main.jsp</result>    
+        </action>
+        
+        <action name="eom_view_subtask_detail"  
+                class="vbsp.ims.eom_help.EOMSubTaskHelpAction" 
+                method="view_sub_task_detail">
+            <result name="success">WEB-INF/eom_subtask_help-detail.jsp</result>    
+        </action>
+        
+        <action name="eom_edit_sub_task"  
+                class="vbsp.ims.eom_help.EOMSubTaskHelpAction" 
+                method="edit_subtask">
+            <result name="success">WEB-INF/eom_subtask_help-edit.jsp</result>    
+        </action>
+        
+        
+        <action name="eom_execute_subtask"  
+                class="vbsp.ims.eom_help.EOMSubTaskHelpAction" 
+                method="execute_sub_task">
+            <result name="success">WEB-INF/pure_message.jsp</result>    
+        </action>
+        
+        <action name="eom_view_subtask_progress"  
+                class="vbsp.ims.eom_help.EOMSubTaskHelpAction" 
+                method="view_sub_task_progress">
+            <result name="success">WEB-INF/eom_subtask_log_tbl.jsp</result>    
+        </action>
+        
+        <action name="eom_search_subtask"  
+                class="vbsp.ims.eom_help.EOMSubTaskHelpAction" 
+                method="search_subtask">
+            <result name="success">WEB-INF/eom_subtask_search_tbl.jsp</result>    
+        </action>
+        <action name="eom_update_subtask_addinfor"  
+                class="vbsp.ims.eom_help.EOMEditSubtaskAction" 
+                method="update_subtask">
+            <result name="success">WEB-INF/pure_message.jsp</result>    
+        </action>
+        <action name="eom_SERVER_INFOR"  
+                class="vbsp.ims.eom_help.EOMServerInforAction" 
+                method="execute">            
+            <result name="success" >WEB-INF/eom_server_infor-detail.jsp</result>    
+        </action>
+        
+     </package>          
+</struts>

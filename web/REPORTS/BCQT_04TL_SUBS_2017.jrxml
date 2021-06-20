@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BCQT_04TL_SUBS_2017" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="fab84346-dbf0-4ffc-806d-ea021f18b9a1">
+	<property name="ireport.zoom" value="1.6105100000000014"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<parameter name="PARA_TONGHOP" class="java.lang.String"/>
+	<queryString language="plsql">
+		<![CDATA[{call BCQT_INBC.IN_BCQT_04PL_SUB($P{PARA_MAPGD},$P{PARA_TONGHOP},$P{PARA_NGAYBC},$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<field name="MADV" class="java.lang.String"/>
+	<field name="NDATA_1" class="java.math.BigDecimal"/>
+	<field name="NDATA_2" class="java.math.BigDecimal"/>
+	<field name="NDATA_3" class="java.math.BigDecimal"/>
+	<field name="NDATA_4" class="java.math.BigDecimal"/>
+	<field name="NDATA_5" class="java.math.BigDecimal"/>
+	<field name="NDATA_6" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="106" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="beb823b7-ad5f-47fb-aaa6-578e0314e4e0" x="0" y="-1" width="651" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[I/ Phí điều hòa vốn:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="297b333d-df5b-4efa-98ff-085af27de32d" x="0" y="40" width="700" height="19"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[2- Lãi suất cho vay BQ = 0,95 * (Tổng lãi phải thu các CT cho vay Chính phủ giao và các Dự án nhận trực tiếp từ Chính phủ theo MS 14 và 14A/QT)/(DN BQ cột 2)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="94124399-3335-4098-be05-b62232e46362" x="0" y="59" width="700" height="14"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[3- Mức phí quản lý được hưởng: ……….]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5447964a-65a9-4be5-8297-7d2ec2485964" x="0" y="73" width="700" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[4- Số phí điều hòa vốn = Số dư bình quân tính phí x (Lãi suất cho vay BQ - Mức phí quản lý)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="236d6024-335f-4929-8905-642e5f935602" x="0" y="14" width="700" height="26"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[1- Số dư bình quân tính phí điều hòa vốn = Dư nợ bình quân các chương trình tín dụng vốn TW (cột 2) + Số dư BQ tính theo tích số của các khoản tồn quỹ tiền mặt, tiền gửi, tạm ứng (Phụ lục 05/TL)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9c6932bc-49aa-4c12-a0e0-e0976788d2a4" x="0" y="91" width="700" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[II/ Hỗ trợ huyện nghèo theo NQ 30a/TTg:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="3e62b9a4-1a7d-487d-bccd-1fc077801307" x="700" y="14" width="64" height="26"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NDATA_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00000">
+				<reportElement uuid="54219111-35fd-4435-b591-06f58fed72f9" x="700" y="40" width="64" height="19"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NDATA_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00000">
+				<reportElement uuid="252fe314-01dd-44cd-b8d4-a8c7756d374c" x="700" y="59" width="64" height="14"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NDATA_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="9a32f228-5685-4f18-8a1f-6562855ae07d" x="700" y="73" width="64" height="18"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NDATA_4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="ce7f1ade-f7bf-4e74-9327-a106d578de8b" x="700" y="91" width="64" height="15"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NDATA_5}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

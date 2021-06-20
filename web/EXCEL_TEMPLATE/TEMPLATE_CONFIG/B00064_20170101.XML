@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="B00064_20170101.xlsx" fileOutFormat="PARA_MAPGD_DDMMYYYY_049_SBV">
+   <title>Báo cáo tình hình kinh doanh cung ứng sán phẩm (049-CSTT)</title>
+   <userName>ADMIN06</userName>
+   <date>29-Dec-2016 15:50:957</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MAPGD" class="java.lang.String" description="Mã phòng giao dịch"/>
+<queryString id="1" maplist="header" description="Lấy tiêu đề" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'A00034_049-DBTK' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(sysdate,'DDMMYYYY') STR4, 'TRUNGNT' STR5,'ID DUYET' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+
+
+<queryString id="2" maplist="header2" description="tiêu đề 2" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'A00034_049-DBTK' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(sysdate,'DDMMYYYY') STR4, 'TRUNGNT' STR5,'ID DUYET' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+<queryString id="3" maplist="header3" description="tieu de 3" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'A00034_049-DBTK' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(sysdate,'DDMMYYYY') STR4, 'TRUNGNT' STR5,'ID DUYET' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+</excel_template>

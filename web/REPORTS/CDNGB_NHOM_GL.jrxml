@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDNGB" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\PCBC\\Reports_Intellect\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_TONGHOP" class="java.lang.String"/>
+	<parameter name="PARA_KYBC" class="java.lang.String"/>
+	<parameter name="PARA_LOAIBC" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<queryString language="plsql">
+		<![CDATA[{call rpt_vbsp_balance.p_prin_balance($P{PARA_MAPGD},$P{PARA_NGAYBC},$P{PARA_TONGHOP},$P{PARA_KYBC},$P{PARA_LOAIBC},
+$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<field name="AccountName" class="java.lang.String"/>
+	<field name="AccountNumber" class="java.lang.String"/>
+	<field name="DebitOpenBalanceLCY" class="java.math.BigDecimal"/>
+	<field name="DebitTurnOverBalanceLCY" class="java.math.BigDecimal"/>
+	<field name="CreditTurnOverBalanceLCY" class="java.math.BigDecimal"/>
+	<field name="DebitClosingBalanceLCY" class="java.math.BigDecimal"/>
+	<field name="pos_desc" class="java.lang.String"/>
+	<field name="AccountCurrency" class="java.lang.String"/>
+	<field name="SBV_GL_SL" class="java.lang.String"/>
+	<field name="POS_CD" class="java.lang.String"/>
+	<field name="to_dt" class="java.util.Date"/>
+	<field name="from_dt" class="java.util.Date"/>
+	<variable name="groupBy" class="java.lang.String" resetType="Group" resetGroup="ACNO_GROUP">
+		<variableExpression><![CDATA[$F{AccountNumber}.substring(0,4)]]></variableExpression>
+	</variable>
+	<variable name="TOT_OPEN_DR" class="java.math.BigDecimal" resetType="Group" resetGroup="POS_CD_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{DebitOpenBalanceLCY}]]></variableExpression>
+	</variable>
+	<variable name="TOT_TO_DR" class="java.math.BigDecimal" resetType="Group" resetGroup="POS_CD_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{DebitTurnOverBalanceLCY}]]></variableExpression>
+	</variable>
+	<variable name="TOT_TO_CR" class="java.math.BigDecimal" resetType="Group" resetGroup="POS_CD_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{CreditTurnOverBalanceLCY}]]></variableExpression>
+	</variable>
+	<variable name="TOT_CLOSE_DR" class="java.math.BigDecimal" resetType="Group" resetGroup="POS_CD_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{DebitClosingBalanceLCY}]]></variableExpression>
+	</variable>
+	<variable name="AC_DESC" class="java.lang.String" resetType="Group" resetGroup="ACNO_GROUP">
+		<variableExpression><![CDATA[$V{groupBy}.equals("9100")?"Tiền mặt tại đơn vị":$V{groupBy}.equals("9101")?"Tiền mặt tại két Teller đi giao dịch lưu động (online)":$V{groupBy}.equals("9102")?"Tiền mặt tại quỹ giao dịch lưu động offline":$V{groupBy}.equals("9103")?"Tiền mặt không đủ tiêu chuẩn lưu thông chờ xử lý":$V{groupBy}.equals("9104")?"Tiền mặt đang vận chuyển":$V{groupBy}.equals("9111")?"Tiền gửi tại NHNN":$V{groupBy}.equals("9112")?"Tiền gửi không kỳ hạn tại các TCTD khác":$V{groupBy}.equals("9113")?"Tiền gửi có kỳ hạn dưới 12 tháng tại các TCTD khác":$V{groupBy}.equals("9114")?"Tiền gửi có kỳ hạn từ 12 tháng trở lên tại các TCTD khác":$V{groupBy}.equals("9121")?"Cho vay các tổ chức tín dụng trong nước":$V{groupBy}.equals("9129")?"Dự phòng chung cho vay các tổ chức tín dụng":$V{groupBy}.equals("9131")?"Cho vay ngắn hạn các tổ chức kinh tế, cá nhân trong nước":$V{groupBy}.equals("9132")?"Cho vay trung hạn các TCKT, CN trong nước":$V{groupBy}.equals("9133")?"Cho vay dài hạn các TCKT, CN trong nước":$V{groupBy}.equals("9139")?"Dự phòng chung rủi ro tín dụng cho vay TCKT, CN trong nước":$V{groupBy}.equals("9141")?"Cho vay ngắn hạn bằng vốn nhận trực tiếp của các tổ chức quốc tế":$V{groupBy}.equals("9142")?"Cho vay trung hạn bằng vốn nhận trực tiếp của các tổ chức quốc tế":$V{groupBy}.equals("9143")?"Cho vay dài hạn bằng vốn nhận trực tiếp của các tổ chức quốc tế":$V{groupBy}.equals("9149")?"Dự phòng cho vay bằng vốn nhận trực tiếp TCQT":$V{groupBy}.equals("9151")?"Cho vay ngắn hạn bằng vốn nhận của Chính phủ":$V{groupBy}.equals("9152")?"Cho vay trung hạn bằng vốn nhận của Chính phủ":$V{groupBy}.equals("9153")?"Cho vay dài hạn bằng vốn nhận của Chính phủ":$V{groupBy}.equals("9159")?"Dự phòng cho vay bằng vốn nhận của Chính phủ":$V{groupBy}.equals("9161")?"Cho vay ngắn hạn bằng vốn nhận của các tổ chức khác":$V{groupBy}.equals("9162")?"Cho vay trung hạn bằng vốn nhận của các tổ chức khác":$V{groupBy}.equals("9169")?"Dự phòng cho vay bằng vốn nhận tổ chức khác":$V{groupBy}.equals("9171")?"Cho vay ngắn hạn đặc biệt đối với các tổ chức kinh tế, cá nhân trong nước":$V{groupBy}.equals("9172")?"Cho vay trung hạn đặc biệt đối với các tổ chức kinh tế, cá nhân trong nước":$V{groupBy}.equals("9173")?"Cho vay dài hạn đặc biệt đối với các tổ chức kinh tế, cá nhân trong nước":$V{groupBy}.equals("9191")?"Nợ cho vay ngắn hạn được khoanh":$V{groupBy}.equals("9192")?"Nợ cho vay trung hạn được khoanh":$V{groupBy}.equals("9193")?"Nợ cho vay dài hạn được khoanh":$V{groupBy}.equals("9199")?"Dự phòng nợ được khoanh":$V{groupBy}.equals("9701")?"Tài sản cố định hữu hình":$V{groupBy}.equals("9702")?"Tài sản cố định vô hình":$V{groupBy}.equals("9703")?"TSCĐ thuê tài chính":$V{groupBy}.equals("9705")?"Hao mòn TSCĐ":$V{groupBy}.equals("9711")?"Công cụ dụng cụ trong kho":$V{groupBy}.equals("9712")?"Vật liệu, ấn chỉ":$V{groupBy}.equals("9721")?"Mua sắm TSCĐ":$V{groupBy}.equals("9722")?"Tập hợp chi phí XDCB":$V{groupBy}.equals("9723")?"Tập hợp chi sửa chữa TSCĐ":$V{groupBy}.equals("9752")?"Các khoản tham ô, lợi dụng":$V{groupBy}.equals("9761")?"Tạm ứng và phải thu nội bộ":$V{groupBy}.equals("9788")?"Chi phí chờ phân bổ":$V{groupBy}.equals("9789")?"Tài sản Có khác ":$V{groupBy}.equals("9200")?"Tiền gửi của Kho bạc Nhà nước":$V{groupBy}.equals("9201")?"Vay Ngân hàng nhà nước":$V{groupBy}.equals("9210")?"Tiền gửi của các TCTD trong nước":$V{groupBy}.equals("9211")?"Vay các TCTD trong nước":$V{groupBy}.equals("9212")?"Tiền gửi có kỳ hạn của các TCTD nước ngoài":$V{groupBy}.equals("9213")?"Vay các Ngân hàng ở nước ngoài":$V{groupBy}.equals("9221")?"Tiền gửi của khách hàng":$V{groupBy}.equals("9222")?"Tiền gửi tiết kiệm":$V{groupBy}.equals("9223")?"Tiền ký quỹ":$V{groupBy}.equals("9231")?"Trái phiếu phát hành":$V{groupBy}.equals("9241")?"Vốn TT, UTĐT nhận trực tiếp của các tổ chức, cá nhân nước ngoài":$V{groupBy}.equals("9242")?"Vốn TT, UTĐT nhận của Chính phủ":$V{groupBy}.equals("9243")?"Vốn TT, UTĐT nhận vốn của các Tổ chức, cá nhân trong nước":$V{groupBy}.equals("9251")?"Các khoản phải trả về XDCB, mua sắm TSCĐ":$V{groupBy}.equals("9252")?"Tiền giữ hộ và đợi thanh toán với bên ngoài":$V{groupBy}.equals("9253")?"Thuế và các khoản phải nộp Nhà Nước":$V{groupBy}.equals("9254")?"Chuyển tiền đến khách hàng vãng lai chờ thanh toán":$V{groupBy}.equals("9259")?"Các khoản chờ thanh toán khác với bên ngoài":$V{groupBy}.equals("9261")?"Thừa quỹ, tài sản thừa chờ xử lý":$V{groupBy}.equals("9262")?"Các khoản phải trả cho cán bộ, nhân viên NHCSXH":$V{groupBy}.equals("9266")?"Các khoản phải trả từ các giao dịch nội bộ hệ thống NHCSXH ":$V{groupBy}.equals("9270")?"Ngoại tệ kinh doanh":$V{groupBy}.equals("9280")?"Các tài sản nợ khác":$V{groupBy}.equals("9291")?"Lãi phải trả cho tiền gửi":$V{groupBy}.equals("9292")?"Lãi phải trả cho các giấy tờ có giá bằng đồng Việt Nam":$V{groupBy}.equals("9293")?"Lãi phải trả cho tiền vay bằng đồng Việt Nam":$V{groupBy}.equals("9294")?"Lãi phải trả cho vốn TT, uỷ thác đầu tư":$V{groupBy}.equals("9297")?"Các khoản phí phải trả ":$V{groupBy}.equals("9900")?"Thanh toán với các Ngân hàng khác":$V{groupBy}.equals("9910")?"Thanh toán giữa các đơn vị trong NHCSXH":$V{groupBy}.equals("9991")?"Các khoản chờ xử lý":$V{groupBy}.equals("9999")?"Các tài khoản trung gian":$V{groupBy}.equals("9800")?"Vốn điều lệ của NHCSXH":$V{groupBy}.equals("9801")?"Vốn đầu tư XDCB, mua sắm TSCĐ":$V{groupBy}.equals("9802")?"Vốn khác của NHCSXH":$V{groupBy}.equals("9810")?"Các quỹ của NHCSXH":$V{groupBy}.equals("9820")?"Quỹ khen thưởng":$V{groupBy}.equals("9821")?"Quỹ phúc lợi":$V{groupBy}.equals("9822")?"Quỹ phúc lợi đã hình thành tài sản cố định":$V{groupBy}.equals("9830")?"Chênh lệch tỷ giá":$V{groupBy}.equals("9840")?"Chênh lệch đánh giá lại tài sản cố định":$V{groupBy}.equals("9890")?"Lợi nhuận chưa phân phối":$V{groupBy}.equals("9401")?"Thu lãi tiền gửi":$V{groupBy}.equals("9402")?"Thu lãi cho vay":$V{groupBy}.equals("9409")?"Thu khác từ hoạt động tín dụng":$V{groupBy}.equals("9411")?"Thu từ dịch vụ thanh toán":$V{groupBy}.equals("9413")?"Thu từ dịch vụ ngân quỹ":$V{groupBy}.equals("9414")?"Thu từ nghiệp vụ uỷ thác và đại lý":$V{groupBy}.equals("9415")?"Thu từ dịch vụ tư vấn":$V{groupBy}.equals("9418")?"Thu từ cung ứng dịch vụ bảo quản tài sản, cho thuê tủ két":$V{groupBy}.equals("9419")?"Thu phí dịch vụ khác":$V{groupBy}.equals("9449")?"Thu nhập từ hoạt động kinh doanh khác":$V{groupBy}.equals("9490")?"Thu cấp bù từ Ngân sách":$V{groupBy}.equals("9499")?"Các khoản thu nhập khác":$V{groupBy}.equals("9301")?"Chi trả lãi tiền gửi":$V{groupBy}.equals("9302")?"Chi trả lãi tiền vay":$V{groupBy}.equals("9303")?"Chi Trả lãi trái phiếu":$V{groupBy}.equals("9309")?"Chi phí khác về huy động vốn":$V{groupBy}.equals("9311")?"Chi về dịch vụ thanh toán ":$V{groupBy}.equals("9312")?"Chi Cước phí bưu điện về mạng viễn thông":$V{groupBy}.equals("9313")?"Chi vận chuyển, bốc xếp tiền":$V{groupBy}.equals("9314")?"Chi phí dịch vụ Uỷ thác và đại lý":$V{groupBy}.equals("9315")?"Chi về dịch vụ tư vấn":$V{groupBy}.equals("9319")?"Chi khác về hoạt động dịch vụ":$V{groupBy}.equals("9331")?"Chi nộp thuế":$V{groupBy}.equals("9332")?"Chi nộp các khoản phí, lệ phí":$V{groupBy}.equals("9349")?"Chi về hoạt động kinh doanh khác":$V{groupBy}.equals("9351")?"Chi lương và phụ cấp cấp lương":$V{groupBy}.equals("9352")?"Chi Trang phục giao dịch và phương tiện bảo hộ":$V{groupBy}.equals("9353")?"Chi các khoản đóng góp theo lương":$V{groupBy}.equals("9354")?"Chi trợ cấp":$V{groupBy}.equals("9355")?"Chi công tác xã hội":$V{groupBy}.equals("9356")?"Chi ăn ca cho cán bộ CNV NHCSXH":$V{groupBy}.equals("9361")?"Chi về vật liệu và giấy tờ in":$V{groupBy}.equals("9362")?"Chi Công tác phí":$V{groupBy}.equals("9363")?"Chi đào tạo, huấn luyện nghiệp vụ":$V{groupBy}.equals("9364")?"Chi nghiên cứu và ứng dụng khoa học công nghệ, sáng kiến, cải tiến":$V{groupBy}.equals("9365")?"Chi bưu phí và điện thoại":$V{groupBy}.equals("9366")?"Chi xuất bản tài liệu, tuyên truyền, quảng cáo, tiếp thị, khuyến mãi":$V{groupBy}.equals("9367")?"Chi mua tài liệu, sách báo":$V{groupBy}.equals("9368")?"Chi về các hoạt động đoàn thể của NHCSXH":$V{groupBy}.equals("9369")?"Các khoản chi phí quản lý khác":$V{groupBy}.equals("9371")?"Chi khấu hao cơ bản tài sản cố định":$V{groupBy}.equals("9372")?"Chi bảo dưỡng và sửa chữa tài sản":$V{groupBy}.equals("9374")?"Chi Mua sắm công cụ lao động":$V{groupBy}.equals("9375")?"Chi bảo hiểm tài sản":$V{groupBy}.equals("9376")?"Chi thuê tài sản":$V{groupBy}.equals("9382")?"Chi trích lập dự phòng":$V{groupBy}.equals("9390")?"Chi phí khác":$V{groupBy}.equals("9501")?"Tiền không có giá trị lưu hành":$V{groupBy}.equals("9531")?"Các cam kết nhận từ các TCTD khác":$V{groupBy}.equals("9532")?"Cam kết nhận từ các cơ quan Chính phủ":$V{groupBy}.equals("9533")?"Cam kết nhận từ các Công ty bảo hiểm":$V{groupBy}.equals("9534")?"Cam kết nhận từ các Tổ chức quốc tế":$V{groupBy}.equals("9538")?"Các văn bản, chứng từ cam kết khác nhận được":$V{groupBy}.equals("9539")?"Các Cam kết khác nhận được":$V{groupBy}.equals("9541")?"Lãi cho vay quá hạn và phí phải thu chưa thu được":$V{groupBy}.equals("9561")?"Các giấy tờ có giá":$V{groupBy}.equals("9571")?"Nợ tổn thất đang trong thời gian theo dõi":$V{groupBy}.equals("9572")?"Nợ tổn thất đang trong hoạt động thanh toán":$V{groupBy}.equals("9581")?"Cho vay, đầu tư theo hợp đồng nhận uỷ thác":$V{groupBy}.equals("9589")?"Các nghiệp vụ uỷ thác và đại lý khác":$V{groupBy}.equals("9591")?"Kim loại quý, đá quý giữ hộ":$V{groupBy}.equals("9592")?"Tài sản khác giữ hộ":$V{groupBy}.equals("9593")?"Tài sản thuê ngoài":$V{groupBy}.equals("9594")?"Tài sản thế chấp, cầm cố của khách hàng":$V{groupBy}.equals("9595")?"Tài sản gán, xiết nợ chờ xử lý":$V{groupBy}.equals("9596")?"Các giấy tờ có giá của khách hàng đưa cầm cố":$V{groupBy}.equals("9597")?"Các chứng từ có giá khác đang bảo quản":$V{groupBy}.equals("9985")?"Các TK sử dụng chuyển đổi dữ liệu chuyển tiền":"Not Maintained"]]></variableExpression>
+	</variable>
+	<variable name="GRP_OPEN_DR" class="java.math.BigDecimal" resetType="Group" resetGroup="ACNO_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{DebitOpenBalanceLCY}]]></variableExpression>
+	</variable>
+	<variable name="GRP_TO_DR" class="java.math.BigDecimal" resetType="Group" resetGroup="ACNO_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{DebitTurnOverBalanceLCY}]]></variableExpression>
+	</variable>
+	<variable name="GRP_TO_CR" class="java.math.BigDecimal" resetType="Group" resetGroup="ACNO_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{CreditTurnOverBalanceLCY}]]></variableExpression>
+	</variable>
+	<variable name="GRP_CLOSE_DR" class="java.math.BigDecimal" resetType="Group" resetGroup="ACNO_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{DebitClosingBalanceLCY}]]></variableExpression>
+	</variable>
+	<variable name="CCY_CD" class="java.lang.String"/>
+	<group name="POS_CD_GROUP" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{POS_CD}]]></groupExpression>
+		<groupHeader>
+			<band height="143">
+				<subreport>
+					<reportElement x="0" y="0" width="247" height="62"/>
+					<subreportParameter name="POS_CD">
+						<subreportParameterExpression><![CDATA[$F{POS_CD}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA["mainpos_subpos.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement x="687" y="82" width="115" height="16"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="11" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Đơn vị: đồng]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="212" y="69" width="379" height="16"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[B - CÁC TÀI KHOẢN NGOÀI BẢNG CÂN ĐỐI KẾ TOÁN]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="212" y="36" width="379" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="13" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{PARA_TONGHOP} == "Y" ? "BẢNG CÂN ĐỐI TÀI KHOẢN KẾ TOÁN TỔNG HỢP" : "BẢNG CÂN ĐỐI TÀI KHOẢN KẾ TOÁN"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="421" y="113" width="95" height="16" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Nợ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="706" y="113" width="95" height="16" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Nợ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="611" y="113" width="95" height="16" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Xuất (Có)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="421" y="97" width="95" height="16" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Số dư đầu kỳ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="345" y="97" width="76" height="32" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Tài khoản GL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="285" y="97" width="60" height="32" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Tài khoản NHNN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="97" width="285" height="32" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Tên tài khoản]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="706" y="97" width="95" height="16" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Số dư cuối kỳ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="516" y="113" width="95" height="16" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Nhập (Nợ)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="516" y="97" width="190" height="16" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Số phát sinh]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="421" y="129" width="95" height="14"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[(3)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="706" y="129" width="95" height="14"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[(6)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="345" y="129" width="76" height="14"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[(3)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="129" width="285" height="14"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[(1)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="611" y="129" width="95" height="14"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[(5)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="285" y="129" width="60" height="14"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[(2)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="516" y="129" width="95" height="14"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[(4)]]></text>
+				</staticText>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement x="250" y="55" width="303" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Từ " + (new SimpleDateFormat("dd/MM/yyyy").format($F{from_dt})).toString() + " đến " + (new SimpleDateFormat("dd/MM/yyyy").format($F{to_dt})).toString()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="61">
+				<staticText>
+					<reportElement x="285" y="0" width="60" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="0" width="285" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[TỔNG:]]></text>
+				</staticText>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="421" y="0" width="95" height="18"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOT_OPEN_DR}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="516" y="0" width="95" height="18"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOT_TO_DR}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="611" y="0" width="95" height="18"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOT_TO_CR}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="706" y="0" width="95" height="18"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOT_CLOSE_DR}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="345" y="0" width="76" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="321" y="26" width="152" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[TP. Kế toán]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="51" y="26" width="132" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Lập bảng]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="603" y="26" width="149" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Giám đốc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="321" y="41" width="152" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[(Ký, ghi rõ họ tên)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="51" y="41" width="132" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[(Ký, ghi rõ họ tên)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="603" y="41" width="149" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[(Ký tên, đóng dấu)]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="ACNO_GROUP">
+		<groupExpression><![CDATA[$V{groupBy}]]></groupExpression>
+		<groupHeader>
+			<band height="16">
+				<textField evaluationTime="Group" evaluationGroup="ACNO_GROUP">
+					<reportElement mode="Opaque" x="0" y="0" width="285" height="16" printWhenGroupChanges="ACNO_GROUP" backcolor="#FFFFFF"/>
+					<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$V{AC_DESC}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="ACNO_GROUP" isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="285" y="0" width="60" height="16" printWhenGroupChanges="ACNO_GROUP" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="ACNO_GROUP" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="706" y="0" width="95" height="16" printWhenGroupChanges="ACNO_GROUP" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{GRP_CLOSE_DR}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="ACNO_GROUP" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="421" y="0" width="95" height="16" printWhenGroupChanges="ACNO_GROUP" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{GRP_OPEN_DR}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="ACNO_GROUP" isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="345" y="0" width="76" height="16" printWhenGroupChanges="ACNO_GROUP" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$V{groupBy}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="ACNO_GROUP" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="516" y="0" width="95" height="16" printWhenGroupChanges="ACNO_GROUP" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{GRP_TO_DR}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="ACNO_GROUP" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="611" y="0" width="95" height="16" printWhenGroupChanges="ACNO_GROUP" backcolor="#FFFFFF"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{GRP_TO_CR}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="285" height="16"/>
+				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{AccountName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="706" y="0" width="95" height="16"/>
+				<box leftPadding="1" rightPadding="3">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{DebitClosingBalanceLCY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="285" y="0" width="60" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SBV_GL_SL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="345" y="0" width="76" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{AccountNumber}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="421" y="0" width="95" height="16"/>
+				<box leftPadding="1" rightPadding="3">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{DebitOpenBalanceLCY}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="516" y="0" width="95" height="16"/>
+				<box leftPadding="1" rightPadding="3">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{DebitTurnOverBalanceLCY}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="611" y="0" width="95" height="16"/>
+				<box leftPadding="1" rightPadding="3">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CreditTurnOverBalanceLCY}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<textField>
+				<reportElement x="659" y="0" width="106" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Trang: "+$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="POS_CD_GROUP">
+				<reportElement x="767" y="0" width="35" height="20"/>
+				<box rightPadding="4">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

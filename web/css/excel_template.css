@@ -1,0 +1,31 @@
+#containTree{
+    width: 22%;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    height: 450px;
+    float: left;
+    overflow: scroll;
+    /*background: window;*/
+}
+#containParm{
+    width: 76%;
+    height: 450px;
+    padding-left: 5px;
+    float: left;
+    overflow: scroll;
+    /*background: yellow;*/
+}
+#filetemplate
+{
+    width: 100%;
+    height: 200px;
+    padding-left: 5px;
+    /*background: red;*/
+    float: left;
+}
+.font_lable
+{
+    font-size: larger;
+    font-weight: bold;
+    color: darkgreen;
+}

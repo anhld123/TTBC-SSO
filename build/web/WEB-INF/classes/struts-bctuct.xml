@@ -1,0 +1,32 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- Author: Home -->
+ 
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="baocaotuct" extends="struts-default,json-default">
+        <action name="danhsachbaocao" class="vbsp.ims.action.CreateIndicatorReport">
+            <result name="success">/rpt-fromct.jsp</result>
+        </action>
+        
+        <action name="Loaddata" class="vbsp.ims.action.viewIndicatorReport">
+            <result name="hienthi">/baocaotuct/dsbctuct.jsp</result>
+        </action>
+        
+        <action name="gendataview" class="vbsp.ims.action.bctuctexASupport">
+            <result name="success">/baocaotuct/viewPDF.jsp</result>
+        </action>
+        
+        <action name="DownExcel" class="vbsp.ims.action.bctuctexASupport" method="DownExcel">
+            <result name="success" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">fileInputStream</param>
+                <param name="contentDisposition">attachment;filename="${nfile}"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+   
+    </package>
+</struts>

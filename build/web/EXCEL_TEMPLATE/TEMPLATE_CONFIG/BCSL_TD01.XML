@@ -1,0 +1,56 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="BCSL_TD01.xlsx" fileOutFormat="PARA_MAPGD">
+   <title>Báo cáo tín dụng sinh viên</title>
+   <userName>ADMIN06</userName>
+   <date>22-Apr-2016 09:47:835</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MAPGD" class="java.lang.String" description="Mã PGD"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+<queryString id="1" maplist="data" description="Hàm số liệu tổng quát">{call  BCSL_KHNV( $P{PARA_MAPGD},$P{PARA_NGAYBC},$P{ORACLE_REF_CURSOR})}</queryString>
+<queryString id="2" maplist="data1" description="Lấy số liệu cho NV">SELECT vdata_2 STR1, vdata_3 STR3, ndata_1 d1 FROM REP001TB_BCTD WHERE VDATA_5='NV'</queryString>
+<queryString id="3" maplist="data2" description="Lấy dư nợ cho vay">select rownum d1, TENCT str1, DS_CHOVAYT d2, DS_CHOVAYN d3, DS_THUNOT d4, DS_THUNON d5, DS_XOANOT d6, 
+DS_XOANON d7, TONG_DN d8, TYLE_NO_QHAN d9, TYLE_NO_KHOANH d10
+from (SELECT GIATRI TENCT, KHOA_2 MACT,  'SDV',
+                         case when (KHOA_2 = '92' OR KHOA_2 = '93' OR KHOA_2 = '94' OR KHOA_2 = '96') then 'Cho vay một số d? ï¿½n vốn nươc ngoài khác'
+                                 else GIATRI
+                        end as CHTRINH,
+                    NVL(sum(CTR_D1)/1000000,0) DS_CHOVAYT,
+                    NVL(sum(CTR_D2)/1000000,0) DS_CHOVAYN,
+                    NVL(sum(CTR_D3)/1000000,0) DS_THUNOT,
+                    NVL(sum(CTR_D4)/1000000,0) DS_THUNON,
+                    NVL(sum(CTR_D5)/1000000,0) DS_XOANOT,
+                    NVL(sum(CTR_D6)/1000000,0) DS_XOANON,
+                    NVL(sum(CTR_D7)/1000000,0) TONG_DN,
+                    CASE
+                    WHEN SUM(CTR_D7) > 0 THEN  NVL(sum(CTR_D9)/1000000,0)*100/NVL(sum(CTR_D7)/1000000,0)
+                    ELSE
+                        0
+                     END TYLE_NO_QHAN,
+                    CASE
+                    WHEN SUM(CTR_D7) > 0 THEN   NVL(sum(CTR_D10)/1000000,0)*100/NVL(sum(CTR_D7)/1000000,0)
+                    ELSE
+                        0
+                    END  TYLE_NO_KHOANH
+                    FROM DMKHAC A, BCTD_CHTRINH B, DMPOS Y,(SELECT PO_POSFLG, PO_MACN, PO_MA FROM DMPOS WHERE PO_MA = $P{PARA_MAPGD}) Z
+                    WHERE KHOA_1 = '07'
+                    AND CTR_CHTRINH = A.KHOA_2
+                    AND B.CTR_MAPGD = Y.PO_MA
+                    AND DECODE(Z.PO_POSFLG,'H',1,'S',Y.PO_MA , Y.PO_MACN) = DECODE(Z.PO_POSFLG,'H',1,Z.PO_MA)
+                    AND CTR_NGAYBC = TO_DATE($P{PARA_NGAYBC})
+                    group by KHOA_2,GIATRI, THUTU
+                    order by THUTU, KHOA_2)</queryString>
+<queryString id="4" maplist="data3" description="Lấy thu chi tài chính">SELECT vdata_2 STR1, vdata_3 STR3, ndata_1 d1 FROM REP001TB_BCTD WHERE VDATA_5='TCTC'</queryString>
+<queryString id="5" maplist="data4" description="Lấy dữ liệu hội đoàn thể">SELECT            SUBSTR(DVUT_DVUT,2,1) STR1, M.GIATRI STR2,
+                            SUM (NVL (DVUT_D7, 0)) / 1000000 D1,
+                            SUM (NVL (DVUT_D9, 0)) / 1000000  D2,
+                            SUM (NVL (DVUT_D10, 0)) / 1000000  D3
+                       FROM BCTD_DVUT_RG, DMPOS Y, (SELECT PO_POSFLG, PO_MACN, PO_MA FROM DMPOS WHERE PO_MA = $P{PARA_MAPGD}) Z, (SELECT KHOA_2, GIATRI FROM DMKHAC WHERE KHOA_1='17' AND KHOA_2 IN ('11','12','13','14')) M
+                      WHERE DVUT_NGAYBC = $P{PARA_NGAYBC}
+                       AND DVUT_DVUT = M.KHOA_2
+                       AND DVUT_MAPGD = Y.PO_MA
+                       AND DECODE(Z.PO_POSFLG,'H',1,'S',Y.PO_MA , Y.PO_MACN) = DECODE(Z.PO_POSFLG,'H',1,Z.PO_MA)
+                   GROUP BY DVUT_DVUT, M.GIATRI
+                   ORDER BY DVUT_DVUT</queryString>
+<queryString id="6" maplist="data6" description="Lấy ra tên chi nhánh">select distinct decode($P{PARA_MAPGD},'000100','Hội sở chính',add_city) str1 from po850mb  where main_pos=$P{PARA_MAPGD}</queryString>
+<queryString id="7" maplist="data7" description="Lấy ra ngày tháng năm">select to_char(EXTRACT(MONTH from to_date($P{PARA_NGAYBC}))) STR1, to_char(EXTRACT(YEAR from to_date($P{PARA_NGAYBC}))) STR2 from dual</queryString>
+</excel_template>

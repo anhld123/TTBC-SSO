@@ -1,0 +1,32 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="BC02TT.xlsx" fileOutFormat="BC02_TT_RR">
+   <title>Tổng hợp số liệu đề nghị xử lý rủi ro theo chương trình(02TT) </title>
+   <userName>ADMIN</userName>
+   <date>09-Oct-2016 23:45:511</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_DOTRR" class="java.lang.String" description="Đợt rủi ro"/>
+<parameter name="PARA_NAMBC" class="java.lang.String" description="Năm báo cáo"/>
+
+<queryString id="1" maplist="data" description="Chi tiết dữ liệu" key_group="EMPTY" value_group="EMPTY"><![CDATA[SELECT to_char(ROW_NUMBER() OVER (ORDER BY RR_CHTRINH),'RM') STR1,
+SC_TEN STR2,
+COUNT(DISTINCT(CASE WHEN RR_PDUYET_TG <= 36 AND RR_NHOMRR = '02' THEN RR_SOKU END )) D1,
+SUM(CASE WHEN RR_PDUYET_TG <= 36 AND RR_NHOMRR = '02' THEN (RR_DNGHI_DNO +RR_DNGHI_LAI) END)/1000000 D2,
+SUM(CASE WHEN RR_PDUYET_TG <= 36 AND RR_NHOMRR = '02' THEN RR_DNGHI_DNO END)/1000000 D3,
+SUM(CASE WHEN RR_PDUYET_TG <= 36 AND RR_NHOMRR = '02' THEN RR_DNGHI_LAI END)/1000000 D4,
+COUNT(DISTINCT(CASE WHEN RR_PDUYET_TG >  36 AND RR_NHOMRR = '02' THEN RR_SOKU END )) D5,
+SUM(CASE WHEN RR_PDUYET_TG > 36  AND RR_NHOMRR = '02' THEN RR_DNGHI_DNO + RR_DNGHI_LAI END)/1000000 D6,
+SUM(CASE WHEN RR_PDUYET_TG > 36  AND RR_NHOMRR = '02' THEN RR_DNGHI_DNO END)/1000000 D7,
+SUM(CASE WHEN RR_PDUYET_TG > 36  AND RR_NHOMRR = '02' THEN RR_DNGHI_LAI END)/1000000 D8,
+COUNT(DISTINCT(CASE WHEN RR_NHOMRR = '03' THEN RR_SOKU END )) D9,
+SUM(CASE WHEN RR_NHOMRR = '03' THEN RR_DNGHI_DNO + RR_DNGHI_LAI END)/1000000 D10,
+SUM(CASE WHEN RR_NHOMRR = '03' THEN RR_DNGHI_DNO END)/1000000 D11,
+SUM(CASE WHEN RR_NHOMRR = '03' THEN RR_DNGHI_LAI END)/1000000 D12
+FROM HSRR_WB, dm_scheme 
+WHERE RR_DOTRR =  $P{PARA_DOTRR} 
+AND TO_CHAR(RR_NGAYBC,'yyyy') =  $P{PARA_NAMBC} 
+AND RR_PDUYET_CAP = 'H'
+AND RR_TRANGTHAI = 'A'
+AND RR_CHTRINH = SUBSTR(SC_MA,3,2)
+GROUP BY RR_CHTRINH,SC_TEN
+ORDER BY RR_CHTRINH]]></queryString>
+</excel_template>

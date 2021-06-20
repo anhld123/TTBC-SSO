@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TCTD-BC05_SUBREPORT_7" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT  1 FROM DUAL]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="255">
+			<staticText>
+				<reportElement x="0" y="64" width="555" height="140" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[- Vốn điều lệ do Nhà nước cấp.
+- Trích lập và sử dụng các quỹ từ lợi nhuận:
++ Trường hợp thu nhập lớn hơn chi phí, được xử lý như sau:
+Trích lập 02 quỹ khen thưởng, phúc lợi. Mức trích lập cho 02 quỹ bằng 3 tháng lương thực hiện trong năm của NHCSXH, tỷ lệ phân chia cho từng quỹ do Hội đồng Quản trị NHCSXH quyết định. Phần chênh lệch thu chi còn lại được phân phối tiếp như sau: Trích lập quỹ dự trữ bổ sung vốn điều lệ 50%; quỹ dự phòng tài chính 15%; quỹ đầu tư phát triển 30%; trích lập quỹ dự phòng trợ cấp mất việc làm 5%, số dư quỹ này không vượt quá 6 tháng lương thực hiện trong năm của NHCSXH.
++ Trường hợp thu nhập nhỏ hơn chi phí: NHCSXH được chuyển số chênh lệch thu nhập nhỏ hơn chi phí sang năm sau, thời gian chuyển không quá 3 năm. Trường hợp sau 3 năm nếu NHCSXH không chuyển hết số chênh lệch thu nhập nhỏ hơn chi phí, Chủ tịch Hội đồng Quản trị NHCSXH báo cáo Bộ trưởng Bộ tài chính trình Thủ tưởng Chính phủ xem xét quyết định.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="49" width="555" height="15"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[18. Vốn chủ sở hữu:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="195" width="555" height="15"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[19. Các hoạt động uỷ thác chịu rủi ro của TCTD: NHCSXH không có]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="211" width="555" height="15"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[20. Các điều chỉnh số liệu kế toán kỳ trước:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="225" width="555" height="30"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Việc điều chỉnh vào các số liệu kỳ trước được thực hiện khi cần thiết để đảm bảo khả năng so sánh trong trường hợp có những thay đổi trong ước tính kế toán hoặc chính sách kế toán áp dụng.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="2" width="555" height="47" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[16. Nguyên tắc và phương pháp ghi nhận thuế thu nhập doanh nghiệp và chi phí thuế thu nhập doanh nghiệp: NHCSXH được miễn các loại thuế.
+17. Kế toán các khoản vốn vay, phát hành chứng khoán nợ, công cụ vốn: NHCSXH không có]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+</jasperReport>

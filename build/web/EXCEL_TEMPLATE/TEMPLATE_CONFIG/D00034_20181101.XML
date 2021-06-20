@@ -1,0 +1,38 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="D00034_20181101.xlsx" fileOutFormat="D00034_050_TT_DDMMYYYY">
+   <title>050-TT - BC giao dịch thanh toán nội địa phân theo HTTT</title>
+   <userName>ADMIN</userName>
+   <date>03-Aug-2018 09:00:296</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+<queryString id="1" maplist="header" description="Lấy tiêu đề BC" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'D00044_SBV_051_TT' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRANGPT' STR5,
+'TRUNGNT' STR6  from dmpos where po_ma= '000100']]></queryString>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<queryString id="3" maplist="data2" description="data2" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_050_TT (2, '000100' ,'Y', $P{PARA_NGAYBC} ,2, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="4" maplist="data3" description="data3" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_050_TT (2, '000100' ,'Y', $P{PARA_NGAYBC} ,3, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="5" maplist="data4" description="data4" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_050_TT (2, '000100' ,'Y', $P{PARA_NGAYBC} ,4, $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+
+
+
+
+<queryString id="6" maplist="data5" description="data5" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_050_TT (2, '000100' ,'Y', $P{PARA_NGAYBC} ,5, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="7" maplist="data6" description="data6" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_050_TT (2, '000100' ,'Y', $P{PARA_NGAYBC} ,6, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="8" maplist="data7" description="data7" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_050_TT (2, '000100' ,'Y', $P{PARA_NGAYBC} ,7, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="9" maplist="data8" description="data8" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_050_TT (2, '000100' ,'Y', $P{PARA_NGAYBC} ,8, $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+
+<queryString id="2" maplist="data" description="data1" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_050_TT (2, '000100' ,'Y', $P{PARA_NGAYBC} ,1, $P{ORACLE_REF_CURSOR})}]]></queryString>
+</excel_template>

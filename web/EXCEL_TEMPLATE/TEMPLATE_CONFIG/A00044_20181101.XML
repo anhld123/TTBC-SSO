@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="A00044_20181101.xlsx" fileOutFormat="PARA_MAPGD_DDMMYYYY_SBV_002DBTK">
+   <title>002-DBTK -> Báo cáo dư nợ tín dụng theo ngành kinh tế</title>
+   <userName>ADMIN</userName>
+   <date>06-AUG-2018 15:42:548</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MAPGD" class="java.lang.String" description="Mã phòng giao dịch"/>
+<parameter name="PARA_TONGHOP" class="java.lang.String" description="Tổng hợp"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+
+<queryString id="1" maplist="header" description="Tiêu đề của báo cáo" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'A00044_20181101' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(sysdate,'DDMMYYYY') STR4, 'LEHAI' STR5,
+'ID DUYET' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+
+
+
+<queryString id="2" maplist="data" description="Hàm lấy dữ liệu xuất báo cáo" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call TT11SBV_INBC.TT11_INSL_002dbtk($P{PARA_MAPGD},$P{PARA_TONGHOP},$P{PARA_NGAYBC},2,$P{ORACLE_REF_CURSOR})}]]></queryString>
+</excel_template>

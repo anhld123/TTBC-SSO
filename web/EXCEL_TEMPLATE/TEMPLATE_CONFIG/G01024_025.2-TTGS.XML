@@ -1,0 +1,32 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="G01024_025.2-TTGS.xlsx" fileOutFormat="PARA_MAPGD_DDMMYYYY_SBV_25.2TTGS">
+   <title>025.2-TTGS-Báo cáo dư nợ xấu theo loại hình tổ chức, cá nhân</title>
+   <userName>ADMIN</userName>
+   <date>04-Oct-2016 13:35:175</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MAPGD" class="java.lang.String" description="Mã phòng giao dịch"/>
+<parameter name="PARA_TONGHOP" class="java.lang.String" description="Cờ tổng hợp"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+<queryString id="1" maplist="header" description="Tiêu đề cho báo cáo" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'G01024_025.2-TTGS' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(sysdate,'DDMMYYYY') STR4, 'QUANGND' STR5,
+'ID DUYET' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+<queryString id="2" maplist="data" description="Hàm lấy dữ liệu cho báo cáo" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.inbc_252ttgs($P{PARA_MAPGD},$P{PARA_TONGHOP},$P{PARA_NGAYBC},2,$P{ORACLE_REF_CURSOR})}]]></queryString>
+
+
+
+
+
+
+<queryString id="3" maplist="data1" description="Tổng cộng" key_group="EMPTY" value_group="EMPTY"><![CDATA[SELECT SUM(D1)/1000000 D1,
+SUM(D2)/1000000 D2,
+SUM(D3)/1000000 D3,
+SUM(D4)/1000000 D4,
+SUM(D5)/1000000 D5,
+SUM(D6)/1000000 D6,
+SUM(D7)/1000000 D7,
+SUM(D8)/1000000 D8
+FROM SBV_DULIEU 
+WHERE KHOA = 'SBV_0252_TTGS'
+AND NGAYBC = $P{PARA_NGAYBC}
+AND DECODE(VBSP_PUBLIC_FUNCTION.F_GET_REPORT_GRADE($P{PARA_MAPGD},$P{PARA_TONGHOP}),1,MAPGD,2,MACN,3,'1')=
+ (CASE WHEN VBSP_PUBLIC_FUNCTION.F_GET_REPORT_GRADE($P{PARA_MAPGD},$P{PARA_TONGHOP}) = 3 THEN '1'  ELSE $P{PARA_MAPGD} END)]]></queryString>
+</excel_template>

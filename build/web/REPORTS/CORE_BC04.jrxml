@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CORE_BC04" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b0cfa446-e73c-4411-970c-a8c323f1f1a2">
+	<property name="ireport.zoom" value="1.1000000000000003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_GDVIEN" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<parameter name="PARA_LOAITIEN" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\PCBC\\REPORT CSDL TG\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT PO_TEN,PO_MA POS_CD, TO_DATE ($P{PARA_NGAYBC},'DD-MON-YYYY') EOD_DT, IU_MA USER_DESC, '9100017046' AC_NO,
+            $P{PARA_LOAITIEN} SWIFT_CD,'Tiền mặt tại teller 01' AC_DESC
+        FROM DMPOS, I_USER
+            WHERE PO_MA = $P{PARA_MAPGD}
+                  AND PO_MA = IU_MAPGD
+                 AND IU_MA = $P{PARA_GDVIEN}]]>
+	</queryString>
+	<field name="PO_TEN" class="java.lang.String"/>
+	<field name="POS_CD" class="java.lang.String"/>
+	<field name="EOD_DT" class="java.sql.Timestamp"/>
+	<field name="USER_DESC" class="java.lang.String"/>
+	<field name="AC_NO" class="java.lang.String"/>
+	<field name="SWIFT_CD" class="java.lang.String"/>
+	<field name="AC_DESC" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="135" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="4f56a569-976b-42ac-a0a7-1ae1bd44b270" x="120" y="48" width="330" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[NHẬT KÝ QUỸ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2841909b-869b-4f09-ac76-339188868be2" x="447" y="0" width="108" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Mẫu số: ...../NHCS]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="c282cd16-e499-4e0e-8fcd-bcf029ba73f9" x="1" y="81" width="125" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isStrikeThrough="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Họ và tên giao dịch viên: "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="71a7cb54-e0ed-456e-8b13-6ab5d373e6ae" x="447" y="15" width="108" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Liên: ..................]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f28928c5-f8e1-4e0d-a6da-dc934758f0f3" x="1" y="115" width="85" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isStrikeThrough="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Loại tiền: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a37596c8-2bb0-4d55-8882-6a327935723b" x="0" y="98" width="86" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isStrikeThrough="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tài khoản GL: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0a4f05b0-9ec7-475d-9863-0473ee4ae22d" x="209" y="98" width="99" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isStrikeThrough="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tên tài khoản: "]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="460f36c2-76e1-4e45-a55a-bdf3b6c690a3" x="174" y="65" width="218" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ngày giao dịch " + $F{EOD_DT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="6f1cbce4-aa2a-41d3-959a-e5b662c76e9e" x="126" y="81" width="159" height="17"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{USER_DESC}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="6a546c6d-413a-4e60-b7ba-0c5203b11b96" x="86" y="98" width="114" height="17"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AC_NO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="5b509e0b-3605-40b8-a080-f3473f003c8c" x="308" y="98" width="247" height="17"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AC_DESC}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="6eccaf16-a78c-443d-8396-293f611c950c" x="86" y="115" width="100" height="17"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SWIFT_CD}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="f0aa1f6b-4293-46e1-ba05-92ba24143330" x="0" y="0" width="373" height="100"/>
+				<subreportParameter name="POS_CD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CONS_FLAG">
+					<subreportParameterExpression><![CDATA['N']]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/mainpos_subpos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<detail>
+		<band height="44">
+			<subreport>
+				<reportElement uuid="d5daa884-7a79-4629-8c1d-6c36fdc79bdc" x="0" y="0" width="555" height="44"/>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_GDVIEN">
+					<subreportParameterExpression><![CDATA[$P{PARA_GDVIEN}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_LOAITIEN">
+					<subreportParameterExpression><![CDATA[$P{PARA_LOAITIEN}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/CORE_BC04_Subreport1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="36">
+			<textField evaluationTime="Report">
+				<reportElement uuid="bb26a343-9493-473a-9114-e056eb7759c5" x="295" y="7" width="40" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0a3ab079-655f-4204-8182-9cac709f227d" x="215" y="7" width="80" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Trang "+$V{PAGE_NUMBER}+"/"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="144" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="32a606a7-ab85-4998-9b7f-407b54a0f1f9" x="448" y="36" width="98" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Ký tên, đóng dấu)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f797b34f-d919-49a2-b99c-872ab453d6ed" x="139" y="36" width="144" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Ký, ghi rõ họ tên)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5798881c-564b-4825-ae15-101f801b2c28" x="448" y="16" width="98" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[GIÁM ĐỐC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e968823c-6c26-42ab-a156-d9265f196f19" x="139" y="16" width="144" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[GIAO DỊCH VIÊN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="163ff30c-8790-4cc0-8049-768d2fa6af21" x="7" y="36" width="119" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Ký, ghi rõ họ tên)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c4346de8-3ff6-4f40-a6aa-8ecc7618167d" x="7" y="16" width="119" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[THỦ QUỸ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="53061de7-5dd3-4661-9813-ddd09b027a12" x="308" y="14" width="119" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[KIỂM SOÁT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c9757fd0-594a-480f-9c55-c584c3c008be" x="308" y="34" width="119" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Ký, ghi rõ họ tên)]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

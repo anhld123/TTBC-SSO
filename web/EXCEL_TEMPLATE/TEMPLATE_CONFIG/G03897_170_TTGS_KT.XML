@@ -1,0 +1,12 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="G03897_170_TTGS_KT.xlsx" fileOutFormat="SBV_170_G03897_DDMMYYYY">
+   <title>170-TTGS - Báo cáo tình hình thu nhập của cán bộ công nhân viên(Năm - Đã kiểm toán - Riêng lẻ)</title>
+   <userName>ADMIN</userName>
+   <date>10-Aug-2018 16:47:362</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MAPGD" class="java.lang.String" description="Mã Phòng giao dịch"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+<queryString id="1" maplist="header" description="Lấy tiêu đề" key_group="EMPTY" value_group="EMPTY"><![CDATA[select '' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, '' STR5,
+'' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+<queryString id="2" maplist="data" description="data" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_TT11_INBC.INSL_170_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC}, 'Y','TTGS170N_KT', $P{ORACLE_REF_CURSOR})}]]></queryString>
+</excel_template>

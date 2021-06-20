@@ -1,0 +1,55 @@
+/* Định dạng cho tiêu đề và đơn vị */
+#divTitle{
+    font: 16px Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #0077b3;
+}
+#divDonvitinh{
+    font: 12px Arial, Helvetica, sans-serif;
+    text-align: right;
+    color: red;
+    padding-right: 7px;
+}
+/* Định dạng cho bảng */
+.tblmain{
+    border-style: solid;
+    border-collapse: collapse;
+    width: 99%;
+    line-height: 19px;
+    font: 12px Arial, Helvetica, sans-serif;
+}
+.tblmain th{
+    background-color: #f0f0f0;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+}
+/* Định dạng cho đối tượng */
+.css_text{
+    width: 100%;
+    height: 100%;
+    background:transparent;
+    border: 0px;
+}
+.css_text.title,.css_text.title.number{
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    background-color: #f0f0f0;
+    border: 0px;
+}
+.css_text.subtitle{
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+    border: 0px;
+}
+.thread{
+    background-color: #f0f0f0;
+}
+.css_text.number2, .css_text.number{
+    text-align: right;
+}
+.css_themxoa{
+    width: 100%;
+}

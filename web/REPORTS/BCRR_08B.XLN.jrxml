@@ -1,0 +1,788 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BCRR_08B_XLN" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d12944fb-6b7d-4286-a487-acce6de45024">
+	<property name="ireport.zoom" value="1.100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="dataset1" uuid="71727cba-893d-41ce-a4f0-6d80a4b0f6fe">
+		<parameter name="STT_LM" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT TRIM(TO_CHAR($P{STT_LM}, 'RM')) AS STT_LM FROM DUAL]]>
+		</queryString>
+		<field name="STT_LM" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_NAM" class="java.lang.String"/>
+	<parameter name="PARA_DOT" class="java.lang.String"/>
+	<parameter name="PARA_TONGHOP" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Official dispatch of IT\\Xay dung CSDL\\jasper report\\Bao cao dieu hanh\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="plsql">
+		<![CDATA[{call  VBSP_RPT_BCRR_TRANG.XLN_08B($P{PARA_NAM},$P{PARA_DOT},$P{PARA_MAPGD},$P{PARA_TONGHOP},$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<field name="MACN" class="java.lang.String"/>
+	<field name="TENCN" class="java.lang.String"/>
+	<field name="MACT" class="java.lang.String"/>
+	<field name="TENCT" class="java.lang.String"/>
+	<field name="CN_SOMON" class="java.math.BigDecimal"/>
+	<field name="CN_GOC" class="java.math.BigDecimal"/>
+	<field name="CN_LAI" class="java.math.BigDecimal"/>
+	<field name="NGUYEN_NHAN" class="java.math.BigDecimal"/>
+	<variable name="DEM_CT" class="java.lang.Integer" incrementType="Group" incrementGroup="GRP_CHTRINH" calculation="Count">
+		<variableExpression><![CDATA[$V{GRP_CHTRINH_COUNT}.intValue()]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="CN_SOMON_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GRP_CHTRINH" calculation="Sum">
+		<variableExpression><![CDATA[$F{CN_SOMON}]]></variableExpression>
+	</variable>
+	<variable name="CN_GOC_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GRP_CHTRINH" calculation="Sum">
+		<variableExpression><![CDATA[$F{CN_GOC}]]></variableExpression>
+	</variable>
+	<variable name="CN_LAI_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GRP_CHTRINH" calculation="Sum">
+		<variableExpression><![CDATA[$F{CN_LAI}]]></variableExpression>
+	</variable>
+	<variable name="CN_SOMON_1_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CN_SOMON}]]></variableExpression>
+	</variable>
+	<variable name="CN_GOC_1_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CN_GOC}]]></variableExpression>
+	</variable>
+	<variable name="CN_LAI_1_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CN_LAI}]]></variableExpression>
+	</variable>
+	<variable name="STT_LM_1" class="java.lang.Integer" resetType="Group" resetGroup="GRP_CHTRINH" calculation="Count">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<group name="GRP_CHTRINH">
+		<groupExpression><![CDATA[$F{MACT}]]></groupExpression>
+		<groupHeader>
+			<band height="20" splitType="Prevent">
+				<textField isStretchWithOverflow="true" pattern="">
+					<reportElement uuid="439245f0-f1cf-4f5b-b81f-59a4838a617a" stretchType="RelativeToBandHeight" x="30" y="0" width="169" height="20"/>
+					<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TENCT}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="GRP_CHTRINH" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="f9d119ed-277f-455e-9073-a021718a31f5" stretchType="RelativeToBandHeight" x="199" y="0" width="60" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CN_SOMON_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="GRP_CHTRINH" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="18181b52-1cda-46c3-bf7a-a9af795fd074" stretchType="RelativeToBandHeight" x="349" y="0" width="75" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CN_GOC_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="GRP_CHTRINH" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="c573e25a-8cb3-4108-a3a5-db2ea866f197" stretchType="RelativeToBandHeight" x="424" y="0" width="60" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CN_LAI_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="GRP_CHTRINH" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="32dd9080-d35d-438f-8e48-881fa0358096" stretchType="RelativeToBandHeight" x="484" y="0" width="318" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="11" isBold="true"/>
+					</textElement>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="GRP_CHTRINH" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="a0f3011a-f3f3-469e-9749-cbcb1e91df08" stretchType="RelativeToBandHeight" x="259" y="0" width="90" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CN_GOC_1}+$V{CN_LAI_1}]]></textFieldExpression>
+				</textField>
+				<componentElement>
+					<reportElement uuid="31b1ae5d-42a7-437a-9f5d-d3aa9c75b42c" stretchType="RelativeToBandHeight" x="0" y="0" width="82" height="20"/>
+					<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+						<datasetRun subDataset="dataset1" uuid="dea0c299-07ed-4765-a5a7-4960b1cc6aa3">
+							<datasetParameter name="STT_LM">
+								<datasetParameterExpression><![CDATA[$V{DEM_CT}+1]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:listContents height="20" width="82">
+							<textField>
+								<reportElement uuid="66245a83-3df7-47a1-94b1-e407f30411fc" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20"/>
+								<box>
+									<pen lineWidth="0.0"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{STT_LM}]]></textFieldExpression>
+							</textField>
+						</jr:listContents>
+					</jr:list>
+				</componentElement>
+				<textField evaluationTime="Group" evaluationGroup="GRP_CHTRINH" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="5c7dc076-f2a7-4e92-a0fc-0890d52108a8" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="11" isBold="true"/>
+					</textElement>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="124" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="490ea961-d3c0-44ff-b35a-531cd363f6eb" x="154" y="20" width="532" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="13" isBold="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[TỔNG HỢP CÁC KHOẢN ĐỀ NGHỊ XÓA NỢ KHÔNG ĐƯỢC CHẤP THUẬN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1c0033cb-4b98-438c-98cd-8bde30fe9e9a" x="701" y="0" width="101" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Mẫu số: 08B/XLN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4688e04a-54eb-44e7-81ee-c0178f1fbb4e" x="686" y="47" width="116" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Đơn vị tính: món, đồng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3fdff2af-a920-4d52-9e72-011374364760" mode="Transparent" x="199" y="84" width="60" height="40" backcolor="#CCCCFF"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Số món]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b63ae428-3bea-4f42-b4b9-ca6062bfd7b0" mode="Transparent" x="0" y="64" width="30" height="60" backcolor="#CCCCFF"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[STT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="db14d363-7e57-4637-a21a-5c2082e36627" mode="Transparent" x="259" y="84" width="90" height="40" backcolor="#CCCCFF"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Số tiền]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="2c7c675a-abfb-4641-9cca-b55df3656d18" x="154" y="37" width="532" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="13" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ĐỢT " + $P{PARA_DOT} + " NĂM " + $P{PARA_NAM}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8c7f3e44-4f86-407a-8f76-d3580a991132" mode="Transparent" x="199" y="64" width="285" height="20" backcolor="#CCCCFF">
+					<printWhenExpression><![CDATA[$P{PARA_MAPGD}.equals( '000100' )]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Hội sở chính không chấp thuận xóa nợ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bacb8fd1-150a-4520-a714-e280fc9c86fa" mode="Transparent" x="424" y="104" width="60" height="20" backcolor="#CCCCFF"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Lãi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="024826f8-eaa9-4924-8c5b-b2c28f0e02de" mode="Transparent" x="349" y="84" width="135" height="20" backcolor="#CCCCFF"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Trong đó]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="44770b86-c9b2-4877-b3fc-2ad0233656f1" mode="Transparent" x="349" y="104" width="75" height="20" backcolor="#CCCCFF"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Gốc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0de7c62f-3f0b-4152-b717-921a90b9a2ba" mode="Transparent" x="484" y="64" width="318" height="60" backcolor="#CCCCFF"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Nguyên nhân không chấp thuận]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9edb3bd4-de76-4fbb-a631-6edd2c6e7110" mode="Transparent" x="199" y="64" width="285" height="20" backcolor="#CCCCFF">
+					<printWhenExpression><![CDATA[!$P{PARA_MAPGD}.equals( '000100' )]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Chi nhánh không chấp thuận xóa nợ]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="5c1436f4-a3c3-448c-9472-7fb832287d75" x="0" y="0" width="245" height="38">
+					<printWhenExpression><![CDATA[!$P{PARA_MAPGD}.equals( '000100' )]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="CONS_FLAG">
+					<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["mainpos_subpos.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="10891a66-802d-4b75-b355-909b0391c8c5" x="0" y="0" width="245" height="39">
+					<printWhenExpression><![CDATA[$P{PARA_MAPGD}.equals( '000100' )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[NGÂN HÀNG CHÍNH SÁCH XÃ HỘI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12dd27e5-bf4a-4f94-bf8a-cdd877e9be33" x="30" y="64" width="169" height="60">
+					<printWhenExpression><![CDATA[$P{PARA_MAPGD}.equals( '000100' )]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Chương trình;
+Chi nhánh tỉnh,Thành phố]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fdf7960d-f57b-454a-947b-de6a4b1a6691" x="30" y="64" width="169" height="60">
+					<printWhenExpression><![CDATA[!$P{PARA_MAPGD}.equals( '000100' )]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Chương trình;
+PGD]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="15">
+			<staticText>
+				<reportElement uuid="81f0dd53-55f5-493c-883b-9f4e51574491" mode="Opaque" x="199" y="0" width="60" height="15"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c235ae67-f4d5-4d19-a07c-d17a9b81dac7" mode="Opaque" x="0" y="0" width="30" height="15"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fc3e88d3-3960-46e0-85df-fde6cdb1c9bd" mode="Opaque" x="30" y="0" width="169" height="15"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9450bfa9-a12b-48d3-8b89-e3441be90f5c" mode="Opaque" x="259" y="0" width="90" height="15"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="05bc3e86-9003-44c7-a2b0-c6b2afa4b225" mode="Opaque" x="349" y="0" width="75" height="15"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="960876ac-2656-4cdb-a464-2575dd582fb0" mode="Opaque" x="424" y="0" width="60" height="15"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="232fc719-b124-4894-aae0-a9ffee976056" mode="Opaque" x="484" y="0" width="318" height="15"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true" pdfFontName="" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[7]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="f52b1b37-581f-4758-88bf-39885adc103c" x="484" y="0" width="318" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NGUYEN_NHAN}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="049d6873-6417-4030-90d1-696b68dfb213" x="30" y="0" width="169" height="20"/>
+				<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Chi nhánh "+$F{TENCN}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="2aea222d-ede5-4f5c-85a7-ce3b21fb2cdc" x="349" y="0" width="75" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CN_GOC}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="2057ae12-2875-41a3-8301-a6ff82f7c274" x="259" y="0" width="90" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CN_GOC} + $F{CN_LAI}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="ff593afc-b1c8-481f-9f7e-525f8e9aa263" x="199" y="0" width="60" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CN_SOMON}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="ca4c5783-094c-4e51-86b1-89021d8879de" x="424" y="0" width="60" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CN_LAI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8ebb58d4-0744-4f64-b5d6-4ce6bdb21496" x="0" y="0" width="30" height="20"/>
+				<box rightPadding="4">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{GRP_CHTRINH_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<textField evaluationTime="Report">
+				<reportElement uuid="1899efc8-2548-45b0-966b-99a75e8a8bf5" x="404" y="0" width="40" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4795e8d5-d70c-4a0a-9487-edf9a5dafdf2" x="363" y="0" width="41" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+"/"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="98" splitType="Stretch">
+			<textField evaluationTime="Group" evaluationGroup="GRP_CHTRINH" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="bd09332c-e9f2-43a5-a9b7-4cb5cfa65048" x="484" y="0" width="318" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="GRP_CHTRINH" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="a5ece931-a120-4e46-bc7c-dc5691e1a715" x="259" y="0" width="90" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{CN_GOC_1_1}+$V{CN_LAI_1_1}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="GRP_CHTRINH" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="f7e74fff-6ed2-4d85-8562-478950e4ead2" x="349" y="0" width="75" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{CN_GOC_1_1}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="GRP_CHTRINH" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="9007b4b0-0abe-416f-8220-cf81d2842c2a" x="424" y="0" width="60" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{CN_LAI_1_1}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="GRP_CHTRINH" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="fd9b4551-fcbe-435c-87a0-a606ed597f76" x="199" y="0" width="60" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{CN_SOMON_1_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="86067503-42b8-4a51-84e7-62836ab6a078" x="0" y="0" width="199" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổng cộng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bbf98f69-f442-4886-8052-d773f1e91ec3" x="22" y="38" width="132" height="21">
+					<printWhenExpression><![CDATA[$P{PARA_MAPGD}.equals( '000100' )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[LẬP BẢNG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f5907014-a24b-4a48-a380-4ff06420a31c" x="595" y="38" width="193" height="40">
+					<printWhenExpression><![CDATA[$P{PARA_MAPGD}.equals( '000100' )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[KT. TỔNG GIÁM ĐỐC
+PHÓ TỔNG GIÁM ĐỐC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="47d7f829-d0bb-483b-a182-f8a5b96f18f7" x="307" y="38" width="150" height="21">
+					<printWhenExpression><![CDATA[$P{PARA_MAPGD}.equals( '000100' )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[KIỂM SOÁT]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="a8df3d39-521a-4e96-8a7c-2778ef28977d" x="542" y="26" width="260" height="17">
+					<printWhenExpression><![CDATA[!$P{PARA_MAPGD}.equals( '000100' )]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/sub_cur_date_new1.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="1462282d-ec9a-4462-8b97-5471f72616fb" x="307" y="38" width="150" height="21">
+					<printWhenExpression><![CDATA[!$P{PARA_MAPGD}.equals( '000100' )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[KIỂM SOÁT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b94d2bcd-6687-4bfc-8caf-90fe5ab08fda" x="595" y="38" width="193" height="21">
+					<printWhenExpression><![CDATA[!$P{PARA_MAPGD}.equals( '000100' )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[GIÁM ĐỐC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fd547372-7a8b-4fbc-8dfb-12d280c99af0" x="22" y="38" width="132" height="21">
+					<printWhenExpression><![CDATA[!$P{PARA_MAPGD}.equals( '000100' )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[LẬP BẢNG]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement uuid="38265109-93e5-4722-a645-b5162e7fdba2" x="595" y="26" width="193" height="17">
+					<printWhenExpression><![CDATA[$P{PARA_MAPGD}.equals( '000100' )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Hà Nội, ngày ..... tháng ..... năm  ......."]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

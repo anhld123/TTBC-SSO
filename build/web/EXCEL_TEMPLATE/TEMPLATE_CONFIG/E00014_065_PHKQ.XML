@@ -1,0 +1,121 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="E00014_065_PHKQ.xlsx" fileOutFormat="SBV_065_E00014_DDMMYYYY">
+   <title>065-PHKQ - Báo cáo thu, chi các loại tiền thuộc quỹ nghiệp vụ (Tháng) </title>
+   <userName>ADMIN</userName>
+   <date>15-Feb-2017 16:30:498</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+
+
+
+
+<parameter name="PARA_MAPGD" class="java.lang.String" description="Mã PGD"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<queryString id="7" maplist="data7" description="data7" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',7, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="6" maplist="data6" description="data6" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',6, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="5" maplist="data5" description="data5" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',5, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="4" maplist="data4" description="data4" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',4, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="3" maplist="data3" description="data3" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',3, $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+<queryString id="8" maplist="data8" description="data8" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',8, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="9" maplist="data9" description="data9" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',9, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="10" maplist="data10" description="data10" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',10, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="11" maplist="data11" description="data11" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',11, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="12" maplist="data12" description="data12" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',12, $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+<queryString id="14" maplist="data14" description="data14" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',14, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="15" maplist="data15" description="data15" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',15, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="16" maplist="data16" description="data16" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',16, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="17" maplist="data17" description="data17" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',17, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="18" maplist="data18" description="data18" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',18, $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+<queryString id="20" maplist="data20" description="data20" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',20, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="22" maplist="data22" description="data22" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',22, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="23" maplist="data23" description="data23" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',23, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="24" maplist="data24" description="data24" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',24, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="25" maplist="data25" description="data25" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',25, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="26" maplist="data26" description="data26" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',26, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="27" maplist="data27" description="data27" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',27, $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+<queryString id="1" maplist="header" description="header" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'E00014_SBV_065_PHKQ' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRANGPT' STR5,
+'TRUNG88' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+<queryString id="2" maplist="data2" description="data2" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',2, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="28" maplist="data28" description="data28" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',99, $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+<queryString id="19" maplist="data19" description="data19" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.1',19, $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+
+
+
+<queryString id="30" maplist="data30" description="data30" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',30, $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+<queryString id="31" maplist="data31" description="data31" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',31, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="32" maplist="data32" description="data32" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',32, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="33" maplist="data33" description="data33" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',33, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="34" maplist="data34" description="data34" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',34, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="35" maplist="data35" description="data35" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',35, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="36" maplist="data36" description="data36" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',36, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="37" maplist="data37" description="data37" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',37, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="38" maplist="data38" description="data38" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',38, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="39" maplist="data39" description="data39" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',39, $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+<queryString id="42" maplist="data42" description="42" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',42, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="43" maplist="data43" description="43" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',43, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="44" maplist="data44" description="44" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',44, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="45" maplist="data45" description="45" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',45, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="46" maplist="data46" description="46" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',46, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="47" maplist="data47" description="47" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',47, $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+
+<queryString id="50" maplist="data50" description="50" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',50, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="51" maplist="data51" description="51" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',51, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="52" maplist="data52" description="52" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',52, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="53" maplist="data53" description="53" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',53, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="54" maplist="data54" description="54" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',54, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="55" maplist="data55" description="55" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',55, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="40" maplist="data40" description="data40" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',40, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="48" maplist="data48" description="48" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',48, $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+<queryString id="29" maplist="header2" description="header2" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'E00014_SBV_065_PHKQ' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRANGPT' STR5,
+'TRUNG88' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+
+
+<queryString id="56" maplist="data56" description="56" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_065_PHKQ (2, $P{PARA_MAPGD},'Y', $P{PARA_NGAYBC}, '065.2',99, $P{ORACLE_REF_CURSOR})}]]></queryString>
+</excel_template>

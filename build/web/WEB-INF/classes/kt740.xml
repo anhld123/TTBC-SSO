@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="addReportKt740" extends="struts-default">
+         <action name="LoadAddNewQuerykt740" class="vbsp.ims.action.Kt740Action" method="LoadAddNewQuery">
+            <result name="success">/kt740/add_query.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+       
+         <action name="editquerykt740" class="vbsp.ims.action.Kt740Action" method="editQuery">
+            <result name="success">/kt740/edit_query.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="loadgroupEditQuerykt740" class="vbsp.ims.action.Kt740Action" method="loadgroupEditQuerykt740">
+            <result name="success">/kt740/edit_del_rpt_group.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="loadallquerykt740" class="vbsp.ims.action.Kt740Action" method="loadAllQuery">
+            <result name="success">/kt740/edit_delete_query.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+         <action name="DeleteQuerykt740" class="vbsp.ims.action.Kt740Action" method="DeleteQuery">
+            <result name="success">/message-success.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        
+<!--         <action name="DeleteQuery" class="vbsp.ims.action.Kt740Action" method="DeleteQuery">
+            <result name="success" type="redirectAction">loadallquery</result>
+            <result name="error">/error.jsp</result>
+        </action>-->
+        
+    </package>
+    
+     <package name="rptqueryKt740" extends="struts-default,json-default">
+        <action name="loadselectexportkt740"  
+                class="vbsp.ims.action.Kt740Action" 
+                method="loadAllQueryExp">
+            <result name="success" type="json"></result>
+        </action>        
+<!--         <action name="addquerykt740" class="vbsp.ims.action.Kt740Action">
+                <result type="json"></result>
+            <result name="success">/message-success.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>-->
+         <action name="LoadParameterskt740" class="vbsp.ims.action.Kt740Action" method="getReportParams">
+            <result name="success">/kt740/loadpara_exp_query.jsp</result>            
+        </action>
+     </package>
+     
+      <package name="themtruyvankt740" extends="struts-default,json-default">
+        <interceptors>
+            <interceptor-stack name="defaultStack">
+                <interceptor-ref name="json">
+                    <param name="enableSMD">true</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <action name="addquerykt740" class="vbsp.ims.action.Kt740Action" >
+            <result type="json"/>
+            <!--<result name="error" type="json"/>-->
+        </action>
+    </package>
+     
+     <package name="expqueryKt740" extends="struts-default">     
+        
+         <action name="genReportExcelQuerykt740" class="vbsp.ims.action.Kt740Action" method="ExportExcelQuery">
+            <result name="success">downfile_bcnhanh.jsp</result>  
+            <result name="error">/error.jsp</result>         
+        </action>
+        <action name="LoadParaviewdatakt740" class="vbsp.ims.action.Kt740Action" method="getReportParamsView">
+            <result name="success">/kt740/loadpara_view_query.jsp</result>  
+            <result name="error">/error.jsp</result>         
+        </action>
+        
+        <action name="genReportViewQueryTablekt740" class="vbsp.ims.action.Kt740Action" method="ViewDataQuery">
+            <result name="success">/kt740/View_data_table_query.jsp</result>  
+            <result name="error">/error.jsp</result>         
+        </action>
+        
+     </package>
+     
+     
+</struts>

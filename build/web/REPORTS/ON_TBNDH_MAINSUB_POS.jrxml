@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ON_TBNDH_MAINSUB_POS" language="groovy" pageWidth="300" pageHeight="842" columnWidth="300" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="1609e1a6-7aa0-4027-9573-403267d50fab">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="POS_CD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CONS_FLAG" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select pos_desc, decode(pos_cd, '004501', 'Chi nhánh NHCSXH TP.HCM', add_city) add_city, VBSP_PUBLIC_FUNCTION.F_GET_REPORT_GRADE($P{POS_CD},$P{CONS_FLAG}) CAP_BC from po850mb where pos_cd = $P{POS_CD}]]>
+	</queryString>
+	<field name="POS_DESC" class="java.lang.String"/>
+	<field name="ADD_CITY" class="java.lang.String"/>
+	<field name="CAP_BC" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement uuid="43dbd5fe-3c6c-470e-9811-691bb4ef8f11" x="51" y="16" width="244" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CAP_BC} == 1 ? $F{POS_DESC}.toUpperCase() : $F{CAP_BC} == 2 ? $F{ADD_CITY}.toUpperCase() : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4d9966e1-17be-4ee5-a181-24214469cd99" x="51" y="0" width="244" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CAP_BC} == 2 ? "NGÂN HÀNG CHÍNH SÁCH XÃ HỘI VIỆT NAM" : $F{ADD_CITY}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="8dbd980e-f1f5-43e8-9e2d-5e385c44b32e" x="1" y="0" width="51" height="38"/>
+				<imageExpression><![CDATA["/logo_vbsp.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+</jasperReport>

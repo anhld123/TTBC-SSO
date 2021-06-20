@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context  path="/IMS_REPORTS">
+    <Resource name="jdbc/intellect_master" 
+              auth="Container" 
+              type="javax.sql.DataSource" 
+              maxActive="20" 
+              maxIdle="10" 
+              maxWait="10000" 
+              username="intellect"
+              password="intellect" 
+              driverClassName="oracle.jdbc.OracleDriver" 
+              url="jdbc:oracle:thin:@(DESCRIPTION=(FAILOVER=on)(LOAD_BALANCE=on)(ADDRESS=(PROTOCOL=TCP)(HOST=10.63.8.63)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=10.63.8.65)(PORT=1521))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=VBSPIMS)))" 
+    />
+    
+    <Resource name="jdbc/intellect" 
+                   auth="Container" 
+                   type="javax.sql.DataSource" 
+                   maxActive="20" 
+                   maxIdle="10" 
+                   maxWait="10000" 
+                   username="intellect"
+                   password="intellect" 
+                   driverClassName="oracle.jdbc.OracleDriver" 
+                   url="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=10.0.19.12)(PORT=1521))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=VBSPBKA)))" 
+    />
+    <Resource name="jdbc/intellect_27" 
+                   auth="Container" 
+                   type="javax.sql.DataSource" 
+                   maxActive="20" 
+                   maxIdle="10" 
+                   maxWait="10000" 
+                   username="intellect"
+                   password="intellect" 
+                   driverClassName="oracle.jdbc.OracleDriver" 
+                   url="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=10.27.0.56)(PORT=1521))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=IMSREPORT)))" 
+    />		
+    <Resource name="jdbc/smsbanking" 
+              auth="Container" 
+              type="javax.sql.DataSource" 
+              maxActive="20" 
+              maxIdle="10" 
+              maxWait="10000" 
+              username="intellect"
+              password="intellect" 
+              driverClassName="oracle.jdbc.OracleDriver" 
+              url="jdbc:oracle:thin:@(DESCRIPTION=(FAILOVER=on)(LOAD_BALANCE=on)(ADDRESS=(PROTOCOL=TCP)(HOST=10.63.8.63)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=10.63.8.65)(PORT=1521))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=VBSPIMS)))"
+    />
+			
+			
+			
+			  
+    <!--			<Resource
+    name="jdbc/intellect_test"
+    auth="Container"
+    type="javax.sql.DataSource"
+    factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+    initialSize="10"
+    maxActive="377"
+    maxIdle="233"
+    minIdle="89"
+    timeBetweenEvictionRunsMillis="34000"
+    minEvictableIdleTimeMillis="55000"
+    validationQuery="SELECT 1 FROM DUAL"
+    validationInterval="34000"
+    testOnBorrow="true"
+    removeAbandoned="true"
+    removeAbandonedTimeout="55"
+    username="intellect"
+    password="intellect"
+    driverClassName="oracle.jdbc.OracleDriver"
+    url="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = report02)(PORT = 1251))(ADDRESS = (PROTOCOL = TCP)(HOST = report01)(PORT = 1251)(FAILOVER=YES)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = VBSPIMS)))"
+    /> antiJARLocking="true" -->
+</Context>

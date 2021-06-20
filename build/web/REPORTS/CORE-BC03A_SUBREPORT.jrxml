@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CORE-BC03A_SUBREPORT" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_NGAYBC" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TONGHOP" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString language="plsql">
+		<![CDATA[select gdv TELLER_NAME, sbt REF_NO, tk ||'-'|| AC_DESC AC_NO, DECODE(noco,'D',sotien,0) DEBIT_AMT,DECODE(noco,'C',sotien,0) CREDIT_AMT,
+     DECODE(noco,'D',sotien,0) DEBIT_CONV_AMT,DECODE(noco,'C',sotien,0) CREDIT_CONV_AMT,
+     'VND' CCY_DESC
+  from hsbt,dmpos y, (select po_posflg,po_ma,po_macn from dmpos where po_ma = $P{PARA_MAPGD}) z, dmtkgl
+ where MAPGD = Y.PO_MA
+    AND substr(tk,1,2) not in ('95','96')
+    AND ngaybc = $P{PARA_NGAYBC}
+	AND tk = bank_ac
+    AND DECODE(z.PO_POSFLG,'H',1,'S',y.PO_MA, y.PO_MACN) = DECODE(z.PO_POSFLG,'H',1,z.po_ma)
+    AND DECODE('Y',$P{PARA_TONGHOP},1,y.po_ma) = DECODE('Y',$P{PARA_TONGHOP},1,$P{PARA_MAPGD})
+UNION ALL
+SELECT * FROM (
+select gdv TELLER_NAME, sbt REF_NO, tk_no ||'-'|| AC_DESC AC_NO, DECODE(noco,'D',sotien,0) DEBIT_AMT,DECODE(noco,'C',sotien,0) CREDIT_AMT,
+     DECODE(noco,'D',sotien,0) DEBIT_CONV_AMT,DECODE(noco,'C',sotien,0) CREDIT_CONV_AMT,
+     'VND' CCY_DESC
+  from hsbt,dmpos y, (select po_posflg,po_ma,po_macn from dmpos where po_ma = $P{PARA_MAPGD}) z, dmtkgl
+ where MAPGD = Y.PO_MA
+    AND substr(tk,1,2) not in ('95','96')
+    AND ngaybc = $P{PARA_NGAYBC}
+	AND tk_no = bank_ac
+	AND substr(tk,1,1)='0'
+    AND DECODE(z.PO_POSFLG,'H',1,'S',y.PO_MA, y.PO_MACN) = DECODE(z.PO_POSFLG,'H',1,z.po_ma)
+    AND DECODE('Y',$P{PARA_TONGHOP},1,y.po_ma) = DECODE('Y',$P{PARA_TONGHOP},1,$P{PARA_MAPGD})
+UNION  ALL
+select gdv TELLER_NAME, sbt REF_NO, tk_co ||'-'|| AC_DESC AC_NO, DECODE(noco,'D',sotien,0) DEBIT_AMT,DECODE(noco,'C',sotien,0) CREDIT_AMT,
+     DECODE(noco,'D',sotien,0) DEBIT_CONV_AMT,DECODE(noco,'C',sotien,0) CREDIT_CONV_AMT,
+     'VND' CCY_DESC
+  from hsbt,dmpos y, (select po_posflg,po_ma,po_macn from dmpos where po_ma = $P{PARA_MAPGD}) z, dmtkgl
+ where MAPGD = Y.PO_MA
+    AND substr(tk,1,2) not in ('95','96')
+    AND ngaybc = $P{PARA_NGAYBC}
+	AND tk_co = bank_ac
+	AND substr(tk,1,1)='0'
+    AND DECODE(z.PO_POSFLG,'H',1,'S',y.PO_MA, y.PO_MACN) = DECODE(z.PO_POSFLG,'H',1,z.po_ma)
+    AND DECODE('Y',$P{PARA_TONGHOP},1,y.po_ma) = DECODE('Y',$P{PARA_TONGHOP},1,$P{PARA_MAPGD}) )
+ order by AC_NO,TELLER_NAME]]>
+	</queryString>
+	<field name="TELLER_NAME" class="java.lang.String"/>
+	<field name="REF_NO" class="java.lang.String"/>
+	<field name="AC_NO" class="java.lang.String"/>
+	<field name="DEBIT_AMT" class="java.math.BigDecimal"/>
+	<field name="CREDIT_AMT" class="java.math.BigDecimal"/>
+	<field name="DEBIT_CONV_AMT" class="java.math.BigDecimal"/>
+	<field name="CREDIT_CONV_AMT" class="java.math.BigDecimal"/>
+	<field name="CCY_DESC" class="java.lang.String"/>
+	<variable name="DEBIT_TOTAL" class="java.lang.Number" resetType="Group" resetGroup="ACCOUNT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DEBIT_AMT}]]></variableExpression>
+	</variable>
+	<variable name="CREDIT_TOTAL" class="java.lang.Number" resetType="Group" resetGroup="ACCOUNT" calculation="Sum">
+		<variableExpression><![CDATA[$F{CREDIT_AMT}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_SUM_OF_DEBIT" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DEBIT_CONV_AMT}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_SUM_OF_CREDIT" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CREDIT_CONV_AMT}]]></variableExpression>
+	</variable>
+	<variable name="DEBIT_CONV_AMT" class="java.math.BigDecimal" resetType="Group" resetGroup="ACCOUNT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DEBIT_CONV_AMT}]]></variableExpression>
+	</variable>
+	<variable name="CREDIT_CONV_AMT" class="java.math.BigDecimal" resetType="Group" resetGroup="ACCOUNT" calculation="Sum">
+		<variableExpression><![CDATA[$F{CREDIT_CONV_AMT}]]></variableExpression>
+	</variable>
+	<variable name="TELLER_TOT_DEBIT_AMOUNT" class="java.math.BigDecimal" resetType="Group" resetGroup="TELLER_NAME_GRP" calculation="Sum">
+		<variableExpression><![CDATA[$F{DEBIT_AMT}]]></variableExpression>
+	</variable>
+	<variable name="TELLER_TOT_CREDIT_AMOUNT" class="java.math.BigDecimal" resetType="Group" resetGroup="TELLER_NAME_GRP" calculation="Sum">
+		<variableExpression><![CDATA[$F{CREDIT_AMT}]]></variableExpression>
+	</variable>
+	<variable name="TELLER_TOT_DEBIT_CONVERSION_AMT" class="java.math.BigDecimal" resetType="Group" resetGroup="TELLER_NAME_GRP" calculation="Sum">
+		<variableExpression><![CDATA[$F{DEBIT_CONV_AMT}]]></variableExpression>
+	</variable>
+	<variable name="TELLER_TOT_CREDIT_CONV_AMOUNT" class="java.math.BigDecimal" resetType="Group" resetGroup="TELLER_NAME_GRP" calculation="Sum">
+		<variableExpression><![CDATA[$F{CREDIT_CONV_AMT}]]></variableExpression>
+	</variable>
+	<variable name="TELLER_SERIAL_COUNT" class="java.lang.Integer" resetType="Group" resetGroup="ACCOUNT" incrementType="Group" incrementGroup="TELLER_NAME_GRP" calculation="Count">
+		<variableExpression><![CDATA[$V{TELLER_NAME_GRP_COUNT}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(1)]]></initialValueExpression>
+	</variable>
+	<group name="ACCOUNT">
+		<groupExpression><![CDATA[$F{AC_NO}]]></groupExpression>
+		<groupHeader>
+			<band height="16">
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="ACCOUNT" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="296" y="0" width="90" height="16"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{CCY_DESC}.equals( "USD" )?new java.text.DecimalFormat("#,##0.00").format(Double.valueOf($V{CREDIT_TOTAL}==0?0:$V{CREDIT_TOTAL})).replace(",", "x").replace(".", ",").replace("x", "."):new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{CREDIT_TOTAL}==0?0:$V{CREDIT_TOTAL})).replace(",", "x").replace(".", ",").replace("x", ".")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="ACCOUNT" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="206" y="0" width="90" height="16"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{CCY_DESC}.equals( "USD" )?new java.text.DecimalFormat("#,##0.00").format(Double.valueOf($V{DEBIT_TOTAL}==0?0:$V{DEBIT_TOTAL})).replace(",", "x").replace(".", ",").replace("x", "."):new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DEBIT_TOTAL}==0?0:$V{DEBIT_TOTAL})).replace(",", "x").replace(".", ",").replace("x", ".")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="-1" y="0" width="207" height="16" backcolor="#CCCCFF"/>
+					<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="2">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Tài khoản: " + $F{AC_NO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="ACCOUNT" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="386" y="0" width="90" height="16"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DEBIT_CONV_AMT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="ACCOUNT" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="476" y="0" width="90" height="16"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{CREDIT_CONV_AMT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="TELLER_NAME_GRP">
+		<groupExpression><![CDATA[$F{TELLER_NAME}]]></groupExpression>
+		<groupFooter>
+			<band height="14">
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement mode="Transparent" x="206" y="0" width="90" height="14"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{CCY_DESC}.equals( "USD" )?new java.text.DecimalFormat("#,##0.00").format(Double.valueOf($V{TELLER_TOT_DEBIT_AMOUNT})).replace(",", "x").replace(".", ",").replace("x", "."):new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{TELLER_TOT_DEBIT_AMOUNT})).replace(",", "x").replace(".", ",").replace("x", ".")]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement mode="Transparent" x="296" y="0" width="90" height="14"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{CCY_DESC}.equals( "USD" )?new java.text.DecimalFormat("#,##0.00").format(Double.valueOf($V{TELLER_TOT_CREDIT_AMOUNT})).replace(",", "x").replace(".", ",").replace("x", "."):new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{TELLER_TOT_CREDIT_AMOUNT})).replace(",", "x").replace(".", ",").replace("x", ".")]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement mode="Transparent" x="27" y="0" width="179" height="14"/>
+					<box leftPadding="3" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{TELLER_NAME}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0">
+					<reportElement mode="Transparent" x="386" y="0" width="90" height="14"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TELLER_TOT_DEBIT_CONVERSION_AMT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0">
+					<reportElement mode="Transparent" x="476" y="0" width="90" height="14"/>
+					<box leftPadding="1" rightPadding="3">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TELLER_TOT_CREDIT_CONV_AMOUNT}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Transparent" x="-1" y="0" width="28" height="14"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{TELLER_SERIAL_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="41">
+			<staticText>
+				<reportElement mode="Transparent" x="206" y="25" width="90" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(3)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="296" y="25" width="90" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(4)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="296" y="0" width="90" height="25" backcolor="#CCCCFF"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[SỐ TIỀN GHI CÓ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="-1" y="0" width="28" height="25" backcolor="#CCCCFF"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[STT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="206" y="0" width="90" height="25" backcolor="#CCCCFF"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[SỐ TIỀN GHI NỢ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="27" y="0" width="179" height="25" backcolor="#CCCCFF"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[TÀI KHOẢN / GIAO DỊCH VIÊN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="27" y="25" width="179" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(2)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="-1" y="25" width="28" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(1)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="386" y="0" width="90" height="25" backcolor="#CCCCFF"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[GIÁ TRỊ NỘI TỆ GHI NỢ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="476" y="25" width="90" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(6)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="386" y="25" width="90" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(5)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="476" y="0" width="90" height="25" backcolor="#CCCCFF"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[GIÁ TRỊ NỘI TỆ GHI CÓ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="18">
+			<staticText>
+				<reportElement mode="Transparent" x="-1" y="0" width="207" height="18" backcolor="#CCCCCC"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổng cộng phát sinh nợ (VND):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="296" y="0" width="180" height="18" backcolor="#CCCCCC"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổng cộng phát sinh có (VND):]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement mode="Transparent" x="206" y="0" width="90" height="18"/>
+				<box leftPadding="1" rightPadding="3">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOTAL_SUM_OF_DEBIT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement mode="Transparent" x="476" y="0" width="90" height="18"/>
+				<box leftPadding="1" rightPadding="3">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOTAL_SUM_OF_CREDIT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDNGB_SBV" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a9bbe99c-c9a1-4147-b9a7-46a34501a63d">
+	<property name="ireport.zoom" value="1.0980750000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<parameter name="PARA_TONGHOP" class="java.lang.String"/>
+	<parameter name="PARA_LOAIBC" class="java.lang.String"/>
+	<parameter name="PARA_KYBC" class="java.lang.String"/>
+	<queryString language="plsql">
+		<![CDATA[{call rpt_vbsp_balance.p_prin_balance($P{PARA_MAPGD},$P{PARA_NGAYBC},$P{PARA_TONGHOP},$P{PARA_KYBC},$P{PARA_LOAIBC},
+$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<field name="AccountName" class="java.lang.String"/>
+	<field name="AccountNumber" class="java.lang.String"/>
+	<field name="pos_desc" class="java.lang.String"/>
+	<field name="POS_CD" class="java.lang.String"/>
+	<field name="to_dt" class="java.util.Date"/>
+	<field name="from_dt" class="java.util.Date"/>
+	<field name="DebitOpenBalanceLCY" class="java.math.BigDecimal"/>
+	<field name="CreditOpenBalanceLCY" class="java.math.BigDecimal"/>
+	<field name="DebitTurnOverBalanceLCY" class="java.math.BigDecimal"/>
+	<field name="CreditTurnOverBalanceLCY" class="java.math.BigDecimal"/>
+	<field name="DebitClosingBalanceLCY" class="java.math.BigDecimal"/>
+	<field name="CreditClosingBalanceLCY" class="java.math.BigDecimal"/>
+	<field name="AccountCurrency" class="java.lang.String"/>
+	<variable name="TOT_OPEN_DR" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{AccountNumber}.equals("9"))?$F{DebitOpenBalanceLCY}:new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="TOT_OPEN_CR" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{AccountNumber}.equals("9"))?$F{CreditOpenBalanceLCY}:new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="TOT_TO_DR" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{AccountNumber}.equals("9"))?$F{DebitTurnOverBalanceLCY}:new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="TOT_TO_CR" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{AccountNumber}.equals("9"))?$F{CreditTurnOverBalanceLCY}:new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="TOT_CLOSE_DR" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{AccountNumber}.equals("9"))?$F{DebitClosingBalanceLCY}:new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="TOT_CLOSE_CR" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{AccountNumber}.equals("9"))?$F{CreditClosingBalanceLCY}:new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<group name="POS_CD_GROUP" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{POS_CD}]]></groupExpression>
+		<groupHeader>
+			<band height="204">
+				<staticText>
+					<reportElement uuid="0a4c550b-16f2-4fde-a9c1-a3018595407d" x="130" y="62" width="294" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="13" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[BẢNG CÂN ĐỐI TÀI KHOẢN KẾ TOÁN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="4aed6468-8a6b-4415-9c7e-9d3aff834d29" x="88" y="104" width="379" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[B - CÁC TÀI KHOẢN NGOÀI BẢNG CÂN ĐỐI KẾ TOÁN]]></text>
+				</staticText>
+				<subreport>
+					<reportElement uuid="e3be0977-9eb1-4673-8f24-c5ef3f7b6975" x="0" y="0" width="242" height="77"/>
+					<subreportParameter name="POS_CD">
+						<subreportParameterExpression><![CDATA[$F{POS_CD}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["/mainpos_subpos.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement uuid="bd5e8798-2c49-4c3d-a4c8-63f0eb08c839" x="342" y="124" width="213" height="20"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isItalic="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Đơn vị: Đồng Việt Nam (VND)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="856fc88f-52dd-433a-9c8b-b61f6f6e763b" x="0" y="144" width="190" height="40"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Tên tài khoản]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="cfc0b370-db47-4b6a-a35f-87803b2d70fe" x="190" y="144" width="44" height="40"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Số hiệu tài khoản]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="fd0ad18c-e9d6-44f7-9778-62e7da987de3" mode="Transparent" x="234" y="164" width="80" height="20" backcolor="#CCCCFF"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Nợ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e6503798-3d5b-4aa7-aca9-8c6fb1a1cba7" mode="Transparent" x="314" y="164" width="80" height="20" backcolor="#CCCCFF"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Nợ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="dc4c5960-8d93-4740-9907-5719d21cae69" mode="Transparent" x="394" y="164" width="80" height="20" backcolor="#CCCCFF"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Có]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="972b3858-7d6d-4ca8-983a-03f42695c17b" mode="Transparent" x="474" y="164" width="81" height="20" backcolor="#CCCCFF"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Nợ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="9eb8b13d-69f5-402b-b849-983e2ab9b043" x="234" y="144" width="80" height="20"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Số dư đầu kỳ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0896b618-203b-498c-88d5-f468346a1bab" x="314" y="144" width="160" height="20"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Số phát sinh]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="1d22d70e-6da2-4f67-97b5-9e2959c866ea" x="474" y="144" width="81" height="20"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Số dư cuối kỳ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="22d48be5-c371-4ab4-9ae1-02f8c8c70aeb" x="474" y="184" width="81" height="20"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[(6)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="6f295e0a-39ef-46d4-a293-4b4b94a80c32" x="394" y="184" width="80" height="20"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[(5)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="c5b16777-69e1-4ba7-b5a3-e28c1be2744b" x="314" y="184" width="80" height="20"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[(4)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="5559e405-e37a-4644-bc40-de48470e6cba" x="234" y="184" width="80" height="20"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[(3)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="aef1a155-ede1-480e-91e3-88fa2d108168" x="190" y="184" width="44" height="20"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[(2)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="852024f1-30d7-4f23-ad29-455a4fece021" x="0" y="184" width="190" height="20"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[(1)]]></text>
+				</staticText>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement uuid="9fd9fdc9-f55d-4f41-a252-b2e58d9e1c34" x="126" y="81" width="303" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Từ " + (new SimpleDateFormat("dd/MM/yyyy").format($F{from_dt})).toString() + " đến " + (new SimpleDateFormat("dd/MM/yyyy").format($F{to_dt})).toString()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="107">
+				<staticText>
+					<reportElement uuid="c1234b1d-c9cb-4e32-b20c-13cffe3a3483" x="17" y="65" width="132" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Lập bảng]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="ff92ac03-670d-4247-9043-f508c52f5a53" x="210" y="65" width="132" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Trưởng phòng kế toán]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="08f1ee33-217d-45ce-92ff-2d598d8631b5" x="418" y="65" width="132" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Giám đốc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="00ddcd72-36f9-4db6-853d-aa02239ecc1a" x="17" y="80" width="132" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[(Ký, họ tên)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="c984e718-631a-4661-a4b2-3abf5c6517d2" x="210" y="80" width="132" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[(Ký, họ tên)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7328b0cd-3c88-4b5e-94ff-b36376c35434" x="418" y="80" width="132" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[(Ký, họ tên, đóng dấu)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="77460626-c01a-4beb-9d23-7420c97979f0" x="190" y="0" width="44" height="20"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="aabccb72-bc68-47bd-8444-bf6c432e9700" x="234" y="0" width="80" height="20"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0f0cb3a4-44ef-4ede-abd5-dfb8cf02cd70" x="314" y="0" width="80" height="20"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="dbaed402-e2d7-4f13-b194-52e393c83bcf" x="394" y="0" width="80" height="20"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="9f37540b-17f1-4b12-99a4-f197f5d52fa2" x="474" y="0" width="81" height="20"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="5a02e33d-bf8d-4540-be10-995d51bbc204" x="234" y="0" width="80" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TOT_OPEN_DR}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="bf907d86-53bc-4713-9b1c-a0d78d274243" x="314" y="0" width="80" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TOT_TO_DR}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0">
+					<reportElement uuid="fbb13e4a-a49c-41b8-b5ee-936d66ebd143" x="394" y="0" width="80" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TOT_TO_CR}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0">
+					<reportElement uuid="9b369671-d325-438b-8ffd-d1ce9ca49289" x="474" y="0" width="81" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TOT_CLOSE_DR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="05084384-3b4c-4ac1-b875-37a868db7807" x="334" y="42" width="221" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Times New Roman" size="12" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Ngày " + (new SimpleDateFormat("dd").format(new java.util.Date())).toString()
++ " tháng " + (new SimpleDateFormat("MM").format(new java.util.Date())).toString()
++ " năm " + (new SimpleDateFormat("yyyy").format(new java.util.Date())).toString()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="828aadc5-a60f-4245-a77a-f0ca42426f07" x="0" y="0" width="190" height="20"/>
+					<box>
+						<pen lineWidth="0.75" lineColor="#666666"/>
+						<topPen lineWidth="0.75" lineColor="#666666"/>
+						<leftPen lineWidth="0.75" lineColor="#666666"/>
+						<bottomPen lineWidth="0.75" lineColor="#666666"/>
+						<rightPen lineWidth="0.75" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[TỔNG]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ef7b737c-14d2-4051-95d2-144f702eefd1" x="190" y="0" width="44" height="20"/>
+				<box>
+					<pen lineWidth="0.75" lineColor="#666666"/>
+					<topPen lineWidth="0.75" lineColor="#666666"/>
+					<leftPen lineWidth="0.75" lineColor="#666666"/>
+					<bottomPen lineWidth="0.75" lineColor="#666666"/>
+					<rightPen lineWidth="0.75" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2ba33597-4da3-4c54-9cb2-b3d66367b8f3" x="234" y="0" width="80" height="20"/>
+				<box>
+					<pen lineWidth="0.75" lineColor="#666666"/>
+					<topPen lineWidth="0.75" lineColor="#666666"/>
+					<leftPen lineWidth="0.75" lineColor="#666666"/>
+					<bottomPen lineWidth="0.75" lineColor="#666666"/>
+					<rightPen lineWidth="0.75" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e64858c1-dcfa-4722-ba9f-70cbd12e5ced" x="314" y="0" width="80" height="20"/>
+				<box>
+					<pen lineWidth="0.75" lineColor="#666666"/>
+					<topPen lineWidth="0.75" lineColor="#666666"/>
+					<leftPen lineWidth="0.75" lineColor="#666666"/>
+					<bottomPen lineWidth="0.75" lineColor="#666666"/>
+					<rightPen lineWidth="0.75" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="512f9894-20dd-4ec4-9faf-f5f319e6779c" x="474" y="0" width="81" height="20"/>
+				<box>
+					<pen lineWidth="0.75" lineColor="#666666"/>
+					<topPen lineWidth="0.75" lineColor="#666666"/>
+					<leftPen lineWidth="0.75" lineColor="#666666"/>
+					<bottomPen lineWidth="0.75" lineColor="#666666"/>
+					<rightPen lineWidth="0.75" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="906aa535-6707-42c7-a68d-68f5eece3e59" x="394" y="0" width="80" height="20"/>
+				<box>
+					<pen lineWidth="0.75" lineColor="#666666"/>
+					<topPen lineWidth="0.75" lineColor="#666666"/>
+					<leftPen lineWidth="0.75" lineColor="#666666"/>
+					<bottomPen lineWidth="0.75" lineColor="#666666"/>
+					<rightPen lineWidth="0.75" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9d7de3b6-d6ba-42b8-a001-6c49a8781d48" x="0" y="0" width="190" height="20"/>
+				<box>
+					<pen lineWidth="0.75" lineColor="#666666"/>
+					<topPen lineWidth="0.75" lineColor="#666666"/>
+					<leftPen lineWidth="0.75" lineColor="#666666"/>
+					<bottomPen lineWidth="0.75" lineColor="#666666"/>
+					<rightPen lineWidth="0.75" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="e09715ce-d1f9-4219-9616-8cfb63196cd7" x="190" y="0" width="44" height="20"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.75" lineColor="#666666"/>
+					<topPen lineWidth="0.75" lineColor="#666666"/>
+					<leftPen lineWidth="0.75" lineColor="#666666"/>
+					<bottomPen lineWidth="0.75" lineColor="#666666"/>
+					<rightPen lineWidth="0.75" lineColor="#666666"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AccountNumber}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="c5557a7e-fb59-46c6-a050-c50ea1635881" x="234" y="0" width="80" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.75" lineColor="#666666"/>
+					<topPen lineWidth="0.75" lineColor="#666666"/>
+					<leftPen lineWidth="0.75" lineColor="#666666"/>
+					<bottomPen lineWidth="0.75" lineColor="#666666"/>
+					<rightPen lineWidth="0.75" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DebitOpenBalanceLCY}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="be542361-78e2-4de0-b7ea-5d37e316adc7" x="314" y="0" width="80" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.75" lineColor="#666666"/>
+					<topPen lineWidth="0.75" lineColor="#666666"/>
+					<leftPen lineWidth="0.75" lineColor="#666666"/>
+					<bottomPen lineWidth="0.75" lineColor="#666666"/>
+					<rightPen lineWidth="0.75" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DebitTurnOverBalanceLCY}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="9e646a79-3924-4183-802b-fb6c7843b4d6" x="394" y="0" width="80" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.75" lineColor="#666666"/>
+					<topPen lineWidth="0.75" lineColor="#666666"/>
+					<leftPen lineWidth="0.75" lineColor="#666666"/>
+					<bottomPen lineWidth="0.75" lineColor="#666666"/>
+					<rightPen lineWidth="0.75" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CreditTurnOverBalanceLCY}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="2227c801-dc2a-40d6-9671-c61b271826a6" x="474" y="0" width="81" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.75" lineColor="#666666"/>
+					<topPen lineWidth="0.75" lineColor="#666666"/>
+					<leftPen lineWidth="0.75" lineColor="#666666"/>
+					<bottomPen lineWidth="0.75" lineColor="#666666"/>
+					<rightPen lineWidth="0.75" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DebitClosingBalanceLCY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a1bb7c1e-1f13-434c-a5ae-22f91ac4cca7" x="0" y="0" width="190" height="20"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.75" lineColor="#666666"/>
+					<topPen lineWidth="0.75" lineColor="#666666"/>
+					<leftPen lineWidth="0.75" lineColor="#666666"/>
+					<bottomPen lineWidth="0.75" lineColor="#666666"/>
+					<rightPen lineWidth="0.75" lineColor="#666666"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AccountName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,31 @@
+<xls>
+    <area ref="G000351!A1:E327">
+	    <each items="header" var="header" ref="G000351!C2:C7">
+            <area ref="G000351!C2:C7"/>
+        </each>
+        <each items="data1" var="data1" ref="G000351!D18:D117">
+            <area ref="G000351!D18:D117"/>
+        </each>
+		<each items="data2" var="data2" ref="G000351!E18:E117">
+            <area ref="G000351!E18:E117"/>
+        </each>
+		<each items="data3" var="data3" ref="G000351!D118:D217">
+            <area ref="G000351!D118:D217"/>
+        </each>
+		<each items="data4" var="data4" ref="G000351!E118:E217">
+            <area ref="G000351!E118:E217"/>
+        </each>
+		<each items="data5" var="data5" ref="G000351!D218:D317">
+            <area ref="G000351!D218:D317"/>
+        </each>
+		<each items="data6" var="data6" ref="G000351!E218:E317">
+            <area ref="G000351!E218:E317"/>
+        </each>
+		<each items="data7" var="data7" ref="G000351!D318:D327">
+            <area ref="G000351!D318:D327"/>
+        </each>
+		<each items="data8" var="data8" ref="G000351!E318:E327">
+            <area ref="G000351!E318:E327"/>
+        </each>
+    </area>
+</xls>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_cur_date" language="groovy" pageWidth="250" pageHeight="820" columnWidth="250" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9d093ed9-145d-40fb-99c3-68fbbe7c2f3f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString language="plsql">
+		<![CDATA[select case when $P{PARA_MAPGD} in ('000100','000101','000199','000196','000197') then 'Hà Nội'
+ when (select PO_POSFLG from dmpos where po_ma = $P{PARA_MAPGD})='M' then
+(select ten from dmtinh where ma = substr($P{PARA_MAPGD},3,2) )
+else
+(select ten from dmhuyen where ma = substr($P{PARA_MAPGD},3,4) )
+end
+as ten from dual]]>
+	</queryString>
+	<field name="TEN" class="java.lang.String"/>
+	<variable name="CUR_DATE" class="java.util.Date">
+		<variableExpression><![CDATA[new Date()]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="17" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="0a03ed07-7d14-41de-96ce-a3412e0f0931" x="0" y="0" width="250" height="17"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TEN}+", ngày " + $V{CUR_DATE}.getDate().toString() +  " tháng " +  ($V{CUR_DATE}.getMonth()+1).toString() +  " năm "   + ($V{CUR_DATE}.getYear()+1900).toString()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

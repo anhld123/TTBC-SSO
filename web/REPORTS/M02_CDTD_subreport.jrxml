@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="M02_CDTD_subreport" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7259b356-6621-407c-935e-48ec49573c28">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<queryString language="plsql">
+		<![CDATA[{call M02_CDTD ($P{PARA_MAPGD},$P{PARA_NGAYBC},$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<field name="POS_CD" class="java.lang.String"/>
+	<field name="COMMUNE_ID" class="java.lang.String"/>
+	<field name="TENXA" class="java.lang.String"/>
+	<field name="D1" class="java.math.BigDecimal"/>
+	<field name="D2" class="java.math.BigDecimal"/>
+	<field name="D3" class="java.math.BigDecimal"/>
+	<field name="D4" class="java.math.BigDecimal"/>
+	<field name="D5" class="java.math.BigDecimal"/>
+	<field name="D6" class="java.math.BigDecimal"/>
+	<field name="D7" class="java.math.BigDecimal"/>
+	<field name="D8" class="java.math.BigDecimal"/>
+	<field name="D9" class="java.math.BigDecimal"/>
+	<field name="D10" class="java.math.BigDecimal"/>
+	<field name="TONGDIEM" class="java.math.BigDecimal"/>
+	<field name="XEPLOAI" class="java.math.BigDecimal"/>
+	<variable name="STT" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{STT}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="XEPLOAI_T" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{XEPLOAI}==1? $F{XEPLOAI}:0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_K" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{XEPLOAI}==2? $F{XEPLOAI}/2:0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_TB" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{XEPLOAI}==3?$F{XEPLOAI}/3:0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_Y" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{XEPLOAI}==4?$F{XEPLOAI}/4:0]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="ecf30a8f-ca0d-4420-a06e-9fb41777578c" x="186" y="1" width="48" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{D1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2248a1b4-742c-49df-8893-e2b40c6bb9a5" x="234" y="1" width="48" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{D2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6885db79-1dcf-4df7-8c6c-3706eedd0485" x="282" y="1" width="48" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{D3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3422090a-4dea-4fc9-b0c7-d2cee42b6959" x="330" y="1" width="48" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{D4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8da4b350-aa74-4644-bfef-6c606f9aca14" x="474" y="1" width="48" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{D7}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8a783f77-d084-4c21-a03a-dedd66d5bbd6" x="426" y="1" width="48" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{D6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="843a35ca-213f-4dac-85bc-0e1757c07d33" x="378" y="1" width="48" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{D5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="765b5a8c-56fe-4074-a7b2-37e3fe014c4b" x="522" y="1" width="48" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{D8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3f2b1c38-188c-4def-b554-63d31d38b550" x="666" y="1" width="68" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TONGDIEM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5fd7e434-da53-42d3-be71-e44e5c1ca2a6" x="618" y="1" width="48" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{D10}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f74be561-ba7f-4dc7-8f36-9c0c4811bb41" x="570" y="1" width="48" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{D9}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f0635642-f422-4d18-8116-2fe585eb368b" x="0" y="1" width="37" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{STT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a31ff4aa-5f4e-4b3f-86b6-478f51becbb5" x="37" y="1" width="149" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TENXA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="868a781c-9018-4a41-ab84-81a8e04f46a3" x="734" y="1" width="68" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{XEPLOAI}.toString().equals('1')? "Tốt":$F{XEPLOAI}.toString().equals('2')? "Khá":$F{XEPLOAI}.toString().equals('3')?"Trung Bình":"Yếu Kém"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="126" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="a8bc6d1a-b69e-4ba4-a59a-7c4e49b09b33" x="0" y="0" width="37" height="126"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="38089390-cc3a-4f36-8081-89b80bba0976" x="86" y="12" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Tổng hợp:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="996fea6a-571c-4017-9b04-7f2866cdad77" x="86" y="33" width="415" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Số xã xếp loại tốt: "+$V{XEPLOAI_T}+ " xã"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="10d6f896-6c04-4801-8914-3cb71dd86bd9" x="86" y="54" width="415" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Số xã xếp loại khá: "+$V{XEPLOAI_K}+" xã"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0c0fcdd3-bd28-46ac-81b1-67716baa38ca" x="86" y="96" width="415" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Số xã xếp loại yếu kém: "+$V{XEPLOAI_Y}+" xã"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8bb24d87-46b9-4375-b5c2-2c0666911b2b" x="86" y="75" width="415" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Số xã xếp loại trung bình: "+$V{XEPLOAI_TB}+" xã"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1ab408ea-fdb5-466e-a034-f14340add232" x="37" y="0" width="765" height="126"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

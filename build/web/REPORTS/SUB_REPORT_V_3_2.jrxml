@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUB_REPORT_V_3_2" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_TONGHOP" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+(DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'201','P') +
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'209','P')) F1,
+(DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'201','P') +
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'209','P')) F2,
+(DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'1311','P') +
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'1321','P') +
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'1312','P') +
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'1322','P')) F3,
+(DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'1311','P') +
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'1321','P') +
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'1312','P') +
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'1322','P')) F4
+FROM DUAL]]>
+	</queryString>
+	<field name="F1" class="java.math.BigDecimal"/>
+	<field name="F2" class="java.math.BigDecimal"/>
+	<field name="F3" class="java.math.BigDecimal"/>
+	<field name="F4" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="105">
+			<staticText>
+				<reportElement x="0" y="0" width="180" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[3.2. Cho vay các TCTD khác]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="555" height="45"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[         - Bằng VND
+         - Bằng vàng, ngoại tệ
+         - Dự phòng rủi ro cho vay các TCTD khác
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="229" y="0" width="100" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Không có]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="60" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="79" width="328" height="26"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổng tiền, vàng gửi tại các TCTD khác và cho vay các TCTD khác]]></text>
+			</staticText>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="458" y="61" width="96" height="16"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{F1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="329" y="60" width="114" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{F2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="329" y="0" width="114" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" isUnderline="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Cuối kỳ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="458" y="0" width="97" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" isUnderline="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Đầu kỳ]]></text>
+			</staticText>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="458" y="85" width="96" height="16"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{F4}<0? $F{F4}* (-1):$F{F4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="329" y="84" width="114" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{F3}<0? $F{F3}* (-1):$F{F3}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

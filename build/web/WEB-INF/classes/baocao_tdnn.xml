@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>           
+    <package name="main_tdnn" extends="struts-default,json-default">                       
+        <action name="loadAllTdnn" class="vbsp.ims.tdnn.ActionTdnnMain"  method="execute">
+            <result name="success" type="json"></result>        
+        </action>   
+        
+        <action name="LoadParaTdnn" class="vbsp.ims.tdnn.ActionTdnnMain"  method="loadPataTdnn">
+            <result name="success">/TDNN/para-tdnn-main.jsp</result>
+            <result name="GSCMR_001">/TDNN/para-tdnn-main_cam.jsp</result>
+            <result name="error">/TDNN/success.jsp</result>        
+        </action>  
+        
+        
+        
+        <!--gui so lieu -->
+        <action name="sendTDNN" class="vbsp.ims.tdnn.ActionTdnnMain"  method="sendTDNN">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="TDNN_001_reload" class="vbsp.ims.tdnn.TDNN_001"  method="reload">
+            <result name="success">/TDNN/table_tdnn_01.jsp</result>
+            <result name="error">/TDNN/success.jsp</result>        
+        </action>   
+        
+        <action name="TDNN_001" class="vbsp.ims.tdnn.TDNN_001"  method="load">
+            <result name="success">/TDNN/table_tdnn_01.jsp</result>
+            <result name="error">/TDNN/success.jsp</result>        
+        </action>
+                  
+        <action name="SAVE_TDNN_001" class="vbsp.ims.tdnn.TDNN_001"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="uploadExcelTDNN" class="vbsp.ims.tdnn.TDNN_002"  method="uploadExcelTDNN">
+            <result name="success">/TDNN/table_tdnn_01.jsp</result>
+            <result name="error">/TDNN/success.jsp</result>        
+        </action>
+        
+        <action name="GSCMR_001" class="vbsp.ims.tdnn.GSCMR_001"  method="load">
+            <result name="success">/TDNN/table_gscmr_01.jsp</result>
+            <result name="error">/TDNN/success.jsp</result>        
+        </action>
+                  
+        <action name="SAVE_GSCMR_001" class="vbsp.ims.tdnn.GSCMR_001"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="TongHopTDNN" class="vbsp.ims.tdnn.GSCMR_001"  method="TongHopTDNN">
+            <result name="success">/TDNN/table_gscmr_02.jsp</result>
+            <result name="guinhan">/TDNN/table_gscmr_02.jsp</result>
+            <result name="error">/TDNN/success.jsp</result>             
+        </action>
+                
+        <!--Chi phan khoa va mo khoa gui du lieu-->
+        <action name="LoadParaTdnn_unlock" class="vbsp.ims.tdnn.ActionTdnnMain"  method="LoadParaTdnn_unlock">
+            <result name="success">/TDNN/para-tdnn-main_unlock.jsp</result>
+            <result name="error">/TDNN/success.jsp</result>        
+        </action>
+        
+        <action name="UNLOCK_TDNN" class="vbsp.ims.tdnn.ActionTdnnMain"  method="LoadStatusSendCnTdnn">
+            <result name="success">/TDNN/table_unlock.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action> 
+        
+        <action name="OPEN_PGD_TDNN" class="vbsp.ims.tdnn.ActionTdnnMain"  method="OpenPgd">
+            <result name="success" type="redirectAction">
+                <param name="actionName">UNLOCK_TDNN</param>
+                <!--<param name="namespace">/genReport</param>-->
+                <param name="khoa_tdnn">${khoa_tdnn}</param>
+                <param name="ngay_bc">${ngay_bc}</param>
+                <param name="macn">${macn}</param>
+                <!--<param name="type_bcqt">${type_bcqt}</param>-->
+            </result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+    </package>
+    
+</struts>

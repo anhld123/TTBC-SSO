@@ -1,0 +1,51 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- Author: Home -->
+ 
+<struts>
+     <!-- Configuration for the default package. -->
+    <package name="dmct" extends="struts-default,json-default">
+        <action name="loadctnhcsxh" class="vbsp.ims.action.ChiTieuNHCSXH">
+            <result name="success">/chitieu/Treeview.jsp</result>
+        </action>
+        <action name="loadctnhnn" class="vbsp.ims.action.ChiTieuNHNN">
+            <result name="success">/chitieu/Treeview.jsp</result>
+        </action>
+        <action name="loadchitieu" class="vbsp.ims.action.LoadChiTieu">
+            <result name="success">/chitieu/loadchitieu.jsp</result>
+        </action>
+        <action name="loatruyvan" class="vbsp.ims.action.LoadTruyVanCT">
+            <result name="success">/chitieu/loadchitieu.jsp</result>
+        </action>
+        <action name="danhsachPGD" class="vbsp.ims.action.ChiTieuNHCSXH">
+            <result name="success" type="json"></result>
+        </action>
+        <action name="extoexcel" class="vbsp.ims.action.expExcelgiatrichitieu">
+            <result name="thanhcong" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">fileInputStream</param>
+                <param name="contentDisposition">attachment;filename="${Filename}"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+        <action  name="danhmucbcqt" class="vbsp.ims.action.DMQTActionSupport" >
+            <result name="success">dmqt_include.jsp</result>  
+        </action>
+        <action name="checkct" class="vbsp.ims.action.kiemtract">
+            <result name="thanhcong">/chitieu/kiemtract.jsp</result>
+        </action>
+        <action name="loaddatachk" class="vbsp.ims.action.kiemtract">
+            <result name="thanhcong">/chitieu/kiemtract_data.jsp</result>
+        </action>
+        <action name="excheckct" class="vbsp.ims.action.excheckct">
+            <result name="thanhcong" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">fileInputStream</param>
+                <param name="contentDisposition">attachment;filename="${Filename}"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+    </package>
+</struts>

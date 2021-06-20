@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="D00044_051_TT.xlsx" fileOutFormat="SBV_051_D00044_DDMMYYYY">
+   <title>051-TT - Báo cáo giao dịch thanh toán điện tử qua TCTD khác trong nước (Tháng)</title>
+   <userName>ADMIN</userName>
+   <date>10-Jan-2017 13:36:661</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+
+
+
+
+
+
+
+<queryString id="2" maplist="data" description="Lấy dữ liệu (chi tiết)" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_051_TT (2, '000100' ,'Y', $P{PARA_NGAYBC}, 1 , $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="3" maplist="data1" description="Lấy dữ liệu (TC)" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_051_TT (2, '000100' ,'Y', $P{PARA_NGAYBC}, 2 , $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="1" maplist="header" description="Lấy tiêu đề" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'D00044_SBV_051_TT' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRANGPT' STR5,
+'TRUNGNT' STR6  from dmpos where po_ma= '000100']]></queryString>
+</excel_template>

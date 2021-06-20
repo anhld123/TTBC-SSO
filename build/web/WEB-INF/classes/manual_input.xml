@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>    
+    <package name="ManualInput" extends="struts-default,json-default">       
+        <action  name="listManualReport" class="vbsp.ims.action.ManualDataInputAction"
+                  method="execute">
+            <result name="success">inputdata_screen_redirect.jsp</result>            
+        </action>   
+        <action name="BC00450001_input" class="vbsp.ims.action.ActionCommuneInput">
+            <result name="success">/inputcommune/input-commune.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="BC00450001_authorize" class="vbsp.ims.action.ActionCommuneAuth"
+        >
+            <result name="success">/inputcommune/auth-commune-pgd.jsp</result>
+            <result name="input">/inputcommune/auth-commune.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="BC00500001_input" class="vbsp.ims.action.ActionLoveLeaf">
+            <result name="success">/loveleaf/send-loveleaf.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="BC00500001_authorize" class="vbsp.ims.action.ActionLoveLeafAuth"
+        >
+            <result name="success">/loveleaf/auth-loveleaf.jsp</result>
+            <result name="input">/inputcommune/auth-commune.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action  name="loadLoveLeaf" class="vbsp.ims.action.ActionLoveLeaf" method="getLoveLeaf">
+            <result name="success">/loveleaf/table_data_loveleaf.jsp</result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="loadLoveLeafAuth" class="vbsp.ims.action.ActionLoveLeafAuth" method="getLoveLeafAuth">
+            <result name="success">/loveleaf/table_data_loveleaf_auth.jsp</result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="saveDataLoveLeaf" class="vbsp.ims.action.ActionLoveLeaf" method="saveDataLoveLeaf">
+            <result  name="success">  
+                dcpt_no/success.jsp
+            </result>  
+            <result  name="error">  
+                dcpt_no/error.jsp
+            </result>  
+        </action>
+        
+        <action  name="saveDataLoveLeafAuth" class="vbsp.ims.action.ActionLoveLeafAuth" method="saveDataLoveLeafAuth">
+            <result  name="success">  
+                dcpt_no/success.jsp
+            </result>  
+            <result  name="error">  
+                dcpt_no/error.jsp
+            </result>  
+        </action>
+        
+        <action  name="searchPoor" class="vbsp.ims.action.ActionLoveLeaf" method="getDataSearchPoor">
+            <result name="success">  
+                loveleaf/table_data_loveleaf_search.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        
+        <action name="doGroupReportFilter_Manual"  
+                class="vbsp.ims.action.ManualDataInputAction" 
+                method="buildCombo">
+            <result name="success" type="json"></result>
+        </action>
+        
+        <action name="doGroupReportPrint_Manual"  
+                class="vbsp.ims.action.ManualDataInputAction" 
+                method="buildCombo_print">
+            <result name="success" type="json"></result>
+        </action>
+        
+        <action name="doReportFilter_Manual"  
+                class="vbsp.ims.action.ManualDataInputAction" 
+                method="execute">
+            <result name="success">WEB-INF/inputdata_screen-main_tbl.jsp</result>    
+        </action>
+        
+        <action  name="list_add_infor_by_manual" class="vbsp.ims.action.ManualAddInforAction"
+                  method="execute">
+            <result name="success">addinfor_by_muanual_screen_direct.jsp</result>            
+        </action> 
+        
+         <action  name="view_dmxa_table" class="vbsp.ims.action.CommuneEditAction"
+                  method="execute">
+            <result name="success" type="json"></result>
+            <result name="error" type="json"></result>          
+         </action>  
+        <action  name="edit_dmxa_table" class="vbsp.ims.action.CommuneEditAction"
+                  method="execute">
+            <result name="success" type="json"></result>
+            <result name="error" type="json"></result>          
+         </action>  
+        <action  name="dmxa_dropdown_user" 
+                 class="vbsp.ims.action.CommuneEditAction"
+                  method="getDropdownUser">
+            <result name="success" >/DROP-DOWN-LIST/user-list.jsp</result>               
+         </action>  
+        <action  name="dmxa_dropdown_yesno" 
+                 class="vbsp.ims.action.CommuneEditAction"
+                  method="getYesNoList">
+            <result name="success" >/DROP-DOWN-LIST/yesno-list.jsp</result>               
+         </action>  
+        <action  name="sync_dmxa_table" class="vbsp.ims.action.CommuneEditAction"
+                  method="update_data">
+            <result name="success">/WEB-INF/pure_message.jsp</result>            
+         </action>  
+        <action  name="sync_dmto_table" class="vbsp.ims.action.GroupEditAction"
+                  method="update_group">
+            <result name="success">/WEB-INF/pure_message.jsp</result>            
+         </action>  
+        <action  name="list_branch_infor" class="vbsp.ims.action.BranchEditAction"
+                  method="execute">
+            <result>branch-edit_direct.jsp</result>            
+         </action>  
+         
+         <action  name="update_branch_infor" class="vbsp.ims.action.BranchEditAction"
+                  method="execute">
+            <result name="success">/WEB-INF/pure_message.jsp</result>            
+         </action>  
+         
+         
+         <action  name="view_dmto_table" class="vbsp.ims.action.GroupEditAction"
+                  method="execute">
+            <result name="success" type="json"></result>
+            <result name="error" type="json"></result>          
+         </action>  
+         
+         <action  name="load_mass_org_combo" class="vbsp.ims.action.GroupEditAction"
+                  method="build_mass_org_combo">
+            <result name="success" type="json"></result>
+            <result name="error" type="json"></result>          
+         </action>  
+        
+         <action  name="edit_dmto_table" class="vbsp.ims.action.GroupEditAction"
+                  method="execute">
+            <result name="success" type="json"></result>
+            <result name="error" type="json"></result>          
+         </action>  
+    </package>
+</struts>

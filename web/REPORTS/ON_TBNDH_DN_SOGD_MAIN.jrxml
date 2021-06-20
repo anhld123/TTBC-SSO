@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ON_TBNDH_DN_SOGD_MAIN" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ed5335ff-223d-492d-8ea7-da0a2c1dba92">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<parameter name="PARA_TUNGAY" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_DENNGAY" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString language="plsql">
+		<![CDATA[with THAMSO_BC as
+(select to_date($P{PARA_TUNGAY}) TUNGAY, to_date($P{PARA_DENNGAY}) DENNGAY , TO_DATE($P{PARA_NGAYBC}) NGAYBC, $P{PARA_MAPGD} MAPGD from dual),
+DULIEU_KHTN as
+(SELECT KH_SOKU, KH_GOCDHAN, KH_NGDHAN,KH_LAIDHAN
+                                            FROM KHTN, THAMSO_BC
+                                            WHERE  KH_MAPGD = MAPGD
+                                                AND KH_GOCDHAN > 0
+                                                and KH_NGDHAN between TUNGAY AND DENNGAY),
+DULIEU_HSCV as
+(SELECT KU_MACN, KU_MAPGD, KU_MAKH, KU_CHTRINH, KU_PROD_CD, KU_SOKU,
+KU_NGAYVAY, KU_DNOTHAN, KU_DNOQHAN, KU_TNOTHAN, KU_NGAYDHAN_3, DN_TEN TENDN, DN_DIACHI DIACHI, DN_TGD GIAMDOC_CTY
+                                    FROM HSKU, THAMSO_BC, HSKH_DN
+                                    WHERE KU_NGAYBC = NGAYBC
+                                    and DN_MA=KU_MAKH
+                                        AND KU_MAPGD = MAPGD
+                                        AND KU_DNOTHAN>0
+                                        AND KU_DNOKHOANH = 0
+                                        AND KU_TTMONVAY <> 'CLOSE'
+                                        and KU_NGAYDHAN_3 >= TUNGAY
+                                    AND KU_NGAYDHAN_3 <= DENNGAY
+                                        )
+select KU_MACN MACN, KU_MAPGD MAPGD, (SELECT PO_TEN FROM DMPOS where po_ma=ku_mapgd and rownum<2) TENPGD,
+KU_MAKH MAKH, KU_SOKU SOKU,ku_chtrinh MA_CHTRINH, (select SC_TEN from dm_scheme where substr(SC_MA,3,2)=ku_chtrinh) TEN_CHTRINH, TO_CHAR(KU_NGAYVAY,'DD/MM/YYYY') NGAYVAY,-- KU_DNOTHAN, KU_DNOQHAN, KU_TNOTHAN,
+TO_CHAR(KU_NGAYDHAN_3,'DD/MM/YYYY') NGAYDHAN_TRAGOC,TO_CHAR(ADD_MONTHS(MAX(KH_NGDHAN),-1),'DD/MM/YYYY') LAITU_NGAY,
+TO_CHAR(MAX(KH_NGDHAN),'DD/MM/YYYY') LAIDEN_NGAY, SUM (KH_GOCDHAN) GOCDHAN,SUM(KH_LAIDHAN) LAIDHAN,
+TENDN, DIACHI, GIAMDOC_CTY ,
+replace(F_AMOUNT_IN_WORDS(SUM (KH_GOCDHAN),'704'),'  ',' ') DOC_GOC, replace(F_AMOUNT_IN_WORDS(SUM(KH_LAIDHAN),'704'),'  ',' ') DOC_LAI
+from DULIEU_HSCV, DULIEU_KHTN where KH_SOKU=ku_soku
+ GROUP BY KU_MACN, KU_MAPGD, KU_MAKH, KU_CHTRINH, KU_SOKU, KU_NGAYVAY, KU_DNOTHAN, KU_DNOQHAN, KU_TNOTHAN, KU_NGAYDHAN_3,
+TENDN, DIACHI, GIAMDOC_CTY]]>
+	</queryString>
+	<field name="MACN" class="java.lang.String"/>
+	<field name="MAPGD" class="java.lang.String"/>
+	<field name="TENPGD" class="java.lang.String"/>
+	<field name="MAKH" class="java.lang.String"/>
+	<field name="SOKU" class="java.lang.String"/>
+	<field name="MA_CHTRINH" class="java.lang.String"/>
+	<field name="TEN_CHTRINH" class="java.lang.String"/>
+	<field name="NGAYVAY" class="java.lang.String"/>
+	<field name="NGAYDHAN_TRAGOC" class="java.lang.String"/>
+	<field name="LAITU_NGAY" class="java.lang.String"/>
+	<field name="LAIDEN_NGAY" class="java.lang.String"/>
+	<field name="GOCDHAN" class="java.math.BigDecimal"/>
+	<field name="LAIDHAN" class="java.math.BigDecimal"/>
+	<field name="TENDN" class="java.lang.String"/>
+	<field name="DIACHI" class="java.lang.String"/>
+	<field name="GIAMDOC_CTY" class="java.lang.String"/>
+	<field name="DOC_GOC" class="java.lang.String"/>
+	<field name="DOC_LAI" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="b968ce22-3b65-4f9d-8e23-6cb3db4ba040" x="0" y="0" width="595" height="40" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TEN_CHTRINH">
+					<subreportParameterExpression><![CDATA[$F{TEN_CHTRINH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_GIAMDOC_CTY">
+					<subreportParameterExpression><![CDATA[$F{GIAMDOC_CTY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYDH">
+					<subreportParameterExpression><![CDATA[$F{NGAYDHAN_TRAGOC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOC_LAI">
+					<subreportParameterExpression><![CDATA[$F{DOC_LAI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_GOCDH">
+					<subreportParameterExpression><![CDATA[$F{GOCDHAN}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYVAY">
+					<subreportParameterExpression><![CDATA[$F{NGAYVAY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_LAIDH">
+					<subreportParameterExpression><![CDATA[$F{LAIDHAN}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="MA_CHTRINH">
+					<subreportParameterExpression><![CDATA[$F{MA_CHTRINH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_TENPGD">
+					<subreportParameterExpression><![CDATA[$F{TENPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_DIACHI">
+					<subreportParameterExpression><![CDATA[$F{DIACHI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_LAITUNGAY">
+					<subreportParameterExpression><![CDATA[$F{LAITU_NGAY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_LAIDENNGAY">
+					<subreportParameterExpression><![CDATA[$F{LAIDEN_NGAY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOC_GOC">
+					<subreportParameterExpression><![CDATA[$F{DOC_GOC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_TENDN">
+					<subreportParameterExpression><![CDATA[$F{TENDN}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/ON_TBNDH_DN_SOGD.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>

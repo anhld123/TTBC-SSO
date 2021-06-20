@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BC_SLDB" language="groovy" pageWidth="421" pageHeight="595" orientation="Landscape" columnWidth="381" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="0e77cae3-876c-415d-a350-b5d7aaa55fa4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_DENNGAY" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from (
+select substr(ct_macn,3,2) macn, ct_mact mact,  NVL(SUM(CT_GIATRI),0) giatri FROM CT_VBSP where ct_ngaybc = $P{PARA_DENNGAY} and ct_capth = 'M' and ct_giatri > 0 and substr(ct_macn,3,2) <> '01' group by substr(ct_macn,3,2), ct_mact
+UNION ALL
+select substr(ct_macn,5,2) macn, ct_mact mact,  NVL(SUM(CT_GIATRI),0) giatri FROM CT_VBSP where ct_ngaybc = $P{PARA_DENNGAY} and ct_capth = 'M' AND ct_giatri <> 0 and substr(ct_macn,3,2) = '01' group by substr(ct_macn,5,2), ct_mact
+)
+order by macn,mact]]>
+	</queryString>
+	<field name="MACN" class="java.lang.String"/>
+	<field name="MACT" class="java.lang.String"/>
+	<field name="GIATRI" class="java.math.BigDecimal"/>
+	<variable name="DEN_NGAY" class="java.util.Date">
+		<variableExpression><![CDATA[new Date($P{PARA_DENNGAY})]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="62c02903-f5c5-43b0-aa4a-5533e2d1b8e2" x="0" y="0" width="381" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[BÁO CÁO SỐ LIỆU ĐỆN BÁO NGÀY]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement uuid="cc2735fb-fb05-4947-81be-5e48ab16e7b3" x="0" y="20" width="381" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ngày " + $V{DEN_NGAY}.getDate().toString() +  " tháng " +  ($V{DEN_NGAY}.getMonth()+1).toString() +  " năm "   + ($V{DEN_NGAY}.getYear()+1900).toString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b7a3b05b-28d7-41e8-898d-87812ad7800a" mode="Transparent" x="0" y="49" width="92" height="21" forecolor="#000000" backcolor="#CCCCFF"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[MÃ CHI NHÁNH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d41303fb-286e-444f-a32c-fddbff85c661" mode="Transparent" x="92" y="49" width="147" height="21" forecolor="#000000" backcolor="#CCCCFF"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[MÃ CHỈ TIÊU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="05c85514-91a7-4342-913d-282a5a20149d" mode="Transparent" x="239" y="49" width="142" height="21" forecolor="#000000" backcolor="#CCCCFF"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[GIÁ TRỊ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement uuid="213c7e40-7d3a-4de5-8f2b-ad00e0ed4a3e" x="0" y="0" width="92" height="17"/>
+				<box leftPadding="4" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MACN}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="44e35ad3-06d4-41c4-b440-fb382006e8ce" x="92" y="0" width="147" height="17"/>
+				<box leftPadding="1" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MACT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="2ebef448-77a4-426f-b3aa-6fc9d4a36847" x="239" y="0" width="142" height="17"/>
+				<box leftPadding="1" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+					<paragraph leftIndent="20" rightIndent="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GIATRI}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

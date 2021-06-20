@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mainpos_subpos" language="groovy" pageWidth="250" pageHeight="820" columnWidth="250" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select value place from intellect.varmcn where varname = 'place' ]]>
+	</queryString>
+	<field name="PLACE" class="java.lang.String"/>
+	<variable name="CUR_DATE" class="java.util.Date">
+		<variableExpression><![CDATA[new Date()]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="17" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="0" y="0" width="250" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PLACE}+", ngày " + $V{CUR_DATE}.getDate().toString() +  " tháng " +  ($V{CUR_DATE}.getMonth()+1).toString() +  " năm "   + ($V{CUR_DATE}.getYear()+1900).toString()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

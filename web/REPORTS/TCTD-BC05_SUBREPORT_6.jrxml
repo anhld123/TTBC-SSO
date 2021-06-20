@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TCTD-BC05_SUBREPORT_6" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.2100000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 6 FROM DUAL]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="260" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="3" width="555" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[11. Kế toán các giao dịch thuê tài sản:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="103" width="555" height="30"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[12. Bất động sản đầu tư : không có
+13. Tiền và các khoản tương đương tiền (khái niệm tiền và tương đương tiền):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="23" width="555" height="78"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[- Nguyên tắc ghi nhận tài sản trong các giao dịch:
+ • Thuê tài sản để hoạt động: khi NH là người đi thuê: Giá trị tài sản đi thuê được hạch toán theo dõi ngoại bảng theo nguyên giá. Giá thuê thanh toán theo hợp đồng và được đưa vào chi phí đi thuê.
+ • Thuê tài chính: NHCSXH không có
+ • Phương pháp tính khấu hao tài sản đi thuê tài chính: NHCSXH không có
+Là tiền mặt hiện có (tiền tại quỹ, tiền đang chuyển), số dư tiền gửi thanh toán tại NHNN và các TCTD khác, gồm : tiền gửi không kỳ hạn và có kỳ hạn với thời gian đáo hạn dưới 90 ngày kể từ ngày lập báo cáo tài chính bằng Việt Nam đồng và các đồng tiền khác (ngoại tệ).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="134" width="555" height="42"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Là tiền mặt hiện có (tiền tại quỹ, tiền đang chuyển), số dư tiền gửi thanh toán tại NHNN và các TCTD khác, gồm : tiền gửi không kỳ hạn và có kỳ hạn với thời gian đáo hạn dưới 90 ngày kể từ ngày lập báo cáo tài chính bằng Việt Nam đồng và các đồng tiền khác (ngoại tệ).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="176" width="555" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[14. Dự phòng, công nợ tiềm ẩn và tài sản chưa xác định: NHCSXH không áp dụng trích dự phòng khoản mục này.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="207" width="555" height="53"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Các đơn vị của NHCSXH thực hiện việc chi lương và phụ cấp lương theo chế độ do Thủ tướng Chính phủ quyết định, theo các quy định hiện hành của Nhà nước và hướng dẫn trả lương của NHCSXH đảm bảo gắn tiền lương với quản lý lao động, kết quả hoạt động và trách nhiệm cá nhân của từng cán bộ. NHCSXH thực hiện trích nộp BHXH cho người lao động theo quy định của Nhà nước.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="193" width="555" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[15. Kế toán các khoản nghĩa vụ đối với nhân viên: ]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="50">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="49" isRemoveLineWhenBlank="true"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA["/TCTD-BC05_SUBREPORT_7.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

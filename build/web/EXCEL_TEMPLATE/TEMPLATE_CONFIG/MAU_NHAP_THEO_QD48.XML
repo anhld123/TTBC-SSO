@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="MAU_NHAP_THEO_QD48.xlsx" fileOutFormat="CIC_DOANHNGHIEP_DDMMYYYY">
+   <title>CIC Cho doanh nghiệp</title>
+   <userName>GIANGTTT_KTTC</userName>
+   <date>13-Apr-2017 16:05:437</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   
+
+
+<queryString id="2" maplist="data" description="Du lieu cho bao cao" key_group="EMPTY" value_group="EMPTY"><![CDATA[     SELECT dn_ma ||' - '|| dn_ten STR1
+                   FROM INTELLECT.HSKH_DN A
+                   WHERE a.DN_TTRANG = 'A'  
+                   AND EXISTS (SELECT 'X' FROM intellect.hscv WHERE ku_ngaybc = '31-MAR-2017' 
+                   and ku_mapgd = dn_mapgd and ku_makh = dn_ma )
+                   AND A.dn_macn= '004201' and rownum<2
+                   order by dn_macn]]></queryString>
+
+</excel_template>

@@ -1,0 +1,13 @@
+DECLARE
+p_numofjob NUMBER := 5;
+p_procedure VARCHAR2(500);
+p_pos_flg VARCHAR2(1);
+p_report_dt VARCHAR2(12);
+p_add_param VARCHAR2(100);
+BEGIN
+p_procedure := 'Rpt_Bctd_Vb5338.p_taosl';
+p_pos_flg := 'N';
+p_report_dt := '19-sep-2018';
+vbsp_exe_injob.p_job_execute(p_numofjob,p_procedure,p_pos_flg,p_report_dt,p_add_param,'');
+COMMIT;
+END;

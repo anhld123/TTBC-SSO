@@ -1,0 +1,125 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package vbsp.ims.nhaptaycn.action;
+
+import static com.opensymphony.xwork2.Action.ERROR;
+import static com.opensymphony.xwork2.Action.SUCCESS;
+import vbsp.ims.tdnn.*;
+import vbsp.ims.tdnn.*;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import vbsp.ims.bcqt.model.QT_DULIEU_NT;
+import vbsp.ims.dao.DaoConnect;
+import vbsp.ims.log.CoreLogger;
+import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
+
+/**
+ *
+ * @author Trung
+ */
+public class HANOI_003 extends ActionNhaptaycnMain
+implements TdnnFunction{
+    
+    @Override
+    public String load(){
+        try {
+            System.err.println("NTMOI - 01");
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            HashMap hmParameter = getParameter();
+            Connection conn = new DaoConnect().getConnect();
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+//            DaoTdnnMain daoMain1 = new DaoTdnnMain();
+            //khoi tao cho treeview cac pos
+//            lstAllTdnn = daoMain.getDmKhac(conn, "56");
+            if(Grade.equals("3"))
+            {
+                lstDulieuNt = daoMain.getStatusSendCn("HANOI_003",
+                    poscd, hmParameter.get("ngay_bc").toString(),"");
+            }
+            else
+                lstDulieuNt = daoMain.getDataHANOI_03(conn, "HANOI_003", hmParameter.get("ngay_bc").toString(),UserName, Grade,poscd);
+            if (conn != null) {
+                conn.close();
+            }            
+
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> HANOI_003: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> HANOI_003: " + e.getMessage());
+        }
+        return SUCCESS;
+    }
+    
+    public String reload(){        
+        return SUCCESS;
+    }
+
+    @Override
+    public String save() {
+        System.err.println("Save - HANOI_003");
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            if (lstDulieuNt == null || lstDulieuNt.size() == 0) {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
+                return ERROR;
+            }
+            for (QT_DULIEU_NT.saveDulieuNT_Phi value : lstsaveNT_DAT) {
+                if(value != null)                    
+                    if (!value.getD1().equals("false")) {
+                        lstDat.add(value.getD1());
+                    }
+            }
+            
+            DaoNhaptaycnMain daoMain = DaoNhaptaycnMain.newInstance();
+            HashMap hmParameter = getParameter();            
+            if(!daoMain.saveHaNoi03("HANOI_003", UserName, "",hmParameter.get("ngay_bc").toString(), lstDulieuNt, "",lstDat))
+            {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                return ERROR;
+            }
+
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> SAVE_HANOI_003: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> SAVE_HANOI_003: " + e.getMessage());
+            addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                return ERROR;
+        }
+        addActionMessage("Bạn đã lưu dữ liệu thành công");
+        return SUCCESS;
+    }     
+    
+    
+     public String uploadExcelKyQuy(){
+        try {
+            System.err.println("uploadExcelKyQuy - 01");
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            HashMap hmParameter = getParameter();
+            Connection conn = new DaoConnect().getConnect();
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+//            DaoTdnnMain daoMain1 = new DaoTdnnMain();
+            //khoi tao cho treeview cac pos
+//            lstAllTdnn = daoMain.getDmKhac(conn, "56");         
+                lstDulieuNt = daoMain.getDataHANOI_03(conn, "HANOI_003", hmParameter.get("ngay_bc").toString(),UserName, Grade,poscd);
+            if (conn != null) {
+                conn.close();
+            }            
+
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> HANOI_003: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> HANOI_003: " + e.getMessage());
+        }
+        return SUCCESS;
+    }
+}

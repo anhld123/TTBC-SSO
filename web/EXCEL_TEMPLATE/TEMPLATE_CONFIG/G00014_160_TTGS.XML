@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="G00014_160_TTGS.xlsx" fileOutFormat="G00014_160_TTGS_DDMMYYYY">
+   <title>160-TTGS - Bảng cân đối tài khoản kế toán (Tháng)</title>
+   <userName>ADMIN</userName>
+   <date>28-Dec-2016 19:18:292</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+<parameter name="PARA_MAPGD" class="java.lang.String" description="Mã PGD"/>
+<queryString id="1" maplist="header" description="Lấy tiêu đề Nội bảng" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'G00014_SBV_160_TTGS' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRANGPT' STR5,
+'' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+<queryString id="4" maplist="header1" description="Lấy tiêu đề ngoại bảng" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'G00014_SBV_160_TTGS' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRANGPT' STR5,
+'' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+<queryString id="2" maplist="data" description="Lấy DL Nội bảng chi tiết" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_160_TTGS (2,  $P{PARA_MAPGD} ,'Y', $P{PARA_NGAYBC}, 'M', '01', 1, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="3" maplist="data1" description="Lấy DL Ngoại bảng chi tiết" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_160_TTGS (2, $P{PARA_MAPGD} ,'Y', $P{PARA_NGAYBC}, 'M', '02', 1, $P{ORACLE_REF_CURSOR})}]]></queryString>
+</excel_template>

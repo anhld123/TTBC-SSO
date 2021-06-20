@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="KyBC" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_KYBC" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select $P{PARA_KYBC} kybc,to_char(to_date($P{PARA_NGAYBC}),'DD')  ngaybc, to_char(to_date($P{PARA_NGAYBC}),'MM') thangbc, VBSP_PUBLIC_FUNCTION.F_GET_QUATER($P{PARA_NGAYBC}) quybc, to_char(to_date($P{PARA_NGAYBC}),'YYYY') nambc  from dual]]>
+	</queryString>
+	<field name="KYBC" class="java.lang.String"/>
+	<field name="NGAYBC" class="java.lang.String"/>
+	<field name="THANGBC" class="java.lang.String"/>
+	<field name="QUYBC" class="java.math.BigDecimal"/>
+	<field name="NAMBC" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="3" y="1" width="275" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="13" isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{KYBC} == "D" ? "Ngày " + $F{NGAYBC} + " tháng " + $F{THANGBC} + " năm " + $F{NAMBC} : $F{KYBC} == "M" ? "Tháng " + $F{THANGBC} + " năm " + $F{NAMBC} : $F{KYBC} == "Q" ? "Quý " + $F{QUYBC} + " năm " +$F{NAMBC} : $F{KYBC} == "Y" ? " Từ ngày 01/01/" + $F{NAMBC} + " đến ngày 31/12/" + $F{NAMBC} : "Từ ngày 01/01/" + $F{NAMBC} + " đến ngày " + $F{NGAYBC} + "/" + $F{THANGBC} + "/" + $F{NAMBC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

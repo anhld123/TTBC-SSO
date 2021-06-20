@@ -1,0 +1,50 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="MauThuThap_To.xlsx" fileOutFormat="KH_MAU1_PV_POS_CD_PV_MATO_PARA_NGAYBC">
+   <title>Bảng thu thập thông tin số điện thoại của khách hàng vay qua Tổ</title>
+   <userName>ADMIN</userName>
+   <date>02-Dec-2016 12:44:53</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   
+
+
+
+
+
+
+
+
+
+
+
+<parameter name="PV_POS_CD" class="java.lang.String" description="Mã phòng giao dịch"/>
+
+
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+
+
+
+
+
+
+
+
+<queryString id="1" maplist="data1" description="Lấy ra tên chi nhánh" key_group="EMPTY" value_group="EMPTY"><![CDATA[select distinct decode(MAIN_POS,'000100','HỘI SỞ CHÍNH','000101','SỞ GIAO DỊCH',upper(add_city))  str1   from po850mb  where POS_CD=$P{PV_POS_CD}]]></queryString>
+
+
+
+
+<queryString id="3" maplist="data3" description="Lấy thông tin tổ trưởng" key_group="EMPTY" value_group="EMPTY"><![CDATA[select distinct nvl(LEADER_NAME,' ') str1, nvl(GROUP_ID,' ') str2, nvl(LEADER_ADDRESS,' ') str3,  nvl(LEADER_MOBILE,' ') str4, MASS_ORG_DESC str5  from DTW_COL_CUST_MOBILE where POS_CD = $P{PV_POS_CD} and GROUP_ID = $P{PV_MATO}]]></queryString>
+
+
+<queryString id="5" maplist="data5" description="Lấy tên TT khi ký" key_group="EMPTY" value_group="EMPTY"><![CDATA[select distinct nvl(LEADER_NAME,' ') str1 from DTW_COL_CUST_MOBILE where POS_CD = $P{PV_POS_CD} and GROUP_ID = $P{PV_MATO}]]></queryString>
+
+
+
+
+
+<parameter name="PV_MATO" class="java.lang.String" description="Mã tổ trưởng"/>
+
+<queryString id="2" maplist="data2" description="Lấy tên phòng giao dịch" key_group="EMPTY" value_group="EMPTY"><![CDATA[select initcap(replace(PO_TEN,'PGD','')) str1 from dmpos where PO_MA=$P{PV_POS_CD} ]]></queryString>
+
+<queryString id="4" maplist="data4" description="Lấy thông tin khách hàng" key_group="EMPTY" value_group="EMPTY"><![CDATA[select ROWNUM STR1, STR2, STR3, STR4, STR5 FROM  (select  NVL(CUST_NAME,' ') STR2, NVL(CUST_ID,' ') STR3, NVL(ADDRESS,' ') STR4,NVL( MOBILE,' ') STR5 from DTW_COL_CUST_MOBILE where  POS_CD = $P{PV_POS_CD} and status ='A' and  GROUP_ID = $P{PV_MATO} order by COMMUNE_ID, CUST_ID)]]></queryString>
+</excel_template>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    
+    <package name="Formula_report" extends="struts-default">
+        <action name="initFormula" class="vbsp.ims.action.FormulaRptAction">
+            <result name="success">baocaoct/main_bccongthuc.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="FormulaCreate" class="vbsp.ims.action.FormulaRptAction" method="DrawReportFormula">
+            <result name="success">baocaoct/draw_report_bccongthuc.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="SaveFormulaReport" class="vbsp.ims.action.FormulaRptAction" method="SavaRptFormula">
+            <result name="success">/error.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+    </package>
+    
+    <package name="CheckAllFormula" extends="struts-default,json-default">
+        <interceptors>
+            <interceptor-stack name="defaultStack">
+                <interceptor-ref name="json">
+                    <param name="enableSMD">true</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <action name="checkformula" class="vbsp.ims.action.FormulaRptAction" method="checkFormula">
+            <result type="json"/>
+            <result name="error">/error.jsp</result>
+        </action>
+    </package>
+    <package name="EditDelFormula" extends="struts-default,json-default">        
+        <action name="EditFormulaAction" class="vbsp.ims.action.FormulaRptAction" method="EditDelFormulaAction">
+            <result name="success">baocaoct/edit_del_report_formula.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="editFormula" class="vbsp.ims.action.FormulaRptAction" method="loadEditFormula">
+            <result name="success">baocaoct/edit_formula_main.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="ReDrawEditFormula" class="vbsp.ims.action.FormulaRptAction" method="ReDrawEditFormula">
+            <result name="success">baocaoct/draw_edit_formula.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <!--        <action name="checkct" class="vbsp.ims.action.FormulaRptAction" method="checkct">
+            <result name="success">baocaoct/draw_report_bccongthuc.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>        -->
+        <action name="Deleteformula" class="vbsp.ims.action.FormulaRptAction" method="deleteRptFormula">
+            <result name="success">/message-success.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="loadSelectExp"  
+                    class="vbsp.ims.action.FormulaRptAction" 
+                    method="loadReportExp">
+            <result name="success" type="json"></result>
+        </action>   
+        <action name="LoadParametersFormula" class="vbsp.ims.action.FormulaRptAction" method="loadParameterPosExp">
+            <result name="success">/baocaoct/load_para_formula.jsp</result>     
+            <result name="error">  
+                /error.jsp
+            </result>       
+        </action>
+        <action name="exportFileFormula" class="vbsp.ims.action.FormulaRptAction" method="exportXlsxFileFormula">
+             <result name="success">  
+                baocaoct/downfile.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>              
+        </action>   
+        <action name="download" class="vbsp.ims.action.DownloadFileAction">
+            <result name="success" type="stream">
+                <param name="contentDisposition">attachment;filename=${fileName}</param>
+                <param name="contentType">application/vnd.ms-excel</param>
+                <param name="inputName">fileInputStream</param>
+                <param name="bufferSize">1024</param>
+            </result>
+            <result name="error">error.jsp</result>
+        </action>     
+    </package>
+</struts>
+

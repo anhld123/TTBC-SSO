@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="D00054_052-TT.xlsx" fileOutFormat="SBV_052_D00054_DDMMYYYY">
+   <title>052-TT - Báo cáo giao dịch chuyển tiền qua SWIFT (Tháng)</title>
+   <userName>ADMIN</userName>
+   <date>10-Aug-2016 10:04:186</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   
+
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+
+
+<queryString id="1" maplist="header" description="Tiêu đề báo cáo" key_group="EMPTY" value_group="EMPTY">select 'D00054_SBV_052_TT' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRUNGPQ' STR5,
+'TRANGPT' STR6  from dmpos where po_ma= '000100'</queryString>
+</excel_template>

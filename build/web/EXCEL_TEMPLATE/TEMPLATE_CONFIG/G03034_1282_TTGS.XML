@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="G03034_1282_TTGS.xlsx" fileOutFormat="G03034_1282_TTGS_DDMMYYYY">
+   <title>128.2-TTGS - Báo cáo thông tin về khoản cấp tín dụng (Tháng)</title>
+   <userName>ADMIN</userName>
+   <date>28-Dec-2016 20:45:840</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+
+
+
+
+<parameter name="PARA_MAPGD" class="java.lang.String" description="mã PGD"/>
+
+<queryString id="2" maplist="data" description="data" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_128_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC}, '2', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="1" maplist="header" description="header" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'G03034_SBV_128.2_TTGS' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRANGPT' STR5,
+'QUYENNV' STR6  from dmpos where po_ma = $P{PARA_MAPGD}]]></queryString>
+</excel_template>

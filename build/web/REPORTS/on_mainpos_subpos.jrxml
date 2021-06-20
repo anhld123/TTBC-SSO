@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="on_mainpos_subpos" language="groovy" pageWidth="325" pageHeight="842" columnWidth="325" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="POS_CD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CONS_FLAG" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select pos_desc, add_city, VBSP_PUBLIC_FUNCTION.F_GET_REPORT_GRADE($P{POS_CD},$P{CONS_FLAG}) CAP_BC from po850mb where pos_cd = $P{POS_CD}]]>
+	</queryString>
+	<field name="POS_DESC" class="java.lang.String"/>
+	<field name="ADD_CITY" class="java.lang.String"/>
+	<field name="CAP_BC" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="48" splitType="Stretch">
+			<textField>
+				<reportElement x="55" y="24" width="265" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CAP_BC} == 1 ? $F{POS_DESC}.toUpperCase() : $F{CAP_BC} == 2 ? $F{ADD_CITY}.toUpperCase() : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="4" width="265" height="17"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Times New Roman" size="11" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CAP_BC} == 2 ? "NGÂN HÀNG CHÍNH SÁCH XÃ HỘI VIỆT NAM" : $F{CAP_BC} == 3 ?
+"<style isBold='true'>" + $F{ADD_CITY}.toUpperCase() + "</style>" :$F{ADD_CITY}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="2" y="0" width="55" height="48"/>
+				<imageExpression class="java.lang.String"><![CDATA["/Logo_VBSP.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+</jasperReport>

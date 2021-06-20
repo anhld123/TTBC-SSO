@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="chitiet_khoanvay_xa1.xlsx" fileOutFormat="PARA_MAPGD_DDMMYYYY_BCTD_XA">
+   <title>Báo cáo tín dụng chi tiết khoản vay tới xã</title>
+   <userName>ADMIN06</userName>
+   <date>23-May-2016 15:21:79</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MAPGD" class="java.lang.String" description="Mã PGD"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+<queryString id="1" maplist="data" description="Lấy dữ liệu" key_group="STR1" value_group="STR2">select maxa str1, ten str2, ku_makh str3, kh_tenkh str4, ku_dnothan d1, ku_dnoqhan d2, ku_dnokhoanh d3, ku_laithan d4 from(
+select substr(ku_madp,1,6) maxa, ten, ku_makh,kh_tenkh, ku_dnothan,ku_dnoqhan,ku_dnokhoanh, ku_laithan   from hsku, hskh, dmxa where
+ku_makh=kh_makh and substr(ku_madp,1,6)=ma and ku_mapgd= $P{PARA_MAPGD} and ku_ngaybc= $P{PARA_NGAYBC}
+order by maxa, ku_makh)</queryString>
+</excel_template>

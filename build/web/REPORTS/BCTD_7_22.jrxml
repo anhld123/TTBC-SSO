@@ -1,0 +1,1923 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BCTD_7_22" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="865371ac-b2e0-45ac-ab17-a4f654e5f478">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_TONGHOP" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\02. Official dispatch of IT\\14. BAN KHNV\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="plsql">
+		<![CDATA[{call P_BCTD_7_22($P{PARA_MAPGD},$P{PARA_NGAYBC},$P{PARA_TONGHOP},$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<field name="STT" class="java.lang.String"/>
+	<field name="MAVUNG" class="java.lang.String"/>
+	<field name="MACN" class="java.lang.String"/>
+	<field name="MAPGD" class="java.lang.String"/>
+	<field name="VUNG" class="java.lang.String"/>
+	<field name="TINH" class="java.lang.String"/>
+	<field name="HUYEN" class="java.lang.String"/>
+	<field name="XA" class="java.lang.String"/>
+	<field name="MAXA" class="java.lang.String"/>
+	<field name="SOKH_TGTK" class="java.math.BigDecimal"/>
+	<field name="KKH_SOMON_TGTK" class="java.math.BigDecimal"/>
+	<field name="KKH_THUTK_THANG" class="java.math.BigDecimal"/>
+	<field name="KKH_THUTK_LK" class="java.math.BigDecimal"/>
+	<field name="KKH_CHITK_THANG" class="java.math.BigDecimal"/>
+	<field name="KKH_CHITK_LK" class="java.math.BigDecimal"/>
+	<field name="KKH_SODU_THANG" class="java.math.BigDecimal"/>
+	<field name="KKH_TANGGIAM" class="java.math.BigDecimal"/>
+	<field name="CKH_SOMON_TGTK" class="java.math.BigDecimal"/>
+	<field name="CKH_THUTK_THANG" class="java.math.BigDecimal"/>
+	<field name="CKH_THUTK_LK" class="java.math.BigDecimal"/>
+	<field name="CKH_CHITK_THANG" class="java.math.BigDecimal"/>
+	<field name="CKH_CHITK_LK" class="java.math.BigDecimal"/>
+	<field name="CKH_SODU_THANG" class="java.math.BigDecimal"/>
+	<field name="CKH_TANGGIAM" class="java.math.BigDecimal"/>
+	<variable name="SOKH_TGTK_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_tinh" calculation="Sum">
+		<variableExpression><![CDATA[$F{SOKH_TGTK}]]></variableExpression>
+	</variable>
+	<variable name="SOKH_TGTK_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_huyen" calculation="Sum">
+		<variableExpression><![CDATA[$F{SOKH_TGTK}]]></variableExpression>
+	</variable>
+	<variable name="KKH_SOMON_TGTK_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_tinh" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_SOMON_TGTK}]]></variableExpression>
+	</variable>
+	<variable name="KKH_SOMON_TGTK_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_huyen" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_SOMON_TGTK}]]></variableExpression>
+	</variable>
+	<variable name="KKH_THUTK_THANG_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_tinh" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_THUTK_THANG}]]></variableExpression>
+	</variable>
+	<variable name="KKH_THUTK_THANG_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_huyen" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_THUTK_THANG}]]></variableExpression>
+	</variable>
+	<variable name="KKH_THUTK_LK_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_tinh" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_THUTK_LK}]]></variableExpression>
+	</variable>
+	<variable name="KKH_THUTK_LK_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_huyen" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_THUTK_LK}]]></variableExpression>
+	</variable>
+	<variable name="KKH_CHITK_THANG_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_tinh" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_CHITK_THANG}]]></variableExpression>
+	</variable>
+	<variable name="KKH_CHITK_THANG_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_huyen" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_CHITK_THANG}]]></variableExpression>
+	</variable>
+	<variable name="KKH_CHITK_LK_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_tinh" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_CHITK_LK}]]></variableExpression>
+	</variable>
+	<variable name="KKH_CHITK_LK_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_huyen" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_CHITK_LK}]]></variableExpression>
+	</variable>
+	<variable name="KKH_SODU_THANG_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_tinh" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_SODU_THANG}]]></variableExpression>
+	</variable>
+	<variable name="KKH_SODU_THANG_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_huyen" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_SODU_THANG}]]></variableExpression>
+	</variable>
+	<variable name="KKH_TANGGIAM_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_tinh" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_TANGGIAM}]]></variableExpression>
+	</variable>
+	<variable name="KKH_TANGGIAM_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_huyen" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_TANGGIAM}]]></variableExpression>
+	</variable>
+	<variable name="CKH_SOMON_TGTK_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_tinh" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_SOMON_TGTK}]]></variableExpression>
+	</variable>
+	<variable name="CKH_SOMON_TGTK_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_huyen" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_SOMON_TGTK}]]></variableExpression>
+	</variable>
+	<variable name="CKH_THUTK_THANG_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_tinh" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_THUTK_THANG}]]></variableExpression>
+	</variable>
+	<variable name="CKH_THUTK_THANG_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_huyen" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_THUTK_THANG}]]></variableExpression>
+	</variable>
+	<variable name="CKH_THUTK_LK_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_tinh" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_THUTK_LK}]]></variableExpression>
+	</variable>
+	<variable name="CKH_THUTK_LK_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_huyen" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_THUTK_LK}]]></variableExpression>
+	</variable>
+	<variable name="CKH_CHITK_THANG_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_tinh" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_CHITK_THANG}]]></variableExpression>
+	</variable>
+	<variable name="CKH_CHITK_THANG_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_huyen" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_CHITK_THANG}]]></variableExpression>
+	</variable>
+	<variable name="CKH_CHITK_LK_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_tinh" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_CHITK_LK}]]></variableExpression>
+	</variable>
+	<variable name="CKH_CHITK_LK_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_huyen" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_CHITK_LK}]]></variableExpression>
+	</variable>
+	<variable name="CKH_SODU_THANG_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_tinh" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_SODU_THANG}]]></variableExpression>
+	</variable>
+	<variable name="CKH_SODU_THANG_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_huyen" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_SODU_THANG}]]></variableExpression>
+	</variable>
+	<variable name="CKH_TANGGIAM_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_tinh" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_TANGGIAM}]]></variableExpression>
+	</variable>
+	<variable name="CKH_TANGGIAM_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grp_huyen" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_TANGGIAM}]]></variableExpression>
+	</variable>
+	<variable name="SOKH_TGTK_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{SOKH_TGTK}]]></variableExpression>
+	</variable>
+	<variable name="KKH_SOMON_TGTK_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_SOMON_TGTK}]]></variableExpression>
+	</variable>
+	<variable name="KKH_THUTK_THANG_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_THUTK_THANG}]]></variableExpression>
+	</variable>
+	<variable name="KKH_THUTK_LK_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_THUTK_LK}]]></variableExpression>
+	</variable>
+	<variable name="KKH_CHITK_THANG_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_CHITK_THANG}]]></variableExpression>
+	</variable>
+	<variable name="KKH_CHITK_LK_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_CHITK_LK}]]></variableExpression>
+	</variable>
+	<variable name="KKH_SODU_THANG_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_SODU_THANG}]]></variableExpression>
+	</variable>
+	<variable name="KKH_TANGGIAM_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{KKH_TANGGIAM}]]></variableExpression>
+	</variable>
+	<variable name="CKH_SOMON_TGTK_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_SOMON_TGTK}]]></variableExpression>
+	</variable>
+	<variable name="CKH_THUTK_THANG_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_THUTK_THANG}]]></variableExpression>
+	</variable>
+	<variable name="CKH_THUTK_LK_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_THUTK_LK}]]></variableExpression>
+	</variable>
+	<variable name="CKH_CHITK_THANG_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_CHITK_THANG}]]></variableExpression>
+	</variable>
+	<variable name="CKH_CHITK_LK_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_CHITK_LK}]]></variableExpression>
+	</variable>
+	<variable name="CKH_SODU_THANG_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_SODU_THANG}]]></variableExpression>
+	</variable>
+	<variable name="CKH_TANGGIAM_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CKH_TANGGIAM}]]></variableExpression>
+	</variable>
+	<variable name="count_tinh" class="java.lang.Integer" resetType="Group" resetGroup="grp_vung" incrementType="Group" incrementGroup="grp_tinh" calculation="Count">
+		<variableExpression><![CDATA[$V{count_tinh} + 1]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(1)]]></initialValueExpression>
+	</variable>
+	<variable name="count_huyen" class="java.lang.Integer" resetType="Group" resetGroup="grp_tinh" incrementType="Group" incrementGroup="grp_huyen" calculation="Count">
+		<variableExpression><![CDATA[$V{count_huyen} + 1]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(1)]]></initialValueExpression>
+	</variable>
+	<variable name="count_xa" class="java.lang.Integer" resetType="Group" resetGroup="grp_huyen">
+		<variableExpression><![CDATA[$V{count_xa} + 1]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<group name="grp_vung">
+		<groupExpression><![CDATA[$F{MAVUNG}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement uuid="c18d731f-38c3-4565-88a3-099669abdec1" x="0" y="0" width="31" height="20"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{MAVUNG}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="6a9af435-df85-41e7-95c7-7e453d8bfa5c" x="31" y="0" width="771" height="20"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{VUNG}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="grp_tinh">
+		<groupExpression><![CDATA[$F{MACN}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="bf127206-be60-41a1-8741-14aded18fb1d" x="0" y="0" width="31" height="20"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+				</textField>
+				<textField>
+					<reportElement uuid="7fa6cbc7-a711-40bb-a9bc-977418230d68" x="31" y="0" width="109" height="20"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["TỈNH " + $F{TINH}.toUpperCase()]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh" pattern="#,##0">
+					<reportElement uuid="cefece6b-c6c2-4711-ac16-e0706f523fce" x="140" y="0" width="46" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SOKH_TGTK_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh" pattern="#,##0">
+					<reportElement uuid="d8e81d2d-8ebe-497c-9e9b-8f785e856634" x="186" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{KKH_SOMON_TGTK_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh" pattern="#,##0.00">
+					<reportElement uuid="75fef961-3e09-44b2-912b-56b24b74286f" x="226" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{KKH_THUTK_THANG_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh" pattern="#,##0.00">
+					<reportElement uuid="9e104801-8bed-4232-af11-04871feee9e5" x="266" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{KKH_THUTK_LK_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh" pattern="#,##0.00">
+					<reportElement uuid="4c6dd3be-cfad-423d-b43c-75d1aeca021a" x="306" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{KKH_CHITK_THANG_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh" pattern="#,##0.00">
+					<reportElement uuid="37017d26-3659-4ddb-847c-a9ae8018fe8a" x="346" y="0" width="39" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{KKH_CHITK_LK_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh" pattern="#,##0.00">
+					<reportElement uuid="6cf4a6d9-e6be-4d84-9469-13f3b95fdd6d" x="385" y="0" width="55" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{KKH_SODU_THANG_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh" pattern="#,##0.00">
+					<reportElement uuid="0f1e70f3-e28a-4cb7-802a-f9881c4ed57d" x="440" y="0" width="54" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{KKH_TANGGIAM_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh" pattern="#,##0">
+					<reportElement uuid="6a276781-f3cb-41ad-bf43-673c320d1c5f" x="494" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CKH_SOMON_TGTK_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh" pattern="#,##0.00">
+					<reportElement uuid="d2aa387b-f70c-4f68-a04a-b42f3391c66c" x="534" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CKH_THUTK_THANG_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh" pattern="#,##0.00">
+					<reportElement uuid="defb0892-4bfe-4bdb-9a54-006c72a05406" x="574" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CKH_THUTK_LK_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh" pattern="#,##0.00">
+					<reportElement uuid="4d39feb7-ebb0-4f2f-baeb-b02460a7cef1" x="614" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CKH_CHITK_THANG_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh" pattern="#,##0.00">
+					<reportElement uuid="e1a73fca-3343-4158-8f1f-52402a82aed2" x="654" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CKH_CHITK_LK_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh" pattern="#,##0.00">
+					<reportElement uuid="f53a740d-f353-43c1-871e-bfac923b112c" x="694" y="0" width="54" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CKH_SODU_THANG_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh" pattern="#,##0.00">
+					<reportElement uuid="cf9af663-54d5-4c4c-a231-28c513944822" x="748" y="0" width="54" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CKH_TANGGIAM_1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_tinh">
+					<reportElement uuid="29ce9ddf-7228-494c-bc67-db8db2081485" x="0" y="0" width="31" height="20"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{count_tinh}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="grp_huyen">
+		<groupExpression><![CDATA[$F{MAPGD}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="e2e1e56b-7dbe-45b6-b721-7e4d387517fe" x="0" y="0" width="31" height="20"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+				</textField>
+				<textField>
+					<reportElement uuid="21bda9ff-58ec-4761-aa0d-b57bf0d1c136" x="31" y="0" width="109" height="20"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{HUYEN}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen" pattern="#,##0">
+					<reportElement uuid="23d188c4-1358-48b7-aad0-ceb3bcf187e4" x="140" y="0" width="46" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SOKH_TGTK_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen" pattern="#,##0">
+					<reportElement uuid="97461147-f396-47c6-8e43-050665ea3664" x="186" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{KKH_SOMON_TGTK_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen" pattern="#,##0.00">
+					<reportElement uuid="42978048-1451-4096-b9a7-752c9fb49f01" x="226" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{KKH_THUTK_THANG_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen" pattern="#,##0.00">
+					<reportElement uuid="fac3154b-a330-4a60-8757-9675e22b9f84" x="266" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{KKH_THUTK_LK_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen" pattern="#,##0.00">
+					<reportElement uuid="9e227888-4600-468a-a5dd-7ca5bc4aa2a6" x="306" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{KKH_CHITK_THANG_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen" pattern="#,##0.00">
+					<reportElement uuid="9814ecc6-fc95-422c-9616-8c20eeca5575" x="346" y="0" width="39" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{KKH_CHITK_LK_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen" pattern="#,##0.00">
+					<reportElement uuid="a6cb42ae-55bf-455b-bca9-c3a4e8d86f65" x="385" y="0" width="55" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{KKH_SODU_THANG_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen" pattern="#,##0.00">
+					<reportElement uuid="d64bfa3b-053c-4faa-bc5a-b485fb4fad4a" x="440" y="0" width="54" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{KKH_TANGGIAM_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen" pattern="#,##0">
+					<reportElement uuid="e7608e4a-9387-4767-8d63-521c58a87001" x="494" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CKH_SOMON_TGTK_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen" pattern="#,##0.00">
+					<reportElement uuid="61e0de86-696a-42a8-9377-3a4f57326116" x="534" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CKH_THUTK_THANG_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen" pattern="#,##0.00">
+					<reportElement uuid="21aa9d3f-3339-4532-94e4-7cd4f8561862" x="574" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CKH_THUTK_LK_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen" pattern="#,##0.00">
+					<reportElement uuid="af1da79a-0ae6-4b26-a991-fcd3711c043c" x="614" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CKH_CHITK_THANG_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen" pattern="#,##0.00">
+					<reportElement uuid="2fff4972-efde-4ff0-8427-4af774c9c16d" x="654" y="0" width="40" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CKH_CHITK_LK_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen" pattern="#,##0.00">
+					<reportElement uuid="42320def-eb78-4edf-a9f2-f4ca0b2a9275" x="694" y="0" width="54" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CKH_SODU_THANG_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen" pattern="#,##0.00">
+					<reportElement uuid="1de7a6e1-8914-4d1b-b0e9-094308626f92" x="748" y="0" width="54" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CKH_TANGGIAM_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grp_huyen">
+					<reportElement uuid="9421b91d-0bc8-4082-a5ea-682596ed5e4c" x="0" y="0" width="31" height="20"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{count_tinh} + "." + $V{count_huyen}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="196" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="273b1189-8993-4c4d-934b-4ab1eeb72ee9" x="652" y="69" width="150" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Đơn vị: triệu đồng, khách hàng, món]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c84a3cae-c76b-45d6-858a-a711622d091b" x="0" y="46" width="802" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BÁO CÁO KẾT QUẢ GIAO DỊCH TIỀN GỬI TIẾT KIỆM TẠI ĐIỂM GIAO DỊCH XÃ]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="2cbfa7af-3788-442f-bebc-bf5170d3d163" x="364" y="61" width="161" height="25"/>
+				<subreportParameter name="para_denngay">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["Month_report.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="4c54a01b-d836-4210-b015-bfc4828ddfa9" x="0" y="89" width="31" height="107"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a3c57fb6-719d-4afc-a279-951bcb7449c1" x="31" y="89" width="109" height="107"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tỉnh/Huyện/Xã]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b676b559-d3d5-4a79-9a01-0c4cdd8240fe" x="140" y="89" width="46" height="107"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số KH có tiền gửi tiết kiệm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b5dfbfb7-d1c0-4238-92b5-e565fd73b2d1" x="186" y="118" width="40" height="78"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số món TGTK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4409647d-aa94-40ab-b8a7-3808409674fa" x="226" y="148" width="40" height="48"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Trong tháng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="656d8f23-b8ca-42d1-9055-fe747a1d21d9" x="266" y="148" width="40" height="48"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LK từ đầu năm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9b197b5a-cfc6-4ff1-9b6c-70b1b9412c3e" x="226" y="118" width="80" height="30"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số thu tiên gửi tiết kiệm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4541ef2a-ab67-4336-a389-18eb3d51483e" x="306" y="148" width="40" height="48"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Trong tháng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="de11a0e6-b2d3-44fa-88d6-597c829a8da7" x="346" y="148" width="40" height="48"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LK từ đầu năm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7508aeb5-bd41-4f70-a623-438945298015" x="306" y="118" width="80" height="30"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số chi tiền gửi
+tiết kiệm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6350ddef-ed66-4031-a5da-f136364d1c96" x="386" y="148" width="54" height="48"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Trong
+ tháng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0a056df1-1621-474f-8820-b60786c34256" x="440" y="148" width="54" height="48"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tăng giảm so với đầu năm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b23aeba-6a83-4245-9247-f1e37b386cf3" x="386" y="118" width="108" height="30"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số dư tiền gửi
+tiết kiệm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4ea89a2a-ebc9-4981-88c3-29f81b602576" x="748" y="148" width="54" height="48"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tăng giảm so với đầu năm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a88de82b-888c-43f4-a0c1-e2ed918acd07" x="614" y="118" width="80" height="30"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số chi tiền gửi
+tiết kiệm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0aa4c982-2174-4961-834a-a05a37e17c8f" x="694" y="118" width="108" height="30"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số dư tiền gửi
+tiết kiệm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="88b0b8d2-669a-40cb-960c-7299e3c422e0" x="614" y="148" width="40" height="48"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Trong tháng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aee1e5dd-b8cf-4dac-9ef6-01cc4899b1ca" x="494" y="118" width="40" height="78"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số món TGTK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0706ec0f-e9f5-4fbf-90f6-01bfce8509c1" x="654" y="148" width="40" height="48"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LK từ đầu năm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6a9c0c3c-bb78-46d4-bb91-b01ac325bae2" x="534" y="148" width="40" height="48"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Trong tháng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c527898c-ce42-4837-afd4-676637646840" x="574" y="148" width="40" height="48"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LK từ đầu năm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="550617d9-1241-49ec-8058-cfa95ad64363" x="694" y="148" width="54" height="48"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Trong
+tháng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9d28ecc1-3cb1-43cb-842c-19a82064b7e7" x="534" y="118" width="80" height="30"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số thu tiên gửi tiết kiệm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e46407e8-3090-42ad-95ef-7255c34ea238" x="186" y="89" width="308" height="29"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tiết kiệm không kỳ hạn]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e993d92f-b819-4254-a524-70ba0627cbae" x="494" y="89" width="308" height="29"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tiết kiệm có kỳ hạn]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="64cb7665-afa3-40a4-9ef0-4ddb0e4bf230" x="0" y="0" width="200" height="59"/>
+				<subreportParameter name="POS_CD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CONS_FLAG">
+					<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["mainpos_subpos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="16dede62-f828-4ecf-9f52-e0ca6917d4a9" x="266" y="0" width="40" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(6)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="52890365-9c1d-47bf-87f1-d98c7a396bde" x="306" y="0" width="40" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(7)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="843a0164-7046-4ecf-a00d-6ec7cf58bd10" x="0" y="0" width="31" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(1)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="520857f0-057d-46c7-bc05-2206cf8eae1d" x="31" y="0" width="109" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(2)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e07f673e-f37e-4db4-900d-f8bc44c41a89" x="140" y="0" width="46" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(3)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9e91167a-e22e-436a-b4cc-17119fade8f0" x="226" y="0" width="40" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(5)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b97203fc-41af-4174-9370-56851fdd24f2" x="186" y="0" width="40" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(4)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1acbc795-5100-44cf-96fd-31fe21ba94d8" x="346" y="0" width="40" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(8)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="edd6cc53-c5fd-42a1-9060-5d994f63ab20" x="574" y="0" width="40" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(13)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7d6e4e1b-369a-4f7b-a448-117bacb9303b" x="534" y="0" width="40" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(12)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1b77e0b6-310a-4f36-ac9b-cc5a1e0f68f3" x="614" y="0" width="40" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(14)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5c95d2db-706c-4b16-b736-654e7c4dd774" x="654" y="0" width="40" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(15)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="28fba25b-6fb8-4419-b636-cb52855433ba" x="694" y="0" width="54" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(16)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b1101c78-73c8-4cba-8ec6-bd0c10a17145" x="386" y="0" width="54" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(9)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fd2ffb6a-99b3-44e2-b506-e4fd82b6ef1e" x="440" y="0" width="54" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(10)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a739a013-fafd-44d2-baec-f14d0bc927ca" x="494" y="0" width="40" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(11)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="80905676-c365-4bca-8fd1-943fd0329234" x="748" y="0" width="54" height="17"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(17)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="a3f9db40-d8db-4214-b1ba-7faeaa447eed" x="31" y="0" width="109" height="20"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{XA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="3c77cfb6-f306-4af4-b70d-c10881cf1f00" x="140" y="0" width="46" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SOKH_TGTK}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="97c2701d-667b-4992-b40e-60513e8cdb19" x="186" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{KKH_SOMON_TGTK}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="1ca5a39c-c32d-4383-b9b2-0a6519be65fb" x="226" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{KKH_THUTK_THANG}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="76d1077c-b520-45d4-852a-5ac389ed44ee" x="266" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{KKH_THUTK_LK}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="1adfb60e-9f84-44e7-98b1-9ad8a34c80d1" x="306" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{KKH_CHITK_THANG}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="19ae3351-b7f8-46c7-a88d-2e5ba3d34da8" x="346" y="0" width="39" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{KKH_CHITK_LK}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="9258fdd2-f2af-4025-81de-35dac5d5c051" x="385" y="0" width="55" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{KKH_SODU_THANG}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="0b8564f9-0355-402b-87ce-0e3015403a66" x="440" y="0" width="54" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{KKH_TANGGIAM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="18affd49-1e7c-4732-80c5-792117cac7a5" x="494" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CKH_SOMON_TGTK}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="6e812514-8c66-46a8-bdaf-7a77d42de126" x="534" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CKH_THUTK_THANG}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="a24f38ca-d9ea-4aa1-9fca-be687e5d6d74" x="574" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CKH_THUTK_LK}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="55483118-ea88-40d5-9bb8-2e445f3ead57" x="614" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CKH_CHITK_THANG}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="19c0cf11-8d6d-4383-8a55-bf237d82e50b" x="654" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CKH_CHITK_LK}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="46cb70e4-0bda-491d-a50a-dec42944fe93" x="694" y="0" width="54" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CKH_SODU_THANG}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="42d76f56-547f-4334-a23d-383c6a9f6b73" x="748" y="0" width="54" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CKH_TANGGIAM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="44ab98cd-be7d-4c77-ab17-f50c65572e79" x="0" y="0" width="31" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{count_xa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="18" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement uuid="9a7e5714-8579-4b0e-b2a8-1f6b59552a16" x="660" y="0" width="106" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Trang: "+$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="###0">
+				<reportElement uuid="47607211-9dbc-48e8-8eb8-21950fe5a793" x="766" y="0" width="36" height="18"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="a26d9963-b557-4452-97f7-d3b45bedd8e0" x="0" y="0" width="140" height="22"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TỔNG]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement uuid="1d131b4f-6480-4a5c-a8be-8e48601bfe8a" x="140" y="0" width="46" height="22"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SOKH_TGTK_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="6dc51978-6f76-47ae-aa23-b7503d284e8a" x="186" y="0" width="40" height="22"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{KKH_SOMON_TGTK_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="b8f25a09-b9a0-4c32-8f64-2d201e2e03f1" x="226" y="0" width="40" height="22"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{KKH_THUTK_THANG_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="c54b753e-121d-4554-a11c-e8df8e9810dd" x="266" y="0" width="40" height="22"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{KKH_THUTK_LK_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="a0a16662-dfb7-47c8-8d12-99adaa5f9839" x="306" y="0" width="40" height="22"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{KKH_CHITK_THANG_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="ea57c4a0-a654-413b-9c70-771f845f00e9" x="346" y="0" width="40" height="22"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{KKH_CHITK_LK_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="e28fe2e5-3332-4a0e-9530-1f3e1e9ba8bd" x="386" y="0" width="54" height="22"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{KKH_SODU_THANG_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="3eaa5e15-32b0-42d2-bd29-9f9e0ac707a5" x="440" y="0" width="54" height="22"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{KKH_TANGGIAM_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="fe2a07b4-0323-47b0-88c5-d950612fb0b5" x="494" y="0" width="40" height="22"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{CKH_SOMON_TGTK_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="fed4d32d-26a0-4142-929d-19e236faed60" x="534" y="0" width="40" height="22"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{CKH_THUTK_THANG_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="2b5e1e76-e834-45c0-9351-ac4e086e90a7" x="574" y="0" width="40" height="22"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{CKH_THUTK_LK_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="4a844062-55e9-4de0-acf7-22823af568e2" x="614" y="0" width="40" height="22"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{CKH_CHITK_THANG_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="ba140eef-c2a1-4518-992d-191de60b5a8c" x="654" y="0" width="40" height="22"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{CKH_CHITK_LK_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="c65e17b3-ab58-43cc-bff1-60f4279b54df" x="694" y="0" width="54" height="22"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{CKH_SODU_THANG_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="ba71dee9-a191-425c-8c09-bce5675bdbcd" x="748" y="0" width="54" height="22"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{CKH_TANGGIAM_3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8d2aee86-3eb2-406b-a53b-b68d4547c50f" x="660" y="56" width="117" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfFontName="" pdfEncoding="Identity-V"/>
+				</textElement>
+				<text><![CDATA[(Ký tên, đóng dấu)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="23752b86-ee1e-4ed5-8894-aec72d7539a9" x="660" y="36" width="117" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfFontName="" pdfEncoding="Identity-V"/>
+				</textElement>
+				<text><![CDATA[Thủ trưởng đơn vị]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="16a73dc2-c946-48bc-957a-6c556b46bf86" x="306" y="36" width="206" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfFontName="" pdfEncoding="Identity-V"/>
+				</textElement>
+				<text><![CDATA[Kiểm soát]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1b1f3c47-763f-450c-a5c7-bd7d5af693d5" x="2" y="56" width="202" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfFontName="" pdfEncoding="Identity-V"/>
+				</textElement>
+				<text><![CDATA[(Ký và ghi rõ họ tên)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7608baad-7bf0-424f-a55e-c28f1e33c7fc" x="2" y="40" width="202" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfFontName="" pdfEncoding="Identity-V"/>
+				</textElement>
+				<text><![CDATA[Lập bảng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bf0a8896-5d95-40c2-9547-9a9c0a63fae2" x="306" y="52" width="206" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfFontName="" pdfEncoding="Identity-V"/>
+				</textElement>
+				<text><![CDATA[(Ký và ghi rõ họ tên)]]></text>
+			</staticText>
+		</band>
+	</summary>
+	<noData>
+		<band height="37">
+			<staticText>
+				<reportElement uuid="444cd1c5-1091-4756-a848-ce99bf874f03" x="0" y="0" width="565" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfFontName="Times-Roman" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Không có dữ liệu để in, bạn hãy kiểm tra lại tham số đầu vào hoặc liên hệ với cán bộ tin học để được trợ giúp.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="96760aad-2a00-4235-8a33-74262e49c65d" x="0" y="17" width="551" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfFontName="Times-Roman" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Trân trọng cám ơn.]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

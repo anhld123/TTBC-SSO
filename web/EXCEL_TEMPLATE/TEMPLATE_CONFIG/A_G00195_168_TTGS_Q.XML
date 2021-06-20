@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="G00195_168_TTGS_Q.xlsx" fileOutFormat="SBV_168_G00195_DDMMYYYY">
+   <title>168-TTGS - Báo cáo lưu chuyển tiền tệ (Quý)</title>
+   <userName>ADMIN</userName>
+   <date>28-Oct-2016 10:24:648</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+
+
+
+
+
+<parameter name="PARA_MAPGD" class="java.lang.String" description="Mã PGD"/>
+
+<queryString id="1" maplist="header" description="Lấy tiêu đề" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'G00195_SBV_168_TTGS' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRANGPT' STR5,
+'NGUYETLM' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+
+<queryString id="2" maplist="data" description="Lấy dữ liệu" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_168_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC}, 'Q','TTGS168', $P{ORACLE_REF_CURSOR})}]]></queryString>
+</excel_template>

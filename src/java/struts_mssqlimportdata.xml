@@ -1,0 +1,31 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>        
+    <package name="MSSQLIMPORTDATA" extends="struts-default,json-default">
+        
+        <action name="MSSQLImportDataPopupLink" 
+                class="vbsp.ims.mssql.dataimport.UserInformationMsSql2OracleAction" 
+                method="popupLink">
+            <result name="success">/MSSQLImportData/importdata_main.jsp</result>
+        </action>
+        
+        
+        <action name="MSSQLImportDataSync" 
+                class="vbsp.ims.mssql.dataimport.UserInformationMsSql2OracleAction" 
+                method="syncData">
+            <result name="success">/MSSQLImportData/message.jsp</result>
+        </action>
+        
+        <action  name="MSSQLImportBuildCombo" 
+                 class="vbsp.ims.mssql.dataimport.UserInformationMsSql2OracleAction"
+                 method="generateServerAddresses" >                                            
+            <result name="success" type="json"></result>   
+            <result name="populate" type="json"></result>   
+            <result name="input" type="json"></result>                          
+        </action> 
+        
+               
+    </package>    
+</struts>

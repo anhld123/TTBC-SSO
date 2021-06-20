@@ -1,0 +1,33 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="BC_NHNN_MAU01.xlsx" fileOutFormat="BC_NHNN_MA01">
+   <title>Báo cáo nợ xấu phát sinh của tổ chức tín dụng, chi nhánh ngân hàng nước ngoài ( M01)</title>
+   <userName>T0001</userName>
+   <date>26-Nov-2018 13:35:481</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_NGAYBC" class="java.util.Date" description="Ngày báo cáo"/>
+<queryString id="1" maplist="DATA_1" description="tong_cong" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 
+ 1 tt_ht,'' stt, 1 stt_sx, 'Tổng số (= 1+ 2)' CHI_TIEU,''SOLUONGKH,'' CMT,sum(NO_XAU) NO_XAU, sum(NOXAU_VND)NOXAU_VND,
+ ''ngoai_te,''chuyenn_cic,''nocc_noxau,''chuyenxdokl,sum(no_qhan) no_qhan, sum(no_khoanh) no_khoanh, suM(giatri_tsdb) giatri_tsdb,
+ sum(tsdb_bds) tsdb_bds
+ from
+ (
+ select * from (
+ select  
+3 tt_ht,'1.'||to_char(ROW_NUMBER() OVER (ORDER BY to_number(NVL(D4,0)) DESC)) stt,
+ROW_NUMBER() OVER (ORDER BY to_number(NVL(D4,0)) DESC)  STT_sx, 
+ D2 chi_tieu,'' Soluongkh, D3 cmt,round( nvL(D4,2)/1000000,2) no_xau ,round(NVL(D5,0)/1000000,2) noxau_vnd, '' ngoai_te,'' chuyenn_cic, '' nocc_noxau,
+''chuyenxdokl,round(NVL(D6,0)/1000000,2) no_qhan,round(NVL(D7,0)/1000000,2) no_khoanh, round(NVL(D8,2)/1000000,2) giatri_tsdb, 
+round(NVL(D9,0)/1000000,2) tsdb_bds
+ from  SBV_DULIEU where khoa = 'SBV_TTGS_M01' and ngaybc = '30-sep-2018' and ma = '1') 
+ where STT_sx between 1 and 50
+ union 
+  select * from (
+ select  
+3 tt_ht,'1.'||to_char(ROW_NUMBER() OVER (ORDER BY to_number(NVL(D4,0)) DESC)) stt,
+ROW_NUMBER() OVER (ORDER BY to_number(NVL(D4,0)) DESC)  STT_sx, 
+ D2 chi_tieu,'' Soluongkh, D3 cmt,round( nvL(D4,0)/1000000,2) no_xau ,round(NVL(D5,0)/1000000,2) noxau_vnd, '' ngoai_te,'' chuyenn_cic, '' nocc_noxau,
+''chuyenxdokl,round(NVL(D6,0)/1000000,2) no_qhan,round(NVL(D7,0)/1000000,2) no_khoanh, round(NVL(D8,0)/1000000,2) giatri_tsdb, 
+round(NVL(D9,0)/1000000,2) tsdb_bds
+ from  SBV_DULIEU where khoa = 'SBV_TTGS_M01' and ngaybc = '30-sep-2018' and ma = '2') 
+ where STT_sx between 1 and 50 )]]></queryString>
+</excel_template>

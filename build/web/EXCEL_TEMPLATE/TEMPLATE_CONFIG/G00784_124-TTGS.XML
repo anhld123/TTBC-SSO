@@ -1,0 +1,10 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="G00784_124-TTGS.xlsx" fileOutFormat="SBV_124_G00784_DDMMYYYY">
+   <title>124-TTGS - Báo cáo về cấp tín dụng đối với các đối tượng thuộc điều 126 và điều 127 luật các tctd 2010</title>
+   <userName>ADMIN</userName>
+   <date>25-Jul-2016 17:10:173</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+<queryString id="1" maplist="header" description="Lấy tiêu đề cho báo cáo" key_group="EMPTY" value_group="EMPTY">select 'G00784_SBV_124_TTGS' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRANGPT' STR5,
+'QUYENNV' STR6  from dmpos where po_ma= '000100'</queryString>
+</excel_template>

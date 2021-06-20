@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUB_REPORT_V_6_1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TONGHOP" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_NGAYBC" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[ SELECT A.DESCRIPT,
+         A.ACCOUNT,
+         A.FIRST_PRE_AMT,
+         A.LAST_PRE_AMT
+    FROM ( (SELECT 'Cho vay các tổ chức kinh tế, cá nhân trong nước '
+                      DESCRIPT,
+                   'DN21, 27' ACCOUNT,
+                   (  DN_TK_SBV ( $P{PARA_NGAYBC},
+                                 $P{PARA_MAPGD},
+                                 $P{PARA_TONGHOP},
+                                 '21',
+                                 'D')
+                    + DN_TK_SBV ( $P{PARA_NGAYBC},
+                                 $P{PARA_MAPGD},
+                                 $P{PARA_TONGHOP},
+                                 '27',
+                                 'P'))
+                      LAST_PRE_AMT,
+                   (  DN_TK_SBV (ADD_MONTHS ( $P{PARA_NGAYBC}, -12),
+                                 $P{PARA_MAPGD},
+                                 $P{PARA_TONGHOP},
+                                 '21',
+                                 'D')
+                    + DN_TK_SBV (ADD_MONTHS ($P{PARA_NGAYBC}, -12),
+                                 $P{PARA_MAPGD},
+                                 $P{PARA_TONGHOP},
+                                 '27',
+                                 'D'))
+                      FIRST_PRE_AMT
+              FROM DUAL)
+          UNION
+          (SELECT 'Cho vay chiết khấu thương phiếu và các giấy tờ có giá '
+                     DESCRIPT,
+                  'TK XXXX' ACCOUNT,
+                  0 LAST_PRE_AMT,
+                  0 FIRST_PRE_AMT
+             FROM DUAL)
+          UNION
+          (SELECT 'Cho thuê tài chính' DESCRIPT,
+                  'TK XXXX' ACCOUNT,
+                  0 LAST_PRE_AMT,
+                  0 FIRST_PRE_AMT
+             FROM DUAL)
+          UNION
+          (SELECT 'Các khoản trả thay khách hàng' DESCRIPT,
+                  'TK XXXX' ACCOUNT,
+                  0 LAST_PRE_AMT,
+                  0 FIRST_PRE_AMT
+             FROM DUAL)
+          UNION
+          (SELECT 'Cho vay bằng vốn tài trợ, ủy thác đầu tư'
+                     DESCRIPT,
+                  'TK 25' ACCOUNT,
+                  DN_TK_SBV ($P{PARA_NGAYBC},
+                             $P{PARA_MAPGD},
+                             $P{PARA_TONGHOP},
+                             '25',
+                             'D')
+                     LAST_PRE_AMT,
+                  DN_TK_SBV (ADD_MONTHS ($P{PARA_NGAYBC}, -12),
+                             $P{PARA_MAPGD},
+                             $P{PARA_TONGHOP},
+                             '25',
+                             'D')
+             FROM DUAL)
+          UNION
+          (SELECT 'Cho vay đối với các tổ chức, cá nhân nước ngoài'
+                     DESCRIPT,
+                  'TK XXXX' ACCOUNT,
+                  0 LAST_PRE_AMT,
+                  0 FIRST_PRE_AMT
+             FROM DUAL)
+          UNION
+          (SELECT 'Cho vay theo chỉ định của Chính phủ' DESCRIPT,
+                  'TK XXXX' ACCOUNT,
+                  0 LAST_PRE_AMT,
+                  0 FIRST_PRE_AMT
+             FROM DUAL)
+          UNION
+          (SELECT 'Nợ cho vay được khoanh và nợ chờ xử lý'
+                     DESCRIPT,
+                  'TK 29' ACCOUNT,
+                  DN_TK_SBV ($P{PARA_NGAYBC},
+                             $P{PARA_MAPGD},
+                             $P{PARA_TONGHOP},
+                             '29',
+                             'D')
+                     LAST_PRE_AMT,
+                  DN_TK_SBV (ADD_MONTHS ($P{PARA_NGAYBC}, -12),
+                             $P{PARA_MAPGD},
+                             $P{PARA_TONGHOP},
+                             '29',
+                             'D')
+             FROM DUAL)) A
+ORDER BY A.ACCOUNT]]>
+	</queryString>
+	<field name="DESCRIPT" class="java.lang.String"/>
+	<field name="ACCOUNT" class="java.lang.String"/>
+	<field name="FIRST_PRE_AMT" class="java.math.BigDecimal"/>
+	<field name="LAST_PRE_AMT" class="java.math.BigDecimal"/>
+	<variable name="LAST_PRE_AMT_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{LAST_PRE_AMT}]]></variableExpression>
+	</variable>
+	<variable name="FIRST_PRE_AMT_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{FIRST_PRE_AMT}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement x="282" y="0" width="130" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" isUnderline="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Cuối kỳ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="0" width="130" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" isUnderline="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Đầu kỳ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="282" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{LAST_PRE_AMT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="422" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{FIRST_PRE_AMT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="270" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESCRIPT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement x="112" y="0" width="100" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổng]]></text>
+			</staticText>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="282" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{LAST_PRE_AMT_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="422" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{FIRST_PRE_AMT_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

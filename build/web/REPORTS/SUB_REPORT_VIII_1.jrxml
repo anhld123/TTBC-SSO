@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUB_REPORT_VIII_1" language="groovy" pageWidth="554" pageHeight="802" columnWidth="554" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\1. Working\\Chung tu\\16NHNN\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_MAPGD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TONGHOP" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_NGAYBC" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 1, '1. Các loại thuế khác' a,
+NVL(DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'4538','P'),0) b,
+NVL (FUNC_TOT_CR_DR_AMT('4538',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','D',1), 0) c,
+NVL (FUNC_TOT_CR_DR_AMT('4538',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','C',1), 0) d,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'4538','P'),0) e from dual
+union
+select 1, '2. Các khoản phí, lệ phí và các khoản phải nộp khác' a,
+NVL(DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'4539','P'),0) b,
+NVL (FUNC_TOT_CR_DR_AMT('4539',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','D',1), 0) c,
+NVL (FUNC_TOT_CR_DR_AMT('4539',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','C',1), 0) d,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'4539','P'),0) e from dual]]>
+	</queryString>
+	<field name="1" class="java.math.BigDecimal"/>
+	<field name="A" class="java.lang.String"/>
+	<field name="B" class="java.math.BigDecimal"/>
+	<field name="C" class="java.math.BigDecimal"/>
+	<field name="D" class="java.math.BigDecimal"/>
+	<field name="E" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="3" width="452" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[37. Tình hình thực hiện nghĩa vụ với Ngân sách Nhà nước]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="180" height="40"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Chi tiêu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="90" height="40"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Số dư đầu kỳ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="20" width="91" height="20"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Số phải nộp]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="361" y="20" width="86" height="20"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Số đã nộp]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="447" y="0" width="97" height="40"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Số dư cuối kỳ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="0" width="177" height="20"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Phát sinh trong kỳ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="180" height="20"/>
+				<box leftPadding="3" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{A}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0">
+				<reportElement stretchType="RelativeToBandHeight" x="180" y="0" width="90" height="20"/>
+				<box leftPadding="1" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{B}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0">
+				<reportElement stretchType="RelativeToBandHeight" x="270" y="0" width="91" height="20"/>
+				<box leftPadding="1" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{C}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0">
+				<reportElement stretchType="RelativeToBandHeight" x="361" y="0" width="86" height="20"/>
+				<box leftPadding="1" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{D}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0">
+				<reportElement stretchType="RelativeToBandHeight" x="447" y="0" width="97" height="20"/>
+				<box leftPadding="1" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="212" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="22" width="554" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[38. Loại hình và giá trị tài sản thế chấp của khách hàng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="43" width="554" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[39. Nghĩa vụ nợ tiềm ẩn và các cam kết đưa ra: NHCSXH không có]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="124" width="554" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[43. Các sự kiện sau ngày lập bảng CĐKT: Các TCTD thuyết minh các sự kiện trọng yếu.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="145" width="554" height="30"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.2"/>
+				</textElement>
+				<text><![CDATA[44. Mức độ tập trung theo khu vực địa lý của các tài sản, công nợ và các khoản mục ngoại bảng: NHCSXH chưa thực hiện quản lý tài sản, công nợ và các khoản mục ngoại bảng tập trung theo khu vực địa lý.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="4" width="539" height="18"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[NHCSXH hoạt động không vì mục đích lợi nhuận, được miễn thuế và các khoản nộp phải nộp Ngân sách Nhà nước.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="103" width="554" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[42. Giao dịch với các bên liên quan: NHCSXH không có]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="63" width="554" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[40. Hoạt động uỷ thác và đại lý TCTD không chịu rủi ro: NHCSXH không có]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="83" width="554" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[41. Các hoạt động ngoại bảng khác mà TCTD phải chịu rủi ro đáng kể: NHCSXH không có]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="184" width="524" height="28" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_TONGHOP">
+					<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA["/SUB_REPORT_VIII_2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

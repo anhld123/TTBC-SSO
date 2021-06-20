@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="BCSL_KTTC.XLS" fileOutFormat="PARA_MAPGD.xls">
+   <title>Bảng cân đối tài khoản kế toán</title>
+   <userName>ADMIN</userName>
+   <date>16-Jun-2016 16:30:93</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <queryString id="1" maplist="data3" description="Lấy ra tên chi nhánh" key_group="EMPTY" value_group="EMPTY">select distinct decode($P{PARA_MAPGD},'000100','Hội sở chính',add_city) str1 from po850mb  where main_pos=$P{PARA_MAPGD}</queryString>
+<queryString id="2" maplist="data1" description="Lấy ra ngày tháng năm báo cáo" key_group="EMPTY" value_group="EMPTY">select to_char(EXTRACT(MONTH from to_date($P{PARA_NGAYBC}))) STR1, to_char(EXTRACT(YEAR from to_date($P{PARA_NGAYBC}))) STR2 from dual</queryString>
+<parameter name="PARA_MAPGD" class="java.lang.String" description="Mã phòng giao dịch"/>
+
+
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+
+
+<queryString id="3" maplist="data" description="Lấy số liệu cân đối tháng" key_group="EMPTY" value_group="EMPTY">{call  rpt_vbsp_balance.p_prin_balance( 'P000101,P000196,P000197,P000199',$P{PARA_NGAYBC},'Y','M','A1',$P{ORACLE_REF_CURSOR})} 
+</queryString>
+
+<queryString id="4" maplist="data2" description="Xuat du lieu can doi theo tung chi nhanh" key_group="EMPTY" value_group="EMPTY">select VDATA_1 STR1, VDATA_2 STR2, VDATA_3 STR3, NDATA_1 D1, NDATA_2 D2, NDATA_3 D3, NDATA_4 D4, NDATA_5 D5 NDATA_6 D6 FROM REP001TB_BCTD ORDER BY 1,2 </queryString>
+</excel_template>

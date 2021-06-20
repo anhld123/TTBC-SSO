@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUB_REPORT_V_3_1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TONGHOP" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_NGAYBC" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT A.DESCRIPT,
+         A.ACCOUNT,
+         A.FIRST_PRE_AMT,
+         A.LAST_PRE_AMT,
+         A.GROUP_TYPE,
+         A.GROUP_NAME,
+         ABS (A.FIRST_PRE_AMT) FIRST_ABS,
+         ABS (A.LAST_PRE_AMT) LAST_ABS
+    FROM ( (SELECT 'Bằng VND ' DESCRIPT,
+                   'TK 1311' ACCOUNT,
+                   DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'1311','D')
+                      LAST_PRE_AMT,
+                   DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'1311','D')
+                      FIRST_PRE_AMT,
+                   1 GROUP_TYPE,
+                   'Tiền, vàng gửi không kỳ hạn' GROUP_NAME
+              FROM DUAL)
+          UNION
+          (SELECT 'Bằng ngoại tệ, vàng' DESCRIPT,
+                  'TK 1321' ACCOUNT,
+                  DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'1321','D')
+                     LAST_PRE_AMT,
+                  DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'1321','D')
+                     FIRST_PRE_AMT,
+                  1 GROUP_TYPE,
+                  'Tiền, vàng gửi không kỳ hạn' GROUP_NAME
+             FROM DUAL)
+          UNION
+          (SELECT 'Bằng VND ' DESCRIPT,
+                  'TK 1312' ACCOUNT,
+                  DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'1312','D')
+                     LAST_PRE_AMT,
+                  DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'1312','D')
+                     FIRST_PRE_AMT,
+                  1 GROUP_TYPE,
+                  'Tiền, vàng gửi không kỳ hạn' GROUP_NAME
+             FROM DUAL)
+          UNION
+          (SELECT 'Bằng ngoại tệ, vàng' DESCRIPT,
+                  'TK 1322' ACCOUNT,
+                  DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'1322','D')
+                     LAST_PRE_AMT,
+                  DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'1322','D')
+                     FIRST_PRE_AMT,
+                  2 GROUP_TYPE,
+                  'Tiền, vàng gửi có kỳ hạn' GROUP_NAME
+             FROM DUAL)) A
+ORDER BY A.ACCOUNT]]>
+	</queryString>
+	<field name="DESCRIPT" class="java.lang.String"/>
+	<field name="ACCOUNT" class="java.lang.String"/>
+	<field name="FIRST_PRE_AMT" class="java.math.BigDecimal"/>
+	<field name="LAST_PRE_AMT" class="java.math.BigDecimal"/>
+	<field name="GROUP_TYPE" class="java.math.BigDecimal"/>
+	<field name="GROUP_NAME" class="java.lang.String"/>
+	<field name="FIRST_ABS" class="java.math.BigDecimal"/>
+	<field name="LAST_ABS" class="java.math.BigDecimal"/>
+	<variable name="LAST_PRE_AMT_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{LAST_PRE_AMT}]]></variableExpression>
+	</variable>
+	<variable name="FIRST_PRE_AMT_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{FIRST_PRE_AMT}]]></variableExpression>
+	</variable>
+	<group name="GROUP_TYPE">
+		<groupExpression><![CDATA[$F{GROUP_TYPE}]]></groupExpression>
+		<groupHeader>
+			<band height="17">
+				<textField>
+					<reportElement x="0" y="0" width="199" height="17"/>
+					<textElement>
+						<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{GROUP_NAME}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="220" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[3.1. Tiền, vàng gửi tại các TCTD khác]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="421" y="1" width="130" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" isUnderline="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Đầu kỳ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="1" width="130" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" isUnderline="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Cuối kỳ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="21" y="0" width="232" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESCRIPT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="280" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{LAST_ABS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="421" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{FIRST_ABS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="17">
+			<staticText>
+				<reportElement x="120" y="0" width="100" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổng]]></text>
+			</staticText>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="280" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{LAST_PRE_AMT_1}<0? $V{LAST_PRE_AMT_1}* (-1):$V{LAST_PRE_AMT_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="421" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{FIRST_PRE_AMT_1}<0? $V{FIRST_PRE_AMT_1}* (-1):$V{FIRST_PRE_AMT_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

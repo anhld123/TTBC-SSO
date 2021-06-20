@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TCTD-BC05_SUBREPORT_6" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="1ba7833d-2df1-4676-8e06-f98f568f9554">
+	<property name="ireport.zoom" value="1.2100000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 6 FROM DUAL]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="168" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="1f235ac6-cd25-4566-a4f9-4ccb6a8db7cf" x="0" y="1" width="555" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[11. Kế toán các giao dịch thuê tài sản:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="367c2371-e956-41d2-b9ee-98c2b6cc81ba" x="0" y="97" width="555" height="30"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[12. Bất động sản đầu tư : không có
+13. Tiền và các khoản tương đương tiền (khái niệm tiền và tương đương tiền):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b1f199d9-11d1-4183-b48e-c5e54bf56d98" x="0" y="20" width="555" height="78"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[- Nguyên tắc ghi nhận tài sản trong các giao dịch:
+ • Thuê tài sản để hoạt động: khi NH là người đi thuê: Giá trị tài sản đi thuê được hạch toán theo dõi ngoại bảng theo nguyên giá. Giá thuê thanh toán theo hợp đồng và được đưa vào chi phí đi thuê.
+ • Thuê tài chính: NHCSXH không có
+ • Phương pháp tính khấu hao tài sản đi thuê tài chính: NHCSXH không có
+Là tiền mặt hiện có (tiền tại quỹ, tiền đang chuyển), số dư tiền gửi thanh toán tại NHNN và các TCTD khác, gồm : tiền gửi không kỳ hạn và có kỳ hạn với thời gian đáo hạn dưới 90 ngày kể từ ngày lập báo cáo tài chính bằng Việt Nam đồng và các đồng tiền khác (ngoại tệ).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e7c854f5-4d63-444c-a1dc-03cd47e49d33" x="0" y="126" width="555" height="42"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Là tiền mặt hiện có (tiền tại quỹ, tiền đang chuyển), số dư tiền gửi thanh toán tại NHNN và các TCTD khác, gồm : tiền gửi không kỳ hạn và có kỳ hạn với thời gian đáo hạn dưới 90 ngày kể từ ngày lập báo cáo tài chính bằng Việt Nam đồng và các đồng tiền khác (ngoại tệ).]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+</jasperReport>

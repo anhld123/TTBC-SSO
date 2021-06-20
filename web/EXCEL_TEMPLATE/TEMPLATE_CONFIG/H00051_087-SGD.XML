@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="H00051_087-SGD.xlsx" fileOutFormat="PARA_MAPGD_DDMMYYYY_H00051">
+   <title>087-SGD - Báo cáo giao dịch quá hạn trên thị trường liên ngân hàng</title>
+   <userName>ADMIN</userName>
+   <date>20-Jun-2016 09:03:227</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MAPGD" class="java.lang.String" description="Mã đơn vị xuất báo cáo"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+<parameter name="PARA_TONGHOP" class="java.lang.String" description="Cờ xác định có tổng hợp (Y) hoặc không (N)"/>
+<queryString id="1" maplist="header" description="Phần tiêu đề quy ước theo NHNN của báo cáo" key_group="EMPTY" value_group="EMPTY">select 'A00034_041-DBTK' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(sysdate,'DDMMYYYY') STR4, 'TRUNGNT' STR5,
+'ID DUYET' STR6  from dmpos where po_ma= $P{PARA_MAPGD}</queryString>
+<queryString id="2" maplist="data" description="Lấy dữ liệu xuất excel" key_group="EMPTY" value_group="EMPTY">{call SBV_INBC.INSL_087SGD(2,$P{PARA_MAPGD},$P{PARA_TONGHOP},$P{PARA_NGAYBC},$P{ORACLE_REF_CURSOR})}</queryString>
+</excel_template>

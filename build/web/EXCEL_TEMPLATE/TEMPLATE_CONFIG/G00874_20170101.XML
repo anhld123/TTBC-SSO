@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="G00874_20170101.xlsx" fileOutFormat="PARA_MAPGD_DDMMYYYY_SBV_029.1-TTGS">
+   <title>029.1-TTGS - Báo cáo nợ xấu và tình hình xử lý nợ xấu</title>
+   <userName>T0001</userName>
+   <date>28-Dec-2016 22:21:934</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MAPGD" class="java.lang.String" description="Mã đơn vị báo cáo"/>
+
+
+
+<queryString id="1" maplist="header" description="Tiêu đề báo cáo" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'G00874_029.1-TTGS' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(sysdate,'DDMMYYYY') STR4, 'LUAN_ND' STR5,
+'ID DUYET' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+</excel_template>

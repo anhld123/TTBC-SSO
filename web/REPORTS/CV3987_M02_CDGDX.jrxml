@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="02_CDGDX" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5b2a571e-d357-4b27-b288-71d3afe7dfd0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\CVTTBC\\VB819\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TONGHOP" class="java.lang.String"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<parameter name="PARA_KYBC" class="java.lang.String"/>
+	<queryString language="plsql">
+		<![CDATA[{call dg_indicator_reportor.P_CDGDX_M02($P{PARA_MAPGD},$P{PARA_NGAYBC},$P{PARA_TONGHOP},$P{PARA_KYBC},$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<field name="TUNGAY" class="java.lang.String"/>
+	<field name="DENNGAY" class="java.lang.String"/>
+	<field name="tenquy" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="115">
+			<staticText>
+				<reportElement x="0" y="41" width="555" height="20" uuid="5d549f47-03f2-4bba-84c4-d721bdd88f5c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="13" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[BIỂU ĐÁNH GIÁ CHẤT LƯỢNG, HIỆU QUẢ  HOẠT ĐỘNG GIAO DỊCH XÃ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="447" y="0" width="108" height="18" uuid="ae4c18b9-db72-4dad-8a52-2a35232ef653"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Biểu số: 02/CĐGDX]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="0" width="423" height="37" uuid="139d35de-a860-47c3-aeec-a8b889d5155a"/>
+				<subreportParameter name="POS_CD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CONS_FLAG">
+					<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["mainpos_subpos.jasper"]]></subreportExpression>
+			</subreport>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="120" y="61" width="303" height="15" uuid="36fdacac-95a6-4e47-a079-23212e11a207"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARA_KYBC}=='Q'?"Quý "+$F{tenquy}+ "/" + (new SimpleDateFormat("yyyy").format((new SimpleDateFormat("dd-MMM-yyyy")).parse($F{DENNGAY}))).toString():($P{PARA_KYBC}=='M'?"Tháng"+ (new SimpleDateFormat("MM").format((new SimpleDateFormat("dd-MMM-yyyy")).parse($F{DENNGAY}))).toString()
++ "/" + (new SimpleDateFormat("yyyy").format((new SimpleDateFormat("dd-MMM-yyyy")).parse($F{DENNGAY}))).toString():($P{PARA_KYBC}=='Y'?"Năm" + (new SimpleDateFormat("yyyy").format((new SimpleDateFormat("dd-MMM-yyyy")).parse($F{DENNGAY}))).toString():($P{PARA_KYBC}=='D'?" Ngày " + (new SimpleDateFormat("dd").format((new SimpleDateFormat("dd-MMM-yyyy")).parse($F{DENNGAY}))).toString()+"/"+ (new SimpleDateFormat("MM").format((new SimpleDateFormat("dd-MMM-yyyy")).parse($F{DENNGAY}))).toString()
++ "/" + (new SimpleDateFormat("yyyy").format((new SimpleDateFormat("dd-MMM-yyyy")).parse($F{DENNGAY}))).toString():"Từ " + (new SimpleDateFormat("dd").format((new SimpleDateFormat("dd-MMM-yyyy")).parse($F{TUNGAY}))).toString()+"/"+ (new SimpleDateFormat("MM").format((new SimpleDateFormat("dd-MMM-yyyy")).parse($F{TUNGAY}))).toString()
++ "/" + (new SimpleDateFormat("yyyy").format((new SimpleDateFormat("dd-MMM-yyyy")).parse($F{TUNGAY}))).toString()+" đến " + (new SimpleDateFormat("dd").format((new SimpleDateFormat("dd-MMM-yyyy")).parse($F{DENNGAY}))).toString()+"/"+ (new SimpleDateFormat("MM").format((new SimpleDateFormat("dd-MMM-yyyy")).parse($F{DENNGAY}))).toString()
++ "/" + (new SimpleDateFormat("yyyy").format((new SimpleDateFormat("dd-MMM-yyyy")).parse($F{DENNGAY}))).toString())))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="76" width="555" height="20" uuid="d9e4ea58-cba5-4398-a795-637f9ee130a2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Chấm điểm cho Chi nhánh cấp tỉnh hoặc Phòng giao dịch cấp huyện, Hội sở tỉnh)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="489" y="95" width="66" height="20" uuid="d453e55f-f32a-4468-913c-0fa4d1126a27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Đơn vị: %]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="42" uuid="72787896-277c-476b-b49c-5779a6a5c389"/>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_KYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_KYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_TONGHOP">
+					<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["CV3987_M02_CDGDX_SUB01.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="42">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="42" uuid="65a2d627-a0de-4f7b-a503-83a14b18777a"/>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_KYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_KYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_TONGHOP">
+					<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["CV3987_M02_CDGDX_SUB02.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

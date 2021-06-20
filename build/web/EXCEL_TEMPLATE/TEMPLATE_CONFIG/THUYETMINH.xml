@@ -1,0 +1,13 @@
+<xls>
+    <area ref="THUYETMINH!A1:D19">
+	    <each items="donvi" var="donvi" ref="THUYETMINH!B1:B1">
+            <area ref="THUYETMINH!B1:B1"/>
+        </each>
+        <each items="data" var="header" ref="THUYETMINH!C7:C12">
+            <area ref="THUYETMINH!C7:C12"/>
+        </each>
+		        <each items="data1" var="data1" ref="THUYETMINH!A16:C16">
+            <area ref="THUYETMINH!A16:C16"/>
+        </each>
+    </area>
+</xls>

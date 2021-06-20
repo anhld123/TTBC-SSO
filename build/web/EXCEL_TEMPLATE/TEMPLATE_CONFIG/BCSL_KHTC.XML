@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="BCSL_KHTC.xlsx" fileOutFormat="PARA_MAPGD">
+   <title>Báo cáo kế hoạch tài chính</title>
+   <userName>ADMIN06</userName>
+   <date>22-Apr-2016 09:21:126</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MAPGD" class="java.lang.String" description="Mã phòng giao dịch"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+
+
+</excel_template>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TBXL_LOAI_NO" language="groovy" pageWidth="595" pageHeight="842" columnWidth="462" leftMargin="85" rightMargin="48" topMargin="56" bottomMargin="0" uuid="f7f0da09-270c-4e4d-8a79-45bac27ad0c4">
+	<property name="ireport.zoom" value="1.3636363636363658"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="557"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_NAMBC" class="java.lang.String"/>
+	<parameter name="PARA_DOTRR" class="java.lang.String"/>
+	<parameter name="PARA_KYDUYET" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+rr_macn, (case when  MA IN ('45','53','03','06','34') then ' thành phố ' else ' tỉnh ' end)||INITCAP (trim(replace( TEN,'TP',''))) TEN,
+trim( replace(to_char(count(case when rr_nhomrr = '02' then rr_soku end ),'999,999,999,999,999,999'),',','.'))  somon_khoanh,
+trim( replace(to_char(sum(case when rr_nhomrr = '02' then RR_DNGHI_DNO + RR_DNGHI_LAI end ),'999,999,999,999,999,999'),',','.'))  sotien_khoanh,
+trim( replace(to_char(sum(case when rr_nhomrr = '02' then RR_DNGHI_DNO  end ),'999,999,999,999,999,999'),',','.')) goc_khoanh,
+trim( replace(to_char(sum(case when rr_nhomrr = '02' then RR_DNGHI_LAI end ),'999,999,999,999,999,999'),',','.')) lai_khoanh,
+trim( replace(to_char(count(case when rr_nhomrr = '03' then rr_soku end ),'999,999,999,999,999,999'),',','.')) somon_xoa,
+trim( replace(to_char(sum(case when rr_nhomrr = '03' then RR_DNGHI_DNO + RR_DNGHI_LAI end ),'999,999,999,999,999,999'),',','.')) sotien_xoa,
+trim( replace(to_char(sum(case when rr_nhomrr = '03' then RR_DNGHI_DNO  end ),'999,999,999,999,999,999'),',','.')) goc_xoa,
+trim( replace(to_char(sum(case when rr_nhomrr = '03' then RR_DNGHI_LAI end ),'999,999,999,999,999,999'),',','.')) lai_xoa,
+DECODE ($P{PARA_DOTRR},1, 'I',2,'II',3,'III') DOTRR,
+$P{PARA_KYDUYET} pho_tgd
+ from hsrr_wb, dmtinh where to_char(rr_ngaybc,'yyyy') = $P{PARA_NAMBC}
+     and rr_dotrr = $P{PARA_DOTRR}
+     and rr_macn  = $P{PARA_MAPGD}
+     and RR_PDUYET_CAP = 'H'
+     and rr_trangthai = 'R'
+     and substr(rr_macn,3,2) = MA
+ group by  rr_macn, (case when  MA IN ('45','53','03','06','34') then ' thành phố ' else ' tỉnh ' end)||INITCAP (trim(replace( TEN,'TP','')))]]>
+	</queryString>
+	<field name="RR_MACN" class="java.lang.String"/>
+	<field name="TEN" class="java.lang.String"/>
+	<field name="SOMON_KHOANH" class="java.lang.String"/>
+	<field name="SOTIEN_KHOANH" class="java.lang.String"/>
+	<field name="GOC_KHOANH" class="java.lang.String"/>
+	<field name="LAI_KHOANH" class="java.lang.String"/>
+	<field name="SOMON_XOA" class="java.lang.String"/>
+	<field name="SOTIEN_XOA" class="java.lang.String"/>
+	<field name="GOC_XOA" class="java.lang.String"/>
+	<field name="LAI_XOA" class="java.lang.String"/>
+	<field name="DOTRR" class="java.lang.String"/>
+	<field name="PHO_TGD" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="193" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="78e67922-80dd-48d3-96b0-7f5278eacf88" positionType="Float" x="0" y="103" width="462" height="20"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" firstLineIndent="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Kính gửi: Chi nhánh Ngân hàng Chính sách xã hội"+ $F{TEN}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="969f5e96-c6b1-4181-baa4-15ee97e713e9" positionType="Float" x="0" y="138" width="462" height="20"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="40" tabStopWidth="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Căn cứ Quyết định số 15/QĐ-HĐQT ngày 27/01/2011 của Chủ tịch Hội đồng quản trị Ngân hàng Chính sách xã hội (NHCSXH) về Ban hành Quy định xử lý nợ bị rủi ro trong hệ thống NHCSXH; "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="786523be-11af-4ea6-9cc7-ae4d9e77952d" positionType="Float" x="0" y="167" width="462" height="20"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="40" tabStopWidth="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Sau khi xem xét Tờ trình và hồ sơ đề nghị xử lý nợ rủi ro đợt " + $F{DOTRR} + " năm " + $P{PARA_NAMBC}  +
+" chi nhánh gửi Hội sở chính, Tổng Giám đốc NHCSXH thông báo không chấp thuận xử lý nợ bị rủi ro đợt " +
+$F{DOTRR}+ " năm " + $P{PARA_NAMBC}  + " của chi nhánh như sau:"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="43909b7f-9339-4583-9d72-5efaa942660c" x="0" y="0" width="183" height="32"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="13" isBold="true" isUnderline="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[NGÂN HÀNG
+CHÍNH SÁCH XÃ HỘI]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="969fbbe4-87f4-4f42-a014-98715dbdac9f" x="42" y="32" width="100" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="0f14b65b-7b32-4b30-bbc7-3844aec16cd9" x="0" y="66" width="183" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="13" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["xử lý nợ bị rủi ro đợt " + $F{DOTRR} + " năm " + $P{PARA_NAMBC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="24842965-6a7c-4c73-88f5-18fb40ad3784" x="0" y="35" width="183" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="13" isBold="false" isUnderline="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Số:             /NHCS-QLN
+V/v thông báo không chấp thuận
+
+]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="b016e2a6-9b44-4854-a5d4-eac8e7164e3a" x="263" y="32" width="121" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="2b683b76-3901-478e-abe2-33a9df955890" x="183" y="0" width="286" height="32"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="13" isBold="true" isUnderline="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6b207268-5701-4d73-a91b-63e8b056392f" x="185" y="37" width="285" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="13" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Hà Nội, ngày        tháng         năm " + $P{PARA_NAMBC}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="56">
+			<printWhenExpression><![CDATA[$F{SOMON_KHOANH} != "0"]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="2e519d20-6c7e-42c6-8c5e-6ac8da58ad09" positionType="Float" x="0" y="2" width="462" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{SOMON_KHOANH} != "0"]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="1.3" firstLineIndent="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Không khoanh nợ: " +
+$F{SOMON_KHOANH}   +
+" món vay, số tiền " +
+$F{SOTIEN_KHOANH}  +
+" đồng, trong đó: Gốc " +
+$F{GOC_KHOANH}+
+" đồng, lãi " +
+$F{LAI_KHOANH}+
+" đồng. "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="7481133d-7d10-489e-b684-efb37d16ab55" positionType="Float" x="0" y="31" width="470" height="18" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{SOMON_KHOANH} != "0"]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" rotation="None">
+					<font fontName="Times New Roman" size="14" isBold="false" isUnderline="false" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="1.3" firstLineIndent="40"/>
+				</textElement>
+				<text><![CDATA[Nguyên nhân không được chấp thuận theo danh sách loại chi tiết đính kèm.]]></text>
+			</staticText>
+		</band>
+		<band height="57">
+			<printWhenExpression><![CDATA[$F{SOMON_XOA} != "0"]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="9872a1bc-d128-4b87-88f4-d8d1b9980c62" positionType="Float" x="0" y="1" width="462" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{SOMON_XOA} != "0"]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="1.3" firstLineIndent="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Không xóa nợ: " +
+$F{SOMON_XOA}   +
+" món vay, số tiền " +
+$F{SOTIEN_XOA}  +
+" đồng, trong đó: Gốc " +
+$F{GOC_XOA}+
+" đồng, lãi " +
+$F{LAI_XOA}+
+" đồng. "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="6f206371-7401-4d81-997a-a3434aa5eef7" positionType="Float" x="0" y="30" width="470" height="18" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{SOMON_XOA}!= "0"]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" rotation="None">
+					<font fontName="Times New Roman" size="14" isBold="false" isUnderline="false" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="1.3" firstLineIndent="40"/>
+				</textElement>
+				<text><![CDATA[Nguyên nhân không được chấp thuận theo danh sách loại chi tiết đính kèm.]]></text>
+			</staticText>
+		</band>
+		<band height="109">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="23a68a78-f2cf-4707-be6f-4a623ad5be9b" positionType="Float" x="0" y="74" width="462" height="20" isRemoveLineWhenBlank="true"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="1.3" firstLineIndent="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nhận được công văn này, yêu cầu chi nhánh NHCSXH" + $F{TEN} + " triển khai thực hiện. Quá trình thực hiện nếu có vướng mắc đề nghị phản ánh về Hội sở chính (Ban Quản lý và xử lý nợ rủi ro) để xem xét, giải quyết./."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="f03c3e55-92bc-4fd0-8965-94906996fe31" positionType="Float" x="0" y="3" width="462" height="61" isRemoveLineWhenBlank="true"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="1.3" firstLineIndent="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Căn cứ nguyên nhân không được chấp thuận đề nghị Giám đốc chi nhánh NHCSXH"
++$F{TEN} +
+" chỉ đạo Giám đốc NHCSXH nơi cho vay rà soát lại nếu đủ điều kiện xử lý nợ rủi ro thì bổ sung thủ tục và trình xử lý rủi ro theo quy định."]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="183" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="164d7064-cdac-44db-81ce-7a9d41bc3863" positionType="Float" x="248" y="6" width="214" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="13" isBold="true" isItalic="false" isUnderline="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[KT. TỔNG GIÁM ĐỐC
+PHÓ TỔNG GIÁM ĐỐC
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6cd8d6f7-fdd9-497a-861f-9b4cb2ddae0d" positionType="Float" x="0" y="7" width="183" height="15"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true" isUnderline="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Nơi nhận:
+- Như trên;
+- Tổng Giám đốc;
+- Trưởng Ban kiểm soát;
+- Các Phó Tổng Giám đốc;
+- Kế toán trưởng;
+- Các Ban CMNV tại HSC;
+- Lưu: VT, QLN.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="86f896d4-d1a4-402b-b014-39bc5a19bd44" positionType="Float" x="0" y="22" width="183" height="137"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" isUnderline="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[- Như trên;
+- Tổng Giám đốc;
+- Trưởng Ban kiểm soát;
+- Các Phó Tổng Giám đốc;
+- Kế toán trưởng;
+- Các Ban CMNV tại HSC;
+- Lưu: VT, Ban QLN.
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="098c42d9-f1ba-4cc4-952a-588e661476e9" positionType="FixRelativeToBottom" x="248" y="144" width="214" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PHO_TGD}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,1057 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package vbsp.ims.warnrisk;
+
+import vbsp.ims.nhaptaycn.action.*;
+import com.jgeppert.struts2.jquery.tree.result.TreeNode;
+import static com.opensymphony.xwork2.Action.ERROR;
+import static com.opensymphony.xwork2.Action.SUCCESS;
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+import java.io.File;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.ServletContext;
+import org.apache.struts2.ServletActionContext;
+import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
+import vbsp.ims.bcqt.model.ModelViewSend;
+import vbsp.ims.bcqt.model.QT_DULIEU_NT;
+import vbsp.ims.bcqt.model.QT_DULIEU_NT.saveDulieuNT;
+import vbsp.ims.bcqt.model.QT_DULIEU_NT.saveDulieuNT_Phi;
+import vbsp.ims.dao.DaoConnect;
+import vbsp.ims.define.Define;
+import vbsp.ims.ktgs.dao.DaoKtgsMain;
+import vbsp.ims.loadparams.ReportParam;
+import vbsp.ims.log.CoreLogger;
+import vbsp.ims.model.ModelTreeNode;
+import vbsp.ims.model.Pagination;
+import vbsp.ims.report.fast.ListValue;
+import vbsp.ims.sbv.daoSbv;
+import vbsp.ims.syn.ProcessReportSyn;
+import vbsp.ims.xml.XmlKtgsSync;
+//import vbsp.ims.xml.XmlNhaptaycnSync;
+
+/**
+ *
+ * @author LION
+ */
+public class ActionWarnRiskMain extends ActionSupport {
+
+    //<editor-fold defaultstate="collapsed" desc="Khai bao cac bien">
+    protected String Grade;
+    protected String UserName;
+    protected String Message;
+    protected List<ListValue> lstAllNhaptaycn = new ArrayList<>();
+    protected List<ReportParam> lstNhaptaycnParams = new ArrayList<>();
+    protected String khoa_nhaptaycn;   
+    protected TreeNode nodes_pos = new TreeNode();
+    protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
+    protected List<QT_DULIEU_NT> lstDulieuNt_pgd = new ArrayList<>();
+    protected List<QT_DULIEU_NT> lstDulieuNt_spham = new ArrayList<>();
+    protected List<QT_DULIEU_NT> lstDulieuNt_phanbo = new ArrayList<>();
+    
+    protected List<QT_DULIEU_NT> lstDulieuNt_chitiet = new ArrayList<>();
+    
+    protected List<ListValue> lstParameters = new ArrayList<>();
+    protected List<String> poscd = new ArrayList<String>();
+    protected String poslist ;
+    protected String isDisplayTM = "N";
+    protected String type_bcqt;
+    protected List<ModelViewSend> lstViewSend = new ArrayList<>();
+    private String tt_khoa;
+    private String macn;
+    private String ngay_bc;    
+    private List<ListValue> lstNgnhanDm = new ArrayList<ListValue>();
+    protected String totalDataView;
+    
+    protected Pagination pagination = new Pagination(50, 1);
+    protected List<saveDulieuNT> lstsaveNT = new ArrayList<saveDulieuNT>();
+    protected List<saveDulieuNT_Phi> lstsaveNT_PGD = new ArrayList<saveDulieuNT_Phi>();
+    protected List<saveDulieuNT_Phi> lstsaveNT_SP = new ArrayList<saveDulieuNT_Phi>();
+    protected List<saveDulieuNT_Phi> lstsaveNT_PB = new ArrayList<saveDulieuNT_Phi>();
+    private String user_id; 
+    private String nha_dt; 
+    private String nha_dt_LIST;
+    private String tt_nha_dt;
+    private String dvut_id; 
+    private String data_chart;
+
+    public String getData_chart() {
+        return data_chart;
+    }
+
+    public void setData_chart(String data_chart) {
+        this.data_chart = data_chart;
+    }
+
+    public String getDvut_id() {
+        return dvut_id;
+    }
+
+    public void setDvut_id(String dvut_id) {
+        this.dvut_id = dvut_id;
+    }
+
+    public String getNha_dt_LIST() {
+        return nha_dt_LIST;
+    }
+
+    public void setNha_dt_LIST(String nha_dt_LIST) {
+        this.nha_dt_LIST = nha_dt_LIST;
+    }
+    
+    protected List<String> sanpham = new ArrayList<String>();
+    protected List<String> phanbo = new ArrayList<String>();
+    protected List<String> pgd = new ArrayList<String>();
+    
+   
+    
+
+
+//</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Xu ly cho action">
+    //<editor-fold defaultstate="collapsed" desc="Cho phan khoi tao form chinh">
+    private boolean setTreeNodeGrade3(List<ModelTreeNode> lstModelTree) {
+
+        try {
+            TreeNode nodePar = new TreeNode();
+            List<TreeNode> lstTree = new ArrayList<TreeNode>();
+            for (int i = 0; i < lstModelTree.size(); i++) {
+                //String strPos_key = ArrlstPoscd.get(i);
+                ModelTreeNode modelTree = lstModelTree.get(i);
+
+                //Neu la row dau tien thi la node root
+                if (i == 0) {
+//                    System.err.println("getStrParentCd=" + modelTree.getStrParentCd() + " getStrParentDesc=" + modelTree.getStrParentDesc());
+                    nodes_pos.setId("999999");
+                    nodes_pos.setTitle(modelTree.getStrParentDesc());
+                    nodes_pos.setState(TreeNode.NODE_STATE_OPEN);
+                    nodes_pos.setChildren(new LinkedList<TreeNode>());
+                } else {
+                    if (modelTree.getStrChildCd().equals("999999")) {
+                        if (i != 1) {
+//                        nodes_pos.getChildren().add(nodePar);
+                            lstTree.add(nodePar);
+                            nodePar = null;
+                            nodePar = new TreeNode();
+                        }
+//                    nodePar= new TreeNode();
+//                        System.err.println("  - nodePar getStrChildCd=" + modelTree.getStrChildCd() + " getStrChildDesc=" + modelTree.getStrChildDesc());
+                        nodePar.setId("999999");
+                        nodePar.setTitle(modelTree.getStrChildDesc());
+                        nodePar.setState(TreeNode.NODE_STATE_CLOSED);
+                        nodePar.setChildren(new LinkedList<TreeNode>());
+                    } else {
+                        //Khoi tao cho node child
+//                        System.err.println("      - nodeChild getStrChildCd=" + modelTree.getStrChildCd() + " getStrChildDesc=" + modelTree.getStrChildDesc());
+                        TreeNode nodeChild = new TreeNode();
+                        nodeChild.setId(modelTree.getStrChildCd());
+                        nodeChild.setTitle(modelTree.getStrChildDesc());
+                        nodePar.getChildren().add(nodeChild);
+                    }
+                }
+
+            }
+            lstTree.add(nodePar);
+            for (TreeNode node : lstTree) {
+                nodes_pos.getChildren().add(node);
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            CoreLogger.error(this.getClass().getCanonicalName() + " setTreeNodeGrade3 -> " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    private boolean setTreeNodeGrade12(List<ModelTreeNode> lstModelTree) {
+
+        try {
+            for (int i = 0; i < lstModelTree.size(); i++) {
+                //String strPos_key = ArrlstPoscd.get(i);
+                ModelTreeNode modelTree = lstModelTree.get(i);
+                //Neu la row dau tien thi la node root
+                if (i == 0) {
+                    nodes_pos.setId("999999");
+                    nodes_pos.setTitle(modelTree.getStrParentDesc());
+                    nodes_pos.setState(TreeNode.NODE_STATE_OPEN);
+                    nodes_pos.setChildren(new LinkedList<TreeNode>());
+                }
+                //Khoi tao cho node child
+                TreeNode nodeChild = new TreeNode();
+                nodeChild.setId(modelTree.getStrChildCd());
+                nodeChild.setTitle(modelTree.getStrChildDesc());
+//                System.err.println(ArrlstPosDesc.get(i));
+                nodes_pos.getChildren().add(nodeChild);
+
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            CoreLogger.error(this.getClass().getCanonicalName() + " setTreeNodeGrade12 -> " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    protected boolean getParaSession() {
+        Map session = ActionContext.getContext().getSession();
+
+        if (session == null || session.size() == 0 || session.isEmpty()) {
+            setMessage("Bạn phải đăng nhập lại mới thực hiện được chức năng này");
+            addActionError("Bạn phải đăng nhập lại mới thực hiện được chức năng này");
+            return false;
+        }
+        //lay ra user
+        setUserName(session.get("username").toString());
+
+//            System.err.println("execute sUserName=" + sUserName);
+        if (UserName == null || UserName.isEmpty()) {
+            setMessage("Không thể lấy ra được username bạn phải logout hệ thống sau đó đăng nhập lại ");
+            addActionError("Không thể lấy ra được username bạn phải logout hệ thống sau đó đăng nhập lại ");
+            return false;
+        }
+        setGrade(session.get("reportGrade").toString());
+        if (Grade == null || Grade.isEmpty()) {
+            setMessage("Không thể lấy ra được cấp báo cáo \"reportGrade\" bạn phải logout hệ thống sau đó đăng nhập lại ");
+            addActionError("Không thể lấy ra được cấp báo cáo \"reportGrade\" bạn phải logout hệ thống sau đó đăng nhập lại ");
+            return false;
+        }
+        return true;
+    }
+
+    private List<String> convertStringtoList(String[] value) {
+        List<String> lst = new ArrayList<>();
+        try {
+            for (int i = 0; i < value.length; i++) {
+                if (!value[i].equals("999999") && !value[i].isEmpty()) {
+                    lst.add(value[i]);
+                }
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> convertStringtoList: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> convertStringtoList: " + e.getMessage());
+        }
+        return lst;
+    }
+
+    protected HashMap<String, Object> getParameter() throws Exception {
+        HashMap<String, Object> paramHashMap = new HashMap<>();
+        Map<String, String[]> prameters = ServletActionContext.getRequest().getParameterMap();
+        for (String parameter : prameters.keySet()) {
+            String[] values = prameters.get(parameter);
+            if (parameter.indexOf("TEXT") > 0 || parameter.indexOf("DATE") > 0 || parameter.indexOf("LIST") > 0) {
+                if (parameter.startsWith("1_")) {
+                    parameter = parameter.substring(2, parameter.length());
+                }
+                if (parameter.indexOf("DATE") > 0) {
+                    Date sdf = new SimpleDateFormat("dd/MM/yyyy").parse(values[0]);
+                    paramHashMap.put(parameter.substring(0, parameter.length() - 5), new SimpleDateFormat("dd-MMM-yyyy").format(sdf));
+                    lstParameters.add(new ListValue(parameter, values[0]));
+                } else {
+                    paramHashMap.put(parameter.substring(0, parameter.length() - 5), values[0]);
+                    lstParameters.add(new ListValue(parameter, values[0]));
+                }
+            } else {
+                if (parameter.startsWith("1_")) {
+                    parameter = parameter.substring(2, parameter.length());
+                }
+                if (parameter.equals("poscd")) {
+                    paramHashMap.put(parameter, convertStringtoList(values));
+                } else {
+                    paramHashMap.put(parameter, values[0]);
+                    lstParameters.add(new ListValue(parameter, values[0]));
+                }
+            }
+        }
+        return paramHashMap;
+    }
+
+    public String execute() {
+        try {
+//            System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            Connection conn = new DaoConnect().getConnect();
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            //khoi tao cho treeview cac pos
+            List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade,khoa_nhaptaycn);                        
+            
+            if(khoa_nhaptaycn.equals("HSSV_001"))
+            {
+                setTreeNodeGrade3(lstModelTree);
+//                if (Grade.equals("3")) {
+//                    setTreeNodeGrade3(lstModelTree);
+//                } 
+//                else if(Grade.equals("1"))
+//                {
+//                    setTreeNodeGrade3(lstModelTree);
+//                }
+//                else {
+//                    setTreeNodeGrade12(lstModelTree);
+//                }
+            }
+            else
+            {
+                if (Grade.equals("3")) {
+                    setTreeNodeGrade3(lstModelTree);
+                } else {
+                    setTreeNodeGrade12(lstModelTree);
+                }
+            }
+            
+            if(khoa_nhaptaycn.equals("PHIUT_001") && !Grade.equals("3"))
+            {
+                lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, "PHIUT_001",UserName,Grade);
+                if (conn != null) {
+                    conn.close();
+                }
+                return "PHIUT_001";
+            }    
+            
+            if(khoa_nhaptaycn.equals("CHART_001"))
+            {
+                lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, "CHART_001",UserName,Grade);
+                if (conn != null) {
+                    conn.close();
+                }
+                return "CHART_001";
+            }   
+            
+            lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn,UserName,Grade);
+            if (conn != null) {
+                conn.close();
+            }                            
+            
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> loadPataNhaptaycn: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> loadPataNhaptaycn: " + e.getMessage());
+        }        
+        return SUCCESS;
+    }
+
+    public String loadPataNhaptaycn() {
+        try {
+//            System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            Connection conn = new DaoConnect().getConnect();
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            //khoi tao cho treeview cac pos
+            List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade,khoa_nhaptaycn);                        
+            
+            if(khoa_nhaptaycn.equals("HSSV_001"))
+            {
+                setTreeNodeGrade3(lstModelTree);
+//                if (Grade.equals("3")) {
+//                    setTreeNodeGrade3(lstModelTree);
+//                } 
+//                else if(Grade.equals("1"))
+//                {
+//                    setTreeNodeGrade3(lstModelTree);
+//                }
+//                else {
+//                    setTreeNodeGrade12(lstModelTree);
+//                }
+            }
+            else
+            {
+                if (Grade.equals("3")) {
+                    setTreeNodeGrade3(lstModelTree);
+                } else {
+                    setTreeNodeGrade12(lstModelTree);
+                }
+            }
+            
+            if(khoa_nhaptaycn.equals("PHIUT_001") && !Grade.equals("3"))
+            {
+                lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, "PHIUT_001",UserName,Grade);
+                if (conn != null) {
+                    conn.close();
+                }
+                return "PHIUT_001";
+            }    
+            
+            if(khoa_nhaptaycn.equals("CHART_001"))
+            {
+                lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, "CHART_001",UserName,Grade);
+                if (conn != null) {
+                    conn.close();
+                }
+                return "CHART_001";
+            }   
+            
+            lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn,UserName,Grade);
+            if (conn != null) {
+                conn.close();
+            }                            
+            
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> loadPataNhaptaycn: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> loadPataNhaptaycn: " + e.getMessage());
+        }        
+        return SUCCESS;
+    }
+    
+    public String loadAllPos_Sp() {
+        try {
+//            System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            Connection conn = new DaoConnect().getConnect();
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            //khoi tao cho treeview cac pos
+            HashMap hmParameter = getParameter();
+            System.out.println(tt_nha_dt);
+
+//                lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, "PHIUT_001",UserName,Grade);
+                lstDulieuNt_pgd = daoMain.getDataPhiUT_PGD(conn,UserName, Grade,tt_nha_dt);            
+                lstDulieuNt_spham = daoMain.getDataPhiUT_SP(conn, "PHIUT_001", "",UserName, Grade,poscd,tt_nha_dt);
+                lstDulieuNt_phanbo = daoMain.getDataPhiUT_PHANBO(conn, "PHIUT_001", "",UserName, Grade,poscd,"");
+                          
+                if (conn != null) {
+                    conn.close();
+                }                            
+            
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> loadPataNhaptaycn: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> loadPataNhaptaycn: " + e.getMessage());
+        }        
+        return SUCCESS;
+    }
+    
+    public String chart001() {
+        String sData_chart = "[['Task', 'Hours per Day'],"; 
+//        data_chart = "[\n" +
+//                "          ['Task', 'Hours per Day'],\n" +
+//                "          ['Vùng đồng bằng sông Hồng',     11],\n" +
+//                "          ['Vùng Trung du và miền núi phía Bắc',      2],\n" +
+//                "          ['Vùng Bắc Trung Bộ và Duyên hải miền Trung',  2],\n" +
+//                "          ['Vùng Tây Nguyên', 2],\n" +
+//                "          ['Vùng Đông Nam Bộ',    7],\n" +
+//                "          ['Đồng bằng sông Cửu Long',    7]\n" +
+//                "        ]";
+        try {
+//            if (!getParaSession()) {
+//                return ERROR;
+//            }
+//           
+//            HashMap<String, Object> hmPara = getParameter();
+//            // Thực hiện chuyển ngày về đúng định dạng DD-MON-YYYY
+//            ngay_bc = hmPara.get("ngay_bc").toString();
+//            khoa_sbv = hmPara.get("khoa_sbv").toString();
+//            if (ngay_bc == null || khoa_sbv == null) {
+//                addActionError("Không thể lấy ra được tham số để load dữ liệu");
+//                return ERROR;
+//            }            
+            lstDulieuNt = daoSbv.newInstance().loadTestChar("", ngay_bc, UserName,Grade,poscd);
+            
+            for (QT_DULIEU_NT valueNt : lstDulieuNt) {
+                sData_chart = sData_chart + "['" + valueNt.getD2() + "'," + valueNt.getD4() +  "],";
+            }
+            sData_chart = sData_chart.substring(0,sData_chart.length() - 1) + "]";
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> load: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> load: " + e.getMessage());
+            addActionError("Lỗi khi tải dữ liệu " + e.getMessage());
+            return ERROR;
+        }
+        data_chart = sData_chart;
+        return SUCCESS;    
+    }
+    
+    public String chart002() {
+        String sData_chart = "[['Task', 'Hours per Day'],"; 
+//        data_chart = "[\n" +
+//                "          ['Task', 'Hours per Day'],\n" +
+//                "          ['Vùng đồng bằng sông Hồng',     11],\n" +
+//                "          ['Vùng Trung du và miền núi phía Bắc',      2],\n" +
+//                "          ['Vùng Bắc Trung Bộ và Duyên hải miền Trung',  2],\n" +
+//                "          ['Vùng Tây Nguyên', 2],\n" +
+//                "          ['Vùng Đông Nam Bộ',    7],\n" +
+//                "          ['Đồng bằng sông Cửu Long',    7]\n" +
+//                "        ]";
+        try {
+//            if (!getParaSession()) {
+//                return ERROR;
+//            }
+//           
+//            HashMap<String, Object> hmPara = getParameter();
+//            // Thực hiện chuyển ngày về đúng định dạng DD-MON-YYYY
+//            ngay_bc = hmPara.get("ngay_bc").toString();
+//            khoa_sbv = hmPara.get("khoa_sbv").toString();
+//            if (ngay_bc == null || khoa_sbv == null) {
+//                addActionError("Không thể lấy ra được tham số để load dữ liệu");
+//                return ERROR;
+//            }            
+            lstDulieuNt = daoSbv.newInstance().loadTestChar("", ngay_bc, UserName,Grade,poscd);
+            
+            for (QT_DULIEU_NT valueNt : lstDulieuNt) {
+                sData_chart = sData_chart + "['" + valueNt.getD2() + "'," + valueNt.getD4() +  "],";
+            }
+            sData_chart = sData_chart.substring(0,sData_chart.length() - 1) + "]";
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> load: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> load: " + e.getMessage());
+            addActionError("Lỗi khi tải dữ liệu " + e.getMessage());
+            return ERROR;
+        }
+        data_chart = sData_chart;
+        return SUCCESS;    
+    }
+    
+    public String chart003() {
+        String sData_chart = "[['Task', 'Hours per Day'],"; 
+//        data_chart = "[\n" +
+//                "          ['Task', 'Hours per Day'],\n" +
+//                "          ['Vùng đồng bằng sông Hồng',     11],\n" +
+//                "          ['Vùng Trung du và miền núi phía Bắc',      2],\n" +
+//                "          ['Vùng Bắc Trung Bộ và Duyên hải miền Trung',  2],\n" +
+//                "          ['Vùng Tây Nguyên', 2],\n" +
+//                "          ['Vùng Đông Nam Bộ',    7],\n" +
+//                "          ['Đồng bằng sông Cửu Long',    7]\n" +
+//                "        ]";
+        try {
+//            if (!getParaSession()) {
+//                return ERROR;
+//            }
+//           
+//            HashMap<String, Object> hmPara = getParameter();
+//            // Thực hiện chuyển ngày về đúng định dạng DD-MON-YYYY
+//            ngay_bc = hmPara.get("ngay_bc").toString();
+//            khoa_sbv = hmPara.get("khoa_sbv").toString();
+//            if (ngay_bc == null || khoa_sbv == null) {
+//                addActionError("Không thể lấy ra được tham số để load dữ liệu");
+//                return ERROR;
+//            }            
+            lstDulieuNt = daoSbv.newInstance().loadTestChar("", ngay_bc, UserName,Grade,poscd);
+            
+            for (QT_DULIEU_NT valueNt : lstDulieuNt) {
+                sData_chart = sData_chart + "['" + valueNt.getD2() + "'," + valueNt.getD4() +  "],";
+            }
+            sData_chart = sData_chart.substring(0,sData_chart.length() - 1) + "]";
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> load: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> load: " + e.getMessage());
+            addActionError("Lỗi khi tải dữ liệu " + e.getMessage());
+            return ERROR;
+        }
+        data_chart = sData_chart;
+        return SUCCESS;    
+    }
+    
+    public String chart004() {
+        String sData_chart = "[['Task', 'Hours per Day'],"; 
+//        data_chart = "[\n" +
+//                "          ['Task', 'Hours per Day'],\n" +
+//                "          ['Vùng đồng bằng sông Hồng',     11],\n" +
+//                "          ['Vùng Trung du và miền núi phía Bắc',      2],\n" +
+//                "          ['Vùng Bắc Trung Bộ và Duyên hải miền Trung',  2],\n" +
+//                "          ['Vùng Tây Nguyên', 2],\n" +
+//                "          ['Vùng Đông Nam Bộ',    7],\n" +
+//                "          ['Đồng bằng sông Cửu Long',    7]\n" +
+//                "        ]";
+        try {
+//            if (!getParaSession()) {
+//                return ERROR;
+//            }
+//           
+//            HashMap<String, Object> hmPara = getParameter();
+//            // Thực hiện chuyển ngày về đúng định dạng DD-MON-YYYY
+//            ngay_bc = hmPara.get("ngay_bc").toString();
+//            khoa_sbv = hmPara.get("khoa_sbv").toString();
+//            if (ngay_bc == null || khoa_sbv == null) {
+//                addActionError("Không thể lấy ra được tham số để load dữ liệu");
+//                return ERROR;
+//            }            
+            lstDulieuNt = daoSbv.newInstance().loadTestChar("", ngay_bc, UserName,Grade,poscd);
+            
+            for (QT_DULIEU_NT valueNt : lstDulieuNt) {
+                sData_chart = sData_chart + "['" + valueNt.getD2() + "'," + valueNt.getD4() +  "],";
+            }
+            sData_chart = sData_chart.substring(0,sData_chart.length() - 1) + "]";
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> load: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> load: " + e.getMessage());
+            addActionError("Lỗi khi tải dữ liệu " + e.getMessage());
+            return ERROR;
+        }
+        data_chart = sData_chart;
+        return SUCCESS;    
+    }
+    public String loadAll_BC() {
+        try {
+//            System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            Connection conn = new DaoConnect().getConnect();
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            //khoi tao cho treeview cac pos
+            HashMap hmParameter = getParameter();
+            System.out.println(tt_nha_dt);
+
+//                lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, "PHIUT_001",UserName,Grade);
+                lstDulieuNt_pgd = daoMain.getDataDMBC(conn,UserName, Grade,tt_nha_dt);            
+//                lstDulieuNt_spham = daoMain.getDataPhiUT_SP(conn, "PHIUT_001", "",UserName, Grade,poscd,tt_nha_dt);
+//                lstDulieuNt_phanbo = daoMain.getDataPhiUT_PHANBO(conn, "PHIUT_001", "",UserName, Grade,poscd,"");
+                          
+                if (conn != null) {
+                    conn.close();
+                }                            
+            
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> loadPataNhaptaycn: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> loadPataNhaptaycn: " + e.getMessage());
+        }        
+        return SUCCESS;
+    }
+    
+    //</editor-fold>
+    private List<ModelViewSend> getViewStatusSend(List<String> lstPos, Map<String, Integer> mapStatus) {
+        addActionMessage("Danh sách các PGD gửi dữ liệu và tình trạng dữ liệu");
+        List<ModelViewSend> lstStatus = new ArrayList();
+        try {
+            Map<String, String> mapPosByName = DaoKtgsMain.newInstance().getPosByName(lstPos);
+
+            for (String key : mapStatus.keySet()) {
+
+                if (mapPosByName.get(key) == null) {
+                    continue;
+                };
+                Integer value = mapStatus.get(key);
+                ModelViewSend modelview = ModelViewSend.newInstance();
+                modelview.setMapgd(key);
+                modelview.setKey(value);
+                modelview.setTenpgd(mapPosByName.get(key));
+
+                switch (value) {
+                    case 1:
+                        modelview.setMota_loi("Tạo file xml bị lỗi");
+                        break;
+                    case 2:
+                        modelview.setMota_loi("Không tìm thấy file xml");
+                        break;
+                    case 3:
+                        modelview.setMota_loi("Gửi dữ liệu bị lỗi");
+                        break;
+                    case 4:
+                        modelview.setMota_loi("Thành công");
+                        break;
+                    case 5:
+                        modelview.setMota_loi("Phòng giao dịch này bị khóa");
+                        break;
+                    case 6:
+                        modelview.setMota_loi("Không có dữ liệu");
+                        break;
+                    default:
+                        modelview.setMota_loi("Không đúng trạng thái lỗi");
+                        break;
+                }
+                lstStatus.add(modelview);
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> getViewStatusSend: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> getViewStatusSend: " + e.getMessage());
+        }
+        return lstStatus;
+    }
+    
+    public String sendPhiUT() {
+        System.err.println("Vao ham sendPhiUT");
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            HashMap hmParameter = getParameter();
+            List<String> lstPos = (List<String>) hmParameter.get("poscd");
+            DaoNhaptaycnMain daosync = DaoNhaptaycnMain.newInstance();
+            Map<String, Integer> mapStatusSend = new HashMap();
+            if(khoa_nhaptaycn.equals("PHIUT_001"))
+            {
+                lstPos = daosync.getAllPosUser(UserName,"PHIUT_001");
+            }
+            
+            if(khoa_nhaptaycn.equals("NHAPTAYCN_02"))
+            {
+                return SUCCESS;
+            }
+//            String khoa =  hmParameter.get("khoa_nhaptaycn").toString();
+
+            for (String mapgd : lstPos) {
+
+                ServletContext context = ServletActionContext.getServletContext();
+                String strPathSave = !context.getRealPath("/").endsWith("/")
+                        ? context.getRealPath("/") + "/" + Define.M_REPORT_XML
+                        : context.getRealPath("/") + Define.M_REPORT_XML;
+                strPathSave += hmParameter.get("khoa_nhaptaycn").toString() + "_" + mapgd
+                        + "_" + UserName + "_"
+                        + Long.toString(System.currentTimeMillis()).substring(Long.toString(System.currentTimeMillis()).length() - 6) + ".xml";
+
+
+                List<String> lstData = new ArrayList<>();
+                boolean bStatus_file = false;
+                lstData = daosync.getDataSendPhiut("NT",khoa_nhaptaycn,
+                        mapgd, hmParameter.get("ngay_bc").toString());
+                
+                if (lstData == null || lstData.size() == 0) {
+                    mapStatusSend.put(mapgd, 6);
+                    continue;
+                }
+                bStatus_file = new XmlKtgsSync().createXmlFileKtgs(Define.PARA_SYN_REPORT_PHIUT, "NT",
+                        hmParameter.get("khoa_nhaptaycn").toString(), hmParameter.get("ngay_bc").toString(), UserName, Grade,
+                        mapgd, lstData, Define.WEB_SERVICES_STATUS_SEND, strPathSave);
+
+                if (!bStatus_file) {
+//                    addActionError("Bạn chưa tạo được file dữ liệu để gửi của PGD " + mapgd);
+                    CoreLogger.error(this.getClass().getName() + " Exception -> sendPhiUT: Khong tao duoc file " + strPathSave);
+
+                    mapStatusSend.put(mapgd, 1); //1 la tao file xml bi loi
+//                    return ERROR;
+                }
+                //Tao file xml theo cau truc
+//
+                File checkfile = new File(strPathSave);
+                if (!checkfile.exists()) {
+//                    addActionError("Bạn chưa tạo được file dữ liệu để gửi. Xin liên hệ với quản trị để khắc phục");
+                    CoreLogger.error(this.getClass().getName() + " Exception -> sendPhiUT: Khong tao duoc file " + strPathSave);
+                    mapStatusSend.put(mapgd, 2); //2 la khong tim thay file xml
+//                    return ERROR;
+                }
+                ProcessReportSyn clientWritexml = new ProcessReportSyn();
+                String sStatus = clientWritexml.SendFileXmlToWebServices(strPathSave);
+//
+                if (sStatus.equals(Define.WEB_SERVICES_STATUS_FAIL)) {
+                    System.err.println("Ban chua dong bo du lieu duoc ve TW");
+//                    addActionError("Lỗi bạn chưa gửi dữ liệu được về trung ương ");
+                    if (checkfile.exists()) {
+                        checkfile.delete();
+                    }
+                    CoreLogger.error(this.getClass().getName() + " Exception -> sendPhiUT: Khong dong bo duoc file " + strPathSave);
+                    mapStatusSend.put(mapgd, 3); //3 la gui file du lieu bi loi
+//                    return ERROR;
+                } else if (sStatus.equals(Define.WEB_SERVICES_STATUS_OK)) {
+//                    addActionMessage("Bạn gửi dữ liệu về trung ương thành công");
+                    if (checkfile.exists()) {
+                        checkfile.delete();
+                    }
+                    mapStatusSend.put(mapgd, 4);  //gui du lieu thanh cong
+                } else {
+//                    addActionMessage("Bạn không thể gửi dữ liệu lên trung ương do bị khóa </br>Xin liên hệ về Ban KT&QLTC để được gửi lại số liệu ! ");
+                    if (checkfile.exists()) {
+                        checkfile.delete();
+                    }
+                    mapStatusSend.put(mapgd, 5);  //pgd bi khoa khong gui duoc du lieu
+//                    return ERROR;
+                }
+            }
+            setLstViewSend(getViewStatusSend(lstPos, mapStatusSend));
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> sendPhiUT: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> sendPhiUT: " + e.getMessage());
+            addActionError("Bạn chưa gửi được dữ liệu xin liên hệ với quản trị để được khắc phục");
+            return ERROR;
+        }
+//        addActionMessage("Bạn gửi dữ liệu về trung ương thành công !");
+
+        return SUCCESS;
+    }
+
+    public String getPoslist() {
+        return poslist;
+    }
+
+    public void setPoslist(String poslist) {
+        this.poslist = poslist;
+    }
+    
+    
+
+    public List<saveDulieuNT> getLstsaveNT() {
+        return lstsaveNT;
+    }
+
+    public void setLstsaveNT(List<saveDulieuNT> lstsaveNT) {
+        this.lstsaveNT = lstsaveNT;
+    }           
+
+    public List<saveDulieuNT_Phi> getLstsaveNT_SP() {
+        return lstsaveNT_SP;
+    }
+
+    public void setLstsaveNT_SP(List<saveDulieuNT_Phi> lstsaveNT_SP) {
+        this.lstsaveNT_SP = lstsaveNT_SP;
+    }
+
+    public List<saveDulieuNT_Phi> getLstsaveNT_PB() {
+        return lstsaveNT_PB;
+    }
+
+    public void setLstsaveNT_PB(List<saveDulieuNT_Phi> lstsaveNT_PB) {
+        this.lstsaveNT_PB = lstsaveNT_PB;
+    }   
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getTotalDataView() {
+        return totalDataView;
+    }
+
+    public void setTotalDataView(String totalDataView) {
+        this.totalDataView = totalDataView;
+    }
+                
+    public List<ListValue> getLstNgnhanDm() {
+        return lstNgnhanDm;
+    }    
+
+    public String getNha_dt() {
+        return nha_dt;
+    }
+
+    public void setNha_dt(String nha_dt) {
+        this.nha_dt = nha_dt;
+    }
+
+    public List<saveDulieuNT_Phi> getLstsaveNT_PGD() {
+        return lstsaveNT_PGD;
+    }
+
+    public void setLstsaveNT_PGD(List<saveDulieuNT_Phi> lstsaveNT_PGD) {
+        this.lstsaveNT_PGD = lstsaveNT_PGD;
+    }
+
+    public List<QT_DULIEU_NT> getLstDulieuNt_chitiet() {
+        return lstDulieuNt_chitiet;
+    }
+
+    public void setLstDulieuNt_chitiet(List<QT_DULIEU_NT> lstDulieuNt_chitiet) {
+        this.lstDulieuNt_chitiet = lstDulieuNt_chitiet;
+    }
+
+    public List<String> getPgd() {
+        return pgd;
+    }
+
+    public void setPgd(List<String> pgd) {
+        this.pgd = pgd;
+    }
+
+    
+    
+    //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
+
+    public List<String> getSanpham() {
+        return sanpham;
+    }
+
+    public void setSanpham(List<String> sanpham) {
+        this.sanpham = sanpham;
+    }
+
+    public List<String> getPhanbo() {
+        return phanbo;
+    }
+
+    public void setPhanbo(List<String> phanbo) {
+        this.phanbo = phanbo;
+    }    
+
+    public List<QT_DULIEU_NT> getLstDulieuNt_pgd() {
+        return lstDulieuNt_pgd;
+    }
+
+    public void setLstDulieuNt_pgd(List<QT_DULIEU_NT> lstDulieuNt_pgd) {
+        this.lstDulieuNt_pgd = lstDulieuNt_pgd;
+    }
+
+    public List<QT_DULIEU_NT> getLstDulieuNt_spham() {
+        return lstDulieuNt_spham;
+    }
+
+    public void setLstDulieuNt_spham(List<QT_DULIEU_NT> lstDulieuNt_spham) {
+        this.lstDulieuNt_spham = lstDulieuNt_spham;
+    }
+
+    public List<QT_DULIEU_NT> getLstDulieuNt_phanbo() {
+        return lstDulieuNt_phanbo;
+    }
+
+    public void setLstDulieuNt_phanbo(List<QT_DULIEU_NT> lstDulieuNt_phanbo) {
+        this.lstDulieuNt_phanbo = lstDulieuNt_phanbo;
+    }        
+    
+    public void setLstNgnhanDm(List<ListValue> lstNgnhanDm) {
+        this.lstNgnhanDm = lstNgnhanDm;
+    }
+
+    public Pagination getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(Pagination pagination) {
+        this.pagination = pagination;
+    }
+    
+    
+    
+    
+    public List<ListValue> getLstParameters() {
+        return lstParameters;
+    }
+
+    public void setLstParameters(List<ListValue> lstParameters) {
+        this.lstParameters = lstParameters;
+    }
+
+    public String getType_bcqt() {
+        return type_bcqt;
+    }
+
+    public void setType_bcqt(String type_bcqt) {
+        this.type_bcqt = type_bcqt;
+    }
+
+    public List<QT_DULIEU_NT> getLstDulieuNt() {
+        return lstDulieuNt;
+    }
+
+    public void setLstDulieuNt(List<QT_DULIEU_NT> lstDulieuNt) {
+        this.lstDulieuNt = lstDulieuNt;
+    }
+
+    public List<ReportParam> getLstNhaptaycnParams() {
+        return lstNhaptaycnParams;
+    }
+
+    public void setLstNhaptaycnParams(List<ReportParam> lstNhaptaycnParams) {
+        this.lstNhaptaycnParams = lstNhaptaycnParams;
+    }
+
+    public TreeNode getNodes_pos() {
+        return nodes_pos;
+    }
+
+    public void setNodes_pos(TreeNode nodes_pos) {
+        this.nodes_pos = nodes_pos;
+    }
+
+    public String getGrade() {
+        return Grade;
+    }
+
+    public void setGrade(String Grade) {
+        this.Grade = Grade;
+    }
+
+    public String getUserName() {
+        return UserName;
+    }
+
+    public void setUserName(String UserName) {
+        this.UserName = UserName;
+    }
+
+    public String getMessage() {
+        return Message;
+    }
+
+    public void setMessage(String Message) {
+        this.Message = Message;
+    }
+
+    public List<ListValue> getLstAllNhaptaycn() {
+        return lstAllNhaptaycn;
+    }
+
+    public void setLstAllNhaptaycn(List<ListValue> lstAllNhaptaycn) {
+        this.lstAllNhaptaycn = lstAllNhaptaycn;
+    }    
+
+    public List<String> getPoscd() {
+        return poscd;
+    }
+
+    public void setPoscd(List<String> poscd) {
+        this.poscd = poscd;
+    }
+
+    public String getIsDisplayTM() {
+        return isDisplayTM;
+    }
+
+    public void setIsDisplayTM(String isDisplayTM) {
+        this.isDisplayTM = isDisplayTM;
+    }
+
+    public List<ModelViewSend> getLstViewSend() {
+        return lstViewSend;
+    }
+
+    public void setLstViewSend(List<ModelViewSend> lstViewSend) {
+        this.lstViewSend = lstViewSend;
+    }
+    
+    public String getKhoa_nhaptaycn() {
+        return khoa_nhaptaycn;
+    }
+
+    public void setKhoa_nhaptaycn(String khoa_nhaptaycn) {
+        this.khoa_nhaptaycn = khoa_nhaptaycn;
+    }
+    
+    public String getTt_khoa() {
+        return tt_khoa;
+    }
+
+    public void setTt_khoa(String tt_khoa) {
+        this.tt_khoa = tt_khoa;
+    }
+    
+    public String getMacn() {
+        return macn;
+    }
+
+    public void setMacn(String macn) {
+        this.macn = macn;
+    }
+    
+    public String getNgay_bc() {
+        return ngay_bc;
+    }
+
+    public void setNgay_bc(String ngay_bc) {
+        this.ngay_bc = ngay_bc;
+    }
+
+    
+    
+
+
+    public String getTt_nha_dt() {
+        return tt_nha_dt;
+    }
+
+    public void setTt_nha_dt(String tt_nha_dt) {
+        this.tt_nha_dt = tt_nha_dt;
+    }
+    
+    //</editor-fold>
+}

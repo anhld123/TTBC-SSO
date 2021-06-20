@@ -1,0 +1,53 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="G00754_126_TTGS.xlsx" fileOutFormat="G00754_126_TTGS_DDMMYYYY">
+   <title> 126-TTGS - Báo cáo dư nợ và số dư tiền gửi của các khách hàng lớn nhất</title>
+   <userName>ADMIN</userName>
+   <date>28-Dec-2016 18:54:328</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+
+
+
+<queryString id="1" maplist="header" description="header" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'G00754_SBV_126_TTGS' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRANGPT' STR5,
+'QUYENNV' STR6  from dmpos where po_ma = $P{PARA_MAPGD}]]></queryString>
+<parameter name="PARA_MAPGD" class="java.lang.String" description="Mã PGD"/>
+
+
+
+
+
+<queryString id="3" maplist="data2" description="data2" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/A.1/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="2" maplist="data1" description="data1" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/A/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="4" maplist="data3" description="data3" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/A.1.1/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="5" maplist="data4" description="data4" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/A.1.2/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="6" maplist="data5" description="data5" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/A.1.3/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="7" maplist="data6" description="data6" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/A.1.4/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="8" maplist="data7" description="data7" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/A.1.5/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+<queryString id="9" maplist="data8" description="data8" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/A.1.6/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="10" maplist="data9" description="data9" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/A.1.7/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="11" maplist="data10" description="data10" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/A.1.8/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="12" maplist="data11" description="data11" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/A.1.9/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+
+<queryString id="15" maplist="data14" description="data14" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/B/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+<queryString id="16" maplist="data15" description="data15" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/B.1/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+
+<queryString id="17" maplist="data16" description="data16" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/B.1.1/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+<queryString id="18" maplist="data17" description="data17" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/B.1.2/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="19" maplist="data18" description="data18" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/B.1.3/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="20" maplist="data19" description="data19" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/B.1.4/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="21" maplist="data20" description="data20" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/B.1.5/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="22" maplist="data21" description="data21" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/B.1.6/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="23" maplist="data22" description="data22" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/B.1.7/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="24" maplist="data23" description="data23" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/B.1.8/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="25" maplist="data24" description="data24" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/B.1.9/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="26" maplist="data25" description="data25" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/B.1.10/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+
+<queryString id="13" maplist="data12" description="data12" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/A.1.10/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="14" maplist="data13" description="data13" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/A.2/A.2.1/A.2.2/A.2.3/A.2.4/A.2.5/A.2.6/A.2.7/A.2.8/A.2.9/A.2.10/A.3/A.3.1/A.3.2/A.3.3/A.3.4/A.3.5/A.3.6/A.3.7/A.3.8/A.3.9/A.3.10/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="27" maplist="data26" description="data26" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_126_TTGS (2, '000100' ,'Y', $P{PARA_NGAYBC},'/B.2/B.2.1/B.2.2/B.2.3/B.2.4/B.2.5/B.2.6/B.2.7/B.2.8/B.2.9/B.2.10/B.3/B.3.1/B.3.2/B.3.3/B.3.4/B.3.5/B.3.6/B.3.7/B.3.8/B.3.9/B.3.10/', $P{ORACLE_REF_CURSOR})}]]></queryString>
+</excel_template>

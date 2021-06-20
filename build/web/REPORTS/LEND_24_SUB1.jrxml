@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LEND_24_SUB1" language="groovy" pageWidth="585" pageHeight="842" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="585" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="POS_CD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CONS_FLAG" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\NEWREPORTS\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+A.MPI_ORG_POS_CD,
+G.MIM_INVESTOR_ID IDB_INVESTOR_ID,
+G.MIM_INVESTOR_NAME IDB_INVESTOR_NAME,
+SUBSTR(A. COMMUNE_ID,1,6)COMMUNE_ID ,
+SUBSTR(A. COMMUNE_ID,1,6)  ||'-'||H.DESCR COMMUNE_DESC,
+A.MPI_CUST_ID IDB_INVESTOR_CIF,
+A.MPI_LEGACY_ID,
+A.MPI_GROUP_ID,
+SUBSTR(D.PSP_SPEC_DESC,1,instr(D.PSP_SPEC_DESC,'-',1)-1)  SPECIFIC_PRD,
+MPF_PRIN_BALANCE,
+E.HDPP_INST_INT_PAID,
+E.HDSP_SUBINT_PAID,
+TO_CHAR(LAST_DAY(ADD_MONTHS(PC_BUSINESS_DT,-1)),'DD/MM/YYYY') BUSDT
+FROM  (select  a.rec_st,a.mpi_cls_dt,a.mpi_legacy_id,a.mpi_cust_id,a.mpi_sprd_cd,a.mpi_prod_cd,a.mpi_con_id,a.mpi_proj_id,a.mpi_org_pos_cd,
+a.mpi_group_id || ' - ' || b.mass_org mpi_group_id, nvl(b.commune_id,(select SP_CIF_GET_COMMUNE_ID(MPI_CUST_ID) from dual)) commune_id  from M_PROJ_INFO A, gm001mb b,
+PO850MB Y,
+(SELECT POS_FLAG, MAIN_POS, POS_CD FROM PO850MB WHERE POS_CD = $P{POS_CD}) Z
+where a.mpi_group_id = b.group_id (+)
+and b.br_cd(+)='BR0001'
+AND mpi_org_pos_cd = Y.POS_CD
+AND DECODE(Z.POS_FLAG,'H',1,'S',Y.POS_CD, Y.MAIN_POS) = DECODE(Z.POS_FLAG,'H',1,Z.POS_CD)
+AND DECODE('Y',$P{CONS_FLAG},1,Y.POS_CD) = DECODE('Y',$P{CONS_FLAG},1,$P{POS_CD})
+) A, M_CUST_UDF B,
+ M_PROJ_FINBAL_VIEW C ,P_SPECIFIC_PRD D,
+(
+SELECT HDPP_CUST_ID,HDPP_CON_ID,HDPP_PROJ_ID,
+       NVL(H.HDPP_INST_INT_PAID,0)+NVL(H.HDPP_OVD_INT_PAID,0)  HDPP_INST_INT_PAID,
+       NVL(K.HDSP_SUBINT_PAID,0)    HDSP_SUBINT_PAID
+FROM   H_PROJ_PAYMENT J,H_DISB_PROJ_PAYMENT H , H_DISB_SUBSIDY_PAYMENT K , P_CTRL
+WHERE J.HPP_PKEY = H.HDPP_PKEY
+AND   NVL(TRIM(J.HPP_PAY_REV_FLAG),'X') ='P'
+AND   J.HPP_CUST_ID          = H.HDPP_CUST_ID
+--AND  NVL( K.HDSP_STATUS ,'A')<> 'R'
+--AND  NVL( H.HDPP_STATUS ,'A')<> 'R'
+AND   J.HPP_CON_ID           = H.HDPP_CON_ID
+AND   J.HPP_PROJ_ID          = H.HDPP_PROJ_ID
+AND (NVL(J.HPP_INST_INT,0) + NVL(J.HPP_INT_PREPAID,0) + NVL(J.HPP_INT_OS,0)+ NVL(J.HPP_OO_TAX,0) ) > 0
+AND   J.HPP_CUST_ID       = K.HDSP_CUST_ID (+)
+AND   J.HPP_CON_ID        = K.HDSP_CON_ID(+)
+AND   J.HPP_PROJ_ID       = K.HDSP_PROJ_ID(+)
+AND   J.HPP_PKEY           = K.HDSP_PKEY(+)
+--AND   J.HPP_TRAN_DT   BETWEEN TRUNC (PC_MON_END_DT, 'MON') AND  LAST_DAY(PC_MON_END_DT)
+UNION ALL
+SELECT  HDSP_CUST_ID ,HDSP_CON_ID,HDSP_PROJ_ID,0 HDSP_INT_PAID,
+NVL(H.HDSP_SUBINT_PAID,0) HDSP_SUBINT_PAID
+FROM
+H_DISB_SUBSIDY_PAYMENT H , P_CTRL
+WHERE NOT EXISTS( SELECT 'X' FROM H_PROJ_PAYMENT  J
+WHERE   J.HPP_CUST_ID       = H.HDSP_CUST_ID
+AND   J.HPP_CON_ID        = H.HDSP_CON_ID
+AND   J.HPP_PROJ_ID       = H.HDSP_PROJ_ID
+AND   J.HPP_PKEY          = H.HDSP_PKEY
+--AND   J.HPP_TRAN_DT    BETWEEN TRUNC (PC_MON_END_DT, 'MON') AND  LAST_DAY(PC_MON_END_DT)
+)
+--AND   H.HDSP_TRAN_DT   BETWEEN TRUNC (PC_MON_END_DT, 'MON') AND  LAST_DAY(PC_MON_END_DT)
+--AND  NVL( H.HDSP_STATUS ,'A')<> 'R'
+) E , P_CTRL F,   M_INVESTOR_MAST G  , GR036MB H,investor_fees_reversal_dtls
+WHERE (A.REC_ST = 'A' OR LAST_DAY (A.MPI_CLS_DT) =  LAST_DAY(ADD_MONTHS(PC_BUSINESS_DT,0)))
+AND   A.MPI_CUST_ID          = B.MCD_CUST_ID
+AND   A.MPI_CON_ID           = B.MCD_CON_ID
+AND   A.MPI_PROJ_ID          = B.MCD_PROJ_ID
+--AND   B.MCD_INVESTOR_ID      IS NOT NULL
+AND   A.MPI_CUST_ID          = C.MPF_CUST_ID
+AND   A.MPI_CON_ID           = C.MPF_CON_ID
+AND   A.MPI_PROJ_ID          = C.MPF_PROJ_ID
+AND   A.MPI_PROD_CD          = D.PSP_PROD_CD
+AND   A.MPI_SPRD_CD          = D.PSP_SPEC_CD
+AND   A.MPI_CUST_ID          = E.HDPP_CUST_ID
+AND   A.MPI_CON_ID           = E.HDPP_CON_ID
+AND   A.MPI_PROJ_ID          = E.HDPP_PROJ_ID
+--and mpi_legacy_id='6000009000000234'
+AND    H.SRCH_1   = 'ADD_WARD'
+AND    H.VALUE   = SUBSTR(A.COMMUNE_ID,1,6)
+and mcd_col_name = 'MC_PROJ_58'
+AND NVL(B.MCD_COL_VALUE,'X') = NVL(G.MIM_INVESTOR_ID,'Y')
+AND   A.MPI_CUST_ID          = IFRD_CUST_ID
+AND   A.MPI_CON_ID           = IFRD_CON_ID
+AND   A.MPI_PROJ_ID          = IFRD_PROJ_ID
+AND   IFRD_RUN_DT =(SELECT LAST_DAY(ADD_MONTHS(PC_BUSINESS_DT,0)) FROM P_CTRL)
+order by 2,4,10]]>
+	</queryString>
+	<field name="MPI_ORG_POS_CD" class="java.lang.String"/>
+	<field name="IDB_INVESTOR_ID" class="java.lang.String"/>
+	<field name="IDB_INVESTOR_NAME" class="java.lang.String"/>
+	<field name="COMMUNE_ID" class="java.lang.String"/>
+	<field name="COMMUNE_DESC" class="java.lang.String"/>
+	<field name="IDB_INVESTOR_CIF" class="java.lang.String"/>
+	<field name="MPI_LEGACY_ID" class="java.lang.String"/>
+	<field name="MPI_GROUP_ID" class="java.lang.String"/>
+	<field name="SPECIFIC_PRD" class="java.lang.String"/>
+	<field name="MPF_PRIN_BALANCE" class="java.math.BigDecimal"/>
+	<field name="HDPP_INST_INT_PAID" class="java.math.BigDecimal"/>
+	<field name="HDSP_SUBINT_PAID" class="java.math.BigDecimal"/>
+	<field name="BUSDT" class="java.lang.String"/>
+	<variable name="TOT_MPF_PRIN_BALANCE" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{MPF_PRIN_BALANCE}]]></variableExpression>
+	</variable>
+	<variable name="TOT_HDPP_INST_INT_PAID" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{HDPP_INST_INT_PAID}]]></variableExpression>
+	</variable>
+	<variable name="TOT_HDSP_SUBINT_PAID" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{HDSP_SUBINT_PAID}]]></variableExpression>
+	</variable>
+	<variable name="GRP_HDSP_SUBINT_PAID" class="java.math.BigDecimal" resetType="Group" resetGroup="COMMUNE_GRP" calculation="Sum">
+		<variableExpression><![CDATA[$F{HDSP_SUBINT_PAID}]]></variableExpression>
+	</variable>
+	<variable name="GRP_HDPP_INST_INT_PAID" class="java.math.BigDecimal" resetType="Group" resetGroup="COMMUNE_GRP" calculation="Sum">
+		<variableExpression><![CDATA[$F{HDPP_INST_INT_PAID}]]></variableExpression>
+	</variable>
+	<variable name="GRP_MPF_PRIN_BALANCE" class="java.math.BigDecimal" resetType="Group" resetGroup="COMMUNE_GRP" calculation="Sum">
+		<variableExpression><![CDATA[$F{MPF_PRIN_BALANCE}]]></variableExpression>
+	</variable>
+	<variable name="GRP_COUNT" class="java.lang.Integer" incrementType="Group" incrementGroup="COMMUNE_GRP" calculation="Count">
+		<variableExpression><![CDATA[$V{GRP_COUNT}++]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(1)]]></initialValueExpression>
+	</variable>
+	<group name="INVESTORID_GRP" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{IDB_INVESTOR_ID}]]></groupExpression>
+		<groupHeader>
+			<band height="17">
+				<printWhenExpression><![CDATA[$F{COMMUNE_ID} > 0]]></printWhenExpression>
+				<textField>
+					<reportElement mode="Transparent" x="0" y="0" width="195" height="17" backcolor="#CCCCCC"/>
+					<box leftPadding="2" rightPadding="2">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Mã nhà đầu tư: " + $F{IDB_INVESTOR_ID}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Transparent" x="195" y="0" width="365" height="17" backcolor="#CCCCCC"/>
+					<box leftPadding="2" rightPadding="2">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Tên nhà đầu tư: " + $F{IDB_INVESTOR_NAME}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band>
+				<printWhenExpression><![CDATA[$F{COMMUNE_ID} > 0]]></printWhenExpression>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="COMMUNE_GRP">
+		<groupExpression><![CDATA[$F{COMMUNE_ID}]]></groupExpression>
+		<groupHeader>
+			<band height="16">
+				<printWhenExpression><![CDATA[$F{COMMUNE_ID} > 0]]></printWhenExpression>
+				<textField isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="40" y="0" width="520" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box leftPadding="2" rightPadding="2">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{COMMUNE_DESC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Transparent" x="0" y="0" width="40" height="16" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<box leftPadding="2" rightPadding="2">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{GRP_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="17">
+				<printWhenExpression><![CDATA[$F{COMMUNE_ID} > 0]]></printWhenExpression>
+				<staticText>
+					<reportElement x="0" y="0" width="330" height="17" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box leftPadding="2" rightPadding="2">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Cộng]]></text>
+				</staticText>
+				<textField pattern="#,##0;-#,##0">
+					<reportElement x="490" y="0" width="70" height="17" forecolor="#000000"/>
+					<box leftPadding="2" rightPadding="4">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{GRP_HDSP_SUBINT_PAID}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0;-#,##0">
+					<reportElement x="410" y="0" width="80" height="17" forecolor="#000000"/>
+					<box leftPadding="2" rightPadding="4">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{GRP_HDPP_INST_INT_PAID}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0;-#,##0">
+					<reportElement x="330" y="0" width="80" height="17" forecolor="#000000"/>
+					<box leftPadding="2" rightPadding="4">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{GRP_MPF_PRIN_BALANCE}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="44" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{COMMUNE_ID} > 0]]></printWhenExpression>
+			<staticText>
+				<reportElement mode="Transparent" x="278" y="28" width="52" height="16" backcolor="#CCCCCC"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(5)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="28" width="40" height="16" backcolor="#CCCCCC"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(1)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="195" y="28" width="83" height="16" backcolor="#CCCCCC"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(4)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="490" y="28" width="70" height="16" backcolor="#CCCCCC"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(8)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="105" y="28" width="90" height="16" backcolor="#CCCCCC"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(3)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="330" y="28" width="80" height="16" backcolor="#CCCCCC"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(6)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="410" y="28" width="80" height="16" backcolor="#CCCCCC"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(7)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="40" y="28" width="65" height="16" backcolor="#CCCCCC"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(2)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="105" y="0" width="90" height="28" backcolor="#CCCCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Món vay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="330" y="0" width="80" height="28" backcolor="#CCCCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Dư nợ ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="195" y="0" width="83" height="28" backcolor="#CCCCFF"/>
+				<box leftPadding="4" rightPadding="4">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Mã tổ trưởng - ĐVUT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="490" y="0" width="70" height="28" backcolor="#CCCCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Lãi hỗ trợ
+trong tháng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="278" y="0" width="52" height="28" backcolor="#CCCCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Sản phẩm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="410" y="0" width="80" height="28" backcolor="#CCCCFF"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổng lãi thu trong tháng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="40" y="0" width="65" height="28" backcolor="#CCCCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Mã CIF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="40" height="28" backcolor="#CCCCFF"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[STT]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="40" height="16"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="40" y="0" width="65" height="16"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{IDB_INVESTOR_CIF}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="0" width="90" height="16"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MPI_LEGACY_ID}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="195" y="0" width="83" height="16"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MPI_GROUP_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="278" y="0" width="52" height="16"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SPECIFIC_PRD}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="330" y="0" width="80" height="16"/>
+				<box leftPadding="2" rightPadding="4">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{MPF_PRIN_BALANCE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="410" y="0" width="80" height="16"/>
+				<box leftPadding="2" rightPadding="4">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{HDPP_INST_INT_PAID}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="490" y="0" width="70" height="16"/>
+				<box leftPadding="2" rightPadding="4">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{HDSP_SUBINT_PAID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="19" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{COMMUNE_ID} > 0]]></printWhenExpression>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="330" height="18" backcolor="#CCCCCC"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổng cộng]]></text>
+			</staticText>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement mode="Transparent" x="330" y="0" width="80" height="18" backcolor="#CCCCCC"/>
+				<box leftPadding="2" rightPadding="4">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOT_MPF_PRIN_BALANCE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement mode="Transparent" x="410" y="0" width="80" height="18" backcolor="#CCCCCC"/>
+				<box leftPadding="2" rightPadding="4">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOT_HDPP_INST_INT_PAID}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement mode="Transparent" x="490" y="0" width="70" height="18" backcolor="#CCCCCC"/>
+				<box leftPadding="2" rightPadding="4">
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOT_HDSP_SUBINT_PAID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

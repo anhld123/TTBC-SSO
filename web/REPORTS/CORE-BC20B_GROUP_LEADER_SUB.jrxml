@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CORE-BC20B_GROUP_LEADER_SUB" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="GROUP_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT GROUP_ID GROUP_ID,
+       NVL(LL_NAME,F_NAME||' '||M_NAME||' '|| L_NAME) GROUP_LEADER_NAME,
+       SUB_COMMUNE_DESC ||'--'||COMMUNE_DESC  GROUP_LEADER_ADDRESS,
+       PAR_DESC MASS_ORG
+  FROM GM001MB A,
+       GR010MB B,
+       CA840PB C
+ WHERE LEADER_CIF = CIF_NO
+   AND GROUP_ID =$P{GROUP_ID}
+   AND A.MASS_ORG = C.VALUE
+   AND KEY_1 = 'MASS_ORG'
+order by GROUP_ID]]>
+	</queryString>
+	<field name="GROUP_ID" class="java.lang.String"/>
+	<field name="GROUP_LEADER_NAME" class="java.lang.String"/>
+	<field name="GROUP_LEADER_ADDRESS" class="java.lang.String"/>
+	<field name="MASS_ORG" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="446" y="0" width="84" height="29" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Mã tổ trưởng]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="520" y="0" width="269" height="29" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{GROUP_ID}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="62" y="0" width="84" height="29" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổ trưởng: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="132" y="0" width="261" height="29" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{GROUP_LEADER_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="24" width="77" height="28" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Địa chỉ:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="132" y="24" width="245" height="28" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{GROUP_LEADER_ADDRESS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="446" y="19" width="77" height="28" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Hội quản lý:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="520" y="19" width="269" height="33" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MASS_ORG}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

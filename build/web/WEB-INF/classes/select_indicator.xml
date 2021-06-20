@@ -1,0 +1,22 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- Author: Trung -->
+ 
+<struts>
+    <package name="indicator_manager" extends="struts-default,json-default">        
+        <action name="selectIndicator" 
+                class="vbsp.ims.action.ExportText2SbvAction" method="selectIndicator">
+            <result name="success">select_indicator.jsp</result>
+        </action>      
+        <action name="sbv_indicator_note" 
+                class="vbsp.ims.action.SbvIndicatorNote" method="execute">
+            <result name="success">sbv_indicator_note.jsp</result>
+        </action>      
+        <action name="sbv_indicator_save" 
+                class="vbsp.ims.action.SbvIndicatorNote" method="save_data">
+            <result name="success">WEB-INF/pure_message.jsp</result>
+        </action>      
+    </package>    
+</struts>

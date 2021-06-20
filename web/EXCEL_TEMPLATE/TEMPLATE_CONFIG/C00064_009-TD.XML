@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="C00064_009-TD.xlsx" fileOutFormat="PARA_MAPGD_DDMMYYYY_SBV_009TD">
+   <title>009-TD -> Báo cáo tình hình cấp tín dụng đối với lĩnh vực nông nghiệp, nông thôn</title>
+   <userName>ADMIN</userName>
+   <date>19-Oct-2016 15:43:278</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+<parameter name="PARA_MAPGD" class="java.lang.String" description="Mã phòng giao dịch"/>
+<parameter name="PARA_TONGHOP" class="java.lang.String" description="Cờ tổng hợp"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+<queryString id="1" maplist="header" description="Tiêu đề của báo cáo" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'C00064_009-TD' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(sysdate,'DDMMYYYY') STR4, 'LEHAI' STR5,
+'ID DUYET' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+
+<queryString id="2" maplist="data" description="Hàm lấy số liệu cho báo cáo" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_009td($P{PARA_MAPGD},$P{PARA_TONGHOP},$P{PARA_NGAYBC},2,$P{ORACLE_REF_CURSOR})}]]></queryString>
+</excel_template>

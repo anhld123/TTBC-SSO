@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TCTD-BC05_SUBREPORT_2" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="0850e704-f7fd-4e9e-8729-6706bd482415">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="736"/>
+	<queryString>
+		<![CDATA[SELECT 1 FROM DUAL]]>
+	</queryString>
+	<field name="1" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="460">
+			<staticText>
+				<reportElement uuid="f74d3997-7455-4f40-a2c5-0c84e55a2bdf" x="0" y="14" width="555" height="114"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[- Báo cáo về tuân thủ các chuẩn mực kế toán Việt Nam – VAS hoặc các chuẩn mực kế toán kế toán quốc tế – IAS: Về cơ bản NHCSXH tuân thủ các chuẩn mực kế toán Việt Nam ngoại trừ chuẩn mực doanh thu và chuẩn mực chi phí (Dự phòng rủi ro).
+- Hình thức kế toán áp dụng là kế toán bằng máy vi tính.
+- Các cơ sở đánh giá được sử dụng trong quá trình lập BCTC và các ước tính kế toán quan trọng là số cấp bù chênh lệch lãi suất và chi phí quản lý từ Ngân sách Nhà nước; Quỹ tiền lương cán bộ nhân viên NHCSXH.
+- Hợp nhất báo cáo: NHCSXH không có
+- Cơ sở điều chỉnh các sai sót: Báo cáo quyết toán số cấp bù chênh lệch lãi suất và chi phí quản lý; Báo cáo quyết toán quỹ tiền lương và các biên bản kiểm tra (có phát hiện sai sót về hạch toán kế toán).
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ba1a23b0-5f0b-45f7-9fc4-76236b30aa18" x="0" y="0" width="303" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[III - Chuẩn mực và Chế độ kế toán áp dụng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="63367117-4feb-4132-be77-f64104ae0d0a" x="0" y="155" width="555" height="51"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Các nghiệp vụ phát sinh bằng ngoại tệ trong năm được ghi theo nguyên tệ và quy đổi ra đồng Việt Nam theo tỷ giá do Ngân hàng Nhà nước Việt Nam công bố tại thời điểm lập báo cáo tài chính. Chênh lệch tỷ giá thực tế phát sinh trong kỳ và chênh lệch tỷ giá do đánh giá lại số dư các khoản mục tiền tệ tại thời điểm cuối năm được kết chuyển vào doanh thu hoặc chi phí trong năm tài chính.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3a21ef8f-cd90-4c14-858f-ae0ebd460c6e" x="0" y="251" width="555" height="64"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[- Kế toán thu nhập lãi: Theo phương pháp thực thu.
+- Kế toán chi phí lãi: Theo phương pháp dự chi, là việc tính và hạch toán dần vào tài khoản chi phí theo định kỳ những khoản lãi sẽ phải trả tại một thời điểm nhất định trong tương lai, không phụ thuộc việc tài thời điểm tính và hạch toán, lãi vẫn được chi trả.
+- Kế toán ngừng dự thu lãi: NHCSXH không thực hiện dự thu nên cũng không áp dụng chế độ  ngừng dự thu lãi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="22c62611-e38c-4ccc-8847-0568bc4da9e8" x="0" y="205" width="555" height="47"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[2. Nguyên tắc thực hiện hợp nhất báo cáo tài chính: NHCSXH không có
+3. Công cụ tài chính phái sinh và kế toán phòng ngừa rủi ro: NHCSXH không có
+4. Kế toán thu nhập lãi, chi phí lãi và ngừng dự thu lãi:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="26e0f724-ecf6-471e-b0ae-7510a50a695d" x="0" y="127" width="316" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[IV - Chính sách kế toán áp dụng tại tổ chức tín dụng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fec28d63-5636-4aef-9cab-0e217c950702" x="0" y="141" width="124" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[1. Chuyển đổi tiền tệ: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d631fe44-4395-495d-af7b-fb89eded4861" x="0" y="314" width="555" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[5. Kế toán các khoản thu từ phí và hoa hồng: Theo số phí và hoa hồng thực thu.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a209757f-247a-4d29-aadc-836a94850653" x="0" y="330" width="234" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" isUnderline="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[6. Kế toán đối với cho vay khách hàng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="95d0bb99-08f1-4630-aa6c-0d6a1bfabbc5" x="0" y="344" width="555" height="116" isRemoveLineWhenBlank="true"/>
+				<box leftPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[- Nguyên tắc ghi nhận khoản vay: Theo giá gốc.
++ Các khoản cho vay được thể hiện trong BCTC là số nợ gốc trừ đi bất kỳ các khoản dự phòng khó đòi nào.
+- Các nguyên tắc phân loại nợ và đánh giá rủi ro tín dụng: Nợ bị rủi ro của NHCSXH bao gồm các loại sau:
++ Nợ cần chú ý: là những khoản nợ hiện vẫn còn trong thời hạn trả nợ, nhưng người vay gặp rủi ro do nguyên nhân khách quan, có khó khăn về tài chính nhưng vẫn còn khả năng trả nợ cho NHCSXH, được xử lý giảm một phần hoặc miễn toàn bộ lãi tiền vay theo Quyết định của các cấp có thẩm quyền.
++ Nợ dưới tiêu chuẩn: là những khoản nợ hiện đã quá hạn trả nợ, người vay gặp rủi ro do nguyên nhân khách quan, có khó khăn về tài chính dẫn đến chưa trả được nợ cho NHCSXH nhưng vẫn còn khả năng trả nợ, được xử lý giảm một phần hoặc miễn toàn bộ lãi tiền vay theo các Quyết định của các cấp có thẩm quyền.]]></text>
+			</staticText>
+		</band>
+		<band height="570">
+			<staticText>
+				<reportElement uuid="1fc3dd0a-da1a-4e6c-b77f-fb11d510d7c4" x="0" y="-1" width="555" height="185" isRemoveLineWhenBlank="true"/>
+				<box leftPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[+ Nợ nghi ngờ (Nợ quá hạn): là những khoản nợ đã quá hạn nhưng khách hàng không trả. Căn cứ nghị định số 78/2002/NĐ-CP ngày 04/10/2002 của Chính phủ, thì hộ nghèo và các đối tượng Chính sách khác vay vốn không phải thế chấp, cầm cố tài sản và NHCSXH chỉ thực hiện chuyển nợ quá hạn trong các trường hợp: Người vay sử dụng vốn sai mục đích và Người vay có khả năng trả khoản nợ đến hạn nhưng không trả.
++ Nợ bị rủi ro được xoá nợ “Gốc, lãi”:
+Cơ sở để xem xét xoá nợ: Việc xoá nợ chỉ được áp dụng trong trường hợp người vay là cá nhân gặp rủi ro do nguyên nhân khách quan làm thiệt hại trực tiếp đến vốn, tài sản của khách hàng được xem xét xoá nợ gồm:
+Khách hàng là cá nhân vay bị mất năng lực hành vi dân sự, ốm đau thường xuyên phải điều trị dài ngày, có hoàn cảnh đặc biệt khó khăn, không nơi nương tựa, chết, mất tích hoặc bị tuyên bố là chết, mất tích mà không còn tài sản để trả nợ. Không có người thừa kế hoặc người thừa kế thực sự không có khả năng trả thay.
+Đối với pháp nhân, tổ chức kinh tế đã có quyết định giải thể hoặc phá sản theo quy định của pháp luật mà không còn vốn, tài sản để trả nợ.
+- Cơ sở trích lập dự phòng rủi ro tín dụng: Trích lập dự phòng rủi ro tín dụng được thực hiện theo Quyết định số 180/2002/QĐ-TTg ngày 19/12/2002 của Thủ tướng Chính phủ, mức trích lập bằng 0.02% /năm tính theo tổng dư nợ bình quân năm.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="21af95b4-ba24-4b93-8c00-c7e71b60985c" x="0" y="185" width="555" height="56" isRemoveLineWhenBlank="true"/>
+				<box leftPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Đối với pháp nhân, tổ chức kinh tế đã có quyết định giải thể hoặc phá sản theo quy định của pháp luật mà không còn vốn, tài sản để trả nợ.
+- Cơ sở trích lập dự phòng rủi ro tín dụng: Trích lập dự phòng rủi ro tín dụng được thực hiện theo Quyết định số 180/2002/QĐ-TTg ngày 19/12/2002 của Thủ tướng Chính phủ, mức trích lập bằng 0.02% /năm tính theo tổng dư nợ bình quân năm.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9f00dde4-d9c5-4733-9750-4a2b05839862" x="0" y="240" width="555" height="30"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[7. Kế toán các nghiệp vụ kinh doanh và đầu tư chúng khoán: NHCSXH không có
+8. Tiền và các khoản tương đương tiền:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8eb33507-2bed-40a2-a3eb-7bb5ecdb8aad" x="0" y="269" width="555" height="45"/>
+				<box leftPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Là tiền mặt hiện có (tiền tại quỹ, tiền đang chuyển), số dư tiền gửi thanh toán tại NHNN và các TCTD khác, gồm : tiền gửi không kkỳ hạn và có kỳ hạn với thời gian đáo hạn dưới 90 ngày kể từ ngày lập báo cáo tài chính bằng Việt nam đồng và các đồng tiền khác (ngoại tệ).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4107d359-c55d-453a-af2b-a4007b9c6691" x="0" y="313" width="555" height="80"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[9. Dự phòng, công nợ tiềm ẩn và tài sản chưa xác định: NHCSXH không áp dụng trích dự phòng khoản mục này
+10. Nguyên tắc và phương pháp ghi nhận thuế thu nhập doanh nghiệp và chi phí thuế thu nhập doanh nghiệp: NHCSXH được miễn các loại thuế.
+11. Kế toán các khoản vốn vay, phát hành chứng khoán nợ, công cụ vốn: NHCSXH không có.
+12. Vốn chủ sở hữu:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="629547af-8ad2-499a-8996-ae74b4bd2ffd" x="0" y="392" width="555" height="134"/>
+				<box leftPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[- Vốn điều lệ do Nhà nước cấp.
+- Trích lập và sử dụng các quỹ từ lợi nhuận:
++ Trường hợp thu nhập lớn hơn chi phí, được xử lý như sau:
+Trích lập 02 quỹ khen thưởng, phúc lợi. Mức trích lập cho 02 quỹ bằng 3 tháng lương thực hiện trong năm của NHCSXH, tỷ lệ phân chia cho từng quỹ do Hội đồng Quản trị NHCSXH quyết định. Phần chênh lệch thu chi còn lại được phân phối tiếp như sau: Trích lập quỹ dự trữ bổ sung vốn điều lệ 50%; quỹ dự phòng tài chính 15%; quỹ đầu tư phát triển 30%; trích lập quỹ dự phòng trợ cấp mất việc làm 5%, số dư quỹ này không vượt quá 6 tháng lương thực hiện trong năm của NHCSXH.
++ Trường hợp thu nhập nhỏ hơn chi phí: NHCSXH được chuyển số chênh lệch thu nhập nhỏ hơn chi phí sang năm sau, thời gian chuyển không quá 3 năm. Trường hợp sau 3 năm nếu NHCSXH không chuyển hết số chênh lệch thu nhập nhỏ hơn chi phí, Chủ tịch Hội đồng Quản trị NHCSXH báo cáo Bộ trưởng Bộ tài chính trình Thủ tưởng Chính phủ xem xét quyết định.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="db5fc7da-5388-4174-a45a-f5d341a8f477" x="0" y="525" width="555" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[13. Các điều chỉnh số liệu kế toán kỳ trước:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c3eea8e5-baee-4f54-b5e3-e2094fc4f9fe" x="0" y="539" width="555" height="31"/>
+				<box leftPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Việc điều chỉnh vào các số liệu kỳ trước được thực hiện khi cần thiết để đảm bảo khả năng so sánh trong trường hợp có những thay đổi trong ước tính kế toán hoặc chính sách kế toán áp dụng.]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

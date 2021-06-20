@@ -1,0 +1,29 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="A00034_001-DBTK.xlsx" fileOutFormat="PARA_MAPGD_DDMMYYYY_SBV_001DBTK">
+   <title>001-DBTK -> Báo cáo dư nợ tín dụng theo nghành kinh tế</title>
+   <userName>ADMIN06</userName>
+   <date>19-Oct-2016 15:41:124</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   
+
+
+
+
+<parameter name="PARA_MAPGD" class="java.lang.String" description="Mã phòng giao dịch"/>
+<parameter name="PARA_TONGHOP" class="java.lang.String" description="Cờ tổng hợp báo cáo"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+
+
+
+
+
+
+
+
+
+
+<queryString id="2" maplist="data" description="Hàm lấy số liệu" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_001dbtk($P{PARA_MAPGD},$P{PARA_TONGHOP},$P{PARA_NGAYBC},2,$P{ORACLE_REF_CURSOR})}]]></queryString>
+
+<queryString id="1" maplist="header" description="Tiêu đề đầu của báo cáo" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'A00034_001-DBTK' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(sysdate,'DDMMYYYY') STR4, 'LEHAI' STR5,
+'ID DUYET' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+</excel_template>

@@ -1,0 +1,22 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="CN_NX_4180.xlsx" fileOutFormat="CN_NX_4180">
+   <title>Xuất số liệu xác nhận nợ bàn giao (Liện bộ)</title>
+   <userName>T0001</userName>
+   <date>19-Apr-2017 08:30:219</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   
+
+
+
+<parameter name="PARA_NAMBC" class="java.lang.String" description="Năm báo cáo"/>
+<parameter name="PARA_MAPGD" class="java.lang.String" description="Mã phòng giao dịch"/>
+<queryString id="1" maplist="data1" description="Danh sách" key_group="EMPTY" value_group="EMPTY"><![CDATA[select rr_macn STR1,rr_mapgd STR2,po_ten STR3,rr_makh STR4,rr_tenkh STR5,rr_diachi  STR6,rr_soku STR7,rr_ngayvay STR8,(RR_DNGHI_DNO + RR_DNGHI_LAI) D1, RR_DNGHI_DNO D2,RR_DNGHI_LAI D3,'' STR10
+from hsrr_wb, dmpos
+where rr_khoa = 'XLN_RR_VB4180'
+and to_char(rr_ngaybc,'yyyy') =  $P{PARA_NAMBC}
+and rr_mapgd = po_ma
+and rr_pduyet_cap in ('M','H')
+and rr_mapgd =  $P{PARA_MAPGD}
+order by rr_macn,rr_mapgd
+]]></queryString>
+</excel_template>

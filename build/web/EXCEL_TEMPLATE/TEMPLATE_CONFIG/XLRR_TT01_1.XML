@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="XLRR_TT01_1.xlsx" fileOutFormat="XLRR_01TT">
+   <title>LUAN_TEST_MAU_RR_01TTd</title>
+   <userName>ADMIN</userName>
+   <date>29-Aug-2016 13:43:02</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   
+<parameter name="PARA_NAMBC" class="java.lang.String" description="Năm báo cáo"/>
+<parameter name="PARA_DOTRR" class="java.lang.String" description="Đợt rủi ro"/>
+<queryString id="1" maplist="Data" description="Lấy số liệu chi tiết" key_group="EMPTY" value_group="EMPTY">{call XLRR_01TT($P{PARA_NAMBC},$P{PARA_DOTRR}, $P{ORACLE_REF_CURSOR})}</queryString>
+</excel_template>

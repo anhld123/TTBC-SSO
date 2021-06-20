@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="G00774_122_TTGS.xlsx" fileOutFormat="G00774_122_TTGS_DDMMYYYY">
+   <title>122-TTGS - BC về cấp TD đối với 1 KH, 1 KH và người có liên quan (Tháng)</title>
+   <userName>ADMIN</userName>
+   <date>28-Dec-2016 20:03:92</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_NGAYBC" class="java.lang.Number" description="Ngày BC"/>
+<parameter name="PARA_MAPGD" class="java.lang.String" description="Mã PGD"/>
+<queryString id="1" maplist="header" description="header" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'G00774_122_TTGS' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRANGPT' STR5,
+'TRUNGNT' STR6  from dmpos where po_ma = $P{PARA_MAPGD}]]></queryString>
+
+<queryString id="2" maplist="header2" description="header2" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'G00774_122_TTGS' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRANGPT' STR5,
+'TRUNGNT' STR6  from dmpos where po_ma = $P{PARA_MAPGD}]]></queryString>
+</excel_template>

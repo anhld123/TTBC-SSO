@@ -1,0 +1,177 @@
+<%-- 
+    Document   : table_bcqt_pl01
+    Created on : Nov 16, 2015, 1:26:33 PM
+    Author     : LION
+--%>
+<%@taglib prefix="s" uri="/struts-tags" %>
+<%@taglib prefix="sj" uri="/struts-jquery-tags" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css"  href="css/bcqt.css" />
+<!DOCTYPE html>
+<html>
+    <head>        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <script src="js/jquery.number.js"></script>
+        <script src="js/format_num.js"></script>
+        <script>
+            var max_row = 0;
+            $(document).ready(function () {
+                $('input.number').css({"text-align": "right"});
+                $('input.number2').css({"text-align": "right"});
+                $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
+                $('.D0').css({"text-align": "center"});               
+                $('.number').number(true, 0);
+//            //Cac truong bang so --> se co so truong = 0
+                $('.number2').number(true, 2);
+                $(".SOKU").css({"width": "100%"});
+                $(".TD_CHECKBOX").css({"width": "4%"});
+                $(".TD_SOKU").css({"width": "80px"});
+                $(".TD_TENKH").css({"width": "20%"});
+                $(".TD_TENTS").css({"width": "15%"});
+                $(".TD_MAKH").css({"width": "10%"});
+                $(".TD_THOIGIAN").css({"width": "55px"});
+                $(".TD_MAPGD").css({"width": "45px"});
+                $(".TD_BUTTON1").css({"width": "10%"});
+                $(".TD_SOTIEN").css({"width": "100px"});
+                $(".TEN_KH").css({"width": "100%"});
+            });
+            $('.TEN_KH').focus(function () {
+                $(this).closest('tr').addClass('highlight_row');
+            });
+            $('.TEN_KH').blur(function () {
+                $(this).closest('tr').removeClass('highlight_row');
+            });
+            
+            $("#allCheck_dat").change(function () {
+                $(".checkboxdat").prop('checked', $(this).prop("checked"));
+            });
+        </script>     
+        
+        <script>
+    
+        
+        function initTable()
+            {
+                var table = document.getElementById("tableloaitru3502");
+                var rowcount = table.rows.length;    
+                rowcount = rowcount > max_row ? rowcount : max_row;                
+                for (var i = 0; i < rowcount; i++)
+                {                    
+                    var matmp = getMabyNumber(i);//   
+                    
+                    if(matmp == 1)
+                    {
+                        $('input:checkbox[id='+i+']').attr('checked',true);
+                    }
+                }
+            }
+            
+            function getMabyNumber(idx)
+            {
+                var ma = '';
+                try {
+                    var ma_id = 'id_' + idx;
+                    ma = document.getElementById(ma_id).value;
+                } catch (e)
+                {
+                    ma = '999999';
+                }
+                return ma;
+            }
+            
+        </script>
+        
+        <style>                                                
+            table.editDelete{
+                border-collapse: collapse;
+                width: 100%;
+                border-color: #999;
+            }            
+        </style>
+
+    </head>
+   <body style="font-family: ">
+        <s:form id="id_sv_%{khoa_nhaptaycn}" action="SAVE_%{khoa_nhaptaycn}" theme="simple">
+            <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
+                <input type="hidden" id="<s:property  value="sKey" />" 
+                       name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
+            </s:iterator>   
+                </br>
+                <div id="divTitle">                    
+                    CHẤM ĐIỂM THỦ CÔNG CHỈ TIÊU THEO DÕI HOẠT ĐỘNG ĐGDX(VB3502)                    
+                </div>
+                <s:hidden name="khoa_nhaptaycn"/>
+<!--                <div id="divDonvitinh">
+                    Đơn vị tính: Đồng
+                </div>-->
+                </br>
+                <table border="1" class="editDelete" id="tableloaitru3502" style="width: 95%"  align="center">
+                    <tr height="50px">      
+                        <th  class="TD_CHECKBOX">
+                            <input type="checkbox" id ="allCheck_dat" name="allCheck_dat"  />
+                        </th>  
+                        <th  class="TD_MAKH">Tỉnh/Thành phố</th>    
+                        <th  class="TD_TENTS">Tên PGD</th>  
+                        <th  class="TD_MAKH">Mã PGD</th>    
+                        <th  class="TD_MAKH">Cấp</th>                            
+                        <th  class="TD_MAKH">Điểm</th>        
+                       
+                    </tr>                                    
+                    <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
+                            <tr>     
+                                <td  align="center" class="TD_CHECKBOX">    
+                                    <input type="checkbox" id ="<s:property  value="%{#rowstatus.index}" />"  class="checkboxdat TEN_KH" name="lstsaveNT_DAT[<s:property  value="%{#rowstatus.index}" />].D2" value="<s:property  value="D10" />" 
+                                           class="D0"/>
+                                </td>  
+                                <td align = "right" class="TD_MAKH" >
+                                    <input type="text" <s:if test="D8.equalsIgnoreCase('M')">style="color: red"</s:if> value="<s:property  value="D4" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="TEN_KH D0" onfocus="this.select();"
+                                           readonly="true"/>
+                                    </td>  
+                                <td align = "center" class="TD_MAKH">
+                                    <input type="text" <s:if test="D8.equalsIgnoreCase('M')">style="color: red"</s:if> value="<s:property  value="D5" />" id="D5_<s:property  value="%{#rowstatus.index}" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH" readonly="true"/>
+                                </td> 
+                                <td align = "center" class="TD_MAKH">
+                                    <input type="text" <s:if test="D8.equalsIgnoreCase('M')">style="color: red"</s:if> value="<s:property  value="D3" />" id="D3_<s:property  value="%{#rowstatus.index}" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH" readonly="true"/>
+                                </td>
+                                
+                                <td align = "right" class="TD_TENTS" >
+                                    <input type="text" <s:if test="D8.equalsIgnoreCase('M')">style="color: red"</s:if> value="<s:property  value="D6" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH" onfocus="this.select();"
+                                           readonly="true"/>
+                                    <input type="hidden" value="<s:property  value="D8" />"  id="id8_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/>
+                                    <input type="hidden" value="<s:property  value="D9" />"  id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/>
+                                    <input type="hidden" value="<s:property  value="D10" />"  id="id10_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" value="<s:property  value="D10"/>"/>
+                                    <input type="hidden" value="<s:property  value="MAPGD" />"  id="idmapgd_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD" value="<s:property  value="MAPGD"/>"/>
+                                    <input type="hidden" value="<s:property  value="D1" />"  id="id1_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" value="<s:property  value="D1"/>"/>
+                                    <input type="hidden" value="<s:property  value="D2" />"  id="id2_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" value="<s:property  value="D2"/>"/>
+                                </td>
+                                <td align = "center" class="TD_MAKH">
+                                    <input type="text" <s:if test="D8.equalsIgnoreCase('M')">style="color: red"</s:if> value="<s:property  value="D7" />" id="D7_<s:property  value="%{#rowstatus.index}" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="TEN_KH number2"  onblur="if(this.value > 10) { this.value=0}" />
+                                </td> 
+                                    
+                            </tr>                                                                                                                                                                                   
+                    </s:iterator>
+                </table>                    
+                
+            <sj:submit id="%{khoa_nhaptaycn}_save" name="%{khoa_nhaptaycn}_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
+                       onCompleteTopics="completediv_ss" cssStyle="display: none"/>
+        </s:form>
+        <div id="luu_thanhcong"></div>
+        <script>
+            initTable();
+        </script>
+    </body>
+    
+    
+</html>

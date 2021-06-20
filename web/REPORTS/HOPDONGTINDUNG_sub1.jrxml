@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HOPDONGTINDUNG7b_sub1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="99aa3b73-1783-49fb-919f-bb7238117cf5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<parameter name="PARA_SOKU" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+       to_char(F.KH_NGDHAN,'DD/MM/YYYY') NGAY_DH_KC, F.KH_GOCDHAN GOC_DH_KC
+  FROM hscv_daily A,
+       hskh B,
+       DMXA C,
+       DMTINH D,
+       KHTN F
+ WHERE     ku_mapgd = $P{PARA_MAPGD}
+       AND ku_ngaybc = $P{PARA_NGAYBC}
+       AND KU_CHTRINH = '03'
+       AND A.KU_GNGAN = 0
+       AND A.KU_MAKH = B.KH_MAKH
+       AND SUBSTR (A.KU_MADP, 1, 6) = C.MA
+       AND C.TRANGTHAI = 'A'
+       AND SUBSTR (A.KU_MADP, 1, 2) = D.MA
+       and a.ku_soku = $P{PARA_SOKU}
+       AND A.KU_SOKU = F.KH_SOKU]]>
+	</queryString>
+	<field name="NGAY_DH_KC" class="java.lang.String"/>
+	<field name="GOC_DH_KC" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="84">
+			<staticText>
+				<reportElement uuid="28312084-61ea-47d3-b342-ed9bdc05c748" x="0" y="0" width="555" height="84"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Lãi tiền vay được tính kể từ ngày Bên vay nhận khoản vay đầu tiên đến ngày trả hết nợ gốc. Tiền lãi được Bên cho vay thu hàng tháng kể từ sau tháng nhận khoản vay đầu tiên, tiền lãi được tính trên số dư nợ thực tế;
+Tiền lãi tháng nếu chưa thu được thì chuyển sang thu vào tháng kế tiếp sau đó.
+5. Kỳ hạn trả nợ gốc]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="20">
+			<textField>
+				<reportElement uuid="e8c4426a-1ff6-4658-bcf0-c6cb98755b29" x="0" y="0" width="555" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Ngày " + $F{NGAY_DH_KC} + ", số tiền:" + $F{GOC_DH_KC} + "đồng."]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

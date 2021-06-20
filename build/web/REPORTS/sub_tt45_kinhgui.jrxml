@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_tt45_kinhgui" language="groovy" pageWidth="500" pageHeight="842" columnWidth="500" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="1609e1a6-7aa0-4027-9573-403267d50fab">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TONGHOP" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT MAIN_POS,POS_CD,POS_FLAG,B.TEN TENTINH,REPLACE(REPLACE(C.TEN,'Thành Phố','TP. '),'Thành Phố','TP. ') TENHUYEN,POS_DESC, ADD_CITY, VBSP_PUBLIC_FUNCTION.F_GET_REPORT_GRADE($P{PARA_MAPGD},$P{PARA_TONGHOP}) CAP_BC
+       FROM PO850MB A, DMTINH B, DMHUYEN C WHERE A.POS_CD = $P{PARA_MAPGD} AND SUBSTR(A.MAIN_POS,3,2) = B.MA(+) AND SUBSTR(A.POS_CD,3,4) = C.MA(+)]]>
+	</queryString>
+	<field name="MAIN_POS" class="java.lang.String"/>
+	<field name="POS_CD" class="java.lang.String"/>
+	<field name="POS_FLAG" class="java.lang.String"/>
+	<field name="TENTINH" class="java.lang.String"/>
+	<field name="TENHUYEN" class="java.lang.String"/>
+	<field name="POS_DESC" class="java.lang.String"/>
+	<field name="ADD_CITY" class="java.lang.String"/>
+	<field name="CAP_BC" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement uuid="4d9966e1-17be-4ee5-a181-24214469cd99" x="1" y="1" width="499" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CAP_BC} == 1 ? "Kính gửi: Phòng Lao động - Thương binh và Xã hội huyện/quận/thị xã/thành phố: " + $F{TENHUYEN} : $F{CAP_BC} == 2 ? "Kính gửi: Sở Lao động - Thương binh và Xã hội tỉnh/thành phố: " + $F{TENTINH} : "Kính gửi: Bộ Lao động- Thương binh và Xã hội (Cục quản lý lao động ngoài nước)"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

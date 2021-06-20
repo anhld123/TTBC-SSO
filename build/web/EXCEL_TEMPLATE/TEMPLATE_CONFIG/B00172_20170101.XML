@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="B00172_20170101.xlsx" fileOutFormat="PARA_MAPGD_DDMMYYYY_SBV_043-TTGS">
+   <title>043- Báo cáo dự kiến vốn khả dụng bằng đồng việc nam của các tổ chức tín dụng</title>
+   <userName>ADMIN</userName>
+   <date>20-Oct-2016 14:00:934</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+<parameter name="PARA_MAPGD" class="java.lang.String" description="Mã phòng giao dịch"/>
+<parameter name="PARA_TONGHOP" class="java.lang.String" description="Cờ tổng hợp"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+
+<queryString id="1" maplist="header" description="Lấy tiêu đề cho báo cáo" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'A00034_041-DBTK' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(sysdate,'DDMMYYYY') STR4, 'TRUNGNT' STR5,
+'ID DUYET' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+
+
+<queryString id="2" maplist="data" description="Lấy số liệu cho báo cáo" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call TT35_INBC_TRUNG.INSL_043cstt($P{PARA_MAPGD},$P{PARA_TONGHOP},$P{PARA_NGAYBC},'1',$P{ORACLE_REF_CURSOR})}]]></queryString>
+</excel_template>

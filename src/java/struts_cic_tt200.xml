@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="bctc_cic_tt200" extends="struts-default,json-default">
+        <action name="loadPageMainCicTT200" class="vbsp.ims.cictt200.BCTCCICTT200Action" method="loadPageMain">
+            <result name="success">/bctc_cic_tt200/main-cic-info.jsp</result>
+            <result name="error">/bctc_cic_tt200/success.jsp</result>
+        </action>
+               
+        <action name="loadModuleCicTT200" class="vbsp.ims.cictt200.BCTCCICTT200Action"  method="loadModuleCic">
+            <!--<result name="success" type="json"></result>-->     
+             <result name="success">/bctc_cic_tt200/loai-module-cic.jsp</result>
+            <result name="error">/bctc_cic_tt200/success.jsp</result>   
+        </action> 
+        
+        
+        <action name="loadDataDoanhnghiepTT200" class="vbsp.ims.cictt200.BCTCCICTT200Action" method="loadDataDoanhnghiep">
+            <result name="CIC20001">/bctc_cic_tt200/table-candoiketoan.jsp</result>
+            <result name="CIC20002">/bctc_cic_tt200/table-candoiketoan.jsp</result>
+            <result name="CIC20003">/bctc_cic_tt200/table-candoiketoan.jsp</result>
+            <result name="CIC20004">/bctc_cic_tt200/table-candoiketoan.jsp</result>
+            <result name="checksend">/bctc_cic_tt200/table_unlock.jsp</result>
+            <result name="error">/bctc_cic_tt200/success.jsp</result>
+        </action>
+        <action name="saveBctcCicTT200" class="vbsp.ims.cictt200.BCTCCICTT200Action" method="saveBctcCic">
+            <result name="success">/bctc_cic_tt200/success.jsp</result>
+            <result name="error">/bctc_cic_tt200/success.jsp</result>
+        </action>
+        
+        <!--gui so lieu -->
+        <action name="sendCICTT200" class="vbsp.ims.cictt200.BCTCCICTT200Action"  method="sendCIC">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+                
+    </package>
+</struts>

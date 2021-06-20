@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ON_11_BK-NDH" language="groovy" pageWidth="840" pageHeight="900" orientation="Landscape" columnWidth="840" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAXA" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_MATO" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_DENNGAY" class="java.lang.String"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select distinct KU_MATO GROUP_ID,
+ TO_TENTT GROUP_LEADER_NAME,
+ TO_MATT GROUP_LEADER_CIF,
+ TO_DVUT MASS_ORG,
+ D.TEN ||'--'||C.TEN ||'--'||E.TEN  GROUP_LEADER_ADDRESS,
+ C.MA COMMUNE_ID,
+    TO_CHAR(TO_DATE($P{PARA_DENNGAY},'DD-MON-YYYY'),'DD/MM/YY') REPORTDATE
+  from hsku a, hskh b , dmxa c, dmthon d ,dmtinh e, hsto g
+ where a.ku_makh = b.kh_makh
+ and b.KH_MADP = d.MA
+ and c.ma = d.xa
+ and substr(ku_mapgd,3,2) = e.ma
+ and a.ku_mato = g.to_mato
+ and a.ku_mapgd = g.to_mapgd
+and a.ku_mato = $P{PARA_MATO}
+aND DECODE(NVL($P{PARA_MAXA},'X'),'X',ku_mato,SUBSTR(C.MA,1,6)) = DECODE(NVL($P{PARA_MAXA},'X'),'X',$P{PARA_MATO},$P{PARA_MAXA})
+AND DECODE(NVL($P{PARA_MATO},'X'),'X',SUBSTR(C.MA,1,6),ku_mato) = DECODE(NVL($P{PARA_MATO},'X'),'X',$P{PARA_MAXA},$P{PARA_MATO})
+ order by TO_DVUT,TO_MATT]]>
+	</queryString>
+	<field name="GROUP_ID" class="java.lang.String"/>
+	<field name="GROUP_LEADER_NAME" class="java.lang.String"/>
+	<field name="GROUP_LEADER_CIF" class="java.lang.String"/>
+	<field name="MASS_ORG" class="java.lang.String"/>
+	<field name="GROUP_LEADER_ADDRESS" class="java.lang.String"/>
+	<field name="COMMUNE_ID" class="java.lang.String"/>
+	<field name="REPORTDATE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="1" width="840" height="22"/>
+				<subreportParameter name="PARA_MADIACHI">
+					<subreportParameterExpression><![CDATA[$F{GROUP_LEADER_ADDRESS}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_MATOCHUCHOI">
+					<subreportParameterExpression><![CDATA[$F{MASS_ORG}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAY">
+					<subreportParameterExpression><![CDATA[$F{REPORTDATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_MATO">
+					<subreportParameterExpression><![CDATA[$F{GROUP_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_DENNGAY">
+					<subreportParameterExpression><![CDATA[$P{PARA_DENNGAY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_TENTT">
+					<subreportParameterExpression><![CDATA[$F{GROUP_LEADER_NAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA["/ON_11_BK-NDH_SUB1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>

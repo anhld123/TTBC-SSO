@@ -1,0 +1,44 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>        
+    <package name="QUANLYMENU" extends="struts-default,json-default">
+    <!--        TRUNG BO SUNG PHAN CAY CHO MENNU-->
+        <action name="buildMenuTreeView" class="vbsp.ims.menucnmanager.MenuManagerAction"
+                method="buildMenuTree">
+            <result name="success" type="json" >
+                <param name="root">nodes</param>
+            </result>  
+        </action>        
+        <action name="listMenu" class="vbsp.ims.menucnmanager.MenuManagerAction"
+                method="listmenu">
+            <result name="success">/MENUCNMANAGER/menucnmanager-main-tbl.jsp</result>  
+        </action>      
+        
+       <action name="CHECK_ID_MENUCNMANAGER" class="vbsp.ims.menucnmanager.MenuManagerAction"  
+                method="check_id">
+            <result name="success">/MENUCNMANAGER/message-success_0.jsp</result>
+            <result name="error">/MENUCNMANAGER/message-success_0.jsp</result>        
+        </action> 
+         
+       <action name="UPDATE_ID_MENUCNMANAGER" class="vbsp.ims.menucnmanager.MenuManagerAction"  
+                method="update">
+            <result name="success">/WEB-INF/pure_message_T.jsp</result>
+            <result name="error">/WEB-INF/pure_message_T.jsp</result>        
+        </action>  
+        
+       <action name="SAVE_DATA_TEMP_MENUCNMANAGER" class="vbsp.ims.menucnmanager.MenuManagerAction"  
+                method="save_data_temp">
+            <result name="success">/WEB-INF/pure_message_T.jsp</result>
+            <result name="error">/WEB-INF/pure_message_T.jsp</result>        
+        </action>  
+        
+        
+        <action name="GET_MENUCN_PRI" class="vbsp.ims.menucnmanager.MenuManagerAction" method="get_pri_list">
+            <result name="success">/MENUCNMANAGER/select_privileage.jsp</result>
+        </action>
+        
+        
+    </package>    
+</struts>

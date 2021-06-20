@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <definitions 
+ xmlns="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="ims_services" targetNamespace="http://services.web.ims.vbsp/" xmlns:tns="http://services.web.ims.vbsp/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:fi="http://java.sun.com/xml/ns/wsit/2006/09/policy/fastinfoset/service" xmlns:tcp="http://java.sun.com/xml/ns/wsit/2006/09/policy/soaptcp/service" 
+ >
+    <message name="ReceivesXmlFile"/>
+    <message name="ReceivesXmlFileResponse"/>
+    <portType name="ims_services">
+        <operation name="ReceivesXmlFile">
+            <input message="tns:ReceivesXmlFile"/>
+            <output message="tns:ReceivesXmlFileResponse"/>
+        </operation>
+    </portType>
+    <binding name="ims_servicesPortBinding" type="tns:ims_services">
+        <wsp:PolicyReference URI="#ims_servicesPortBindingPolicy"/>
+        <operation name="ReceivesXmlFile">
+            <input/>
+            <output/>
+        </operation>
+    </binding>
+    <service name="ims_services">
+        <port name="ims_servicesPort" binding="tns:ims_servicesPortBinding"/>
+    </service>
+    <wsp:Policy wsu:Id="ims_servicesPortBindingPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All/>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>

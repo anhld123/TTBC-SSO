@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>    
+    <package name="main_phts" extends="struts-default,json-default">  
+                          
+        <action name="tranPhts" class="vbsp.ims.phts.actionPhts"  method="tranPhts">
+            <result name="success">/Phts/nhaptay_phts_result.jsp</result>
+            <result name="error">/Phts/success.jsp</result>        
+        </action>
+        
+        <action name="tranPhtsInput" class="vbsp.ims.phts.actionPhts"  method="tranPhtsInput">
+            <result name="success">/Phts/success.jsp</result>
+            <result name="error">/Phts/success.jsp</result>        
+        </action>
+        
+        <action name="tranPhtsInputMTK" class="vbsp.ims.phts.actionPhts"  method="tranPhtsInputMTK">
+            <result name="success">/Phts/success.jsp</result>
+            <result name="error">/Phts/success.jsp</result>        
+        </action>
+        
+        <action name="tranPhtsInputTT35" class="vbsp.ims.phts.actionPhts"  method="tranPhtsInputTT35">
+            <result name="success">/Phts/success.jsp</result>
+            <result name="error">/Phts/success.jsp</result>        
+        </action>
+        
+        
+        <action  name="getMainDataPhts" class="vbsp.ims.phts.actionPhts" method="getMainDataPhts">
+            <result name="success">  
+                phts-input-main.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="mathongke" class="vbsp.ims.phts.actionPhts" method="mathongke">
+            <result name="success">  
+                Phts/mathongke.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="maubieutt35" class="vbsp.ims.phts.actionPhts" method="maubieutt35">
+            <result name="success">  
+                Phts/maubieutt35.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="nhapthucong" class="vbsp.ims.phts.actionPhts" method="nhapthucong">
+            <result name="success">  
+                Phts/nhapthucong.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        
+        <action name="loadParameters_phts"  class="vbsp.ims.phts.actionPhts" method="loadParameters">
+            <result name="success" type="json"></result>
+            <result name="error">sbv/success.jsp</result>
+        </action>    
+        <action name="loadMainPhts"  class="vbsp.ims.phts.actionPhts" method="loadMainPhts">
+            <result name="success" type="json"></result>
+            
+            <result name="error">sbv/success.jsp</result>
+        </action>
+        <action name="loadKyBC_TreePhts"  class="vbsp.ims.phts.actionPhts" method="reloadTree">
+            <result name="success" type="json">
+                <param name="root">tree_bc</param>
+<!--                <param name="root">lstKybc</param>-->
+            </result>
+            
+            
+            <result name="error">sbv/success.jsp</result>
+        </action>  
+        
+        
+    </package>
+    
+</struts>

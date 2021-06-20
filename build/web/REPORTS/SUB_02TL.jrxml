@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUB_02TL" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6f6985f4-d2f7-4d5d-b50f-bce4154fcf7b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_DENNGAY" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_MAPGD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TONGHOP" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_KY" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_COT10" class="java.math.BigDecimal"/>
+	<parameter name="PARA_THANG" class="java.math.BigDecimal"/>
+	<queryString language="plsql">
+		<![CDATA[{call  SUB_02TL_LUAN_GOP_2($P{PARA_MAPGD},$P{PARA_TONGHOP},$P{PARA_DENNGAY},$P{PARA_KY},$P{PARA_COT10},$P{PARA_THANG},$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<field name="MAPGD_1" class="java.lang.String"/>
+	<field name="PHI_SDTW" class="java.math.BigDecimal"/>
+	<field name="DNBQ_NAM" class="java.math.BigDecimal"/>
+	<field name="GL_CAN_DOI" class="java.math.BigDecimal"/>
+	<field name="LS_BQ" class="java.math.BigDecimal"/>
+	<field name="thang" class="java.math.BigDecimal"/>
+	<field name="GT_COT10" class="java.math.BigDecimal"/>
+	<variable name="gt_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[(($F{GT_COT10}/$F{thang})*0.0336*$F{thang})/12]]></variableExpression>
+	</variable>
+	<variable name="gt_2" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{DNBQ_NAM}*$F{thang}/12 - (($F{GL_CAN_DOI}/($F{LS_BQ}*$F{thang}))*0.03)*($F{thang}/12)]]></variableExpression>
+	</variable>
+	<variable name="TONG_GT" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[($V{gt_1}.round( java.math.MathContext.DECIMAL32 ) + $V{gt_2}.round( java.math.MathContext.DECIMAL32 )).round( java.math.MathContext.DECIMAL32 )]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="87" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="352e645b-7a75-4bd8-a7fb-f60cd2759ffd" mode="Transparent" x="0" y="35" width="650" height="30" forecolor="#000000" backcolor="#CCCCFF"/>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="2">
+					<pen lineWidth="0.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="11" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[2 - Phí sử dụng vốn TW đối với Dư nợ Cho vay HSSV: (Số dư bình quân năm cột 11 x 3%) - (Số lãi thực giảm chương trình HSSV/Lãi suất BQ chương trình HSSV (lãi suất bình quân tháng x 12)) x 3%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f972ad55-1ea2-40e7-8dfe-d47d36785a3d" mode="Transparent" x="0" y="18" width="650" height="18" forecolor="#000000" backcolor="#CCCCFF"/>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="2">
+					<pen lineWidth="0.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="11" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[1 - Phí sử dụng vốn TW (Số dư bình quân năm cột 10 x 3,36%) :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2f8b568b-93cc-47d9-80e7-97757cfbecc5" mode="Transparent" x="0" y="65" width="650" height="18" forecolor="#000000" backcolor="#CCCCFF"/>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="2">
+					<pen lineWidth="0.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="11" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[3 - Tổng số Phí sử dụng vốn trung ương phải cộng vào ngoại bảng Phần chi  = (1+2)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="27e3a2d3-697e-4d97-badd-a57a8a0caaab" mode="Transparent" x="0" y="0" width="288" height="20" forecolor="#000000" backcolor="#CCCCFF"/>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="2">
+					<pen lineWidth="0.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[II. Phần xác định số phí sử dụng vốn TW]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="23b654b1-49f1-4cbb-a034-dc7fe9843792" x="650" y="18" width="100" height="17"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($F{GT_COT10}/$F{thang})*0.0336*$F{thang})/12]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="45cf215b-0296-49ea-b043-62c4876c266a" x="650" y="35" width="100" height="30"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DNBQ_NAM}*$F{thang}/12 - (($F{GL_CAN_DOI}/($F{LS_BQ}*$F{thang}))*0.03)*($F{thang}/12)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f11efd56-7069-47eb-8744-7da930ebc7d5" mode="Transparent" x="750" y="65" width="62" height="18" forecolor="#000000" backcolor="#CCCCFF"/>
+				<box topPadding="1" leftPadding="4" bottomPadding="1" rightPadding="2">
+					<pen lineWidth="0.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[triệu đồng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="de924f58-aebf-4c9a-a51f-cd792639d633" mode="Transparent" x="750" y="18" width="62" height="17" forecolor="#000000" backcolor="#CCCCFF"/>
+				<box topPadding="1" leftPadding="4" bottomPadding="1" rightPadding="2">
+					<pen lineWidth="0.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[triệu đồng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a8ee5184-a01e-40d1-a4ea-2adb88dfb8d0" mode="Transparent" x="750" y="35" width="62" height="30" forecolor="#000000" backcolor="#CCCCFF"/>
+				<box topPadding="1" leftPadding="4" bottomPadding="1" rightPadding="2">
+					<pen lineWidth="0.0" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[triệu đồng]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="bf3ff9a5-bc3e-4174-9d50-2c8e0a01401d" x="650" y="63" width="100" height="20"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TONG_GT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

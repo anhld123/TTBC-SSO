@@ -1,0 +1,2710 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="THPT_DC_NO_04PT" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c41292f8-ec0e-4e76-b793-087325d8cde6">
+	<property name="ireport.zoom" value="1.1000000000000019"/>
+	<property name="ireport.x" value="166"/>
+	<property name="ireport.y" value="125"/>
+	<subDataset name="dataset1" uuid="017da494-efe4-4ea1-a0e6-ffc1bd584099">
+		<parameter name="STT_ht" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[select TRIM(CHR($P{STT_ht}+65)) STT from dual]]>
+		</queryString>
+		<field name="STT" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="dataset2" uuid="ff7f919e-3b5d-471c-a0f1-d67cfe750818">
+		<parameter name="STT_DVUT" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[select trim(TO_CHAR($P{STT_DVUT}+1,'RN')) STT1 from dual]]>
+		</queryString>
+		<field name="STT1" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\CHUYEN_TTBC\\REPORT_EOD\\test\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TONGHOP" class="java.lang.String"/>
+	<queryString language="plsql">
+		<![CDATA[{call vbsp_rpt_ptdcno.P_MS04_PT($P{PARA_MAPGD},$P{PARA_TONGHOP},$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<field name="MATINH" class="java.lang.String"/>
+	<field name="TEN_TINH" class="java.lang.String"/>
+	<field name="MAHUYEN" class="java.lang.String"/>
+	<field name="TEN_HUYEN" class="java.lang.String"/>
+	<field name="DC_DVUT" class="java.lang.String"/>
+	<field name="TEN_DVUT" class="java.lang.String"/>
+	<field name="SO_TOTKVV" class="java.math.BigDecimal"/>
+	<field name="TONG_SOKH" class="java.math.BigDecimal"/>
+	<field name="TONG_DN" class="java.math.BigDecimal"/>
+	<field name="DC_DNO_THAN" class="java.math.BigDecimal"/>
+	<field name="DC_DNO_QHAN" class="java.math.BigDecimal"/>
+	<field name="DC_DNO_KHOANH" class="java.math.BigDecimal"/>
+	<field name="DUNO_THAN_COKNTRA" class="java.math.BigDecimal"/>
+	<field name="DUNO_QHAN_COKNTRA" class="java.math.BigDecimal"/>
+	<field name="DUNO_KHOANH_COKNTRA" class="java.math.BigDecimal"/>
+	<field name="TONGDN_KHONGKNTRA" class="java.math.BigDecimal"/>
+	<field name="DUNO_THAN_KKNTRA" class="java.math.BigDecimal"/>
+	<field name="DUNO_QHAN_KKNTRA" class="java.math.BigDecimal"/>
+	<field name="DC_DNO_CHAYY" class="java.math.BigDecimal"/>
+	<field name="DC_DNO_XLRR" class="java.math.BigDecimal"/>
+	<field name="DC_DNO_SXKD_THUALO" class="java.math.BigDecimal"/>
+	<field name="DC_DNO_RR_KQUAN" class="java.math.BigDecimal"/>
+	<field name="DC_DNO_KHONG_DC" class="java.math.BigDecimal"/>
+	<field name="DC_DNO_DITU" class="java.math.BigDecimal"/>
+	<field name="DC_DNO_KHNHAN_NO" class="java.math.BigDecimal"/>
+	<field name="DC_DNO_NN_KHAC" class="java.math.BigDecimal"/>
+	<field name="DUNO_KHOANH_KKNTRA" class="java.math.BigDecimal"/>
+	<field name="GIATRI" class="java.lang.String"/>
+	<field name="HINH_THUC_VAY" class="java.lang.String"/>
+	<field name="TO_LOAITO" class="java.lang.String"/>
+	<field name="DUNO_COKNTN" class="java.math.BigDecimal"/>
+	<variable name="TONG_SOKH_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONG_SOKH}]]></variableExpression>
+	</variable>
+	<variable name="TONG_DN_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONG_DN}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_THAN_COKNTRA_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_THAN_COKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_QHAN_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_QHAN}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_KHOANH_COKNTRA_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_KHOANH_COKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_THAN_KKNTRA_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_THAN_KKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_QHAN_KKNTRA_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_QHAN_KKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_KHOANH_KKNTRA_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_KHOANH_KKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_XLRR_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_XLRR}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_SXKD_THUALO_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_SXKD_THUALO}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_KHONG_DC_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_KHONG_DC}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_DITU_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_DITU}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_KHNHAN_NO_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_KHNHAN_NO}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_NN_KHAC_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_NN_KHAC}]]></variableExpression>
+	</variable>
+	<variable name="TONGDN_KHONGKNTRA_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONGDN_KHONGKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="TONG_SOKH_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONG_SOKH}]]></variableExpression>
+	</variable>
+	<variable name="TONGDN_KHONGKNTRA_2" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONGDN_KHONGKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="TONGDN_KHONGKNTRA_3" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONGDN_KHONGKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_COKNTN_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_COKNTN}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_COKNTN_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_COKNTN}]]></variableExpression>
+	</variable>
+	<variable name="TONG_DN_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONG_DN}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_THAN_COKNTRA_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_THAN_COKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_QHAN_COKNTRA_1" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_QHAN_COKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_KHOANH_COKNTRA_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_KHOANH_COKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="TONGDN_KHONGKNTRA_4" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONGDN_KHONGKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_THAN_KKNTRA_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_THAN_KKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_QHAN_KKNTRA_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_QHAN_KKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_KHOANH_KKNTRA_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_KHOANH_KKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_XLRR_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_XLRR}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_SXKD_THUALO_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_SXKD_THUALO}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_KHONG_DC_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_KHONG_DC}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_DITU_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_DITU}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_KHNHAN_NO_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_KHNHAN_NO}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_NN_KHAC_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_NN_KHAC}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_COKNTN_3" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_COKNTN}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_THAN_COKNTRA_3" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_THAN_COKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="STT_TO" class="java.lang.String" resetType="Group" resetGroup="DVUT" calculation="Count">
+		<variableExpression><![CDATA[$V{DVUT_COUNT}++]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<variable name="COUNT_DVUT" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" incrementType="Group" incrementGroup="DVUT" calculation="Count">
+		<variableExpression><![CDATA[$V{DVUT_COUNT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="SO_TOTKVV_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{SO_TOTKVV}]]></variableExpression>
+	</variable>
+	<variable name="TONG_SOKH_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONG_SOKH}]]></variableExpression>
+	</variable>
+	<variable name="TONG_DN_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONG_DN}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_COKNTN_4" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_COKNTN}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_THAN_COKNTRA_4" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_THAN_COKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_QHAN_COKNTRA_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_QHAN_COKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_KHOANH_COKNTRA_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_KHOANH_COKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="TONGDN_KHONGKNTRA_5" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONGDN_KHONGKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_THAN_KKNTRA_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_THAN_KKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_QHAN_KKNTRA_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_QHAN_KKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_KHOANH_KKNTRA_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_KHOANH_KKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_XLRR_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_XLRR}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_SXKD_THUALO_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_SXKD_THUALO}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_KHONG_DC_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_KHONG_DC}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_DITU_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_DITU}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_KHNHAN_NO_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_KHNHAN_NO}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_NN_KHAC_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_NN_KHAC}]]></variableExpression>
+	</variable>
+	<variable name="SO_TOTKVV_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DVUT" calculation="Sum">
+		<variableExpression><![CDATA[$F{SO_TOTKVV}]]></variableExpression>
+	</variable>
+	<variable name="SO_TOTKVV_3" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{SO_TOTKVV}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_QHAN_COKNTRA_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_QHAN_COKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_QHAN_COKNTRA_4" class="java.math.BigDecimal" resetType="Group" resetGroup="HINH_THUC" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_QHAN_COKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="SO_TOTKVV_4" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{SO_TOTKVV}]]></variableExpression>
+	</variable>
+	<variable name="SO_TOTKVV_5" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{SO_TOTKVV}]]></variableExpression>
+	</variable>
+	<variable name="TONG_SOKH_4" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONG_SOKH}]]></variableExpression>
+	</variable>
+	<variable name="TONG_SOKH_5" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONG_SOKH}]]></variableExpression>
+	</variable>
+	<variable name="TONG_DN_4" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONG_DN}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_THAN_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_THAN}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_QHAN_2" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_QHAN}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_KHOANH_1" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_KHOANH}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_KHOANH_2" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_KHOANH}]]></variableExpression>
+	</variable>
+	<variable name="TONGDN_KHONGKNTRA_6" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONGDN_KHONGKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_THAN_COKNTRA_5" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_THAN_COKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_QHAN_COKNTRA_5" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_QHAN_COKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_KHOANH_COKNTRA_4" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_KHOANH_COKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_XLRR_4" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_XLRR}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_SXKD_THUALO_4" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_SXKD_THUALO}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_KHONG_DC_4" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_KHONG_DC}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_DITU_4" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_DITU}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_KHNHAN_NO_4" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_KHNHAN_NO}]]></variableExpression>
+	</variable>
+	<variable name="DC_DNO_NN_KHAC_4" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DC_DNO_NN_KHAC}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_THAN_KKNTRA_4" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_THAN_KKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_QHAN_KKNTRA_4" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_QHAN_KKNTRA}]]></variableExpression>
+	</variable>
+	<variable name="DUNO_KHOANH_KKNTRA_4" class="java.math.BigDecimal" resetType="Group" resetGroup="HUYEN" calculation="Sum">
+		<variableExpression><![CDATA[$F{DUNO_KHOANH_KKNTRA}]]></variableExpression>
+	</variable>
+	<group name="HUYEN" isStartNewPage="true" isResetPageNumber="true">
+		<groupExpression><![CDATA[$F{MATINH}]]></groupExpression>
+		<groupHeader>
+			<band height="321">
+				<staticText>
+					<reportElement uuid="47f07f2f-675b-425a-8dd3-3de7b5708003" x="200" y="0" width="462" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[BẢNG TỔNG HỢP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="21752bb8-dc2f-42b0-82d6-a9231cea6524" x="729" y="0" width="72" height="14"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Mấu số: 04/PT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="8084ae1f-5753-484e-a430-c3652897c45b" x="662" y="16" width="140" height="24"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[ Lập 6 liên: 01 liên lưu Hội sở tỉnh;01 liên gửi
+ Hội sở chính, 04 liên gửi các TC Hội cấp tỉnh]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="6ffdd22f-07b3-4471-8f29-692ba2d38fe2" x="675" y="47" width="127" height="14"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" isBold="false" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Đơn vị tính: ngàn đồng]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="bba79d75-4310-4733-86cc-b68641863d1e" x="205" y="61" width="597" height="20"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Phân tích nợ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="3b3bc227-433b-4db5-b34e-0c0f8ab3e676" x="393" y="81" width="181" height="39"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Nợ không khả năng thu hồi]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0b64b011-9523-40a1-af81-b27c15476802" x="353" y="120" width="40" height="163"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Nợ khoanh]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e9ef32a9-9442-4018-b7b1-c0bce9354786" x="574" y="81" width="228" height="39"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Nguyên nhân không có khả năng thu hồi đối với nợ trong hạn và nợ quá hạn]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="3cb879d3-7859-446a-9cd1-95e320374f8c" x="727" y="120" width="35" height="163"/>
+					<box leftPadding="2" rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Khoản vay không có người nhận nợ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="bed6627a-ed4a-49fb-8d54-0e6a48e4fd81" x="762" y="120" width="40" height="163"/>
+					<box leftPadding="0" rightPadding="0">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Các nguyên nhân khác]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0633d000-3133-4b9a-9797-5d61e489b8e2" x="692" y="120" width="35" height="163"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Người vay đi tù không có khả năng trả nợ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e5ef4771-9db7-41ee-b92a-2e5d777faf9a" x="89" y="61" width="30" height="222"/>
+					<box leftPadding="2" rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Số Tổ TK&VV  /Số dự án]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="a83cb5c6-932f-40c0-ab11-37c8829dbf4b" x="574" y="120" width="38" height="163"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Các
+khoản
+nợ đủ
+ điều
+kiện
+xử lý
+rủi ro
+ theo
+QĐ 15]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="49e86f09-689f-4685-a9f5-193ff0c92c75" x="153" y="61" width="52" height="222"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Tổng dư nợ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="9931f30e-6a8b-4555-8f4e-05486d4fb2c9" x="652" y="120" width="40" height="163"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Hộ vay bỏ đi khỏi nơi cư trú không xác định được địa chỉ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="770b9dab-b1e0-4404-b1f4-6baee051cbc1" x="257" y="120" width="53" height="163"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Nợ
+trong
+hạn]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="23f75251-9861-4341-a832-904f791def63" x="612" y="120" width="40" height="163"/>
+					<box leftPadding="2" rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[SXKD thua lỗ; hộ vay gặp nhiều rủi ro; bị rủi ro khách quan không đủ giấy tờ chứng minh]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="99229ab5-ad01-47ee-a9cd-885f7a374a28" x="310" y="120" width="43" height="163"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Nợ quá hạn]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e57c54b3-c41c-4e9b-be84-2d22b0903ead" x="393" y="120" width="48" height="163"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Tổng số]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0c8b7e16-da3a-483d-84f8-d1b8103c57e7" x="205" y="81" width="188" height="39"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Nợ có khả năng thu hồi]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="1019bc97-c81e-483a-9674-c160f4e9ea57" x="119" y="61" width="34" height="222"/>
+					<box leftPadding="2" rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Số tổ viên còn dư nợ]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="e8d958f9-f8c1-418a-abf5-f075f7484624" x="200" y="17" width="462" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Times New Roman" size="13" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA["PHÂN TÍCH NỢ CỦA KHÁCH HÀNG TẠI " + $F{TEN_TINH}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="0ac12240-b403-4936-85eb-bc4c98867ed8" x="534" y="120" width="40" height="163"/>
+					<box leftPadding="0" rightPadding="0">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Nợ khoanh]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="53fd8865-b640-4a53-8051-ddb813f98b76" x="491" y="120" width="43" height="163"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Nợ quá hạn]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="56b797c3-74f8-4e90-b863-e63ab34f9fc1" x="441" y="120" width="50" height="163"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Nợ
+trong
+hạn]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7e0d5979-5e6f-4c91-896a-f7f0f39f42f2" x="205" y="120" width="52" height="163"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Tổng số]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="abb0e8bd-a0bc-4365-8ffc-c2d3b9b2f7bc" x="24" y="61" width="65" height="222"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Tổ chức hội/ Huyện]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="85f5fa88-86ef-4659-a069-96326cf94764" x="0" y="61" width="24" height="222"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[STT]]></text>
+				</staticText>
+				<subreport>
+					<reportElement uuid="a5d18088-8d5a-4ff1-9983-6bbd56739b8e" x="0" y="0" width="200" height="51"/>
+					<subreportParameter name="POS_CD">
+						<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="CONS_FLAG">
+						<subreportParameterExpression><![CDATA['Y']]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["/mainpos_subpos.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement uuid="4c48c4bc-64e4-49ec-9951-fb6622274103" x="119" y="283" width="34" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[4]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="954d35b0-40f6-4a3e-85ec-1c04850c0a31" x="0" y="283" width="24" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[1]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="b3020b31-69cb-4740-8b28-1d750fa9e013" x="534" y="283" width="40" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[13]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="12f1f531-3083-4055-a8bf-8735c94682e9" x="393" y="283" width="48" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[10]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="29f2cdd1-e78c-422b-a548-94807a8d00c7" x="762" y="283" width="40" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[19]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="00a3823b-ee12-496d-a409-0568b33d5259" x="574" y="283" width="38" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[14]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="5b5199a8-73de-4585-8716-f11017b4824b" x="310" y="283" width="43" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[8]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="3a897e07-3973-4f4e-a7b5-750348a74c7a" x="441" y="283" width="50" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[11]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="fcc4b521-9054-4ebf-905b-82019c408a02" x="353" y="283" width="40" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[9]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="87d4dba0-3c57-421c-b486-8fdae1552791" x="205" y="283" width="52" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[6]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="ea4be789-323e-4c1a-abe5-cd450c4e2f9a" x="612" y="283" width="40" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[15]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d003d9bb-996b-4c1c-bdc2-7c28a102f582" x="153" y="283" width="52" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[5]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="6cc0f64c-ce8f-4c20-8b3d-c5e92d8646a1" x="257" y="283" width="53" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[7]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="833b4f85-c3d4-4e94-a861-00f471bb10d2" x="692" y="283" width="35" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[17]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="357c788e-1096-4904-8d11-f67d170f2a48" x="652" y="283" width="40" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[16]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f3da563c-114f-4c5c-8dc6-56a9dbaf191f" x="24" y="283" width="65" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[2]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="ec400fa5-6c20-4a17-a7e2-ed903979b527" x="727" y="283" width="35" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[18]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d30642da-9802-4baa-a32f-32fc97a5aa14" x="89" y="283" width="30" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[3]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f2e92557-e8c9-4185-abc9-21f82f70d1a8" x="491" y="283" width="43" height="18"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[12]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d6c0434b-724f-447b-9366-2a5478384692" x="0" y="301" width="89" height="20"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Tổng cộng]]></text>
+				</staticText>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="b3a55ef9-2f79-4c21-bcf2-c121eceb2145" mode="Transparent" x="89" y="301" width="30" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SO_TOTKVV_5} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{SO_TOTKVV_5})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="0dd95cb0-c8ce-4b73-ba1c-39425797f7ca" mode="Transparent" x="119" y="301" width="34" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TONG_SOKH_5} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{TONG_SOKH_5})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="2360c355-9bc1-47d5-a996-a1cbc81d4371" mode="Transparent" x="153" y="301" width="52" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TONG_DN_4} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{TONG_DN_4})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="654fa753-cb12-4238-b4ee-86bb4cda9f09" mode="Transparent" x="205" y="301" width="52" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_COKNTN_3} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_COKNTN_3})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="c54e9eb6-b51c-495a-8ab9-433ff2addf79" mode="Transparent" x="257" y="301" width="53" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_THAN_COKNTRA_5} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_THAN_COKNTRA_5})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="cccf84e0-d8ee-4a03-a6f7-5a43f9330060" mode="Transparent" x="310" y="301" width="43" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_QHAN_COKNTRA_5} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_QHAN_COKNTRA_5})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="64692a62-3122-4b20-8a42-2ad93bf4661e" mode="Transparent" x="353" y="301" width="40" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_KHOANH_COKNTRA_4} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_KHOANH_COKNTRA_4})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="1fb4e50d-8d7e-42b7-8003-f9521bf1a1e3" mode="Transparent" x="393" y="301" width="48" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TONGDN_KHONGKNTRA_6} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{TONGDN_KHONGKNTRA_6})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="ee257041-dbcb-4f91-b40d-0cecf2300602" mode="Transparent" x="441" y="301" width="50" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_THAN_KKNTRA_4} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_THAN_KKNTRA_4})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="8d174423-fa83-41ce-b7ac-5e4c7fdd18db" mode="Transparent" x="491" y="301" width="43" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_QHAN_KKNTRA_4} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_QHAN_KKNTRA_4})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="acacddd7-0bd0-4314-ba93-8a09181e1d0f" mode="Transparent" x="534" y="301" width="40" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_KHOANH_KKNTRA_4} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_KHOANH_KKNTRA_4})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="b188e992-4f0a-4927-b0f2-5f2fef497c19" mode="Transparent" x="574" y="301" width="38" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_XLRR_4} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_XLRR_4})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="ad337be1-3379-4688-bec7-1762f7d02a32" mode="Transparent" x="612" y="301" width="40" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_SXKD_THUALO_4} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_SXKD_THUALO_4})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="09805891-8837-454d-9887-c67c0a2423af" mode="Transparent" x="652" y="301" width="40" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_KHONG_DC_4} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_KHONG_DC_4})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="4cbede23-976d-4ab4-a34c-daa4602bb034" mode="Transparent" x="692" y="301" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_DITU_4} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_DITU_4})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="f37d1dc8-3764-48c9-a2e2-57fb46ba893e" mode="Transparent" x="727" y="301" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_KHNHAN_NO_4} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_KHNHAN_NO_4})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="8541e958-5d31-4f0f-85de-36fdd53ec745" mode="Transparent" x="762" y="301" width="40" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_NN_KHAC_4} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_NN_KHAC_4})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="HINH_THUC">
+		<groupExpression><![CDATA[$F{HINH_THUC_VAY}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement uuid="3a5a2d39-64ed-4b90-a38a-b8884ef221ad" x="24" y="0" width="65" height="20"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{HINH_THUC_VAY}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0">
+					<reportElement uuid="ef6aa0de-ba8b-45d0-a687-3f6b0b7ec60d" x="119" y="0" width="34" height="20"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TONG_SOKH_1} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{TONG_SOKH_1})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0">
+					<reportElement uuid="0b26a930-38c4-4d2f-b68b-2f956da9ae50" x="153" y="0" width="52" height="20"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TONG_DN_1}>0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{TONG_DN_1})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0">
+					<reportElement uuid="f6a51d72-ca61-4edf-b195-f2dcdb1c35e8" x="257" y="0" width="53" height="20"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_THAN_COKNTRA_1}>0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_THAN_COKNTRA_1})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0">
+					<reportElement uuid="0d3c060e-0b0a-498c-8bec-a98c8a0c05ca" x="353" y="0" width="40" height="20"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_KHOANH_COKNTRA_1} >0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_KHOANH_COKNTRA_1})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0">
+					<reportElement uuid="43f04c00-d774-4ba5-9c18-e4a0fe11aab4" x="441" y="0" width="50" height="20"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_THAN_KKNTRA_1} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_THAN_KKNTRA_1})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0">
+					<reportElement uuid="b4b1cde8-5f97-4dd7-a757-c01d0cc4dc9d" x="491" y="0" width="43" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_QHAN_KKNTRA_1}  > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_QHAN_KKNTRA_1} )).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0">
+					<reportElement uuid="ba1ea1f7-893f-4621-bcc9-f954558db0f1" x="534" y="0" width="40" height="20"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_KHOANH_KKNTRA_1} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_KHOANH_KKNTRA_1})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0">
+					<reportElement uuid="c07db5e6-3073-45e2-b77d-47e5fabcb897" x="574" y="0" width="38" height="20"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_KHOANH_KKNTRA_3}  > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_XLRR_1} )).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0">
+					<reportElement uuid="49c6f2cd-169a-4260-8517-402b6a7d7974" x="612" y="0" width="40" height="20"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_SXKD_THUALO_1} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_SXKD_THUALO_1})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0">
+					<reportElement uuid="07ed13ed-5c67-4fb1-87ce-b76380d6a039" x="652" y="0" width="40" height="20"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_KHONG_DC_1}> 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_KHONG_DC_1} )).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0">
+					<reportElement uuid="02b3c45b-0364-4d93-83d3-dbf73f90b4e2" x="692" y="0" width="35" height="20"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_DITU_1}  > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_DITU_1} )).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0">
+					<reportElement uuid="220e8e17-1240-4b0e-a8ef-edbe2b929450" x="727" y="0" width="35" height="20"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_KHNHAN_NO_1} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_KHNHAN_NO_1} )).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0">
+					<reportElement uuid="c747e899-0d26-4da6-916f-a10168910a08" x="762" y="0" width="40" height="20"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_NN_KHAC_1} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_NN_KHAC_1})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0">
+					<reportElement uuid="2f4467af-bbe6-456b-b8b8-c0b6370df66f" x="393" y="0" width="48" height="20"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TONGDN_KHONGKNTRA_3} > 0 ?new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{TONGDN_KHONGKNTRA_3})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="9139574f-bec1-4806-a672-d8c6cc053f8d" mode="Transparent" x="205" y="0" width="52" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_COKNTN_1}>0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_COKNTN_1})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC">
+					<reportElement uuid="39a8bd3a-44a5-46b2-a768-eab9219632db" x="89" y="0" width="30" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SO_TOTKVV_3} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{SO_TOTKVV_3})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="1b85ab5a-bff1-4061-9d30-c1613f32439e" x="0" y="0" width="24" height="20"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{HINH_THUC_VAY} == 'CHO VAY ỦY THÁC' ? 'A' : 'B']]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="HINH_THUC" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="a552091d-4425-4956-bb88-9be9109c246d" mode="Transparent" x="310" y="0" width="43" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_QHAN_COKNTRA_4} >0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_QHAN_COKNTRA_4})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="DVUT">
+		<groupExpression><![CDATA[$F{DC_DVUT}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement uuid="739a47fd-c334-4046-9ad4-d94a77a188b0" x="24" y="0" width="65" height="20"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TEN_DVUT}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0">
+					<reportElement uuid="5052b937-68e7-4f0e-a88b-7c68a878d6f7" x="119" y="0" width="34" height="20"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TONG_SOKH_2} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{TONG_SOKH_2})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="93baa8be-cc8e-4bff-aa24-73f1dc6049c6" mode="Transparent" x="205" y="0" width="52" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_COKNTN_2}>0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_COKNTN_2})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="f9a22892-26b2-4899-8495-4e14fc211d49" mode="Transparent" x="153" y="0" width="52" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TONG_DN_2}>0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{TONG_DN_2})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="b942ed2d-cc3f-47d1-a582-0f6af85569f9" mode="Transparent" x="257" y="0" width="53" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_THAN_COKNTRA_2}>0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_THAN_COKNTRA_2})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="9c7f8c3c-85ad-4d34-9bd9-52aca7e3725b" mode="Transparent" x="310" y="0" width="43" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_QHAN_COKNTRA_2}>0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_QHAN_COKNTRA_2})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="a75078b0-bedd-4855-ab54-4988d4b860b2" mode="Transparent" x="353" y="0" width="40" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_KHOANH_COKNTRA_2} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_KHOANH_COKNTRA_2})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="4d896c57-be55-405e-97bf-ed43fed5afe0" mode="Transparent" x="393" y="0" width="48" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TONGDN_KHONGKNTRA_4} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{TONGDN_KHONGKNTRA_4})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="ea7b3b34-c06d-49e1-88b9-f9f7dd1d5e6d" mode="Transparent" x="441" y="0" width="50" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_THAN_KKNTRA_2} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_THAN_KKNTRA_2} )).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="cfbe7214-7f42-4590-a170-2a1f805d9617" mode="Transparent" x="491" y="0" width="43" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_QHAN_KKNTRA_2} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_QHAN_KKNTRA_2} )).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="f480f444-8d52-459d-ac3e-811a0e4a8e3e" mode="Transparent" x="534" y="0" width="40" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DUNO_KHOANH_KKNTRA_2} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_KHOANH_KKNTRA_2})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="cfeeb329-8dc0-4e1b-b0a6-808bc8cc09f3" mode="Transparent" x="574" y="0" width="38" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_XLRR_2}  > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_XLRR_2} )).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="f0fda8d4-826f-4d8a-8861-5efd7f7b2f58" mode="Transparent" x="612" y="0" width="40" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_SXKD_THUALO_2} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_SXKD_THUALO_2})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="62c5b6b8-5a71-444f-b1aa-4e36da5fd08e" mode="Transparent" x="652" y="0" width="40" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_KHONG_DC_2}> 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_KHONG_DC_2} )).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="e1d73664-c824-4672-887d-95a2fe1583e2" mode="Transparent" x="692" y="0" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_DITU_2}  > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_DITU_2} )).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="a61ffd64-61d9-42b0-bcc6-f0ae6db3baaf" mode="Transparent" x="727" y="0" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_KHNHAN_NO_2} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_KHNHAN_NO_2} )).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DVUT" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement uuid="5a7659b4-07db-4586-b40a-d12fd86b7850" mode="Transparent" x="762" y="0" width="40" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DC_DNO_NN_KHAC_2}  > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_NN_KHAC_2} )).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+				<componentElement>
+					<reportElement uuid="7d3ae41c-223d-4e39-b9de-7c32ceef43fb" x="0" y="0" width="24" height="20"/>
+					<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+						<datasetRun subDataset="dataset2" uuid="0041a62a-8295-4a9a-8da4-cdac82cd1615">
+							<datasetParameter name="STT_DVUT">
+								<datasetParameterExpression><![CDATA[$V{COUNT_DVUT}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:listContents height="20" width="24">
+							<textField>
+								<reportElement uuid="74e127a8-7aca-4dba-933d-e782761967c8" x="0" y="0" width="24" height="20"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="8" isBold="true" pdfEncoding="Identity-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{STT1}]]></textFieldExpression>
+							</textField>
+						</jr:listContents>
+					</jr:list>
+				</componentElement>
+				<textField evaluationTime="Group" evaluationGroup="DVUT">
+					<reportElement uuid="5142aeb6-1095-4307-8f59-67bc2beeecc2" x="89" y="0" width="30" height="20"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SO_TOTKVV_2} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{SO_TOTKVV_2})).replace(",", "." ):"-"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="18" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} >1]]></printWhenExpression>
+			<staticText>
+				<reportElement uuid="25313b7f-0284-41f9-ab8e-c70f08ffd3c0" x="0" y="0" width="24" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="87365f92-8676-4eee-b402-3eae307730d9" x="393" y="0" width="48" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1bab7ffe-0c0e-4b09-aca7-abb1cbfc7b85" x="441" y="0" width="50" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[11]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="30d7f8cf-e8f1-49f7-9047-291018b347cf" x="692" y="0" width="35" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[17]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c3bb4f4a-8a59-4fa8-8978-8b62af065cc3" x="256" y="0" width="54" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b3ae91a2-2007-44c6-8e21-fb4bba98aabc" x="491" y="0" width="43" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[12]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0711eb21-2651-4d5a-8719-b5b8093e07db" x="153" y="0" width="52" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="789ac8d2-a36b-4675-896e-a3d04914ad74" x="574" y="0" width="38" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[14]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8eaf601b-ca8a-462f-87f7-54516158d9f1" x="353" y="0" width="40" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[9]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="43d16bff-a70c-4109-a7ad-18a9cdec2609" x="89" y="0" width="30" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bbc3f5b0-cd8f-469b-b6c5-3c5488dd7e96" x="310" y="0" width="43" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[8]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="29fbf9e2-87e9-41ef-a71f-938657114290" x="534" y="0" width="40" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[13]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3b09325a-9408-4a31-a97f-8799425c2498" x="118" y="0" width="35" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0d1cd869-3cf7-4ec4-ad42-a5766ce53eec" x="612" y="0" width="40" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[15]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2e55a902-80ae-461e-8cda-b68a89820ad5" x="727" y="0" width="35" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[18]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ebabd4f1-0220-4fa3-81d0-5c8d577cc179" x="652" y="0" width="40" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[16]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="944744ed-2b04-4f4f-bace-7f26df0f54fa" x="205" y="0" width="52" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c1101755-f8da-4205-acd9-4f79cbca290a" x="24" y="0" width="65" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d54ab8f0-9d94-486b-926c-a2443822261c" x="762" y="0" width="40" height="18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[19]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<elementGroup/>
+			<textField>
+				<reportElement uuid="036d4eee-a973-486d-9aca-5f12abeb01ac" x="24" y="0" width="65" height="20"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TEN_HUYEN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5871dbc1-f1c9-4b3c-b880-5e7e18c5cbab" x="89" y="0" width="30" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SO_TOTKVV} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{SO_TOTKVV})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="46f482b7-c9f8-4c2f-af55-b39e6b2a3e25" x="119" y="0" width="34" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TONG_SOKH} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{TONG_SOKH})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="0f8edeb9-3766-442c-8b33-3643f3e2bcac" x="153" y="0" width="52" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TONG_DN}>0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{TONG_DN})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="5273e57e-9784-418f-9f16-259d810cddeb" x="205" y="0" width="52" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DUNO_COKNTN}>0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{DUNO_COKNTN})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="957eebfe-4954-4a61-b081-7cb9a0e8bec0" x="257" y="0" width="53" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DUNO_THAN_COKNTRA}>0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{DUNO_THAN_COKNTRA})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="4707de8b-3cfe-49c2-9709-81bbfcf62d91" x="310" y="0" width="43" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DUNO_QHAN_COKNTRA}>0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{DUNO_QHAN_COKNTRA})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="d96a7563-7930-4963-b34d-6181af5c6dd2" x="353" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DUNO_KHOANH_COKNTRA} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{DUNO_KHOANH_COKNTRA})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="e1aafdf4-be76-4fd5-b97c-44d27e855dd9" x="393" y="0" width="48" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TONGDN_KHONGKNTRA} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{TONGDN_KHONGKNTRA})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="fb6b1195-f76c-4c5f-9992-443749d18221" x="441" y="0" width="50" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DUNO_THAN_KKNTRA} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{DUNO_THAN_KKNTRA} )).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="11e1b6f2-b6ad-449a-8405-bc7f3abca671" x="491" y="0" width="43" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DUNO_QHAN_KKNTRA} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{DUNO_QHAN_KKNTRA} )).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="dc96b6d5-2063-49ed-92b1-a4844e2087bd" x="534" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DUNO_KHOANH_KKNTRA}  > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{DUNO_KHOANH_KKNTRA} )).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="1aa76c64-ad88-4c8d-84a4-121c89eda4c3" x="574" y="0" width="38" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DC_DNO_XLRR}  > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{DC_DNO_XLRR})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="0b4a694a-53bd-4c52-a0c5-7d1ccd3975e5" x="612" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DC_DNO_SXKD_THUALO} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{DC_DNO_SXKD_THUALO} )).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="9e6d39d0-9276-4d8b-be33-0f76b2dac061" x="652" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DC_DNO_KHONG_DC}> 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{DC_DNO_KHONG_DC})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="06f8889d-2049-40fc-94d5-58471eb3b304" x="692" y="0" width="35" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DC_DNO_DITU} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{DC_DNO_DITU} )).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="791e1857-f18a-4ef3-a215-2a71a1343a97" x="727" y="0" width="35" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DC_DNO_KHNHAN_NO}  > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{DC_DNO_KHNHAN_NO} )).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="2aedefb9-d83c-479b-b441-0ca2bb05c26b" x="762" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DC_DNO_NN_KHAC}  > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($F{DC_DNO_NN_KHAC} )).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bde2aafb-0e46-4fbf-8c87-df41da2e0082" x="0" y="0" width="24" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{STT_TO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="9b7a46c9-2aef-41f4-9058-4dd4f172514d" x="625" y="0" width="154" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Trang: "+$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="b1d084fc-2334-4d83-af31-d3d4fd9e4e0c" x="774" y="0" width="25" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="76" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="accaa456-8d2f-4786-bc9f-6b6ae02f0949" x="650" y="42" width="119" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Giám đốc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c9abd4b0-a91b-426c-bc17-e9b46d1f0ac7" x="650" y="56" width="119" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Ký tên, đóng dấu)]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="982c60c7-03fb-42a3-832c-490b785bd8ce" x="586" y="24" width="183" height="18"/>
+				<subreportParameter name="POS_CD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["./current_date.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="c3e9bb74-341e-462d-9382-a16ada9cae20" x="0" y="0" width="89" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổng cộng]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement uuid="445f4509-0efa-48fd-9a8e-cb51f34892b1" x="89" y="0" width="30" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SO_TOTKVV_1} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{SO_TOTKVV_1})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="4a5caf86-a7a7-4ef8-9487-3e9ea1a3891f" x="119" y="0" width="34" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TONG_SOKH_3} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{TONG_SOKH_3})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="c94a6d4a-75d9-46ac-8361-3f0f7ce1b52f" x="153" y="0" width="52" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TONG_DN_3}>0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{TONG_DN_3})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="4d684930-6d83-442c-b2c1-57a9b91dc092" x="205" y="0" width="52" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DUNO_COKNTN_4}>0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_COKNTN_4})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="c5ef5157-a3b5-40c1-9a56-e534813d4253" x="257" y="0" width="53" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DUNO_THAN_COKNTRA_4}>0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_THAN_COKNTRA_4})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="4cd0f70f-d972-457c-ba07-27dd20034687" x="353" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DUNO_KHOANH_COKNTRA_3} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_KHOANH_COKNTRA_3})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="bc510aeb-e158-470a-b9cb-f3c70ba56384" x="393" y="0" width="48" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TONGDN_KHONGKNTRA_5} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{TONGDN_KHONGKNTRA_5})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="44298145-e3c1-41d5-8bd1-bc2034a307e1" x="441" y="0" width="50" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DUNO_THAN_KKNTRA_3} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_THAN_KKNTRA_3})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="8cd2e7f6-8864-4714-a8ec-364bc9bdce23" x="491" y="0" width="43" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DUNO_QHAN_KKNTRA_3} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_QHAN_KKNTRA_3})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="ba87c2da-772d-4d86-9e05-ce727ef222d8" x="534" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DUNO_KHOANH_KKNTRA_3}  > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_KHOANH_KKNTRA_3} )).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="f5a6d484-fe22-41c2-9159-2be5ff85f2cc" x="574" y="0" width="38" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DC_DNO_XLRR_3} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_XLRR_3})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="416a294f-bd34-4df7-88b2-177413c0f7c9" x="612" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DC_DNO_SXKD_THUALO_3} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_SXKD_THUALO_3} )).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="e2d2b667-125c-479c-8f5f-fb895b6af978" x="652" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DC_DNO_KHONG_DC_3} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_KHONG_DC_3})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="23dbcf1d-0d20-4f5f-bbe9-cc53bebe38aa" x="692" y="0" width="35" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DC_DNO_DITU_3} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_DITU_3} )).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="815bfb9b-7439-41e2-8d77-43b811b42734" x="727" y="0" width="35" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DC_DNO_KHNHAN_NO_3} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_KHNHAN_NO_3})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="2c13cf7c-3785-4b62-96c9-3093fea15a83" x="762" y="0" width="40" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="7" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DC_DNO_NN_KHAC_3} > 0 ? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DC_DNO_NN_KHAC_3})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b55076ee-5ec1-4cfa-9b54-438f9e91629d" x="320" y="56" width="129" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Ký tên, đóng dấu)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bb2cd2e2-56a7-4180-bf49-eaecc62930cc" x="320" y="42" width="129" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Hội cựu chiến binh]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="20233483-492a-49c0-bab5-24414a777fab" x="0" y="56" width="129" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Ký tên, đóng dấu)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="690235ac-e8b5-4fd1-b70f-0895e5079502" x="160" y="42" width="129" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Hội liên hiệp phụ nữ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b5de8f0b-04dd-4c90-a7cb-c1a7e85dd887" x="476" y="42" width="149" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Đoàn TNCS Hồ Chí Minh]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a1122bb0-541a-47e1-85e3-33fd72656f01" x="0" y="42" width="129" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Hội nông dân]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b0559403-297d-4bc1-9d74-6f0d65a6cca6" x="476" y="56" width="149" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Ký tên, đóng dấu)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6c0a94e2-6e8f-412b-9792-bc6856776529" x="160" y="56" width="129" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Ký tên, đóng dấu)]]></text>
+			</staticText>
+			<textField pattern="#,##0" isBlankWhenNull="false">
+				<reportElement uuid="f6d6b66d-2902-4a96-9af6-be26d898c179" mode="Transparent" x="310" y="0" width="43" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DUNO_QHAN_COKNTRA_3}>0? new java.text.DecimalFormat("#,##0").format(Double.valueOf($V{DUNO_QHAN_COKNTRA_3})).replace(",", "." ):"-"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

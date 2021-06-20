@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TCTD-BC05_SUBREPORT_4" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 1 FROM DUAL]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="190" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="56" isRemoveLineWhenBlank="true"/>
+				<box leftPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Đối với pháp nhân, tổ chức kinh tế đã có quyết định giải thể hoặc phá sản theo quy định của pháp luật mà không còn vốn, tài sản để trả nợ.
+- Cơ sở trích lập dự phòng rủi ro tín dụng: Trích lập dự phòng rủi ro tín dụng được thực hiện theo Quyết định số 180/2002/QĐ-TTg ngày 19/12/2002 của Thủ tướng Chính phủ, mức trích lập bằng 0.02% /năm tính theo tổng dư nợ bình quân năm.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="86" width="555" height="104"/>
+				<box leftPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[- Nguyên tắc ghi nhận tài sản cố định vô hình: TSCĐ vô hình tại NHCSXH có nguyên giá là giá trị bỏ ra để nắm giữ quyền sử dụng đất; phần mềm máy vi tính và Quyền phát hành, bản quyền, bằng sáng chế, nhãn hiệu hàng hoá, giấy phép, giấy phép nhượng quyền. Các TSCĐ vô hình khác được ghi nhận nguyên giá theo chuẩn mực kế toán Việt Nam.
+-Phương pháp và thời gian khấu hao TSCĐ vô hình:
+TSCĐ vô hình là quyền sử dụng đất không áp dụng trích khấu hao.
+TSCĐ vô hình là phần mềm máy vi tính: Mức trích khấu hao là 04 năm và khấu hao theo phương pháp đường thẳng.
+TSCĐ vô hình là Quyền phát hành, bản quyền, bằng sáng chế, nhãn hiệu hàng hoá, giấy phép và giấy phép nhượng quyền áp dụng khấu hao theo phương pháp đường thẳng và thời gian khấu hao là 20%/năm.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="55" width="555" height="30"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[7. Kế toán các nghiệp vụ kinh doanh và đầu tư chúng khoán: NHCSXH không có
+8. Kế toán các tài sản vô hình:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="33">
+			<subreport>
+				<reportElement x="0" y="0" width="550" height="33" isRemoveLineWhenBlank="true"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA["/TCTD-BC05_SUBREPORT_5.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

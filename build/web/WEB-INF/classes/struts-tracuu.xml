@@ -1,0 +1,107 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- Author: Home -->
+ 
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="Tracuuhncn" extends="struts-default,json-default">
+        <action name="loaddieukh" class="vbsp.ims.tracuu.Tracuu_action">
+            <result name="thanhcong">/TracuuHNCN/hrf_tracuu_hn.jsp</result>
+        </action>
+        <action name="loadcontrol" class="vbsp.ims.tracuu.Tracuu_action" method="loadcontrol">
+            <result name="thanhcong">/TracuuHNCN/loadcontrol.jsp</result>
+        </action>
+        <action name="getvalue" class="vbsp.ims.tracuu.Tracuu_action" method="getvalue">
+            <result name="thanhcong">/TracuuHNCN/viewcontent.jsp</result>
+        </action>
+        <action name="edit_ds_hongheo" class="vbsp.ims.tracuu.Tracuu_action" method="edit_ds_hongheo">
+            <result name="thanhcong">/TracuuHNCN/edit_ds_hongheo.jsp</result>
+        </action>
+        <action name="save_ds_hongheo" class="vbsp.ims.tracuu.Tracuu_action" method="save_ds_hongheo">
+            <result type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">inputStream</param>
+            </result>
+        </action>
+        <action name="add_ds_hongheo" class="vbsp.ims.tracuu.Tracuu_action" method="add_ds_hongheo">
+            <result type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">inputStream</param>
+            </result>
+        </action>
+    </package>
+    
+    <!--cau hinh cho du lieu max co the upload De file Max =2GB-->
+    <constant name="struts.multipart.maxSize" value="2147483648" />
+     
+    <package name="input-excel-file" extends="struts-default,json-default">
+              
+        <action name="UploadFileHongheo"
+                class="vbsp.ims.action.UploadFileAction">
+            <interceptor-ref name="fileUpload">
+                <!--Cho phep file upload max la 200M-->
+                <param name="maximumSize">209715200</param>
+                <!--doan nay la de loc dinh dang-->
+                <!--                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg,image/jpg
+                </param>-->
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">/TracuuHNCN/table_data_input.jsp</result>
+            <result name="input">/TracuuHNCN/success.jsp</result>
+        </action>
+        <action name="saveDsHongheo"
+                class="vbsp.ims.action.UploadFileAction" method="saveDsHongheo">
+            <result name="success">/TracuuHNCN/success.jsp</result>
+            <result name="error">/TracuuHNCN/success.jsp</result>
+        </action>
+        
+        <action name="download_temp" class="vbsp.ims.action.UploadFileAction" method="Downloadfile">
+            <result name="success" type="stream">
+                <param name="contentDisposition">attachment;filename=${fileName}</param>
+                <param name="contentType">application/vnd.ms-excel</param>
+                <param name="inputName">fileInputStream</param>
+                <param name="bufferSize">1024</param>
+            </result>
+            <result name="error">/TracuuHNCN/success.jsp</result>
+        </action>
+    </package>
+    
+    <!-- Tra cuu thông tin khoản vay, tiền gửi -->
+    <package name="tracuuinfo" extends="struts-default,json-default">
+        <action name="tracuu_info" class="vbsp.ims.tracuu_info.tracuuinfo_ActionSupport">
+            <result name="thanhcong">/Tracuu_info/hrf_tracuu_info.jsp</result>
+        </action>
+        <action name="GenTable" class="vbsp.ims.tracuu_info.tracuuinfo_ActionSupport" method="GenTable">
+            <result name="thanhcong">/Tracuu_info/loadcontrol.jsp</result>
+        </action>
+        <action name="ShowList" class="vbsp.ims.tracuu_info.tracuuinfo_ActionSupport" method="ShowList">
+            <result name="thanhcong">/Tracuu_info/viewcontent.jsp</result>
+        </action>                
+    </package>
+    
+    <!-- Tra cuu thông tin sms -->
+    <package name="tracuusms" extends="struts-default,json-default">
+        <action name="tracuu_sms_main" class="vbsp.ims.tracuu_info.ActionTraCuuSmsMain">
+            <result name="success">/Tracuu_info/sms_tracuu_info.jsp</result>
+        </action>
+        <action name="load_tracuu_sms" class="vbsp.ims.tracuu_info.ActionTraCuuSmsMain" method="load">
+            <result name="success">/Tracuu_info/table_detail.jsp</result>
+        </action>
+<!--        <action name="ShowList" class="vbsp.ims.tracuu_info.tracuuinfo_ActionSupport" method="ShowList">
+            <result name="thanhcong">/Tracuu_info/viewcontent.jsp</result>
+        </action>                -->
+    </package>
+    
+        <!-- Tra cuu thông tin sms -->
+    <package name="tracuukyquy" extends="struts-default,json-default">
+        <action name="tracuu_kyquy_main" class="vbsp.ims.tracuu_info.ActionTraCuuKyQuyMain">
+            <result name="success">/Tracuu_info/kyquy_tracuu_info.jsp</result>
+        </action>
+        <action name="load_tracuu_kyquy" class="vbsp.ims.tracuu_info.ActionTraCuuKyQuyMain" method="load">
+            <result name="success">/Tracuu_info/table_detail_kyquy.jsp</result>
+        </action>
+    </package>
+</struts>

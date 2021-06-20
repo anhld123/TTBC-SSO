@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="XLRR_TT01_00001.xlsx" fileOutFormat="XLRR_TT61_0001">
+   <title>Tổng hợp số liệu đề nghị xử lý rủi ro theo chương trình</title>
+   <userName>ADMIN</userName>
+   <date>29-Aug-2016 16:21:269</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_NAMBC" class="java.lang.String" description="Năm báo cáo"/>
+<parameter name="PARA_DOTRR" class="java.lang.String" description="Đợt rủi ro"/>
+
+<queryString id="1" maplist="data" description="Chi tiết lấy số liệu" key_group="EMPTY" value_group="EMPTY">{call XLRR_01TT($P{PARA_NAMBC},$P{PARA_DOTRR},$P{ORACLE_REF_CURSOR})}</queryString>
+</excel_template>

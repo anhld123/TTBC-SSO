@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="THUYETMINH_SBV.xlsx" fileOutFormat="PARA_MAPGD_DDMMYYY">
+   <title>Mẫu thuyết minh cho báo cáo Ngân Hàng Nhà Nước</title>
+   <userName>ADMIN</userName>
+   <date>22-Oct-2016 15:14:554</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MAPGD" class="java.lang.String" description="Mã đơn vị tao thuyết minh"/>
+<parameter name="PARA_MABC" class="java.lang.String" description="Mã báo cáo định dạng của NHNN"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+<queryString id="1" maplist="donvi" description="Lấy giá trị cho mã đơn vị" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call IMS_EXP_SBV.sp_thuyetminh_donvi($P{PARA_MAPGD},$P{ORACLE_REF_CURSOR})}]]></queryString>
+
+
+<parameter name="PARA_KYBC" class="java.lang.String" description="Kỳ báo cáo khi tao file"/>
+
+<queryString id="2" maplist="data" description="Lấy dữ liệu cho phần giữa của báo cáo" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call IMS_EXP_SBV.sp_thuyetminh_header( $P{PARA_MABC},$P{PARA_MAPGD}, $P{PARA_NGAYBC}, $P{PARA_KYBC},$P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="3" maplist="data1" description="Giá chị cho phần cuối của báo cáo" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call IMS_EXP_SBV.sp_thuyetminh_data( $P{PARA_MABC},$P{PARA_MAPGD}, $P{PARA_NGAYBC}, $P{PARA_KYBC},$P{ORACLE_REF_CURSOR})}]]></queryString>
+</excel_template>

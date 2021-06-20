@@ -1,0 +1,223 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- Author: Home -->
+ 
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="dcpt_no" extends="struts-default,json-default">
+        <action  name="loadFormMain" class="vbsp.ims.action.DcptNoAction" >
+            <result name="success">  
+                dcpt_no/doichieu-no.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        <action name="reloadDvut" class="vbsp.ims.action.DcptNoAction" method="getTotruong">
+            <result name="success" type="json"></result>
+        </action>    
+        
+        <action name="reloadPGD" class="vbsp.ims.action.DcptNoAction" method="getPGD">
+            <result name="success" type="json"></result>
+        </action> 
+        
+        <!--        <action name="reloadDvutSend" class="vbsp.ims.action.GuiDcptNoAction" method="getTotruong">
+            <result name="success" type="json"></result>
+        </action>    -->
+        
+        <action  name="loadFormMainPt" class="vbsp.ims.action.DcptNoAction" >
+            <result name="success">  
+                dcpt_no/phantich-no.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action> 
+        
+        <action  name="loadDataSend" class="vbsp.ims.action.DcptNoAction" >
+            <result name="success">  
+                dcpt_no/guisolieu-no.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>      
+    </package>
+    <package name="save_dc_no" extends="struts-default,json-default">
+        <interceptors>
+            <interceptor-stack name="defaultStack">
+                <interceptor-ref name="json">
+                    <param name="enableSMD">true</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <action  name="saveDataDcDetail" class="vbsp.ims.action.DcptNoAction" method="saveDataDcNo">
+            <result name="success" type="json"/>
+            <!--            <result  name="success">  
+                dcpt_no/success.jsp
+            </result>  -->
+            <result  name="error">  
+                dcpt_no/error.jsp
+            </result>  
+        </action>
+    </package>
+    <package name="dc_no" extends="struts-default,json-default">
+       
+        <action  name="loadDataDcNo" class="vbsp.ims.action.DcptNoAction" method="getDataDcNo">
+            <result name="success">  
+                dcpt_no/table_data_dc.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="loadDataViewSend" class="vbsp.ims.action.DcptNoAction" method="getDataViewSend">
+            <result name="success">  
+                dcpt_no/table_data_send.jsp
+            </result> 
+            <result name="notgroup">  
+                dcpt_no/table_data_send_all.jsp
+            </result>   
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="searchCustomerDcpt" class="vbsp.ims.action.DcptNoAction" method="getDataSearchLoan">
+            <result name="success">  
+                dcpt_no/table_data_dc_search.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="getDetialCustomerDcNo" class="vbsp.ims.action.DcptNoAction" method="getDetialCustomerDcNo">
+            <result name="success">  
+                dcpt_no/dc_detail_customer.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        <action  name="saveDataDc" class="vbsp.ims.action.DcptNoAction" method="saveDataDcNo">
+            <result  name="success">  
+                dcpt_no/success.jsp
+            </result>  
+            <result  name="error">  
+                dcpt_no/error.jsp
+            </result>  
+        </action>
+        
+        <action  name="SendDataDcPt" class="vbsp.ims.action.DcptNoAction" method="SendDataDcPt">
+            <result  name="success">  
+                dcpt_no/success.jsp
+            </result>  
+            <result  name="error">  
+                dcpt_no/error.jsp
+            </result>  
+        </action>
+        
+        <action  name="LockDataDcpt" class="vbsp.ims.action.DcptNoAction" method="LockDataDcPt">
+            <result  name="success">  
+                dcpt_no/success.jsp
+            </result>  
+            <result  name="error">  
+                dcpt_no/error.jsp
+            </result>  
+        </action>
+        
+        <action  name="loadDataPtNo" class="vbsp.ims.action.DcptNoAction" method="getDataPtNo">
+            <result name="success">  
+                dcpt_no/table_data_pt.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        
+        <action  name="saveDataPt" class="vbsp.ims.action.DcptNoAction" method="saveDataPtNo">
+            <result  name="success">  
+                dcpt_no/success.jsp
+            </result>  
+            <result  name="error">  
+                dcpt_no/error.jsp
+            </result>  
+        </action>
+        
+        <action  name="getDetialCustomerPtNo" class="vbsp.ims.action.DcptNoAction" method="getDetialCustomerDcNo">
+            <result name="success">  
+                dcpt_no/pt_detail_customer.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="searchCustomerPt" class="vbsp.ims.action.DcptNoAction" method="getDataSearchLoanPt">
+            <result name="success">  
+                dcpt_no/table_data_pt_search.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="loadHistorySendDcpt" class="vbsp.ims.action.DcptNoAction" method="loadHistorySendDcpt">
+            <result name="success">  
+                dcpt_no/history-send-dcpt.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        <action  name="loadHistoryViewdcpt" class="vbsp.ims.action.DcptNoAction" method="loadHistoryViewDcpt">
+            <result name="success">  
+                dcpt_no/table-history-send-dcpt.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="setBlockSendDcpt" class="vbsp.ims.action.DcptNoAction" method="setBlockSendDcpt">
+            <result name="success">  
+                dcpt_no/success.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="setOpenSend" class="vbsp.ims.action.DcptNoAction" method="setOpenSendDcpt">
+            <result name="success">  
+                xulyruiro/success.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="setOpenAllDcpt" class="vbsp.ims.action.DcptNoAction" method="setOpenAllPosDcpt">
+            <result name="success">
+                xulyruiro/success.jsp
+            </result>
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="BlockAllPosDcpt" class="vbsp.ims.action.DcptNoAction" method="setBlockSendAllPosDcpt">
+            <result name="success">
+                xulyruiro/success.jsp
+            </result>
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>                  
+    </package>
+</struts>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUB_REPORT_V_6_5" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TONGHOP" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_NGAYBC" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT A.DESCRIPT, A.ACCOUNT, A.FIRST_PRE_AMT, A.LAST_PRE_AMT FROM
+((SELECT 'Nông nghiệp và lâm nghiệp' DESCRIPT,'Dư nợ (Tk 21, 25, 27, 29) nhân (x) 73%' ACCOUNT, ((DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'21','P')+
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'25','P')+
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'27','P')+
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'29','P')) * 73/100 ) LAST_PRE_AMT,
+((DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'21','P')+
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'25','P')+
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'27','P')+
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'29','P')) * 73/100 )  FIRST_PRE_AMT FROM DUAL)
+UNION
+(SELECT 'Thuỷ, hải sản' DESCRIPT,'Dư nợ (Tk 21, 25, 27, 29) nhân (x) 3.5%' ACCOUNT, ((DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'21','P')+
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'25','P')+
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'27','P')+
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'29','P')) * 3.5/100 ) LAST_PRE_AMT,
+((DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'21','P')+
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'25','P')+
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'27','P')+
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'29','P')) * 3.5/100 )  FIRST_PRE_AMT FROM DUAL)
+UNION
+(SELECT 'Ngành xây dựng' DESCRIPT,'Dư nợ (Tk 21, 25, 27, 29) nhân (x) 0.35%' ACCOUNT, ((DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'21','P')+
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'25','P')+
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'27','P')+
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'29','P')) * 0.35/100 ) LAST_PRE_AMT,
+((DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'21','P')+
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'25','P')+
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'27','P')+
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'29','P')) * 0.35/100 )  FIRST_PRE_AMT FROM DUAL)
+UNION
+(SELECT 'Giáo dục và đào tạo' DESCRIPT,'Dư nợ (Tk 21, 25, 27, 29) nhân (x) 0.05%' ACCOUNT, ((DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'21','P')+
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'25','P')+
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'27','P')+
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'29','P')) * 0.05/100 ) LAST_PRE_AMT,
+((DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'21','P')+
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'25','P')+
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'27','P')+
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'29','P')) * 0.05/100 )  FIRST_PRE_AMT FROM DUAL)
+UNION
+(SELECT 'Hoạt động phục vụ cá nhân và cộng đồng' DESCRIPT,'Dư nợ (Tk 21, 25, 27, 29) nhân (x) 23.1%' ACCOUNT, ((DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'21','P')+
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'25','P')+
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'27','P')+
+DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'29','P')) * 23.1/100 ) LAST_PRE_AMT,
+((DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'21','P')+
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'25','P')+
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'27','P')+
+DN_TK_SBV (ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'29','P')) * 23.1/100 )  FIRST_PRE_AMT FROM DUAL)
+) A ORDER BY A.ACCOUNT]]>
+	</queryString>
+	<field name="DESCRIPT" class="java.lang.String"/>
+	<field name="ACCOUNT" class="java.lang.String"/>
+	<field name="FIRST_PRE_AMT" class="java.math.BigDecimal"/>
+	<field name="LAST_PRE_AMT" class="java.math.BigDecimal"/>
+	<variable name="LAST_PRE_AMT_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{LAST_PRE_AMT}]]></variableExpression>
+	</variable>
+	<variable name="FIRST_PRE_AMT_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{FIRST_PRE_AMT}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="421" y="19" width="130" height="17"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" isUnderline="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Đầu kỳ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="19" width="130" height="17"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" isUnderline="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Cuối kỳ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="1" width="475" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[- Phân tích dư nợ cho vay theo ngành:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="276" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="10" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESCRIPT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="421" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{FIRST_PRE_AMT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="276" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{LAST_PRE_AMT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement x="59" y="0" width="100" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổng]]></text>
+			</staticText>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="276" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{LAST_PRE_AMT_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="421" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{FIRST_PRE_AMT_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,1203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BCSL_KHNV" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="38785d57-0886-4ea6-a359-328e78e9acb2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="28"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 12">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 12_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 12_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 12_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 13">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 13_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 13_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 13_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 14">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 14_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 14_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 14_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 15">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 15_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 15_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 15_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 16">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 16_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 16_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 16_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 17">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 17_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 17_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 17_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="dataset1" uuid="83dc5942-1e87-49f6-be96-5957ad86fe59">
+		<queryString>
+			<![CDATA[SELECT * FROM REP001TB_BCTD WHERE VDATA_5='NV']]>
+		</queryString>
+		<field name="VDATA_1" class="java.lang.String"/>
+		<field name="VDATA_2" class="java.lang.String"/>
+		<field name="VDATA_3" class="java.lang.String"/>
+		<field name="VDATA_4" class="java.lang.String"/>
+		<field name="VDATA_5" class="java.lang.String"/>
+		<field name="VDATA_6" class="java.lang.String"/>
+		<field name="VDATA_7" class="java.lang.String"/>
+		<field name="VDATA_8" class="java.lang.String"/>
+		<field name="VDATA_9" class="java.lang.String"/>
+		<field name="VDATA_10" class="java.lang.String"/>
+		<field name="VDATA_11" class="java.lang.String"/>
+		<field name="VDATA_12" class="java.lang.String"/>
+		<field name="VDATA_13" class="java.lang.String"/>
+		<field name="VDATA_14" class="java.lang.String"/>
+		<field name="VDATA_15" class="java.lang.String"/>
+		<field name="VDATA_16" class="java.lang.String"/>
+		<field name="VDATA_17" class="java.lang.String"/>
+		<field name="VDATA_18" class="java.lang.String"/>
+		<field name="VDATA_19" class="java.lang.String"/>
+		<field name="VDATA_20" class="java.lang.String"/>
+		<field name="VDATA_21" class="java.lang.String"/>
+		<field name="NDATA_1" class="java.math.BigDecimal"/>
+		<field name="NDATA_2" class="java.math.BigDecimal"/>
+		<field name="NDATA_3" class="java.math.BigDecimal"/>
+		<field name="NDATA_4" class="java.math.BigDecimal"/>
+		<field name="NDATA_5" class="java.math.BigDecimal"/>
+		<field name="NDATA_6" class="java.math.BigDecimal"/>
+		<field name="NDATA_7" class="java.math.BigDecimal"/>
+		<field name="NDATA_8" class="java.math.BigDecimal"/>
+		<field name="NDATA_9" class="java.math.BigDecimal"/>
+		<field name="NDATA_10" class="java.math.BigDecimal"/>
+		<field name="NDATA_11" class="java.math.BigDecimal"/>
+		<field name="NDATA_12" class="java.math.BigDecimal"/>
+		<field name="NDATA_13" class="java.math.BigDecimal"/>
+		<field name="NDATA_14" class="java.math.BigDecimal"/>
+		<field name="NDATA_15" class="java.math.BigDecimal"/>
+		<field name="NDATA_16" class="java.math.BigDecimal"/>
+		<field name="NDATA_17" class="java.math.BigDecimal"/>
+		<field name="NDATA_18" class="java.math.BigDecimal"/>
+		<field name="NDATA_19" class="java.math.BigDecimal"/>
+		<field name="NDATA_20" class="java.math.BigDecimal"/>
+		<field name="NDATA_21" class="java.math.BigDecimal"/>
+		<field name="NDATA_22" class="java.math.BigDecimal"/>
+		<field name="NDATA_23" class="java.math.BigDecimal"/>
+		<field name="NDATA_24" class="java.math.BigDecimal"/>
+		<field name="NDATA_25" class="java.math.BigDecimal"/>
+		<field name="NDATA_26" class="java.math.BigDecimal"/>
+		<field name="NDATA_27" class="java.math.BigDecimal"/>
+		<field name="NDATA_28" class="java.math.BigDecimal"/>
+		<field name="NDATA_29" class="java.math.BigDecimal"/>
+		<field name="NDATA_30" class="java.math.BigDecimal"/>
+		<field name="NDATA_31" class="java.math.BigDecimal"/>
+		<field name="NDATA_32" class="java.math.BigDecimal"/>
+	</subDataset>
+	<subDataset name="dataset2" uuid="e63da4aa-7260-437c-8c99-a64fe386a2d7">
+		<parameter name="MAPGD" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="NGAYBC" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select rownum STT, TENCT, DS_CHOVAYT, DS_CHOVAYN, DS_THUNOT, DS_THUNON, DS_XOANOT, DS_XOANON, TONG_DN, TYLE_NO_QHAN, TYLE_NO_KHOANH
+from (SELECT GIATRI TENCT, KHOA_2 MACT,  'SDV',
+                         case when (KHOA_2 = '92' OR KHOA_2 = '93' OR KHOA_2 = '94' OR KHOA_2 = '96') then 'Cho vay một số dự án vốn nước ngoài khác'
+                                 else GIATRI
+                        end as CHTRINH,
+                    NVL(sum(CTR_D1)/1000000,0) DS_CHOVAYT,
+                    NVL(sum(CTR_D2)/1000000,0) DS_CHOVAYN,
+                    NVL(sum(CTR_D3)/1000000,0) DS_THUNOT,
+                    NVL(sum(CTR_D4)/1000000,0) DS_THUNON,
+                    NVL(sum(CTR_D5)/1000000,0) DS_XOANOT,
+                    NVL(sum(CTR_D6)/1000000,0) DS_XOANON,
+                    NVL(sum(CTR_D7)/1000000,0) TONG_DN,
+                    CASE
+                    WHEN SUM(CTR_D7) > 0 THEN  NVL(sum(CTR_D9)/1000000,0)*100/NVL(sum(CTR_D7)/1000000,0)
+                    ELSE
+                        0
+                     END TYLE_NO_QHAN,
+                    CASE
+                    WHEN SUM(CTR_D7) > 0 THEN   NVL(sum(CTR_D10)/1000000,0)*100/NVL(sum(CTR_D7)/1000000,0)
+                    ELSE
+                        0
+                    END  TYLE_NO_KHOANH
+                    FROM DMKHAC A, BCTD_CHTRINH B, DMPOS Y,(SELECT PO_POSFLG, PO_MACN, PO_MA FROM DMPOS WHERE PO_MA = $P{MAPGD}) Z
+                    WHERE KHOA_1 = '07'
+                    AND CTR_CHTRINH = A.KHOA_2
+                    AND B.CTR_MAPGD = Y.PO_MA
+                    AND DECODE(Z.PO_POSFLG,'H',1,'S',Y.PO_MA , Y.PO_MACN) = DECODE(Z.PO_POSFLG,'H',1,Z.PO_MA)
+                    AND CTR_NGAYBC = TO_DATE($P{NGAYBC})
+                    group by KHOA_2,GIATRI, THUTU
+                    order by THUTU, KHOA_2)]]>
+		</queryString>
+		<field name="STT" class="java.math.BigDecimal"/>
+		<field name="TENCT" class="java.lang.String"/>
+		<field name="DS_CHOVAYT" class="java.math.BigDecimal"/>
+		<field name="DS_CHOVAYN" class="java.math.BigDecimal"/>
+		<field name="DS_THUNOT" class="java.math.BigDecimal"/>
+		<field name="DS_THUNON" class="java.math.BigDecimal"/>
+		<field name="DS_XOANOT" class="java.math.BigDecimal"/>
+		<field name="DS_XOANON" class="java.math.BigDecimal"/>
+		<field name="TONG_DN" class="java.math.BigDecimal"/>
+		<field name="TYLE_NO_QHAN" class="java.math.BigDecimal"/>
+		<field name="TYLE_NO_KHOANH" class="java.math.BigDecimal"/>
+	</subDataset>
+	<subDataset name="dataset3" uuid="12320640-095b-43ed-9795-eb485ed25900">
+		<queryString>
+			<![CDATA[SELECT * FROM REP001TB_BCTD WHERE VDATA_5='TCTC']]>
+		</queryString>
+		<field name="VDATA_1" class="java.lang.String"/>
+		<field name="VDATA_2" class="java.lang.String"/>
+		<field name="VDATA_3" class="java.lang.String"/>
+		<field name="VDATA_4" class="java.lang.String"/>
+		<field name="VDATA_5" class="java.lang.String"/>
+		<field name="VDATA_6" class="java.lang.String"/>
+		<field name="VDATA_7" class="java.lang.String"/>
+		<field name="VDATA_8" class="java.lang.String"/>
+		<field name="VDATA_9" class="java.lang.String"/>
+		<field name="VDATA_10" class="java.lang.String"/>
+		<field name="VDATA_11" class="java.lang.String"/>
+		<field name="VDATA_12" class="java.lang.String"/>
+		<field name="VDATA_13" class="java.lang.String"/>
+		<field name="VDATA_14" class="java.lang.String"/>
+		<field name="VDATA_15" class="java.lang.String"/>
+		<field name="VDATA_16" class="java.lang.String"/>
+		<field name="VDATA_17" class="java.lang.String"/>
+		<field name="VDATA_18" class="java.lang.String"/>
+		<field name="VDATA_19" class="java.lang.String"/>
+		<field name="VDATA_20" class="java.lang.String"/>
+		<field name="VDATA_21" class="java.lang.String"/>
+		<field name="NDATA_1" class="java.math.BigDecimal"/>
+		<field name="NDATA_2" class="java.math.BigDecimal"/>
+		<field name="NDATA_3" class="java.math.BigDecimal"/>
+		<field name="NDATA_4" class="java.math.BigDecimal"/>
+		<field name="NDATA_5" class="java.math.BigDecimal"/>
+		<field name="NDATA_6" class="java.math.BigDecimal"/>
+		<field name="NDATA_7" class="java.math.BigDecimal"/>
+		<field name="NDATA_8" class="java.math.BigDecimal"/>
+		<field name="NDATA_9" class="java.math.BigDecimal"/>
+		<field name="NDATA_10" class="java.math.BigDecimal"/>
+		<field name="NDATA_11" class="java.math.BigDecimal"/>
+		<field name="NDATA_12" class="java.math.BigDecimal"/>
+		<field name="NDATA_13" class="java.math.BigDecimal"/>
+		<field name="NDATA_14" class="java.math.BigDecimal"/>
+		<field name="NDATA_15" class="java.math.BigDecimal"/>
+		<field name="NDATA_16" class="java.math.BigDecimal"/>
+		<field name="NDATA_17" class="java.math.BigDecimal"/>
+		<field name="NDATA_18" class="java.math.BigDecimal"/>
+		<field name="NDATA_19" class="java.math.BigDecimal"/>
+		<field name="NDATA_20" class="java.math.BigDecimal"/>
+		<field name="NDATA_21" class="java.math.BigDecimal"/>
+		<field name="NDATA_22" class="java.math.BigDecimal"/>
+		<field name="NDATA_23" class="java.math.BigDecimal"/>
+		<field name="NDATA_24" class="java.math.BigDecimal"/>
+		<field name="NDATA_25" class="java.math.BigDecimal"/>
+		<field name="NDATA_26" class="java.math.BigDecimal"/>
+		<field name="NDATA_27" class="java.math.BigDecimal"/>
+		<field name="NDATA_28" class="java.math.BigDecimal"/>
+		<field name="NDATA_29" class="java.math.BigDecimal"/>
+		<field name="NDATA_30" class="java.math.BigDecimal"/>
+		<field name="NDATA_31" class="java.math.BigDecimal"/>
+		<field name="NDATA_32" class="java.math.BigDecimal"/>
+	</subDataset>
+	<subDataset name="dataset4" uuid="122bbbd2-a60d-474a-9bef-4c94924b9a11">
+		<parameter name="MAPGD" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="NGAYBC" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT            SUBSTR(DVUT_DVUT,2,1) TT, M.GIATRI TENTCH,
+                            SUM (NVL (DVUT_D7, 0)) / 1000000 TONGDN,
+                            SUM (NVL (DVUT_D9, 0)) / 1000000  QUAHAN,
+                            SUM (NVL (DVUT_D10, 0)) / 1000000  KHOANH
+                       FROM BCTD_DVUT_RG, DMPOS Y, (SELECT PO_POSFLG, PO_MACN, PO_MA FROM DMPOS WHERE PO_MA = $P{MAPGD}) Z, (SELECT KHOA_2, GIATRI FROM DMKHAC WHERE KHOA_1='17' AND KHOA_2 IN ('11','12','13','14')) M
+                      WHERE DVUT_NGAYBC = $P{NGAYBC}
+                       AND DVUT_DVUT = M.KHOA_2
+                       AND DVUT_MAPGD = Y.PO_MA
+                       AND DECODE(Z.PO_POSFLG,'H',1,'S',Y.PO_MA , Y.PO_MACN) = DECODE(Z.PO_POSFLG,'H',1,Z.PO_MA)
+                   GROUP BY DVUT_DVUT, M.GIATRI
+                   ORDER BY DVUT_DVUT]]>
+		</queryString>
+		<field name="TT" class="java.lang.String"/>
+		<field name="TENTCH" class="java.lang.String"/>
+		<field name="TONGDN" class="java.math.BigDecimal"/>
+		<field name="QUAHAN" class="java.math.BigDecimal"/>
+		<field name="KHOANH" class="java.math.BigDecimal"/>
+	</subDataset>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\05. Official dispatch of IT\\07. REPORTS\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="plsql">
+		<![CDATA[{call  INTELLECT.BCSL_KHNV($P{PARA_MAPGD},$P{PARA_NGAYBC},$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="e9958811-788d-47b5-b25c-d122a2e94f20" x="0" y="0" width="263" height="35"/>
+				<subreportParameter name="POS_CD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CONS_FLAG">
+					<subreportParameterExpression><![CDATA['Y']]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["mainpos_subpos.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="d41ba1da-7547-4f35-8246-c78e0ba65704" x="237" y="36" width="337" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BÁO CÁO SỐ LIỆU HOẠT ĐỘNG]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="eb714966-eeb3-42ee-be66-741912cbd590" x="331" y="56" width="162" height="26"/>
+				<subreportParameter name="para_denngay">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["Month_report.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="17aba125-7135-4a17-b61f-633065471c1b" x="639" y="64" width="129" height="24"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="13" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Đơn vị: Triệu đồng]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="76">
+			<staticText>
+				<reportElement uuid="a3794f1f-6b3b-4b63-96c3-e895cf229725" x="29" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1. Nguồn vốn]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement uuid="9ae13b8f-aa91-44af-b98d-bc76c8910f4e" key="table 10" style="table 10" x="18" y="26" width="651" height="50"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dataset1" uuid="4623ef19-e4d9-499f-8de4-2f9b0b122dd1">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="55" uuid="055aeac6-8807-4148-a235-5e56dc022f7e">
+						<jr:columnHeader style="table 10_CH" height="28" rowSpan="1">
+							<staticText>
+								<reportElement uuid="2098680c-e9a4-475d-82af-46d3ac517086" x="0" y="0" width="55" height="28"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="13"/>
+								</textElement>
+								<text><![CDATA[TT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 10_TD" height="21" rowSpan="1">
+							<textField>
+								<reportElement uuid="142aa37f-c17a-4805-8bc9-369ae9c228ee" x="0" y="0" width="55" height="21"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{VDATA_2}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="411" uuid="abb631f2-5915-40d5-a22e-4cdf2817d7b8">
+						<jr:columnHeader style="table 10_CH" height="28" rowSpan="1">
+							<staticText>
+								<reportElement uuid="3a03261d-6d1c-4072-83a2-f6e7ceee42ae" x="0" y="0" width="411" height="28"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="13"/>
+								</textElement>
+								<text><![CDATA[Nguồn vốn]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 10_TD" height="21" rowSpan="1">
+							<textField>
+								<reportElement uuid="8d0fdd94-7562-4b1e-8434-8a044cf40c59" x="0" y="0" width="411" height="21"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{VDATA_3}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="312" uuid="bb8b5675-ae1d-4529-acb3-1cde3cebebfa">
+						<jr:columnHeader style="table 10_CH" height="28" rowSpan="1">
+							<staticText>
+								<reportElement uuid="db4bf1b4-5776-46dd-a3ec-18e08b61af06" x="0" y="0" width="312" height="28"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="13"/>
+								</textElement>
+								<text><![CDATA[Giá trị]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 10_TD" height="21" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement uuid="e27b2b5b-c801-4b9c-848f-464d10302092" x="0" y="0" width="312" height="21"/>
+								<box leftPadding="0" rightPadding="10"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{NDATA_1}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="87">
+			<staticText>
+				<reportElement uuid="a6a508fb-6efa-4dea-bcb7-cfddf1f1d798" x="27" y="11" width="100" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2. Sử dụng vốn]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement uuid="ff577ef9-687b-4a64-b8c2-c80aeb3a9c4d" key="table 13" style="table 13" x="18" y="37" width="651" height="50"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dataset2" uuid="592121ef-34aa-49bc-92e8-140d4ed0c910">
+						<datasetParameter name="MAPGD">
+							<datasetParameterExpression><![CDATA[$P{PARA_MAPGD}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="NGAYBC">
+							<datasetParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="20" uuid="57b37f98-82eb-4e25-8be8-6dcf1913af9d">
+						<jr:columnHeader style="table 13_CH" height="71" rowSpan="1">
+							<staticText>
+								<reportElement uuid="3996300e-eee9-4907-b39d-344742a8dece" x="0" y="0" width="20" height="71"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<text><![CDATA[S
+TT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TD" height="21" rowSpan="1">
+							<textField>
+								<reportElement uuid="31519c53-a4cf-445d-921e-ec41890a653f" x="0" y="0" width="20" height="21"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{STT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="270" uuid="4ccf43a6-16f7-46a4-9a6a-6766709405eb">
+						<jr:columnHeader style="table 13_CH" height="71" rowSpan="1">
+							<staticText>
+								<reportElement uuid="50ad8eb6-518c-4e9e-bb06-1dfbb8b16aec" x="0" y="0" width="270" height="71"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<text><![CDATA[Chương trình tín dụng]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TD" height="21" rowSpan="1">
+							<textField>
+								<reportElement uuid="4fa56b96-385b-4384-a0e7-cdf851348a6a" x="0" y="0" width="270" height="21"/>
+								<box leftPadding="2"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{TENCT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="54" uuid="d0f0818a-b204-4fcd-b7d5-78a91614b168">
+						<jr:columnHeader style="table 13_CH" height="71" rowSpan="1">
+							<staticText>
+								<reportElement uuid="7e75a226-2530-47b2-b755-458b980991d3" x="0" y="0" width="54" height="71"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<text><![CDATA[Doanh số cho vay
+
+Trong tháng]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TD" height="21" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement uuid="d5635ec3-620b-463f-9fd8-c147ce10a3e4" x="0" y="0" width="54" height="21"/>
+								<box rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DS_CHOVAYT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="67" uuid="ca2d7edf-05b4-4300-97db-73d97e6b36d9">
+						<jr:columnHeader style="table 13_CH" height="71" rowSpan="1">
+							<staticText>
+								<reportElement uuid="635c370e-6b4c-40a3-aeca-3f8a7427f994" x="0" y="0" width="67" height="71"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<text><![CDATA[Doanh số cho vay
+
+Lũy kế từ đầu năm]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TD" height="21" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement uuid="40acf31b-fb5e-4bcd-90e0-be099fab0a5c" x="0" y="0" width="67" height="21"/>
+								<box rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DS_CHOVAYN}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="53" uuid="7d7e78d5-a2d9-4c9f-967c-f83185d6f476">
+						<jr:columnHeader style="table 13_CH" height="71" rowSpan="1">
+							<staticText>
+								<reportElement uuid="671f9357-59cc-4c31-8162-8c5d58a36c3e" x="0" y="0" width="53" height="71"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<text><![CDATA[Doanh số thu nợ
+
+Trong tháng]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TD" height="21" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement uuid="208a9810-e331-4f1c-acb1-6f6b28290c87" x="0" y="0" width="53" height="21"/>
+								<box rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DS_THUNOT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="67" uuid="56400d80-78fb-4f60-81aa-6ef3195d1767">
+						<jr:columnHeader style="table 13_CH" height="71" rowSpan="1">
+							<staticText>
+								<reportElement uuid="3a5b4892-dee4-45c9-bcc7-3a39b937e49c" x="0" y="0" width="67" height="71"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<text><![CDATA[Doanh số thu nợ
+
+Lũy kế từ đầu năm]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TD" height="21" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement uuid="15cf77ae-6cb2-4221-8750-4c583ada5b11" x="0" y="0" width="67" height="21"/>
+								<box rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DS_THUNON}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="49" uuid="9c5e6b86-f7df-4311-aa81-b785c1f72f12">
+						<jr:columnHeader style="table 13_CH" height="71" rowSpan="1">
+							<staticText>
+								<reportElement uuid="b97c5a66-2ab7-4e10-81f9-4f9f6b502ab0" x="0" y="0" width="49" height="71"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<text><![CDATA[Doanh số xóa nợ
+
+Trong tháng]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TD" height="21" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement uuid="937e2952-18f3-42f8-85af-34a3fca8d28b" x="0" y="0" width="49" height="21"/>
+								<box rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DS_XOANOT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="58" uuid="2f0e7de0-ee67-4b67-a774-cea65f1d150b">
+						<jr:columnHeader style="table 13_CH" height="71" rowSpan="1">
+							<staticText>
+								<reportElement uuid="73262d88-ca64-4b7c-9471-dadec37a7566" x="0" y="0" width="58" height="71"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<text><![CDATA[Doanh số xóa nợ
+
+Lũy kế từ đầu năm]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TD" height="21" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement uuid="41394023-a00e-4924-af96-a7bcf4ea2a12" x="0" y="0" width="58" height="21"/>
+								<box rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DS_XOANON}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="67" uuid="8c271a4d-478a-4abc-85a2-f894646b320c">
+						<jr:columnHeader style="table 13_CH" height="71" rowSpan="1">
+							<staticText>
+								<reportElement uuid="8291fb1c-471b-4bbf-9830-22a2b33cfb57" x="0" y="0" width="67" height="71"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<text><![CDATA[Tổng dư nợ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TD" height="21" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement uuid="1a3a3db7-e039-47c0-bc96-c67086aeb434" x="0" y="0" width="67" height="21"/>
+								<box rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{TONG_DN}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="37" uuid="a90edfd1-9de0-4f21-957c-a67a362e5b73">
+						<jr:columnHeader style="table 13_CH" height="71" rowSpan="1">
+							<staticText>
+								<reportElement uuid="73cdbb2d-1b00-4fa6-8fb9-d402583aacb0" x="0" y="0" width="37" height="71"/>
+								<box leftPadding="0" rightPadding="0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<text><![CDATA[Tỷ lệ nợ quá hạn (%)]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TD" height="21" rowSpan="1">
+							<textField pattern="###0.00">
+								<reportElement uuid="b35ff1c4-b710-4993-90e3-97891733196d" x="0" y="0" width="37" height="21"/>
+								<box rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{TYLE_NO_QHAN}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="37" uuid="9334a31e-beca-4223-8ad7-5a5d1052fe2c">
+						<jr:columnHeader style="table 13_CH" height="71" rowSpan="1">
+							<staticText>
+								<reportElement uuid="bae9d6f9-ff68-45b0-8b58-da1757f3452d" x="0" y="0" width="37" height="71"/>
+								<box leftPadding="1" rightPadding="1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<text><![CDATA[Tỷ lệ nợ khoanh (%)]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TD" height="21" rowSpan="1">
+							<textField pattern="###0.00">
+								<reportElement uuid="c5ae524c-ab3c-45a3-b80e-8639a7d619fc" x="0" y="0" width="37" height="21"/>
+								<box rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{TYLE_NO_KHOANH}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="84">
+			<staticText>
+				<reportElement uuid="e6d6f17e-3aa1-4161-bd9f-2cec9a0ff3eb" x="27" y="11" width="139" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[3. Thu chi tài chính]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement uuid="76411c57-28cb-463b-b271-b3d25d155bdc" key="table 15" style="table 15" x="18" y="36" width="651" height="48"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dataset3" uuid="b5569ba0-e3fd-4476-b126-04f7f67e153f">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="57" uuid="48f1dc4b-c43a-4080-98c4-7801a4d89679">
+						<jr:columnHeader style="table 15_CH" height="28" rowSpan="1">
+							<staticText>
+								<reportElement uuid="f6be8926-3c10-43ac-95f6-6c24e5e1d22c" x="0" y="0" width="57" height="28"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="13"/>
+								</textElement>
+								<text><![CDATA[TT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 15_TD" height="21" rowSpan="1">
+							<textField>
+								<reportElement uuid="dd66f0bf-fa79-4c64-b62b-57469b93f970" x="0" y="0" width="57" height="21"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{VDATA_2}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="409" uuid="2c3e6081-3a56-4dee-9275-0c34b1a52b18">
+						<jr:columnHeader style="table 15_CH" height="28" rowSpan="1">
+							<staticText>
+								<reportElement uuid="a0fa304e-00b9-4332-ae88-86c32d7b092b" x="0" y="0" width="409" height="28"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="13"/>
+								</textElement>
+								<text><![CDATA[Chỉ tiêu]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 15_TD" height="21" rowSpan="1">
+							<textField>
+								<reportElement uuid="96497347-2297-4ad7-94cf-0945545e1369" x="0" y="0" width="409" height="21"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{VDATA_3}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="312" uuid="55973512-15db-4262-b3a9-ca7eb27aebd4">
+						<jr:columnHeader style="table 15_CH" height="28" rowSpan="1">
+							<staticText>
+								<reportElement uuid="2eec73f4-96ee-43fa-8c8f-f6e818d44598" x="0" y="0" width="312" height="28"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="13"/>
+								</textElement>
+								<text><![CDATA[Giá trị]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 15_TD" height="21" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement uuid="eda2ac33-490e-4f45-9fe0-f88d21bfc14c" x="0" y="0" width="312" height="21"/>
+								<box leftPadding="0" rightPadding="10"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{NDATA_1}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="86">
+			<staticText>
+				<reportElement uuid="cf23eb98-546a-4181-be28-fb01a9559a70" x="29" y="11" width="192" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[4. Phối hợp với Hội đoàn thể]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement uuid="8b2a1c7d-d319-416d-afe9-791ea34d8920" key="table 17" style="table 17" x="18" y="36" width="651" height="50"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dataset4" uuid="ef8a81f4-8366-4c5e-9746-d4eda4dade14">
+						<datasetParameter name="MAPGD">
+							<datasetParameterExpression><![CDATA[$P{PARA_MAPGD}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="NGAYBC">
+							<datasetParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="57" uuid="06f3b9f4-8619-4254-9384-2a873e0987d4">
+						<jr:columnHeader style="table 17_CH" height="41" rowSpan="1">
+							<staticText>
+								<reportElement uuid="761017de-cdd4-450e-b15a-499a7d534ada" x="0" y="0" width="57" height="41"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="13"/>
+								</textElement>
+								<text><![CDATA[TT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 17_TD" height="21" rowSpan="1">
+							<textField>
+								<reportElement uuid="6542972b-b2a8-4aae-ac6a-5ed015552d6f" x="0" y="0" width="57" height="21"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{TT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="408" uuid="8f8bc6e9-3dce-4767-b346-e41e9ffb7d13">
+						<jr:columnHeader style="table 17_CH" height="41" rowSpan="1">
+							<staticText>
+								<reportElement uuid="9cd1f458-5a7d-4b17-a31b-3337aee9cf47" x="0" y="0" width="408" height="41"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="13"/>
+								</textElement>
+								<text><![CDATA[Tổ chức Hội]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 17_TD" height="21" rowSpan="1">
+							<textField>
+								<reportElement uuid="792f87ee-ddb7-459f-9254-e4170bd05b5c" x="0" y="0" width="408" height="21"/>
+								<box leftPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{TENTCH}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="118" uuid="a9fc6286-686b-463f-8c70-031d8bf4d9de">
+						<jr:columnHeader style="table 17_CH" height="41" rowSpan="1">
+							<staticText>
+								<reportElement uuid="feabbbf2-4c68-41fc-b128-9d9183b95c0c" x="0" y="0" width="118" height="41"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="13"/>
+								</textElement>
+								<text><![CDATA[Tổng dư nợ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 17_TD" height="21" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement uuid="ea9f2bbf-bae3-4394-8cab-88751b851035" x="0" y="0" width="118" height="21"/>
+								<box rightPadding="5"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{TONGDN}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="93" uuid="a1634ad5-eff5-4c63-9e95-b712fa08a839">
+						<jr:columnHeader style="table 17_CH" height="41" rowSpan="1">
+							<staticText>
+								<reportElement uuid="a1bdd2ac-85f4-43a6-9e65-6d6df7b27499" x="0" y="0" width="93" height="41"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="13"/>
+								</textElement>
+								<text><![CDATA[Trong đó
+Nợ quá hạn]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 17_TD" height="21" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement uuid="a7c2367d-c6d5-4d03-877c-98e6ed99842f" x="0" y="0" width="93" height="21"/>
+								<box rightPadding="5"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{QUAHAN}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="103" uuid="7b7aec85-ba7a-4c28-9ee8-f35669ea9736">
+						<jr:columnHeader style="table 17_CH" height="41" rowSpan="1">
+							<staticText>
+								<reportElement uuid="c972cce9-bba9-4815-abf8-fcb41f5ef3dc" x="0" y="0" width="103" height="41"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="13"/>
+								</textElement>
+								<text><![CDATA[Trong đó
+Nợ khoanh]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 17_TD" height="21" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement uuid="a93983a6-88db-4825-b2c6-d7b1fc256d4c" x="0" y="0" width="103" height="21"/>
+								<box rightPadding="5"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{KHOANH}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<summary>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="d456756f-d3b3-4b28-9635-ed33324665f8" x="89" y="30" width="112" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(Ký, ghi rõ họ tên)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7c588d1d-f45a-4269-9485-fb8b6c5439ec" x="588" y="30" width="112" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(Ký, ghi rõ họ tên)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4da8f0f7-614c-46b2-ab36-9bf59ba8215c" x="89" y="10" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LẬP BIỂU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="787d7610-0417-4be1-aa1a-42e6b4d1af8a" x="556" y="10" width="165" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[THỦ TRƯỞNG ĐƠN VỊ]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

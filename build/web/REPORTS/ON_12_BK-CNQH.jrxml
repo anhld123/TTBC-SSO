@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="12_LIST_OF_OVERDUE_LOANS" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAXA" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_MATO" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_TUNGAY" class="java.lang.String"/>
+	<parameter name="PARA_DENNGAY" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select distinct KU_MATO GROUP_ID,
+ TO_MATT GROUP_LEADER_CIF,
+ TO_TENTT GROUP_LEADER_NAME,
+ e.ten||' - '||d.ten||' - '||g.ten GROUP_LEADER_ADDRESS,
+ D.MA COMMUNE_ID,
+ TO_CHAR(SYSDATE,'DD/MM/YY') REPORTDATE,
+  TO_DVUT MASS_ORG,
+  (select count(*) count_cust
+    from hsku a, hskh b
+ where a.ku_makh = b.kh_makh
+ and KU_TTMONVAY = 'OPEN'
+ and KU_MATO = $P{PARA_MATO}
+ and KU_GOCDHAN > 0
+ AND  TO_DATE(TO_CHAR(KU_NGAYCNQH ,'DD-MON-YYYY'),'DD-MON-YYYY') BETWEEN $P{PARA_TUNGAY} AND $P{PARA_DENNGAY}) COUNT_CUST
+       from hsku a, hskh b, hsto c, dmxa d, dmthon e, dmtinh g
+ where a.ku_makh = b.kh_makh
+ and A.KU_MATO = c.to_mato
+ and a.ku_mapgd = c.to_mapgd
+ and b.kh_madp = e.ma
+ and e.xa = d.ma
+ and substr(a.ku_mapgd,3,2) = g.ma
+ and KU_MATO = $P{PARA_MATO}
+  AND DECODE(NVL($P{PARA_MAXA},'X'),'X',C.to_mato,SUBSTR(D.MA,1,6)) = DECODE(NVL($P{PARA_MAXA},'X'),'X',$P{PARA_MATO},$P{PARA_MAXA})
+   AND DECODE(NVL($P{PARA_MATO},'X'),'X',SUBSTR(D.MA,1,6),c.to_mato) = DECODE(NVL($P{PARA_MATO},'X'),'X',$P{PARA_MAXA},$P{PARA_MATO})
+ AND   TO_DATE(TO_CHAR(KU_NGAYCNQH ,'DD-MON-YYYY'),'DD-MON-YYYY') BETWEEN $P{PARA_TUNGAY} AND $P{PARA_DENNGAY}
+AND (select count(*) count_cust
+    from hsku a, hskh b
+ where a.ku_makh = b.kh_makh
+ and KU_TTMONVAY = 'OPEN'
+and KU_GOCDHAN > 0
+ and KU_MATO = $P{PARA_MATO}
+ AND  TO_DATE(TO_CHAR(KU_NGAYCNQH ,'DD-MON-YYYY'),'DD-MON-YYYY') BETWEEN  $P{PARA_TUNGAY} AND $P{PARA_DENNGAY})> 0]]>
+	</queryString>
+	<field name="GROUP_ID" class="java.lang.String"/>
+	<field name="GROUP_LEADER_CIF" class="java.lang.String"/>
+	<field name="GROUP_LEADER_NAME" class="java.lang.String"/>
+	<field name="GROUP_LEADER_ADDRESS" class="java.lang.String"/>
+	<field name="COMMUNE_ID" class="java.lang.String"/>
+	<field name="REPORTDATE" class="java.lang.String"/>
+	<field name="MASS_ORG" class="java.lang.String"/>
+	<field name="COUNT_CUST" class="java.math.BigDecimal"/>
+	<group name="TO_NHOM">
+		<groupExpression><![CDATA[$F{GROUP_ID}]]></groupExpression>
+	</group>
+	<group name="GROUP_ID" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{GROUP_ID}]]></groupExpression>
+		<groupHeader>
+			<band height="36">
+				<printWhenExpression><![CDATA[$F{COUNT_CUST} != 0]]></printWhenExpression>
+				<subreport>
+					<reportElement x="0" y="0" width="580" height="36" isRemoveLineWhenBlank="true"/>
+					<subreportParameter name="PARA_MADIACHI">
+						<subreportParameterExpression><![CDATA[$F{GROUP_LEADER_ADDRESS}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PARA_MAPGD">
+						<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PARA_TUNGAY">
+						<subreportParameterExpression><![CDATA[$P{PARA_TUNGAY}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PARA_MATOCHUCHOI">
+						<subreportParameterExpression><![CDATA[$F{MASS_ORG}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PARA_MATO">
+						<subreportParameterExpression><![CDATA[$F{GROUP_ID}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PARA_MATT">
+						<subreportParameterExpression><![CDATA[$F{GROUP_LEADER_NAME}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="REPORTDATE">
+						<subreportParameterExpression><![CDATA[$F{REPORTDATE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PARA_DENNGAY">
+						<subreportParameterExpression><![CDATA[$P{PARA_DENNGAY}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA["/12_LIST_OF_OVERDUE_LOANS_SUB1.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+</jasperReport>

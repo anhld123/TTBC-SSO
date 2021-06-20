@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="addReport" extends="struts-default">
+        <action name="LoadAddNewQuery" class="vbsp.ims.action.AddQueryAction" method="LoadAddNewQuery">
+            <result name="success">/bctheotruyvan/add_query.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
+        <action name="editquery" class="vbsp.ims.action.AddQueryAction" method="editQuery">
+            <result name="success">/bctheotruyvan/edit_query.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="loadgroupEditQuery" class="vbsp.ims.action.AddQueryAction" method="loadgroupEditQuery">
+            <result name="success">/bctheotruyvan/edit_del_rpt_group.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="loadallquery" class="vbsp.ims.action.AddQueryAction" method="loadAllQuery">
+            <result name="success">/bctheotruyvan/edit_delete_query.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="DeleteQuery" class="vbsp.ims.action.AddQueryAction" method="DeleteQuery">
+            <result name="success">/bctheotruyvan/message-success.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+                
+    </package>
+    
+    <package name="rptquery" extends="struts-default,json-default">
+        <action name="loadselectexport"  
+                class="vbsp.ims.action.AddQueryAction" 
+                method="loadAllQueryExp">
+            <result name="success" type="json"></result>
+        </action>        
+        
+        <action name="LoadParameters" class="vbsp.ims.action.AddQueryAction" method="getReportParams">
+            <result name="success">/bctheotruyvan/loadpara_exp_query.jsp</result>            
+        </action>
+    </package>
+     
+      <package name="themtruyvan" extends="struts-default,json-default">
+        <interceptors>
+            <interceptor-stack name="defaultStack">
+                <interceptor-ref name="json">
+                    <param name="enableSMD">true</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <action name="addquery" class="vbsp.ims.action.AddQueryAction" >
+            <result type="json"/>
+            <!--<result name="error" type="json"/>-->
+        </action>
+    </package>
+    
+    <package name="expquery" extends="struts-default">     
+        
+        <action name="genReportExcelQuery" class="vbsp.ims.action.AddQueryAction" method="ExportExcelQuery">
+            <result name="success">downfile_bcnhanh.jsp</result>  
+            <result name="error">/error.jsp</result>         
+        </action>
+        <action name="LoadParaviewdata" class="vbsp.ims.action.AddQueryAction" method="getReportParamsView">
+            <result name="success">/bctheotruyvan/loadpara_view_query.jsp</result>  
+            <result name="error">/error.jsp</result>         
+        </action>
+        
+        <action name="genReportViewQueryTable" class="vbsp.ims.action.AddQueryAction" method="ViewDataQuery">
+            <result name="success">/bctheotruyvan/View_data_table_query.jsp</result>  
+            <result name="error">/error.jsp</result>         
+        </action>
+        
+    </package>
+     
+     
+</struts>

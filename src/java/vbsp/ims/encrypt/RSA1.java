@@ -1,0 +1,73 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package vbsp.ims.encrypt;
+
+import java.math.BigInteger;
+import java.security.SecureRandom;
+    
+
+public class RSA1 {
+   private final static BigInteger one      = new BigInteger("1");
+   private final static SecureRandom random = new SecureRandom();
+
+   private BigInteger privateKey;
+   private BigInteger publicKey;
+   private BigInteger modulus;
+
+   // generate an N-bit (roughly) public and private key
+   RSA1(int N) {
+      BigInteger p = BigInteger.probablePrime(N/2, random);
+      BigInteger q = BigInteger.probablePrime(N/2, random);
+      BigInteger phi = (p.subtract(one)).multiply(q.subtract(one));
+
+      modulus    = p.multiply(q);                                  
+      publicKey  = new BigInteger("65537");     // common value in practice = 2^16 + 1
+      privateKey = publicKey.modInverse(phi);
+   }
+
+
+   BigInteger encrypt(BigInteger message) {
+      return message.modPow(publicKey, modulus);
+   }
+
+   BigInteger decrypt(BigInteger encrypted) {
+      return encrypted.modPow(privateKey, modulus);
+   }
+
+   public String toString() {
+      String s = "";
+      s += "public  = " + publicKey  + "\n";
+      s += "private = " + privateKey + "\n";
+      s += "modulus = " + modulus;
+      return s;
+   }
+ 
+   public static void main(String[] args) {
+      int N = Integer.parseInt("1024");
+      RSA1 key = new RSA1(N);
+      System.out.println(key);
+      String sPass="tungnv123456";
+      // create random message, encrypt and decrypt
+      BigInteger message = new BigInteger(sPass.getBytes());
+      System.err.println("Text: "+sPass);
+      //// create message by converting string to integer
+      // String s = "test";
+      // byte[] bytes = s.getBytes();
+      // BigInteger message = new BigInteger(s);
+
+      BigInteger encrypt = key.encrypt(message);
+      BigInteger decrypt = key.decrypt(encrypt);
+      System.out.println("message   = " + message);
+      System.out.println("encrpyted = " + encrypt);
+      System.out.println("decrypted = " + decrypt);
+      
+//      String s = key.toString();
+//       System.err.println(s);
+//       
+//       System.err.println("Pass giai ma: "+new String(decrypt.toByteArray()));
+   }
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BCQT_CURRENTDATE" language="groovy" pageWidth="432" pageHeight="432" columnWidth="432" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="33f93c39-5ca3-4c2e-ac24-22914a29bdbf">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT To_Date($P{PARA_NGAYBC}) CUR_DATE from DUAL]]>
+	</queryString>
+	<field name="CUR_DATE" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="19" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="418a8d86-7e3b-4c61-ae65-c719bb4a2df2" x="0" y="0" width="432" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tại thời điểm " + ($F{CUR_DATE}.getDate()).toString() +  "/" + ($F{CUR_DATE}.getMonth()+1).toString() +  "/" + ($F{CUR_DATE}.getYear()+1900).toString()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

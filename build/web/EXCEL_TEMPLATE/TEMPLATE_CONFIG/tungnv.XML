@@ -1,0 +1,2 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="tungnv.xls" fileOutFormat="POS_CD_DDMMYYYY"><title>aaaaaaaaaaaaaaaaaaaaaaaaaaa</title><userName>ADMIN</userName><date>29-Aug-2016 14:00:48</date><parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/></excel_template>

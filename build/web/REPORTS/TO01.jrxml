@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TO01" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f41e3793-b6c0-49d8-bb7f-107542cbcc27">
+	<property name="ireport.zoom" value="1.1"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="14"/>
+	<parameter name="EOD_DATE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CONS_FLAG" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="POS_CD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Works\\VBSP\\Documents\\Worked_Document\\CT DG CLTD\\DANHGIA_CLTD\\VBSP_CTDGCLTD\\REPORTS\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select a.pos_cd,
+(SELECT po_ten FROM dmpos WHERE po_ma = pos_cd) pos_name,
+a.group_id mato,a.total_mark diem,a.descript xeploai,b.to_tentt tento,b.to_dvut dvut,
+(select x.ten xa FROM dmxa x,dmthon y WHERE y.ma = b.to_madp AND y.xa = x.ma) tenxa ,
+(Select giatri  from dmkhac where khoa_1 = '17' and khoa_2 = TO_DVUT) tentch
+from DG_GROUP_MARK A, hsto B
+where a.group_id = b.TO_MATO
+and b.trangthai = 'A'
+and pos_cd = $P{POS_CD}
+and REPORT_DT = $P{EOD_DATE}
+order by pos_cd,to_dvut,GROUP_ID]]>
+	</queryString>
+	<field name="POS_CD" class="java.lang.String"/>
+	<field name="POS_NAME" class="java.lang.String"/>
+	<field name="MATO" class="java.lang.String"/>
+	<field name="DIEM" class="java.math.BigDecimal"/>
+	<field name="XEPLOAI" class="java.lang.String"/>
+	<field name="TENTO" class="java.lang.String"/>
+	<field name="DVUT" class="java.lang.String"/>
+	<field name="TENXA" class="java.lang.String"/>
+	<field name="TENTCH" class="java.lang.String"/>
+	<group name="TO_NHOM" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{MATO}]]></groupExpression>
+		<groupHeader>
+			<band height="149">
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement uuid="b4402492-e844-44b2-9728-2ab45df0473e" x="126" y="128" width="303" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tháng " + (new SimpleDateFormat("MM/yyyy").format((new SimpleDateFormat("dd-MMM-yyyy")).parse($P{EOD_DATE}))).toString()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="beb1c8ee-aba3-4a35-8037-d9b5fe226344" x="44" y="85" width="467" height="44"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="14" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[BIỂU CHẤM ĐIỂM
+ĐÁNH GIÁ CHẤT LƯỢNG HOẠT ĐỘNG CỦA TỔ TK&VV HÀNG THÁNG]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="03b95320-d5b5-42e1-83d7-2f5464b96285" x="494" y="1" width="61" height="38"/>
+					<box topPadding="3"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Mẫu số
+01/TK&VV]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="03c3042d-2e33-4291-8ca4-a547caaa592f" x="0" y="0" width="320" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["PHÒNG GIAO DỊCH: " + $F{POS_NAME}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="ccdd1808-10ed-4fd9-b142-8d831cf0ff36" x="0" y="21" width="320" height="18"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Xã: " + $F{TENXA}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="65a8ab9e-f07e-4ff1-898b-12e3b4de5b6f" x="0" y="40" width="275" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Hội: " + $F{TENTCH}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="79bc7fd6-4088-4484-a058-6d69a7cb5e19" x="0" y="61" width="275" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tổ TK&VV: " + $F{TENTO}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="221">
+				<staticText>
+					<reportElement uuid="dbee2c7d-c426-401f-9025-8ccfb1d16a1c" x="0" y="0" width="275" height="20"/>
+					<box topPadding="3"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[II. THANG ĐIỂM XẾP LOẠI TỔ TK&VV]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e75e738f-a537-4675-8d14-1210a95f8805" x="0" y="31" width="27" height="20"/>
+					<box topPadding="3">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="74d0c647-701b-4374-9847-8b2709cca7c4" x="27" y="31" width="426" height="20"/>
+					<box topPadding="3">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Thang điểm xếp loại]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="dac3644c-b755-478d-8bd6-c0f56e6752c4" x="453" y="31" width="102" height="20"/>
+					<box topPadding="3">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Xếp loại Tổ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="4d4eeb4f-9a83-4340-a284-3eaac7b34902" x="453" y="51" width="102" height="20"/>
+					<box topPadding="3">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Tốt]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="25345ad0-9eca-489f-9aef-d5e4b9123296" x="0" y="51" width="27" height="20"/>
+					<box topPadding="3">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[1]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="5502b983-93ed-4a53-aa2b-5a98221e20f8" x="27" y="51" width="426" height="20"/>
+					<box topPadding="3">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement>
+						<font fontName="Times New Roman" size="12" isBold="false"/>
+						<paragraph leftIndent="5" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA[Từ 80 đến 100 điểm]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="4b206747-c64a-4450-8dc5-099ea2866b8e" x="453" y="71" width="102" height="20"/>
+					<box topPadding="3">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Khá]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="6d31c9d2-dd47-4f81-a08f-fe9f59ce942e" x="0" y="71" width="27" height="20"/>
+					<box topPadding="3">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[2]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="2c83e15c-a42c-43b4-b10d-be6d58d88549" x="27" y="71" width="426" height="20"/>
+					<box topPadding="3">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement>
+						<font fontName="Times New Roman" size="12" isBold="false"/>
+						<paragraph leftIndent="5" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA[Từ 60 đến dưới 80 điểm]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="3bbb43fc-072c-429c-a351-b0701b11bb56" x="27" y="91" width="426" height="20"/>
+					<box topPadding="3">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement>
+						<font fontName="Times New Roman" size="12" isBold="false"/>
+						<paragraph leftIndent="5" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA[Từ 50 đến dưới 60 điểm]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="042c0adc-be5a-4957-a955-5decffa42d90" x="453" y="91" width="102" height="20"/>
+					<box topPadding="3">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Trung bình]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="79a7fd29-1d62-49ee-9dc4-d384c26369a3" x="0" y="91" width="27" height="20"/>
+					<box topPadding="3">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[3]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="8339e5d9-c0f5-4664-b100-d17b850a71ec" x="0" y="111" width="27" height="20"/>
+					<box topPadding="3">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[4]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="426ea6b8-0f4a-4e3e-be80-788bc39ce0da" x="453" y="111" width="102" height="20"/>
+					<box topPadding="3">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Yếu kém]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="270a0ac2-07e5-4d92-af78-67abe0e2e3d9" x="27" y="111" width="426" height="20"/>
+					<box topPadding="3">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement>
+						<font fontName="Times New Roman" size="12" isBold="false"/>
+						<paragraph leftIndent="5" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA[Dưới 50 điểm]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="a1657d69-8a50-4bcc-af3c-f0f924609910" x="0" y="150" width="256" height="20"/>
+					<box topPadding="3"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[III. KẾT QUẢ XẾP LOẠI TỔ TK&VV: Xếp loại ]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="c0a200f9-b9ae-489a-9dca-d1337da8dc1d" x="255" y="150" width="100" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{XEPLOAI}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="ae7fdc73-6a93-4cc4-ad99-780677e4d91b" x="275" y="201" width="280" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Hà Nội, ngày " + (new SimpleDateFormat("dd").format(new java.util.Date())).toString() +
+" tháng " + (new SimpleDateFormat("MM").format(new java.util.Date())).toString() +
+" năm "  + (new SimpleDateFormat("yyyy").format(new java.util.Date())).toString()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="2d2a29f2-791f-4501-b4a3-f040f25dde9b" x="0" y="0" width="394" height="42"/>
+				<subreportParameter name="EOD_DATE">
+					<subreportParameterExpression><![CDATA[$P{EOD_DATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="GROUP_ID">
+					<subreportParameterExpression><![CDATA[$F{MATO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="POS_CD">
+					<subreportParameterExpression><![CDATA[$P{POS_CD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CONS_FLAG">
+					<subreportParameterExpression><![CDATA[$P{CONS_FLAG}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/TO01_DETAIL.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="26" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

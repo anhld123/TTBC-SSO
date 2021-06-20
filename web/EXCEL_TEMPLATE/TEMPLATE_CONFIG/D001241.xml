@@ -1,0 +1,25 @@
+<xls>
+    <area ref="D001241!A1:I57">
+	    <each items="header" var="header" ref="D001241!C2:C7">
+            <area ref="D001241!C2:C7"/>
+        </each>
+        <each items="data" var="data" ref="D001241!D20:D55">
+            <area ref="D001241!D20:D55"/>
+        </each>
+		<each items="data2" var="data2" ref="D001241!E20:E55">
+            <area ref="D001241!E20:E55"/>
+        </each>
+		<each items="data3" var="data3" ref="D001241!F20:F55">
+            <area ref="D001241!F20:F55"/>
+        </each>
+		<each items="data4" var="data4" ref="D001241!G20:G55">
+            <area ref="D001241!G20:G55"/>
+        </each>
+		<each items="data5" var="data5" ref="D001241!H20:H55">
+            <area ref="D001241!H20:H55"/>
+        </each>
+		<each items="data6" var="data6" ref="D001241!I20:I55">
+            <area ref="D001241!I20:I55"/>
+        </each>
+    </area>
+</xls>

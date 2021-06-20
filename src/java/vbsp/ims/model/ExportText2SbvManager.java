@@ -1,0 +1,206 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package vbsp.ims.model;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import vbsp.ims.dao.ExportText2SbvDao;
+import vbsp.ims.define.Define;
+import vbsp.ims.define.DefineFun;
+import vbsp.ims.export.excel.SbvExcelTemplateExport;
+import vbsp.ims.report.fast.ListValue;
+import vbsp.ims.zip.FileZip;
+
+/**
+ *
+ * @author Trung sua ngay 14/jan/2015
+ */
+public class ExportText2SbvManager {
+
+    //--------------------------------------------------------------------------
+    private static List<ListValue> lstRptGroupObj;
+    private static List<ListValue> lstRptPeriod;
+    private static List<String> lstOfTextFile = new ArrayList<>();
+    private static List<DownloadFileInfor> filesList = new ArrayList<>();
+    private static ExportText2SbvDao exportDao;
+    private static SbvExcelTemplateExport templateExport;
+    private static final List<String> zipFileList = new ArrayList<>();
+
+    //--------------------------------------------------------------------------
+    public ExportText2SbvManager() {
+        exportDao = new ExportText2SbvDao();
+        lstRptGroupObj = exportDao.getExportGroupReport("All", -1);
+        lstRptPeriod = new ArrayList<>();
+        lstRptPeriod.add(new ListValue("D", "Ngày"));
+        lstRptPeriod.add(new ListValue("2D", "3Kỳ/Tháng"));
+        lstRptPeriod.add(new ListValue("3D", "2Kỳ/Tháng"));
+        lstRptPeriod.add(new ListValue("M", "Tháng"));
+        lstRptPeriod.add(new ListValue("Q", "Quý"));
+        lstRptPeriod.add(new ListValue("A", "Năm"));
+    }
+
+    //--------------------------------------------------------------------------
+    public List<ListValue> getLstRptGroupObj(String username, int reportGrade) {
+        lstRptGroupObj = exportDao.getExportGroupReport(username, reportGrade);
+        return lstRptGroupObj;
+    }
+
+    public static List<String> getLstOfTextFile() {
+        return lstOfTextFile;
+    }
+
+    public static void setLstOfTextFile(List<String> lstOfTextFile) {
+        ExportText2SbvManager.lstOfTextFile = lstOfTextFile;
+    }
+
+    public List<ListValue> getLstRptPeriod(String report) {
+        if (report.toUpperCase().equals("ALL")) {
+            return lstRptPeriod;
+        } else {
+            return exportDao.getExportPeriod(report);
+        }
+    }
+
+    public void setLstRptPeriod(List<ListValue> lstRptPeriod) {
+        ExportText2SbvManager.lstRptPeriod = lstRptPeriod;
+    }
+
+    public static List<String> getZipFileList() {
+        return zipFileList;
+    }
+
+    public static List<DownloadFileInfor> getFilesList() {
+        return filesList;
+    }
+
+    public static void setFilesList(List<DownloadFileInfor> filesList) {
+        ExportText2SbvManager.filesList = filesList;
+    }
+
+    //--------------------------------------------------------------------------
+    public boolean exportTextFile(String report, String lstOfPos,
+            String reportDate, String considateFlag, String period, String sbvSendIndiGroup,
+            boolean send2Sbv, boolean send9acc) {
+        String mapReport = exportDao.getMappingReport(report);
+
+        templateExport = new SbvExcelTemplateExport();
+
+        ArrayList<String> listOfPos
+                = (ArrayList<String>) DefineFun.string2Array(lstOfPos, ",", 2);
+        String textFilePath = "";
+        lstOfTextFile.clear();
+        filesList.clear();
+        zipFileList.clear();
+
+        createDir41stTime();
+
+        if (listOfPos.size() > 0) {
+            String strTimeFile = Long.toString(System.currentTimeMillis());
+            String zipFile = "FileNen_" + strTimeFile + ".zip", zipPath = "";
+            ArrayList<String> fullPathList = new ArrayList<>();
+            for (String pos_cd : listOfPos) {
+                switch (mapReport) {
+                    case "B05A":
+                        textFilePath = exportDao.getDataExportFile(mapReport, pos_cd, considateFlag,
+                                reportDate, period, "", Define.M_ROOT + Define.M_REPORT_XLS);
+                        zipPath = Define.M_ROOT + Define.M_REPORT_XLS + zipFile;
+                        break;
+                    case "TT31_B29":
+                    case "TT31_B20":
+                    case "TT31_B35":
+                    case "TT31_B09":
+                    case "TT31_B28":
+                    case "TT31_B30":
+                    case "01_NHCS":
+                    case "BC_30A":
+                    case "TT31_B20TM":
+                    case "TT31_B29TM":
+                    case "B65_NHNN":
+                        textFilePath = templateExport.generateExcelFile(mapReport, pos_cd,
+                                considateFlag, reportDate, period,
+                                Define.M_ROOT + Define.M_REPORT_XLS);
+                        zipPath = Define.M_ROOT + Define.M_REPORT_XLS + zipFile;
+                        break;
+                    case "SBV-BAL":
+                        String send2sbvStr;
+                        if (send2Sbv) {
+                            send2sbvStr = "Y";
+                        } else {
+                            send2sbvStr = "N";
+                        }
+                        if (send9acc) {
+                            send2sbvStr = send2sbvStr + "-Y";
+                        } else {
+                            send2sbvStr = send2sbvStr + "-N";
+                        }
+                        textFilePath = exportDao.getDataExportFile(mapReport, pos_cd, considateFlag,
+                                reportDate, period, send2sbvStr, Define.M_ROOT + Define.M_REPORT_TXT);
+                        zipPath = Define.M_ROOT + Define.M_REPORT_TXT + zipFile;
+                        break;
+                    default:
+                        textFilePath = exportDao.getDataExportFile(
+                                mapReport, 
+                                pos_cd, 
+                                considateFlag,
+                                reportDate, 
+                                period, 
+                                sbvSendIndiGroup, 
+                                Define.M_ROOT + Define.M_REPORT_TXT);
+                        zipPath = Define.M_ROOT + Define.M_REPORT_TXT + zipFile;
+                        break;
+                }
+
+                lstOfTextFile.add(textFilePath);
+                FileInfo file = new FileInfo(new File(textFilePath));
+                filesList.add(new DownloadFileInfor(file.getName(), textFilePath,
+                        DefineFun.round_up((double) file.getSize() / 1000) + " KB"));
+                fullPathList.add(file.getAbsolutePath());
+
+                // Bo sung them phan sinh file thuyet minh
+                if (mapReport.equals("SBV-INDI")
+                        && !sbvSendIndiGroup.isEmpty()) {
+                    textFilePath = exportDao.getSbvTextFile_TM("SBV-INDI-TM", pos_cd, considateFlag,
+                            reportDate, period, sbvSendIndiGroup, Define.M_ROOT + Define.M_REPORT_TXT);
+                    zipPath = Define.M_ROOT + Define.M_REPORT_TXT + zipFile;
+                    lstOfTextFile.add(textFilePath);
+                    file = new FileInfo(new File(textFilePath));
+                    filesList.add(new DownloadFileInfor(file.getName(), textFilePath,
+                            DefineFun.round_up((double) file.getSize() / 1000) + " KB"));
+                    fullPathList.add(file.getAbsolutePath());
+                }
+            }
+            if (fullPathList.size() > 0) {
+                try {
+                    FileZip.ZipFileFromArray(fullPathList, zipPath);
+                    zipFileList.add(zipFile);
+                    zipFileList.add(zipPath);
+                } catch (Exception ex) {
+                    Logger.getLogger(ExportText2SbvManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return true;
+    }
+
+    protected void createDir41stTime() {
+        /*Thu muc TXT*/
+        String dirPath;
+        dirPath = Define.M_ROOT + Define.M_REPORT_TXT;
+        File saveDir = new File(dirPath);
+        if (!saveDir.exists()) {
+            saveDir.mkdir();
+        }
+        /*Thu muc XLS */
+        dirPath = Define.M_ROOT + Define.M_REPORT_XLS;
+        saveDir = new File(dirPath);
+        if (!saveDir.exists()) {
+            saveDir.mkdir();
+        }
+    }
+}

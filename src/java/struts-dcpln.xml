@@ -1,0 +1,114 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- Author: Home -->
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="dcpln_no" extends="struts-default,json-default">
+        <action  name="loadFormMainPLN" class="vbsp.ims.action.DcplnAction" >
+            <result name="success">  
+                dc_plno/doichieu-pln.jsp
+            </result>  
+            <result name="error">  
+                dc_plno/success.jsp
+            </result>  
+        </action> 
+        <action name="reloadDvut_PLN" class="vbsp.ims.action.DcplnAction" method="getTotruong">
+            <result name="success" type="json"></result>
+        </action>           
+        <action  name="loadDataDcPLN" class="vbsp.ims.action.DcplnAction" method="getDataDcPLN">
+            <result name="success">  
+                dc_plno/table_data_dcpln.jsp
+            </result>  
+            <result name="error">  
+                dc_plno/success.jsp
+            </result>  
+        </action>     
+        <action  name="searchSearchLoanPLN" class="vbsp.ims.action.DcplnAction" method="getDataSearchLoanPLN">
+            <result name="success">  
+                dc_plno/table_data_dcpln_search.jsp
+            </result>  
+            <result name="error">  
+                dc_plno/success.jsp
+            </result> 
+        </action>
+        <action name="getDetialLoanDcPLN" class="vbsp.ims.action.DcplnAction" method="getDetialLoanDcPLN">
+            <result name="success">  
+                dc_plno/dcpln_detail_loan.jsp
+            </result>  
+            <result name="error">  
+                dc_plno/success.jsp
+            </result>  
+        </action>
+        <action  name="saveDataDcPLN" class="vbsp.ims.action.DcplnAction" method="saveDataPLNo_KHTN">
+            <result  name="success">  
+                dc_plno/success.jsp
+            </result> 
+            <result  name="error">
+                dc_plno/success.jsp
+            </result>  
+        </action>
+    </package>
+    <package name="save_pl_no" extends="struts-default,json-default">
+        <interceptors>
+            <interceptor-stack name="defaultStack">
+                <interceptor-ref name="json">
+                    <param name="enableSMD">true</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <action  name="saveDataDcDetailPLN" class="vbsp.ims.action.DcplnAction" method="saveDataPLNo_DC">
+            <result name="success" type="json"/>
+            <result  name="error">  
+                dc_plno/success.jsp
+            </result>  
+        </action>
+    </package>
+    
+    <package name="send_pl_no" extends="struts-default,json-default">
+        <action  name="loadDataSendPLN" class="vbsp.ims.action.DcPlnSendNoAction" >
+            <result name="success">  
+                dc_plno/guisolieu-pln.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action name="reloadDvutSendPln" class="vbsp.ims.action.DcPlnSendNoAction" method="getTotruong">
+            <result name="success" type="json"></result>
+        </action>
+        
+        <action  name="loadDataViewSendPLN" class="vbsp.ims.action.DcPlnSendNoAction" method="getDataViewSendPLN">
+            <result name="success">  
+                dc_plno/pln_table_data_send.jsp
+            </result> 
+             <result name="notgroup">  
+                dc_plno/pln_table_data_send_all.jsp
+            </result>   
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="SendDataPln" class="vbsp.ims.action.DcPlnSendNoAction" method="SendDataPln">
+            <result  name="success">  
+                dcpt_no/success.jsp
+            </result>  
+            <result  name="error">  
+                dcpt_no/error.jsp
+            </result>  
+        </action>
+        
+        <action name="getDetialLoanDcPLN1" class="vbsp.ims.action.DcPlnSendNoAction" method="getDetialLoanDcPLN1">
+            <result name="success">  
+                dc_plno/dcpln_detail_loan_send.jsp
+            </result>  
+            <result name="error">  
+                dc_plno/success.jsp
+            </result>  
+        </action>
+    </package>
+    
+    
+</struts>

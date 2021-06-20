@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="Datawarehouse_act" extends="struts-default">                
+        <action name="dtw_upload_file" class="vbsp.ims.action.DtwUploadFile"
+        method="upload_file">
+            <interceptor-ref name="fileUpload">
+                <!--Cho phep file upload max la 200M-->
+                <param name="maximumSize">209715200</param>
+                <!--doan nay la de loc dinh dang-->
+                <!--                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg,image/jpg
+                </param>-->
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">/WEB-INF/datawarehouse_input-log.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>                                                                  
+        <action name="dtw_view_upload_log" class="vbsp.ims.action.DtwUploadFile"
+        method="view_log">
+            <result name="success">/WEB-INF/datawarehouse_input-tbl.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>                
+        
+        <action name="dtw_upload_excel" class="vbsp.ims.excel_upload.ExcelUploadAction"
+            method="upload_file">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">209715200</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">/WEB-INF/datawarehouse_input-log.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>                                                         
+     </package>          
+</struts>

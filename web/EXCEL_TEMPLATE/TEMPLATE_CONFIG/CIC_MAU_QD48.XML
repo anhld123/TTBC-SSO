@@ -1,0 +1,41 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="CIC_MAU_QD48.xlsx" fileOutFormat="CIC_MAU_QD48_PARA_MADN_DDMMYYYY">
+   <title>Mẫu CIC Nhập cho doanh nghiệp</title>
+   <userName>M2721</userName>
+   <date>14-Apr-2017 10:29:629</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MADN" class="java.lang.String" description="Mã khách hàng là doanh nghiệp"/>
+
+<queryString id="1" maplist="data" description="Truy vấn lấy dữ liệu cho mẫu" key_group="EMPTY" value_group="EMPTY"><![CDATA[SELECT dn_ma str1, dn_ten str2, ten str3, dn_tgd str4
+                   FROM HSKH_DN A, dmxa
+                   WHERE a.DN_TTRANG = 'A'  
+                   AND EXISTS (SELECT 'X' FROM hsku WHERE ku_ngaybc = '31-dec-2016' 
+                   and ku_mapgd = dn_mapgd and ku_makh = dn_ma )
+                    and dn_ma= $P{PARA_MADN}
+                   and substr(dn_madp,1,6)=ma
+                   order by dn_macn]]></queryString>
+<queryString id="2" maplist="data1" description="Lấy dữ liệu khách hàng" key_group="EMPTY" value_group="EMPTY"><![CDATA[SELECT dn_ma str1, dn_ten str2, ten str3, dn_tgd str4
+                   FROM HSKH_DN A, dmxa
+                   WHERE a.DN_TTRANG = 'A'  
+                   AND EXISTS (SELECT 'X' FROM hsku WHERE ku_ngaybc = '31-dec-2016' 
+                   and ku_mapgd = dn_mapgd and ku_makh = dn_ma )
+                    and dn_ma= $P{PARA_MADN}
+                   and substr(dn_madp,1,6)=ma
+                   order by dn_macn]]></queryString>
+<queryString id="3" maplist="data2" description="Dữ liệu truy vấn cho khách hàng" key_group="EMPTY" value_group="EMPTY"><![CDATA[SELECT dn_ma str1, dn_ten str2, ten str3, dn_tgd str4
+                   FROM HSKH_DN A, dmxa
+                   WHERE a.DN_TTRANG = 'A'  
+                   AND EXISTS (SELECT 'X' FROM hsku WHERE ku_ngaybc = '31-dec-2016' 
+                   and ku_mapgd = dn_mapgd and ku_makh = dn_ma )
+                    and dn_ma= $P{PARA_MADN}
+                   and substr(dn_madp,1,6)=ma
+                   order by dn_macn]]></queryString>
+<queryString id="4" maplist="data3" description="Dữ liệu truy vấn khách hàng" key_group="EMPTY" value_group="EMPTY"><![CDATA[SELECT dn_ma str1, dn_ten str2, ten str3, dn_tgd str4
+                   FROM HSKH_DN A, dmxa
+                   WHERE a.DN_TTRANG = 'A'  
+                   AND EXISTS (SELECT 'X' FROM hsku WHERE ku_ngaybc = '31-dec-2016' 
+                   and ku_mapgd = dn_mapgd and ku_makh = dn_ma )
+                    and dn_ma= $P{PARA_MADN}
+                   and substr(dn_madp,1,6)=ma
+                   order by dn_macn]]></queryString>
+</excel_template>

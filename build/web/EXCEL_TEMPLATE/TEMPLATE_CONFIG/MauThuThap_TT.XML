@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="MauThuThap_TT.xlsx" fileOutFormat="KH_MAU2_PV_POS_CD_PARA_NGAYBC">
+   <title>Bảng thu thập thông tin số điện thoại của khách hàng Trực tiếp</title>
+   <userName>ADMIN</userName>
+   <date>02-Dec-2016 12:36:878</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PV_POS_CD" class="java.lang.String" description="Mã phòng giao dịch"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+<queryString id="1" maplist="data1" description="Lấy ra tên chi nhánh" key_group="EMPTY" value_group="EMPTY"><![CDATA[select distinct decode(MAIN_POS,'000100','HỘI SỞ CHÍNH','000101','SỞ GIAO DỊCH',upper(add_city))  str1   from po850mb  where POS_CD=$P{PV_POS_CD}]]></queryString>
+
+
+
+
+<queryString id="2" maplist="data2" description="Lấy tên phòng giao dịch" key_group="EMPTY" value_group="EMPTY"><![CDATA[select initcap(replace(PO_TEN,'PGD','')) str1 from dmpos where PO_MA=$P{PV_POS_CD} ]]></queryString>
+
+
+<queryString id="4" maplist="data4" description="Lấy thông tin khách hàng trực tiếp" key_group="EMPTY" value_group="EMPTY"><![CDATA[select ROWNUM STR1, STR2, STR3, STR4, STR5 FROM  (select NVL(CUST_NAME,' ') STR2, NVL(CUST_ID,' ') STR3, NVL(ADDRESS,' ') STR4,NVL( MOBILE,' ') STR5 from DTW_COL_CUST_MOBILE where  POS_CD = $P{PV_POS_CD} and GROUP_ID is null and MASS_ORG is null and status ='A' order by COMMUNE_ID, CUST_ID)]]></queryString>
+</excel_template>

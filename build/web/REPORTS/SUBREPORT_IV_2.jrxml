@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUBREPORT_IV_2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="af56ae3b-c2f8-4501-ad06-d067736e15f3">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT 1 FROM DUAL]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="581" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="107b0588-b7ef-4444-a591-f694cd637a93" x="29" y="0" width="526" height="234" isRemoveLineWhenBlank="true"/>
+				<box leftPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[ + Nợ nghi ngờ (Nợ quá hạn): là những khoản nợ đã quá hạn nhưng khách hàng không trả. Căn cứ nghị định số 78/2002/NĐ-CP ngày 04/10/2002 của Chính phủ, thì hộ nghèo và các đối tượng Chính sách khác vay vốn không phải thế chấp, cầm cố tài sản và NHCSXH chỉ thực hiện chuyển nợ quá hạn trong các trường hợp: Người vay sử dụng vốn sai mục đích và Người vay có khả năng trả khoản nợ đến hạn nhưng không trả.
++ Nợ bị rủi ro được xoá nợ “Gốc, lãi”:
+Cơ sở để xem xét xoá nợ: Việc xoá nợ chỉ được áp dụng trong trường hợp người vay là cá nhân gặp rủi ro do nguyên nhân khách quan làm thiệt hại trực tiếp đến vốn, tài sản của khách hàng được xem xét xoá nợ gồm:
+Khách hàng là cá nhân vay bị mất năng lực hành vi dân sự, ốm đau thường xuyên phải điều trị dài ngày, có hoàn cảnh đặc biệt khó khăn, không nơi nương tựa, chết, mất tích hoặc bị tuyên bố là chết, mất tích mà không còn tài sản để trả nợ. Không có người thừa kế hoặc người thừa kế thực sự không có khả năng trả thay.
+Đối với pháp nhân, tổ chức kinh tế đã có quyết định giải thể hoặc phá sản theo quy định của pháp luật mà không còn vốn, tài sản để trả nợ.
+- Cơ sở trích lập dự phòng rủi ro tín dụng: Trích lập dự phòng rủi ro tín dụng được thực hiện theo Quyết định số 180/2002/QĐ-TTg ngày 19/12/2002 của Thủ tướng Chính phủ, mức trích lập bằng 0.02% /năm tính theo tổng dư nợ bình quân năm.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4b880100-f5c3-4f4a-adda-7958503661bd" x="29" y="233" width="526" height="77" isRemoveLineWhenBlank="true"/>
+				<box leftPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[Đối với pháp nhân, tổ chức kinh tế đã có quyết định giải thể hoặc phá sản theo quy định của pháp luật mà không còn vốn, tài sản để trả nợ.
+- Cơ sở trích lập dự phòng rủi ro tín dụng: Trích lập dự phòng rủi ro tín dụng được thực hiện theo Quyết định số 180/2002/QĐ-TTg ngày 19/12/2002 của Thủ tướng Chính phủ, mức trích lập bằng 0.02% /năm tính theo tổng dư nợ bình quân năm.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bdc4dee9-36a1-4369-be02-06bb5640af5c" x="29" y="339" width="526" height="132"/>
+				<box leftPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[- Nguyên tắc ghi nhận tài sản cố định vô hình: TSCĐ vô hình tại NHCSXH có nguyên giá là giá trị bỏ ra để nắm giữ quyền sử dụng đất; phần mềm máy vi tính và Quyền phát hành, bản quyền, bằng sáng chế, nhãn hiệu hàng hoá, giấy phép, giấy phép nhượng quyền. Các TSCĐ vô hình khác được ghi nhận nguyên giá theo chuẩn mực kế toán Việt Nam.
+-Phương pháp và thời gian khấu hao TSCĐ vô hình:
+TSCĐ vô hình là quyền sử dụng đất không áp dụng trích khấu hao.
+TSCĐ vô hình là phần mềm máy vi tính: Mức trích khấu hao là 04 năm và khấu hao theo phương pháp đường thẳng.
+TSCĐ vô hình là Quyền phát hành, bản quyền, bằng sáng chế, nhãn hiệu hàng hoá, giấy phép và giấy phép nhượng quyền áp dụng khấu hao theo phương pháp đường thẳng và thời gian khấu hao là 20%/năm.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a4b0c22c-b0d0-4045-ae6d-e0a66cc43cca" x="29" y="310" width="526" height="30"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[7. Kế toán các nghiệp vụ kinh doanh và đầu tư chúng khoán: NHCSXH không có
+8. Kế toán các tài sản vô hình:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c2efd374-4d88-493c-81e2-121cb326691a" x="29" y="498" width="526" height="83" isRemoveLineWhenBlank="true"/>
+				<box leftPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[- Nguyên tắc xác định nguyên giá TSCĐ hữu hình:  TSCĐ hữu hình được ghi nhận theo giá gốc. Trong quá trình sử dụng, tài sản cố định hữu hình được ghi nhận theo nguyên giá, hao mòn luỹ kế và giá trị còn lại.
+- Phương pháp khấu hao, thời gian sử dụng hữu ích, hoặc tỷ lệ khấu hao TSCĐ hữu hình: TSCĐ hữu hình được khấu hao theo phương pháp đường thẳng. Thời gian sử dụng hữu ích (liên quan đến tỷ lệ khấu hao) được thực hiện theo quy định của Nhà nước (Bộ tài chính).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e1f9c465-561b-4749-b2d5-ffd66b72ea27" x="29" y="470" width="218" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[9. Kế toán lợi thế thương mại: không có]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2baf6973-233c-434f-b4a3-3be24e045a35" x="29" y="484" width="218" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[10. Kế toán TSCĐ hữu hình]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

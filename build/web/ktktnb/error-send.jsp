@@ -1,0 +1,2 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<span style="font-weight: bold; color: green">Thông báo:</span>  <span style="color: red">PGD chưa nhập số liệu hoặc chưa gửi được file lên TW</span>

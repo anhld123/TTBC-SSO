@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CD_GL" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="30" rightMargin="10" topMargin="20" bottomMargin="20" uuid="3ceeba19-d410-42ec-9150-ed486f63cfb0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_KYBC" class="java.lang.String"/>
+	<parameter name="PARA_LOAIBC" class="java.lang.String"/>
+	<parameter name="PARA_TONGHOP" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Official dispatch of IT\\Xay dung CSDL\\jasper report\\Bao cao tai chinh\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select PO_MA from intellect.dmpos where instr($P{PARA_MAPGD},PO_MA) > 0 order by 1]]>
+	</queryString>
+	<field name="PO_MA" class="java.lang.String"/>
+	<group name="POS_CD_GROUP" isStartNewPage="true" isResetPageNumber="true">
+		<groupExpression><![CDATA[$F{PO_MA}]]></groupExpression>
+		<groupHeader>
+			<band height="94">
+				<subreport>
+					<reportElement uuid="a701ac1a-1235-4bfc-bd4b-ff49c6335251" x="0" y="0" width="271" height="60"/>
+					<subreportParameter name="POS_CD">
+						<subreportParameterExpression><![CDATA[$F{PO_MA}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="CONS_FLAG">
+						<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["mainpos_subpos1.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement uuid="dc31c9fe-297d-44a0-95f1-821f8672b814" x="600" y="80" width="172" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Times New Roman" size="10" isBold="false" isItalic="true" pdfFontName="" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Đơn vị: Đồng Việt Nam (VND)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="926ba44a-4f2f-459a-b0bc-4c4df0db841c" x="273" y="40" width="266" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[BẢNG CÂN ĐỐI TÀI KHOẢN KẾ TOÁN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0f047871-c4ea-485f-b4aa-ec14d1c76a99" x="219" y="71" width="382" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="11" isBold="false" pdfFontName="" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[A- CÁC TÀI KHOẢN TRONG BẢNG CÂN ĐỐI KẾ TOÁN]]></text>
+				</staticText>
+				<subreport>
+					<reportElement uuid="badd1936-a0e3-41e9-94ea-3e0f9a76b59a" x="271" y="55" width="269" height="21"/>
+					<subreportParameter name="PARA_KYBC">
+						<subreportParameterExpression><![CDATA[$P{PARA_KYBC}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PARA_NGAYBC">
+						<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["KyBC.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement uuid="b80c946a-9dd0-4318-a44d-64a87d5d6f6c" x="657" y="0" width="115" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12" isBold="true" isItalic="false" pdfFontName="" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Mẫu số: A02/NHCS]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="99">
+				<subreport>
+					<reportElement uuid="16b8f16a-abbd-4890-9056-9bde360409f0" x="0" y="0" width="540" height="48" isRemoveLineWhenBlank="true">
+						<printWhenExpression><![CDATA[!$F{PO_MA}.equals( "000199" )]]></printWhenExpression>
+					</reportElement>
+					<subreportParameter name="PARA_MAPGD">
+						<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PARA_NGAYBC">
+						<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PARA_TONGHOP">
+						<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PARA_LOAIBC">
+						<subreportParameterExpression><![CDATA[$P{PARA_LOAIBC}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PARA_KYBC">
+						<subreportParameterExpression><![CDATA[$P{PARA_KYBC}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["Chuky_candoi.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport>
+					<reportElement uuid="3c80ed51-2510-4133-afe0-d2a670535423" x="0" y="48" width="540" height="51" isRemoveLineWhenBlank="true">
+						<printWhenExpression><![CDATA[$F{PO_MA}.equals( "000199" )]]></printWhenExpression>
+					</reportElement>
+					<subreportParameter name="PARA_MAPGD">
+						<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PARA_NGAYBC">
+						<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PARA_KYBC">
+						<subreportParameterExpression><![CDATA[$P{PARA_KYBC}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PARA_LOAIBC">
+						<subreportParameterExpression><![CDATA[$P{PARA_LOAIBC}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="PARA_TONGHOP">
+						<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["chuky_candoiTV.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="57" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="3c8dbe1d-79c0-41c7-82cc-cf23050aadff" x="0" y="0" width="672" height="57"/>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA["P" + $F{PO_MA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_LOAIBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_LOAIBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_KYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_KYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_TONGHOP">
+					<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["CDNB_NHOM_GL1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="56" splitType="Immediate">
+			<subreport>
+				<reportElement uuid="c0f37a35-2850-4e90-882e-778cf2ace61d" x="0" y="0" width="672" height="56" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA["P" + $F{PO_MA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_LOAIBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_LOAIBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_KYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_KYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_TONGHOP">
+					<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["CDNGB_NHOM_GL1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="17" splitType="Stretch">
+			<textField evaluationTime="Group" evaluationGroup="POS_CD_GROUP">
+				<reportElement uuid="420ad6c7-44b6-437b-a973-39f19f013b13" x="737" y="0" width="35" height="17"/>
+				<box rightPadding="4">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0a30ce21-2518-4710-93b3-cdfc162973bb" x="629" y="0" width="106" height="17"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Trang: "+$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<noData>
+		<band height="50"/>
+	</noData>
+</jasperReport>

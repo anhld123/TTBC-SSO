@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>           
+    <package name="main_muasamts" extends="struts-default,json-default">                       
+        <action name="loadAllMuasamts" class="vbsp.ims.muasamts.action.ActionMuasamtsMain"  method="execute">
+            <result name="success" type="json"></result>        
+        </action>   
+        
+        <action name="LoadParaMuasamts" class="vbsp.ims.muasamts.action.ActionMuasamtsMain"  method="loadPataMuasamts">
+            <result name="success">/muasam-taisan/para-muasamts-main.jsp</result>
+            <result name="error">/muasam-taisan/success.jsp</result>        
+        </action>  
+        
+
+        
+        <action name="load_pos_sp"  class="vbsp.ims.muasamts.action.ActionMuasamtsMain" method="loadAllPos_Sp">
+            <!--<result name="success" type="json"></result>-->
+            <result name="success">/muasam-taisan/table_list_pos_sp.jsp</result>
+            <result name="error">sbv/success.jsp</result>
+        </action>
+        
+        <action name="load_loaibc"  class="vbsp.ims.muasamts.action.ActionMuasamtsMain" method="loadAll_BC">
+            <!--<result name="success" type="json"></result>-->
+            <result name="success">/muasam-taisan/table_list_bc.jsp</result>
+            <result name="error">sbv/success.jsp</result>
+        </action>
+        
+        <action name="MUASAMTS_001" class="vbsp.ims.muasamts.action.MUASAMTS_001"  method="load">
+            <result name="nhapkehoach">/muasam-taisan/table_kh_muasamts_01.jsp</result>
+            <result name="nhapnhapqkqpheduyetkh">/muasam-taisan/table_pheduyetkh_muasamts_01.jsp</result>
+            <result name="nhapqkqmuasam">/muasam-taisan/table_thuchien_muasamts_01.jsp</result>
+            <result name="chuachot">/muasam-taisan/table_ds_chotms_01.jsp</result>
+            <result name="captw1">/muasam-taisan/table_unlock.jsp</result>
+            <result name="error">/muasam-taisan/success.jsp</result>        
+        </action>
+                  
+        <action name="SAVE_MUASAMTS_001" class="vbsp.ims.muasamts.action.MUASAMTS_001"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="ChotMuaSamTS" class="vbsp.ims.muasamts.action.MUASAMTS_001"  method="ChotMuaSamTS">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="MoChotMuaSamTS" class="vbsp.ims.muasamts.action.MUASAMTS_001"  method="MoChotMuaSamTS">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <!--gui so lieu -->
+        <action name="sendDataMuasamts" class="vbsp.ims.muasamts.action.ActionMuasamtsMain"  method="sendDataMuasamts">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+       
+         <!--Chi phan khoa va mo khoa gui du lieu-->
+        <action name="LoadParaMuasamts_unlock" class="vbsp.ims.muasamts.action.ActionMuasamtsMain"  method="LoadParaKtgs_unlock">
+            <result name="success">/muasam-taisan/para-ktgs-main_unlock.jsp</result>
+            <result name="error">/muasam-taisan/success.jsp</result>        
+        </action>  
+    </package>
+    
+</struts>

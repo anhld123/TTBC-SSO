@@ -1,0 +1,23 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="G03714_126_TTGS_TT11.xlsx" fileOutFormat="G03714_126_TTGS_DDMMYYYY">
+   <title>126-TTGS-TT11 - Báo cáo số dư tiền gửi của các khách hàng lớn nhất</title>
+   <userName>ADMIN</userName>
+   <date>10-Aug-2018 14:49:83</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+<parameter name="PARA_MAPGD" class="java.lang.String" description="Mã PGD"/>
+<queryString id="1" maplist="header" description="Header" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'G03714_126_TTGS_TT11' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRANGPT' STR5,
+'QUYENNV' STR6  from dmpos where po_ma = $P{PARA_MAPGD}]]></queryString>
+<queryString id="2" maplist="data1" description="data1" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call PACKAGE_TEST_TRANG.INSL_126_TTGS_TT11 (2, '000100' ,'Y', $P{PARA_NGAYBC},1, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="3" maplist="data2" description="data2" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call PACKAGE_TEST_TRANG.INSL_126_TTGS_TT11 (2, '000100' ,'Y', $P{PARA_NGAYBC},2, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="4" maplist="data3" description="data3" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call PACKAGE_TEST_TRANG.INSL_126_TTGS_TT11 (2, '000100' ,'Y', $P{PARA_NGAYBC},3, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="5" maplist="data4" description="data4" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call PACKAGE_TEST_TRANG.INSL_126_TTGS_TT11 (2, '000100' ,'Y', $P{PARA_NGAYBC},4, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="6" maplist="data5" description="data5" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call PACKAGE_TEST_TRANG.INSL_126_TTGS_TT11 (2, '000100' ,'Y', $P{PARA_NGAYBC},5, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="7" maplist="data6" description="data6" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call PACKAGE_TEST_TRANG.INSL_126_TTGS_TT11 (2, '000100' ,'Y', $P{PARA_NGAYBC},6, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="8" maplist="data7" description="data7" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call PACKAGE_TEST_TRANG.INSL_126_TTGS_TT11 (2, '000100' ,'Y', $P{PARA_NGAYBC},7, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="9" maplist="data8" description="data8" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call PACKAGE_TEST_TRANG.INSL_126_TTGS_TT11 (2, '000100' ,'Y', $P{PARA_NGAYBC},8, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="10" maplist="data9" description="data9" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call PACKAGE_TEST_TRANG.INSL_126_TTGS_TT11 (2, '000100' ,'Y', $P{PARA_NGAYBC},9, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="11" maplist="data10" description="data10" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call PACKAGE_TEST_TRANG.INSL_126_TTGS_TT11 (2, '000100' ,'Y', $P{PARA_NGAYBC},10, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="12" maplist="data11" description="data11" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call PACKAGE_TEST_TRANG.INSL_126_TTGS_TT11 (2, '000100' ,'Y', $P{PARA_NGAYBC},11, $P{ORACLE_REF_CURSOR})}]]></queryString>
+<queryString id="13" maplist="data12" description="data12" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call PACKAGE_TEST_TRANG.INSL_126_TTGS_TT11 (2, '000100' ,'Y', $P{PARA_NGAYBC},12, $P{ORACLE_REF_CURSOR})}]]></queryString>
+</excel_template>

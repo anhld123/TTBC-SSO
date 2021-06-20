@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUBREPORT_III" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="92c07e73-4401-4731-835b-53c8643edea0">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 1 FROM DUAL]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="128" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c21a8e22-580c-43e1-8622-112749f00c46" x="0" y="0" width="303" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[III - Chuẩn mực và Chế độ kế toán áp dụng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a2a42b39-b652-44e4-a9ed-913013673081" x="0" y="14" width="555" height="114"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[- Báo cáo về tuân thủ các chuẩn mực kế toán Việt Nam – VAS hoặc các chuẩn mực kế toán kế toán quốc tế – IAS: Về cơ bản NHCSXH tuân thủ các chuẩn mực kế toán Việt Nam ngoại trừ chuẩn mực doanh thu và chuẩn mực chi phí (Dự phòng rủi ro).
+- Hình thức kế toán áp dụng là kế toán bằng máy vi tính.
+- Các cơ sở đánh giá được sử dụng trong quá trình lập BCTC và các ước tính kế toán quan trọng là số cấp bù chênh lệch lãi suất và chi phí quản lý từ Ngân sách Nhà nước; Quỹ tiền lương cán bộ nhân viên NHCSXH.
+- Hợp nhất báo cáo: NHCSXH không có
+- Cơ sở điều chỉnh các sai sót: Báo cáo quyết toán số cấp bù chênh lệch lãi suất và chi phí quản lý; Báo cáo quyết toán quỹ tiền lương và các biên bản kiểm tra (có phát hiện sai sót về hạch toán kế toán).
+]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

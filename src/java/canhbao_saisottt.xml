@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>    
+    <package name="main_canhbaosstt" extends="struts-default,json-default">                       
+        <action name="loadAllCanhbaoss" class="vbsp.ims.canhbaosaisottt.ActionCanhbaoSsttMain"  method="execute">
+            <result name="success" type="json"></result>        
+        </action>   
+        
+        <action name="LoadParaCanhbaoss" class="vbsp.ims.canhbaosaisottt.ActionCanhbaoSsttMain"  method="loadPataCanhbaoss">
+            <result name="success">/canhbao_saisottt/para-cbss-main.jsp</result>
+            <result name="error">/canhbao_saisottt/success.jsp</result>        
+        </action>  
+       
+ <!--Đoạn lấy dữ liệu cho màn hình Main-->        
+        <action name="P0001" class="vbsp.ims.canhbaosaisottt.P0001"  method="load">
+            <result name="success">/canhbao_saisottt/table_cbss_01_main.jsp</result>
+            <result name="error">/canhbao_saisottt/success.jsp</result>        
+        </action>
+        <action name="P0002" class="vbsp.ims.canhbaosaisottt.P0001"  method="load">
+            <result name="success">/canhbao_saisottt/table_cbss_01_main.jsp</result>
+            <result name="error">/canhbao_saisottt/success.jsp</result>        
+        </action>
+        <action name="P0003" class="vbsp.ims.canhbaosaisottt.P0001"  method="load">
+            <result name="success">/canhbao_saisottt/table_cbss_01_main.jsp</result>
+            <result name="error">/canhbao_saisottt/success.jsp</result>        
+        </action>
+        <action name="P0004" class="vbsp.ims.canhbaosaisottt.P0001"  method="load">
+            <result name="success">/canhbao_saisottt/table_cbss_01_main.jsp</result>
+            <result name="error">/canhbao_saisottt/success.jsp</result>        
+        </action>
+        <action name="P0005" class="vbsp.ims.canhbaosaisottt.P0001"  method="load">
+            <result name="success">/canhbao_saisottt/table_cbss_01_main.jsp</result>
+            <result name="error">/canhbao_saisottt/success.jsp</result>        
+        </action>
+ <!--Phần xuất Excel của QuyếnNV-->                  
+        <action name="SAVE_P000" class="vbsp.ims.canhbaosaisottt.P0001"  method="xuatxls">
+            <result name="success">downfile_bcnhanh.jsp</result>  
+            <result name="error">/canhbao_saisottt/success.jsp</result>        
+        </action>
+ <!--Lưu và duyệt dữ liệu - VinhNP-->        
+        <action name="getGiaitrinh" class="vbsp.ims.canhbaosaisottt.P0001"  method="giaitrinh">
+            <result name="success">/canhbao_saisottt/table_cbss_01_detail.jsp</result>
+            <result name="error">/canhbao_saisottt/success.jsp</result>        
+        </action>
+        
+        <action name="saveGiaitrinhP001" class="vbsp.ims.canhbaosaisottt.P0001"  method="saveGiaiTrinh">
+            <result name="success">/BCQT/success.jsp</result>  
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="saveDataTmp" class="vbsp.ims.canhbaosaisottt.P0001"  method="saveGiaiTrinhTmp">
+            <result name="success">/BCQT/success.jsp</result>  
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="pheduyetP001" class="vbsp.ims.canhbaosaisottt.P0001"  method="pheduyetP001">
+            <result name="success">/canhbao_saisottt/table_cbss_01_detail.jsp</result>     
+        </action>
+        <action name="sendDataCbss" class="vbsp.ims.canhbaosaisottt.ActionCanhbaoSsttMain"  method="sendCBSS">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="giaitrinhfile" class="vbsp.ims.canhbaosaisottt.P0001" method="uploadGiaitrinh">
+            <result name="success">  
+                /canhbao_saisottt/upload-file-giaitrinh.jsp
+            </result>               
+            <result name="error">  
+                /chamdiem_canhan/success.jsp
+            </result>  
+        </action>
+        
+         <action name="uploadCbssGiaitrinh" class="vbsp.ims.canhbaosaisottt.P0001"  method="uploadCbss_Giaitrinh">
+            <!--<result name="success">/nhaptay-cn/table-result-upload-giaingan.jsp</result>-->      
+           <result name="success">  
+                /canhbao_saisottt/success.jsp
+            </result> 
+            <result name="error">  
+                /canhbao_saisottt/success.jsp
+            </result>          
+        </action>
+        
+    </package>
+</struts>

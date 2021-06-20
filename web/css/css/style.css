@@ -1,0 +1,90 @@
+body { font:12px Helvetica, arial, sans-serif }
+h1, h2, p { margin:10px 0 }
+.hidden { visibility:hidden }
+
+
+.message { padding:10px; margin:15px 0; display:block; text-align:left }
+.message-title { font-weight:bold; font-size:1.25em }
+.message-body { margin-top:4px }
+.error, .notice, .success { padding:.8em; margin-bottom:1em; border:2px solid #ddd }
+.error { background:#FBE3E4; color:#8a1f11; border-color:#FBC2C4 }
+.notice { background:#FFF6BF; color:#514721; border-color:#FFD324 }
+.success { background:#E6EFC2; color:#264409; border-color:#C6D880 }
+.error a { color:#8a1f11 }
+.notice a { color:#514721 }
+.success a { color:#264409 }
+
+.tbl_cbss_css {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+.tbl_cbss_css td, .tbl_cbss_css th {
+    border: 1px solid #ddd;
+    padding: 0px;
+}
+
+.tbl_cbss_css tr:nth-child(even){background-color: #f2f2f2;}
+
+.tbl_cbss_css tr:hover {background-color: #ddd;}
+
+.tbl_cbss_css th {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+    background-color: #017230;
+    color: white;
+    vertical-align: middle;
+    text-align: center;
+}
+input[type="text"]{
+    background: transparent !important;
+    border: 1px solid #017230;
+}
+input[type="text"]:focus, textarea:focus{
+    box-shadow:none;
+    border: 1px solid #017230;
+}
+
+.update_gtrinh {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #028e07;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 13px;
+    padding: 10px;
+    transition: all 0.5s;
+    cursor: pointer;
+    font-weight: bold;
+    max-width: 155px;
+}
+
+.update_gtrinh span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.update_gtrinh span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: -3px;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.update_gtrinh:hover span {
+    padding-right: 15px;
+}
+
+.update_gtrinh:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+textarea:read-only {
+  background-color: #999;
+}

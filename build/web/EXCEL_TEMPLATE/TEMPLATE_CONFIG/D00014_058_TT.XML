@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="D00014_058_TT.xlsx" fileOutFormat="SBV_058_D00014_DDMMYYYY">
+   <title>058-TT - Báo cáo tài khoản thanh toán phân theo đối tượng (Tháng)</title>
+   <userName>ADMIN</userName>
+   <date>28-Dec-2016 18:09:50</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+
+
+<parameter name="PARA_MAPGD" class="java.lang.String" description="Mã phòng giao dịch"/>
+
+
+<queryString id="1" maplist="header" description="Lấy tiêu đề" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'D00014_SBV_058_TT' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRANGPT' STR5,
+'TRUNGNT' STR6  from dmpos where po_ma = $P{PARA_MAPGD}]]></queryString>
+<queryString id="2" maplist="data" description="Lấy dữ liệu" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC.INSL_058_TT (2, '000100' ,'Y', $P{PARA_NGAYBC}, $P{ORACLE_REF_CURSOR})}]]></queryString>
+</excel_template>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>    
+    <package name="add_excel" extends="struts-default">
+        
+        <action name="loadallrpt_Edit"  class="vbsp.ims.excel.template.ActionExcelTemplate" method="loadAllRptExp">
+            <result name="success">excel_config/load_all_template_edit.jsp</result>
+            <result name="error">excel_config/success.jsp</result>
+        </action>  
+        
+        <action name="deleteExcelTemplate" class="vbsp.ims.excel.template.ActionExcelTemplate" method="deleteExcelTemplate">
+            <result name="success" type="redirectAction">
+                <param name="actionName">loadallrpt_Edit</param>
+            </result>
+            <result name="error">excel_config/success.jsp</result>
+        </action>
+        
+        <action name="editTemplateHeader" class="vbsp.ims.excel.template.ActionExcelTemplate" method="editTemplateHeader">
+            <result name="success">excel_config/add_excel.jsp</result>
+            <result name="error">excel_config/success.jsp</result>
+        </action>
+        
+        <!--goi trang de them moi mau template excel-->
+        <action name="LoadAddNewExcel" class="vbsp.ims.excel.template.ActionExcelTemplate" method="AddNewExcel">
+            <result name="success">excel_config/add_excel.jsp</result>
+            <result name="error">excel_config/success.jsp</result>
+        </action>
+        <!--goi action luu mẫu template excel đồng thời ghi 1 file xml trắng chỉ gồm mô tả và file excel-->        
+        <action name="AddFileTemplateExcel" class="vbsp.ims.excel.template.ActionExcelTemplate" method="AddFileTemplateExcel">
+            <result name="success">excel_config/success.jsp</result>
+            <!--            <result name="success" type="redirectAction">
+                <param name="actionName">LoadEditTemplate</param>
+                <param name="fileTemplate">${fileTemplate}</param>
+            </result>-->
+            <result name="error">excel_config/success.jsp</result>
+        </action>
+        <!--tu file excel mau load tat ca câc tham số cần edit lên-->
+        <action name="LoadEditTemplate" class="vbsp.ims.excel.template.ActionExcelTemplate" method="LoadEditTemplate">
+            <result name="success">excel_config/edit_template_parameter.jsp</result>
+            <result name="error">excel_config/success.jsp</result>
+        </action>
+        <!--sửa tham số--> 
+        <action name="configEditParameter" class="vbsp.ims.excel.template.ActionExcelTemplate" method="configEditParameter">
+            <result name="success">excel_config/edit_parameter.jsp</result>
+            <result name="error">excel_config/success.jsp</result>
+        </action>
+        <!--sửa cho truy vấn-->
+        <action name="configEditQuery" class="vbsp.ims.excel.template.ActionExcelTemplate" method="configEditQuery">
+            <result name="success">/excel_config/edit_query.jsp</result>
+            <result name="error">/excel_config/success.jsp</result>
+        </action>
+        
+        <!--lưu cho tham số-->
+        <action name="saveParameter" class="vbsp.ims.excel.template.ActionExcelTemplate" method="saveParameter">
+            <!--            <result name="success" type="redirectAction">
+                <param name="actionName">LoadEditTemplate</param>
+                <param name="fileTemplate">${fileTemplate}</param>
+            </result>-->
+            <result name="success">/excel_config/success.jsp</result>
+            <result name="error">/excel_config/success.jsp</result>
+            <!--<result name="input">/excel_config/edit_parameter.jsp</result>-->
+        </action>
+        
+        <action name="saveQuery" class="vbsp.ims.excel.template.ActionExcelTemplate" method="saveQuery">
+            <!--            <result name="success" type="redirectAction">
+                <param name="actionName">LoadEditTemplate</param>
+                <param name="fileTemplate">${fileTemplate}</param>
+            </result>-->
+            <result name="success">/excel_config/success.jsp</result>
+            <result name="error">/excel_config/success.jsp</result>
+        </action>
+        
+        <!--Xoa tham so va query-->
+        <action name="deleteParameter" class="vbsp.ims.excel.template.ActionExcelTemplate" method="deleteParameter">
+            <result name="success">/excel_config/success.jsp</result>
+            <result name="error">/excel_config/success.jsp</result>
+        </action>
+        
+        <action name="deleteQuery" class="vbsp.ims.excel.template.ActionExcelTemplate" method="deleteQuery">
+            <result name="success">/excel_config/success.jsp</result>
+            <result name="error">/excel_config/success.jsp</result>
+        </action>
+         
+        <action name="LoadParameterExp" class="vbsp.ims.excel.template.ActionExcelTemplate" method="loadParameter">
+            <result name="success">/excel_config/loadpara_exp_template.jsp</result>  
+            <result name="error">/excel_config/success.jsp</result>          
+        </action>
+        <action name="genReportExcelTemplate" class="vbsp.ims.excel.template.ActionExcelTemplate" method="ExportTemplate">
+            <result name="success">downfile_bcnhanh.jsp</result>  
+            <result name="error">/excel_config/success.jsp</result>         
+        </action>
+    </package>
+    <package name="rpt_excel" extends="struts-default,json-default">
+        <action name="loadallrpt_exp"  class="vbsp.ims.excel.template.ActionExcelTemplate" method="loadAllRptExp">
+            <result name="success" type="json"></result>
+            <result name="error">excel_config/success.jsp</result>
+        </action>      
+        
+        <action name="loadColumnQuery"  class="vbsp.ims.excel.template.ActionExcelTemplate" method="loadColumnQuery">
+            <result name="success" type="json">/excel_config/edit_query.jsp</result>
+            <result name="error">excel_config/success.jsp</result>
+        </action>                
+    </package>    
+     
+</struts>

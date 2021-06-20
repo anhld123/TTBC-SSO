@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ON_TBNDH_CN_MAIN" language="groovy" pageWidth="595" pageHeight="421" orientation="Landscape" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ed5335ff-223d-492d-8ea7-da0a2c1dba92">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_MAXA" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_MATO" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<parameter name="PARA_TUNGAY" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_DENNGAY" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_KYBC" class="java.lang.String"/>
+	<parameter name="PARA_MACT" class="java.lang.String"/>
+	<parameter name="PARA_SOKU" class="java.lang.String"/>
+	<parameter name="PARA_DVUT" class="java.lang.String"/>
+	<parameter name="PARA_TENTT" class="java.lang.String"/>
+	<queryString language="plsql">
+		<![CDATA[{call BC_ONLINE.ON_TBNDH_CN($P{PARA_MAPGD},$P{PARA_MAXA},$P{PARA_MATO},$P{PARA_KYBC},$P{PARA_MACT},$P{PARA_SOKU},$P{PARA_NGAYBC},$P{PARA_TUNGAY},$P{PARA_DENNGAY},$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<field name="MAKH" class="java.lang.String"/>
+	<field name="TENKH" class="java.lang.String"/>
+	<field name="DIACHI" class="java.lang.String"/>
+	<field name="TENTT" class="java.lang.String"/>
+	<field name="MATO" class="java.lang.String"/>
+	<field name="DVUT" class="java.lang.String"/>
+	<field name="SOKU" class="java.lang.String"/>
+	<field name="NGAYVAY" class="java.lang.String"/>
+	<field name="GOCDH" class="java.math.BigDecimal"/>
+	<field name="NGAYDH" class="java.lang.String"/>
+	<field name="TENPGD" class="java.lang.String"/>
+	<field name="DIAPHUONG" class="java.lang.String"/>
+	<field name="PR_CNQHFLG" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="b968ce22-3b65-4f9d-8e23-6cb3db4ba040" x="0" y="0" width="595" height="40" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="PARA_TENKH">
+					<subreportParameterExpression><![CDATA[$F{TENKH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_KYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_KYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYDH">
+					<subreportParameterExpression><![CDATA[$F{NGAYDH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_MATO">
+					<subreportParameterExpression><![CDATA[$F{MATO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_DVUT">
+					<subreportParameterExpression><![CDATA[$F{DVUT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_TENTT">
+					<subreportParameterExpression><![CDATA[$F{TENTT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_SOKU">
+					<subreportParameterExpression><![CDATA[$F{SOKU}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_GOCDH">
+					<subreportParameterExpression><![CDATA[$F{GOCDH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYVAY">
+					<subreportParameterExpression><![CDATA[$F{NGAYVAY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_CNQHFLG">
+					<subreportParameterExpression><![CDATA[$F{PR_CNQHFLG}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_TENPGD">
+					<subreportParameterExpression><![CDATA[$F{TENPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_DIACHI">
+					<subreportParameterExpression><![CDATA[$F{DIACHI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_DIAPHUONG">
+					<subreportParameterExpression><![CDATA[$F{DIAPHUONG}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/ON_TBNDH_CN.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>

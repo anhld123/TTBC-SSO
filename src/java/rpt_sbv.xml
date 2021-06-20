@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>    
+    <package name="main_sbv" extends="struts-default,json-default">    
+        
+        <action name="loadParameters_sbv"  class="vbsp.ims.sbv.actionExpSbv" method="loadParameters">
+            <result name="success" type="json"></result>
+            <result name="error">sbv/success.jsp</result>
+        </action>    
+        <action name="loadallrpt_loadbc"  class="vbsp.ims.sbv.actionExpSbv" method="loadAllRptExp">
+            <!--<result name="success" type="json"></result>-->
+            <result name="success">/sbv/table_list_report.jsp</result>
+            <result name="error">sbv/success.jsp</result>
+        </action>
+        <action name="loadKyBC_Tree"  class="vbsp.ims.sbv.actionExpSbv" method="reloadTree">
+            <result name="success" type="json">
+                <param name="root">tree_bc</param>
+<!--                <param name="root">lstKybc</param>-->
+            </result>
+            <result name="error">sbv/success.jsp</result>
+        </action>  
+        <action name="export_report_sbv" class="vbsp.ims.sbv.actionExpSbv" method="exportSbv">
+            <result name="success">downfile_bcnhanh.jsp</result>  
+            <result name="error">/sbv/success.jsp</result>         
+        </action>
+                           
+        <action name="loadAllSbv" class="vbsp.ims.sbv.actionMainSbv"  method="execute">
+            <result name="success" type="json"></result>        
+        </action>   
+        
+        <action name="LoadParaSbv" class="vbsp.ims.sbv.actionMainSbv"  method="loadPataSbv">
+            <result name="success">/sbv/para-sbv-main.jsp</result>
+            <result name="error">/sbv/success.jsp</result>        
+        </action>  
+        
+        <action name="sendSBV" class="vbsp.ims.sbv.actionMainSbv"  method="sendSBV">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="SBV_089_SGD" class="vbsp.ims.sbv.SBV_089_SGD" method="load">
+            <result name="success">/sbv/SBV_089_SGD_INDEX.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action> 
+        
+        <action name="SAVE_SBV_089_SGD" class="vbsp.ims.sbv.SBV_089_SGD" method="save">
+            <result name="success">/sbv/success.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action>
+        
+        <action name="SBV_170_TTGS" class="vbsp.ims.sbv.SBV_170_TTGS" method="load">
+            <result name="success">/sbv/SBV_170_TTGS.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action> 
+        
+        <action name="SAVE_SBV_170_TTGS" class="vbsp.ims.sbv.SBV_170_TTGS" method="save">
+            <result name="success">/sbv/success.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action>
+        
+        <action name="SBV_043_CSTT" class="vbsp.ims.sbv.SBV_043_CSTT" method="load">
+            <result name="success">/sbv/sbv_043_cstt_index.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action> 
+        
+        <action name="SAVE_SBV_043_CSTT" class="vbsp.ims.sbv.SBV_043_CSTT" method="save">
+            <result name="success">/sbv/success.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action>
+        
+        <action name="SBV_066_PHKQ" class="vbsp.ims.sbv.SBV_066_PHKQ" method="load">
+            <result name="success">/sbv/sbv_066_phkq_index.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action> 
+        
+        <action name="SBV_065_PHKQ" class="vbsp.ims.sbv.SBV_065_PHKQ" method="load">
+            <result name="success">/sbv/sbv_065_phkq_index.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action> 
+        
+        <action name="SAVE_SBV_066_PHKQ" class="vbsp.ims.sbv.SBV_066_PHKQ" method="save">
+            <result name="success">/sbv/success.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action>
+        
+         <action name="SAVE_SBV_065_PHKQ" class="vbsp.ims.sbv.SBV_065_PHKQ" method="save">
+            <result name="success">/sbv/success.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action>
+        
+        <action name="SBV_165_TTGS" class="vbsp.ims.sbv.SBV_165_TTGS" method="load">
+            <result name="success">/sbv/SBV_165_TTGS.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action> 
+        
+        <action name="SAVE_SBV_165_TTGS" class="vbsp.ims.sbv.SBV_165_TTGS" method="save">
+            <result name="success">/sbv/success.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action>
+        
+        <action name="SBV_162_TTGS" class="vbsp.ims.sbv.SBV_162_TTGS" method="load">
+            <result name="success">/sbv/SBV_162_TTGS.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action> 
+        
+        <action name="SAVE_SBV_162_TTGS" class="vbsp.ims.sbv.SBV_162_TTGS" method="save">
+            <result name="success">/sbv/success.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action>
+        
+        <action name="SBV_168_TTGS" class="vbsp.ims.sbv.SBV_168_TTGS" method="load">
+            <result name="success">/sbv/SBV_168_TTGS.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action> 
+        
+        <action name="SAVE_SBV_168_TTGS" class="vbsp.ims.sbv.SBV_168_TTGS" method="save">
+            <result name="success">/sbv/success.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action>
+        
+        <action name="SBV_1283_TTGS" class="vbsp.ims.sbv.SBV_1283_TTGS" method="load">
+            <result name="success">/sbv/SBV_1283_TTGS.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action> 
+        
+        <action name="SAVE_SBV_1283_TTGS" class="vbsp.ims.sbv.SBV_1283_TTGS" method="save">
+            <result name="success">/sbv/success.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action>
+        
+        <action name="SBV_016N_TTGS" class="vbsp.ims.sbv.SBV_016N_TTGS" method="load">
+            <result name="success">/sbv/SBV_016N_TTGS.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action>
+        
+        <action name="SAVE_SBV_016N_TTGS" class="vbsp.ims.sbv.SBV_016N_TTGS" method="save">
+            <result name="success">/sbv/success.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action>
+        
+        <action name="GET_THUYETMINH_SBV" class="vbsp.ims.sbv.SbvThuyetMinh"  
+                method="load">
+            <result name="success">/sbv/SBV_THUYETMINH.jsp</result>
+            <result name="error">/sbv/success.jsp</result>      
+        </action>
+        
+        <action name="SAVE_THUYETMINH_SBV" class="vbsp.ims.sbv.SbvThuyetMinh" method="save">
+            <result name="success">/sbv/success.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action>
+        <!--Biểu nhập tay báo cáo nợ xấu theo VB8338-->
+        <action name="SBV_TTGS_004" class="vbsp.ims.sbv.SBV_TTGS_004" method="load">
+            <result name="success">/sbv/SBV_004_TTGS.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action> 
+        
+        <action name="SAVE_SBV_TTGS_004" class="vbsp.ims.sbv.SBV_TTGS_004" method="save">
+            <result name="success">/sbv/success.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action>
+        
+        <action name="SBV_TTGS_005" class="vbsp.ims.sbv.SBV_TTGS_005" method="load">
+            <result name="success">/sbv/SBV_005_TTGS.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action> 
+        
+        <action name="SAVE_SBV_TTGS_005" class="vbsp.ims.sbv.SBV_TTGS_005" method="save">
+            <result name="success">/sbv/success.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action>
+        
+        <action name="QUYENNV_TEST" class="vbsp.ims.sbv.QUYENNV_TEST" method="load">
+            <result name="success">/sbv/SBV_TEST.jsp</result>
+            <result name="error">/sbv/success.jsp</result> 
+        </action>
+    </package>
+    
+</struts>

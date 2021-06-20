@@ -1,0 +1,10 @@
+<xls>
+    <area ref="A000241!A1:N96">
+	    <each items="header" var="header" ref="A000241!C2:C7">
+            <area ref="A000241!C2:C7"/>
+        </each>
+        <each items="data" var="data" ref="A000241!D20:N20">
+            <area ref="A000241!D20:N20"/>
+        </each>
+		</area>
+</xls>

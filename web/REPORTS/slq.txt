@@ -1,0 +1,16 @@
+CREATE SMALLFILE TABLESPACE "HSTK" DATAFILE '/oradb/dbreport/dbreport/VBSP_HSTK.DBF' SIZE 100M AUTOEXTEND ON NEXT 25M MAXSIZE UNLIMITED LOGGING EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO 
+
+
+declare pv_err_txt varchar2(2000);
+        pn_err_cd number(20);
+        begin
+            VBSP_INSERT_DB_TG.SP_INSERT_GL_VBSP_FOR_ALL_POS(PN_ERR_CD , PV_ERR_TXT );
+            dbms_output.put_line(to_char(PN_ERR_CD)||' : mo ta loi: '||pv_err_txt);
+        end;
+        /
+
+
+
+variable bien refcursor;
+exec get_Data_chuDV(:bien);
+print bien;

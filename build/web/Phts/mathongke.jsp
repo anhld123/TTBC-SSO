@@ -1,0 +1,159 @@
+<%-- 
+    Document   : exp_excel
+    Created on : Jul 14, 2014, 4:17:12 PM
+    Author     : LION
+--%>
+<%@taglib prefix="s" uri="/struts-tags" %>
+<%@taglib prefix="sj" uri="/struts-jquery-tags" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css"  href="css/bcqt.css" />
+<!DOCTYPE html>
+<html>
+    <head>
+        <sj:head/>
+        <script>
+            
+            var change_color = '#FFB951';
+            function mover(aa) {
+                bgcolor = aa.style.backgroundColor;
+                aa.style.backgroundColor = change_color;
+            }
+            function mout(aa) {
+                aa.style.backgroundColor = bgcolor;
+            }      
+            
+            function onTranDataInputMTK()
+            {   
+                var sContentInput = $.trim($("#idContentMTK").val()).length;   
+//                alert(sContentInput)
+                if (sContentInput <1)
+                {
+//                    alert('Bạn đã nhập dữ liệu nguyên nhân chênh lệch nên không thể nhập dữ liệu cho trường này');
+                    $('#divExportReport').html("<h2 style='color: red'>Bạn phải nhập phản hồi trước khi chuyển tiếp! </h2>");                    
+                    return;
+                }
+                //$('#message_suc_err').empty();
+                $('#divExportReport').empty();                
+                $("#idTranPhtsInputMTK")[0].click(); 
+//                setTimeout(window.location.reload, 5000);
+//                setTimeout(location.reload.bind(location), 4000);
+            }
+            
+            function sleep(delay) {
+                var start = new Date().getTime();
+                while (new Date().getTime() < start + delay);
+            }
+
+        </script>      
+        <style>
+            .underline {
+                text-decoration: underline;
+            }
+            
+            h3 {
+                text-align: center;
+            }
+            
+            #divTitlePhts{
+                color: blue; 
+                font-weight: bolder; 
+                font-size: x-large;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="divTitlePhts">&nbsp;&nbsp; <s:property  value="macn" /> - Chất lượng khai báo mã thống kê</div>
+        <hr/>            
+        
+        <s:form id="mtk_phts" action="mtk_report_phts" theme="simple">
+            <!--<div ><s:property  value="ngay_bc" /></div>-->
+            <input type="hidden" value="<s:property  value="ngay_bc" />"  name="ngay_bc" />
+            <input type="hidden" value="<s:property  value="macn" />"  name="macn" />
+            <input type="hidden" value="<s:property  value="tonghop" />"  name="tonghop" />
+            <input type="hidden" value="<s:property  value="tencn" />"  name="tencn" />                       
+            <table border="1" class="editDelete" style="width: 96%" id="tablepl01" align="center">
+                <tr>
+                    <th style="width: 20px;">Thứ tự</th>
+                    <th style="width: 40px;">Mã chỉ tiêu</th>
+                    <th style="width: 460px;">Tên chỉ tiêu</th>
+                    <th style="width: 60px;">Giá trị</th>                            
+                </tr>
+                <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                           
+                    <tr style="text-align: center; color: #0000FF; font-weight: bold;">
+                        <td align = "center" style="width: 20px;"><s:property  value="THUTU" /></td>  
+                        <td align = "center" style="width: 40px;"><s:property  value="MA" /></td>  
+                        <td align = "left" style="width: 460px;"><s:property  value="TEN" /></td>  
+                        <td align = "center" style="width: 60px;"><s:property  value="D1" /></td>                                                                         
+                    </tr>                            
+                </s:iterator>                        
+            </table>  
+            &nbsp;
+
+            <table class="editDelete" style="width: 96%" id="tablepl01" align="center">
+                <tr>
+                    <s:if test="Grade.equalsIgnoreCase('3')">
+                        <td >
+                            <span id="idTitlePhts">Nội dung phản hồi của chi nhánh</span>
+                        </td>
+                    </s:if>
+                    <s:if test="Grade.equalsIgnoreCase('2')">
+                        <td>
+                            <span id="idTitlePhts">Nội dung phản hồi của PGD</span>
+                        </td> 
+                    </s:if>
+                </tr>
+                <tr></tr>
+                <s:if test="!Grade.equalsIgnoreCase('1')">                        
+                    <tr>
+                        <td  colspan="2" align="center" >
+                             <textarea id="idContentMTK_PH"
+                                          name="ContentMTK_PH"
+                                          style="width: 100%;background-color: #DDFFDD;"                                           
+                                          rows="6" readonly="readonly"><s:property value='contentPhanhoi'/></textarea>
+                        </td>
+                    </tr>                                                    
+                </s:if>
+
+            </table> 
+            <div align="center"  id="divExportReport"></div>   
+            <s:if test="tonghop.equalsIgnoreCase('1') || Grade.equalsIgnoreCase('1')">                   
+                   <table class="editDelete" style="width: 96%" id="tablepl01" align="center">
+                    <tr>
+                        <s:if test="Grade.equalsIgnoreCase('1')">
+                            <td >
+                                <span id="idTitlePhts">Nội dung phản hồi gửi chi nhánh </span>
+                            </td>
+                        </s:if>
+                        <s:else>
+                            <td >
+                                <span id="idTitlePhts">Nội dung phản hồi gửi Trung ương </span>
+                            </td>
+                        </s:else>
+                            
+                    </tr>                            
+                    <tr>
+                        <td  colspan="2" align="center" >
+                        <textarea id="idContentMTK"
+                                  name="ContentMTK"
+                                  style="width: 100%;background-color: #faebcc;" 
+                                  rows="6"><s:property value='contentPhanhoi_input'/></textarea>
+                        </td>
+                    </tr>                                                                                                                                                      
+                </table>
+                   </br>
+                <div align="right" id="link" >
+                    <s:url id="idTranInputMTK" action="tranPhtsInputMTK.action"></s:url>                                      
+                    <sj:submit id="idTranPhtsInputMTK" name="nameSend" href="%{idTranInputMTK}" value="Chuyển" targets="divExportReport"
+                               onBeforeTopics="beforediv_send"
+                               onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                    <input type="button" id="idTranPhtsInputTmp" name="nameidSendtmp"  onclick="onTranDataInputMTK()" value=" Chuyển "/>
+                    &nbsp;&nbsp;                   
+                </div>  
+                    
+                 
+               </s:if>
+                
+        </s:form>  
+
+    </body>
+</html>

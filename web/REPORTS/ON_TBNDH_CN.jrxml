@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ON_TBNDH_CN" language="groovy" pageWidth="595" pageHeight="421" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="32" bottomMargin="28" uuid="5cc5a28c-a87c-4228-b0a5-2317a150ab66">
+	<property name="ireport.zoom" value="1.3286707500000026"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="17"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\VBSPREPORTS\\New12042013\\CompletedReports\\Murally Online\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TENKH" class="java.lang.String"/>
+	<parameter name="PARA_DIACHI" class="java.lang.String"/>
+	<parameter name="PARA_TENTT" class="java.lang.String"/>
+	<parameter name="PARA_MATO" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_DVUT" class="java.lang.String"/>
+	<parameter name="PARA_SOKU" class="java.lang.String"/>
+	<parameter name="PARA_NGAYVAY" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_GOCDH" class="java.math.BigDecimal"/>
+	<parameter name="PARA_TENPGD" class="java.lang.String"/>
+	<parameter name="PARA_NGAYDH" class="java.lang.String"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_DIAPHUONG" class="java.lang.String"/>
+	<parameter name="PARA_CNQHFLG" class="java.lang.String"/>
+	<parameter name="PARA_KYBC" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT 1 FROM DUAL]]>
+	</queryString>
+	<field name="1" class="java.math.BigDecimal"/>
+	<variable name="CUR_DATE" class="java.util.Date">
+		<variableExpression><![CDATA[new Date()]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="71">
+			<staticText>
+				<reportElement uuid="1368f7c4-37a9-4b75-9b2b-b828fbef6fd0" x="0" y="40" width="539" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="15" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[THÔNG BÁO NỢ ĐẾN HẠN  ]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="d753a714-8ac3-48fc-909e-f8dd3a0be47d" x="0" y="0" width="287" height="40"/>
+				<subreportParameter name="POS_CD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/ON_TBNDH_MAINSUB_POS.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="319e9def-b509-4964-b8a3-103d3ae503d8" x="297" y="16" width="242" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="12" isBold="false" isUnderline="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Độc lập - Tự do - Hạnh phúc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ea4eca28-419a-4f5d-a89f-f0921f58e923" x="297" y="0" width="242" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="156" splitType="Stretch">
+			<textField>
+				<reportElement uuid="891e8e35-141f-400a-af61-498248e66818" mode="Transparent" x="0" y="0" width="539" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0" lineColor="#666666"/>
+					<topPen lineWidth="0.0" lineColor="#666666"/>
+					<leftPen lineWidth="0.0" lineColor="#666666"/>
+					<bottomPen lineWidth="0.0" lineColor="#666666"/>
+					<rightPen lineWidth="0.0" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single" firstLineIndent="27"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Kính gửi: Ông/bà " + $P{PARA_TENKH}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="fce5aac3-d5e2-4d1e-a1d0-f1704560c51e" mode="Transparent" x="0" y="18" width="539" height="138" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0" lineColor="#666666"/>
+					<topPen lineWidth="0.0" lineColor="#666666"/>
+					<leftPen lineWidth="0.0" lineColor="#666666"/>
+					<bottomPen lineWidth="0.0" lineColor="#666666"/>
+					<rightPen lineWidth="0.0" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single" firstLineIndent="27"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{PARA_KYBC}=='N'&&$P{PARA_CNQHFLG}=='A')? "Địa chỉ:" + $P{PARA_DIACHI} + '\n' + "Căn cứ hồ sơ vay vốn số:  " + $P{PARA_SOKU} + ", lập ngày " + $P{PARA_NGAYVAY}  + '\n' + "Đến ngày " + $P{PARA_NGAYDH} +  ", Ông/Bà đến hạn trả nợ tiền vay Ngân hàng Chính sách xã hội (NHCSXH) với số tiền gốc  " + (new DecimalFormat("#,###")).format($P{PARA_GOCDH}) + " đồng và số tiền lãi phát sinh."  + '\n' +  "Kính mời Ông/Bà đến Điểm giao dịch xã theo ngày trực cố định hoặc đến trụ sở " + $P{PARA_TENPGD} + " để thực hiện trả nợ số tiền trên."  + '\n'+ $P{PARA_TENPGD} + " trân trọng thông báo.":"Địa chỉ:" + $P{PARA_DIACHI} + '\n' + "Căn cứ hồ sơ vay vốn số:  " + $P{PARA_SOKU} + ", lập ngày " + $P{PARA_NGAYVAY}  + '\n' +  "Ông/Bà đã đến hạn trả nợ tiền vay Ngân hàng Chính sách xã hội (NHCSXH) với số tiền gốc  " + (new DecimalFormat("#,###")).format($P{PARA_GOCDH}) + " đồng và số tiền lãi phát sinh."  + '\n' +  "Kính mời Ông/Bà đến Điểm giao dịch xã theo ngày trực cố định hoặc đến trụ sở " + $P{PARA_TENPGD} + " để thực hiện trả nợ số tiền trên."  + '\n' +  "Nếu ngày " + $P{PARA_NGAYDH} + " Ông/Bà không đến trả nợ thì toàn bộ số tiền gốc " + (new DecimalFormat("#,###")).format($P{PARA_GOCDH}) + " sẽ chuyển sang nợ quá hạn. Từ ngày  chuyển nợ quá hạn, Ông/Bà phải chịu lãi suất phạt bằng 130% lãi suất cho vay." + '\n' + $P{PARA_TENPGD} + " trân trọng thông báo."]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="107">
+			<staticText>
+				<reportElement uuid="bdadd721-5790-40a4-a08c-573024c66a5c" x="359" y="47" width="120" height="30"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="235ab940-22ac-403d-8316-be843a9c4375" x="359" y="17" width="120" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[GIÁM ĐỐC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7112b540-df9f-4364-9a0d-fecbef69359d" x="359" y="32" width="120" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Ký tên, đóng dấu)]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="e30f09ee-b4a8-4936-bfb3-ff7f47837e7a" positionType="Float" x="287" y="0" width="250" height="20"/>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["sub_cur_date.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

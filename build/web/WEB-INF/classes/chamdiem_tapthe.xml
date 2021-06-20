@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>    
+    <package name="main_chamdiemtt" extends="struts-default,json-default">                       
+        <action name="loadAllChamdiemtt" class="vbsp.ims.chamdiemtt.action.ActionChamdiemttMain"  method="execute">
+            <result name="success" type="json"></result>        
+        </action>   
+        
+        <action name="LoadParaChamdiemtt" class="vbsp.ims.chamdiemtt.action.ActionChamdiemttMain"  method="loadPataChamdiemtt">
+            <result name="success">/chamdiem_tapthe/para-cdtt-main.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>  
+        
+        <!--Chi nhánh -->
+        <action name="CDTT_CN" class="vbsp.ims.chamdiemtt.action.CDTT_CN"  method="loadDulieuCN">
+            <!--<result name="success">/chamdiem_tapthe/table_cdtt_cn.jsp</result>-->
+            <result name="CHINHANH_NHAP">/chamdiem_tapthe/table_cdtt_cnnhap.jsp</result>
+            <result name="HOIDONG_CHINHANH">/chamdiem_tapthe/table_cdtt_cnhoidong.jsp</result>
+            <result name="CMNV_TW">/chamdiem_tapthe/table_cdtt_cn_cmnv_tw.jsp</result>
+            <result name="HOIDONG_TW">/chamdiem_tapthe/table_cdtt_cn_hoidong_tw.jsp</result>
+            <result name="CMNV_TW_CHUADUYET">/chamdiem_tapthe/table_cdtt_cmnv_tw_chuaduyet.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>  
+        
+        <action name="SAVE_CDTT_CNNHAP" class="vbsp.ims.chamdiemtt.action.CDTT_CN"  method="saveCNNhap">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        <action name="SAVE_CDTT_CNHOIDONG_CN" class="vbsp.ims.chamdiemtt.action.CDTT_CN"  method="saveHoidongCN">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        <action name="SAVE_CDTT_CN_CMNV_TW" class="vbsp.ims.chamdiemtt.action.CDTT_CN"  method="saveCMNVTW">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+        <action name="SAVE_CDTT_CN_HOIDONG_TW" class="vbsp.ims.chamdiemtt.action.CDTT_CN"  method="saveHOIDONGTW">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        <action name="SAVE_CDTT_CN" class="vbsp.ims.chamdiemtt.action.CDTT_CN"  method="save">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+            
+        <!--Phòng giao dịch-->            
+        <action name="CDTT_PGD" class="vbsp.ims.chamdiemtt.action.CDTT_PGD"  method="load">
+            <result name="success">/chamdiem_tapthe/table_cdtt_pgd.jsp</result>
+            <!--<result name="CMNV_CN_CHUADUYET">/chamdiem_tapthe/table_cdtt_cmnv_tw_chuaduyet.jsp</result>-->
+            <result name="CMNV_CN_CHUADUYET">/chamdiem_tapthe/table_cdtt_cmnv_tw_chuaduyet.jsp</result>    
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>  
+        <action name="SAVE_CDTT_PGD" class="vbsp.ims.chamdiemtt.action.CDTT_PGD"  method="save">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>    
+            
+        </action>
+        
+        <!--<Sở giao dịch-->           
+        <action name="CDTT_SGD" class="vbsp.ims.chamdiemtt.action.CDTT_SGD"  method="load">
+            <result name="success">/chamdiem_tapthe/table_cdtt_sgd.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>  
+        <action name="SAVE_CDTT_SGD" class="vbsp.ims.chamdiemtt.action.CDTT_SGD"  method="save">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+        <!--TTCN TT-->           
+        <action name="CDTT_CNTT" class="vbsp.ims.chamdiemtt.action.CDTT_CNTT"  method="load">
+            <result name="success">/chamdiem_tapthe/table_cdtt_cntt.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>  
+        <action name="SAVE_CDTT_CNTT" class="vbsp.ims.chamdiemtt.action.CDTT_CNTT"  method="save">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+        <!--Trung tâm đào tạo-->           
+        <action name="CDTT_TTDT" class="vbsp.ims.chamdiemtt.action.CDTT_TTDT"  method="load">
+            <result name="success">/chamdiem_tapthe/table_cdtt_ttdt.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>  
+        <action name="SAVE_CDTT_TTDT" class="vbsp.ims.chamdiemtt.action.CDTT_TTDT"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+        <!--Phòng ban chuyên môn nghiệp vụ-->           
+        <action name="CDTT_CMNV06" class="vbsp.ims.chamdiemtt.action.CDTT_CMNV06"  method="load">
+            <result name="success">/chamdiem_tapthe/table_cdtt_cmnv06.jsp</result>
+            <result name="CMNV_TW_CHUADUYET">/chamdiem_tapthe/table_cdtt_cmnv_tw0607.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>  
+        <action name="SAVE_CDTT_CMNV06" class="vbsp.ims.chamdiemtt.action.CDTT_CMNV06"  method="save">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+        <action name="SAVE_CDTT_DE_NGHI_LT" class="vbsp.ims.chamdiemtt.action.CDTT_CN"  method="SaveDeNghiLoaiTru">
+            <result name="success">/chamdiem_tapthe/message.jsp</result>
+            <result name="error">/chamdiem_tapthe/message.jsp</result>        
+        </action>
+        
+        <action name="CDTT_CMNV07" class="vbsp.ims.chamdiemtt.action.CDTT_CMNV07"  method="load">
+            <result name="success">/chamdiem_tapthe/table_cdtt_cmnv07.jsp</result>
+            <result name="CMNV_TW_CHUADUYET">/chamdiem_tapthe/table_cdtt_cmnv_tw0607.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>  
+        <action name="SAVE_CDTT_CMNV07" class="vbsp.ims.chamdiemtt.action.CDTT_CMNV07"  method="save">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+        <action name="CDTT_CN99" class="vbsp.ims.chamdiemtt.action.CDTT_CN99"  method="load">
+            <result name="success">/chamdiem_tapthe/table_cdtt_cn99.jsp</result>            
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>  
+        <action name="SAVE_CDTT_CN99" class="vbsp.ims.chamdiemtt.action.CDTT_CN99"  method="save">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+        <action name="CDTT_CN08A" class="vbsp.ims.chamdiemtt.action.CDTT_CN08A"  method="load">
+            <result name="success">/chamdiem_tapthe/table_cdtt_cmnv08a.jsp</result>
+            <result name="LANHDAO_DUYET">/chamdiem_tapthe/table_cdtt_cmnv08a_duyet.jsp</result>
+            <result name="LANHDAO_DUYET_ERROR">/chamdiem_tapthe/table_cdtt_ld_chuaduyet.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>  
+        <action name="SAVE_CDTT_CN08A" class="vbsp.ims.chamdiemtt.action.CDTT_CN08A"  method="save">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+        <action name="CDTT_CN08B" class="vbsp.ims.chamdiemtt.action.CDTT_CN08B"  method="load">
+            <result name="success">/chamdiem_tapthe/table_cdtt_cmnv08b.jsp</result>
+            <result name="LANHDAO_DUYET">/chamdiem_tapthe/table_cdtt_cmnv08b_duyet.jsp</result>
+            <result name="LANHDAO_DUYET_ERROR">/chamdiem_tapthe/table_cdtt_ld_chuaduyet.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>  
+        <action name="SAVE_CDTT_CN08B" class="vbsp.ims.chamdiemtt.action.CDTT_CN08B"  method="save">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+        <action name="CDTT_CN08TH" class="vbsp.ims.chamdiemtt.action.CDTT_CN08TH"  method="load">
+            <result name="success">/chamdiem_tapthe/table_cdtt_cn08th.jsp</result>
+            <result name="LANHDAO_DUYET">/chamdiem_tapthe/table_cdtt_cn08th_duyet.jsp</result>
+            <result name="LANHDAO_DUYET_ERROR">/chamdiem_tapthe/table_cdtt_ld_chuaduyet.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>  
+        <action name="SAVE_CDTT_CN08TH" class="vbsp.ims.chamdiemtt.action.CDTT_CN08TH"  method="save">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+        <action name="ChitietChamdiem" class="vbsp.ims.chamdiemtt.action.CDTT_CN" method="ChitietChamdiem">
+            <result name="success">  
+                /chamdiem_tapthe/table_cdtt_detail.jsp
+            </result>  
+            <result name="error">  
+                /chamdiem_tapthe/success.jsp
+            </result>  
+        </action>
+        
+        <action  name="saveChitiet01" class="vbsp.ims.chamdiemtt.action.CDTT_CN" method="saveChitiet01">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result> 
+        </action>
+        
+                      
+        <!--gui so lieu -->
+        <action name="sendCDTT" class="vbsp.ims.chamdiemtt.action.ActionChamdiemttMain"  method="sendCDTT">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        <!--Chốt tại PGD-->
+        <action name="ChotCDTT" class="vbsp.ims.chamdiemtt.action.CDTT_PGD"  method="ChotCDTT">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+        <action name="unlockPL05" class="vbsp.ims.chamdiemtt.action.CDTT_PGD"  method="unlockPL05">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+        <!--Khôi phục dữ liệu ban đầu -->
+        <action name="resetCDTT" class="vbsp.ims.chamdiemtt.action.CDTT_TCCB01"  method="resetCDTT">
+            <result name="success">/chamdiem_tapthe/table_cdtt_tccb01.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>         
+        </action>
+        
+        <action name="HOIHONG_DUYET_CDTT" class="vbsp.ims.chamdiemtt.action.CDTT_PGD"  method="HOIHONG_DUYET_CDTT">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+        
+        <action name="CDTT_TCCB01" class="vbsp.ims.chamdiemtt.action.CDTT_TCCB01"  method="load">
+            <result name="success">/chamdiem_tapthe/table_cdtt_tccb01.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>  
+        <action name="SAVE_CDTT_TCCB01" class="vbsp.ims.chamdiemtt.action.CDTT_TCCB01"  method="save">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+        <action name="CDTT_TCCB02" class="vbsp.ims.chamdiemtt.action.CDTT_TCCB02"  method="load">
+            <result name="success">/chamdiem_tapthe/table_cdtt_tccb02.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>  
+        <action name="SAVE_CDTT_TCCB02" class="vbsp.ims.chamdiemtt.action.CDTT_TCCB02"  method="save">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+    </package>
+    <package name="Upload_file" extends="struts-default,json-default">    
+        <action name="UploadFile" class="vbsp.ims.chamdiemtt.action.UploadFileKHNV"
+                method="UploadFile">
+            <!--            <interceptor-ref name="fileUpload1">
+                <param name="maximumSize">209715200</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>-->
+            <result name="success">/chamdiem_tapthe/cdtt-result-upload-file.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>
+        </action>  
+        
+        <!--gui so lieu -->
+        <!--        <action name="TransKHNV" class="vbsp.ims.excel_upload_khnv.ExcelUploadActionKhnv"  method="TransKHNV">
+            <result name="success">/kehoachnguonvon/success.jsp</result>
+            <result name="error">/kehoachnguonvon/error.jsp</result>        
+        </action>     -->
+    </package>
+    <package name="Loaitruchuongtrinh" extends="struts-default,json-default">  
+        <action name="khoitaoLoaitru" class="vbsp.ims.chamdiemtt.action.LoaitruChuongtrinh"  method="khoitaoLoaitru">
+            <result name="success">/chamdiem_tapthe/form-chinhcauhinh_loaitru.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+          <action name="loadFormChtrinhLoaitru" class="vbsp.ims.chamdiemtt.action.LoaitruChuongtrinh"  method="loadFormChtrinhLoaitru">
+            <result name="success">/chamdiem_tapthe/table-chuongtrinh-loaitru.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+         <action name="saveChuongtrinhLoaitru" class="vbsp.ims.chamdiemtt.action.LoaitruChuongtrinh"  method="saveChuongtrinhLoaitru">
+            <result name="success">/chamdiem_tapthe/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+         <action name="sendChuongtrinhLoaitru" class="vbsp.ims.chamdiemtt.action.LoaitruChuongtrinh"  method="sendChuongtrinhLoaitru">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+    </package>
+</struts>

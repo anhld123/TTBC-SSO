@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="KT740_CURRENTDATE" language="groovy" pageWidth="200" pageHeight="25" columnWidth="200" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bdea3ecf-685c-4bc2-a95d-8dab51007047">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<parameter name="PARA_KYBC" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT decode($P{PARA_KYBC}, '4', trunc(To_Date($P{PARA_NGAYBC}), 'MONTH'), '5', trunc(add_months(To_Date($P{PARA_NGAYBC}),-2), 'MONTH'),trunc(To_Date($P{PARA_NGAYBC}), 'YEAR')) FROM_DATE,
+    To_Date($P{PARA_NGAYBC}) TO_DATE
+from DUAL]]>
+	</queryString>
+	<field name="FROM_DATE" class="java.sql.Timestamp"/>
+	<field name="TO_DATE" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="19" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="38dbae2d-6097-432f-9c7c-7524a0157272" x="0" y="0" width="200" height="19">
+					<printWhenExpression><![CDATA[$P{PARA_KYBC} == 'M']]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tháng " + ($F{TO_DATE}.getMonth()+1).toString() +  " năm " + ($F{TO_DATE}.getYear()+1900).toString()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="3c8bd8ca-5519-479b-b82b-f8aa17ee5f9c" x="0" y="0" width="200" height="19">
+					<printWhenExpression><![CDATA[$P{PARA_KYBC} != 'M']]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Từ " + ($F{FROM_DATE}.getDate()).toString()+"/"+ ($F{FROM_DATE}.getMonth()+1).toString()+  "/" + ($F{TO_DATE}.getYear()+1900).toString() + " đến " + ($F{TO_DATE}.getDate()).toString()+"/"+ ($F{TO_DATE}.getMonth()+1).toString() +  "/" + ($F{TO_DATE}.getYear()+1900).toString()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

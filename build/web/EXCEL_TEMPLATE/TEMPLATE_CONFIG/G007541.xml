@@ -1,0 +1,85 @@
+<xls>
+    <area ref="G007541!A1:N46">
+	    <each items="header" var="header" ref="G007541!C2:C7">
+            <area ref="G007541!C2:C7"/>
+        </each>
+        <each items="data1" var="data1" ref="G007541!A19:N19">
+            <area ref="G007541!A19:N19"/>
+        </each>
+		<each items="data2" var="data2" ref="G007541!A20:N20">
+            <area ref="G007541!A20:N20"/>
+        </each>
+		<each items="data3" var="data3" ref="G007541!A21:N21">
+            <area ref="G007541!A21:N21"/>
+        </each>
+		<each items="data4" var="data4" ref="G007541!A22:N22">
+            <area ref="G007541!A22:N22"/>
+        </each>
+		<each items="data5" var="data5" ref="G007541!A23:N23">
+            <area ref="G007541!A23:N23"/>
+        </each>
+		<each items="data6" var="data6" ref="G007541!A24:N24">
+            <area ref="G007541!A24:N24"/>
+        </each>
+		<each items="data7" var="data7" ref="G007541!A25:N25">
+            <area ref="G007541!A25:N25"/>
+        </each>
+		<each items="data8" var="data8" ref="G007541!A26:N26">
+            <area ref="G007541!A26:N26"/>
+        </each>
+		<each items="data9" var="data9" ref="G007541!A27:N27">
+            <area ref="G007541!A27:N27"/>
+        </each>
+		<each items="data10" var="data10" ref="G007541!A28:N28">
+            <area ref="G007541!A28:N28"/>
+        </each>
+		<each items="data11" var="data11" ref="G007541!A29:N29">
+            <area ref="G007541!A29:N29"/>
+        </each>
+		<each items="data12" var="data12" ref="G007541!A30:N30">
+            <area ref="G007541!A30:N30"/>
+        </each>
+		<each items="data13" var="data13" ref="G007541!A31:N31">
+            <area ref="G007541!A31:N31"/>
+        </each>
+		<each items="data14" var="data14" ref="G007541!A32:N32">
+            <area ref="G007541!A32:N32"/>
+        </each>
+		<each items="data15" var="data15" ref="G007541!A33:N33">
+            <area ref="G007541!A33:N33"/>
+        </each>
+		<each items="data16" var="data16" ref="G007541!A34:N34">
+            <area ref="G007541!A34:N34"/>
+        </each>
+		<each items="data17" var="data17" ref="G007541!A35:N35">
+            <area ref="G007541!A35:N35"/>
+        </each>
+		<each items="data18" var="data18" ref="G007541!A36:N36">
+            <area ref="G007541!A36:N36"/>
+        </each>
+		<each items="data19" var="data19" ref="G007541!A37:N37">
+            <area ref="G007541!A37:N37"/>
+        </each>
+		<each items="data20" var="data20" ref="G007541!A38:N38">
+            <area ref="G007541!A38:N38"/>
+        </each>
+		<each items="data21" var="data21" ref="G007541!A39:N39">
+            <area ref="G007541!A39:N39"/>
+        </each>
+		<each items="data22" var="data22" ref="G007541!A40:N40">
+            <area ref="G007541!A40:N40"/>
+        </each>
+		<each items="data23" var="data23" ref="G007541!A41:N41">
+            <area ref="G007541!A41:N41"/>
+        </each>
+		<each items="data24" var="data24" ref="G007541!A42:N42">
+            <area ref="G007541!A42:N42"/>
+        </each>
+		<each items="data25" var="data25" ref="G007541!A43:N43">
+            <area ref="G007541!A43:N43"/>
+        </each>
+		<each items="data26" var="data26" ref="G007541!A44:N44">
+            <area ref="G007541!A44:N44"/>
+        </each>
+    </area>
+</xls>

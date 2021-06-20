@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="MAU_XA_TO_GROUP.xlsx" fileOutFormat="PARA_MAPGD_DDMMYYYY_TENFILE">
+   <title>Báo cáo theo danh sách dư nợ tổ theo xã</title>
+   <userName>T0002</userName>
+   <date>27-Feb-2018 14:09:727</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MAPGD" class="java.lang.String" description="Mã PGD"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày BC"/>
+<queryString id="1" maplist="data" description="Dữ liệu để xuất báo cáo" key_group="STR1" value_group="STR2"><![CDATA[select maxa str1, (select ten from dmxa where ma=maxa) str2, decode(ku_mato,null,'0000000',ku_mato) str3
+,decode(ku_mato,null,'Vay trực tiếp',to_tentt) str4, dnothan d1,dnoqhan d2,dnokhoanh d3
+from (
+select ku_mato, substr(ku_madp,1,6) maxa, sum(ku_dnothan) dnothan, sum(KU_DNOQHAN) dnoqhan, sum(KU_DNOKHOANH) dnokhoanh
+from hscv where ku_mapgd= $P{PARA_MAPGD} and ku_ngaybc= $P{PARA_NGAYBC}
+group by ku_mato,substr(ku_madp,1,6)), hsto where ku_mato=to_mato(+)
+order by maxa,ku_mato ]]></queryString>
+</excel_template>

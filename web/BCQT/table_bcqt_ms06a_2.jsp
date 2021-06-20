@@ -1,0 +1,411 @@
+<%-- 
+    Document   : table_bcqt_pl01
+    Created on : Nov 16, 2015, 1:26:33 PM
+    Author     : LION
+--%>
+<%@taglib prefix="s" uri="/struts-tags" %>
+<%@taglib prefix="sj" uri="/struts-jquery-tags" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css"  href="css/bcqt.css" />
+<!DOCTYPE html>
+<html>
+    <head>
+        <sj:head/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="js/jquery.number.js"></script>
+        <script src="js/format_num.js"></script>
+        <script>
+            var max_row = 0;
+            $(document).ready(function () {
+                $('input.number').css({"text-align": "right"});
+                $('input.number2').css({"text-align": "right"});
+                //Cac truong bang so --> se co so truong = 0
+                $('.number').number(true, 0);
+//            //Cac truong bang so --> se co so truong = 0
+                $('.number2').number(true, 2);
+                $(".TD_TEN_KH").css({"width": "40px"});
+                $(".TD_TENTS").css({"width": "30px"});
+                $(".TD_SOTIEN").css({"width": "100px"});
+                $(".TD_TM").css({"width": "200px"});
+                $(".TEN_KH").css({"width": "100%"});
+                $(".TEN_THEMXOA").css({"width": "40px"});
+            });
+//            $('.TEN_KH').focus(function () {
+//                $(this).closest('tr').addClass('highlight_row');
+//            });
+//            $('.TEN_KH').blur(function () {
+//                $(this).closest('tr').removeClass('highlight_row');
+//            });
+
+//            $.subscribe("loitoroi", function (event) {
+//                alert('Loi roi khong lam gi duoc dau');
+//            });
+//            $.subscribe('completediv_ss', function (event) {
+//                var responseText = event.originalEvent.responseText;
+//                alert('thanh cong roi ' + responseText);
+//            });
+        </script>
+        <script>
+            function deleteRow(indx) {
+                var table = document.getElementById("tablems06A1");
+                var rowCount = table.rows.length - 2; //Dem so dong cua bang
+
+                if (max_row < rowCount)
+                    max_row = rowCount;
+
+//                alert('max_row='+max_row+' rowCount='+rowCount);
+                table.deleteRow(indx);
+            }
+
+            function addRow(indx, ma) {
+//                sleep(1000);
+                var index = parseInt(indx); //ko hieu so vao vong for lai mat index nen phai luu lai o day
+                var table = document.getElementById("tablems06A1");
+                var rowCount = table.rows.length - 2; //Dem so dong cua bang
+                if (max_row < rowCount)
+                    max_row = rowCount;
+                else
+                {
+                    max_row++;
+                    rowCount = max_row;
+                }
+                var code = (ma + rowCount).toString();
+//                alert('Tong so dong ' + rowCount);
+                var newTr = '<tr>\n\\n\\n\
+                                <td align = "right" class="TD_TENTS"><input type="text" value="" id="D2' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D2" class="TEN_KH " onfocus="this.select();sumColumn( ' + code + ');" /><input type="hidden" id="id_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].MA" value="' + code + '"/></td>\n\
+                                <td align = "right" class="TD_TEN_KH"><input type="text" value="" id="D3_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D3" class="TEN_KH number" onfocus="this.select();sumColumn( ' + code + ');" /></td>\n\
+                                <td align = "right" class="TD_TEN_KH"><input type="text" value="" id="D4_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D4" class="TEN_KH number" onfocus="this.select();sumColumn(' + code + ');"/></td>\n\
+                                <td align = "right" class="TD_TM"><input type="text" value="0" id="D5_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D5" class="TEN_KH" onfocus="this.select();sumColumn(' + code + ');"/></td>\n\                                
+                                <td align = "center" class="TEN_THEMXOA"><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="TEN_KH"/></td>\n\
+                                </tr>';
+                $($('table#tablems06A1 tr')[index]).after(newTr);
+
+                $(".TD_TEN_KH").css({"width": "40px"});
+                $(".TD_TENTS").css({"width": "30px"});
+                $(".TD_SOTIEN").css({"width": "100px"});
+                 $(".TD_TM").css({"width": "200px"});
+                $(".TEN_KH").css({"width": "100%"});
+                $(".TEN_THEMXOA").css({"width": "40px"});
+                $('input.number').css({"text-align": "right"});
+                $('input.number2').css({"text-align": "right"});
+                $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
+                $('#ui-datepicker-div').css('clip', 'auto');
+//                $('.TEN_KH').focus(function () {
+//                    $(this).closest('tr').addClass('highlight_row');
+//                });
+//                $('.TEN_KH').blur(function () {
+//                    $(this).closest('tr').removeClass('highlight_row');
+//                });
+                $('.number').number(true, 0);
+//            //Cac truong bang so --> se co so truong = 0
+                $('.number2').number(true, 2);
+
+            }
+            function getMabyNumber(idx)
+            {
+                var ma = '';
+                try {
+                    var ma_id = 'id_' + idx;
+                    ma = document.getElementById(ma_id).value;
+                } catch (e)
+                {
+                    ma = '999999';
+                }
+                return ma;
+            }
+            
+            
+            function getValue(id)
+            {
+                var value = 0;
+                try {
+                    value = document.getElementById(id).value;
+                    value = value.replace(/,/g, "");
+                    if (value == '-1')
+                        value = 0.0;
+                } catch (e)
+                {
+                    value = 0.0;
+                }
+                return parseFloat(value);
+            }
+            function setValue(id, value)
+            {
+                try {
+                    document.getElementById(id).value = value;
+                } catch (e)
+                {
+//                    alert(e);
+                }
+            }
+            function sumColumn(mainput_tmp)
+            {
+
+                var mainput = $.trim(mainput_tmp.toString());
+                try {
+//                    alert('\'' + mainput+ '\'');
+                    var table = document.getElementById("tablems06A1");
+                    var rowcount = table.rows.length;
+                    rowcount = rowcount > max_row ? rowcount : max_row;
+                    var D7 = 0, D8 = 0, D9 = 0, D10 = 0;
+                    var pos = -1;
+                    for (var i = 0; i < rowcount; i++)
+                    {
+                        var matmp = getMabyNumber(i);
+                        if (mainput.substr(0, 3) == matmp.substr(0, 3) && matmp.length == mainput.length)
+                        {
+//                            alert(getValue('D5_' + i));
+//Lay gia tri cho cac truong tu D2->d6
+                            //neu ky tu cuoi cung cua ma la '1' Vi du voi ma '100001,100030... thi se chi lam voi ma khac '1' o cuoi
+                            if (matmp.substr(matmp.length - 2, matmp.length) != '01')
+                            {
+                                //lay ra gia tri cua truong D7,D8,D9
+                                D7 = D7 + getValue('D7_' + i);
+                                D8 = D8 + getValue('D8_' + i);
+                                D9 = D9 + getValue('D9_' + i);
+                                D10 = D10 + getValue('D10_' + i);
+                            }
+                            if (matmp.substr(matmp.length - 2, matmp.length) == '01')
+                            {
+//                                console.log(getValue('D2_' + i));
+                                pos = i;
+                            }
+                        }
+
+                    }
+                    //set gia tri
+//                    alert('D8_' + pos)
+                    setValue('D7_' + pos, D7);
+                    setValue('D8_' + pos, D8);
+                    setValue('D9_' + pos, D9);
+                    setValue('D10_' + pos, D10);
+                }
+                catch (e)
+                {
+                    alert(e);
+                }
+//                  $('.number').number(true, 0);
+//            //Cac truong bang so --> se co so truong = 0
+//                $('.number2').number(true, 2);
+            }
+            //                alert('sorown='+$('#tablepl01 tr').length+' socot='+$('#tablepl01 td').length);
+
+            function initTable()
+            {
+                //SET GIA TRI CHO SELECT 
+                var table = document.getElementById("tablems06A1");
+                var rowcount = table.rows.length;
+                rowcount = rowcount > max_row ? rowcount : max_row;
+                for (var i = 0; i < rowcount; i++)
+                {
+                    var bflag = false;
+                    var value = '';
+                    var d5 = Math.round(getValue('TMP_D5_' + i) * 100 / 100);
+
+                    if (d5 > 0)
+                    {
+                        $('#D5_' + i).find('option').each(function () {
+                            var nn_select = parseFloat($.trim($(this).text()));
+
+                            if (d5 == nn_select)
+                            {
+                                value = $.trim($(this).val());
+//                                alert('d5='+d5+' nn_select='+nn_select);
+//                                $(this).val($.trim($(this).text()));
+                                bflag = true;
+                            }
+                        });
+                        if (bflag)
+                            setValue('D5_' + i, value);
+                    }
+                    var matmp = getMabyNumber(i);
+                    if (matmp.substr(matmp.length - 1, matmp.length) != '1')
+                    {
+                        sumColumn(matmp);
+                    }
+                }
+            }
+            function onchangsave()
+            {
+                $("#button_save")[0].click();
+            }
+
+        </script>
+        <script>
+            function closeSelf() {
+                window.close();
+                return true;
+            }
+            
+            function stopRKey(evt) {
+                var evt = (evt) ? evt : ((event) ? event : null);
+                var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+                if ((evt.keyCode == 13) && (node.type == "text")) {
+                    return false;
+                }
+            }
+
+            //Disable enter key form submit            
+            document.onkeypress = stopRKey;
+        </script>
+        <script>
+            function autoEvaluate(){
+//                alert('vao doClick');
+                var arrCot = [".D3",".D4"]; //Luu cac cot cua du lieu can tinh toan
+                                 
+                // Tinh cho dong 1
+                for (i = 0; i < arrCot.length; i++) { 
+                    //Tinh tong cho dong "I"
+                    $(arrCot[i]).eq(0).val( parseFloat($(arrCot[i]).eq(1).val()) + 
+                            parseFloat($(arrCot[i]).eq(2).val()));
+                }                
+                // Tinh cho dong II
+                for (i = 0; i < arrCot.length; i++) { 
+                    //Tinh tong cho dong "Các T/c Chính trị xã hội"
+                    $(arrCot[i]).eq(3).val( parseFloat($(arrCot[i]).eq(4).val()) + 
+                            parseFloat($(arrCot[i]).eq(5).val()) );
+                }                                         
+                
+            }
+                </script>
+        
+    </head>
+    <body>
+        <s:form id="id_sv_123" action="SAVE_%{khoa_bcqt}" theme="simple" >
+            <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
+                <input type="hidden" id="<s:property  value="sKey" />" 
+                       name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
+            </s:iterator>
+            <div id="divTitle">
+                1.2. Tăng khác, giảm khác nguyên giá TSCĐ, hao mòn TSCĐ hữu hình.
+            </div>
+            <s:hidden name="khoa_bcqt"/>
+            <div id="divDonvitinh">
+                Đơn vị tính: Đồng
+            </div>
+            <table border="1" class="editDelete" id="tablems06A1" align="center">
+                <tr>
+                    <!--<th  style="width: 30px;" class="TD_TENTS">TT</th>-->
+                    <th class="TD_TENTS">Nội dung</th>
+                    <th class="TD_TEN_KH">Nguyên giá</th>
+                    <th  style="width: 30px;" class="TD_TEN_KH">Hao mòn lũy kế</th>
+                    <th  style="width: 30px;" class="TD_TM">Thuyết minh</th>
+
+                    <!--<th  style="width: 30px;" class="TEN_THEMXOA">Thêm/Xóa</th>-->
+                </tr>                
+                <tr>         
+                    <!--<th style="width: 30px; font: italic; font-size: xx-small;" class="TD_TENTS">(1)</th>-->
+                    <th style="width: 20px; font: italic; font-size: xx-small;" class="TD_TENTS">(2)</th>
+                    <th style="width: 20px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(3)</th>
+                    <th style="width: 20px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(4)</th>
+                    <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_TM">(5)</th>
+                    <!--<th style="width: 30px; font: italic; font-size: xx-small;" class="TEN_THEMXOA">(6)</th>-->
+
+                </tr>
+                <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
+                    <s:if test="NHAPTAY.equalsIgnoreCase('N')">
+                        <tr>  
+                            <td align = "left" class="TD_TENTS">
+                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/>
+                                <input type="text" id="D2_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="D2" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="TEN_KH " onfocus="this.select();"
+                                       readonly="true"/>
+                            </td>
+                            <td align = "right" class="TD_TEN_KH">
+                                <input type="text" id="D3_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="D3" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH D3 number" onfocus="this.select();"
+                                       onblur="autoEvaluate()"
+                                       readonly="true"/>
+                            </td>
+                            <td align = "right" class="TD_TEN_KH">
+                                <input type="text" value="<s:property  value="D4" />"  id="D4_<s:property  value="%{#rowstatus.index}" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="TEN_KH D4 number" onfocus="this.select();"
+                                       onblur="autoEvaluate()"
+                                       readonly="true"/>
+                            </td>
+                            <td align = "right" class="TD_TEN_KH">
+                                <input type="text" value="<s:property  value="D5" />" id="D5_<s:property  value="%{#rowstatus.index}" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH" onfocus="this.select();
+                                       " readonly="true"/>
+                            </td>                            
+                           
+                        </tr>
+                    </s:if>
+
+                    <s:if test="NHAPTAY.equalsIgnoreCase('Y')">
+                        <tr>  
+                            <td align = "left" class="TD_TENTS">
+                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/>
+                                <input type="text" id="D2_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="D2" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="TEN_KH " onfocus="this.select();"
+                                       readonly="true"
+                                       />
+                            </td>
+                            <td align = "right" class="TD_TEN_KH">
+                                <input type="text" id="D3_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="D3" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH D3 number" onfocus="this.select();
+                                               sumColumn('<s:property  value="MA"/>');"
+                                               onblur="autoEvaluate()"
+                                       />
+                            </td>
+                            <td align = "right" class="TD_TEN_KH">
+                                <input type="text" value="<s:property  value="D4" />"  id="D4_<s:property  value="%{#rowstatus.index}" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="TEN_KH D4 number" onfocus="this.select();
+                                               sumColumn('<s:property  value="MA"/>');"
+                                               onblur="autoEvaluate()"
+                                       />
+                            </td>
+                            <td align = "right" class="TD_TEN_KH">
+                                <input type="text" value="<s:property  value="D5" />" id="D5_<s:property  value="%{#rowstatus.index}" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH" onfocus="this.select();
+                                               sumColumn('<s:property  value="MA"/>');
+                                       " />
+                            </td>                            
+                        </tr>
+                    </s:if>
+
+                </s:iterator>
+            </table>
+            <s:if test="Grade.equalsIgnoreCase('1')">
+                <table align="center">
+                <tr align="center">
+
+                    <td align="center">
+                                                <sj:submit id="button_save" name="%{khoa_bcqt}_save" value="Cập nhật" targets="message_suc_err1" onBeforeTopics="beforediv_ss"
+                                   onCompleteTopics="completediv_ss" onErrorTopics="loitoroi"
+                                   cssStyle="margin-left:25px; float: left;height:28px;width:95px; background-color: #FFFFC0; border: 2pt ridge lightgrey;"/>
+                    </td>
+                    <td align="center">
+                        <sj:submit id="idClose" name="nameClose" value="    Thoát    " onclick="closeSelf()"
+                                   cssStyle="margin-left:25px; float: left;height:28px;width:95px; background-color: #FFFFC0; border: 2pt ridge lightgrey;"
+                                   ></sj:submit>
+                        </td>
+
+                    </tr>
+                </table>
+            </s:if>
+            <s:if test="Grade.equalsIgnoreCase('2')">
+                <table align="center">
+                    <tr align="center">
+                        <td align="center">
+                        <sj:submit id="idClose" name="nameClose" value="    Thoát    " onclick="closeSelf()"
+                                   cssStyle="margin-left:25px; float: left;height:28px;width:95px; background-color: #FFFFC0; border: 2pt ridge lightgrey;"
+                                   ></sj:submit>
+                        </td>
+
+                    </tr>
+                    </tr>
+                    
+                </table>
+                
+            </s:if>
+            <sj:submit id="%{khoa_bcqt}_save" name="%{khoa_bcqt}_save" value="save" targets="message_suc_err1" onBeforeTopics="beforediv_ss"
+                       onCompleteTopics="completediv_ss" cssStyle="display: none"/>
+            <div id="message_suc_err1">
+            </div>
+        </s:form>
+
+    </body>
+</html>

@@ -1,0 +1,83 @@
+<xls>
+    <area ref="E000142!A1:Q48">
+	    <each items="header2" var="header2" ref="E000142!C2:C7">
+            <area ref="E000142!C2:C7"/>
+        </each>
+        <each items="data30" var="data30" ref="E000142!D20:I20">
+            <area ref="E000142!D20:I20"/>
+        </each>
+		<each items="data31" var="data31" ref="E000142!D21:I21">
+            <area ref="E000142!D21:I21"/>
+        </each>
+		<each items="data32" var="data32" ref="E000142!D22:I22">
+            <area ref="E000142!D22:I22"/>
+        </each>
+		<each items="data33" var="data33" ref="E000142!D23:I23">
+            <area ref="E000142!D23:I23"/>
+        </each>
+		<each items="data34" var="data34" ref="E000142!D24:I24">
+            <area ref="E000142!D24:I24"/>
+        </each>
+		<each items="data35" var="data35" ref="E000142!D25:I25">
+            <area ref="E000142!D25:I25"/>
+        </each>
+		<each items="data36" var="data36" ref="E000142!D26:I26">
+            <area ref="E000142!D26:I26"/>
+        </each>
+		<each items="data37" var="data37" ref="E000142!D27:I27">
+            <area ref="E000142!D27:I27"/>
+        </each>
+		<each items="data38" var="data38" ref="E000142!D28:I28">
+            <area ref="E000142!D28:I28"/>
+        </each>
+		<each items="data39" var="data39" ref="E000142!D29:I29">
+            <area ref="E000142!D29:I29"/>
+        </each>
+		<each items="data40" var="data40" ref="E000142!D30:I30">
+            <area ref="E000142!D30:I30"/>
+        </each>
+		<each items="data42" var="data42" ref="E000142!D32:I32">
+            <area ref="E000142!D32:I32"/>
+        </each>
+		<each items="data43" var="data43" ref="E000142!D33:I33">
+            <area ref="E000142!D33:I33"/>
+        </each>
+		<each items="data44" var="data44" ref="E000142!D34:I34">
+            <area ref="E000142!D34:I34"/>
+        </each>
+		<each items="data45" var="data45" ref="E000142!D35:I35">
+            <area ref="E000142!D35:I35"/>
+        </each>
+		<each items="data46" var="data46" ref="E000142!D36:I36">
+            <area ref="E000142!D36:I36"/>
+        </each>
+		<each items="data47" var="data47" ref="E000142!D37:I37">
+            <area ref="E000142!D37:I37"/>
+        </each>
+		<each items="data48" var="data48" ref="E000142!D38:I38">
+            <area ref="E000142!D38:I38"/>
+        </each>
+		<each items="data50" var="data50" ref="E000142!D40:I40">
+            <area ref="E000142!D40:I40"/>
+        </each>
+		<each items="data51" var="data51" ref="E000142!D41:I41">
+            <area ref="E000142!D41:I41"/>
+        </each>
+		<each items="data52" var="data52" ref="E000142!D42:I42">
+            <area ref="E000142!D42:I42"/>
+        </each>
+		<each items="data53" var="data53" ref="E000142!D43:I43">
+            <area ref="E000142!D43:I43"/>
+        </each>
+		<each items="data54" var="data54" ref="E000142!D44:I44">
+            <area ref="E000142!D44:I44"/>
+        </each>
+		<each items="data55" var="data55" ref="E000142!D45:I45">
+            <area ref="E000142!D45:I45"/>
+        </each>
+		<each items="data56" var="data56" ref="E000142!D46:I46">
+            <area ref="E000142!D46:I46"/>
+        </each>
+    </area>
+	
+</xls>

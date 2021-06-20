@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUBREPORT_IV" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2e68666e-0ae0-4ccd-989d-4f1282897bf1">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 1 FROM DUAL]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="202" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="cb9c18b5-174d-4fb6-9f81-feb9851162fc" x="0" y="28" width="555" height="51"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Các nghiệp vụ phát sinh bằng ngoại tệ trong năm được ghi theo nguyên tệ và quy đổi ra đồng Việt Nam theo tỷ giá do Ngân hàng Nhà nước Việt Nam công bố tại thời điểm lập báo cáo tài chính. Chênh lệch tỷ giá thực tế phát sinh trong kỳ và chênh lệch tỷ giá do đánh giá lại số dư các khoản mục tiền tệ tại thời điểm cuối năm được kết chuyển vào doanh thu hoặc chi phí trong năm tài chính.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="adcc1086-0295-45ef-8d97-ba5566fd5c73" x="0" y="0" width="316" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[IV - Chính sách kế toán áp dụng tại tổ chức tín dụng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="93beac32-091d-4165-ac1d-efdef4791b76" x="0" y="14" width="124" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[1. Chuyển đổi tiền tệ: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ff8baebb-6025-4af5-bba8-ee81b165bf64" x="0" y="78" width="555" height="47"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[2. Nguyên tắc thực hiện hợp nhất báo cáo tài chính: NHCSXH không có
+3. Công cụ tài chính phái sinh và kế toán phòng ngừa rủi ro: NHCSXH không có
+4. Kế toán thu nhập lãi, chi phí lãi và ngừng dự thu lãi:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7afdbdeb-b265-452f-af28-5a93818be166" x="0" y="124" width="555" height="64"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[- Kế toán thu nhập lãi: Theo phương pháp thực thu.
+- Kế toán chi phí lãi: Theo phương pháp dự chi, là việc tính và hạch toán dần vào tài khoản chi phí theo định kỳ những khoản lãi sẽ phải trả tại một thời điểm nhất định trong tương lai, không phụ thuộc việc tài thời điểm tính và hạch toán, lãi vẫn được chi trả.
+- Kế toán ngừng dự thu lãi: NHCSXH không thực hiện dự thu nên cũng không áp dụng chế độ  ngừng dự thu lãi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a3f41d33-413d-4105-8618-8e04873cd33c" x="0" y="187" width="555" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[5. Kế toán các khoản thu từ phí và hoa hồng: Theo số phí và hoa hồng thực thu.]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

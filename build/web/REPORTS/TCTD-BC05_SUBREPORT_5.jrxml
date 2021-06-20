@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TCTD-BC05_SUBREPORT_5" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 1 FROM DUAL]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="124" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="35" width="555" height="89" isRemoveLineWhenBlank="true"/>
+				<box leftPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[- Nguyên tắc xác định nguyên giá TSCĐ hữu hình:  TSCĐ hữu hình được ghi nhận theo giá gốc. Trong quá trình sử dụng, tài sản cố định hữu hình được ghi nhận theo nguyên giá, hao mòn luỹ kế và giá trị còn lại. Theo chuẩn mực và phù hợp với quyết định 206/2003/QĐ-BTC ngày 12/12/2003
+- Phương pháp khấu hao, thời gian sử dụng hữu ích, hoặc tỷ lệ khấu hao TSCĐ hữu hình: TSCĐ hữu hình được khấu hao theo phương pháp đường thẳng. Thời gian sử dụng hữu ích (liên quan đến tỷ lệ khấu hao) được thực hiện theo quy định của Nhà nước (Bộ tài chính), (Công văn số 3453/NHCS-KT ngày 05/12/2005 “V/v bổ sung, sửa đổi một số nội dung tại CV số 1684/NHCS-KT ngày 30/10/2003).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="3" width="247" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[9. Kế toán lợi thế thương mại: không có]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="19" width="247" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[10. Kế toán TSCĐ hữu hình]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

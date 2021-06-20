@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="G03204_04_TTGS.xlsx" fileOutFormat="G03204_04_TTGS">
+   <title>TTGS-04 - Báo cáo nợ xấu xác định theo NQ số 42 có nhiều vướng mắc khi xử lý, khó có khả năng thu hồi của KH</title>
+   <userName>ADMIN</userName>
+   <date>14-mar-2018 08:42:452</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MAPGD" class="java.lang.String" description="Mã PGD"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+<queryString id="1" maplist="header" description="header" key_group="EMPTY" value_group="EMPTY"><![CDATA[select '' STR1,'' STR2,'' STR3, '' STR4, '' STR5,'' STR6  from dual]]></queryString>
+<queryString id="2" maplist="data" description="data" key_group="EMPTY" value_group="EMPTY"><![CDATA[{call SBV_INBC_TEST.INSL_04_TTGS(2,$P{PARA_MAPGD},'Y',$P{PARA_NGAYBC},1,$P{ORACLE_REF_CURSOR})}]]></queryString>
+</excel_template>

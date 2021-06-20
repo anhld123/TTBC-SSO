@@ -1,0 +1,31 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- Author: Trung -->
+ 
+<struts>
+    <package name="ExportText2Sbv" extends="struts-default,json-default">        
+        <action  name="buildReportGroupCombo" class="vbsp.ims.action.ExportText2SbvAction"
+                 method="buildReportGroupCombo" >                                            
+            <result name="success" type="json"></result>                          
+        </action>                      
+        <action  name="buildReportPeriodCombo" class="vbsp.ims.action.ExportText2SbvAction"
+                 method="buildReportPeridoCombo" >                                            
+            <result name="success" type="json"></result>                          
+        </action>                      
+        <action  name="exportText2Sbv" class="vbsp.ims.action.ExportText2SbvAction"
+                 method="exportFile" >                                            
+            <result name="success">/Text2SbvDltg/displaytag.jsp</result>                          
+            <result name="error">/WEB-INF/message.jsp</result>
+        </action>              
+        <action name="text2SbvDownload" class="vbsp.ims.action.DownloadAction"
+            method="download">
+            <result name="success" type="stream">
+                <param name="contentType">application/zip</param>
+                <param name="inputName">fileInputStream</param>                
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>        
+    </package>    
+</struts>

@@ -1,0 +1,10 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="G00376_170-TTGS.xlsx" fileOutFormat="PARA_MAPGD_DDMMYYYY_SBV">
+   <title>Thử thêm báo cáo cho SBV</title>
+   <userName>ADMIN06</userName>
+   <date>01-Jun-2016 16:12:455</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MAPGD" class="java.lang.String" description="Tham số mã pgd"/>
+<queryString id="1" maplist="header" description="phần header cho báo cáo" key_group="EMPTY" value_group="EMPTY">select 'dien ten file ' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(sysdate,'DDMMYYYY') STR4, 'TUNGNV/1234567890' STR5,
+'ID DUYET' STR6  from dmpos where po_ma= $P{PARA_MAPGD}</queryString>
+</excel_template>

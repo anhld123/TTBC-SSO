@@ -1,0 +1,1753 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CLT_M03_subreport" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7f1aaf38-cc7b-474f-a68f-057cfb14364b">
+	<property name="ireport.zoom" value="1.3660269107301426"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAHUYEN" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<parameter name="PARA_KYBC" class="java.lang.String"/>
+	<queryString language="plsql">
+		<![CDATA[{call dg_indicator_reportor_3986.p_print_03clt ($P{PARA_MAHUYEN},$P{PARA_NGAYBC},$P{PARA_KYBC},$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<field name="POS_CD" class="java.math.BigDecimal"/>
+	<field name="TO_DVUT" class="java.math.BigDecimal"/>
+	<field name="MAXA" class="java.lang.String"/>
+	<field name="TENXA" class="java.lang.String"/>
+	<field name="TENTCH" class="java.lang.String"/>
+	<field name="XEPLOAI_T" class="java.math.BigDecimal"/>
+	<field name="XEPLOAI_K" class="java.math.BigDecimal"/>
+	<field name="XEPLOAI_TB" class="java.math.BigDecimal"/>
+	<field name="XEPLOAI_Y" class="java.math.BigDecimal"/>
+	<field name="LAMA" class="java.lang.String"/>
+	<field name="mahuyen" class="java.lang.String"/>
+	<field name="SOTO_XL" class="java.math.BigDecimal"/>
+	<field name="SOTO_KXL" class="java.math.BigDecimal"/>
+	<field name="TLSQD" class="java.math.BigDecimal"/>
+	<field name="TOCD" class="java.math.BigDecimal"/>
+	<field name="KHACHQUAN" class="java.math.BigDecimal"/>
+	<field name="TLMOI" class="java.math.BigDecimal"/>
+	<variable name="XEPLOAI_T_ND" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 11 ? $F{XEPLOAI_T} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_T_PN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 12 ? $F{XEPLOAI_T} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_T_CCB" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 13 ? $F{XEPLOAI_T} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_T_TN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 14 ? $F{XEPLOAI_T} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_K_ND" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 11 ? $F{XEPLOAI_K} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_K_PN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 12 ? $F{XEPLOAI_K} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_K_CCB" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 13 ? $F{XEPLOAI_K} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_K_TN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 14 ? $F{XEPLOAI_K} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_TB_ND" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 11 ? $F{XEPLOAI_TB} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_TB_PN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 12 ? $F{XEPLOAI_TB} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_TB_CCB" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 13 ? $F{XEPLOAI_TB} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_TB_TN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 14 ? $F{XEPLOAI_TB} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_Y_ND" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 11 ? $F{XEPLOAI_Y} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_Y_PN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 12 ? $F{XEPLOAI_Y} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_Y_CCB" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 13 ? $F{XEPLOAI_Y} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_Y_TN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 14 ? $F{XEPLOAI_Y} : 0]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_T_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{XEPLOAI_T}]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_K_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{XEPLOAI_K}]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_TB_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{XEPLOAI_TB}]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_Y_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{XEPLOAI_Y}]]></variableExpression>
+	</variable>
+	<variable name="STT" class="java.math.BigDecimal" resetType="Group" resetGroup="XA_GROUP">
+		<variableExpression><![CDATA[$V{STT}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="XEPLOAI_T_2" class="java.math.BigDecimal" resetType="Group" resetGroup="XA_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{XEPLOAI_T}]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_K_2" class="java.math.BigDecimal" resetType="Group" resetGroup="XA_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{XEPLOAI_K}]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_TB_2" class="java.math.BigDecimal" resetType="Group" resetGroup="XA_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{XEPLOAI_TB}]]></variableExpression>
+	</variable>
+	<variable name="XEPLOAI_Y_2" class="java.math.BigDecimal" resetType="Group" resetGroup="XA_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{XEPLOAI_Y}]]></variableExpression>
+	</variable>
+	<variable name="SOTO_XL_PN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 12 ? $F{SOTO_XL} : 0]]></variableExpression>
+	</variable>
+	<variable name="SOTO_XL_ND" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 11 ? $F{SOTO_XL} : 0]]></variableExpression>
+	</variable>
+	<variable name="SOTO_XL_CCB" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 13 ? $F{SOTO_XL} : 0]]></variableExpression>
+	</variable>
+	<variable name="SOTO_XL_TN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 14 ? $F{SOTO_XL} : 0]]></variableExpression>
+	</variable>
+	<variable name="SOTO_XL_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{SOTO_XL}]]></variableExpression>
+	</variable>
+	<variable name="SOTO_XL_2" class="java.math.BigDecimal" resetType="Group" resetGroup="XA_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{SOTO_XL}]]></variableExpression>
+	</variable>
+	<variable name="SOTO_KXL_PN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 12 ? $F{SOTO_KXL} : 0]]></variableExpression>
+	</variable>
+	<variable name="SOTO_KXL_ND" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 11 ? $F{SOTO_KXL} : 0]]></variableExpression>
+	</variable>
+	<variable name="SOTO_KXL_CCB" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 13 ? $F{SOTO_KXL} : 0]]></variableExpression>
+	</variable>
+	<variable name="SOTO_KXL_TN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 14 ? $F{SOTO_KXL} : 0]]></variableExpression>
+	</variable>
+	<variable name="SOTO_KXL_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{SOTO_KXL}]]></variableExpression>
+	</variable>
+	<variable name="SOTO_KXL_2" class="java.math.BigDecimal" resetType="Group" resetGroup="XA_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{SOTO_KXL}]]></variableExpression>
+	</variable>
+	<variable name="TLSQD_PN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 12 ? $F{TLSQD} : 0]]></variableExpression>
+	</variable>
+	<variable name="TLSQD_ND" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 11 ? $F{TLSQD} : 0]]></variableExpression>
+	</variable>
+	<variable name="TLSQD_CCB" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 13 ? $F{TLSQD} : 0]]></variableExpression>
+	</variable>
+	<variable name="TLSQD_TN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 14 ? $F{TLSQD} : 0]]></variableExpression>
+	</variable>
+	<variable name="TLSQD_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TLSQD}]]></variableExpression>
+	</variable>
+	<variable name="TLSQD_2" class="java.math.BigDecimal" resetType="Group" resetGroup="XA_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{TLSQD}]]></variableExpression>
+	</variable>
+	<variable name="TOCD_PN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 12 ? $F{TOCD} : 0]]></variableExpression>
+	</variable>
+	<variable name="TOCD_ND" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 11 ? $F{TOCD} : 0]]></variableExpression>
+	</variable>
+	<variable name="TOCD_CCB" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 13 ? $F{TOCD} : 0]]></variableExpression>
+	</variable>
+	<variable name="TOCD_TN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 14 ? $F{TOCD} : 0]]></variableExpression>
+	</variable>
+	<variable name="TOCD_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOCD}]]></variableExpression>
+	</variable>
+	<variable name="TOCD_2" class="java.math.BigDecimal" resetType="Group" resetGroup="XA_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOCD}]]></variableExpression>
+	</variable>
+	<variable name="KHACHQUAN_PN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 12 ? $F{KHACHQUAN} : 0]]></variableExpression>
+	</variable>
+	<variable name="KHACHQUAN_ND" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 11 ? $F{KHACHQUAN} : 0]]></variableExpression>
+	</variable>
+	<variable name="KHACHQUAN_CCB" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 13 ? $F{KHACHQUAN} : 0]]></variableExpression>
+	</variable>
+	<variable name="KHACHQUAN_TN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 14 ? $F{KHACHQUAN} : 0]]></variableExpression>
+	</variable>
+	<variable name="KHACHQUAN_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{KHACHQUAN}]]></variableExpression>
+	</variable>
+	<variable name="KHACHQUAN_2" class="java.math.BigDecimal" resetType="Group" resetGroup="XA_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{KHACHQUAN}]]></variableExpression>
+	</variable>
+	<variable name="TLMOI_PN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 12 ? $F{TLMOI} : 0]]></variableExpression>
+	</variable>
+	<variable name="TLMOI_ND" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 11 ? $F{TLMOI} : 0]]></variableExpression>
+	</variable>
+	<variable name="TLMOI_CCB" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 13 ? $F{TLMOI} : 0]]></variableExpression>
+	</variable>
+	<variable name="TLMOI_TN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TO_DVUT} == 14 ? $F{TLMOI} : 0]]></variableExpression>
+	</variable>
+	<variable name="TLMOI_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TLMOI}]]></variableExpression>
+	</variable>
+	<variable name="TLMOI_2" class="java.math.BigDecimal" resetType="Group" resetGroup="XA_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{TLMOI}]]></variableExpression>
+	</variable>
+	<group name="XA_GROUP">
+		<groupExpression><![CDATA[$F{MAXA}]]></groupExpression>
+		<groupHeader>
+			<band height="22">
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="fff5d9e4-7492-4a2d-8944-aaef89a049fa" stretchType="RelativeToBandHeight" x="25" y="0" width="100" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+						<paragraph leftIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TENXA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="6bdd6a8b-d680-453f-8ae1-37eb56c73ebd" stretchType="RelativeToBandHeight" x="125" y="0" width="45" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="546b1aae-a143-4d33-8901-8bf13e69ab44" stretchType="RelativeToBandHeight" x="210" y="0" width="40" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f51e673d-8e1c-4790-81d7-e94e45e911f4" stretchType="RelativeToBandHeight" x="290" y="0" width="40" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="70ef39bd-7464-4ad6-a7d7-a591490ffa7c" stretchType="RelativeToBandHeight" x="0" y="0" width="25" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{LAMA}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="XA_GROUP">
+					<reportElement uuid="0ed96157-7fe0-4b23-99e0-483ce67ca6ab" stretchType="RelativeToBandHeight" x="125" y="0" width="45" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($V{SOTO_XL_2}+$V{SOTO_KXL_2})>0? ($V{SOTO_XL_2}+$V{SOTO_KXL_2}).toString():"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="XA_GROUP">
+					<reportElement uuid="205a3df1-84bb-403f-9fa8-2cc71814f65b" stretchType="RelativeToBandHeight" x="210" y="0" width="40" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{XEPLOAI_T_2}>0? $V{XEPLOAI_T_2}.toString():"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="XA_GROUP">
+					<reportElement uuid="99387cc3-23cf-4769-822a-c0fbc6647d5f" stretchType="RelativeToBandHeight" x="290" y="0" width="40" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{XEPLOAI_TB_2}>0? $V{XEPLOAI_TB_2}.toString():"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="XA_GROUP">
+					<reportElement uuid="4d3e4324-352b-479c-a505-4300cf241b9b" stretchType="RelativeToBandHeight" x="170" y="0" width="40" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SOTO_XL_2}>0? $V{SOTO_XL_2}.toString():"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="XA_GROUP">
+					<reportElement uuid="03066790-cf92-4d5e-9db1-608110430f77" stretchType="RelativeToBandHeight" x="405" y="0" width="37" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{KHACHQUAN_2}>0? $V{KHACHQUAN_2}.toString():"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="XA_GROUP">
+					<reportElement uuid="3f5ff571-5ec0-4e4c-92d0-5a7e0dee49bb" stretchType="RelativeToBandHeight" x="442" y="0" width="38" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TLMOI_2}>0? $V{TLMOI_2}.toString():"-"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="3a788faf-c599-4759-a192-5599fc41e827" stretchType="RelativeToBandHeight" x="250" y="0" width="40" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField evaluationTime="Group" evaluationGroup="XA_GROUP">
+					<reportElement uuid="26601177-4268-44e8-96af-0d65e705c80d" stretchType="RelativeToBandHeight" x="250" y="0" width="40" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{XEPLOAI_K_2}>0? $V{XEPLOAI_K_2}.toString():"-"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="103a9060-3516-4fea-aa6f-c2c42c4377d1" stretchType="RelativeToBandHeight" x="330" y="0" width="40" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField evaluationTime="Group" evaluationGroup="XA_GROUP">
+					<reportElement uuid="1cf34bb9-af54-4b9c-aa33-5423f04566bd" stretchType="RelativeToBandHeight" x="330" y="0" width="40" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{XEPLOAI_Y_2}>0? $V{XEPLOAI_Y_2}.toString():"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="XA_GROUP">
+					<reportElement uuid="25ae6c46-ca62-4b49-b90d-ae9dafb1d9b0" stretchType="RelativeToBandHeight" x="370" y="0" width="35" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SOTO_KXL_2}>0? $V{SOTO_KXL_2}.toString():"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="XA_GROUP">
+					<reportElement uuid="b9873b4b-0e6b-487f-afcf-7d8c5dd9c147" stretchType="RelativeToBandHeight" x="480" y="0" width="38" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TLSQD_2}>0? $V{TLSQD_2}.toString():"-"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="XA_GROUP">
+					<reportElement uuid="a93f9219-fd74-4e0a-a0ec-e33db6e987b1" stretchType="RelativeToBandHeight" x="518" y="0" width="38" height="22"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TOCD_2}>0? $V{TOCD_2}.toString():"-"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="16">
+			<staticText>
+				<reportElement uuid="9c450bbb-05fd-4411-a26e-0b7130a6666d" x="125" y="0" width="45" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(3)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6c258e4b-8815-4da4-8068-cc091acfa2ef" x="0" y="0" width="25" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(1)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="58552660-1834-4fe9-9d5a-085b7b455773" x="25" y="0" width="100" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(2)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b8ae7167-5796-4580-9937-f92b0162a531" x="290" y="0" width="40" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(7)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d943e016-e656-4455-ba25-e9928bd5c8d2" x="210" y="0" width="40" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(5)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="190f0346-c723-4b78-9e08-794fe4971d35" x="250" y="0" width="40" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(6)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6134371e-04aa-480c-ae3b-4d56f1d8f2e9" x="170" y="0" width="40" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(4)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="347754cc-a563-462e-8664-dd51144368cf" x="330" y="0" width="40" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(8)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="294d3339-7296-46b6-bdd0-f190ab84bf3a" x="442" y="0" width="38" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(11)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8c1479a0-6ccd-49a0-b6aa-09bf7b56d24e" x="405" y="0" width="37" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(10)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="990ba82b-14b2-437e-a4f5-601cc5dc9fad" x="370" y="0" width="35" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(9)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f7c3eed0-fb4f-4596-8538-e913c3e5b189" x="480" y="0" width="38" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(12)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7e2d8c81-0e19-4dd5-a695-747491493203" x="518" y="0" width="38" height="16"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(13)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="070f50a3-7f4c-4679-8a7f-d551da1df9c2" stretchType="RelativeToBandHeight" x="25" y="0" width="100" height="22"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TENTCH}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="1c5eac31-9867-4ce0-9e4b-bf23a1e8ea9f" stretchType="RelativeToBandHeight" x="125" y="0" width="45" height="22"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{SOTO_XL}+$F{SOTO_KXL})>0? ($F{SOTO_XL}+$F{SOTO_KXL}).toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4ffe7d85-c22c-408f-83c4-4143a969266a" stretchType="RelativeToBandHeight" x="210" y="0" width="40" height="22"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{XEPLOAI_T}>0? $F{XEPLOAI_T}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d3069f47-9e05-4c30-9aa7-c573cb4fd7ef" stretchType="RelativeToBandHeight" x="290" y="0" width="40" height="22"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{XEPLOAI_TB}>0? $F{XEPLOAI_TB}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="58cfe231-8927-41c2-a89f-0bc37f6ea499" stretchType="RelativeToBandHeight" x="0" y="0" width="25" height="22"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{STT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f85a8f1f-de16-4122-9339-1d882833b4c6" stretchType="RelativeToBandHeight" x="170" y="0" width="40" height="22"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SOTO_XL}>0? $F{SOTO_XL}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b894b85c-baa8-457d-961b-979c859374bd" stretchType="RelativeToBandHeight" x="518" y="0" width="38" height="22"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOCD}>0? $F{TOCD}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="927807cb-b2c2-4a86-bd82-dffc304b51a0" stretchType="RelativeToBandHeight" x="480" y="0" width="38" height="22"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TLSQD}>0? $F{TLSQD}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="56bdd747-79c5-4191-a501-17859ed204f8" stretchType="RelativeToBandHeight" x="250" y="0" width="40" height="22"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{XEPLOAI_K}>0? $F{XEPLOAI_K}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f7eb1a43-070d-4ade-b360-7a0a94514b7a" stretchType="RelativeToBandHeight" x="330" y="0" width="40" height="22"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{XEPLOAI_Y}> 0 ?  $F{XEPLOAI_Y}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6e3153f9-dd94-419a-bc52-a19f773062d4" stretchType="RelativeToBandHeight" x="370" y="0" width="35" height="22"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SOTO_KXL}>0? $F{SOTO_KXL}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e8de781f-1dd8-4e72-9e14-6f78782bb725" stretchType="RelativeToBandHeight" x="405" y="0" width="37" height="22"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{KHACHQUAN}>0? $F{KHACHQUAN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e29dd9ae-b2ad-4e03-8e14-d07d269fd194" stretchType="RelativeToBandHeight" x="442" y="0" width="38" height="22"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TLMOI}>0? $F{TLMOI}.toString():"-"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3035454f-177b-4322-854a-462fc85b57c5" stretchType="RelativeToBandHeight" x="0" y="0" width="125" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổng cộng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="36564cba-5387-4200-b2f3-6947ce195c94" x="0" y="41" width="25" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e262ec19-e173-4d9d-9d08-73f12a9e7cb1" stretchType="RelativeToBandHeight" x="25" y="41" width="100" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Hội Phụ nữ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a92be1fc-ef65-46b6-a8fe-7f58da8eab93" stretchType="RelativeToBandHeight" x="210" y="41" width="40" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_T_PN}>0? $V{XEPLOAI_T_PN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="eec1d33c-abf6-4c21-a4df-bebf56ca3844" stretchType="RelativeToBandHeight" x="250" y="41" width="40" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_K_PN}>0? $V{XEPLOAI_K_PN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0f120e29-8f8b-407d-baad-f5269e065677" stretchType="RelativeToBandHeight" x="290" y="41" width="40" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_TB_PN}>0? $V{XEPLOAI_TB_PN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="2717449a-ef96-4bd3-af34-b98221b7f5fe" stretchType="RelativeToBandHeight" x="330" y="21" width="40" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_Y_ND}>0? $V{XEPLOAI_Y_ND}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="fd23d297-5fb2-49f9-ad86-06e4aff31b95" stretchType="RelativeToBandHeight" x="25" y="21" width="100" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Hội Nông dân]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="265a0156-2e38-4f35-a3ca-4ae549f2b1d7" stretchType="RelativeToBandHeight" x="290" y="21" width="40" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_TB_ND}>0? $V{XEPLOAI_TB_ND}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f5044c63-b6f5-459a-a7fd-9c4a0fa8378b" x="0" y="21" width="25" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="cd62f91f-f8f6-4f9a-b7b5-c09e2874d6c2" stretchType="RelativeToBandHeight" x="210" y="21" width="40" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_T_ND}>0? $V{XEPLOAI_T_ND}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0eb345aa-78cb-42b2-84a1-8307fae4b1ed" stretchType="RelativeToBandHeight" x="250" y="21" width="40" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_K_ND}>0? $V{XEPLOAI_K_ND}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6344de04-6d97-484d-af32-e1def1fdb0f4" stretchType="RelativeToBandHeight" x="125" y="21" width="45" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($V{SOTO_XL_ND}+$V{SOTO_KXL_ND})>0? ($V{SOTO_XL_ND}+$V{SOTO_KXL_ND}).toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="72944f85-2489-4139-a266-8b62348dc627" stretchType="RelativeToBandHeight" x="330" y="62" width="40" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_Y_CCB}>0? $V{XEPLOAI_Y_CCB}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2ec5cd25-4086-4e17-9c72-f6e4392cab00" stretchType="RelativeToBandHeight" x="25" y="62" width="100" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Hội Cựu Chiến binh]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a7657e96-207d-4da7-ab85-8c5a4261255e" stretchType="RelativeToBandHeight" x="290" y="62" width="40" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_TB_CCB}>0? $V{XEPLOAI_TB_CCB}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="eec41aae-e0e3-4886-a363-bb44b729b4bb" x="0" y="62" width="25" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="bc0fb8f5-5b48-40ad-b13e-f5fd03088eb6" stretchType="RelativeToBandHeight" x="210" y="62" width="40" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_T_CCB}>0? $V{XEPLOAI_T_CCB}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="bad31229-69eb-4245-a417-2c338d56f581" stretchType="RelativeToBandHeight" x="250" y="62" width="40" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_K_CCB}>0? $V{XEPLOAI_K_CCB}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="51b1a0e9-30fe-478c-ac73-a3ccd93c8e74" stretchType="RelativeToBandHeight" x="125" y="62" width="45" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($V{SOTO_XL_CCB}+$V{SOTO_KXL_CCB})>0? ($V{SOTO_XL_CCB}+$V{SOTO_KXL_CCB}).toString():"-"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e95bb920-a258-464a-a2f0-931a49029987" stretchType="RelativeToBandHeight" x="25" y="82" width="100" height="19"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Đoàn Thanh niên]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e772a1de-355b-44b5-b759-090843ff07cb" stretchType="RelativeToBandHeight" x="125" y="82" width="45" height="19"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($V{SOTO_XL_TN}+$V{SOTO_KXL_TN})>0? ($V{SOTO_XL_TN}+$V{SOTO_KXL_TN}).toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a93f93c5-53f4-422b-a7f9-dcd4b5f4fe4f" stretchType="RelativeToBandHeight" x="290" y="82" width="40" height="19"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_TB_TN}>0? $V{XEPLOAI_TB_TN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="78ae1b58-26dc-444c-a48c-17ed8e38a977" x="0" y="82" width="25" height="19"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[4]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="53e67994-7940-4696-a7a1-865a297bf14b" stretchType="RelativeToBandHeight" x="330" y="82" width="40" height="19"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_Y_TN}>0? $V{XEPLOAI_Y_TN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="80de80aa-4c49-4349-ab75-ba0bf7c1c7ce" stretchType="RelativeToBandHeight" x="250" y="82" width="40" height="19"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_K_TN}>0? $V{XEPLOAI_K_TN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="818cef16-b361-4ca0-a8c0-b12f0b56b7ae" stretchType="RelativeToBandHeight" x="210" y="82" width="40" height="19"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_T_TN}>0? $V{XEPLOAI_T_TN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="79f9a95e-1c8f-43ee-b063-849a913cf7df" stretchType="RelativeToBandHeight" x="125" y="41" width="45" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($V{SOTO_XL_PN}+$V{SOTO_KXL_PN})>0? ($V{SOTO_XL_PN}+$V{SOTO_KXL_PN}).toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="9517b1e8-7a2e-4e32-a974-4544e0d64640" stretchType="RelativeToBandHeight" x="125" y="0" width="45" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($V{SOTO_XL_1}+$V{SOTO_KXL_1})>0? ($V{SOTO_XL_1}+$V{SOTO_KXL_1}).toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d42e4bc6-0bdc-4845-a986-5937c369a002" stretchType="RelativeToBandHeight" x="210" y="0" width="40" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_T_1}>0? $V{XEPLOAI_T_1}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="56629826-0d22-48bd-95e6-c4f00b327748" stretchType="RelativeToBandHeight" x="250" y="0" width="40" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_K_1}>0? $V{XEPLOAI_K_1}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6aa5488e-73a5-41eb-9de6-91c74f3c9e1e" stretchType="RelativeToBandHeight" x="290" y="0" width="40" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_TB_1}>0? $V{XEPLOAI_TB_1}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="857a98ad-a29b-4f1b-8de8-aaef5a0e1871" stretchType="RelativeToBandHeight" x="330" y="0" width="40" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_Y_1}>0? $V{XEPLOAI_Y_1}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8328a1a5-c39b-481b-801b-c7551264aa06" stretchType="RelativeToBandHeight" x="330" y="41" width="40" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{XEPLOAI_Y_PN}>0? $V{XEPLOAI_Y_PN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e3429381-755e-4e5a-af16-a504f9a2ec0b" stretchType="RelativeToBandHeight" x="170" y="41" width="40" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SOTO_XL_PN}>0? $V{SOTO_XL_PN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="224c0af8-4596-47ff-bf25-1c39b3189616" stretchType="RelativeToBandHeight" x="170" y="21" width="40" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SOTO_XL_ND}>0? $V{SOTO_XL_ND}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="1ae6a686-d998-47f4-96c3-e9775ed90b26" stretchType="RelativeToBandHeight" x="170" y="82" width="40" height="19"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SOTO_XL_TN}>0? $V{SOTO_XL_TN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d784a756-15eb-4173-b110-c0f03db01a1a" stretchType="RelativeToBandHeight" x="170" y="0" width="40" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SOTO_XL_1}>0? $V{SOTO_XL_1}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="1ad4d0a5-c19c-4770-9545-5e213b58f288" stretchType="RelativeToBandHeight" x="170" y="62" width="40" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SOTO_XL_CCB}>0? $V{SOTO_XL_CCB}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a50653f6-c2af-47d7-89e0-0145cb7c38fc" stretchType="RelativeToBandHeight" x="405" y="41" width="37" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{KHACHQUAN_PN}>0? $V{KHACHQUAN_PN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="11fd9e07-0a6d-4fc4-a4a2-f43ca5732f48" stretchType="RelativeToBandHeight" x="370" y="21" width="35" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SOTO_KXL_ND}>0? $V{SOTO_KXL_ND}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fed28430-1f93-4274-a918-85459f83f877" stretchType="RelativeToBandHeight" x="442" y="41" width="38" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TLMOI_PN}>0? $V{TLMOI_PN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f6bfa12b-a2fb-4940-9b99-e73ca478f6d9" stretchType="RelativeToBandHeight" x="442" y="82" width="38" height="19"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TLMOI_TN}>0? $V{TLMOI_TN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8f67d0e7-f502-4bac-a2c9-955b9fc4150a" stretchType="RelativeToBandHeight" x="405" y="0" width="37" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{KHACHQUAN_1}>0? $V{KHACHQUAN_1}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5923ef04-f5cb-4f73-a2e7-ea1786fc2816" stretchType="RelativeToBandHeight" x="442" y="62" width="38" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TLMOI_CCB}>0? $V{TLMOI_CCB}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="219bb4f8-c683-47ad-895d-79867d654929" stretchType="RelativeToBandHeight" x="370" y="41" width="35" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SOTO_KXL_PN}>0? $V{SOTO_KXL_PN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="be524e33-d377-418a-a9a6-5f7999cce6b2" stretchType="RelativeToBandHeight" x="405" y="62" width="37" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{KHACHQUAN_CCB}>0? $V{KHACHQUAN_CCB}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="39391519-4cc6-49e1-ae6c-87463d8b054d" stretchType="RelativeToBandHeight" x="370" y="82" width="35" height="19"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SOTO_KXL_TN}>0? $V{SOTO_KXL_TN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="152067c9-2cc9-477d-8669-9126fce767ba" stretchType="RelativeToBandHeight" x="442" y="0" width="38" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TLMOI_1}>0? $V{TLMOI_1}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c6438c71-cb8c-49ec-9e87-db70ab75fbec" stretchType="RelativeToBandHeight" x="405" y="21" width="37" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{KHACHQUAN_ND}>0? $V{KHACHQUAN_ND}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8266437c-6e5b-4b49-a65e-c3bb9e0a97e6" stretchType="RelativeToBandHeight" x="370" y="62" width="35" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SOTO_KXL_CCB}>0? $V{SOTO_KXL_CCB}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f89f4ba9-324f-45c6-b28e-472fdda4de73" stretchType="RelativeToBandHeight" x="442" y="21" width="38" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TLMOI_ND}>0? $V{TLMOI_ND}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="67dab2fe-3605-4020-b442-31b771f21003" stretchType="RelativeToBandHeight" x="405" y="82" width="37" height="19"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{KHACHQUAN_TN}>0? $V{KHACHQUAN_TN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="769a3cb4-22c0-4ce0-9c3b-556a22a4b56b" stretchType="RelativeToBandHeight" x="370" y="0" width="35" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SOTO_KXL_1}>0? $V{SOTO_KXL_1}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="58795e5f-00a4-4658-88f4-9b456b59feb0" stretchType="RelativeToBandHeight" x="480" y="0" width="38" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TLSQD_1}>0? $V{TLSQD_1}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="9f740e1e-9831-44ea-88d9-939903d09155" stretchType="RelativeToBandHeight" x="480" y="41" width="38" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TLSQD_PN}>0? $V{TLSQD_PN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b5a6b695-284b-4caf-bc5c-5ce730a9f709" stretchType="RelativeToBandHeight" x="480" y="82" width="38" height="19"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TLSQD_TN}>0? $V{TLSQD_TN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="551dbb2e-be8f-42a9-b839-108b7d2ca94f" stretchType="RelativeToBandHeight" x="518" y="62" width="38" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOCD_CCB}>0? $V{TOCD_CCB}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4d3752ea-8ffe-4700-99b6-9e2ec1d62f7c" stretchType="RelativeToBandHeight" x="518" y="21" width="38" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOCD_ND}>0? $V{TOCD_ND}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="1f69f1a4-2aa7-431d-a5fb-18b45236f0d1" stretchType="RelativeToBandHeight" x="518" y="0" width="38" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOCD_1}>0? $V{TOCD_1}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4a9a4ed1-0c05-4f1c-84f8-1fa01d7e15a4" stretchType="RelativeToBandHeight" x="480" y="62" width="38" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TLSQD_CCB}>0? $V{TLSQD_CCB}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="cee92e8b-7bd3-457b-b2d7-01aa596814c8" stretchType="RelativeToBandHeight" x="480" y="21" width="38" height="20"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TLSQD_ND}>0? $V{TLSQD_ND}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="95fab87e-ac22-49b1-b26e-52c56d4a589f" stretchType="RelativeToBandHeight" x="518" y="82" width="38" height="19"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOCD_TN}>0? $V{TOCD_TN}.toString():"-"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="498953c0-cd7f-4308-a4b5-b5366c57d401" stretchType="RelativeToBandHeight" x="518" y="41" width="38" height="21"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOCD_PN}>0? $V{TOCD_PN}.toString():"-"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

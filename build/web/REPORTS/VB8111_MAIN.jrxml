@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="VB8111_MAIN" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f34d0500-78c7-4c20-baab-e9cd850111ef">
+	<property name="ireport.zoom" value="1.2100000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<parameter name="PARA_KYBC" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC_SS" class="java.lang.String"/>
+	<parameter name="PARA_TONGHOP" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+   case when
+        $P{PARA_KYBC} = '4'
+        then 'Tháng '||to_char(to_date($P{PARA_NGAYBC}),'mm') ||' Năm ' ||to_char(to_date($P{PARA_NGAYBC}),'yyyy')
+        when
+        $P{PARA_KYBC} = '5' and to_char(to_date($P{PARA_NGAYBC}),'ddmm') = '3103'
+        then 'Quý 1 Năm '||to_char(to_date($P{PARA_NGAYBC}),'yyyy')
+         when
+        $P{PARA_KYBC}= '5' and to_char(to_date($P{PARA_NGAYBC}),'ddmm') = '3006'
+        then 'Quý 2 Năm '||to_char(to_date($P{PARA_NGAYBC}),'yyyy')
+         when
+        $P{PARA_KYBC}= '5' and to_char(to_date($P{PARA_NGAYBC}),'ddmm') = '3009'
+        then 'Quý 3 Năm '||to_char(to_date($P{PARA_NGAYBC}),'yyyy')
+         when
+        $P{PARA_KYBC}= '5' and to_char(to_date($P{PARA_NGAYBC}),'ddmm') = '3112'
+        then 'Quý 4 Năm '||to_char(to_date($P{PARA_NGAYBC}),'yyyy')
+        when
+        $P{PARA_KYBC} = '7'
+        then 'Năm '||to_char(to_date($P{PARA_NGAYBC}),'yyyy')
+        when
+        $P{PARA_KYBC}= '9'
+        then 'Từ '||to_char(TO_DATE((select '01-jan- '||to_char(to_date($P{PARA_NGAYBC}),'YYYY') from dual)),'dd/mm/yyyy')
+         || ' đến '|| to_char(to_date($P{PARA_NGAYBC}),'dd/mm/yyyy')
+        END KYBC,
+(select PO_MACN  from dmpos where po_ma = $P{PARA_MAPGD}) MAPGD
+ from dual]]>
+	</queryString>
+	<field name="KYBC" class="java.lang.String"/>
+	<field name="MAPGD" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="77127ad9-32d6-4f82-8e5f-6ccc517594be" x="0" y="0" width="423" height="37"/>
+				<subreportParameter name="POS_CD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CONS_FLAG">
+					<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["mainpos_subpos.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="ed4d1a7c-da74-4b9e-aa66-6bb1ea341e6c" x="688" y="0" width="114" height="12"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Biểu số 3988.1/CT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="455d63a2-0fa8-46a0-9b93-de7dcb7074b1" x="0" y="45" width="802" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[BIỂU TỔNG HỢP KẾT QUẢ ĐÁNH GIÁ CHẤT LƯỢNG HOẠT ĐỘNG TÍN DỤNG CHÍNH SÁCH TẠI CẤP XÃ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="57ebfe70-4096-4305-890d-6ff9c122e381" x="0" y="63" width="802" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Theo văn bản số 3988/NHCS-TDNN ngày 12/9/2018)]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="aa413c69-fa7e-42a4-b236-44a9f68dabbc" x="0" y="76" width="802" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{KYBC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="37">
+			<subreport>
+				<reportElement uuid="9d493032-7862-4d70-ab69-c279039b58f0" x="0" y="0" width="423" height="37">
+					<printWhenExpression><![CDATA[$F{MAPGD}== "005720"||$F{MAPGD} == "006101"||$F{MAPGD}== "006220"||$F{MAPGD} == "006009"||$F{MAPGD} == "005811"]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="PARA_NGAYBC_SS">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC_SS}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_KYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_KYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_TONGHOP">
+					<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["VB4811_MS01_SUB1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="37">
+			<subreport>
+				<reportElement uuid="a4b02947-f83f-422f-b2e6-12f87082f738" x="0" y="0" width="423" height="37">
+					<printWhenExpression><![CDATA[$F{MAPGD}!= "005720"&&$F{MAPGD}!= "006101"&&$F{MAPGD}!= "006220"&&$F{MAPGD}!= "006009"&&$F{MAPGD}!= "005811"]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="PARA_NGAYBC_SS">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC_SS}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_KYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_KYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_TONGHOP">
+					<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["VB4811_MS01_SUB2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="118" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="08e0bda0-7175-4699-8e8b-a8a91c534def" x="0" y="0" width="802" height="118"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Cột 3,4,5,6,7,8,9,10,11 lấy kết quả theo văn bản sô 3988/NHCS-TDNN ngày 12/9/2018
+
+Cột 12, 13, 14, 15, 16, 17, 18, 19, 20=  các cột 3, 4, 5, 6, 7, 8, 9, 10, 11 trừ đi tương ứng các cột 3, 4, 5, 6, 7, 8, 9, 10,11 của kỳ trước
+
+Cột 21= 75% - Cột 3
+Cột 22= 98% - Cột 4
+Cột 23= 85% - Cột 5
+Cột 24= 85% - Cột 6
+Cột 25= 85% - Cột 7
+Cột 26= 10,5 -Cột 8
+Cột 27= 95%-Cột 9
+Cột 28= 3% -Cột 10
+]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="12A_TD.xlsx" fileOutFormat="PARA_MAPGD_12A_TD">
+   <title>Thử nhé</title>
+   <userName>SUPERMOD06</userName>
+   <date>16-Oct-2017 14:48:211</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="Tham số cho mã tổ" class="java.lang.String" description="PV_MATO"/>
+<queryString id="1" maplist="data1" description="Truy van lay du lieu to" key_group="EMPTY" value_group="EMPTY"><![CDATA[SELECT 
+TO_TENTT str1,
+(SELECT TEN FROM DMXA WHERE MA = SUBSTR(TO_MADP,1,6))||','||
+(SELECT TEN FROM DMTHON WHERE MA = TO_MADP) str2, 
+TO_MATO str3,
+DECODE(TO_DVUT,14,'Đoàn Thanh Niên',11,'Hội Nông Dân',12,'Hội Phụ Nữ',13,'Hội Cựu Chiến Binh') str4
+FROM HSTO A
+WHERE TO_MATO =$P{PV_MATO}]]></queryString>
+<parameter name="PV_MATO" class="java.lang.String" description="Tham số cho mã tổ"/>
+</excel_template>

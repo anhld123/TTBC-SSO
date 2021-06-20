@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <!--<system systemId="http://localhost:8080/IMS_REPORTS/ims_services?wsdl" uri="wsdl/localhost_8080/IMS_REPORTS/ims_services.wsdl"/>-->
+    <!--<system systemId="http://localhost:8080/IMS_REPORTS/ims_services?xsd=1" uri="wsdl/localhost_8080/IMS_REPORTS/ims_services.xsd_1.xsd"/>-->
+    <system systemId="http://10.0.19.10:8080/IMS_REPORTS/ims_services?wsdl" uri="wsdl/10.0.19.10_8080/IMS_REPORTS/ims_services.wsdl"/>
+    <system systemId="http://localhost:8080/IMS_REPORTS/ims_services?wsdl" uri="wsdl/localhost_8080/IMS_REPORTS/ims_services.wsdl"/>
+    <system systemId="http://localhost:8080/IMS_REPORTS/ims_services?xsd=1" uri="wsdl/localhost_8080/IMS_REPORTS/ims_services.xsd_1.xsd"/>
+    <system systemId="http://10.0.10.85:8080/IMS_REPORTS1/ims_services?wsdl" uri="wsdl/10.0.10.85_8080/IMS_REPORTS1/ims_services.wsdl"/>
+    <system systemId="http://10.0.10.85:8080/IMS_REPORTS1/ims_services?xsd=1" uri="wsdl/10.0.10.85_8080/IMS_REPORTS1/ims_services.xsd_1.xsd"/>
+    <system systemId="http://10.0.10.247:8080/IMS_REPORTS1/ims_services?wsdl" uri="wsdl/10.0.10.247_8080/IMS_REPORTS1/ims_services.wsdl"/>
+    <system systemId="http://10.0.10.247:8080/IMS_REPORTS1/ims_services?xsd=1" uri="wsdl/10.0.10.247_8080/IMS_REPORTS1/ims_services.xsd_1.xsd"/>
+    <system systemId="http://vbsp.ims.report:8080/IMS_REPORTS/ims_services?wsdl" uri="wsdl/vbsp.ims.report_8080/IMS_REPORTS/ims_services.wsdl"/>
+    <system systemId="http://vbsp.ims.report:8080/IMS_REPORTS/ims_services?xsd=1" uri="wsdl/vbsp.ims.report_8080/IMS_REPORTS/ims_services.xsd_1.xsd"/>
+</catalog>

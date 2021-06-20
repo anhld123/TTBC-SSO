@@ -1,0 +1,10 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="G00327_20170101.xlsx" fileOutFormat="SBV_169_G00327_DDMMYYYY">
+   <title>169-TTGS - Báo cáo lợi thế thương mại (Năm - Đã kiểm toán)</title>
+   <userName>ADMIN</userName>
+   <date>09-Dec-2016 15:01:891</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+<queryString id="1" maplist="header" description="Lấy tiêu đề cho báo cáo" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'G00327_SBV_169_TTGS' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(TO_DATE($P{PARA_NGAYBC}),'DDMMYYYY') STR4, 'TRANGPT' STR5,
+'QUYENNV' STR6  from dmpos where po_ma= '000100']]></queryString>
+</excel_template>

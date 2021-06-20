@@ -1,0 +1,1788 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUB_REPORT_VI_1" language="groovy" pageWidth="555" pageHeight="800" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="884"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TONGHOP" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_NGAYBC" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'701','D'),0) C1,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'701','D'),0) C2,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'702','D'),0) C3,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'702','D'),0) C4,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'709','D'),0) C5,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'709','D'),0) C6,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'801','D'),0) C9,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'801','D'),0) C10,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'802','D'),0) C11,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'802','D'),0) C12,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'802','D'),0) C13,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'803','D'),0) C14,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'809','D'),0) C15,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'809','D'),0) C16,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'711','D'),0) A1,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'711','D'),0) A2,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'713','D'),0) A3,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'713','D'),0) A4,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'714','D'),0) A5,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'714','D'),0) A6,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'715','D'),0) A7,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'715','D'),0) A8,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'718','D'),0) A9,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'718','D'),0) A10,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'719','D'),0) A11,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'719','D'),0) A12,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'811','D'),0) A13,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'811','D'),0) A14,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'812','D'),0) A15,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'812','D'),0) A16,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'813','D'),0) A17,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'813','D'),0) A18,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'814','D'),0) A19,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'814','D'),0) A20,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'815','D'),0) A21,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'815','D'),0) A22,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'819','D'),0) A23,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'819','D'),0) A24,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'74','D'),0) D1,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'74','D'),0) D2,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'84','D'),0) D3,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'84','D'),0) D4,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'83','D'),0) E1,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'83','D'),0) E2,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'85','D'),0) E3,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'85','D'),0) E4,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'851','D'),0) E5,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'851','D'),0) E6,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'853','D'),0) E7,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'853','D'),0) E8,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'854','D'),0) E9,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'854','D'),0) E10,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'855','D'),0) E11,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'855','D'),0) E12,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'87','D'),0) E13,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'87','D'),0) E14,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'871','D'),0) E15,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'871','D'),0) E16,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'86','D'),0) E17,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'86','D'),0) E18,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'862','D'),0) E19,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'862','D'),0) E20,
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'868','D'),0) E21,
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'868','D'),0) E22,
+(NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'8821','D'),0) +
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'8824','D'),0) +
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'8827','D'),0) +
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'8829','D'),0)) E23,
+(NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'8821','D'),0) +
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'8824','D'),0) +
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'8827','D'),0) +
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'8829','D'),0)) E24,
+(NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'89','D'),0)+
+NVL(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'81','D'),0)) E25,
+(NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'89','D'),0)+
+NVL (DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'81','D'),0)) E26
+FROM DUAL]]>
+	</queryString>
+	<field name="C1" class="java.math.BigDecimal"/>
+	<field name="C2" class="java.math.BigDecimal"/>
+	<field name="C3" class="java.math.BigDecimal"/>
+	<field name="C4" class="java.math.BigDecimal"/>
+	<field name="C5" class="java.math.BigDecimal"/>
+	<field name="C6" class="java.math.BigDecimal"/>
+	<field name="C9" class="java.math.BigDecimal"/>
+	<field name="C10" class="java.math.BigDecimal"/>
+	<field name="C11" class="java.math.BigDecimal"/>
+	<field name="C12" class="java.math.BigDecimal"/>
+	<field name="C13" class="java.math.BigDecimal"/>
+	<field name="C14" class="java.math.BigDecimal"/>
+	<field name="C15" class="java.math.BigDecimal"/>
+	<field name="C16" class="java.math.BigDecimal"/>
+	<field name="A1" class="java.math.BigDecimal"/>
+	<field name="A2" class="java.math.BigDecimal"/>
+	<field name="A3" class="java.math.BigDecimal"/>
+	<field name="A4" class="java.math.BigDecimal"/>
+	<field name="A5" class="java.math.BigDecimal"/>
+	<field name="A6" class="java.math.BigDecimal"/>
+	<field name="A7" class="java.math.BigDecimal"/>
+	<field name="A8" class="java.math.BigDecimal"/>
+	<field name="A9" class="java.math.BigDecimal"/>
+	<field name="A10" class="java.math.BigDecimal"/>
+	<field name="A11" class="java.math.BigDecimal"/>
+	<field name="A12" class="java.math.BigDecimal"/>
+	<field name="A13" class="java.math.BigDecimal"/>
+	<field name="A14" class="java.math.BigDecimal"/>
+	<field name="A15" class="java.math.BigDecimal"/>
+	<field name="A16" class="java.math.BigDecimal"/>
+	<field name="A17" class="java.math.BigDecimal"/>
+	<field name="A18" class="java.math.BigDecimal"/>
+	<field name="A19" class="java.math.BigDecimal"/>
+	<field name="A20" class="java.math.BigDecimal"/>
+	<field name="A21" class="java.math.BigDecimal"/>
+	<field name="A22" class="java.math.BigDecimal"/>
+	<field name="A23" class="java.math.BigDecimal"/>
+	<field name="A24" class="java.math.BigDecimal"/>
+	<field name="D1" class="java.math.BigDecimal"/>
+	<field name="D2" class="java.math.BigDecimal"/>
+	<field name="D3" class="java.math.BigDecimal"/>
+	<field name="D4" class="java.math.BigDecimal"/>
+	<field name="E1" class="java.math.BigDecimal"/>
+	<field name="E2" class="java.math.BigDecimal"/>
+	<field name="E3" class="java.math.BigDecimal"/>
+	<field name="E4" class="java.math.BigDecimal"/>
+	<field name="E5" class="java.math.BigDecimal"/>
+	<field name="E6" class="java.math.BigDecimal"/>
+	<field name="E7" class="java.math.BigDecimal"/>
+	<field name="E8" class="java.math.BigDecimal"/>
+	<field name="E9" class="java.math.BigDecimal"/>
+	<field name="E10" class="java.math.BigDecimal"/>
+	<field name="E11" class="java.math.BigDecimal"/>
+	<field name="E12" class="java.math.BigDecimal"/>
+	<field name="E13" class="java.math.BigDecimal"/>
+	<field name="E14" class="java.math.BigDecimal"/>
+	<field name="E15" class="java.math.BigDecimal"/>
+	<field name="E16" class="java.math.BigDecimal"/>
+	<field name="E17" class="java.math.BigDecimal"/>
+	<field name="E18" class="java.math.BigDecimal"/>
+	<field name="E19" class="java.math.BigDecimal"/>
+	<field name="E20" class="java.math.BigDecimal"/>
+	<field name="E21" class="java.math.BigDecimal"/>
+	<field name="E22" class="java.math.BigDecimal"/>
+	<field name="E23" class="java.math.BigDecimal"/>
+	<field name="E24" class="java.math.BigDecimal"/>
+	<field name="E25" class="java.math.BigDecimal"/>
+	<field name="E26" class="java.math.BigDecimal"/>
+	<variable name="C7" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{C1}.add($F{C3}).add($F{C5})]]></variableExpression>
+	</variable>
+	<variable name="C8" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{C2}.add($F{C4}).add($F{C6})]]></variableExpression>
+	</variable>
+	<variable name="C17" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{C9}.add($F{C11}).add($F{C13}).add($F{C15})]]></variableExpression>
+	</variable>
+	<variable name="C18" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{C10}.add($F{C12}).add($F{C14}).add($F{C16})]]></variableExpression>
+	</variable>
+	<variable name="C19" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{A1}.add($F{A3}).add($F{A5}).add($F{A7}).add($F{A9}).add($F{A11})]]></variableExpression>
+	</variable>
+	<variable name="C20" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{A2}.add($F{A4}).add($F{A6}).add($F{A8}).add($F{A10}).add($F{A12})]]></variableExpression>
+	</variable>
+	<variable name="C21" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{A13}.add($F{A15}).add($F{A17}).add($F{A19}).add($F{A21}).add($F{A23})]]></variableExpression>
+	</variable>
+	<variable name="C22" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{A14}.add($F{A16}).add($F{A18}).add($F{A20}).add($F{A22}).add($F{A24})]]></variableExpression>
+	</variable>
+	<variable name="C23" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{F1}.subtract($V{F3})]]></variableExpression>
+	</variable>
+	<variable name="C24" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{F2}.subtract($V{F4})]]></variableExpression>
+	</variable>
+	<variable name="D5" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{D1}.subtract($F{D3})]]></variableExpression>
+	</variable>
+	<variable name="D6" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{D2}.subtract($F{D4})]]></variableExpression>
+	</variable>
+	<variable name="E27" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{E1}.add($F{E3}).add($F{E5}).add($F{E7}).add($F{E9}).add($F{E11}).add($F{E13}).add($F{E15}).add($F{E17}).add($F{E19}).add($F{E21}).add($F{E23}).add($F{E25})]]></variableExpression>
+	</variable>
+	<variable name="E28" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{E2}.add($F{E4}).add($F{E6}).add($F{E8}).add($F{E10}).add($F{E12}).add($F{E14}).add($F{E16}).add($F{E18}).add($F{E20}).add($F{E22}).add($F{E24}).add($F{E26})]]></variableExpression>
+	</variable>
+	<variable name="F1" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{A1}.add($F{A3}).add($F{A5}).add($F{A7}).add($F{A9}).add($F{A11})]]></variableExpression>
+	</variable>
+	<variable name="F2" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{A2}.add($F{A4}).add($F{A6}).add($F{A8}).add($F{A10}).add($F{A12})]]></variableExpression>
+	</variable>
+	<variable name="F3" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{A13}.add($F{A15}).add($F{A17}).add($F{A19}).add($F{A21}).add($F{A23})]]></variableExpression>
+	</variable>
+	<variable name="F4" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{A14}.add($F{A16}).add($F{A18}).add($F{A20}).add($F{A22}).add($F{A24})]]></variableExpression>
+	</variable>
+	<variable name="F5" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{F1}.subtract($V{F3})]]></variableExpression>
+	</variable>
+	<variable name="F6" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{F2}.subtract($V{F4})]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<detail>
+		<band height="702" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="139" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Tổng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="118" width="230" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Thu khác từ hoạt động tín dụng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="97" width="230" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Thu nhập lãi cho vay khách hàng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="74" width="230" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Thu nhập lãi tiền gửi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="286" y="54" width="130" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Kỳ này]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="54" width="130" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Kỳ trước]]></text>
+			</staticText>
+			<line>
+				<reportElement x="288" y="161" width="263" height="1"/>
+			</line>
+			<line>
+				<reportElement x="288" y="139" width="263" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="166" width="274" height="23"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[25. Chi phí lãi và các khoản chi phí tương tự: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="205" width="230" height="22"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Trả lãi tiền gửi]]></text>
+			</staticText>
+			<line>
+				<reportElement x="288" y="295" width="263" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="252" width="230" height="18"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Trả lãi phát hành giấy tờ có giá]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="286" y="185" width="130" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Kỳ này]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="294" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Tổng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="231" width="230" height="16"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Trả lãi tiền vay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="184" width="130" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Kỳ trước]]></text>
+			</staticText>
+			<line>
+				<reportElement x="288" y="317" width="263" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="273" width="231" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Chi phí hoạt động tín dụng khác]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="322" width="555" height="31"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[26. Lãi/ lỗ thuần từ hoạt động dịch vụ: nêu cụ thể các khoản thu nhập, chi phí chính từ phí dịch vụ và tính lãi/ lỗ thuần.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="353" width="130" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Kỳ trước]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="284" y="417" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="395" width="230" height="22"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Thu từ dịch vụ thanh toán]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="285" y="394" width="129" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="417" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Thu từ dịch vụ ngân quỹ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="284" y="353" width="130" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Kỳ này]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="438" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Thu từ nghiệp vụ uỷ thác và đại lý]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="284" y="439" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A5}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="459" width="231" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Thu từ dịch vụ tư vấn]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="420" y="394" width="132" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="421" y="439" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A6}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="421" y="462" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A8}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="421" y="417" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="284" y="462" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A7}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="421" y="510" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A12}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="284" y="491" width="130" height="19"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A9}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="512" width="231" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Thu khác]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="480" width="230" height="32"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Thu từ cung ứng dịch vụ bảo quản tài sản, cho thuê tủ két]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="284" y="510" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A11}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="421" y="491" width="130" height="19"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A10}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="373" width="231" height="22"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[1. Thu nhập phí từ hoạt động dịch vụ]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="421" y="597" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A18}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="421" y="554" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A14}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="284" y="574" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A15}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="597" width="231" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Chi về ngân quỹ]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="284" y="554" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A13}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="421" y="660" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A24}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="576" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Chi cước phí bưu điện về mạng viễn thông]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="284" y="597" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A17}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="284" y="619" width="130" height="21"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A19}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="421" y="574" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A16}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="617" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Chi dịch vụ uỷ thác và đại lý]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="284" y="660" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A23}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="421" y="619" width="130" height="21"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A20}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="533" width="230" height="22"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[2. Chi phí hoạt động dịch vụ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="657" width="231" height="22"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Chi khác]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="555" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Chi về dịch vụ thanh toán]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="679" width="231" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[3. Lãi/lỗ thuần từ hoạt động dịch vụ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="637" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Chi về dịch vụ tư vấn]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="284" y="640" width="130" height="21"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A21}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="421" y="640" width="130" height="21"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{A22}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="286" y="74" width="130" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{C1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="422" y="74" width="130" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{C2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="422" y="95" width="130" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{C4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="285" y="95" width="130" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{C3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="422" y="116" width="130" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{C6}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="286" y="116" width="130" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{C5}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="286" y="141" width="130" height="20"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{C7}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="423" y="141" width="130" height="20"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{C8}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="286" y="207" width="130" height="20"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{C9}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="422" y="207" width="130" height="20"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{C10}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="287" y="231" width="130" height="16"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{C11}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="422" y="231" width="130" height="16"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{C12}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="288" y="252" width="130" height="18"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{C13}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="423" y="247" width="130" height="18"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{C14}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="287" y="273" width="130" height="19"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{C15}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="423" y="273" width="130" height="18"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{C16}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="287" y="295" width="130" height="20"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{C17}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="423" y="295" width="130" height="20"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{C18}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="285" y="375" width="129" height="19"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{F1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="421" y="375" width="131" height="19"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{F2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="285" y="533" width="129" height="19"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{F3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="423" y="533" width="128" height="19"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{F4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="282" y="682" width="131" height="20"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{F5}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="423" y="682" width="128" height="20"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{F6}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="31" width="274" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[24. Thu nhập lãi và các khoản thu nhập tương tự ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="-1" width="556" height="32"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[VI -  Thông tin bổ sung cho các khoản mục trình bày trong Báo cáo kết quả hoạt động kinh doanh (Đơn vị tính: ............)]]></text>
+			</staticText>
+		</band>
+		<band height="702">
+			<staticText>
+				<reportElement x="1" y="4" width="554" height="22"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[27. Lãi lỗ thuần từ hoạt động kinh ngoại hối: NHCSXH không có]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="26" width="554" height="24"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[28. Lãi/lỗ thuần từ hoạt động kinh doanh (mua bán) chứng khoán kinh doanh: NHCSXH không có]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="50" width="554" height="24"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[29. Lãi/lỗ thuần từ hoạt động kinh doanh (mua bán) chứng khoán đầu tư: NHCSXH không có]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="74" width="554" height="24"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[30. Thu nhập từ góp vốn, mua cổ phần: NHCSXH không có]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="98" width="554" height="29"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[31. Lãi/ lỗ thuần từ các hoạt động kinh doanh khác: nêu số liệu chi tiết thu/ chi và cho từng loại hoạt động]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="418" y="231" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{D6}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="283" y="168" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{D1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="282" y="210" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{D3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="232" width="231" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[3. Lãi/lỗ thuần từ các hoạt động kinh doanh khác]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="211" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Chi về hoạt động kinh doanh khác]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="282" y="231" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{D5}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="418" y="210" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{D4}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="283" y="127" width="130" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Kỳ này]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="168" width="230" height="22"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Thu về hoạt động kinh doanh khác]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="127" width="130" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Kỳ trước]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="417" y="168" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{D2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="258" width="541" height="22"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[32. Chi phí hoạt động: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="190" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[2. Chi phí hoạt động kinh doanh khác]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="142" width="231" height="22"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[1. Thu từ hoạt động kinh doanh khác]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="419" y="406" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E10}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="419" y="360" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E6}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="284" y="323" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="283" y="383" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E7}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="406" width="231" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[                 - Chi trợ cấp]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="283" y="360" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E5}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="419" y="453" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E14}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="383" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[                 - Các khoản chi đóng góp theo lương]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="283" y="406" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E9}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="283" y="430" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E11}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="419" y="383" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E8}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="284" y="280" width="130" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Kỳ này]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="431" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[                 - Chi công tác xã hội]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="283" y="453" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E13}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="419" y="430" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E12}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="323" width="230" height="22"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[2. Chi phí cho nhân viên:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="419" y="280" width="130" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Kỳ trước]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="418" y="323" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E4}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="453" width="231" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[3. Chi về tài sản :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="361" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Trong đó:   - Chi lương và phụ cấp]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="301" width="231" height="22"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[1. Chi nộp thuế và các khoản phí, lệ phí]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="419" y="588" width="130" height="19"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E24}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="543" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[                - Chi về các hoạt động đoàn thể của TCTD]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="283" y="546" width="130" height="21"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E21}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="476" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[          - Trong đó khấu hao tài sản cố định]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="521" width="231" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Trong đó:   - Công tác phí]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="283" y="477" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E15}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="499" width="230" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[4. Chi cho hoạt động quản lý công vụ:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="419" y="546" width="130" height="21"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E22}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="419" y="500" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E18}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="283" y="500" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E17}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="590" width="231" height="19"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[6. Chi phí dự phòng (không tính chi phí dự phòng rủi ro tín dụng nội và ngoại bảng; chi phí dự phòng giảm giá chứng khoán)]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="283" y="588" width="130" height="19"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E23}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="283" y="523" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E19}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="419" y="477" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E16}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="419" y="523" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E20}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="562" width="230" height="27"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[5. Chi nộp phí bảo hiểm, bảo toàn tiền gửi của khách hàng]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="283" y="608" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E25}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="419" y="608" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E26}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="610" width="231" height="22"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[7. Chi phí hoạt động khác]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="284" y="635" width="130" height="18"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{E27}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="287" y="656" width="259" height="1"/>
+			</line>
+			<line>
+				<reportElement x="286" y="633" width="259" height="1"/>
+			</line>
+			<textField pattern="#,##0">
+				<reportElement x="419" y="635" width="130" height="18"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{E28}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="202" y="635" width="78" height="21"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Tổng]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="284" y="301" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="418" y="301" width="130" height="22"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{E2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="658" width="555" height="18"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Ghi chú: Các đơn vị NHCSXH không đưa các nội dung cột hướng dẫn cách lấy số liệu khi  trình bày thuyết minh Báo cáo tài chính.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="678" width="555" height="24"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[33. Chi phí thuế thu nhập: NHCSXH không có]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>

@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BC02_TBSV" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="30" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="69"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<queryString language="plsql">
+		<![CDATA[{call BC02_TBSV($P{PARA_MAPGD},$P{PARA_NGAYBC},$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<field name="TENTINH" class="java.lang.String"/>
+	<field name="TENHUYEN" class="java.lang.String"/>
+	<field name="TENXA" class="java.lang.String"/>
+	<field name="TENTHON" class="java.lang.String"/>
+	<field name="TRUONG" class="java.lang.String"/>
+	<field name="SV_MAPGD" class="java.lang.String"/>
+	<field name="TENPGD" class="java.lang.String"/>
+	<field name="MA_MVAY" class="java.lang.String"/>
+	<field name="KU_NGAYBC" class="java.sql.Timestamp"/>
+	<field name="KH_NGGNGAN" class="java.sql.Timestamp"/>
+	<field name="MAKH" class="java.lang.String"/>
+	<field name="KU_GNGAN" class="java.math.BigDecimal"/>
+	<field name="KU_M_GNGAN" class="java.math.BigDecimal"/>
+	<field name="DUNO" class="java.math.BigDecimal"/>
+	<field name="TENSV" class="java.lang.String"/>
+	<field name="NGAYSINH" class="java.lang.String"/>
+	<field name="GTINH" class="java.lang.String"/>
+	<field name="CMT" class="java.lang.String"/>
+	<field name="NGAYCAP" class="java.lang.String"/>
+	<field name="NOICAP" class="java.lang.String"/>
+	<field name="LOAIHDT" class="java.lang.String"/>
+	<field name="HEDT" class="java.lang.String"/>
+	<field name="NGNHAPHOC" class="java.lang.String"/>
+	<field name="NGRTRUONG" class="java.lang.String"/>
+	<field name="NGAYVAY" class="java.lang.String"/>
+	<field name="THANGVAY" class="java.lang.String"/>
+	<field name="NAMVAY" class="java.lang.String"/>
+	<field name="NGAY_BC" class="java.lang.String"/>
+	<field name="THANG_BC" class="java.lang.String"/>
+	<field name="NAM_BC" class="java.lang.String"/>
+	<field name="DC_PGD" class="java.lang.String"/>
+	<field name="MOBI_PGD" class="java.lang.String"/>
+	<field name="FAX_PGD" class="java.lang.String"/>
+	<field name="NGAYBC" class="java.lang.String"/>
+	<field name="THE_SV" class="java.lang.String"/>
+	<field name="LOP_SV" class="java.lang.String"/>
+	<field name="KHOA_SV" class="java.lang.String"/>
+	<field name="KH_SV" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="114">
+			<staticText>
+				<reportElement x="454" y="10" width="67" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Biểu 02/TBSV]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="23" width="534" height="40"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc]]></text>
+			</staticText>
+			<line>
+				<reportElement x="183" y="57" width="168" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="75" width="535" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="16" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[THÔNG BÁO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="94" width="535" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Về tình hình vay vốn ưu đãi của HSSV mồ côi)]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="584" splitType="Prevent">
+			<staticText>
+				<reportElement x="40" y="124" width="140" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[        Họ và tên HSSV:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="145" width="160" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[        Ngày tháng năm sinh:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="145" width="66" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Giới tính:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="164" width="106" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[        CMND số:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="164" width="63" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[ Ngày cấp:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="164" width="65" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Nơi cấp:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="183" width="78" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[        Lớp:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="183" width="44" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[ Khoa:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="183" width="80" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Số thẻ HSSV:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="202" width="78" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[        Khóa:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="202" width="112" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[ Loại hình đào tạo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="221" width="122" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[        Hệ đào tạo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="240" width="122" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[        Ngày nhập học:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="267" y="240" width="161" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Ngày ra trường (dự kiến):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="39" y="304" width="107" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[        Mã món vay:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="488" width="494" height="20"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[        Rất mong sự quan tâm, phối hợp của quý Phòng./.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="223" y="124" width="312" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TENSV}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="223" y="145" width="153" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NGAYSINH}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="39" y="26" width="482" height="37"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="14" isItalic="false" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["     Kính gửi: Phòng công tác Học sinh, sinh viên/Phòng đào tạo/Cơ sở đào tạo: " + $F{TRUONG}+ "."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="64" width="469" height="20"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TENPGD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="145" width="93" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{GTINH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="164" width="92" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CMT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="286" y="164" width="90" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NGAYCAP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="164" width="93" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NOICAP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="376" y="202" width="93" height="19"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{LOAIHDT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="162" y="221" width="200" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{HEDT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="162" y="240" width="105" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NGNHAPHOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="428" y="240" width="107" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NGRTRUONG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="39" y="325" width="337" height="21"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["        Ngày vay "+ $F{NGAYVAY}+ "  tháng " +$F{THANGVAY} + " năm " + $F{NAMVAY}
++ ", đã giải ngân số tiền: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="304" width="165" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MA_MVAY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="39" y="347" width="234" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["        Dư nợ đến ngày " + $F{NGAYBC} + ", số tiền: "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="311" y="543" width="198" height="17"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[GIÁM ĐỐC
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="357" y="559" width="108" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Ký tên, đóng dấu)]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="39" y="261" width="482" height="41"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="AtLeast" lineSpacingSize="1.5" firstLineIndent="15" spacingBefore="3" spacingAfter="3"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["   Địa chỉ cư trú trước khi nhập trường tại: " + $F{TENTHON}+ ", " +$F{TENXA} + ", " + $F{TENHUYEN}+ ", " +$F{TENTINH} + "."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="39" y="369" width="482" height="104"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="14" isStrikeThrough="false" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="AtLeast" lineSpacingSize="1.5" firstLineIndent="30" spacingBefore="3" spacingAfter="3"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TENPGD} + " thông báo về tình hình vay vốn của học sinh, sinh viên mồ côi và đề nghị nhà trường phối hợp thông báo, nhắc nhở HSSV mồ côi về trách nhiệm sử dụng vốn vay đúng mục đích. Nếu HSSV mồ côi bỏ học, thôi học, kỷ luật … nhà trường thông báo ngay cho " + $F{TENPGD} +
+" theo địa chỉ: " + $F{DC_PGD} + " biết, để có biện pháp xử lý kịp thời (số điện thoại: " + $F{MOBI_PGD} + ", số fax: " + $F{FAX_PGD} + ")."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="87" y="519" width="421" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="13" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TENTINH}+", ngày " +$F{NGAY_BC} + " tháng " + $F{THANG_BC}
++ " năm " +$F{NAM_BC} + " ."]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="456" y="183" width="79" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{THE_SV}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="118" y="183" width="105" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{LOP_SV}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="267" y="183" width="109" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{KHOA_SV}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="118" y="202" width="105" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{KH_SV}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="85" width="495" height="37"/>
+				<box leftPadding="0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["       Thông báo tình hình vay vốn ưu đãi của Học sinh, sinh viên (HSSV) mồ côi tại " + $F{TENPGD} + ", cụ thể như sau:"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="273" y="347" width="68" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DUNO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="336" y="347" width="67" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["đồng."]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="376" y="325" width="66" height="21"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{KU_M_GNGAN}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="437" y="325" width="67" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["đồng."]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

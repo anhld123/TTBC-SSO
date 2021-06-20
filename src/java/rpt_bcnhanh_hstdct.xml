@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="taomau" extends="struts-default,json-default">
+          <action name="createRptFast"  class="vbsp.ims.action.ActionReportFast" method="createRptFast">
+            <result name="error">bctuhstdct/error.jsp</result>                 
+            <result name="populate" type="json"></result> 
+        </action>
+         <action  name="loadColumnReportFast" class="vbsp.ims.action.ActionReportFast" method="getColumnCreateRpt">                  
+            <result name="error">/bctuhstdct/error.jsp</result>    
+            <result name="success">/bctuhstdct/column_bcnhanh.jsp</result>                            
+        </action>
+        
+        <action  name="ViewReportFast" class="vbsp.ims.action.ActionReportFast" method="ViewReportFast" >                  
+            <result name="success"> /bctuhstdct/bcnhanh_view.jsp </result>     
+            <result name="error" >
+                /bctuhstdct/error.jsp             
+            </result>     
+        </action>    
+        
+         <action  name="SaveReportFast" class="vbsp.ims.action.ActionReportFast" method="save_bc_nhanh"> 
+            <result name="success">           
+                bctuhstdct/success.jsp
+            </result>  
+            <result name="error" >
+                bctuhstdct/error.jsp             
+            </result>                         
+        </action>   
+        
+    </package>
+    
+    <package name="suaxoamau" extends="struts-default,json-default">
+        <action  name="loadAllFastRpt" class="vbsp.ims.action.ActionReportFast" method="loadAllFastRpt"> 
+            <result name="success">           
+                bctuhstdct/edit_del_rpt.jsp
+            </result>  
+            <result name="error" >
+                bctuhstdct/error.jsp             
+            </result>                         
+        </action>   
+        
+         <action  name="DeleteRptFast" class="vbsp.ims.action.ActionReportFast" method="DeleteRptFast"> 
+            <result name="success">           
+                bctuhstdct/success.jsp
+            </result>  
+            <result name="error" >
+                bctuhstdct/error.jsp             
+            </result>                         
+        </action>   
+        
+         <action  name="editRptFast" class="vbsp.ims.action.ActionReportFast" method="editRptFast"> 
+            <result name="success">           
+                /bctuhstdct/edit_column_bcnhanh.jsp
+            </result>  
+            <result name="error" >
+                bctuhstdct/error.jsp             
+            </result>                         
+        </action>
+        <action  name="SaveEditReportFast" class="vbsp.ims.action.ActionReportFast" method="SaveEditReportFast"> 
+            <result name="success">           
+                bctuhstdct/success.jsp
+            </result>  
+            <result name="error" >
+                bctuhstdct/error.jsp             
+            </result>                         
+        </action>   
+    </package>
+     
+    <package name="xuatmau" extends="struts-default,json-default">     
+       
+        <action name="loadExportRpt"  
+                 class="vbsp.ims.action.ActionReportFast" 
+                 method="getModule_SaveReport">
+            <result name="success" type="json"></result>
+        </action>        
+        <action name="loadParaExportRptFast"  
+                class="vbsp.ims.action.ActionReportFast" >
+            <result name="success">/bctuhstdct/load_parameter_bcnhanh.jsp</result>
+            <result name="error"> 
+                bctuhstdct/error.jsp
+            </result>
+        </action>        
+        <action name="genReportFast" class="vbsp.ims.action.ActionReportFast" method="genReportFast">
+            <result name="success">bctuhstdct/downfile_bcnhanh.jsp</result>    
+            <result name="error" >                
+                bctuhstdct/error.jsp
+            </result>       
+        </action>
+        
+        <action name="download" class="vbsp.ims.action.DownloadFileAction">
+            <result name="success" type="stream">
+                <param name="contentDisposition">attachment;filename=${fileName}</param>
+                <param name="contentType">application/vnd.ms-excel</param>
+                <param name="inputName">fileInputStream</param>
+                <param name="bufferSize">1024</param>
+            </result>
+            <result name="error">bctuhstdct/error.jsp</result>
+        </action>
+    </package>
+     
+     
+</struts>

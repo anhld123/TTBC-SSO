@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>    
+    <package name="AccountInfor" extends="struts-default,json-default">
+        <action  name="listAccountInfor" 
+                 class="vbsp.ims.action.AccountInforViewAction"
+                 method="listAccountInfor">
+            <result name="success" type="json"></result>
+            <result name="error" type="json"></result>        
+        </action>        
+        
+        <action  name="buildRadioButton" 
+                 class="vbsp.ims.action.AccountInforViewAction"
+                 method="buildRadio">
+            <result name="success">/WEB-INF/ketoando-main-grid.jsp</result>
+            <result name="error" type="json"></result>        
+        </action> 
+          
+        <action  name="CD_dieuchinh_tk" 
+                 class="vbsp.ims.balanceadjust.BalanceSheetAdjust"
+                 method="execute">
+            <result name="success">/WEB-INF/balanceqry_adjust.jsp</result>            
+        </action>   
+        
+        <action  name="CD_upload_file" 
+                 class="vbsp.ims.balanceadjust.BalanceSheetAdjust"
+                 method="execute">
+            <result name="success">/WEB-INF/balanceqry_adjust_upload.jsp</result>            
+        </action>   
+                         
+        <action  name="Acc_Build_Combo" 
+                 class="vbsp.ims.balanceadjust.BalanceSheetAdjustCombo"
+                 method="buildCombo" >                                                        
+            <result name="success" type="json"></result>                                                           
+        </action>  
+        
+        <action  name="Acc_Build_Acc_Combo" 
+                 class="vbsp.ims.balanceadjust.BalanceSheetAdjustCombo"
+                 method="buildAccCombo" >                                                        
+            <result name="success" type="json"></result>                                                           
+        </action>  
+        
+        <action  name="Acc_ListAcc_Pos" 
+                 class="vbsp.ims.balanceadjust.BalanceSheetAdjust"
+                 method="listAccPos" >                                                        
+            <result name="success">/WEB-INF/balanceqry_adjust_posview.jsp</result>                                                           
+        </action>  
+        
+        <action  name="Acc_Fetch_Data" 
+                 class="vbsp.ims.balanceadjust.BalanceSheetAdjust"
+                 method="fetchData" >                                                        
+            <result name="success">/WEB-INF/balanceqry_adjust_accview.jsp</result>                                                           
+        </action>  
+        
+        <action  name="Acc_Adjust_Data" 
+                 class="vbsp.ims.balanceadjust.BalanceSheetAdjust"
+                 method="adjustData" >                                                        
+            <result name="success">/WEB-INF/pure_message.jsp</result>                                                           
+        </action>  
+             
+        <action name="Acc_Upload_File" class="vbsp.ims.balanceadjust.BalanceUploadAction"
+                     method="upload_file">
+            <result name="success">/WEB-INF/balanceqry_adjust_upload-detail.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action> 
+                       
+    </package>
+</struts>

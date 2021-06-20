@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TCTD-BC05-SUBREPORT_V" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="775aadcc-445b-498f-a118-af12e1fbe828">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\VBSP\\DuanHDH\\JReportTool\\JRXML\\TCTD-B05\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_TONGHOP" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<queryString language="plsql">
+		<![CDATA[{call B05_VBSP($P{PARA_MAPGD} ,$P{PARA_NGAYBC},$P{PARA_TONGHOP},'A',$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<field name="v_v_1_1" class="java.lang.Number"/>
+	<field name="v_v_1_2" class="java.lang.Number"/>
+	<field name="v_v_2_1" class="java.lang.Number"/>
+	<field name="v_v_2_2" class="java.lang.Number"/>
+	<field name="v_v_3_1" class="java.lang.Number"/>
+	<field name="v_v_3_2" class="java.lang.Number"/>
+	<field name="v_v_total_1" class="java.lang.Number"/>
+	<field name="v_v_total_2" class="java.lang.Number"/>
+	<field name="v_v_4_1" class="java.lang.Number"/>
+	<field name="v_v_4_2" class="java.lang.Number"/>
+	<field name="v_v_5_1" class="java.lang.Number"/>
+	<field name="v_v_5_2" class="java.lang.Number"/>
+	<field name="v_v_6_1" class="java.lang.Number"/>
+	<field name="v_v_6_2" class="java.lang.Number"/>
+	<field name="v_v_total_3" class="java.lang.Number"/>
+	<field name="v_v_total_4" class="java.lang.Number"/>
+	<field name="v_v_7_1" class="java.lang.Number"/>
+	<field name="v_v_7_2" class="java.lang.Number"/>
+	<field name="v_v_8_1" class="java.lang.Number"/>
+	<field name="v_v_8_2" class="java.lang.Number"/>
+	<field name="v_v_total_5_1" class="java.lang.Number"/>
+	<field name="v_v_total_5_2" class="java.lang.Number"/>
+	<field name="v_v_9_1" class="java.lang.Number"/>
+	<field name="v_v_9_2" class="java.lang.Number"/>
+	<field name="v_v_10_1" class="java.lang.Number"/>
+	<field name="v_v_10_2" class="java.lang.Number"/>
+	<field name="v_v_total_6_1" class="java.lang.Number"/>
+	<field name="v_v_total_6_2" class="java.lang.Number"/>
+	<field name="v_v_total_5" class="java.lang.Number"/>
+	<field name="v_v_total_6" class="java.lang.Number"/>
+	<field name="v_v_11_1" class="java.lang.Number"/>
+	<field name="v_v_11_2" class="java.lang.Number"/>
+	<field name="v_v_12_1" class="java.lang.Number"/>
+	<field name="v_v_12_2" class="java.lang.Number"/>
+	<field name="v_v_total_7" class="java.lang.Number"/>
+	<field name="v_v_total_8" class="java.lang.Number"/>
+	<field name="v_v_total_9" class="java.lang.Number"/>
+	<field name="v_v_total_10" class="java.lang.Number"/>
+	<field name="v_v_13_1" class="java.lang.Number"/>
+	<field name="v_v_14_1" class="java.lang.Number"/>
+	<field name="v_v_15_1" class="java.lang.Number"/>
+	<field name="v_v_16_1" class="java.lang.Number"/>
+	<field name="v_v_17_1" class="java.lang.Number"/>
+	<field name="v_v_18_1" class="java.lang.Number"/>
+	<field name="v_v_19_1" class="java.lang.Number"/>
+	<field name="v_v_20_1" class="java.lang.Number"/>
+	<field name="v_v_21_1" class="java.lang.Number"/>
+	<field name="v_v_22_1" class="java.lang.Number"/>
+	<field name="v_v_23_1" class="java.lang.Number"/>
+	<field name="v_v_24_1" class="java.lang.Number"/>
+	<field name="v_v_25_1" class="java.lang.Number"/>
+	<field name="v_v_26_1" class="java.lang.Number"/>
+	<field name="v_v_27_1" class="java.lang.Number"/>
+	<field name="v_v_28_1" class="java.lang.Number"/>
+	<field name="v_v_13_2" class="java.lang.Number"/>
+	<field name="v_v_14_2" class="java.lang.Number"/>
+	<field name="v_v_15_2" class="java.lang.Number"/>
+	<field name="v_v_16_2" class="java.lang.Number"/>
+	<field name="v_v_17_2" class="java.lang.Number"/>
+	<field name="v_v_18_2" class="java.lang.Number"/>
+	<field name="v_v_19_2" class="java.lang.Number"/>
+	<field name="v_v_20_2" class="java.lang.Number"/>
+	<field name="v_v_21_2" class="java.lang.Number"/>
+	<field name="v_v_22_2" class="java.lang.Number"/>
+	<field name="v_v_23_2" class="java.lang.Number"/>
+	<field name="v_v_24_2" class="java.lang.Number"/>
+	<field name="v_v_25_2" class="java.lang.Number"/>
+	<field name="v_v_26_2" class="java.lang.Number"/>
+	<field name="v_v_27_2" class="java.lang.Number"/>
+	<field name="v_v_28_2" class="java.lang.Number"/>
+	<field name="v_v_total_11" class="java.lang.Number"/>
+	<field name="v_v_total_12" class="java.lang.Number"/>
+	<field name="v_v_total_13" class="java.lang.Number"/>
+	<field name="v_v_total_14" class="java.lang.Number"/>
+	<field name="v_v_total_15" class="java.lang.Number"/>
+	<field name="v_v_total_16" class="java.lang.Number"/>
+	<field name="v_v_total_17" class="java.lang.Number"/>
+	<field name="v_v_total_18" class="java.lang.Number"/>
+	<field name="v_v_29_1" class="java.lang.Number"/>
+	<field name="v_v_30_1" class="java.lang.Number"/>
+	<field name="v_v_31_1" class="java.lang.Number"/>
+	<field name="v_v_32_1" class="java.lang.Number"/>
+	<field name="v_v_33_1" class="java.lang.Number"/>
+	<field name="v_v_34_1" class="java.lang.Number"/>
+	<field name="v_v_35_1" class="java.lang.Number"/>
+	<field name="v_v_36_1" class="java.lang.Number"/>
+	<field name="v_v_29_2" class="java.lang.Number"/>
+	<field name="v_v_30_2" class="java.lang.Number"/>
+	<field name="v_v_31_2" class="java.lang.Number"/>
+	<field name="v_v_32_2" class="java.lang.Number"/>
+	<field name="v_v_33_2" class="java.lang.Number"/>
+	<field name="v_v_34_2" class="java.lang.Number"/>
+	<field name="v_v_35_2" class="java.lang.Number"/>
+	<field name="v_v_36_2" class="java.lang.Number"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="39">
+			<staticText>
+				<reportElement uuid="99083ac8-9484-42f1-a0e6-d5a1ecfbd704" x="30" y="0" width="525" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[V- Thông tin bổ sung cho các khoản mục trình bày trong Bảng cân đối kế toán ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f17902b9-2373-496d-8c1a-c6f652920df2" x="441" y="19" width="114" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Đơn vị tính: VNĐ)]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="57" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="46a2bdf3-0b4c-4b31-a174-aa1af3c46432" x="0" y="0" width="200" height="57" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="B05_V_TOTAL_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_2_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_2_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_3_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_3_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_3_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_3_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_2_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_2_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_1_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_1_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_1_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_1_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["SUB_REPORT_V_1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement uuid="51694645-89ff-4ce6-8178-981be385a697" positionType="Float" x="0" y="0" width="200" height="50" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="B05_V_TOTAL_3">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_6_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_6_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_6_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_6_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_5_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_5_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_5_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_5_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_4_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_4_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_4">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_4_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_4_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["SUB_REPORT_V_2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement uuid="0fe0dbf0-9b54-4921-a1fc-829aa533b2c2" positionType="Float" x="0" y="0" width="200" height="50" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="B05_V_8_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_8_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_8_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_8_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_10">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_10}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_6_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_6_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_6_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_6_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_5_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_5_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_5_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_5_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_10_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_10_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_10_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_10_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_11_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_11_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_9_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_9_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_12_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_12_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_12_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_12_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_9_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_9_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_11_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_11_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_8">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_8}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_9">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_9}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_6">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_6}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_7_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_7_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_7">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_7}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_7_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_7_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_5">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_5}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["SUB_REPORT_V_3.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement uuid="0c5135e2-2a18-44f0-b268-19648c803e4b" positionType="Float" x="0" y="0" width="200" height="50" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="B05_V_13_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_13_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_14_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_14_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_15_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_15_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_16_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_16_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_17_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_17_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_18_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_18_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_19_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_19_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_20_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_20_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_21_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_21_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_22_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_22_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_23_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_23_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_24_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_24_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_25_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_25_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_26_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_26_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_27_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_27_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_28_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_28_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_13_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_13_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_14_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_14_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_15_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_15_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_16_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_16_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_17_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_17_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_18_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_18_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_19_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_19_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_20_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_20_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_21_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_21_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_22_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_22_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_23_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_23_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_24_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_24_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_25_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_25_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_26_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_26_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_27_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_27_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_28_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_28_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_11">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_11}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_12">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_12}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_13">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_13}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_14">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_14}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_15">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_15}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_16">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_16}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_17">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_17}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_TOTAL_18">
+					<subreportParameterExpression><![CDATA[$F{v_v_total_18}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["SUB_REPORT_V_6.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement uuid="e53c54f8-2a54-4acd-a7ae-f3cf81e63e17" positionType="Float" x="0" y="0" width="200" height="50" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="B05_V_29_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_29_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_30_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_30_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_31_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_31_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_32_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_32_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_33_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_33_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_34_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_34_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_35_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_35_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_36_1">
+					<subreportParameterExpression><![CDATA[$F{v_v_36_1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_29_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_29_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_30_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_30_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_31_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_31_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_32_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_32_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_33_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_33_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_34_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_34_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_35_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_35_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="B05_V_36_2">
+					<subreportParameterExpression><![CDATA[$F{v_v_36_2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["SUB_REPORT_V_7.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement uuid="7cae2f6b-b96e-4f03-841a-7d753538a3be" positionType="Float" x="0" y="0" width="200" height="50" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_TONGHOP">
+					<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["SUB_REPORT_V_8.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement uuid="e4e0edcc-545f-4a66-b866-ebacbc6d2d24" positionType="Float" x="0" y="0" width="200" height="50" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_TONGHOP">
+					<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["SUB_REPORT_V_15.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

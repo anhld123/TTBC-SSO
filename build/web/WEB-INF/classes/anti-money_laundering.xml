@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>    
+    <package name="Anti-money_Laundering" extends="struts-default,json-default">
+        <action  name="AML_searchAction" class="vbsp.ims.action.AntiMoneyLaunderingAction"
+                  method="search">
+            <result name="success">/WEB-INF/anti-money_laundering-view.jsp</result>      
+        </action>        
+        <action  name="AML_viewAction" class="vbsp.ims.action.AntiMoneyLaunderingAction"
+                  method="view">
+            <result name="success">/WEB-INF/anti-money_laundering-view.jsp</result> 
+            <result name="error">/WEB-INF/message.jsp</result>
+        </action>        
+        <action  name="AML_exportAction" class="vbsp.ims.action.AntiMoneyLaunderingAction"
+                  method="textExport">
+<!--            <result name="success">/WEB-INF/anti-money_laundering-view.jsp</result> -->
+                <result name="success">/viewfilebc.jsp</result>
+        </action>        
+        <action  name="AML_reexportAction" class="vbsp.ims.action.AntiMoneyLaunderingAction"
+                  method="reexportText">
+<!--            <result name="success">/WEB-INF/anti-money_laundering-view.jsp</result> -->
+        <result name="success">/viewfilebc.jsp</result>
+        </action>                
+    </package>
+</struts>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUBREPORT_IV_1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9e115b3d-a06d-451e-a2f8-cdb9b25b5ad8">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 1 FROM DUAL]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="130" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b4f4ef4d-72d5-450b-8801-48851e4fd585" x="0" y="14" width="555" height="116" isRemoveLineWhenBlank="true"/>
+				<box leftPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[- Nguyên tắc ghi nhận khoản vay: Theo giá gốc.
++ Các khoản cho vay được thể hiện trong BCTC là số nợ gốc trừ đi bất kỳ các khoản dự phòng khó đòi nào.
+- Các nguyên tắc phân loại nợ và đánh giá rủi ro tín dụng: Nợ bị rủi ro của NHCSXH bao gồm các loại sau:
++ Nợ cần chú ý: là những khoản nợ hiện vẫn còn trong thời hạn trả nợ, nhưng người vay gặp rủi ro do nguyên nhân khách quan, có khó khăn về tài chính nhưng vẫn còn khả năng trả nợ cho NHCSXH, được xử lý giảm một phần hoặc miễn toàn bộ lãi tiền vay theo Quyết định của các cấp có thẩm quyền.
++ Nợ dưới tiêu chuẩn: là những khoản nợ hiện đã quá hạn trả nợ, người vay gặp rủi ro do nguyên nhân khách quan, có khó khăn về tài chính dẫn đến chưa trả được nợ cho NHCSXH nhưng vẫn còn khả năng trả nợ, được xử lý giảm một phần hoặc miễn toàn bộ lãi tiền vay theo các Quyết định của các cấp có thẩm quyền.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="22bfbca6-1844-484d-a470-0301e4981b1e" x="0" y="0" width="234" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" isUnderline="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[6. Kế toán đối với cho vay khách hàng]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

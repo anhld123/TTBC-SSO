@@ -1,0 +1,51 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="BC01TT.xlsx" fileOutFormat="BC01TT">
+   <title>Tổng hợp số liệu đề nghị xử lý rủi ro theo chương trình - tỉnh (01TT)</title>
+   <userName>ADMIN</userName>
+   <date>10-Oct-2016 08:42:530</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_DOTRR" class="java.lang.String" description="Đợt rủi ro"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<parameter name="PARA_NAMBC" class="java.lang.String" description="Năm báo cáo"/>
+
+
+
+<parameter name="PV_CHTRINH" class="java.lang.String" description="Chương trình"/>
+<queryString id="1" maplist="data" description="Chi tiết dữ liệu" key_group="EMPTY" value_group="EMPTY"><![CDATA[SELECT ROW_NUMBER() OVER (ORDER BY RR_MACN) STR1,
+TEN STR2,
+COUNT(DISTINCT(CASE WHEN RR_PDUYET_TG <= 36 AND RR_NHOMRR = '02' THEN RR_SOKU END )) D1,
+SUM(CASE WHEN RR_PDUYET_TG <= 36 AND RR_NHOMRR = '02' THEN (RR_DNGHI_DNO +RR_DNGHI_LAI) END)/1000000 D2,
+SUM(CASE WHEN RR_PDUYET_TG <= 36 AND RR_NHOMRR = '02' THEN RR_DNGHI_DNO END)/1000000 D3,
+SUM(CASE WHEN RR_PDUYET_TG <= 36 AND RR_NHOMRR = '02' THEN RR_DNGHI_LAI END)/1000000 D4,
+COUNT(DISTINCT(CASE WHEN RR_PDUYET_TG >  36 AND RR_NHOMRR = '02' THEN RR_SOKU END )) D5,
+SUM(CASE WHEN RR_PDUYET_TG > 36  AND RR_NHOMRR = '02' THEN RR_DNGHI_DNO + RR_DNGHI_LAI END)/1000000 D6,
+SUM(CASE WHEN RR_PDUYET_TG > 36  AND RR_NHOMRR = '02' THEN RR_DNGHI_DNO END)/1000000 D7,
+SUM(CASE WHEN RR_PDUYET_TG > 36  AND RR_NHOMRR = '02' THEN RR_DNGHI_LAI END)/1000000 D8,
+COUNT(DISTINCT(CASE WHEN RR_NHOMRR = '03' THEN RR_SOKU END )) D9,
+SUM(CASE WHEN RR_NHOMRR = '03' THEN RR_DNGHI_DNO + RR_DNGHI_LAI END)/1000000 D10,
+SUM(CASE WHEN RR_NHOMRR = '03' THEN RR_DNGHI_DNO END)/1000000 D11,
+SUM(CASE WHEN RR_NHOMRR = '03' THEN RR_DNGHI_LAI END)/1000000 D12
+FROM HSRR_WB, dmtinh 
+WHERE RR_DOTRR =   '2'
+AND TO_CHAR(RR_NGAYBC,'yyyy') =  '2015'
+AND RR_CHTRINH =  '03'
+AND RR_PDUYET_CAP = 'H'
+AND RR_TRANGTHAI = 'A'
+AND SUBSTR(RR_MACN,3,2) = MA
+GROUP BY RR_MACN,TEN
+ORDER BY RR_MACN]]></queryString>
+<queryString id="2" maplist="header" description="Tiêu đề báo cáo" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'Chương trình: '||SC_TEN STR1 from dm_scheme where substr(sc_ma,3,2) =   $P{PV_CHTRINH}]]></queryString>
+</excel_template>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUB_REPORT_V_7_2" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TONGHOP" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_NGAYBC" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[  SELECT A.DESCRIPT,
+         A.ACCOUNT,
+         A.GENERAL_PROVISION,
+         A.SPECIFIC_PROVISION
+    FROM ( (SELECT 'Số dư đầu kỳ' DESCRIPT,
+                   'Dư đầu kỳ TK 219, 259' ACCOUNT,
+                   NVL (DN_TK_SBV (ADD_MONTHS ( $P{PARA_NGAYBC}, -12),
+                                   $P{PARA_MAPGD},
+                                   $P{PARA_TONGHOP},
+                                   '219',
+                                   'D'),
+                        0)
+                      GENERAL_PROVISION,
+                   NVL (DN_TK_SBV (ADD_MONTHS ( $P{PARA_NGAYBC}, -12),
+                                   $P{PARA_MAPGD},
+                                   $P{PARA_TONGHOP},
+                                   '259',
+                                   'D'),
+                        0)
+                      SPECIFIC_PROVISION,
+                   1 SEQ
+              FROM DUAL)
+          UNION
+          (SELECT 'Dự phòng rủi ro trích lập trong kỳ/(Hoàn nhập dự phòng trong kỳ)'
+                     DESCRIPT,
+                  'PSC TK 219, 259' ACCOUNT,
+                  NVL (FUNC_TOT_CR_DR_AMT ('219',
+                                           $P{PARA_MAPGD},
+                                           $P{PARA_TONGHOP},
+                                           ADD_MONTHS ( $P{PARA_NGAYBC}, -12),
+                                           $P{PARA_NGAYBC},
+                                           'FCY',
+                                           'P',
+                                           1),
+                       0)
+                     GENERAL_PROVISION,
+                  NVL (FUNC_TOT_CR_DR_AMT ('259',
+                                           $P{PARA_MAPGD},
+                                           $P{PARA_TONGHOP},
+                                           ADD_MONTHS ( $P{PARA_NGAYBC}, -12),
+                                           $P{PARA_NGAYBC},
+                                           'FCY',
+                                           'P',
+                                           1),
+                       0)
+                  SPECIFIC_PROVISION,
+                  2 SEQ
+             FROM DUAL)
+          UNION
+          (SELECT 'Dự phòng giảm do xử lý các khoản nợ khó thu hồi bằng nguồn dự phòng'
+                     DESCRIPT,
+                  'PSN TK 219, 259' ACCOUNT,
+                  NVL (FUNC_TOT_CR_DR_AMT ('219',
+                                           $P{PARA_MAPGD},
+                                           $P{PARA_TONGHOP},
+                                           ADD_MONTHS ( $P{PARA_NGAYBC}, -12),
+                                           $P{PARA_NGAYBC},
+                                           'LCY',
+                                           'P',
+                                           1),
+                       0)
+                     GENERAL_PROVISION,
+                  NVL (FUNC_TOT_CR_DR_AMT ('259',
+                                           $P{PARA_MAPGD},
+                                           $P{PARA_TONGHOP},
+                                           ADD_MONTHS ( $P{PARA_NGAYBC}, -12),
+                                           $P{PARA_NGAYBC},
+                                           'LCY',
+                                           'P',
+                                           1),
+                       0)
+                     SPECIFIC_PROVISION,
+                  3 SEQ
+             FROM DUAL)
+          UNION
+          (SELECT 'Số dư cuối kỳ' DESCRIPT,
+                  'Dư CK TK 219, 259' ACCOUNT,
+                  NVL (DN_TK_SBV ( $P{PARA_NGAYBC},
+                                  $P{PARA_MAPGD},
+                                  $P{PARA_TONGHOP},
+                                  '219',
+                                  'D'),
+                       0)
+                     GENERAL_PROVISION,
+                  NVL (DN_TK_SBV ( $P{PARA_NGAYBC},
+                                  $P{PARA_MAPGD},
+                                  $P{PARA_TONGHOP},
+                                  '259',
+                                  'D'),
+                       0)
+                     SPECIFIC_PROVISION,
+                  4 SEQ
+             FROM DUAL)) A
+ORDER BY A.SEQ]]>
+	</queryString>
+	<field name="DESCRIPT" class="java.lang.String"/>
+	<field name="ACCOUNT" class="java.lang.String"/>
+	<field name="GENERAL_PROVISION" class="java.math.BigDecimal"/>
+	<field name="SPECIFIC_PROVISION" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" isUnderline="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Kỳ trước]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="234" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESCRIPT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="287" y="0" width="130" height="17"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="10" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{GENERAL_PROVISION}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="422" y="0" width="130" height="17"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="10" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{SPECIFIC_PROVISION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

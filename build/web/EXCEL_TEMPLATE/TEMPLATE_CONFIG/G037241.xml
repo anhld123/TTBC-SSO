@@ -1,0 +1,38 @@
+<xls>
+    <area ref="G037241!A1:AC31">
+	    <each items="header" var="header" ref="G037241!C2:C7">
+            <area ref="G037241!C2:C7"/>
+        </each>
+		<each items="data1" var="data1" ref="G037241!A20:AC20">
+            <area ref="G037241!A20:AC20"/>
+        </each>
+        <each items="data2" var="data2" ref="G037241!A21:AC21">
+            <area ref="G037241!A21:AC21"/>
+        </each>
+		<each items="data3" var="data3" ref="G037241!A22:AC22">
+            <area ref="G037241!A22:AC22"/>
+        </each>
+		<each items="data4" var="data4" ref="G037241!A23:AC23">
+            <area ref="G037241!A23:AC23"/>
+        </each>
+		<each items="data5" var="data5" ref="G037241!A24:AC24">
+            <area ref="G037241!A24:AC24"/>
+        </each>
+		<each items="data6" var="data6" ref="G037241!A25:AC25">
+            <area ref="G037241!A25:AC25"/>
+        </each>
+		<each items="data7" var="data7" ref="G037241!A26:AC26">
+            <area ref="G037241!A26:AC26"/>
+        </each>
+		<each items="data8" var="data8" ref="G037241!A27:AC27">
+            <area ref="G037241!A27:AC27"/>
+        </each>
+		<each items="data9" var="data9" ref="G037241!A28:AC28">
+            <area ref="G037241!A28:AC28"/>
+        </each>
+		<each items="data10" var="data10" ref="G037241!A29:AC29">
+            <area ref="G037241!A29:AC29"/>
+        </each>
+    </area>
+	
+</xls>

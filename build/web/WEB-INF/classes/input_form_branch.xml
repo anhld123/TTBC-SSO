@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="themmaubck" extends="struts-default,json-default">
+        <interceptors>
+            <interceptor-stack name="defaultStack">
+                <interceptor-ref name="json">
+                    <param name="enableSMD">true</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+         
+       <action name="saveFormName1" class="vbsp.ims.branch.ActionConfigBranch" method="saveAddNameForm1">
+           <result name="success" type="json">/input-branch/error.jsp</result>
+             <result name="error" type="json">/input-branch/error.jsp</result>
+        </action>
+        
+         <action name="checkDulieuDanhmucCotDulieu" class="vbsp.ims.branch.ActionConfigBranch" method="checkDulieuDanhmucCotDulieu">
+           <result name="success" type="json">/input-branch/error.jsp</result>
+             <result name="error" type="json">/input-branch/error.jsp</result>
+        </action>
+    </package>
+    
+    <package name="load_all_mau_nhaptay" extends="struts-default,json-default">
+         <action name="LoadAllMauNhaplieu" class="vbsp.ims.branch.ActionConfigBranch"  method="LoadAllMauNhaplieu">
+            <result name="success" type="json"></result>        
+        </action> 
+        
+<!--        <action name="loadselectexportkt740"  
+                class="vbsp.ims.action.Kt740Action" 
+                method="loadAllQueryExp">
+            <result name="success" type="json"></result>
+        </action>    -->
+    </package>
+    <package name="input_form_branch" extends="struts-default,json-default">
+         <action name="LoadAddNewForm" class="vbsp.ims.branch.ActionConfigBranch" method="loadAddNewNameForm">
+            <result name="success">/input-branch/add-input-form-name.jsp</result>
+            <result name="error">/input-branch/success.jsp</result>
+        </action>         
+        <action name="saveFormName" class="vbsp.ims.branch.ActionConfigBranch" method="saveAddNameForm">
+            <result name="success">/input-branch/success.jsp</result>
+            <result name="error">/input-branch/success.jsp</result>
+        </action>
+        
+        <action name="Themmoichitieu" class="vbsp.ims.branch.ActionConfigBranch"  method="Themmoichitieu">
+            <result name="success" type="json"></result>        
+        </action>   
+        
+<!--         <action name="LoadAllMauNhaplieu" class="vbsp.ims.branch.ActionConfigBranch"  method="LoadAllMauNhaplieu">
+            <result name="success" type="json"></result>        
+        </action>  -->
+        
+        <action name="LoadDanhmucchitieu" class="vbsp.ims.branch.ActionConfigBranch" method="LoadDanhmucchitieu">
+            <result name="success">/input-branch/danhmuc-maunhaptay.jsp</result>
+            <result name="error">/input-branch/success.jsp</result>
+        </action>
+        <action name="saveChitieunhaptay" class="vbsp.ims.branch.ActionConfigBranch" method="saveChitieunhaptay">
+            <result name="success">/input-branch/success.jsp</result>
+            <result name="error">/input-branch/success.jsp</result>
+        </action>
+          <action name="LoadGroupRpt" class="vbsp.ims.branch.ActionConfigBranch" method="LoadGroupRpt">
+            <result name="success">/input-branch/load-nhombc-edit-delete.jsp</result>
+            <result name="error">/input-branch/success.jsp</result>
+        </action>
+        
+         <action name="LoadAllBCEditDel" class="vbsp.ims.branch.ActionConfigBranch" method="LoadAllBCEditDel">
+            <result name="success">/input-branch/edit-del-maubc.jsp</result>
+            <result name="error">/input-branch/success.jsp</result>
+        </action>
+         <action name="deleteMaubc" class="vbsp.ims.branch.ActionConfigBranch" method="deleteMaubc">
+            <result name="success">/input-branch/success.jsp</result>
+            <result name="error">/input-branch/success.jsp</result>
+        </action>
+        
+        <action name="loadCauhinhChieuCotDulieu" class="vbsp.ims.branch.ActionConfigBranch" method="loadCauhinhChieuCotDulieu">
+            <result name="CT">/input-branch/input-branch-chitieu.jsp</result>
+            <result name="TB">/input-branch/input-branch-bang.jsp</result>
+            <result name="QR">/input-branch/input-branch-truyvan.jsp</result>
+            <result name="error">/input-branch/success.jsp</result>
+        </action>
+                
+        <action name="loadThamsochomau" class="vbsp.ims.branch.ActionConfigBranch" method="loadThamsochomau">
+            <result name="success">/input-branch/input-branch-parameter.jsp</result>
+            <result name="error">/input-branch/success.jsp</result>
+        </action>
+        
+        <action name="showdialog" class="vbsp.ims.branch.ActionConfigBranch" method="showdialog">
+            <result name="success">/input-branch/dialog-danhmuc-config.jsp</result>
+            <result name="error">/input-branch/success.jsp</result>
+        </action>
+        
+         <action name="loadDulieuMau" class="vbsp.ims.branch.ActionConfigBranch" method="loadDulieuMau">
+            <result name="success">/input-branch/table-data-input-branch.jsp</result>
+            <result name="error">/input-branch/success.jsp</result>
+        </action>
+        
+        <action name="saveDulieuNhaptay" class="vbsp.ims.branch.ActionConfigBranch" method="saveDulieuNhaptay">
+            <result name="success">/input-branch/success.jsp</result>
+            <result name="error">/input-branch/success.jsp</result>
+        </action>
+        
+           <!--gui so lieu -->
+        <action name="sendDulieuNhapTaySync" class="vbsp.ims.branch.ActionConfigBranch"  method="sendDulieuNhapTaySync">
+            <result name="success">/input-branch/success.jsp</result>
+            <result name="error">/input-branch/success.jsp</result>        
+        </action>
+        
+<!--        <action name="saveFormName" class="vbsp.ims.branch.ActionConfigBranch" method="saveAddNameForm">
+            <result name="success">/success.jsp</result>
+            <result name="error">/success.jsp</result>  
+        </action>-->
+<!--        <action name="loadPageMainCic" class="vbsp.ims.bctccic.BCTCCICAction" method="loadPageMain">
+            <result name="success">/bctc_cic/main-cic-info.jsp</result>
+            <result name="error">/bctc_cic/success.jsp</result>
+        </action>-->
+               
+<!--        <action name="loadModuleCic" class="vbsp.ims.bctccic.BCTCCICAction"  method="loadModuleCic">
+            <result name="success" type="json"></result>     
+             <result name="success">/bctc_cic/loai-module-cic.jsp</result>
+            <result name="error">/bctc_cic/success.jsp</result>   
+        </action> -->
+        
+<!--        
+        <action name="loadDataDoanhnghiep" class="vbsp.ims.bctccic.BCTCCICAction" method="loadDataDoanhnghiep">
+            <result name="CIC001">/bctc_cic/table-candoiketoan.jsp</result>
+            <result name="CIC002">/bctc_cic/table-candoiketoan.jsp</result>
+            <result name="CIC003">/bctc_cic/table-candoiketoan.jsp</result>
+            <result name="CIC004">/bctc_cic/table-candoiketoan.jsp</result>
+            <result name="checksend">/bctc_cic/table_unlock.jsp</result>
+            <result name="error">/bctc_cic/success.jsp</result>
+        </action>
+        <action name="saveBctcCic" class="vbsp.ims.bctccic.BCTCCICAction" method="saveBctcCic">
+            <result name="success">/bctc_cic/success.jsp</result>
+            <result name="error">/bctc_cic/success.jsp</result>
+        </action>
+        
+        gui so lieu 
+        <action name="sendCIC" class="vbsp.ims.bctccic.BCTCCICAction"  method="sendCIC">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>-->
+                
+    </package>
+</struts>

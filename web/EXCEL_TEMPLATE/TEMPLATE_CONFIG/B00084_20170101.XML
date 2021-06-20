@@ -1,0 +1,110 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="B00084_20170101.xlsx" fileOutFormat="PARA_MAPGD_DDMMYYYY_SBV_47">
+   <title>Báo cáo lãi suất đối với nền kinh tế ( 047-CSTT)</title>
+   <userName>ADMIN06</userName>
+   <date>20-Oct-2016 21:33:378</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MAPGD" class="java.lang.String" description="Mã phòng giao dịch"/>
+<parameter name="PARA_TONGHOP" class="java.lang.String" description="Tổng hợp"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+
+
+<queryString id="1" maplist="header" description="lấy tiêu đề" key_group="EMPTY" value_group="EMPTY"><![CDATA[select 'A00034_047-DBTK' STR1,PO_MASBV STR2,PO_MASBV STR3, to_char(sysdate,'DDMMYYYY') STR4, 'TRUNGNT' STR5,'ID DUYET' STR6  from dmpos where po_ma= $P{PARA_MAPGD}]]></queryString>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<queryString id="3" maplist="data1" description="Số liệu cột D2" key_group="EMPTY" value_group="EMPTY"><![CDATA[SELECT 
+replace(to_char(SUM(CASE WHEN TT_DONG = 1 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')  STR1, 
+ replace(to_char(SUM(CASE WHEN TT_DONG = 2 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')  STR2,
+ replace(to_char(SUM(CASE WHEN TT_DONG = 3 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')   STR3,
+ replace(to_char(SUM(CASE WHEN TT_DONG = 4 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')   STR4, 
+ replace(to_char(SUM(CASE WHEN TT_DONG = 5 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')  STR5, 
+ replace(to_char(SUM(CASE WHEN TT_DONG = 6 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')   STR6, 
+ replace(to_char(SUM(CASE WHEN TT_DONG = 7 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')   STR7, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 8 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')   STR8, 
+ replace(to_char(SUM(CASE WHEN TT_DONG = 9 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')   STR9, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 10 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')   STR10, 
+ replace(to_char(SUM(CASE WHEN TT_DONG = 11 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')   STR11,
+ replace(to_char(SUM(CASE WHEN TT_DONG = 12 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')   STR12, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 13 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')   STR13, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 14 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')   STR14, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 15 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')   STR15,
+replace(to_char(SUM(CASE WHEN TT_DONG = 16 and D2 > 0 THEN D2 else '' END ),'9G990D99'),'.',',')   STR16 
+ FROM  SBV_DULIEU Where KHOA='SBV_047_CSTT'
+AND NGAYBC =  $P{PARA_NGAYBC}
+AND DECODE (VBSP_PUBLIC_FUNCTION.F_GET_REPORT_GRADE ( $P{PARA_MAPGD},                          $P{PARA_TONGHOP}),1, MAPGD, 2, MACN,3, '1') = (CASE WHEN VBSP_PUBLIC_FUNCTION.F_GET_REPORT_GRADE ( $P{PARA_MAPGD}, $P{PARA_TONGHOP}) =3 THEN '1' ELSE $P{PARA_MAPGD} END)
+]]></queryString>
+
+
+<queryString id="2" maplist="data" description="Lấy dữ liệu cột D1" key_group="EMPTY" value_group="EMPTY"><![CDATA[select
+replace(to_char(SUM(CASE WHEN TT_DONG = 1 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',') STR1, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 2 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR2,
+replace(to_char(SUM(CASE WHEN TT_DONG = 3 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',') STR3,
+replace(to_char(SUM(CASE WHEN TT_DONG = 4 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR4, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 5 and D1 > 0 THEN D1 else ''  END ),'9G990D99'),'.',',') STR5, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 6 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR6, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 7 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR7, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 8 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR8, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 9 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR9, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 10 and D1 > 0  THEN D1 else ''  END ),'9G990D99'),'.',',')  STR10,
+replace(to_char(SUM(CASE WHEN TT_DONG = 11 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR11, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 12 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR12,
+replace(to_char(SUM(CASE WHEN TT_DONG = 13 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR13, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 14 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR14, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 15 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR15, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 16 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR16,
+replace(to_char(SUM(CASE WHEN TT_DONG = 17 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR17,  
+replace(to_char(SUM(CASE WHEN TT_DONG = 18 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR18, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 19 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR19, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 20 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR20, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 21 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR21, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 22 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR22, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 23 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR23, 
+replace(to_char(SUM(CASE WHEN TT_DONG = 24 and D1 > 0 THEN D1 else '' END ),'9G990D99'),'.',',')  STR24 FROM SBV_DULIEU
+WHERE KHOA = 'SBV_047_CSTT' AND NGAYBC =  $P{PARA_NGAYBC}
+AND DECODE (VBSP_PUBLIC_FUNCTION.F_GET_REPORT_GRADE ( $P{PARA_MAPGD},                          $P{PARA_TONGHOP}),1, MAPGD, 2, MACN,3, '1') = (CASE WHEN VBSP_PUBLIC_FUNCTION.F_GET_REPORT_GRADE ( $P{PARA_MAPGD}, $P{PARA_TONGHOP}) =3 THEN '1' ELSE $P{PARA_MAPGD} END)
+]]></queryString>
+</excel_template>

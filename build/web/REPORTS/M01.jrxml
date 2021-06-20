@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="M01" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5b2a571e-d357-4b27-b288-71d3afe7dfd0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\CVTTBC\\VB819\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TONGHOP" class="java.lang.String"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<parameter name="PARA_MAXA" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select distinct A.pos_cd, COMMUNE_ID maxa,
+(select x.ten xa FROM dmxa x WHERE x.ma = COMMUNE_ID) tenxa,REPORT_DT
+from DG_COMMUNE_ASSESS_DTLS A, dmpos Y,
+     (SELECT PO_POSFLG, PO_MACN, PO_MA FROM dmpos WHERE PO_MA = $P{PARA_MAPGD}) Z
+WHERE
+ a.pos_cd = y.PO_MA
+and REPORT_DT = $P{PARA_NGAYBC}
+and DECODE(Z.PO_POSFLG,'H',1,'S',Y.PO_MA, Y.PO_MACN) = DECODE(Z.PO_POSFLG,'H',1,Z.PO_MA)
+and decode(trim($P{PARA_MAXA}),null,'A',trim($P{PARA_MAXA})) = decode(trim($P{PARA_MAXA}),null,'A',COMMUNE_ID)
+  AND DECODE('Y',$P{PARA_TONGHOP},1,Y.PO_MA) = DECODE('Y',$P{PARA_TONGHOP},1,$P{PARA_MAPGD})
+ORDER BY a.pos_cd,maxa]]>
+	</queryString>
+	<field name="POS_CD" class="java.lang.String"/>
+	<field name="MAXA" class="java.lang.String"/>
+	<field name="TENXA" class="java.lang.String"/>
+	<field name="REPORT_DT" class="java.sql.Timestamp"/>
+	<group name="XA_GRP" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{MAXA}]]></groupExpression>
+		<groupHeader>
+			<band height="101">
+				<staticText>
+					<reportElement uuid="5d549f47-03f2-4bba-84c4-d721bdd88f5c" x="0" y="41" width="555" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="13" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[TIÊU CHÍ CHẤM ĐIỂM ĐÁNH GIÁ CHẤT LƯỢNG HOẠT ĐỘNG TÍN DỤNG CHÍNH SÁCH]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="ae4c18b9-db72-4dad-8a52-2a35232ef653" x="447" y="0" width="108" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<text><![CDATA[Mẫu số: 01/CĐTD]]></text>
+				</staticText>
+				<subreport>
+					<reportElement uuid="139d35de-a860-47c3-aeec-a8b889d5155a" x="0" y="0" width="423" height="37"/>
+					<subreportParameter name="POS_CD">
+						<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="CONS_FLAG">
+						<subreportParameterExpression><![CDATA[$P{PARA_TONGHOP}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["mainpos_subpos.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport>
+					<reportElement uuid="8880ea2b-b44d-4305-a2fc-b077957ebf8a" x="200" y="81" width="180" height="20"/>
+					<subreportParameter name="PARA_NGAYBC">
+						<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["quy_cdtd.jasper"]]></subreportExpression>
+				</subreport>
+				<textField>
+					<reportElement uuid="acbbf72e-3fbd-43c2-a7e7-bfcd24e3dd17" x="42" y="62" width="464" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="13" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["XÃ (PHƯỜNG, THỊ TRẤN): " + $F{TENXA}.toUpperCase()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="f63e1450-c6ad-4ad1-a01a-1f0feeca0e88" x="0" y="0" width="200" height="42"/>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_MAXA">
+					<subreportParameterExpression><![CDATA[$F{MAXA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["M01_CDTD01.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement uuid="8d33434f-ca70-4fc9-91b9-d39b6c666b73" x="0" y="0" width="200" height="50"/>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_MAXA">
+					<subreportParameterExpression><![CDATA[$F{MAXA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["M01_CDTD02.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

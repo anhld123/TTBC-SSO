@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HOPDONGTINDUNG" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ea5e9b5c-16a0-4637-9962-711a4619be28">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="493"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String"/>
+	<parameter name="PARA_NGAYBC" class="java.lang.String"/>
+	<parameter name="PARA_SOKU" class="java.lang.String"/>
+	<parameter name="PARA_LANHDAO" class="java.lang.String"/>
+	<parameter name="PARA_CHUCVU" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["G:\\ireport\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+       A.ku_makh,
+       B.KH_TENKH,
+       to_char(B.KH_NGAYSINH,'DD/MM/YYYY') KH_NGAYSINH,
+       SUBSTR(round(months_between($P{PARA_NGAYBC},B.KH_NGAYSINH)/12,2),1,2) TUOI,
+       B.KH_CMT CMT,
+       to_char(B.KH_NGAYCAP,'DD/MM/YYYY') NGAYCAP,
+       B.KH_NOICAP NOICAP,
+       substr(B.KH_DIACHI,3,20) DIACHI,
+       C.TEN TENPHUONG,
+       D.TEN TENCN,
+       B.KH_MOBILE MOBILE,
+       A.ku_soku SO_KU,
+       A.KU_LSUAT LSUAT,
+       A.KU_MUCVAY SOTIEN_VAY,
+       F_AMOUNT_IN_WORDS(A.KU_MUCVAY,'704') work,
+       to_char(A.KU_NGAYDHAN_1,'DD/MM/YYYY') NGAYDENHAN,
+       $P{PARA_LANHDAO} TEN_LD,
+       $P{PARA_CHUCVU} CHUCVU,
+       round(MONTHS_BETWEEN (A.KU_NGAYDHAN_1,sysdate),0) SOTHANG,
+       TO_CHAR(sysdate, 'dd') NGAY,
+       TO_CHAR(sysdate, 'mm') THANG,
+       TO_CHAR(sysdate, 'yyyy') NAM
+  FROM hscv_daily A,
+       hskh B,
+       DMXA C,
+       DMTINH D
+ WHERE     ku_mapgd = $P{PARA_MAPGD}
+       AND ku_ngaybc = $P{PARA_NGAYBC}
+       AND A.KU_GNGAN = 0
+       AND A.KU_MAKH = B.KH_MAKH
+       AND SUBSTR (A.KU_MADP, 1, 6) = C.MA
+       AND C.TRANGTHAI = 'A'
+       and a.ku_soku = $P{PARA_SOKU}
+       AND SUBSTR (A.KU_MADP, 1, 2) = D.MA]]>
+	</queryString>
+	<field name="KU_MAKH" class="java.lang.String"/>
+	<field name="KH_TENKH" class="java.lang.String"/>
+	<field name="KH_NGAYSINH" class="java.lang.String"/>
+	<field name="TUOI" class="java.lang.String"/>
+	<field name="CMT" class="java.lang.String"/>
+	<field name="NGAYCAP" class="java.lang.String"/>
+	<field name="NOICAP" class="java.lang.String"/>
+	<field name="DIACHI" class="java.lang.String"/>
+	<field name="TENPHUONG" class="java.lang.String"/>
+	<field name="TENCN" class="java.lang.String"/>
+	<field name="MOBILE" class="java.lang.String"/>
+	<field name="SO_KU" class="java.lang.String"/>
+	<field name="LSUAT" class="java.math.BigDecimal"/>
+	<field name="SOTIEN_VAY" class="java.math.BigDecimal"/>
+	<field name="WORK" class="java.lang.String"/>
+	<field name="NGAYDENHAN" class="java.lang.String"/>
+	<field name="TEN_LD" class="java.lang.String"/>
+	<field name="CHUCVU" class="java.lang.String"/>
+	<field name="SOTHANG" class="java.math.BigDecimal"/>
+	<field name="NGAY" class="java.lang.String"/>
+	<field name="THANG" class="java.lang.String"/>
+	<field name="NAM" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="118" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="f593831f-6017-4a88-8d33-ebdbcdaef196" x="162" y="17" width="242" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="12" isBold="false" isUnderline="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Độc lập - Tự do - Hạnh phúc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fdef3724-46b0-4cb3-95ae-8a33019850ef" x="162" y="1" width="242" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2e35bfc7-d1a7-4f0f-a349-dd021bf61253" x="404" y="17" width="151" height="42"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Lập 02 liên
+01 liên lưu NH
+01 liên lưu KH
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4ff96e2b-ed86-46e3-968e-8265fd92cbd6" x="404" y="1" width="151" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Mẫu số 07b/GQVL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7a4b29a4-40a0-4bc9-8765-b4a85790f900" x="0" y="59" width="555" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="15" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[HỢP ĐỒNG TÍN DỤNG
+
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="365a4979-d04e-4487-8d25-7fc925e72b94" x="0" y="97" width="555" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="15" isBold="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Áp dụng cho vay đối với người lao động)]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="2c5ec032-3ed7-42de-acfa-09917341a546" x="0" y="79" width="555" height="18"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Số:" +$F{SO_KU}+"/2020/HĐ-TD"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="598" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="af3e7dd9-3919-42c7-9667-afa0155f3d47" x="0" y="0" width="555" height="147"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Căn cứ bộ Luật dân sự và các quy định pháp luật khác có liên quan;
+Căn cứ Luật Việc làm số 38/2013/QH13 ngày 16/11/2013 của Quốc Hội;
+Căn cứ Nghị định số 61/2015/NĐ-CP ngày 09/7/2015 của Chính phủ quy định về chính sách hỗ trợ tạo việc làm và Quỹ quốc gia về việc làm;
+Căn cứ Nghị định số 74/2019/NĐ-CP ngày 23/9/2019 của Chính phủ về sửa đổi, bổ sung một số điều của Nghị định số 61/2015/NĐ-CP ngày 09 tháng 7 năm 2015 của Chính phủ quy định về chính sách hỗ trợ tạo việc làm và Quỹ quốc gia về việc làm;
+Căn cứ văn bản số 8055/NHCS-TDSV ngày 30/10/2019 của Tổng Giám đốc Ngân hàng Chính sách xã hội hướng dẫn nghiệp vụ cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm;
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="77f5410b-6e1e-4066-935d-5da0549adc79" x="0" y="214" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bên cho vay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b5d75497-f176-427f-b244-8cae33c47db6" x="0" y="231" width="555" height="50"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[- Ngân hàng Chính sách xã hội tỉnh Hà Giang.
+- Địa chỉ: Tổ 5, phường Nguyễn Trãi, thành phố Hà Giang, tỉnh Hà Giang.
+- Điện thoại: 02193 866 599.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6e46149a-15a7-42a3-b2bc-bfd33e167e72" x="0" y="299" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bên vay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="11e8cfa8-215f-4c6a-bdff-ea8db99a5861" x="0" y="425" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Điều 1. Nội dung cho vay]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="11d78a52-a0c3-4f77-a29f-4447c54481d7" x="0" y="279" width="555" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Họ và tên người đại diện: Ông " + $F{TEN_LD}+";    Chức vụ: " +$F{CHUCVU}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3b62c588-2f6d-4106-a856-bfa9ce51aded" x="0" y="316" width="555" height="18"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Họ và tên người vay:" + $F{KH_TENKH}+". Tuổi:" + $F{TUOI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7ae552aa-002d-4c23-bf88-adc6f7e3eb97" x="0" y="334" width="555" height="18"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Ngày, tháng, năm sinh:" + $F{KH_NGAYSINH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6edc794b-331f-492b-a8c8-0aa638530e1c" x="0" y="352" width="555" height="18"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Chứng minh nhân dân số:" + $F{CMT} + ",Ngày cấp:" + $F{NGAYCAP}+", Nơi cấp:" + $F{NOICAP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2f59ec19-a433-4376-8b35-35403440af95" x="0" y="370" width="555" height="18"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Nơi đăng ký hộ khẩu thường trú:" + $F{DIACHI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ea99e720-d855-4bd0-ab87-459864306748" x="0" y="388" width="555" height="18"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Điện thoại liên hệ:"+ $F{MOBILE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b5e4b581-e430-4b84-aa36-db6a098ae47b" x="0" y="406" width="555" height="19"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hai Bên cùng thống nhất ký kết Hợp đồng này theo các nội dung thỏa thuận sau đây:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="060d7681-e270-4f6e-a7ce-3f0c39ca324b" x="0" y="442" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1. Tổng số tiền cho vay (bằng số): " + $F{SOTIEN_VAY} + " đồng"]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="06f49935-e807-4e0f-9479-7797ea0d81ea" x="0" y="561" width="555" height="37"/>
+				<subreportParameter name="PARA_SOKU">
+					<subreportParameterExpression><![CDATA[$P{PARA_SOKU}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_MAPGD">
+					<subreportParameterExpression><![CDATA[$P{PARA_MAPGD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARA_NGAYBC">
+					<subreportParameterExpression><![CDATA[$P{PARA_NGAYBC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "HOPDONGTINDUNG_sub1.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement uuid="65784cef-ed56-41dd-9774-079e639561a6" x="0" y="459" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Bằng chữ: " + $F{WORK}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9ab66d5e-aece-4eb7-8443-600aa686ad31" x="0" y="476" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2. Mục tiêu hỗ trợ tạo việc làm, duy trì và mở rộng việc làm cho:   người."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a6e50bed-4354-4116-9b5b-ba1b3b486ab1" x="0" y="510" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["4. Lãi suất tiền vay:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="90efe25b-eab2-468d-8247-30c2bf630fa7" x="0" y="493" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["3. Thời hạn cho vay: " + $F{SOTHANG} + " tháng; Hạn trả nợ cuối cùng ngày: " + $F{NGAYDENHAN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b473ece4-2ecd-4de8-ad06-6249cfedcc75" x="0" y="527" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Lãi suất cho vay: 7.92%/năm"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c34f2a53-d7f8-4fd4-9c57-5c511d5eecf9" x="0" y="544" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- Lãi suất quá hạn: 10.296%/năm"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f824fcdc-e5a7-481f-86e5-e20cf1666083" x="0" y="180" width="555" height="34"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Hôm nay, ngày " + $F{NGAY} + " tháng " + $F{THANG} + " năm " + $F{NAM} + " tại NHCSXH tỉnh " + $F{TENCN} + " chúng tôi gồm:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044870b1-a01a-4e1d-9a63-27312c2c087f" x="0" y="147" width="555" height="33"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Căn cứ phê duyệt cho vay của Giám đốc NHCSXH " + $F{TENCN} + " tại Danh sách hộ gia đình đề nghị vay vốn NHCSXH (mẫu 03/TD)."]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="671">
+			<staticText>
+				<reportElement uuid="1fa1d462-efa9-4d59-8b32-f4a6f95eabc7" x="0" y="65" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Điều 2. Phát tiền vay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="48a9bcc3-33a9-4e91-886b-e24593cb1b83" x="0" y="82" width="555" height="65"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[1. Bên cho vay phát tiền vay một hay nhiều lần cho Bên vay bằng tiền mặt hoặc chuyển khoản theo quy định của pháp luật.
+2. Mỗi lần nhận tiền vay, Bên vay phải mang Hợp đồng tín dụng này để các bên cùng ký xác nhận vào phụ lục hợp đồng tín dụng, phần theo dõi cho vay - thu nợ.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="70e5989f-8062-4a76-9874-3730fc382d35" x="0" y="147" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Điều 3. Mục đích sử dụng tiền vay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ebf3aa10-445f-4fb9-9aa9-395c55dc5ed2" x="0" y="164" width="555" height="33"/>
+				<textElement/>
+				<text><![CDATA[…………………………………………………………………………………….…………………………………………………………………………………….
+…………………………………………………………………………………….…………………………………………………………………………………….]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="490ecbed-4576-405e-bc23-294b3104f6bd" x="0" y="197" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Điều 4. Điều chỉnh kỳ hạn trả nợ, gia hạn nợ, chuyển nợ quá hạn]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="28427187-5fae-430e-80b5-9696b5081e99" x="0" y="214" width="555" height="229"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[a) Điều chỉnh kỳ hạn trả nợ
+Trường hợp Bên vay gặp khó khăn do nguyên nhân khách quan chưa trả được nợ theo đúng kỳ hạn trả nợ thì được theo dõi vào kỳ hạn trả nợ tiếp theo.
+b) Gia hạn nợ
+Đến hạn trả nợ cuối cùng Bên vay chưa trả được nợ do nguyên nhân khách quan và có nhu cầu xin gia hạn nợ, Bên vay phải có Giấy đề nghị gia hạn nợ gửi Bên cho vay trước 05 ngày đến hạn trả nợ để Bên cho vay xem xét cho gia hạn nợ.
+Việc gia hạn nợ có thể một hay nhiều lần, nhưng tối đa không quá thời hạn đã cho vay đối với cho vay từ 12 tháng trở xuống và tối đa không quá 1/2 thời hạn đã cho vay đối với cho vay trên 12 tháng.
+c) Chuyển nợ quá hạn
+Đến hạn cuối cùng của thời hạn cho vay đã thỏa thuận trong Hợp đồng tín dụng, nếu Bên vay không trả hết số nợ gốc và không được Bên cho vay xem xét cho gia hạn nợ, thì Bên cho vay chuyển toàn bộ số dư nợ còn lại sang quá hạn.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f132f5d9-1b03-4072-a088-07254b62c77b" x="0" y="443" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Điều 5. Xử lý các vi phạm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="04ccedb6-0f21-4cb8-8fe3-28f07b9744f6" x="0" y="460" width="555" height="211"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[a) Tạm dừng cho vay: Bên vay vi phạm các cam kết trong Hợp đồng tín dụng và đang trong thời gian khắc phục sửa chữa.
+b) Chấm dứt cho vay: Bên vay vi phạm các cam kết trong Hợp đồng tín dụng nhưng không khắc phục, sửa chữa. Trong thời gian tối đa 03 tháng kể từ thời điểm thông báo cho Bên vay về việc chấm dứt cho vay, Bên cho vay thực hiện thu hồi nợ trước hạn, nếu Bên vay không trả hết số nợ vi phạm thì chuyển số nợ vi phạm còn lại sang quá hạn.
+c) Chuyển nợ quá hạn
+- Đối với trường hợp Bên vay sử dụng vốn vay sai mục đích đã ghi trong Hợp đồng tín dụng và được ghi nhận trong Biên bản kiểm tra, sau thời gian tối đa 30 ngày kể từ ngày phát hiện sai phạm được ghi trong Biên bản kiểm tra, Bên cho vay đã phối hợp với các cơ quan liên quan và chính quyền địa phương áp dụng các biện pháp để đôn đốc, yêu cầu Bên vay thực hiện nghĩa vụ trả nợ, nếu Bên vay không trả hết số nợ sử dụng sai mục đích thì chuyển số nợ sử dụng sai mục đích còn lại sang quá hạn;
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="48d9bd3f-5781-4e5b-aedf-ce659530b419" x="0" y="0" width="555" height="65"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[6. Bên vay có thể trả nợ trước hạn. Trường hợp Bên vay trả nợ trước hạn, trả nợ quá hạn thì thu gốc đến đâu, thu hết lãi tương ứng của phần gốc đó.
+7. Thu nợ, thu lãi
+- Bên cho vay thực hiện thu nợ, thu lãi theo quy định hiện hành của Bên cho vay.]]></text>
+			</staticText>
+		</band>
+		<band height="713">
+			<staticText>
+				<reportElement uuid="5580f1c1-c069-4731-9ab4-c5828e92b811" x="0" y="87" width="555" height="66"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[- Bên vay có nợ quá hạn do nguyên nhân chủ quan nhưng không có biện pháp khả thi để trả Bên cho vay; Bên vay có năng lực tài chính để trả nợ nhưng cố tình trốn tránh trả nợ theo thỏa thuận;
+- Bên vay có hành vi lừa đảo, gian lận;
+- Các vi phạm khác theo quy định của pháp luật.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="55782bbe-f9be-4437-8cb4-deedcfa20095" x="0" y="153" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Điều 6. Quyền và Nghĩa vụ của Bên cho vay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="859424cb-18ca-420d-9d3c-29d12b735d34" x="0" y="170" width="555" height="99"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[1. Thực hiện đúng những nội dung đã thoản thuận;
+2. Yêu cầu Bên vay thực hiện đúng các điều khoản thỏa thuận;
+3. Yêu cầu Bên vay cung cấp các tài liệu, thông tin cần thiết liên quan đến món vay;
+4. Kiểm tra, giám sát tình hình sử dụng vốn vay, khả năng trả nợ của Bên vay;
+5. Từ chối các yêu cầu của Bên vay không đúng với quy định của pháp luật và thỏa thuận trong Hợp đồng này.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c3044150-6d7e-4a01-b56e-567d5b7317e5" x="0" y="269" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Điều 7. Quyền và Nghĩa vụ của Bên vay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="06e7cdfa-8295-4e0f-a0a5-65b167540c1a" x="0" y="284" width="555" height="146"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[1. Thực hiện đúng những nội dung đã thoản thuận;
+2. Được quyền yêu cầu Bên cho vay thực hiện đúng các điều khoản thỏa thuận;
+3. Cung cấp đầy đủ, kịp thời, trung thực các thông tin, tài liệu liên quan đến vay vốn và chịu trách nhiệm trước pháp luật về tính chính xác của các thông tin, tài liệu đã cung cấp;
+4. Sử dụng vốn vay đúng mục đích; báo cáo việc sử dụng vốn vay và cung cấp tài liệu chứng minh việc sử dụng vốn vay theo Hợp đồng này;
+5. Chịu sự kiểm tra, giám sát của Bên cho vay trong sử dụng vốn vay và trả nợ;
+6. Phải thông báo kịp thời cho Bên cho vay những thay đổi về nơi cư trú, địa chỉ liên lạc, số điện thoại và những thay đổi khác ảnh hưởng đến khả năng trả nợ của Bên vay.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1b44191e-2580-4a5f-875f-7c6b5e6d3454" x="0" y="430" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Điều 8. Cam kết chung]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="abf83dc8-b6ec-4a45-a811-fb64610ede4a" x="0" y="447" width="555" height="162"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[1. Hai bên cam kết thực hiện đúng các điều khoản của Hợp đồng tín dụng
+này. Mọi sửa đổi, bổ sung nội dung của các điều, khoản phải được sự thỏa thuận
+của hai bên bằng văn bản.
+2. Trong quá trình thực hiện, nếu có tranh chấp xảy ra thì hai bên thống nhất giải quyết trên tinh thần hợp tác. Trường hợp không thương lượng được thì yêu cầu cơ quan có thẩm quyền giải quyết hoặc khởi kiện theo pháp luật.
+3. Hợp đồng này và các văn bản bổ sung hợp đồng (nếu có) là một bộ phận thống nhất không thể tách rời nhau, các Bên phải có nghĩa vụ chấp hành.
+4. Khi Bên vay trả hết nợ gốc, lãi và các chi phí phát sinh khác (nếu có) theo Hợp đồng này, thì Hợp đồng này mặc nhiên được thanh lý.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9cb76a76-e254-4d44-84a6-cddd18138209" x="0" y="609" width="555" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Điều 9. Một số thỏa thuận khác]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fac0d3a5-08b2-4415-9d72-ef4370b4cf9b" x="0" y="626" width="555" height="18"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[……………………………………………………………………………………]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="06dd4014-2081-46de-a4ce-9eaf513d3ea6" x="0" y="644" width="555" height="18"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Điều 10.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cf1f3196-0d72-4ee3-886b-e89474fbebeb" x="0" y="662" width="555" height="51"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Hợp đồng tín dụng có hiệu lực kể từ ngày ký cho tới khi Bên vay hoàn thành nghĩa vụ trả nợ bao gồm cả tiền gốc, lãi và các chi phí phát sinh khác (nếu có).
+Hợp đồng này được lập thành 02 bản có giá trị pháp lý như nhau, mỗi bên giữ 01 bản./.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="54d0a880-93ee-40ad-a484-e781b30785fe" x="0" y="0" width="555" height="87"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[- Đối với trường hợp quy định tại Khoản c Điều 4 Hợp đồng này.
+Khi chuyển nợ quá hạn, Bên cho vay gửi thông báo cho Bên vay, đồng thời phối hợp với các cơ quan lien quan, chính quyền địa phương tìm biện pháp tích cực thu hồi nợ hoặc chuyển hồ sơ sang cơ quan pháp luật để xử lý thu hồi theo quy định của pháp luật.
+d) Khởi kiện trước pháp luật: Bên cho vay có quyền khởi kiện trong các trường hợp sau:
+- Bên vay vi phạm Hợp đồng tín dụng đã được Bên cho vay thông báo bằng văn bản nhưng không khắc phục;]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="100" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e05025ea-7e37-4243-bf46-d522359d8003" x="354" y="0" width="154" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[ĐẠI DIỆN BÊN CHO VAY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3858fed6-8e37-485c-b0fc-3e22cbddae7e" x="354" y="15" width="154" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Ký, ghi rõ họ tên và đóng dấu)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cedf784c-a6e2-4455-94af-2e0fc40eef30" x="49" y="15" width="155" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[(Ký, ghi rõ họ tên và đóng dấu)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aa6f4183-62fa-4732-9d09-54d9dc61be86" x="49" y="0" width="155" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[ĐẠI DIỆN BÊN VAY]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TCTD-BC05_SUBREPORT_1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT 'ABC' NAME,'XYZ' POSITION,'1' TYPE,'3.TYPE 1' NAME_OF_TYPE FROM DUAL]]>
+	</queryString>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="POSITION" class="java.lang.String"/>
+	<field name="TYPE" class="java.lang.String"/>
+	<field name="NAME_OF_TYPE" class="java.lang.String"/>
+	<group name="TYPE">
+		<groupExpression><![CDATA[$F{TYPE}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62">
+			<staticText>
+				<reportElement x="0" y="2" width="278" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[I - Đặc điểm hoạt động của tổ chức tín dụng ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="18" width="278" height="30"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[1. Giấy phép thành lập và hoạt động:
+Thời hạn có giá trị: 99 năm
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="47" width="278" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[2. Hình thức sở hữu vốn: Nhà nước sở hữu. ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement x="277" y="0" width="100" height="15" isRemoveLineWhenBlank="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Chức danh:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="15" isRemoveLineWhenBlank="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tên: ]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="125">
+			<staticText>
+				<reportElement x="0" y="33" width="377" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[II - Kỳ kế toán, đơn vị tiền tệ sử dụng trong kế toán]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="48" width="377" height="28"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[1. Kỳ kế toán năm (bắt đầu từ ngày 01/01 kết thúc vào ngày 31/12)
+2. Đơn vị tiền tệ sử dụng trong kế toán: Đồng Việt Nam (VNĐ)
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[5. Trụ sở chính: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="14" width="277" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[6. Tổng số cán bộ, công nhân : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="0" width="100" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Số chi nhánh: ]]></text>
+			</staticText>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="76" width="378" height="49"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA["/TCTD-BC05_SUBREPORT_2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

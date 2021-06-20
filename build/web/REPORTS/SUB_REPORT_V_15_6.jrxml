@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUB_REPORT_V_15_6" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TONGHOP" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_NGAYBC" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[/* Formatted on 6/24/2014 3:46:08 PM (QP5 v5.252.13127.32847) */
+SELECT A.DESCRIPT,
+       A.CAPITAL,
+       A.eval_back_asset,
+       A.exchange_rate,
+       A.dev_invest_fund,
+       A.reserve_fund,
+       A.add_cap_reserve_fund,
+       A.other_funds_equity,
+       A.Undist_profit_after_tax,
+       A.other_equity,
+       A.GROUP_TYPE,
+       A.GROUP_NAME
+  FROM ((
+SELECT 'Số dư đầu kỳ' DESCRIPT, DN_TK_SBV ($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'601','P') capital,
+0 eval_back_asset,
+DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'631','P') exchange_rate,
+DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'612','P') dev_invest_fund,
+DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'613','P') reserve_fund,
+DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'611','P') add_cap_reserve_fund,
+(DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'62','P')+
+DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'619','P')) other_funds_equity,
+DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'69','P') Undist_profit_after_tax,
+(DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'602','P')+
+DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'609','P')) other_equity,
+1 GROUP_TYPE,'Số dư đầu kỳ' GROUP_NAME, 1 SEQ FROM DUAL)
+UNION
+(SELECT '- Tăng vốn trong kỳ' DESCRIPT,
+NVL (FUNC_TOT_CR_DR_AMT('601',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','C',1), 0) CAPITAL,
+0 eval_back_asset,
+NVL (FUNC_TOT_CR_DR_AMT('631',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','C',1), 0) exchange_rate,
+NVL (FUNC_TOT_CR_DR_AMT('612',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','C',1), 0) dev_invest_fund,
+NVL (FUNC_TOT_CR_DR_AMT('613',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','C',1), 0) reserve_fund,
+NVL (FUNC_TOT_CR_DR_AMT('611',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','C',1), 0) add_cap_reserve_fund,
+(NVL (FUNC_TOT_CR_DR_AMT('62',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','C',1), 0) +
+NVL (FUNC_TOT_CR_DR_AMT('619',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','C',1), 0) )other_funds_equity,
+NVL (FUNC_TOT_CR_DR_AMT('69',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','C',1), 0) Undist_profit_after_tax,
+(NVL (FUNC_TOT_CR_DR_AMT('602',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','C',1), 0)+
+NVL (FUNC_TOT_CR_DR_AMT('609',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','C',1), 0)) other_equity,
+2 GROUP_TYPE,'Tăng trong kỳ' GROUP_NAME, 1 SEQ FROM DUAL)
+UNION
+(SELECT '- Lợi nhuận tăng trong kỳ' DESCRIPT,
+NULL CAPITAL, NULL eval_back_asset, NULL exchange_rate,
+NULL dev_invest_fund,NULL reserve_fund, NULL add_cap_reserve_fund, NULL other_funds_equity,
+NULL Undist_profit_after_tax,
+NULL other_equity,2 GROUP_TYPE,'Tăng trong kỳ' GROUP_NAME, 2 SEQ FROM DUAL)
+UNION
+(SELECT '- Trích bổ sung các quỹ cho kỳ trước' DESCRIPT,NULL CAPITAL, NULL eval_back_asset, NULL exchange_rate,
+NULL dev_invest_fund,NULL reserve_fund, NULL add_cap_reserve_fund, NULL other_funds_equity,
+NULL Undist_profit_after_tax, NULL other_equity,2 GROUP_TYPE,'Tăng trong kỳ' GROUP_NAME, 3 SEQ FROM DUAL)
+UNION
+(SELECT '- Tạm trích lập các quỹ dự trữ cho kỳ' DESCRIPT,NULL CAPITAL, NULL eval_back_asset, NULL exchange_rate,
+NULL dev_invest_fund,NULL reserve_fund, NULL add_cap_reserve_fund, NULL other_funds_equity,
+NULL Undist_profit_after_tax, NULL other_equity, 2 GROUP_TYPE,'Tăng trong kỳ' GROUP_NAME, 4 SEQ FROM DUAL)
+UNION
+(SELECT '- Chuyển từ quỹ dự trữ sang vốn' DESCRIPT,NULL CAPITAL, NULL eval_back_asset, NULL exchange_rate,
+NULL dev_invest_fund,NULL reserve_fund, NULL add_cap_reserve_fund, NULL other_funds_equity,
+NULL Undist_profit_after_tax, NULL other_equity, 2 GROUP_TYPE,'Tăng trong kỳ' GROUP_NAME, 5 SEQ FROM DUAL)
+UNION
+(SELECT '- Chuyển khoản thu sử dụng vốn sang quỹ dự trữ bổ sung vốn điều lệ' DESCRIPT,NULL CAPITAL,
+NULL eval_back_asset, NULL exchange_rate, NULL dev_invest_fund,NULL reserve_fund,
+NULL add_cap_reserve_fund, NULL other_funds_equity,
+NULL Undist_profit_after_tax, NULL other_equity, 2 GROUP_TYPE,'Tăng trong kỳ' GROUP_NAME, 6 SEQ FROM DUAL)
+UNION
+(SELECT '- Trích bổ sung quỹ lương theo kết quả hoạt động kinh doanh kỳ trước theo quy định của nhà nước' DESCRIPT,
+NULL CAPITAL, NULL eval_back_asset, NULL exchange_rate,
+NULL dev_invest_fund,NULL reserve_fund, NULL add_cap_reserve_fund, NULL other_funds_equity,
+NULL Undist_profit_after_tax, NULL other_equity, 2 GROUP_TYPE,'Tăng trong kỳ' GROUP_NAME, 7 SEQ FROM DUAL)
+UNION
+(SELECT '- Sử dụng trong kỳ' DESCRIPT,
+NVL (FUNC_TOT_CR_DR_AMT('601',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','D',1), 0) CAPITAL,
+0 eval_back_asset,
+NVL (FUNC_TOT_CR_DR_AMT('631',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','D',1), 0) exchange_rate,
+NVL (FUNC_TOT_CR_DR_AMT('612',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','D',1), 0) dev_invest_fund,
+NVL (FUNC_TOT_CR_DR_AMT('613',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','D',1), 0) reserve_fund,
+NVL (FUNC_TOT_CR_DR_AMT('611',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','D',1), 0) add_cap_reserve_fund,
+(NVL (FUNC_TOT_CR_DR_AMT('62',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','D',1), 0) +
+NVL (FUNC_TOT_CR_DR_AMT('619',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','D',1), 0)) other_funds_equity,
+NVL (FUNC_TOT_CR_DR_AMT('69',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','D',1), 0) Undist_profit_after_tax,
+(NVL (FUNC_TOT_CR_DR_AMT('602',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','D',1), 0)+
+NVL (FUNC_TOT_CR_DR_AMT('609',$P{PARA_MAPGD},$P{PARA_TONGHOP},ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_NGAYBC},'FCY','D',1), 0)) other_equity,
+3 GROUP_TYPE,'Giảm trong kỳ' GROUP_NAME, 1 SEQ FROM DUAL)
+UNION
+(SELECT '- Các khoản giảm khác' DESCRIPT,NULL CAPITAL,
+NULL eval_back_asset, NULL exchange_rate, NULL dev_invest_fund,NULL reserve_fund,
+NULL add_cap_reserve_fund, NULL other_funds_equity,
+NULL Undist_profit_after_tax, NULL other_equity, 3 GROUP_TYPE,'Giảm trong kỳ' GROUP_NAME, 2 SEQ FROM DUAL)
+UNION
+(SELECT 'Số dư cuối kỳ' DESCRIPT,
+DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'601','P') capital,
+0 eval_back_asset,
+DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'631','P') exchange_rate,
+DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'612','P') dev_invest_fund,
+DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'613','P') reserve_fund,
+DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'611','P') add_cap_reserve_fund,
+(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'62','P')+
+DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'619','P')) other_funds_equity,
+DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'69','P') Undist_profit_after_tax,
+(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'602','P')+
+DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'609','P')) other_equity,
+4 GROUP_TYPE,'Số dư cuối kỳ' GROUP_NAME, 1 SEQ FROM DUAL)) A ORDER BY A.GROUP_TYPE,A.SEQ]]>
+	</queryString>
+	<field name="DESCRIPT" class="java.lang.String"/>
+	<field name="CAPITAL" class="java.math.BigDecimal"/>
+	<field name="EVAL_BACK_ASSET" class="java.math.BigDecimal"/>
+	<field name="EXCHANGE_RATE" class="java.math.BigDecimal"/>
+	<field name="DEV_INVEST_FUND" class="java.math.BigDecimal"/>
+	<field name="RESERVE_FUND" class="java.math.BigDecimal"/>
+	<field name="ADD_CAP_RESERVE_FUND" class="java.math.BigDecimal"/>
+	<field name="OTHER_FUNDS_EQUITY" class="java.math.BigDecimal"/>
+	<field name="UNDIST_PROFIT_AFTER_TAX" class="java.math.BigDecimal"/>
+	<field name="OTHER_EQUITY" class="java.math.BigDecimal"/>
+	<field name="GROUP_TYPE" class="java.math.BigDecimal"/>
+	<field name="GROUP_NAME" class="java.lang.String"/>
+	<variable name="ROW_TOTAL" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{CAPITAL}.add($F{EXCHANGE_RATE}).add($F{DEV_INVEST_FUND}).add($F{RESERVE_FUND}).add($F{ADD_CAP_RESERVE_FUND}).add($F{OTHER_FUNDS_EQUITY}).add($F{UNDIST_PROFIT_AFTER_TAX}).add($F{OTHER_EQUITY})]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="CAPITAL_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GROUP_TYPE" calculation="Sum">
+		<variableExpression><![CDATA[$F{CAPITAL}]]></variableExpression>
+	</variable>
+	<variable name="EVAL_BACK_ASSET_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GROUP_TYPE" calculation="Sum">
+		<variableExpression><![CDATA[$F{EVAL_BACK_ASSET}]]></variableExpression>
+	</variable>
+	<variable name="EXCHANGE_RATE_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GROUP_TYPE" calculation="Sum">
+		<variableExpression><![CDATA[$F{EXCHANGE_RATE}]]></variableExpression>
+	</variable>
+	<variable name="DEV_INVEST_FUND_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GROUP_TYPE" calculation="Sum">
+		<variableExpression><![CDATA[$F{DEV_INVEST_FUND}]]></variableExpression>
+	</variable>
+	<variable name="RESERVE_FUND_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GROUP_TYPE" calculation="Sum">
+		<variableExpression><![CDATA[$F{RESERVE_FUND}]]></variableExpression>
+	</variable>
+	<variable name="ADD_CAP_RESERVE_FUND_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GROUP_TYPE" calculation="Sum">
+		<variableExpression><![CDATA[$F{ADD_CAP_RESERVE_FUND}]]></variableExpression>
+	</variable>
+	<variable name="OTHER_FUNDS_EQUITY_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GROUP_TYPE" calculation="Sum">
+		<variableExpression><![CDATA[$F{OTHER_FUNDS_EQUITY}]]></variableExpression>
+	</variable>
+	<variable name="UNDIST_PROFIT_AFTER_TAX_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GROUP_TYPE" calculation="Sum">
+		<variableExpression><![CDATA[$F{UNDIST_PROFIT_AFTER_TAX}]]></variableExpression>
+	</variable>
+	<variable name="UNDIST_PROFIT_AFTER_TAX_2" class="java.math.BigDecimal" resetType="Group" resetGroup="GROUP_TYPE" calculation="Sum">
+		<variableExpression><![CDATA[$F{UNDIST_PROFIT_AFTER_TAX}]]></variableExpression>
+	</variable>
+	<variable name="UNDIST_PROFIT_AFTER_TAX_3" class="java.math.BigDecimal" resetType="Group" resetGroup="GROUP_TYPE" calculation="Sum">
+		<variableExpression><![CDATA[$F{UNDIST_PROFIT_AFTER_TAX}]]></variableExpression>
+	</variable>
+	<variable name="OTHER_EQUITY_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GROUP_TYPE" calculation="Sum">
+		<variableExpression><![CDATA[$F{OTHER_EQUITY}]]></variableExpression>
+	</variable>
+	<variable name="GROUP_TOTAL" class="java.math.BigDecimal" resetType="Group" resetGroup="GROUP_TYPE" calculation="Sum">
+		<variableExpression><![CDATA[$F{CAPITAL} + $F{EVAL_BACK_ASSET} + $F{EXCHANGE_RATE} + $F{DEV_INVEST_FUND}
++ $F{RESERVE_FUND} + $F{ADD_CAP_RESERVE_FUND} + $F{OTHER_FUNDS_EQUITY}
++ $F{UNDIST_PROFIT_AFTER_TAX} + $F{OTHER_EQUITY}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<group name="GROUP_TYPE">
+		<groupExpression><![CDATA[$F{GROUP_TYPE}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="554" height="20"/>
+					<box leftPadding="1" rightPadding="1">
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{GROUP_NAME}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="278" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[22. Thuế thu nhập hoãn lại: NHCSXH không có]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="21" width="253" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[23. Vốn và quỹ của Tổ chức tín dụng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="42" width="278" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[23.1. Báo cáo tình hình thay đổi vốn chủ sở hữu:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement x="206" y="53" width="45" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="53" width="45" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="53" width="111" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="0" width="40" height="53"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Quỹ dự
+phòng tài
+chính]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="331" y="0" width="40" height="53"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Quỹ dự trữ
+bổ sung
+vốn điều
+lệ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="0" width="50" height="53"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Vốn góp
+Vốn điều
+lệ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="331" y="53" width="40" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="499" y="53" width="55" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="53" width="42" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[9]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="53" width="40" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="499" y="0" width="55" height="53"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổng cộng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="0" width="45" height="53"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Chênh lệch
+đánh giá
+lại tài sản]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="251" y="53" width="40" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="371" y="0" width="40" height="53"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Quỹ khác
+thuộc vốn
+chủ sở
+hữu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="251" y="0" width="40" height="53"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Quỹ đầu tư
+phát triển]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="111" height="53"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="371" y="53" width="40" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="411" y="0" width="46" height="53"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Lợi nhuận sau thuế chưa phân phối lỗ lũy kế]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="411" y="53" width="46" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[8]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="53" width="50" height="16"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="0" width="42" height="53"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Vốn chủ
+sở hữu
+khác]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="206" y="0" width="45" height="53"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Times New Roman" size="9" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Chênh lệch
+tỷ giá
+hối đoái]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="111" height="20"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESCRIPT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="111" y="0" width="50" height="20"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="6" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CAPITAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="161" y="0" width="45" height="20"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="6" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{EVAL_BACK_ASSET}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="251" y="0" width="40" height="20"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="6" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{DEV_INVEST_FUND}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="291" y="0" width="40" height="20"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="6" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{RESERVE_FUND}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="331" y="0" width="40" height="20"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="6" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{ADD_CAP_RESERVE_FUND}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="371" y="0" width="40" height="20"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="6" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{OTHER_FUNDS_EQUITY}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="411" y="0" width="46" height="20"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="6" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{UNDIST_PROFIT_AFTER_TAX}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="457" y="0" width="42" height="20"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="6" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{OTHER_EQUITY}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="499" y="0" width="55" height="20"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="6" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{ROW_TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="206" y="0" width="45" height="20"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="6" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{EXCHANGE_RATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="100">
+			<staticText>
+				<reportElement x="13" y="0" width="247" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isItalic="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tăng trong kỳ: Lấy PSC các TK tương ứng.
+Giảm trong kỳ: Lấy PSN các TK tương ứng.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="17" width="552" height="83"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.2"/>
+				</textElement>
+				<text><![CDATA[23.2. Thu nhập trên một cổ phiếu: NHCSXH không có
+23.3. Thuyết minh về các công cụ tài chính phức hợp: NHCSXH không có
+23.4. Chi tiết vốn đầu tư của TCTD: NHCSXH không có
+23.5. Cổ tức: NHCSXH không có
+23.6. Cổ phiếu: NHCSXH không có
+]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,10 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<excel_template name="A01634_2_DBTK.xlsx" fileOutFormat="A01634_2_DBTK">
+   <title>2-DBTK - Báo cáo dư nợ tín dụng (Không bao gồm đầu tư trái phiếu DN) bảo lãnh và L/C đ/v LV XNK</title>
+   <userName>ADMIN</userName>
+   <date>08-Feb-2018 10:28:224</date>
+   <parameter name="ORACLE_REF_CURSOR" class="java.sql.ResultSet" description="Tham số mặc định cho cursor khi thực hiện với procedure, package"/>
+   <parameter name="PARA_MAPGD" class="java.lang.String" description="Mã PGD"/>
+<parameter name="PARA_NGAYBC" class="java.lang.String" description="Ngày báo cáo"/>
+<queryString id="1" maplist="header" description="header" key_group="EMPTY" value_group="EMPTY"><![CDATA[select '1' STR1,'1' STR2,'1' STR3, '1' STR4, '1' STR5,'1' STR6  from dual]]></queryString>
+</excel_template>

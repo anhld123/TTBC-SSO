@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bctlsl_date_title" language="groovy" pageWidth="200" pageHeight="30" columnWidth="200" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="para_denngay" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="para_tungay" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select to_char(to_date($P{para_tungay}),'DD/MM/YYYY') tungay,
+to_char(to_date($P{para_denngay}),'DD/MM/YYYY') dengay from dual]]>
+	</queryString>
+	<field name="TUNGAY" class="java.lang.String"/>
+	<field name="DENGAY" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="17" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="0" y="0" width="200" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" pdfFontName="Times-Roman" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Từ ngày " + $F{TUNGAY} + " đến " + $F{DENGAY}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

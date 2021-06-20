@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SUB_REPORT_V_15_3_new" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PARA_MAPGD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_TONGHOP" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARA_NGAYBC" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT A.DESCRIPT, A.ACCOUNT, A.FIRST_PRE_AMT, A.LAST_PRE_AMT,A.GROUP_TYPE,A.GROUP_NAME FROM
+((SELECT 'Tiền gửi của KBNN' DESCRIPT,'TK 401' ACCOUNT,
+(DN_TK_SBV($P{PARA_NGAYBC},$P{PARA_MAPGD},$P{PARA_TONGHOP},'401','P')) LAST_PRE_AMT,
+(DN_TK_SBV(ADD_MONTHS($P{PARA_NGAYBC},-12),$P{PARA_MAPGD},$P{PARA_TONGHOP},'401','P'))  FIRST_PRE_AMT,
+1 GROUP_TYPE, '' GROUP_NAME, 1 SEQ FROM DUAL)
+UNION
+(SELECT 'Tiền gửi của TCKT' DESCRIPT,'Lấy số dư tiền gửi theo loại khách hàng sau: 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 12' ACCOUNT,
+0 LAST_PRE_AMT,
+0 FIRST_PRE_AMT,
+1 GROUP_TYPE, '' GROUP_NAME,1 SEQ FROM DUAL)
+UNION
+(SELECT 'Tiền gửi của cá nhân' DESCRIPT,'Lấy số dư tiền gửi theo loại khách hàng sau: 11' ACCOUNT,
+0 LAST_PRE_AMT,
+0 FIRST_PRE_AMT,
+2 GROUP_TYPE, '' GROUP_NAME, 1 SEQ FROM DUAL)
+UNION
+(SELECT 'Tiền gửi của các đối tượng khác' DESCRIPT,'Lấy số dư tiền gửitheo loại khách hàng sau: 13' ACCOUNT,
+0 LAST_PRE_AMT,
+0 FIRST_PRE_AMT,
+2 GROUP_TYPE, '' GROUP_NAME, 2 SEQ FROM DUAL)
+) A ORDER BY A.GROUP_TYPE,A.SEQ]]>
+	</queryString>
+	<field name="DESCRIPT" class="java.lang.String"/>
+	<field name="ACCOUNT" class="java.lang.String"/>
+	<field name="FIRST_PRE_AMT" class="java.math.BigDecimal"/>
+	<field name="LAST_PRE_AMT" class="java.math.BigDecimal"/>
+	<field name="GROUP_TYPE" class="java.math.BigDecimal"/>
+	<field name="GROUP_NAME" class="java.lang.String"/>
+	<variable name="LAST_PRE_AMT_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{LAST_PRE_AMT}]]></variableExpression>
+	</variable>
+	<variable name="FIRST_PRE_AMT_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{FIRST_PRE_AMT}]]></variableExpression>
+	</variable>
+	<group name="GROUP_TYPE">
+		<groupExpression><![CDATA[$F{GROUP_TYPE}]]></groupExpression>
+		<groupHeader>
+			<band height="17">
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="199" height="17"/>
+					<textElement>
+						<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{GROUP_NAME}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="423" y="29" width="130" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" isUnderline="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Đầu kỳ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="29" width="130" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" isUnderline="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Cuối kỳ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="5" width="376" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Thuyết minh theo đối tượng khách hàng, loại hình doanh nghiệp]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="21" y="0" width="232" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESCRIPT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="288" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{LAST_PRE_AMT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="423" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{FIRST_PRE_AMT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="17">
+			<staticText>
+				<reportElement x="120" y="0" width="100" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Tổng]]></text>
+			</staticText>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="288" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{LAST_PRE_AMT_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="423" y="0" width="130" height="17"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{FIRST_PRE_AMT_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
