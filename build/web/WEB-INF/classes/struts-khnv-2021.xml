@@ -48,7 +48,7 @@
         </action>
                 
         <action name="ExpExcelKhnv01" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="ExpExcelKhnv01">
-            <result name="success">downfile_bcnhanh.jsp</result>  
+            <result name="success">/khnv2021/downfile_excel.jsp</result>  
             <result name="error">/khnv2021/success.jsp</result>        
         </action>
         
