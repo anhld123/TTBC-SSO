@@ -29,7 +29,13 @@
             </result>  
         </action>
     </package>
-    
+     <!-- Configuration for the default package. -->
+    <package name="load_dv" extends="struts-default,json-default">
+
+        <action name="eom_build_module_combo" class="vbsp.ims.action.DcptNoAction" method="getTotruong">
+            <result name="success" type="json"></result>
+        </action>    
+    </package>
     <package name="khnv2021" extends="struts-default">
         <action name="get_data_xaydungkh_2021" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="get_data_xaydungkh_2021">
             <result name="success">/khnv2021/xaydungkh.jsp</result>
@@ -38,8 +44,16 @@
             <result name="success">/khnv2021/xaydung-kh-detail.jsp</result>
             <result name="loadAllCommuneAuth">/khnv2021/table_auth_commune.jsp</result>
             <result name="loadAllSubCommune">/khnv2021/table_all_subcommune_bycommune.jsp</result>            
-            <result name="loadOneSubCommune">/khnv2021/table_detal_by_subcommune.jsp</result>
-            
+            <result name="loadOneSubCommune">/khnv2021/table_detal_by_subcommune.jsp</result>            
+        </action>
+        
+<!--        <action name="reloadSubCommune" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="getSubcommune">
+            <result name="success" type="json"></result>
+        </action> -->
+        
+         <action name="reloadSubCommune" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="getDataXayCommuneDetai">
+            <result name="loadAllSubCommune">khnv2021/table_all_subcommune_bycommune.jsp</result>  
+            <result name="error">/khnv2021/success.jsp</result> 
         </action>
         
         <action name="getDetailKhnvBySubCommune" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="getDataXayCommuneDetai">
@@ -52,10 +66,11 @@
             <result name="error">/khnv2021/success.jsp</result>        
         </action>
         
-<!--        <action name="ExpExcelKhnv02" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="ExpExcelKhnv02">
-            <result name="success">/khnv2021/xaydung-kh-detail.jsp</result>
-            <result name="error">/khnv2021/success.jsp</result>        
-        </action>-->
+        <action name="Lock_Unlock" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="Lock_Unlock">
+            <result name="success">/khnv2021/success.jsp</result>
+        </action>
+        
+
         
         <!-- Author: Nguyễn Phú Vinh -->
         <action name="AuthorProvince" class="vbsp.ims.khnv2021.AuthorAction">
