@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package vbsp.ims.khnv2021;
+package vbsp.ims.khnv2021.dao;
 
 import vbsp.ims.dao.khnv.*;
 import java.sql.CallableStatement;

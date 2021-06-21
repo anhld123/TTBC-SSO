@@ -1,5 +1,6 @@
 package vbsp.ims.khnv2021;
 
+import vbsp.ims.khnv2021.dao.XDKHDao2021;
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import vbsp.ims.action.khnv.*;

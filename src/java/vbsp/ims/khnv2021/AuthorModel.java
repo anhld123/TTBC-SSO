@@ -5,6 +5,7 @@
  */
 package vbsp.ims.khnv2021;
 
+import vbsp.ims.khnv2021.model.PosClass;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;

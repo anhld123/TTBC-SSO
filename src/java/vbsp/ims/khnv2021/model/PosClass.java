@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vbsp.ims.khnv2021;
+package vbsp.ims.khnv2021.model;
 
 public class PosClass {
     private String PosCode;
