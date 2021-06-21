@@ -60,6 +60,7 @@
             font-weight: bold;
             color: #0077b3;
             text-align: center;
+            
         }
         </style>    
         <script>
@@ -67,22 +68,17 @@
             $(document).ready(function () {
                 $('input.number').css({"text-align": "right"});
                 $('input.number2').css({"text-align": "right"});
-                $('.D0').css({"text-align": "center"});               
+//                $('.D0').css({"text-align": "center"});               
                 $('.number').number(true, 0);
 //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 2);
                 $(".SOKU").css({"width": "100%"});
-                $(".TD_CHECKBOX").css({"width": "20px"});
-                $(".TD_SOKU").css({"width": "80px"});
-                $(".TD_TENKH123").css({"width": "110px"});
-                $(".TD_TENTS").css({"width": "190px"});
-                $(".TD_SOTK").css({"width": "105px"});
-                $(".TD_MAKH").css({"width": "60px"});
-                $(".TD_THOIGIAN").css({"width": "55px"});
-                $(".TD_MAPGD").css({"width": "45px"});
-                $(".TD_BUTTON1").css({"width": "40px"});
-                $(".TD_SOTIEN").css({"width": "100px"});
-                $(".TEN_KH").css({"width": "100%"});
+                
+                $(".TD_STT").css({"width": "5%"});
+                $(".TD_GIATRI").css({"width": "8%"});
+                $(".TD_TEN").css({"width": "12%"});
+                $(".TD_CHITIEU").css({"width": "20%"});
+
             });
             $('.TEN_KH').focus(function () {
                 $(this).closest('tr').addClass('highlight_row');
@@ -104,33 +100,6 @@
         }
         
         var max_row = 0;
-//        function initTable()
-//            {
-//                var table = document.getElementById("tablesms01");
-//                var rowcount = table.rows.length;    
-//                rowcount = rowcount > max_row ? rowcount : max_row;                
-//                for (var i = 0; i < rowcount; i++)
-//                {                    
-//                    var matmp = getMabyNumber(i);//    
-//                    if(matmp == 1)
-//                    {
-//                        $('input:checkbox[id='+i+']').attr('checked',true);
-//                    }
-//                }
-//            }
-            
-//            function getMabyNumber(idx)
-//            {
-//                var ma = '';
-//                try {
-//                    var ma_id = 'id_' + idx;
-//                    ma = document.getElementById(ma_id).value;
-//                } catch (e)
-//                {
-//                    ma = '999999';
-//                }
-//                return ma;
-//            }
             
         </script>
         
@@ -156,30 +125,27 @@
                 </div>
                 <s:hidden name="khoa_nhaptaycn"/>
                 </br>
-                <table border="1" class="editDelete" id="tablesms01" style="width: 99%"  align="center">
+                <table border="1" class="editDelete1" id="tablesms011" style="width: 99%" >
                     <tr>                                               
                         <!--<th  class="TD_BUTTON1">STT</th>-->      
-                        <th  class="TD_MAKH">Mã xã</th>    
-                        <th class="TD_TENKH123">Tên xã</th>
-                        <th  class="TD_SOKU">Mã chỉ tiêu</th> 
-                        <th class="TD_TENKH123">Tên chỉ tiêu</th>
-                        <th class="TD_TENKH123">Giá trị</th>
-                        <th class="TD_MAKH">Duyệt</th>       
+                        <th  class="TD_GIATRI">Mã xã</th>    
+                        <th class="TD_TEN">Tên xã</th>
+                        <th  class="TD_STT">Mã chỉ tiêu</th> 
+                        <th class="TD_CHITIEU">Tên chỉ tiêu</th>
+                        <th class="TD_GIATRI">Giá trị</th>
+                        <th class="TD_GIATRI">Duyệt</th>       
                     </tr>                                    
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                                                    
                             <tr> 
                                 <s:if test="D3.equalsIgnoreCase('2B')">
-                                       <td align = "right" class="TD_MAKH" >
-                                        <input type="text"  value="<s:property  value="D1" />"
-                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH D0" onfocus="this.select();"
-                                               readonly="true"/>
-                                    </td>
+                                    <td style="text-align:center" class="TD_GIATRI" >
+                                            <s:property value="D1"/>
+                                        </td>
 
-                                    <td align = "right" class="TD_TENKH123" >
+                                    <td align = "left" class="TD_TEN" >
                                         <a href="javascript:hienthichitiet('<s:property value="D1"/>' )" class="linkKh">
-                                        <s:property value='D2'/> 
-                                    </a>
-
+                                            <s:property value='D2'/> 
+                                        </a>
                                     </td>
                                 </s:if>
                                     <s:else>
@@ -193,26 +159,29 @@
                                 
                                 
                                 
-                                <td align = "center" class="TD_SOKU">
-                                     <input type="text"  value="<s:property  value="D3" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH" onfocus="this.select();"
-                                           readonly="true"/>
+                                <td style="text-align:center"  class="TD_STT">
+                                     <s:property value="D3"/>
                                 </td>
-                                <td align = "center" class="TD_SOKU">
-                                     <input type="text"  value="<s:property  value="D4" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="TEN_KH" onfocus="this.select();"
-                                           readonly="true"/>
+                                <td align = "left" class="TD_CHITIEU">
+                                     <s:property value="D4"/>
                                 </td>
                                 
-                                <td align = "right" class="TD_TENKH123">
-                                    <input type="text"  value="<s:property  value="D5" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();"
-                                           readonly="true"/>
+                                <td style="text-align:right"  class="TD_GIATRI">
+                                    <s:property value="D5"/>
                                 </td>
 
-                                <td align = "right" class="TD_MAKH">
-                                   
-                                </td>                              
+                                <s:if test="D3.equalsIgnoreCase('2B')&& D1.equalsIgnoreCase('000301')">
+                                       <td style="text-align:center"  class="TD_GIATRI" >
+                                            <a href="javascript:hienthichitiet('<s:property value="D1"/>' )" class="linkKh">
+                                            Mở chốt
+                                        </a>
+                                  </s:if>
+                                    <s:if test="D3.equalsIgnoreCase('2B')&& !D1.equalsIgnoreCase('000301')">
+                                       <td style="text-align:center"  class="TD_GIATRI" >
+                                            <a href="javascript:hienthichitiet('<s:property value="D1"/>' )" class="linkKh">
+                                            <font color="red">Chốt</font>
+                                        </a>
+                                  </s:if>      
                         </tr>                                                                                                       
                     </s:iterator>
                 </table>                    

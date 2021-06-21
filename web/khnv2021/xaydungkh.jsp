@@ -38,7 +38,7 @@
             text-align: left;
             padding: 8px;
             border: 1PX solid #f2f2f2;
-            text-align: center;
+            /*text-align: center;*/
         }
 
         tr:nth-child(even){background-color: #f2f2f2}
