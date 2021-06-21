@@ -6,33 +6,72 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<sj:head jqueryui="true" jquerytheme="smoothness"/> 
 <!DOCTYPE html>
-<head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
-</head>
-
-<s:if test="hasActionMessages()">
-    <script>
-        var actionMessages = '';
-        <s:iterator value="actionMessages">
-        actionMessages += '<s:property escape="false"/>' + '\n';
-        </s:iterator>
-        swal('Thành công', actionMessages, 'success');
-    </script>
-</s:if>
-<s:if test="hasActionErrors()">
-    <script>
-        var actionMessages = '';
-        <s:iterator value="actionErrors">
-        actionMessages += '<s:property escape="false"/>' + '\n';
-        </s:iterator>
-
-//        actionMessages = actionMessages.replace(/"/g, '');
-        actionMessages = actionMessages.replace(/<p>/g, '\n');
-        actionMessages = actionMessages.replace(/<strong>/g, '\n');
-        swal('Lỗi', actionMessages, 'error');
-
-    </script>
-</s:if>
+<link rel="stylesheet" type="text/css"  href="css/bcqt.css" />
+<style type="text/css">
+    .errors {
+        color: red;
+        /*        background-color:#FFCCCC;
+                border:1px solid #CC0000;
+                 height: 30px;*/
+    }
+    .success {
+        color: green;
+        /*        background-color:#DDFFDD;
+                border:1px solid #009900;
+                height: 30px;*/
+    }
+    .blink{
+        font-weight: bold;
+        font-size: 12px;
+        width:100%;
+        padding-bottom: 0px;
+        padding-top: 0px;
+        text-align: left;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.blink').each(function() {
+            var elem = $(this);
+            var i = 0;
+            var inter = setInterval(function() {
+                i++;
+                if (elem.css('visibility') == 'hidden') {
+                    elem.css('visibility', 'visible');
+                } else {
+                    elem.css('visibility', 'hidden');
+                }
+                if (i == 8) {
+                    clearInterval(inter);
+                }
+            }, 300);
+        });
+    });
+</script>
+<html>
+    <body>
+        <div style="height: 7px;"/>
+        <div class="bgcolor">
+            <s:if test="hasActionMessages()">
+                <div class="success">
+                    <s:iterator value="actionMessages">  
+                        <span class="blink"><s:property escape="false" /></span>
+                    </s:iterator> 
+                </div>
+            </s:if>
+            <s:if test="hasActionErrors()">
+                <div class="errors" >
+                    <s:iterator value="actionErrors">  
+                        <span class="blink"><s:property escape="false" /></span>
+                    </s:iterator> 
+                </div>
+            </s:if>
+        </p>
+       
+        <!--            <table border="1">
+        <s:property escape="false" value="message"></s:property>
+    </table>-->
+    </div>
+</body>    
+</html>

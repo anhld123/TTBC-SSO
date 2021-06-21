@@ -3,11 +3,14 @@
     Created on : Nov 16, 2015, 1:26:33 PM
     Author     : LION
 --%>
-<%@taglib prefix="s" uri="/struts-tags" %>
-<%@taglib prefix="sj" uri="/struts-jquery-tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css"  href="css/bcqt.css" />
-<!DOCTYPE html>
+<%@taglib uri="/struts-tags" prefix="s" %>
+
+<%@ taglib prefix="sx" uri="/struts-dojo-tags" %> 
+<%@ taglib prefix="sj" uri="/struts-jquery-tags" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib uri="/struts-jquery-tree-tags" prefix="sjt" %>
 <html>
     <head>        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -99,7 +102,18 @@
             popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
         }
         
-        var max_row = 0;
+        
+    function js_confirmdelete() {
+//        $("#luu_thanhcong").hide();
+        $('#luu_thanhcong').empty();
+        var r = confirm('(Msg)Bạn chắc chắn muốn chốt/mở chốt số liệu xã này?');
+        if (r === false) {
+            event.preventDefault();
+        }
+    }
+    
+    
+//        var max_row = 0;
             
         </script>
         
@@ -113,7 +127,8 @@
 
     </head>
     <body style="font-family: ">
-        <s:form id="id_sv_%{khoa_nhaptaycn}" action="SAVE_%{khoa_nhaptaycn}" theme="simple">
+        <div id="luu_thanhcong"></div>
+        <s:form id="id_khnv_view_all_commune" theme="simple">
             <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
                 <input type="hidden" id="<s:property  value="sKey" />" 
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
@@ -171,22 +186,28 @@
                                 </td>
 
                                 <s:if test="D3.equalsIgnoreCase('2B')&& D1.equalsIgnoreCase('000301')">
-                                       <td style="text-align:center"  class="TD_GIATRI" >
-                                            <a href="javascript:hienthichitiet('<s:property value="D1"/>' )" class="linkKh">
-                                            Mở chốt
-                                        </a>
+                                         <td style="text-align: center;">
+                                            <s:url id="unlockId" value="Lock_Unlock.action">
+                                                <s:param name="commune_cd" value="D1"/>
+                                                <s:param name="lock_unlock" value="0"/>
+                                            </s:url>
+                                            <sj:a  href="%{unlockId}" onclick="js_confirmdelete();" targets="luu_thanhcong"  ><u>Mở chốt</u></sj:a>
+                                        </td>    
                                   </s:if>
                                     <s:if test="D3.equalsIgnoreCase('2B')&& !D1.equalsIgnoreCase('000301')">
-                                       <td style="text-align:center"  class="TD_GIATRI" >
-                                            <a href="javascript:hienthichitiet('<s:property value="D1"/>' )" class="linkKh">
-                                            <font color="red">Chốt</font>
-                                        </a>
+                                        <td style="text-align: center;">
+                                       <s:url id="lockId" value="Lock_Unlock.action">
+                                                <s:param name="maxa" value="D1"/>
+                                                <s:param name="lockId" value="1"/>
+                                            </s:url>
+                                            <sj:a href="%{lockId}" onclick="js_confirmdelete();" targets="luu_thanhcong"><u>Chốt</u></sj:a>
+                                            </td>
                                   </s:if>      
                         </tr>                                                                                                       
                     </s:iterator>
                 </table>                    
         </s:form>
-        <div id="luu_thanhcong"></div>
+        
 <!--        <script>
             initTable();
         </script>-->

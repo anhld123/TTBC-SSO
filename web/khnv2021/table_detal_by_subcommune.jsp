@@ -164,7 +164,7 @@
             </br>
             <s:hidden name="namBc_pre"/>
             <div id="divTitle">
-                NHU CẦU VAY VỐN TÍN DỤNG THEO THON
+                NHU CẦU VAY VỐN TÍN DỤNG THEO THÔN
                 <BR>
                 <!--<font color="red">(Nếu mã KH và tên KH null sẽ chỉ hiện thị các KH đã từng đăng ký nhận tin nhắn)</font>-->                    
             </div>
