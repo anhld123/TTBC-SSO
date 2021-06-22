@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import vbsp.ims.bcqt.model.DULIEU_NT;
+import vbsp.ims.khnv2021.model.PosClass;
 
 public class AuthorAction extends ActionSupport {
 

@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import oracle.jdbc.OracleTypes;
 import vbsp.ims.bcqt.model.DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
+import vbsp.ims.khnv2021.model.PosClass;
 
 /**
  *
