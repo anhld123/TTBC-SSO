@@ -13,17 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import vbsp.ims.bcqt.model.DULIEU_NT;
-import vbsp.ims.khnv2021.model.PosClass;
 
 public class AuthorAction extends ActionSupport {
 
     //Cac truong chua thong tin bo xung luu du lieu
-    private String CapBC, TenDN, status, cboTonghop, strNguyennhan, chkSuccess, dataReult,cboDonvi,cboNam,cboDot;
+    private String CapBC, TenDN, status, cboTonghop, strNguyennhan, chkSuccess, dataReult, cboDonvi, cboNam, cboDot, btnSend;
     private Map session;
     private List<PosClass> lstPos = new ArrayList<>();
     private List<DULIEU_NT> lstData = new ArrayList<>();
     private InputStream pageResult;
-    
+
     @Override
     //Lấy danh đơn vị theo cấp báo cáo
     public String execute() throws Exception {
@@ -32,6 +31,11 @@ public class AuthorAction extends ActionSupport {
         CapBC = (String) session.get("reportGrade");
         TenDN = (String) session.get("username");
         lstPos = new AuthorModel().getPosCD(CapBC, TenDN);
+        if (CapBC.equalsIgnoreCase("2")) {
+            btnSend = "Gửi cấp trên";
+        } else {
+            btnSend = "Duyệt";
+        }
         return SUCCESS;
     }
 
@@ -44,7 +48,7 @@ public class AuthorAction extends ActionSupport {
         switch (status.trim()) {
             case "0":
                 //Nhớ truyền đủ 7 tham số
-                lstData = new AuthorModel().getData(CapBC, TenDN,cboDonvi,cboNam,cboDot, cboTonghop, strNguyennhan);
+                lstData = new AuthorModel().getData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
                 if (lstData != null && !lstData.isEmpty()) {
                     chkSuccess = "SuccessLoad";
                     pageResult = new StringBufferInputStream("00");
@@ -54,7 +58,7 @@ public class AuthorAction extends ActionSupport {
                 }
                 break;
             case "1":
-                dataReult = new AuthorModel().sendData(CapBC, TenDN);
+                dataReult = new AuthorModel().sendData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
                 if (dataReult != null) {
                     chkSuccess = "SuccessMessage";
                     pageResult = new StringBufferInputStream("10");
@@ -65,7 +69,7 @@ public class AuthorAction extends ActionSupport {
                 pageResult = new StringBufferInputStream(dataReult);
                 break;
             case "2":
-                dataReult = new AuthorModel().rollBackData(CapBC, TenDN);
+                dataReult = new AuthorModel().rollBackData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
                 if (dataReult != null) {
                     chkSuccess = "SuccessMessage";
                     pageResult = new StringBufferInputStream("20");
@@ -80,7 +84,7 @@ public class AuthorAction extends ActionSupport {
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getter Setter">
-     public String getCapBC() {
+    public String getCapBC() {
         return CapBC;
     }
 
@@ -192,7 +196,13 @@ public class AuthorAction extends ActionSupport {
         this.pageResult = pageResult;
     }
 
-    //</editor-fold> 
+    public String getBtnSend() {
+        return btnSend;
+    }
 
-   
+    public void setBtnSend(String btnSend) {
+        this.btnSend = btnSend;
+    }
+    
+    //</editor-fold> 
 }

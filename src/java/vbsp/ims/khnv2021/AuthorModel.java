@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 import oracle.jdbc.OracleTypes;
 import vbsp.ims.bcqt.model.DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
-import vbsp.ims.khnv2021.model.PosClass;
 
 /**
  *
@@ -42,7 +41,7 @@ public class AuthorModel {
                 lst.add(new PosClass(rs.getString("PO_MA"), rs.getString("PO_TEN")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AuthorClass.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AuthorModel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lst;
     }
@@ -54,7 +53,6 @@ public class AuthorModel {
         Connection con = db.getConnect();
         try {
             //Thực hiện lấy các biến cần truy cập
-            //new AuthorModel().getData(CapBC, TenDN,cboDonvi,cboNam,cboDot, cboTonghop, strNguyennhan);
             CallableStatement st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2021_GETDATA_PGD(?,?,?,?,?,?,?,?,?,?)}");
             st.setString(1, CapBC);
             st.setString(2, TenDN);
@@ -73,19 +71,61 @@ public class AuthorModel {
                 lst.add(new getDULIEU_NT().getData(obj, rs));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AuthorClass.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AuthorModel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lst;
     }
 
     //Hàm gửi dữ liệu
-    public String sendData(String CapBC, String TenDN) {
-        return "10";
+    // 10: Gửi dữ liệu thành công; 11: Gửi không thành công
+    public String sendData(String CapBC, String TenDN, String cboDonvi, String cboNam, String cboDot, String cboTonghop, String strNguyennhan) {
+        List<DULIEU_NT> lst = new ArrayList<>();
+        DaoConnect db = new DaoConnect();
+        Connection con = db.getConnect();
+        String ChkSuccess = "10";
+        try {
+            //Thực hiện lấy các biến cần truy cập
+            CallableStatement st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2021_SENDDATA(?,?,?,?,?,?,?,?)}");
+            st.setString(1, CapBC);
+            st.setString(2, TenDN);
+            st.setString(3, cboDonvi);
+            st.setString(4, cboNam);
+            st.setString(5, cboDot);
+            st.setString(6, cboTonghop);
+            st.setString(7, strNguyennhan);
+            st.registerOutParameter(8, OracleTypes.VARCHAR);
+            st.execute();
+            ChkSuccess = (String) st.getObject(8);
+        } catch (SQLException ex) {
+            Logger.getLogger(AuthorModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ChkSuccess;
     }
 
     //Hàm hoàn trả
-    public String rollBackData(String CapBC, String TenDN) {
-        return "20";
+    // 20: Gửi dữ liệu thành công; 21: Gửi không thành công
+    public String rollBackData(String CapBC, String TenDN, String cboDonvi, String cboNam, String cboDot, String cboTonghop, String strNguyennhan) {
+        List<DULIEU_NT> lst = new ArrayList<>();
+        DaoConnect db = new DaoConnect();
+        Connection con = db.getConnect();
+        String ChkSuccess = "20";
+        try {
+            //Thực hiện lấy các biến cần truy cập
+            CallableStatement st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2021_ROLLBACKDATA(?,?,?,?,?,?,?,?)}");
+            st.setString(1, CapBC);
+            st.setString(2, TenDN);
+            st.setString(3, cboDonvi);
+            st.setString(4, cboNam);
+            st.setString(5, cboDot);
+            st.setString(6, cboTonghop);
+            st.setString(7, strNguyennhan);
+            st.registerOutParameter(8, OracleTypes.VARCHAR);
+            st.execute();
+            ChkSuccess = (String) st.getObject(8);
+        } catch (SQLException ex) {
+            Logger.getLogger(AuthorModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ChkSuccess;
     }
 
 }
