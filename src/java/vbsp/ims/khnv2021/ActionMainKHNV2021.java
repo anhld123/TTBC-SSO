@@ -25,9 +25,10 @@ import vbsp.ims.report.fast.ListValue;
 
 /**
  *
- * @author HP
+ * @author BAOANH
  */
-public class ActionMainKHNV2021 {
+public class ActionMainKHNV2021 extends ActionSupport {
+
     //Cac truong chua thong tin bo xung luu du lieu
     protected String userId; //user đăng nhập chương trình
     protected String pos_cd_username; //pos cd user
@@ -38,6 +39,7 @@ public class ActionMainKHNV2021 {
     protected List<ListValue> lstXa = new ArrayList<>();
     protected String pos_cd;//lay ra ma pos, ma xa tu combobox
     protected String commune_cd;
+    protected String lock_unlock;
     protected String commune_detai;
     protected String subcommune_cd;
     protected String maBc;
@@ -55,7 +57,8 @@ public class ActionMainKHNV2021 {
     protected List<ListValue> lstNamBC = new ArrayList<>();
     protected List<ListValue> lstDotBC = new ArrayList<>();
     protected List<ListValue> lstTongHop = new ArrayList<>();
-    protected String xa_pgd;
+    protected String namBc_pre;
+    
     
     protected HttpServletRequest request = null;
     protected String filereport;
@@ -108,6 +111,15 @@ public class ActionMainKHNV2021 {
     }
 
     //<editor-fold defaultstate="collapsed" desc="get set du lieu">
+
+    public String getLock_unlock() {
+        return lock_unlock;
+    }
+
+    public void setLock_unlock(String lock_unlock) {
+        this.lock_unlock = lock_unlock;
+    }
+    
 
     public String getCommune_detai() {
         return commune_detai;
@@ -248,14 +260,6 @@ public class ActionMainKHNV2021 {
     }
     
 
-    public String getXa_pgd() {
-        return xa_pgd;
-    }
-
-    public void setXa_pgd(String xa_pgd) {
-        this.xa_pgd = xa_pgd;
-    }
-
     
     public String getPos_cd() {
         return pos_cd;
@@ -364,6 +368,18 @@ public class ActionMainKHNV2021 {
         this.lstNamBC = lstNamBC;
     }
 
+    public String getNamBc_pre() {
+        return namBc_pre;
+    }
+
+    public void setNamBc_pre(String namBc_pre) {
+        this.namBc_pre = namBc_pre;
+    }
     
     //</editor-fold>
+
+
+
+
+
 }
