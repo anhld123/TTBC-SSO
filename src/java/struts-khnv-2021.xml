@@ -83,6 +83,8 @@
             <result name="error">/khnv2021/success.jsp</result>
         </action>
         
+   
+        
 
         
         <!-- Author: Nguyễn Phú Vinh -->
@@ -90,11 +92,12 @@
             <result name="success">/khnv2021/ViewAuthor.jsp</result>
         </action>
         <action name="SendAction" class="vbsp.ims.khnv2021.AuthorAction" method="SendAction">
-            <result name="SuccessLoad">/khnv2021/ViewAuthorDetail.jsp</result>
-            <result name="SuccessMessage" type="stream">
+            <result name="SuccessLoad">/khnv2021/ViewAuthorDetail.jsp</result>            
+            <result name="SuccessMessage">/khnv2021/table_list_result_send_tw.jsp</result>            
+<!--            <result name="SuccessMessage" type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
-            </result>
+            </result>-->
             <result name="FaildMessage" type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
