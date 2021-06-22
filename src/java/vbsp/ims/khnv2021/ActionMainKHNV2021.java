@@ -27,7 +27,7 @@ import vbsp.ims.report.fast.ListValue;
  *
  * @author BAOANH
  */
-public class ctionMainKHNV2021 extends ActionSupport {
+public class ActionMainKHNV2021 extends ActionSupport {
 
     //Cac truong chua thong tin bo xung luu du lieu
     protected String userId; //user đăng nhập chương trình
