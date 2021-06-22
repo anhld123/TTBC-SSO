@@ -75,7 +75,18 @@
         <!-- Author: Nguyễn Phú Vinh -->
         <action name="AuthorProvince" class="vbsp.ims.khnv2021.AuthorAction">
             <result name="success">/khnv2021/ViewAuthor.jsp</result>
-        </action> 
+        </action>
+        <action name="SendAction" class="vbsp.ims.khnv2021.AuthorAction" method="SendAction">
+            <result name="SuccessLoad">/khnv2021/ViewAuthorDetail.jsp</result>
+            <result name="SuccessMessage" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+            <result name="FaildMessage" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action>
         <!-- End -->
                       
     </package>
