@@ -20,7 +20,7 @@
             table {
                 border-collapse: collapse;
                 width: 100%;
-                height: 1000px;
+                /*height: 1000px;*/
             }
 
             table thead { position: sticky; top: 0; z-index: 1; }
@@ -115,7 +115,7 @@
                 </div>
                 <hr/>
                 <div style="display: inline-flex; height: 30px;">
-                    <input type="button" value="Gửi cấp trên" id="cmdGuiDL" name="nameGuiDL" class="cmd"/>
+                    <input type="button" value="<s:property value='btnSend'/>" id="cmdGuiDL" name="nameGuiDL" class="cmd"/>
                     &nbsp; 
                     <input type="button" value="Trả lại đơn vị" id="cmdTraLaiDL" name="nameTraLaiDL" class="cmd"/>
                     &nbsp; &nbsp;
@@ -135,6 +135,20 @@
                 $("#cmdGuiDL").click({status: "1"}, SendData);
                 //Trả lại đơn vị
                 $("#cmdTraLaiDL").click({status: "2"}, SendData);
+                $("#cboDonvi").change(function () {
+                    if ($("#cboDonvi").val().trim() === "all") {
+                        $('#cboTonghop option')[0].selected = true;
+                    } else {
+                        $('#cboTonghop option')[1].selected = true;
+                    }
+                });
+                $("#cboTonghop").change(function () {
+                    if ($("#cboTonghop").val().trim() === "Y") {
+                        $('#cboDonvi option')[0].selected = true;
+                    } else {
+                        $('#cboDonvi option')[1].selected = true;
+                    }
+                });
             });
             function SendData(event) {
                 var surl, sdata, idView, idMess, idForm, method, strMess;
@@ -168,7 +182,7 @@
                                     strMess = '<span style="color:green">Thành công: Hoàn trả dữ liệu cho đơn vị thành công.</span>';
                                     break;
                                 case "21":
-                                    strMess = 'Lỗi: hoàn trả dữ liệu cho đơn vi.';
+                                    strMess = 'Lỗi: hoàn trả dữ liệu cho đơn vị.';
                                     break;
                             }
                             $(idMess).html(strMess);

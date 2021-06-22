@@ -126,8 +126,7 @@
                 <div id="divTitle">
                     TỔNG HỢP NHU CẦU VAY VỐN TÍN DỤNG THEO XÃ
                     <BR>                                
-                </div>
-                <s:hidden name="khoa_nhaptaycn"/>
+                </div>                
                 </br>
                 <table border="1" class="editDelete1" id="tablesms011" style="width: 99%" >
                     <tr>                                               

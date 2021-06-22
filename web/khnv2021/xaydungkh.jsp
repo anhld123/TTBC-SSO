@@ -194,14 +194,12 @@
         </div>
     </s:form>
 <!--    <script src="js/jquery-1.4.2.min.js" type="text/javascript"></script>-->
-    <script>
+<!--    <script>
         $(document).ready(function () {
             $('#commune_cd').change(function () {
                 var surl, sdata, idView, idMess, idForm, method;
-                surl = "SendAction.action?status=";
-                idView = "#idViewData";
-                idMess = "#idViewMess";
-                idForm = "#idKhnv2021";
+                surl = "SendAction.action";
+                idForm = "#id_khnv2021";
                 method = "POST";
                 sdata = jQuery(idForm).serialize();
                 alert(sdata);
@@ -222,6 +220,6 @@
                 });
             });
         });
-    </script>
+    </script>-->
 </body>
 </html>

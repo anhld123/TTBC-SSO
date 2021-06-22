@@ -6,11 +6,10 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s" %>
-
 <table>
     <thead>
         <tr>
-            <td colspan="3" style="text-align: left; border: 0px; font-weight: bold; background-color: white;">KẾ HOẠCH TÍN DỤNG NĂM 2022</td>
+            <td colspan="3" style="text-align: left; border: 0px; font-weight: bold; background-color: white;"><span id="strHeader" style="text-transform: uppercase; color: green;"></span></td>
             <td colspan="4" style="text-align: right; border: 0px;font-style: italic;background-color: white;">Đơn vị: triệu đồng, %, hộ, người</td>
         </tr>
         <tr>
@@ -44,3 +43,16 @@
 
     </tbody>
 </table>
+<script>
+    $(document).ready(function () {
+        var varDonvi = "";
+        varDonvi = $("#cboDonvi").val();
+        if (varDonvi.trim() === "all") {
+            varDonvi = $("#cboTonghop option:selected").text();
+        } else {
+            varDonvi = $("#cboDonvi option:selected").text();
+        }
+        var strText = "KẾ HOẠCH TÍN DỤNG " + $("#cboNam option:selected").text() + " - " + $("#cboDot option:selected").text() + " - Đơn vị: " + varDonvi;
+        $("#strHeader").html(strText);
+    });
+</script>

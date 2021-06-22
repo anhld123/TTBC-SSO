@@ -138,7 +138,8 @@
                     TỔNG HỢP NHU CẦU VAY VỐN TÍN DỤNG THEO PGD
                     <BR>                                
                 </div>
-                <s:hidden name="khoa_nhaptaycn"/>
+                
+                <s:hidden name="dotBc"/>
                 </br>
                 <table border="1" class="editDelete1" id="tablesms011" style="width: 99%" >
                     <tr>                                               
@@ -187,18 +188,21 @@
 
                                 <s:if test="D3.equalsIgnoreCase('2B')&& D1.equalsIgnoreCase('000301')">
                                          <td style="text-align: center;">
-                                            <s:url id="unlockId" value="Lock_Unlock.action">
+                                            <s:url id="unlockId" value="Lock_Unlock.action" escapeAmp="false">
                                                 <s:param name="commune_cd" value="D1"/>
                                                 <s:param name="lock_unlock" value="0"/>
+                                                <s:param name="dotBc" value="dotBc"/>
+                                                
                                             </s:url>
                                             <sj:a  href="%{unlockId}" onclick="js_confirmdelete();" targets="luu_thanhcong"  ><u>Mở chốt</u></sj:a>
                                         </td>    
                                   </s:if>
                                   <s:elseif test="D3.equalsIgnoreCase('2B')&& !D1.equalsIgnoreCase('000301')">
                                         <td style="text-align: center;">
-                                       <s:url id="lockId" value="Lock_Unlock.action">
-                                                <s:param name="maxa" value="D1"/>
-                                                <s:param name="lockId" value="1"/>
+                                       <s:url id="lockId" value="Lock_Unlock.action" escapeAmp="false">
+                                                <s:param name="commune_cd" value="D1"/>
+                                                <s:param name="lock_unlock" value="1"/>
+                                                <s:param name="dotBc" value="dotBc"/>
                                             </s:url>
                                             <sj:a href="%{lockId}" onclick="js_confirmdelete();" targets="luu_thanhcong"><u>Chốt</u></sj:a>
                                             </td>
