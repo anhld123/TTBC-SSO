@@ -20,7 +20,7 @@
             table {
                 border-collapse: collapse;
                 width: 100%;
-                height: 1000px;
+                /*height: 1000px;*/
             }
 
             table thead { position: sticky; top: 0; z-index: 1; }
