@@ -1,8 +1,8 @@
 package vbsp.ims.khnv2021;
 
-import vbsp.ims.khnv2021.dao.XDKHDao2021;
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
+import vbsp.ims.khnv2021.dao.XDKHDao2021;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.struts2.ServletActionContext;
@@ -10,7 +10,6 @@ import vbsp.ims.define.Define;
 import vbsp.ims.khnv2021.excel.ExcelExport;
 import vbsp.ims.khnv2021.model.FileExportInfo;
 import vbsp.ims.log.CoreLogger;
-import vbsp.ims.model.khnv.XdkhModel;
 
 /**
  *
@@ -19,18 +18,7 @@ import vbsp.ims.model.khnv.XdkhModel;
 public class XayDungKeHoach2021 extends ActionMainKHNV2021 {
 
     private XDKHDao2021 daoXdkh = new XDKHDao2021();
-    private List<XdkhModel> xdkhModelList;  //Lay du lieu load len table
-    private String xa_pgd;
-    //Cac truong dung cho luu du lieu
-    private List<String> KH_MA_CT;
-    private List<String> KH_STT_HT;
-    private List<String> KH_CHI_TIEU;
-    private List<String> KH_UOC_TH;
-    private List<String> KH_KH_NAM;
-    private List<String> KH_DN;
-    private List<String> KH_FONTWEIGHT;
-    private List<String> KH_CAPHT;
-    private List<String> KH_STT;
+
 
     public XayDungKeHoach2021() {
     }
@@ -60,7 +48,8 @@ public class XayDungKeHoach2021 extends ActionMainKHNV2021 {
 
     public String getDataXayDungKH() {
         try {
-
+            int yearPre = Integer.parseInt(namBc)  -1;
+            namBc_pre = String.valueOf(yearPre);
             getInfo();
             //TH load theo 1 thôn
             if (maBc.equals("KHNV_01A") && !commune_cd.equals("000000") && !subcommune_cd.equals("000000")) {
@@ -89,7 +78,42 @@ public class XayDungKeHoach2021 extends ActionMainKHNV2021 {
 
         return SUCCESS;
     }
+    
+//    public String getSubcommune() {
+//        try {
+//            commune_cd = request.getParameter("commune_cd");
+//            setSubCommuneList(daoXdkh.getSubCommuneList(pos_cd_username, commune_cd, reportGrade));
+//        } catch (Exception e) {
+//            System.err.println(e.getMessage());
+//            CoreLogger.error(this.getClass().getCanonicalName() + " getSubcommune -> " + e.getMessage());
+//        }
+//        return SUCCESS;
+//    }
 
+    
+    public String Lock_Unlock() {
+        try {
+
+            if(daoXdkh.setLockUnlockCommune(commune_cd, namBc, dotBc, lock_unlock, userId, reportGrade))
+            {
+                addActionMessage("Bạn đã chốt/mở chốt thành công");
+                return SUCCESS;
+            }
+            else
+            {
+                addActionError("Bạn đã chốt/mở chốt thất bại. Vui lòng liên hệ với quản trị");
+                return ERROR;
+            }
+            } catch (Exception ex) {
+            CoreLogger.error(this.getClass().getName() + " Lock_Unlock " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " loi Lock_Unlock " + ex.getMessage());
+            addActionError("Bạn đã chốt/mở chốt thất bại. Vui lòng liên hệ với quản trị");
+                return ERROR;
+        }
+        
+//            return SUCCESS;
+        }
+    
     public String getDataXayCommuneDetai() {
         try {
 
@@ -266,93 +290,8 @@ public class XayDungKeHoach2021 extends ActionMainKHNV2021 {
 //    }
 //}
 //<editor-fold defaultstate="collapsed" desc="Getter Setter">
-    public String getXa_pgd() {
-        return xa_pgd;
-    }
 
-    public void setXa_pgd(String xa_pgd) {
-        this.xa_pgd = xa_pgd;
-    }
 
-    public List<XdkhModel> getXdkhModelList() {
-        return xdkhModelList;
-    }
-
-    public void setXdkhModelList(List<XdkhModel> xdkhModelList) {
-        this.xdkhModelList = xdkhModelList;
-    }
-
-    public List<String> getKH_MA_CT() {
-        return KH_MA_CT;
-    }
-
-    public void setKH_MA_CT(List<String> KH_MA_CT) {
-        this.KH_MA_CT = KH_MA_CT;
-    }
-
-    public List<String> getKH_STT_HT() {
-        return KH_STT_HT;
-    }
-
-    public void setKH_STT_HT(List<String> KH_STT_HT) {
-        this.KH_STT_HT = KH_STT_HT;
-    }
-
-    public List<String> getKH_CHI_TIEU() {
-        return KH_CHI_TIEU;
-    }
-
-    public void setKH_CHI_TIEU(List<String> KH_CHI_TIEU) {
-        this.KH_CHI_TIEU = KH_CHI_TIEU;
-    }
-
-    public List<String> getKH_UOC_TH() {
-        return KH_UOC_TH;
-    }
-
-    public void setKH_UOC_TH(List<String> KH_UOC_TH) {
-        this.KH_UOC_TH = KH_UOC_TH;
-    }
-
-    public List<String> getKH_KH_NAM() {
-        return KH_KH_NAM;
-    }
-
-    public void setKH_KH_NAM(List<String> KH_KH_NAM) {
-        this.KH_KH_NAM = KH_KH_NAM;
-    }
-
-    public List<String> getKH_DN() {
-        return KH_DN;
-    }
-
-    public void setKH_DN(List<String> KH_DN) {
-        this.KH_DN = KH_DN;
-    }
-
-    public List<String> getKH_FONTWEIGHT() {
-        return KH_FONTWEIGHT;
-    }
-
-    public void setKH_FONTWEIGHT(List<String> KH_FONTWEIGHT) {
-        this.KH_FONTWEIGHT = KH_FONTWEIGHT;
-    }
-
-    public List<String> getKH_CAPHT() {
-        return KH_CAPHT;
-    }
-
-    public void setKH_CAPHT(List<String> KH_CAPHT) {
-        this.KH_CAPHT = KH_CAPHT;
-    }
-
-    public List<String> getKH_STT() {
-        return KH_STT;
-    }
-
-    public void setKH_STT(List<String> KH_STT) {
-        this.KH_STT = KH_STT;
-    }
 //</editor-fold>    
 
 }

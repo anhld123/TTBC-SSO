@@ -746,4 +746,35 @@ public class XDKHDao2021 {
         }
         return lstBcqt_NT;
     }
+   
+   public boolean setLockUnlockCommune(String maxa, String nambc, String dotbc, String tt_khoa, String username, String grade) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+
+        CallableStatement cs = null;
+        boolean bSuccess = false;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_KHNV2021.SP_LOCK_UNLOCK_COMMUNE(?, ?, ?, ?, ?, ?)}");
+            cs.setString(1, maxa);
+            cs.setString(2, nambc);
+            cs.setString(3, dotbc);
+            cs.setString(4, tt_khoa);
+            cs.setString(5, username);            
+            cs.setString(6, grade);
+            cs.execute();
+            bSuccess = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham setLockUnlockCommune " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " setLockUnlockCommune -> " + e.getMessage());
+            bSuccess = false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return bSuccess;
+    }
 }

@@ -45,7 +45,7 @@
     </target>
     <target name="wsimport-client-ims_services" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/ims_services"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ims_services" destdir="${build.generated.dir}/jax-wsCache/ims_services" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/ims_services/wsdl/vbsp.ims.report_8080/IMS_REPORTS/ims_services.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://vbsp.ims.report:8080/IMS_REPORTS/ims_services?wsdl" xnocompile="true" xendorsed="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ims_services" destdir="${build.generated.dir}/jax-wsCache/ims_services" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/ims_services/wsdl/vbsp.ims.report_8080/IMS_REPORTS/ims_services.wsdl" catalog="catalog.xml" extension="true" verbose="true" fork="false" wsdlLocation="http://vbsp.ims.report:8080/IMS_REPORTS/ims_services?wsdl" xnocompile="true" xendorsed="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/ims_services/wsdl/vbsp.ims.report_8080/IMS_REPORTS/ims_services.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/ims_services"/>
         </wsimport>

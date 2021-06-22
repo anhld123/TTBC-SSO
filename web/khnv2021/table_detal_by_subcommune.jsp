@@ -11,63 +11,75 @@
 <html>
     <head>        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
         <style>
-            .readonly {
-                background: #FFFFC0;        
-            }
-            .pos_edit_form {
-                padding:0px;
-                width:30%;    
-                background:#f9f9f9;
-                border:1px solid #ccc;
-                text-align:left;   
-                font-family: Arial;
-                font-size: 12pt;
-            }    
-
-            .metroButtonStyle {
-                font-family: 'Segoe UI', 'Open Sans', Arial, sans-serif;
-                display: block;
-                color: rgb(255, 255, 255);
-                text-decoration: none;
-                text-align: center;
-                width: 90px;
-                height: 20px;
-                padding: 5px;
-                margin: 5px 0px 0px 5px;
+            *{
+                font-family: tahoma;
                 font-size: 12px;
-                background: none repeat scroll 0 0 #808080;
-                color: #FFF;
-                border: 0px none;
-                border-radius: 1px 1px 1px 1px;
-                outline: 0px none;
             }
-            .metroButtonStyle:hover {
-                background: #018c3b;
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                height: 1000px;
             }
-            .metroButtonStyle:active {
-                background: #DCDCDC;
+
+            table thead { position: sticky; top: 0; z-index: 1; }
+
+            th, td {
+                text-align: left;
+                padding: 8px;
+                border: 1PX solid #f2f2f2;
+                text-align: center;
             }
-            .metroButtonStyle:disabled {
-                background: #DCDCDC;
+
+            tr:nth-child(even){background-color: #f2f2f2}
+
+            th {
+                background-color: #04AA6D;
+                color: white;
+            }
+            .sttCol>td{
+                font-style: italic;
+            }
+            .clss-body-ngnhan{
+                box-sizing: content-box;
+                padding: 5px;
+            }
+            textarea
+            {
+                border:1px solid #000;
+                width:100%;
+                height: 100px;
+            }
+            .clss-lable{
+                font-weight: bold;
+            }
+            .cls-over{
+                overflow-y: scroll;
+                height: 76vh;
+            }
+            .cmd{
+                padding: 5px;
+                background-image: linear-gradient(#f2f2f2,#c2c2c2);
+                border: 1px solid #c2c2c2;
+                border-radius: 2px;
             }
 
             #divTitle{
-            font: 14px Arial, Helvetica, sans-serif;
-            font-weight: bold;
-            color: #0077b3;
-            text-align: center;
-        }
+                font: 14px Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                color: #0077b3;
+                text-align: center;
+            }
         </style>    
         <script>
             var max_row = 0;
             $(document).ready(function () {
                 $('input.number').css({"text-align": "right"});
                 $('input.number2').css({"text-align": "right"});
-                $('.D0').css({"text-align": "center"});               
+                $('.D0').css({"text-align": "center"});
                 $('.number').number(true, 0);
 //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 2);
@@ -91,34 +103,34 @@
                 $(this).closest('tr').removeClass('highlight_row');
             });
         </script>     
-        
+
         <script>
-    
-        function hienthichitiet(soku) {
-            var ht1 = screen.availHeight - 360;
-            var wt1 = 500;
-            var left1 = (screen.width / 2) - (wt1 / 2);
-            var top1 = 100;           
-            var url = "getDetialTIDE.action?soku=" + soku;
-            popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
-        }
-        
-        var max_row = 0;
-        function initTable()
+
+            function hienthichitiet(soku) {
+                var ht1 = screen.availHeight - 360;
+                var wt1 = 500;
+                var left1 = (screen.width / 2) - (wt1 / 2);
+                var top1 = 100;
+                var url = "getDetialTIDE.action?soku=" + soku;
+                popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+            }
+
+            var max_row = 0;
+            function initTable()
             {
                 var table = document.getElementById("tablesms01");
-                var rowcount = table.rows.length;    
-                rowcount = rowcount > max_row ? rowcount : max_row;                
+                var rowcount = table.rows.length;
+                rowcount = rowcount > max_row ? rowcount : max_row;
                 for (var i = 0; i < rowcount; i++)
-                {                    
+                {
                     var matmp = getMabyNumber(i);//    
-                    if(matmp == 1)
+                    if (matmp == 1)
                     {
-                        $('input:checkbox[id='+i+']').attr('checked',true);
+                        $('input:checkbox[id=' + i + ']').attr('checked', true);
                     }
                 }
             }
-            
+
             function getMabyNumber(idx)
             {
                 var ma = '';
@@ -131,9 +143,9 @@
                 }
                 return ma;
             }
-            
+
         </script>
-        
+
         <style>                                                
             table.editDelete{
                 border-collapse: collapse;
@@ -149,60 +161,99 @@
                 <input type="hidden" id="<s:property  value="sKey" />" 
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
             </s:iterator>   
-                </br>
-                <div id="divTitle">
-                    NHU CẦU VAY VỐN TÍN DỤNG THEO THON
-                    <BR>
-                    <!--<font color="red">(Nếu mã KH và tên KH null sẽ chỉ hiện thị các KH đã từng đăng ký nhận tin nhắn)</font>-->                    
-                </div>
-                <s:hidden name="khoa_nhaptaycn"/>
-<!--                <div id="divDonvitinh">
-                    Đơn vị tính: Đồng
-                </div>-->
-                </br>
-                <table border="1" class="editDelete" id="tablesms01" style="width: 99%"  align="center">
-                    <tr>                                               
-                        <!--<th  class="TD_BUTTON1">STT</th>-->      
-                        
-                        <th  class="TD_SOKU">Mã chỉ tiêu</th> 
-                        <th class="TD_TENKH123">Tên chỉ tiêu</th>
-                        <th class="TD_TENKH123">Giá trị</th>                                
-                    </tr>                                    
+            </br>
+            <s:hidden name="namBc_pre"/>
+            <div id="divTitle">
+                NHU CẦU VAY VỐN TÍN DỤNG THEO THÔN
+                <BR>
+                <!--<font color="red">(Nếu mã KH và tên KH null sẽ chỉ hiện thị các KH đã từng đăng ký nhận tin nhắn)</font>-->                    
+            </div>
+            <s:hidden name="khoa_nhaptaycn"/>
+            <!--                <div id="divDonvitinh">
+                                Đơn vị tính: Đồng
+                            </div>-->
+            </br>
+            <div class="cls-over">
+                <table>
+                    <thead>
+                        <!--                    <tr>
+                                                <td colspan="3" style="text-align: left; border: 0px; font-weight: bold;">KẾ HOẠCH TÍN DỤNG NĂM 2022</td>
+                                                <td colspan="4" style="text-align: right; border: 0px;font-style: italic;">Đơn vị: triệu đồng, %, hộ, người</td>
+                                            </tr>-->
+                        <tr>
+                            <th rowspan="3">STT</th>
+                            <th rowspan="3">CHỈ TIÊU</th>
+                            <th rowspan="3">Thực hiện đến 31/12/<s:property value="namBc_pre"/></th>
+                            <th rowspan="3">Ước thực hiện đến 31/12/<s:property value="namBc"/></th>
+                            <th colspan="3" >Kế hoạch tín dụng năm <s:property value="namBc"/></th>
+                        </tr>
+                        <tr>
+                            <th rowspan="2">Tổng số</th>
+                            <th colspan="2">Tăng, giảm so với 31/12/<s:property value="namBc_pre"/></th>
+                        </tr>
+                        <tr>
+                            <th>Số tuyệt đối (+/-)</th>
+                            <th>Số tương đối (%)</th>
+                        </tr>
+                        <tr class="sttCol">
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                        </tr>
+                    </thead>                                  
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                                                    
-                            <tr> 
-                                
-                                
-                                
-                                
-                                <td align = "center" class="TD_SOKU">
-                                     <input type="text"  value="<s:property  value="D3" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH" onfocus="this.select();"
-                                           readonly="true"/>
-                                </td>
-                                <td align = "center" class="TD_SOKU">
-                                     <input type="text"  value="<s:property  value="D4" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="TEN_KH" onfocus="this.select();"
-                                           readonly="true"/>
-                                </td>
-                                
-                                <td align = "right" class="TD_TENKH123">
-                                    <input type="text"  value="<s:property  value="D5" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();"
-                                           readonly="true"/>
-                                </td>
+                        <tr> 
 
-<!--                                <td align = "right" class="TD_MAKH">
-                                   
-                                </td>                              -->
+                            <td align = "center" class="TD_SOKU">
+                                <input type="text"  value="<s:property  value="THUTU" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" class="TEN_KH D0" onfocus="this.select();"
+                                       />
+                            </td>
+                            <td align = "center" class="TD_SOKU">
+                                <input type="text"  value="<s:property  value="D4" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="TEN_KH" onfocus="this.select();"
+                                       />
+                            </td>
+
+                            <td align = "right" class="TD_TENKH123">
+                                <input type="text"  value="<s:property  value="D5" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();"
+                                       />
+                            </td>
+                            <td align = "center" class="TD_SOKU">
+                                <input type="text"  value="<s:property  value="D5" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();"
+                                       />
+                            </td>
+                            <td align = "center" class="TD_SOKU">
+                                <input type="text"  value="<s:property  value="D5" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();"
+                                       />
+                            </td>
+                            <td align = "center" class="TD_SOKU">
+                                <input type="text"  value="<s:property  value="D5" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();"
+                                       />
+                            </td>
+                            <td align = "center" class="TD_SOKU">
+                                <input type="text"  value="<s:property  value="D5" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();"
+                                       />
+                            </td>
+
                         </tr>                                                                                                       
                     </s:iterator>
                 </table>                    
-        </s:form>
-        <div id="luu_thanhcong"></div>
-<!--        <script>
-            initTable();
-        </script>-->
+            </s:form>
+            <div id="luu_thanhcong"></div>
+            <!--        <script>
+                        initTable();
+                    </script>-->
     </body>
-    
-    
+
+
 </html>

@@ -4,22 +4,19 @@
     Author     : Nguyễn Phú Vinh
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="/struts-tags" prefix="s" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
+<%@ taglib prefix="sjt" uri="/struts-jquery-tree-tags"%>
+<%@ taglib prefix="sjg" uri="/struts-jquery-grid-tags"%>
 
-<%@ taglib prefix="sx" uri="/struts-dojo-tags" %> 
-<%@ taglib prefix="sj" uri="/struts-jquery-tags" %> 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib uri="/struts-jquery-tree-tags" prefix="sjt" %>
+<s:head/>
+<sj:head/>
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <sj:head jqueryui="true" jquerytheme="smoothness"/> 
-    <head></head>
-    <title>Kiểm duyệt KHTD</title>
+    <title>Xây dựng kế hoạch</title>
    
     <style>
         *{
@@ -38,7 +35,7 @@
             text-align: left;
             padding: 8px;
             border: 1PX solid #f2f2f2;
-            text-align: center;
+            /*text-align: center;*/
         }
 
         tr:nth-child(even){background-color: #f2f2f2}
@@ -110,6 +107,13 @@
             $('#loadingImage_next').empty();
 
             });
+            
+        function onReloadSubCommune()
+            {
+                $('#divKhDetail').empty();
+                var commune_cd = $("#commune_cd").val();
+
+            }    
        </SCRIPT>
 </head>
 <body>
@@ -117,6 +121,8 @@
         <div class="cls-fix">
 
             <div>
+                <%--<s:url id="reloadDataSubCommune" action="reloadSubCommune" includeParams="post"></s:url>--%>
+                
                 <span class="clss-lable" id="cboDonvi" name="cboDonvi">Mẫu báo cáo:</span>
                 <s:select list="lstMaBC" theme="simple"
                           name="maBc" id="namBc"
@@ -140,6 +146,22 @@
                 &nbsp;
                 <span class="clss-lable">Mã xã:</span>
                 <s:select id="commune_cd" name="commune_cd" list="posList" listKey="id" listValue="desc"/> </b> &nbsp;&nbsp;
+              <!--  
+                <s:url var="buildModuleComboUrl" 
+                               action="eom_build_module_combo.action"></s:url>
+                        <sj:select href="%{buildModuleComboUrl}" 
+                                   name="reportPeriod"
+                                   id="period_id"
+                                   list="posList"    
+                                   reloadTopics="reloadModuleList"
+                                   listKey="id"
+                                   listValue="desc"
+                                   emptyOption="false"   
+                                   headerKey="NONE"
+                                   headerValue="--- Chọn kỳ ---"
+                                   theme="simple"                                       
+                                   ></sj:select>
+            -->
                 &nbsp;
                 <span class="clss-lable">Mã thôn:</span>
                 <s:select id="subcommune_cd" name="subcommune_cd" list="subCommuneList" listKey="id" listValue="desc"/> </b> &nbsp;&nbsp;
