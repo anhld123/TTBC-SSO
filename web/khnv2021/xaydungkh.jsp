@@ -17,7 +17,7 @@
 <!DOCTYPE html>
 <html>
     <title>Xây dựng kế hoạch</title>
-   
+
     <style>
         *{
             font-family: tahoma;
@@ -70,7 +70,7 @@
             border: 1px solid #c2c2c2;
             border-radius: 2px;
         }
-        
+
     </style>
     <SCRIPT language="javascript">
 //            $(document).ready(function () {
@@ -96,25 +96,25 @@
 ////                });
 //            }
 //                )
-            $.subscribe("beforediv_send", function(event, data) {
-                $('#loadingImage_next').slideDown("slow");
-                $('#loadingImage_next').empty();
-                $('#divKhDetail').empty();
-            });
-            
-            $.subscribe("completediv_send", function(event, data) {
+        $.subscribe("beforediv_send", function (event, data) {
+            $('#loadingImage_next').slideDown("slow");
+            $('#loadingImage_next').empty();
+            $('#divKhDetail').empty();
+        });
+
+        $.subscribe("completediv_send", function (event, data) {
             $("#loadingImage_next").hide();
             $('#loadingImage_next').empty();
 
-            });
-            
-        function onReloadSubCommune()
-            {
-                $('#divKhDetail').empty();
-                var commune_cd = $("#commune_cd").val();
+        });
 
-            }    
-       </SCRIPT>
+        function onReloadSubCommune()
+        {
+            $('#divKhDetail').empty();
+            var commune_cd = $("#commune_cd").val();
+
+        }
+    </SCRIPT>
 </head>
 <body>
     <s:form id="id_khnv2021" name="id_khnv2021"  theme="simple">
@@ -122,7 +122,7 @@
 
             <div>
                 <%--<s:url id="reloadDataSubCommune" action="reloadSubCommune" includeParams="post"></s:url>--%>
-                
+
                 <span class="clss-lable" id="cboDonvi" name="cboDonvi">Mẫu báo cáo:</span>
                 <s:select list="lstMaBC" theme="simple"
                           name="maBc" id="namBc"
@@ -138,7 +138,7 @@
                           name="dotBc" id="dotBc"
                           listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
                 &nbsp;
-<!--                <span class="clss-lable">Tổng hợp</span>
+                <!--                <span class="clss-lable">Tổng hợp</span>
                 <s:select list="lstTongHop" theme="simple"
                           name="tonghopView" id="tonghopView"
                           listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
@@ -146,22 +146,7 @@
                 &nbsp;
                 <span class="clss-lable">Mã xã:</span>
                 <s:select id="commune_cd" name="commune_cd" list="posList" listKey="id" listValue="desc"/> </b> &nbsp;&nbsp;
-              <!--  
-                <s:url var="buildModuleComboUrl" 
-                               action="eom_build_module_combo.action"></s:url>
-                        <sj:select href="%{buildModuleComboUrl}" 
-                                   name="reportPeriod"
-                                   id="period_id"
-                                   list="posList"    
-                                   reloadTopics="reloadModuleList"
-                                   listKey="id"
-                                   listValue="desc"
-                                   emptyOption="false"   
-                                   headerKey="NONE"
-                                   headerValue="--- Chọn kỳ ---"
-                                   theme="simple"                                       
-                                   ></sj:select>
-            -->
+
                 &nbsp;
                 <span class="clss-lable">Mã thôn:</span>
                 <s:select id="subcommune_cd" name="subcommune_cd" list="subCommuneList" listKey="id" listValue="desc"/> </b> &nbsp;&nbsp;
@@ -172,8 +157,8 @@
                 <sj:submit id="idloadDataKhnvtmp" name="nameSend" href="%{idLoadDataKhnv}" value="Tải dữ liệu" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
-                
-                
+
+
                 <input type="button" id="cmdTuChoi" name="cmdTuChoi" value="Gửi chi nhánh" class="cmd">
             </div>
             <hr/>
@@ -194,8 +179,8 @@
                 <sj:submit id="idExpEcelKhnvtmp01" name="nameSend" href="%{idExpEcelKhnv01}" value="Xuất xls mẫu 01" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
-                
-               
+
+
 
                 &nbsp;&nbsp;|&nbsp;&nbsp
                 <input type="button" id="cmdGui" name="cmdGui" value="Xuất xls mẫu 02" class="cmd">&nbsp;
@@ -207,6 +192,36 @@
             <img id="loadingImage_next" src="img/loading.gif" style="display:none"/>
             <div id="divKhDetail"></div>
         </div>
-    </s:form>       
+    </s:form>
+    <script src="js/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $('#commune_cd').change(function () {
+                var surl, sdata, idView, idMess, idForm, method;
+                surl = "SendAction.action?status=";
+                idView = "#idViewData";
+                idMess = "#idViewMess";
+                idForm = "#idKhnv2021";
+                method = "POST";
+                sdata = jQuery(idForm).serialize();
+                alert(sdata);
+                $.ajax({
+                    url: surl,
+                    data: sdata,
+                    type: method,
+                    async: true,
+                    beforeSend: function () {
+                        $(idMess).html('<img src="imgs/newloading.gif" class="ViewMess"/>');
+                    },
+                    success: function (result) {
+                       alert('Abc');
+                    },
+                    error: function (result) {
+                        alert('Lỗi khi thực hiện.');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

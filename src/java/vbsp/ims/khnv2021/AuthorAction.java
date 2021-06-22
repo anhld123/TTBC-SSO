@@ -5,7 +5,6 @@
  */
 package vbsp.ims.khnv2021;
 
-import vbsp.ims.khnv2021.model.PosClass;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.InputStream;

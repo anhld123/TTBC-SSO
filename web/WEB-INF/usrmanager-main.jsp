@@ -386,7 +386,7 @@
                             </s:url>
                             <s:a href="%{userEditUrl}"><u>Sửa</u></s:a>
                             </td>                    
-                            <td style="text-align: center;">
+                        <td style="text-align: center;">
                             <s:url id="userDeleteUrl" value="User_delete.action">
                                 <s:param name="userCode" value="priUserCode"/>
                             </s:url>

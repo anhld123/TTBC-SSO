@@ -3,10 +3,14 @@
     Created on : Nov 16, 2015, 1:26:33 PM
     Author     : LION
 --%>
-<%@taglib prefix="s" uri="/struts-tags" %>
-<%@taglib prefix="sj" uri="/struts-jquery-tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css"  href="css/bcqt.css" />
+<%@taglib uri="/struts-tags" prefix="s" %>
+
+<%@ taglib prefix="sx" uri="/struts-dojo-tags" %> 
+<%@ taglib prefix="sj" uri="/struts-jquery-tags" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib uri="/struts-jquery-tree-tags" prefix="sjt" %>
 <!DOCTYPE html>
 <html>
     <head>        
@@ -14,7 +18,7 @@
         
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
-        <style>
+         <style>
             .readonly {
                 background: #FFFFC0;        
             }
@@ -62,7 +66,7 @@
             text-align: center;
             
         }
-        </style>    
+        </style>     
         <script>
             var max_row = 0;
             $(document).ready(function () {
@@ -96,7 +100,7 @@
             var left1 = (screen.width / 2) - (wt1 / 2);
             var top1 = 100;           
             var url = "getDetailKhnvBySubCommune.action?commune_detai=" + commune_detai;
-            popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+            popup = window.open(url, '_blank', "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
         }
         
         var max_row = 0;

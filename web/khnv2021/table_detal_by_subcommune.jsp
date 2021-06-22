@@ -83,18 +83,11 @@
                 $('.number').number(true, 0);
 //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 2);
-                $(".SOKU").css({"width": "100%"});
-                $(".TD_CHECKBOX").css({"width": "20px"});
-                $(".TD_SOKU").css({"width": "80px"});
-                $(".TD_TENKH123").css({"width": "110px"});
-                $(".TD_TENTS").css({"width": "190px"});
-                $(".TD_SOTK").css({"width": "105px"});
-                $(".TD_MAKH").css({"width": "60px"});
-                $(".TD_THOIGIAN").css({"width": "55px"});
-                $(".TD_MAPGD").css({"width": "45px"});
-                $(".TD_BUTTON1").css({"width": "40px"});
-                $(".TD_SOTIEN").css({"width": "100px"});
-                $(".TEN_KH").css({"width": "100%"});
+                $(".TD_STT").css({"width": "5%"});
+                $(".TD_GIATRI").css({"width": "8%"});
+                $(".TD_TEN").css({"width": "12%"});
+                $(".TD_CHITIEU").css({"width": "20%"});
+
             });
             $('.TEN_KH').focus(function () {
                 $(this).closest('tr').addClass('highlight_row');
@@ -104,47 +97,6 @@
             });
         </script>     
 
-        <script>
-
-            function hienthichitiet(soku) {
-                var ht1 = screen.availHeight - 360;
-                var wt1 = 500;
-                var left1 = (screen.width / 2) - (wt1 / 2);
-                var top1 = 100;
-                var url = "getDetialTIDE.action?soku=" + soku;
-                popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
-            }
-
-            var max_row = 0;
-            function initTable()
-            {
-                var table = document.getElementById("tablesms01");
-                var rowcount = table.rows.length;
-                rowcount = rowcount > max_row ? rowcount : max_row;
-                for (var i = 0; i < rowcount; i++)
-                {
-                    var matmp = getMabyNumber(i);//    
-                    if (matmp == 1)
-                    {
-                        $('input:checkbox[id=' + i + ']').attr('checked', true);
-                    }
-                }
-            }
-
-            function getMabyNumber(idx)
-            {
-                var ma = '';
-                try {
-                    var ma_id = 'id_' + idx;
-                    ma = document.getElementById(ma_id).value;
-                } catch (e)
-                {
-                    ma = '999999';
-                }
-                return ma;
-            }
-
-        </script>
 
         <style>                                                
             table.editDelete{
@@ -181,19 +133,19 @@
                                                 <td colspan="4" style="text-align: right; border: 0px;font-style: italic;">Đơn vị: triệu đồng, %, hộ, người</td>
                                             </tr>-->
                         <tr>
-                            <th rowspan="3">STT</th>
-                            <th rowspan="3">CHỈ TIÊU</th>
-                            <th rowspan="3">Thực hiện đến 31/12/<s:property value="namBc_pre"/></th>
-                            <th rowspan="3">Ước thực hiện đến 31/12/<s:property value="namBc"/></th>
+                            <th rowspan="3" class="TD_STT">STT</th>
+                            <th rowspan="3" class="TD_CHITIEU">CHỈ TIÊU</th>
+                            <th rowspan="3" class="TD_GIATRI">Thực hiện đến 31/12/<s:property value="namBc_pre"/></th>
+                            <th rowspan="3" class="TD_GIATRI">Ước thực hiện đến 31/12/<s:property value="namBc"/></th>
                             <th colspan="3" >Kế hoạch tín dụng năm <s:property value="namBc"/></th>
                         </tr>
                         <tr>
-                            <th rowspan="2">Tổng số</th>
-                            <th colspan="2">Tăng, giảm so với 31/12/<s:property value="namBc_pre"/></th>
+                            <th rowspan="2" class="TD_GIATRI">Tổng số</th>
+                            <th colspan="2" class="TD_GIATRI">Tăng, giảm so với 31/12/<s:property value="namBc_pre"/></th>
                         </tr>
                         <tr>
-                            <th>Số tuyệt đối (+/-)</th>
-                            <th>Số tương đối (%)</th>
+                            <th class="TD_GIATRI">Số tuyệt đối (+/-)</th>
+                            <th class="TD_GIATRI">Số tương đối (%)</th>
                         </tr>
                         <tr class="sttCol">
                             <td>1</td>
@@ -207,52 +159,36 @@
                     </thead>                                  
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                                                    
                         <tr> 
+                            <td style="text-align:center"  class="TD_SOKU">
+                                    <s:property value="THUTU"/>
+                                </td>
+                                
+                            <td style="text-align:left"  class="TD_SOKU">
+                                    <s:property value="D4"/>
+                                </td>
+                                
+                            <td style="text-align:right"  class="TD_SOKU">
+                                    <s:property value="D5"/>
+                                </td>
 
-                            <td align = "center" class="TD_SOKU">
-                                <input type="text"  value="<s:property  value="THUTU" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" class="TEN_KH D0" onfocus="this.select();"
-                                       />
-                            </td>
-                            <td align = "center" class="TD_SOKU">
-                                <input type="text"  value="<s:property  value="D4" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="TEN_KH" onfocus="this.select();"
-                                       />
-                            </td>
-
-                            <td align = "right" class="TD_TENKH123">
-                                <input type="text"  value="<s:property  value="D5" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();"
-                                       />
-                            </td>
-                            <td align = "center" class="TD_SOKU">
-                                <input type="text"  value="<s:property  value="D5" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();"
-                                       />
-                            </td>
-                            <td align = "center" class="TD_SOKU">
-                                <input type="text"  value="<s:property  value="D5" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();"
-                                       />
-                            </td>
-                            <td align = "center" class="TD_SOKU">
-                                <input type="text"  value="<s:property  value="D5" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();"
-                                       />
-                            </td>
-                            <td align = "center" class="TD_SOKU">
-                                <input type="text"  value="<s:property  value="D5" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();"
-                                       />
-                            </td>
+                           <td style="text-align:right"  class="TD_SOKU">
+                                    <s:property value="D5"/>
+                                </td>
+                             <td style="text-align:right"  class="TD_SOKU">
+                                    <s:property value="D5"/>
+                                </td>
+                                 <td style="text-align:right"  class="TD_SOKU">
+                                    <s:property value="D5"/>
+                                </td>
+                                 <td style="text-align:right"  class="TD_SOKU">
+                                    <s:property value="D5"/>
+                                </td>
 
                         </tr>                                                                                                       
                     </s:iterator>
                 </table>                    
             </s:form>
             <div id="luu_thanhcong"></div>
-            <!--        <script>
-                        initTable();
-                    </script>-->
     </body>
 
 

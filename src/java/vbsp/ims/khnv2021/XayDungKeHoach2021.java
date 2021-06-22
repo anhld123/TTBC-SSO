@@ -79,16 +79,16 @@ public class XayDungKeHoach2021 extends ActionMainKHNV2021 {
         return SUCCESS;
     }
     
-//    public String getSubcommune() {
-//        try {
-//            commune_cd = request.getParameter("commune_cd");
-//            setSubCommuneList(daoXdkh.getSubCommuneList(pos_cd_username, commune_cd, reportGrade));
-//        } catch (Exception e) {
-//            System.err.println(e.getMessage());
-//            CoreLogger.error(this.getClass().getCanonicalName() + " getSubcommune -> " + e.getMessage());
-//        }
-//        return SUCCESS;
-//    }
+    public String getSubcommune() {
+        try {
+            commune_cd = request.getParameter("commune_cd");
+            setSubCommuneList(daoXdkh.getSubCommuneList(pos_cd_username, commune_cd, reportGrade));
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            CoreLogger.error(this.getClass().getCanonicalName() + " getSubcommune -> " + e.getMessage());
+        }
+        return SUCCESS;
+    }
 
     
     public String Lock_Unlock() {
