@@ -6,12 +6,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s" %>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Kiểm duyệt KHTD</title>
-        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
         <style>
             *{
                 font-family: tahoma;
@@ -56,108 +56,132 @@
             }
             .cls-over{
                 overflow-y: scroll;
-                height: 76vh;
+                height: 69vh;
             }
             .cmd{
                 padding: 5px;
                 background-image: linear-gradient(#f2f2f2,#c2c2c2);
                 border: 1px solid #c2c2c2;
                 border-radius: 2px;
+                z-index: 99;
             }
         </style>
-        <script>
-            $(document).ready(function () {
-                $('#cboNam').change()(function () {
-                    alert($('#cboNam :selected').text());
-                });
-            });
-        </script>    
-
+        <script src="js/jquery-1.4.4.min.js" type="text/javascript"></script>
     </head>
     <body>
-        <div class="cls-fix">
-            <div>
-                <span class="clss-lable" id="cboDonvi" name="cboDonvi">Đơn vị:</span>
-                <select>
-                    <s:iterator value="lstPos">
-                        <option value="<s:property value='PosCode'/>"><s:property value='PosName'/></option>
-                    </s:iterator>
-                </select>
-                &nbsp;
-                <span class="clss-lable">Kế hoạch tín dụng năm:</span>
-                <select id="cboNam" name="cboNam">
-                    <script>
-                        var i;
-                        var text = "";
-                        for (i = 2003; i <= 2099; i++) {
-                            text += '<option value="' + i.toString() + '">Năm ' + i.toString() + '</option>';
-                        }
-                        document.write(text);
-                    </script>
-                </select>
-                &nbsp;
-                <span class="clss-lable">Tổng hợp</span>
-                <select id="cboTonghop" name="cboTonghop">
-                        <option value="N">Từng đơn vị</option>
+        <form id="idKhnv2021" name="nameKhnv2021">
+            <div class="cls-fix">
+                <div>
+                    <span class="clss-lable">Đơn vị:</span>
+                    <select id="cboDonvi" name="cboDonvi">
+                        <option value="all">----Tất cả----</option>
+                        <s:iterator value="lstPos">
+                            <option value="<s:property value='PosCode'/>"><s:property value='PosName'/></option>
+                        </s:iterator>
+                    </select>
+                    &nbsp;
+                    <span class="clss-lable">Kế hoạch tín dụng năm:</span>
+                    <select id="cboNam" name="cboNam">
+                        <script>
+                            var i;
+                            var text = "";
+                            for (i = 2003; i <= 2099; i++) {
+                                text += '<option value="' + i.toString() + '">Năm ' + i.toString() + '</option>';
+                            }
+                            document.write(text);
+                        </script>
+                    </select>
+                    &nbsp;
+                    <span class="clss-lable">Đợt thực hiện:</span>
+                    <select  id="cboDot" name="cboDot">
+                        <option value="01">Đợt I</option>
+                        <option value="02">Đợt II</option>
+                        <option value="03">Đợt III</option>
+                        <option value="04">Đợt IV</option>
+                    </select>
+                    &nbsp;
+                    <span class="clss-lable">Tổng hợp</span>
+                    <select id="cboTonghop" name="cboTonghop">
                         <option value="Y">Tất cả các đơn vị trực thuộc</option>
-                </select>
-                &nbsp;
-                <input type="button" id="cmdTai" name="cmdTai" value="Tải dữ liệu" class="cmd">
+                        <option value="N">Từng đơn vị</option>
+                    </select>
+                    &nbsp;                                  
+                    <input type="button" value="Tải dữ liệu" id="cmdTaiDL" name="nameTaiDL" class="cmd"/>
+                </div>
+                <hr/>
+                <div><span class="clss-lable">Nguyên nhân</span></div>
+                <div class="clss-body-ngnhan">
+                    <textarea id="strNguyennhan" name="strNguyennhan"></textarea>
+                </div>
+                <hr/>
+                <div style="display: inline-flex; height: 30px;">
+                    <input type="button" value="Gửi cấp trên" id="cmdGuiDL" name="nameGuiDL" class="cmd"/>
+                    &nbsp; 
+                    <input type="button" value="Trả lại đơn vị" id="cmdTraLaiDL" name="nameTraLaiDL" class="cmd"/>
+                    &nbsp; &nbsp;
+                    <div id="idViewMess" name="nameViewMess" style="height: 100%;display: flex; align-items: center;font-weight: bold; color: red;"></div>
+                </div>
+                <hr/>
             </div>
-            <hr/>
-            <div><span class="clss-lable">Nguyên nhân</span></div>
-            <div class="clss-body-ngnhan">
-                <textarea id="strNguyennhan" name="strNguyennhan"></textarea>
+            <div class="cls-over">
+                <div id="idViewData"></div>
             </div>
-            <hr/>
-            <div>
-                <input type="button" id="cmdGui" name="cmdGui" value="Gửi Trung ương" class="cmd">&nbsp;<input type="button" id="cmdTuChoi" name="cmdTuChoi" value="Trả lại PGD" class="cmd">
-            </div>
-            <hr/>
-        </div>
-        <div class="cls-over">
-            <table>
-                <thead>
-                    <tr>
-                        <td colspan="3" style="text-align: left; border: 0px; font-weight: bold;">KẾ HOẠCH TÍN DỤNG NĂM 2022</td>
-                        <td colspan="4" style="text-align: right; border: 0px;font-style: italic;">Đơn vị: triệu đồng, %, hộ, người</td>
-                    </tr>
-                    <tr>
-                        <th rowspan="3">STT</th>
-                        <th rowspan="3">CHỈ TIÊU</th>
-                        <th rowspan="3">Thực hiện đến 31/12/2020</th>
-                        <th rowspan="3">Ước thực hiện đến 31/12/2021</th>
-                        <th colspan="3" ="3">Kế hoạch tín dụng năm 2022</th>
-                    </tr>
-                    <tr>
-                        <th rowspan="2">Tổng số</th>
-                        <th colspan="2">Tăng, giảm so với 31/12/2021</th>
-                    </tr>
-                    <tr>
-                        <th>Số tuyệt đối (+/-)</th>
-                        <th>Số tương đối (%)</th>
-                    </tr>
-                    <tr class="sttCol">
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                    </tr>
-                </thead>
-                <tbody>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        </form> 
+        <script>
+            $(document).ready(function () {
+                //Tải dữ liệu
+                $("#cmdTaiDL").click({status: "0"}, SendData);
+                //Gửi dữ liệu
+                $("#cmdGuiDL").click({status: "1"}, SendData);
+                //Trả lại đơn vị
+                $("#cmdTraLaiDL").click({status: "2"}, SendData);
+            });
+            function SendData(event) {
+                var surl, sdata, idView, idMess, idForm, method, strMess;
+                surl = "SendAction.action?status=" + event.data.status;
+                idView = "#idViewData";
+                idMess = "#idViewMess";
+                idForm = "#idKhnv2021";
+                method = "POST";
+                sdata = jQuery(idForm).serialize();
+                $.ajax({
+                    url: surl,
+                    data: sdata,
+                    type: method,
+                    async: true,
+                    beforeSend: function () {
+                        $(idMess).html('<img src="imgs/newloading.gif" class="ViewMess"/>');
+                    },
+                    success: function (result) {
+                        if (["10", "11", "20", "21", "01"].includes(result)) {
+                            switch (result) {
+                                case "01":
+                                    strMess = 'Lỗi: Tải dữ liệu không thành công.';
+                                    break;
+                                case "10":
+                                    strMess = '<span style="color:green">Thành công: Gửi dữ liệu lên cấp trên thành công.</span>';
+                                    break;
+                                case "11":
+                                    strMess = 'Lỗi: khi gửi dữ liệu lên cấp trên.';
+                                    break;
+                                case "20":
+                                    strMess = '<span style="color:green">Thành công: Hoàn trả dữ liệu cho đơn vị thành công.</span>';
+                                    break;
+                                case "21":
+                                    strMess = 'Lỗi: hoàn trả dữ liệu cho đơn vi.';
+                                    break;
+                            }
+                            $(idMess).html(strMess);
+                        } else {
+                            $(idView).html(result);
+                            $(idMess).html('<span style="color:green">Thành công: Tải dữ liệu.</span>');
+                        }
+                    },
+                    error: function (result) {
+                        alert('Lỗi khi thực hiện.');
+                    }
+                });
+            }
+        </script>
     </body>
 </html>

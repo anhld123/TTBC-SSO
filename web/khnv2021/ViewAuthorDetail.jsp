@@ -1,0 +1,46 @@
+<%-- 
+    Document   : ViewAuthorDetail
+    Created on : Jun 18, 2021, 9:44:51 AM
+    Author     : Admin
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="/struts-tags" prefix="s" %>
+
+<table>
+    <thead>
+        <tr>
+            <td colspan="3" style="text-align: left; border: 0px; font-weight: bold; background-color: white;">KẾ HOẠCH TÍN DỤNG NĂM 2022</td>
+            <td colspan="4" style="text-align: right; border: 0px;font-style: italic;background-color: white;">Đơn vị: triệu đồng, %, hộ, người</td>
+        </tr>
+        <tr>
+            <th rowspan="3">STT</th>
+            <th rowspan="3">CHỈ TIÊU</th>
+            <th rowspan="3">Thực hiện đến 31/12/2020</th>
+            <th rowspan="3">Ước thực hiện đến 31/12/2021</th>
+            <th colspan="3" ="3">Kế hoạch tín dụng năm 2022</th>
+        </tr>
+        <tr>
+            <th rowspan="2">Tổng số</th>
+            <th colspan="2">Tăng, giảm so với 31/12/2021</th>
+        </tr>
+        <tr>
+            <th>Số tuyệt đối (+/-)</th>
+            <th>Số tương đối (%)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <s:iterator value="lstData">
+            <tr>
+                <td><s:property value='THUTU'/></td>
+                <td><s:property value='D1'/></td>
+                <td><s:property value='D2'/></td>
+                <td><s:property value='D3'/></td>
+                <td><s:property value='D4'/></td>
+                <td><s:property value='D5'/></td>
+                <td><s:property value='D6'/></td>
+            </tr>
+        </s:iterator>
+
+    </tbody>
+</table>
