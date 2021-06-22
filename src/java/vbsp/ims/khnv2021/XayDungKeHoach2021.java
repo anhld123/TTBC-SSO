@@ -4,6 +4,7 @@ import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import vbsp.ims.khnv2021.dao.XDKHDao2021;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.struts2.ServletActionContext;
 import vbsp.ims.define.Define;
@@ -32,6 +33,11 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
         try {
             namBc = getDefaultYearReport();
             getInfo();
+            if(!reportGrade.equals("1"))
+            {
+                addActionError("Chức năng này chỉ thực hiện cho cấp PGD");
+                return ERROR;
+            }
             posList = daoXdkh.getPosList(pos_cd_username, maCn, reportGrade);
             subCommuneList = daoXdkh.getSubCommuneList(pos_cd_username, "", reportGrade);
             lstMaBC = daoXdkh.getLOV(userId, Define.LOV_MABC);
@@ -48,6 +54,8 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
 
     public String getDataXayDungKH() {
         try {
+            HashMap hmParameter = getParameter();
+//            setDotBc(hmParameter.get("dotBc").toString());
             int yearPre = Integer.parseInt(namBc)  -1;
             namBc_pre = String.valueOf(yearPre);
             getInfo();
@@ -93,7 +101,9 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
     
     public String Lock_Unlock() {
         try {
-
+            getInfo();
+            HashMap hmParameter = getParameter();
+//            String a =hmParameter.get("lock_unlock").toString();
             if(daoXdkh.setLockUnlockCommune(commune_cd, namBc, dotBc, lock_unlock, userId, reportGrade))
             {
                 addActionMessage("Bạn đã chốt/mở chốt thành công");

@@ -8,8 +8,11 @@ package vbsp.ims.khnv2021;
 import vbsp.ims.action.khnv.*;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +21,7 @@ import org.apache.struts2.ServletActionContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.define.DefineFun;
+import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.DownloadFileInfor;
 import vbsp.ims.model.khnv.POSModel;
 import vbsp.ims.model.ktnb.PosMainModel;
@@ -45,6 +49,7 @@ public class ActionMainKHNV extends ActionSupport{
 //    protected String namBc;
     protected String dotBc;
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
+    protected List<ListValue> lstParameters = new ArrayList<>();
     
     
     protected String defaultYearReport;
@@ -74,6 +79,53 @@ public class ActionMainKHNV extends ActionSupport{
             path += "/";
         }
         return path;
+    }
+    
+    protected HashMap<String, Object> getParameter() throws Exception {
+        HashMap<String, Object> paramHashMap = new HashMap<>();
+        Map<String, String[]> prameters = ServletActionContext.getRequest().getParameterMap();
+        for (String parameter : prameters.keySet()) {
+            String[] values = prameters.get(parameter);
+            if (parameter.indexOf("TEXT") > 0 || parameter.indexOf("DATE") > 0 || parameter.indexOf("LIST") > 0) {
+                if (parameter.startsWith("1_")) {
+                    parameter = parameter.substring(2, parameter.length());
+                }
+                if (parameter.indexOf("DATE") > 0) {
+                    Date sdf = new SimpleDateFormat("dd/MM/yyyy").parse(values[0]);
+                    paramHashMap.put(parameter.substring(0, parameter.length() - 5), new SimpleDateFormat("dd-MMM-yyyy").format(sdf));
+                    lstParameters.add(new ListValue(parameter, values[0]));
+                } else {
+                    paramHashMap.put(parameter.substring(0, parameter.length() - 5), values[0]);
+                    lstParameters.add(new ListValue(parameter, values[0]));
+                }
+            } else {
+                if (parameter.startsWith("1_")) {
+                    parameter = parameter.substring(2, parameter.length());
+                }
+                if (parameter.equals("poscd")) {
+                    paramHashMap.put(parameter, convertStringtoList(values));
+                } else {
+                    paramHashMap.put(parameter, values[0]);
+                    lstParameters.add(new ListValue(parameter, values[0]));
+                }
+            }
+        }
+        return paramHashMap;
+    }
+    
+    private List<String> convertStringtoList(String[] value) {
+        List<String> lst = new ArrayList<>();
+        try {
+            for (int i = 0; i < value.length; i++) {
+                if (!value[i].equals("999999") && !value[i].isEmpty()) {
+                    lst.add(value[i]);
+                }
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> convertStringtoList: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> convertStringtoList: " + e.getMessage());
+        }
+        return lst;
     }
 
     public void getInfo() throws Exception {
@@ -375,7 +427,17 @@ public class ActionMainKHNV extends ActionSupport{
         this.namBc_pre = namBc_pre;
     }
     
+        public List<ListValue> getLstParameters() {
+        return lstParameters;
+    }
+
+    public void setLstParameters(List<ListValue> lstParameters) {
+        this.lstParameters = lstParameters;
+    }
+    
     //</editor-fold>
+
+
 
 
 
