@@ -10,6 +10,7 @@ import vbsp.ims.define.Define;
 import vbsp.ims.khnv2021.excel.ExcelExport;
 import vbsp.ims.khnv2021.model.FileExportInfo;
 import vbsp.ims.log.CoreLogger;
+import vbsp.ims.model.khnv.POSModel;
 
 /**
  *
@@ -160,12 +161,30 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
             ExcelExport excelExport = new ExcelExport();
             List<String> lstSubCommune = new ArrayList<>();
+            
+            if (commune_cd.equals("000000")) {
+                addActionError("Bạn chưa chọn xã/phường");
+                return ERROR;
+            }
+            
+            List<POSModel> lstCommuneFull = new ArrayList<>();
+            lstCommuneFull = daoXdkh.getCommuneList(pos_cd_username);
+            
             if (!subcommune_cd.equals("000000")) {
                 lstSubCommune.add(subcommune_cd);
             } else {
                 lstSubCommune = daoXdkh.getAllSubCommune(pos_cd_username, commune_cd);
             }
-            FileExportInfo fileInfo = excelExport.xuatExcelMau01a(pos_cd_username, commune_cd, lstSubCommune, "31-may-2021", namBc, dotBc, savedDir);
+            
+            String communeName = "";
+            for(int i = 0; i < lstCommuneFull.size(); i++) {
+                if (lstCommuneFull.get(i).getId() == commune_cd) {
+                    communeName = lstCommuneFull.get(i).getDesc();
+                    break;                    
+                }
+            }
+            
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01a(pos_cd_username, commune_cd, communeName, lstSubCommune, "31-may-2021", namBc, dotBc, savedDir);
             fileNamelocal = fileInfo.fileName;
             filereport = fileInfo.filePath;
             return SUCCESS;
