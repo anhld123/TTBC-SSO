@@ -15,15 +15,14 @@ import vbsp.ims.log.CoreLogger;
  *
  * @author CuongBM0211
  */
-public class XayDungKeHoach2021 extends ActionMainKHNV2021 {
+public class XayDungKeHoach2021 extends ActionMainKHNV {
 
     private XDKHDao2021 daoXdkh = new XDKHDao2021();
 
 
-    public XayDungKeHoach2021() {
-    }
+    public XayDungKeHoach2021() {}
 
-    @Override
+    
     public String execute() throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -42,8 +41,9 @@ public class XayDungKeHoach2021 extends ActionMainKHNV2021 {
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " loi get_data_xaydungkh " + e.getMessage());
             System.err.println(this.getClass().getName() + " loi get_data_xaydungkh " + e.getMessage());
+            return ERROR;
         }
-        return "success";
+        return SUCCESS;
     }
 
     public String getDataXayDungKH() {
