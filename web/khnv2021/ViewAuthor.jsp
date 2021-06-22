@@ -135,17 +135,17 @@
                 $("#cmdGuiDL").click({status: "1"}, SendData);
                 //Trả lại đơn vị
                 $("#cmdTraLaiDL").click({status: "2"}, SendData);
-                $("#cboDonvi").change(function(){
-                    if($("#cboDonvi").val().trim()==="all"){
-                        $("#cboTonghop").val("Y").change();
-                    }else{
-                        $("#cboTonghop").val("N").change();
+                $("#cboDonvi").change(function () {
+                    if ($("#cboDonvi").val().trim() === "all") {
+                        $('#cboTonghop option')[0].selected = true;
+                    } else {
+                        $('#cboTonghop option')[1].selected = true;
                     }
                 });
-                $("#cboTonghop").change(function(){
-                    if($("#cboTonghop").val().trim()==="Y"){
-                        $("#cboDonvi").val("all").change();
-                    }else{
+                $("#cboTonghop").change(function () {
+                    if ($("#cboTonghop").val().trim() === "Y") {
+                        $('#cboDonvi option')[0].selected = true;
+                    } else {
                         $('#cboDonvi option')[1].selected = true;
                     }
                 });
