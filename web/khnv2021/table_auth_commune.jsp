@@ -94,12 +94,12 @@
         <script>
     
         function hienthichitiet(commune_detai) {
-            var ht1 = screen.availHeight - 360;
-            var wt1 = 500;
+            var ht1 = screen.availHeight - 100;
+            var wt1 = screen.availWidth -100;
             var left1 = (screen.width / 2) - (wt1 / 2);
             var top1 = 100;           
             var url = "getDetailKhnvBySubCommune.action?commune_detai=" + commune_detai;
-            popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+            popup = window.open(url, '_blank', "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
         }
         
         
@@ -194,7 +194,7 @@
                                             <sj:a  href="%{unlockId}" onclick="js_confirmdelete();" targets="luu_thanhcong"  ><u>Mở chốt</u></sj:a>
                                         </td>    
                                   </s:if>
-                                    <s:if test="D3.equalsIgnoreCase('2B')&& !D1.equalsIgnoreCase('000301')">
+                                  <s:elseif test="D3.equalsIgnoreCase('2B')&& !D1.equalsIgnoreCase('000301')">
                                         <td style="text-align: center;">
                                        <s:url id="lockId" value="Lock_Unlock.action">
                                                 <s:param name="maxa" value="D1"/>
@@ -202,7 +202,10 @@
                                             </s:url>
                                             <sj:a href="%{lockId}" onclick="js_confirmdelete();" targets="luu_thanhcong"><u>Chốt</u></sj:a>
                                             </td>
-                                  </s:if>      
+                                  </s:elseif>      
+                                  <s:else>
+                                      <td></td>
+                                  </s:else>          
                         </tr>                                                                                                       
                     </s:iterator>
                 </table>                    
