@@ -18,10 +18,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import oracle.sql.ARRAY;
-import oracle.sql.ArrayDescriptor;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.export.excel.ExportExcelFile;
@@ -162,7 +158,6 @@ public class XDKHDao2021 {
         return dataList;
     }
     
-
     public ArrayList<POSModel> getPosList(String posCD, String maCn, String reportGrade){
         ArrayList<POSModel> posList = new ArrayList<POSModel>();
         
@@ -555,8 +550,6 @@ public class XDKHDao2021 {
         return lstPoscd;
     }
    
-  
-   
    public List<String> getAllCommune(String posUser) throws SQLException {
         List<String> lstData = new ArrayList<>();
         DaoConnect daoconnect = new DaoConnect();
@@ -600,6 +593,64 @@ public class XDKHDao2021 {
             if (conn != null) {
                 conn.close();
             }
+        }
+        return lstData;
+    }
+   
+   public List<String> getAllSubCommune(String posCD, String communeId){
+        List<String> lstData = new ArrayList<>();
+        
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call VBSP_IMS_KHNV2021.P_GET_SUBCOMMUNE_LIST(?, ?, ?, ?, ?, ?)}";
+            ResultSet rsPosList = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                
+                //Truyen vao username
+                calstatement.setString(1, posCD);          
+                calstatement.setString(2, communeId);          
+                calstatement.setString(3, "1");          
+                
+                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
+
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //Lay cursor ra resultset
+                rsPosList = (ResultSet) calstatement.getObject(6);
+
+                while (rsPosList.next()) {
+                    //POSModel p = new POSModel();
+                    //p.setId(rsPosList.getString("PO_MA"));
+                    //p.setDesc(rsPosList.getString("PO_MA") + " - " + rsPosList.getString("PO_TEN"));
+                    String subCommuneId = rsPosList.getString("PO_MA");
+                    lstData.add(subCommuneId);
+                }
+
+//                if (rsPosList != null) {
+//                    rsPosList.close();
+//                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Loi trong ham getPosList " + e.getMessage());
+                CoreLogger.error(DaoDieuchinhkh.class.getCanonicalName() + " getPosList  -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getPosList " + e.getMessage());
+            CoreLogger.error(DaoDieuchinhkh.class.getCanonicalName() + " getPosList  -> " + e.getMessage());
         }
         return lstData;
     }

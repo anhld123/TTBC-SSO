@@ -156,7 +156,14 @@
             </div>
             <hr/>
             <div>
-                <input type="button" id="cmdGui" name="cmdGui" value="Xuất xls mẫu 01a" class="cmd">&nbsp;
+                
+                <s:url id="idExpEcelKhnv01a" action="khnv/dk/ExpExcelKhnv01a"></s:url>                                      
+                <sj:submit id="idExpEcelKhnvtmp01a" name="nameSend01a" href="%{idExpEcelKhnv01a}" value="Xuất xls mẫu 01a" targets="divKhDetail"
+                           onBeforeTopics="beforediv_send"
+                           onCompleteTopics="completediv_send" class="cmd"/>
+                
+<!--                <input type="button" id="cmdGui" name="cmdGui" value="Xuất xls mẫu 01a" class="cmd">-->
+                &nbsp;
                 <input type="button" id="cmdTuChoi" name="cmdTuChoi" value="Upload xls mẫu 01a" class="cmd">
                 &nbsp;&nbsp;|&nbsp;&nbsp
 

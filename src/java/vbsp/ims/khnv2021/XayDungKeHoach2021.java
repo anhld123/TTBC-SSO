@@ -128,6 +128,29 @@ public class XayDungKeHoach2021 extends ActionMainKHNV2021 {
             return ERROR;
         }
     }
+    
+    public String ExpExcelKhnv01a() {
+        try {
+            getInfo();
+            request = ServletActionContext.getRequest();
+            String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
+            ExcelExport excelExport = new ExcelExport();
+            List<String> lstSubCommune = new ArrayList<>();
+            if (!subcommune_cd.equals("000000")) {
+                lstSubCommune.add(subcommune_cd);
+            } else {
+                lstSubCommune = daoXdkh.getAllSubCommune(pos_cd_username, commune_cd);
+            }
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01a(pos_cd_username, commune_cd, lstSubCommune, "31-may-2021", namBc, dotBc, savedDir);
+            fileNamelocal = fileInfo.fileName;
+            filereport = fileInfo.filePath;
+            return SUCCESS;
+        } catch (Exception ex) {
+            CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv01a " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " Loi ExpExcelKhnv01a " + ex.getMessage());
+            return ERROR;
+        }
+    }
 
 //    public String xuatxls() {
 //        try {
