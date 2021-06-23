@@ -274,6 +274,60 @@ public class XDKHDao2021 {
         return posList;
     }
     
+    public ArrayList<POSModel> getCommuneList(String posCode){
+        ArrayList<POSModel> posList = new ArrayList<>();
+        
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call VBSP_IMS_KHNV2021.SP_GET_COMMUNEBYUSER(?, ?)}";
+            ResultSet rsPosList = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                
+                //Truyen vao username
+                calstatement.setString(1, posCode);                         
+                
+                calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
+
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //Lay cursor ra resultset
+                rsPosList = (ResultSet) calstatement.getObject(2);
+
+                while (rsPosList.next()) {
+                    POSModel p = new POSModel();
+                    p.setId(rsPosList.getString("MA"));
+                    p.setDesc(rsPosList.getString("TEN"));
+
+                    posList.add(p);
+                }
+
+                if (rsPosList != null) {
+                    rsPosList.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Loi trong ham getCommuneList " + e.getMessage());
+                CoreLogger.error(POSModel.class.getCanonicalName() + " getPosList  -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getCommuneList " + e.getMessage());
+            CoreLogger.error(DaoDieuchinhkh.class.getCanonicalName() + " getPosList  -> " + e.getMessage());
+        }
+        return posList;
+    }
+    
 //   public String getQueryExpXls(String mabc, String nambc, String dotbc,String maDonvi, String capbc) throws SQLException {
 //        String pos_cd = "";
 //        CallableStatement calstatement = null;

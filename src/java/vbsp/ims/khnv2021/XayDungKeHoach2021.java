@@ -188,7 +188,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             
             String communeName = "";
             for(int i = 0; i < lstCommuneFull.size(); i++) {
-                if (lstCommuneFull.get(i).getId() == commune_cd) {
+                if (lstCommuneFull.get(i).getId().equals(commune_cd)) {
                     communeName = lstCommuneFull.get(i).getDesc();
                     break;                    
                 }
