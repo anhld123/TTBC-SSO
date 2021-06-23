@@ -44,6 +44,7 @@ public class ActionMainKHNV extends ActionSupport{
     protected String commune_cd;
     protected String lock_unlock;
     protected String commune_detai;
+    protected String subcommune_detail;
     protected String subcommune_cd;
     protected String maBc;
 //    protected String namBc;
@@ -162,6 +163,15 @@ public class ActionMainKHNV extends ActionSupport{
     }
 
     //<editor-fold defaultstate="collapsed" desc="get set du lieu">
+
+    public String getSubcommune_detail() {
+        return subcommune_detail;
+    }
+
+    public void setSubcommune_detail(String subcommune_detail) {
+        this.subcommune_detail = subcommune_detail;
+    }
+    
 
     public String getLock_unlock() {
         return lock_unlock;

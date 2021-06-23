@@ -133,6 +133,22 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             return "loadAllSubCommune";
 
         } catch (Exception ex) {
+            CoreLogger.error(this.getClass().getName() + " getDataXayCommuneDetai " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " loi getDataXayCommuneDetai " + ex.getMessage());
+            return ERROR;
+        }
+
+    }
+    
+    public String getDataXaySubCommuneDetai() {
+        try {
+
+            getInfo();
+            //TH load theo 1 thôn
+            lstDulieuNt = daoXdkh.getDataAuthCommune(maBc, userId, reportGrade, namBc, dotBc, commune_detai, subcommune_detail);
+            return "loadOneSubCommune";
+
+        } catch (Exception ex) {
             CoreLogger.error(this.getClass().getName() + " get_data_xaydungkh " + ex.getMessage());
             System.err.println(this.getClass().getName() + " loi getDataXayDungKhDetail " + ex.getMessage());
             return ERROR;
