@@ -149,7 +149,15 @@ public class ExcelExport {
         }
     }
 
-    public FileExportInfo xuatExcelMau01a(String posCode, String communeCode, List<String> lstSubCommune, String reportDate, String namBc, String dotBc, String savedDirPath) {
+    private void fillTitle(XSSFCell cell, String value) {
+        XSSFCellStyle titleStyle;
+        titleStyle = cell.getCellStyle();
+        titleStyle.setLocked(true);
+        cell.setCellStyle(titleStyle);
+        cell.setCellValue(value);
+    }
+    
+    public FileExportInfo xuatExcelMau01a(String posCode, String communeCode, String communeName, List<String> lstSubCommune, String reportDate, String namBc, String dotBc, String savedDirPath) {
         String filePath = "", fileName = "";
         List<String> lstOfTextFile = new ArrayList<>();
         List<DownloadFileInfor> filesList = new ArrayList<>();
@@ -162,6 +170,9 @@ public class ExcelExport {
         String zipFile = "FileNen_KHNV01A_" + strTimeFile + ".zip", zipPath = "";
         try {
 
+            int preYear = Integer.parseInt(namBc) - 1;
+            String strPreYear = Integer.toString(preYear);
+            
             for (String strSubCommuneCode : lstSubCommune) {
 
                 if (strSubCommuneCode.equals("000000")) {
@@ -194,86 +205,122 @@ public class ExcelExport {
                 DaoMau01A daoMau01A = new DaoMau01A();
                 List<Mau01AModel> lstData = daoMau01A.getExportData(posCode, communeCode, strSubCommuneCode, reportDate);
 
-                // Fill data              
-                XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new java.io.FileInputStream(fileName));
-                //SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
-                XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
+                if (lstData.size() > 0) {
 
-                // style
-                XSSFCellStyle numberStyle;
-                XSSFDataFormat format = xssfWorkbook.createDataFormat();
+                    // Fill data              
+                    XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new java.io.FileInputStream(fileName));
+                    //SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
+                    XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
 
-                XSSFCellStyle orderStyle;
-                XSSFCellStyle codeStyle;
-                XSSFCellStyle nameStyle;
-                XSSFCellStyle lockStyle;
+                    // style
+                    XSSFCellStyle numberStyle;
+                    XSSFDataFormat format = xssfWorkbook.createDataFormat();
 
-                for (int i = 0; i < lstData.size(); i++) {
-                    XSSFRow xssfRow = sheet.getRow(i + 12);
-                    if (xssfRow == null) {
-                        xssfRow = sheet.createRow(i + 12);
+                    //XSSFCellStyle titleStyle;
+                    //XSSFCellStyle subTitleStyle;
+                    XSSFCellStyle orderStyle;
+                    XSSFCellStyle codeStyle;
+                    XSSFCellStyle nameStyle;
+                    XSSFCellStyle lockStyle;
+
+                    
+                    String strTitle = "NHU CẦU VAY VỐN TÍN DỤNG CHÍNH SÁCH NĂM " + namBc;
+                    XSSFCell xssfCellTitle = sheet.getRow(4).getCell(0, Row.CREATE_NULL_AS_BLANK);
+                    fillTitle(xssfCellTitle, strTitle);
+//                    titleStyle = xssfCellTitle.getCellStyle();
+//                    titleStyle.setLocked(true);
+//                    xssfCellTitle.setCellStyle(titleStyle);
+//                    xssfCellTitle.setCellValue(strTitle);
+                    
+                    
+                    String strSubCommuneName = lstData.get(0).subCommuneName;
+                    String strSubTitle = "THÔN: " + strSubCommuneName + " XÃ/PHƯỜNG/THỊ TRẤN: " + communeName;
+                    XSSFCell xssfCellSubTitle = sheet.getRow(5).getCell(0, Row.CREATE_NULL_AS_BLANK);
+                    //subTitleStyle = xssfCellTitle.getCellStyle();
+                    //subTitleStyle.setLocked(true);
+                    //xssfCellSubTitle.setCellStyle(subTitleStyle);
+                    //xssfCellSubTitle.setCellValue(strSubTitle);
+                    fillTitle(xssfCellSubTitle, strSubTitle);
+                    
+                    String colTitle3 = "Ước dư nợ đến 31/12/" + strPreYear;
+                    XSSFCell colTitle = sheet.getRow(7).getCell(3, Row.CREATE_NULL_AS_BLANK);
+                    fillTitle(colTitle, colTitle3);
+                    
+                    String colTitle5 = "Nhu cầu vốn năm " + namBc;
+                    colTitle = sheet.getRow(7).getCell(4, Row.CREATE_NULL_AS_BLANK);
+                    fillTitle(colTitle, colTitle5);
+                    
+                    String colTitle6 = "Tăng, giảm so với 31/12/" + strPreYear;
+                    colTitle = sheet.getRow(8).getCell(5, Row.CREATE_NULL_AS_BLANK);
+                    fillTitle(colTitle, colTitle6);
+
+                    for (int i = 0; i < lstData.size(); i++) {
+                        XSSFRow xssfRow = sheet.getRow(i + 12);
+                        if (xssfRow == null) {
+                            xssfRow = sheet.createRow(i + 12);
+                        }
+                        XSSFCell xssfCell00 = xssfRow.getCell(0, Row.CREATE_NULL_AS_BLANK);
+
+                        orderStyle = xssfCell00.getCellStyle();
+                        orderStyle.setAlignment(HorizontalAlignment.LEFT);
+                        orderStyle.setLocked(true);
+                        xssfCell00.setCellStyle(orderStyle);
+                        xssfCell00.setCellValue(lstData.get(i).orderDisplay);
+
+                        XSSFCell xssfCell01 = xssfRow.getCell(1, Row.CREATE_NULL_AS_BLANK);
+
+                        codeStyle = xssfCell01.getCellStyle();
+                        codeStyle.setLocked(true);
+                        codeStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+                        codeStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+                        codeStyle.setAlignment(HorizontalAlignment.CENTER);
+
+                        xssfCell01.setCellStyle(codeStyle);
+                        xssfCell01.setCellValue(lstData.get(i).code);
+
+                        XSSFCell xssfCell02 = xssfRow.getCell(2, Row.CREATE_NULL_AS_BLANK);
+
+                        nameStyle = xssfCell02.getCellStyle();
+                        nameStyle.setAlignment(HorizontalAlignment.LEFT);
+                        nameStyle.setLocked(true);
+                        nameStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+                        nameStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+                        xssfCell02.setCellStyle(nameStyle);
+                        xssfCell02.setCellValue(lstData.get(i).name);
+
+                        XSSFCell xssfCell03 = xssfRow.getCell(3, Row.CREATE_NULL_AS_BLANK);
+                        numberStyle = xssfCell03.getCellStyle();
+                        numberStyle.setDataFormat(format.getFormat("#,##0"));
+                        numberStyle.setAlignment(HorizontalAlignment.RIGHT);
+                        numberStyle.setLocked(false);
+                        xssfCell03.setCellStyle(numberStyle);
+                        xssfCell03.setCellValue(lstData.get(i).d2);
+
+                        XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
+                        lockStyle = xssfCell04.getCellStyle();
+                        lockStyle.setDataFormat(format.getFormat("#,##0"));
+                        lockStyle.setAlignment(HorizontalAlignment.RIGHT);
+                        lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+                        lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+                        lockStyle.setLocked(true);
+                        xssfCell04.setCellStyle(lockStyle);
+
+                        XSSFCell xssfCell06 = xssfRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
+                        lockStyle = xssfCell06.getCellStyle();
+                        lockStyle.setDataFormat(format.getFormat("#,##0.00"));
+                        lockStyle.setAlignment(HorizontalAlignment.RIGHT);
+                        lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+                        lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+                        lockStyle.setLocked(true);
+                        xssfCell06.setCellStyle(lockStyle);
+
                     }
-                    XSSFCell xssfCell00 = xssfRow.getCell(0, Row.CREATE_NULL_AS_BLANK);
-                    
-                    orderStyle = xssfCell00.getCellStyle();
-                    orderStyle.setAlignment(HorizontalAlignment.LEFT);
-                    orderStyle.setLocked(true);
-                    xssfCell00.setCellStyle(orderStyle);
-                    xssfCell00.setCellValue(lstData.get(i).orderDisplay);
 
-                    XSSFCell xssfCell01 = xssfRow.getCell(1, Row.CREATE_NULL_AS_BLANK);
-                    
-                    codeStyle = xssfCell01.getCellStyle();
-                    codeStyle.setLocked(true);
-                    codeStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-                    codeStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                    codeStyle.setAlignment(HorizontalAlignment.CENTER);
-
-                    xssfCell01.setCellStyle(codeStyle);
-                    xssfCell01.setCellValue(lstData.get(i).code);
-
-                    XSSFCell xssfCell02 = xssfRow.getCell(2, Row.CREATE_NULL_AS_BLANK);
-                    
-                    nameStyle = xssfCell02.getCellStyle();
-                    nameStyle.setAlignment(HorizontalAlignment.LEFT);
-                    nameStyle.setLocked(true);
-                    nameStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-                    nameStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                    xssfCell02.setCellStyle(nameStyle);
-                    xssfCell02.setCellValue(lstData.get(i).name);
-
-                    XSSFCell xssfCell03 = xssfRow.getCell(3, Row.CREATE_NULL_AS_BLANK);                    
-                    numberStyle = xssfCell03.getCellStyle();
-                    numberStyle.setDataFormat(format.getFormat("#,##0"));
-                    numberStyle.setAlignment(HorizontalAlignment.RIGHT);
-                    numberStyle.setLocked(false);
-                    xssfCell03.setCellStyle(numberStyle);
-                    xssfCell03.setCellValue(lstData.get(i).d2);
-                    
-                    XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);                    
-                    lockStyle = xssfCell04.getCellStyle();
-                    lockStyle.setDataFormat(format.getFormat("#,##0"));
-                    lockStyle.setAlignment(HorizontalAlignment.RIGHT);
-                    lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-                    lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                    lockStyle.setLocked(true);
-                    xssfCell04.setCellStyle(lockStyle);
-                    
-                    XSSFCell xssfCell06 = xssfRow.getCell(6, Row.CREATE_NULL_AS_BLANK);                    
-                    lockStyle = xssfCell06.getCellStyle();
-                    lockStyle.setDataFormat(format.getFormat("#,##0.00"));
-                    lockStyle.setAlignment(HorizontalAlignment.RIGHT);
-                    lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-                    lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                    lockStyle.setLocked(true);
-                    xssfCell06.setCellStyle(lockStyle);
-                    
+                    sheet.protectSheet("123456");
+                    java.io.FileOutputStream out = new java.io.FileOutputStream(fileName);
+                    xssfWorkbook.write(out);
+                    out.close();
                 }
-
-                sheet.protectSheet("123456");
-                java.io.FileOutputStream out = new java.io.FileOutputStream(fileName);
-                xssfWorkbook.write(out);
-                out.close();
 
                 lstOfTextFile.add(fileName);
                 FileInfo file = new FileInfo(new File(fileName));
