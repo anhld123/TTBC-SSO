@@ -94,12 +94,12 @@
         
         <script>
     
-        function hienthichitiet(commune_detai) {
-            var ht1 = screen.availHeight - 360;
-            var wt1 = 500;
+        function hienthichitiet(commune_detai,subcommune_detail ) {
+            var ht1 = screen.availHeight - 100;
+            var wt1 = screen.availWidth -100;
             var left1 = (screen.width / 2) - (wt1 / 2);
-            var top1 = 100;           
-            var url = "getDetailKhnvBySubCommune.action?commune_detai=" + commune_detai;
+            var top1 = 100;       
+            var url = "getDetailKhnvByOneSubCommune.action?commune_detai=" + commune_detai+"&subcommune_detail=" + subcommune_detail;
             popup = window.open(url, '_blank', "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
         }
         
@@ -140,14 +140,14 @@
                     </tr>                                    
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                                                    
                             <tr> 
-                                <s:if test="D3.equalsIgnoreCase('2B')">
-                                    <td style="text-align:center" class="TD_GIATRI" >
-                                            <s:property value="D1"/>
+                                <s:if test="MA.equalsIgnoreCase('XD00001')">
+                                    <td style="text-align:center" class="TD_GIATRI <s:property value="D19"/>" >
+                                            <s:property value="D6"/>
                                         </td>
 
-                                    <td align = "left" class="TD_TEN" >
-                                        <a href="javascript:hienthichitiet('<s:property value="D1"/>' )" class="linkKh">
-                                            <s:property value='D2'/> 
+                                    <td align = "left" class="TD_TEN <s:property value="D19"/>" >
+                                        <a href="javascript:hienthichitiet('<s:property value="D5"/>' ,'<s:property value="D6"/>' )" class="linkKh">
+                                            <s:property value='D9'/> 
                                         </a>
                                     </td>
                                 </s:if>
@@ -162,15 +162,15 @@
                                 
                                 
                                 
-                                <td style="text-align:center"  class="TD_STT">
-                                     <s:property value="D3"/>
+                                <td style="text-align:center"  class="TD_STT <s:property value="D19"/>">
+                                     <s:property value="MA"/>
                                 </td>
-                                <td align = "left" class="TD_CHITIEU">
-                                     <s:property value="D4"/>
+                                <td align = "left" class="TD_CHITIEU <s:property value="D19"/>">
+                                     <s:property value="TEN"/>
                                 </td>
                                 
-                                <td style="text-align:right"  class="TD_GIATRI">
-                                    <s:property value="D5"/>
+                                <td style="text-align:right"  class="TD_GIATRI <s:property value="D19"/>">
+                                    <s:property value="D15"/>
                                 </td>
 <!--
                                 <s:if test="D3.equalsIgnoreCase('2B')&& D1.equalsIgnoreCase('000301')">

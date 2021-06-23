@@ -98,7 +98,7 @@
             var wt1 = screen.availWidth -100;
             var left1 = (screen.width / 2) - (wt1 / 2);
             var top1 = 100;           
-            var url = "getDetailKhnvBySubCommune.action?commune_detai=" + commune_detai;
+            var url = "getDetailKhnvByAllSubCommune.action?commune_detai=" + commune_detai;
             popup = window.open(url, '_blank', "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
         }
         
@@ -153,14 +153,14 @@
                     </tr>                                    
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                                                    
                             <tr> 
-                                <s:if test="D3.equalsIgnoreCase('2B')">
-                                    <td style="text-align:center" class="TD_GIATRI" >
-                                            <s:property value="D1"/>
+                                <s:if test="MA.equalsIgnoreCase('XD00001')">
+                                    <td style="text-align:center" class="TD_GIATRI <s:property value="D19"/>" >
+                                            <s:property value="D5"/>
                                         </td>
 
-                                    <td align = "left" class="TD_TEN" >
-                                        <a href="javascript:hienthichitiet('<s:property value="D1"/>' )" class="linkKh">
-                                            <s:property value='D2'/> 
+                                    <td align = "left" class="TD_TEN <s:property value="D19"/>" >
+                                        <a href="javascript:hienthichitiet('<s:property value="D5"/>' )" class="linkKh">
+                                            <s:property value='D9'/> 
                                         </a>
                                     </td>
                                 </s:if>
@@ -175,18 +175,18 @@
                                 
                                 
                                 
-                                <td style="text-align:center"  class="TD_STT">
-                                     <s:property value="D3"/>
+                                <td style="text-align:center"  class="TD_STT <s:property value="D19"/>">
+                                     <s:property value="MA"/>
                                 </td>
-                                <td align = "left" class="TD_CHITIEU">
-                                     <s:property value="D4"/>
+                                <td align = "left" class="TD_CHITIEU <s:property value="D19"/>">
+                                     <s:property value="TEN"/>
                                 </td>
                                 
-                                <td style="text-align:right"  class="TD_GIATRI">
-                                    <s:property value="D5"/>
+                                <td style="text-align:right"  class="TD_GIATRI <s:property value="D19"/>">
+                                    <s:property value="D15"/>
                                 </td>
 
-                                <s:if test="D3.equalsIgnoreCase('2B')&& D1.equalsIgnoreCase('000301')">
+                                <s:if test="MA.equalsIgnoreCase('XD00001')&& D18.equalsIgnoreCase('1')">
                                          <td style="text-align: center;">
                                             <s:url id="unlockId" value="Lock_Unlock.action" escapeAmp="false">
                                                 <s:param name="commune_cd" value="D1"/>
@@ -194,17 +194,17 @@
                                                 <s:param name="dotBc" value="dotBc"/>
                                                 
                                             </s:url>
-                                            <sj:a  href="%{unlockId}" onclick="js_confirmdelete();" targets="luu_thanhcong"  ><u>Mở chốt</u></sj:a>
+                                            <sj:a  href="%{unlockId}" onclick="js_confirmdelete();" targets="luu_thanhcong"  ><b>Mở chốt</b></sj:a>
                                         </td>    
                                   </s:if>
-                                  <s:elseif test="D3.equalsIgnoreCase('2B')&& !D1.equalsIgnoreCase('000301')">
+                                  <s:elseif test="MA.equalsIgnoreCase('XD00001')&& !D18.equalsIgnoreCase('1')">
                                         <td style="text-align: center;">
                                        <s:url id="lockId" value="Lock_Unlock.action" escapeAmp="false">
                                                 <s:param name="commune_cd" value="D1"/>
                                                 <s:param name="lock_unlock" value="1"/>
                                                 <s:param name="dotBc" value="dotBc"/>
                                             </s:url>
-                                            <sj:a href="%{lockId}" onclick="js_confirmdelete();" targets="luu_thanhcong"><u>Chốt</u></sj:a>
+                                            <sj:a href="%{lockId}" onclick="js_confirmdelete();" targets="luu_thanhcong"><b>Chốt</b></sj:a>
                                             </td>
                                   </s:elseif>      
                                   <s:else>

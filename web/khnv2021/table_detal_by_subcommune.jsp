@@ -73,6 +73,7 @@
                 color: #0077b3;
                 text-align: center;
             }
+            
         </style>    
         <script>
             var max_row = 0;
@@ -159,29 +160,29 @@
                     </thead>                                  
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                                                    
                         <tr> 
-                            <td style="text-align:center"  class="TD_SOKU">
+                            <td style="text-align:center"  class="TD_SOKU <s:property value="D19"/>">
                                     <s:property value="THUTU"/>
                                 </td>
                                 
-                            <td style="text-align:left"  class="TD_SOKU">
-                                    <s:property value="D4"/>
+                            <td style="text-align:left"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="TEN"/>
                                 </td>
                                 
-                            <td style="text-align:right"  class="TD_SOKU">
-                                    <s:property value="D5"/>
+                            <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="D13"/>
                                 </td>
 
-                           <td style="text-align:right"  class="TD_SOKU">
-                                    <s:property value="D5"/>
+                           <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="D14"/>
                                 </td>
-                             <td style="text-align:right"  class="TD_SOKU">
-                                    <s:property value="D5"/>
+                             <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="D15"/>
                                 </td>
-                                 <td style="text-align:right"  class="TD_SOKU">
-                                    <s:property value="D5"/>
+                                 <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="D16"/>
                                 </td>
-                                 <td style="text-align:right"  class="TD_SOKU">
-                                    <s:property value="D5"/>
+                                 <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="D17"/>
                                 </td>
 
                         </tr>                                                                                                       
