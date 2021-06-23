@@ -59,8 +59,13 @@
             <result name="error">/khnv2021/success.jsp</result> 
         </action>
         
-        <action name="getDetailKhnvBySubCommune" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="getDataXayCommuneDetai">
+        <action name="getDetailKhnvByAllSubCommune" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="getDataXayCommuneDetai">
             <result name="loadAllSubCommune">khnv2021/table_all_subcommune_bycommune.jsp</result>  
+            <result name="error">/khnv2021/success.jsp</result> 
+        </action>
+        
+         <action name="getDetailKhnvByOneSubCommune" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="getDataXaySubCommuneDetai">
+            <result name="loadOneSubCommune">khnv2021/table_detal_by_subcommune.jsp</result>  
             <result name="error">/khnv2021/success.jsp</result> 
         </action>
                 
