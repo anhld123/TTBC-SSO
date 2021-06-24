@@ -159,7 +159,7 @@ public class XDKHDao2021 {
     }
     
     public ArrayList<POSModel> getPosList(String posCD, String maCn, String reportGrade){
-        ArrayList<POSModel> posList = new ArrayList<POSModel>();
+        ArrayList<POSModel> posList = new ArrayList<>();
         
         try {
             DaoConnect daoconnect = new DaoConnect();
@@ -214,6 +214,61 @@ public class XDKHDao2021 {
             CoreLogger.error(DaoDieuchinhkh.class.getCanonicalName() + " getPosList  -> " + e.getMessage());
         }
         return posList;
+    }
+    
+    public POSModel getPosByCode(String posCode){
+        ArrayList<POSModel> posList = new ArrayList<>();        
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call VBSP_IMS_KHNV2021.P_GET_POS_BY_POSCODE(?, ?, ?, ?)}";
+            ResultSet rsPosList = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                
+                //Truyen vao username
+                calstatement.setString(1, posCode);                          
+                
+                calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.CURSOR);
+
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //Lay cursor ra resultset
+                rsPosList = (ResultSet) calstatement.getObject(4);
+
+                while (rsPosList.next()) {
+                    POSModel p = new POSModel();
+                    p.setId(rsPosList.getString("PO_MA"));
+                    p.setDesc(rsPosList.getString("PO_TEN"));
+
+                    posList.add(p);
+                }
+
+                if (rsPosList != null) {
+                    rsPosList.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Loi trong ham getPosList " + e.getMessage());
+                CoreLogger.error(POSModel.class.getCanonicalName() + " getPosList  -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getPosList " + e.getMessage());
+            CoreLogger.error(DaoDieuchinhkh.class.getCanonicalName() + " getPosList  -> " + e.getMessage());
+        }
+        return posList.get(0);
     }
     
     public ArrayList<POSModel> getSubCommuneList(String posCD, String commuuneId, String reportGrade){

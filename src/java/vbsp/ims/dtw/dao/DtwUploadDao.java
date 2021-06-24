@@ -526,10 +526,10 @@ public class DtwUploadDao {
         return strCategory;   
     }
 
-    public List<UploadFileLogObject> get_uploaded_log(String dir_path) {
+    public List<UploadFileLogObject> get_uploaded_log(String dir_path, String dir_type) {
         ArrayList<UploadFileLogObject> logs = new ArrayList<>();
         String strStoreproce
-                = "{call dtw_upload_file.sp_view_upload_log(?,?)}";
+                = "{call dtw_upload_file.sp_view_upload_log(?,?,?)}";
         try {
             ResultSet rs;
 
@@ -539,9 +539,10 @@ public class DtwUploadDao {
             CallableStatement calstatement = conn.prepareCall(strStoreproce,
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             calstatement.setString(1, dir_path);
-            calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
+            calstatement.setString(2, dir_type);
+            calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.CURSOR);
             calstatement.execute();
-            rs = (ResultSet) calstatement.getObject(2);
+            rs = (ResultSet) calstatement.getObject(3);
             
             String pv_filename, pv_filesize, pv_uploadtime, pv_upload_status;
             int row_total, processed_row;

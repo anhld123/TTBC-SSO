@@ -71,7 +71,7 @@ public class AuthorAction extends ActionSupport {
             case "2":
                 dataReult = new AuthorModel().rollBackData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
                 if (dataReult != null) {
-                    chkSuccess = "SuccessRoll";
+                    chkSuccess = "SuccessMessage";
                     pageResult = new StringBufferInputStream("20");
                 } else {
                     chkSuccess = "FaildMessage";

@@ -88,6 +88,7 @@ public class DaoMau01A {
         return lstData;
     }
     
+    
     public List<String> getDataSendKhnv(String type, String khoa, String mapgd, String nambc, String dotbc) throws SQLException {
         List<String> lstData = new ArrayList<>();
         DaoConnect daoconnect = new DaoConnect();

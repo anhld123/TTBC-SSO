@@ -118,6 +118,29 @@
             var commune_cd = $("#commune_cd").val();
 
         }
+        
+        function callDirectLink(link) {
+        var ht = screen.availHeight / 5 + 35;
+        var wt = screen.availWidth / 5 + 20;
+
+        var resize = window.open(link
+                + "random=" + Math.random(),
+                "IMS_REPORTS_FRM2", "height=" + ht + ",width=" + wt
+                + ",left=0,top=0,directories=no,status=no,menubar=no,\n\
+        personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+
+        if (navigator.userAgent.indexOf('Chrome') !== -1
+                && parseFloat(
+                        navigator.userAgent.substring(
+                                navigator.userAgent.indexOf('Chrome') + 7
+                                ).split(' ')[0]) >= 15) {
+            resize.resizeBy(wt, ht);
+        } else {
+            resize.resizeTo(wt, ht);
+        }
+        resize.moveTo(wt, ht);
+        resize.focus();
+    }
     </SCRIPT>
 </head>
 <body>
@@ -174,21 +197,22 @@
                            onCompleteTopics="completediv_send" class="cmd"/>
                 
 <!--                <input type="button" id="cmdGui" name="cmdGui" value="Xuất xls mẫu 01a" class="cmd">-->
-                &nbsp;
-                <input type="button" id="cmdTuChoi" name="cmdTuChoi" value="Upload xls mẫu 01a" class="cmd">
-                &nbsp;&nbsp;|&nbsp;&nbsp
-
+                &nbsp;&nbsp;|&nbsp;&nbsp;      
                 <!--<input type="button" id="cmdGui" name="cmdGui" value="Xuất xls mẫu 01" class="cmd">&nbsp;-->
                 <s:url id="idExpEcelKhnv01" action="ExpExcelKhnv01.action"></s:url>                                      
                 <sj:submit id="idExpEcelKhnvtmp01" name="nameSend" href="%{idExpEcelKhnv01}" value="Xuất xls mẫu 01" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
 
-
-
-                &nbsp;&nbsp;|&nbsp;&nbsp
-                <input type="button" id="cmdGui" name="cmdGui" value="Xuất xls mẫu 02" class="cmd">&nbsp;
-                <input type="button" id="cmdTuChoi" name="cmdTuChoi" value="Upload xls mẫu 02" class="cmd">
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <s:url id="idExpEcelKhnv02" action="khnv/dk/ExpExcelKhnv02"></s:url>                                      
+                <sj:submit id="idExpEcelKhnvtmp02" name="nameSend02" href="%{idExpEcelKhnv02}" value="Xuất xls mẫu 02" targets="divKhDetail"
+                           onBeforeTopics="beforediv_send"
+                           onCompleteTopics="completediv_send" class="cmd"/>&nbsp;
+                
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <sj:a class="cmd" href="#" onclick="callDirectLink('khvn_open_upload?');" cssClass="metroButtonStyle">
+            <b> <u>Upload Excel</u>  </b> </sj:a>                        
             </div>
             <hr/>
         </div>

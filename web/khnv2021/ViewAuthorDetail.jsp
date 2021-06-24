@@ -33,12 +33,12 @@
             <tr class="<s:property value='D50'/>">
                 <td><s:property value='TT_HIENTHI'/></td>
                 <td style="display: none;"><s:property value='MA'/></td>
-                <td style="text-align: left; padding-left: 3px;"><s:property value='TEN'/></td>
-                <td style="text-align: right; padding-right: 3px;"><s:property value='D13'/></td>
-                <td style="text-align: right; padding-right: 3px;"><s:property value='D14'/></td>
-                <td style="text-align: right; padding-right: 3px;"><s:property value='D15'/></td>
-                <td style="text-align: right; padding-right: 3px;"><s:property value='D16'/></td>
-                <td style="text-align: right; padding-right: 3px;"><s:property value='D17'/></td>
+                <td style="text-align: left;"><s:property value='TEN'/></td>
+                <td><s:property value='D13'/></td>
+                <td><s:property value='D14'/></td>
+                <td><s:property value='D15'/></td>
+                <td><s:property value='D16'/></td>
+                <td><s:property value='D17'/></td>
             </tr>
         </s:iterator>
 

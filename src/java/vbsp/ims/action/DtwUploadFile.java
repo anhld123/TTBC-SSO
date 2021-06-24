@@ -22,6 +22,7 @@ import vbsp.ims.dtw.Dtw_Import;
 import vbsp.ims.dtw.UploadFileLogObject;
 import vbsp.ims.dtw.dao.DtwUploadDao;
 import vbsp.ims.zip.FileZip;
+import vbsp.ims.khnv2021.ReportTemplate;
 
 /**
  *
@@ -38,6 +39,8 @@ public class DtwUploadFile extends ActionSupport
     private String message;
     private String font_type;
     private static List<UploadFileLogObject> logObj = new ArrayList<>();
+    private String logPath;
+    private String logPathType;
 
     @Override
     public void setServletRequest(HttpServletRequest request) {
@@ -56,6 +59,10 @@ public class DtwUploadFile extends ActionSupport
             if (new_file.isFile()) {
                 String file_name = new_file.getName();
                 System.err.println("Vao phan unzip file");
+                String fileExtend = FilenameUtils.getExtension(new_file_path);
+                
+                if (fileExtend.toLowerCase().equals("zip")) {
+                
                 boolean is_unzip = unzip_file(new_file.getAbsolutePath(), new_file.getParent());
                 if (is_unzip) {
                     System.err.println("Vao phan doc du lieu");
@@ -65,11 +72,29 @@ public class DtwUploadFile extends ActionSupport
                     DtwUploadDao uploadDao = new DtwUploadDao();
                     String dir_path = new_file.getParent() + "/"
                             + FilenameUtils.removeExtension(file_name);
-                    logObj = uploadDao.get_uploaded_log(dir_path.replace("/", "\\"));
+                    logPathType = ReportTemplate.DIRECTORY;
+                    logPath = dir_path.replace("/", "\\");
+                    logObj = uploadDao.get_uploaded_log(dir_path.replace("/", "\\"),ReportTemplate.DIRECTORY);
                     message = "(*) Copy và giải nén vào thư mục thành công: [" + file_name + "].";
                 } else {
                     message = "(*) Copy thành công nhưng không giải nén được: [" + file_name + "].";
                 }
+                }else if (fileExtend.toLowerCase().equals("xls")
+                        || fileExtend.toLowerCase().equals("xlsx")) {
+                    Dtw_Import dtw_import = new Dtw_Import();
+                        dtw_import.import_excel_file(new_file.getAbsolutePath(), font_type);
+
+                        DtwUploadDao uploadDao = new DtwUploadDao();
+                        String file_path = FilenameUtils.removeExtension(new_file.getAbsolutePath());
+
+                        logPath = file_name;
+                        logPathType = ReportTemplate.FILE;
+                        logObj = uploadDao.get_uploaded_log(file_name,ReportTemplate.FILE);
+                        message = "(*) Xử lý file thành công: [" + file_name + "].";
+                } else {
+                    message = "(*) Không hỗ trợ định dạng file: " + fileExtend.toLowerCase();
+                }
+                
             } else {
                 message = "(*) Copy file vào thư mục thất bại.";
             }
@@ -80,6 +105,8 @@ public class DtwUploadFile extends ActionSupport
 
     public String view_log() {
         //logObj
+        DtwUploadDao uploadDao = new DtwUploadDao();
+        logObj = uploadDao.get_uploaded_log(logPath, logPathType);
         return SUCCESS;
     }
 
@@ -190,4 +217,22 @@ public class DtwUploadFile extends ActionSupport
         this.logObj = logObj;
     }
 
+    public String getLogPath() {
+        return logPath;
+    }
+
+    public void setLogPath(String logPath) {
+        this.logPath = logPath;
+    }
+
+    public String getLogPathType() {
+        return logPathType;
+    }
+
+    public void setLogPathType(String logPathType) {
+        this.logPathType = logPathType;
+    }
+
+    
+    
 }

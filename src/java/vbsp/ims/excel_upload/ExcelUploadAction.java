@@ -23,6 +23,7 @@ import vbsp.ims.dtw.UploadFileLogObject;
 import vbsp.ims.dtw.dao.DtwUploadDao;
 import vbsp.ims.fileutil.FileUtil;
 import vbsp.ims.zip.FileZip;
+import vbsp.ims.khnv2021.ReportTemplate;
 
 /**
  *
@@ -39,6 +40,8 @@ public class ExcelUploadAction extends ActionSupport
     private String message;
     private String font_type;
     private static List<UploadFileLogObject> logObj = new ArrayList<>();
+    private String logPath;
+    private String logPathType;
 
     @Override
     public void setServletRequest(HttpServletRequest request) {
@@ -61,26 +64,47 @@ public class ExcelUploadAction extends ActionSupport
             
             if (new_file.isFile()) {
                 
+                String fileExtend = FilenameUtils.getExtension(new_file_path);
                 String file_name = new_file.getName();
                 
-                boolean is_unzip = unzip_file(new_file.getAbsolutePath(), new_file.getParent());
+                if (fileExtend.toLowerCase().equals("zip")) {
+                    boolean is_unzip = unzip_file(new_file.getAbsolutePath(), new_file.getParent());
                 
-                if (is_unzip) {
-                                        
+                    if (is_unzip) {
+
+                        ExcelUploader excelUploader = new ExcelUploader();
+                        excelUploader.import_directory(new_file.getParent() + "/"
+                                + FilenameUtils.removeExtension(file_name), font_type);
+
+                        DtwUploadDao uploadDao = new DtwUploadDao();
+                        String dir_path = new_file.getParent() + "/"
+                                + FilenameUtils.removeExtension(file_name);
+
+                        logPath = dir_path.replace("/", "\\");
+                        logPathType = ReportTemplate.DIRECTORY;
+                        logObj = uploadDao.get_uploaded_log(dir_path.replace("/", "\\"), ReportTemplate.DIRECTORY);
+                        message = "(*) Copy và giải nén vào thư mục thành công: [" + file_name + "].";
+
+                    } else {
+                        message = "(*) Copy thành công nhưng không giải nén được: [" + file_name + "].";
+                    }
+                } else if (fileExtend.toLowerCase().equals("xls")
+                        || fileExtend.toLowerCase().equals("xlsx")) {
                     ExcelUploader excelUploader = new ExcelUploader();
-                    excelUploader.import_directory(new_file.getParent() + "/"
-                            + FilenameUtils.removeExtension(file_name), font_type);
-                    
-                    DtwUploadDao uploadDao = new DtwUploadDao();
-                    String dir_path = new_file.getParent() + "/"
-                            + FilenameUtils.removeExtension(file_name);
-                    
-                    logObj = uploadDao.get_uploaded_log(dir_path.replace("/", "\\"));
-                    message = "(*) Copy và giải nén vào thư mục thành công: [" + file_name + "].";
-                    
+                        excelUploader.import_file(new_file.getAbsolutePath(), font_type);
+
+                        DtwUploadDao uploadDao = new DtwUploadDao();
+                        String file_path = FilenameUtils.removeExtension(new_file.getAbsolutePath());
+
+                        logPath = file_name;
+                        logPathType = ReportTemplate.FILE;
+                        logObj = uploadDao.get_uploaded_log(file_name,ReportTemplate.FILE);
+                        message = "(*) Xử lý file thành công: [" + file_name + "].";
                 } else {
-                    message = "(*) Copy thành công nhưng không giải nén được: [" + file_name + "].";
+                    message = "(*) Không hỗ trợ định dạng file: " + fileExtend.toLowerCase();
                 }
+                
+                
             } else {
                 message = "(*) Copy file vào thư mục thất bại.";
             }
@@ -91,6 +115,8 @@ public class ExcelUploadAction extends ActionSupport
 
     public String view_log() {
         //logObj
+        DtwUploadDao uploadDao = new DtwUploadDao();
+        logObj = uploadDao.get_uploaded_log(logPath, logPathType);
         return SUCCESS;
     }
 
@@ -214,6 +240,24 @@ public class ExcelUploadAction extends ActionSupport
     public void setLogObj(List<UploadFileLogObject> logObj) {
         this.logObj = logObj;
     }
+
+    public String getLogPath() {
+        return logPath;
+    }
+
+    public void setLogPath(String logPath) {
+        this.logPath = logPath;
+    }
+
+    public String getLogPathType() {
+        return logPathType;
+    }
+
+    public void setLogPathType(String logPathType) {
+        this.logPathType = logPathType;
+    }
+    
+    
 
     
 }

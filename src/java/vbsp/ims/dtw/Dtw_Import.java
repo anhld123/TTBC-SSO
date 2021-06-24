@@ -56,6 +56,26 @@ public class Dtw_Import {
         }
     }
 
+    public void import_excel_file(String file_path, String font_format) {
+
+        ExcelFileLibrary excel_file_library = new ExcelFileLibrary();
+
+        ExcelFile excel_file;
+        File file = new File(file_path);
+
+        excel_file = new ExcelFile(file.getName());
+        if (font_format.equals("TCVN")) {
+            excel_file_library.read_file(file.getAbsolutePath(), excel_file);
+        } else {
+            excel_file_library.read_file_utf8(file.getAbsolutePath(), excel_file);
+        }
+
+        // Xử lý phần đọc dữ liệu ở đây
+        boolean status = process_file(excel_file);
+        //-------------------------------------------------------------------
+
+    }
+
     public void import_file(String filepath, String pv_table_id) {
         File file = new File(filepath);
         ExcelFile excel_file;
@@ -83,7 +103,7 @@ public class Dtw_Import {
     }
 
     public boolean process_file_common(ExcelFile excel_file, String table_id) {
-        boolean process_status , import_status = false;
+        boolean process_status, import_status = false;
         dtwDao = new DtwUploadDao();
         RefObject row_total = new RefObject();
         RefObject process_row = new RefObject();
@@ -114,5 +134,4 @@ public class Dtw_Import {
 //        String root_directory = "C:\\Users\\Trung\\Desktop\\Thang7";
 //
 //    }
-
 }

@@ -17,7 +17,10 @@
         <p style="color: red; font-family: Arial; font-size: 13px;"
            id="message_ID"
            ><s:property value="message" /> &nbsp;
-            <s:url action="dtw_view_upload_log.action" id="view_url_0_ID" />            
+            <s:url action="dtw_view_upload_log.action" id="view_url_0_ID" escapeAmp="false">
+                <s:param name="logPath" ><s:property value="logPath"/></s:param>
+                <s:param name="logPathType" ><s:property value="logPathType"/></s:param>
+            </s:url>
             <sj:a id="view_upload_file_ID" 
                   href="%{view_url_0_ID}"
                       formIds="dtw_log_form_ID" 

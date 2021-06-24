@@ -26,6 +26,7 @@ import vbsp.ims.dtw.dao.DtwUploadDao;
 import vbsp.ims.fileutil.FileUtil;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.zip.FileZip;
+import vbsp.ims.khnv2021.ReportTemplate;
 
 /**
  *
@@ -78,7 +79,7 @@ public class ExcelUploadActionKhnv extends ActionSupport
                     String dir_path = new_file.getParent() + "/"
                             + FilenameUtils.removeExtension(file_name);
                     
-                    logObj = uploadDao.get_uploaded_log(dir_path.replace("/", "\\"));
+                    logObj = uploadDao.get_uploaded_log(dir_path.replace("/", "\\"), ReportTemplate.DIRECTORY);
                     
                     
                     try {

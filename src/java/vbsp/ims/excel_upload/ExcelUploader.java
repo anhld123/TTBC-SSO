@@ -42,6 +42,25 @@ public class ExcelUploader {
             //-------------------------------------------------------------------
         }
     }
+    
+    public void import_file(String filePath, String font_format) {                
+        ExcelFileLibrary excel_file_library = new ExcelFileLibrary();
+        ExcelFile excel_file;
+        File file = new File(filePath);
+       
+        excel_file = new ExcelFile(file.getName());
+        if (font_format.equals("TCVN")) {
+            excel_file_library.read_file(file.getAbsolutePath(), excel_file);
+        } else {
+            excel_file_library.read_file_utf8(file.getAbsolutePath(),excel_file);
+        }           
+        String strCategory = getCategoryFile(file.getName());
+        Dtw_Import dtw_Import = new Dtw_Import();
+        // Xử lý phần đọc dữ liệu ở đây
+        boolean status = dtw_Import.process_file_common(excel_file,strCategory);
+        System.err.println("ExcelUploader.import_file~" + file.getName()+ "~" + status);
+        //-------------------------------------------------------------------        
+    }
         
     public String getCategoryFile(String filename){
         String strCategory ;        
