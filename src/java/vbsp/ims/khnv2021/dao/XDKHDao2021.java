@@ -371,7 +371,7 @@ public class XDKHDao2021 {
 //    }
 //   
    public boolean getDataExp(String sSave_id, Map<String, String> mapinPara,
-            String sPos_cd, String stringPara_Poscd, String sPos_Flag, String strFileName, String namBc, String dotBc) {
+            String sPos_cd, String stringPara_Poscd, String sPos_Flag, String strFileName, String namBc, String dotBc, String maxa) {
         List<HashMap<Integer, List<Object>>> lstDataExp = new ArrayList<HashMap<Integer, List<Object>>>();
         if (sSave_id == null || sSave_id.length() < 1) {
             return false;
@@ -388,9 +388,9 @@ public class XDKHDao2021 {
             }
 
             //Lay ra title cho bao cao
-            String strTitle = "NHU CẦU VAY VỐN TÍN DỤNG CHÍNH SÁCH NĂM " + namBc ;//getTitleQuery(sSave_id, connect);
+            String strTitle = "NHU CẦU VAY VỐN TÍN DỤNG CHÍNH SÁCH NĂM " + namBc + " XÃ " + maxa ;//getTitleQuery(sSave_id, connect);
             //Lay ra truy van cho bao cao
-            String strQuery = getQueryKHNV01("","","","","", connect);
+            String strQuery = getQueryKHNV01("KHNV_01A",namBc,dotBc,maxa,"1", connect);
 
             //Lay ra danh sach pos
             List<ListValue> lstPostCd = getPosGeneralReport(connect, "000314", sPos_Flag);
@@ -604,7 +604,7 @@ public class XDKHDao2021 {
         return lstPoscd;
     }
    
-   public List<String> getAllCommune(String posUser) throws SQLException {
+   public List<String> getAllCommune(String posUser, String khoa, String nambc, String dotbc) throws SQLException {
         List<String> lstData = new ArrayList<>();
         DaoConnect daoconnect = new DaoConnect();
         Connection conn = null;
@@ -613,12 +613,15 @@ public class XDKHDao2021 {
         ResultSet reset = null;
 //        try {
         //Khoi tao procedure cung voi tham so truyen vao la dau ?
-        String strStoreproce = "{call VBSP_IMS_KHNV2021.SP_GET_COMMUNEBYUSER(?,?)}";
+        String strStoreproce = "{call VBSP_IMS_KHNV2021.SP_GET_COMMUNEBYUSER(?,?,?,?,?)}";
         try {
             //Khoi tao goi store
             calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
             calstatement.setString(1, posUser);
+            calstatement.setString(3, khoa);
+            calstatement.setString(4, nambc);
+            calstatement.setString(5, dotbc);
             
             //Thuc hien execute lay du lieu
             calstatement.execute();

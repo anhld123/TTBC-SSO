@@ -114,7 +114,7 @@ public class ExcelExport {
                 stringParaPos_cd = "PV_POS_CD";
                 sPosFlag = "N";
 
-                daoQuery.getDataExp(save_id, paramHashMap, sPos_cd, stringParaPos_cd, sPosFlag, strPathSave + strFileSave, namBc, dotBc);
+                daoQuery.getDataExp(save_id, paramHashMap, sPos_cd, stringParaPos_cd, sPosFlag, strPathSave + strFileSave, namBc, dotBc, value);
 
                 //Kiem tra xem file da tao thanh cong chua
                 File filerpt = new File(strPathSave + strFileSave);

@@ -60,6 +60,11 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             int yearPre = Integer.parseInt(namBc)  -1;
             namBc_pre = String.valueOf(yearPre);
             getInfo();
+            //TH load mẫu 02 theo pos
+            if (maBc.equals("KHNV_02")) {
+                lstDulieuNt = daoXdkh.getDataAuthCommune(maBc, userId, reportGrade, namBc, dotBc, commune_cd, subcommune_cd);
+                return "load02Pos";
+            }
             //TH load theo 1 thôn
             if (maBc.equals("KHNV_01A") && !commune_cd.equals("000000") && !subcommune_cd.equals("000000")) {
                 lstDulieuNt = daoXdkh.getDataAuthCommune(maBc, userId, reportGrade, namBc, dotBc, commune_cd, subcommune_cd);
@@ -167,7 +172,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             if (!commune_cd.equals("000000")) {
                 lstCommune.add(commune_cd);
             } else {
-                lstCommune = daoXdkh.getAllCommune(pos_cd_username);
+                lstCommune = daoXdkh.getAllCommune(pos_cd_username, maBc, namBc, dotBc);
             }
             FileExportInfo fileInfo = excelExport.xuatExcelMau01(lstCommune, savedDir, namBc, dotBc);
             fileNamelocal = fileInfo.fileName;
