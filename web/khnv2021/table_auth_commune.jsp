@@ -136,7 +136,10 @@
                 </br>
                 <div id="divTitle">
                     TỔNG HỢP NHU CẦU VAY VỐN TÍN DỤNG THEO PGD
-                    <BR>                                
+                    <BR>    
+                    <s:if test="!reasonReject.equalsIgnoreCase('AAA')">
+                        <font color="red">Nguyên nhân từ chối: <s:property value="reasonReject"/></font>       
+                    </s:if> 
                 </div>
                 
                 <s:hidden name="dotBc"/>

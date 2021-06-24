@@ -126,6 +126,9 @@
                 <div id="divTitle">
                     TỔNG HỢP NHU CẦU VAY VỐN TÍN DỤNG THEO XÃ
                     <BR>                                
+                    <s:if test="!reasonReject.equalsIgnoreCase('AAA')">
+                        <font color="red">Nguyên nhân từ chối: <s:property value="reasonReject"/></font>       
+                    </s:if> 
                 </div>                
                 </br>
                 <table border="1" class="editDelete1" id="tablesms011" style="width: 99%" >
