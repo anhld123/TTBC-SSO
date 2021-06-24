@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vbsp.ims.khnv2021;
 
 import java.sql.ResultSet;
@@ -11,7 +6,7 @@ import vbsp.ims.bcqt.model.DULIEU_NT;
 
 /**
  *
- * @author Admin
+ * @author Nguyễn Phú Vinh
  */
 public class getDULIEU_NT {
 
