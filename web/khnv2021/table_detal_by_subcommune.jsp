@@ -22,7 +22,7 @@
             table {
                 border-collapse: collapse;
                 width: 100%;
-                height: 1000px;
+                /*height: 1000px;*/
             }
 
             table thead { position: sticky; top: 0; z-index: 1; }
@@ -119,6 +119,9 @@
             <div id="divTitle">
                 NHU CẦU VAY VỐN TÍN DỤNG THEO THÔN
                 <BR>
+                <s:if test="!reasonReject.equalsIgnoreCase('AAA')">
+                        <font color="red">Nguyên nhân từ chối: <s:property value="reasonReject"/></font>       
+                    </s:if> 
                 <!--<font color="red">(Nếu mã KH và tên KH null sẽ chỉ hiện thị các KH đã từng đăng ký nhận tin nhắn)</font>-->                    
             </div>
             <s:hidden name="khoa_nhaptaycn"/>
