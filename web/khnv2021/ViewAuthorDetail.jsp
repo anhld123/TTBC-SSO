@@ -17,7 +17,7 @@
             <th rowspan="3">CHỈ TIÊU</th>
             <th rowspan="3">Thực hiện đến 31/12/2020</th>
             <th rowspan="3">Ước thực hiện đến 31/12/2021</th>
-            <th colspan="3" ="3">Kế hoạch tín dụng năm 2022</th>
+            <th colspan="3">Kế hoạch tín dụng năm 2022</th>
         </tr>
         <tr>
             <th rowspan="2">Tổng số</th>
@@ -30,14 +30,15 @@
     </thead>
     <tbody>
         <s:iterator value="lstData">
-            <tr>
-                <td><s:property value='THUTU'/></td>
-                <td><s:property value='D1'/></td>
-                <td><s:property value='D2'/></td>
-                <td><s:property value='D3'/></td>
-                <td><s:property value='D4'/></td>
-                <td><s:property value='D5'/></td>
-                <td><s:property value='D6'/></td>
+            <tr class="<s:property value='D50'/>">
+                <td><s:property value='TT_HIENTHI'/></td>
+                <td style="display: none;"><s:property value='MA'/></td>
+                <td style="text-align: left;"><s:property value='TEN'/></td>
+                <td><s:property value='D13'/></td>
+                <td><s:property value='D14'/></td>
+                <td><s:property value='D15'/></td>
+                <td><s:property value='D16'/></td>
+                <td><s:property value='D17'/></td>
             </tr>
         </s:iterator>
 

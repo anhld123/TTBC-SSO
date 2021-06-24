@@ -30,21 +30,25 @@
         </action>
     </package>
      <!-- Configuration for the default package. -->
-    <package name="load_dv" extends="struts-default,json-default">
+    <package name="load_dv1" extends="struts-default,json-default">
 
-        <action name="eom_build_module_combo" class="vbsp.ims.action.DcptNoAction" method="getTotruong">
-            <result name="success" type="json"></result>
+        <action name="reloadSubCommune" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="getSubcommune">
+            <result type="json"></result>
         </action>    
     </package>
+    
     <package name="khnv2021" extends="struts-default">
         <action name="get_data_xaydungkh_2021" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="get_data_xaydungkh_2021">
             <result name="success">/khnv2021/xaydungkh.jsp</result>
+            <result name="error">/khnv2021/success.jsp</result> 
         </action> 
         <action name="loadDataKhnv" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="getDataXayDungKH">
             <result name="success">/khnv2021/xaydung-kh-detail.jsp</result>
             <result name="loadAllCommuneAuth">/khnv2021/table_auth_commune.jsp</result>
             <result name="loadAllSubCommune">/khnv2021/table_all_subcommune_bycommune.jsp</result>            
-            <result name="loadOneSubCommune">/khnv2021/table_detal_by_subcommune.jsp</result>            
+            <result name="loadOneSubCommune">/khnv2021/table_detal_by_subcommune.jsp</result>     
+            <result name="load02Pos">/khnv2021/table_detal_by_pos_mau02</result>     
+                   
         </action>
         
 <!--        <action name="reloadSubCommune" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="getSubcommune">
@@ -56,8 +60,13 @@
             <result name="error">/khnv2021/success.jsp</result> 
         </action>
         
-        <action name="getDetailKhnvBySubCommune" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="getDataXayCommuneDetai">
+        <action name="getDetailKhnvByAllSubCommune" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="getDataXayCommuneDetai">
             <result name="loadAllSubCommune">khnv2021/table_all_subcommune_bycommune.jsp</result>  
+            <result name="error">/khnv2021/success.jsp</result> 
+        </action>
+        
+         <action name="getDetailKhnvByOneSubCommune" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="getDataXaySubCommuneDetai">
+            <result name="loadOneSubCommune">khnv2021/table_detal_by_subcommune.jsp</result>  
             <result name="error">/khnv2021/success.jsp</result> 
         </action>
                 
@@ -77,14 +86,29 @@
         </action>-->
         <action name="Lock_Unlock" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="Lock_Unlock">
             <result name="success">/khnv2021/success.jsp</result>
+            <result name="error">/khnv2021/success.jsp</result>
         </action>
+        
+   
         
 
         
         <!-- Author: Nguyễn Phú Vinh -->
         <action name="AuthorProvince" class="vbsp.ims.khnv2021.AuthorAction">
             <result name="success">/khnv2021/ViewAuthor.jsp</result>
-        </action> 
+        </action>
+        <action name="SendAction" class="vbsp.ims.khnv2021.AuthorAction" method="SendAction">
+            <result name="SuccessLoad">/khnv2021/ViewAuthorDetail.jsp</result>            
+            <result name="SuccessMessage">/khnv2021/table_list_result_send_tw.jsp</result>            
+<!--            <result name="SuccessMessage" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>-->
+            <result name="FaildMessage" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action>
         <!-- End -->
                       
     </package>

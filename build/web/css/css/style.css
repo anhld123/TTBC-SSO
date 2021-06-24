@@ -88,3 +88,20 @@ input[type="text"]:focus, textarea:focus{
 textarea:read-only {
   background-color: #999;
 }
+
+.cls-fontdam{
+    font-weight: bold;
+}
+.cls-fontnghieng{
+    font-style: italic;
+}
+.cls-fontthuong{
+    font-style: normal;
+}
+.cls-nghiengdam{
+    font-weight: bold;
+    font-style: italic;
+}
+.cls-gachduoi{
+    text-decoration: underline;
+}

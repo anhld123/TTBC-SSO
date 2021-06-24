@@ -20,7 +20,7 @@
             table {
                 border-collapse: collapse;
                 width: 100%;
-                /*height: 1000px;*/
+                height: 1000px;
             }
 
             table thead { position: sticky; top: 0; z-index: 1; }
@@ -66,7 +66,7 @@
                 z-index: 99;
             }
         </style>
-        <script src="js/jquery-1.4.4.min.js" type="text/javascript"></script>
+        <link href="css/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <form id="idKhnv2021" name="nameKhnv2021">
@@ -83,9 +83,10 @@
                     <span class="clss-lable">Kế hoạch tín dụng năm:</span>
                     <select id="cboNam" name="cboNam">
                         <script>
-                            var i;
+                            var i, varNam;
+                            varNam = new Date().getFullYear();
                             var text = "";
-                            for (i = 2003; i <= 2099; i++) {
+                            for (i = (varNam - 10); i <= (varNam + 50); i++) {
                                 text += '<option value="' + i.toString() + '">Năm ' + i.toString() + '</option>';
                             }
                             document.write(text);
@@ -94,10 +95,10 @@
                     &nbsp;
                     <span class="clss-lable">Đợt thực hiện:</span>
                     <select  id="cboDot" name="cboDot">
-                        <option value="01">Đợt I</option>
-                        <option value="02">Đợt II</option>
-                        <option value="03">Đợt III</option>
-                        <option value="04">Đợt IV</option>
+                        <option value="1">Đợt I</option>
+                        <option value="2">Đợt II</option>
+                        <option value="3">Đợt III</option>
+                        <option value="4">Đợt IV</option>
                     </select>
                     &nbsp;
                     <span class="clss-lable">Tổng hợp</span>
@@ -127,75 +128,82 @@
                 <div id="idViewData"></div>
             </div>
         </form> 
+        <script src="js/jquery-1.4.4.min.js" type="text/javascript"></script>
         <script>
-            $(document).ready(function () {
-                //Tải dữ liệu
-                $("#cmdTaiDL").click({status: "0"}, SendData);
-                //Gửi dữ liệu
-                $("#cmdGuiDL").click({status: "1"}, SendData);
-                //Trả lại đơn vị
-                $("#cmdTraLaiDL").click({status: "2"}, SendData);
-                $("#cboDonvi").change(function () {
-                    if ($("#cboDonvi").val().trim() === "all") {
-                        $('#cboTonghop option')[0].selected = true;
-                    } else {
-                        $('#cboTonghop option')[1].selected = true;
-                    }
-                });
-                $("#cboTonghop").change(function () {
-                    if ($("#cboTonghop").val().trim() === "Y") {
-                        $('#cboDonvi option')[0].selected = true;
-                    } else {
-                        $('#cboDonvi option')[1].selected = true;
-                    }
-                });
-            });
-            function SendData(event) {
-                var surl, sdata, idView, idMess, idForm, method, strMess;
-                surl = "SendAction.action?status=" + event.data.status;
-                idView = "#idViewData";
-                idMess = "#idViewMess";
-                idForm = "#idKhnv2021";
-                method = "POST";
-                sdata = jQuery(idForm).serialize();
-                $.ajax({
-                    url: surl,
-                    data: sdata,
-                    type: method,
-                    async: true,
-                    beforeSend: function () {
-                        $(idMess).html('<img src="imgs/newloading.gif" class="ViewMess"/>');
-                    },
-                    success: function (result) {
-                        if (["10", "11", "20", "21", "01"].includes(result)) {
-                            switch (result) {
-                                case "01":
-                                    strMess = 'Lỗi: Tải dữ liệu không thành công.';
-                                    break;
-                                case "10":
-                                    strMess = '<span style="color:green">Thành công: Gửi dữ liệu lên cấp trên thành công.</span>';
-                                    break;
-                                case "11":
-                                    strMess = 'Lỗi: khi gửi dữ liệu lên cấp trên.';
-                                    break;
-                                case "20":
-                                    strMess = '<span style="color:green">Thành công: Hoàn trả dữ liệu cho đơn vị thành công.</span>';
-                                    break;
-                                case "21":
-                                    strMess = 'Lỗi: hoàn trả dữ liệu cho đơn vị.';
-                                    break;
+                            $(document).ready(function () {
+
+                                $("#cboNam").val(new Date().getFullYear()).change();
+
+                                //Tải dữ liệu
+                                $("#cmdTaiDL").click({status: "0"}, SendData);
+                                //Gửi dữ liệu
+                                $("#cmdGuiDL").click({status: "1"}, SendData);
+                                //Trả lại đơn vị
+                                $("#cmdTraLaiDL").click({status: "2"}, SendData);
+                                $("#cboDonvi").change(function () {
+                                    if ($("#cboDonvi").val().trim() === "all") {
+                                        $('#cboTonghop option')[0].selected = true;
+                                    } else {
+                                        $('#cboTonghop option')[1].selected = true;
+                                    }
+                                });
+                                $("#cboTonghop").change(function () {
+                                    if ($("#cboTonghop").val().trim() === "Y") {
+                                        $('#cboDonvi option')[0].selected = true;
+                                    } else {
+                                        $('#cboDonvi option')[1].selected = true;
+                                    }
+                                });
+                            });
+                            function SendData(event) {
+                                var surl, sdata, idView, idMess, idForm, method, strMess;
+                                surl = "SendAction.action?status=" + event.data.status;
+                                idView = "#idViewData";
+                                idMess = "#idViewMess";
+                                idForm = "#idKhnv2021";
+                                method = "POST";
+                                sdata = jQuery(idForm).serialize();
+                                $.ajax({
+                                    url: surl,
+                                    data: sdata,
+                                    type: method,
+                                    async: true,
+                                    beforeSend: function () {
+                                        $(idMess).html('<img src="imgs/newloading.gif" class="ViewMess"/>');
+                                    },
+                                    success: function (result) {
+                                        if (["10", "11", "20", "21", "01"].includes(result)) {
+                                            switch (result) {
+                                                case "01":
+                                                    strMess = 'Lỗi: Tải dữ liệu không thành công.';
+                                                    $(idView).html('');
+                                                    break;
+                                                case "10":
+                                                    strMess = '<span style="color:green">Thành công: Gửi dữ liệu lên cấp trên thành công.</span>';
+                                                    break;
+                                                case "11":
+                                                    strMess = 'Lỗi: khi gửi dữ liệu lên cấp trên.';
+                                                    $(idView).html('');
+                                                    break;
+                                                case "20":
+                                                    strMess = '<span style="color:green">Thành công: Hoàn trả dữ liệu cho đơn vị thành công.</span>';
+                                                    break;
+                                                case "21":
+                                                    strMess = 'Lỗi: hoàn trả dữ liệu cho đơn vị.';
+                                                    $(idView).html('');
+                                                    break;
+                                            }
+                                            $(idMess).html(strMess);
+                                        } else {
+                                            $(idView).html(result);
+                                            $(idMess).html('<span style="color:green">Thành công: Tải dữ liệu.</span>');
+                                        }
+                                    },
+                                    error: function (result) {
+                                        alert('Lỗi khi thực hiện.');
+                                    }
+                                });
                             }
-                            $(idMess).html(strMess);
-                        } else {
-                            $(idView).html(result);
-                            $(idMess).html('<span style="color:green">Thành công: Tải dữ liệu.</span>');
-                        }
-                    },
-                    error: function (result) {
-                        alert('Lỗi khi thực hiện.');
-                    }
-                });
-            }
         </script>
     </body>
 </html>
