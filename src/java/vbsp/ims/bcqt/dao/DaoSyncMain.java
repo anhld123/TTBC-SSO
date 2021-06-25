@@ -872,6 +872,70 @@ public class DaoSyncMain {
         }
         return bSuccess;
     }
+    
+    public boolean putXmlFileKHNV2021(String fileXml, String khoa, String type_bcqt, String mapgd, String ngay_bc,
+            String grade, String username, String ngay_gui, String tt_khoa) throws SQLException {
+        boolean bSuccess = false;
+//        String qry = "INSERT INTO BCQT_XML_SYNC (KHOA, MAPGD, NGAY_BC, GRADE, NGUOI_GUI, NGAY_GUI,\n"
+//                + " FILE_SIZE, FILE_NAME, XML_DATA, NGAY_TAO) VALUES(?,?,?,?,?,?,?,?,?,SYSDATE)";
+        String qry = "{call VBSP_IMS_KHNV2021.SP_PUT_FILEXML_KHNV(?,?,?,?,?,?,?,?,?,?,?)}";//SP_PUT_FILEXML
+        DaoConnect daoconnect = new DaoConnect();
+        Connection conn = null;
+        OraclePreparedStatement sqlStatement = null;
+        XMLType xml = null;
+        try {
+            //convert date cho ngay_gui
+            java.sql.Timestamp date_ngay_gui = new java.sql.Timestamp(new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss").parse(ngay_gui).getTime());
+            //format date cho ngay bao cao
+            java.sql.Date date_ngay_bc = new java.sql.Date(new SimpleDateFormat("dd-MMM-yyyy").parse(ngay_bc).getTime());
+            File xmlFile = new File(fileXml);
+            if (!xmlFile.exists()) {
+                CoreLogger.error(this.getClass().getName() + " putXmlFileKtgs -> Khong tim thay filexml " + fileXml);
+                return false;
+            }
+            BigDecimal value = new BigDecimal(xmlFile.length());
+            DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
+
+            Document document = documentBuilder.parse(xmlFile);
+            conn = daoconnect.getConnect();
+
+            xml = XMLType.createXML(conn, document);
+
+            sqlStatement = (OraclePreparedStatement) conn.prepareStatement(qry);
+            sqlStatement.setString(1, khoa);
+            sqlStatement.setString(2, type_bcqt);
+            sqlStatement.setString(3, mapgd);
+            sqlStatement.setDate(4, date_ngay_bc);
+            sqlStatement.setString(5, grade);
+            sqlStatement.setString(6, username);
+//            sqlStatement.setString(6, ngay_gui);
+            sqlStatement.setTimestamp(7, date_ngay_gui);
+            sqlStatement.setBigDecimal(8, value);
+            sqlStatement.setString(9, xmlFile.getName());
+            sqlStatement.setObject(10, xml);
+            sqlStatement.setString(11, tt_khoa);
+            sqlStatement.execute();
+
+            bSuccess = true;
+        } catch (Exception e) {
+            System.err.println("Loi trong ham putXmlFileKtgs " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " putXmlFileKtgs -> " + e.getMessage());
+            bSuccess = false;
+        } finally {
+
+            if (sqlStatement != null) {
+                sqlStatement.close();
+            }
+            if (xml != null) {
+                xml.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return bSuccess;
+    }
 
     public static void main(String[] args) {
         DaoSyncMain dao = newInstance();
