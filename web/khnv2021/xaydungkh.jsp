@@ -186,7 +186,10 @@
                            onCompleteTopics="completediv_send" class="cmd"/>
 
 
-                <input type="button" id="cmdTuChoi" name="cmdTuChoi" value="Gửi chi nhánh" class="cmd">
+                <s:url id="idSendCNKhnv" action="sendCN.action"></s:url>                                      
+                <sj:submit id="idloadDataKhnvtmp2" name="nameSend2" href="%{idSendCNKhnv}" value="Gửi chi nhánh" targets="divKhDetail"
+                           onBeforeTopics="beforediv_send"
+                           onCompleteTopics="completediv_send" class="cmd"/>
             </div>
             <hr/>
             <div>
