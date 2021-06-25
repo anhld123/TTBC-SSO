@@ -15,12 +15,13 @@
         <style>
             *{
                 font-family: tahoma;
-                font-size: 12px;
+                font-size: 13px;
             }
             table {
                 border-collapse: collapse;
                 width: 100%;
                 height: 1000px;
+                border: 1px solid white;
             }
 
             table thead { position: sticky; top: 0; z-index: 1; }
@@ -28,15 +29,14 @@
             th, td {
                 text-align: left;
                 padding: 8px;
-                border: 1PX solid #f2f2f2;
+                border: 1px solid #c2c2c2;
                 text-align: center;
             }
-
-            tr:nth-child(even){background-color: #f2f2f2}
 
             th {
                 background-color: #04AA6D;
                 color: white;
+                border: 1px solid #ffffff;
             }
             .sttCol>td{
                 font-style: italic;

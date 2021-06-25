@@ -9,8 +9,8 @@
 <table>
     <thead>
         <tr>
-            <td colspan="3" style="text-align: left; border: 0px; font-weight: bold; background-color: white;"><span id="strHeader" style="text-transform: uppercase; color: green;"></span></td>
-            <td colspan="4" style="text-align: right; border: 0px;font-style: italic;background-color: white;">Đơn vị: triệu đồng, %, hộ, người</td>
+            <td colspan="3" style="text-align: left; border: 0px; font-weight: bold; background-color: orange ;"><span id="strHeader" style="text-transform: uppercase; color: white;"></span></td>
+            <td colspan="4" style="text-align: right; border: 0px;font-style: italic;background-color: orange; color: white;">Đơn vị: triệu đồng, %, hộ, người</td>
         </tr>
         <tr>
             <th rowspan="3">STT</th>
