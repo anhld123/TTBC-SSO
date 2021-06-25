@@ -97,7 +97,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
     public String guiChinhanh() {
         try {
             getInfo();
-            String message = daoXdkh.getCheckInputPGD(maBc, namBc, dotBc, pos_cd_username, reportGrade);
+            String message = daoXdkh.getCheckInputPGD(maBc, namBc, dotBc, pos_cd_username, reportGrade,userId);
             if(!message.endsWith("AAA"))
             {
                 addActionError("Bạn chưa nhập số liệu mẫu 02 tại pgd!");
