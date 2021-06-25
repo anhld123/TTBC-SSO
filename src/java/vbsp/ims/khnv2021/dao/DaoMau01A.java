@@ -150,7 +150,7 @@ public class DaoMau01A {
         ResultSet reset = null;
 //        try {
         //Khoi tao procedure cung voi tham so truyen vao la dau ?
-        String strStoreproce = "{call VBSP_IMS_KTGS.SP_LOAD_ALL_POS(?,?,?,?)}";
+        String strStoreproce = "{call VBSP_IMS_KHNV2021.SP_LOAD_ALL_POS(?,?,?,?)}";
         try {
             //Khoi tao goi store
             calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
