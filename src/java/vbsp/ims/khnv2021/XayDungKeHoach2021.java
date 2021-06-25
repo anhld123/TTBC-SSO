@@ -94,6 +94,25 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
         return SUCCESS;
     }
     
+    public String guiChinhanh() {
+        try {
+            getInfo();
+            String message = daoXdkh.getCheckInputPGD(maBc, namBc, dotBc, pos_cd_username, reportGrade);
+            if(!message.endsWith("AAA"))
+            {
+                addActionError("Bạn chưa nhập số liệu mẫu 02 tại pgd!");
+                return ERROR;
+            }
+            addActionMessage("Bạn đã gửi thành công số liệu lên chi nhánh");
+            return SUCCESS;
+        } catch (Exception ex) {
+            CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv01 " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " Loi ExpExcelKhnv01 " + ex.getMessage());
+            addActionError("Gửi lỗi!");
+            return ERROR;
+        }
+    }
+    
     public String getSubcommune() {
         try {
             commune_cd = request.getParameter("commune_cd");
