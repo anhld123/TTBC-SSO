@@ -118,6 +118,9 @@
             <s:hidden name="namBc_pre"/>
             <div id="divTitle">
                 KẾ HOẠCH TÍN DỤNG CỦA PGD
+                <s:if test="!reasonReject.equalsIgnoreCase('AAA')">
+                        <font color="red">Nguyên nhân từ chối: <s:property value="reasonReject"/></font>       
+                    </s:if> 
                 <BR>
                 <!--<font color="red">(Nếu mã KH và tên KH null sẽ chỉ hiện thị các KH đã từng đăng ký nhận tin nhắn)</font>-->                    
             </div>

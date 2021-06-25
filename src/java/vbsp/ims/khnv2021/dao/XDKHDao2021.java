@@ -889,4 +889,65 @@ public class XDKHDao2021 {
         }
         return bSuccess;
     }
+   
+   public String getReason(String mabc, String nambc, String dotbc,String maDonvi, String capbc) {
+       DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            
+        String strQuery = "";
+
+        // Connection connect = null;
+        CallableStatement calstatement = null;
+        //Khoi tao function se tra ra du lieu la kieu gi
+        String strStoreproce = "{?=call VBSP_IMS_KHNV2021.F_GET_REASON_REJECT(?,?,?,?)}";
+
+        try {
+            //Khoi tao ket noi
+            if (conn == null) {
+                System.err.println("Khong the ket noi voi csdl ham getQuery");
+                return strQuery;
+            }
+            //THuc hien goi ham trong oracle
+            calstatement = conn.prepareCall(strStoreproce);
+            //dang ky tham so tra du lieu ra la tham so thu nhat, kieu du lieu tra ra la number
+            calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.CLOB);
+            //Truyen tham so thu 2 vao la mang main_pos
+            
+            calstatement.setString(2, nambc);
+            calstatement.setString(3, dotbc);
+            calstatement.setString(4, maDonvi);
+            calstatement.setString(5, capbc);
+//            calstatement.setString(3, strModule_id);
+//            calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
+//            calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
+            calstatement.execute();
+            //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+//            int pn_err_cd = calstatement.getInt(3);
+////            //thu hien lay mo ta loi
+//            String strEdd_txt = calstatement.getString(4);
+
+            Clob clob = calstatement.getClob(1);
+            //Lay cursor ra resultset
+            //Get du lieu tra ra tham so thu 1
+            if (clob != null) {
+                strQuery = clob.getSubString(1, (int) clob.length());
+                clob.free();
+
+            }
+//            System.err.println(calstatement.getString(1));
+            if (calstatement != null) {
+                calstatement.close();
+            }
+
+//            if (connect != null) {
+//                connect.close();
+//            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getQuery -> " + e.getMessage());
+        }
+        return strQuery;
+
+    }
 }

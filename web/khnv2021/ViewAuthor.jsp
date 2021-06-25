@@ -15,29 +15,55 @@
         <style>
             *{
                 font-family: tahoma;
-                font-size: 12px;
+                font-size: 13px;
             }
+            
             table {
-                border-collapse: collapse;
-                width: 100%;
-                height: 1000px;
+                width : 100%;
+                border-top: 1px solid orange;
+                border-left: 1px solid #c2c2c2;
+                border-right: 1px solid #c2c2c2;
+                border-bottom: 1px solid #c2c2c2;
+                text-align : center;
+                border-collapse : collapse;
+            }
+            table tr th, table tr td {
+                border : 1px solid #c2c2c2;
+            }
+            
+            
+            table thead th {
+                position: -webkit-sticky;
+                position : sticky;
+                top : 0;
+                color: white;
+                background-color : #04AA6D;
             }
 
+            /* here is the trick */
+            table tbody:nth-of-type(1) tr:nth-of-type(1) td {
+                border-top: none !important;
+            }
+            table thead th {
+                border-top: none !important;
+                border-bottom: none !important;
+                box-shadow: inset 0 0px 0 #c2c2c2,
+                            inset 0 -1px 0 #c2c2c2;
+            }
+            
+            table thead th {
+                background-clip: padding-box
+            }
+            
             table thead { position: sticky; top: 0; z-index: 1; }
 
             th, td {
                 text-align: left;
                 padding: 8px;
-                border: 1PX solid #f2f2f2;
+                border: 1px solid #c2c2c2;
                 text-align: center;
             }
 
-            tr:nth-child(even){background-color: #f2f2f2}
-
-            th {
-                background-color: #04AA6D;
-                color: white;
-            }
             .sttCol>td{
                 font-style: italic;
             }
@@ -56,7 +82,7 @@
             }
             .cls-over{
                 overflow-y: scroll;
-                height: 69vh;
+                height: 67vh;
             }
             .cmd{
                 padding: 5px;
@@ -64,6 +90,10 @@
                 border: 1px solid #c2c2c2;
                 border-radius: 2px;
                 z-index: 99;
+            }
+            hr{
+                border-bottom: 0px;
+                border-top: 1px solid lightgray;
             }
         </style>
         <link href="css/css/style.css" rel="stylesheet" type="text/css"/>

@@ -63,6 +63,7 @@ public class ActionMainKHNV extends ActionSupport{
     protected List<ListValue> lstDotBC = new ArrayList<>();
     protected List<ListValue> lstTongHop = new ArrayList<>();
     protected String namBc_pre;
+    protected String reasonReject;
     
     
     protected HttpServletRequest request = null;
@@ -163,6 +164,16 @@ public class ActionMainKHNV extends ActionSupport{
     }
 
     //<editor-fold defaultstate="collapsed" desc="get set du lieu">
+
+    public String getReasonReject() {
+        return reasonReject;
+    }
+
+    public void setReasonReject(String reasonReject) {
+        this.reasonReject = reasonReject;
+    }
+    
+    
 
     public String getSubcommune_detail() {
         return subcommune_detail;
