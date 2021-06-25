@@ -951,7 +951,7 @@ public class XDKHDao2021 {
 
     }
    
-   public String getCheckInputPGD(String mabc, String nambc, String dotbc,String maDonvi, String capbc) {
+   public String getCheckInputPGD(String mabc, String nambc, String dotbc,String maDonvi, String capbc, String usernam) {
        DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
             conn = daoconnect.getConnect();
@@ -961,7 +961,7 @@ public class XDKHDao2021 {
         // Connection connect = null;
         CallableStatement calstatement = null;
         //Khoi tao function se tra ra du lieu la kieu gi
-        String strStoreproce = "{?=call VBSP_IMS_KHNV2021.F_CHECK_INPUT_SEND_CN(?,?,?,?)}";
+        String strStoreproce = "{?=call VBSP_IMS_KHNV2021.F_CHECK_INPUT_SEND_CN(?,?,?,?,?)}";
 
         try {
             //Khoi tao ket noi
@@ -979,6 +979,7 @@ public class XDKHDao2021 {
             calstatement.setString(3, dotbc);
             calstatement.setString(4, maDonvi);
             calstatement.setString(5, capbc);
+            calstatement.setString(6, usernam);
 //            calstatement.setString(3, strModule_id);
 //            calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
 //            calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
