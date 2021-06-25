@@ -73,19 +73,13 @@ public class AuthorAction extends ActionSupport {
                 break;
             case "1":
                 sendTwKhnv();
-//                if (dataReult != null) {
-                    chkSuccess = "SuccessMessage";
-                    pageResult = new StringBufferInputStream("00");
-//                } else {
-//                    chkSuccess = "FaildMessage";
-//                    pageResult = new StringBufferInputStream("01");
-//                }
-//                pageResult = new StringBufferInputStream(dataReult);
+                chkSuccess = "SuccessMessage";
+                pageResult = new StringBufferInputStream("10");
                 break;
             case "2":
                 dataReult = new AuthorModel().rollBackData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
                 if (dataReult != null) {
-                    chkSuccess = "SuccessMessage";
+                    chkSuccess = "SuccessRoll";
                     pageResult = new StringBufferInputStream("20");
                 } else {
                     chkSuccess = "FaildMessage";
@@ -98,6 +92,7 @@ public class AuthorAction extends ActionSupport {
     }
     
     public void sendTwKhnv() {
+        String chk ="";
         System.err.println("Vao ham sendKTGS");
         try {
             session = ActionContext.getContext().getSession();
@@ -134,46 +129,37 @@ public class AuthorAction extends ActionSupport {
                         mapgd, lstData, Define.WEB_SERVICES_STATUS_SEND, strPathSave);
 
                 if (!bStatus_file) {
-//                    addActionError("Bạn chưa tạo được file dữ liệu để gửi của PGD " + mapgd);
                     CoreLogger.error(this.getClass().getName() + " Exception -> sendKTGS: Khong tao duoc file " + strPathSave);
 
                     mapStatusSend.put(mapgd, 1); //1 la tao file xml bi loi
-//                    return ERROR;
                 }
                 //Tao file xml theo cau truc
 //
                 File checkfile = new File(strPathSave);
                 if (!checkfile.exists()) {
-//                    addActionError("Bạn chưa tạo được file dữ liệu để gửi. Xin liên hệ với quản trị để khắc phục");
                     CoreLogger.error(this.getClass().getName() + " Exception -> sendKTGS: Khong tao duoc file " + strPathSave);
                     mapStatusSend.put(mapgd, 2); //2 la khong tim thay file xml
-//                    return ERROR;
                 }
                 ProcessReportSyn clientWritexml = new ProcessReportSyn();
                 String sStatus = clientWritexml.SendFileXmlToWebServices(strPathSave);
 //
                 if (sStatus.equals(Define.WEB_SERVICES_STATUS_FAIL)) {
                     System.err.println("Ban chua dong bo du lieu duoc ve TW");
-//                    addActionError("Lỗi bạn chưa gửi dữ liệu được về trung ương ");
                     if (checkfile.exists()) {
                         checkfile.delete();
                     }
                     CoreLogger.error(this.getClass().getName() + " Exception -> sendKTGS: Khong dong bo duoc file " + strPathSave);
                     mapStatusSend.put(mapgd, 3); //3 la gui file du lieu bi loi
-//                    return ERROR;
                 } else if (sStatus.equals(Define.WEB_SERVICES_STATUS_OK)) {
-//                    addActionMessage("Bạn gửi dữ liệu về trung ương thành công");
                     if (checkfile.exists()) {
                         checkfile.delete();
                     }
                     mapStatusSend.put(mapgd, 4);  //gui du lieu thanh cong
                 } else {
-//                    addActionMessage("Bạn không thể gửi dữ liệu lên trung ương do bị khóa </br>Xin liên hệ về Ban KT&QLTC để được gửi lại số liệu ! ");
                     if (checkfile.exists()) {
                         checkfile.delete();
                     }
                     mapStatusSend.put(mapgd, 5);  //pgd bi khoa khong gui duoc du lieu
-//                    return ERROR;
                 }
             }
             setLstViewSend(getViewStatusSend(lstPos, mapStatusSend));
@@ -181,11 +167,7 @@ public class AuthorAction extends ActionSupport {
             CoreLogger.error(this.getClass().getName() + " Exception -> sendKTGS: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> sendKTGS: " + e.getMessage());
             addActionError("Bạn chưa gửi được dữ liệu xin liên hệ với quản trị để được khắc phục");
-//            return ERROR;
         }
-//        addActionMessage("Bạn gửi dữ liệu về trung ương thành công !");
-
-//        return SUCCESS;
     }
     
     private List<ModelViewSend> getViewStatusSend(List<String> lstPos, Map<String, Integer> mapStatus) {
