@@ -110,6 +110,8 @@ public class Define {
     public static final String PARA_SYN_REPORT_MUASAMTS= "27";
     public static final String PARA_SYN_REPORT_CBSS= "28";
     public static final String PARA_SYN_INPUT_BRANCH= "29";
+    public static final String PARA_SYN_REPORT_KHNV2021= "30";
+    
     
     //Dinh nghia cho khnv
     public static final String SYN_KHNV_XDKH = "XDKH";
