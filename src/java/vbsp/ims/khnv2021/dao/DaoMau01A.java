@@ -7,6 +7,7 @@ package vbsp.ims.khnv2021.dao;
 
 
 import java.sql.CallableStatement;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -194,5 +195,116 @@ public class DaoMau01A {
         } else {
             return value;
         }
+    }
+    
+    public List<String> getDataSendKhnv(String type, String khoa, String mapgd, String ngaybc) throws SQLException {
+        List<String> lstData = new ArrayList<>();
+        DaoConnect daoconnect = new DaoConnect();
+        Connection conn = null;
+        conn = daoconnect.getConnect();
+        CallableStatement calstatement = null;
+        ResultSet reset = null;
+//        try {
+        //Khoi tao procedure cung voi tham so truyen vao la dau ?
+        String strStoreproce = "{call VBSP_IMS_KHNV2021.SP_GET_DATA_KHNV_SYNC(?,?,?,?,?,?,?)}";
+        try {
+            //Khoi tao goi store
+            calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
+            calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.VARCHAR);
+            calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.CURSOR);
+            calstatement.setString(1, type);
+            calstatement.setString(2, khoa);
+            calstatement.setString(3, mapgd);
+            calstatement.setString(4, ngaybc);
+            
+            //Thuc hien execute lay du lieu
+            calstatement.execute();
+            //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+            int pn_err_cd = calstatement.getInt(5);
+            //thu hien lay mo ta loi
+            String strEdd_txt = calstatement.getString(6);
+            //Lay cursor ra resultset
+            reset = (ResultSet) calstatement.getObject(7);
+            while (reset.next()) {
+
+                lstData.add(reset.getString(1));
+            }
+
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataSendKhnv -> " + e.getMessage());
+            throw new SQLException(e);
+        } finally {
+            if (reset != null) {
+                reset.close();
+            }
+            if (calstatement != null) {
+                calstatement.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return lstData;
+    }
+    
+    public String getNgaybc(String nambc, String dotbc) {
+       DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            
+        String strQuery = "";
+
+        // Connection connect = null;
+        CallableStatement calstatement = null;
+        //Khoi tao function se tra ra du lieu la kieu gi
+        String strStoreproce = "{?=call VBSP_IMS_KHNV2021.F_GET_NGAYBC(?,?)}";
+
+        try {
+            //Khoi tao ket noi
+            if (conn == null) {
+                System.err.println("Khong the ket noi voi csdl ham getNgaybc");
+                return strQuery;
+            }
+            //THuc hien goi ham trong oracle
+            calstatement = conn.prepareCall(strStoreproce);
+            //dang ky tham so tra du lieu ra la tham so thu nhat, kieu du lieu tra ra la number
+            calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.CLOB);
+            //Truyen tham so thu 2 vao la mang main_pos
+            
+            calstatement.setString(2, nambc);
+            calstatement.setString(3, dotbc);
+//            calstatement.setString(3, strModule_id);
+//            calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
+//            calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
+            calstatement.execute();
+            //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+//            int pn_err_cd = calstatement.getInt(3);
+////            //thu hien lay mo ta loi
+//            String strEdd_txt = calstatement.getString(4);
+
+            Clob clob = calstatement.getClob(1);
+            //Lay cursor ra resultset
+            //Get du lieu tra ra tham so thu 1
+            if (clob != null) {
+                strQuery = clob.getSubString(1, (int) clob.length());
+                clob.free();
+
+            }
+//            System.err.println(calstatement.getString(1));
+            if (calstatement != null) {
+                calstatement.close();
+            }
+
+//            if (connect != null) {
+//                connect.close();
+//            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getNgaybc -> " + e.getMessage());
+        }
+        return strQuery;
+
     }
 }
