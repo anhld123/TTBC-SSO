@@ -209,7 +209,7 @@
                                                     $(idView).html('');
                                                     break;
                                                 case "10":
-                                                    strMess = '<span style="color:green">Thành công: Gửi dữ liệu lên cấp trên thành công.</span>';
+                                                    strMess = '';
                                                     break;
                                                 case "11":
                                                     strMess = 'Lỗi: khi gửi dữ liệu lên cấp trên.';
@@ -226,7 +226,7 @@
                                             $(idMess).html(strMess);
                                         } else {
                                             $(idView).html(result);
-                                            $(idMess).html('<span style="color:green">Thành công: Tải dữ liệu.</span>');
+                                            $(idMess).html('');
                                         }
                                     },
                                     error: function (result) {
