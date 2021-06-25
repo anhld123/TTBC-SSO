@@ -116,7 +116,7 @@
                             var i, varNam;
                             varNam = new Date().getFullYear();
                             var text = "";
-                            for (i = (varNam - 10); i <= (varNam + 50); i++) {
+                            for (i = (varNam - 5); i <= (varNam + 5); i++) {
                                 text += '<option value="' + i.toString() + '">Năm ' + i.toString() + '</option>';
                             }
                             document.write(text);
