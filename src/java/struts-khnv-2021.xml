@@ -37,6 +37,11 @@
         </action>    
     </package>
     
+    <action name="sendCN" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="guiChinhanh">
+            <result name="success">/khnv2021/success.jsp</result>  
+            <result name="error">/khnv2021/success.jsp</result>        
+        </action>
+        
     <package name="khnv2021" extends="struts-default">
         <action name="get_data_xaydungkh_2021" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="get_data_xaydungkh_2021">
             <result name="success">/khnv2021/xaydungkh.jsp</result>
