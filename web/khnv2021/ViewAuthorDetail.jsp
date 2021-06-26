@@ -32,14 +32,18 @@
         <s:iterator value="lstData" status="idxRows">
             <tr class="<s:property value='D50'/>">
                 <td><s:property value='TT_HIENTHI'/></td>
-                <td style="display: none;"><input type="text" id="lstData[<s:property  value="%{#idxRows.index}" />].MA" name="lstData[<s:property  value="%{#idxRows.index}" />].MA" value="<s:property value='MA'/>" name="MA" readonly="readonly"/></td>
-                <td style="display: none;"><span id="ngaybc"><s:property value='D49'/></span></td>
                 <td style="text-align: left; padding-left: 3px;"><s:property value='TEN'/></td>
                 <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].D13" name="lstData[<s:property  value='%{#idxRows.index}' />].D13" value="<s:property value='D13'/>" <s:property value='D48'/>/></td>
                 <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].D14" name="lstData[<s:property  value='%{#idxRows.index}' />].D14" value="<s:property value='D14'/>" <s:property value='D48'/>/></td>
                 <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].D15" name="lstData[<s:property  value='%{#idxRows.index}' />].D15" value="<s:property value='D15'/>" <s:property value='D48'/>/></td>
                 <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].D16" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" <s:property value='D48'/>/></td>
                 <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].D17" name="lstData[<s:property  value='%{#idxRows.index}' />].D17" value="<s:property value='D17'/>" <s:property value='D48'/>/></td>
+                <!--Những trường dữ liệu cần lấy-->
+                <td style="display: none;"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].TT_HIENTHI" name="lstData[<s:property  value='%{#idxRows.index}' />].TT_HIENTHI" value="<s:property value='TT_HIENTHI'/>" readonly/></td>
+                <td style="display: none;"><input type="text" id="lstData[<s:property  value="%{#idxRows.index}" />].MA" name="lstData[<s:property  value="%{#idxRows.index}" />].MA" value="<s:property value='MA'/>" name="MA" readonly="readonly"/></td>
+                <td style="display: none;"><span id="ngaybc"><s:property value='D49'/></span></td>
+                <td style="display: none;"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].TEN" name="lstData[<s:property  value='%{#idxRows.index}' />].TEN" value="<s:property value='TEN'/>" readonly/></td>
+                <td style="display: none;"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].THUTU" name="lstData[<s:property  value='%{#idxRows.index}' />].THUTU" value="<s:property value='THUTU'/>" readonly/></td>
             </tr>
         </s:iterator>
 

@@ -145,8 +145,9 @@
                     &nbsp;
                     <span class="clss-lable">Tổng hợp</span>
                     <select id="cboTonghop" name="cboTonghop">
-                        <option value="Y">Tất cả các đơn vị trực thuộc</option>
-                        <option value="N">Từng đơn vị</option>
+                        <option value="Y">Tổng hợp các đơn vị trực thuộc</option>
+                        <option value="N">Duyệt từng đơn vị</option>
+                        <option value="R">Tổng hợp lại từ các đơn vị trực thuộc</option>
                     </select>
                     &nbsp;                                  
                     <input type="button" value="Tải dữ liệu" id="cmdTaiDL" name="nameTaiDL" class="cmd"/>
@@ -201,7 +202,7 @@
                                     }
                                 });
                                 $("#cboTonghop").change(function () {
-                                    if ($("#cboTonghop").val().trim() === "Y") {
+                                    if ($("#cboTonghop").val().trim() == "Y" || $("#cboTonghop").val().trim()== "R") {
                                         $('#idLuuDL').show();
                                         $('#cmdGuiDL').show();
                                         $('#cmdTraLaiDL').hide();
