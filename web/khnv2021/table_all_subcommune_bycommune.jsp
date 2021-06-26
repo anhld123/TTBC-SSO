@@ -3,14 +3,16 @@
     Created on : Nov 16, 2015, 1:26:33 PM
     Author     : LION
 --%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="/struts-tags" prefix="s" %>
 
-<%@ taglib prefix="sx" uri="/struts-dojo-tags" %> 
-<%@ taglib prefix="sj" uri="/struts-jquery-tags" %> 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib uri="/struts-jquery-tree-tags" prefix="sjt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
+<%@ taglib prefix="sjt" uri="/struts-jquery-tree-tags"%>
+<%@ taglib prefix="sjg" uri="/struts-jquery-grid-tags"%>
+
+<s:head/>
+<sj:head/>
 <!DOCTYPE html>
 <html>
     <head>        
@@ -18,55 +20,69 @@
         
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
-         <style>
-            .readonly {
-                background: #FFFFC0;        
-            }
-            .pos_edit_form {
-                padding:0px;
-                width:30%;    
-                background:#f9f9f9;
-                border:1px solid #ccc;
-                text-align:left;   
-                font-family: Arial;
-                font-size: 12pt;
-            }    
+        <style>
+        *{
+            font-family: tahoma;
+            font-size: 12px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            /*height: 1000px;*/
+        }
 
-            .metroButtonStyle {
-                font-family: 'Segoe UI', 'Open Sans', Arial, sans-serif;
-                display: block;
-                color: rgb(255, 255, 255);
-                text-decoration: none;
-                text-align: center;
-                width: 90px;
-                height: 20px;
-                padding: 5px;
-                margin: 5px 0px 0px 5px;
-                font-size: 12px;
-                background: none repeat scroll 0 0 #808080;
-                color: #FFF;
-                border: 0px none;
-                border-radius: 1px 1px 1px 1px;
-                outline: 0px none;
-            }
-            .metroButtonStyle:hover {
-                background: #018c3b;
-            }
-            .metroButtonStyle:active {
-                background: #DCDCDC;
-            }
-            .metroButtonStyle:disabled {
-                background: #DCDCDC;
+        table thead { position: sticky; top: 0; z-index: 1; }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border: 1PX solid #f2f2f2;
+            /*text-align: center;*/
+        }
+
+        tr:nth-child(even){background-color: #f2f2f2}
+
+        th {
+            background-color: #04AA6D;
+            color: white;
+        }
+        .sttCol>td{
+            font-style: italic;
+        }
+        .clss-body-ngnhan{
+            box-sizing: content-box;
+            padding: 5px;
+        }
+        textarea
+        {
+            border:1px solid #000;
+            width:100%;
+            height: 100px;
+        }
+        .clss-lable{
+            font-weight: bold;
+        }
+        .cls-over{
+            overflow-y: scroll;
+            height: 76vh;
+        }
+        .cmd, input[type="submit"]{
+            padding: 5px;
+            background-image: linear-gradient(#f2f2f2,#c2c2c2);
+            border: 1px solid #c2c2c2;
+            border-radius: 2px;
+        }
+        
+        .CLS-BOLD{
+                font-weight: bold;
             }
 
             #divTitle{
-            font: 14px Arial, Helvetica, sans-serif;
-            font-weight: bold;
-            color: #0077b3;
-            text-align: center;
-            
-        }
-        </style>     
+    font: 14px Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #0077b3;
+    text-align: center;
+    </style>
         <script>
             var max_row = 0;
             $(document).ready(function () {
@@ -94,12 +110,18 @@
         
         <script>
     
-        function hienthichitiet(commune_detai,subcommune_detail ) {
+        function hienthichitietThon(commune_detai,subcommune_detail) {
             var ht1 = screen.availHeight - 100;
             var wt1 = screen.availWidth -100;
             var left1 = (screen.width / 2) - (wt1 / 2);
-            var top1 = 100;       
-            var url = "getDetailKhnvByOneSubCommune.action?commune_detai=" + commune_detai+"&subcommune_detail=" + subcommune_detail;
+            var top1 = 100;      
+            
+            var namBc = $('#namBc').val();
+            var dotBc = $('#dotBc').val();
+            var maBc = $('#maBc').val();
+//            alert(namBc);
+            var url = "getDetailKhnvByOneSubCommune.action?commune_detai=" + commune_detai+"&subcommune_detail=" + subcommune_detail
+                +"&dotBc=" + dotBc+"&namBc=" + namBc+"&maBc=" + maBc;
             popup = window.open(url, '_blank', "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
         }
         
@@ -121,13 +143,15 @@
             <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
                 <input type="hidden" id="<s:property  value="sKey" />" 
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
-            </s:iterator>   
+            </s:iterator> 
+                <%--<s:hidden name="dotBc"/>--%>
+                <%--<s:hidden name="maBc"/>--%>
                 </br>
                 <div id="divTitle">
                     TỔNG HỢP NHU CẦU VAY VỐN TÍN DỤNG THEO XÃ
                     <BR>                                
                     <s:if test="!reasonReject.equalsIgnoreCase('AAA')">
-                        <font color="red">Nguyên nhân từ chối: <s:property value="reasonReject"/></font>       
+                        <font color="red">Nguyên nhân từ chối/TT chốt số liệu: <s:property value="reasonReject"/></font>           
                     </s:if> 
                 </div>                
                 </br>
@@ -148,8 +172,10 @@
                                             <s:property value="D6"/>
                                         </td>
 
+                                        
+                                        
                                     <td align = "left" class="TD_TEN <s:property value="D19"/>" >
-                                        <a href="javascript:hienthichitiet('<s:property value="D5"/>' ,'<s:property value="D6"/>' )" class="linkKh">
+                                        <a href="javascript:hienthichitietThon('<s:property value="D5"/>','<s:property value="D6"/>')" class="linkKh">
                                             <s:property value='D9'/> 
                                         </a>
                                     </td>
