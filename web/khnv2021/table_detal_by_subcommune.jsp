@@ -141,7 +141,7 @@
                         <tr>
                             <th rowspan="3" class="TD_STT">STT</th>
                             <th rowspan="3" class="TD_CHITIEU">CHỈ TIÊU</th>
-                            <th rowspan="3" class="TD_GIATRI">Thực hiện đến 31/12/<s:property value="namBc_pre"/></th>
+                            <!--<th rowspan="3" class="TD_GIATRI">Thực hiện đến 31/12/<s:property value="namBc_pre"/></th>-->
                             <th rowspan="3" class="TD_GIATRI">Ước thực hiện đến 31/12/<s:property value="namBc"/></th>
                             <th colspan="3" >Kế hoạch tín dụng năm <s:property value="namBc"/></th>
                         </tr>
@@ -156,7 +156,7 @@
                         <tr class="sttCol">
                             <td>1</td>
                             <td>2</td>
-                            <td>3</td>
+                            <!--<td>3</td>-->
                             <td>4</td>
                             <td>5</td>
                             <td>6</td>
@@ -173,9 +173,9 @@
                                     <s:property value="TEN"/>
                                 </td>
                                 
-                            <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
+<!--                            <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
                                     <s:property value="D13"/>
-                                </td>
+                                </td>-->
 
                            <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
                                     <s:property value="D14"/>
