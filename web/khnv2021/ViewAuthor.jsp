@@ -17,7 +17,7 @@
                 font-family: tahoma;
                 font-size: 13px;
             }
-            
+
             table {
                 width : 100%;
                 border-top: 1px solid orange;
@@ -30,8 +30,8 @@
             table tr th, table tr td {
                 border : 1px solid #c2c2c2;
             }
-            
-            
+
+
             table thead th {
                 position: -webkit-sticky;
                 position : sticky;
@@ -48,22 +48,25 @@
                 border-top: none !important;
                 border-bottom: none !important;
                 box-shadow: inset 0 0px 0 #c2c2c2,
-                            inset 0 -1px 0 #c2c2c2;
+                    inset 0 -1px 0 #c2c2c2;
             }
-            
+
             table thead th {
                 background-clip: padding-box
             }
-            
+
             table thead { position: sticky; top: 0; z-index: 1; }
 
             th, td {
                 text-align: left;
-                padding: 8px;
                 border: 1px solid #c2c2c2;
                 text-align: center;
+                padding: 3px;
             }
 
+            th{
+                padding: 8px;
+            }
             .sttCol>td{
                 font-style: italic;
             }
@@ -94,6 +97,15 @@
             hr{
                 border-bottom: 0px;
                 border-top: 1px solid lightgray;
+            }
+            .item {
+                padding: 5px;
+                text-align: right;
+                border: 0px !important;
+                outline: none;
+            }
+            .cls {
+                background-color: lightgoldenrodyellow;
             }
         </style>
         <link href="css/css/style.css" rel="stylesheet" type="text/css"/>
@@ -149,6 +161,8 @@
                     <input type="button" value="<s:property value='btnSend'/>" id="cmdGuiDL" name="nameGuiDL" class="cmd"/>
                     &nbsp; 
                     <input type="button" value="Trả lại đơn vị" id="cmdTraLaiDL" name="nameTraLaiDL" class="cmd"/>
+                    &nbsp;                                  
+                    <input type="button" value="Lưu dữ liệu" id="idLuuDL" name="nameLuuDL" class="cmd"/>
                     &nbsp; &nbsp;
                     <div id="idViewMess" name="nameViewMess" style="height: 100%;display: flex; align-items: center;font-weight: bold; color: red;"></div>
                 </div>
@@ -164,23 +178,42 @@
 
                                 $("#cboNam").val(new Date().getFullYear()).change();
 
+                                $('#idLuuDL').hide();
+                                $('#cmdGuiDL').hide();
+                                $('#cmdTraLaiDL').hide();
+
                                 //Tải dữ liệu
                                 $("#cmdTaiDL").click({status: "0"}, SendData);
                                 //Gửi dữ liệu
                                 $("#cmdGuiDL").click({status: "1"}, SendData);
                                 //Trả lại đơn vị
                                 $("#cmdTraLaiDL").click({status: "2"}, SendData);
+                                //Tải Lưu dữ liệu cấp CN
+                                $("#idLuuDL").click({status: "3"}, SendData);
+                                //Xử lý trạng thái các Element
                                 $("#cboDonvi").change(function () {
                                     if ($("#cboDonvi").val().trim() === "all") {
+                                        $('#idLuuDL').show();
+                                        $('#cmdGuiDL').show();
+                                        $('#cmdTraLaiDL').hide();
                                         $('#cboTonghop option')[0].selected = true;
                                     } else {
+                                        $('#idLuuDL').hide();
+                                        $('#cmdGuiDL').hide();
+                                        $('#cmdTraLaiDL').show();
                                         $('#cboTonghop option')[1].selected = true;
                                     }
                                 });
                                 $("#cboTonghop").change(function () {
                                     if ($("#cboTonghop").val().trim() === "Y") {
+                                        $('#idLuuDL').show();
+                                        $('#cmdGuiDL').show();
+                                        $('#cmdTraLaiDL').hide();
                                         $('#cboDonvi option')[0].selected = true;
                                     } else {
+                                        $('#idLuuDL').hide();
+                                        $('#cmdGuiDL').hide();
+                                        $('#cmdTraLaiDL').show();
                                         $('#cboDonvi option')[1].selected = true;
                                     }
                                 });

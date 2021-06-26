@@ -29,17 +29,17 @@
         </tr>
     </thead>
     <tbody>
-        <s:iterator value="lstData">
+        <s:iterator value="lstData" status="idxRows">
             <tr class="<s:property value='D50'/>">
                 <td><s:property value='TT_HIENTHI'/></td>
-                <td style="display: none;"><s:property value='MA'/></td>
+                <td style="display: none;"><input type="text" id="lstData[<s:property  value="%{#idxRows.index}" />].MA" name="lstData[<s:property  value="%{#idxRows.index}" />].MA" value="<s:property value='MA'/>" name="MA" readonly="readonly"/></td>
                 <td style="display: none;"><span id="ngaybc"><s:property value='D49'/></span></td>
                 <td style="text-align: left; padding-left: 3px;"><s:property value='TEN'/></td>
-                <td style="text-align: right; padding-right: 3px;"><s:property value='D13'/></td>
-                <td style="text-align: right; padding-right: 3px;"><s:property value='D14'/></td>
-                <td style="text-align: right; padding-right: 3px;"><s:property value='D15'/></td>
-                <td style="text-align: right; padding-right: 3px;"><s:property value='D16'/></td>
-                <td style="text-align: right; padding-right: 3px;"><s:property value='D17'/></td>
+                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].D13" name="lstData[<s:property  value='%{#idxRows.index}' />].D13" value="<s:property value='D13'/>" <s:property value='D48'/>/></td>
+                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].D14" name="lstData[<s:property  value='%{#idxRows.index}' />].D14" value="<s:property value='D14'/>" <s:property value='D48'/>/></td>
+                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].D15" name="lstData[<s:property  value='%{#idxRows.index}' />].D15" value="<s:property value='D15'/>" <s:property value='D48'/>/></td>
+                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].D16" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" <s:property value='D48'/>/></td>
+                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].D17" name="lstData[<s:property  value='%{#idxRows.index}' />].D17" value="<s:property value='D17'/>" <s:property value='D48'/>/></td>
             </tr>
         </s:iterator>
 
