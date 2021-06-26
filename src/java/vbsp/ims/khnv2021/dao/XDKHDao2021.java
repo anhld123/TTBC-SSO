@@ -1013,4 +1013,47 @@ public class XDKHDao2021 {
 
     }
    
+   public int getPosSendDataLockKHNV(String type, String khoa, String mapgd, String ngay_bc, String tt_khoa) throws SQLException {
+        int nPos = 0;
+        DaoConnect daoconnect = new DaoConnect();
+        Connection conn = null;
+
+        CallableStatement calstatement = null;
+        ResultSet reset = null;
+//        try {
+        //Khoi tao procedure cung voi tham so truyen vao la dau ?
+        String strStoreproce = "{?=call VBSP_IMS_KTGS.F_CHECK_POS_LOCK(?,?,?,?,?)}";
+        try {
+            conn = daoconnect.getConnect();
+            //Khoi tao goi store
+            calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.INTEGER);
+            calstatement.setString(2, type);
+            calstatement.setString(3, khoa);
+            calstatement.setString(4, mapgd);
+            calstatement.setString(5, ngay_bc);
+            calstatement.setString(6, tt_khoa);
+            //Thuc hien execute lay du lieu
+            calstatement.execute();
+            //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+            //Lay cursor ra resultset
+            nPos = calstatement.getInt(1);
+
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getPosSendDataLock -> " + e.getMessage());
+        } finally {
+            if (reset != null) {
+                reset.close();
+            }
+            if (calstatement != null) {
+                calstatement.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return nPos;
+    }
+   
 }
