@@ -178,10 +178,6 @@
 
                                 $("#cboNam").val(new Date().getFullYear()).change();
 
-                                $('#idLuuDL').hide();
-                                $('#cmdGuiDL').hide();
-                                $('#cmdTraLaiDL').hide();
-
                                 //Tải dữ liệu
                                 $("#cmdTaiDL").click({status: "0"}, SendData);
                                 //Gửi dữ liệu
@@ -235,7 +231,7 @@
                                         $(idMess).html('<img src="imgs/newloading.gif" class="ViewMess"/>');
                                     },
                                     success: function (result) {
-                                        if (["10", "11", "20", "21", "01"].includes(result)) {
+                                        if (["10", "11", "20", "21", "01", "30", "31"].includes(result)) {
                                             switch (result) {
                                                 case "01":
                                                     strMess = 'Lỗi: Tải dữ liệu không thành công.';
@@ -253,6 +249,13 @@
                                                     break;
                                                 case "21":
                                                     strMess = 'Lỗi: hoàn trả dữ liệu cho đơn vị.';
+                                                    $(idView).html('');
+                                                    break;
+                                                case "30":
+                                                    strMess = '<span style="color:green">Thành công: Lưu dữ liệu.</span>';
+                                                    break;
+                                                case "31":
+                                                    strMess = 'Lỗi: Lưu dữ liệu.';
                                                     $(idView).html('');
                                                     break;
                                             }
