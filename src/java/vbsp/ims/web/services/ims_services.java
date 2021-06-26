@@ -21,6 +21,7 @@ import javax.jws.WebService;
 import vbsp.ims.bcqt.dao.DaoSyncMain;
 import vbsp.ims.dao.DaoCommuneInput;
 import vbsp.ims.define.Define;
+import vbsp.ims.khnv2021.dao.XDKHDao2021;
 import vbsp.ims.ktgs.dao.DaoKtgsMain;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
@@ -125,6 +126,19 @@ public class ims_services {
                         return Define.WEB_SERVICES_STATUS_SEND;
                     }
                 }
+                
+                case Define.PARA_SYN_REPORT_KHNV2021: {
+                    HashMap<String, Object> hmHeader = new XmlBcqtSync().readXmlBCQT(strFulPathFile);
+                    int icount = new XDKHDao2021().getPosSendDataLockKHNV(hmHeader.get(Define.XML_TYPE_BCQT).toString(),
+                            hmHeader.get(Define.XML_MA_BCQT).toString(),
+                            hmHeader.get(Define.XML_POS_CD).toString(),
+                            hmHeader.get(Define.XML_NGAY_BC).toString(),
+                            Define.WEB_SERVICES_STATUS_SEND);
+                    if (icount > 0) {
+                        return Define.WEB_SERVICES_STATUS_SEND;
+                    }
+                }
+                
                 break;
                 case Define.PARA_SYN_REPORT_DATA:
                     break;

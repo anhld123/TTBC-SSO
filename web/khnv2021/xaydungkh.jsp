@@ -152,7 +152,7 @@
 
                 <span class="clss-lable" id="cboDonvi" name="cboDonvi">Mẫu báo cáo:</span>
                 <s:select list="lstMaBC" theme="simple"
-                          name="maBc" id="namBc"
+                          name="maBc" id="maBc"
                           listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
                 &nbsp;
                 <span class="clss-lable">Kế hoạch năm:</span>

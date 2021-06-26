@@ -18,54 +18,68 @@
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
         <style>
-            .readonly {
-                background: #FFFFC0;        
-            }
-            .pos_edit_form {
-                padding:0px;
-                width:30%;    
-                background:#f9f9f9;
-                border:1px solid #ccc;
-                text-align:left;   
-                font-family: Arial;
-                font-size: 12pt;
-            }    
-
-            .metroButtonStyle {
-                font-family: 'Segoe UI', 'Open Sans', Arial, sans-serif;
-                display: block;
-                color: rgb(255, 255, 255);
-                text-decoration: none;
-                text-align: center;
-                width: 90px;
-                height: 20px;
-                padding: 5px;
-                margin: 5px 0px 0px 5px;
-                font-size: 12px;
-                background: none repeat scroll 0 0 #808080;
-                color: #FFF;
-                border: 0px none;
-                border-radius: 1px 1px 1px 1px;
-                outline: 0px none;
-            }
-            .metroButtonStyle:hover {
-                background: #018c3b;
-            }
-            .metroButtonStyle:active {
-                background: #DCDCDC;
-            }
-            .metroButtonStyle:disabled {
-                background: #DCDCDC;
-            }
-
-            #divTitle{
-            font: 14px Arial, Helvetica, sans-serif;
-            font-weight: bold;
-            color: #0077b3;
-            text-align: center;
-            
+        *{
+            font-family: tahoma;
+            font-size: 12px;
         }
-        </style>    
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            /*height: 1000px;*/
+        }
+
+        table thead { position: sticky; top: 0; z-index: 1; }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border: 1PX solid #f2f2f2;
+            /*text-align: center;*/
+        }
+
+        tr:nth-child(even){background-color: #f2f2f2}
+
+        th {
+            background-color: #04AA6D;
+            color: white;
+        }
+        .sttCol>td{
+            font-style: italic;
+        }
+        .clss-body-ngnhan{
+            box-sizing: content-box;
+            padding: 5px;
+        }
+        textarea
+        {
+            border:1px solid #000;
+            width:100%;
+            height: 100px;
+        }
+        .clss-lable{
+            font-weight: bold;
+        }
+        .cls-over{
+            overflow-y: scroll;
+            height: 76vh;
+        }
+        .cmd, input[type="submit"]{
+            padding: 5px;
+            background-image: linear-gradient(#f2f2f2,#c2c2c2);
+            border: 1px solid #c2c2c2;
+            border-radius: 2px;
+        }
+        
+        .CLS-BOLD{
+                font-weight: bold;
+            }
+            #divTitle{
+    font: 14px Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #0077b3;
+    text-align: center;
+
+    </style> 
         <script>
             var max_row = 0;
             $(document).ready(function () {
@@ -97,8 +111,12 @@
             var ht1 = screen.availHeight - 100;
             var wt1 = screen.availWidth -100;
             var left1 = (screen.width / 2) - (wt1 / 2);
+             var namBc = $('#namBc').val();
+            var dotBc = $('#dotBc').val();
+            var maBc = $('#maBc').val();
             var top1 = 100;           
-            var url = "getDetailKhnvByAllSubCommune.action?commune_detai=" + commune_detai;
+            var url = "getDetailKhnvByAllSubCommune.action?commune_detai=" + commune_detai
+            +"&dotBc=" + dotBc+"&namBc=" + namBc+"&maBc=" + maBc;
             popup = window.open(url, '_blank', "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
         }
         
@@ -138,7 +156,7 @@
                     TỔNG HỢP NHU CẦU VAY VỐN TÍN DỤNG THEO PGD
                     <BR>    
                     <s:if test="!reasonReject.equalsIgnoreCase('AAA')">
-                        <font color="red">Nguyên nhân từ chối: <s:property value="reasonReject"/></font>       
+                        <font color="red">Nguyên nhân từ chối/TT chốt số liệu: <s:property value="reasonReject"/></font>       
                     </s:if> 
                 </div>
                 
@@ -152,7 +170,7 @@
                         <th  class="TD_STT">Mã chỉ tiêu</th> 
                         <th class="TD_CHITIEU">Tên chỉ tiêu</th>
                         <th class="TD_GIATRI">Giá trị</th>
-                        <th class="TD_GIATRI">Duyệt</th>       
+                        <!--<th class="TD_GIATRI">Duyệt</th>-->       
                     </tr>                                    
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                                                    
                             <tr> 
@@ -189,7 +207,7 @@
                                     <s:property value="D15"/>
                                 </td>
 
-                                <s:if test="MA.equalsIgnoreCase('XD00001')&& D18.equalsIgnoreCase('1')">
+<!--                                <s:if test="MA.equalsIgnoreCase('XD00001')&& D18.equalsIgnoreCase('1')">
                                          <td style="text-align: center;">
                                             <s:url id="unlockId" value="Lock_Unlock.action" escapeAmp="false">
                                                 <s:param name="commune_cd" value="D1"/>
@@ -212,7 +230,7 @@
                                   </s:elseif>      
                                   <s:else>
                                       <td></td>
-                                  </s:else>          
+                                  </s:else>          -->
                         </tr>                                                                                                       
                     </s:iterator>
                 </table>                    

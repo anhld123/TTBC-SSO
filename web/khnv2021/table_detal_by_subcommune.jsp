@@ -15,66 +15,68 @@
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
         <style>
-            *{
-                font-family: tahoma;
-                font-size: 12px;
-            }
-            table {
-                border-collapse: collapse;
-                width: 100%;
-                /*height: 1000px;*/
-            }
+        *{
+            font-family: tahoma;
+            font-size: 12px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            /*height: 1000px;*/
+        }
 
-            table thead { position: sticky; top: 0; z-index: 1; }
+        table thead { position: sticky; top: 0; z-index: 1; }
 
-            th, td {
-                text-align: left;
-                padding: 8px;
-                border: 1PX solid #f2f2f2;
-                text-align: center;
-            }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border: 1PX solid #f2f2f2;
+            /*text-align: center;*/
+        }
 
-            tr:nth-child(even){background-color: #f2f2f2}
+        tr:nth-child(even){background-color: #f2f2f2}
 
-            th {
-                background-color: #04AA6D;
-                color: white;
-            }
-            .sttCol>td{
-                font-style: italic;
-            }
-            .clss-body-ngnhan{
-                box-sizing: content-box;
-                padding: 5px;
-            }
-            textarea
-            {
-                border:1px solid #000;
-                width:100%;
-                height: 100px;
-            }
-            .clss-lable{
+        th {
+            background-color: #04AA6D;
+            color: white;
+        }
+        .sttCol>td{
+            font-style: italic;
+        }
+        .clss-body-ngnhan{
+            box-sizing: content-box;
+            padding: 5px;
+        }
+        textarea
+        {
+            border:1px solid #000;
+            width:100%;
+            height: 100px;
+        }
+        .clss-lable{
+            font-weight: bold;
+        }
+        .cls-over{
+            overflow-y: scroll;
+            height: 76vh;
+        }
+        .cmd, input[type="submit"]{
+            padding: 5px;
+            background-image: linear-gradient(#f2f2f2,#c2c2c2);
+            border: 1px solid #c2c2c2;
+            border-radius: 2px;
+        }
+        
+        .CLS-BOLD{
                 font-weight: bold;
             }
-            .cls-over{
-                overflow-y: scroll;
-                height: 76vh;
-            }
-            .cmd{
-                padding: 5px;
-                background-image: linear-gradient(#f2f2f2,#c2c2c2);
-                border: 1px solid #c2c2c2;
-                border-radius: 2px;
-            }
-
             #divTitle{
-                font: 14px Arial, Helvetica, sans-serif;
-                font-weight: bold;
-                color: #0077b3;
-                text-align: center;
-            }
-            
-        </style>    
+    font: 14px Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #0077b3;
+    text-align: center;
+
+    </style> 
         <script>
             var max_row = 0;
             $(document).ready(function () {
@@ -120,7 +122,7 @@
                 NHU CẦU VAY VỐN TÍN DỤNG THEO THÔN
                 <BR>
                 <s:if test="!reasonReject.equalsIgnoreCase('AAA')">
-                        <font color="red">Nguyên nhân từ chối: <s:property value="reasonReject"/></font>       
+                        <font color="red">Nguyên nhân từ chối/TT chốt số liệu: <s:property value="reasonReject"/></font>           
                     </s:if> 
                 <!--<font color="red">(Nếu mã KH và tên KH null sẽ chỉ hiện thị các KH đã từng đăng ký nhận tin nhắn)</font>-->                    
             </div>

@@ -60,7 +60,9 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             int yearPre = Integer.parseInt(namBc)  -1;
             namBc_pre = String.valueOf(yearPre);
             getInfo();
-            setReasonReject(daoXdkh.getReason(maBc, namBc, dotBc, maCn, reportGrade));
+//            setDotBc(dotBc);
+//            setNamBc(namBc);
+            setReasonReject(daoXdkh.getReason(maBc, namBc, dotBc, pos_cd_username, reportGrade));
             //TH load mẫu 02 theo pos
             if (maBc.equals("KHNV_02")) {
                 lstDulieuNt = daoXdkh.getDataAuthCommune(maBc, userId, reportGrade, namBc, dotBc, commune_cd, subcommune_cd);
