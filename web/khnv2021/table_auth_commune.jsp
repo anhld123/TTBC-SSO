@@ -153,16 +153,16 @@
             </s:iterator>   
                 </br>
                 <div id="divTitle">
-                    TỔNG HỢP NHU CẦU VAY VỐN TÍN DỤNG THEO PGD
-                    <BR>    
+                    TỔNG HỢP NHU CẦU VAY VỐN TÍN DỤNG THEO PGD - THEO TỪNG XÃ
+                    <br>   
                     <s:if test="!reasonReject.equalsIgnoreCase('AAA')">
-                        <font color="red">Nguyên nhân từ chối/TT chốt số liệu: <s:property value="reasonReject"/></font>       
+                        <font color="red"><br>Nguyên nhân từ chối/TT chốt số liệu: <s:property value="reasonReject"/></font>       
                     </s:if> 
                 </div>
-                
-                <s:hidden name="dotBc"/>
                 </br>
-                <table border="1" class="editDelete1" id="tablesms011" style="width: 99%" >
+                <div class="cls-over">
+                
+                <table >
                     <tr>                                               
                         <!--<th  class="TD_BUTTON1">STT</th>-->      
                         <th  class="TD_GIATRI">Mã xã</th>    
@@ -233,12 +233,75 @@
                                   </s:else>          -->
                         </tr>                                                                                                       
                     </s:iterator>
-                </table>                    
+                </table>   
+                
+                <br>
+                <div id="divTitle">
+                    TỔNG HỢP NHU CẦU VAY VỐN TÍN DỤNG THEO PGD - TỔNG CẢ PGD
+                    <br>                     
+                </div>
+                
+                <br>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th rowspan="3" class="TD_STT">STT</th>
+                            <th rowspan="3" class="TD_CHITIEU">CHỈ TIÊU</th>
+                            <!--<th rowspan="3" class="TD_GIATRI">Thực hiện đến 31/12/<s:property value="namBc_pre"/></th>-->
+                            <th rowspan="3" class="TD_GIATRI">Ước thực hiện đến 31/12/<s:property value="namBc"/></th>
+                            <th colspan="3" >Kế hoạch tín dụng năm <s:property value="namBc"/></th>
+                        </tr>
+                        <tr>
+                            <th rowspan="2" class="TD_GIATRI">Tổng số</th>
+                            <th colspan="2" class="TD_GIATRI">Tăng, giảm so với 31/12/<s:property value="namBc_pre"/></th>
+                        </tr>
+                        <tr>
+                            <th class="TD_GIATRI">Số tuyệt đối (+/-)</th>
+                            <th class="TD_GIATRI">Số tương đối (%)</th>
+                        </tr>
+                        <tr class="sttCol">
+                            <td>1</td>
+                            <td>2</td>
+                            <!--<td>3</td>-->
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                        </tr>
+                    </thead>                                  
+                    <s:iterator value="#attr.lstDulieuNt2" var="modelView" status="rowstatus">                                                    
+                        <tr> 
+                            <td style="text-align:center"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="THUTU"/>
+                                </td>
+                                
+                            <td style="text-align:left"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="TEN"/>
+                                </td>
+                                
+<!--                            <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="D13"/>
+                                </td>-->
+
+                           <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="D14"/>
+                                </td>
+                             <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="D15"/>
+                                </td>
+                                 <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="D16"/>
+                                </td>
+                                 <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="D17"/>
+                                </td>
+
+                        </tr>                                                                                                       
+                    </s:iterator>
+                </table> 
+               </div>
         </s:form>
-        
-<!--        <script>
-            initTable();
-        </script>-->
     </body>
     
     
