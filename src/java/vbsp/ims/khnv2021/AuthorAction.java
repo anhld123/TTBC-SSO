@@ -78,7 +78,7 @@ public class AuthorAction extends ActionSupport {
                 break;
             case "2":
                 dataReult = new AuthorModel().rollBackData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
-                if (dataReult != null) {
+                if (dataReult.equals("20")) {
                     chkSuccess = "SuccessRoll";
                     pageResult = new StringBufferInputStream("20");
                 } else {
@@ -89,7 +89,7 @@ public class AuthorAction extends ActionSupport {
                 break;
             case "3":
                 dataReult = new AuthorModel().SaveDataProvince(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan,lstData);
-                if (dataReult != null) {
+                if (dataReult.equals("30")) {
                     chkSuccess = "SuccessRoll";
                     pageResult = new StringBufferInputStream("30");
                 } else {
