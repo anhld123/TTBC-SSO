@@ -50,6 +50,7 @@ public class ActionMainKHNV extends ActionSupport{
 //    protected String namBc;
     protected String dotBc;
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
+    protected List<QT_DULIEU_NT> lstDulieuNt2 = new ArrayList<>();
     protected List<ListValue> lstParameters = new ArrayList<>();
     
     
@@ -164,6 +165,15 @@ public class ActionMainKHNV extends ActionSupport{
     }
 
     //<editor-fold defaultstate="collapsed" desc="get set du lieu">
+
+    public List<QT_DULIEU_NT> getLstDulieuNt2() {
+        return lstDulieuNt2;
+    }
+
+    public void setLstDulieuNt2(List<QT_DULIEU_NT> lstDulieuNt2) {
+        this.lstDulieuNt2 = lstDulieuNt2;
+    }
+    
 
     public String getReasonReject() {
         return reasonReject;

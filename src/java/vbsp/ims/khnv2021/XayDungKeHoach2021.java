@@ -81,12 +81,10 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             //TH load các xã
             if (maBc.equals("KHNV_01A") && commune_cd.equals("000000")) {
                 lstDulieuNt = daoXdkh.getDataAuthCommune(maBc, userId, reportGrade, namBc, dotBc, commune_cd, subcommune_cd);
+                lstDulieuNt2 = daoXdkh.getDataAuthCommuneSum(maBc, userId, reportGrade, namBc, dotBc, "270201", "27020101");
                 return "loadAllCommuneAuth";
             }
 
-            if (maBc.equals("KHNV_02")) {
-                return "KHNV02";
-            }
 
         } catch (Exception ex) {
             CoreLogger.error(this.getClass().getName() + " get_data_xaydungkh " + ex.getMessage());
