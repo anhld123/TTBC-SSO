@@ -87,6 +87,17 @@ public class AuthorAction extends ActionSupport {
                 }
                 pageResult = new StringBufferInputStream(dataReult);
                 break;
+            case "3":
+                dataReult = new AuthorModel().SaveDataProvince(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan,lstData);
+                if (dataReult != null) {
+                    chkSuccess = "SuccessRoll";
+                    pageResult = new StringBufferInputStream("30");
+                } else {
+                    chkSuccess = "FaildMessage";
+                    pageResult = new StringBufferInputStream("31");
+                }
+                pageResult = new StringBufferInputStream(dataReult);
+                break;
         }
         return chkSuccess;
     }

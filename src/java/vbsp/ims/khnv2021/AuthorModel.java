@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import oracle.jdbc.OracleTypes;
+import oracle.sql.ARRAY;
+import oracle.sql.ArrayDescriptor;
 import vbsp.ims.bcqt.model.DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 
@@ -122,6 +124,38 @@ public class AuthorModel {
             st.registerOutParameter(8, OracleTypes.VARCHAR);
             st.execute();
             ChkSuccess = (String) st.getObject(8);
+        } catch (SQLException ex) {
+            Logger.getLogger(AuthorModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ChkSuccess;
+    }
+    
+    // 30: Lưu dữ liệu thành công; 31: Lưu không thành công
+    public String SaveDataProvince(String CapBC, String TenDN, String cboDonvi, String cboNam, String cboDot, String cboTonghop, String strNguyennhan,List<DULIEU_NT> lstData) throws SQLException {
+        
+        DaoConnect db = new DaoConnect();
+        Connection con = db.getConnect();
+        //------Chuyển rạng mảng thành Object của Oracle
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor.createDescriptor(DULIEU_NT.ORACLE_TABLE_TYPE, con);
+        ARRAY LstArray = new ARRAY(des, con, array);
+        //---------------------------------------------------------------------------
+        
+        String ChkSuccess = "10";
+        try {
+            //Lưu dữ liệu vào CSDL và trả về kết quả
+            CallableStatement st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2021_SAVEDATAPROVINCE(?,?,?,?,?,?,?,?,?)}");
+            st.setString(1, CapBC);
+            st.setString(2, TenDN);
+            st.setString(3, cboDonvi);
+            st.setString(4, cboNam);
+            st.setString(5, cboDot);
+            st.setString(6, cboTonghop);
+            st.setString(7, strNguyennhan);
+            st.setArray(8, LstArray);
+            st.registerOutParameter(9, OracleTypes.VARCHAR);
+            st.execute();
+            ChkSuccess = (String) st.getObject(9);
         } catch (SQLException ex) {
             Logger.getLogger(AuthorModel.class.getName()).log(Level.SEVERE, null, ex);
         }
