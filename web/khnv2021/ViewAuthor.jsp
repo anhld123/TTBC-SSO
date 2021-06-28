@@ -149,6 +149,7 @@
                         <option value="N">Duyệt từng đơn vị</option>
                         <option value="R">Tổng hợp lại từ các đơn vị trực thuộc</option>
                         <option value="W">Phản hồi từ cấp trên</option>
+                        <option value="S">Tổng hợp gửi/nhận</option>
                     </select>
                     &nbsp;                                  
                     <input type="button" value="Tải dữ liệu" id="cmdTaiDL" name="nameTaiDL" class="cmd"/>
