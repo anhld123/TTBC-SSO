@@ -82,7 +82,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             //TH load các xã
             if (maBc.equals("KHNV_01A") && commune_cd.equals("000000")) {
                 lstDulieuNt = daoXdkh.getDataAuthCommune(maBc, userId, reportGrade, namBc, dotBc, commune_cd, subcommune_cd);
-                lstDulieuNt2 = daoXdkh.getDataAuthCommuneSum(maBc, userId, reportGrade, namBc, dotBc, "270201", "27020101");
+                lstDulieuNt2 = daoXdkh.getDataAuthCommuneSum(maBc, userId, reportGrade, namBc, dotBc, "000000", "000000");
                 return "loadAllCommuneAuth";
             }
 
@@ -220,7 +220,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             }
             
             List<POSModel> lstCommuneFull = new ArrayList<>();
-            lstCommuneFull = daoXdkh.getCommuneList(pos_cd_username);
+            lstCommuneFull = daoXdkh.getCommuneListAll(pos_cd_username);
             
             if (!subcommune_cd.equals("000000")) {
                 lstSubCommune.add(subcommune_cd);
