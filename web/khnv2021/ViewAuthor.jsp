@@ -93,6 +93,7 @@
                 border: 1px solid #c2c2c2;
                 border-radius: 2px;
                 z-index: 99;
+                margin-left: 5px;
             }
             hr{
                 border-bottom: 0px;
@@ -160,12 +161,11 @@
                 </div>
                 <hr/>
                 <div style="display: inline-flex; height: 30px;">
-                    <input type="button" value="<s:property value='btnSend'/>" id="cmdGuiDL" name="nameGuiDL" class="cmd"/>
-                    &nbsp; 
+                    <input type="button" value="Gửi cấp trên" id="cmdGuiDL" name="nameGuiDL" class="cmd"/>
                     <input type="button" value="Trả lại đơn vị" id="cmdTraLaiDL" name="nameTraLaiDL" class="cmd"/>
-                    &nbsp;                                  
                     <input type="button" value="Lưu dữ liệu" id="idLuuDL" name="nameLuuDL" class="cmd"/>
-                    &nbsp; &nbsp;
+                    <input type="button" value="Duyệt" id="cmdAuthor" name="nameAuthor" class="cmd"/>
+                    &nbsp;
                     <div id="idViewMess" name="nameViewMess" style="height: 100%;display: flex; align-items: center;font-weight: bold; color: red;"></div>
                 </div>
                 <hr/>
@@ -177,6 +177,11 @@
         <script src="js/jquery-1.4.4.min.js" type="text/javascript"></script>
         <script>
                             $(document).ready(function () {
+
+                                if(('<s:property value="CapBC"/>')=='3'){
+                                    $('#cboTonghop option[value="W"]').remove();
+                                    $('#cmdGuiDL').remove();
+                                };
 
                                 $("#cboNam").val(new Date().getFullYear()).change();
 
@@ -190,29 +195,48 @@
                                 $("#idLuuDL").click({status: "3"}, SendData);
                                 //Xử lý trạng thái các Element
                                 $("#cboDonvi").change(function () {
-                                    if ($("#cboDonvi").val().trim() === "all") {
+                                    if ($("#cboDonvi").val().trim() == "all") {
                                         $('#idLuuDL').show();
                                         $('#cmdGuiDL').show();
+                                        $('#cmdAuthor').hide();
                                         $('#cmdTraLaiDL').hide();
                                         $('#cboTonghop option')[0].selected = true;
                                     } else {
                                         $('#idLuuDL').hide();
                                         $('#cmdGuiDL').hide();
+                                        $('#cmdAuthor').show();
                                         $('#cmdTraLaiDL').show();
                                         $('#cboTonghop option')[1].selected = true;
                                     }
                                 });
                                 $("#cboTonghop").change(function () {
-                                    if ($("#cboTonghop").val().trim() == "Y" || $("#cboTonghop").val().trim()== "R" || $("#cboTonghop").val().trim()== "W") {
+                                    if ($("#cboTonghop").val().trim() == "Y") {
                                         $('#idLuuDL').show();
                                         $('#cmdGuiDL').show();
+                                        $('#cmdAuthor').hide();
                                         $('#cmdTraLaiDL').hide();
                                         $('#cboDonvi option')[0].selected = true;
-                                    } else {
+                                    }
+                                    if ($("#cboTonghop").val().trim() == "N") {
                                         $('#idLuuDL').hide();
                                         $('#cmdGuiDL').hide();
+                                        $('#cmdAuthor').show();
                                         $('#cmdTraLaiDL').show();
                                         $('#cboDonvi option')[1].selected = true;
+                                    }
+                                    if ($("#cboTonghop").val().trim() == "R") {
+                                        $('#idLuuDL').show();
+                                        $('#cmdGuiDL').show();
+                                        $('#cmdAuthor').hide();
+                                        $('#cmdTraLaiDL').hide();
+                                        $('#cboDonvi option')[0].selected = true;
+                                    }
+                                    if ($("#cboTonghop").val().trim() == "W") {
+                                        $('#idLuuDL').hide();
+                                        $('#cmdGuiDL').hide();
+                                        $('#cmdAuthor').hide();
+                                        $('#cmdTraLaiDL').hide();
+                                        $('#cboDonvi option')[0].selected = true;
                                     }
                                 });
                             });
