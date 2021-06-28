@@ -100,10 +100,7 @@
             <result name="error">/khnv2021/success.jsp</result>
         </action>
         
-   
-        
 
-        
         <!-- Author: Nguyễn Phú Vinh -->
         <action name="AuthorProvince" class="vbsp.ims.khnv2021.AuthorAction">
             <result name="success">/khnv2021/ViewAuthor.jsp</result>
@@ -116,6 +113,7 @@
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
             </result>
+            <result name="ShowMessage">/khnv2021/ShowMessage.jsp</result>  
             <!-- Công việc: Thông báo lỗi chung-->
             <result name="FaildMessage" type="stream">
                 <param name="contentType">text/html</param>
