@@ -5,7 +5,6 @@
  */
 package vbsp.ims.khnv2021;
 
-import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -26,7 +25,7 @@ import vbsp.ims.ktgs.dao.DaoKtgsMain;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlKhnv2021Sync;
-import vbsp.ims.xml.XmlKtgsSync;
+
 public class AuthorAction extends ActionSupport {
 
     //Cac truong chua thong tin bo xung luu du lieu
@@ -36,6 +35,7 @@ public class AuthorAction extends ActionSupport {
     private List<DULIEU_NT> lstData = new ArrayList<>();
     private InputStream pageResult;
     protected List<ModelViewSend> lstViewSend = new ArrayList<>();
+    private String ShowMessage;
 
     @Override
     //Lấy danh đơn vị theo cấp báo cáo
@@ -59,51 +59,57 @@ public class AuthorAction extends ActionSupport {
         session = ActionContext.getContext().getSession();
         CapBC = (String) session.get("reportGrade");
         TenDN = (String) session.get("username");
-        switch (status.trim()) {
-            case "0":
-                //Nhớ truyền đủ 7 tham số
-                lstData = new AuthorModel().getData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
-                if (lstData != null && !lstData.isEmpty()) {
-                    chkSuccess = "SuccessLoad";
-                    pageResult = new StringBufferInputStream("00");
-                } else {
-                    chkSuccess = "FaildMessage";
-                    pageResult = new StringBufferInputStream("01");
-                }
-                break;
-            case "1":
-                sendTwKhnv();
-                chkSuccess = "SuccessMessage";
-                pageResult = new StringBufferInputStream("10");
-                break;
-            case "2":
-                dataReult = new AuthorModel().rollBackData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
-                if (dataReult.equals("20")) {
-                    chkSuccess = "SuccessRoll";
-                    pageResult = new StringBufferInputStream("20");
-                } else {
-                    chkSuccess = "FaildMessage";
-                    pageResult = new StringBufferInputStream("21");
-                }
-                pageResult = new StringBufferInputStream(dataReult);
-                break;
-            case "3":
-                dataReult = new AuthorModel().SaveDataProvince(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan,lstData);
-                if (dataReult.equals("30")) {
-                    chkSuccess = "SuccessRoll";
-                    pageResult = new StringBufferInputStream("30");
-                } else {
-                    chkSuccess = "FaildMessage";
-                    pageResult = new StringBufferInputStream("31");
-                }
-                pageResult = new StringBufferInputStream(dataReult);
-                break;
+        if (cboTonghop.equals("W")) {
+            //Lấy dữ liệu phản hồi từ cấp trên
+            lstData = new AuthorModel().getData(CapBC, TenDN, cboDonvi, cboNam, cboDot, "Y", strNguyennhan);
+            chkSuccess = "ShowMessage";
+        } else {
+            switch (status.trim()) {
+                case "0":
+                    //Nhớ truyền đủ 7 tham số
+                    lstData = new AuthorModel().getData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
+                    if (lstData != null && !lstData.isEmpty()) {
+                        chkSuccess = "SuccessLoad";
+                        pageResult = new StringBufferInputStream("00");
+                    } else {
+                        chkSuccess = "FaildMessage";
+                        pageResult = new StringBufferInputStream("01");
+                    }
+                    break;
+                case "1":
+                    sendTwKhnv();
+                    chkSuccess = "SuccessMessage";
+                    pageResult = new StringBufferInputStream("10");
+                    break;
+                case "2":
+                    dataReult = new AuthorModel().rollBackData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
+                    if (dataReult.equals("20")) {
+                        chkSuccess = "SuccessRoll";
+                        pageResult = new StringBufferInputStream("20");
+                    } else {
+                        chkSuccess = "FaildMessage";
+                        pageResult = new StringBufferInputStream("21");
+                    }
+                    pageResult = new StringBufferInputStream(dataReult);
+                    break;
+                case "3":
+                    dataReult = new AuthorModel().SaveDataProvince(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan, lstData);
+                    if (dataReult.equals("30")) {
+                        chkSuccess = "SuccessRoll";
+                        pageResult = new StringBufferInputStream("30");
+                    } else {
+                        chkSuccess = "FaildMessage";
+                        pageResult = new StringBufferInputStream("31");
+                    }
+                    pageResult = new StringBufferInputStream(dataReult);
+                    break;
+            }
         }
         return chkSuccess;
     }
-    
+
     public void sendTwKhnv() {
-        String chk ="";
+        String chk = "";
         System.err.println("Vao ham sendKTGS");
         try {
             session = ActionContext.getContext().getSession();
@@ -111,10 +117,10 @@ public class AuthorAction extends ActionSupport {
             TenDN = (String) session.get("username");
 
             List<String> lstPos = new ArrayList<>();
-            
+
             Map<String, Integer> mapStatusSend = new HashMap();
 
-                lstPos = new DaoMau01A().getAllPosUser(TenDN);
+            lstPos = new DaoMau01A().getAllPosUser(TenDN);
 
             for (String mapgd : lstPos) {
 
@@ -126,11 +132,10 @@ public class AuthorAction extends ActionSupport {
                         + "_" + TenDN + "_"
                         + Long.toString(System.currentTimeMillis()).substring(Long.toString(System.currentTimeMillis()).length() - 6) + ".xml";
 
-
                 List<String> lstData = new ArrayList<>();
                 boolean bStatus_file = false;
-                String ngayBc = new DaoMau01A().getNgaybc(cboNam,cboDot);
-                lstData = new DaoMau01A().getDataSendKhnv("NT", "KHNV_02", mapgd,ngayBc);
+                String ngayBc = new DaoMau01A().getNgaybc(cboNam, cboDot);
+                lstData = new DaoMau01A().getDataSendKhnv("NT", "KHNV_02", mapgd, ngayBc);
                 if (lstData == null || lstData.size() == 0) {
                     mapStatusSend.put(mapgd, 6);
                     continue;
@@ -180,7 +185,7 @@ public class AuthorAction extends ActionSupport {
             addActionError("Bạn chưa gửi được dữ liệu xin liên hệ với quản trị để được khắc phục");
         }
     }
-    
+
     private List<ModelViewSend> getViewStatusSend(List<String> lstPos, Map<String, Integer> mapStatus) {
         addActionMessage("Danh sách các PGD gửi dữ liệu và tình trạng dữ liệu");
         List<ModelViewSend> lstStatus = new ArrayList();
@@ -231,7 +236,6 @@ public class AuthorAction extends ActionSupport {
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getter Setter">
-
     public List<ModelViewSend> getLstViewSend() {
         return lstViewSend;
     }
@@ -239,8 +243,7 @@ public class AuthorAction extends ActionSupport {
     public void setLstViewSend(List<ModelViewSend> lstViewSend) {
         this.lstViewSend = lstViewSend;
     }
-    
-    
+
     public String getCapBC() {
         return CapBC;
     }
@@ -361,5 +364,15 @@ public class AuthorAction extends ActionSupport {
         this.btnSend = btnSend;
     }
     
+    public String getShowMessage() {
+        return ShowMessage;
+    }
+
+    public void setShowMessage(String ShowMessage) {
+        this.ShowMessage = ShowMessage;
+    }
     //</editor-fold> 
+
+   
+    
 }
