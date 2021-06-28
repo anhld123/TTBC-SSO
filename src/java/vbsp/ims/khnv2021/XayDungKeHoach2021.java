@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.struts2.ServletActionContext;
+import vbsp.ims.action.Utilities;
 import vbsp.ims.define.Define;
 import vbsp.ims.khnv2021.excel.ExcelExport;
 import vbsp.ims.khnv2021.model.FileExportInfo;
@@ -235,7 +236,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
                 }
             }
             
-            FileExportInfo fileInfo = excelExport.xuatExcelMau01a(pos_cd_username, commune_cd, communeName, lstSubCommune, "31-may-2021", namBc, dotBc, savedDir);
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01a(pos_cd_username, commune_cd, communeName, lstSubCommune, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
             fileNamelocal = fileInfo.fileName;
             filereport = fileInfo.filePath;
             return SUCCESS;
@@ -253,7 +254,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
             ExcelExport excelExport = new ExcelExport();             
             POSModel pos = daoXdkh.getPosByCode(pos_cd_username);
-            FileExportInfo fileInfo = excelExport.xuatExcelMau02(pos, "N", "31-may-2021", namBc, dotBc, savedDir);
+            FileExportInfo fileInfo = excelExport.xuatExcelMau02(pos, "N", new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
             fileNamelocal = fileInfo.fileName;
             filereport = fileInfo.filePath;
             return SUCCESS;
