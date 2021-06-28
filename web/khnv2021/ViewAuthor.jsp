@@ -148,6 +148,7 @@
                         <option value="Y">Tổng hợp các đơn vị trực thuộc</option>
                         <option value="N">Duyệt từng đơn vị</option>
                         <option value="R">Tổng hợp lại từ các đơn vị trực thuộc</option>
+                        <option value="W">Phản hồi từ cấp trên</option>
                     </select>
                     &nbsp;                                  
                     <input type="button" value="Tải dữ liệu" id="cmdTaiDL" name="nameTaiDL" class="cmd"/>
@@ -155,7 +156,7 @@
                 <hr/>
                 <div><span class="clss-lable">Nguyên nhân</span></div>
                 <div class="clss-body-ngnhan">
-                    <textarea id="strNguyennhan" name="strNguyennhan"></textarea>
+                    <textarea id="strNguyennhan" name="strNguyennhan"><s:property value='strNguyennhan'/></textarea>
                 </div>
                 <hr/>
                 <div style="display: inline-flex; height: 30px;">
@@ -202,7 +203,7 @@
                                     }
                                 });
                                 $("#cboTonghop").change(function () {
-                                    if ($("#cboTonghop").val().trim() == "Y" || $("#cboTonghop").val().trim()== "R") {
+                                    if ($("#cboTonghop").val().trim() == "Y" || $("#cboTonghop").val().trim()== "R" || $("#cboTonghop").val().trim()== "W") {
                                         $('#idLuuDL').show();
                                         $('#cmdGuiDL').show();
                                         $('#cmdTraLaiDL').hide();
