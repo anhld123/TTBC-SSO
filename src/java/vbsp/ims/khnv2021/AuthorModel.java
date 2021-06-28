@@ -161,5 +161,28 @@ public class AuthorModel {
         }
         return ChkSuccess;
     }
-
+    // 30: Lưu dữ liệu thành công; 31: Lưu không thành công
+    public String ShowMessage(String CapBC, String TenDN, String cboDonvi, String cboNam, String cboDot, String cboTonghop, String strNguyennhan) throws SQLException {
+        
+        DaoConnect db = new DaoConnect();
+        Connection con = db.getConnect();
+        String Message ="";
+        try {
+            //Lưu dữ liệu vào CSDL và trả về kết quả
+            CallableStatement st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2021_SHOWMESSAGE(?,?,?,?,?,?,?,?)}");
+            st.setString(1, CapBC);
+            st.setString(2, TenDN);
+            st.setString(3, cboDonvi);
+            st.setString(4, cboNam);
+            st.setString(5, cboDot);
+            st.setString(6, cboTonghop);
+            st.setString(7, strNguyennhan);
+            st.registerOutParameter(8, OracleTypes.VARCHAR);
+            st.execute();
+            Message = (String) st.getObject(8);
+        } catch (SQLException ex) {
+            Logger.getLogger(AuthorModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Message;
+    }
 }

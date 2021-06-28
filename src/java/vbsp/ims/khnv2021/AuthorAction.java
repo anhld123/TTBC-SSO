@@ -61,7 +61,7 @@ public class AuthorAction extends ActionSupport {
         TenDN = (String) session.get("username");
         if (cboTonghop.equals("W")) {
             //Lấy dữ liệu phản hồi từ cấp trên
-            lstData = new AuthorModel().getData(CapBC, TenDN, cboDonvi, cboNam, cboDot, "Y", strNguyennhan);
+            strNguyennhan = new AuthorModel().ShowMessage(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
             chkSuccess = "ShowMessage";
         } else {
             switch (status.trim()) {
