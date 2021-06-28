@@ -329,7 +329,7 @@ public class XDKHDao2021 {
         return posList;
     }
     
-    public ArrayList<POSModel> getCommuneList(String posCode){
+    public ArrayList<POSModel> getCommuneListAll(String posCode){
         ArrayList<POSModel> posList = new ArrayList<>();
         
         try {
@@ -338,7 +338,7 @@ public class XDKHDao2021 {
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_IMS_KHNV2021.SP_GET_COMMUNEBYUSER(?, ?)}";
+            String strStoreproce = "{call VBSP_IMS_KHNV2021.SP_GET_COMMUNEBYUSER_ALL(?, ?)}";
             ResultSet rsPosList = null;
 
             try {
@@ -868,7 +868,7 @@ public class XDKHDao2021 {
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_IMS_KHNV2021.SP_VIEW_DATA_BY_CODE(?,?,?,?,?,?,?,?,?,?)}";
+            String strStoreproce = "{call VBSP_IMS_KHNV2021.SP_VIEW_DATA_BY_CODE_SUM(?,?,?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
 
             try {
