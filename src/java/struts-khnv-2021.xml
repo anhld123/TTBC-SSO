@@ -108,6 +108,7 @@
         <action name="SendAction" class="vbsp.ims.khnv2021.AuthorAction" method="SendAction">
             <result name="SuccessLoad">/khnv2021/ViewAuthorDetail.jsp</result>            
             <result name="SuccessMessage">/khnv2021/table_list_result_send_tw.jsp</result>            
+            <result name="resultSend">/khnv2021/table_result_send.jsp</result>      
             <!-- Công việc: Hoàn trả dữ liệu cho PGD, CN-->        
             <result name="SuccessRoll" type="stream">
                 <param name="contentType">text/html</param>
