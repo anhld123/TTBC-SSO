@@ -68,7 +68,12 @@ public class AuthorAction extends ActionSupport {
                 case "0":
                     //Nhớ truyền đủ 7 tham số
                     lstData = new AuthorModel().getData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
-                    if (lstData != null && !lstData.isEmpty()) {
+                    if(cboTonghop.equals("S") && CapBC.equals("3") && (lstData != null && !lstData.isEmpty())) //quyennv - tong hop gui nhan
+                    {
+                        chkSuccess = "resultSend";
+                        pageResult = new StringBufferInputStream("00");
+                    }
+                    else if (lstData != null && !lstData.isEmpty()) {
                         chkSuccess = "SuccessLoad";
                         pageResult = new StringBufferInputStream("00");
                     } else {
