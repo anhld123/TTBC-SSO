@@ -45,11 +45,6 @@ public class AuthorAction extends ActionSupport {
         CapBC = (String) session.get("reportGrade");
         TenDN = (String) session.get("username");
         lstPos = new AuthorModel().getPosCD(CapBC, TenDN);
-        if (CapBC.equalsIgnoreCase("2")) {
-            btnSend = "Gửi cấp trên";
-        } else {
-            btnSend = "Duyệt";
-        }
         return SUCCESS;
     }
 
