@@ -165,7 +165,7 @@
                     <input type="button" value="Trả lại đơn vị" id="cmdTraLaiDL" name="nameTraLaiDL" class="cmd"/>
                     <input type="button" value="Lưu dữ liệu" id="idLuuDL" name="nameLuuDL" class="cmd"/>
                     &nbsp;
-                    <div id="idViewMess" name="nameViewMess" style="font-weight: bold; color: red;"></div>
+                    <div id="idViewMess" name="nameViewMess" style="font-weight: bold; color: red; line-height: 30px;"></div>
                 </div>
             </div>
             <div class="cls-over">
