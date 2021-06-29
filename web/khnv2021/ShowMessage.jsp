@@ -6,4 +6,4 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s" %>
-<s:property value='strNguyennhan'/>
+<b>Nội dung: </b><s:property value='strNguyennhan'/>

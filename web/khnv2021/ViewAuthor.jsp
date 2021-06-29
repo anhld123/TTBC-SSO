@@ -85,7 +85,7 @@
             }
             .cls-over{
                 overflow-y: scroll;
-                height: 65vh;
+                height: 60vh;
             }
             .cmd{
                 padding: 5px;
@@ -160,12 +160,12 @@
                 <div class="clss-body-ngnhan">
                     <textarea id="strNguyennhan" name="strNguyennhan"><s:property value='strNguyennhan'/></textarea>
                 </div>                
-                <div id="idButton" style="display: inline-flex; height: 30px; margin-bottom: 10px; display: none;">
+                <div id="idButton" style="padding: 0px 0px 6px 0px; height: 30px; display: inline-flex;">
                     <input type="button" value="Gửi cấp trên" id="cmdGuiDL" name="nameGuiDL" class="cmd"/>
                     <input type="button" value="Trả lại đơn vị" id="cmdTraLaiDL" name="nameTraLaiDL" class="cmd"/>
                     <input type="button" value="Lưu dữ liệu" id="idLuuDL" name="nameLuuDL" class="cmd"/>
                     &nbsp;
-                    <div id="idViewMess" name="nameViewMess" style="height: 100%;display: flex; align-items: center;font-weight: bold; color: red;"></div>
+                    <div id="idViewMess" name="nameViewMess" style="font-weight: bold; color: red;"></div>
                 </div>
             </div>
             <div class="cls-over">
@@ -176,12 +176,13 @@
         <script src="js/jquery.number.js"></script>
         <script>
                             $(document).ready(function () {
-                                if(('<s:property value="CapBC"/>')=='3'){
+                                if (('<s:property value="CapBC"/>') == '3') {
                                     $('#cboTonghop option[value="W"]').remove();
                                     $('#cboTonghop option[value="R"]').remove();
                                     $('#cmdGuiDL').remove();
-                                };
-                                $('#cmdTraLaiDL').hide(); 
+                                }
+                                ;
+                                $('#cmdTraLaiDL').hide();
                                 $("#cboNam").val(new Date().getFullYear()).change();
 
                                 //Tải dữ liệu
@@ -240,7 +241,6 @@
                                 });
                             });
                             function SendData(event) {
-                                $('#idButton').css('display','block');
                                 var surl, sdata, idView, idMess, idForm, method, strMess;
                                 surl = "SendAction.action?status=" + event.data.status;
                                 idView = "#idViewData";
@@ -254,7 +254,7 @@
                                     type: method,
                                     async: true,
                                     beforeSend: function () {
-                                        $(idMess).html('<img src="imgs/newloading.gif" class="ViewMess"/>');
+                                        $(idMess).html('<img src="imgs/newloading.gif"/>');
                                     },
                                     success: function (result) {
                                         if (["10", "11", "20", "21", "01", "30", "31"].includes(result)) {
@@ -287,8 +287,14 @@
                                             }
                                             $(idMess).html(strMess);
                                         } else {
-                                            $(idView).html(result);
-                                            $(idMess).html('');
+                                            if ($("#cboTonghop").val().trim() == "W") {
+                                                $(idView).html(result);
+                                                $('#idButton').hide();
+                                            } else {
+                                                $('#idButton').show();
+                                                $(idView).html(result);
+                                                $(idMess).html('');
+                                            }
                                         }
                                     },
                                     error: function (result) {
