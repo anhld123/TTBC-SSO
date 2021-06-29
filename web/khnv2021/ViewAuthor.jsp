@@ -85,7 +85,7 @@
             }
             .cls-over{
                 overflow-y: scroll;
-                height: 67vh;
+                height: 65vh;
             }
             .cmd{
                 padding: 5px;
@@ -159,31 +159,29 @@
                 <div><span class="clss-lable">Nguyên nhân</span></div>
                 <div class="clss-body-ngnhan">
                     <textarea id="strNguyennhan" name="strNguyennhan"><s:property value='strNguyennhan'/></textarea>
-                </div>
-                <hr/>
-                <div style="display: inline-flex; height: 30px;">
+                </div>                
+                <div id="idButton" style="display: inline-flex; height: 30px; margin-bottom: 10px; display: none;">
                     <input type="button" value="Gửi cấp trên" id="cmdGuiDL" name="nameGuiDL" class="cmd"/>
                     <input type="button" value="Trả lại đơn vị" id="cmdTraLaiDL" name="nameTraLaiDL" class="cmd"/>
                     <input type="button" value="Lưu dữ liệu" id="idLuuDL" name="nameLuuDL" class="cmd"/>
-                    <input type="button" value="Duyệt" id="cmdAuthor" name="nameAuthor" class="cmd"/>
                     &nbsp;
                     <div id="idViewMess" name="nameViewMess" style="height: 100%;display: flex; align-items: center;font-weight: bold; color: red;"></div>
                 </div>
-                <hr/>
             </div>
             <div class="cls-over">
                 <div id="idViewData"></div>
             </div>
         </form> 
-        <script src="js/jquery-1.4.4.min.js" type="text/javascript"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="js/jquery.number.js"></script>
         <script>
                             $(document).ready(function () {
-
                                 if(('<s:property value="CapBC"/>')=='3'){
                                     $('#cboTonghop option[value="W"]').remove();
+                                    $('#cboTonghop option[value="R"]').remove();
                                     $('#cmdGuiDL').remove();
                                 };
-
+                                $('#cmdTraLaiDL').hide(); 
                                 $("#cboNam").val(new Date().getFullYear()).change();
 
                                 //Tải dữ liệu
@@ -242,6 +240,7 @@
                                 });
                             });
                             function SendData(event) {
+                                $('#idButton').css('display','block');
                                 var surl, sdata, idView, idMess, idForm, method, strMess;
                                 surl = "SendAction.action?status=" + event.data.status;
                                 idView = "#idViewData";

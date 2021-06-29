@@ -7,103 +7,103 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s" %>
 <style>
-            *{
-                font-family: tahoma;
-                font-size: 13px;
-            }
+    *{
+        font-family: tahoma;
+        font-size: 13px;
+    }
 
-            table {
-                width : 100%;
-                border-top: 1px solid orange;
-                border-left: 1px solid #c2c2c2;
-                border-right: 1px solid #c2c2c2;
-                border-bottom: 1px solid #c2c2c2;
-                text-align : center;
-                border-collapse : collapse;
-            }
-            table tr th, table tr td {
-                border : 1px solid #c2c2c2;
-            }
+    table {
+        width : 100%;
+        border-top: 1px solid orange;
+        border-left: 1px solid #c2c2c2;
+        border-right: 1px solid #c2c2c2;
+        border-bottom: 1px solid #c2c2c2;
+        text-align : center;
+        border-collapse : collapse;
+    }
+    table tr th, table tr td {
+        border : 1px solid #c2c2c2;
+    }
 
 
-            table thead th {
-                position: -webkit-sticky;
-                position : sticky;
-                top : 0;
-                color: white;
-                background-color : #04AA6D;
-            }
+    table thead th {
+        position: -webkit-sticky;
+        position : sticky;
+        top : 0;
+        color: white;
+        background-color : #04AA6D;
+    }
 
-            /* here is the trick */
-            table tbody:nth-of-type(1) tr:nth-of-type(1) td {
-                border-top: none !important;
-            }
-            table thead th {
-                border-top: none !important;
-                border-bottom: none !important;
-                box-shadow: inset 0 0px 0 #c2c2c2,
-                    inset 0 -1px 0 #c2c2c2;
-            }
+    /* here is the trick */
+    table tbody:nth-of-type(1) tr:nth-of-type(1) td {
+        border-top: none !important;
+    }
+    table thead th {
+        border-top: none !important;
+        border-bottom: none !important;
+        box-shadow: inset 0 0px 0 #c2c2c2,
+            inset 0 -1px 0 #c2c2c2;
+    }
 
-            table thead th {
-                background-clip: padding-box
-            }
+    table thead th {
+        background-clip: padding-box
+    }
 
-            table thead { position: sticky; top: 0; z-index: 1; }
+    table thead { position: sticky; top: 0; z-index: 1; }
 
-            th, td {
-                text-align: left;
-                border: 1px solid #c2c2c2;
-                text-align: center;
-                padding: 3px;
-            }
+    th, td {
+        text-align: left;
+        border: 1px solid #c2c2c2;
+        text-align: center;
+        padding: 3px;
+    }
 
-            th{
-                padding: 8px;
-            }
-            .sttCol>td{
-                font-style: italic;
-            }
-            .clss-body-ngnhan{
-                box-sizing: content-box;
-                padding: 5px;
-            }
-            textarea
-            {
-                border:1px solid #000;
-                width:100%;
-                height: 100px;
-            }
-            .clss-lable{
-                font-weight: bold;
-            }
-            .cls-over{
-                overflow-y: scroll;
-                height: 67vh;
-            }
-            .cmd{
-                padding: 5px;
-                background-image: linear-gradient(#f2f2f2,#c2c2c2);
-                border: 1px solid #c2c2c2;
-                border-radius: 2px;
-                z-index: 99;
-                margin-left: 5px;
-            }
-            hr{
-                border-bottom: 0px;
-                border-top: 1px solid lightgray;
-            }
-            .item {
-                padding: 5px;
-                text-align: right;
-                border: 0px !important;
-                outline: none;
-            }
-            .cls {
-                background-color: lightgoldenrodyellow;
-            }
-        </style>
-        
+    th{
+        padding: 8px;
+    }
+    .sttCol>td{
+        font-style: italic;
+    }
+    .clss-body-ngnhan{
+        box-sizing: content-box;
+        padding: 5px;
+    }
+    textarea
+    {
+        border:1px solid #000;
+        width:100%;
+        height: 100px;
+    }
+    .clss-lable{
+        font-weight: bold;
+    }
+    .cls-over{
+        overflow-y: scroll;
+        height: 67vh;
+    }
+    .cmd{
+        padding: 5px;
+        background-image: linear-gradient(#f2f2f2,#c2c2c2);
+        border: 1px solid #c2c2c2;
+        border-radius: 2px;
+        z-index: 99;
+        margin-left: 5px;
+    }
+    hr{
+        border-bottom: 0px;
+        border-top: 1px solid lightgray;
+    }
+    .item {
+        padding: 5px;
+        text-align: right;
+        border: 0px !important;
+        outline: none;
+    }
+    .cls {
+        background-color: lightgoldenrodyellow;
+    }
+</style>
+
 <table>
     <thead>
         <tr>
@@ -131,11 +131,11 @@
             <tr class="<s:property value='D50'/>">
                 <td><s:property value='TT_HIENTHI'/></td>
                 <td style="text-align: left; padding-left: 3px;"><s:property value='TEN'/></td>
-                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].D13" name="lstData[<s:property  value='%{#idxRows.index}' />].D13" value="<s:property value='D13'/>" <s:property value='D48'/>/></td>
-                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].D14" name="lstData[<s:property  value='%{#idxRows.index}' />].D14" value="<s:property value='D14'/>" <s:property value='D48'/>/></td>
-                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].D15" name="lstData[<s:property  value='%{#idxRows.index}' />].D15" value="<s:property value='D15'/>" <s:property value='D48'/>/></td>
-                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].D16" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" <s:property value='D48'/>/></td>
-                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].D17" name="lstData[<s:property  value='%{#idxRows.index}' />].D17" value="<s:property value='D17'/>" <s:property value='D48'/>/></td>
+                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D13" name="lstData[<s:property  value='%{#idxRows.index}' />].D13" value="<s:property value='D13'/>" <s:property value='D48'/>/></td>
+                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D14" name="lstData[<s:property  value='%{#idxRows.index}' />].D14" value="<s:property value='D14'/>" <s:property value='D48'/>/></td>
+                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D15" name="lstData[<s:property  value='%{#idxRows.index}' />].D15" value="<s:property value='D15'/>" <s:property value='D48'/>/></td>
+                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D16" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" <s:property value='D48'/>/></td>
+                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D17" name="lstData[<s:property  value='%{#idxRows.index}' />].D17" value="<s:property value='D17'/>" <s:property value='D48'/>/></td>
                 <!--Những trường dữ liệu cần lấy-->
                 <td style="display: none;"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].TT_HIENTHI" name="lstData[<s:property  value='%{#idxRows.index}' />].TT_HIENTHI" value="<s:property value='TT_HIENTHI'/>" readonly/></td>
                 <td style="display: none;"><input type="text" id="lstData[<s:property  value="%{#idxRows.index}" />].MA" name="lstData[<s:property  value="%{#idxRows.index}" />].MA" value="<s:property value='MA'/>" name="MA" readonly="readonly"/></td>
@@ -150,6 +150,7 @@
 </table>
 <script>
     $(document).ready(function () {
+        $('.item.number').number(true, 0);
         var varDonvi = "";
         varDonvi = $("#cboDonvi").val();
         if (varDonvi.trim() === "all") {
@@ -160,8 +161,8 @@
         var strText = "KẾ HOẠCH TÍN DỤNG " + $("#cboNam option:selected").text() + " - " + $("#cboDot option:selected").text() + " - Đơn vị: " + varDonvi;
         $("#strHeader").html(strText);
         //Xử lý phần tiêu đề
-         $("#lbNamTH").html($("#ngaybc").text());
-         $("#strNguyennhan").html($("#nguyennhan").text());
+        $("#lbNamTH").html($("#ngaybc").text());
+        $("#strNguyennhan").html($("#nguyennhan").text());
         $("#lbNamUoc").html($("#cboNam option:selected").val());
         $("#lbNamTD").html(parseInt($("#cboNam option:selected").val()) + 1);
         $("#lbTangGiam").html($("#cboNam option:selected").val());
