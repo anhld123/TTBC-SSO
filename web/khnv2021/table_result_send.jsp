@@ -38,6 +38,21 @@
                 }
                 $("#tablepl01 td:first").focus();
             </s:if>
+                
+            function hienthichitietCN(macn_detail) {
+            var ht1 = screen.availHeight - 100;
+            var wt1 = screen.availWidth -100;
+            var left1 = (screen.width / 2) - (wt1 / 2);
+            var top1 = 100;      
+            
+            var cboNam = $('#cboNam').val();
+            var cboDot = $('#cboDot').val();
+            
+//            alert(namBc);
+            var url = "getDetailKhnvByCN.action?macn_detail=" + macn_detail
+                +"&cboDot=" + cboDot+"&cboNam=" + cboNam;
+            popup = window.open(url, '_blank', "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+        }    
         </script> 
     </head>
     <body>
@@ -70,7 +85,12 @@
                                             
                                             <!--<td align = "center"  style="width: 20px;"><s:checkbox id ="%{#rowstatus.index}" cssClass="checkbox1" name="poscd" fieldValue="%{D3}"/></td>-->
                                             <td align = "center"  style="width: 50px;"><s:property  value="D3" /></td>
-                                            <td align = "left" style="width: 100px;"><s:property  value="D4" /></td>
+                                            <!--<td align = "left" style="width: 100px;"><s:property  value="D4" /></td>-->
+                                            <td>
+                                                <a href="javascript:hienthichitietCN('<s:property value="D3"/>')" class="linkKh">
+                                                    <s:property value='D4'/> 
+                                                </a>
+                                            </td>
                                             <td style="width: 60px;"><s:property  value="D8" /></td>
                                             <td style="width: 50px;"><s:property  value="D7" /></td>
                                             <td style="width: 90px;"><s:property  value="D9" /></td>
@@ -81,7 +101,12 @@
                                         <tr style="text-align: center; color: red" onmouseover="mover(this);"  onmouseout="mout(this);">
                                             <!--<td align = "center"  style="width: 20px;"><s:checkbox id ="%{#rowstatus.index}" cssClass="checkbox1" name="poscd" fieldValue="%{D3}"/></td>-->
                                             <td align = "center"  style="width: 50px;"><s:property  value="D3" /></td>
-                                            <td align = "left" style="width: 100px;"><s:property  value="D4" /></td>
+                                            <!--<td align = "left" style="width: 100px;"><s:property  value="D4" /></td>-->
+                                             <td>
+                                                <a href="javascript:hienthichitietCN('<s:property value="D3"/>')" class="linkKh">
+                                                    <s:property value='D4'/> 
+                                                </a>
+                                            </td>
                                             <td style="width: 60px;"><s:property  value="D8" /></td>
                                             <td style="width: 50px;"><s:property  value="D7" /></td>
                                             <td style="width: 90px;"><s:property  value="D9" /></td>

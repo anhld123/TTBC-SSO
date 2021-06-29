@@ -30,6 +30,7 @@ public class AuthorAction extends ActionSupport {
 
     //Cac truong chua thong tin bo xung luu du lieu
     private String CapBC, TenDN, status, cboTonghop, strNguyennhan, chkSuccess, dataReult, cboDonvi, cboNam, cboDot, btnSend;
+    private String macn_detail;
     private Map session;
     private List<PosClass> lstPos = new ArrayList<>();
     private List<DULIEU_NT> lstData = new ArrayList<>();
@@ -106,6 +107,15 @@ public class AuthorAction extends ActionSupport {
             }
         }
         return chkSuccess;
+    }
+    
+    public String ShowDetaiCn() throws Exception {
+        //Lấy danh sách đơn vị theo cấp báo cáo
+        session = ActionContext.getContext().getSession();
+        CapBC = (String) session.get("reportGrade");
+        TenDN = (String) session.get("username");
+        lstData = new AuthorModel().getData("3", TenDN, macn_detail, cboNam, cboDot, "N", "");
+        return SUCCESS;
     }
 
     public void sendTwKhnv() {
@@ -236,6 +246,16 @@ public class AuthorAction extends ActionSupport {
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getter Setter">
+
+    public String getMacn_detail() {
+        return macn_detail;
+    }
+
+    public void setMacn_detail(String macn_detail) {
+        this.macn_detail = macn_detail;
+    }
+    
+    
     public List<ModelViewSend> getLstViewSend() {
         return lstViewSend;
     }
