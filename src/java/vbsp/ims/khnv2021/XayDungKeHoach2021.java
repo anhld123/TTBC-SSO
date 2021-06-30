@@ -35,6 +35,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
         try {
             namBc = getDefaultYearReport();
             getInfo();
+            namBc =  String.valueOf(Integer.parseInt(namSau))  ;
             if(!reportGrade.equals("1"))
             {
                 addActionError("Chức năng này chỉ thực hiện cho cấp PGD");
