@@ -19,4 +19,8 @@ public class ReportTemplate {
     
     public static String DIRECTORY = "1";
     public static String FILE = "2";
+    
+    public static int LEVEL_MAIN = 1;
+    public static int LEVEL_SUB_MAIN = 2;
+    public static int LEVEL_NORMAL = 3;
 }
