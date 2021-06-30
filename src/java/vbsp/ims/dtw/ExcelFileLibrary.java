@@ -17,7 +17,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -65,6 +67,9 @@ public class ExcelFileLibrary extends FileLibrary {
 
             Sheet sheet;
             sheet = workbook.getSheetAt(0);
+
+            FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
+
             //Iterate through each rows one by one
             Iterator<Row> rowIterator = sheet.iterator();
             while (rowIterator.hasNext()) {
@@ -94,9 +99,10 @@ public class ExcelFileLibrary extends FileLibrary {
 //                            break;
                         // CELL_TYPE_FORMULA will never occur
                         case Cell.CELL_TYPE_FORMULA:
-                            excel_cell.setValue(                                   
-                                            cell.getCachedFormulaResultType()
-                            );
+                            //evaluator.evaluateFormulaCell(cell);
+                            CellValue cellValue = evaluator.evaluate(cell);
+                            String strCellValue = getCellValue(cellValue);
+                            excel_cell.setValue(strCellValue);
                             break;
                     }
                     row_obj.getCells().add(excel_cell);
@@ -126,6 +132,20 @@ public class ExcelFileLibrary extends FileLibrary {
 
         }
         return row_cnt;
+    }
+
+    private String getCellValue(CellValue cellValue) {
+        String val = "";
+        if (cellValue.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+            val = String.valueOf(cellValue.getNumberValue()) ;
+        } else if (cellValue.getCellType() == Cell.CELL_TYPE_STRING) {
+            val = cellValue.getStringValue();
+        } else if (cellValue.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
+            val = "";//cellValue.getBooleanValue().toString();
+        } else if (cellValue.getCellType() == Cell.CELL_TYPE_ERROR) {
+            val = "";//cellValue.getErrorValue();
+        }
+        return val;
     }
 
     public int read_file_utf8(String file_path, ExcelFile excel_file) {
