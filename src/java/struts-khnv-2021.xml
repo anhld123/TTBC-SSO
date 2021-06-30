@@ -84,7 +84,7 @@
             <result name="error">/khnv2021/success.jsp</result>        
         </action>
         
-        <action name="ExpExcelKhnv01a" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="ExpExcelKhnv01a">
+        <action name="khnv/dk/ExpExcelKhnv01a" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="ExpExcelKhnv01a">
             <result name="success">/khnv2021/downfile_excel.jsp</result>  
             <result name="error">/khnv2021/error.jsp</result>        
         </action>

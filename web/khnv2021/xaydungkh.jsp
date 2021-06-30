@@ -181,7 +181,7 @@
 
                 <!--<input type="button" id="cmdTai" name="cmdTai" value="Tải dữ liệu" class="cmd">-->
                 <s:url id="idLoadDataKhnv" action="loadDataKhnv.action"></s:url>                                      
-                <sj:submit id="idloadDataKhnvtmp" name="nameSend" href="%{idLoadDataKhnv}" value="Tải dữ liệu" targets="divKhDetail"
+                <sj:submit id="idloadDataKhnvtmp" name="nameSend" href="%{idLoadDataKhnv}" value="Xem dữ liệu" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
 
@@ -194,7 +194,7 @@
             <hr/>
             <div>
                 
-                <s:url id="idExpEcelKhnv01a" action="ExpExcelKhnv01a"></s:url>                                      
+                <s:url id="idExpEcelKhnv01a" action="khnv/dk/ExpExcelKhnv01a"></s:url>                                      
                 <sj:submit id="idExpEcelKhnvtmp01a" name="nameSend01a" href="%{idExpEcelKhnv01a}" value="Xuất xls mẫu 01a" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
