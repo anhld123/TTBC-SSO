@@ -179,6 +179,7 @@ public class ExcelFileLibrary extends FileLibrary {
 
             Sheet sheet;
             sheet = workbook.getSheetAt(0);
+            FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
             //Iterate through each rows one by one
             Iterator<Row> rowIterator = sheet.iterator();
             while (rowIterator.hasNext()) {
@@ -206,6 +207,12 @@ public class ExcelFileLibrary extends FileLibrary {
                             excel_cell.setValue(
                                     cell.getStringCellValue()
                             );
+                            break;
+                        case Cell.CELL_TYPE_FORMULA:
+                            //evaluator.evaluateFormulaCell(cell);
+                            CellValue cellValue = evaluator.evaluate(cell);
+                            String strCellValue = getCellValue(cellValue);
+                            excel_cell.setValue(strCellValue);
                             break;
                         default:
                             excel_cell.setValue(

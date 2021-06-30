@@ -311,7 +311,7 @@ XSSFFont font = xssfWorkbook.createFont();
 
                         XSSFCell xssfCell03 = xssfRow.getCell(3, Row.CREATE_NULL_AS_BLANK);
                         numberStyle = xssfCell03.getCellStyle();
-                        numberStyle.setDataFormat(format.getFormat("#,##0"));
+                        numberStyle.setDataFormat(format.getFormat("#,##0.00"));
                         numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                         numberStyle.setFont(font);
                         numberStyle.setLocked(false);                        
@@ -320,7 +320,7 @@ XSSFFont font = xssfWorkbook.createFont();
 
                         XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
                         lockStyle = xssfCell04.getCellStyle();
-                        lockStyle.setDataFormat(format.getFormat("#,##0"));
+                        lockStyle.setDataFormat(format.getFormat("#,##0.00"));
                         lockStyle.setAlignment(HorizontalAlignment.RIGHT);
                         lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
                         lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
@@ -507,7 +507,7 @@ XSSFFont font = xssfWorkbook.createFont();
 
                         XSSFCell xssfCell03 = xssfRow.getCell(3, Row.CREATE_NULL_AS_BLANK);
                         numberStyle = xssfCell03.getCellStyle();
-                        numberStyle.setDataFormat(format.getFormat("#,##0"));
+                        numberStyle.setDataFormat(format.getFormat("#,##0.00"));
                         numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                         numberStyle.setLocked(false);
                         xssfCell03.setCellStyle(numberStyle);
@@ -515,7 +515,7 @@ XSSFFont font = xssfWorkbook.createFont();
 
                         XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
                         lockStyle = xssfCell04.getCellStyle();
-                        lockStyle.setDataFormat(format.getFormat("#,##0"));
+                        lockStyle.setDataFormat(format.getFormat("#,##0.00"));
                         lockStyle.setAlignment(HorizontalAlignment.RIGHT);
                         lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
                         lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
@@ -713,7 +713,7 @@ XSSFFont font = xssfWorkbook.createFont();
 
                     XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
                     numberStyle = xssfCell04.getCellStyle();
-                    numberStyle.setDataFormat(format.getFormat("#,##0"));
+                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
                     numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                     numberStyle.setLocked(false);
                     xssfCell04.setCellStyle(numberStyle);
@@ -721,21 +721,21 @@ XSSFFont font = xssfWorkbook.createFont();
 
                     XSSFCell xssfCell05 = xssfRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
                     lockStyle = xssfCell05.getCellStyle();
-                    lockStyle.setDataFormat(format.getFormat("#,##0"));
+                    lockStyle.setDataFormat(format.getFormat("#,##0.00"));
                     lockStyle.setAlignment(HorizontalAlignment.RIGHT);
                     lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
                     lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
                     lockStyle.setLocked(true);
                     xssfCell05.setCellStyle(lockStyle);
 
-//                        XSSFCell xssfCell06 = xssfRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
-//                        lockStyle = xssfCell06.getCellStyle();
-//                        lockStyle.setDataFormat(format.getFormat("#,##0.00"));
-//                        lockStyle.setAlignment(HorizontalAlignment.RIGHT);
-//                        lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-//                        lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-//                        lockStyle.setLocked(true);
-//                        xssfCell06.setCellStyle(lockStyle);
+                    XSSFCell xssfCell06 = xssfRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
+                    numberStyle = xssfCell06.getCellStyle();
+                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                    numberStyle.setAlignment(HorizontalAlignment.RIGHT);
+                    numberStyle.setLocked(false);                    
+                    xssfCell06.setCellStyle(numberStyle);
+                    xssfCell06.setCellValue(lstData.get(i).d4);
+
                     XSSFCell xssfCell07 = xssfRow.getCell(7, Row.CREATE_NULL_AS_BLANK);
                     lockStyle = xssfCell07.getCellStyle();
                     lockStyle.setDataFormat(format.getFormat("#,##0.00"));

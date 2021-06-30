@@ -34,9 +34,15 @@
 
         <action name="reloadSubCommune" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="getSubcommune">
             <result type="json"></result>
-        </action>    
+        </action>  
+        <action name="sendCN" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="guiChinhanh">
+            <result name="success">/khnv2021/success.jsp</result>  
+            <result name="error">/khnv2021/success.jsp</result>        
+        </action>  
     </package>
     
+    
+        
     <package name="khnv2021" extends="struts-default">
         <action name="get_data_xaydungkh_2021" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="get_data_xaydungkh_2021">
             <result name="success">/khnv2021/xaydungkh.jsp</result>
@@ -47,7 +53,7 @@
             <result name="loadAllCommuneAuth">/khnv2021/table_auth_commune.jsp</result>
             <result name="loadAllSubCommune">/khnv2021/table_all_subcommune_bycommune.jsp</result>            
             <result name="loadOneSubCommune">/khnv2021/table_detal_by_subcommune.jsp</result>     
-            <result name="load02Pos">/khnv2021/table_detal_by_pos_mau02</result>     
+            <result name="load02Pos">/khnv2021/table_detal_by_pos_mau02.jsp</result>     
                    
         </action>
         
@@ -59,6 +65,9 @@
             <result name="loadAllSubCommune">khnv2021/table_all_subcommune_bycommune.jsp</result>  
             <result name="error">/khnv2021/success.jsp</result> 
         </action>
+        
+        
+        
         
         <action name="getDetailKhnvByAllSubCommune" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="getDataXayCommuneDetai">
             <result name="loadAllSubCommune">khnv2021/table_all_subcommune_bycommune.jsp</result>  
@@ -77,7 +86,17 @@
         
         <action name="khnv/dk/ExpExcelKhnv01a" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="ExpExcelKhnv01a">
             <result name="success">/khnv2021/downfile_excel.jsp</result>  
-            <result name="error">/khnv2021/success.jsp</result>        
+            <result name="error">/khnv2021/error.jsp</result>        
+        </action>
+        
+        <action name="khnv/dk/ExpExcelKhnv01New" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="ExpExcelKhnv01New">
+            <result name="success">/khnv2021/downfile_excel.jsp</result>  
+            <result name="error">/khnv2021/error.jsp</result>        
+        </action>
+        
+        <action name="khnv/dk/ExpExcelKhnv02" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="ExpExcelKhnv02">
+            <result name="success">/khnv2021/downfile_excel.jsp</result>  
+            <result name="error">/khnv2021/error.jsp</result>        
         </action>
         
         <!--        <action name="ExpExcelKhnv02" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="ExpExcelKhnv02">
@@ -89,35 +108,39 @@
             <result name="error">/khnv2021/success.jsp</result>
         </action>
         
-   
-        
 
-        
-        <!-- 
-        Author: Nguyễn Phú Vinh 
-        Công việc: Lấy dữ liệu
-        -->
+        <!-- Author: Nguyễn Phú Vinh -->
         <action name="AuthorProvince" class="vbsp.ims.khnv2021.AuthorAction">
             <result name="success">/khnv2021/ViewAuthor.jsp</result>
         </action>
-        <!-- Công việc: Xử lý dữ liệu-->
         <action name="SendAction" class="vbsp.ims.khnv2021.AuthorAction" method="SendAction">
-            <result name="SuccessLoad">/khnv2021/ViewAuthorDetail.jsp</result>
-            
-            <!-- Công việc: Gửi dữ liệu về TW-->
-            <result name="SuccessMessage">/khnv2021/table_list_result_send_tw.jsp</result>
+            <result name="SuccessLoad">/khnv2021/ViewAuthorDetail.jsp</result>            
+            <result name="SuccessMessage">/khnv2021/table_list_result_send_tw.jsp</result>            
+            <result name="resultSend">/khnv2021/table_result_send.jsp</result>      
             <!-- Công việc: Hoàn trả dữ liệu cho PGD, CN-->        
             <result name="SuccessRoll" type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
             </result>
+            <result name="ShowMessage">/khnv2021/ShowMessage.jsp</result>  
             <!-- Công việc: Thông báo lỗi chung-->
-             <result name="FaildMessage" type="stream">
+            <result name="FaildMessage" type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
             </result>
         </action>
+        
+        <action name="getDetailKhnvByCN" class="vbsp.ims.khnv2021.AuthorAction" method="ShowDetaiCn">
+            <result name="success">khnv2021/ViewAuthorDetail.jsp</result>  
+            <result name="error">/khnv2021/success.jsp</result> 
+        </action>
+        
         <!-- End -->
+        
+        <action name="khvn_open_upload" class="vbsp.ims.khnv2021.XayDungKeHoach2021"
+                method="openExcelUpload">
+            <result name="success">/EXCEL_UPLOAD/util_excel_upload_file-main.jsp</result>           
+        </action>   
                       
     </package>
         

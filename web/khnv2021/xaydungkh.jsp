@@ -181,7 +181,7 @@
 
                 <!--<input type="button" id="cmdTai" name="cmdTai" value="Tải dữ liệu" class="cmd">-->
                 <s:url id="idLoadDataKhnv" action="loadDataKhnv.action"></s:url>                                      
-                <sj:submit id="idloadDataKhnvtmp" name="nameSend" href="%{idLoadDataKhnv}" value="Tải dữ liệu" targets="divKhDetail"
+                <sj:submit id="idloadDataKhnvtmp" name="nameSend" href="%{idLoadDataKhnv}" value="Xem dữ liệu" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
 
@@ -194,7 +194,7 @@
             <hr/>
             <div>
                 
-                <s:url id="idExpEcelKhnv01a" action="ExpExcelKhnv01a"></s:url>                                      
+                <s:url id="idExpEcelKhnv01a" action="khnv/dk/ExpExcelKhnv01a"></s:url>                                      
                 <sj:submit id="idExpEcelKhnvtmp01a" name="nameSend01a" href="%{idExpEcelKhnv01a}" value="Xuất xls mẫu 01a" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
@@ -202,7 +202,7 @@
 <!--                <input type="button" id="cmdGui" name="cmdGui" value="Xuất xls mẫu 01a" class="cmd">-->
                 &nbsp;&nbsp;|&nbsp;&nbsp;      
                 <!--<input type="button" id="cmdGui" name="cmdGui" value="Xuất xls mẫu 01" class="cmd">&nbsp;-->
-                <s:url id="idExpEcelKhnv01New" action="ExpExcelKhnv01New.action"></s:url>                                      
+                <s:url id="idExpEcelKhnv01New" action="khnv/dk/ExpExcelKhnv01New.action"></s:url>                                      
                 <sj:submit id="idExpEcelKhnvtmp01new" name="nameSendnew" href="%{idExpEcelKhnv01New}" value="Xuất xls mẫu 01" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
