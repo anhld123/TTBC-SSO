@@ -11,6 +11,7 @@ package vbsp.ims.khnv2021;
  */
 public class ReportTemplate {
     public static String MAU_01A = "KHNV01A";
+    public static String MAU_01 = "KHNV01";
     public static String MAU_02 = "KHNV02";
     
     public static int MAU_01A_START_ROW = 12;
