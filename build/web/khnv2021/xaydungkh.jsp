@@ -4,23 +4,20 @@
     Author     : Nguyễn Phú Vinh
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="/struts-tags" prefix="s" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
+<%@ taglib prefix="sjt" uri="/struts-jquery-tree-tags"%>
+<%@ taglib prefix="sjg" uri="/struts-jquery-grid-tags"%>
 
-<%@ taglib prefix="sx" uri="/struts-dojo-tags" %> 
-<%@ taglib prefix="sj" uri="/struts-jquery-tags" %> 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib uri="/struts-jquery-tree-tags" prefix="sjt" %>
+<s:head/>
+<sj:head/>
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <sj:head jqueryui="true" jquerytheme="smoothness"/> 
-    <head></head>
-    <title>Kiểm duyệt KHTD</title>
-   
+    <title>Xây dựng kế hoạch</title>
+
     <style>
         *{
             font-family: tahoma;
@@ -29,7 +26,7 @@
         table {
             border-collapse: collapse;
             width: 100%;
-            height: 1000px;
+            /*height: 1000px;*/
         }
 
         table thead { position: sticky; top: 0; z-index: 1; }
@@ -38,7 +35,7 @@
             text-align: left;
             padding: 8px;
             border: 1PX solid #f2f2f2;
-            text-align: center;
+            /*text-align: center;*/
         }
 
         tr:nth-child(even){background-color: #f2f2f2}
@@ -74,6 +71,10 @@
             border-radius: 2px;
         }
         
+        .CLS-BOLD{
+                font-weight: bold;
+            }
+
     </style>
     <SCRIPT language="javascript">
 //            $(document).ready(function () {
@@ -99,27 +100,59 @@
 ////                });
 //            }
 //                )
-            $.subscribe("beforediv_send", function(event, data) {
-                $('#loadingImage_next').slideDown("slow");
-                $('#loadingImage_next').empty();
-                $('#divKhDetail').empty();
-            });
-            
-            $.subscribe("completediv_send", function(event, data) {
+        $.subscribe("beforediv_send", function (event, data) {
+            $('#loadingImage_next').slideDown("slow");
+            $('#loadingImage_next').empty();
+            $('#divKhDetail').empty();
+        });
+
+        $.subscribe("completediv_send", function (event, data) {
             $("#loadingImage_next").hide();
             $('#loadingImage_next').empty();
 
-            });
-       </SCRIPT>
+        });
+
+        function onReloadSubCommune()
+        {
+            $('#divKhDetail').empty();
+            var commune_cd = $("#commune_cd").val();
+
+        }
+        
+        function callDirectLink(link) {
+        var ht = screen.availHeight / 5 + 35;
+        var wt = screen.availWidth / 5 + 20;
+
+        var resize = window.open(link
+                + "random=" + Math.random(),
+                "IMS_REPORTS_FRM2", "height=" + ht + ",width=" + wt
+                + ",left=0,top=0,directories=no,status=no,menubar=no,\n\
+        personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+
+        if (navigator.userAgent.indexOf('Chrome') !== -1
+                && parseFloat(
+                        navigator.userAgent.substring(
+                                navigator.userAgent.indexOf('Chrome') + 7
+                                ).split(' ')[0]) >= 15) {
+            resize.resizeBy(wt, ht);
+        } else {
+            resize.resizeTo(wt, ht);
+        }
+        resize.moveTo(wt, ht);
+        resize.focus();
+    }
+    </SCRIPT>
 </head>
 <body>
     <s:form id="id_khnv2021" name="id_khnv2021"  theme="simple">
         <div class="cls-fix">
 
             <div>
+                <%--<s:url id="reloadDataSubCommune" action="reloadSubCommune" includeParams="post"></s:url>--%>
+
                 <span class="clss-lable" id="cboDonvi" name="cboDonvi">Mẫu báo cáo:</span>
                 <s:select list="lstMaBC" theme="simple"
-                          name="maBc" id="namBc"
+                          name="maBc" id="maBc"
                           listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
                 &nbsp;
                 <span class="clss-lable">Kế hoạch năm:</span>
@@ -132,7 +165,7 @@
                           name="dotBc" id="dotBc"
                           listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
                 &nbsp;
-<!--                <span class="clss-lable">Tổng hợp</span>
+                <!--                <span class="clss-lable">Tổng hợp</span>
                 <s:select list="lstTongHop" theme="simple"
                           name="tonghopView" id="tonghopView"
                           listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
@@ -140,6 +173,7 @@
                 &nbsp;
                 <span class="clss-lable">Mã xã:</span>
                 <s:select id="commune_cd" name="commune_cd" list="posList" listKey="id" listValue="desc"/> </b> &nbsp;&nbsp;
+
                 &nbsp;
                 <span class="clss-lable">Mã thôn:</span>
                 <s:select id="subcommune_cd" name="subcommune_cd" list="subCommuneList" listKey="id" listValue="desc"/> </b> &nbsp;&nbsp;
@@ -147,12 +181,15 @@
 
                 <!--<input type="button" id="cmdTai" name="cmdTai" value="Tải dữ liệu" class="cmd">-->
                 <s:url id="idLoadDataKhnv" action="loadDataKhnv.action"></s:url>                                      
-                <sj:submit id="idloadDataKhnvtmp" name="nameSend" href="%{idLoadDataKhnv}" value="Tải dữ liệu" targets="divKhDetail"
+                <sj:submit id="idloadDataKhnvtmp" name="nameSend" href="%{idLoadDataKhnv}" value="Xem dữ liệu" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
-                
-                
-                <input type="button" id="cmdTuChoi" name="cmdTuChoi" value="Gửi chi nhánh" class="cmd">
+
+
+                <s:url id="idSendCNKhnv" action="sendCN.action"></s:url>                                      
+                <sj:submit id="idloadDataKhnvtmp2" name="nameSend2" href="%{idSendCNKhnv}" value="Gửi chi nhánh" targets="divKhDetail"
+                           onBeforeTopics="beforediv_send"
+                           onCompleteTopics="completediv_send" class="cmd"/>
             </div>
             <hr/>
             <div>
@@ -163,21 +200,27 @@
                            onCompleteTopics="completediv_send" class="cmd"/>
                 
 <!--                <input type="button" id="cmdGui" name="cmdGui" value="Xuất xls mẫu 01a" class="cmd">-->
-                &nbsp;
-                <input type="button" id="cmdTuChoi" name="cmdTuChoi" value="Upload xls mẫu 01a" class="cmd">
-                &nbsp;&nbsp;|&nbsp;&nbsp
-
+                &nbsp;&nbsp;|&nbsp;&nbsp;      
                 <!--<input type="button" id="cmdGui" name="cmdGui" value="Xuất xls mẫu 01" class="cmd">&nbsp;-->
-                <s:url id="idExpEcelKhnv01" action="ExpExcelKhnv01.action"></s:url>                                      
-                <sj:submit id="idExpEcelKhnvtmp01" name="nameSend" href="%{idExpEcelKhnv01}" value="Xuất xls mẫu 01" targets="divKhDetail"
+                <s:url id="idExpEcelKhnv01New" action="khnv/dk/ExpExcelKhnv01New.action"></s:url>                                      
+                <sj:submit id="idExpEcelKhnvtmp01new" name="nameSendnew" href="%{idExpEcelKhnv01New}" value="Xuất xls mẫu 01" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
                 
-               
+                <s:url id="idExpEcelKhnv01" action="ExpExcelKhnv01.action"></s:url>                                      
+                <sj:submit id="idExpEcelKhnvtmp01" name="nameSend" href="%{idExpEcelKhnv01}" value="   In mẫu 01   " targets="divKhDetail"
+                           onBeforeTopics="beforediv_send"
+                           onCompleteTopics="completediv_send" class="cmd"/>
 
-                &nbsp;&nbsp;|&nbsp;&nbsp
-                <input type="button" id="cmdGui" name="cmdGui" value="Xuất xls mẫu 02" class="cmd">&nbsp;
-                <input type="button" id="cmdTuChoi" name="cmdTuChoi" value="Upload xls mẫu 02" class="cmd">
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <s:url id="idExpEcelKhnv02" action="khnv/dk/ExpExcelKhnv02"></s:url>                                      
+                <sj:submit id="idExpEcelKhnvtmp02" name="nameSend02" href="%{idExpEcelKhnv02}" value="Xuất xls mẫu 02" targets="divKhDetail"
+                           onBeforeTopics="beforediv_send"
+                           onCompleteTopics="completediv_send" class="cmd"/>&nbsp;
+                
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <sj:a class="cmd" href="#" onclick="callDirectLink('khvn_open_upload?');" cssClass="metroButtonStyle">
+            <b> <u>Upload Excel</u>  </b> </sj:a>                        
             </div>
             <hr/>
         </div>
@@ -185,6 +228,34 @@
             <img id="loadingImage_next" src="img/loading.gif" style="display:none"/>
             <div id="divKhDetail"></div>
         </div>
-    </s:form>       
+    </s:form>
+<!--    <script src="js/jquery-1.4.2.min.js" type="text/javascript"></script>-->
+<!--    <script>
+        $(document).ready(function () {
+            $('#commune_cd').change(function () {
+                var surl, sdata, idView, idMess, idForm, method;
+                surl = "SendAction.action";
+                idForm = "#id_khnv2021";
+                method = "POST";
+                sdata = jQuery(idForm).serialize();
+                alert(sdata);
+                $.ajax({
+                    url: surl,
+                    data: sdata,
+                    type: method,
+                    async: true,
+                    beforeSend: function () {
+                        $(idMess).html('<img src="imgs/newloading.gif" class="ViewMess"/>');
+                    },
+                    success: function (result) {
+                       alert('Abc');
+                    },
+                    error: function (result) {
+                        alert('Lỗi khi thực hiện.');
+                    }
+                });
+            });
+        });
+    </script>-->
 </body>
 </html>

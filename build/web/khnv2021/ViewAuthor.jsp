@@ -15,28 +15,57 @@
         <style>
             *{
                 font-family: tahoma;
-                font-size: 12px;
+                font-size: 13px;
             }
+
             table {
-                border-collapse: collapse;
-                width: 100%;
-                height: 1000px;
+                width : 100%;
+                border-top: 1px solid orange;
+                border-left: 1px solid #c2c2c2;
+                border-right: 1px solid #c2c2c2;
+                border-bottom: 1px solid #c2c2c2;
+                text-align : center;
+                border-collapse : collapse;
+            }
+            table tr th, table tr td {
+                border : 1px solid #c2c2c2;
+            }
+
+
+            table thead th {
+                position: -webkit-sticky;
+                position : sticky;
+                top : 0;
+                color: white;
+                background-color : #04AA6D;
+            }
+
+            /* here is the trick */
+            table tbody:nth-of-type(1) tr:nth-of-type(1) td {
+                border-top: none !important;
+            }
+            table thead th {
+                border-top: none !important;
+                border-bottom: none !important;
+                box-shadow: inset 0 0px 0 #c2c2c2,
+                    inset 0 -1px 0 #c2c2c2;
+            }
+
+            table thead th {
+                background-clip: padding-box
             }
 
             table thead { position: sticky; top: 0; z-index: 1; }
 
             th, td {
                 text-align: left;
-                padding: 8px;
-                border: 1PX solid #f2f2f2;
+                border: 1px solid #c2c2c2;
                 text-align: center;
+                padding: 3px;
             }
 
-            tr:nth-child(even){background-color: #f2f2f2}
-
-            th {
-                background-color: #04AA6D;
-                color: white;
+            th{
+                padding: 8px;
             }
             .sttCol>td{
                 font-style: italic;
@@ -56,7 +85,7 @@
             }
             .cls-over{
                 overflow-y: scroll;
-                height: 69vh;
+                height: 60vh;
             }
             .cmd{
                 padding: 5px;
@@ -64,6 +93,20 @@
                 border: 1px solid #c2c2c2;
                 border-radius: 2px;
                 z-index: 99;
+                margin-left: 5px;
+            }
+            hr{
+                border-bottom: 0px;
+                border-top: 1px solid lightgray;
+            }
+            .item {
+                padding: 5px;
+                text-align: right;
+                border: 0px !important;
+                outline: none;
+            }
+            .cls {
+                background-color: lightgoldenrodyellow;
             }
         </style>
         <link href="css/css/style.css" rel="stylesheet" type="text/css"/>
@@ -86,7 +129,7 @@
                             var i, varNam;
                             varNam = new Date().getFullYear();
                             var text = "";
-                            for (i = (varNam - 10); i <= (varNam + 50); i++) {
+                            for (i = (varNam - 5); i <= (varNam + 5); i++) {
                                 text += '<option value="' + i.toString() + '">Năm ' + i.toString() + '</option>';
                             }
                             document.write(text);
@@ -103,8 +146,11 @@
                     &nbsp;
                     <span class="clss-lable">Tổng hợp</span>
                     <select id="cboTonghop" name="cboTonghop">
-                        <option value="Y">Tất cả các đơn vị trực thuộc</option>
-                        <option value="N">Từng đơn vị</option>
+                        <option value="Y">Tổng hợp các đơn vị trực thuộc</option>
+                        <option value="N">Duyệt từng đơn vị</option>
+                        <option value="R">Tổng hợp lại từ các đơn vị trực thuộc</option>
+                        <option value="W">Phản hồi từ cấp trên</option>
+                        <option value="S">Kiểm soát gửi/nhận</option>
                     </select>
                     &nbsp;                                  
                     <input type="button" value="Tải dữ liệu" id="cmdTaiDL" name="nameTaiDL" class="cmd"/>
@@ -112,26 +158,31 @@
                 <hr/>
                 <div><span class="clss-lable">Nguyên nhân</span></div>
                 <div class="clss-body-ngnhan">
-                    <textarea id="strNguyennhan" name="strNguyennhan"></textarea>
-                </div>
-                <hr/>
-                <div style="display: inline-flex; height: 30px;">
-                    <input type="button" value="<s:property value='btnSend'/>" id="cmdGuiDL" name="nameGuiDL" class="cmd"/>
-                    &nbsp; 
+                    <textarea id="strNguyennhan" name="strNguyennhan"><s:property value='strNguyennhan'/></textarea>
+                </div>                
+                <div id="idButton" style="padding: 0px 0px 6px 0px; height: 30px; display: inline-flex;">
+                    <input type="button" value="Gửi cấp trên" id="cmdGuiDL" name="nameGuiDL" class="cmd"/>
                     <input type="button" value="Trả lại đơn vị" id="cmdTraLaiDL" name="nameTraLaiDL" class="cmd"/>
-                    &nbsp; &nbsp;
-                    <div id="idViewMess" name="nameViewMess" style="height: 100%;display: flex; align-items: center;font-weight: bold; color: red;"></div>
+                    <input type="button" value="Lưu dữ liệu" id="idLuuDL" name="nameLuuDL" class="cmd"/>
+                    &nbsp;
+                    <div id="idViewMess" name="nameViewMess" style="font-weight: bold; color: red; line-height: 30px;"></div>
                 </div>
-                <hr/>
             </div>
             <div class="cls-over">
                 <div id="idViewData"></div>
             </div>
         </form> 
-        <script src="js/jquery-1.4.4.min.js" type="text/javascript"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="js/jquery.number.js"></script>
         <script>
                             $(document).ready(function () {
-
+                                if (('<s:property value="CapBC"/>') == '3') {
+                                    $('#cboTonghop option[value="W"]').remove();
+                                    $('#cboTonghop option[value="R"]').remove();
+                                    $('#cmdGuiDL').remove();
+                                }
+                                ;
+                                $('#cmdTraLaiDL').hide();
                                 $("#cboNam").val(new Date().getFullYear()).change();
 
                                 //Tải dữ liệu
@@ -140,18 +191,52 @@
                                 $("#cmdGuiDL").click({status: "1"}, SendData);
                                 //Trả lại đơn vị
                                 $("#cmdTraLaiDL").click({status: "2"}, SendData);
+                                //Tải Lưu dữ liệu cấp CN
+                                $("#idLuuDL").click({status: "3"}, SendData);
+                                //Xử lý trạng thái các Element
                                 $("#cboDonvi").change(function () {
-                                    if ($("#cboDonvi").val().trim() === "all") {
+                                    if ($("#cboDonvi").val().trim() == "all") {
+                                        $('#idLuuDL').show();
+                                        $('#cmdGuiDL').show();
+                                        $('#cmdAuthor').hide();
+                                        $('#cmdTraLaiDL').hide();
                                         $('#cboTonghop option')[0].selected = true;
                                     } else {
+                                        $('#idLuuDL').hide();
+                                        $('#cmdGuiDL').hide();
+                                        $('#cmdAuthor').show();
+                                        $('#cmdTraLaiDL').show();
                                         $('#cboTonghop option')[1].selected = true;
                                     }
                                 });
                                 $("#cboTonghop").change(function () {
-                                    if ($("#cboTonghop").val().trim() === "Y") {
+                                    if ($("#cboTonghop").val().trim() == "Y") {
+                                        $('#idLuuDL').show();
+                                        $('#cmdGuiDL').show();
+                                        $('#cmdAuthor').hide();
+                                        $('#cmdTraLaiDL').hide();
                                         $('#cboDonvi option')[0].selected = true;
-                                    } else {
+                                    }
+                                    if ($("#cboTonghop").val().trim() == "N") {
+                                        $('#idLuuDL').hide();
+                                        $('#cmdGuiDL').hide();
+                                        $('#cmdAuthor').show();
+                                        $('#cmdTraLaiDL').show();
                                         $('#cboDonvi option')[1].selected = true;
+                                    }
+                                    if ($("#cboTonghop").val().trim() == "R") {
+                                        $('#idLuuDL').show();
+                                        $('#cmdGuiDL').show();
+                                        $('#cmdAuthor').hide();
+                                        $('#cmdTraLaiDL').hide();
+                                        $('#cboDonvi option')[0].selected = true;
+                                    }
+                                    if ($("#cboTonghop").val().trim() == "W") {
+                                        $('#idLuuDL').hide();
+                                        $('#cmdGuiDL').hide();
+                                        $('#cmdAuthor').hide();
+                                        $('#cmdTraLaiDL').hide();
+                                        $('#cboDonvi option')[0].selected = true;
                                     }
                                 });
                             });
@@ -169,17 +254,17 @@
                                     type: method,
                                     async: true,
                                     beforeSend: function () {
-                                        $(idMess).html('<img src="imgs/newloading.gif" class="ViewMess"/>');
+                                        $(idMess).html('<img src="imgs/newloading.gif"/>');
                                     },
                                     success: function (result) {
-                                        if (["10", "11", "20", "21", "01"].includes(result)) {
+                                        if (["10", "11", "20", "21", "01", "30", "31"].includes(result)) {
                                             switch (result) {
                                                 case "01":
                                                     strMess = 'Lỗi: Tải dữ liệu không thành công.';
                                                     $(idView).html('');
                                                     break;
                                                 case "10":
-                                                    strMess = '<span style="color:green">Thành công: Gửi dữ liệu lên cấp trên thành công.</span>';
+                                                    strMess = '';
                                                     break;
                                                 case "11":
                                                     strMess = 'Lỗi: khi gửi dữ liệu lên cấp trên.';
@@ -192,11 +277,24 @@
                                                     strMess = 'Lỗi: hoàn trả dữ liệu cho đơn vị.';
                                                     $(idView).html('');
                                                     break;
+                                                case "30":
+                                                    strMess = '<span style="color:green">Thành công: Lưu dữ liệu.</span>';
+                                                    break;
+                                                case "31":
+                                                    strMess = 'Lỗi: Lưu dữ liệu.';
+                                                    $(idView).html('');
+                                                    break;
                                             }
                                             $(idMess).html(strMess);
                                         } else {
-                                            $(idView).html(result);
-                                            $(idMess).html('<span style="color:green">Thành công: Tải dữ liệu.</span>');
+                                            if ($("#cboTonghop").val().trim() == "W") {
+                                                $(idView).html(result);
+                                                $('#idButton').hide();
+                                            } else {
+                                                $('#idButton').show();
+                                                $(idView).html(result);
+                                                $(idMess).html('');
+                                            }
                                         }
                                     },
                                     error: function (result) {

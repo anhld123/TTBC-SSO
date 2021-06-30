@@ -3,11 +3,14 @@
     Created on : Nov 16, 2015, 1:26:33 PM
     Author     : LION
 --%>
-<%@taglib prefix="s" uri="/struts-tags" %>
-<%@taglib prefix="sj" uri="/struts-jquery-tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css"  href="css/bcqt.css" />
-<!DOCTYPE html>
+<%@taglib uri="/struts-tags" prefix="s" %>
+
+<%@ taglib prefix="sx" uri="/struts-dojo-tags" %> 
+<%@ taglib prefix="sj" uri="/struts-jquery-tags" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib uri="/struts-jquery-tree-tags" prefix="sjt" %>
 <html>
     <head>        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,74 +18,84 @@
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
         <style>
-            .readonly {
-                background: #FFFFC0;        
-            }
-            .pos_edit_form {
-                padding:0px;
-                width:30%;    
-                background:#f9f9f9;
-                border:1px solid #ccc;
-                text-align:left;   
-                font-family: Arial;
-                font-size: 12pt;
-            }    
-
-            .metroButtonStyle {
-                font-family: 'Segoe UI', 'Open Sans', Arial, sans-serif;
-                display: block;
-                color: rgb(255, 255, 255);
-                text-decoration: none;
-                text-align: center;
-                width: 90px;
-                height: 20px;
-                padding: 5px;
-                margin: 5px 0px 0px 5px;
-                font-size: 12px;
-                background: none repeat scroll 0 0 #808080;
-                color: #FFF;
-                border: 0px none;
-                border-radius: 1px 1px 1px 1px;
-                outline: 0px none;
-            }
-            .metroButtonStyle:hover {
-                background: #018c3b;
-            }
-            .metroButtonStyle:active {
-                background: #DCDCDC;
-            }
-            .metroButtonStyle:disabled {
-                background: #DCDCDC;
-            }
-
-            #divTitle{
-            font: 14px Arial, Helvetica, sans-serif;
-            font-weight: bold;
-            color: #0077b3;
-            text-align: center;
+        *{
+            font-family: tahoma;
+            font-size: 12px;
         }
-        </style>    
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            /*height: 1000px;*/
+        }
+
+        table thead { position: sticky; top: 0; z-index: 1; }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border: 1PX solid #f2f2f2;
+            /*text-align: center;*/
+        }
+
+        tr:nth-child(even){background-color: #f2f2f2}
+
+        th {
+            background-color: #04AA6D;
+            color: white;
+        }
+        .sttCol>td{
+            font-style: italic;
+        }
+        .clss-body-ngnhan{
+            box-sizing: content-box;
+            padding: 5px;
+        }
+        textarea
+        {
+            border:1px solid #000;
+            width:100%;
+            height: 100px;
+        }
+        .clss-lable{
+            font-weight: bold;
+        }
+        .cls-over{
+            overflow-y: scroll;
+            height: 76vh;
+        }
+        .cmd, input[type="submit"]{
+            padding: 5px;
+            background-image: linear-gradient(#f2f2f2,#c2c2c2);
+            border: 1px solid #c2c2c2;
+            border-radius: 2px;
+        }
+        
+        .CLS-BOLD{
+                font-weight: bold;
+            }
+            #divTitle{
+    font: 14px Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #0077b3;
+    text-align: center;
+
+    </style> 
         <script>
             var max_row = 0;
             $(document).ready(function () {
                 $('input.number').css({"text-align": "right"});
                 $('input.number2').css({"text-align": "right"});
-                $('.D0').css({"text-align": "center"});               
+//                $('.D0').css({"text-align": "center"});               
                 $('.number').number(true, 0);
 //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 2);
                 $(".SOKU").css({"width": "100%"});
-                $(".TD_CHECKBOX").css({"width": "20px"});
-                $(".TD_SOKU").css({"width": "80px"});
-                $(".TD_TENKH123").css({"width": "110px"});
-                $(".TD_TENTS").css({"width": "190px"});
-                $(".TD_SOTK").css({"width": "105px"});
-                $(".TD_MAKH").css({"width": "60px"});
-                $(".TD_THOIGIAN").css({"width": "55px"});
-                $(".TD_MAPGD").css({"width": "45px"});
-                $(".TD_BUTTON1").css({"width": "40px"});
-                $(".TD_SOTIEN").css({"width": "100px"});
-                $(".TEN_KH").css({"width": "100%"});
+                
+                $(".TD_STT").css({"width": "5%"});
+                $(".TD_GIATRI").css({"width": "8%"});
+                $(".TD_TEN").css({"width": "12%"});
+                $(".TD_CHITIEU").css({"width": "20%"});
+
             });
             $('.TEN_KH').focus(function () {
                 $(this).closest('tr').addClass('highlight_row');
@@ -95,42 +108,30 @@
         <script>
     
         function hienthichitiet(commune_detai) {
-            var ht1 = screen.availHeight - 360;
-            var wt1 = 500;
+            var ht1 = screen.availHeight - 100;
+            var wt1 = screen.availWidth -100;
             var left1 = (screen.width / 2) - (wt1 / 2);
+             var namBc = $('#namBc').val();
+            var dotBc = $('#dotBc').val();
+            var maBc = $('#maBc').val();
             var top1 = 100;           
-            var url = "getDetailKhnvBySubCommune.action?commune_detai=" + commune_detai;
-            popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+            var url = "getDetailKhnvByAllSubCommune.action?commune_detai=" + commune_detai
+            +"&dotBc=" + dotBc+"&namBc=" + namBc+"&maBc=" + maBc;
+            popup = window.open(url, '_blank', "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
         }
         
-        var max_row = 0;
-//        function initTable()
-//            {
-//                var table = document.getElementById("tablesms01");
-//                var rowcount = table.rows.length;    
-//                rowcount = rowcount > max_row ? rowcount : max_row;                
-//                for (var i = 0; i < rowcount; i++)
-//                {                    
-//                    var matmp = getMabyNumber(i);//    
-//                    if(matmp == 1)
-//                    {
-//                        $('input:checkbox[id='+i+']').attr('checked',true);
-//                    }
-//                }
-//            }
-            
-//            function getMabyNumber(idx)
-//            {
-//                var ma = '';
-//                try {
-//                    var ma_id = 'id_' + idx;
-//                    ma = document.getElementById(ma_id).value;
-//                } catch (e)
-//                {
-//                    ma = '999999';
-//                }
-//                return ma;
-//            }
+        
+    function js_confirmdelete() {
+//        $("#luu_thanhcong").hide();
+        $('#luu_thanhcong').empty();
+        var r = confirm('(Msg)Bạn chắc chắn muốn chốt/mở chốt số liệu xã này?');
+        if (r === false) {
+            event.preventDefault();
+        }
+    }
+    
+    
+//        var max_row = 0;
             
         </script>
         
@@ -144,43 +145,48 @@
 
     </head>
     <body style="font-family: ">
-        <s:form id="id_sv_%{khoa_nhaptaycn}" action="SAVE_%{khoa_nhaptaycn}" theme="simple">
+        <div id="luu_thanhcong"></div>
+        <s:form id="id_khnv_view_all_commune" theme="simple">
             <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
                 <input type="hidden" id="<s:property  value="sKey" />" 
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
             </s:iterator>   
                 </br>
                 <div id="divTitle">
-                    TỔNG HỢP NHU CẦU VAY VỐN TÍN DỤNG THEO PGD
-                    <BR>                                
+                    TỔNG HỢP NHU CẦU VAY VỐN TÍN DỤNG THEO PGD - THEO TỪNG XÃ
+                    <br>   
+                    <s:if test="!reasonReject.equalsIgnoreCase('AAA')">
+                        <font color="red"><br>Nguyên nhân từ chối/TT chốt số liệu: <s:property value="reasonReject"/></font>       
+                    </s:if> 
                 </div>
-                <s:hidden name="khoa_nhaptaycn"/>
                 </br>
-                <table border="1" class="editDelete" id="tablesms01" style="width: 99%"  align="center">
+                <div class="cls-over">
+                
+                <table >
                     <tr>                                               
                         <!--<th  class="TD_BUTTON1">STT</th>-->      
-                        <th  class="TD_MAKH">Mã xã</th>    
-                        <th class="TD_TENKH123">Tên xã</th>
-                        <th  class="TD_SOKU">Mã chỉ tiêu</th> 
-                        <th class="TD_TENKH123">Tên chỉ tiêu</th>
-                        <th class="TD_TENKH123">Giá trị</th>
-                        <th class="TD_MAKH">Duyệt</th>       
+                        <th  class="TD_GIATRI">Mã xã</th>    
+                        <th class="TD_TEN">Tên xã</th>
+                        <th  class="TD_STT">Mã chỉ tiêu</th> 
+                        <th class="TD_CHITIEU">Tên chỉ tiêu</th>
+                        <th class="TD_GIATRI">Giá trị</th>
+                        <!--<th class="TD_GIATRI">Duyệt</th>-->       
                     </tr>                                    
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                                                    
                             <tr> 
-                                <s:if test="D3.equalsIgnoreCase('2B')">
-                                       <td align = "right" class="TD_MAKH" >
-                                        <input type="text"  value="<s:property  value="D1" />"
-                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH D0" onfocus="this.select();"
-                                               readonly="true"/>
-                                    </td>
+                                <s:if test="MA.equalsIgnoreCase('XD00001')">
+                                    <td style="text-align:center" class="TD_GIATRI <s:property value="D19"/>" >
+                                            <s:property value="D5"/>
+                                        </td>
 
-                                    <td align = "right" class="TD_TENKH123" >
-                                        <a href="javascript:hienthichitiet('<s:property value="D1"/>' )" class="linkKh">
-                                        <s:property value='D2'/> 
-                                    </a>
-
-                                    </td>
+<!--                                    <td align = "left" class="TD_TEN <s:property value="D19"/>" >
+                                        <a href="javascript:hienthichitiet('<s:property value="D5"/>' )" class="linkKh">
+                                            <s:property value='D9'/> 
+                                        </a>
+                                    </td>-->
+                                             <td style="text-align:center" class="TD_GIATRI <s:property value="D19"/>" >
+                                            <s:property value="D9"/>
+                                        </td>
                                 </s:if>
                                     <s:else>
                                         <td>
@@ -193,34 +199,108 @@
                                 
                                 
                                 
-                                <td align = "center" class="TD_SOKU">
-                                     <input type="text"  value="<s:property  value="D3" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH" onfocus="this.select();"
-                                           readonly="true"/>
+                                <td style="text-align:center"  class="TD_STT <s:property value="D19"/>">
+                                     <s:property value="MA"/>
                                 </td>
-                                <td align = "center" class="TD_SOKU">
-                                     <input type="text"  value="<s:property  value="D4" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="TEN_KH" onfocus="this.select();"
-                                           readonly="true"/>
+                                <td align = "left" class="TD_CHITIEU <s:property value="D19"/>">
+                                     <s:property value="TEN"/>
                                 </td>
                                 
-                                <td align = "right" class="TD_TENKH123">
-                                    <input type="text"  value="<s:property  value="D5" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();"
-                                           readonly="true"/>
+                                <td style="text-align:right"  class="TD_GIATRI <s:property value="D19"/>">
+                                    <s:property value="D15"/>
                                 </td>
 
-                                <td align = "right" class="TD_MAKH">
-                                   
-                                </td>                              
+<!--                                <s:if test="MA.equalsIgnoreCase('XD00001')&& D18.equalsIgnoreCase('1')">
+                                         <td style="text-align: center;">
+                                            <s:url id="unlockId" value="Lock_Unlock.action" escapeAmp="false">
+                                                <s:param name="commune_cd" value="D1"/>
+                                                <s:param name="lock_unlock" value="0"/>
+                                                <s:param name="dotBc" value="dotBc"/>
+                                                
+                                            </s:url>
+                                            <sj:a  href="%{unlockId}" onclick="js_confirmdelete();" targets="luu_thanhcong"  ><b>Mở chốt</b></sj:a>
+                                        </td>    
+                                  </s:if>
+                                  <s:elseif test="MA.equalsIgnoreCase('XD00001')&& !D18.equalsIgnoreCase('1')">
+                                        <td style="text-align: center;">
+                                       <s:url id="lockId" value="Lock_Unlock.action" escapeAmp="false">
+                                                <s:param name="commune_cd" value="D1"/>
+                                                <s:param name="lock_unlock" value="1"/>
+                                                <s:param name="dotBc" value="dotBc"/>
+                                            </s:url>
+                                            <sj:a href="%{lockId}" onclick="js_confirmdelete();" targets="luu_thanhcong"><b>Chốt</b></sj:a>
+                                            </td>
+                                  </s:elseif>      
+                                  <s:else>
+                                      <td></td>
+                                  </s:else>          -->
                         </tr>                                                                                                       
                     </s:iterator>
-                </table>                    
+                </table>   
+                
+                <br>
+                <div id="divTitle">
+                    TỔNG HỢP NHU CẦU VAY VỐN TÍN DỤNG THEO PGD - TỔNG CẢ PGD
+                    <br>                     
+                </div>
+                
+                <br>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class="TD_STT">STT</th>
+                            <th rowspan="2" class="TD_CHITIEU">CHỈ TIÊU</th>
+                            <!--<th rowspan="3" class="TD_GIATRI">Thực hiện đến 31/12/<s:property value="namBc_pre"/></th>-->
+                            <!--<th rowspan="1" class="TD_GIATRI">Ước thực hiện đến 31/12/<s:property value="namBc"/></th>-->
+                            <th rowspan="1" >Kế hoạch tín dụng năm <s:property value="namBc"/></th>
+                            
+                        </tr>
+                        
+                        <tr>
+                            <th rowspan="1" class="TD_GIATRI">Tổng số</th>
+                            <!--<th colspan="2" class="TD_GIATRI">Tăng, giảm so với 31/12/<s:property value="namBc_pre"/></th>-->
+                        </tr><!--
+                        <tr>
+                            <th class="TD_GIATRI">Số tuyệt đối (+/-)</th>
+                            <th class="TD_GIATRI">Số tương đối (%)</th>
+                        </tr>-->
+                        <tr class="sttCol">
+                            <td>1</td>
+                            <td>2</td>
+                            <!--<td>3</td>-->
+                            <!--<td>4</td>-->
+                            <td>5</td>
+                            <!--<td>6</td>-->
+                            <!--<td>7</td>-->
+                        </tr>
+                    </thead>                                  
+                    <s:iterator value="#attr.lstDulieuNt2" var="modelView" status="rowstatus">                                                    
+                        <tr> 
+                            <td style="text-align:center"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="THUTU"/>
+                                </td>
+                                
+                            <td style="text-align:left"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="TEN"/>
+                                </td>
+                                
+<!--                            <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="D13"/>
+                                </td>-->
+
+                    
+                             <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
+                                    <s:property value="D15"/>
+                                </td>
+                          
+                                </td>
+
+                        </tr>                                                                                                       
+                    </s:iterator>
+                </table> 
+               </div>
         </s:form>
-        <div id="luu_thanhcong"></div>
-<!--        <script>
-            initTable();
-        </script>-->
     </body>
     
     
