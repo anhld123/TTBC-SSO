@@ -246,6 +246,46 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             return ERROR;
         }
     }
+//    Xuất xls các chỉ tiêu thuyết minh mẫu 01
+    public String ExpExcelKhnv01New() {
+        try {
+            getInfo();
+            request = ServletActionContext.getRequest();
+            String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
+            ExcelExport excelExport = new ExcelExport();
+            List<String> lstCommune = new ArrayList<>();
+                  
+            
+            List<POSModel> lstCommuneFull = new ArrayList<>();
+            lstCommuneFull = daoXdkh.getCommuneListAll(pos_cd_username);
+            
+            if (!commune_cd.equals("000000")) {
+                lstCommune.add(commune_cd);
+            } else {
+                for (POSModel communecd : lstCommuneFull) {
+                    lstCommune.add(communecd.getId());
+                }
+            }
+            
+//            String communeName = "";
+//            for(int i = 0; i < lstCommuneFull.size(); i++) {
+//                if (lstCommuneFull.get(i).getId().equals(commune_cd)) {
+//                    communeName = lstCommuneFull.get(i).getDesc();
+//                    break;                    
+//                }
+//            }
+            
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01(pos_cd_username, lstCommune , new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
+            fileNamelocal = fileInfo.fileName;
+            filereport = fileInfo.filePath;
+            return SUCCESS;
+        } catch (Exception ex) {
+            CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv01a " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " Loi ExpExcelKhnv01a " + ex.getMessage());
+            return ERROR;
+        }
+    }
+    
     
     public String ExpExcelKhnv02() {
         try {

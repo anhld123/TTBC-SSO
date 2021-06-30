@@ -89,6 +89,11 @@
             <result name="error">/khnv2021/error.jsp</result>        
         </action>
         
+        <action name="ExpExcelKhnv01New" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="ExpExcelKhnv01New">
+            <result name="success">/khnv2021/downfile_excel.jsp</result>  
+            <result name="error">/khnv2021/error.jsp</result>        
+        </action>
+        
         <action name="khnv/dk/ExpExcelKhnv02" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="ExpExcelKhnv02">
             <result name="success">/khnv2021/downfile_excel.jsp</result>  
             <result name="error">/khnv2021/error.jsp</result>        
