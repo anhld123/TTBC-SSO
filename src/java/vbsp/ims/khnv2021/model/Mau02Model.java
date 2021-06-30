@@ -25,6 +25,11 @@ public class Mau02Model {
     public double d4;
     public double d5;
     public double d6;
+    public int printType;
+    public int totalFlag;
+    public int editFlag;
+    public int level;
+    public String levelCode;
 
 //    public Mau01AModel() {}
 
@@ -150,6 +155,46 @@ public class Mau02Model {
 
     public void setD6(double d6) {
         this.d6 = d6;
+    }
+
+    public int getPrintType() {
+        return printType;
+    }
+
+    public void setPrintType(int printType) {
+        this.printType = printType;
+    }
+
+    public int getTotalFlag() {
+        return totalFlag;
+    }
+
+    public void setTotalFlag(int totalFlag) {
+        this.totalFlag = totalFlag;
+    }
+
+    public int getEditFlag() {
+        return editFlag;
+    }
+
+    public void setEditFlag(int editFlag) {
+        this.editFlag = editFlag;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public String getLevelCode() {
+        return levelCode;
+    }
+
+    public void setLevelCode(String levelCode) {
+        this.levelCode = levelCode;
     }
     
     

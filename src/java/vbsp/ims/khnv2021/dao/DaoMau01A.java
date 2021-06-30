@@ -58,6 +58,11 @@ public class DaoMau01A {
                     item.orderDisplay = cursor.getString("TT_HIENTHI");
                     item.code = cursor.getString("MACHITIEU");
                     item.name = cursor.getString("TENCHITIEU");
+                    item.editFlag = cursor.getInt("THUCONG");
+                    item.level = cursor.getInt("CAPCT");
+                    item.levelCode = cursor.getString("CAPCT_MA");
+                    item.printType = cursor.getInt("KIEUIN");
+                    item.totalFlag = cursor.getInt("CONGCAP");                    
                     item.d1 = Double.parseDouble(getNumberValueString(cursor.getString("D1")));
                     item.d2 = Double.parseDouble(getNumberValueString(cursor.getString("D2")));
                     item.d3 = Double.parseDouble(getNumberValueString(cursor.getString("D3")));
