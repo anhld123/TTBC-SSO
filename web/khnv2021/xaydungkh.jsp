@@ -202,7 +202,7 @@
 <!--                <input type="button" id="cmdGui" name="cmdGui" value="Xuất xls mẫu 01a" class="cmd">-->
                 &nbsp;&nbsp;|&nbsp;&nbsp;      
                 <!--<input type="button" id="cmdGui" name="cmdGui" value="Xuất xls mẫu 01" class="cmd">&nbsp;-->
-                <s:url id="idExpEcelKhnv01New" action="ExpExcelKhnv01New.action"></s:url>                                      
+                <s:url id="idExpEcelKhnv01New" action="khnv/dk/ExpExcelKhnv01New.action"></s:url>                                      
                 <sj:submit id="idExpEcelKhnvtmp01new" name="nameSendnew" href="%{idExpEcelKhnv01New}" value="Xuất xls mẫu 01" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
