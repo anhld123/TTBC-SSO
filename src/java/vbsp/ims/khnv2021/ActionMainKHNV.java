@@ -64,6 +64,7 @@ public class ActionMainKHNV extends ActionSupport{
     protected List<ListValue> lstDotBC = new ArrayList<>();
     protected List<ListValue> lstTongHop = new ArrayList<>();
     protected String namBc_pre;
+    protected String namBc_2pre;
     protected String reasonReject;
     
     
@@ -165,6 +166,15 @@ public class ActionMainKHNV extends ActionSupport{
     }
 
     //<editor-fold defaultstate="collapsed" desc="get set du lieu">
+
+    public String getNamBc_2pre() {
+        return namBc_2pre;
+    }
+
+    public void setNamBc_2pre(String namBc_2pre) {
+        this.namBc_2pre = namBc_2pre;
+    }
+    
 
     public List<QT_DULIEU_NT> getLstDulieuNt2() {
         return lstDulieuNt2;

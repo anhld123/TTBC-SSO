@@ -60,7 +60,10 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             HashMap hmParameter = getParameter();
 //            setDotBc(hmParameter.get("dotBc").toString());
             int yearPre = Integer.parseInt(namBc)  -1;
+            int year2Pre = Integer.parseInt(namBc)  -2;
             namBc_pre = String.valueOf(yearPre);
+            namBc_2pre = String.valueOf(year2Pre);
+            
             getInfo();
 //            setDotBc(dotBc);
 //            setNamBc(namBc);
