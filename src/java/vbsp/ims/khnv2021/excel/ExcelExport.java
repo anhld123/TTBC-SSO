@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -263,13 +264,13 @@ public class ExcelExport {
                         if (xssfRow == null) {
                             xssfRow = sheet.createRow(i + ReportTemplate.MAU_01A_START_ROW);
                         }
-XSSFFont font = xssfWorkbook.createFont();
+                        XSSFFont font = xssfWorkbook.createFont();
                         if (lstData.get(i).printType == ReportTemplate.LEVEL_MAIN) {
-                            
+
                             font.setFontName("Times New Roman");
                             font.setFontHeightInPoints((short) 11);
                             font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);
-                        } else {                            
+                        } else {
                             font.setFontName("Times New Roman");
                             font.setFontHeightInPoints((short) 11);
                         }
@@ -280,7 +281,6 @@ XSSFFont font = xssfWorkbook.createFont();
                         orderStyle.setAlignment(HorizontalAlignment.LEFT);
                         orderStyle.setFont(font);
                         orderStyle.setLocked(true);
-                        
 
                         xssfCell00.setCellStyle(orderStyle);
                         xssfCell00.setCellValue(lstData.get(i).order);
@@ -294,7 +294,6 @@ XSSFFont font = xssfWorkbook.createFont();
                         codeStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
                         codeStyle.setAlignment(HorizontalAlignment.CENTER);
 
-                        
                         xssfCell01.setCellStyle(codeStyle);
                         xssfCell01.setCellValue(lstData.get(i).code);
 
@@ -305,7 +304,7 @@ XSSFFont font = xssfWorkbook.createFont();
                         nameStyle.setLocked(true);
                         nameStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
                         nameStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                        
+
                         xssfCell02.setCellStyle(nameStyle);
                         xssfCell02.setCellValue(lstData.get(i).name);
 
@@ -314,7 +313,7 @@ XSSFFont font = xssfWorkbook.createFont();
                         numberStyle.setDataFormat(format.getFormat("#,##0.00"));
                         numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                         numberStyle.setFont(font);
-                        numberStyle.setLocked(false);                        
+                        numberStyle.setLocked(false);
                         xssfCell03.setCellStyle(numberStyle);
                         xssfCell03.setCellValue(lstData.get(i).d2);
 
@@ -325,7 +324,7 @@ XSSFFont font = xssfWorkbook.createFont();
                         lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
                         lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
                         lockStyle.setFont(font);
-                        lockStyle.setLocked(true);                        
+                        lockStyle.setLocked(true);
                         xssfCell04.setCellStyle(lockStyle);
 
                         XSSFCell xssfCell06 = xssfRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
@@ -335,10 +334,13 @@ XSSFFont font = xssfWorkbook.createFont();
                         lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
                         lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
                         lockStyle.setFont(font);
-                        lockStyle.setLocked(true);                        
+                        lockStyle.setLocked(true);
                         xssfCell06.setCellStyle(lockStyle);
 
                     }
+
+                    FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
+                    formulaEvaluator.evaluateAll();
 
                     sheet.protectSheet("123456");
                     java.io.FileOutputStream out = new java.io.FileOutputStream(fileName);
@@ -732,7 +734,7 @@ XSSFFont font = xssfWorkbook.createFont();
                     numberStyle = xssfCell06.getCellStyle();
                     numberStyle.setDataFormat(format.getFormat("#,##0.00"));
                     numberStyle.setAlignment(HorizontalAlignment.RIGHT);
-                    numberStyle.setLocked(false);                    
+                    numberStyle.setLocked(false);
                     xssfCell06.setCellStyle(numberStyle);
                     xssfCell06.setCellValue(lstData.get(i).d4);
 
@@ -747,6 +749,8 @@ XSSFFont font = xssfWorkbook.createFont();
 
                 }
 
+                FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
+                formulaEvaluator.evaluateAll();
                 sheet.protectSheet("123456");
                 java.io.FileOutputStream out = new java.io.FileOutputStream(fileName);
                 xssfWorkbook.write(out);
