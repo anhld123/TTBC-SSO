@@ -70,36 +70,18 @@
             border: 1px solid #c2c2c2;
             border-radius: 2px;
         }
-        
-        .CLS-BOLD{
-                font-weight: bold;
-            }
 
+        .CLS-BOLD{
+            font-weight: bold;
+        }
+        iframe:focus {
+            outline: none;
+        }
+        iframe{
+            border:none
+        }
     </style>
     <SCRIPT language="javascript">
-//            $(document).ready(function () {
-//                
-//                 $('#idExpEcelKhnv01').click(function () {
-//                     alert(;)
-//                     
-//                     $('#divKhDetail').empty();
-//                 };
-////                //Khi thay doi
-////                $('#namBc').change(function () {
-////                    $("#loadKhDetail").trigger("click");
-////                    //Set gia tri co input khi thay doi nam
-////                    $('#label').removeAttr('readonly').val("Xây dựng kế hoạch tín dụng năm " + $('#namBc').val());
-////                    $('#label').attr('readonly', true);
-////                });
-////
-////                $('#pos_cd').change(function () {
-////                    $("#loadKhDetail").trigger("click");
-////                    //Set gia tri co input khi thay doi nam
-//////                    $('#label').removeAttr('readonly').val("Xây dựng kế hoạch tín dụng năm " + $('#namBc').val());
-//////                    $('#label').attr('readonly', true);
-////                });
-//            }
-//                )
         $.subscribe("beforediv_send", function (event, data) {
             $('#loadingImage_next').slideDown("slow");
             $('#loadingImage_next').empty();
@@ -118,29 +100,29 @@
             var commune_cd = $("#commune_cd").val();
 
         }
-        
-        function callDirectLink(link) {
-        var ht = screen.availHeight / 5 + 35;
-        var wt = screen.availWidth / 5 + 20;
 
-        var resize = window.open(link
-                + "random=" + Math.random(),
-                "IMS_REPORTS_FRM2", "height=" + ht + ",width=" + wt
-                + ",left=0,top=0,directories=no,status=no,menubar=no,\n\
+        function callDirectLink(link) {
+            var ht = screen.availHeight / 5 + 35;
+            var wt = screen.availWidth / 5 + 20;
+
+            var resize = window.open(link
+                    + "random=" + Math.random(),
+                    "IMS_REPORTS_FRM2", "height=" + ht + ",width=" + wt
+                    + ",left=0,top=0,directories=no,status=no,menubar=no,\n\
         personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
 
-        if (navigator.userAgent.indexOf('Chrome') !== -1
-                && parseFloat(
-                        navigator.userAgent.substring(
-                                navigator.userAgent.indexOf('Chrome') + 7
-                                ).split(' ')[0]) >= 15) {
-            resize.resizeBy(wt, ht);
-        } else {
-            resize.resizeTo(wt, ht);
+            if (navigator.userAgent.indexOf('Chrome') !== -1
+                    && parseFloat(
+                            navigator.userAgent.substring(
+                                    navigator.userAgent.indexOf('Chrome') + 7
+                                    ).split(' ')[0]) >= 15) {
+                resize.resizeBy(wt, ht);
+            } else {
+                resize.resizeTo(wt, ht);
+            }
+            resize.moveTo(wt, ht);
+            resize.focus();
         }
-        resize.moveTo(wt, ht);
-        resize.focus();
-    }
     </SCRIPT>
 </head>
 <body>
@@ -190,23 +172,22 @@
                 <sj:submit id="idloadDataKhnvtmp2" name="nameSend2" href="%{idSendCNKhnv}" value="Gửi chi nhánh" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
+                <input type="button" name="cmdPrint" id="cmdPrint" value="In bao cáo" class="cmd">
             </div>
             <hr/>
             <div>
-                
+
                 <s:url id="idExpEcelKhnv01a" action="khnv/dk/ExpExcelKhnv01a"></s:url>                                      
                 <sj:submit id="idExpEcelKhnvtmp01a" name="nameSend01a" href="%{idExpEcelKhnv01a}" value="Xuất xls mẫu 01a" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
-                
-<!--                <input type="button" id="cmdGui" name="cmdGui" value="Xuất xls mẫu 01a" class="cmd">-->
+
                 &nbsp;&nbsp;|&nbsp;&nbsp;      
-                <!--<input type="button" id="cmdGui" name="cmdGui" value="Xuất xls mẫu 01" class="cmd">&nbsp;-->
                 <s:url id="idExpEcelKhnv01New" action="khnv/dk/ExpExcelKhnv01New.action"></s:url>                                      
                 <sj:submit id="idExpEcelKhnvtmp01new" name="nameSendnew" href="%{idExpEcelKhnv01New}" value="Xuất xls mẫu 01" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
-                
+
                 <s:url id="idExpEcelKhnv01" action="ExpExcelKhnv01.action"></s:url>                                      
                 <sj:submit id="idExpEcelKhnvtmp01" name="nameSend" href="%{idExpEcelKhnv01}" value="   In mẫu 01   " targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
@@ -217,45 +198,26 @@
                 <sj:submit id="idExpEcelKhnvtmp02" name="nameSend02" href="%{idExpEcelKhnv02}" value="Xuất xls mẫu 02" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>&nbsp;
-                
+
                 &nbsp;&nbsp;|&nbsp;&nbsp;
                 <sj:a class="cmd" href="#" onclick="callDirectLink('khvn_open_upload?');" cssClass="metroButtonStyle">
-            <b> <u>Upload Excel</u>  </b> </sj:a>                        
+                    <b> <u>Upload Excel</u>  </b> </sj:a>                        
+                </div>
+                <hr/>
             </div>
-            <hr/>
-        </div>
-        <div class="cls-over">
-            <img id="loadingImage_next" src="img/loading.gif" style="display:none"/>
-            <div id="divKhDetail"></div>
-        </div>
+            <div class="cls-over">
+                <img id="loadingImage_next" src="img/loading.gif" style="display:none"/>
+                <div id="divKhDetail">
+                </div>
+            </div>
     </s:form>
-<!--    <script src="js/jquery-1.4.2.min.js" type="text/javascript"></script>-->
-<!--    <script>
+    <script>
         $(document).ready(function () {
-            $('#commune_cd').change(function () {
-                var surl, sdata, idView, idMess, idForm, method;
-                surl = "SendAction.action";
-                idForm = "#id_khnv2021";
-                method = "POST";
-                sdata = jQuery(idForm).serialize();
-                alert(sdata);
-                $.ajax({
-                    url: surl,
-                    data: sdata,
-                    type: method,
-                    async: true,
-                    beforeSend: function () {
-                        $(idMess).html('<img src="imgs/newloading.gif" class="ViewMess"/>');
-                    },
-                    success: function (result) {
-                       alert('Abc');
-                    },
-                    error: function (result) {
-                        alert('Lỗi khi thực hiện.');
-                    }
-                });
+            $("#ifPrint").hide();
+            $("#cmdPrint").click(function () {
+                $("#divKhDetail").html('<iframe id="ifPrint" src="/IMS_REPORTS/Menu_redirect.action?menuUrl=include_rptmanaget&menuId=179" width="100%" height="100%" ></iframe>');
             });
         });
-    </script>-->
+    </script>
 </body>
 </html>
