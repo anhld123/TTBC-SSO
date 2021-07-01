@@ -100,7 +100,7 @@
         outline: none;
     }
     .cls {
-        background-color: lightgoldenrodyellow;
+        background-color: orange;
     }
 </style>
 
@@ -113,7 +113,7 @@
         <tr>
             <th rowspan="3">STT</th>
             <th rowspan="3">CHỈ TIÊU</th>
-            <th rowspan="3">Thực hiện đến <span id="lbNamTH"></span></th>
+            <th rowspan="3">Thực hiện đến 31/12/<span id="lbNamTH"></span></th>
             <th rowspan="3">Ước thực hiện đến 31/12/<span id="lbNamUoc"></span></th>
             <th colspan="3">Kế hoạch tín dụng năm <span id="lbNamTD"></span></th>
         </tr>
@@ -128,14 +128,14 @@
     </thead>
     <tbody>
         <s:iterator value="lstData" status="idxRows">
-            <tr class="<s:property value='D50'/>">
+            <tr class="cls<s:property value='D48'/> <s:property value='D50'/>">
                 <td><s:property value='TT_HIENTHI'/></td>
                 <td style="text-align: left; padding-left: 3px;"><s:property value='TEN'/></td>
-                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D13" name="lstData[<s:property  value='%{#idxRows.index}' />].D13" value="<s:property value='D13'/>" <s:property value='D48'/>/></td>
-                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D14" name="lstData[<s:property  value='%{#idxRows.index}' />].D14" value="<s:property value='D14'/>" <s:property value='D48'/>/></td>
-                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D15" name="lstData[<s:property  value='%{#idxRows.index}' />].D15" value="<s:property value='D15'/>" <s:property value='D48'/>/></td>
-                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D16" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" <s:property value='D48'/>/></td>
-                <td style="text-align: right; padding-right: 3px;" class="cls<s:property value='D48'/>"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D17" name="lstData[<s:property  value='%{#idxRows.index}' />].D17" value="<s:property value='D17'/>" <s:property value='D48'/>/></td>
+                <td style="text-align: right; padding-right: 3px;"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D13" name="lstData[<s:property  value='%{#idxRows.index}' />].D13" value="<s:property value='D13'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
+                <td style="text-align: right; padding-right: 3px;"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D14" name="lstData[<s:property  value='%{#idxRows.index}' />].D14" value="<s:property value='D14'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
+                <td style="text-align: right; padding-right: 3px;"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D15" name="lstData[<s:property  value='%{#idxRows.index}' />].D15" value="<s:property value='D15'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
+                <td style="text-align: right; padding-right: 3px;"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D16" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
+                <td style="text-align: right; padding-right: 3px;"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D17" name="lstData[<s:property  value='%{#idxRows.index}' />].D17" value="<s:property value='D17'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
                 <!--Những trường dữ liệu cần lấy-->
                 <td style="display: none;"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].TT_HIENTHI" name="lstData[<s:property  value='%{#idxRows.index}' />].TT_HIENTHI" value="<s:property value='TT_HIENTHI'/>" readonly/></td>
                 <td style="display: none;"><input type="text" id="lstData[<s:property  value="%{#idxRows.index}" />].MA" name="lstData[<s:property  value="%{#idxRows.index}" />].MA" value="<s:property value='MA'/>" name="MA" readonly="readonly"/></td>
@@ -161,10 +161,26 @@
         var strText = "KẾ HOẠCH TÍN DỤNG " + $("#cboNam option:selected").text() + " - " + $("#cboDot option:selected").text() + " - Đơn vị: " + varDonvi;
         $("#strHeader").html(strText);
         //Xử lý phần tiêu đề
-        $("#lbNamTH").html($("#ngaybc").text());
+        $("#lbNamTH").html($("#cboNam option:selected").val() - 2);
         $("#strNguyennhan").html($("#nguyennhan").text());
-        $("#lbNamUoc").html($("#cboNam option:selected").val());
-        $("#lbNamTD").html(parseInt($("#cboNam option:selected").val()) + 1);
-        $("#lbTangGiam").html($("#cboNam option:selected").val());
+        $("#lbNamUoc").html($("#cboNam option:selected").val() - 1);
+        $("#lbNamTD").html(parseInt($("#cboNam option:selected").val()));
+        $("#lbTangGiam").html($("#cboNam option:selected").val() - 1);
+
+
     });
+//Hàm xử lý tính toán cho 2 chỉ tiêu nguông kế hoạch B
+    function autoPlus(idx) {
+        var D13, D14, D15, D16, D17, indi;
+        indi = document.getElementById("lstData[" + idx + "].MA").value;
+        if (["XD00110", "XD00111"].includes(indi)) {
+            D13 = document.getElementById("lstData[" + idx + "].D13").value;
+            D14 = document.getElementById("lstData[" + idx + "].D14").value;
+            D16 = document.getElementById("lstData[" + idx + "].D16").value;
+            D15 = parseFloat(D14) + parseFloat(D16);
+            document.getElementById("lstData[" + idx + "].D15").value = D15;
+            D17 = (D16 / D13) * 100;
+            document.getElementById("lstData[" + idx + "].D17").value = D17;
+        }
+    }
 </script>
