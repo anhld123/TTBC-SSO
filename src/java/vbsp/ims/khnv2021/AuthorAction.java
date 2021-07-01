@@ -64,7 +64,7 @@ public class AuthorAction extends ActionSupport {
                 case "0":
                     //Nhớ truyền đủ 7 tham số
                     lstData = new AuthorModel().getData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
-                    if(cboTonghop.equals("S") && CapBC.equals("3") && (lstData != null && !lstData.isEmpty())) //quyennv - tong hop gui nhan
+                    if(cboTonghop.equals("S") && (CapBC.equals("3") || CapBC.equals("2")) && (lstData != null && !lstData.isEmpty())) //quyennv - tong hop gui nhan
                     {
                         chkSuccess = "resultSend";
                         pageResult = new StringBufferInputStream("00");
@@ -114,7 +114,7 @@ public class AuthorAction extends ActionSupport {
         session = ActionContext.getContext().getSession();
         CapBC = (String) session.get("reportGrade");
         TenDN = (String) session.get("username");
-        lstData = new AuthorModel().getData("3", TenDN, macn_detail, cboNam, cboDot, "N", "");
+        lstData = new AuthorModel().getData(CapBC, TenDN, macn_detail, cboNam, cboDot, "N", "");
         return SUCCESS;
     }
 
