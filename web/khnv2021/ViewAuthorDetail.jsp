@@ -131,11 +131,11 @@
             <tr class="cls<s:property value='D48'/> <s:property value='D50'/>">
                 <td><s:property value='TT_HIENTHI'/></td>
                 <td style="text-align: left; padding-left: 3px;"><s:property value='TEN'/></td>
-                <td style="text-align: right; padding-right: 3px;"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D13" name="lstData[<s:property  value='%{#idxRows.index}' />].D13" value="<s:property value='D13'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
-                <td style="text-align: right; padding-right: 3px;"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D14" name="lstData[<s:property  value='%{#idxRows.index}' />].D14" value="<s:property value='D14'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
-                <td style="text-align: right; padding-right: 3px;"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D15" name="lstData[<s:property  value='%{#idxRows.index}' />].D15" value="<s:property value='D15'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
-                <td style="text-align: right; padding-right: 3px;"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D16" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
-                <td style="text-align: right; padding-right: 3px;"><input type="text" class="item number2" id="lstData[<s:property  value='%{#idxRows.index}' />].D17" name="lstData[<s:property  value='%{#idxRows.index}' />].D17" value="<s:property value='D17'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
+                <td style="text-align: right; padding-right: 3px;"><input type="text" class="<s:property value='D50'/> item number" style="width: 120px;" id="lstData[<s:property  value='%{#idxRows.index}' />].D13" name="lstData[<s:property  value='%{#idxRows.index}' />].D13" value="<s:property value='D13'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
+                <td style="text-align: right; padding-right: 3px;"><input type="text" class="<s:property value='D50'/> item number" style="width: 120px;" id="lstData[<s:property  value='%{#idxRows.index}' />].D14" name="lstData[<s:property  value='%{#idxRows.index}' />].D14" value="<s:property value='D14'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
+                <td style="text-align: right; padding-right: 3px;"><input type="text" class="<s:property value='D50'/> item number" style="width: 120px;" id="lstData[<s:property  value='%{#idxRows.index}' />].D15" name="lstData[<s:property  value='%{#idxRows.index}' />].D15" value="<s:property value='D15'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
+                <td style="text-align: right; padding-right: 3px;"><input type="text" class="<s:property value='D50'/> item number" style="width: 120px;" id="lstData[<s:property  value='%{#idxRows.index}' />].D16" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
+                <td style="text-align: right; padding-right: 3px;"><input type="text" class="<s:property value='D50'/> item number2" style="width: 120px;" id="lstData[<s:property  value='%{#idxRows.index}' />].D17" name="lstData[<s:property  value='%{#idxRows.index}' />].D17" value="<s:property value='D17'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
                 <!--Những trường dữ liệu cần lấy-->
                 <td style="display: none;"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].TT_HIENTHI" name="lstData[<s:property  value='%{#idxRows.index}' />].TT_HIENTHI" value="<s:property value='TT_HIENTHI'/>" readonly/></td>
                 <td style="display: none;"><input type="text" id="lstData[<s:property  value="%{#idxRows.index}" />].MA" name="lstData[<s:property  value="%{#idxRows.index}" />].MA" value="<s:property value='MA'/>" name="MA" readonly="readonly"/></td>
@@ -172,16 +172,31 @@
     });
 //Hàm xử lý tính toán cho 2 chỉ tiêu nguông kế hoạch B
     function autoPlus(idx) {
+        var D139, D149, D159, D169, D179;
         var D13, D14, D15, D16, D17, indi;
         indi = document.getElementById("lstData[" + idx + "].MA").value;
         if (["XD00110", "XD00111"].includes(indi)) {
-            D13 = document.getElementById("lstData[" + idx + "].D13").value;
-            D14 = document.getElementById("lstData[" + idx + "].D14").value;
-            D16 = document.getElementById("lstData[" + idx + "].D16").value;
+            D13 = document.getElementById("lstData[" + idx + "].D13").value.replace(',','');
+            D14 = document.getElementById("lstData[" + idx + "].D14").value.replace(',','');
+            D16 = document.getElementById("lstData[" + idx + "].D16").value.replace(',','');
             D15 = parseFloat(D14) + parseFloat(D16);
             document.getElementById("lstData[" + idx + "].D15").value = D15;
             D17 = (D16 / D14) * 100;
             document.getElementById("lstData[" + idx + "].D17").value = D17;
         }
+        if (["XD00110", "XD00111"].includes(indi)) {
+            D139 = parseFloat(document.getElementById("lstData[10].D13").value.replace(',','')) + parseFloat(document.getElementById("lstData[11].D13").value.replace(',',''));
+            D149 = parseFloat(document.getElementById("lstData[10].D14").value.replace(',','')) + parseFloat(document.getElementById("lstData[11].D14").value.replace(',',''));
+            D169 = parseFloat(document.getElementById("lstData[10].D16").value.replace(',','')) + parseFloat(document.getElementById("lstData[11].D16").value.replace(',',''));
+            D159 = D149 + D169;
+            D179 = (D169 / D149) * 100;
+            document.getElementById("lstData[9].D13").value = D139;
+            document.getElementById("lstData[9].D14").value = D149;
+            document.getElementById("lstData[9].D15").value = D159;
+            document.getElementById("lstData[9].D16").value = D169;
+            document.getElementById("lstData[9].D17").value = D179;
+        }
+        $('.item.number').number(true, 0);
+        $('.item.number2').number(true, 2);
     }
 </script>
