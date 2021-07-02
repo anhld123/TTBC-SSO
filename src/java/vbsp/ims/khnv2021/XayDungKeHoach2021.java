@@ -21,11 +21,13 @@ import vbsp.ims.model.khnv.POSModel;
 public class XayDungKeHoach2021 extends ActionMainKHNV {
 
     private XDKHDao2021 daoXdkh = new XDKHDao2021();
-
-
-    public XayDungKeHoach2021() {}
-
     
+    private List<POSModel> custCommuneList = new ArrayList<>();
+    private List<POSModel> custSubCommuneList = new ArrayList<>();
+
+    public XayDungKeHoach2021() {
+    }
+
     public String execute() throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -35,9 +37,8 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
         try {
             namBc = getDefaultYearReport();
             getInfo();
-            namBc =  String.valueOf(Integer.parseInt(namSau))  ;
-            if(!reportGrade.equals("1"))
-            {
+            namBc = String.valueOf(Integer.parseInt(namSau));
+            if (!reportGrade.equals("1")) {
                 addActionError("Chức năng này chỉ thực hiện cho cấp PGD");
                 return ERROR;
             }
@@ -59,11 +60,11 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
         try {
             HashMap hmParameter = getParameter();
 //            setDotBc(hmParameter.get("dotBc").toString());
-            int yearPre = Integer.parseInt(namBc)  -1;
-            int year2Pre = Integer.parseInt(namBc)  -2;
+            int yearPre = Integer.parseInt(namBc) - 1;
+            int year2Pre = Integer.parseInt(namBc) - 2;
             namBc_pre = String.valueOf(yearPre);
             namBc_2pre = String.valueOf(year2Pre);
-            
+
             getInfo();
 //            setDotBc(dotBc);
 //            setNamBc(namBc);
@@ -90,7 +91,6 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
                 return "loadAllCommuneAuth";
             }
 
-
         } catch (Exception ex) {
             CoreLogger.error(this.getClass().getName() + " get_data_xaydungkh " + ex.getMessage());
             System.err.println(this.getClass().getName() + " loi getDataXayDungKhDetail " + ex.getMessage());
@@ -98,13 +98,12 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
 
         return SUCCESS;
     }
-    
+
     public String guiChinhanh() {
         try {
             getInfo();
-            String message = daoXdkh.getCheckInputPGD(maBc, namBc, dotBc, pos_cd_username, reportGrade,userId);
-            if(!message.endsWith("AAA"))
-            {
+            String message = daoXdkh.getCheckInputPGD(maBc, namBc, dotBc, pos_cd_username, reportGrade, userId);
+            if (!message.endsWith("AAA")) {
                 addActionError("Bạn chưa nhập số liệu mẫu 02 tại pgd!");
                 return ERROR;
             }
@@ -117,44 +116,47 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             return ERROR;
         }
     }
-    
+
     public String getSubcommune() {
         try {
-            commune_cd = request.getParameter("commune_cd");
-            setSubCommuneList(daoXdkh.getSubCommuneList(pos_cd_username, commune_cd, reportGrade));
+//            commune_cd = request.getParameter("commune_cd");
+//            setSubCommuneList(daoXdkh.getSubCommuneList(pos_cd_username, commune_cd, reportGrade));
+            getInfo();
+            custCommuneList = daoXdkh.getPosList(pos_cd_username, maCn, reportGrade);
+            if (commune_cd.isEmpty()) {
+            custSubCommuneList = daoXdkh.getSubCommuneList(pos_cd_username, "", reportGrade);
+            } else {
+                custSubCommuneList = daoXdkh.getSubCommuneList(pos_cd_username, commune_cd, reportGrade);
+            }
         } catch (Exception e) {
             System.err.println(e.getMessage());
             CoreLogger.error(this.getClass().getCanonicalName() + " getSubcommune -> " + e.getMessage());
         }
-        return SUCCESS;
+        return "success";
     }
 
-    
     public String Lock_Unlock() {
         try {
             getInfo();
             HashMap hmParameter = getParameter();
 //            String a =hmParameter.get("lock_unlock").toString();
-            if(daoXdkh.setLockUnlockCommune(commune_cd, namBc, dotBc, lock_unlock, userId, reportGrade))
-            {
+            if (daoXdkh.setLockUnlockCommune(commune_cd, namBc, dotBc, lock_unlock, userId, reportGrade)) {
                 addActionMessage("Bạn đã chốt/mở chốt thành công");
                 return SUCCESS;
-            }
-            else
-            {
+            } else {
                 addActionError("Bạn đã chốt/mở chốt thất bại. Vui lòng liên hệ với quản trị");
                 return ERROR;
             }
-            } catch (Exception ex) {
+        } catch (Exception ex) {
             CoreLogger.error(this.getClass().getName() + " Lock_Unlock " + ex.getMessage());
             System.err.println(this.getClass().getName() + " loi Lock_Unlock " + ex.getMessage());
             addActionError("Bạn đã chốt/mở chốt thất bại. Vui lòng liên hệ với quản trị");
-                return ERROR;
+            return ERROR;
         }
-        
+
 //            return SUCCESS;
-        }
-    
+    }
+
     public String getDataXayCommuneDetai() {
         try {
 
@@ -170,7 +172,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
         }
 
     }
-    
+
     public String getDataXaySubCommuneDetai() {
         try {
 
@@ -209,7 +211,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             return ERROR;
         }
     }
-    
+
     public String ExpExcelKhnv01a() {
         try {
             getInfo();
@@ -217,29 +219,29 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
             ExcelExport excelExport = new ExcelExport();
             List<String> lstSubCommune = new ArrayList<>();
-            
+
             if (commune_cd.equals("000000")) {
                 addActionError("Bạn chưa chọn xã/phường");
                 return ERROR;
             }
-            
+
             List<POSModel> lstCommuneFull = new ArrayList<>();
             lstCommuneFull = daoXdkh.getCommuneListAll(pos_cd_username);
-            
+
             if (!subcommune_cd.equals("000000")) {
                 lstSubCommune.add(subcommune_cd);
             } else {
                 lstSubCommune = daoXdkh.getAllSubCommune(pos_cd_username, commune_cd);
             }
-            
+
             String communeName = "";
-            for(int i = 0; i < lstCommuneFull.size(); i++) {
+            for (int i = 0; i < lstCommuneFull.size(); i++) {
                 if (lstCommuneFull.get(i).getId().equals(commune_cd)) {
                     communeName = lstCommuneFull.get(i).getDesc();
-                    break;                    
+                    break;
                 }
             }
-            
+
             FileExportInfo fileInfo = excelExport.xuatExcelMau01a(pos_cd_username, commune_cd, communeName, lstSubCommune, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
             fileNamelocal = fileInfo.fileName;
             filereport = fileInfo.filePath;
@@ -251,6 +253,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
         }
     }
 //    Xuất xls các chỉ tiêu thuyết minh mẫu 01
+
     public String ExpExcelKhnv01New() {
         try {
             getInfo();
@@ -258,11 +261,10 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
             ExcelExport excelExport = new ExcelExport();
             List<String> lstCommune = new ArrayList<>();
-                  
-            
+
             List<POSModel> lstCommuneFull = new ArrayList<>();
             lstCommuneFull = daoXdkh.getCommuneListAll(pos_cd_username);
-            
+
             if (!commune_cd.equals("000000")) {
                 lstCommune.add(commune_cd);
             } else {
@@ -270,7 +272,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
                     lstCommune.add(communecd.getId());
                 }
             }
-            
+
 //            String communeName = "";
 //            for(int i = 0; i < lstCommuneFull.size(); i++) {
 //                if (lstCommuneFull.get(i).getId().equals(commune_cd)) {
@@ -278,8 +280,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
 //                    break;                    
 //                }
 //            }
-            
-            FileExportInfo fileInfo = excelExport.xuatExcelMau01(pos_cd_username, lstCommune , new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01(pos_cd_username, lstCommune, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
             fileNamelocal = fileInfo.fileName;
             filereport = fileInfo.filePath;
             return SUCCESS;
@@ -289,14 +290,13 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             return ERROR;
         }
     }
-    
-    
+
     public String ExpExcelKhnv02() {
         try {
             getInfo();
             request = ServletActionContext.getRequest();
             String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
-            ExcelExport excelExport = new ExcelExport();             
+            ExcelExport excelExport = new ExcelExport();
             POSModel pos = daoXdkh.getPosByCode(pos_cd_username);
             FileExportInfo fileInfo = excelExport.xuatExcelMau02(pos, "N", new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
             fileNamelocal = fileInfo.fileName;
@@ -422,13 +422,28 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
 //        return "";
 //    }
 //}
-    
-    public String openExcelUpload(){
+    public String openExcelUpload() {
         return SUCCESS;
     }
 //<editor-fold defaultstate="collapsed" desc="Getter Setter">
 
-
+    
+    
 //</editor-fold>    
 
+    public List<POSModel> getCustCommuneList() {
+        return custCommuneList;
+    }
+
+    public void setCustCommuneList(List<POSModel> custCommuneList) {
+        this.custCommuneList = custCommuneList;
+    }
+
+    public List<POSModel> getCustSubCommuneList() {
+        return custSubCommuneList;
+    }
+
+    public void setCustSubCommuneList(List<POSModel> custSubCommuneList) {
+        this.custSubCommuneList = custSubCommuneList;
+    }
 }
