@@ -142,7 +142,7 @@
                             <th rowspan="3" class="TD_STT">STT</th>
                             <th rowspan="3" class="TD_CHITIEU">CHỈ TIÊU</th>
                             <!--<th rowspan="3" class="TD_GIATRI">Thực hiện đến 31/12/<s:property value="namBc_pre"/></th>-->
-                            <th rowspan="3" class="TD_GIATRI">Ước thực hiện đến 31/12/<s:property value="namBc"/></th>
+                            <th rowspan="3" class="TD_GIATRI">Ước thực hiện đến 31/12/<s:property value="namBc_pre"/></th>
                             <th colspan="3" >Kế hoạch tín dụng năm <s:property value="namBc"/></th>
                         </tr>
                         <tr>
