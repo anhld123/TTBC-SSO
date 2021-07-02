@@ -135,7 +135,7 @@
                 <td style="text-align: right; padding-right: 3px;"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D14" name="lstData[<s:property  value='%{#idxRows.index}' />].D14" value="<s:property value='D14'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
                 <td style="text-align: right; padding-right: 3px;"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D15" name="lstData[<s:property  value='%{#idxRows.index}' />].D15" value="<s:property value='D15'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
                 <td style="text-align: right; padding-right: 3px;"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D16" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
-                <td style="text-align: right; padding-right: 3px;"><input type="text" class="item number" id="lstData[<s:property  value='%{#idxRows.index}' />].D17" name="lstData[<s:property  value='%{#idxRows.index}' />].D17" value="<s:property value='D17'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
+                <td style="text-align: right; padding-right: 3px;"><input type="text" class="item number2" id="lstData[<s:property  value='%{#idxRows.index}' />].D17" name="lstData[<s:property  value='%{#idxRows.index}' />].D17" value="<s:property value='D17'/>" <s:property value='D48'/> onblur="autoPlus(<s:property value='%{#idxRows.index}'/>);"/></td>
                 <!--Những trường dữ liệu cần lấy-->
                 <td style="display: none;"><input type="text" class="item" id="lstData[<s:property  value='%{#idxRows.index}' />].TT_HIENTHI" name="lstData[<s:property  value='%{#idxRows.index}' />].TT_HIENTHI" value="<s:property value='TT_HIENTHI'/>" readonly/></td>
                 <td style="display: none;"><input type="text" id="lstData[<s:property  value="%{#idxRows.index}" />].MA" name="lstData[<s:property  value="%{#idxRows.index}" />].MA" value="<s:property value='MA'/>" name="MA" readonly="readonly"/></td>
@@ -151,6 +151,7 @@
 <script>
     $(document).ready(function () {
         $('.item.number').number(true, 0);
+        $('.item.number2').number(true, 2);
         var varDonvi = "";
         varDonvi = $("#cboDonvi").val();
         if (varDonvi.trim() === "all") {
@@ -179,7 +180,7 @@
             D16 = document.getElementById("lstData[" + idx + "].D16").value;
             D15 = parseFloat(D14) + parseFloat(D16);
             document.getElementById("lstData[" + idx + "].D15").value = D15;
-            D17 = (D16 / D13) * 100;
+            D17 = (D16 / D14) * 100;
             document.getElementById("lstData[" + idx + "].D17").value = D17;
         }
     }
