@@ -183,7 +183,7 @@
                                 }
                                 ;
                                 $('#cmdTraLaiDL').hide();
-                                $("#cboNam").val(new Date().getFullYear()).change();
+                                $("#cboNam").val(new Date().getFullYear()+1).change();
 
                                 //Tải dữ liệu
                                 $("#cmdTaiDL").click({status: "0"}, SendData);
