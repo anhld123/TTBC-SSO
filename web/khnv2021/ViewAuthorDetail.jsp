@@ -179,7 +179,7 @@
             D16 = document.getElementById("lstData[" + idx + "].D16").value;
             D15 = parseFloat(D14) + parseFloat(D16);
             document.getElementById("lstData[" + idx + "].D15").value = D15;
-            D17 = (D16 / D13) * 100;
+            D17 = (D16 / D14) * 100;
             document.getElementById("lstData[" + idx + "].D17").value = D17;
         }
     }
