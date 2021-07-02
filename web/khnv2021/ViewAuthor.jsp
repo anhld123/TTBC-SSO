@@ -148,7 +148,6 @@
                     <select id="cboTonghop" name="cboTonghop">
                         <option value="Y">Tổng hợp các đơn vị trực thuộc</option>
                         <option value="N">Duyệt từng đơn vị</option>
-                        <option value="R">Tổng hợp lại từ các đơn vị trực thuộc</option>
                         <option value="W">Phản hồi từ cấp trên</option>
                         <option value="S">Kiểm soát gửi/nhận</option>
                     </select>
@@ -156,10 +155,12 @@
                     <input type="button" value="Tải dữ liệu" id="cmdTaiDL" name="nameTaiDL" class="cmd"/>
                 </div>
                 <hr/>
-                <div><span class="clss-lable">Nguyên nhân</span></div>
-                <div class="clss-body-ngnhan">
-                    <textarea id="strNguyennhan" name="strNguyennhan"><s:property value='strNguyennhan'/></textarea>
-                </div>                
+                <div id="idNguyenNhan">
+                    <div><span class="clss-lable">Nguyên nhân</span></div>
+                    <div class="clss-body-ngnhan">
+                        <textarea id="strNguyennhan" name="strNguyennhan"><s:property value='strNguyennhan'/></textarea>
+                    </div>
+                </div>
                 <div id="idButton" style="padding: 0px 0px 6px 0px; height: 30px; display: inline-flex;">
                     <input type="button" value="Gửi cấp trên" id="cmdGuiDL" name="nameGuiDL" class="cmd"/>
                     <input type="button" value="Trả lại đơn vị" id="cmdTraLaiDL" name="nameTraLaiDL" class="cmd"/>
@@ -178,12 +179,12 @@
                             $(document).ready(function () {
                                 if (('<s:property value="CapBC"/>') == '3') {
                                     $('#cboTonghop option[value="W"]').remove();
-                                    $('#cboTonghop option[value="R"]').remove();
                                     $('#cmdGuiDL').remove();
                                 }
-                                ;
                                 $('#cmdTraLaiDL').hide();
-                                $("#cboNam").val(new Date().getFullYear()+1).change();
+                                $('#idNguyenNhan').hide();
+                                $('#idButton').hide();
+                                $("#cboNam").val(new Date().getFullYear() + 1).change();
 
                                 //Tải dữ liệu
                                 $("#cmdTaiDL").click({status: "0"}, SendData);
@@ -200,12 +201,17 @@
                                         $('#cmdGuiDL').show();
                                         $('#cmdAuthor').hide();
                                         $('#cmdTraLaiDL').hide();
+                                        $('#idNguyenNhan').hide();
+                                        $('#idViewData').hide();
                                         $('#cboTonghop option')[0].selected = true;
+                                        $('.cls-over').height("86vh")
                                     } else {
                                         $('#idLuuDL').hide();
                                         $('#cmdGuiDL').hide();
                                         $('#cmdAuthor').show();
                                         $('#cmdTraLaiDL').show();
+                                        $('#idNguyenNhan').show();
+                                        $('#idViewData').hide();
                                         $('#cboTonghop option')[1].selected = true;
                                     }
                                 });
@@ -215,33 +221,40 @@
                                         $('#cmdGuiDL').show();
                                         $('#cmdAuthor').hide();
                                         $('#cmdTraLaiDL').hide();
+                                        $('#idNguyenNhan').hide();
+                                        $('#idViewData').hide();
                                         $('#cboDonvi option')[0].selected = true;
+                                        $('.cls-over').height("86vh")
                                     }
                                     if ($("#cboTonghop").val().trim() == "N") {
                                         $('#idLuuDL').hide();
                                         $('#cmdGuiDL').hide();
                                         $('#cmdAuthor').show();
                                         $('#cmdTraLaiDL').show();
+                                        $('#idNguyenNhan').show();
+                                        $('#idViewData').hide();
                                         $('#cboDonvi option')[1].selected = true;
-                                    }
-                                    if ($("#cboTonghop").val().trim() == "R") {
-                                        $('#idLuuDL').show();
-                                        $('#cmdGuiDL').show();
-                                        $('#cmdAuthor').hide();
-                                        $('#cmdTraLaiDL').hide();
-                                        $('#cboDonvi option')[0].selected = true;
+                                        $('.cls-over').height("65vh")
                                     }
                                     if ($("#cboTonghop").val().trim() == "W") {
                                         $('#idLuuDL').hide();
                                         $('#cmdGuiDL').hide();
                                         $('#cmdAuthor').hide();
                                         $('#cmdTraLaiDL').hide();
+                                        $('#idNguyenNhan').hide();
+                                        $('#idViewData').hide();
+                                        $('.cls-over').height("86vh")
                                         $('#cboDonvi option')[0].selected = true;
                                     }
                                 });
                             });
                             function SendData(event) {
                                 var surl, sdata, idView, idMess, idForm, method, strMess;
+                                if ($("#cboTonghop").val().trim() == "N")
+                                    $('.cls-over').height("65vh");
+                                else{
+                                    $('.cls-over').height("85vh");
+                                }
                                 surl = "SendAction.action?status=" + event.data.status;
                                 idView = "#idViewData";
                                 idMess = "#idViewMess";
@@ -289,9 +302,11 @@
                                         } else {
                                             if ($("#cboTonghop").val().trim() == "W") {
                                                 $(idView).html(result);
+                                                $(idView).show();
                                                 $('#idButton').hide();
                                             } else {
                                                 $('#idButton').show();
+                                                $(idView).show();
                                                 $(idView).html(result);
                                                 $(idMess).html('');
                                             }
