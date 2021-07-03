@@ -97,6 +97,11 @@ public class FormulaRptAction extends ActionSupport {
     private List<String> rptGrade = new ArrayList<>();
 //</editor-fold>    
 
+    
+    public String LoadMainParameter(){
+        return SUCCESS;
+    }
+    
     public String execute() throws Exception {
         //lay ra session
         Map session = ActionContext.getContext().getSession();

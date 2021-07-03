@@ -92,6 +92,11 @@ public class AddQueryAction extends ActionSupport implements ServletRequestAware
         setDefaultGrade(new String[]{"1", "2", "3"});
         return SUCCESS;
     }
+    
+    
+    public String LoadMainParameter() {
+        return SUCCESS;
+    }
 
     private List<String> convertStringtoList(String[] value) {
         List<String> lst = new ArrayList<>();

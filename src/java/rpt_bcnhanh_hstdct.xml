@@ -43,6 +43,13 @@
             </result>                         
         </action>   
         
+        <action  name="loadfastrptmainparameter" class="vbsp.ims.action.ActionReportFast" method="loadMainParameter"> 
+            <result name="success">           
+                bctuhstdct/exp_bcnhanh.jsp
+            </result>  
+                                 
+        </action>   
+        
          <action  name="DeleteRptFast" class="vbsp.ims.action.ActionReportFast" method="DeleteRptFast"> 
             <result name="success">           
                 bctuhstdct/success.jsp

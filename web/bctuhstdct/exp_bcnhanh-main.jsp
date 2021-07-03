@@ -64,7 +64,9 @@
                 <div style="float: right; width: 100px">
                     <s:url id="editDelFastRpt" action="loadAllFastRpt" />
                     <sj:submit id="idEditDelQuery" targets="containBcttv"  href="%{editDelFastRpt}" indicator="loadingImage" cssClass="metroButtonStyle" value="Sửa/Xóa"></sj:submit>
-                    <sj:submit id="loadExpRpt" targets="containBcttv"  href="bctuhstdct/exp_bcnhanh.jsp" cssStyle="display: none;" value="Load BC"></sj:submit>
+                    
+                    <s:url id="query_loadfastrptmainparameter" action="loadfastrptmainparameter" />
+                    <sj:submit id="loadExpRpt" targets="containBcttv"  href="%{query_loadfastrptmainparameter}" cssStyle="display: none;" value="Load BC"></sj:submit>
                 </div>
                 <div style="float: right; width: 100px" >
                     <sj:submit id="addFastRpt" targets="containBcttv"  href="bctuhstdct/module_taomau.jsp" cssClass="metroButtonStyle" value="Thêm"></sj:submit>
