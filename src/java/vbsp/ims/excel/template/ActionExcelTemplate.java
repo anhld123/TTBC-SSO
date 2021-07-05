@@ -1251,6 +1251,10 @@ public class ActionExcelTemplate extends ActionSupport {
         }
         return SUCCESS;
     }
+    
+        public String loadmainparameterXlsTmp(){
+        return SUCCESS;
+    }
 
     public String execute() {
         try {
