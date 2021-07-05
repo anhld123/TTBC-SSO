@@ -43,6 +43,10 @@
         <action name="LoadParameters" class="vbsp.ims.action.AddQueryAction" method="getReportParams">
             <result name="success">/bctheotruyvan/loadpara_exp_query.jsp</result>            
         </action>
+        
+        <action name="loadmainparameter" class="vbsp.ims.action.AddQueryAction" method="LoadMainParameter">
+            <result name="success">/bctheotruyvan/exp_query.jsp</result>            
+        </action>
     </package>
      
       <package name="themtruyvan" extends="struts-default,json-default">

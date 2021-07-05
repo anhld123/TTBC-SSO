@@ -63,7 +63,11 @@
                 <div style="float: right; width: 100px">
                     <s:url id="editDelQuerykt740" action="loadgroupEditQuerykt740" />
                     <sj:submit id="idEditDelQuery" targets="containBcttv"  href="%{editDelQuerykt740}" indicator="loadingImage" cssClass="metroButtonStyle" value="Sửa/Xóa"></sj:submit>
+                    
                     <sj:submit id="loadQuery" targets="containBcttv"  href="kt740/exp_query.jsp" indicator="loadingImage" cssStyle="display: none;" value="Load BC"></sj:submit>
+                    
+                     <s:url id="LoadMainParamterKt740" action="loadfmainparameterkt740" />
+                    <sj:submit id="loadQuery" targets="containBcttv"  href="%{LoadMainParamterKt740}" indicator="loadingImage" cssStyle="display: none;" value="Load BC"></sj:submit>
                 </div>
                 <div style="float: right; width: 100px" >
                      <s:url id="LoadAddNewQuerykt740" action="LoadAddNewQuerykt740" />

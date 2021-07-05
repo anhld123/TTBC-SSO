@@ -77,6 +77,11 @@ public class ActionReportFast extends ActionSupport {
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="CAC HAM XU LY">
 
+    
+    public String loadMainParameter(){
+        return SUCCESS;
+    }
+    
     public String getModule_SaveReport() {
         try {
 

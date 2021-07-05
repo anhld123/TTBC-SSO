@@ -176,8 +176,6 @@
                            theme="simple"
                            ></sj:select>                 
                     &nbsp;
-
-
                     &nbsp;
                     <!--<input type="button" id="cmdTai" name="cmdTai" value="Tải dữ liệu" class="cmd">-->
                 <s:url id="idLoadDataKhnv" action="loadDataKhnv.action"></s:url>                                      

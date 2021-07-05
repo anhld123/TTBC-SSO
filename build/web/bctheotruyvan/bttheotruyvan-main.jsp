@@ -67,7 +67,10 @@
                      <s:url id="editDelQuery" action="loadgroupEditQuery" />
                     <%--<s:url id="editDelQuery" action="loadallquery" />--%>
                     <sj:submit id="idEditDelQuery" targets="containBcttv"  href="%{editDelQuery}" onclick="clear()" indicator="loadingImage" cssClass="metroButtonStyle" value="Sửa/Xóa"></sj:submit>
-                    <sj:submit id="loadQuery" targets="containBcttv"  href="bctheotruyvan/exp_query.jsp" indicator="loadingImage" cssStyle="display: none;" value="Load BC"></sj:submit>
+                    
+                    
+                    <s:url id="query_loadmainparameter" action="loadmainparameter" />
+                    <sj:submit id="loadQuery" targets="containBcttv"  href="%{query_loadmainparameter}" indicator="loadingImage" cssStyle="display: none;" value="Load BC"></sj:submit>
                     </div>
                     <div style="float: right; width: 100px" >
                     <s:url id="LoadAddNewQuery" action="LoadAddNewQuery" />
