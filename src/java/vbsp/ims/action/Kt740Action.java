@@ -153,6 +153,10 @@ public class Kt740Action extends ActionSupport implements ServletRequestAware {
         return SUCCESS;
     }
 
+    public String LoadMainParameterKt740(){
+        return SUCCESS;
+    }
+    
     public String loadgroupEditQuerykt740() {
         try {
             Map session = ActionContext.getContext().getSession();
