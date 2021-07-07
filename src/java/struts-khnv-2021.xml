@@ -19,15 +19,6 @@
         <!--        <action name="populatePos" class="vbsp.ims.action.khnv.DieuChinhKHActionSupport" method="populatePos">
             <result type="json"/>
         </action>        -->
-        
-     
-        
-        <action  name="machitieuCheck" class="vbsp.ims.action.khnv.ChitieuTindungXaAction" method="machitieuCheck">
-            <result name="success" type="json"/>
-            <result  name="error">  
-                /kehoachnguonvon/error.jsp
-            </result>  
-        </action>
     </package>
     <!-- Configuration for the default package. -->
     <package name="load_dv1" extends="struts-default,json-default">
