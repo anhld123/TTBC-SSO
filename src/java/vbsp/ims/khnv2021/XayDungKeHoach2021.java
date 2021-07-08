@@ -21,7 +21,7 @@ import vbsp.ims.model.khnv.POSModel;
 public class XayDungKeHoach2021 extends ActionMainKHNV {
 
     private XDKHDao2021 daoXdkh = new XDKHDao2021();
-    
+
     private List<POSModel> custCommuneList = new ArrayList<>();
     private List<POSModel> custSubCommuneList = new ArrayList<>();
 
@@ -124,7 +124,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             getInfo();
             custCommuneList = daoXdkh.getPosList(pos_cd_username, maCn, reportGrade);
             if (commune_cd.isEmpty()) {
-            custSubCommuneList = daoXdkh.getSubCommuneList(pos_cd_username, "", reportGrade);
+                custSubCommuneList = daoXdkh.getSubCommuneList(pos_cd_username, "", reportGrade);
             } else {
                 custSubCommuneList = daoXdkh.getSubCommuneList(pos_cd_username, commune_cd, reportGrade);
             }
@@ -299,9 +299,14 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             ExcelExport excelExport = new ExcelExport();
             POSModel pos = daoXdkh.getPosByCode(pos_cd_username);
             FileExportInfo fileInfo = excelExport.xuatExcelMau02(pos, "N", new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
-            fileNamelocal = fileInfo.fileName;
-            filereport = fileInfo.filePath;
-            return SUCCESS;
+            if (fileInfo != null) {
+                fileNamelocal = fileInfo.fileName;
+                filereport = fileInfo.filePath;
+                return SUCCESS;
+            } else {
+                addActionError("Không có dữ liệu");
+                return ERROR;
+            }
         } catch (Exception ex) {
             CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv02 " + ex.getMessage());
             System.err.println(this.getClass().getName() + " Loi ExpExcelKhnv02 " + ex.getMessage());
@@ -427,10 +432,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
     }
 //<editor-fold defaultstate="collapsed" desc="Getter Setter">
 
-    
-    
 //</editor-fold>    
-
     public List<POSModel> getCustCommuneList() {
         return custCommuneList;
     }

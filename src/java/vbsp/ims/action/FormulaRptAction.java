@@ -97,11 +97,10 @@ public class FormulaRptAction extends ActionSupport {
     private List<String> rptGrade = new ArrayList<>();
 //</editor-fold>    
 
-    
-    public String LoadMainParameter(){
+    public String LoadMainParameter() {
         return SUCCESS;
     }
-    
+
     public String execute() throws Exception {
         //lay ra session
         Map session = ActionContext.getContext().getSession();
@@ -538,11 +537,11 @@ public class FormulaRptAction extends ActionSupport {
 
     public String EditDelFormulaAction() throws Exception {
         Map session = ActionContext.getContext().getSession();
-            String Grade = session.get("reportGrade").toString();
-            if (session == null) {
-                setMessage("Bạn phải logout ra và login lai thì mới xóa được báo cáo!");
-                return ERROR;
-            }
+        String Grade = session.get("reportGrade").toString();
+        if (session == null) {
+            setMessage("Bạn phải logout ra và login lai thì mới xóa được báo cáo!");
+            return ERROR;
+        }
 //        System.err.println("Vao ham load cac bao cao da luu ");
         lstObjFormula = new DaoRptFormula().getLoadAllSaveFormula("");
         return SUCCESS;
@@ -608,6 +607,10 @@ public class FormulaRptAction extends ActionSupport {
 //        nodes_pos.setState(TreeNode.NODE_STATE_OPEN);
 //        nodes_pos.setChildren(new LinkedList<TreeNode>());
 
+            System.err.println(
+             "Lay so lieu"
+            );
+
             for (int i = 0; i < ArrlstPoscd.size(); i++) {
                 String strPos_key = ArrlstPoscd.get(i);
                 if (strPos_key.equals("000000")) {
@@ -623,6 +626,10 @@ public class FormulaRptAction extends ActionSupport {
                     nodes_pos.getChildren().add(nodeChild);
                 }
             }
+
+            System.err.println(             
+         "Hoan thanh");
+            
         } catch (Exception e) {
             CoreLogger.error("Loi khi load cac bao cao loadReportExp " + e.getMessage());
             System.err.println(e.getMessage());

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.khnv2021.model.Mau02Model;
+import vbsp.ims.khnv2021.model.DistrictInfo;
 import vbsp.ims.log.CoreLogger;
 
 /**
@@ -22,7 +23,7 @@ import vbsp.ims.log.CoreLogger;
  */
 public class DaoMau02 {
     
-    public List<Mau02Model> getExportData(String posCode, String posFlag, String reportDate){
+    public List<Mau02Model> getExportData(String posCode, String posFlag, String districtCode, String reportDate){
         List<Mau02Model> lstData = new ArrayList<>();
         
         try {
@@ -31,7 +32,7 @@ public class DaoMau02 {
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call PK_KHNV_DATA_EXPORT.Export_02(?, ?, ?, ?)}";
+            String strStoreproce = "{call PK_KHNV_DATA_EXPORT.Export_02(?, ?, ?, ?, ?)}";
             ResultSet cursor = null;
 
             try {
@@ -40,12 +41,13 @@ public class DaoMau02 {
                 //Truyen vao username
                 calstatement.setString(1, posCode);          
                 calstatement.setString(2, posFlag);                                
-                calstatement.setString(3, reportDate);                                         
-                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(3, districtCode);      
+                calstatement.setString(4, reportDate);                                         
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //Lay cursor ra resultset
-                cursor = (ResultSet) calstatement.getObject(4);
+                cursor = (ResultSet) calstatement.getObject(5);
 
                 while (cursor.next()) {
                     Mau02Model item = new Mau02Model();
@@ -92,6 +94,57 @@ public class DaoMau02 {
         return lstData;
     }
         
+    public List<DistrictInfo> getDistrictByPos(String posCode){
+        List<DistrictInfo> lstData = new ArrayList<>();
+        
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call PK_KHNV_DATA_EXPORT.GET_DISTRICT_BY_POS(?, ?)}";
+            ResultSet cursor = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);                
+                calstatement.setString(1, posCode);                          
+                calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //Lay cursor ra resultset
+                cursor = (ResultSet) calstatement.getObject(2);
+
+                while (cursor.next()) {
+                    DistrictInfo item = new DistrictInfo();                    
+                    item.posCode = cursor.getString("MA_PGD");
+                    item.districtCode = cursor.getString("MA_QUAN_HUYEN");
+                    item.districtName = cursor.getString("TEN");                                        
+                    lstData.add(item);
+                }
+
+                if (cursor != null) {
+                    cursor.close();
+                }
+                
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Loi trong ham DaoMau02.getDistrictByPos " + e.getMessage());
+                CoreLogger.error(DaoMau02.class.getCanonicalName() + " getExportData  -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham DaoMau02.getDistrictByPos " + e.getMessage());
+            CoreLogger.error(DaoMau02.class.getCanonicalName() + " getExportData  -> " + e.getMessage());
+        }
+        return lstData;
+    }
+    
     private String getNumberValueString(String value) {
         if (value == null || value.isEmpty()){
             return "0";
