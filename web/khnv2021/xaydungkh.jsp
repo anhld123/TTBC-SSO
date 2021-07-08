@@ -191,7 +191,6 @@
                 
                 <s:url id="cmdPrint" action="SendAction.action">
                     <s:param name="status">4</s:param>
-                    <s:param name="showprint">4</s:param>
                 </s:url>                                      
                 <sj:submit id="cmdPrinttmp" name="cmdPrint" href="%{cmdPrint}" value="In báo cáo" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
