@@ -24,6 +24,7 @@ import vbsp.ims.dtw.dao.DtwUploadDao;
 import vbsp.ims.fileutil.FileUtil;
 import vbsp.ims.zip.FileZip;
 import vbsp.ims.khnv2021.ReportTemplate;
+import vbsp.ims.excel_upload.model.ResultModel;
 
 /**
  *
@@ -73,7 +74,7 @@ public class ExcelUploadAction extends ActionSupport
                     if (is_unzip) {
 
                         ExcelUploader excelUploader = new ExcelUploader();
-                        excelUploader.import_directory(new_file.getParent() + "/"
+                        ResultModel status = excelUploader.import_directory(new_file.getParent() + "/"
                                 + FilenameUtils.removeExtension(file_name), font_type);
 
                         DtwUploadDao uploadDao = new DtwUploadDao();
@@ -83,7 +84,11 @@ public class ExcelUploadAction extends ActionSupport
                         logPath = dir_path.replace("/", "\\");
                         logPathType = ReportTemplate.DIRECTORY;
                         logObj = uploadDao.get_uploaded_log(dir_path.replace("/", "\\"), ReportTemplate.DIRECTORY);
+                        if (status.status) {
                         message = "(*) Copy và giải nén vào thư mục thành công: [" + file_name + "].";
+                        } else {
+                            message = status.message;
+                        }
 
                     } else {
                         message = "(*) Copy thành công nhưng không giải nén được: [" + file_name + "].";
@@ -91,7 +96,7 @@ public class ExcelUploadAction extends ActionSupport
                 } else if (fileExtend.toLowerCase().equals("xls")
                         || fileExtend.toLowerCase().equals("xlsx")) {
                     ExcelUploader excelUploader = new ExcelUploader();
-                        excelUploader.import_file(new_file.getAbsolutePath(), font_type);
+                       ResultModel status = excelUploader.import_file(new_file.getAbsolutePath(), font_type);
 
                         DtwUploadDao uploadDao = new DtwUploadDao();
                         String file_path = FilenameUtils.removeExtension(new_file.getAbsolutePath());
@@ -99,7 +104,11 @@ public class ExcelUploadAction extends ActionSupport
                         logPath = file_name;
                         logPathType = ReportTemplate.FILE;
                         logObj = uploadDao.get_uploaded_log(file_name,ReportTemplate.FILE);
+                        if (status.status) {
                         message = "(*) Xử lý file thành công: [" + file_name + "].";
+                        }else {
+                            message = status.message;
+                        }
                 } else {
                     message = "(*) Không hỗ trợ định dạng file: " + fileExtend.toLowerCase();
                 }

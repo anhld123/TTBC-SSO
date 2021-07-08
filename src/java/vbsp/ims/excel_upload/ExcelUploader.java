@@ -13,6 +13,7 @@ import vbsp.ims.dtw.Dtw_Import;
 import vbsp.ims.dtw.ExcelFile;
 import vbsp.ims.dtw.ExcelFileLibrary;
 import vbsp.ims.dtw.dao.DtwUploadDao;
+import vbsp.ims.excel_upload.model.ResultModel;
 
 /**
  *
@@ -22,11 +23,12 @@ public class ExcelUploader {
     
     public ExcelUploader(){}
     
-    public void import_directory(String directory_path, String font_format) {
+    public ResultModel import_directory(String directory_path, String font_format) {
         
         List<File> files = DirectoryLibrary.listFilesForFolder(directory_path);
         ExcelFileLibrary excel_file_library = new ExcelFileLibrary();
         ExcelFile excel_file;
+        ResultModel status = new ResultModel(); 
         for (File file : files) {
             excel_file = new ExcelFile(file.getName());
             if (font_format.equals("TCVN")) {
@@ -37,13 +39,17 @@ public class ExcelUploader {
             String strCategory = getCategoryFile(file.getName());
             Dtw_Import dtw_Import = new Dtw_Import();
             // Xử lý phần đọc dữ liệu ở đây
-            boolean status = dtw_Import.process_file_common(excel_file,strCategory);
+            status = dtw_Import.process_file_common(excel_file,strCategory);
             System.err.println("ExcelUploader.import_directory~" + file.getName()+ "~" + status);
+            if (status.status == false) {
+                return status;                
+            }
             //-------------------------------------------------------------------
         }
+        return status;
     }
     
-    public void import_file(String filePath, String font_format) {                
+    public ResultModel import_file(String filePath, String font_format) {                
         ExcelFileLibrary excel_file_library = new ExcelFileLibrary();
         ExcelFile excel_file;
         File file = new File(filePath);
@@ -57,8 +63,9 @@ public class ExcelUploader {
         String strCategory = getCategoryFile(file.getName());
         Dtw_Import dtw_Import = new Dtw_Import();
         // Xử lý phần đọc dữ liệu ở đây
-        boolean status = dtw_Import.process_file_common(excel_file,strCategory);
+        ResultModel status = dtw_Import.process_file_common(excel_file,strCategory);
         System.err.println("ExcelUploader.import_file~" + file.getName()+ "~" + status);
+        return status;
         //-------------------------------------------------------------------        
     }
         

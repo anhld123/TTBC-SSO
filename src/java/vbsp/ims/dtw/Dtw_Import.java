@@ -8,6 +8,7 @@ package vbsp.ims.dtw;
 import java.io.File;
 import java.util.List;
 import vbsp.ims.dtw.dao.DtwUploadDao;
+import vbsp.ims.excel_upload.model.ResultModel;
 import vbsp.ims.model.RefObject;
 
 /**
@@ -76,13 +77,14 @@ public class Dtw_Import {
 
     }
 
-    public void import_file(String filepath, String pv_table_id) {
+    public ResultModel import_file(String filepath, String pv_table_id) {
         File file = new File(filepath);
         ExcelFile excel_file;
         ExcelFileLibrary excel_file_library = new ExcelFileLibrary();
         excel_file = new ExcelFile(file.getName());
         excel_file_library.read_file_utf8(file.getAbsolutePath(), excel_file);
-        boolean status = process_file_common(excel_file, pv_table_id);
+        ResultModel status = process_file_common(excel_file, pv_table_id);
+        return status;
     }
 
     boolean process_file(ExcelFile excel_file) {
@@ -102,8 +104,8 @@ public class Dtw_Import {
         return process_status && import_status;
     }
 
-    public boolean process_file_common(ExcelFile excel_file, String table_id) {
-        boolean process_status, import_status = false;
+    public ResultModel process_file_common(ExcelFile excel_file, String table_id) {
+        ResultModel process_status, import_status ;
         dtwDao = new DtwUploadDao();
         RefObject row_total = new RefObject();
         RefObject process_row = new RefObject();
@@ -114,16 +116,20 @@ public class Dtw_Import {
                 row_total,
                 process_row,
                 error_msg);
+        
         dtwDao.update_row_process(excel_file.getFile_name(),
                 row_total.getInt01(),
                 process_row.getInt01(),
                 error_msg.getString01());
-        if (process_status) {
+        
+        if (process_status.status) {
             import_status = dtwDao.process_raw_data_common(
                     table_id,
                     excel_file.getFile_name());
-        }
-        return process_status && import_status;
+            return import_status;
+        } else {
+            return process_status;
+        }        
     }
 
     /**

@@ -23,6 +23,7 @@ import vbsp.ims.dtw.ExcelRow;
 import vbsp.ims.dtw.ExcelToTableDetail;
 import vbsp.ims.dtw.TLSLExcelRow;
 import vbsp.ims.dtw.UploadFileLogObject;
+import vbsp.ims.excel_upload.model.ResultModel;
 import vbsp.ims.loveleaf.LoveLeafDao;
 import vbsp.ims.model.RefObject;
 
@@ -187,11 +188,11 @@ public class DtwUploadDao {
         return returnValue;
     }
 
-    public boolean insert_row_common(ExcelFile excel_file, String table_id,
+    public ResultModel insert_row_common(ExcelFile excel_file, String table_id,
             RefObject row_total, RefObject process_row,
             RefObject error_msg) {
 
-        boolean returnValue = false;
+        ResultModel returnValue = new ResultModel();
 
         try {
 
@@ -276,12 +277,14 @@ public class DtwUploadDao {
             conn.commit();
             //conn.close();
 
-            returnValue = true;
+            returnValue.status = true;
+            returnValue.message ="SUCCESS";
 
         } catch (Exception e2) {
             System.err.println("Loi[2]~" + e2.getMessage());
             //return false;
-            returnValue = false;
+            returnValue.status = false;
+            returnValue.message ="Lỗi: " + e2.getMessage();
         } finally {
             try {
                 conn.close();
@@ -338,12 +341,13 @@ public class DtwUploadDao {
         return returnValue;
     }
 
-    public boolean process_raw_data_common(String pv_table_id, String file_name) {
+    public ResultModel process_raw_data_common(String pv_table_id, String file_name) {
 
         String strStoreproce
                 = "{call dtw_upload_file.sp_convert_raw_to_table(?, ?, ?)}";
 
-        boolean returnValue = false;
+        //boolean returnValue = false;
+        ResultModel returnValue = new ResultModel();
 
         try {
             String message;
@@ -358,20 +362,30 @@ public class DtwUploadDao {
             calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.VARCHAR);
             calstatement.execute();
             message = (String) calstatement.getObject(3);
-            returnValue = message.equals("SUCCESS");
+            //returnValue = message.equals("SUCCESS");
+            
+            returnValue.message = message;
+            if (message.equals("SUCCESS")){
+                returnValue.status = true;
+            }
+            else {
+                returnValue.status = false;
+            }
 //                System.err.println("process_raw_data~" + message);                        
         } catch (Exception ex) {
             
             System.err.println("dtw_upload_file.sp_process_data-->" + ex.getMessage());
-            returnValue = false;
+            returnValue.message =  "Lỗi: " + ex.getMessage();
+            returnValue.status = false;            
             
-        } finally {
-            try {
-                conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DtwUploadDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
+//        finally {
+//            try {
+//                conn.close();
+//            } catch (SQLException ex) {
+//                Logger.getLogger(DtwUploadDao.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
 
         return returnValue;
     }

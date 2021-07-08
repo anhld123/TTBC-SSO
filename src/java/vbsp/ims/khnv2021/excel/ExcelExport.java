@@ -601,12 +601,12 @@ public class ExcelExport {
             //duong dan chua file tren o dia + Define.M_REPORT_XLS
             String strPathSave = savedDirPath;
             //Ham nay lay ra ten file bao cao can tao, ten file jasper report
-            //String strPosFlag = "";
-//            if (posFlag.equals("N")) {
-//                strPosFlag = "S";
-//            } else {
-//                strPosFlag = "M";
-//            }
+            String strPosFlag = "";
+            if (posFlag.equals("N")) {
+                strPosFlag = "S";
+            } else {
+                strPosFlag = "M";
+            }
 
             DaoMau02 daoMau02 = new DaoMau02();
 
@@ -614,7 +614,7 @@ public class ExcelExport {
             String templateFile = savedDirPath + Define.M_EXCEL_TEMP + "/KHNV/KHNV_DK02.xlsx";
 
             for (DistrictInfo district : lstDistrict) {
-                String strFileSave = ReportTemplate.MAU_02 + "_" + posCode + "_" + district.districtCode
+                String strFileSave = ReportTemplate.MAU_02 + "_" + posCode + "_" + strPosFlag + "_" + district.districtCode
                         + "_" + strCurrDate
                         + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
 
