@@ -675,6 +675,8 @@ public class ExcelExport {
                     fillTitle(colTitle, colTitle7);
 
                     for (int i = 0; i < lstData.size(); i++) {
+                        
+                        
                         XSSFRow xssfRow = sheet.getRow(i + ReportTemplate.MAU_02_START_ROW);
                         if (xssfRow == null) {
                             xssfRow = sheet.createRow(i + ReportTemplate.MAU_02_START_ROW);
@@ -708,15 +710,25 @@ public class ExcelExport {
                         xssfCell02.setCellStyle(nameStyle);
                         xssfCell02.setCellValue(lstData.get(i).name);
 
+                        
                         XSSFCell xssfCell03 = xssfRow.getCell(3, Row.CREATE_NULL_AS_BLANK);
                         lockStyle = xssfCell03.getCellStyle();
                         lockStyle.setDataFormat(format.getFormat("#,##0"));
                         lockStyle.setAlignment(HorizontalAlignment.RIGHT);
-                        lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-                        lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                        lockStyle.setLocked(true);
-                        xssfCell03.setCellStyle(lockStyle);
-                        xssfCell03.setCellValue(lstData.get(i).d1);
+                        
+                        if (lstData.get(i).code.equals("XD00110") || lstData.get(i).code.equals( "XD00111") ){
+                            xssfCell03.setCellStyle(lockStyle);
+                            xssfCell03.setCellValue(lstData.get(i).d1);
+                        } else {
+                            lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+                            lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+                            lockStyle.setLocked(true);
+                            xssfCell03.setCellStyle(lockStyle);
+                            xssfCell03.setCellValue(lstData.get(i).d1);
+                        }
+                        
+                        
+                        
 
                         XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
                         numberStyle = xssfCell04.getCellStyle();
