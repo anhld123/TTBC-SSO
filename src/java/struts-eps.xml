@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="eps" extends="struts-default,json-default">
+        <!--Cấp CN và TW-->
+        <action name="redirect_loadIndex" class="vbsp.ims.eps.epsAction">
+            <result name="success">/EPS/epsReIndex.jsp</result>
+        </action>    
+        <action name="loadIndex" class="vbsp.ims.eps.epsAction" method="getAllData">
+            <result name="success">/EPS/epsDetails.jsp</result>
+        </action>
+        <!--Cấp PGD-->
+        <action name="redirect_load_pgd" class="vbsp.ims.eps.epsAction">
+            <result name="success">/EPS/epsReIndex.jsp</result>
+        </action>    
+        <action name="loadIndex_pgd" class="vbsp.ims.eps.epsAction" method="getAllData">
+            <result name="success">/EPS/epsDetails.jsp</result>
+        </action>
+    </package>
+</struts>
