@@ -188,7 +188,14 @@
                 <sj:submit id="idloadDataKhnvtmp2" name="nameSend2" href="%{idSendCNKhnv}" value="Gửi chi nhánh" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
-                <input type="button" name="cmdPrint" id="cmdPrint" value="In bao cáo" class="cmd">
+                
+                <s:url id="cmdPrint" action="SendAction.action">
+                    <s:param name="status">4</s:param>
+                </s:url>                                      
+                <sj:submit id="cmdPrinttmp" name="cmdPrint" href="%{cmdPrint}" value="In báo cáo" targets="divKhDetail"
+                           onBeforeTopics="beforediv_send"
+                           onCompleteTopics="completediv_send" class="cmd"/>
+      
             </div>
             <hr/>
             <div>
@@ -230,9 +237,6 @@
     <script>
         $(document).ready(function () {
             $("#ifPrint").hide();
-            $("#cmdPrint").click(function () {
-                $("#divKhDetail").html('<iframe id="ifPrint" src="/IMS_REPORTS/Menu_redirect.action?menuUrl=include_rptmanaget&menuId=179" width="100%" height="100%" ></iframe>');
-            });
         });
     </script>
 </body>

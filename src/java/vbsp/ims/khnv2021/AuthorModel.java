@@ -185,4 +185,21 @@ public class AuthorModel {
         }
         return Message;
     }
+
+    String getMenuIdBc() {
+        DaoConnect db = new DaoConnect();
+        Connection con = db.getConnect();
+        String Message ="";
+        try {
+            //Lưu dữ liệu vào CSDL và trả về kết quả
+            CallableStatement st = con.prepareCall("{call PROC_GETMNID_KHTD(?)}");
+            st.registerOutParameter(1, OracleTypes.VARCHAR);
+            st.execute();
+            Message = (String) st.getObject(1);
+            Message = "<iframe id=\"ifPrint\" src=\"/IMS_REPORTS/Menu_redirect.action?menuUrl=include_rptmanaget&menuId=" + Message.trim() + "\" width=\"100%\" height=\"100%\" ></iframe>";
+        } catch (SQLException ex) {
+            Logger.getLogger(AuthorModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Message;
+    }
 }

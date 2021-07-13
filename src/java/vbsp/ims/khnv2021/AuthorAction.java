@@ -37,7 +37,7 @@ public class AuthorAction extends ActionSupport {
     private InputStream pageResult;
     protected List<ModelViewSend> lstViewSend = new ArrayList<>();
     private String ShowMessage;
-
+    
     @Override
     //Lấy danh đơn vị theo cấp báo cáo
     public String execute() throws Exception {
@@ -55,6 +55,9 @@ public class AuthorAction extends ActionSupport {
         session = ActionContext.getContext().getSession();
         CapBC = (String) session.get("reportGrade");
         TenDN = (String) session.get("username");
+        if (status.trim().equals("4")){
+            cboTonghop = "ShowPrint";
+        }
         if (cboTonghop.equals("W")) {
             //Lấy dữ liệu phản hồi từ cấp trên
             strNguyennhan = new AuthorModel().ShowMessage(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
@@ -102,6 +105,11 @@ public class AuthorAction extends ActionSupport {
                         chkSuccess = "FaildMessage";
                         pageResult = new StringBufferInputStream("31");
                     }
+                    pageResult = new StringBufferInputStream(dataReult);
+                    break;
+                case "4":
+                    dataReult = new AuthorModel().getMenuIdBc();
+                    chkSuccess = "SuccessRoll";
                     pageResult = new StringBufferInputStream(dataReult);
                     break;
             }
@@ -392,7 +400,4 @@ public class AuthorAction extends ActionSupport {
         this.ShowMessage = ShowMessage;
     }
     //</editor-fold> 
-
-   
-    
 }
