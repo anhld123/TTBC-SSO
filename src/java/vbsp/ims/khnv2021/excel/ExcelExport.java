@@ -599,7 +599,7 @@ public class ExcelExport {
             Date dReportDate = new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate);
             String strCurrDate = new SimpleDateFormat("ddMMyyyy").format(dReportDate);
             //duong dan chua file tren o dia + Define.M_REPORT_XLS
-            String strPathSave = savedDirPath;
+            //String strPathSave = savedDirPath;
             //Ham nay lay ra ten file bao cao can tao, ten file jasper report
             String strPosFlag = "";
             if (posFlag.equals("N")) {
@@ -618,7 +618,7 @@ public class ExcelExport {
                         + "_" + strCurrDate
                         + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
 
-                strPathSave += Define.M_REPORT_XLS;
+                String strPathSave = savedDirPath + Define.M_REPORT_XLS;
                 strFileSave += ".XLSX";
                 filePath = strFileSave;
                 
