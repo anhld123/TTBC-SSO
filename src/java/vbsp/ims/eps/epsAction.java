@@ -9,6 +9,7 @@ import vbsp.ims.khnv2021.PosClass;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.sun.xml.bind.StringInputStream;
 import java.io.InputStream;
 import java.io.StringBufferInputStream;
 import java.text.DateFormat;
@@ -63,6 +64,15 @@ public class epsAction extends ActionSupport {
         tendn = (String) session.get("username");
         linkReport = new epsModel().getMenuIdBc();
         pageResult = new StringBufferInputStream(linkReport);
+        return SUCCESS;
+    }
+    
+    public String sendatatw() {
+        session = ActionContext.getContext().getSession();
+        capbc = (String) session.get("reportGrade");
+        tendn = (String) session.get("username");
+        linkReport = new epsModel().sendatatw();
+        pageResult = new StringInputStream(linkReport);
         return SUCCESS;
     }
 
