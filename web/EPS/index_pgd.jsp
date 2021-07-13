@@ -84,20 +84,35 @@
                 cursor: pointer;
                 color: #000;
             }
+            textarea{
+                width: 100%;
+                height: 155px;
+                margin-bottom: 5px;
+                border: 0px;
+                outline: none;
+            }
+            input[type=button]{
+                margin: 0px 5px;
+            }
+            legend, label{
+                font-weight: bold;
+            }
+            fieldset{
+                margin-bottom: 7px;
+            }
+            #ShowData{
+                width: 98%;
+                height: 90vh;
+                border: 0px;
+            }
+            iframe{
+                border: 0px;
+            }
+            #Showchotsl{
+                display: none;   
+                width: 98%;
+            }
         </style>
-        <script>
-            //Lấy ngày hiện tại cho NgayBC
-            $(function () {
-                $("#datepicker").datepicker(
-                        {
-                            dateFormat: 'dd/mm/yy',
-                            changeMonth: true,
-                            changeYear: true,
-                            showButtonPanel: true
-                        }
-                ).datepicker('setDate', '31/05/2021');
-            });
-        </script>
     </head>
     <body>
         <div class="clsTitle">
@@ -107,48 +122,39 @@
             </h3>
         </div>
         <form id="frmMain" name="frmMain">
-            <div style="padding: 5px; display: inline-flex;">
-                <div>
-                    Đơn vị
-                    <select id="iddonvi" name="madv">
-                        <s:iterator value="lstPos">
-                            <option value="<s:property value='PosCode'/>"><s:property value='PosName'/></option>
-                        </s:iterator>
-                    </select>
-                    Ngày báo cáo:<input type="text" id="datepicker" name="ngaybc">
-                    <input type="button" id="btnXem" value="Xem số liệu"/>
+            <div style="display:flex; justify-content:flex-end; padding: 7px 0px; border: 1px solid #ddd;" >
+                <input type="button" value = "Chốt số liệu" id="idchotsl" style="margin-right: 5px;">
+                <input type="button" id="cmdxembc" value = "Xem số liệu">
+            </div>
+            <div style="width: 100%; display: flex;justify-content: center;">
+                <div id="ShowData">
                 </div>
-                <div class="clsLoc">
-                    <input type="button" id="btnChuaChot" value="" style="display: none;"/>
-                    <input type="button" id="btnDaChot" value="" style="display: none;"/>
-                    <input type="button" id="btnChotSai" value="" style="display: none;"/></div>
+                <div id="Showchotsl">
+                    <fieldset>
+                        <legend>Nguyên nhân</legend>
+                        <textarea></textarea>
+                    </fieldset>
+                    <input type="radio" id="chkdung" name="chkchotsl" checked="check"><label for="chkdung">Số liệu đúng và đủ</label>
+                    <input type="radio" id="chksai" name="chkchotsl"><label for="chksai">Số liệu sai</label>
+                    <input type="button" value = "Chốt số liệu" id="cmdChotSL">
+                </div>
             </div>
         </form>
-        <div id="ShowData"></div>
     </body>
     <script>
         $(document).ready(function () {
-            $("#btnXem").click({status: "00"}, SendData);
-            $("#btnChuaChot").click({status: "01"}, SendData);
-            $("#btnDaChot").click({status: "02"}, SendData);
-            $("#btnChotSai").click({status: "03"}, SendData);
+            $("#cmdxembc").click({status: "", action: "getMenuReport.action"}, SendData);
+            $('#cmdxembc').trigger('click');
+            $("#idchotsl").click(function () {
+                $("#ShowData").fadeOut();
+                $("#Showchotsl").fadeIn();
+            });
         });
         function SendData(event) {
-            var surl, sdata, idView, idForm, method, mess;
-            switch (event.data.status) {
-                case '01':
-                    mess = "(Chưa chốt số liệu)";
-                    break;
-                case '02':
-                    mess = "(Đã chốt số liệu)";
-                    break;
-                case '03':
-                    mess = "(Chốt sai số liệu)";
-                    break;
-                default:
-                    mess = '';
-            }
-            surl = "loadIndex.action?status=" + event.data.status;
+            $("#ShowData").fadeIn();
+            $("#Showchotsl").fadeOut();
+            var surl, sdata, idView, idForm, method;
+            surl = event.data.action;
             idView = "#ShowData";
             idForm = "#frmMain";
             method = "POST";
@@ -163,8 +169,6 @@
                 },
                 success: function (result) {
                     $(idView).html(result);
-                    $("#status").html(mess);
-                    
                 },
                 error: function () {
                     alert('Lỗi khi thực hiện.');
