@@ -15,10 +15,13 @@
         </action>
         <!--Cấp PGD-->
         <action name="redirect_load_pgd" class="vbsp.ims.eps.epsAction">
-            <result name="success">/EPS/epsReIndex.jsp</result>
+            <result name="success">/EPS/epsReIndex_pgd.jsp</result>
         </action>    
-        <action name="loadIndex_pgd" class="vbsp.ims.eps.epsAction" method="getAllData">
-            <result name="success">/EPS/epsDetails.jsp</result>
+        <action name="getMenuReport" class="vbsp.ims.eps.epsAction" method="getMenuReport">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
         </action>
     </package>
 </struts>
