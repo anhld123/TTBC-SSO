@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript">
             function href_LoadIndex() {
-                location.href = "redirect_loadIndex.action";
+                location.href = "redirect_load_pgd.action";
             }
         </script>
     </head>

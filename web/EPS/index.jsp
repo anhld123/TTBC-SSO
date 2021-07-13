@@ -5,11 +5,13 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EPS</title>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <style>
             .clsTitle{
                 width: 100%;
@@ -38,7 +40,7 @@
                 color: white;
                 text-align: center;
             }
-            .clsSTT{width: 5%;}
+            .clsSTT{width: 5%; text-align: center;}
             .clsCN{width: 15%;}
             .clsPGD{width: 15%;}
             .clsFILL{width: 10%; line-height: 18px;}
@@ -52,7 +54,7 @@
                 cursor: pointer;
                 color: blue;
             }
-            #overlay {
+            .overlay {
                 position: fixed;
                 height: 100%; 
                 width: 100%;
@@ -64,7 +66,7 @@
                 display: none;
             }
 
-            #popup {
+            .popup {
                 max-width: 600px;
                 width: 80%;
                 max-height: 300px;
@@ -75,7 +77,7 @@
                 margin: 5% auto;
             }
 
-            #close {
+            .close {
                 position: absolute;
                 top: 10px;
                 right: 10px;
@@ -83,9 +85,8 @@
                 color: #000;
             }
         </style>
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
+            //Lấy ngày hiện tại cho NgayBC
             $(function () {
                 $("#datepicker").datepicker(
                         {
@@ -94,8 +95,7 @@
                             changeYear: true,
                             showButtonPanel: true
                         }
-                ).datepicker('setDate', 'today');
-                ;
+                ).datepicker('setDate', '31/05/2021');
             });
         </script>
     </head>
@@ -106,61 +106,70 @@
                 NHẬT KÝ QUỸ NGƯỜI LAO ĐỘNG LÀM VIỆC TẠI HÀN QUỐC THEO CHƯƠNG TRÌNH EPS
             </h3>
         </div>
-        <div style="padding: 5px; display: inline-flex;">
-            <div>
-                Chi nhánh
-                <select>
-                    <option>TP.Hà Nội</option>
-                </select>
-                Phòng Giao dịch
-                <select>
-                    <option>TP.Hà Nội</option>
-                </select>
-                Ngày báo cáo:<input type="text" id="datepicker">
-                <input type="button" value="Xem số liệu"/>
+        <form id="frmMain" name="frmMain">
+            <div style="padding: 5px; display: inline-flex;">
+                <div>
+                    Đơn vị
+                    <select id="iddonvi" name="madv">
+                        <s:iterator value="lstPos">
+                            <option value="<s:property value='PosCode'/>"><s:property value='PosName'/></option>
+                        </s:iterator>
+                    </select>
+                    Ngày báo cáo:<input type="text" id="datepicker" name="ngaybc">
+                    <input type="button" id="btnXem" value="Xem số liệu"/>
+                </div>
+                <div class="clsLoc">
+                    <input type="button" id="btnChuaChot" value="" style="display: none;"/>
+                    <input type="button" id="btnDaChot" value="" style="display: none;"/>
+                    <input type="button" id="btnChotSai" value="" style="display: none;"/></div>
             </div>
-            <div class="clsLoc">
-                <input type="button" value="Chưa chốt số liệu: 10"/>
-                <input type="button" value="Đã chốt đúng: 10"/>
-                <input type="button" value="Chốt sai: 10"/></div>
-        </div>
-        <div>
-            <table id="tblData">
-                <tr>
-                    <th class="clsSTT">STT</th>
-                    <th class="clsCN">Chi nhánh</th>
-                    <th class="clsPGD">Phòng Giao dịch</th>
-                    <th class="clsFILL">Trạng thái<br><span style="font-weight: normal; color: red;">(Chưa chốt số liệu)</span></th>
-                    <th class="clsNGN">Nguyên nhân</th>
-                </tr>
-                <tr>
-                    <td>Cell</td>
-                    <td>Cell</td>
-                    <td>Cell</td>
-                    <td>Cell</td>
-                    <td>
-                        <span id="trigger">Nguyên nhân của sự chênh lệch là do....</span>
-                        <div id="overlay">
-                            <div id="popup">
-                                <div id="close">X</div>
-                                <h2>Phản hồi</h2>
-                                <p>Không hiểu số liệu sao lại lệch</p>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+        </form>
+        <div id="ShowData"></div>
     </body>
     <script>
         $(document).ready(function () {
-            $('#trigger').click(function () {
-                $('#overlay').fadeIn(300);
-            });
-
-            $('#close').click(function () {
-                $('#overlay').fadeOut(300);
-            });
+            $("#btnXem").click({status: "00"}, SendData);
+            $("#btnChuaChot").click({status: "01"}, SendData);
+            $("#btnDaChot").click({status: "02"}, SendData);
+            $("#btnChotSai").click({status: "03"}, SendData);
         });
+        function SendData(event) {
+            var surl, sdata, idView, idForm, method, mess;
+            switch (event.data.status) {
+                case '01':
+                    mess = "(Chưa chốt số liệu)";
+                    break;
+                case '02':
+                    mess = "(Đã chốt số liệu)";
+                    break;
+                case '03':
+                    mess = "(Chốt sai số liệu)";
+                    break;
+                default:
+                    mess = '';
+            }
+            surl = "loadIndex.action?status=" + event.data.status;
+            idView = "#ShowData";
+            idForm = "#frmMain";
+            method = "POST";
+            sdata = jQuery(idForm).serialize();
+            $.ajax({
+                url: surl,
+                data: sdata,
+                type: method,
+                async: true,
+                beforeSend: function () {
+                    $(idView).html('<img src="imgs/newloading.gif"/>');
+                },
+                success: function (result) {
+                    $(idView).html(result);
+                    $("#status").html(mess);
+                    
+                },
+                error: function () {
+                    alert('Lỗi khi thực hiện.');
+                }
+            });
+        }
     </script>
 </html>
