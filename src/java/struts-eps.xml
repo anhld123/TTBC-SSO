@@ -23,5 +23,11 @@
                 <param name="inputName">pageResult</param>
             </result>
         </action>
+        <action name="sendatatw" class="vbsp.ims.eps.epsAction" method="sendatatw">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action>
     </package>
 </struts>
