@@ -136,44 +136,59 @@
                     </fieldset>
                     <input type="radio" id="chkdung" name="chkchotsl" checked="check"><label for="chkdung">Số liệu đúng và đủ</label>
                     <input type="radio" id="chksai" name="chkchotsl"><label for="chksai">Số liệu sai</label>
-                    <input type="button" value = "Chốt số liệu" id="cmdChotSL">
+                    <input type="button" value = "Gửi số liệu về TW" id="cmdguisltw">
+                    <div id="showmess">
+                        
+                    </div>
                 </div>
             </div>
         </form>
     </body>
     <script>
         $(document).ready(function () {
-            $("#cmdxembc").click({status: "", action: "getMenuReport.action"}, SendData);
+            $("#cmdxembc").click({status: "00", action: "getMenuReport.action"}, SendData);
+            $("#idchotsl").click({status: "01", action: ""}, SendData);
             $('#cmdxembc').trigger('click');
-            $("#idchotsl").click(function () {
-                $("#ShowData").fadeOut();
-                $("#Showchotsl").fadeIn();
-            });
+
+            $("#cmdguisltw").click({status: "02", action: "sendatatw.action"}, SendData);
         });
         function SendData(event) {
-            $("#ShowData").fadeIn();
-            $("#Showchotsl").fadeOut();
-            var surl, sdata, idView, idForm, method;
-            surl = event.data.action;
-            idView = "#ShowData";
-            idForm = "#frmMain";
-            method = "POST";
-            sdata = jQuery(idForm).serialize();
-            $.ajax({
-                url: surl,
-                data: sdata,
-                type: method,
-                async: true,
-                beforeSend: function () {
-                    $(idView).html('<img src="imgs/newloading.gif"/>');
-                },
-                success: function (result) {
-                    $(idView).html(result);
-                },
-                error: function () {
-                    alert('Lỗi khi thực hiện.');
-                }
-            });
+            if (event.data.status == "00") {
+                $("#ShowData").fadeIn();
+                $("#Showchotsl").fadeOut();
+            } else {
+                $("#ShowData").fadeOut();
+                $("#Showchotsl").fadeIn();
+            }
+            if (event.data.status != "01") {
+                var surl, sdata, idView, idForm, method;
+                surl = event.data.action;
+                idView = "#ShowData";
+                idForm = "#frmMain";
+                method = "POST";
+                sdata = jQuery(idForm).serialize();
+                $.ajax({
+                    url: surl,
+                    data: sdata,
+                    type: method,
+                    async: true,
+                    beforeSend: function () {
+                        $(idView).html('<img src="imgs/newloading.gif"/>');
+                    },
+                    success: function (result) {
+                        if(event.data.status=="02"){
+                            $("#showmess").html(result);
+                        }
+                        else{
+                            $("#showmess").html("");
+                        }
+                        $(idView).html(result);
+                    },
+                    error: function () {
+                        alert('Lỗi khi thực hiện.');
+                    }
+                });
+            }
         }
     </script>
 </html>
