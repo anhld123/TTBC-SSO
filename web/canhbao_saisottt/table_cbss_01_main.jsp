@@ -200,7 +200,7 @@
                                 </td>
                                 
                                 <td align = "left" class="TD_MOTA">
-                                    <textarea style="border: 0px !important ; background-color: transparent !important; resize: none;" readonly="readonly"><s:property  value="D4" />"</textarea>
+                                    <textarea style="border: 0px !important ; background-color: transparent !important; resize: none;" readonly="readonly"><s:property  value="D4" /></textarea>
                                 </td>
                                 
                                 <td align = "left" class="TD_SO">
