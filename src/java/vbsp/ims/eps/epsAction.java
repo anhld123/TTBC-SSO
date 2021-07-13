@@ -9,6 +9,8 @@ import vbsp.ims.khnv2021.PosClass;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import java.io.InputStream;
+import java.io.StringBufferInputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,8 +22,9 @@ import java.util.Map;
 public class epsAction extends ActionSupport {
 
     //Cac truong chua thong tin bo xung luu du lieu
-    private String capbc, tendn, ngaybc, madv,status;
-    private int dachot,chuachot,chotsai;
+    private String capbc, tendn, ngaybc, madv, status, linkReport;
+    private int dachot, chuachot, chotsai;
+    private InputStream pageResult;
     private Map session;
     private List<PosClass> lstPos = new ArrayList<>();
     private List<epsGetSet_NT> lstData = new ArrayList<>();
@@ -36,7 +39,7 @@ public class epsAction extends ActionSupport {
         lstPos = new epsModel().getPGD(capbc, tendn);
         return SUCCESS;
     }
-    
+
     public String getAllData() throws ParseException {
         //Lấy số liệu phản hồi
         session = ActionContext.getContext().getSession();
@@ -46,16 +49,24 @@ public class epsAction extends ActionSupport {
         Date date = sdf.parse(ngaybc);
         DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
         ngaybc = df3.format(date);
-        List<Object> obj = new epsModel().getAllData(capbc, tendn,madv,ngaybc,status);
+        List<Object> obj = new epsModel().getAllData(capbc, tendn, madv, ngaybc, status);
         lstData = (List<epsGetSet_NT>) obj.get(0);
         dachot = (int) obj.get(1);
         chuachot = (int) obj.get(2);
         chotsai = (int) obj.get(3);
         return SUCCESS;
     }
-    
-//<editor-fold defaultstate="collapsed" desc="Getter Setter">
 
+    public String getMenuReport() {
+        session = ActionContext.getContext().getSession();
+        capbc = (String) session.get("reportGrade");
+        tendn = (String) session.get("username");
+        linkReport = new epsModel().getMenuIdBc();
+        pageResult = new StringBufferInputStream(linkReport);
+        return SUCCESS;
+    }
+
+//<editor-fold defaultstate="collapsed" desc="Getter Setter">
     public void setCapbc(String capbc) {
         this.capbc = capbc;
     }
@@ -66,6 +77,14 @@ public class epsAction extends ActionSupport {
 
     public void setTendn(String tendn) {
         this.tendn = tendn;
+    }
+
+    public InputStream getPageResult() {
+        return pageResult;
+    }
+
+    public void setPageResult(InputStream pageResult) {
+        this.pageResult = pageResult;
     }
 
     public String getNgaybc() {
@@ -83,13 +102,21 @@ public class epsAction extends ActionSupport {
     public void setMadv(String madv) {
         this.madv = madv;
     }
-    
+
     public Map getSession() {
         return session;
     }
 
     public void setSession(Map session) {
         this.session = session;
+    }
+
+    public String getLinkReport() {
+        return linkReport;
+    }
+
+    public void setLinkReport(String linkReport) {
+        this.linkReport = linkReport;
     }
 
     public String getStatus() {
@@ -132,7 +159,7 @@ public class epsAction extends ActionSupport {
         this.lstPos = lstPos;
     }
 
-     public List<epsGetSet_NT> getLstData() {
+    public List<epsGetSet_NT> getLstData() {
         return lstData;
     }
 
