@@ -462,7 +462,7 @@ public class ExcelExport {
                     //xssfCellSubTitle.setCellValue(strSubTitle);
                     fillTitle(xssfCellSubTitle, strSubTitle);
 
-                    String colTitle3 = "Ước đến 31/12/" + namBc;
+                    String colTitle3 = "Ước đến 31/12/" + preYear;
                     XSSFCell colTitle = sheet.getRow(7).getCell(3, Row.CREATE_NULL_AS_BLANK);
                     fillTitle(colTitle, colTitle3);
 
@@ -716,7 +716,29 @@ public class ExcelExport {
                         lockStyle.setDataFormat(format.getFormat("#,##0"));
                         lockStyle.setAlignment(HorizontalAlignment.RIGHT);
                         
-                        if (lstData.get(i).code.equals("XD00110") || lstData.get(i).code.equals( "XD00111") ){
+                        if (lstData.get(i).code.equals("XD00110") 
+                                || lstData.get(i).code.equals( "XD00111") 
+                                || lstData.get(i).code.equals( "XD00067")
+                                || lstData.get(i).code.equals( "XD00068")
+                                || lstData.get(i).code.equals( "XD00069")
+                                || lstData.get(i).code.equals( "XD00070")
+                                || lstData.get(i).code.equals( "XD00071")
+                                || lstData.get(i).code.equals( "XD00072")
+                                || lstData.get(i).code.equals( "XD00073")
+                                || lstData.get(i).code.equals( "XD00074")
+                                || lstData.get(i).code.equals( "XD00075")
+                                || lstData.get(i).code.equals( "XD00076")
+                                || lstData.get(i).code.equals( "XD00077")
+                                || lstData.get(i).code.equals( "XD00078")
+                                || lstData.get(i).code.equals( "XD00079")
+                                || lstData.get(i).code.equals( "XD00080")
+                                || lstData.get(i).code.equals( "XD00081")
+                                || lstData.get(i).code.equals( "XD00082")
+                                || lstData.get(i).code.equals( "XD00083")
+                                || lstData.get(i).code.equals( "XD00084")
+                                || lstData.get(i).code.equals( "XD00195")
+                                || lstData.get(i).code.equals( "XD00196")
+){
                             xssfCell03.setCellStyle(lockStyle);
                             xssfCell03.setCellValue(lstData.get(i).d1);
                         } else {
