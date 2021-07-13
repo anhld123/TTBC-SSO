@@ -194,8 +194,8 @@
                                 </td>
                                 
                                 <td align = "center" style="width: 20px;">
-                                    <input type="text"  value="<s:property  value="KHOA" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KHOA" onfocus="this.select();" class="D0"
+                                    <input type="text"  value="<s:property  value="MA" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" onfocus="this.select();" class="D0"
                                            readonly="true"/>
                                 </td>
                                 
