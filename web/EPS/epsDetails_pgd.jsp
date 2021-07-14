@@ -74,8 +74,13 @@
                             <option value="02" <s:if test="CHOTSL.equalsIgnoreCase('02')"> selected</s:if>>Sai</option>
                             </select>
                         </td>
-                        <td>
-                            <textarea name="nguyennhan" <s:property value='D1'/>>
+                        <td style="text-align: center;">
+                            <a href="javascript:fnc_show_ngnh(<s:property value='MAKH'/>);">Nguyên nhân</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="20" style="display:none;" id="<s:property value='MAKH'/>" class="giaitrinh">
+                        <textarea name="nguyennhan" <s:property value='D1'/>>
                             <s:property value='NGUYENNHAN'/>
                         </textarea>
                     </td>
@@ -90,6 +95,10 @@
                 }
                 $("#mess").html("&nbsp;<b> Số liệu báo cáo ngày: " + $("#ngaysl").eq(0).val() + "</b>");
             });
+            function fnc_show_ngnh(id) {
+                $(".giaitrinh").fadeOut();
+                $("#" + id).fadeIn();
+            }
         </script>
     </body>
 </html>
