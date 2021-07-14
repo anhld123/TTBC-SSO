@@ -9,9 +9,8 @@ import vbsp.ims.khnv2021.PosClass;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.sun.xml.bind.StringInputStream;
+import com.opensymphony.xwork2.util.logging.Logger;
 import java.io.InputStream;
-import java.io.StringBufferInputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,10 +27,18 @@ public class epsAction extends ActionSupport {
     private InputStream pageResult;
     private Map session;
     private List<PosClass> lstPos = new ArrayList<>();
-    private List<epsGetSet_NT> lstData = new ArrayList<>();
+    private List<epsGetSet> lstData = new ArrayList<>();
+    private List<epsGetSetSL> lstDetail = new ArrayList<>();
+    private List<String> macn = new ArrayList<>();
+    private List<String> mapgd = new ArrayList<>();
+    private List<String> makh = new ArrayList<>();
+    private List<String> ngaysl = new ArrayList<>();
+    private List<String> soku = new ArrayList<>();
+    private List<String> chotsl = new ArrayList<>();
+    private List<String> nguyennhan = new ArrayList<>();
 
     @Override
-    //Lấy danh đơn vị theo cấp báo cáo
+    //Cấp CN và TW
     public String execute() throws Exception {
         //Lấy danh sách đơn vị theo cấp báo cáo
         session = ActionContext.getContext().getSession();
@@ -41,6 +48,7 @@ public class epsAction extends ActionSupport {
         return SUCCESS;
     }
 
+    //Hàm lấy số liệu cho cấp CN và TW
     public String getAllData() throws ParseException {
         //Lấy số liệu phản hồi
         session = ActionContext.getContext().getSession();
@@ -51,34 +59,107 @@ public class epsAction extends ActionSupport {
         DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
         ngaybc = df3.format(date);
         List<Object> obj = new epsModel().getAllData(capbc, tendn, madv, ngaybc, status);
-        lstData = (List<epsGetSet_NT>) obj.get(0);
+        lstDetail = (List<epsGetSetSL>) obj.get(0);
         dachot = (int) obj.get(1);
         chuachot = (int) obj.get(2);
         chotsai = (int) obj.get(3);
         return SUCCESS;
     }
 
-    public String getMenuReport() {
+    //Cấp PGD
+    public String xemsleps() throws ParseException {
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        linkReport = new epsModel().getMenuIdBc();
-        pageResult = new StringBufferInputStream(linkReport);
+        lstDetail = new epsModel().xemsleps(capbc, tendn);
+        return SUCCESS;
+    }
+
+    public String luusleps() throws ParseException {
+        session = ActionContext.getContext().getSession();
+        capbc = (String) session.get("reportGrade");
+        tendn = (String) session.get("username");
+        new epsModel().luusleps(macn, mapgd, makh, ngaysl, soku, chotsl, nguyennhan);
+        lstDetail = new epsModel().xemsleps(capbc, tendn);
         return SUCCESS;
     }
     
-    public String sendatatw() {
+    public String xacnhansleps() throws ParseException {
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        linkReport = new epsModel().sendatatw();
-        pageResult = new StringInputStream(linkReport);
+        new epsModel().xacnhansleps(macn, mapgd, makh, ngaysl, soku, chotsl, nguyennhan);
+        lstDetail = new epsModel().xemsleps(capbc, tendn);
         return SUCCESS;
     }
 
 //<editor-fold defaultstate="collapsed" desc="Getter Setter">
     public void setCapbc(String capbc) {
         this.capbc = capbc;
+    }
+
+    public List<String> getMacn() {
+        return macn;
+    }
+
+    public void setMacn(List<String> macn) {
+        this.macn = macn;
+    }
+
+    public List<String> getMapgd() {
+        return mapgd;
+    }
+
+    public void setMapgd(List<String> mapgd) {
+        this.mapgd = mapgd;
+    }
+
+    public List<String> getMakh() {
+        return makh;
+    }
+
+    public void setMakh(List<String> makh) {
+        this.makh = makh;
+    }
+
+    public List<String> getNgaysl() {
+        return ngaysl;
+    }
+
+    public void setNgaysl(List<String> ngaysl) {
+        this.ngaysl = ngaysl;
+    }
+
+    public List<String> getSoku() {
+        return soku;
+    }
+
+    public void setSoku(List<String> soku) {
+        this.soku = soku;
+    }
+
+    public List<String> getChotsl() {
+        return chotsl;
+    }
+
+    public void setChotsl(List<String> chotsl) {
+        this.chotsl = chotsl;
+    }
+
+    public List<String> getNguyennhan() {
+        return nguyennhan;
+    }
+
+    public void setNguyennhan(List<String> nguyennhan) {
+        this.nguyennhan = nguyennhan;
+    }
+
+    public static Logger getLOG() {
+        return LOG;
+    }
+
+    public static void setLOG(Logger LOG) {
+        ActionSupport.LOG = LOG;
     }
 
     public String getTendn() {
@@ -161,6 +242,14 @@ public class epsAction extends ActionSupport {
         this.chotsai = chotsai;
     }
 
+    public List<epsGetSetSL> getLstDetail() {
+        return lstDetail;
+    }
+
+    public void setLstDetail(List<epsGetSetSL> lstDetail) {
+        this.lstDetail = lstDetail;
+    }
+
     public List<PosClass> getLstPos() {
         return lstPos;
     }
@@ -169,11 +258,11 @@ public class epsAction extends ActionSupport {
         this.lstPos = lstPos;
     }
 
-    public List<epsGetSet_NT> getLstData() {
+    public List<epsGetSet> getLstData() {
         return lstData;
     }
 
-    public void setLstData(List<epsGetSet_NT> lstData) {
+    public void setLstData(List<epsGetSet> lstData) {
         this.lstData = lstData;
     }
     //</editor-fold> 

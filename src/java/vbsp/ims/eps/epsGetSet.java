@@ -21,6 +21,21 @@ public class epsGetSet {
     private String D2;
     private String D3;
 
+    public epsGetSet() {
+    }
+
+    public epsGetSet(String KHOA, String MACN, String MAPGD, String NGAYBC, String NGUOI_NHAP, String NGAY_NHAP, String D1, String D2, String D3) {
+        this.KHOA = KHOA;
+        this.MACN = MACN;
+        this.MAPGD = MAPGD;
+        this.NGAYBC = NGAYBC;
+        this.NGUOI_NHAP = NGUOI_NHAP;
+        this.NGAY_NHAP = NGAY_NHAP;
+        this.D1 = D1;
+        this.D2 = D2;
+        this.D3 = D3;
+    }
+    
     public String getKHOA() {
         return KHOA;
     }

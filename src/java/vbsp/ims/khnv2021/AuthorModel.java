@@ -186,7 +186,7 @@ public class AuthorModel {
         return Message;
     }
 
-    String getMenuIdBc() {
+    public String getMenuIdBc() {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
         String Message ="";

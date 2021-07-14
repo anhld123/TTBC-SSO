@@ -9,8 +9,12 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,12 +54,12 @@ public class epsModel {
     }
 
     public List<Object> getAllData(String capbc, String tendn, String madv, String ngaybc, String nghiepvu) {
-        List<epsGetSet_NT> lst = new ArrayList<>();
+        List<epsGetSetSL> lst = new ArrayList<>();
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
-        int dachot=0, chuachot=0,chotsai=0;
+        int dachot = 0, chuachot = 0, chotsai = 0;
         try {
-            //Thực hiện lấy các biến cần truy cập
+            //Lưu dữ liệu vào CSDL và trả về kết quả
             CallableStatement st = con.prepareCall("{call PROC_GETPH_DONVI(?,?,?,?,?,?,?,?,?)}");
             st.setString(1, capbc);
             st.setString(2, tendn);
@@ -72,59 +76,139 @@ public class epsModel {
             chotsai = st.getInt(8);
             ResultSet rs = (ResultSet) st.getObject(9);
             while (rs.next()) {
-                epsGetSet_NT obj = new epsGetSet_NT();
-                lst.add(
-                        new epsGetSet_NT(
-                                rs.getString("KHOA"),
-                                rs.getString("MACN"),
-                                rs.getString("MAPGD"),
-                                rs.getString("NGAYBC"),
-                                rs.getString("NGUOI_NHAP"),
-                                rs.getString("NGAY_NHAP"),
-                                rs.getString("D1"),
-                                rs.getString("D2"),
-                                rs.getString("D3")
-                        ));
+                lst.add(new epsGetSetSL(
+                        rs.getString("KHOA"),
+                        rs.getString("MACN"),
+                        rs.getString("MAPGD"),
+                        rs.getString("MAKH"),
+                        rs.getString("TENKH"),
+                        rs.getString("NGAYSINH"),
+                        rs.getString("GIOITINH"),
+                        rs.getString("CMT_SO"),
+                        rs.getString("CMT_NOICAP"),
+                        rs.getString("CMT_NGAYCAP"),
+                        rs.getString("DIACHI"),
+                        rs.getString("NGAYKYQUY"),
+                        rs.getString("SOTIENKYQUY"),
+                        rs.getString("NGAYBC"),
+                        rs.getString("SOKU"),
+                        rs.getString("CHOTSL"),
+                        rs.getString("NGUYENNHAN"),
+                        rs.getString("KHOASL"),
+                        rs.getString("D1"),
+                        rs.getString("D2"),
+                        rs.getString("D3"),
+                        rs.getString("D4"),
+                        rs.getString("D5")
+                ));
             }
         } catch (SQLException ex) {
             Logger.getLogger(epsAction.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return Arrays.asList(lst,dachot,chuachot,chotsai);
+        return Arrays.asList(lst, dachot, chuachot, chotsai);
     }
-    
-    //Hàm xác định menu in báo cáo EPS
-    public String getMenuIdBc() {
+
+    //Xem số liệu EPS
+    public List<epsGetSetSL> xemsleps(String capbc, String tendn) {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
-        String Message ="";
+        List<epsGetSetSL> lst = new ArrayList<>();
         try {
             //Lưu dữ liệu vào CSDL và trả về kết quả
-            CallableStatement st = con.prepareCall("{call PROC_GETMNID_EPS(?)}");
-            st.registerOutParameter(1, OracleTypes.VARCHAR);
+            CallableStatement st = con.prepareCall("{call PROC_GETSL_EPSPGD(?,?,?)}");
+            st.setString(1, capbc);
+            st.setString(2, tendn);
+            st.registerOutParameter(3, OracleTypes.CURSOR);
             st.execute();
-            Message = (String) st.getObject(1);
-            Message = "<iframe id=\"ifPrint\" src=\"/IMS_REPORTS/Menu_redirect.action?menuUrl=include_rptmanaget&menuId=" + Message.trim() + "\" width=\"100%\" height=\"100%\" ></iframe>";
+            ResultSet rs = (ResultSet) st.getObject(3);
+            while (rs.next()) {
+                lst.add(new epsGetSetSL(
+                        rs.getString("KHOA"),
+                        rs.getString("MACN"),
+                        rs.getString("MAPGD"),
+                        rs.getString("MAKH"),
+                        rs.getString("TENKH"),
+                        rs.getString("NGAYSINH"),
+                        rs.getString("GIOITINH"),
+                        rs.getString("CMT_SO"),
+                        rs.getString("CMT_NOICAP"),
+                        rs.getString("CMT_NGAYCAP"),
+                        rs.getString("DIACHI"),
+                        rs.getString("NGAYKYQUY"),
+                        rs.getString("SOTIENKYQUY"),
+                        rs.getString("NGAYBC"),
+                        rs.getString("SOKU"),
+                        rs.getString("CHOTSL"),
+                        rs.getString("NGUYENNHAN"),
+                        rs.getString("KHOASL"),
+                        rs.getString("D1"),
+                        rs.getString("D2"),
+                        rs.getString("D3"),
+                        rs.getString("D4"),
+                        rs.getString("D5")
+                ));
+            }
         } catch (SQLException ex) {
             Logger.getLogger(epsAction.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return Message;
+        return lst;
     }
-    
-    //Gửi dữ liệu về TW
-    public String sendatatw() {
+
+    //Lưu số liệu EPS
+    public void luusleps(List<String> macn, List<String> mapgd, List<String> makh, List<String> ngaysl, List<String> soku, List<String> chotsl, List<String> nguyennhan) throws ParseException {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
-        String Message ="";
+        String ngaybc = "";
         try {
-            //Lưu dữ liệu vào CSDL và trả về kết quả
-            CallableStatement st = con.prepareCall("{call PROC_GETMNID_EPS(?)}");
-            st.registerOutParameter(1, OracleTypes.VARCHAR);
-            st.execute();
-            Message = (String) st.getObject(1);
-            Message = "<iframe id=\"ifPrint\" src=\"/IMS_REPORTS/Menu_redirect.action?menuUrl=include_rptmanaget&menuId=" + Message.trim() + "\" width=\"100%\" height=\"100%\" ></iframe>";
+            //Lưu dữ liệu vào CSDL
+            if (macn.size() > 0) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = sdf.parse(ngaysl.get(0));
+                DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
+                ngaybc = df3.format(date);
+                CallableStatement st = con.prepareCall("{call PROC_SAVESL_EPSPGD(?,?,?,?,?,?,?)}");
+                for (int i = 0; i < macn.size(); i++) {
+                    st.setString(1, macn.get(i));
+                    st.setString(2, mapgd.get(i));
+                    st.setString(3, makh.get(i));
+                    st.setString(4, ngaybc);
+                    st.setString(5, soku.get(i));
+                    st.setString(6, chotsl.get(i));
+                    st.setString(7, nguyennhan.get(i));
+                    st.executeUpdate();
+                }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(epsAction.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return Message;
+    }
+    
+    //Lưu số liệu EPS
+    public void xacnhansleps(List<String> macn, List<String> mapgd, List<String> makh, List<String> ngaysl, List<String> soku, List<String> chotsl, List<String> nguyennhan) throws ParseException {
+        DaoConnect db = new DaoConnect();
+        Connection con = db.getConnect();
+        String ngaybc = "";
+        try {
+            //Lưu dữ liệu vào CSDL
+            if (macn.size() > 0) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = sdf.parse(ngaysl.get(0));
+                DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
+                ngaybc = df3.format(date);
+                CallableStatement st = con.prepareCall("{call PROC_XACNHANSL_EPSPGD(?,?,?,?,?,?,?)}");
+                for (int i = 0; i < macn.size(); i++) {
+                    st.setString(1, macn.get(i));
+                    st.setString(2, mapgd.get(i));
+                    st.setString(3, makh.get(i));
+                    st.setString(4, ngaybc);
+                    st.setString(5, soku.get(i));
+                    st.setString(6, chotsl.get(i));
+                    st.setString(7, nguyennhan.get(i));
+                    st.executeUpdate();
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(epsAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

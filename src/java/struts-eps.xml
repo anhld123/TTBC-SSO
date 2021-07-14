@@ -13,21 +13,19 @@
         <action name="loadIndex" class="vbsp.ims.eps.epsAction" method="getAllData">
             <result name="success">/EPS/epsDetails.jsp</result>
         </action>
+        
         <!--Cấp PGD-->
         <action name="redirect_load_pgd" class="vbsp.ims.eps.epsAction">
             <result name="success">/EPS/epsReIndex_pgd.jsp</result>
-        </action>    
-        <action name="getMenuReport" class="vbsp.ims.eps.epsAction" method="getMenuReport">
-            <result name="success" type="stream">
-                <param name="contentType">text/html</param>
-                <param name="inputName">pageResult</param>
-            </result>
-        </action>
-        <action name="sendatatw" class="vbsp.ims.eps.epsAction" method="sendatatw">
-            <result name="success" type="stream">
-                <param name="contentType">text/html</param>
-                <param name="inputName">pageResult</param>
-            </result>
+        </action> 
+        <action name="xemsleps" class="vbsp.ims.eps.epsAction" method="xemsleps">
+            <result name="success">/EPS/epsDetails_pgd.jsp</result>
+        </action>  
+        <action name="luusleps" class="vbsp.ims.eps.epsAction" method="luusleps">
+            <result name="success">/EPS/epsDetails_pgd.jsp</result>
+        </action>  
+        <action name="xacnhansleps" class="vbsp.ims.eps.epsAction" method="xacnhansleps">
+            <result name="success">/EPS/epsDetails_pgd.jsp</result>
         </action>
     </package>
 </struts>
