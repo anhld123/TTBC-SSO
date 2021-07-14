@@ -80,9 +80,7 @@
                 </tr>
                 <tr>
                     <td colspan="20" style="display:none;" id="<s:property value='MAKH'/>" class="giaitrinh">
-                        <textarea name="nguyennhan" <s:property value='D1'/>>
-                            <s:property value='NGUYENNHAN'/>
-                        </textarea>
+                        <textarea name="nguyennhan" <s:property value='D1'/>><s:property value='NGUYENNHAN'/></textarea>
                     </td>
                 </tr>
             </s:iterator>
