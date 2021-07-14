@@ -54,7 +54,7 @@
                 </s:if>
                 <s:else>
                     <tr>
-                        <td colspan="20" style="display:none;" id="<s:property value='MAKH'/>" class="giaitrinh"><s:property value='NGUYENHAN'/></td>
+                        <td colspan="20" style="display:none;" id="<s:property value='MAKH'/>" class="giaitrinh"><s:property value='NGUYENNHAN'/></td>
                     </tr>
                     <tr>
                         <td style="display: none;"><input type="hidden" value="<s:property value='MACN'/>" name="macn"/></td>
