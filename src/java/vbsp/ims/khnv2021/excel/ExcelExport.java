@@ -462,7 +462,7 @@ public class ExcelExport {
                     //xssfCellSubTitle.setCellValue(strSubTitle);
                     fillTitle(xssfCellSubTitle, strSubTitle);
 
-                    String colTitle3 = "Ước đến 31/12/" + preYear;
+                    String colTitle3 = "Ước đến 31/12/" + namBc;
                     XSSFCell colTitle = sheet.getRow(7).getCell(3, Row.CREATE_NULL_AS_BLANK);
                     fillTitle(colTitle, colTitle3);
 
