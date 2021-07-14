@@ -11,33 +11,99 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <style>
+            textarea{
+                height: 100%;
+                width: 100%;
+                border: 1px solid orange;
+                background-color: transparent;
+                min-width: 200px;
+                min-height: 50px;
+            }
+            select{
+                background-color: transparent;
+            }
+        </style>
     </head>
     <body>
+        <div></div>
         <table id="tblData">
             <tr>
-                <th class="clsSTT">STT</th>
-                <th class="clsCN">Chi nhánh</th>
-                <th class="clsPGD">Phòng Giao dịch</th>
-                <th class="clsFILL">Trạng thái<br><span style="font-weight: normal; color: red;" id="status">(Chưa chốt số liệu)</span></th>
-                <th class="clsNGN">Nguyên nhân</th>
+                <th rowspan="2">Đơn vị/Tên khách hàng</th>
+                <th rowspan="2">Ngày tháng năm sinh</th>
+                <th rowspan="2">Giới tính</th>
+                <th colspan="3">CMND, Hộ chiếu, Căn cước công dân</th>
+                <th rowspan="2">Đăng ký thường trú (thôn, xã)</th>
+                <th rowspan="2">Phòng giao dịch nơi nhận ký quỹ</th>
+                <th rowspan="2">Ngày ký quỹ</th>
+                <th rowspan="2">Số tiền vay NHCSXH để ký quỹ (nếu có)</th>
+                <th rowspan="2">Số tiền ký quỹ</th>
+                <th rowspan="2">Trạng thái</th>
+                <th rowspan="2">Nguyên nhân</th>
             </tr>
-            <s:iterator value="lstData">
-                <tr>
-                    <td class="clsSTT"><s:property value='KHOA'/></td>
-                    <td><s:property value='MACN'/></td>
-                    <td><s:property value='MAPGD'/></td>
-                    <td><s:property value='D2'/></td>
-                    <td><s:property value='D1'/>
-                    </td>
-                </tr>
+            <tr>
+                <th>Số</th>
+                <th>Ngày cấp</th>
+                <th>Nơi cấp</th>
+            </tr>
+            <s:iterator value="lstDetail" status="idxRows">
+                <s:if test="MAKH.equalsIgnoreCase('CNPGD')">
+                    <tr>
+                        <td colspan="20" style="font-weight: bold;"><s:property value='TENKH'/></td>
+                    </tr>
+                </s:if>
+                <s:else>
+                    <tr>
+                        <td colspan="20" style="display:none;" id="<s:property value='MAKH'/>" class="giaitrinh"><s:property value='NGUYENHAN'/></td>
+                    </tr>
+                    <tr>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='MACN'/>" name="macn"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='MAPGD'/>" name="mapgd"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='MAKH'/>" name="makh"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='KHOASL'/>" id="chkLock"/></td>
+                        <td><s:property value='TENKH'/></td>
+                        <td><s:property value='NGAYSINH'/></td>
+                        <td><s:property value='GIOITINH'/></td>
+                        <td><s:property value='CMT_SO'/></td>
+                        <td><s:property value='CMT_NGAYCAP'/></td>
+                        <td><s:property value='CMT_NOICAP'/></td>
+                        <td><s:property value='DIACHI'/></td>
+                        <td><s:property value='MAPGD'/></td>
+                        <td><s:property value='NGAYKYQUY'/></td>
+                        <td><s:property value='D3'/></td>
+                        <td><s:property value='SOTIENKYQUY'/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='NGAYBC'/>" name="ngaysl" id="ngaysl"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='SOKU'/>" name="soku"/></td>
+                        <td>
+                            <select name="chotsl" disabled="disabled" style="border: 0px;">
+                                <option value="00" <s:if test="CHOTSL.equalsIgnoreCase('00')"> selected</s:if>>Không xác định</option>
+                                <option value="01" <s:if test="CHOTSL.equalsIgnoreCase('01')"> selected</s:if>>Đúng và đủ</option>
+                                <option value="02" <s:if test="CHOTSL.equalsIgnoreCase('02')"> selected</s:if>>Sai</option>
+                            </select>
+                        </td>
+                        <td style="text-align: center;">
+                            <a href="javascript:fnc_show_ngnh(<s:property value='MAKH'/>);">Xem giải trình</a>
+                        </td>
+                    </tr>
+                </s:else>
             </s:iterator>
         </table>
         <script>
             $(document).ready(function () {
-                $("#btnChuaChot").val("Chưa chốt số liệu: " + <s:property value='chuachot'/>).fadeIn();
-                $("#btnDaChot").val("Đã chốt số liệu: " + <s:property value='dachot'/>).fadeIn();
-                $("#btnChotSai").val("Chốt sai số liệu: " + <s:property value='chotsai'/>).fadeIn();
+                $("#btnDaChot").fadeIn();
+                $("#btnChuaChot").fadeIn();
+                $("#btnChotSai").fadeIn();
+
+                $("#btnDaChot").val("Đúng và đủ: " + <s:property value='dachot'/>);
+                $("#btnChuaChot").val("Không xác định: " + <s:property value='chuachot'/>);
+                $("#btnChotSai").val("Sai (nguyên nhân): " + <s:property value='chotsai'/>);
+                
+                $("#mess").html("&nbsp;<b> Số liệu báo cáo ngày: " + $("#ngaysl").eq(0).val() + "</b>");
             });
+            function fnc_show_ngnh(id){
+                $(".giaitrinh").fadeOut();
+                $("#" + id).fadeIn();
+            }
         </script>
     </body>
 </html>

@@ -100,11 +100,6 @@
             fieldset{
                 margin-bottom: 7px;
             }
-            #ShowData{
-                width: 98%;
-                height: 90vh;
-                border: 0px;
-            }
             iframe{
                 border: 0px;
             }
@@ -116,79 +111,68 @@
     </head>
     <body>
         <div class="clsTitle">
-            <h3>DANH SÁCH ĐƠN VỊ PHẢN HỒI VỀ DỮ LIỆU
+            <h3>
+                XÁC NHẬN SỐ LIỆU
                 <br>
                 NHẬT KÝ QUỸ NGƯỜI LAO ĐỘNG LÀM VIỆC TẠI HÀN QUỐC THEO CHƯƠNG TRÌNH EPS
             </h3>
         </div>
         <form id="frmMain" name="frmMain">
-            <div style="display:flex; justify-content:flex-end; padding: 7px 0px; border: 1px solid #ddd;" >
-                <input type="button" value = "Chốt số liệu" id="idchotsl" style="margin-right: 5px;">
-                <input type="button" id="cmdxembc" value = "Xem số liệu">
+            <div style="display:inline-flex;justify-content: space-between; width: 100%; border-top: 1px solid #ddd;">
+                <div id="mess" style="display:flex; align-items:center;">dsadsadsa</div>
+                <div style="display:flex; align-items:center; padding: 7px 0px;" >
+                    <input type="button" value = "Xem số liệu" id="cmdxemsl" style="margin-right: 5px;">
+                    <input type="button" value = "Lưu số liệu" id="cmdluusl" style="margin-right: 5px;">
+                    <input type="button" value = "Xác nhận với Trung ương" id="idchotsl" style="margin-right: 5px;">
+                </div>
             </div>
             <div style="width: 100%; display: flex;justify-content: center;">
                 <div id="ShowData">
-                </div>
-                <div id="Showchotsl">
-                    <fieldset>
-                        <legend>Nguyên nhân</legend>
-                        <textarea></textarea>
-                    </fieldset>
-                    <input type="radio" id="chkdung" name="chkchotsl" checked="check"><label for="chkdung">Số liệu đúng và đủ</label>
-                    <input type="radio" id="chksai" name="chkchotsl"><label for="chksai">Số liệu sai</label>
-                    <input type="button" value = "Gửi số liệu về TW" id="cmdguisltw">
-                    <div id="showmess">
-                        
-                    </div>
                 </div>
             </div>
         </form>
     </body>
     <script>
         $(document).ready(function () {
-            $("#cmdxembc").click({status: "00", action: "getMenuReport.action"}, SendData);
-            $("#idchotsl").click({status: "01", action: ""}, SendData);
-            $('#cmdxembc').trigger('click');
-
-            $("#cmdguisltw").click({status: "02", action: "sendatatw.action"}, SendData);
+            $("#cmdxemsl").click({action: "xemsleps"}, SendData);
+            $("#cmdxemsl").trigger('click');
+            $("#cmdluusl").click({action: "luusleps"}, SendData);
+            $("#idchotsl").click({action: "xacnhansleps"}, SendData);
         });
         function SendData(event) {
-            if (event.data.status == "00") {
-                $("#ShowData").fadeIn();
-                $("#Showchotsl").fadeOut();
-            } else {
-                $("#ShowData").fadeOut();
-                $("#Showchotsl").fadeIn();
+            var surl, sdata, idView, idForm, method, conf;
+            if (event.data.action == "xacnhansleps") {
+                conf = confirm("Bạn có chắc chắn muốn xác nhận số liệu với TW");
+                if (conf == false) {
+                    return conf;
+                }
             }
-            if (event.data.status != "01") {
-                var surl, sdata, idView, idForm, method;
-                surl = event.data.action;
-                idView = "#ShowData";
-                idForm = "#frmMain";
-                method = "POST";
-                sdata = jQuery(idForm).serialize();
-                $.ajax({
-                    url: surl,
-                    data: sdata,
-                    type: method,
-                    async: true,
-                    beforeSend: function () {
-                        $(idView).html('<img src="imgs/newloading.gif"/>');
-                    },
-                    success: function (result) {
-                        if(event.data.status=="02"){
-                            $("#showmess").html(result);
-                        }
-                        else{
-                            $("#showmess").html("");
-                        }
-                        $(idView).html(result);
-                    },
-                    error: function () {
-                        alert('Lỗi khi thực hiện.');
+            surl = event.data.action + ".action";
+            idView = "#ShowData";
+            idForm = "#frmMain";
+            method = "POST";
+            sdata = jQuery(idForm).serialize();
+            $.ajax({
+                url: surl,
+                data: sdata,
+                type: method,
+                async: true,
+                beforeSend: function () {
+                    $(idView).html('<img src="imgs/newloading.gif"/>');
+                },
+                success: function (result) {
+                    $(idView).html(result);
+                    if (event.data.action == "luusleps") {
+                        alert("Lưu dữ liệu thành công !");
                     }
-                });
-            }
+                    if (event.data.action == "xacnhansleps") {
+                        alert("Xác nhận số liệu thành công !");
+                    }
+                },
+                error: function () {
+                    alert('Lỗi khi thực hiện.');
+                }
+            });
         }
     </script>
 </html>
