@@ -139,7 +139,7 @@ public class epsModel {
                         rs.getString("NGAYBC"),
                         rs.getString("SOKU"),
                         rs.getString("CHOTSL"),
-                        rs.getString("NGUYENNHAN"),
+                        rs.getString("NGUYENNHAN").trim(),
                         rs.getString("KHOASL"),
                         rs.getString("D1"),
                         rs.getString("D2"),
