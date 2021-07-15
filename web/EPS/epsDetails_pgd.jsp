@@ -10,7 +10,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
         <style>
             textarea{
                 height: 100%;
@@ -19,6 +18,7 @@
                 background-color: transparent;
                 min-width: 200px;
                 min-height: 50px;
+                margin-top: 4px;
             }
             select{
                 border: 0px;
@@ -63,8 +63,8 @@
                     <td><s:property value='DIACHI'/></td>
                     <td><s:property value='MAPGD'/></td>
                     <td><s:property value='NGAYKYQUY'/></td>
-                    <td></td>
-                    <td><s:property value='SOTIENKYQUY'/></td>
+                    <td class="number"><s:property value='D3'/></td>
+                    <td class="number"><s:property value='SOTIENKYQUY'/></td>
                     <td style="display: none;"><input type="hidden" value="<s:property value='NGAYBC'/>" name="ngaysl" id="ngaysl"/></td>
                     <td style="display: none;"><input type="hidden" value="<s:property value='SOKU'/>" name="soku"/></td>
                     <td>
@@ -78,15 +78,16 @@
                             <a href="javascript:fnc_show_ngnh(<s:property value='MAKH'/>);">Nguyên nhân</a>
                     </td>
                 </tr>
-                <tr>
+                <tr style="color: red;">
                     <td colspan="20" style="display:none;" id="<s:property value='MAKH'/>" class="giaitrinh">
-                        Nguyên nhân: <textarea name="nguyennhan" <s:property value='D1'/>><s:property value='NGUYENNHAN'/></textarea>
+                        <span style="font-weight: bold;">Nguyên nhân:</span><textarea name="nguyennhan" <s:property value='D1'/>><s:property value='NGUYENNHAN'/></textarea>
                     </td>
                 </tr>
             </s:iterator>
         </table>
         <script>
             $(document).ready(function () {
+                $('.number').number(true, 0);
                 if ($("#chkLock").val() == "LOCK") {
                     $("#cmdluusl").hide();
                     $("#idchotsl").hide();
@@ -98,5 +99,6 @@
                 $("#" + id).fadeIn();
             }
         </script>
+    });
     </body>
 </html>

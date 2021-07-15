@@ -10,7 +10,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
         <style>
             textarea{
                 height: 100%;
@@ -18,7 +17,7 @@
                 border: 1px solid orange;
                 background-color: transparent;
                 min-width: 200px;
-                min-height: 50px;
+                min-height: 60px;
             }
             select{
                 background-color: transparent;
@@ -53,8 +52,8 @@
                     </tr>
                 </s:if>
                 <s:else>
-                    <tr>
-                        <td colspan="20" style="display:none;" id="<s:property value='MAKH'/>" class="giaitrinh">Nguyên nhân: <s:property value='NGUYENNHAN'/></td>
+                    <tr style="color: red;">
+                        <td colspan="20" style="display:none;" id="<s:property value='MAKH'/>" class="giaitrinh"><span style="font-weight: bold;">Nguyên nhân: </span><s:property value='NGUYENNHAN'/></td>
                     </tr>
                     <tr>
                         <td style="display: none;"><input type="hidden" value="<s:property value='MACN'/>" name="macn"/></td>
@@ -70,8 +69,8 @@
                         <td><s:property value='DIACHI'/></td>
                         <td><s:property value='MAPGD'/></td>
                         <td><s:property value='NGAYKYQUY'/></td>
-                        <td><s:property value='D3'/></td>
-                        <td><s:property value='SOTIENKYQUY'/></td>
+                        <td class="number"><s:property value='D3'/></td>
+                        <td class="number"><s:property value='SOTIENKYQUY'/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='NGAYBC'/>" name="ngaysl" id="ngaysl"/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='SOKU'/>" name="soku"/></td>
                         <td>
@@ -82,7 +81,7 @@
                             </select>
                         </td>
                         <td style="text-align: center;">
-                            <a href="javascript:fnc_show_ngnh(<s:property value='MAKH'/>);">Xem giải trình</a>
+                            <a href="javascript:fnc_show_ngnh(<s:property value='MAKH'/>);">Xem nguyên nhân</a>
                         </td>
                     </tr>
                 </s:else>
