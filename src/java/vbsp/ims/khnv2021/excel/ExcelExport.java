@@ -317,6 +317,15 @@ public class ExcelExport {
                         numberStyle.setLocked(false);
                         xssfCell03.setCellStyle(numberStyle);
                         xssfCell03.setCellValue(lstData.get(i).d2);
+                        
+                        XSSFCell xssfCell05 = xssfRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
+                        numberStyle = xssfCell05.getCellStyle();
+                        numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                        numberStyle.setAlignment(HorizontalAlignment.RIGHT);
+                        numberStyle.setFont(font);
+                        numberStyle.setLocked(false);
+                        xssfCell05.setCellStyle(numberStyle);
+                        xssfCell05.setCellValue(lstData.get(i).d4);
 
                         XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
                         lockStyle = xssfCell04.getCellStyle();
@@ -764,10 +773,42 @@ public class ExcelExport {
                         lockStyle = xssfCell05.getCellStyle();
                         lockStyle.setDataFormat(format.getFormat("#,##0.00"));
                         lockStyle.setAlignment(HorizontalAlignment.RIGHT);
-                        lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-                        lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                        lockStyle.setLocked(true);
-                        xssfCell05.setCellStyle(lockStyle);
+                        
+                        
+                        
+                        if (lstData.get(i).code.equals("XD00110") 
+                                || lstData.get(i).code.equals( "XD00111") 
+                                || lstData.get(i).code.equals( "XD00067")
+                                || lstData.get(i).code.equals( "XD00068")
+                                || lstData.get(i).code.equals( "XD00069")
+                                || lstData.get(i).code.equals( "XD00070")
+                                || lstData.get(i).code.equals( "XD00071")
+                                || lstData.get(i).code.equals( "XD00072")
+                                || lstData.get(i).code.equals( "XD00073")
+                                || lstData.get(i).code.equals( "XD00074")
+                                || lstData.get(i).code.equals( "XD00075")
+                                || lstData.get(i).code.equals( "XD00076")
+                                || lstData.get(i).code.equals( "XD00077")
+                                || lstData.get(i).code.equals( "XD00078")
+                                || lstData.get(i).code.equals( "XD00079")
+                                || lstData.get(i).code.equals( "XD00080")
+                                || lstData.get(i).code.equals( "XD00081")
+                                || lstData.get(i).code.equals( "XD00082")
+                                || lstData.get(i).code.equals( "XD00083")
+                                || lstData.get(i).code.equals( "XD00084")
+                                || lstData.get(i).code.equals( "XD00195")
+                                || lstData.get(i).code.equals( "XD00196")
+){
+                            xssfCell05.setCellStyle(lockStyle);
+                            xssfCell05.setCellValue(lstData.get(i).d3);
+                        } else {
+                            lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+                            lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+                            lockStyle.setLocked(true);
+                            xssfCell05.setCellStyle(lockStyle);
+                            //xssfCell05.setCellValue(lstData.get(i).d3);
+                        }
+                        
 
                         XSSFCell xssfCell06 = xssfRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
                         numberStyle = xssfCell06.getCellStyle();
