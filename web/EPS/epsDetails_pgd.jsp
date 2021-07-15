@@ -61,7 +61,7 @@
                     <td><s:property value='CMT_NOICAP'/></td>
                     <td><s:property value='CMT_NGAYCAP'/></td>
                     <td><s:property value='DIACHI'/></td>
-                    <td><s:property value='MAPGD'/></td>
+                    <td><s:property value='D4'/></td>
                     <td><s:property value='NGAYKYQUY'/></td>
                     <td class="number"><s:property value='D3'/></td>
                     <td class="number"><s:property value='SOTIENKYQUY'/></td>
@@ -99,6 +99,5 @@
                 $("#" + id).fadeIn();
             }
         </script>
-    });
     </body>
 </html>
