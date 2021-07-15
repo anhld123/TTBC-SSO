@@ -120,7 +120,7 @@
         </div>
         <form id="frmMain" name="frmMain">
             <div style="display:inline-flex;justify-content: space-between; width: 100%; border-top: 1px solid #ddd;">
-                <div id="mess" style="display:flex; align-items:center;">dsadsadsa</div>
+                <div id="mess" style="display:flex; align-items:center;"></div>
                 <div style="display:flex; align-items:center; padding: 7px 0px;" >
                     <input type="button" value = "Xem số liệu" id="cmdxemsl" style="margin-right: 5px;">
                     <input type="button" value = "Lưu số liệu" id="cmdluusl" style="margin-right: 5px;">

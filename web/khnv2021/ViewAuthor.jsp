@@ -109,7 +109,7 @@
                 background-color: lightgoldenrodyellow;
             }
         </style>
-        <link href="css/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <form id="idKhnv2021" name="nameKhnv2021">
