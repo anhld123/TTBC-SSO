@@ -27,7 +27,6 @@ public class epsAction extends ActionSupport {
     private InputStream pageResult;
     private Map session;
     private List<PosClass> lstPos = new ArrayList<>();
-    private List<epsGetSet> lstData = new ArrayList<>();
     private List<epsGetSetSL> lstDetail = new ArrayList<>();
     private List<String> macn = new ArrayList<>();
     private List<String> mapgd = new ArrayList<>();
@@ -93,7 +92,7 @@ public class epsAction extends ActionSupport {
         return SUCCESS;
     }
 
-//<editor-fold defaultstate="collapsed" desc="Getter Setter">
+//<editor-fold defaultstate="collapsed" desc="Thuộc tính GET SET">
     public void setCapbc(String capbc) {
         this.capbc = capbc;
     }
@@ -258,12 +257,5 @@ public class epsAction extends ActionSupport {
         this.lstPos = lstPos;
     }
 
-    public List<epsGetSet> getLstData() {
-        return lstData;
-    }
-
-    public void setLstData(List<epsGetSet> lstData) {
-        this.lstData = lstData;
-    }
     //</editor-fold> 
 }
