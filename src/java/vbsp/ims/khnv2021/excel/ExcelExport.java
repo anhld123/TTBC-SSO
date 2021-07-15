@@ -58,7 +58,7 @@ public class ExcelExport {
     public ExcelExport() {
     }
 
-    public FileExportInfo xuatExcelMau01(List<String> lstCommune, String savedDirPath, String namBc, String dotBc) {
+    public FileExportInfo xuatExcelMau01(List<String> lstCommune, String savedDirPath, String namBc, String dotBc, String pos_cd) {
         String filePath = "", fileName = "";
         List<String> lstOfTextFile = new ArrayList<>();
         List<DownloadFileInfor> filesList = new ArrayList<>();
@@ -76,7 +76,7 @@ public class ExcelExport {
                 String save_id = "KHNV01";
 
                 HashMap<String, String> paramHashMap = new HashMap<>();
-                String sPos_cd = "";
+//                String sPos_cd = "";
                 String stringParaPos_cd = "";
                 String sPosFlag = "";
                 //xy lay lay cac tham so cho vao hashmap
@@ -117,11 +117,11 @@ public class ExcelExport {
 
                 mapCollectPara.put("PD_REPORT_DATE",
                         ImsFillParaMeter.newInstance("VARCHAR2", new SimpleDateFormat("dd-MMM-yyyy").format(sdf)));
-                sPos_cd = "000000";
+//                sPos_cd = "000000";
                 stringParaPos_cd = "PV_POS_CD";
                 sPosFlag = "N";
 
-                daoQuery.getDataExp(save_id, paramHashMap, sPos_cd, stringParaPos_cd, sPosFlag, strPathSave + strFileSave, namBc, dotBc, value);
+                daoQuery.getDataExp(save_id, paramHashMap, pos_cd, stringParaPos_cd, sPosFlag, strPathSave + strFileSave, namBc, dotBc, value);
 
                 //Kiem tra xem file da tao thanh cong chua
                 File filerpt = new File(strPathSave + strFileSave);
@@ -462,7 +462,7 @@ public class ExcelExport {
                     //xssfCellSubTitle.setCellValue(strSubTitle);
                     fillTitle(xssfCellSubTitle, strSubTitle);
 
-                    String colTitle3 = "Ước đến 31/12/" + namBc;
+                    String colTitle3 = "Tổng số " + namBc;
                     XSSFCell colTitle = sheet.getRow(7).getCell(3, Row.CREATE_NULL_AS_BLANK);
                     fillTitle(colTitle, colTitle3);
 
@@ -667,7 +667,7 @@ public class ExcelExport {
                     colTitle = sheet.getRow(6).getCell(5, Row.CREATE_NULL_AS_BLANK);
                     fillTitle(colTitle, colTitle6);
 
-                    String colTitle7 = "Tăng, giảm so với 31/12/" + strPreYear;
+                    String colTitle7 = "Tổng số";
                     colTitle = sheet.getRow(7).getCell(5, Row.CREATE_NULL_AS_BLANK);
                     fillTitle(colTitle, colTitle7);
 

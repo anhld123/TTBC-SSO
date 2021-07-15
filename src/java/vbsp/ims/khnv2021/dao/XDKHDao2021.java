@@ -448,7 +448,7 @@ public class XDKHDao2021 {
             String strQuery = getQueryKHNV01("KHNV_01A",namBc,dotBc,maxa,"1", connect);
 
             //Lay ra danh sach pos
-            List<ListValue> lstPostCd = getPosGeneralReport(connect, "00" + maxa.substring(0, 4), sPos_Flag);
+            List<ListValue> lstPostCd  = getPosGeneralReport(connect, sPos_cd, sPos_Flag);
 
             Integer nValue = 0;
             Integer nCountData = 0;
