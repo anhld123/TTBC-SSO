@@ -96,6 +96,16 @@
                     $("#cmdluusl").hide();
                     $("#idchotsl").hide();
                 }
+
+                $('select[name=chotsl]').change(function () {
+                    var idx, valu;
+                    idx = $('select[name=chotsl]').index(this);
+                    valu = $(this).val();
+                    if (valu == "00" || valu == "01") {
+                        $('textarea[name=nguyennhan]').eq(idx).val('');
+                    }
+                });
+
                 $("#mess").html("&nbsp;<b> Số liệu báo cáo ngày: " + $("#ngaysl").eq(0).val() + "</b>");
             });
             function fnc_show_ngnh(id) {
