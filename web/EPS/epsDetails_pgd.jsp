@@ -24,6 +24,10 @@
                 border: 0px;
                 background-color: transparent;
             }
+            .number{
+                text-align: right;
+                padding-right: 3px;
+            }
         </style>
     </head>
     <body>
