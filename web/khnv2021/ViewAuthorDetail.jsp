@@ -217,11 +217,7 @@
         document.getElementById("lstData[12].D16").value = parseInt(document.getElementById("lstData[13].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D16").value.replaceAll(',', ''))+ parseInt(document.getElementById("lstData[78].D16").value.replaceAll(',', ''));
         document.getElementById("lstData[12].D17").value = parseInt(document.getElementById("lstData[13].D17").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D17").value.replaceAll(',', ''))+ parseInt(document.getElementById("lstData[78].D17").value.replaceAll(',', ''));
 
-        D139 = 0;
-        D149 = 0;
-        D159 = 0;
-        D169 = 0;
-        D179 = 0;
+        D139 = 0; D149 = 0; D159 = 0; D169 = 0; D179 = 0;
         if (["XD00038", "XD00039", "XD00040", "XD00041", "XD00042", "XD00043", "XD00044", "XD00045", "XD00046", "XD00047", "XD00048", "XD00049", "XD00050", "XD00051", "XD00052", "XD00053", "XD00054", "XD00055", "XD00056", "XD00057", "XD00058", "XD00059", "XD00087", "XD00060", "XD00061", "XD00062", "XD00063"].includes(indi)) {
             for (var i = 51; i < 78; i++) {
                 D139 += parseFloat(document.getElementById("lstData[" + i + "].D13").value.replaceAll(',', ''));
@@ -237,7 +233,27 @@
             document.getElementById("lstData[50].D16").value = D169;
             document.getElementById("lstData[50].D17").value = D179;
         }
+        //Cập nhật các chỉ tiêu theo công thức mới ban KHNV gửi ngày 20/07/2021
+        document.getElementById("lstData[3].D13").value = parseInt(document.getElementById("lstData[4].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[8].D13").value.replaceAll(',', ''));
+        document.getElementById("lstData[3].D14").value = parseInt(document.getElementById("lstData[4].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[8].D14").value.replaceAll(',', ''));
+        document.getElementById("lstData[3].D15").value = parseInt(document.getElementById("lstData[4].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[8].D15").value.replaceAll(',', ''));
+        document.getElementById("lstData[3].D16").value = parseInt(document.getElementById("lstData[4].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[8].D16").value.replaceAll(',', ''))
+        document.getElementById("lstData[3].D17").value = parseInt(document.getElementById("lstData[4].D17").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[8].D17").value.replaceAll(',', ''));
+        
+        document.getElementById("lstData[2].D13").value = parseInt(document.getElementById("lstData[12].D13").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D13").value.replaceAll(',', ''))- parseInt(document.getElementById("lstData[3].D13").value.replaceAll(',', ''));
+        document.getElementById("lstData[2].D14").value = parseInt(document.getElementById("lstData[12].D14").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D14").value.replaceAll(',', ''))- parseInt(document.getElementById("lstData[3].D14").value.replaceAll(',', ''));
+        document.getElementById("lstData[2].D15").value = parseInt(document.getElementById("lstData[12].D15").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D15").value.replaceAll(',', ''))- parseInt(document.getElementById("lstData[3].D15").value.replaceAll(',', ''));
+        document.getElementById("lstData[2].D16").value = parseInt(document.getElementById("lstData[12].D16").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D16").value.replaceAll(',', ''))- parseInt(document.getElementById("lstData[3].D16").value.replaceAll(',', ''));
+        document.getElementById("lstData[2].D17").value = parseInt(document.getElementById("lstData[12].D17").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D17").value.replaceAll(',', ''))- parseInt(document.getElementById("lstData[3].D17").value.replaceAll(',', ''));
+        
+        document.getElementById("lstData[1].D13").value = parseInt(document.getElementById("lstData[2].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[3].D13").value.replaceAll(',', ''));
+        document.getElementById("lstData[1].D14").value = parseInt(document.getElementById("lstData[2].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[3].D14").value.replaceAll(',', ''));
+        document.getElementById("lstData[1].D15").value = parseInt(document.getElementById("lstData[2].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[3].D15").value.replaceAll(',', ''));
+        document.getElementById("lstData[1].D16").value = parseInt(document.getElementById("lstData[2].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[3].D16").value.replaceAll(',', ''))
+        document.getElementById("lstData[1].D17").value = parseInt(document.getElementById("lstData[2].D17").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[3].D17").value.replaceAll(',', ''));
+        
         $('.item.number').number(true, 0);
         $('.item.number2').number(true, 2);
     }
+    autoPlus(10);
 </script>
