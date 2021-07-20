@@ -57,25 +57,25 @@
                     <td style="display: none;"><input type="hidden" value="<s:property value='MACN'/>" name="macn"/></td>
                     <td style="display: none;"><input type="hidden" value="<s:property value='MAPGD'/>" name="mapgd"/></td>
                     <td style="display: none;"><input type="hidden" value="<s:property value='MAKH'/>" name="makh"/></td>
-                    <td style="display: none;"><input type="hidden" value="<s:property value='KHOASL'/>" id="chkLock"/></td>
+                    <td style="display: none;"><input type="hidden" value="<s:property value='D5'/>" id="chkLock"/></td>
                     <td><s:property value='TENKH'/></td>
                     <td><s:property value='NGAYSINH'/></td>
                     <td><s:property value='GIOITINH'/></td>
                     <td><s:property value='CMT_SO'/></td>
-                    <td><s:property value='CMT_NOICAP'/></td>
                     <td><s:property value='CMT_NGAYCAP'/></td>
+                    <td><s:property value='CMT_NOICAP'/></td>
                     <td><s:property value='DIACHI'/></td>
-                    <td><s:property value='D4'/></td>
+                    <td><s:property value='D6'/></td>
                     <td><s:property value='NGAYKYQUY'/></td>
-                    <td class="number"><s:property value='D3'/></td>
+                    <td class="number"><s:property value='D7'/></td>
                     <td class="number"><s:property value='SOTIENKYQUY'/></td>
                     <td style="display: none;"><input type="hidden" value="<s:property value='NGAYBC'/>" name="ngaysl" id="ngaysl"/></td>
                     <td style="display: none;"><input type="hidden" value="<s:property value='SOKU'/>" name="soku"/></td>
                     <td>
-                        <select name="chotsl" <s:property value='D2'/>>
-                            <option value="00" <s:if test="CHOTSL.equalsIgnoreCase('00')"> selected</s:if>>Không xác định</option>
-                            <option value="01" <s:if test="CHOTSL.equalsIgnoreCase('01')"> selected</s:if>>Đúng và đủ</option>
-                            <option value="02" <s:if test="CHOTSL.equalsIgnoreCase('02')"> selected</s:if>>Sai</option>
+                        <select name="chotsl" <s:property value='D9'/>>
+                            <option value="00" <s:if test="D4.equalsIgnoreCase('00')"> selected</s:if>>Không xác định</option>
+                            <option value="01" <s:if test="D4.equalsIgnoreCase('01')"> selected</s:if>>Đúng và đủ</option>
+                            <option value="02" <s:if test="D4.equalsIgnoreCase('02')"> selected</s:if>>Sai</option>
                             </select>
                         </td>
                         <td style="text-align: center;">
@@ -84,7 +84,7 @@
                 </tr>
                 <tr style="color: red;">
                     <td colspan="20" style="display:none;" id="<s:property value='MAKH'/>" class="giaitrinh">
-                        <span style="font-weight: bold;">Nguyên nhân:</span><textarea name="nguyennhan" <s:property value='D1'/>><s:property value='NGUYENNHAN'/></textarea>
+                        <span style="font-weight: bold;">Nguyên nhân:</span><textarea name="nguyennhan" <s:property value='D8'/>><s:property value='D3'/></textarea>
                     </td>
                 </tr>
             </s:iterator>
@@ -96,15 +96,6 @@
                     $("#cmdluusl").hide();
                     $("#idchotsl").hide();
                 }
-
-                $('select[name=chotsl]').change(function () {
-                    var idx, valu;
-                    idx = $('select[name=chotsl]').index(this);
-                    valu = $(this).val();
-                    if (['00','01'].includes(valu)) {
-                        $('textarea[name=nguyennhan]').eq(idx).val('');
-                    }
-                });
 
                 $("#mess").html("&nbsp;<b> Số liệu báo cáo ngày: " + $("#ngaysl").eq(0).val() + "</b>");
             });

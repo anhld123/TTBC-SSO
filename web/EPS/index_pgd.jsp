@@ -109,6 +109,19 @@
                 width: 98%;
             }
         </style>
+        <script>
+            //Lấy ngày hiện tại cho NgayBC
+            $(function () {
+                $("#datepicker").datepicker(
+                        {
+                            dateFormat: 'dd/mm/yy',
+                            changeMonth: true,
+                            changeYear: true,
+                            showButtonPanel: true
+                        }
+                ).datepicker('setDate', '25/05/2020');
+            });
+        </script>
     </head>
     <body>
         <div class="clsTitle">
@@ -122,6 +135,7 @@
             <div style="display:inline-flex;justify-content: space-between; width: 100%; border-top: 1px solid #ddd;">
                 <div id="mess" style="display:flex; align-items:center;"></div>
                 <div style="display:flex; align-items:center; padding: 7px 0px;" >
+                    <div> Ngày báo cáo:<input type="text" id="datepicker" name="ngaybc"> </div>
                     <input type="button" value = "Xem số liệu" id="cmdxemsl" style="margin-right: 5px;">
                     <input type="button" value = "Lưu số liệu" id="cmdluusl" style="margin-right: 5px;">
                     <input type="button" value = "Xác nhận với Trung ương" id="idchotsl" style="margin-right: 5px;">
@@ -139,6 +153,7 @@
             $("#cmdxemsl").trigger('click');
             $("#cmdluusl").click({action: "luusleps"}, SendData);
             $("#idchotsl").click({action: "xacnhansleps"}, SendData);
+            $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
         });
         function SendData(event) {
             var surl, sdata, idView, idForm, method, conf;

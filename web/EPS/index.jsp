@@ -61,7 +61,7 @@
                             changeYear: true,
                             showButtonPanel: true
                         }
-                ).datepicker('setDate', '05/07/2021');
+                ).datepicker('setDate', '25/05/2020');
             });
         </script>
     </head>
@@ -82,7 +82,7 @@
                             <option value="<s:property value='PosCode'/>"><s:property value='PosName'/></option>
                         </s:iterator>
                     </select>
-                    <div style="display: none;"> Ngày báo cáo:<input type="text" id="datepicker" name="ngaybc"> </div>
+                    <div> Ngày báo cáo:<input type="text" id="datepicker" name="ngaybc"> </div>
                     <input type="button" id="btnXem" value="Xem số liệu"/>
                     <input type="button" id="btnChuaChot" value="" style="display: none;"/>
                     <input type="button" id="btnDaChot" value="" style="display: none;"/>
