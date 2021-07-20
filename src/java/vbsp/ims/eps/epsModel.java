@@ -92,14 +92,16 @@ public class epsModel {
                         rs.getString("SOTIENKYQUY"),
                         rs.getString("NGAYBC"),
                         rs.getString("SOKU"),
-                        rs.getString("CHOTSL"),
-                        rs.getString("NGUYENNHAN"),
-                        rs.getString("KHOASL"),
                         rs.getString("D1"),
                         rs.getString("D2"),
                         rs.getString("D3"),
                         rs.getString("D4"),
-                        rs.getString("D5")
+                        rs.getString("D5"),
+                        rs.getString("D6"),
+                        rs.getString("D7"),
+                        rs.getString("D8"),
+                        rs.getString("D9"),
+                        rs.getString("D10")
                 ));
             }
         } catch (SQLException ex) {
@@ -109,18 +111,19 @@ public class epsModel {
     }
 
     //Xem số liệu EPS
-    public List<epsGetSetSL> xemsleps(String capbc, String tendn) {
+    public List<epsGetSetSL> xemsleps(String capbc, String tendn, String ngaybc) {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
         List<epsGetSetSL> lst = new ArrayList<>();
         try {
             //Lưu dữ liệu vào CSDL và trả về kết quả
-            CallableStatement st = con.prepareCall("{call PROC_GETSL_EPSPGD(?,?,?)}");
+            CallableStatement st = con.prepareCall("{call PROC_GETSL_EPSPGD(?,?,?,?)}");
             st.setString(1, capbc);
             st.setString(2, tendn);
-            st.registerOutParameter(3, OracleTypes.CURSOR);
+            st.setString(3, ngaybc);
+            st.registerOutParameter(4, OracleTypes.CURSOR);
             st.execute();
-            ResultSet rs = (ResultSet) st.getObject(3);
+            ResultSet rs = (ResultSet) st.getObject(4);
             while (rs.next()) {
                 lst.add(new epsGetSetSL(
                         rs.getString("KHOA"),
@@ -138,14 +141,16 @@ public class epsModel {
                         rs.getString("SOTIENKYQUY"),
                         rs.getString("NGAYBC"),
                         rs.getString("SOKU"),
-                        rs.getString("CHOTSL"),
-                        rs.getString("NGUYENNHAN").trim(),
-                        rs.getString("KHOASL"),
                         rs.getString("D1"),
                         rs.getString("D2"),
                         rs.getString("D3"),
                         rs.getString("D4"),
-                        rs.getString("D5")
+                        rs.getString("D5"),
+                        rs.getString("D6"),
+                        rs.getString("D7"),
+                        rs.getString("D8"),
+                        rs.getString("D9"),
+                        rs.getString("D10")
                 ));
             }
         } catch (SQLException ex) {
@@ -155,17 +160,12 @@ public class epsModel {
     }
 
     //Lưu số liệu EPS
-    public void luusleps(List<String> macn, List<String> mapgd, List<String> makh, List<String> ngaysl, List<String> soku, List<String> chotsl, List<String> nguyennhan) throws ParseException {
+    public void luusleps(List<String> macn, List<String> mapgd, List<String> makh, String ngaybc, List<String> soku, List<String> chotsl, List<String> nguyennhan) throws ParseException {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
-        String ngaybc = "";
         try {
             //Lưu dữ liệu vào CSDL
             if (macn.size() > 0) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                Date date = sdf.parse(ngaysl.get(0));
-                DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
-                ngaybc = df3.format(date);
                 CallableStatement st = con.prepareCall("{call PROC_SAVESL_EPSPGD(?,?,?,?,?,?,?)}");
                 for (int i = 0; i < macn.size(); i++) {
                     st.setString(1, macn.get(i));
@@ -184,17 +184,12 @@ public class epsModel {
     }
     
     //Lưu số liệu EPS
-    public void xacnhansleps(List<String> macn, List<String> mapgd, List<String> makh, List<String> ngaysl, List<String> soku, List<String> chotsl, List<String> nguyennhan) throws ParseException {
+    public void xacnhansleps(List<String> macn, List<String> mapgd, List<String> makh, String ngaybc, List<String> soku, List<String> chotsl, List<String> nguyennhan) throws ParseException {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
-        String ngaybc = "";
         try {
             //Lưu dữ liệu vào CSDL
             if (macn.size() > 0) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                Date date = sdf.parse(ngaysl.get(0));
-                DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
-                ngaybc = df3.format(date);
                 CallableStatement st = con.prepareCall("{call PROC_XACNHANSL_EPSPGD(?,?,?,?,?,?,?)}");
                 for (int i = 0; i < macn.size(); i++) {
                     st.setString(1, macn.get(i));

@@ -26,19 +26,21 @@ public class epsGetSetSL {
     private String SOTIENKYQUY;
     private String NGAYBC;
     private String SOKU;
-    private String CHOTSL;
-    private String NGUYENNHAN;
-    private String KHOASL;
     private String D1;
     private String D2;
     private String D3;
     private String D4;
     private String D5;
+    private String D6;
+    private String D7;
+    private String D8;
+    private String D9;
+    private String D10;
 
     public epsGetSetSL() {
     }
 
-    public epsGetSetSL(String KHOA, String MACN, String MAPGD, String MAKH, String TENKH, String NGAYSINH, String GIOITINH, String CMT_SO, String CMT_NOICAP, String CMT_NGAYCAP, String DIACHI, String NGAYKYQUY, String SOTIENKYQUY, String NGAYBC, String SOKU, String CHOTSL, String NGUYENNHAN, String KHOASL, String D1, String D2, String D3, String D4, String D5) {
+    public epsGetSetSL(String KHOA, String MACN, String MAPGD, String MAKH, String TENKH, String NGAYSINH, String GIOITINH, String CMT_SO, String CMT_NOICAP, String CMT_NGAYCAP, String DIACHI, String NGAYKYQUY, String SOTIENKYQUY, String NGAYBC, String SOKU, String D1, String D2, String D3, String D4, String D5, String D6, String D7, String D8, String D9, String D10) {
         this.KHOA = KHOA;
         this.MACN = MACN;
         this.MAPGD = MAPGD;
@@ -54,14 +56,16 @@ public class epsGetSetSL {
         this.SOTIENKYQUY = SOTIENKYQUY;
         this.NGAYBC = NGAYBC;
         this.SOKU = SOKU;
-        this.CHOTSL = CHOTSL;
-        this.NGUYENNHAN = NGUYENNHAN;
-        this.KHOASL = KHOASL;
         this.D1 = D1;
         this.D2 = D2;
         this.D3 = D3;
         this.D4 = D4;
         this.D5 = D5;
+        this.D6 = D6;
+        this.D7 = D7;
+        this.D8 = D8;
+        this.D9 = D9;
+        this.D10 = D10;
     }
 
     public String getKHOA() {
@@ -184,30 +188,6 @@ public class epsGetSetSL {
         this.SOKU = SOKU;
     }
 
-    public String getCHOTSL() {
-        return CHOTSL;
-    }
-
-    public void setCHOTSL(String CHOTSL) {
-        this.CHOTSL = CHOTSL;
-    }
-
-    public String getNGUYENNHAN() {
-        return NGUYENNHAN;
-    }
-
-    public void setNGUYENNHAN(String NGUYENNHAN) {
-        this.NGUYENNHAN = NGUYENNHAN;
-    }
-
-    public String getKHOASL() {
-        return KHOASL;
-    }
-
-    public void setKHOASL(String KHOASL) {
-        this.KHOASL = KHOASL;
-    }
-
     public String getD1() {
         return D1;
     }
@@ -246,6 +226,46 @@ public class epsGetSetSL {
 
     public void setD5(String D5) {
         this.D5 = D5;
+    }
+
+    public String getD6() {
+        return D6;
+    }
+
+    public void setD6(String D6) {
+        this.D6 = D6;
+    }
+
+    public String getD7() {
+        return D7;
+    }
+
+    public void setD7(String D7) {
+        this.D7 = D7;
+    }
+
+    public String getD8() {
+        return D8;
+    }
+
+    public void setD8(String D8) {
+        this.D8 = D8;
+    }
+
+    public String getD9() {
+        return D9;
+    }
+
+    public void setD9(String D9) {
+        this.D9 = D9;
+    }
+
+    public String getD10() {
+        return D10;
+    }
+
+    public void setD10(String D10) {
+        this.D10 = D10;
     }
 
     

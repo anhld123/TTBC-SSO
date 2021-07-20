@@ -67,28 +67,40 @@ public class epsAction extends ActionSupport {
 
     //Cấp PGD
     public String xemsleps() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = sdf.parse(ngaybc);
+        DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
+        ngaybc = df3.format(date);
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        lstDetail = new epsModel().xemsleps(capbc, tendn);
+        lstDetail = new epsModel().xemsleps(capbc, tendn,ngaybc);
         return SUCCESS;
     }
 
     public String luusleps() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = sdf.parse(ngaybc);
+        DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
+        ngaybc = df3.format(date);
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        new epsModel().luusleps(macn, mapgd, makh, ngaysl, soku, chotsl, nguyennhan);
-        lstDetail = new epsModel().xemsleps(capbc, tendn);
+        new epsModel().luusleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan);
+        lstDetail = new epsModel().xemsleps(capbc, tendn,ngaybc);
         return SUCCESS;
     }
     
     public String xacnhansleps() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = sdf.parse(ngaybc);
+        DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
+        ngaybc = df3.format(date);
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        new epsModel().xacnhansleps(macn, mapgd, makh, ngaysl, soku, chotsl, nguyennhan);
-        lstDetail = new epsModel().xemsleps(capbc, tendn);
+        new epsModel().xacnhansleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan);
+        lstDetail = new epsModel().xemsleps(capbc, tendn,ngaybc);
         return SUCCESS;
     }
 
