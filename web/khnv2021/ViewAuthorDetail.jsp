@@ -149,8 +149,6 @@
 </table>
 <script>
     $(document).ready(function () {
-        $('.item.number').number(true, 0);
-        $('.item.number2').number(true, 2);
         var varDonvi = "";
         varDonvi = $("#cboDonvi").val();
         if (varDonvi.trim() === "all") {
@@ -172,14 +170,14 @@
         var D139, D149, D159, D169, D179;
         var D13, D14, D15, D16, D17, indi;
         indi = document.getElementById("lstData[" + idx + "].MA").value;
-        
+
         D13 = 0;
         D14 = 0;
         D15 = 0;
         D16 = 0;
         D17 = 0;
-        if (["XD00110", "XD00111", "XD00038", "XD00039", "XD00040", "XD00041", "XD00042", "XD00043", "XD00044", "XD00045", "XD00046", "XD00047", 
-            "XD00048", "XD00049", "XD00050", "XD00051", "XD00052", "XD00053", "XD00054", "XD00055", "XD00056", "XD00057", "XD00058", "XD00059", "XD00087", 
+        if (["XD00110", "XD00111", "XD00038", "XD00039", "XD00040", "XD00041", "XD00042", "XD00043", "XD00044", "XD00045", "XD00046", "XD00047",
+            "XD00048", "XD00049", "XD00050", "XD00051", "XD00052", "XD00053", "XD00054", "XD00055", "XD00056", "XD00057", "XD00058", "XD00059", "XD00087",
             "XD00060", "XD00061", "XD00062", "XD00063"].includes(indi)) {
             D13 = document.getElementById("lstData[" + idx + "].D13").value.replace(',', '');
             D14 = document.getElementById("lstData[" + idx + "].D14").value.replace(',', '');
@@ -205,16 +203,19 @@
             document.getElementById("lstData[9].D15").value = D159;
             document.getElementById("lstData[9].D16").value = D169;
             document.getElementById("lstData[9].D17").value = D179;
-        }    
-            
-     
-        D139 = 0; D149 = 0; D159 = 0; D169 = 0; D179 = 0;
+        }
+
+
+        D139 = 0;
+        D149 = 0;
+        D159 = 0;
+        D169 = 0;
+        D179 = 0;
         if (["XD00038", "XD00039", "XD00040", "XD00041", "XD00042", "XD00043", "XD00044", "XD00045", "XD00046", "XD00047", "XD00048", "XD00049", "XD00050", "XD00051", "XD00052", "XD00053", "XD00054", "XD00055", "XD00056", "XD00057", "XD00058", "XD00059", "XD00087", "XD00060", "XD00061", "XD00062", "XD00063"].includes(indi)) {
             for (var i = 51; i < 78; i++) {
                 D139 += parseFloat(document.getElementById("lstData[" + i + "].D13").value.replaceAll(',', ''));
                 D149 += parseFloat(document.getElementById("lstData[" + i + "].D14").value.replaceAll(',', ''));
                 D169 += parseFloat(document.getElementById("lstData[" + i + "].D16").value.replaceAll(',', ''));
-                console.log(D139);
             }
             D159 = D149 + D169;
             D179 = (D169 / D149) * 100;
@@ -224,13 +225,13 @@
             document.getElementById("lstData[50].D16").value = D169;
             document.getElementById("lstData[50].D17").value = D179;
         }
-        
-          //Cập nhật lại cho chỉ tiêu II
-        document.getElementById("lstData[12].D13").value = parseInt(document.getElementById("lstData[13].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D13").value.replaceAll(',', ''))+ parseInt(document.getElementById("lstData[78].D13").value.replaceAll(',', ''));
-        document.getElementById("lstData[12].D14").value = parseInt(document.getElementById("lstData[13].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D14").value.replaceAll(',', ''))+ parseInt(document.getElementById("lstData[78].D14").value.replaceAll(',', ''));
-        document.getElementById("lstData[12].D15").value = parseInt(document.getElementById("lstData[13].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D15").value.replaceAll(',', ''))+ parseInt(document.getElementById("lstData[78].D15").value.replaceAll(',', ''));
-        document.getElementById("lstData[12].D16").value = parseInt(document.getElementById("lstData[13].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D16").value.replaceAll(',', ''))+ parseInt(document.getElementById("lstData[78].D16").value.replaceAll(',', ''));
-        document.getElementById("lstData[12].D17").value = parseInt(document.getElementById("lstData[13].D17").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D17").value.replaceAll(',', ''))+ parseInt(document.getElementById("lstData[78].D17").value.replaceAll(',', ''));
+
+        //Cập nhật lại cho chỉ tiêu II
+        document.getElementById("lstData[12].D13").value = parseInt(document.getElementById("lstData[13].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[78].D13").value.replaceAll(',', ''));
+        document.getElementById("lstData[12].D14").value = parseInt(document.getElementById("lstData[13].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[78].D14").value.replaceAll(',', ''));
+        document.getElementById("lstData[12].D15").value = parseInt(document.getElementById("lstData[13].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[78].D15").value.replaceAll(',', ''));
+        document.getElementById("lstData[12].D16").value = parseInt(document.getElementById("lstData[13].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[78].D16").value.replaceAll(',', ''));
+        document.getElementById("lstData[12].D17").value = parseInt(document.getElementById("lstData[13].D17").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D17").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[78].D17").value.replaceAll(',', ''));
 
         //Cập nhật các chỉ tiêu theo công thức mới ban KHNV gửi ngày 20/07/2021
         document.getElementById("lstData[3].D13").value = parseInt(document.getElementById("lstData[4].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[8].D13").value.replaceAll(',', ''));
@@ -238,31 +239,34 @@
         document.getElementById("lstData[3].D15").value = parseInt(document.getElementById("lstData[4].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[8].D15").value.replaceAll(',', ''));
         document.getElementById("lstData[3].D16").value = parseInt(document.getElementById("lstData[4].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[8].D16").value.replaceAll(',', ''))
         document.getElementById("lstData[3].D17").value = parseInt(document.getElementById("lstData[4].D17").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[8].D17").value.replaceAll(',', ''));
-        
-        document.getElementById("lstData[2].D13").value = parseInt(document.getElementById("lstData[12].D13").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D13").value.replaceAll(',', ''))- parseInt(document.getElementById("lstData[3].D13").value.replaceAll(',', ''));
-        document.getElementById("lstData[2].D14").value = parseInt(document.getElementById("lstData[12].D14").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D14").value.replaceAll(',', ''))- parseInt(document.getElementById("lstData[3].D14").value.replaceAll(',', ''));
-        document.getElementById("lstData[2].D15").value = parseInt(document.getElementById("lstData[12].D15").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D15").value.replaceAll(',', ''))- parseInt(document.getElementById("lstData[3].D15").value.replaceAll(',', ''));
-        document.getElementById("lstData[2].D16").value = parseInt(document.getElementById("lstData[12].D16").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D16").value.replaceAll(',', ''))- parseInt(document.getElementById("lstData[3].D16").value.replaceAll(',', ''));
-        document.getElementById("lstData[2].D17").value = parseInt(document.getElementById("lstData[12].D17").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D17").value.replaceAll(',', ''))- parseInt(document.getElementById("lstData[3].D17").value.replaceAll(',', ''));
-        
+
+        document.getElementById("lstData[2].D13").value = parseInt(document.getElementById("lstData[12].D13").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D13").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[3].D13").value.replaceAll(',', ''));
+        document.getElementById("lstData[2].D14").value = parseInt(document.getElementById("lstData[12].D14").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D14").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[3].D14").value.replaceAll(',', ''));
+        document.getElementById("lstData[2].D15").value = parseInt(document.getElementById("lstData[12].D15").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D15").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[3].D15").value.replaceAll(',', ''));
+        document.getElementById("lstData[2].D16").value = parseInt(document.getElementById("lstData[12].D16").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D16").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[3].D16").value.replaceAll(',', ''));
+        document.getElementById("lstData[2].D17").value = parseInt(document.getElementById("lstData[12].D17").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D17").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[3].D17").value.replaceAll(',', ''));
+
         document.getElementById("lstData[1].D13").value = parseInt(document.getElementById("lstData[2].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[3].D13").value.replaceAll(',', ''));
         document.getElementById("lstData[1].D14").value = parseInt(document.getElementById("lstData[2].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[3].D14").value.replaceAll(',', ''));
         document.getElementById("lstData[1].D15").value = parseInt(document.getElementById("lstData[2].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[3].D15").value.replaceAll(',', ''));
         document.getElementById("lstData[1].D16").value = parseInt(document.getElementById("lstData[2].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[3].D16").value.replaceAll(',', ''))
         document.getElementById("lstData[1].D17").value = parseInt(document.getElementById("lstData[2].D17").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[3].D17").value.replaceAll(',', ''));
-        
-        
-//         }
+
+
         //Cập nhật lại cho chỉ tiêu I
         document.getElementById("lstData[0].D13").value = parseInt(document.getElementById("lstData[1].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[9].D13").value.replaceAll(',', ''));
         document.getElementById("lstData[0].D14").value = parseInt(document.getElementById("lstData[1].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[9].D14").value.replaceAll(',', ''));
         document.getElementById("lstData[0].D15").value = parseInt(document.getElementById("lstData[1].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[9].D15").value.replaceAll(',', ''));
         document.getElementById("lstData[0].D16").value = parseInt(document.getElementById("lstData[1].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[9].D16").value.replaceAll(',', ''));
         document.getElementById("lstData[0].D17").value = parseInt(document.getElementById("lstData[1].D17").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[9].D17").value.replaceAll(',', ''));
-        
-        
-        $('.item.number').number(true, 0);
-        $('.item.number2').number(true, 2);
+
+        //Cập nhật lại toàn bộ phần tính % ước D17
+        for (var i = 0; i < 100; i++) {
+            document.getElementById("lstData["+i+"].D17").value = (parseInt(document.getElementById("lstData["+i+"].D16").value.replaceAll(',', ''))/parseInt(document.getElementById("lstData["+i+"].D14").value.replaceAll(',', '')))*100;
+        }
+
+        $('.number').number(true, 0);
+        $('.number2').number(true, 2);
     }
-    autoPlus(10);
+    autoPlus(11);
 </script>
