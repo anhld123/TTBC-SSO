@@ -33,7 +33,6 @@
     <body>
         <table id="tblData">
             <tr>
-                <th rowspan="2">STT</th>
                 <th rowspan="2">Đơn vị/Tên khách hàng</th>
                 <th rowspan="2">Ngày tháng năm sinh</th>
                 <th rowspan="2">Giới tính</th>
@@ -52,43 +51,77 @@
                 <th>Nơi cấp</th>
             </tr>
             <s:iterator value="lstDetail" status="idxRows">
-                <tr>
-                    <td><s:property value='KHOA'/></td>
-                    <td style="display: none;"><input type="hidden" value="<s:property value='MACN'/>" name="macn"/></td>
-                    <td style="display: none;"><input type="hidden" value="<s:property value='MAPGD'/>" name="mapgd"/></td>
-                    <td style="display: none;"><input type="hidden" value="<s:property value='MAKH'/>" name="makh"/></td>
-                    <td style="display: none;"><input type="hidden" value="<s:property value='D5'/>" id="chkLock"/></td>
-                    <td><s:property value='TENKH'/></td>
-                    <td><s:property value='NGAYSINH'/></td>
-                    <td><s:property value='GIOITINH'/></td>
-                    <td><s:property value='CMT_SO'/></td>
-                    <td><s:property value='CMT_NGAYCAP'/></td>
-                    <td><s:property value='CMT_NOICAP'/></td>
-                    <td><s:property value='DIACHI'/></td>
-                    <td><s:property value='D6'/></td>
-                    <td><s:property value='NGAYKYQUY'/></td>
-                    <td class="number"><s:property value='D7'/></td>
-                    <td class="number"><s:property value='SOTIENKYQUY'/></td>
-                    <td style="display: none;"><input type="hidden" value="<s:property value='NGAYBC'/>" name="ngaysl" id="ngaysl"/></td>
-                    <td style="display: none;"><input type="hidden" value="<s:property value='SOKU'/>" name="soku"/></td>
-                    <td>
-                        <select name="chotsl" <s:property value='D9'/>>
-                            <option value="00" <s:if test="D4.equalsIgnoreCase('00')"> selected</s:if>>Không xác định</option>
-                            <option value="01" <s:if test="D4.equalsIgnoreCase('01')"> selected</s:if>>Đúng và đủ</option>
-                            <option value="02" <s:if test="D4.equalsIgnoreCase('02')"> selected</s:if>>Sai</option>
-                            </select>
+                <s:if test="D1.equalsIgnoreCase('99999999')">
+                    <tr>
+                        <td style="display: none;"><s:property value='D4'/></td>
+                        <td colspan="11"><s:property value='TENKH'/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='MACN'/>" name="macn"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='MAPGD'/>" name="mapgd"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='MAKH'/>" name="makh"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='D5'/>" id="chkLock"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='NGAYBC'/>" name="ngaysl" id="ngaysl"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='SOKU'/>" name="soku"/></td>
+                        <td>
+                            <select name="chotsl" <s:property value='D9'/>>
+                                <option value="04" <s:if test="D4.equalsIgnoreCase('04')"> selected</s:if>>Chưa xử lý</option>
+                                <option value="01" <s:if test="D4.equalsIgnoreCase('01')"> selected</s:if>>Đúng</option>
+                                <option value="02" <s:if test="D4.equalsIgnoreCase('02')"> selected</s:if>>Đang điều chỉnh</option>
+                                <option value="03" <s:if test="D4.equalsIgnoreCase('03')"> selected</s:if>>Hoành thành điều chỉnh</option>
+                                <option value="05" <s:if test="D4.equalsIgnoreCase('05')"> selected</s:if>>Loại trừ</option>
+                                </select>
+                            </td>
+                            <td style="text-align: center;">
+                                <a href="javascript:fnc_show_ngnh(<s:property value='MAKH'/>);">Nguyên nhân</a>
                         </td>
-                        <td style="text-align: center;">
-                            <a href="javascript:fnc_show_ngnh(<s:property value='MAKH'/>);">Nguyên nhân</a>
-                    </td>
-                </tr>
-                <tr style="color: red;">
-                    <td colspan="20" style="display:none;" id="<s:property value='MAKH'/>" class="giaitrinh">
-                        <span style="font-weight: bold;">Nguyên nhân:</span><textarea name="nguyennhan" <s:property value='D8'/>><s:property value='D3'/></textarea>
-                    </td>
-                </tr>
+                    </tr>
+                    <tr style="color: red; display: none;" id="<s:property value='MAKH'/>" class="giaitrinh">
+                        <td colspan="20">
+                            <span style="font-weight: bold;">Nguyên nhân:</span><textarea name="nguyennhan" <s:property value='D8'/>><s:property value='D3'/></textarea>
+                        </td>
+                    </tr>
+                </s:if>
+                <s:else>
+                    <tr>
+                        <td style="display: none;"><s:property value='D4'/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='MACN'/>" name="macn"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='MAPGD'/>" name="mapgd"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='MAKH'/>" name="makh"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='D5'/>" id="chkLock"/></td>
+                        <td><s:property value='TENKH'/></td>
+                        <td><s:property value='NGAYSINH'/></td>
+                        <td><s:property value='GIOITINH'/></td>
+                        <td><s:property value='CMT_SO'/></td>
+                        <td><s:property value='CMT_NGAYCAP'/></td>
+                        <td><s:property value='CMT_NOICAP'/></td>
+                        <td><s:property value='DIACHI'/></td>
+                        <td><s:property value='D6'/></td>
+                        <td><s:property value='NGAYKYQUY'/></td>
+                        <td class="number"><s:property value='D7'/></td>
+                        <td class="number"><s:property value='SOTIENKYQUY'/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='NGAYBC'/>" name="ngaysl" id="ngaysl"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='SOKU'/>" name="soku"/></td>
+                        <td>
+                            <select name="chotsl" <s:property value='D9'/>>
+                                <option value="04" <s:if test="D4.equalsIgnoreCase('04')"> selected</s:if>>Chưa xử lý</option>
+                                <option value="01" <s:if test="D4.equalsIgnoreCase('01')"> selected</s:if>>Đúng</option>
+                                <option value="02" <s:if test="D4.equalsIgnoreCase('02')"> selected</s:if>>Đang điều chỉnh</option>
+                                <option value="03" <s:if test="D4.equalsIgnoreCase('03')"> selected</s:if>>Hoành thành điều chỉnh</option>
+                                <option value="05" <s:if test="D4.equalsIgnoreCase('05')"> selected</s:if>>Loại trừ</option>
+                                </select>
+                            </td>
+                            <td style="text-align: center;">
+                                <a href="javascript:fnc_show_ngnh(<s:property value='MAKH'/>);">Nguyên nhân</a>
+                        </td>
+                    </tr>
+                    <tr style="color: red; display: none;" id="<s:property value='MAKH'/>" class="giaitrinh">
+                        <td colspan="20">
+                            <span style="font-weight: bold;">Nguyên nhân:</span><textarea name="nguyennhan" <s:property value='D8'/>><s:property value='D3'/></textarea>
+                        </td>
+                    </tr>
+                </s:else>
             </s:iterator>
         </table>
+        <script src="js/datemask.js"></script>
         <script>
             $(document).ready(function () {
                 $('.number').number(true, 0);
@@ -103,6 +136,70 @@
                 $(".giaitrinh").fadeOut();
                 $("#" + id).fadeIn();
             }
+        </script>
+        <script>
+            function Filter() {
+                var filter, table, tr, td, i, txtValue;
+                filter = $("#idloc").val();
+                table = document.getElementById("tblData");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+                $('.giaitrinh').css("display","none");
+            }
+            function CoutFilter() {
+                $('#idloc').children().remove().end();
+                var filter, table, tr, td, i, txtValue, all = 0, loai01 = 0, loai02 = 0, loai03 = 0, loai04 = 0, loai05 = 0;
+                table = document.getElementById("tblData");
+                tr = table.getElementsByTagName("tr");
+                const numbers = ['01', '02', '03', '04', '05'];
+                $.each(numbers, function (index, value) {
+                    for (i = 0; i < tr.length; i++) {
+                        td = tr[i].getElementsByTagName("td")[0];
+                        if (td) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.indexOf(value) > -1) {
+                                switch (value) {
+                                    case "01":
+                                        loai01++;
+                                        break;
+                                    case "02":
+                                        loai02++;
+                                        break;
+                                    case "03":
+                                        loai03++;
+                                        break;
+                                    case "04":
+                                        loai04++;
+                                        break;
+                                    case "05":
+                                        loai05++;
+                                        break;
+                                }
+
+                            }
+                        }
+                    }
+                });
+                all = loai01 + loai02 + loai03 + loai04 + loai05;
+                $('#idloc').append('<option value="">Tất cả (' + all + ')</option>');
+                $('#idloc').append('<option value="01">Đúng (' + loai01 + ')</option>');
+                $('#idloc').append('<option value="02">Đang điều chỉnh (' + loai02 + ')</option>');
+                $('#idloc').append('<option value="03">Hoành thành điều chỉnh (' + loai03 + ')</option>');
+                $('#idloc').append('<option value="04">Chưa xử lý (' + loai04 + ')</option>');
+                $('#idloc').append('<option value="05">Loại trừ (' + loai05 + ')</option>');
+                $('.giaitrinh').css("display","none");
+            }
+            CoutFilter();
         </script>
     </body>
 </html>

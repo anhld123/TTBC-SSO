@@ -133,9 +133,13 @@
         </div>
         <form id="frmMain" name="frmMain">
             <div style="display:inline-flex;justify-content: space-between; width: 100%; border-top: 1px solid #ddd;">
-                <div id="mess" style="display:flex; align-items:center;"></div>
+                <div style="display:flex; align-items:center;">
+                    &nbsp;&nbsp;<b>Lọc:&nbsp;</b>
+                    <select id="idloc" name="loc" onchange="Filter();" style="border: 1px solid black;">
+                    </select>
+                </div>
                 <div style="display:flex; align-items:center; padding: 7px 0px;" >
-                    <div> Ngày báo cáo:<input type="text" id="datepicker" name="ngaybc"> </div>
+                    <div> Ngày báo cáo:<input type="text" id="datepicker" name="ngaybc" class="js-date" maxlength="10"> </div>
                     <input type="button" value = "Xem số liệu" id="cmdxemsl" style="margin-right: 5px;">
                     <input type="button" value = "Lưu số liệu" id="cmdluusl" style="margin-right: 5px;">
                     <input type="button" value = "Xác nhận với Trung ương" id="idchotsl" style="margin-right: 5px;">

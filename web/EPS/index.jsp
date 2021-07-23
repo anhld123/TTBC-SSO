@@ -13,6 +13,7 @@
         <title>EPS</title>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="js/jquery.number.js"></script>
+        <script type="text/javascript" src="DMChitieu/js/jquery.session.js"></script>
         <style>
             .clsTitle{
                 width: 100%;
@@ -74,19 +75,28 @@
         </div>
         <form id="frmMain" name="frmMain" style="margin-bottom: 0px;">
             <div style="display:inline-flex;justify-content: space-between; width: 100%; border-top: 1px solid #ddd;">
-                <div id="mess" style="display:flex; align-items:center;"></div>
+                <div style="display:flex; align-items:center;">
+                    &nbsp;<b>Lọc:&nbsp;</b>
+                    <select id="idloc" name="loc" onchange="Filter();">
+                    </select>
+                </div>
                 <div style="display:flex; align-items:center; padding: 7px 0px;" >
-                    Đơn vị
+                    <div id="idcapbc">
+                        <b>Chi nhánh</b>
+                        <select id="idtinh" name="matinh">
+                            <s:iterator value="lstCN">
+                                <option value="<s:property value='PosCode'/>"><s:property value='PosName'/></option>
+                            </s:iterator>
+                        </select>
+                    </div>
+                    <b>Đơn vị trực thuộc</b>
                     <select id="iddonvi" name="madv">
                         <s:iterator value="lstPos">
                             <option value="<s:property value='PosCode'/>"><s:property value='PosName'/></option>
                         </s:iterator>
                     </select>
-                    <div> Ngày báo cáo:<input type="text" id="datepicker" name="ngaybc"> </div>
+                    <div> <b>Ngày báo cáo:</b><input type="text" id="datepicker" name="ngaybc" class="js-date" maxlength="10"></div>
                     <input type="button" id="btnXem" value="Xem số liệu"/>
-                    <input type="button" id="btnChuaChot" value="" style="display: none;"/>
-                    <input type="button" id="btnDaChot" value="" style="display: none;"/>
-                    <input type="button" id="btnChotSai" value="" style="display: none;"/>
                 </div>
             </div>
         </div>
@@ -98,27 +108,11 @@
 </body>
 <script>
     $(document).ready(function () {
-        $("#btnXem").click({status: "04"}, SendData);
-        $("#btnChuaChot").click({status: "00"}, SendData);
-        $("#btnDaChot").click({status: "01"}, SendData);
-        $("#btnChotSai").click({status: "02"}, SendData);
+        $("#btnXem").click({status: ""}, SendData);
         $("#btnXem").trigger('click');
     });
     function SendData(event) {
         var surl, sdata, idView, idForm, method, mess;
-        switch (event.data.status) {
-            case '00':
-                mess = "(Chưa chốt số liệu)";
-                break;
-            case '01':
-                mess = "(Đã chốt số liệu)";
-                break;
-            case '02':
-                mess = "(Chốt sai số liệu)";
-                break;
-            default:
-                mess = '';
-        }
         surl = "loadIndex.action?status=" + event.data.status;
         idView = "#ShowData";
         idForm = "#frmMain";
