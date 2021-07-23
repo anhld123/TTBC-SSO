@@ -22,11 +22,11 @@ import java.util.Map;
 public class epsAction extends ActionSupport {
 
     //Cac truong chua thong tin bo xung luu du lieu
-    private String capbc, tendn, ngaybc, madv, status, linkReport;
-    private int dachot, chuachot, chotsai;
+    private String capbc, tendn, ngaybc, madv, status, linkReport,matinh;
     private InputStream pageResult;
     private Map session;
     private List<PosClass> lstPos = new ArrayList<>();
+    private List<PosClass> lstCN = new ArrayList<>();
     private List<epsGetSetSL> lstDetail = new ArrayList<>();
     private List<String> macn = new ArrayList<>();
     private List<String> mapgd = new ArrayList<>();
@@ -44,6 +44,16 @@ public class epsAction extends ActionSupport {
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
         lstPos = new epsModel().getPGD(capbc, tendn);
+        lstCN = new epsModel().getChiNhanh(capbc, tendn);
+        return SUCCESS;
+    }
+    
+    public String getCNToPGD() throws Exception {
+        //Lấy danh sách đơn vị theo cấp báo cáo
+        session = ActionContext.getContext().getSession();
+        capbc = (String) session.get("reportGrade");
+        lstPos = new epsModel().getCNToPGD(capbc, matinh);
+        
         return SUCCESS;
     }
 
@@ -57,11 +67,7 @@ public class epsAction extends ActionSupport {
         Date date = sdf.parse(ngaybc);
         DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
         ngaybc = df3.format(date);
-        List<Object> obj = new epsModel().getAllData(capbc, tendn, madv, ngaybc, status);
-        lstDetail = (List<epsGetSetSL>) obj.get(0);
-        dachot = (int) obj.get(1);
-        chuachot = (int) obj.get(2);
-        chotsai = (int) obj.get(3);
+        lstDetail = new epsModel().getAllData(capbc, tendn, madv, ngaybc, status);
         return SUCCESS;
     }
 
@@ -107,6 +113,22 @@ public class epsAction extends ActionSupport {
 //<editor-fold defaultstate="collapsed" desc="Thuộc tính GET SET">
     public void setCapbc(String capbc) {
         this.capbc = capbc;
+    }
+
+    public String getMatinh() {
+        return matinh;
+    }
+
+    public void setMatinh(String matinh) {
+        this.matinh = matinh;
+    }
+
+    public List<PosClass> getLstCN() {
+        return lstCN;
+    }
+
+    public void setLstCN(List<PosClass> lstCN) {
+        this.lstCN = lstCN;
     }
 
     public List<String> getMacn() {
@@ -227,30 +249,6 @@ public class epsAction extends ActionSupport {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public int getDachot() {
-        return dachot;
-    }
-
-    public void setDachot(int dachot) {
-        this.dachot = dachot;
-    }
-
-    public int getChuachot() {
-        return chuachot;
-    }
-
-    public void setChuachot(int chuachot) {
-        this.chuachot = chuachot;
-    }
-
-    public int getChotsai() {
-        return chotsai;
-    }
-
-    public void setChotsai(int chotsai) {
-        this.chotsai = chotsai;
     }
 
     public List<epsGetSetSL> getLstDetail() {
