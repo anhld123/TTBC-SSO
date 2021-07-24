@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +36,7 @@ public class epsAction extends ActionSupport {
     private List<String> soku = new ArrayList<>();
     private List<String> chotsl = new ArrayList<>();
     private List<String> nguyennhan = new ArrayList<>();
+    private Map<String, String> lstPGD = new HashMap<String, String>();
 
     @Override
     //Cấp CN và TW
@@ -52,8 +54,7 @@ public class epsAction extends ActionSupport {
         //Lấy danh sách đơn vị theo cấp báo cáo
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
-        lstPos = new epsModel().getCNToPGD(capbc, matinh);
-        
+        lstPGD = new epsModel().getCNToPGD(capbc, matinh);
         return SUCCESS;
     }
 
@@ -113,6 +114,14 @@ public class epsAction extends ActionSupport {
 //<editor-fold defaultstate="collapsed" desc="Thuộc tính GET SET">
     public void setCapbc(String capbc) {
         this.capbc = capbc;
+    }
+
+    public Map<String, String> getLstPGD() {
+        return lstPGD;
+    }
+
+    public void setLstPGD(Map<String, String> lstPGD) {
+        this.lstPGD = lstPGD;
     }
 
     public String getMatinh() {

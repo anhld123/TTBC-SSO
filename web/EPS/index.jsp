@@ -108,12 +108,13 @@
 </body>
 <script>
     $(document).ready(function () {
-        $("#btnXem").click({status: ""}, SendData);
+        $("#btnXem").click({status: "", url: "loadIndex.action"}, SendData);
         $("#btnXem").trigger('click');
+        $("#idtinh").change({status: "00", url: "getpgdfromcn.action"}, SendData);
     });
     function SendData(event) {
-        var surl, sdata, idView, idForm, method, mess;
-        surl = "loadIndex.action?status=" + event.data.status;
+        var surl, sdata, idView, idForm, method;
+        surl = event.data.url + "?status=" + event.data.status;
         idView = "#ShowData";
         idForm = "#frmMain";
         method = "POST";
@@ -123,16 +124,31 @@
             data: sdata,
             type: method,
             async: true,
-            beforeSend: function () {
-                $(idView).html('<img src="imgs/newloading.gif"/>');
-            },
             success: function (result) {
-                $(idView).html(result);
+                if (event.data.status == "00") {
+                    $('#iddonvi').children().remove().end();
+                    console.log(result.lstPGD);
+                    $.each(result.lstPGD, function (key, val) {
+                        $('#iddonvi').append('<option value="' + key + '">' + val + '</option>');
+                    });
+                    alphabetizeList('#iddonvi');
+                } else {
+                    $(idView).html(result);
+                }
             },
             error: function () {
                 alert('Lỗi khi thực hiện.');
             }
         });
+    }
+    function alphabetizeList(listField) {
+        var sel = $(listField);
+        var opts_list = sel.find('option');
+        opts_list.sort(function (a, b) {
+            return $(a).text() > $(b).text() ? 1 : -1;
+        });
+        sel.html('').append(opts_list);
+        sel.val("00"); // set cached selected value
     }
 </script>
 </html>

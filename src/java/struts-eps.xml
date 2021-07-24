@@ -27,7 +27,7 @@
         <action name="xacnhansleps" class="vbsp.ims.eps.epsAction" method="xacnhansleps">
             <result name="success">/EPS/epsDetails_pgd.jsp</result>
         </action>
-        <action name="getJSONResult" class="vbsp.ims.eps.NewActionSupport">
+        <action name="getpgdfromcn" class="vbsp.ims.eps.epsAction" method="getCNToPGD">
             <result type="json" />
         </action>
     </package>
