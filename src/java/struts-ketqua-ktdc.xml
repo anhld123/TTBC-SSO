@@ -1,0 +1,50 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- Author: Home -->
+ 
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="json_ketqua_ktdc" extends="struts-default,json-default">
+        
+        <interceptors>
+            <interceptor-stack name="defaultStack">
+                <interceptor-ref name="json">
+                    <param name="enableSMD">true</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        
+        <!--        <action name="populatePos" class="vbsp.ims.action.khnv.DieuChinhKHActionSupport" method="populatePos">
+            <result type="json"/>
+        </action>        -->
+    </package>
+    <!-- Configuration for the default package. -->
+    
+    
+        
+    <package name="ketqua-ktdc" extends="struts-default,json-default">
+        <action name="get_ketqua_ktdc_main" class="vbsp.ims.ketquaKTDC.KetQuaKTDC" method="get_parameter">
+            <result name="success">/ketqua_ktdc/kiemtra-doichieu-main.jsp</result>
+            <result name="error">/ketqua_ktdc/success.jsp</result> 
+        </action> 
+        
+         <action  name="communeBuildComboKTDC" class="vbsp.ims.ketquaKTDC.KetQuaKTDC"
+                 method="getMato" >                                            
+            <result name="success" type="json"></result>                          
+        </action> 
+        
+        <action name="loadDataKtdc" class="vbsp.ims.ketquaKTDC.KetQuaKTDC" method="getDataKTDC">
+            <result name="kiemtraLoan">/ketqua_ktdc/table_kiemtra-monvay.jsp</result>
+            <result name="loadAllCommuneAuth">/khnv2021/table_auth_commune.jsp</result>
+            <result name="loadAllSubCommune">/khnv2021/table_all_subcommune_bycommune.jsp</result>            
+            <result name="loadOneSubCommune">/khnv2021/table_detal_by_subcommune.jsp</result>     
+            <result name="load02Pos">/khnv2021/table_detal_by_pos_mau02.jsp</result>     
+                   
+        </action>
+        
+    </package>
+        
+    
+</struts>
