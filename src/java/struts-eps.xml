@@ -13,6 +13,12 @@
         <action name="loadIndex" class="vbsp.ims.eps.epsAction" method="getAllData">
             <result name="success">/EPS/epsDetails.jsp</result>
         </action>
+        <action name="openlock" class="vbsp.ims.eps.epsAction" method="openlock">
+            <result name="success">/EPS/epsDetails.jsp</result>
+        </action>
+         <action name="updateintellect" class="vbsp.ims.eps.epsAction" method="updateintellect">
+            <result name="success">/EPS/epsDetails.jsp</result>
+        </action>
         
         <!--Cấp PGD-->
         <action name="redirect_load_pgd" class="vbsp.ims.eps.epsAction">
