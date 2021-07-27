@@ -157,42 +157,57 @@
             $("#cmdxemsl").trigger('click');
             $("#cmdluusl").click({action: "luusleps"}, SendData);
             $("#idchotsl").click({action: "xacnhansleps"}, SendData);
-            $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+            $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
         });
         function SendData(event) {
-            var surl, sdata, idView, idForm, method, conf;
+            var surl, sdata, idView, idForm, method, conf, index = 0, constChk = 1;
             if (event.data.action == "xacnhansleps") {
-                conf = confirm("Bạn có chắc chắn muốn xác nhận số liệu với TW");
-                if (conf == false) {
-                    return conf;
-                }
+                $('select[name^="chotsl"]').each(function (e) {
+                    if ($(this).val() == '03') {
+                        var val = $("textarea[name='nguyennhan']:eq(" + index + ")").val();
+                        if (val.trim() == '') {
+                            alert('Bạn cần nhập nguyên nhân đối với "Hoàn thanh điều chỉnh"');
+                            constChk = 0;
+                            return undefined;
+                        }
+                    }
+                    index++;
+                });
             }
-            surl = event.data.action + ".action";
-            idView = "#ShowData";
-            idForm = "#frmMain";
-            method = "POST";
-            sdata = jQuery(idForm).serialize();
-            $.ajax({
-                url: surl,
-                data: sdata,
-                type: method,
-                async: true,
-                beforeSend: function () {
-                    $(idView).html('<img src="imgs/newloading.gif"/>');
-                },
-                success: function (result) {
-                    $(idView).html(result);
-                    if (event.data.action == "luusleps") {
-                        alert("Lưu dữ liệu thành công !");
+            if (constChk == 1) {
+                if (event.data.action == "xacnhansleps") {
+                    conf = confirm("Bạn có chắc chắn muốn xác nhận số liệu với TW");
+                    if (conf == false) {
+                        return conf;
                     }
-                    if (event.data.action == "xacnhansleps") {
-                        alert("Xác nhận số liệu thành công !");
-                    }
-                },
-                error: function () {
-                    alert('Lỗi khi thực hiện.');
                 }
-            });
+                surl = event.data.action + ".action";
+                idView = "#ShowData";
+                idForm = "#frmMain";
+                method = "POST";
+                sdata = jQuery(idForm).serialize();
+                $.ajax({
+                    url: surl,
+                    data: sdata,
+                    type: method,
+                    async: true,
+                    beforeSend: function () {
+                        $(idView).html('<img src="imgs/newloading.gif"/>');
+                    },
+                    success: function (result) {
+                        $(idView).html(result);
+                        if (event.data.action == "luusleps") {
+                            alert("Lưu dữ liệu thành công !");
+                        }
+                        if (event.data.action == "xacnhansleps") {
+                            alert("Xác nhận số liệu thành công !");
+                        }
+                    },
+                    error: function () {
+                        alert('Lỗi khi thực hiện.');
+                    }
+                });
+            }
         }
     </script>
 </html>

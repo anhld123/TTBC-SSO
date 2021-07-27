@@ -79,7 +79,7 @@
                         </td>
                         <td style="text-align: center;" class="mokhoa">
                             <s:if test="D5.equalsIgnoreCase('LOCK')">
-                                <input type="button" value="Mở khoá" style="background-color: transparent;border: 0px; color: blue;" onclick="<script>alert('đã mở khoá')</script>">
+                                <input type="button" id="<s:property  value="%{#idxRows.index}" />" value="Mở khoá" style="background-color: transparent;border: 0px; color: blue;" onclick="<script>alert('đã mở khoá')</script>">
                             </s:if>
                         </td>
                     </tr>
@@ -126,7 +126,10 @@
                         </td>
                         <td style="text-align: center;" class="mokhoa">
                             <s:if test="D5.equalsIgnoreCase('LOCK')">
-                                    <input type="button" value="Mở khoá" style="background-color: transparent;border: 0px; color: blue;" onclick="<script>alert('đã mở khoá')</script>">
+                                <input type="button" id="<s:property  value="%{#idxRows.index}" />" class="unlock" value="Mở khoá" style="background-color: transparent;border: 0px; color: blue;">
+                                <s:if test="D4.equalsIgnoreCase('03')">
+                                    <input type="button" id="tsl<s:property  value="%{#idxRows.index}" />" class="taolaisolieu" value="Tạo số liêu" title="Tạo số liệu từ Intellect" style="background-color: transparent;border: 0px; color: blue;">
+                                </s:if>
                             </s:if>
                         </td>
                     </tr>
@@ -149,6 +152,52 @@
             <% if (session.getAttribute("reportGrade").equals("3")) { %>
                 $(".xacnhantw").hide();
             <%}%>
+                $('.unlock').each(function () {
+                    $(this).click(function () {
+                        var surl, sdata, idView, idForm, method;
+                        surl = "openlock?status=" + $(this).attr('id');
+                        idView = "#ShowData";
+                        idForm = "#frmMain";
+                        method = "POST";
+                        sdata = jQuery(idForm).serialize();
+                        $.ajax({
+                            url: surl,
+                            data: sdata,
+                            type: method,
+                            async: true,
+                            success: function (result) {
+                                alert('Hoàn trả đơn vị thành công');
+                                $("#btnXem").trigger('click');
+                            },
+                            error: function () {
+                                alert('Lỗi: Hoàn trả không thành công.');
+                            }
+                        });
+                    });
+                });
+                $('.taolaisolieu').each(function () {
+                    $(this).click(function () {
+                        var surl, sdata, idView, idForm, method;
+                        surl = "updateintellect?status=" + $(this).attr('id');
+                        idView = "#ShowData";
+                        idForm = "#frmMain";
+                        method = "POST";
+                        sdata = jQuery(idForm).serialize();
+                        $.ajax({
+                            url: surl,
+                            data: sdata,
+                            type: method,
+                            async: true,
+                            success: function (result) {
+                                alert('Tạo dữ liệu thành công từ Intellect');
+                                $("#btnXem").trigger('click');
+                            },
+                            error: function () {
+                                alert('Lỗi: Tạo dữ liệu từ Intellect không thành công.');
+                            }
+                        });
+                    });
+                });
             });
             function fnc_show_ngnh(id) {
                 $(".giaitrinh").fadeOut();
@@ -173,11 +222,11 @@
                         }
                     }
                 }
-                $('.giaitrinh').css("display","none");
+                $('.giaitrinh').css("display", "none");
             }
             function CoutFilter() {
                 $('#idloc').children().remove().end();
-                var filter, table, tr, td, i, txtValue, all = 0, loai01 = 0, loai02 = 0, loai03 = 0, loai04 = 0, loai05 = 0;
+                var table, tr, td, i, txtValue, all = 0, loai01 = 0, loai02 = 0, loai03 = 0, loai04 = 0, loai05 = 0;
                 table = document.getElementById("tblData");
                 tr = table.getElementsByTagName("tr");
                 const numbers = ['01', '02', '03', '04', '05'];
@@ -216,7 +265,7 @@
                 $('#idloc').append('<option value="03">Hoành thành điều chỉnh (' + loai03 + ')</option>');
                 $('#idloc').append('<option value="04">Chưa xử lý (' + loai04 + ')</option>');
                 $('#idloc').append('<option value="05">Loại trừ (' + loai05 + ')</option>');
-                $('.giaitrinh').css("display","none");
+                $('.giaitrinh').css("display", "none");
             }
             CoutFilter();
         </script>

@@ -100,11 +100,11 @@
                 </div>
             </div>
         </div>
-    </form>
-    <div style="width: 100%;">
-        <div id="ShowData">
+        <div style="width: 100%;">
+            <div id="ShowData">
+            </div>
         </div>
-    </div>
+    </form>
 </body>
 <script>
     $(document).ready(function () {
@@ -127,7 +127,6 @@
             success: function (result) {
                 if (event.data.status == "00") {
                     $('#iddonvi').children().remove().end();
-                    console.log(result.lstPGD);
                     $.each(result.lstPGD, function (key, val) {
                         $('#iddonvi').append('<option value="' + key + '">' + val + '</option>');
                     });

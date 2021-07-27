@@ -12,12 +12,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style>
             textarea{
-                height: 100%;
-                width: 100%;
                 border: 1px solid orange;
                 background-color: transparent;
-                min-width: 200px;
-                min-height: 50px;
                 margin-top: 4px;
             }
             select{
@@ -86,7 +82,7 @@
                         <td style="display: none;"><input type="hidden" value="<s:property value='MACN'/>" name="macn"/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='MAPGD'/>" name="mapgd"/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='MAKH'/>" name="makh"/></td>
-                        <td style="display: none;"><input type="hidden" value="<s:property value='D5'/>" id="chkLock"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='D5'/>" class="checkLock"/></td>
                         <td><s:property value='TENKH'/></td>
                         <td><s:property value='NGAYSINH'/></td>
                         <td><s:property value='GIOITINH'/></td>
@@ -98,14 +94,15 @@
                         <td><s:property value='NGAYKYQUY'/></td>
                         <td class="number"><s:property value='D7'/></td>
                         <td class="number"><s:property value='SOTIENKYQUY'/></td>
-                        <td style="display: none;"><input type="hidden" value="<s:property value='NGAYBC'/>" name="ngaysl" id="ngaysl"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='NGAYBC'/>" name="ngaysl" /></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='SOKU'/>" name="soku"/></td>
                         <td>
                             <select name="chotsl" <s:property value='D9'/>>
                                 <option value="04" <s:if test="D4.equalsIgnoreCase('04')"> selected</s:if>>Chưa xử lý</option>
                                 <option value="01" <s:if test="D4.equalsIgnoreCase('01')"> selected</s:if>>Đúng</option>
                                 <option value="02" <s:if test="D4.equalsIgnoreCase('02')"> selected</s:if>>Đang điều chỉnh</option>
-                                <option value="03" <s:if test="D4.equalsIgnoreCase('03')"> selected</s:if>>Hoành thành điều chỉnh</option>
+                                    <!--Chỉ hiện ra khi trạng thái là 02 + Unlock + Người duyệt (Khi thực hiện trả lại của TW)-->
+                                    <option value="03" <s:property value='D10'/> <s:if test="D4.equalsIgnoreCase('03')"> selected</s:if>>Hoành thành điều chỉnh</option>
                                 <option value="05" <s:if test="D4.equalsIgnoreCase('05')"> selected</s:if>>Loại trừ</option>
                                 </select>
                             </td>
@@ -125,9 +122,18 @@
         <script>
             $(document).ready(function () {
                 $('.number').number(true, 0);
-                if ($("#chkLock").val() == "LOCK") {
+                var chkLock = 1;
+                $(".checkLock").each(function () {
+                    if ($(this).val() == "UNLOCK") {
+                        chkLock = 0;
+                    }
+                });
+                if (chkLock == 1) {
                     $("#cmdluusl").hide();
                     $("#idchotsl").hide();
+                } else {
+                    $("#cmdluusl").show();
+                    $("#idchotsl").show();
                 }
 
                 $("#mess").html("&nbsp;<b> Số liệu báo cáo ngày: " + $("#ngaysl").eq(0).val() + "</b>");
@@ -154,7 +160,7 @@
                         }
                     }
                 }
-                $('.giaitrinh').css("display","none");
+                $('.giaitrinh').css("display", "none");
             }
             function CoutFilter() {
                 $('#idloc').children().remove().end();
@@ -197,7 +203,7 @@
                 $('#idloc').append('<option value="03">Hoành thành điều chỉnh (' + loai03 + ')</option>');
                 $('#idloc').append('<option value="04">Chưa xử lý (' + loai04 + ')</option>');
                 $('#idloc').append('<option value="05">Loại trừ (' + loai05 + ')</option>');
-                $('.giaitrinh').css("display","none");
+                $('.giaitrinh').css("display", "none");
             }
             CoutFilter();
         </script>
