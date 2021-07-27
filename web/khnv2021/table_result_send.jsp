@@ -80,7 +80,7 @@
                         
                                 <s:iterator value="#attr.lstData" var="modelView" status="rowstatus">
 
-                                    <s:if test="D1.equalsIgnoreCase('true')">
+                                    <s:if test="D1.equalsIgnoreCase('true') && D11.equalsIgnoreCase('Ðã gửi dữ liệu')">
                                         <tr style="text-align: center; color: #0000FF" onmouseover="mover(this);"  onmouseout="mout(this);">
                                             
                                             <!--<td align = "center"  style="width: 20px;"><s:checkbox id ="%{#rowstatus.index}" cssClass="checkbox1" name="poscd" fieldValue="%{D3}"/></td>-->
@@ -97,6 +97,23 @@
                                             <td style="width: 90px;"><s:property  value="D11" /></td>
                                         </tr>
                                     </s:if>
+                                    <s:elseif test="D1.equalsIgnoreCase('true') && !D11.equalsIgnoreCase('Ðã gửi dữ liệu')">
+                                        <tr style="text-align: center; color: #00B83F" onmouseover="mover(this);"  onmouseout="mout(this);">
+                                            
+                                            <!--<td align = "center"  style="width: 20px;"><s:checkbox id ="%{#rowstatus.index}" cssClass="checkbox1" name="poscd" fieldValue="%{D3}"/></td>-->
+                                            <td align = "center"  style="width: 50px;"><s:property  value="D3" /></td>
+                                            <!--<td align = "left" style="width: 100px;"><s:property  value="D4" /></td>-->
+                                            <td>
+                                                <a href="javascript:hienthichitietCN('<s:property value="D3"/>')" class="linkKh">
+                                                    <s:property value='D4'/> 
+                                                </a>
+                                            </td>
+                                            <td style="width: 60px;"><s:property  value="D8" /></td>
+                                            <td style="width: 50px;"><s:property  value="D7" /></td>
+                                            <td style="width: 90px;"><s:property  value="D9" /></td>
+                                            <td style="width: 90px;"><s:property  value="D11" /></td>
+                                        </tr>
+                                    </s:elseif>    
                                     <s:else>
                                         <tr style="text-align: center; color: red" onmouseover="mover(this);"  onmouseout="mout(this);">
                                             <!--<td align = "center"  style="width: 20px;"><s:checkbox id ="%{#rowstatus.index}" cssClass="checkbox1" name="poscd" fieldValue="%{D3}"/></td>-->
