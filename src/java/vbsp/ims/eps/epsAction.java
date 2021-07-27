@@ -23,7 +23,7 @@ import java.util.Map;
 public class epsAction extends ActionSupport {
 
     //Cac truong chua thong tin bo xung luu du lieu
-    private String capbc, tendn, ngaybc, madv, status, linkReport,matinh;
+    private String capbc, tendn, ngaybc, madv, status, linkReport, matinh;
     private InputStream pageResult;
     private Map session;
     private List<PosClass> lstPos = new ArrayList<>();
@@ -49,7 +49,7 @@ public class epsAction extends ActionSupport {
         lstCN = new epsModel().getChiNhanh(capbc, tendn);
         return SUCCESS;
     }
-    
+
     public String getCNToPGD() throws Exception {
         //Lấy danh sách đơn vị theo cấp báo cáo
         session = ActionContext.getContext().getSession();
@@ -68,7 +68,7 @@ public class epsAction extends ActionSupport {
         Date date = sdf.parse(ngaybc);
         DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
         ngaybc = df3.format(date);
-        lstDetail = new epsModel().getAllData(capbc, tendn, madv, ngaybc, status);
+        lstDetail = new epsModel().getAllData(capbc, tendn, madv, ngaybc, status,matinh);
         return SUCCESS;
     }
 
@@ -81,7 +81,7 @@ public class epsAction extends ActionSupport {
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        lstDetail = new epsModel().xemsleps(capbc, tendn,ngaybc);
+        lstDetail = new epsModel().xemsleps(capbc, tendn, ngaybc);
         return SUCCESS;
     }
 
@@ -93,11 +93,11 @@ public class epsAction extends ActionSupport {
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        new epsModel().luusleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan);
-        lstDetail = new epsModel().xemsleps(capbc, tendn,ngaybc);
+        new epsModel().luusleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan, tendn);
+        lstDetail = new epsModel().xemsleps(capbc, tendn, ngaybc);
         return SUCCESS;
     }
-    
+
     public String xacnhansleps() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date date = sdf.parse(ngaybc);
@@ -106,12 +106,36 @@ public class epsAction extends ActionSupport {
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        new epsModel().xacnhansleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan);
-        lstDetail = new epsModel().xemsleps(capbc, tendn,ngaybc);
+        new epsModel().xacnhansleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan, tendn);
+        lstDetail = new epsModel().xemsleps(capbc, tendn, ngaybc);
         return SUCCESS;
     }
 
+    public String openlock() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = sdf.parse(ngaybc);
+        DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
+        ngaybc = df3.format(date);
+        session = ActionContext.getContext().getSession();
+        capbc = (String) session.get("reportGrade");
+        tendn = (String) session.get("username");
+        new epsModel().openlock(macn, mapgd, makh, ngaybc, soku, tendn, status);
+        return SUCCESS;
+    }
+
+    public String updateintellect() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = sdf.parse(ngaybc);
+        DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
+        ngaybc = df3.format(date);
+        session = ActionContext.getContext().getSession();
+        capbc = (String) session.get("reportGrade");
+        tendn = (String) session.get("username");
+        new epsModel().updateintellect(macn, mapgd, makh, ngaybc, soku, tendn, status);
+        return SUCCESS;
+    }
 //<editor-fold defaultstate="collapsed" desc="Thuộc tính GET SET">
+
     public void setCapbc(String capbc) {
         this.capbc = capbc;
     }

@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,21 +93,22 @@ public class epsModel {
         return lst;
     }
 
-    public List<epsGetSetSL> getAllData(String capbc, String tendn, String madv, String ngaybc, String nghiepvu) {
+    public List<epsGetSetSL> getAllData(String capbc, String tendn, String madv, String ngaybc, String nghiepvu, String matinh) {
         List<epsGetSetSL> lst = new ArrayList<>();
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
         try {
             //Lưu dữ liệu vào CSDL và trả về kết quả
-            CallableStatement st = con.prepareCall("{call PROC_GETPH_DONVI(?,?,?,?,?,?)}");
+            CallableStatement st = con.prepareCall("{call PROC_GETPH_DONVI(?,?,?,?,?,?,?)}");
             st.setString(1, capbc);
             st.setString(2, tendn);
             st.setString(3, madv);
             st.setString(4, ngaybc);
             st.setString(5, nghiepvu);
-            st.registerOutParameter(6, OracleTypes.CURSOR);
+            st.setString(6, matinh);
+            st.registerOutParameter(7, OracleTypes.CURSOR);
             st.execute();
-            ResultSet rs = (ResultSet) st.getObject(6);
+            ResultSet rs = (ResultSet) st.getObject(7);
             while (rs.next()) {
                 lst.add(new epsGetSetSL(
                         rs.getString("KHOA"),
@@ -194,13 +194,13 @@ public class epsModel {
     }
 
     //Lưu số liệu EPS
-    public void luusleps(List<String> macn, List<String> mapgd, List<String> makh, String ngaybc, List<String> soku, List<String> chotsl, List<String> nguyennhan) throws ParseException {
+    public void luusleps(List<String> macn, List<String> mapgd, List<String> makh, String ngaybc, List<String> soku, List<String> chotsl, List<String> nguyennhan, String tendn) throws ParseException {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
         try {
             //Lưu dữ liệu vào CSDL
             if (macn.size() > 0) {
-                CallableStatement st = con.prepareCall("{call PROC_SAVESL_EPSPGD(?,?,?,?,?,?,?)}");
+                CallableStatement st = con.prepareCall("{call PROC_SAVESL_EPSPGD(?,?,?,?,?,?,?,?)}");
                 for (int i = 0; i < macn.size(); i++) {
                     st.setString(1, macn.get(i));
                     st.setString(2, mapgd.get(i));
@@ -209,6 +209,7 @@ public class epsModel {
                     st.setString(5, soku.get(i));
                     st.setString(6, chotsl.get(i));
                     st.setString(7, nguyennhan.get(i));
+                    st.setString(8, tendn);
                     st.executeUpdate();
                 }
             }
@@ -218,13 +219,13 @@ public class epsModel {
     }
     
     //Lưu số liệu EPS
-    public void xacnhansleps(List<String> macn, List<String> mapgd, List<String> makh, String ngaybc, List<String> soku, List<String> chotsl, List<String> nguyennhan) throws ParseException {
+    public void xacnhansleps(List<String> macn, List<String> mapgd, List<String> makh, String ngaybc, List<String> soku, List<String> chotsl, List<String> nguyennhan, String tendn) throws ParseException {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
         try {
             //Lưu dữ liệu vào CSDL
             if (macn.size() > 0) {
-                CallableStatement st = con.prepareCall("{call PROC_XACNHANSL_EPSPGD(?,?,?,?,?,?,?)}");
+                CallableStatement st = con.prepareCall("{call PROC_XACNHANSL_EPSPGD(?,?,?,?,?,?,?,?)}");
                 for (int i = 0; i < macn.size(); i++) {
                     st.setString(1, macn.get(i));
                     st.setString(2, mapgd.get(i));
@@ -233,8 +234,53 @@ public class epsModel {
                     st.setString(5, soku.get(i));
                     st.setString(6, chotsl.get(i));
                     st.setString(7, nguyennhan.get(i));
+                    st.setString(8, tendn);
                     st.executeUpdate();
                 }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(epsAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //Mở khoá đối với PGD
+    public void openlock(List<String> macn, List<String> mapgd, List<String> makh, String ngaybc, List<String> soku, String tendn, String status) throws ParseException {
+        DaoConnect db = new DaoConnect();
+        Connection con = db.getConnect();
+        int i = (int) Double.parseDouble(status);
+        try {
+            //Lưu dữ liệu vào CSDL
+            if (macn.size() > 0) {
+                CallableStatement st = con.prepareCall("{call PROC_UNLOCK_EPSPGD(?,?,?,?,?,?)}");
+                st.setString(1, macn.get(i));
+                st.setString(2, mapgd.get(i));
+                st.setString(3, makh.get(i));
+                st.setString(4, ngaybc);
+                st.setString(5, soku.get(i));
+                st.setString(6, tendn);
+                st.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(epsAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //Mở khoá đối với PGD
+    public void updateintellect(List<String> macn, List<String> mapgd, List<String> makh, String ngaybc, List<String> soku, String tendn, String status) throws ParseException {
+        DaoConnect db = new DaoConnect();
+        Connection con = db.getConnect();
+        int i = (int) Double.parseDouble(status);
+        try {
+            //Lưu dữ liệu vào CSDL
+            if (macn.size() > 0) {
+                CallableStatement st = con.prepareCall("{call PROC_UPDATE_EPS_FROM_INTELLECT(?,?,?,?,?,?)}");
+                st.setString(1, macn.get(i));
+                st.setString(2, mapgd.get(i));
+                st.setString(3, makh.get(i));
+                st.setString(4, ngaybc);
+                st.setString(5, soku.get(i));
+                st.setString(6, tendn);
+                st.executeUpdate();
             }
         } catch (SQLException ex) {
             Logger.getLogger(epsAction.class.getName()).log(Level.SEVERE, null, ex);
