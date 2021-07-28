@@ -5,6 +5,7 @@
  */
 package vbsp.ims.eps;
 
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -194,13 +195,14 @@ public class epsModel {
     }
 
     //Lưu số liệu EPS
-    public void luusleps(List<String> macn, List<String> mapgd, List<String> makh, String ngaybc, List<String> soku, List<String> chotsl, List<String> nguyennhan, String tendn) throws ParseException {
+    public void luusleps(List<String> macn, List<String> mapgd, List<String> makh, String ngaybc, List<String> soku, List<String> chotsl, List<String> nguyennhan, String tendn, String phanhoi) throws ParseException {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
+        String flginsert = "Y";
         try {
             //Lưu dữ liệu vào CSDL
             if (macn.size() > 0) {
-                CallableStatement st = con.prepareCall("{call PROC_SAVESL_EPSPGD(?,?,?,?,?,?,?,?)}");
+                CallableStatement st = con.prepareCall("{call PROC_SAVESL_EPSPGD(?,?,?,?,?,?,?,?,?,?)}");
                 for (int i = 0; i < macn.size(); i++) {
                     st.setString(1, macn.get(i));
                     st.setString(2, mapgd.get(i));
@@ -210,7 +212,10 @@ public class epsModel {
                     st.setString(6, chotsl.get(i));
                     st.setString(7, nguyennhan.get(i));
                     st.setString(8, tendn);
+                    st.setString(9, phanhoi);
+                    st.setString(10, flginsert);
                     st.executeUpdate();
+                    flginsert = "N";
                 }
             }
         } catch (SQLException ex) {
@@ -219,13 +224,14 @@ public class epsModel {
     }
     
     //Lưu số liệu EPS
-    public void xacnhansleps(List<String> macn, List<String> mapgd, List<String> makh, String ngaybc, List<String> soku, List<String> chotsl, List<String> nguyennhan, String tendn) throws ParseException {
+    public void xacnhansleps(List<String> macn, List<String> mapgd, List<String> makh, String ngaybc, List<String> soku, List<String> chotsl, List<String> nguyennhan, String tendn, String phanhoi) throws ParseException {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
+        String flginsert = "Y";
         try {
             //Lưu dữ liệu vào CSDL
             if (macn.size() > 0) {
-                CallableStatement st = con.prepareCall("{call PROC_XACNHANSL_EPSPGD(?,?,?,?,?,?,?,?)}");
+                CallableStatement st = con.prepareCall("{call PROC_XACNHANSL_EPSPGD(?,?,?,?,?,?,?,?,?,?)}");
                 for (int i = 0; i < macn.size(); i++) {
                     st.setString(1, macn.get(i));
                     st.setString(2, mapgd.get(i));
@@ -235,7 +241,10 @@ public class epsModel {
                     st.setString(6, chotsl.get(i));
                     st.setString(7, nguyennhan.get(i));
                     st.setString(8, tendn);
+                    st.setString(9, phanhoi);
+                    st.setString(10, flginsert);
                     st.executeUpdate();
+                    flginsert = "N";
                 }
             }
         } catch (SQLException ex) {
@@ -266,24 +275,30 @@ public class epsModel {
     }
     
     //Mở khoá đối với PGD
-    public void updateintellect(List<String> macn, List<String> mapgd, List<String> makh, String ngaybc, List<String> soku, String tendn, String status) throws ParseException {
+    public int updateintellect(List<String> mapgd, List<String> makh, String ngaybc, String status) throws ParseException {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
-        int i = (int) Double.parseDouble(status);
+        int i = (int) Double.parseDouble(status.substring(3));
+        int P_RECORD_TOTAL = 0;
+        int P_ERR_CODE = 0;
         try {
             //Lưu dữ liệu vào CSDL
-            if (macn.size() > 0) {
-                CallableStatement st = con.prepareCall("{call PROC_UPDATE_EPS_FROM_INTELLECT(?,?,?,?,?,?)}");
-                st.setString(1, macn.get(i));
+            if (mapgd.size() > 0) {
+                CallableStatement st = con.prepareCall("{call VBSP_BCTD.P_BCTD_DS_NHANKYQUY_MAKH(?,?,?,?,?,?)}");
+                st.setString(1, makh.get(i));
                 st.setString(2, mapgd.get(i));
-                st.setString(3, makh.get(i));
-                st.setString(4, ngaybc);
-                st.setString(5, soku.get(i));
-                st.setString(6, tendn);
-                st.executeUpdate();
+                st.setString(3, ngaybc);
+                st.registerOutParameter(4, OracleTypes.NUMBER);
+                st.registerOutParameter(5, OracleTypes.NUMBER);
+                st.registerOutParameter(6, OracleTypes.VARCHAR);
+                st.execute();
+                P_RECORD_TOTAL = (int) st.getObject(4);
+                P_ERR_CODE = (int) st.getObject(5);
+                String P_ERR_MSG = (String) st.getObject(6);
             }
         } catch (SQLException ex) {
             Logger.getLogger(epsAction.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return P_RECORD_TOTAL;
     }
 }

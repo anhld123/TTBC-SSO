@@ -10,7 +10,9 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.util.logging.Logger;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,8 +25,9 @@ import java.util.Map;
 public class epsAction extends ActionSupport {
 
     //Cac truong chua thong tin bo xung luu du lieu
-    private String capbc, tendn, ngaybc, madv, status, linkReport, matinh;
+    private String capbc, tendn, ngaybc, madv, status, linkReport, matinh, phanhoichung;
     private InputStream pageResult;
+    private int totalRow;
     private Map session;
     private List<PosClass> lstPos = new ArrayList<>();
     private List<PosClass> lstCN = new ArrayList<>();
@@ -68,7 +71,7 @@ public class epsAction extends ActionSupport {
         Date date = sdf.parse(ngaybc);
         DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
         ngaybc = df3.format(date);
-        lstDetail = new epsModel().getAllData(capbc, tendn, madv, ngaybc, status,matinh);
+        lstDetail = new epsModel().getAllData(capbc, tendn, madv, ngaybc, status, matinh);
         return SUCCESS;
     }
 
@@ -93,7 +96,7 @@ public class epsAction extends ActionSupport {
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        new epsModel().luusleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan, tendn);
+        new epsModel().luusleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan, tendn, phanhoichung);
         lstDetail = new epsModel().xemsleps(capbc, tendn, ngaybc);
         return SUCCESS;
     }
@@ -106,7 +109,7 @@ public class epsAction extends ActionSupport {
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        new epsModel().xacnhansleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan, tendn);
+        new epsModel().xacnhansleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan, tendn, phanhoichung);
         lstDetail = new epsModel().xemsleps(capbc, tendn, ngaybc);
         return SUCCESS;
     }
@@ -131,7 +134,8 @@ public class epsAction extends ActionSupport {
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        new epsModel().updateintellect(macn, mapgd, makh, ngaybc, soku, tendn, status);
+        totalRow = new epsModel().updateintellect(mapgd, makh, ngaybc, status);
+        pageResult = new ByteArrayInputStream(String.valueOf(totalRow).getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
 //<editor-fold defaultstate="collapsed" desc="Thuộc tính GET SET">
@@ -268,6 +272,14 @@ public class epsAction extends ActionSupport {
         this.session = session;
     }
 
+    public String getPhanhoichung() {
+        return phanhoichung;
+    }
+
+    public void setPhanhoichung(String phanhoichung) {
+        this.phanhoichung = phanhoichung;
+    }
+
     public String getLinkReport() {
         return linkReport;
     }
@@ -300,5 +312,13 @@ public class epsAction extends ActionSupport {
         this.lstPos = lstPos;
     }
 
+    public int getTotalRow() {
+        return totalRow;
+    }
+
+    public void setTotalRow(int totalRow) {
+        this.totalRow = totalRow;
+    }
     //</editor-fold> 
+
 }
