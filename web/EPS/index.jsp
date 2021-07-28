@@ -111,6 +111,9 @@
         $("#btnXem").click({status: "", url: "loadIndex.action"}, SendData);
         $("#btnXem").trigger('click');
         $("#idtinh").change({status: "00", url: "getpgdfromcn.action"}, SendData);
+        $("#xemphanhoichung").click(()=>{
+            $("#phanhoidonvi").toggle();
+        });
     });
     function SendData(event) {
         var surl, sdata, idView, idForm, method;

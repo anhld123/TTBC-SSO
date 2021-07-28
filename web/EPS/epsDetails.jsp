@@ -57,13 +57,21 @@
                 <th>Nơi cấp</th>
             </tr>
             <s:iterator value="lstDetail" status="idxRows">
-                <s:if test="D1.equalsIgnoreCase('99999999')">
+                <s:if test="D1.equalsIgnoreCase('PHANHOI')">
+                    <tr id="phanhoi">
+                        <td colspan="14">
+                            <span style="font-weight:bold;">Phản hồi chung của đơn vị: <s:property value='D6'/></span>
+                            <textarea id="phanhoichung" name="phanhoichung" style="margin-top: 5px;" readonly="readonly"><s:property value='D3'/></textarea>
+                        </td>
+                    </tr>
+                </s:if>
+                <s:elseif test="D1.equalsIgnoreCase('99999999')">
                     <tr>
                         <td style="display: none;"><s:property value='D4'/></td>
                         <td colspan="10"><s:property value='TENKH'/></td>
                         <td>
                         <td>
-                            <select id="chotsl" name="chotsl" disabled="disabled" style="border: 0px;">
+                            <select name="chotsl" disabled="disabled" style="border: 0px;">
                                 <option value="01" <s:if test="D4.equalsIgnoreCase('01')"> selected</s:if>>Đúng</option>
                                 <option value="02" <s:if test="D4.equalsIgnoreCase('02')"> selected</s:if>>Đang điều chỉnh</option>
                                 <option value="03" <s:if test="D4.equalsIgnoreCase('03')"> selected</s:if>>Hoành thành điều chỉnh</option>
@@ -88,14 +96,14 @@
                             <span style="font-weight: bold;">Nguyên nhân: </span><s:property value='D3'/>
                         </td>
                     </tr>
-                </s:if>
+                </s:elseif>
                 <s:else>
                     <tr>
                         <td style="display: none;"><s:property value='D4'/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='MACN'/>" name="macn"/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='MAPGD'/>" name="mapgd"/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='MAKH'/>" name="makh"/></td>
-                        <td style="display: none;"><input type="hidden" value="<s:property value='D5'/>" id="chkLock"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='D5'/>"/></td>
                         <td><s:property value='TENKH'/></td>
                         <td><s:property value='NGAYSINH'/></td>
                         <td><s:property value='GIOITINH'/></td>
@@ -107,10 +115,10 @@
                         <td><s:property value='NGAYKYQUY'/></td>
                         <td class="number"><s:property value='D7'/></td>
                         <td class="number"><s:property value='SOTIENKYQUY'/></td>
-                        <td style="display: none;"><input type="hidden" value="<s:property value='NGAYBC'/>" name="ngaysl" id="ngaysl"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='NGAYBC'/>" name="ngaysl"/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='SOKU'/>" name="soku"/></td>
                         <td>
-                            <select id="chotsl" name="chotsl" disabled="disabled" style="border: 0px;">
+                            <select name="chotsl" disabled="disabled" style="border: 0px;">
                                 <option value="01" <s:if test="D4.equalsIgnoreCase('01')"> selected</s:if>>Đúng</option>
                                 <option value="02" <s:if test="D4.equalsIgnoreCase('02')"> selected</s:if>>Đang điều chỉnh</option>
                                 <option value="03" <s:if test="D4.equalsIgnoreCase('03')"> selected</s:if>>Hoành thành điều chỉnh</option>
@@ -127,7 +135,7 @@
                         <td style="text-align: center;" class="mokhoa">
                             <s:if test="D5.equalsIgnoreCase('LOCK')">
                                 <input type="button" id="<s:property  value="%{#idxRows.index}" />" class="unlock" value="Mở khoá" style="background-color: transparent;border: 0px; color: blue;">
-                                <s:if test="D4.equalsIgnoreCase('03')">
+                                <s:if test="D4.equalsIgnoreCase('02') || D4.equalsIgnoreCase('03')">
                                     <input type="button" id="tsl<s:property  value="%{#idxRows.index}" />" class="taolaisolieu" value="Tạo số liêu" title="Tạo số liệu từ Intellect" style="background-color: transparent;border: 0px; color: blue;">
                                 </s:if>
                             </s:if>
@@ -144,7 +152,6 @@
         <script>
             $(document).ready(function () {
                 $('.number').number(true, 0);//
-                $("#mess").html("&nbsp;<b> Số liệu báo cáo ngày: " + $("#ngaysl").eq(0).val() + "</b>");
             <% if (session.getAttribute("reportGrade").equals("2")) { %>
                 $("#idcapbc").hide();
                 $(".mokhoa").hide();
@@ -189,8 +196,11 @@
                             type: method,
                             async: true,
                             success: function (result) {
-                                alert('Tạo dữ liệu thành công từ Intellect');
-                                $("#btnXem").trigger('click');
+                                if (result > 0) {
+                                    alert('Tạo dữ liệu thành công từ Intellect (' + result + ')');
+                                } else {
+                                    alert('Lỗi: Tạo dữ liệu từ Intellect (' + result + ')');
+                                }
                             },
                             error: function () {
                                 alert('Lỗi: Tạo dữ liệu từ Intellect không thành công.');

@@ -108,6 +108,10 @@
                 display: none;   
                 width: 98%;
             }
+            textarea{
+                width: 100%;
+                height: 100px;
+            }
         </style>
         <script>
             //Lấy ngày hiện tại cho NgayBC

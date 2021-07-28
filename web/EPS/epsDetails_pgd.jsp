@@ -46,8 +46,17 @@
                 <th>Ngày cấp</th>
                 <th>Nơi cấp</th>
             </tr>
+
             <s:iterator value="lstDetail" status="idxRows">
-                <s:if test="D1.equalsIgnoreCase('99999999')">
+                <s:if test="D1.equalsIgnoreCase('PHANHOI')">
+                    <tr id="phanhoi">
+                        <td colspan="13">
+                            <b>Phản hồi chung của đơn vị:</b>
+                            <textarea id="phanhoichung" name="phanhoichung" <s:property value='D8'/>><s:property value='D3'/></textarea>
+                        </td>
+                    </tr>
+                </s:if>
+                <s:elseif test="D1.equalsIgnoreCase('99999999')">
                     <tr>
                         <td style="display: none;"><s:property value='D4'/></td>
                         <td colspan="11"><s:property value='TENKH'/></td>
@@ -75,7 +84,7 @@
                             <span style="font-weight: bold;">Nguyên nhân:</span><textarea name="nguyennhan" <s:property value='D8'/>><s:property value='D3'/></textarea>
                         </td>
                     </tr>
-                </s:if>
+                </s:elseif>
                 <s:else>
                     <tr>
                         <td style="display: none;"><s:property value='D4'/></td>
@@ -101,8 +110,7 @@
                                 <option value="04" <s:if test="D4.equalsIgnoreCase('04')"> selected</s:if>>Chưa xử lý</option>
                                 <option value="01" <s:if test="D4.equalsIgnoreCase('01')"> selected</s:if>>Đúng</option>
                                 <option value="02" <s:if test="D4.equalsIgnoreCase('02')"> selected</s:if>>Đang điều chỉnh</option>
-                                    <!--Chỉ hiện ra khi trạng thái là 02 + Unlock + Người duyệt (Khi thực hiện trả lại của TW)-->
-                                    <option value="03" <s:property value='D10'/> <s:if test="D4.equalsIgnoreCase('03')"> selected</s:if>>Hoành thành điều chỉnh</option>
+                                <option value="03" <s:property value='D10'/> <s:if test="D4.equalsIgnoreCase('03')"> selected</s:if>>Hoành thành điều chỉnh</option>
                                 <option value="05" <s:if test="D4.equalsIgnoreCase('05')"> selected</s:if>>Loại trừ</option>
                                 </select>
                             </td>
@@ -137,6 +145,10 @@
                 }
 
                 $("#mess").html("&nbsp;<b> Số liệu báo cáo ngày: " + $("#ngaysl").eq(0).val() + "</b>");
+
+                $("#clickphanhoi").click(() => {
+                    $("#phanhoi").toggle();
+                });
             });
             function fnc_show_ngnh(id) {
                 $(".giaitrinh").fadeOut();
