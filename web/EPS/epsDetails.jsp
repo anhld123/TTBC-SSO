@@ -135,7 +135,7 @@
                         <td style="text-align: center;" class="mokhoa">
                             <s:if test="D5.equalsIgnoreCase('LOCK')">
                                 <input type="button" id="<s:property  value="%{#idxRows.index}" />" class="unlock" value="Mở khoá" style="background-color: transparent;border: 0px; color: blue;">
-                                <s:if test="D4.equalsIgnoreCase('02') || D4.equalsIgnoreCase('03')">
+                                <s:if test="D4.equalsIgnoreCase('03')">
                                     <input type="button" id="tsl<s:property  value="%{#idxRows.index}" />" class="taolaisolieu" value="Tạo số liêu" title="Tạo số liệu từ Intellect" style="background-color: transparent;border: 0px; color: blue;">
                                 </s:if>
                             </s:if>

@@ -76,7 +76,7 @@
         <form id="frmMain" name="frmMain" style="margin-bottom: 0px;">
             <div style="display:inline-flex;justify-content: space-between; width: 100%; border-top: 1px solid #ddd;">
                 <div style="display:flex; align-items:center;">
-                    &nbsp;<b>Lọc:&nbsp;</b>
+                    &nbsp;<b>Lọc danh sách: &nbsp;</b>
                     <select id="idloc" name="loc" onchange="Filter();">
                     </select>
                 </div>
