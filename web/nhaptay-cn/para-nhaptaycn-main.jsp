@@ -71,7 +71,7 @@
                 border-right: 1px solid;
                 height: 450px;
                 float: left;
-                overflow: scroll;
+                overflow-x: scroll;
             }
 
             #containParm{
@@ -79,8 +79,17 @@
                 height: 450px;
                 padding-left: 5px;
                 float: left;
-                overflow: scroll;
+                overflow-x: scroll;
             }
+            
+             #containParmQD23{
+                width: 84%;
+                height: 450px;
+                padding-left: 5px;
+                float: left;
+                /*overflow-x: scroll;*/
+            }
+            
             #containParm_full{
                 width: 100%;
                 /*height: 450px;*/
@@ -514,6 +523,7 @@
                                     ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('COVID_04'))
                                     ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('VUNGKK_01'))
                                     ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('CN23_01'))
+                                    ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_001'))
                                     ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('DIEUCHUYENTO_01'))
                                     ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('KSNB_01'))
                                     ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QLDB_001'))">
@@ -538,10 +548,19 @@
                             showThemeIcons="true" 
                             />
                         </div>
-                        <div id="containParm" align="center">
-                            <div id="divExportReport"></div>
-                            <div id="divExportReport"></div>
-                        </div>
+                        <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001')">
+                            <div id="containParmQD23" align="center">
+                                <div id="divExportReport"></div>
+                                <div id="divExportReport"></div>
+                            </div>
+                        </s:if>
+                        <s:else>
+                             <div id="containParm" align="center">
+                                <div id="divExportReport"></div>
+                                <div id="divExportReport"></div>
+                            </div>
+                        </s:else>
+                       
                     </s:else>                     
                 
             </s:form>
