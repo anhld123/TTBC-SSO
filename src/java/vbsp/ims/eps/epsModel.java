@@ -275,7 +275,7 @@ public class epsModel {
     }
     
     //Mở khoá đối với PGD
-    public int updateintellect(List<String> mapgd, List<String> makh, String ngaybc, String status) throws ParseException {
+    public int updateintellect(String tendn, List<String> mapgd, List<String> makh, String ngaybc, String status) throws ParseException {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
         int i = (int) Double.parseDouble(status.substring(3));
@@ -288,13 +288,14 @@ public class epsModel {
                 st.setString(1, makh.get(i));
                 st.setString(2, mapgd.get(i));
                 st.setString(3, ngaybc);
-                st.registerOutParameter(4, OracleTypes.NUMBER);
+                st.setString(4, tendn);
                 st.registerOutParameter(5, OracleTypes.NUMBER);
-                st.registerOutParameter(6, OracleTypes.VARCHAR);
+                st.registerOutParameter(6, OracleTypes.NUMBER);
+                st.registerOutParameter(7, OracleTypes.VARCHAR);
                 st.execute();
-                P_RECORD_TOTAL = (int) st.getObject(4);
-                P_ERR_CODE = (int) st.getObject(5);
-                String P_ERR_MSG = (String) st.getObject(6);
+                P_RECORD_TOTAL = (int) st.getObject(5);
+                P_ERR_CODE = (int) st.getObject(6);
+                String P_ERR_MSG = (String) st.getObject(7);
             }
         } catch (SQLException ex) {
             Logger.getLogger(epsAction.class.getName()).log(Level.SEVERE, null, ex);

@@ -134,7 +134,7 @@ public class epsAction extends ActionSupport {
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        totalRow = new epsModel().updateintellect(mapgd, makh, ngaybc, status);
+        totalRow = new epsModel().updateintellect(tendn,mapgd, makh, ngaybc, status);
         pageResult = new ByteArrayInputStream(String.valueOf(totalRow).getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
