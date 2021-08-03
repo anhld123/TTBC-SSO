@@ -201,7 +201,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             } else {
                 lstCommune = daoXdkh.getAllCommune(pos_cd_username, maBc, namBc, dotBc);
             }
-            FileExportInfo fileInfo = excelExport.xuatExcelMau01(lstCommune, savedDir, namBc, dotBc);
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01(lstCommune, savedDir, namBc, dotBc, pos_cd_username);
             fileNamelocal = fileInfo.fileName;
             filereport = fileInfo.filePath;
             return SUCCESS;

@@ -194,6 +194,16 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected String masothue;
     protected String tenkh;
     protected String soku;
+    
+    protected String type_action;
+
+    public String getType_action() {
+        return type_action;
+    }
+
+    public void setType_action(String type_action) {
+        this.type_action = type_action;
+    }
 
     public String getMasothue() {
         return masothue;
@@ -210,6 +220,10 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected List<DULIEU_NT> lstNt = new ArrayList<>();
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
     protected List<QT_DULIEU_NT> lstCombox = new ArrayList<>();
+    protected List<ListValue> lstHinhthucTNHS = new ArrayList<ListValue>();
+    protected List<ListValue> lstNgayluongHD = new ArrayList<ListValue>();
+    protected List<ListValue> lstLuongVung = new ArrayList<ListValue>();
+    protected List<ListValue> lstTinhchatNV = new ArrayList<ListValue>();
 
     private List<ListValue> lstCapKT = new ArrayList<ListValue>();
     private List<ListValue> lstDVUT = new ArrayList<ListValue>();
@@ -1159,6 +1173,41 @@ public class ActionNhaptaycnMain extends ActionSupport {
         this.pgd = pgd;
     }
 
+    public List<ListValue> getLstHinhthucTNHS() {
+        return lstHinhthucTNHS;
+    }
+
+    public void setLstHinhthucTNHS(List<ListValue> lstHinhthucTNHS) {
+        this.lstHinhthucTNHS = lstHinhthucTNHS;
+    }
+
+    public List<ListValue> getLstNgayluongHD() {
+        return lstNgayluongHD;
+    }
+
+    public void setLstNgayluongHD(List<ListValue> lstNgayluongHD) {
+        this.lstNgayluongHD = lstNgayluongHD;
+    }
+
+    public List<ListValue> getLstLuongVung() {
+        return lstLuongVung;
+    }
+
+    public void setLstLuongVung(List<ListValue> lstLuongVung) {
+        this.lstLuongVung = lstLuongVung;
+    }
+
+    public List<ListValue> getLstTinhchatNV() {
+        return lstTinhchatNV;
+    }
+
+    public void setLstTinhchatNV(List<ListValue> lstTinhchatNV) {
+        this.lstTinhchatNV = lstTinhchatNV;
+    }
+
+    
+
+    
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
     public List<ListValue> getLstCapKT() {
         return lstCapKT;

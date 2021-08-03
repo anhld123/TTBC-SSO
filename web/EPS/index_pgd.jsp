@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EPS</title>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="js/jquery.number.js"></script>
         <style>
             .clsTitle{
                 width: 100%;
@@ -100,11 +101,6 @@
             fieldset{
                 margin-bottom: 7px;
             }
-            #ShowData{
-                width: 98%;
-                height: 90vh;
-                border: 0px;
-            }
             iframe{
                 border: 0px;
             }
@@ -112,57 +108,84 @@
                 display: none;   
                 width: 98%;
             }
+            textarea{
+                width: 100%;
+                height: 100px;
+            }
         </style>
+        <script>
+            //Lấy ngày hiện tại cho NgayBC
+            $(function () {
+                $("#datepicker").datepicker(
+                        {
+                            dateFormat: 'dd/mm/yy',
+                            changeMonth: true,
+                            changeYear: true,
+                            showButtonPanel: true
+                        }
+                ).datepicker('setDate', '25/05/2020');
+            });
+        </script>
     </head>
     <body>
         <div class="clsTitle">
-            <h3>DANH SÁCH ĐƠN VỊ PHẢN HỒI VỀ DỮ LIỆU
+            <h3>
+                XÁC NHẬN SỐ LIỆU
                 <br>
                 NHẬT KÝ QUỸ NGƯỜI LAO ĐỘNG LÀM VIỆC TẠI HÀN QUỐC THEO CHƯƠNG TRÌNH EPS
             </h3>
         </div>
         <form id="frmMain" name="frmMain">
-            <div style="display:flex; justify-content:flex-end; padding: 7px 0px; border: 1px solid #ddd;" >
-                <input type="button" value = "Chốt số liệu" id="idchotsl" style="margin-right: 5px;">
-                <input type="button" id="cmdxembc" value = "Xem số liệu">
+            <div style="display:inline-flex;justify-content: space-between; width: 100%; border-top: 1px solid #ddd;">
+                <div style="display:flex; align-items:center;">
+                    &nbsp;&nbsp;<b>Lọc danh sách:&nbsp;</b>
+                    <select id="idloc" name="loc" onchange="Filter();" style="border: 1px solid black;">
+                    </select>
+                </div>
+                <div style="display:flex; align-items:center; padding: 7px 0px;" >
+                    <div> Ngày báo cáo:<input type="text" id="datepicker" name="ngaybc" class="js-date" maxlength="10"> </div>
+                    <input type="button" value = "Xem số liệu" id="cmdxemsl" style="margin-right: 5px;">
+                    <input type="button" value = "Lưu số liệu" id="cmdluusl" style="margin-right: 5px;">
+                    <input type="button" value = "Xác nhận với Trung ương" id="idchotsl" style="margin-right: 5px;">
+                </div>
             </div>
             <div style="width: 100%; display: flex;justify-content: center;">
                 <div id="ShowData">
-                </div>
-                <div id="Showchotsl">
-                    <fieldset>
-                        <legend>Nguyên nhân</legend>
-                        <textarea></textarea>
-                    </fieldset>
-                    <input type="radio" id="chkdung" name="chkchotsl" checked="check"><label for="chkdung">Số liệu đúng và đủ</label>
-                    <input type="radio" id="chksai" name="chkchotsl"><label for="chksai">Số liệu sai</label>
-                    <input type="button" value = "Gửi số liệu về TW" id="cmdguisltw">
-                    <div id="showmess">
-                        
-                    </div>
                 </div>
             </div>
         </form>
     </body>
     <script>
         $(document).ready(function () {
-            $("#cmdxembc").click({status: "00", action: "getMenuReport.action"}, SendData);
-            $("#idchotsl").click({status: "01", action: ""}, SendData);
-            $('#cmdxembc').trigger('click');
-
-            $("#cmdguisltw").click({status: "02", action: "sendatatw.action"}, SendData);
+            $("#cmdxemsl").click({action: "xemsleps"}, SendData);
+            $("#cmdxemsl").trigger('click');
+            $("#cmdluusl").click({action: "luusleps"}, SendData);
+            $("#idchotsl").click({action: "xacnhansleps"}, SendData);
+            $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
         });
         function SendData(event) {
-            if (event.data.status == "00") {
-                $("#ShowData").fadeIn();
-                $("#Showchotsl").fadeOut();
-            } else {
-                $("#ShowData").fadeOut();
-                $("#Showchotsl").fadeIn();
+            var surl, sdata, idView, idForm, method, conf, index = 0, constChk = 1;
+            if (event.data.action == "xacnhansleps") {
+                $('select[name^="chotsl"]').each(function (e) {
+                    if ($(this).val() == '03') {
+                        var val = $("textarea[name='nguyennhan']:eq(" + index + ")").val();
+                        if (val.trim() == '') {
+                            alert('Bạn cần nhập nguyên nhân đối với "Hoàn thanh điều chỉnh"');
+                            constChk = 0;
+                            return undefined;
+                        }
+                    }
+                    index++;
+                });
             }
-            if (event.data.status != "01") {
-                var surl, sdata, idView, idForm, method;
-                surl = event.data.action;
+            if (constChk == 1) {
+                if (event.data.action == "xacnhansleps") {
+                    conf = confirm("Bạn có chắc chắn muốn xác nhận số liệu với TW");
+                    if (conf == false) {
+                        return conf;
+                    }
+                }
+                surl = event.data.action + ".action";
                 idView = "#ShowData";
                 idForm = "#frmMain";
                 method = "POST";
@@ -176,13 +199,13 @@
                         $(idView).html('<img src="imgs/newloading.gif"/>');
                     },
                     success: function (result) {
-                        if(event.data.status=="02"){
-                            $("#showmess").html(result);
-                        }
-                        else{
-                            $("#showmess").html("");
-                        }
                         $(idView).html(result);
+                        if (event.data.action == "luusleps") {
+                            alert("Lưu dữ liệu thành công !");
+                        }
+                        if (event.data.action == "xacnhansleps") {
+                            alert("Xác nhận số liệu thành công !");
+                        }
                     },
                     error: function () {
                         alert('Lỗi khi thực hiện.');

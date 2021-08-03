@@ -12,6 +12,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EPS</title>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="js/jquery.number.js"></script>
+        <script type="text/javascript" src="DMChitieu/js/jquery.session.js"></script>
         <style>
             .clsTitle{
                 width: 100%;
@@ -46,43 +48,8 @@
             .clsFILL{width: 10%; line-height: 18px;}
             .clsNGN{width: 60%;}
             .clsLoc{margin-left: 20px;}
-            .clsLoc>input{
-                margin: 0px 10px 5px 0px;
-                background-color: transparent;
-                border: 0px;
-                font-weight: bold;
-                cursor: pointer;
-                color: blue;
-            }
-            .overlay {
-                position: fixed;
-                height: 100%; 
-                width: 100%;
-                top: 15%;
-                right: 0;  
-                bottom: 0;
-                left: 0;
-                background: rgba(0,0,0,0.8);
-                display: none;
-            }
-
-            .popup {
-                max-width: 600px;
-                width: 80%;
-                max-height: 300px;
-                height: 80%; 
-                padding: 20px;
-                position: relative;
-                background: #fff;
-                margin: 5% auto;
-            }
-
-            .close {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                cursor: pointer;
-                color: #000;
+            select, input{
+                margin: 3px 5px;
             }
         </style>
         <script>
@@ -95,7 +62,7 @@
                             changeYear: true,
                             showButtonPanel: true
                         }
-                ).datepicker('setDate', '31/05/2021');
+                ).datepicker('setDate', '25/05/2020');
             });
         </script>
     </head>
@@ -106,70 +73,84 @@
                 NHẬT KÝ QUỸ NGƯỜI LAO ĐỘNG LÀM VIỆC TẠI HÀN QUỐC THEO CHƯƠNG TRÌNH EPS
             </h3>
         </div>
-        <form id="frmMain" name="frmMain">
-            <div style="padding: 5px; display: inline-flex;">
-                <div>
-                    Đơn vị
+        <form id="frmMain" name="frmMain" style="margin-bottom: 0px;">
+            <div style="display:inline-flex;justify-content: space-between; width: 100%; border-top: 1px solid #ddd;">
+                <div style="display:flex; align-items:center;">
+                    &nbsp;<b>Lọc danh sách: &nbsp;</b>
+                    <select id="idloc" name="loc" onchange="Filter();">
+                    </select>
+                </div>
+                <div style="display:flex; align-items:center; padding: 7px 0px;" >
+                    <div id="idcapbc">
+                        <b>Chi nhánh</b>
+                        <select id="idtinh" name="matinh">
+                            <s:iterator value="lstCN">
+                                <option value="<s:property value='PosCode'/>"><s:property value='PosName'/></option>
+                            </s:iterator>
+                        </select>
+                    </div>
+                    <b>Đơn vị trực thuộc</b>
                     <select id="iddonvi" name="madv">
                         <s:iterator value="lstPos">
                             <option value="<s:property value='PosCode'/>"><s:property value='PosName'/></option>
                         </s:iterator>
                     </select>
-                    Ngày báo cáo:<input type="text" id="datepicker" name="ngaybc">
+                    <div> <b>Ngày báo cáo:</b><input type="text" id="datepicker" name="ngaybc" class="js-date" maxlength="10"></div>
                     <input type="button" id="btnXem" value="Xem số liệu"/>
                 </div>
-                <div class="clsLoc">
-                    <input type="button" id="btnChuaChot" value="" style="display: none;"/>
-                    <input type="button" id="btnDaChot" value="" style="display: none;"/>
-                    <input type="button" id="btnChotSai" value="" style="display: none;"/></div>
             </div>
-        </form>
-        <div id="ShowData"></div>
-    </body>
-    <script>
-        $(document).ready(function () {
-            $("#btnXem").click({status: "00"}, SendData);
-            $("#btnChuaChot").click({status: "01"}, SendData);
-            $("#btnDaChot").click({status: "02"}, SendData);
-            $("#btnChotSai").click({status: "03"}, SendData);
+        </div>
+        <div style="width: 100%;">
+            <div id="ShowData">
+            </div>
+        </div>
+    </form>
+</body>
+<script>
+    $(document).ready(function () {
+        $("#btnXem").click({status: "", url: "loadIndex.action"}, SendData);
+        $("#btnXem").trigger('click');
+        $("#idtinh").change({status: "00", url: "getpgdfromcn.action"}, SendData);
+        $("#xemphanhoichung").click(()=>{
+            $("#phanhoidonvi").toggle();
         });
-        function SendData(event) {
-            var surl, sdata, idView, idForm, method, mess;
-            switch (event.data.status) {
-                case '01':
-                    mess = "(Chưa chốt số liệu)";
-                    break;
-                case '02':
-                    mess = "(Đã chốt số liệu)";
-                    break;
-                case '03':
-                    mess = "(Chốt sai số liệu)";
-                    break;
-                default:
-                    mess = '';
-            }
-            surl = "loadIndex.action?status=" + event.data.status;
-            idView = "#ShowData";
-            idForm = "#frmMain";
-            method = "POST";
-            sdata = jQuery(idForm).serialize();
-            $.ajax({
-                url: surl,
-                data: sdata,
-                type: method,
-                async: true,
-                beforeSend: function () {
-                    $(idView).html('<img src="imgs/newloading.gif"/>');
-                },
-                success: function (result) {
+    });
+    function SendData(event) {
+        var surl, sdata, idView, idForm, method;
+        surl = event.data.url + "?status=" + event.data.status;
+        idView = "#ShowData";
+        idForm = "#frmMain";
+        method = "POST";
+        sdata = jQuery(idForm).serialize();
+        $.ajax({
+            url: surl,
+            data: sdata,
+            type: method,
+            async: true,
+            success: function (result) {
+                if (event.data.status == "00") {
+                    $('#iddonvi').children().remove().end();
+                    $.each(result.lstPGD, function (key, val) {
+                        $('#iddonvi').append('<option value="' + key + '">' + val + '</option>');
+                    });
+                    alphabetizeList('#iddonvi');
+                } else {
                     $(idView).html(result);
-                    $("#status").html(mess);
-                    
-                },
-                error: function () {
-                    alert('Lỗi khi thực hiện.');
                 }
-            });
-        }
-    </script>
+            },
+            error: function () {
+                alert('Lỗi khi thực hiện.');
+            }
+        });
+    }
+    function alphabetizeList(listField) {
+        var sel = $(listField);
+        var opts_list = sel.find('option');
+        opts_list.sort(function (a, b) {
+            return $(a).text() > $(b).text() ? 1 : -1;
+        });
+        sel.html('').append(opts_list);
+        sel.val("00"); // set cached selected value
+    }
+</script>
 </html>

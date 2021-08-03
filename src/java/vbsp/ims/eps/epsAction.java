@@ -9,38 +9,59 @@ import vbsp.ims.khnv2021.PosClass;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.sun.xml.bind.StringInputStream;
+import com.opensymphony.xwork2.util.logging.Logger;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.StringBufferInputStream;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class epsAction extends ActionSupport {
 
     //Cac truong chua thong tin bo xung luu du lieu
-    private String capbc, tendn, ngaybc, madv, status, linkReport;
-    private int dachot, chuachot, chotsai;
+    private String capbc, tendn, ngaybc, madv, status, linkReport, matinh, phanhoichung;
     private InputStream pageResult;
+    private int totalRow;
     private Map session;
     private List<PosClass> lstPos = new ArrayList<>();
-    private List<epsGetSet_NT> lstData = new ArrayList<>();
+    private List<PosClass> lstCN = new ArrayList<>();
+    private List<epsGetSetSL> lstDetail = new ArrayList<>();
+    private List<String> macn = new ArrayList<>();
+    private List<String> mapgd = new ArrayList<>();
+    private List<String> makh = new ArrayList<>();
+    private List<String> ngaysl = new ArrayList<>();
+    private List<String> soku = new ArrayList<>();
+    private List<String> chotsl = new ArrayList<>();
+    private List<String> nguyennhan = new ArrayList<>();
+    private Map<String, String> lstPGD = new HashMap<String, String>();
 
     @Override
-    //Lấy danh đơn vị theo cấp báo cáo
+    //Cấp CN và TW
     public String execute() throws Exception {
         //Lấy danh sách đơn vị theo cấp báo cáo
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
         lstPos = new epsModel().getPGD(capbc, tendn);
+        lstCN = new epsModel().getChiNhanh(capbc, tendn);
         return SUCCESS;
     }
 
+    public String getCNToPGD() throws Exception {
+        //Lấy danh sách đơn vị theo cấp báo cáo
+        session = ActionContext.getContext().getSession();
+        capbc = (String) session.get("reportGrade");
+        lstPGD = new epsModel().getCNToPGD(capbc, matinh);
+        return SUCCESS;
+    }
+
+    //Hàm lấy số liệu cho cấp CN và TW
     public String getAllData() throws ParseException {
         //Lấy số liệu phản hồi
         session = ActionContext.getContext().getSession();
@@ -50,35 +71,165 @@ public class epsAction extends ActionSupport {
         Date date = sdf.parse(ngaybc);
         DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
         ngaybc = df3.format(date);
-        List<Object> obj = new epsModel().getAllData(capbc, tendn, madv, ngaybc, status);
-        lstData = (List<epsGetSet_NT>) obj.get(0);
-        dachot = (int) obj.get(1);
-        chuachot = (int) obj.get(2);
-        chotsai = (int) obj.get(3);
+        lstDetail = new epsModel().getAllData(capbc, tendn, madv, ngaybc, status, matinh);
         return SUCCESS;
     }
 
-    public String getMenuReport() {
+    //Cấp PGD
+    public String xemsleps() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = sdf.parse(ngaybc);
+        DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
+        ngaybc = df3.format(date);
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        linkReport = new epsModel().getMenuIdBc();
-        pageResult = new StringBufferInputStream(linkReport);
-        return SUCCESS;
-    }
-    
-    public String sendatatw() {
-        session = ActionContext.getContext().getSession();
-        capbc = (String) session.get("reportGrade");
-        tendn = (String) session.get("username");
-        linkReport = new epsModel().sendatatw();
-        pageResult = new StringInputStream(linkReport);
+        lstDetail = new epsModel().xemsleps(capbc, tendn, ngaybc);
         return SUCCESS;
     }
 
-//<editor-fold defaultstate="collapsed" desc="Getter Setter">
+    public String luusleps() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = sdf.parse(ngaybc);
+        DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
+        ngaybc = df3.format(date);
+        session = ActionContext.getContext().getSession();
+        capbc = (String) session.get("reportGrade");
+        tendn = (String) session.get("username");
+        new epsModel().luusleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan, tendn, phanhoichung);
+        lstDetail = new epsModel().xemsleps(capbc, tendn, ngaybc);
+        return SUCCESS;
+    }
+
+    public String xacnhansleps() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = sdf.parse(ngaybc);
+        DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
+        ngaybc = df3.format(date);
+        session = ActionContext.getContext().getSession();
+        capbc = (String) session.get("reportGrade");
+        tendn = (String) session.get("username");
+        new epsModel().xacnhansleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan, tendn, phanhoichung);
+        lstDetail = new epsModel().xemsleps(capbc, tendn, ngaybc);
+        return SUCCESS;
+    }
+
+    public String openlock() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = sdf.parse(ngaybc);
+        DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
+        ngaybc = df3.format(date);
+        session = ActionContext.getContext().getSession();
+        capbc = (String) session.get("reportGrade");
+        tendn = (String) session.get("username");
+        new epsModel().openlock(macn, mapgd, makh, ngaybc, soku, tendn, status);
+        return SUCCESS;
+    }
+
+    public String updateintellect() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = sdf.parse(ngaybc);
+        DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
+        ngaybc = df3.format(date);
+        session = ActionContext.getContext().getSession();
+        capbc = (String) session.get("reportGrade");
+        tendn = (String) session.get("username");
+        totalRow = new epsModel().updateintellect(tendn,mapgd, makh, ngaybc, status);
+        pageResult = new ByteArrayInputStream(String.valueOf(totalRow).getBytes(StandardCharsets.UTF_8));
+        return SUCCESS;
+    }
+//<editor-fold defaultstate="collapsed" desc="Thuộc tính GET SET">
+
     public void setCapbc(String capbc) {
         this.capbc = capbc;
+    }
+
+    public Map<String, String> getLstPGD() {
+        return lstPGD;
+    }
+
+    public void setLstPGD(Map<String, String> lstPGD) {
+        this.lstPGD = lstPGD;
+    }
+
+    public String getMatinh() {
+        return matinh;
+    }
+
+    public void setMatinh(String matinh) {
+        this.matinh = matinh;
+    }
+
+    public List<PosClass> getLstCN() {
+        return lstCN;
+    }
+
+    public void setLstCN(List<PosClass> lstCN) {
+        this.lstCN = lstCN;
+    }
+
+    public List<String> getMacn() {
+        return macn;
+    }
+
+    public void setMacn(List<String> macn) {
+        this.macn = macn;
+    }
+
+    public List<String> getMapgd() {
+        return mapgd;
+    }
+
+    public void setMapgd(List<String> mapgd) {
+        this.mapgd = mapgd;
+    }
+
+    public List<String> getMakh() {
+        return makh;
+    }
+
+    public void setMakh(List<String> makh) {
+        this.makh = makh;
+    }
+
+    public List<String> getNgaysl() {
+        return ngaysl;
+    }
+
+    public void setNgaysl(List<String> ngaysl) {
+        this.ngaysl = ngaysl;
+    }
+
+    public List<String> getSoku() {
+        return soku;
+    }
+
+    public void setSoku(List<String> soku) {
+        this.soku = soku;
+    }
+
+    public List<String> getChotsl() {
+        return chotsl;
+    }
+
+    public void setChotsl(List<String> chotsl) {
+        this.chotsl = chotsl;
+    }
+
+    public List<String> getNguyennhan() {
+        return nguyennhan;
+    }
+
+    public void setNguyennhan(List<String> nguyennhan) {
+        this.nguyennhan = nguyennhan;
+    }
+
+    public static Logger getLOG() {
+        return LOG;
+    }
+
+    public static void setLOG(Logger LOG) {
+        ActionSupport.LOG = LOG;
     }
 
     public String getTendn() {
@@ -121,6 +272,14 @@ public class epsAction extends ActionSupport {
         this.session = session;
     }
 
+    public String getPhanhoichung() {
+        return phanhoichung;
+    }
+
+    public void setPhanhoichung(String phanhoichung) {
+        this.phanhoichung = phanhoichung;
+    }
+
     public String getLinkReport() {
         return linkReport;
     }
@@ -137,28 +296,12 @@ public class epsAction extends ActionSupport {
         this.status = status;
     }
 
-    public int getDachot() {
-        return dachot;
+    public List<epsGetSetSL> getLstDetail() {
+        return lstDetail;
     }
 
-    public void setDachot(int dachot) {
-        this.dachot = dachot;
-    }
-
-    public int getChuachot() {
-        return chuachot;
-    }
-
-    public void setChuachot(int chuachot) {
-        this.chuachot = chuachot;
-    }
-
-    public int getChotsai() {
-        return chotsai;
-    }
-
-    public void setChotsai(int chotsai) {
-        this.chotsai = chotsai;
+    public void setLstDetail(List<epsGetSetSL> lstDetail) {
+        this.lstDetail = lstDetail;
     }
 
     public List<PosClass> getLstPos() {
@@ -169,12 +312,13 @@ public class epsAction extends ActionSupport {
         this.lstPos = lstPos;
     }
 
-    public List<epsGetSet_NT> getLstData() {
-        return lstData;
+    public int getTotalRow() {
+        return totalRow;
     }
 
-    public void setLstData(List<epsGetSet_NT> lstData) {
-        this.lstData = lstData;
+    public void setTotalRow(int totalRow) {
+        this.totalRow = totalRow;
     }
     //</editor-fold> 
+
 }

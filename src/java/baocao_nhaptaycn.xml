@@ -422,6 +422,36 @@
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>
+        
+        <action name="QD23_001" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="load">
+                <result name="nhap_pgd">/nhaptay-cn/table_qd23_001_pgd.jsp</result>                
+                <result name="nhap_tw">/nhaptay-cn/table_qd23_001_tw.jsp</result>   
+                <result name="dieuchinh_pgd">/nhaptay-cn/table_qd23_001_dieuchinh_pgd.jsp</result>      
+                <result name="error">/nhaptay-cn/success.jsp</result>        
+        </action>
+
+        <action name="SAVE_QD23_001" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="save">
+                <result name="success">/BCQT/success.jsp</result>
+                <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="updateDsNguoiLD" class="vbsp.ims.nhaptaycn.action.QD23_001" method="updateDsNguoiLD">
+            <result name="success">  
+                /nhaptay-cn/upload-file-qd23_dsnguoild.jsp
+            </result>               
+            <result name="error">  
+                /chamdiem_canhan/success.jsp
+            </result>  
+        </action>
+        
+        <action name="loadUploadDsNguoild" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="loadParaUploadDsNguoild">
+            <result name="success" type="json"></result>        
+        </action>
+        
+        <action name="saveUploadDsNguoiLD" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveUploadCDsNguoiLD">
+            <result name="success">/nhaptay-cn/table-result-upload-giaingan.jsp</result>               
+        </action>
+        
                 
         <!--gui so lieu -->
         <action name="sendPhiUT" class="vbsp.ims.nhaptaycn.action.ActionNhaptaycnMain"  method="sendPhiUT">

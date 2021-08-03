@@ -58,7 +58,7 @@ public class ExcelExport {
     public ExcelExport() {
     }
 
-    public FileExportInfo xuatExcelMau01(List<String> lstCommune, String savedDirPath, String namBc, String dotBc) {
+    public FileExportInfo xuatExcelMau01(List<String> lstCommune, String savedDirPath, String namBc, String dotBc, String pos_cd) {
         String filePath = "", fileName = "";
         List<String> lstOfTextFile = new ArrayList<>();
         List<DownloadFileInfor> filesList = new ArrayList<>();
@@ -76,7 +76,7 @@ public class ExcelExport {
                 String save_id = "KHNV01";
 
                 HashMap<String, String> paramHashMap = new HashMap<>();
-                String sPos_cd = "";
+//                String sPos_cd = "";
                 String stringParaPos_cd = "";
                 String sPosFlag = "";
                 //xy lay lay cac tham so cho vao hashmap
@@ -117,11 +117,11 @@ public class ExcelExport {
 
                 mapCollectPara.put("PD_REPORT_DATE",
                         ImsFillParaMeter.newInstance("VARCHAR2", new SimpleDateFormat("dd-MMM-yyyy").format(sdf)));
-                sPos_cd = "000000";
+//                sPos_cd = "000000";
                 stringParaPos_cd = "PV_POS_CD";
                 sPosFlag = "N";
 
-                daoQuery.getDataExp(save_id, paramHashMap, sPos_cd, stringParaPos_cd, sPosFlag, strPathSave + strFileSave, namBc, dotBc, value);
+                daoQuery.getDataExp(save_id, paramHashMap, pos_cd, stringParaPos_cd, sPosFlag, strPathSave + strFileSave, namBc, dotBc, value);
 
                 //Kiem tra xem file da tao thanh cong chua
                 File filerpt = new File(strPathSave + strFileSave);
@@ -317,6 +317,15 @@ public class ExcelExport {
                         numberStyle.setLocked(false);
                         xssfCell03.setCellStyle(numberStyle);
                         xssfCell03.setCellValue(lstData.get(i).d2);
+                        
+                        XSSFCell xssfCell05 = xssfRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
+                        numberStyle = xssfCell05.getCellStyle();
+                        numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                        numberStyle.setAlignment(HorizontalAlignment.RIGHT);
+                        numberStyle.setFont(font);
+                        numberStyle.setLocked(false);
+                        xssfCell05.setCellStyle(numberStyle);
+                        xssfCell05.setCellValue(lstData.get(i).d4);
 
                         XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
                         lockStyle = xssfCell04.getCellStyle();
@@ -462,7 +471,7 @@ public class ExcelExport {
                     //xssfCellSubTitle.setCellValue(strSubTitle);
                     fillTitle(xssfCellSubTitle, strSubTitle);
 
-                    String colTitle3 = "Ước đến 31/12/" + preYear;
+                    String colTitle3 = "Tổng số " + namBc;
                     XSSFCell colTitle = sheet.getRow(7).getCell(3, Row.CREATE_NULL_AS_BLANK);
                     fillTitle(colTitle, colTitle3);
 
@@ -667,7 +676,7 @@ public class ExcelExport {
                     colTitle = sheet.getRow(6).getCell(5, Row.CREATE_NULL_AS_BLANK);
                     fillTitle(colTitle, colTitle6);
 
-                    String colTitle7 = "Tăng, giảm so với 31/12/" + strPreYear;
+                    String colTitle7 = "Tổng số";
                     colTitle = sheet.getRow(7).getCell(5, Row.CREATE_NULL_AS_BLANK);
                     fillTitle(colTitle, colTitle7);
 
@@ -764,10 +773,42 @@ public class ExcelExport {
                         lockStyle = xssfCell05.getCellStyle();
                         lockStyle.setDataFormat(format.getFormat("#,##0.00"));
                         lockStyle.setAlignment(HorizontalAlignment.RIGHT);
-                        lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-                        lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                        lockStyle.setLocked(true);
-                        xssfCell05.setCellStyle(lockStyle);
+                        
+                        
+                        
+                        if (lstData.get(i).code.equals("XD00110") 
+                                || lstData.get(i).code.equals( "XD00111") 
+                                || lstData.get(i).code.equals( "XD00067")
+                                || lstData.get(i).code.equals( "XD00068")
+                                || lstData.get(i).code.equals( "XD00069")
+                                || lstData.get(i).code.equals( "XD00070")
+                                || lstData.get(i).code.equals( "XD00071")
+                                || lstData.get(i).code.equals( "XD00072")
+                                || lstData.get(i).code.equals( "XD00073")
+                                || lstData.get(i).code.equals( "XD00074")
+                                || lstData.get(i).code.equals( "XD00075")
+                                || lstData.get(i).code.equals( "XD00076")
+                                || lstData.get(i).code.equals( "XD00077")
+                                || lstData.get(i).code.equals( "XD00078")
+                                || lstData.get(i).code.equals( "XD00079")
+                                || lstData.get(i).code.equals( "XD00080")
+                                || lstData.get(i).code.equals( "XD00081")
+                                || lstData.get(i).code.equals( "XD00082")
+                                || lstData.get(i).code.equals( "XD00083")
+                                || lstData.get(i).code.equals( "XD00084")
+                                || lstData.get(i).code.equals( "XD00195")
+                                || lstData.get(i).code.equals( "XD00196")
+){
+                            xssfCell05.setCellStyle(lockStyle);
+                            xssfCell05.setCellValue(lstData.get(i).d3);
+                        } else {
+                            lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+                            lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+                            lockStyle.setLocked(true);
+                            xssfCell05.setCellStyle(lockStyle);
+                            //xssfCell05.setCellValue(lstData.get(i).d3);
+                        }
+                        
 
                         XSSFCell xssfCell06 = xssfRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
                         numberStyle = xssfCell06.getCellStyle();

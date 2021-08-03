@@ -163,4 +163,15 @@ public class Define {
     public static final String LOV_MABC = "MABC"; 
     public static final String LOV_DOTBC = "DOTBC"; 
     public static final String LOV_VIEW_TYPE = "VIEW"; 
+    
+ // Định nghĩa cho kết quả kiểm tra đối chiều    
+    public static final String KTDC_BAOCAO = "BAOCAO"; 
+    public static final String KTDC_DOITUONG = "DOITUONG"; 
+    public static final String KTDC_HINHTHUC = "HINHTHUC"; 
+    public static final String KTDC_MAXA = "MAXA";    
+    public static final String KTDC_DVUT = "DVUT";   
+    public static final String KTDC_MATO = "MATO";    
+    public static final String KTDC_CANBO = "CANBO";    
+    public static final String KTDC_BIENPHAPXL = "BIENPHAPXL";    
+    
 }

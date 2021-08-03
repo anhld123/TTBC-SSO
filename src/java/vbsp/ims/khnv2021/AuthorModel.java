@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vbsp.ims.khnv2021;
 
 import java.sql.CallableStatement;
@@ -186,7 +181,7 @@ public class AuthorModel {
         return Message;
     }
 
-    String getMenuIdBc() {
+    public String getMenuIdBc() {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
         String Message ="";
