@@ -86,6 +86,10 @@ public class QD23_001 extends ActionNhaptaycnMain
                 setLstLuongVung(daoMain.getCanBo(UserName, "LUONGVUNG"));
                 return "dieuchinh_pgd";
             }
+             else if (Grade.equals("2")) {
+//                setLstTinhchatNV(daoMain.getCanBo(UserName, "TINHTCHAT_NV"));
+                return "nhap_cn";
+            }
             else if (Grade.equals("3")) {
                 setLstTinhchatNV(daoMain.getCanBo(UserName, "TINHTCHAT_NV"));
                 return "nhap_tw";
@@ -118,7 +122,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
 
-            if (!daoMain.saveCoVid03(khoa_nhaptaycn, UserName, "", hmParameter.get("ngay_bc").toString(), lstDulieuNt)) {
+            if (!daoMain.saveQD23_001(khoa_nhaptaycn, UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt)) {
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;
             }
