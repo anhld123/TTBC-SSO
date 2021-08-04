@@ -8014,7 +8014,7 @@ public class DaoNhaptaycnMain {
         return lstBcqt_NT;
     }
     
-    public boolean saveQD23_001(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
+    public boolean saveQD23_001(String khoa, String username, String mapgd, String ngaybc, String capBc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -8024,12 +8024,13 @@ public class DaoNhaptaycnMain {
         
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_IMS_NHAPTAYCN.SP_SAVE_QD23_001(?, ?, ?, ?, ?)}");
+            cs = connection.prepareCall("{call VBSP_IMS_NHAPTAYCN.SP_SAVE_QD23_001(?, ?, ?, ?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
             cs.setString(4, ngaybc);
-            cs.setArray(5, array_to_pass);                        
+            cs.setString(5, capBc);
+            cs.setArray(6, array_to_pass);                        
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
