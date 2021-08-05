@@ -176,7 +176,7 @@
             </s:iterator>   
             </br>
             <div id="divTitle">
-                DANH SÁCH NGƯỜI SỬ DỤNG LAO ĐỘNG ĐƯỢC HƯỞNG CHÍNH SÁCH VAY VỐN ĐỂ TRẢ LƯƠNG NGỪNG VIỆC
+                PHÊ DUYỆT ĐIỀU CHỈNH KẾ HOẠCH
             </div>
             <s:hidden name="khoa_nhaptaycn"/>
             <!--                <div id="divDonvitinh">
@@ -189,7 +189,7 @@
                         <tr height="50px">                              
                             <!--<th rowspan="2" class="TD_MAKH">Mã doanh nghiệp</th>-->  
                             <th rowspan="2" class="TD_MAKH">Tỉnh</th>  
-                            <th rowspan="2" class="TD_SOTIEN">Huyện</th>  
+                            <!--<th rowspan="2" class="TD_SOTIEN">Huyện</th>-->  
                             <th rowspan="2" class="TD_TENKH">Tên doanh nghiệp</th>  
                             <!--<th rowspan="2" class="TD_MAKH">Mã số thuế</th>-->    
                             <th rowspan="2" class="TD_MAKH">CMND người đại diện</th>
@@ -221,7 +221,7 @@
                             <!--<td>1</td>-->
                             <td></td>
                             <!--<td>3</td>-->
-                            <td></td>
+                            <!--<td></td>-->
                             <td>2</td>
                             <!--<td>6</td>-->
                             <!--<td>7</td>-->
@@ -253,10 +253,10 @@
                                 <s:else>
                                     <td></td>
                                 </s:else>
-                                <td align = "right" class="TD_SOTIEN" >
+<!--                                <td align = "right" class="TD_SOTIEN" >
                                     <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D30" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" class="TEN_KH" onfocus="this.select();" readonly="true"/>
-                                </td>        
+                                </td>        -->
                                 <!--                                <td align = "right" class="TD_MAKH" >
                                                                     <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D1" />"
                                                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH D0" onfocus="this.select();"

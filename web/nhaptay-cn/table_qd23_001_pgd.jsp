@@ -134,8 +134,8 @@
 
             function autoEvaluate() {
 
-                var arrCot = [".D3", ".D14", ".D15"]; //Luu cac cot cua du lieu can tinh toan
-                for (var i = 0; i < 10; i++) {
+                var arrCot = [".D13", ".D14", ".D15"]; //Luu cac cot cua du lieu can tinh toan
+                for (var i = 0; i < 50; i++) {
                     //8=2+4-6
                     $(".D13").eq(i).val(parseFloat($(".D14").eq(i).val()) + parseFloat($(".D15").eq(i).val()));
 
@@ -202,7 +202,8 @@
                             <th rowspan="2" class="TD_NGAY">Tháng vay</th>
                             <th rowspan="2" class="TD_NGAY">Tổng số lao động được đề nghị vay để trả lương</th>    
                             <th rowspan="2" class="TD_MAKH">Số tiền đề nghị vay</th>
-                            <th colspan="2">Trong đó:</th>                                                                                                             
+                            <th colspan="2">Trong đó:</th>      
+                            <th  rowspan="2" class="TD_MAKH">Kế hoạch dư nợ sau giao chỉ tiêu</th>   
                             <th  rowspan="2" class="TD_MAKH">Ngày lương theo HĐ</th>    
                             <th  rowspan="2" class="TD_CHITIEU">Ghi chú</th>                                    
                         </tr>         
@@ -228,6 +229,7 @@
                             <td>13</td>
                             <td>14</td>
                             <td>15</td>
+                            <td>18</td>
                             <td>16</td>
                             <td>17</td>     
                            
@@ -310,6 +312,11 @@
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"  value="<s:property  value="D15" />"
                                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" class="D15 TEN_KH number" onfocus="this.select();"
+                                               readonly="true"/>
+                                    </td>
+                                    <td align = "right" class="TD_MAKH" >
+                                        <input type="text"  value="<s:property  value="D18" />"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="D18 TEN_KH number" onfocus="this.select();"
                                                readonly="true"/>
                                     </td>
                                     <td align = "right" class="TD_NGAY" >
@@ -413,6 +420,10 @@
                                         <input type="text"  value="<s:property  value="D15" />"
                                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" class="D15 TEN_KH number" onfocus="this.select();"
                                                onblur="autoEvaluate()"/>
+                                    </td>
+                                    <td align = "right" class="TD_MAKH" >
+                                        <input type="text"  value="<s:property  value="D18" />"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="D18 TEN_KH number" onfocus="this.select();"/>
                                     </td>
                                     <td align = "left" class="TD_MAKH">                                        
                                         <s:select  
