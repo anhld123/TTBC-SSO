@@ -136,9 +136,54 @@ public class QD23_001 extends ActionNhaptaycnMain
         addActionMessage("Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
     }
-
-    public String UploadPL02() {
+    
+    public String saveDieuchinhKH() {
+//        System.err.println("Save - QD23_001");
         try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            if (lstDulieuNt == null || lstDulieuNt.size() == 0) {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
+                return ERROR;
+            }
+//            for (QT_DULIEU_NT.saveDulieuNT_Phi value : lstsaveNT_DAT) {
+//                if(value != null)                    
+//                    if (!value.getD2().equals("false")) {
+//                        lstDat.add(value.getD2());
+//                    }
+//            }            
+
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            HashMap hmParameter = getParameter();
+
+            if (!daoMain.saveQD23_001(khoa_nhaptaycn, UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt)) {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                return ERROR;
+            }
+
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> saveDieuchinhKH: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> saveDieuchinhKH: " + e.getMessage());
+            addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+            return ERROR;
+        }
+        addActionMessage("Bạn đã lưu dữ liệu thành công");
+        return SUCCESS;
+    }
+
+    public String loadDieuchinhKh() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            HashMap hmParameter = getParameter();
+            Connection conn = new DaoConnect().getConnect();
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            lstDulieuNt = daoMain.getDataQd23_001_Dieuchinh(conn, "QD23_003", hmParameter.get("ngay_bc").toString(), UserName, Grade, hmParameter.get("masothue").toString());
+            if (conn != null) {
+                conn.close();
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
