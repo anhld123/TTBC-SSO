@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8155,5 +8156,42 @@ public class DaoNhaptaycnMain {
             CoreLogger.error(this.getClass().getName() + " getDataQd23_001 -> " + e.getMessage());
         }
         return lstBcqt_NT;
+    }
+    
+    public boolean saveQD23_001_Dieuchinh(String khoa, String username, String mapgd, String ngaybc, String capBc, List<QT_DULIEU_NT> lstData) throws SQLException, ParseException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(ngaybc);  
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+             String dateStr = sdf.format(date1);
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+        
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NHAPTAYCN.SP_SAVE_QD23_001(?, ?, ?, ?, ?, ?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, username);
+            cs.setString(3, mapgd);
+            cs.setString(4, dateStr);
+            cs.setString(5, capBc);
+            cs.setArray(6, array_to_pass);                        
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham saveQD23_001 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveQD23_001 -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
     }
 }

@@ -86,13 +86,19 @@ public class QD23_001 extends ActionNhaptaycnMain
                 setLstLuongVung(daoMain.getCanBo(UserName, "LUONGVUNG"));
                 return "dieuchinh_pgd";
             }
-             else if (Grade.equals("2")) {
-//                setLstTinhchatNV(daoMain.getCanBo(UserName, "TINHTCHAT_NV"));
-                return "nhap_cn";
+             else if (Grade.equals("2") && hmParameter.get("type_action").toString().equals("1")) {
+                return "xaydungkh_cn";
             }
-            else if (Grade.equals("3")) {
+            else if (Grade.equals("2") && hmParameter.get("type_action").toString().equals("2")) {
+                return "dieuchinhkh_cn";
+            } 
+            else if (Grade.equals("3") && hmParameter.get("type_action").toString().equals("1")) {
                 setLstTinhchatNV(daoMain.getCanBo(UserName, "TINHTCHAT_NV"));
-                return "nhap_tw";
+                return "xaydungkh_tw";
+            }
+            else if (Grade.equals("3") && hmParameter.get("type_action").toString().equals("2")) {
+                setLstTinhchatNV(daoMain.getCanBo(UserName, "TTDUYET"));
+                return "dieuchinhkh_tw";
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> QD23_001: " + e.getMessage());
@@ -112,19 +118,21 @@ public class QD23_001 extends ActionNhaptaycnMain
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
                 return ERROR;
             }
-//            for (QT_DULIEU_NT.saveDulieuNT_Phi value : lstsaveNT_DAT) {
-//                if(value != null)                    
-//                    if (!value.getD2().equals("false")) {
-//                        lstDat.add(value.getD2());
-//                    }
-//            }            
-
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
-
-            if (!daoMain.saveQD23_001(khoa_nhaptaycn, UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt)) {
-                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
-                return ERROR;
+//            String sNv = hmParameter.get("type_action").toString();
+            if (hmParameter.get("type_action").toString().equals("2") && Grade.equals("3")) { //Duyệt TH điều chỉnh KH
+                    if (!daoMain.saveQD23_001("QD23_003", UserName, "", hmParameter.get("ngay_bc").toString(), Grade, lstDulieuNt)) {
+                        addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                        return ERROR;
+                    }
+                }
+            else
+            {
+                if (!daoMain.saveQD23_001(khoa_nhaptaycn, UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt)) {
+                    addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                    return ERROR;
+                }
             }
 
         } catch (Exception e) {
@@ -147,17 +155,11 @@ public class QD23_001 extends ActionNhaptaycnMain
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
                 return ERROR;
             }
-//            for (QT_DULIEU_NT.saveDulieuNT_Phi value : lstsaveNT_DAT) {
-//                if(value != null)                    
-//                    if (!value.getD2().equals("false")) {
-//                        lstDat.add(value.getD2());
-//                    }
-//            }            
 
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
 
-            if (!daoMain.saveQD23_001(khoa_nhaptaycn, UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt)) {
+            if (!daoMain.saveQD23_001_Dieuchinh("QD23_003", UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt)) {
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;
             }
