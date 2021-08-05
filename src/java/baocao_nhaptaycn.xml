@@ -453,6 +453,19 @@
             <result name="success">/nhaptay-cn/table-result-upload-giaingan.jsp</result>               
         </action>
         
+        <action name="loadDieuchinhKh" class="vbsp.ims.nhaptaycn.action.QD23_001" method="loadDieuchinhKh">
+            <result name="success">  
+                /nhaptay-cn/table_qd23_001_dieuchinh_pgd.jsp
+            </result>               
+            <result name="error">  
+                /chamdiem_canhan/success.jsp
+            </result>  
+        </action>
+        
+        <action name="saveDieuchinhKH" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveDieuchinhKH">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>
+        </action>
                 
         <!--gui so lieu -->
         <action name="sendPhiUT" class="vbsp.ims.nhaptaycn.action.ActionNhaptaycnMain"  method="sendPhiUT">
