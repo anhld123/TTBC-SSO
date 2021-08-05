@@ -43,7 +43,7 @@
         </script>     
 
         <script>
-            function nhapdiemtru(masothue, morong) {
+            function nhapDieuchinh(masothue, tendn) {
                 try
                 {
                     if (masothue.length < 3)
@@ -52,13 +52,13 @@
                         return;
                     }
                     var pheduyet = 'N';
-                    var ht1 = screen.height;
-                    var wt1 = screen.width;
-                    var left1 = 0;//(screen.width / 2) - (wt1 / 2);
-                    var top1 = 0;
+                    var ht1 = screen.height -200;
+                    var wt1 = screen.width - 200;
+                    var left1 = 50;//(screen.width / 2) - (wt1 / 2);
+                    var top1 = 50;
                     var ngay_bc = $("#ngay_bc_DATE").val();
                     var khoa_cdtt = $("#khoa_cdtt").val();
-                    var url = "UploadPL02.action?masothue=" + masothue + "&ngay_bc=" + ngay_bc + "&macb=" + morong + "&pheduyet=" + pheduyet;
+                    var url = "loadDieuchinhKh.action?masothue=" + masothue + "&ngay_bc=" + ngay_bc + "&tendn=" + tendn;
 
                     //$.post(url,param,function(data){});
                     popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
@@ -237,7 +237,7 @@
                                 <!--Doanh nghiệp đã được duyệt-->
                                 <s:if test="D30.equalsIgnoreCase(1)"> 
                                     <td align = "center" class="TD_MAKH">
-                                        <a href="javascript:nhapdiemtru('<s:property value="D2"/>','<s:property value='D14'/>')" class="SOKU linkKh">
+                                        <a href="javascript:nhapDieuchinh('<s:property value="D3"/>','<s:property value='D2'/>')" class="SOKU linkKh">
                                             Điều chỉnh
                                         </a>
                                     </td> 
@@ -279,7 +279,7 @@
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D8" />"
-                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH D0" onfocus="this.select();"/>
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH D0" onfocus="this.select();" readonly="true"/>
                                     </td> 
                                      <td align = "right" class="TD_MAKH" >
                                         <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D9" />"
