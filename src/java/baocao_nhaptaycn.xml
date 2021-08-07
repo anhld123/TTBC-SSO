@@ -437,7 +437,7 @@
                 <result name="error">/BCQT/success.jsp</result>        
         </action>
         
-        <action name="updateDsNguoiLD" class="vbsp.ims.nhaptaycn.action.QD23_001" method="updateDsNguoiLD">
+        <action name="updateDsNguoiLD_QD23" class="vbsp.ims.nhaptaycn.action.QD23_001" method="updateDsNguoiLD_QD23">
             <result name="success">  
                 /nhaptay-cn/upload-file-qd23_dsnguoild.jsp
             </result>               
@@ -445,6 +445,8 @@
                 /chamdiem_canhan/success.jsp
             </result>  
         </action>
+        
+        
         
         <action name="loadUploadDsNguoild" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="loadParaUploadDsNguoild">
             <result name="success" type="json"></result>        
@@ -461,6 +463,10 @@
             <result name="error">  
                 /chamdiem_canhan/success.jsp
             </result>  
+        </action>
+        
+        <action name="saveUploadDsNguoiLD_QD23" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveUploadDsNguoiLD_QD23">
+            <result name="success">/nhaptay-cn/table-result-upload-nld_qd23.jsp</result>               
         </action>
         
         <action name="saveDieuchinhKH" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveDieuchinhKH">
