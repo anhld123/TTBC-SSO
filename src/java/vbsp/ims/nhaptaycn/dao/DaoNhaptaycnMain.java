@@ -8194,4 +8194,102 @@ public class DaoNhaptaycnMain {
         }
         return true;
     }
+    
+    public boolean insert_DS_NGUOILD_QD23(String mabc, String poscd, String fileName, Date ngaybc, String username, List<ModelExcelFile> lstExcel, String masothue, String lanGN) throws Exception, SQLException {
+        boolean bSuccess = true;
+        DaoConnect daoconnect = new DaoConnect();
+        Connection conn = null;
+
+        PreparedStatement insert = null;
+        CallableStatement statementDelete = null;
+        CallableStatement statementUpdate = null;
+         SimpleDateFormat sdf = new SimpleDateFormat("MM/YYYY");
+             String dateStr = sdf.format(ngaybc);
+        String sInsert = "";
+        String Delete = "";
+        String Update = "";
+        try {   
+            conn = daoconnect.getConnect();
+                sInsert = "insert into dulieu_nt(KHOA,TT_HIENTHI, MAPGD, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D15 , ngaybc, "
+                            + " NGUOI_NHAP)\n"
+                            + "values(?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    conn.setAutoCommit(false);
+                    insert = conn.prepareStatement(sInsert);
+                    Delete = "delete from dulieu_nt where MAPGD=? and khoa = ? and D7 = ? and d15 = ?";
+                    statementDelete = conn.prepareCall(Delete);
+//                    statementDelete.setDate(1, new java.sql.Date(ngaybc.getTime()));
+                    statementDelete.setString(1, poscd);
+                    statementDelete.setString(2, mabc);
+                    statementDelete.setString(3, dateStr);
+                    statementDelete.setString(4, masothue);
+
+                    statementDelete.execute();
+                    for (int i = 0; i < lstExcel.size(); i++) {
+                        ModelExcelFile value = lstExcel.get(i);
+//                        insert.setString(1, fileName);
+//                        insert.setDate(2, new java.sql.Date(ngaybc.getTime()));
+                        insert.setString(1, mabc);
+//                        insert.setString(4, poscd);
+                        insert.setString(2, value.getC1());
+                        insert.setString(3, poscd);                        
+                        insert.setString(4, value.getC2());
+                        insert.setString(5, value.getC3());
+                        insert.setString(6, value.getN1());
+                        insert.setString(7, value.getN2());
+                        insert.setString(8, value.getN3());
+                      
+                        insert.setString(9, value.getN4());
+                        insert.setString(10, dateStr);
+                        insert.setString(11, value.getN6());
+                        insert.setString(12, value.getN7());
+                        insert.setString(13, value.getN8());
+                        insert.setString(14, value.getN9());
+                        insert.setString(15, value.getN10());
+                        insert.setString(16,masothue);  
+                                                
+                        insert.setDate(17, new java.sql.Date(ngaybc.getTime()));
+                        insert.setString(18,username); 
+                        insert.execute();
+                    }
+                    Delete = "delete from dulieu_nt where (D2 is null or D4 is null)  and khoa = ?";
+                    statementDelete = conn.prepareCall(Delete);
+//                    statementDelete.setDate(1, new java.sql.Date(ngaybc.getTime()));                    
+                    statementDelete.setString(1, mabc);
+
+                    statementDelete.execute();                    
+                    
+                    conn.commit();
+                    conn.setAutoCommit(true);                                        
+                    
+                    bSuccess = true;                                           
+
+        } catch (SQLException e) {
+            if (conn != null) {
+                try {
+                    System.err.print("Transaction is being rolled back");
+                    conn.rollback();
+                } catch (SQLException excep) {
+                    CoreLogger.error(this.getClass().getCanonicalName() + " Exception-> saveDsHongheo " + e.getMessage());
+                    System.err.println(" Exception-> saveDsHongheo " + e.getMessage());
+                }
+            }
+            CoreLogger.error(this.getClass().getCanonicalName() + " Exception-> saveDsHongheo " + e.getMessage());
+            System.err.println(" Exception-> saveDsHongheo " + e.getMessage());
+            bSuccess = false;
+            throw new Exception("Loi khi luu du lieu " + e.getMessage().replace("\n", "").replace("\r", ""));
+        } finally {
+
+            if (statementDelete != null) {
+                statementDelete.close();
+            }
+            if (insert != null) {
+                insert.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+
+        }
+        return bSuccess;
+    }
 }

@@ -243,14 +243,20 @@ public class QD23_001 extends ActionNhaptaycnMain
         return SUCCESS;
     }
 
-    public String updateDsNguoiLD() {
+    public String updateDsNguoiLD_QD23() {
         try {
-//           if (!getParaSession()) {
-//                return ERROR;
-//            }
-//            HashMap hmParameter = getParameter();
-//           DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();   
-//           setLstAllCdtt(daoMain.getCanBo(UserName,"LANGN")); //Lần giải ngân
+           if (!getParaSession()) {
+                return ERROR;
+            }
+            HashMap hmParameter = getParameter();
+           DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();   
+           DaoNhaptaycnMain dao = new DaoNhaptaycnMain();
+            Connection conn = new DaoConnect().getConnect();
+            String ngay = hmParameter.get("ngay_bc").toString();
+            lstDulieuNt = dao.getDataAfterUpFile(conn, "QD23_002", ngay, "", UserName, Grade, langiangan, masothue);
+             if (conn != null) {
+                conn.close();
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> updateDsNguoiLD: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> updateDsNguoiLD: " + e.getMessage());
@@ -260,12 +266,8 @@ public class QD23_001 extends ActionNhaptaycnMain
 
     public String loadParaUploadDsNguoild() {
         try {
-//            if (!getParaSession()) {
-//                return ERROR;
-//            }
-//            HashMap hmParameter = getParameter();
-//            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
-//            setLstAllCdtt(daoMain.getCanBo(UserName, "LANGN")); //Lần giải ngân
+
+           
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> UploadDSGiaiNgan: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> UploadDSGiaiNgan: " + e.getMessage());
@@ -274,7 +276,7 @@ public class QD23_001 extends ActionNhaptaycnMain
     }
 
     //Upload danh sách giải ngân
-    public String saveUploadCDsNguoiLD() {
+    public String saveUploadDsNguoiLD_QD23() {
         try {
             System.err.println("Upload file");
             if (!getParaSession()) {
@@ -290,7 +292,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             String new_file_path = copy_file();
             File new_file = new File(new_file_path);
             DaoNhaptaycnMain dao = new DaoNhaptaycnMain();
-            String start_end = dao.getStartEndCel("COVID_GIAINGAN");
+            String start_end = dao.getStartEndCel("COVID_NLD_QD23");
             String poscd = dao.getPosCd(UserName);
             int startrow = 0, endcell = 0;
             if (!start_end.equals("AAA")) {
@@ -301,17 +303,17 @@ public class QD23_001 extends ActionNhaptaycnMain
                 setLstExcel(readFileExcel(new_file_path, startrow, endcell));
 
                 setFileNameNew(new_file.getName());
-                if (!getFileNameNew().contains("COVID_GIAINGAN")) {
+                if (!getFileNameNew().contains("COVID_NLD_QD23")) {
                     addActionError("Bạn chọn file upload không đúng với báo cáo !");
                     return ERROR;
                 }
-                if (!dao.insert_COV_GAINGAN("COVID_GIAINGAN", poscd, getFileNameNew(), convertStringToDate(sNgayBC), UserName, lstExcel, masothue, langiangan)) {
+                if (!dao.insert_DS_NGUOILD_QD23("QD23_002", poscd, getFileNameNew(), convertStringToDate(sNgayBC), UserName, lstExcel, masothue, langiangan)) {
                     addActionError("Lỗi khi đọc dữ liệu từ file excel ");
                     return ERROR;
                 }
             }
             Connection conn = new DaoConnect().getConnect();
-            lstDulieuNt = dao.getDataAfterUpFile(conn, "COVID_GIAINGAN", sNgayBC, poscd, UserName, Grade, langiangan, masothue);
+            lstDulieuNt = dao.getDataAfterUpFile(conn, "QD23_002", sNgayBC, poscd, UserName, Grade, langiangan, masothue);
             if (conn != null) {
                 conn.close();
             }
@@ -397,6 +399,68 @@ public class QD23_001 extends ActionNhaptaycnMain
     }
 
     private List<ModelExcelFile> readFileExcel(String fileName, int startRow, int EndCell) throws IOException, InvalidFormatException {
+        List<ModelExcelFile> lstExcelKhnv = new ArrayList<>();
+        try {
+            Workbook workbook = WorkbookFactory.create(new File(fileName));
+
+//            FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
+            //Get first/desired sheet from the workbook
+            Sheet sheet = workbook.getSheetAt(0);
+
+            //Iterate through each rows one by one
+            Iterator<Row> rowIterator = sheet.iterator();
+
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+                //For each row, iterate through all the columns
+                Iterator<Cell> cellIterator = row.cellIterator();
+                if (startRow >= row.getRowNum() + 1) {
+                    continue;
+                }
+                ModelExcelFile value = new ModelExcelFile();
+                while (cellIterator.hasNext()) {
+
+                    Cell cell = cellIterator.next();
+                    if (cell.getColumnIndex() + 1 > EndCell) {
+                        continue;
+                    }
+                    int cellType = cell.getCellType();
+                    //Check the cell type after eveluating formulae
+                    //If it is formula cell, it will be evaluated otherwise no change will happen
+
+                    switch (cellType) {
+                        case Cell.CELL_TYPE_NUMERIC:
+//                            System.out.print(cell.getNumericCellValue() + "\t");
+//                            System.err.println(cell.getNumericCellValue() + "\t");
+                            value.setValue(cell.getColumnIndex(), cell.getNumericCellValue());
+                            break;
+                        case Cell.CELL_TYPE_STRING:
+//                            System.out.print(cell.getStringCellValue() + "\t");
+//                            System.err.println(cell.getStringCellValue() + "\t");
+                            value.setValue(cell.getColumnIndex(), cell.getStringCellValue());
+                            break;
+                        case Cell.CELL_TYPE_FORMULA:
+                            FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
+
+                            value.setFormula(value.getFormula() + " -> " + evaluator.evaluate(cell).getStringValue());
+                            value.setValue(cell.getColumnIndex(), cell.getNumericCellValue());
+                            //Not again
+                            break;
+                    }
+                }
+//                System.out.println("");
+                lstExcelKhnv.add(value);
+            }
+
+            workbook.close();
+
+        } catch (IOException e) {
+            throw new IOException(e);
+        }
+        return lstExcelKhnv;
+    }
+    
+     private List<ModelExcelFile> readFileExcelQD23(String fileName, int startRow, int EndCell) throws IOException, InvalidFormatException {
         List<ModelExcelFile> lstExcelKhnv = new ArrayList<>();
         try {
             Workbook workbook = WorkbookFactory.create(new File(fileName));
