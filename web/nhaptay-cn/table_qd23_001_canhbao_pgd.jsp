@@ -176,7 +176,7 @@
             </s:iterator>   
             </br>
             <div id="divTitle">
-                DANH SÁCH NGƯỜI SỬ DỤNG LAO ĐỘNG ĐƯỢC HƯỞNG CHÍNH SÁCH VAY VỐN ĐỂ TRẢ LƯƠNG NGỪNG VIỆC
+                CẢNH BÁO CHO VAY VỐN ĐỂ TRẢ LƯƠNG NGỪNG VIỆC
             </div>
             <s:hidden name="khoa_nhaptaycn"/>
             <!--                <div id="divDonvitinh">
@@ -187,8 +187,6 @@
                 <div id="scrolling_table_1"  style="width: 2200px; max-height:45vh">
                     <table class="editDelete cls-table" >
                         <tr height="50px">      
-                            <th  rowspan="2" class="TD_MAKH">Điều chỉnh KH</th> 
-                            <th  rowspan="2" class="TD_MAKH">DS người lao động</th>
                             <th rowspan="2" class="TD_MAKH">Mã doanh nghiệp</th>                           
                             <th rowspan="2" class="TD_TENKH">Tên doanh nghiệp</th>  
                             <th rowspan="2" class="TD_MAKH">Mã số thuế</th>    
