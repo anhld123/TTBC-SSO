@@ -86,7 +86,7 @@ input[type="text"]:focus, textarea:focus{
     right: 0;
 }
 textarea:read-only {
-  background-color: #999;
+    background-color: #999;
 }
 
 .cls-fontdam{
@@ -107,14 +107,13 @@ textarea:read-only {
 }
 
 .cls-table {
-  font-family: Tahoma, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+    font-family: Tahoma, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
 }
 
 .cls-table td, .cls-table th {
-  border: 1px solid #ddd;
-  padding: 8px;
+    border: 1px solid #ddd;
 }
 
 .cls-table tr:nth-child(even){background-color: #f2f2f2;}
@@ -122,9 +121,14 @@ textarea:read-only {
 .cls-table tr:hover {background-color: #FFF6BF;}
 
 .cls-table th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #007230;
-  color: white;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4b7b8f;
+    color: white;
+}
+
+.cls-table td input[type="text"], .cls-table td select{
+    border: 0px;
+    padding: 5px;
 }
