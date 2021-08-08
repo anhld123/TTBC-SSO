@@ -105,3 +105,26 @@ textarea:read-only {
 .cls-gachduoi{
     text-decoration: underline;
 }
+
+.cls-table {
+  font-family: Tahoma, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.cls-table td, .cls-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.cls-table tr:nth-child(even){background-color: #f2f2f2;}
+
+.cls-table tr:hover {background-color: #FFF6BF;}
+
+.cls-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #007230;
+  color: white;
+}
