@@ -422,6 +422,58 @@
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>
+        
+        <action name="QD23_001" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="load">
+                <result name="nhap_pgd">/nhaptay-cn/table_qd23_001_pgd.jsp</result>                
+                <result name="xaydungkh_tw">/nhaptay-cn/table_qd23_001_tw_xd.jsp</result>   
+                <result name="dieuchinhkh_tw">/nhaptay-cn/table_qd23_001_tw_dc.jsp</result>   
+                <result name="nhap_cn">/nhaptay-cn/table_qd23_001_cn.jsp</result>   
+                <result name="dieuchinh_pgd">/nhaptay-cn/table_qd23_001_dieuchinh_pgd.jsp</result>      
+                <result name="canhbao_pgd">/nhaptay-cn/table_qd23_001_canhbao_pgd.jsp</result>     
+                <result name="error">/nhaptay-cn/success.jsp</result>        
+        </action>
+
+        <action name="SAVE_QD23_001" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="save">
+                <result name="success">/BCQT/success.jsp</result>
+                <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="updateDsNguoiLD_QD23" class="vbsp.ims.nhaptaycn.action.QD23_001" method="updateDsNguoiLD_QD23">
+            <result name="success">  
+                /nhaptay-cn/upload-file-qd23_dsnguoild.jsp
+            </result>               
+            <result name="error">  
+                /chamdiem_canhan/success.jsp
+            </result>  
+        </action>
+        
+        
+        
+        <action name="loadUploadDsNguoild" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="loadParaUploadDsNguoild">
+            <result name="success" type="json"></result>        
+        </action>
+        
+        <action name="saveUploadDsNguoiLD" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveUploadCDsNguoiLD">
+            <result name="success">/nhaptay-cn/table-result-upload-giaingan.jsp</result>               
+        </action>
+        
+        <action name="loadDieuchinhKh" class="vbsp.ims.nhaptaycn.action.QD23_001" method="loadDieuchinhKh">
+            <result name="success">  
+                /nhaptay-cn/table_qd23_001_dieuchinh_pgd.jsp
+            </result>               
+            <result name="error">  
+                /chamdiem_canhan/success.jsp
+            </result>  
+        </action>
+        
+        <action name="saveUploadDsNguoiLD_QD23" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveUploadDsNguoiLD_QD23">
+            <result name="success">/nhaptay-cn/table-result-upload-nld_qd23.jsp</result>               
+        </action>
+        
+        <action name="saveDieuchinhKH" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveDieuchinhKH">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>
+        </action>
                 
         <!--gui so lieu -->
         <action name="sendPhiUT" class="vbsp.ims.nhaptaycn.action.ActionNhaptaycnMain"  method="sendPhiUT">

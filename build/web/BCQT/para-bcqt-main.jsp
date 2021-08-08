@@ -399,7 +399,7 @@
                                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                                onBeforeTopics="beforediv_data"
                                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                                    <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
+                                    <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu" style="background-color: #DCDCDC;"/>
                                     &nbsp;&nbsp;&nbsp;
                                     <s:if test="Grade.equalsIgnoreCase('1')">
                                         <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/>

@@ -11,6 +11,10 @@
             <result name="error">excel_config/success.jsp</result>
         </action>  
         
+         <action name="loadmainparameterXlsTmp" class="vbsp.ims.excel.template.ActionExcelTemplate" method="loadmainparameterXlsTmp">
+            <result name="success">excel_config/load_all_rpt_export.jsp</result>
+        </action>
+        
         <action name="deleteExcelTemplate" class="vbsp.ims.excel.template.ActionExcelTemplate" method="deleteExcelTemplate">
             <result name="success" type="redirectAction">
                 <param name="actionName">loadallrpt_Edit</param>

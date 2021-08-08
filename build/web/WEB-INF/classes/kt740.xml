@@ -19,6 +19,11 @@
             <result name="success">/kt740/edit_del_rpt_group.jsp</result>
             <result name="error">/error.jsp</result>
         </action>
+        
+         <action name="loadfmainparameterkt740" class="vbsp.ims.action.Kt740Action" method="LoadMainParameterKt740">
+            <result name="success">kt740/exp_query.jsp</result>
+        </action>					
+        
         <action name="loadallquerykt740" class="vbsp.ims.action.Kt740Action" method="loadAllQuery">
             <result name="success">/kt740/edit_delete_query.jsp</result>
             <result name="error">/error.jsp</result>

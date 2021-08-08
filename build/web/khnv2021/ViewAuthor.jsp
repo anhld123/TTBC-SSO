@@ -109,7 +109,7 @@
                 background-color: lightgoldenrodyellow;
             }
         </style>
-        <link href="css/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <form id="idKhnv2021" name="nameKhnv2021">
@@ -150,6 +150,7 @@
                         <option value="N">Duyệt từng đơn vị</option>
                         <option value="W">Phản hồi từ cấp trên</option>
                         <option value="S">Kiểm soát gửi/nhận</option>
+                        <option value="R">Tổng hợp lại số liệu từ các đơn vị trực thuộc</option>
                     </select>
                     &nbsp;                                  
                     <input type="button" value="Tải dữ liệu" id="cmdTaiDL" name="nameTaiDL" class="cmd"/>
@@ -173,7 +174,7 @@
                 <div id="idViewData"></div>
             </div>
         </form> 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="js/jquery.min.js" type="text/javascript"></script>
         <script src="js/jquery.number.js"></script>
         <script>
                             $(document).ready(function () {
@@ -270,7 +271,7 @@
                                         $(idMess).html('<img src="imgs/newloading.gif"/>');
                                     },
                                     success: function (result) {
-                                        if (["10", "11", "20", "21", "01", "30", "31"].includes(result)) {
+                                        if (["10", "11", "20", "21", "01", "30", "31","404"].includes(result)) {
                                             switch (result) {
                                                 case "01":
                                                     strMess = 'Lỗi: Tải dữ liệu không thành công.';
@@ -295,6 +296,10 @@
                                                     break;
                                                 case "31":
                                                     strMess = 'Lỗi: Lưu dữ liệu.';
+                                                    $(idView).html('');
+                                                    break;
+                                                case "404":
+                                                    strMess = 'Lỗi: Đơn vị trực thuộc chưa thực hiện xác nhận và gửi số liệu.';
                                                     $(idView).html('');
                                                     break;
                                             }

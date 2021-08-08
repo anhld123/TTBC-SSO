@@ -194,13 +194,13 @@
                                 </td>
                                 
                                 <td align = "center" style="width: 20px;">
-                                    <input type="text"  value="<s:property  value="KHOA" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KHOA" onfocus="this.select();" class="D0"
+                                    <input type="text"  value="<s:property  value="MA" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" onfocus="this.select();" class="D0"
                                            readonly="true"/>
                                 </td>
                                 
                                 <td align = "left" class="TD_MOTA">
-                                    <textarea style="border: 0px !important ; background-color: transparent !important; resize: none;" readonly="readonly"><s:property  value="D4" />"</textarea>
+                                    <textarea style="border: 0px !important ; background-color: transparent !important; resize: none;" readonly="readonly"><s:property  value="D4" /></textarea>
                                 </td>
                                 
                                 <td align = "left" class="TD_SO">

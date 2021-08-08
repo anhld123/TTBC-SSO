@@ -400,4 +400,6 @@
     <include file="baocao_mobilebanking.xml"/>  
     <include file="canhbao_saisottt.xml"/>  
     <include file="struts_cic_tt200.xml"/>
+    <include file="struts-eps.xml"/>
+    <include file="struts-ketqua-ktdc.xml"/>      
 </struts>

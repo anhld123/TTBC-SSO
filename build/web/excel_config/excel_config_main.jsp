@@ -70,7 +70,12 @@
                     <div style="float: right; width: 100px">
                         <s:url id="editDelExcel" action="loadallrpt_Edit" />
                         <sj:submit id="idEditDelExcel" targets="containBcttv"  href="%{editDelExcel}" indicator="loadingImage" cssClass="metroButtonStyle" value="Sửa/Xóa"></sj:submit>
+                        
                         <sj:submit id="loadExcel" targets="containBcttv"  href="excel_config/load_all_rpt_export.jsp" indicator="loadingImage" cssStyle="display: none;" value="Load BC"></sj:submit>
+                        
+                           <s:url id="LoadMainParamterXlsTemp" action="loadmainparameterXlsTmp" />
+                            <sj:submit id="loadExcel" targets="containBcttv"  href="%{LoadMainParamterXlsTemp}" indicator="loadingImage" cssStyle="display: none;" value="Load BC"></sj:submit>
+                    
                         </div>
                         <div style="float: right; width: 100px" >
                         <s:url id="LoadAddNewExcel" action="LoadAddNewExcel" />
