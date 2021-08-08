@@ -100,6 +100,9 @@ public class QD23_001 extends ActionNhaptaycnMain
                 setLstTinhchatNV(daoMain.getCanBo(UserName, "TTDUYET"));
                 return "dieuchinhkh_tw";
             }
+            else if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("5")) {
+                return "canhbao_pgd";
+            } 
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> QD23_001: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> QD23_001: " + e.getMessage());
@@ -129,6 +132,12 @@ public class QD23_001 extends ActionNhaptaycnMain
                 }
             else
             {
+                String iCheck = daoMain.checkData_Info(lstDulieuNt,khoa_nhaptaycn,hmParameter.get("ngay_bc").toString(),UserName, Grade, lstDat);
+                if(!iCheck.equals("XXXAAA"))
+                {
+                    addActionError("Lỗi! "+ iCheck);
+                        return ERROR; 
+                }     
                 if (!daoMain.saveQD23_001(khoa_nhaptaycn, UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt)) {
                     addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                     return ERROR;
