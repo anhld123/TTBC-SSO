@@ -43,11 +43,10 @@
         <script>
             var max_row = 0;
             $(document).ready(function () {
-                $('input.number').css({"text-align": "right"});
-                $('input.number2').css({"text-align": "right"});                
+                $('.number').css({"text-align": "right"});
+                $('.number2').css({"text-align": "right"});                
                 $('.D0').css({"text-align": "center"});               
                 $('.number').number(true, 0);
-//            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 2);
                 $(".SOKU").css({"width": "100%"});
                 $(".TD_CHECKBOX").css({"width": "2%"});

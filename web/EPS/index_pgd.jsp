@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EPS</title>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script type="text/javascript" src="DMChitieu/js/jquery-ui.js"></script>
         <script src="js/jquery.number.js"></script>
         <style>
             .clsTitle{
