@@ -73,7 +73,7 @@
                 }
             }
 
-            function updateDsNguoiLD(masothue, morong) {
+            function updateDsNguoiLD_QD23(masothue, tendn) {
                 try
                 {
                     if (masothue.length < 3)
@@ -82,13 +82,13 @@
                         return;
                     }
                     var pheduyet = 'N';
-                    var ht1 = screen.height-100;
-                    var wt1 = screen.width-100;
+                    var ht1 = screen.height;
+                    var wt1 = screen.width;
                     var left1 = 0;//(screen.width / 2) - (wt1 / 2);
                     var top1 = 0;
                     var ngay_bc = $("#ngay_bc_DATE").val();
                     var khoa_cdtt = $("#khoa_cdtt").val();
-                    var url = "updateDsNguoiLD.action?masothue=" + masothue + "&ngay_bc=" + ngay_bc + "&macb=" + morong + "&pheduyet=" + pheduyet;
+                    var url = "updateDsNguoiLD_QD23.action?masothue=" + masothue + "&ngay_bc=" + ngay_bc + "&tendn=" + tendn;
 
                     //$.post(url,param,function(data){});
                     popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
@@ -244,7 +244,7 @@
                                         </a>
                                     </td> 
                                     <td align = "center" class="TD_THOIGIAN">
-                                        <a href="javascript:updateDsNguoiLD('<s:property value="D3"/>','<s:property value='D11'/>')" class="SOKU linkKh">
+                                        <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>')" class="SOKU linkKh">
                                             Upload
                                         </a>
                                     </td>
@@ -335,7 +335,7 @@
                                        
                                     </td> 
                                     <td align = "center" class="TD_THOIGIAN">
-                                        <a href="javascript:updateDsNguoiLD('<s:property value="D3"/>','<s:property value='D11'/>')" class="SOKU linkKh">
+                                        <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>')" class="SOKU linkKh">
                                             Upload
                                         </a>
                                     </td>

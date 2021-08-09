@@ -327,12 +327,14 @@
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
                 var khoa_ktgs = $("#khoa").val();
+//                var capbc = $("#Grade").val();
+//                                alert(capbc);
 
                 var poscd = getposfromtreecheck();
 //                alert(khoa_ktgs);
                 if(khoa_ktgs != 'PHIUT_001')
                 {
-                    if (poscd == null || poscd == '')
+                    if ((poscd == null || poscd == '') && khoa_ktgs != 'QD23_004')
                     {
                         $('#divExportReport').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần gửi số liệu ! </h2>");
     //                    alert('Bạn phải chọn phòng giao dịch cần gửi số liệu !');
@@ -451,7 +453,8 @@
                                         <!--<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/>-->                                           
                                     </s:if>                                       
                                     <s:else>
-                                        <s:if test="!Grade.equalsIgnoreCase('3') ||(Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('LSTP_001'))||(Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('QD23_001'))">
+                                        <s:if test="(!Grade.equalsIgnoreCase('3') && ||khoa_nhaptaycn.equalsIgnoreCase('QD23_001'))
+                                              ||(Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('LSTP_001'))||(Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('QD23_001'))">
                                            <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/>                                            
                                         </s:if> 
                                         <s:if test="Grade.equalsIgnoreCase('3') && (khoa_nhaptaycn.equalsIgnoreCase('LOAITRU_01') || khoa_nhaptaycn.equalsIgnoreCase('LOAITRU_3502'))">
@@ -460,7 +463,7 @@
                                     </s:else>
                                     &nbsp;&nbsp;&nbsp;
                                        
-                                        <s:if test="Grade.equalsIgnoreCase('2') && !khoa_nhaptaycn.equalsIgnoreCase('SMS_001')">                                       
+                                        <s:if test="(Grade.equalsIgnoreCase('2') && !khoa_nhaptaycn.equalsIgnoreCase('SMS_001')) || (Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))">                                       
                                             <s:url id="idSendData" action="sendPhiUT.action"></s:url>                                      
                                             <sj:submit id="idSend" name="nameSend" href="%{idSendData}" value="Gửi dữ liệu" targets="divExportReport"
                                                        onBeforeTopics="beforediv_send"
@@ -533,6 +536,7 @@
                                     ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('VUNGKK_01'))
                                     ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('CN23_01'))
                                     ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_001'))
+                                    ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))
                                     ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('DIEUCHUYENTO_01'))
                                     ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('KSNB_01'))
                                     ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QLDB_001'))">

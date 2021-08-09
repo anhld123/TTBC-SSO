@@ -33,12 +33,14 @@ import vbsp.ims.chamdiemcn.ModelExcelFile;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.DaoDcptNo;
 import vbsp.ims.dao.DaoRptQuery;
+import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.define.Define;
 import vbsp.ims.ktgs.dao.DaoKtgsMain;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
 import vbsp.ims.model.Pagination;
+import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.query.ImsFillParaMeter;
 import vbsp.ims.query.ImsPlSqlQuery;
 import vbsp.ims.report.fast.ListValue;
@@ -63,7 +65,12 @@ public class ActionNhaptaycnMain extends ActionSupport {
     public List<ModelExcelFile> lstExcel = new ArrayList<>();
     private String fileNameNew;
     private List<ListValue> lstBDD = new ArrayList<ListValue>();
+    
+    protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
+    protected PosMainModel posMainModel;
 
+     protected String pos_cd_username;
+     
     public List<ListValue> getLstBDD() {
         return lstBDD;
     }
@@ -525,6 +532,9 @@ public class ActionNhaptaycnMain extends ActionSupport {
             addActionError("Không thể lấy ra được cấp báo cáo \"reportGrade\" bạn phải logout hệ thống sau đó đăng nhập lại ");
             return false;
         }
+        posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+        pos_cd_username = posMainModel.getPosCd();
+        
         return true;
     }
 
@@ -1005,6 +1015,10 @@ public class ActionNhaptaycnMain extends ActionSupport {
             if (khoa_nhaptaycn.equals("PHIUT_001")) {
                 lstPos = daosync.getAllPosUser(UserName, "PHIUT_001");
             }
+            if (khoa_nhaptaycn.equals("QD23_004")) {
+                lstPos =new ArrayList<>();
+                lstPos.add(pos_cd_username);
+            }
 
             if (khoa_nhaptaycn.equals("NHAPTAYCN_02")) {
                 return SUCCESS;
@@ -1428,6 +1442,32 @@ public class ActionNhaptaycnMain extends ActionSupport {
     public void setTt_nha_dt(String tt_nha_dt) {
         this.tt_nha_dt = tt_nha_dt;
     }
+        public DaoListPosFromUser getListKTNBDA() {
+        return listKTNBDA;
+    }
 
+    public void setListKTNBDA(DaoListPosFromUser listKTNBDA) {
+        this.listKTNBDA = listKTNBDA;
+    }
+
+    public PosMainModel getPosMainModel() {
+        return posMainModel;
+    }
+
+    public void setPosMainModel(PosMainModel posMainModel) {
+        this.posMainModel = posMainModel;
+    }
+    
+
+    public String getPos_cd_username() {
+        return pos_cd_username;
+    }
+
+    public void setPos_cd_username(String pos_cd_username) {
+        this.pos_cd_username = pos_cd_username;
+    }
     //</editor-fold>
+
+
+
 }

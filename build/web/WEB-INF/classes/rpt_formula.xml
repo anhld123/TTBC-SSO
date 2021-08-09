@@ -40,6 +40,10 @@
             <result name="error">/error.jsp</result>
         </action>
         
+        <action name="loadformularmainparameter" class="vbsp.ims.action.FormulaRptAction" method="LoadMainParameter">
+            <result name="success">baocaoct/exp_rpt_formula.jsp</result>
+        </action>
+        
         <action name="editFormula" class="vbsp.ims.action.FormulaRptAction" method="loadEditFormula">
             <result name="success">baocaoct/edit_formula_main.jsp</result>
             <result name="error">/error.jsp</result>
