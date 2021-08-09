@@ -123,7 +123,7 @@
                             changeYear: true,
                             showButtonPanel: true
                         }
-                ).datepicker('setDate', '25/05/2020');
+                ).datepicker('setDate', '09/08/2021');
             });
         </script>
     </head>
