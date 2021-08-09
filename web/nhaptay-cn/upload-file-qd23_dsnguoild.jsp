@@ -57,6 +57,7 @@
         </style>
         <script src="chamdiem_tapthe/js/chamdiem_canhan.js"></script>    
         <script src="js/sweetalert.min.js"></script>
+        
         <script>
             
             function onTransData()
@@ -110,6 +111,8 @@
         }
     };
         </script>
+        <link href="css/css/style.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css"  href="css/bcqt.css" />
     </head>
     <body>
         <div id="main_screen_div" align="center" class="main_div">   
@@ -161,7 +164,7 @@
             </div>
             <div id="upload_result_div"/>
             <div style="width: 90%; height: 500px">
-            <table border=1  id="editDelete">
+            <table border=1  id="editDelete cls-table">
                 <tr>                    
                     <th rowspan="2" class="TD_CHECKBOX">TT</th>
                     <th rowspan="2" class="TD_THOIGIAN">Họ và tên người lao động</th>					
