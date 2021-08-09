@@ -536,7 +536,9 @@
                                     ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))
                                     ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('DIEUCHUYENTO_01'))
                                     ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('KSNB_01'))
-                                    ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QLDB_001'))">
+                                    ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QLDB_001'))
+                                    ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))"
+                                    >
                         <div id="containParm_full" align="center">
                             <div id="divExportReport"></div>
                             <div align="right"  id="divExportReportLink"></div>

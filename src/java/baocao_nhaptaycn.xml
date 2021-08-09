@@ -423,6 +423,21 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>
         
+        <action name="KSNB_01_001" class="vbsp.ims.nhaptaycn.action.KSNB_01"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="QD23_004" class="vbsp.ims.nhaptaycn.action.Qd2368Action"  method="load">
+            <result name="success">/nhaptay-cn/table_qd2368_pgd.jsp</result>
+            <result name="error">/nhaptay-cn/success.jsp</result>        
+        </action>
+        
+        <action name="SAVE_QD23_004" class="vbsp.ims.nhaptaycn.action.Qd2368Action"  method="save">
+                <result name="success">/nhaptay-cn/success.jsp</result>
+                <result name="error">/nhaptay-cn/success.jsp</result>        
+        </action>
+        
         <action name="QD23_001" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="load">
                 <result name="nhap_pgd">/nhaptay-cn/table_qd23_001_pgd.jsp</result>                
                 <result name="xaydungkh_tw">/nhaptay-cn/table_qd23_001_tw_xd.jsp</result>   
