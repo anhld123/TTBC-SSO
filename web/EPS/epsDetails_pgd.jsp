@@ -63,7 +63,7 @@
                         <td style="display: none;"><input type="hidden" value="<s:property value='MACN'/>" name="macn"/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='MAPGD'/>" name="mapgd"/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='MAKH'/>" name="makh"/></td>
-                        <td style="display: none;"><input type="hidden" value="<s:property value='D5'/>" id="chkLock"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='D5'/>" class="checkLock"/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='NGAYBC'/>" name="ngaysl" id="ngaysl"/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='SOKU'/>" name="soku"/></td>
                         <td>
@@ -71,7 +71,7 @@
                                 <option value="04" <s:if test="D4.equalsIgnoreCase('04')"> selected</s:if>>Chưa xử lý</option>
                                 <option value="01" <s:if test="D4.equalsIgnoreCase('01')"> selected</s:if>>Đúng</option>
                                 <option value="02" <s:if test="D4.equalsIgnoreCase('02')"> selected</s:if>>Đang điều chỉnh</option>
-                                <option value="03" <s:if test="D4.equalsIgnoreCase('03')"> selected</s:if>>Hoành thành điều chỉnh</option>
+                                <option value="03" <s:property value='D10'/> <s:if test="D4.equalsIgnoreCase('03')"> selected</s:if>>Hoành thành điều chỉnh</option>
                                 <option value="05" <s:if test="D4.equalsIgnoreCase('05')"> selected</s:if>>Loại trừ</option>
                                 </select>
                             </td>

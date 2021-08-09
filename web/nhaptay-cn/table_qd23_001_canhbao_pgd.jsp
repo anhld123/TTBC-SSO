@@ -166,7 +166,7 @@
 
 
         </style>
-        <link href="css/css/style.css" rel="stylesheet" type="text/css"/>
+        <!--<link href="css/css/style.css" rel="stylesheet" type="text/css"/>-->
     </head>
     <body style="font-family: ">
         <s:form id="id_sv_%{khoa_nhaptaycn}" action="SAVE_%{khoa_nhaptaycn}" theme="simple">
@@ -185,7 +185,7 @@
             </br>
             <div class="cls-over">
                 <div id="scrolling_table_1"  style="width: 1400px; max-height:45vh">
-                    <table class="editDelete cls-table" >
+                    <table class="editDelete" >
                         <tr height="50px">      
                             <th rowspan="2" class="TD_MAKH">Mã doanh nghiệp</th>                           
                             <th rowspan="2" class="TD_TENKH">Tên doanh nghiệp</th>  
@@ -200,7 +200,7 @@
                             <th class="TD_MAKH">Số NLĐ vay "Vượt mức lương tối thiểu vùng"</th>
                             <th class="TD_MAKH">Số NLĐ vay "Vượt số tiền phải trả"</th>
                         </tr>
-                        <tr>
+<!--                        <tr>
                             <td>1</td>
                             <td>2</td>
                             <td>3</td>
@@ -210,7 +210,7 @@
                             <td>7</td>
                             <td>8</td>
                             <td>9</td>                            
-                        </tr>
+                        </tr>-->
                         <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                             <tr> 
                                    
