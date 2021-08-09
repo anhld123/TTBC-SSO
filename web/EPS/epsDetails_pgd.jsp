@@ -63,7 +63,7 @@
                         <td style="display: none;"><input type="hidden" value="<s:property value='MACN'/>" name="macn"/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='MAPGD'/>" name="mapgd"/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='MAKH'/>" name="makh"/></td>
-                        <td style="display: none;"><input type="hidden" value="<s:property value='D5'/>" id="chkLock"/></td>
+                        <td style="display: none;"><input type="hidden" value="<s:property value='D5'/>" class="checkLock"/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='NGAYBC'/>" name="ngaysl" id="ngaysl"/></td>
                         <td style="display: none;"><input type="hidden" value="<s:property value='SOKU'/>" name="soku"/></td>
                         <td>

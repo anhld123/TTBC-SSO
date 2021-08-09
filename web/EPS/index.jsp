@@ -62,7 +62,7 @@
                             changeYear: true,
                             showButtonPanel: true
                         }
-                ).datepicker('setDate', '09/08/2021');
+                ).datepicker('setDate', getMonday(new Date()));
             });
         </script>
     </head>
@@ -111,7 +111,7 @@
         $("#btnXem").click({status: "", url: "loadIndex.action"}, SendData);
         $("#btnXem").trigger('click');
         $("#idtinh").change({status: "00", url: "getpgdfromcn.action"}, SendData);
-        $("#xemphanhoichung").click(()=>{
+        $("#xemphanhoichung").click(() => {
             $("#phanhoidonvi").toggle();
         });
     });
@@ -151,6 +151,13 @@
         });
         sel.html('').append(opts_list);
         sel.val("00"); // set cached selected value
+    }
+
+    function getMonday(d) {
+        d = new Date(d);
+        var day = d.getDay(),
+                diff = d.getDate() - day + (day == 0 ? -6 : 1);
+        return new Date(d.setDate(diff));
     }
 </script>
 </html>

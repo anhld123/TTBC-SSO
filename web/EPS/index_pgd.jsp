@@ -123,7 +123,7 @@
                             changeYear: true,
                             showButtonPanel: true
                         }
-                ).datepicker('setDate', '09/08/2021');
+                ).datepicker('setDate', getMonday(new Date()));
             });
         </script>
     </head>
@@ -163,6 +163,14 @@
             $("#idchotsl").click({action: "xacnhansleps"}, SendData);
             $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
         });
+
+        function getMonday(d) {
+            d = new Date(d);
+            var day = d.getDay(),
+                    diff = d.getDate() - day + (day == 0 ? -6 : 1);
+            return new Date(d.setDate(diff));
+        }
+
         function SendData(event) {
             var surl, sdata, idView, idForm, method, conf, index = 0, constChk = 1;
             if (event.data.action == "xacnhansleps") {
