@@ -109,6 +109,7 @@ textarea:read-only {
 .cls-table {
     font-family: Tahoma, Helvetica, sans-serif;
     border-collapse: collapse;
+    font-size: 12px;
     width: 100%;
 }
 
@@ -123,7 +124,7 @@ textarea:read-only {
 .cls-table th {
     padding-top: 12px;
     padding-bottom: 12px;
-    text-align: left;
+    text-align: center;
     background-color: #4b7b8f;
     color: white;
 }

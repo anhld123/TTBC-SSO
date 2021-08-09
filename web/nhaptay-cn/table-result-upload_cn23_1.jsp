@@ -71,8 +71,8 @@
     </head>
     <body>
         <h2><span style=" color: blue;">Bạn đã upload file thành công chi tiết</span></h2>
-        <div style="width: 90%; height: 500px">
-            <table border=1  id="editDelete">
+        <div style="width: 100%; height: 500px">
+            <table border=1  id="editDelete" class="cls-table">
                 <tr>                    
                     <th  class="TD_CHECKBOX">TT</th>
                     <th  class="TD_THOIGIAN">Mã KH</th>					

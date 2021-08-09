@@ -113,6 +113,7 @@
         </script>
         <link href="css/css/style.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css"  href="css/bcqt.css" />
+        <link href="css/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div id="main_screen_div" align="center" class="main_div">   
@@ -128,30 +129,19 @@
                 </div>
                 <p align="" style="line-height: 100%; margin-top: 10;margin-left: 10; margin-bottom: 10"><b>
                         <font size="1"> </font></b></p>                                      
-                <table border="1" cellspacing="0" style="border-collapse: collapse" 
-                       bordercolor="#CCCCCC" width="80%" cellpadding="10" bgcolor="honeydew">        
+                <table cellspacing="0">        
                     <tr>
                         <td>
                             <p class="normal_font">File báo cáo:</p>
                         </td>
                         <td>
-                            <s:file label="File báo cáo" name="fileUpload" size="65" theme="simple"/>                        
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td colspan="2" align="right">
-                            
-                            &nbsp;&nbsp;
+                            <s:file label="File báo cáo" name="fileUpload" size="65" theme="simple"/> 
+                            <input type="button" id="idSendtmp" name="nameidTransGNtmp"  onclick="onTransData()" value="Upload dữ liệu"/>
                             <s:url id="idTransGNDataGN_QD23" action="saveUploadDsNguoiLD_QD23.action"></s:url>                                      
                             <sj:submit id="idTransGN" name="nameTrans" href="%{idTransGNDataGN_QD23}" value="Upload dữ liệu" targets="upload_result_div"
                                        onBeforeTopics="before-next"
                                        onCompleteTopics="after-next" cssStyle="display:none"/>
-                            <input type="button" id="idSendtmp" name="nameidTransGNtmp"  onclick="onTransData()" value="Upload dữ liệu"/>
-
-
                         </td>
-
                     </tr>
                 </table>
             </s:form>
@@ -163,8 +153,8 @@
                 </div>                
             </div>
             <div id="upload_result_div"/>
-            <div style="width: 90%; height: 500px">
-            <table border=1  id="editDelete cls-table">
+            <div style="width: 100%; height: 500px">
+            <table border=1  id="editDelete" class="cls-table">
                 <tr>                    
                     <th rowspan="2" class="TD_CHECKBOX">TT</th>
                     <th rowspan="2" class="TD_THOIGIAN">Họ và tên người lao động</th>					
