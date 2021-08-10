@@ -27,10 +27,21 @@ public class Qd2368Action extends ActionNhaptaycnMain {
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
-            lstDulieuNt = daoMain.getDataQd2368(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
+            
+            if (Grade.equals("3"))
+            {
+                 lstDulieuNt = daoMain.getStatusSendCnNhaptay(khoa_nhaptaycn, poscd,  hmParameter.get("ngay_bc").toString(), Grade);
+                return "view_tw";
+            }
+            else if (Grade.equals("1"))
+            {
+                lstDulieuNt = daoMain.getDataQd2368(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
+                return SUCCESS;
+            }
             if (conn != null) {
                 conn.close();
             }
+            
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> QD2368: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> QD2368: " + e.getMessage());

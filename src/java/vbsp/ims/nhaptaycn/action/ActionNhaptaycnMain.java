@@ -1086,6 +1086,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
                         checkfile.delete();
                     }
                     mapStatusSend.put(mapgd, 4);  //gui du lieu thanh cong
+                    
                 } else {
 //                    addActionMessage("Bạn không thể gửi dữ liệu lên trung ương do bị khóa </br>Xin liên hệ về Ban KT&QLTC để được gửi lại số liệu ! ");
                     if (checkfile.exists()) {

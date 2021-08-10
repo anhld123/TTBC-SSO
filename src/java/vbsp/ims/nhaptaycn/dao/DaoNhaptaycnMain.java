@@ -3057,7 +3057,7 @@ public class DaoNhaptaycnMain {
         return true;
     }
 
-    public List<QT_DULIEU_NT> getStatusSendCnNhaptay(String Khoa, List<String> lstArrPoscd, String ngaybc) {
+    public List<QT_DULIEU_NT> getStatusSendCnNhaptay(String Khoa, List<String> lstArrPoscd, String ngaybc, String capbc) {
         List<QT_DULIEU_NT> lstStatusSendcn = new ArrayList<QT_DULIEU_NT>();
         try {
             DaoConnect daoconnect = new DaoConnect();
@@ -3068,20 +3068,21 @@ public class DaoNhaptaycnMain {
             String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
             ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_IMS_NHAPTAYCN.SP_GET_STATUS_SEND_CN(?,?,?,?)}";
+            String strStoreproce = "{call VBSP_IMS_NHAPTAYCN.SP_GET_STATUS_SEND_CN(?,?,?,?,?)}";
             ResultSet reset = null;
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
                 calstatement.setString(1, Khoa);
                 calstatement.setArray(2, oracle_arrayPoscd);
                 calstatement.setString(3, ngaybc);
+                calstatement.setString(4, capbc);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
                 //Lay cursor ra resultset
-                reset = (ResultSet) calstatement.getObject(4);
+                reset = (ResultSet) calstatement.getObject(5);
                 //<editor-fold defaultstate="collapsed" desc="Tieu de cho cot">
 
                 ResultSetMetaData resetMeta = reset.getMetaData();

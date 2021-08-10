@@ -126,7 +126,21 @@ public class ims_services {
                         return Define.WEB_SERVICES_STATUS_SEND;
                     }
                 }
-                
+
+                case Define.PARA_SYN_REPORT_PHIUT: {
+                    HashMap<String, Object> hmHeader = new XmlBcqtSync().readXmlBCQT(strFulPathFile);
+                    if (hmHeader.get(Define.XML_MA_BCQT).toString().equals("QD23_004")) {
+                        int icount = new DaoKtgsMain().getPosSendDataLockKtgs(hmHeader.get(Define.XML_TYPE_BCQT).toString(),
+                                hmHeader.get(Define.XML_MA_BCQT).toString(),
+                                hmHeader.get(Define.XML_POS_CD).toString(),
+                                hmHeader.get(Define.XML_NGAY_BC).toString(),
+                                Define.WEB_SERVICES_STATUS_SEND);
+                        if (icount > 0) {
+                            return Define.WEB_SERVICES_STATUS_SEND;
+                        }
+                    }
+                }
+
                 case Define.PARA_SYN_REPORT_KHNV2021: {
                     HashMap<String, Object> hmHeader = new XmlBcqtSync().readXmlBCQT(strFulPathFile);
                     int icount = new XDKHDao2021().getPosSendDataLockKHNV(hmHeader.get(Define.XML_TYPE_BCQT).toString(),
@@ -138,7 +152,7 @@ public class ims_services {
                         return Define.WEB_SERVICES_STATUS_SEND;
                     }
                 }
-                
+
                 break;
                 case Define.PARA_SYN_REPORT_DATA:
                     break;
@@ -177,7 +191,7 @@ public class ims_services {
                     }
                 }
                 break;
-                
+
 //                 case Define.PARA_SYN_INPUT_BRANCH: {
 //                    HashMap<String, Object> hmHeader = new InputBranchXml().readXml(strFulPathFile);
 //                    DaoSyncMain daoSync = DaoSyncMain.newInstance();
@@ -190,7 +204,6 @@ public class ims_services {
 //                    }
 //                }
 //                break;
-                
                 case Define.PARA_SYN_REPORT_KHAC:
                     break;
                 default:
