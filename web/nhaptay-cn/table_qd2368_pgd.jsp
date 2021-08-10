@@ -98,7 +98,7 @@
             </br>
 
 
-
+            <p style="text-align: right; margin-right: 10px;">Đơn vị: người, triệu đồng</p>
             <table class="tg">
                 <thead>
                     <tr>
@@ -214,7 +214,7 @@
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D3" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH number" onfocus="this.select();"/>
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH number2" onfocus="this.select();"/>
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D4" />"
@@ -226,7 +226,7 @@
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D6" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D2 TEN_KH number" onfocus="this.select();"/>
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D2 TEN_KH number2" onfocus="this.select();"/>
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D7" />"
@@ -238,7 +238,7 @@
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D9" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="D2 TEN_KH number" onfocus="this.select();"/>
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="D2 TEN_KH number2" onfocus="this.select();"/>
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D10" />"
@@ -250,7 +250,7 @@
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D12" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="D2 TEN_KH number" onfocus="this.select();"/>
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="D2 TEN_KH number2" onfocus="this.select();"/>
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D13" />"
@@ -262,7 +262,7 @@
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D15" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" class="D2 TEN_KH number" onfocus="this.select();"/>
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" class="D2 TEN_KH number2" onfocus="this.select();"/>
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D16" />"
@@ -274,7 +274,7 @@
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D18" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="D2 TEN_KH number" onfocus="this.select();"/>
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="D2 TEN_KH number2" onfocus="this.select();"/>
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D19" />"
@@ -286,7 +286,7 @@
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D21" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D21" class="D2 TEN_KH number" onfocus="this.select();"/>
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D21" class="D2 TEN_KH number2" onfocus="this.select();"/>
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D22" />"
@@ -298,7 +298,7 @@
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D24" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24" class="D2 TEN_KH number" onfocus="this.select();"/>
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24" class="D2 TEN_KH number2" onfocus="this.select();"/>
                             </td>
                             <td class="tg-2t8h">
                                 <input type="text"  value="<s:property  value="D25" />"
@@ -310,7 +310,7 @@
                             </td>
                             <td class="tg-r0kq">
                                 <input type="text"  value="<s:property  value="D27" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27" class="D2 TEN_KH number" onfocus="this.select();"/>
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27" class="D2 TEN_KH number2" onfocus="this.select();"/>
                             </td>
                         </tr>
                     </s:iterator>
@@ -341,11 +341,25 @@
             $(this).animate({
                 width: '120px'
             }, "slow");
-            if ($(this).val() === $(this).attr('title'))
-            {
-                $(this).val('');
-            }
+//            if ($(this).val() === $(this).attr('title'))
+//            {
+//                $(this).val('');
+//            }
             var amount = parseInt($(this).val());
+            var words = DocTienBangChu(amount);
+            $("#number_in_word").text(words);
+            $("#number_in_word").show();
+        });
+        
+        $(".number2").focus(function () {
+            $(this).animate({
+                width: '120px'
+            }, "slow");
+//            if ($(this).val() === $(this).attr('title'))
+//            {
+//                $(this).val('');
+//            }
+            var amount = parseInt($(this).val())*1000000;
             var words = DocTienBangChu(amount);
             $("#number_in_word").text(words);
             $("#number_in_word").show();
@@ -357,13 +371,29 @@
             $(this).prop('title', this.value);
 //            $("#number_in_word").hide();
         });
+        
+         $(".number2").focusout(function () {
+            $(this).animate({
+                width: '50px'
+            }, "slow");
+            $(this).prop('title', this.value);
+//            $("#number_in_word").hide();
+        });
 
         $(".number").each(function () {
+            $(this).prop('title', this.value);
+        });
+        $(".number2").each(function () {
             $(this).prop('title', this.value);
         });
 
         $(".number").keyup(function () {
             var amount = parseInt($(this).val());
+            var words = DocTienBangChu(amount);
+            $("#number_in_word").text(words);
+        });
+        $(".number2").keyup(function () {
+            var amount = parseInt($(this).val())*1000000;
             var words = DocTienBangChu(amount);
             $("#number_in_word").text(words);
         });

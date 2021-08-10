@@ -495,6 +495,10 @@
             <result name="success">/nhaptay-cn/success.jsp</result>
             <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>    
+        
+        <action name="GetLockStatus" class="vbsp.ims.nhaptaycn.action.ActionNhaptaycnMain" method="checkLockStatus">
+            <result name="success" type="json"></result>
+        </action>
     </package>
     
 </struts>

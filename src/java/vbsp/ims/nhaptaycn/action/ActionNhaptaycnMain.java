@@ -69,7 +69,9 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
 
-     protected String pos_cd_username;
+    protected String pos_cd_username;
+    
+    protected int lockStatus;
      
     public List<ListValue> getLstBDD() {
         return lstBDD;
@@ -666,6 +668,8 @@ public class ActionNhaptaycnMain extends ActionSupport {
             if (conn != null) {
                 conn.close();
             }
+            
+            lockStatus = 0;
 
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> loadPataNhaptaycn: " + e.getMessage());
@@ -1103,6 +1107,16 @@ public class ActionNhaptaycnMain extends ActionSupport {
         return SUCCESS;
     }
 
+    
+    public String checkLockStatus() throws Exception {
+        DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+        String sKey = ServletActionContext.getRequest().getParameter("Key");
+        String sReportDate = ServletActionContext.getRequest().getParameter("ReportDate");
+        String sReportGrade = ServletActionContext.getRequest().getParameter("ReportGrade");
+        lockStatus = daoMain.getLockStatus(sKey, sReportDate, "", sReportGrade);
+        return SUCCESS;    
+    }
+    
     public String getPoslist() {
         return poslist;
     }
@@ -1223,8 +1237,19 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
+    
+    
+    
     public List<ListValue> getLstCapKT() {
         return lstCapKT;
+    }
+
+    public int getLockStatus() {
+        return lockStatus;
+    }
+
+    public void setLockStatus(int lockStatus) {
+        this.lockStatus = lockStatus;
     }
 
     public void setLstCapKT(List<ListValue> lstCapKT) {
