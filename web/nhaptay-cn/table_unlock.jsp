@@ -41,7 +41,7 @@
         </script> 
     </head>
     <body>
-        <s:form id="idform_open_%{khoa_nhaptaycn}" action="OPEN_PGD" theme="simple">
+        <s:form id="idform_open_%{khoa_nhaptaycn}" action="OPEN_PGD_NHAPTAYCN" theme="simple">
             <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
                 <input type="hidden" id="<s:property  value="sKey" />" 
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
