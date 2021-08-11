@@ -1005,6 +1005,37 @@ public class ActionNhaptaycnMain extends ActionSupport {
         }
         return SUCCESS;
     }
+    
+    public String unLockData() {
+        System.err.println("Vao ham unLockData");
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            DaoNhaptaycnMain daosync = DaoNhaptaycnMain.newInstance();
+            //Kiem tra xem cac pgd da du du lieu chua neu du moi cho xac nhan so lieu
+
+            HashMap hmParameter = getParameter();
+
+            setKhoa_nhaptaycn(hmParameter.get("khoa_nhaptaycn").toString());
+//            setType_bcqt(hmParameter.get("type_bcqt").toString());
+//            setMacn(hmParameter.get("macn").toString());
+            setNgay_bc(hmParameter.get("ngay_bc").toString());
+//            (String type, String khoa,List<String> lstMapgd,  String ngaybc, String tt_khoa,  String username,  String grade)
+            if (!daosync.setStatusLock("NT", khoa_nhaptaycn, poscd, hmParameter.get("ngay_bc").toString(),
+                    Define.WEB_SERVICES_STATUS_SEND, UserName, Grade)) {
+                addActionError("Lỗi !, Mở khóa bị lỗi xin liên hệ với quản trị để được khắc phục");
+                return ERROR;
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> sendPhiUT: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> sendPhiUT: " + e.getMessage());
+            addActionError("Bạn chưa gửi được dữ liệu xin liên hệ với quản trị để được khắc phục");
+            return ERROR;
+        }
+        addActionMessage("Bạn đã mở khóa thành công!");
+        return SUCCESS;
+    }
 
     public String sendPhiUT() {
         System.err.println("Vao ham sendPhiUT");
