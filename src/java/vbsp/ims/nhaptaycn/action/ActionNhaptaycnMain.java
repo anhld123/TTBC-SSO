@@ -1114,7 +1114,8 @@ public class ActionNhaptaycnMain extends ActionSupport {
         String sKey = ServletActionContext.getRequest().getParameter("Key");
         String sReportDate = ServletActionContext.getRequest().getParameter("ReportDate");
         String sReportGrade = ServletActionContext.getRequest().getParameter("ReportGrade");
-        lockStatus = daoMain.getLockStatus(sKey, sReportDate, "", sReportGrade);
+        String sUserName = ServletActionContext.getRequest().getParameter("UserName");
+        lockStatus = daoMain.getLockStatus(sKey, sReportDate, sUserName, sReportGrade);
         return SUCCESS;    
     }
     

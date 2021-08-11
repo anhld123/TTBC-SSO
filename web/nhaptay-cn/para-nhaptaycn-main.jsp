@@ -613,9 +613,10 @@
                         var key = $("#khoa").val();
                         var reportDate = $("#ReportDate").val();
                         var grade = $("#Grade").val();
+                        var  userName = $("#UserName").val();
                         $.ajax({
                             type: "GET",
-                            url: "GetLockStatus?" + "Key=" + key + "&ReportDate=" + reportDate + "&ReportGrade=" + grade,
+                            url: "GetLockStatus?" + "Key=" + key + "&ReportDate=" + reportDate + "&ReportGrade=" + grade + "&UserName=" + userName,
                             success: function (res) {
                                 var status = res.lockStatus;
                                 //alert(status);
