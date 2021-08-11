@@ -240,7 +240,7 @@
                                 <s:if test="D30.equalsIgnoreCase(1)"> 
                                     <td align = "center" class="TD_MAKH">
                                         <a href="javascript:nhapDieuchinh('<s:property value="D3"/>','<s:property value='D2'/>')" class="SOKU linkKh">
-                                            Điều chỉnh
+                                            Điều chỉnh giảm
                                         </a>
                                     </td> 
                                     <td align = "center" class="TD_THOIGIAN">

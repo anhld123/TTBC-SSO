@@ -434,13 +434,20 @@
                             <table>
                                 <tr style="height: 30px;">
                                     <s:iterator value="lstNhaptaycnParams">
-                                        <td ><s:property value="label"></s:property>:</td>
+                                        <s:if test="label.equalsIgnoreCase('Mã số thuế/CMTND/CIF')">
+                                            <td >Tìm kiếm:</td>
+                                        </s:if>
+                                        <s:else>
+                                            <td ><s:property value="label"></s:property>:</td>
+                                        </s:else>
+                                        
                                             <td >
 
                                             <s:if test="type.equalsIgnoreCase('T')">  
                                                 <s:if test="khoa_nhaptaycn.equalsIgnoreCase('LOAITRU_3502')">
                                                     <input type="text" style="text-align:right;width: 100px" value="10" id="<s:property value="fieldName"/>" name="<s:property value="fieldName"/>" class="" placeholder="<s:property value="label"/>" readonly="readonly"/>
                                                 </s:if>
+                                           
                                                 <s:else>
                                                     <input type="text" value="" id="D_<s:property  value="%{fieldName}"/>" name="<s:property value="%{fieldName}"/>_TEXT" placeholder="<s:property value="label"/>"/>
                                                 </s:else>    
