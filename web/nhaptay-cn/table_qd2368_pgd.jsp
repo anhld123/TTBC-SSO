@@ -98,7 +98,7 @@
             </br>
 
 
-            <p style="text-align: right; margin-right: 10px;">Đơn vị: người, triệu đồng</p>
+            <p style="text-align: right; margin-right: 10px;">Đơn vị: người, nghìn đồng</p>
             <table class="tg">
                 <thead>
                     <tr>
@@ -393,7 +393,7 @@
 //            {
 //                $(this).val('');
 //            }
-            var amount = parseInt($(this).val()) * 1000000;
+            var amount = parseInt($(this).val()) * 1000;
             var words = DocTienBangChu(amount);
             $("#number_in_word").text(words);
             $("#number_in_word").show();
@@ -427,7 +427,7 @@
             $("#number_in_word").text(words);
         });
         $(".number2").keyup(function () {
-            var amount = parseInt($(this).val()) * 1000000;
+            var amount = parseInt($(this).val()) * 1000;
             var words = DocTienBangChu(amount);
             $("#number_in_word").text(words);
         });
