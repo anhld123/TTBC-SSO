@@ -198,10 +198,17 @@
                     return;
                 }
 
+// Trung bo sung phan validate data
+                if (typeof validateData !== 'undefined' && typeof validateData === 'function') {
+                    if (!validateData())
+                        return false;
+                }
+
+
                 if (validateRequiredFields())
                     $("#" + khoa)[0].click();
 
-                if (khoa == 'COVID_03_save')
+                if (khoa === 'COVID_03_save')
                 {
                     wait(2000);
                     onLoadData();
@@ -607,13 +614,13 @@
                         $("#loadDatatmp").click();
                     });
 
-                             
+
                     // TrungNT88 sua
                     function getLockStatus() {
                         var key = $("#khoa").val();
                         var reportDate = $("#ReportDate").val();
                         var grade = $("#Grade").val();
-                        var  userName = $("#UserName").val();
+                        var userName = $("#UserName").val();
                         $.ajax({
                             type: "GET",
                             url: "GetLockStatus?" + "Key=" + key + "&ReportDate=" + reportDate + "&ReportGrade=" + grade + "&UserName=" + userName,

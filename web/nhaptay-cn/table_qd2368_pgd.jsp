@@ -333,7 +333,41 @@
 
 <script>
 
+    function isBlank(str) {
+        if (str === null || str === "") {
+            return true;
+        }
+        return false;
+    }
 
+    function getValue(str) {
+        if (isBlank(str)) {
+            return 0;
+        } else {
+            return parseFloat(str);
+        }
+    }
+
+// Bo sung ham vaidateData
+    function validateData() {
+        var key = $("#khoa_nhaptaycn").val();
+        if (key === 'QD23_004') {
+            for (i = 0; i < 9; i++) {
+                var iOrder = i*3+1;
+                var iNameOfD1 = "[name='lstDulieuNt[0].D" + iOrder + "']";
+                var iNameOfD2 = "[name='lstDulieuNt[0].D" + (iOrder+1) + "']";
+                var iNameOfD3 = "[name='lstDulieuNt[0].D" + (iOrder+2) + "']";
+                var iD1 = getValue($(iNameOfD1).val());
+                var iD2 = getValue($(iNameOfD2).val());
+                var iD3 = getValue($(iNameOfD3).val());
+                if ((iD1 + iD2 + iD3) !== 0 && (iD1 === 0 || iD2 === 0 || iD3 === 0)) {
+                    alert('Bạn phải nhập đầy đủ thông tin: Số NSDLĐ, Số lượt NLĐ được hỗ trợ, Số tiền');
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     $(document).ready(function () {
 
@@ -350,7 +384,7 @@
             $("#number_in_word").text(words);
             $("#number_in_word").show();
         });
-        
+
         $(".number2").focus(function () {
             $(this).animate({
                 width: '120px'
@@ -359,7 +393,7 @@
 //            {
 //                $(this).val('');
 //            }
-            var amount = parseInt($(this).val())*1000000;
+            var amount = parseInt($(this).val()) * 1000000;
             var words = DocTienBangChu(amount);
             $("#number_in_word").text(words);
             $("#number_in_word").show();
@@ -371,8 +405,8 @@
             $(this).prop('title', this.value);
 //            $("#number_in_word").hide();
         });
-        
-         $(".number2").focusout(function () {
+
+        $(".number2").focusout(function () {
             $(this).animate({
                 width: '50px'
             }, "slow");
@@ -393,7 +427,7 @@
             $("#number_in_word").text(words);
         });
         $(".number2").keyup(function () {
-            var amount = parseInt($(this).val())*1000000;
+            var amount = parseInt($(this).val()) * 1000000;
             var words = DocTienBangChu(amount);
             $("#number_in_word").text(words);
         });
