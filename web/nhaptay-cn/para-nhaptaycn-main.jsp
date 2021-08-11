@@ -321,6 +321,34 @@
                 }
                 return result;
             }
+            
+            function openClick()
+            {
+//                $('#divExportReport').empty();
+                var khoa = $("#khoa").val() + "_open";
+//                alert()
+//                if (!bsubmit)
+//                {
+//                    alert('Bạn phải tải dữ liệu và chọn PGD thì mới mở khóa được !');
+////                    $('#divExportReport').html("<h2 style='color: red'>Bạn phải tải dữ liệu và chọn PGD thì mới mở khóa được !</h2>");
+//                    return;
+//                }
+
+                var idform = 'idform_open_' + '<s:property value="khoa_nhaptaycn"/>';
+                if ($('#' + idform + ' input:checkbox:checked').length > 0)
+                {
+                    $("#" + khoa)[0].click();
+                }
+                else
+                {
+                    // none is checked
+                    alert("Bạn phải chọn phòng giao dịch cần mở khóa !");
+//                    $('#divExportReport').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần mở khóa !</h2>");
+                }
+
+//                alert(khoa);
+//                $('#divExportReport').empty();
+            }
 
             function onSentData()
             {
@@ -477,6 +505,10 @@
                                             <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu"/>
 
                                         </s:if>    
+                                        <s:if test="(Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))">                                       
+                                             <input type="button" id="idUnlockDatatmp" name="namesaveDatatmp"  onclick="openClick()" value="Mở khóa"/>
+
+                                        </s:if>      
                                         <s:if test="Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('COVID_GIAINGAN')">  
                                             <s:url id="idExpEcel" action="%{khoa_nhaptaycn}_ExpExcel.action"></s:url>                                      
                                             <sj:submit id="idExpEceltmp" name="nameSend" href="%{idExpEcel}" value="Xuất Excel" targets="divExportReport"
