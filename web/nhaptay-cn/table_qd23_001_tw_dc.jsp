@@ -176,7 +176,7 @@
             </s:iterator>   
             </br>
             <div id="divTitle">
-                PHÊ DUYỆT XÂY DỰNG KẾ HOẠCH
+                PHÊ DUYỆT ĐIỀU CHỈNH KẾ HOẠCH
             </div>
             <s:hidden name="khoa_nhaptaycn"/>
             <!--                <div id="divDonvitinh">

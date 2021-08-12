@@ -481,7 +481,14 @@
                                         </td>
                                         <td >Quyết định lần:</td>
                                         <td >
-                                            <input type="text" style="text-align:right;width: 50px;border: 1px" value="1" id="lanqd" name="lanqd" class=""  />
+                                            <input type="text" style="text-align:right;width: 50px" value="1" id="lanqd" name="lanqd" class=""  placeholder="Lần QĐ" />
+                                        </td> 
+                                        <td>&nbsp;|&nbsp</td>
+                                        
+                                        
+                                        <td >Số Tide:</td>
+                                        <td >
+                                            <input type="text" style="text-align:right;width: 150px"  id="sotide" name="sotide" class=""   placeholder="Số tài khoản"/>
                                         </td> 
                                     </s:if>   
 

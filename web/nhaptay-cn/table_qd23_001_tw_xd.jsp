@@ -176,7 +176,7 @@
             </s:iterator>   
             </br>
             <div id="divTitle">
-                PHÊ DUYỆT ĐIỀU CHỈNH KẾ HOẠCH
+                PHÊ DUYỆT XÂY DỰNG KẾ HOẠCH
             </div>
             <s:hidden name="khoa_nhaptaycn"/>
             <!--                <div id="divDonvitinh">
@@ -207,6 +207,7 @@
                             <!--<th  rowspan="2" class="TD_CHITIEU">Ghi chú</th>-->      
                             <th colspan="5" class="TD_NGAY">Duyệt kế hoạch</th>
                             <th rowspan="2" class="TD_SOTIEN">Giao kế hoạch</th>
+                            <th rowspan="2" class="TD_SOTIEN">Số tài khoản</th>
                         </tr>         
                         <tr>
                             <th class="TD_SOTIEN">Để trả lương ngừng việc</th>
@@ -376,6 +377,10 @@
                                 <td align = "right" class="TD_SOTIEN" >
                                     <input type="text"  value="<s:property  value="D25" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25" class="TEN_KH number" onfocus="this.select();"/>
+                                </td>
+                                <td align = "right" class="TD_SOTIEN" >
+                                    <input type="text"  value="<s:property  value="D26" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26" class="TEN_KH number" onfocus="this.select();"/>
                                 </td>
                             </tr>                                                                                                                                                                                   
                         </s:iterator>
