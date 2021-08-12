@@ -66,12 +66,11 @@ public class QD23_001 extends ActionNhaptaycnMain
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
-            lstDulieuNt = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
-            if (conn != null) {
-                conn.close();
-            }
+            
+            
             // Nhập số liệu
             if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("1")) {
+                lstDulieuNt = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
                 setLstHinhthucTNHS(daoMain.getCanBo(UserName, "HINHTHUCTNHS"));
                 setLstNgayluongHD(daoMain.getCanBo(UserName, "NGAYLUONGHD"));
                 setLstNgayluongHD(daoMain.getCanBo(UserName, "NGAYLUONGHD"));
@@ -80,6 +79,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             } 
             //Điều chỉnh giảm
             else if (Grade.equals("1") && hmParameter.get("type_action").toString().substring(0, 1).equals("G")) {
+                lstDulieuNt = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
                 setLstHinhthucTNHS(daoMain.getCanBo(UserName, "HINHTHUCTNHS"));
                 setLstNgayluongHD(daoMain.getCanBo(UserName, "NGAYLUONGHD"));
                 setLstNgayluongHD(daoMain.getCanBo(UserName, "NGAYLUONGHD"));
@@ -87,22 +87,38 @@ public class QD23_001 extends ActionNhaptaycnMain
                 return "dieuchinh_pgd";
             }
              else if (Grade.equals("2") && hmParameter.get("type_action").toString().equals("1")) {
+                 lstDulieuNt = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
                 return "xaydungkh_cn";
             }
             else if (Grade.equals("2") && hmParameter.get("type_action").toString().equals("2")) {
+                lstDulieuNt = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
                 return "dieuchinhkh_cn";
             } 
             else if (Grade.equals("3") && hmParameter.get("type_action").toString().equals("1")) {
+                String soquyetdinh = hmParameter.get("soqd").toString(); 
+                String ngayquyetdinh = hmParameter.get("ngay_qd").toString(); 
+                String lanquyetdinh = hmParameter.get("lanqd").toString(); 
+                lstDulieuNt = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh, 
+                        hmParameter.get("type_action").toString());
                 setLstTinhchatNV(daoMain.getCanBo(UserName, "TINHTCHAT_NV"));
                 return "xaydungkh_tw";
             }
             else if (Grade.equals("3") && hmParameter.get("type_action").toString().equals("2")) {
+                String soquyetdinh = hmParameter.get("soqd").toString(); 
+                String ngayquyetdinh = hmParameter.get("ngay_qd").toString(); 
+                String lanquyetdinh = hmParameter.get("lanqd").toString(); 
+                lstDulieuNt = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh, 
+                        hmParameter.get("type_action").toString());
                 setLstTinhchatNV(daoMain.getCanBo(UserName, "TTDUYET"));
                 return "dieuchinhkh_tw";
             }
             else if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("5")) {
+                lstDulieuNt = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
                 return "canhbao_pgd";
             } 
+            if (conn != null) {
+                conn.close();
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> QD23_001: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> QD23_001: " + e.getMessage());
