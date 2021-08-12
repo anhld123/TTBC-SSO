@@ -210,24 +210,24 @@
                             <th class="TD_MAKH">Để trả lương khi phục hồi SXKD</th>
                         </tr>
                         <tr>
-                            <td>19</td> 
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
-<!--                            <td>11</td>
-                            <td>12</td>-->
-                            <td>13</td>
-                            <td>14</td>
-                            <td>15</td>
-                            <td>16</td>
-                            <td>17</td>    
+                            <td></td> 
+                            <td style="text-align: center">1</td>
+                            <td style="text-align: center">2</td>
+                            <td style="text-align: center">3</td>
+                            <td style="text-align: center">4</td>
+                            <td style="text-align: center">5</td>
+                            <td style="text-align: center">6</td>
+                            <td style="text-align: center">7</td>
+                            <td style="text-align: center">8</td>
+                            <td style="text-align: center">9</td>
+                            <td style="text-align: center">10</td>
+                            <td v>11</td>
+                            <td style="text-align: center">12</td>
+                            <td style="text-align: center">13</td>
+                            <td style="text-align: center">14</td>
+                            <td style="text-align: center">15</td>
+<!--                            <td>16</td>
+                            <td>17</td>    -->
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                             <tr>  

@@ -218,29 +218,27 @@
                             <th class="TD_MAKH">TT duyệt</th>
                         </tr>
                         <tr>
-                            <!--<td>1</td>-->
+
                             <td></td>
-                            <!--<td>3</td>-->
-                            <!--<td></td>-->
-                            <td>2</td>
+                            <td style="text-align: center">1</td>
                             <!--<td>6</td>-->
                             <!--<td>7</td>-->
-                            <td>4</td>
-                            <td>5</td>
+                            <td style="text-align: center">2</td>
+                            <td style="text-align: center">3</td>
                             <!--<td>10</td>-->
                             <!--<td>11</td>-->
                             <!--<td>12</td>-->
-                            <td>8</td>
-                            <td>9</td>
-                            <td>13</td>
-                            <td>14</td>
-                            <td>15</td>                            
-                            <td>20</td>                            
-                            <td>21</td>  
-                            <td>22</td>
-                            <td>23</td>
-                            <td></td>
-                            <td>25</td>
+                            <td style="text-align: center">4</td>
+                            <td style="text-align: center">5</td>
+                            <td style="text-align: center">6</td>
+                            <td style="text-align: center">7</td>
+                            <td style="text-align: center">8</td>                            
+                            <td style="text-align: center">9</td>                            
+                            <td style="text-align: center">10</td>  
+                            <td style="text-align: center">11</td>
+                            <td style="text-align: center">12</td>
+                            <td style="text-align: center">13</td>
+                            <td style="text-align: center">14</td>
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                             <tr>  
