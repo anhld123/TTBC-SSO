@@ -328,7 +328,7 @@
                 }
                 return result;
             }
-            
+
             function openClick()
             {
 //                $('#divExportReport').empty();
@@ -345,8 +345,7 @@
                 if ($('#' + idform + ' input:checkbox:checked').length > 0)
                 {
                     $("#" + khoa)[0].click();
-                }
-                else
+                } else
                 {
                     // none is checked
                     alert("Bạn phải chọn phòng giao dịch cần mở khóa !");
@@ -440,14 +439,14 @@
                                         <s:else>
                                             <td ><s:property value="label"></s:property>:</td>
                                         </s:else>
-                                        
-                                            <td >
+
+                                        <td >
 
                                             <s:if test="type.equalsIgnoreCase('T')">  
                                                 <s:if test="khoa_nhaptaycn.equalsIgnoreCase('LOAITRU_3502')">
                                                     <input type="text" style="text-align:right;width: 100px" value="10" id="<s:property value="fieldName"/>" name="<s:property value="fieldName"/>" class="" placeholder="<s:property value="label"/>" readonly="readonly"/>
                                                 </s:if>
-                                           
+
                                                 <s:else>
                                                     <input type="text" value="" id="D_<s:property  value="%{fieldName}"/>" name="<s:property value="%{fieldName}"/>_TEXT" placeholder="<s:property value="label"/>"/>
                                                 </s:else>    
@@ -470,80 +469,99 @@
                                         </td>
 
                                     </s:iterator>     
+                                    <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001') && Grade.equalsIgnoreCase('3')">
+                                        <td >Số QĐ:</td>
+                                        <td>
+                                            <input type="text" style="text-align:right;width: 100px" id="soqd" name="soqd" class="" placeholder="Số duyết định" />
+                                        </td>  
+                                         <td >Ngày QĐ:</td>
+                                        <td>
+                                            <sj:datepicker name="ngay_qd_DATE" value="%{new java.util.Date()}"  id="ngay_qd_DATE"
+                                                               placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL"/> 
+                                        </td>
+                                        <td >Quyết định lần:</td>
+                                        <td >
+                                            <input type="text" style="text-align:right;width: 50px;border: 1px" value="1" id="lanqd" name="lanqd" class=""  />
+                                        </td> 
+                                    </s:if>   
+
+                                <td >
+                                    &nbsp;&nbsp;&nbsp;
+                                    <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                                               onBeforeTopics="beforediv_data"
+                                               onCompleteTopics="completediv_data" cssStyle="display:none"/>
+                                    <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
+                                </td>
+                                    
+                                <s:if test="Grade.equalsIgnoreCase('2') && khoa_nhaptaycn.equalsIgnoreCase('QD23_001')">
+                                     <td>&nbsp;&nbsp;&nbsp; </td>
+                                </s:if>
+                                <s:else>
+                                     <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> </td>
+                                </s:else>
+                               
 
 
-                                    <td >
-                                        &nbsp;&nbsp;&nbsp;
-                                        <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
-                                                   onBeforeTopics="beforediv_data"
-                                                   onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                                        <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
-                                    </td>
-
-
-                                    <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> </td>
 
 
 
+                                <td >
+                                    &nbsp;&nbsp;&nbsp;
+                                    <s:if test="((khoa_nhaptaycn.equalsIgnoreCase('NTMOI_001') || khoa_nhaptaycn.equalsIgnoreCase('HSSV_001')
+                                          || khoa_nhaptaycn.equalsIgnoreCase('BDP_001')                                          
+                                          || khoa_nhaptaycn.equalsIgnoreCase('QLDB_001')
+                                          || khoa_nhaptaycn.equalsIgnoreCase('COVID_03')
+                                          || khoa_nhaptaycn.equalsIgnoreCase('NHAPTAYCN_01')) && 
+                                          Grade.equalsIgnoreCase('2')) or ( khoa_nhaptaycn.equalsIgnoreCase('CN23_01') && 
+                                          Grade.equalsIgnoreCase('1'))"> 
+                                        <!--<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/>-->                                           
+                                    </s:if>                                       
+                                    <s:else>
+                                        <s:if test="(!Grade.equalsIgnoreCase('3') && ||khoa_nhaptaycn.equalsIgnoreCase('QD23_001'))
+                                              ||(Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('LSTP_001'))||(Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('QD23_001'))">
+                                            <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/>                                            
+                                        </s:if> 
+                                        <s:if test="Grade.equalsIgnoreCase('3') && (khoa_nhaptaycn.equalsIgnoreCase('LOAITRU_01') || khoa_nhaptaycn.equalsIgnoreCase('LOAITRU_3502'))">
+                                            <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/>                                            
+                                        </s:if>   
+                                    </s:else>
+                                    <!--                                        &nbsp;&nbsp;&nbsp;-->
+
+                                    <s:if test="(Grade.equalsIgnoreCase('2') && !khoa_nhaptaycn.equalsIgnoreCase('SMS_001')) || (Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))">                                       
+                                        <s:url id="idSendData" action="sendPhiUT.action"></s:url>                                      
+                                        <sj:submit id="idSend" name="nameSend" href="%{idSendData}" value="Gửi dữ liệu" targets="divExportReport"
+                                                   onBeforeTopics="beforediv_send"
+                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
 
 
-                                    <td >
-                                        &nbsp;&nbsp;&nbsp;
-                                        <s:if test="((khoa_nhaptaycn.equalsIgnoreCase('NTMOI_001') || khoa_nhaptaycn.equalsIgnoreCase('HSSV_001')
-                                              || khoa_nhaptaycn.equalsIgnoreCase('BDP_001')                                          
-                                              || khoa_nhaptaycn.equalsIgnoreCase('QLDB_001')
-                                              || khoa_nhaptaycn.equalsIgnoreCase('COVID_03')
-                                              || khoa_nhaptaycn.equalsIgnoreCase('NHAPTAYCN_01')) && 
-                                              Grade.equalsIgnoreCase('2')) or ( khoa_nhaptaycn.equalsIgnoreCase('CN23_01') && 
-                                              Grade.equalsIgnoreCase('1'))"> 
-                                            <!--<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/>-->                                           
-                                        </s:if>                                       
-                                        <s:else>
-                                            <s:if test="(!Grade.equalsIgnoreCase('3') && ||khoa_nhaptaycn.equalsIgnoreCase('QD23_001'))
-                                                  ||(Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('LSTP_001'))||(Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('QD23_001'))">
-                                                <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/>                                            
-                                            </s:if> 
-                                            <s:if test="Grade.equalsIgnoreCase('3') && (khoa_nhaptaycn.equalsIgnoreCase('LOAITRU_01') || khoa_nhaptaycn.equalsIgnoreCase('LOAITRU_3502'))">
-                                                <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/>                                            
-                                            </s:if>   
-                                        </s:else>
-                                        <!--                                        &nbsp;&nbsp;&nbsp;-->
+                                        <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu"/>
 
-                                        <s:if test="(Grade.equalsIgnoreCase('2') && !khoa_nhaptaycn.equalsIgnoreCase('SMS_001')) || (Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))">                                       
-                                            <s:url id="idSendData" action="sendPhiUT.action"></s:url>                                      
-                                            <sj:submit id="idSend" name="nameSend" href="%{idSendData}" value="Gửi dữ liệu" targets="divExportReport"
-                                                       onBeforeTopics="beforediv_send"
-                                                       onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                    </s:if>    
+                                    <s:if test="(Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))">                                       
+                                        <input type="button" id="idUnlockDatatmp" name="namesaveDatatmp"  onclick="openClick()" value="Mở khóa"/>
+
+                                    </s:if>      
+                                    <s:if test="Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('COVID_GIAINGAN')">  
+                                        <s:url id="idExpEcel" action="%{khoa_nhaptaycn}_ExpExcel.action"></s:url>                                      
+                                        <sj:submit id="idExpEceltmp" name="nameSend" href="%{idExpEcel}" value="Xuất Excel" targets="divExportReport"
+                                                   onBeforeTopics="beforediv_send"
+                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                        <input type="button" id="idReLoadtmp" name="nameidReLoadtmp"  onclick="ExpEcel()" value="Xuất Excel" style="width:122px;height:25px;color: red;"/>
+
+                                    </s:if>        
+                                </td>
 
 
-                                            <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu"/>
+                                <td>
+                                    <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
+                                        <img id="loadingImage" src='img/loading.gif' border='0' >
+                                    </div>
 
-                                        </s:if>    
-                                        <s:if test="(Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))">                                       
-                                             <input type="button" id="idUnlockDatatmp" name="namesaveDatatmp"  onclick="openClick()" value="Mở khóa"/>
-
-                                        </s:if>      
-                                        <s:if test="Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('COVID_GIAINGAN')">  
-                                            <s:url id="idExpEcel" action="%{khoa_nhaptaycn}_ExpExcel.action"></s:url>                                      
-                                            <sj:submit id="idExpEceltmp" name="nameSend" href="%{idExpEcel}" value="Xuất Excel" targets="divExportReport"
-                                                       onBeforeTopics="beforediv_send"
-                                                       onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                            <input type="button" id="idReLoadtmp" name="nameidReLoadtmp"  onclick="ExpEcel()" value="Xuất Excel" style="width:122px;height:25px;color: red;"/>
-
-                                        </s:if>        
-                                    </td>
-
-
-                                    <td>
-                                        <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
-                                            <img id="loadingImage" src='img/loading.gif' border='0' >
-                                        </div>
-
-                                    </td>
-                                    <td>
-                                        <div id="message_suc_err"> 
-                                        </div>
-                                    </td>
+                                </td>
+                                <td>
+                                    <div id="message_suc_err"> 
+                                    </div>
+                                </td>
 
                                 </tr>
                                 <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HANOI_003')">                               

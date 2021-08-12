@@ -166,7 +166,7 @@
 
 
         </style>
-
+        <link href="css/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body style="font-family: ">
         <s:form id="id_sv_%{khoa_nhaptaycn}" action="SAVE_%{khoa_nhaptaycn}" theme="simple">
@@ -185,7 +185,7 @@
             </br>
             <div class="cls-over">
                 <div id="scrolling_table_1"  style="width: 1700px; max-height:20vh">
-                    <table class="editDelete" >
+                    <table class="editDelete cls-table" >
                         <tr height="50px">                                                          
                             <th rowspan="2" class="TD_MAKH">PGD</th>  
                             <th rowspan="2" class="TD_MAKH">Mã doanh nghiệp</th>                           
