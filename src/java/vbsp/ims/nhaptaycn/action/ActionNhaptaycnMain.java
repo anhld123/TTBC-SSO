@@ -228,11 +228,15 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected TreeNode nodes_pos = new TreeNode();
     protected List<DULIEU_NT> lstNt = new ArrayList<>();
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
+    protected List<QT_DULIEU_NT_50> lstDulieuNt50 = new ArrayList<>();
     protected List<QT_DULIEU_NT> lstCombox = new ArrayList<>();
     protected List<ListValue> lstHinhthucTNHS = new ArrayList<ListValue>();
     protected List<ListValue> lstNgayluongHD = new ArrayList<ListValue>();
     protected List<ListValue> lstLuongVung = new ArrayList<ListValue>();
     protected List<ListValue> lstTinhchatNV = new ArrayList<ListValue>();
+    
+    protected List<ListValue> lstPLKT = new ArrayList<ListValue>();
+    protected List<ListValue> lstDTTH = new ArrayList<ListValue>();
 
     private List<ListValue> lstCapKT = new ArrayList<ListValue>();
     private List<ListValue> lstDVUT = new ArrayList<ListValue>();
@@ -1264,6 +1268,30 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     public void setLstTinhchatNV(List<ListValue> lstTinhchatNV) {
         this.lstTinhchatNV = lstTinhchatNV;
+    }
+
+    public List<ListValue> getLstPLKT() {
+        return lstPLKT;
+    }
+
+    public void setLstPLKT(List<ListValue> lstPLKT) {
+        this.lstPLKT = lstPLKT;
+    }
+
+    public List<ListValue> getLstDTTH() {
+        return lstDTTH;
+    }
+
+    public void setLstDTTH(List<ListValue> lstDTTH) {
+        this.lstDTTH = lstDTTH;
+    }
+
+    public List<QT_DULIEU_NT_50> getLstDulieuNt50() {
+        return lstDulieuNt50;
+    }
+
+    public void setLstDulieuNt50(List<QT_DULIEU_NT_50> lstDulieuNt50) {
+        this.lstDulieuNt50 = lstDulieuNt50;
     }
 
     
