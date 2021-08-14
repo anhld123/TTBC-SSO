@@ -71,7 +71,7 @@ public class QT_DULIEU_NT_50 implements SQLData {
     private String D30;
     private String NHAPTAY;
     private String FONTFORMAT;
-    
+    private int KIEUIN;
     private String D31;
     private String D32;
     private String D33;
@@ -246,11 +246,12 @@ public class QT_DULIEU_NT_50 implements SQLData {
     }
 
     
-    private int KIEUIN;
+    
     private String CAP;
     private String CO_CONGCAP;
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Phuong thuc get/set">
+    
     
     public String getNHAPTAY() {
         return NHAPTAY;
@@ -699,6 +700,28 @@ public class QT_DULIEU_NT_50 implements SQLData {
         setD30(stream.readString());
         setNHAPTAY(stream.readString());
         setFONTFORMAT(stream.readString());
+        setKIEUIN(stream.readInt());
+        
+        setD31(stream.readString());
+        setD32(stream.readString());
+        setD33(stream.readString());
+        setD34(stream.readString());
+        setD35(stream.readString());
+        setD36(stream.readString());
+        setD37(stream.readString());
+        setD38(stream.readString());
+        setD39(stream.readString());
+        setD40(stream.readString());
+        
+        setD41(stream.readString());
+        setD42(stream.readString());
+        setD43(stream.readString());
+        setD44(stream.readString());
+        setD45(stream.readString());
+        setD46(stream.readString());
+        setD47(stream.readString());
+        setD48(stream.readString());
+        setD49(stream.readString());
     }
 
     @Override
@@ -749,6 +772,29 @@ public class QT_DULIEU_NT_50 implements SQLData {
         stream.writeString(getD30());
         stream.writeString(getNHAPTAY());
         stream.writeString(getFONTFORMAT());
+        stream.writeInt(getKIEUIN());
+        
+        stream.writeString(getD31());
+        stream.writeString(getD32());
+        stream.writeString(getD33());
+        stream.writeString(getD34());
+        stream.writeString(getD35());
+        stream.writeString(getD36());
+        stream.writeString(getD37());
+        stream.writeString(getD38());
+        stream.writeString(getD39());
+        stream.writeString(getD40());
+        
+        stream.writeString(getD41());
+        stream.writeString(getD42());
+        stream.writeString(getD43());
+        stream.writeString(getD44());
+        stream.writeString(getD45());
+        stream.writeString(getD46());
+        stream.writeString(getD47());
+        stream.writeString(getD48());
+        stream.writeString(getD49());
+        
     }
 //</editor-fold>
     
@@ -785,51 +831,5 @@ public class QT_DULIEU_NT_50 implements SQLData {
         
     }
     
-    public static class saveDulieuNT_Phi {
-        public String MA;
-        public String D1;
-        public String D2;
-        public String D3;
-        public String D4;
-
-        public String getD4() {
-            return D4;
-        }
-
-        public void setD4(String D4) {
-            this.D4 = D4;
-        }
-                
-        public String getMA() {
-            return MA;
-        }
-
-        public void setMA(String MA) {
-            this.MA = MA;
-        }
-
-        public String getD1() {
-            return D1;
-        }
-
-        public void setD1(String D1) {
-            this.D1 = D1;
-        }
-
-        public String getD2() {
-            return D2;
-        }
-
-        public void setD2(String D2) {
-            this.D2 = D2;
-        }
-
-        public String getD3() {
-            return D3;
-        }
-
-        public void setD3(String D3) {
-            this.D3 = D3;
-        }                
-    }
+    
 }

@@ -163,7 +163,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             HashMap hmParameter = getParameter();
 //            String sNv = hmParameter.get("type_action").toString();
             if (hmParameter.get("type_action").toString().equals("2") && Grade.equals("3")) { //Duyệt TH điều chỉnh KH
-                    if (!daoMain.saveQD23_001("QD23_003", UserName, "", hmParameter.get("ngay_bc").toString(), Grade, lstDulieuNt50)) {
+                    if (!daoMain.saveQD23_001("QD23_003", UserName, "", hmParameter.get("ngay_bc").toString(), Grade, lstDulieuNt50, hmParameter.get("type_action").toString())) {
                         addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                         return ERROR;
                     }
@@ -176,7 +176,7 @@ public class QD23_001 extends ActionNhaptaycnMain
                     addActionError("Lỗi! "+ iCheck);
                         return ERROR; 
                 }     
-                if (!daoMain.saveQD23_001(khoa_nhaptaycn, UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt50)) {
+                if (!daoMain.saveQD23_001(khoa_nhaptaycn, UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt50, hmParameter.get("type_action").toString())) {
                     addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                     return ERROR;
                 }
