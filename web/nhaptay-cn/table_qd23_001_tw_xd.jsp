@@ -186,23 +186,15 @@
             <div class="cls-over">
                 <div id="scrolling_table_1"  style="width: 1500px; max-height:20vh">
                     <table class="editDelete cls-table" >
-                        <tr height="50px">                              
-                            <!--<th rowspan="2" class="TD_MAKH">Mã doanh nghiệp</th>-->  
+                        <tr height="50px">                                                          
                             <th rowspan="2" class="TD_MAKH">Tỉnh</th>  
-                            <!--<th rowspan="2" class="TD_SOTIEN">Huyện</th>-->  
-                            <th rowspan="2" class="TD_TENKH">Tên doanh nghiệp</th>  
-                            <!--<th rowspan="2" class="TD_MAKH">Mã số thuế</th>-->    
+                            <th rowspan="2" class="TD_TENKH">Tên doanh nghiệp</th>                              
                             <th rowspan="2" class="TD_MAKH">CMND người đại diện</th>
-                            <th rowspan="2" class="TD_TENKH">Tên người đại diện</th>
-                            <!--<th rowspan="2" class="TD_NGAY">Ngày tiếp nhận hs</th>-->
-                            <!--<th rowspan="2" class="TD_NGAY">Hình thức tiếp nhận</th>-->                            
+                            <th rowspan="2" class="TD_TENKH">Tên người đại diện</th>                          
                             <th rowspan="2" class="TD_MAKH">Giấy đề nghị</th>
                             <th rowspan="2" class="TD_NGAY">Ngày đề nghị</th>
-                            <!--<th rowspan="2" class="TD_NGAY">Mức lương vùng</th>-->
-                            <!--<th rowspan="2" class="TD_NGAY">Tháng vay</th>-->
-                            <!--<th rowspan="2" class="TD_NGAY">Tổng số lao động được đề nghị vay để trả lương</th>-->    
                             <th rowspan="2" class="TD_SOTIEN">Số tiền đề nghị vay</th>
-                            <th colspan="2">Trong đó:</th>                                                                                                             
+                            <th rowspan="2" class="TD_SOTIEN">Đối tượng thụ hưởng</th>                                                                                                         
                             <!--<th  rowspan="2" class="TD_MAKH">Ngày lương theo HĐ</th>-->    
                             <!--<th  rowspan="2" class="TD_CHITIEU">Ghi chú</th>-->      
                             <th colspan="5" class="TD_NGAY">Duyệt kế hoạch</th>
@@ -210,9 +202,7 @@
                             <th rowspan="2" class="TD_SOTIEN">Số tài khoản</th>
                         </tr>         
                         <tr>
-                            <th class="TD_SOTIEN">Để trả lương ngừng việc</th>
-                            <th class="TD_SOTIEN">Để trả lương khi phục hồi SXKD</th>
-                            <th class="TD_MAKH">Tính chất nguồn vốn</th>
+                            <th class="TD_MAKH">Tính chất vốn</th>
                             <th class="TD_MAKH">Số QĐ</th>
                             <th class="TD_MAKH">Ngày QĐ</th>
                             <th class="TD_STT">Thông báo lần</th>
@@ -224,22 +214,22 @@
                             <td style="text-align: center">1</td>
                             <!--<td>6</td>-->
                             <!--<td>7</td>-->
-                            <td style="text-align: center">2</td>
-                            <td style="text-align: center">3</td>
+                            <td style="text-align: center">4</td>
+                            <td style="text-align: center">5</td>
                             <!--<td>10</td>-->
                             <!--<td>11</td>-->
                             <!--<td>12</td>-->
-                            <td style="text-align: center">4</td>
-                            <td style="text-align: center">5</td>
-                            <td style="text-align: center">6</td>
-                            <td style="text-align: center">7</td>
-                            <td style="text-align: center">8</td>                            
-                            <td style="text-align: center">9</td>                            
-                            <td style="text-align: center">10</td>  
-                            <td style="text-align: center">11</td>
-                            <td style="text-align: center">12</td>
+                            <td style="text-align: center">8</td>
+                            <td style="text-align: center">9</td>
                             <td style="text-align: center">13</td>
-                            <td style="text-align: center">14</td>
+                            <td style="text-align: center">15</td>
+                            <td style="text-align: center">36</td>                            
+                            <td style="text-align: center">37</td>                            
+                            <td style="text-align: center">38</td>  
+                            <td style="text-align: center">39</td>
+                            <td style="text-align: center">40</td>
+                            <td style="text-align: center">41</td>
+                            <!--<td style="text-align: center">14</td>-->
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                             <tr>  
@@ -335,14 +325,14 @@
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 TEN_KH number" onfocus="this.select();" 
                                            readonly="true"/>
                                 </td> 
-                                <td align = "right" class="TD_SOTIEN" >
+<!--                                <td align = "right" class="TD_SOTIEN" >
                                     <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D14" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14" class="D14 TEN_KH number" onfocus="this.select();"
                                            readonly="true"/>
-                                </td>
-                                <td align = "right" class="TD_SOTIEN" >
+                                </td>-->
+                                <td align = "right" class="TD_TENKH" >
                                     <input type="text"  value="<s:property  value="D15" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" class="D15 TEN_KH number" onfocus="this.select();"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" class= "TEN_KH" onfocus="this.select();"
                                            readonly="true"/>
                                 </td>
                                 <td align = "left" class="TD_MAKH">                                        

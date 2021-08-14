@@ -472,7 +472,7 @@
                                     <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001') && Grade.equalsIgnoreCase('3')">
                                         <td >Số QĐ:</td>
                                         <td>
-                                            <input type="text" style="text-align:right;width: 100px" id="soqd" name="soqd" class="" placeholder="Số duyết định" />
+                                            <input type="text" style="text-align:right;width: 100px" value="AAA" id="soqd" name="soqd" class="" placeholder="Số duyết định" />
                                         </td>  
                                          <td >Ngày QĐ:</td>
                                         <td>
@@ -722,8 +722,8 @@
                         var year = date.getFullYear(); //nam
                         var day = getDaysOfMonth(month, year)
                         var daynow = day + "/" + month + "/" + year;
-                        //            alert(daynow)
-                        document.getElementById('ngay_bc_DATE').value = daynow;
+//                                    alert(daynow)
+                        document.getElementById('ngay_bc_DATE').value = '14/8/2021';//daynow;
                         var iDate = year + "" + addZeroToLead(month) + "" + addZeroToLead(day);
                         //Gan quy mac dinh
                         //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
