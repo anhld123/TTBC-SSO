@@ -440,7 +440,9 @@
         </action>
         
         <action name="QD23_001" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="load">
-                <result name="nhap_pgd">/nhaptay-cn/table_qd23_001_pgd.jsp</result>                
+                <result name="nhap_1_kh_pgd">/nhaptay-cn/table_qd23_001_1_kh_pgd.jsp</result>  
+                <result name="nhap_2_pheduyetcv_pgd">/nhaptay-cn/table_qd23_001_2_pheduyetcv_pgd.jsp</result>                      
+                <result name="nhap_3_pheduyetgn_pgd">/nhaptay-cn/table_qd23_001_2_pheduyetcv_pgd.jsp</result>       
                 <result name="xaydungkh_tw">/nhaptay-cn/table_qd23_001_tw_xd.jsp</result>   
                 <result name="dieuchinhkh_tw">/nhaptay-cn/table_qd23_001_tw_dc.jsp</result>   
                 <result name="xaydungkh_cn">/nhaptay-cn/table_qd23_001_cn.jsp</result>   
