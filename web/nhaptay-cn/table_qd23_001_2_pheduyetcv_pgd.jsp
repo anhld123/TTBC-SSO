@@ -192,7 +192,7 @@
                 <div id="scrolling_table_1"  style="width: 2000px; max-height:45vh">
                     <table class="editDelete cls-table" >
                         <tr height="50px">      
-                            <th  rowspan="2" class="TD_MAKH">Điều chỉnh KH</th> 
+                            <!--<th  rowspan="2" class="TD_MAKH">Điều chỉnh KH</th>--> 
                             <th  rowspan="2" class="TD_MAKH">DS người lao động</th>
                             <th rowspan="2" class="TD_MAKH">Mã doanh nghiệp</th>                           
                             <th rowspan="2" class="TD_TENKH">Tên doanh nghiệp</th>  
@@ -207,12 +207,13 @@
                             <th rowspan="2" class="TD_MAKH">Giấy đề nghị</th>
                             <th rowspan="2" class="TD_NGAY">Ngày đề nghị</th>
                             <th rowspan="2" class="TD_NGAY">Mức lương vùng</th>                            
-                            <th colspan="5">Đề nghị theo hồ sơ vay vốn</th>      
+                            <th colspan="4">Đề nghị theo hồ sơ vay vốn</th>      
 <!--                            <th  rowspan="2" class="TD_MAKH">Kế hoạch dư nợ sau giao chỉ tiêu</th>   
                             <th  rowspan="2" class="TD_MAKH">Ngày lương theo HĐ</th>    
                             <th  rowspan="2" class="TD_CHITIEU">Ghi chú</th>    
 -->
                             <th colspan="5">NHẬP KẾT QUẢ PHÊ DUYỆT CHO VAY (NHCSCH)</th>   
+                            <th rowspan="2" class="TD_NGAY">TT</th>
                         </tr>         
                         <tr>
                             <th class="TD_NGAY">Tháng vay</th>
@@ -224,11 +225,10 @@
                             <th class="TD_NGAY">Ngày phê duyệt</th>
                             <th class="TD_MAKH">Tổng số lượt lao động được phê duyệt cho vay để trả lương</th>
                             <th  class="TD_NGAY">Trong đó, số lao động mới được phê duyệt (nếu có)</th>    
-                            <th  class="TD_NGAY">Số tiền được phê duyệt cho vay</th>
-                            
+                            <th  class="TD_NGAY">Số tiền được phê duyệt cho vay</th>                            
                         </tr>
                         <tr>
-                            <td style="text-align: center"></td>
+                            <!--<td style="text-align: center"></td>-->
                             <td style="text-align: center"></td> 
                             <td style="text-align: center">1</td>
                             <td style="text-align: center">2</td>
@@ -255,17 +255,18 @@
                             <td style="text-align: center">23</td>
                             <td style="text-align: center">24</td>
                             <td style="text-align: center">25</td>
+                            <td style="text-align: center"></td>
                            
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt50" var="modelView" status="rowstatus">                             
                             <tr> 
                                 <!--Doanh nghiệp đã được duyệt-->
                                 <s:if test="NHAPTAY.equalsIgnoreCase(1)"> 
-                                    <td align = "center" class="TD_MAKH">
+<!--                                    <td align = "center" class="TD_MAKH">
                                         <a href="javascript:nhapDieuchinh('<s:property value="D3"/>','<s:property value='D2'/>')" class="SOKU linkKh">
                                             Điều chỉnh giảm
                                         </a>
-                                    </td> 
+                                    </td> -->
                                     <td align = "center" class="TD_THOIGIAN">
                                         <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>')" class="SOKU linkKh">
                                             Upload
@@ -276,6 +277,8 @@
                                         <input type="text"   value="<s:property  value="D1" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
                                                readonly="true"/>
+                                        <input type="hidden" value="<s:property  value="NHAPTAY" />" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>" />
                                     </td>                                
                                     <td align = "right" class="TD_TENKH" >
                                         <input type="text"   value="<s:property  value="D2" />"
@@ -309,51 +312,58 @@
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"  value="<s:property  value="D15" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D15" class="D15 TEN_KH number" onfocus="this.select();"
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D15" class="D15 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                readonly="true"/>
                                     </td>
                                     <td align = "right" class="TD_NGAY" >
                                         <input type="text"   value="<s:property  value="D12" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D12" class="TEN_KH number" onfocus="this.select();" readonly="true"/>
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D12" class="TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
+                                               readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_NGAY" >
                                         <input type="text"   value="<s:property  value="D14" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D14" class="D14 TEN_KH number" onfocus="this.select();"
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D14" class="D14 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;" 
                                                readonly="true"/>
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D13" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 TEN_KH number" onfocus="this.select();" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                 readonly="true"/>
                                     </td> 
                                     
                                     
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D22" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D22" class="D13 TEN_KH number" onfocus="this.select();" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D22" class="D13 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D23" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D23" class="D13 TEN_KH number" onfocus="this.select();" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D23" class="D13 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D24" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D24" class="D13 TEN_KH number" onfocus="this.select();" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D24" class="D13 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D25" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D25" class="D13 TEN_KH number" onfocus="this.select();" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D25" class="D13 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                 readonly="true"/>
                                     </td> 
+                                    <td align = "right" class="TD_NGAY" >
+                                        <input type="text"   value="<s:property  value="D37" />"
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D37" class="D14 TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
+                                               readonly="true"
+                                               />
+                                    </td>
                                 </s:if>
                                     <!--Doanh nghiệp chưa duyệt-->
                                 <s:else>
-                                    <td>
+<!--                                    <td>
                                        
-                                    </td> 
+                                    </td> -->
                                     <td align = "center" class="TD_THOIGIAN">
                                         <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>')" class="SOKU linkKh">
                                             Upload
@@ -364,52 +374,58 @@
                                         <input type="text"   value="<s:property  value="D1" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH D0" onfocus="this.select();"
                                                readonly="readonly" style="background: 	#C0C0C0 !important;"/>
+                                        <input type="hidden" value="<s:property  value="NHAPTAY" />" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>" />
+                                        
                                     </td>                                
                                     <td align = "right" class="TD_TENKH" >
                                         <input type="text"   value="<s:property  value="D2" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D2" class="TEN_KH" onfocus="this.select();" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D2" class="TEN_KH" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                readonly="true"/>
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D3" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH D0" onfocus="this.select();" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH D0" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                readonly="true"/>
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D8" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH D0" onfocus="this.select();" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH D0" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                readonly="true"/>
                                     </td> 
                                     <td align = "center" class="TD_NGAY">
                                         <input type="text" value="<s:property  value="D9" />" id="D8_<s:property  value="%{#rowstatus.index}" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D9" class="TEN_KH D0" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D9" class="TEN_KH D0"  style="background: 	#C0C0C0 !important;"
                                                readonly="true"/>
                                     </td>  
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D10" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D10" class="TEN_KH D0" onfocus="this.select();" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D10" class="TEN_KH D0" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                readonly="true"/>
                                     </td> 
                                     <td align = "center" class="TD_NGAY">
                                         <input type="text" value="<s:property  value="D11" />" id="D11_<s:property  value="%{#rowstatus.index}" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH D0 "  readonly="true"/>
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH D0 "  style="background: 	#C0C0C0 !important;"
+                                               readonly="true"/>
                                     </td> 
                                      <td align = "center" class="TD_NGAY">
                                         <input type="text" value="<s:property  value="D15" />" id="D11_<s:property  value="%{#rowstatus.index}" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D15" class="TEN_KH D0 "  readonly="true"/>
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D15" class="TEN_KH D0 "  style="background: 	#C0C0C0 !important;"
+                                               readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_NGAY" >
                                         <input type="text"   value="<s:property  value="D12" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D12" class="TEN_KH number" onfocus="this.select();" readonly="true"/>
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D12" class="TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
+                                               readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_NGAY" >
                                         <input type="text"   value="<s:property  value="D14" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D14" class="D14 TEN_KH number" onfocus="this.select();"
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D14" class="D14 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                readonly="true"/>
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D13" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 TEN_KH number" onfocus="this.select();" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 TEN_KH number" onfocus="this.select();"  style="background: 	#C0C0C0 !important;"
                                                 readonly="true"/>
                                     </td> 
                                     
@@ -433,6 +449,12 @@
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D25" class="D13 TEN_KH number" onfocus="this.select();" 
                                                 />
                                     </td> 
+                                    <td align = "right" class="TD_NGAY" >
+                                        <input type="text"   value="<s:property  value="D37" />"
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D37" class="D14 TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
+                                               readonly="true"
+                                               />
+                                    </td>
                                 </s:else>
                                 
                                 

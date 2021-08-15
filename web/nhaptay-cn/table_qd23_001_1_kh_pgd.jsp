@@ -251,7 +251,7 @@
                             <tr> 
                                 <!--Doanh nghiệp đã được duyệt-->
                                 <s:if test="NHAPTAY.equalsIgnoreCase(1)"> 
-                                    <s:if test="!D36.equalsIgnoreCase(9)">
+                                    <s:if test="!D45.equalsIgnoreCase(9)">
                                         <td align = "center" class="TD_MAKH">
                                             <a href="javascript:nhapDieuchinh('<s:property value="D3"/>','<s:property value='D2'/>')" class="SOKU linkKh">
                                                 Điều chỉnh giảm
