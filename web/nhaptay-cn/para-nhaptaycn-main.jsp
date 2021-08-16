@@ -74,7 +74,15 @@
                 overflow-x: scroll;
             }
 
-            #containTreeQD23{
+            #containTreeQD23_2{
+                width: 7%;
+                border-left: 1px solid;
+                border-right: 1px solid;
+                height: 450px;
+                float: left;
+                overflow-x: scroll;
+            }
+            #containTreeQD23_3{
                 width: 12%;
                 border-left: 1px solid;
                 border-right: 1px solid;
@@ -82,6 +90,7 @@
                 float: left;
                 overflow-x: scroll;
             }
+
 
             #containParm{
                 width: 84%;
@@ -91,7 +100,14 @@
                 overflow-x: scroll;
             }
 
-            #containParmQD23{
+            #containParmQD23_2{
+                width: 92%;
+                height: 450px;
+                padding-left: 5px;
+                float: left;
+                /*overflow-x: scroll;*/
+            }
+            #containParmQD23_3{
                 width: 87%;
                 height: 450px;
                 padding-left: 5px;
@@ -627,7 +643,13 @@
                     </s:if>
                     <s:else>
                         <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001')">
-                            <div id="containTreeQD23">
+                            <s:if test="Grade.equalsIgnoreCase('2')">
+                                 <div id="containTreeQD23_2">
+                            </s:if>
+                            <s:else>
+                                <div id="containTreeQD23_3">
+                            </s:else>
+                            
                             </s:if>
                             <s:else>
                                 <div id="containTree">
@@ -648,7 +670,13 @@
                                     />
                             </div>
                             <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001')">
-                                <div id="containParmQD23" align="center">
+                                <s:if test="Grade.equalsIgnoreCase('2')">
+                                    <div id="containParmQD23_2" align="center">
+                               </s:if>
+                               <s:else>
+                                   <div id="containParmQD23_3" align="center">
+                               </s:else>
+                                
                                     <div id="divExportReport"></div>
                                     <div id="divExportReport"></div>
                                 </div>
