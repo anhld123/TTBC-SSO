@@ -38,6 +38,7 @@ import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.DcptNoModel;
 import vbsp.ims.model.ModelTreeNode;
+import vbsp.ims.nhaptaycn.action.QT_DULIEU_NT_50;
 import vbsp.ims.query.ImsFillParaMeter;
 import vbsp.ims.query.ImsPlSqlQuery;
 import vbsp.ims.report.fast.ListValue;
@@ -5026,6 +5027,61 @@ public class DaoNhaptaycnMain {
         }
         return _retVal;
     }
+    
+     public String checkData_Info_50(List<QT_DULIEU_NT_50> lstData, String skhoa, String sNgaybc, String sUser, String sCapbc, List<String> lstArrPoscd) throws SQLException {
+        String _retVal = "";
+        Connection conn = new DaoConnect().getConnect();
+        CallableStatement calstatement = null;
+        ResultSet reset = null;
+
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT_50.ORACLE_TABLE_TYPE, conn);
+        ARRAY array_to_pass = new ARRAY(des, conn, array);
+
+        ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("INDICATOR", conn);
+
+        String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
+
+        ARRAY oracle_arrayPos = new ARRAY(des_ma, conn, arrayPoscd);
+
+        //Khoi tao procedure cung voi tham so truyen vao la dau ?
+        String strStoreproce = "{ ? = call VBSP_IMS_NHAPTAYCN.F_CHECK_DATA_INFO_50(?,?,?,?,?,?) }";
+
+        try {
+            //Khoi tao goi Store
+            calstatement = conn.prepareCall(strStoreproce,
+                    ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.VARCHAR);
+            calstatement.setArray(2, array_to_pass);
+
+            calstatement.setString(3, skhoa);
+            calstatement.setString(4, sNgaybc);
+            calstatement.setString(5, sUser);
+            calstatement.setString(6, sCapbc);
+            calstatement.setArray(7, oracle_arrayPos);
+            //Thuc hien execute lay du lieu
+            calstatement.execute();
+            //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+            _retVal = calstatement.getString(1);
+
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " checkTVIEN_Info -> " + e.getMessage());
+            throw new SQLException(e);
+        } finally {
+            if (reset != null) {
+                reset.close();
+            }
+            if (calstatement != null) {
+                calstatement.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return _retVal;
+    }
 
     public String checkData_MuasamTS(List<QT_DULIEU_NT> lstData, String skhoa, String sNgaybc, String sUser, String sCapbc, String nambc,
             String trangthaims, String dotms, String nghiepvums) throws SQLException {
@@ -7887,9 +7943,9 @@ public class DaoNhaptaycnMain {
         return bSuccess;
     }
 
-    public List<QT_DULIEU_NT> getDataQd23_001(Connection conn, String sKhoa, String sNgaybc, String sUser,
+    public List<QT_DULIEU_NT_50> getDataQd23_001(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd, String maDN, String loaiNV) {
-        List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
+        List<QT_DULIEU_NT_50> lstBcqt_NT = new ArrayList<QT_DULIEU_NT_50>();
         try {
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
             String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
@@ -7925,7 +7981,7 @@ public class DaoNhaptaycnMain {
                 reset = (ResultSet) calstatement.getObject(10);
                 while (reset.next()) {
 
-                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+                    QT_DULIEU_NT_50 value = QT_DULIEU_NT_50.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
                     value.setTT_HIENTHI(reset.getString(3));
@@ -7969,6 +8025,28 @@ public class DaoNhaptaycnMain {
                     value.setD30(reset.getString(44));
                     value.setNHAPTAY(reset.getString(45));
                     value.setFONTFORMAT(reset.getString(46));
+                    value.setKIEUIN(reset.getInt(47));
+                    
+                    value.setD31(reset.getString(48));
+                    value.setD32(reset.getString(49));
+                    value.setD33(reset.getString(50));
+                    value.setD34(reset.getString(51));
+                    value.setD35(reset.getString(52));
+                    value.setD36(reset.getString(53));
+                    value.setD37(reset.getString(54));
+                    value.setD38(reset.getString(55));
+                    value.setD39(reset.getString(56));
+                    value.setD40(reset.getString(57));
+                    value.setD41(reset.getString(58));
+                    value.setD42(reset.getString(59));
+                    value.setD43(reset.getString(60));
+                    value.setD44(reset.getString(61));
+                    value.setD45(reset.getString(62));
+                    value.setD46(reset.getString(63));
+                    value.setD47(reset.getString(64));
+                    value.setD48(reset.getString(65));
+                    value.setD49(reset.getString(66));
+                    
 
                     lstBcqt_NT.add(value);
                 }
@@ -7993,23 +8071,24 @@ public class DaoNhaptaycnMain {
         return lstBcqt_NT;
     }
 
-    public boolean saveQD23_001(String khoa, String username, String mapgd, String ngaybc, String capBc, List<QT_DULIEU_NT> lstData) throws SQLException {
+    public boolean saveQD23_001(String khoa, String username, String mapgd, String ngaybc, String capBc, List<QT_DULIEU_NT_50> lstData, String loaiNV) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
         ArrayDescriptor des = ArrayDescriptor
-                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+                .createDescriptor(QT_DULIEU_NT_50.ORACLE_TABLE_TYPE, connection);
         ARRAY array_to_pass = new ARRAY(des, connection, array);
 
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_IMS_NHAPTAYCN.SP_SAVE_QD23_001(?, ?, ?, ?, ?, ?)}");
+            cs = connection.prepareCall("{call VBSP_IMS_NHAPTAYCN.SP_SAVE_QD23_001(?, ?, ?, ?, ?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
             cs.setString(4, ngaybc);
             cs.setString(5, capBc);
             cs.setArray(6, array_to_pass);
+            cs.setString(7, loaiNV);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -8165,9 +8244,9 @@ public class DaoNhaptaycnMain {
         return true;
     }
 
-    public List<QT_DULIEU_NT> getDataQd23_001_Dieuchinh(Connection conn, String sKhoa, String sNgaybc, String sUser,
-            String sGrade, String maDN) {
-        List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
+    public List<QT_DULIEU_NT_50> getDataQd23_001_Dieuchinh(Connection conn, String sKhoa, String sNgaybc, String sUser,
+            String sGrade, String maDN, String thangdc) {
+        List<QT_DULIEU_NT_50> lstBcqt_NT = new ArrayList<QT_DULIEU_NT_50>();
         try {
 //            ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
 //            String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
@@ -8180,7 +8259,7 @@ public class DaoNhaptaycnMain {
             String dateStr = sdf.format(date1);
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_IMS_NHAPTAYCN.SP_GET_DATA_QD23_01_DIEUCHINH(?,?,?,?,?,?,?,?)}";
+            String strStoreproce = "{call VBSP_IMS_NHAPTAYCN.SP_GET_DATA_QD23_01_DIEUCHINH(?,?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
 
             try {
@@ -8194,6 +8273,7 @@ public class DaoNhaptaycnMain {
                 calstatement.setString(3, sGrade);
                 calstatement.setString(4, dateStr);
                 calstatement.setString(5, maDN);
+                calstatement.setString(9, thangdc);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -8204,7 +8284,7 @@ public class DaoNhaptaycnMain {
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
 
-                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+                    QT_DULIEU_NT_50 value = QT_DULIEU_NT_50.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
                     value.setTT_HIENTHI(reset.getString(3));
@@ -8272,26 +8352,24 @@ public class DaoNhaptaycnMain {
         return lstBcqt_NT;
     }
 
-    public boolean saveQD23_001_Dieuchinh(String khoa, String username, String mapgd, String ngaybc, String capBc, List<QT_DULIEU_NT> lstData) throws SQLException, ParseException {
+    public boolean saveQD23_001_Dieuchinh(String khoa, String username, String mapgd, String ngaybc, String capBc, List<QT_DULIEU_NT_50> lstData, String thangbc) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
-        Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(ngaybc);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
-        String dateStr = sdf.format(date1);
         Object array[] = lstData.toArray();
         ArrayDescriptor des = ArrayDescriptor
-                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+                .createDescriptor(QT_DULIEU_NT_50.ORACLE_TABLE_TYPE, connection);
         ARRAY array_to_pass = new ARRAY(des, connection, array);
 
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_IMS_NHAPTAYCN.SP_SAVE_QD23_001(?, ?, ?, ?, ?, ?)}");
+            cs = connection.prepareCall("{call VBSP_IMS_NHAPTAYCN.SP_SAVE_QD23_001_DIEUCHINH(?, ?, ?, ?, ?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
-            cs.setString(4, dateStr);
+            cs.setString(4, ngaybc);
             cs.setString(5, capBc);
             cs.setArray(6, array_to_pass);
+            cs.setString(7, thangbc);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();

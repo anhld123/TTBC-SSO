@@ -120,7 +120,9 @@ public class QD23_001 extends ActionNhaptaycnMain
                 String soquyetdinh = hmParameter.get("soqd").toString(); 
                 String ngayquyetdinh = hmParameter.get("ngay_qd").toString(); 
                 String lanquyetdinh = hmParameter.get("lanqd").toString(); 
-                lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh, 
+                String sotide = hmParameter.get("sotide").toString(); 
+                lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, 
+                        soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh+"#"+sotide, 
                         hmParameter.get("type_action").toString());
                 setLstTinhchatNV(daoMain.getCanBo(UserName, "TINHTCHAT_NV"));
                 return "xaydungkh_tw";
@@ -198,7 +200,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             if (!getParaSession()) {
                 return ERROR;
             }
-            if (lstDulieuNt == null || lstDulieuNt.size() == 0) {
+            if (lstDulieuNt50 == null || lstDulieuNt50.size() == 0) {
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
                 return ERROR;
             }
@@ -206,7 +208,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
 
-            if (!daoMain.saveQD23_001_Dieuchinh("QD23_003", UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt)) {
+            if (!daoMain.saveQD23_001_Dieuchinh("QD23_003", UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt50,hmParameter.get("thangbc").toString())) {
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;
             }
@@ -229,7 +231,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
-            lstDulieuNt = daoMain.getDataQd23_001_Dieuchinh(conn, "QD23_003", hmParameter.get("ngay_bc").toString(), UserName, Grade, hmParameter.get("masothue").toString());
+            lstDulieuNt50 = daoMain.getDataQd23_001_Dieuchinh(conn, "QD23_003", hmParameter.get("ngay_bc").toString(), UserName, Grade, hmParameter.get("masothue").toString(),hmParameter.get("thangbc").toString());
             if (conn != null) {
                 conn.close();
             }

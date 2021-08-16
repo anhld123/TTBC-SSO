@@ -201,6 +201,8 @@ public class ActionNhaptaycnMain extends ActionSupport {
         this.soku = soku;
     }
     protected String masothue;
+    protected String thangbc;
+    
     protected String tenkh;
     protected String soku;
     
@@ -234,6 +236,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected List<ListValue> lstNgayluongHD = new ArrayList<ListValue>();
     protected List<ListValue> lstLuongVung = new ArrayList<ListValue>();
     protected List<ListValue> lstTinhchatNV = new ArrayList<ListValue>();
+    protected List<ListValue> lstTide = new ArrayList<ListValue>();
     
     protected List<ListValue> lstPLKT = new ArrayList<ListValue>();
     protected List<ListValue> lstDTTH = new ArrayList<ListValue>();
@@ -667,6 +670,10 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 }
                 return "KSNB_02";
             }
+            if (khoa_nhaptaycn.equals("QD23_001")) {
+                setLstTide(daoMain.getCanBo(UserName, "TIDE595"));
+            }
+            
 
             lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn, UserName, Grade);
             if (conn != null) {
@@ -1292,6 +1299,22 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     public void setLstDulieuNt50(List<QT_DULIEU_NT_50> lstDulieuNt50) {
         this.lstDulieuNt50 = lstDulieuNt50;
+    }
+
+    public List<ListValue> getLstTide() {
+        return lstTide;
+    }
+
+    public void setLstTide(List<ListValue> lstTide) {
+        this.lstTide = lstTide;
+    }
+
+    public String getThangbc() {
+        return thangbc;
+    }
+
+    public void setThangbc(String thangbc) {
+        this.thangbc = thangbc;
     }
 
     
