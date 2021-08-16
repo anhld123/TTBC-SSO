@@ -43,7 +43,7 @@
         </script>     
 
         <script>
-            function nhapDieuchinh(masothue, tendn) {
+            function nhapDieuchinh(masothue, tendn, thangbc) {
                 try
                 {
                     if (masothue.length < 3)
@@ -58,7 +58,7 @@
                     var top1 = 50;
                     var ngay_bc = $("#ngay_bc_DATE").val();
                     var khoa_cdtt = $("#khoa_cdtt").val();
-                    var url = "loadDieuchinhKh.action?masothue=" + masothue + "&ngay_bc=" + ngay_bc + "&tendn=" + tendn;
+                    var url = "loadDieuchinhKh.action?masothue=" + masothue + "&ngay_bc=" + ngay_bc + "&tendn=" + tendn+ "&thangbc=" + thangbc;
 
                     //$.post(url,param,function(data){});
                     popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
@@ -253,7 +253,7 @@
                                 <s:if test="NHAPTAY.equalsIgnoreCase(1)"> 
                                     <s:if test="!D45.equalsIgnoreCase(9)">
                                         <td align = "center" class="TD_MAKH">
-                                            <a href="javascript:nhapDieuchinh('<s:property value="D3"/>','<s:property value='D2'/>')" class="SOKU linkKh">
+                                            <a href="javascript:nhapDieuchinh('<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>')" class="SOKU linkKh">
                                                 Điều chỉnh giảm
                                             </a>
                                         </td> 
@@ -476,7 +476,7 @@
                                     </td>  
                                     <td align = "center" class="TD_NGAY">
                                         <input type="text" value="<s:property  value="D11" />" id="D11_<s:property  value="%{#rowstatus.index}" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH D0 " placeholder="MM/yyyy" readonly="true"/>
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH D0 datepicker_month" placeholder="MM/yyyy"/>
                                     </td> 
                                     <td align = "left" class="TD_NGAY">                                        
                                         <s:select  

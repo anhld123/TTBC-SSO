@@ -199,7 +199,7 @@
                             <!--<th  rowspan="2" class="TD_CHITIEU">Ghi chú</th>-->      
                             <th colspan="5" class="TD_NGAY">Duyệt kế hoạch</th>
                             <th rowspan="2" class="TD_SOTIEN">Giao kế hoạch</th>
-                            <th rowspan="2" class="TD_SOTIEN">Số tài khoản</th>
+                            <th rowspan="2" class="TD_TENKH">Số tài khoản</th>
                         </tr>         
                         <tr>
                             <th class="TD_MAKH">Tính chất vốn</th>
@@ -368,9 +368,9 @@
                                     <input type="text"  value="<s:property  value="D41" />"
                                            name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D41" class="TEN_KH number" onfocus="this.select();"/>
                                 </td>
-                                <td align = "right" class="TD_SOTIEN" >
+                                <td align = "right" class="TD_TENKH" >
                                     <input type="text"  value="<s:property  value="D42" />"
-                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D42" class="TEN_KH number" onfocus="this.select();"/>
+                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D42" class="TEN_KH D0" onfocus="this.select();"/>
                                 </td>
                             </tr>                                                                                                                                                                                   
                         </s:iterator>

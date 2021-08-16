@@ -503,8 +503,9 @@
                                         
                                         
                                         <td >Số Tide:</td>
-                                        <td >
-                                            <input type="text" style="text-align:right;width: 150px"  id="sotide" name="sotide" class=""   placeholder="Số tài khoản"/>
+                                        <td  >
+                                            <!--<input type="text" style="text-align:right;width: 150px"  id="sotide" name="sotide" class=""   placeholder="Số tài khoản"/>-->
+                                            <s:select  style="width: 200px;"  list="lstTide" id="sotide" name="sotide" listKey="sKey" listValue="sDesc"></s:select>
                                         </td> 
                                     </s:if>   
 
@@ -751,7 +752,7 @@
                         var day = getDaysOfMonth(month, year)
                         var daynow = day + "/" + month + "/" + year;
 //                                    alert(daynow)
-                        document.getElementById('ngay_bc_DATE').value = '15/8/2021';//daynow;
+                        document.getElementById('ngay_bc_DATE').value = '16/8/2021';//daynow;
                         var iDate = year + "" + addZeroToLead(month) + "" + addZeroToLead(day);
                         //Gan quy mac dinh
                         //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
