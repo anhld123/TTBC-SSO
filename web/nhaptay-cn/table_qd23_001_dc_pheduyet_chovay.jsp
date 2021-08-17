@@ -1,152 +1,18 @@
 <%-- 
-    Document   : table_bcqt_pl01
-    Created on : Nov 16, 2015, 1:26:33 PM
+    Document   : table_template
+    Created on : Nov 18, 2015, 9:23:22 AM
     Author     : LION
 --%>
 <%@taglib prefix="s" uri="/struts-tags" %>
 <%@taglib prefix="sj" uri="/struts-jquery-tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<s:head/>
+<sj:head/>
 <link rel="stylesheet" type="text/css"  href="css/bcqt.css" />
 <!DOCTYPE html>
 <html>
-    <head>        
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-        <script src="js/jquery.number.js"></script>
-        <script src="js/format_num.js"></script>
-        <script>
-            var max_row = 0;
-            $(document).ready(function () {
-                $('input.number').css({"text-align": "right"});
-                $('input.number2').css({"text-align": "right"});
-                $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
-                $(".datepicker_month").datepicker({dateFormat: 'mm/yy'});
-                $('.D0').css({"text-align": "center"});
-                $('.number').number(true, 0);
-//            //Cac truong bang so --> se co so truong = 0
-                $('.number2').number(true, 2);
-                $(".TD_STT").css({"width": "30px"});
-                $(".TD_MAKH").css({"width": "70px"});
-                $(".TD_NGAY").css({"width": "55px"});
-                $(".TD_TENKH").css({"width": "130px"});
-                $(".TD_SOKU").css({"width": "120px"});
-                $(".TD_SOTIEN").css({"width": "90px"});
-                $(".TD_CHITIEU").css({"width": "300px"});
-                $(".TEN_KH").css({"width": "100%"});
-            });
-            $('.TEN_KH').focus(function () {
-                $(this).closest('tr').addClass('highlight_row');
-            });
-            $('.TEN_KH').blur(function () {
-                $(this).closest('tr').removeClass('highlight_row');
-            });
-        </script>     
-
-        <script>
-            function nhapDieuchinhPheduyet(khoadc, masothue, tendn, thangbc) {
-                try
-                {
-                    if (masothue.length < 3)
-                    {
-                        alert('Doanh nghiệp chưa có mã số thuế !');
-                        return;
-                    }
-                    var pheduyet = 'N';
-                    var ht1 = screen.height -200;
-                    var wt1 = screen.width - 200;
-                    var left1 = 50;//(screen.width / 2) - (wt1 / 2);
-                    var top1 = 50;
-                    var ngay_bc = $("#ngay_bc_DATE").val();
-                    var khoa_cdtt = $("#khoa_cdtt").val();
-                    var url = "loadDieuchinhPheduyetChovay.action?masothue=" + masothue + "&ngay_bc=" + ngay_bc + "&tendn=" + tendn + "&khoadc=" + khoadc + "&thangbc=" + thangbc;
-
-                    //$.post(url,param,function(data){});
-                    popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
-
-                    window.refreshData = function () {
-                        //alert('aaaa');
-                        $("#loadDatatmp").trigger("click");
-                    };
-                } catch (e)
-                {
-                    swal('Lỗi', 'Lỗi: ' + e.toString(), 'error');
-                }
-            }
-
-            function updateDsNguoiLD_QD23(masothue, tendn) {
-                try
-                {
-                    if (masothue.length < 3)
-                    {
-                        alert('Doanh nghiệp chưa có mã số thuế !');
-                        return;
-                    }
-                    var pheduyet = 'N';
-                    var ht1 = screen.height;
-                    var wt1 = screen.width;
-                    var left1 = 0;//(screen.width / 2) - (wt1 / 2);
-                    var top1 = 0;
-                    var ngay_bc = $("#ngay_bc_DATE").val();
-                    var khoa_cdtt = $("#khoa_cdtt").val();
-                    var url = "updateDsNguoiLD_QD23.action?masothue=" + masothue + "&ngay_bc=" + ngay_bc + "&tendn=" + tendn;
-
-                    //$.post(url,param,function(data){});
-                    popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
-
-                    window.refreshData = function () {
-                        //alert('aaaa');
-                        $("#loadDatatmp").trigger("click");
-                    };
-                } catch (e)
-                {
-                    swal('Lỗi', 'Lỗi: ' + e.toString(), 'error');
-                }
-            }
-
-            function initTable()
-            {
-                var table = document.getElementById("tablekyquy04");
-                var rowcount = table.rows.length;
-                rowcount = rowcount > max_row ? rowcount : max_row;
-                for (var i = 0; i < rowcount; i++)
-                {
-                    var matmp = getMabyNumber(i);//   
-
-                    if (matmp == 1)
-                    {
-                        $('input:checkbox[id=' + i + ']').attr('checked', true);
-                    }
-                }
-            }
-
-            function getMabyNumber(idx)
-            {
-                var ma = '';
-                try {
-                    var ma_id = 'id_' + idx;
-                    ma = document.getElementById(ma_id).value;
-                } catch (e)
-                {
-                    ma = '999999';
-                }
-                return ma;
-            }
-
-            function autoEvaluate() {
-
-                var arrCot = [".D13", ".D14", ".D15"]; //Luu cac cot cua du lieu can tinh toan
-                for (var i = 0; i < 50; i++) {
-                    //8=2+4-6
-                    $(".D13").eq(i).val(parseFloat($(".D14").eq(i).val()) + parseFloat($(".D15").eq(i).val()));
-
-                }
-                //                              
-            }
-
-        </script>
-
-        <style>     
-  
+    <head>
+        <style>
             table.editDelete{
                 border-collapse: collapse;
                 width: 100%;
@@ -164,72 +30,122 @@
             .editDelete td,th{
                 border: 1px solid #999;
             }
-             .editDelete           input:readonly {
-                background-color: red;
-            }
-
-
-
+             #idTitle{
+                font: 14px Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                color: #0077b3;
+                text-align: center;
+             }
         </style>
+        <script src="js/jquery.number.js"></script>        
+        <script type="text/javascript" src="BCQT/javascript/jquery-ui.min.js"></script>
+        <script>
+            var max_row = 0;
+            $(document).ready(function () {
+                $('input.number').css({"text-align": "right"});
+                $('input.number2').css({"text-align": "right"});
+                $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
+//                $(".datepicker_month").datepicker({dateFormat: 'mm/yy'});
+                $('.D0').css({"text-align": "center"});
+                $('.number').number(true, 0);
+//            //Cac truong bang so --> se co so truong = 0
+//                $('.number2').number(true, 2);
+                $(".TD_STT").css({"width": "30px"});
+                $(".TD_MAKH").css({"width": "70px"});
+                $(".TD_NGAY").css({"width": "55px"});
+                $(".TD_TENKH").css({"width": "130px"});
+                $(".TD_SOKU").css({"width": "120px"});
+                $(".TD_SOTIEN").css({"width": "90px"});
+                $(".TD_CHITIEU").css({"width": "200px"});
+                $(".TEN_KH").css({"width": "100%"});
+            });
+
+           $('.TEN_KH').focus(function () {
+                $(this).closest('tr').addClass('highlight_row');
+            });
+            $('.TEN_KH').blur(function () {
+                $(this).closest('tr').removeClass('highlight_row');
+            });
+
+        </script>
+
+        <script>
+            function closeSelf() {
+                window.close();
+                return true;
+            }
+            
+             function autoEvaluate() {
+
+                var arrCot = [".D13", ".D22", ".D23"]; //Luu cac cot cua du lieu can tinh toan
+                for (var i = 0; i < 50; i++) {
+                    //8=2+4-6
+                    $(".D23").eq(i).val(parseFloat($(".D13").eq(i).val()) - parseFloat($(".D22").eq(i).val()));
+
+                }
+                //                              
+            }
+            
+//            function autoPlus(idx) {
+//                $('.number').number(true, 0);
+//               $('.number2').number(true, 2);
+//           }
+//           autoPlus(11);
+
+        </script>
+        <!--<link href="css/css/style.css" rel="stylesheet" type="text/css"/>-->
         <link href="css/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
-    <body style="font-family: ">
-        <s:form id="id_sv_%{khoa_nhaptaycn}" action="SAVE_%{khoa_nhaptaycn}" theme="simple">
-            <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
-                <input type="hidden" id="<s:property  value="sKey" />" 
-                       name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
-            </s:iterator>   
-            </br>
-            <div id="divTitle">
-                DANH SÁCH NGƯỜI SỬ DỤNG LAO ĐỘNG ĐƯỢC HƯỞNG CHÍNH SÁCH VAY VỐN ĐỂ TRẢ LƯƠNG NGỪNG VIỆC
-            </div>
-            <s:hidden name="khoa_nhaptaycn"/>
-            <!--                <div id="divDonvitinh">
-                                Đơn vị tính: Đồng
-                            </div>-->
-            </br>
-            <div class="cls-over">
-                <div id="scrolling_table_1"  style="width: 2000px; max-height:45vh">
+    <body>
+        <!--<div id="container_popup">-->
+        <s:form name="frmDieuchinhKH_%{khoadc}" id="frmDieuchinhKH_%{khoadc}"  theme="simple">              
+            <div id="divChiTieu" style="text-align: center;">   
+                <s:hidden name="ngay_bc" id="ngay_bc"/>
+                <s:hidden name="masothue" id="masothue"/>                   
+                <s:hidden name="tendn" id="tendn"/>  
+                <s:hidden name="thangbc" id="thangbc"/>  
+                <s:hidden name="khoadc" id="khoadc"/>  
+                
+                <div id="idTitle" >ĐIỀU CHỈNH PHÊ DUYỆT CHO VAY</div>
+                <hr/>
+                <%--<s:iterator value="#attr.lstDulieuNt50" var="modelDcpt" status="rowstatus">--%>                        
+                    <div class="cls-over">
+                <div id="scrolling_table_1"  style="width: 1440px; max-height:45vh">
                     <table class="editDelete cls-table" >
                         <tr height="50px">      
-                            <th  rowspan="2" class="TD_MAKH">Điều chỉnh phê duyệt cho vay</th> 
-                            <th  rowspan="2" class="TD_MAKH">DS người lao động</th>
+                            <!--<th  rowspan="2" class="TD_MAKH">Điều chỉnh phê duyệt cho vay</th>--> 
+                            <!--<th  rowspan="2" class="TD_MAKH">DS người lao động</th>-->
                             <th rowspan="2" class="TD_MAKH">Mã doanh nghiệp</th>                           
                             <th rowspan="2" class="TD_TENKH">Tên doanh nghiệp</th>  
                             <th rowspan="2" class="TD_MAKH">Mã số thuế</th>    
-<!--                            <th rowspan="2" class="TD_MAKH">CMND người đại diện</th>
-                            <th rowspan="2" class="TD_TENKH">Tên người đại diện</th>
-                            <th rowspan="2" class="TD_NGAY">Ngày tiếp nhận hs</th>
-                            <th rowspan="2" class="TD_NGAY">Hình thức tiếp nhận</th>                            
-                            <th rowspan="2" class="TD_NGAY">Ngành nghề KD chính</th> 
-                            <th rowspan="2" class="TD_TENKH">Địa chỉ</th> -->
                             
                             <th rowspan="2" class="TD_MAKH">Giấy đề nghị</th>
                             <th rowspan="2" class="TD_NGAY">Ngày đề nghị</th>
-                            <th rowspan="2" class="TD_NGAY">Mức lương vùng</th>                            
-                            <th colspan="5">Đề nghị theo hồ sơ vay vốn</th>      
+                            <th rowspan="2" class="TD_NGAY">Mức lương vùng</th>   
+                            <th rowspan="2" class="TD_NGAY">Tháng vay</th>
+                            <!--<th colspan="5">Đề nghị theo hồ sơ vay vốn</th>-->      
 <!--                            <th  rowspan="2" class="TD_MAKH">Kế hoạch dư nợ sau giao chỉ tiêu</th>   
                             <th  rowspan="2" class="TD_MAKH">Ngày lương theo HĐ</th>    
                             <th  rowspan="2" class="TD_CHITIEU">Ghi chú</th>    
 -->
-                            <th colspan="4">NHẬP KẾT QUẢ PHÊ DUYỆT CHO VAY (NHCSCH)</th>   
+                            <th colspan="3">NHẬP KẾT QUẢ PHÊ DUYỆT CHO VAY (NHCSCH) - Điều chỉnh <span style="color:red">+/-</span></th>   
                             <th rowspan="2" class="TD_NGAY">TT</th>
                         </tr>         
                         <tr>
-                            <th class="TD_NGAY">Tháng vay</th>
+<!--                            <th class="TD_NGAY">Tháng vay</th>
                             <th class="TD_MAKH">Đối tượng thụ hưởng</th>
                             <th  class="TD_NGAY">Tổng số lao động được đề nghị vay để trả lương</th>    
                             <th  class="TD_NGAY">Trong đó, số lao động mới (nếu có)</th>
-                            <th class="TD_MAKH">Số tiền đề nghị vay</th>
+                            <th class="TD_MAKH">Số tiền đề nghị vay</th>-->
                             
-                            <th class="TD_NGAY">Ngày phê duyệt</th>
+                            <!--<th class="TD_NGAY">Ngày phê duyệt</th>-->
                             <th class="TD_MAKH">Tổng số lượt lao động được phê duyệt cho vay để trả lương</th>
                             <th  class="TD_NGAY">Trong đó, số lao động mới được phê duyệt (nếu có)</th>    
                             <th  class="TD_NGAY">Số tiền được phê duyệt cho vay</th>                            
                         </tr>
                         <tr>
-                            <td style="text-align: center"></td>
-                            <td style="text-align: center"></td> 
+                            <!--<td style="text-align: center"></td>-->
+                            <!--<td style="text-align: center"></td>--> 
                             <td style="text-align: center">1</td>
                             <td style="text-align: center">2</td>
                             <td style="text-align: center">3</td>
@@ -243,15 +159,15 @@
                             <td style="text-align: center">9</td>
                             <td style="text-align: center">10</td>
                             <td style="text-align: center">11</td>
-                            <td style="text-align: center">15</td>
+<!--                            <td style="text-align: center">15</td>
                             <td style="text-align: center">12</td>
                             <td style="text-align: center">14</td>
-                            <td style="text-align: center">13</td>
+                            <td style="text-align: center">13</td>-->
                             
 <!--                            <td style="text-align: center">17</td>
                             <td style="text-align: center">16</td>
                             <td style="text-align: center">18</td>     -->
-                            <td style="text-align: center">22</td>
+                            <!--<td style="text-align: center">22</td>-->
                             <td style="text-align: center">23</td>
                             <td style="text-align: center">24</td>
                             <td style="text-align: center">25</td>
@@ -262,22 +178,7 @@
                             <tr> 
                                 <!--Doanh nghiệp đã được duyệt-->
                                 <s:if test="NHAPTAY.equalsIgnoreCase(1)"> 
-                                    <s:if test="!D45.equalsIgnoreCase(9)">
-                                        <td align = "center" class="TD_MAKH">
-                                            <a href="javascript:nhapDieuchinhPheduyet('QD23_004','<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>')" class="SOKU linkKh">
-                                                Điều chỉnh
-                                            </a>
-                                        </td> 
-                                    </s:if>
-                                    <s:else>
-                                        <td></td>
-                                    </s:else>
-                                    <td align = "center" class="TD_THOIGIAN">
-                                        <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>')" class="SOKU linkKh">
-                                            Upload
-                                        </a>
-                                    </td>
-
+                                  
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D1" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
@@ -314,7 +215,7 @@
                                         <input type="text"   value="<s:property  value="D11" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
                                                readonly="true"/>                                                                        
-                                    </td>
+                                    </td><!--
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"  value="<s:property  value="D15" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D15" class="D15 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
@@ -334,14 +235,14 @@
                                         <input type="text"   value="<s:property  value="D13" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                 readonly="true"/>
-                                    </td> 
+                                    </td> -->
                                     
                                     
-                                    <td align = "right" class="TD_MAKH" >
+<!--                                    <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D22" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D22" class="D13 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                 readonly="true"/>
-                                    </td> 
+                                    </td> -->
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D23" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D23" class="D13 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
@@ -366,15 +267,7 @@
                                 </s:if>
                                     <!--Doanh nghiệp chưa duyệt-->
                                 <s:else>
-                                    <td>
-                                       
-                                    </td> 
-                                    <td align = "center" class="TD_THOIGIAN">
-                                        <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>')" class="SOKU linkKh">
-                                            Upload
-                                        </a>
-                                    </td>
-
+                                   
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D1" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH D0" onfocus="this.select();"
@@ -413,7 +306,7 @@
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH D0 "  style="background: 	#C0C0C0 !important;"
                                                readonly="true"/>
                                     </td> 
-                                     <td align = "center" class="TD_NGAY">
+<!--                                     <td align = "center" class="TD_NGAY">
                                         <input type="text" value="<s:property  value="D15" />" id="D11_<s:property  value="%{#rowstatus.index}" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D15" class="TEN_KH D0 "  style="background: 	#C0C0C0 !important;"
                                                readonly="true"/>
@@ -432,13 +325,13 @@
                                         <input type="text"   value="<s:property  value="D13" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 TEN_KH number" onfocus="this.select();"  style="background: 	#C0C0C0 !important;"
                                                 readonly="true"/>
-                                    </td> 
+                                    </td> -->
                                     
                                    
-                                    <td align = "center" class="TD_NGAY">
+<!--                                    <td align = "center" class="TD_NGAY">
                                         <input type="text" value="<s:property  value="D22" />" 
                                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D22" class="TEN_KH D0 datepicker" placeholder="dd/MM/yyyy" />
-                                    </td>  
+                                    </td>  -->
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D23" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D23" class="D13 TEN_KH number" onfocus="this.select();" 
@@ -470,14 +363,52 @@
                 </div>
             </div>
 
-            <sj:submit id="%{khoa_nhaptaycn}_save" name="%{khoa_nhaptaycn}_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
-                       onCompleteTopics="completediv_ss" cssStyle="display: none"/>
+                <%--</s:iterator>--%>                                        
+            </div>
+                
+             <table  border="0px !important;" class="editDelete" align="center"> 
+                                <tr align="center" height="3px">                                    
+                                </tr>
+                                <tr align="center">                                       
+                                
+                                    <td width="35%">
+                                        <div id="content_div"></div>
+                                    </td>   
+                                                                     
+                                        <td  align="center">
+                                        <div id="button_div" <s:property value="disabled" /> >
+                                            <s:url id="edit_url" action="saveDieuchinhPheduyet" escapeAmp="false"
+                                                   var="update_url">
+                                                <s:param name="proc">update</s:param>  
+                                            </s:url>                        
+                                            <sj:a id="update_button_id"  href="%{#update_url}" 
+                                                  targets="content_div"
+                                                  formIds="frmDieuchinhKH_%{khoadc}"    
+                                                  onBeforeTopics="before-next"
+                                                  button="false"
+                                                  cssClass="metroButtonStyle"   
+                                                  >     
+                                                Cập nhật
+                                            </sj:a>
+                                        </div>
+                                    </td>                                     
+                                    
+                                
+                                <td align="center">
+                                        <sj:submit id="idClose" cssClass="metroButtonStyle"  name="nameClose" value="Thoát" onclick="closeSelf()"
+                                                   cssStyle="height:31px;width:95px"></sj:submit>
+                                </td>
+                                
+                                <td width="35%"></td>                                    
+                                
+                                
+                            </tr>
+                            </table>      
+
         </s:form>
-        <div id="luu_thanhcong"></div>
-        <!--        <script>
-                    initTable();
-                </script>-->
+        <!--</div>-->
     </body>
-
-
+   
 </html>
+ 
+         
