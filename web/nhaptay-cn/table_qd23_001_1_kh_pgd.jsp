@@ -52,8 +52,8 @@
                         return;
                     }
                     var pheduyet = 'N';
-                    var ht1 = screen.height - 200;
-                    var wt1 = screen.width - 200;
+                    var ht1 = screen.height - 100;
+                    var wt1 = screen.width - 100;
                     var left1 = 50;//(screen.width / 2) - (wt1 / 2);
                     var top1 = 50;
                     var ngay_bc = $("#ngay_bc_DATE").val();

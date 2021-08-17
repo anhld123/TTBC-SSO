@@ -43,7 +43,7 @@
         </script>     
 
         <script>
-            function nhapDieuchinh(masothue, tendn) {
+            function nhapDieuchinhPheduyet(khoadc, masothue, tendn) {
                 try
                 {
                     if (masothue.length < 3)
@@ -58,7 +58,7 @@
                     var top1 = 50;
                     var ngay_bc = $("#ngay_bc_DATE").val();
                     var khoa_cdtt = $("#khoa_cdtt").val();
-                    var url = "loadDieuchinhKh.action?masothue=" + masothue + "&ngay_bc=" + ngay_bc + "&tendn=" + tendn;
+                    var url = "loadDieuchinhPheduyet.action?masothue=" + masothue + "&ngay_bc=" + ngay_bc + "&tendn=" + tendn + "&khoadc=" + khoadc;
 
                     //$.post(url,param,function(data){});
                     popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
@@ -192,7 +192,7 @@
                 <div id="scrolling_table_1"  style="width: 2000px; max-height:45vh">
                     <table class="editDelete cls-table" >
                         <tr height="50px">      
-                            <!--<th  rowspan="2" class="TD_MAKH">Điều chỉnh KH</th>--> 
+                            <th  rowspan="2" class="TD_MAKH">Điều chỉnh phê duyệt cho vay</th> 
                             <th  rowspan="2" class="TD_MAKH">DS người lao động</th>
                             <th rowspan="2" class="TD_MAKH">Mã doanh nghiệp</th>                           
                             <th rowspan="2" class="TD_TENKH">Tên doanh nghiệp</th>  
@@ -228,7 +228,7 @@
                             <th  class="TD_NGAY">Số tiền được phê duyệt cho vay</th>                            
                         </tr>
                         <tr>
-                            <!--<td style="text-align: center"></td>-->
+                            <td style="text-align: center"></td>
                             <td style="text-align: center"></td> 
                             <td style="text-align: center">1</td>
                             <td style="text-align: center">2</td>
@@ -262,11 +262,16 @@
                             <tr> 
                                 <!--Doanh nghiệp đã được duyệt-->
                                 <s:if test="NHAPTAY.equalsIgnoreCase(1)"> 
-<!--                                    <td align = "center" class="TD_MAKH">
-                                        <a href="javascript:nhapDieuchinh('<s:property value="D3"/>','<s:property value='D2'/>')" class="SOKU linkKh">
-                                            Điều chỉnh giảm
-                                        </a>
-                                    </td> -->
+                                    <s:if test="!D45.equalsIgnoreCase(9)">
+                                        <td align = "center" class="TD_MAKH">
+                                            <a href="javascript:nhapDieuchinhPheduyet('QD23_004','<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>')" class="SOKU linkKh">
+                                                Điều chỉnh
+                                            </a>
+                                        </td> 
+                                    </s:if>
+                                    <s:else>
+                                        <td></td>
+                                    </s:else>
                                     <td align = "center" class="TD_THOIGIAN">
                                         <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>')" class="SOKU linkKh">
                                             Upload
@@ -361,9 +366,9 @@
                                 </s:if>
                                     <!--Doanh nghiệp chưa duyệt-->
                                 <s:else>
-<!--                                    <td>
+                                    <td>
                                        
-                                    </td> -->
+                                    </td> 
                                     <td align = "center" class="TD_THOIGIAN">
                                         <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>')" class="SOKU linkKh">
                                             Upload
