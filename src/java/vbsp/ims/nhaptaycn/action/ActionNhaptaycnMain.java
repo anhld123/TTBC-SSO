@@ -201,6 +201,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
         this.soku = soku;
     }
     protected String masothue;
+    protected String khoadc;
     protected String thangbc;
     
     protected String tenkh;
@@ -1315,6 +1316,14 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     public void setThangbc(String thangbc) {
         this.thangbc = thangbc;
+    }
+
+    public String getKhoadc() {
+        return khoadc;
+    }
+
+    public void setKhoadc(String khoadc) {
+        this.khoadc = khoadc;
     }
 
     

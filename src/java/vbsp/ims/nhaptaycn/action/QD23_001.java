@@ -35,6 +35,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.struts2.ServletActionContext;
+import vbsp.ims.action.Utilities;
 import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
 import vbsp.ims.bcqt.model.DULIEU_NT;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
@@ -44,7 +45,10 @@ import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.DaoDCPLNO;
 import vbsp.ims.define.Define;
 import vbsp.ims.define.DefineFun;
+import vbsp.ims.khnv2021.excel.ExcelExport;
+import vbsp.ims.khnv2021.model.FileExportInfo;
 import vbsp.ims.log.CoreLogger;
+import vbsp.ims.model.khnv.POSModel;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.tdnn.DaoTdnnMain;
 import vbsp.ims.xml.XmlKtgsSync;
@@ -241,6 +245,25 @@ public class QD23_001 extends ActionNhaptaycnMain
         }
         return SUCCESS;
     }
+    
+    public String loadDieuchinhPheduyet() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            HashMap hmParameter = getParameter();
+            Connection conn = new DaoConnect().getConnect();
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            lstDulieuNt50 = daoMain.getDataQd23_001_Dc_pheduyet(conn, hmParameter.get("khoadc").toString(), hmParameter.get("ngay_bc").toString(), UserName, Grade, hmParameter.get("masothue").toString(),hmParameter.get("thangbc").toString());
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
+        }
+        return SUCCESS;
+    }
 
     public String uploadCoVid() {
         try {
@@ -373,6 +396,48 @@ public class QD23_001 extends ActionNhaptaycnMain
             return ERROR;
         }
         return SUCCESS;
+    }
+    
+    public String QD23_001_ExpExcel() {
+        try {
+//            getInfo();
+            request = ServletActionContext.getRequest();
+            String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
+            ExcelExport excelExport = new ExcelExport();
+            List<String> lstSubCommune = new ArrayList<>();
+            lstSubCommune.add("000401");
+            lstSubCommune.add("000402");
+//            if (commune_cd.equals("000000")) {
+//                addActionError("Bạn chưa chọn xã/phường");
+//                return ERROR;
+//            }
+//
+//            List<POSModel> lstCommuneFull = new ArrayList<>();
+//            lstCommuneFull = daoXdkh.getCommuneListAll(pos_cd_username);
+//
+//            if (!subcommune_cd.equals("000000")) {
+//                lstSubCommune.add(subcommune_cd);
+//            } else {
+//                lstSubCommune = daoXdkh.getAllSubCommune(pos_cd_username, commune_cd);
+//            }
+
+//            String communeName = "";
+//            for (int i = 0; i < lstCommuneFull.size(); i++) {
+//                if (lstCommuneFull.get(i).getId().equals(commune_cd)) {
+//                    communeName = lstCommuneFull.get(i).getDesc();
+//                    break;
+//                }
+//            }
+
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01BCTK_QD23(lstSubCommune, "31-aug-2021", "!", savedDir);
+            fileNamelocal = fileInfo.fileName;
+            filereport = fileInfo.filePath;
+            return SUCCESS;
+        } catch (Exception ex) {
+            CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv01a " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " Loi ExpExcelKhnv01a " + ex.getMessage());
+            return ERROR;
+        }
     }
 
     public Date convertStringToDate(String dateString) {

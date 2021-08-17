@@ -32,12 +32,14 @@ import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.chamdiemcn.ModelExcelFile;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.DaoLoadReportParams;
+import vbsp.ims.dao.khnv.DaoDieuchinhkh;
 import vbsp.ims.export.excel.ExportExcelFile;
 import vbsp.ims.loadparams.Combo;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.DcptNoModel;
 import vbsp.ims.model.ModelTreeNode;
+import vbsp.ims.model.khnv.POSModel;
 import vbsp.ims.nhaptaycn.action.QT_DULIEU_NT_50;
 import vbsp.ims.query.ImsFillParaMeter;
 import vbsp.ims.query.ImsPlSqlQuery;
@@ -8351,10 +8353,121 @@ public class DaoNhaptaycnMain {
         }
         return lstBcqt_NT;
     }
+    
+    public List<QT_DULIEU_NT_50> getDataQd23_001_Dc_pheduyet(Connection conn, String sKhoa, String sNgaybc, String sUser,
+            String sGrade, String maDN, String thangdc) {
+        List<QT_DULIEU_NT_50> lstBcqt_NT = new ArrayList<QT_DULIEU_NT_50>();
+        try {
+//            ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
+//            String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
+//            ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
+//            DaoConnect daoconnect = new DaoConnect();
+//            Connection conn = null;
+//            conn = daoconnect.getConnect();
+            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sNgaybc);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+            String dateStr = sdf.format(date1);
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call VBSP_IMS_NHAPTAYCN.SP_GET_DATA_QD2301_DCPHEDUYET(?,?,?,?,?,?,?,?,?)}";
+            ResultSet reset = null;
 
-    public boolean saveQD23_001_Dieuchinh(String khoa, String username, String mapgd, String ngaybc, String capBc, List<QT_DULIEU_NT_50> lstData, String thangbc) throws SQLException {
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(8, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(1, sKhoa);
+                calstatement.setString(2, sUser);
+                calstatement.setString(3, sGrade);
+                calstatement.setString(4, dateStr);
+                calstatement.setString(5, maDN);
+                calstatement.setString(9, thangdc);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+                int pn_err_cd = calstatement.getInt(6);
+                //thu hien lay mo ta loi
+                String strEdd_txt = calstatement.getString(7);
+                //Lay cursor ra resultset
+                reset = (ResultSet) calstatement.getObject(8);
+                while (reset.next()) {
+
+                    QT_DULIEU_NT_50 value = QT_DULIEU_NT_50.newInstance();
+                    value.setKHOA(reset.getString(1));
+                    value.setTHUTU(reset.getInt(2));
+                    value.setTT_HIENTHI(reset.getString(3));
+                    value.setMA(reset.getString(4));
+                    value.setTEN(reset.getString(5));
+                    value.setNGAYBC(reset.getDate(6));
+                    value.setNAMBC(reset.getInt(7));
+                    value.setMAPGD(reset.getString(8));
+                    value.setMACN(reset.getString(10));
+//                    value.setD1(reset.getString(14));
+                    value.setD1(reset.getString(15));
+                    value.setD2(reset.getString(16));
+                    value.setD3(reset.getString(17));
+                    value.setD4(reset.getString(18));
+                    value.setD5(reset.getString(19));
+                    value.setD6(reset.getString(20));
+                    value.setD7(reset.getString(21));
+                    value.setD8(reset.getString(22));
+                    value.setD9(reset.getString(23));
+                    value.setD10(reset.getString(24));
+                    value.setD11(reset.getString(25));
+                    value.setD12(reset.getString(26));
+                    value.setD13(reset.getString(27));
+                    value.setD14(reset.getString(28));
+                    value.setD15(reset.getString(29));
+                    value.setD16(reset.getString(30));
+                    value.setD17(reset.getString(31));
+                    value.setD18(reset.getString(32));
+                    value.setD19(reset.getString(33));
+                    value.setD20(reset.getString(34));
+                    value.setD21(reset.getString(35));
+
+                    value.setD22(reset.getString(36));
+                    value.setD23(reset.getString(37));
+                    value.setD24(reset.getString(38));
+                    value.setD25(reset.getString(39));
+                    value.setD26(reset.getString(40));
+                    value.setD27(reset.getString(41));
+                    value.setD28(reset.getString(42));
+                    value.setD29(reset.getString(43));
+                    value.setD30(reset.getString(44));
+                    value.setNHAPTAY(reset.getString(45));
+                    value.setFONTFORMAT(reset.getString(46));
+
+                    lstBcqt_NT.add(value);
+                }
+
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+//                if (conn != null) {
+//                    conn.close();
+//                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " getDataQd23_001 -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getDataQd23_001 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataQd23_001 -> " + e.getMessage());
+        }
+        return lstBcqt_NT;
+    }
+
+    public boolean saveQD23_001_Dieuchinh(String khoa, String username, String mapgd, String ngaybc, String capBc, List<QT_DULIEU_NT_50> lstData, String thangbc) throws SQLException, ParseException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(ngaybc);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+            String dateStr = sdf.format(date1);
         Object array[] = lstData.toArray();
         ArrayDescriptor des = ArrayDescriptor
                 .createDescriptor(QT_DULIEU_NT_50.ORACLE_TABLE_TYPE, connection);
@@ -8366,7 +8479,7 @@ public class DaoNhaptaycnMain {
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
-            cs.setString(4, ngaybc);
+            cs.setString(4, dateStr);
             cs.setString(5, capBc);
             cs.setArray(6, array_to_pass);
             cs.setString(7, thangbc);
@@ -8529,5 +8642,166 @@ public class DaoNhaptaycnMain {
 
         }
         return 0;
+    }
+    
+    public ArrayList<POSModel> getPosExportFile(String posCode, String KHOA){
+       List<String> lstData = new ArrayList<>();
+       ArrayList<POSModel> posList = new ArrayList<>();
+       try{
+        DaoConnect daoconnect = new DaoConnect();
+        Connection conn = null;
+        conn = daoconnect.getConnect();
+        CallableStatement calstatement = null;
+        ResultSet reset = null;
+//        try {
+        //Khoi tao procedure cung voi tham so truyen vao la dau ?
+        String strStoreproce = "{call VBSP_IMS_NHAPTAYCN.SP_LOAD_ALL_POS(?,?,?,?,?)}";
+        try {
+            //Khoi tao goi store
+            calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.NUMBER);
+            calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.VARCHAR);
+            calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.CURSOR);
+            calstatement.setString(1, posCode);
+            calstatement.setString(5, KHOA);
+            //Thuc hien execute lay du lieu
+            calstatement.execute();
+            //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+            int pn_err_cd = calstatement.getInt(2);
+            //thu hien lay mo ta loi
+            String strEdd_txt = calstatement.getString(3);
+            //Lay cursor ra resultset
+            reset = (ResultSet) calstatement.getObject(4);
+//                reset = (ResultSet) calstatement.getObject(2);
+
+                while (reset.next()) {
+                    POSModel p = new POSModel();
+                    p.setId(reset.getString("MA"));
+                    p.setDesc(reset.getString("TEN"));
+
+                    posList.add(p);
+                }
+
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Loi trong ham getCommuneList " + e.getMessage());
+                CoreLogger.error(POSModel.class.getCanonicalName() + " getPosList  -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getCommuneList " + e.getMessage());
+            CoreLogger.error(DaoDieuchinhkh.class.getCanonicalName() + " getPosList  -> " + e.getMessage());
+        }
+        return posList;
+    }
+    
+    public List<QT_DULIEU_NT_50> getDataEportElxQD23001(String maBC, String poscd,String sGrade, String sNgaybc) {
+        List<QT_DULIEU_NT_50> lstBcqt_NT = new ArrayList<QT_DULIEU_NT_50>();
+        try {
+//            ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
+//            String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
+//            ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+    
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call VBSP_IMS_NHAPTAYCN.SP_GET_DATA_EXP_QD23001(?,?,?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(1, maBC);
+                calstatement.setString(2, poscd);
+                calstatement.setString(3, sGrade);
+                calstatement.setString(4, sNgaybc);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+                int pn_err_cd = calstatement.getInt(5);
+                //thu hien lay mo ta loi
+                String strEdd_txt = calstatement.getString(6);
+                //Lay cursor ra resultset
+                reset = (ResultSet) calstatement.getObject(7);
+                while (reset.next()) {
+
+                    QT_DULIEU_NT_50 value = QT_DULIEU_NT_50.newInstance();
+                    value.setKHOA(reset.getString(1));
+                    value.setTHUTU(reset.getInt(2));
+                    value.setTT_HIENTHI(reset.getString(3));
+                    value.setMA(reset.getString(4));
+                    value.setTEN(reset.getString(5));
+                    value.setNGAYBC(reset.getDate(6));
+                    value.setNAMBC(reset.getInt(7));
+                    value.setMAPGD(reset.getString(8));
+                    value.setMACN(reset.getString(10));
+//                    value.setD1(reset.getString(14));
+                    value.setD1(reset.getString(15));
+                    value.setD2(reset.getString(16));
+                    value.setD3(reset.getString(17));
+                    value.setD4(reset.getString(18));
+                    value.setD5(reset.getString(19));
+                    value.setD6(reset.getString(20));
+                    value.setD7(reset.getString(21));
+                    value.setD8(reset.getString(22));
+                    value.setD9(reset.getString(23));
+                    value.setD10(reset.getString(24));
+                    value.setD11(reset.getString(25));
+                    value.setD12(reset.getString(26));
+                    value.setD13(reset.getString(27));
+                    value.setD14(reset.getString(28));
+                    value.setD15(reset.getString(29));
+                    value.setD16(reset.getString(30));
+                    value.setD17(reset.getString(31));
+                    value.setD18(reset.getString(32));
+                    value.setD19(reset.getString(33));
+                    value.setD20(reset.getString(34));
+                    value.setD21(reset.getString(35));
+
+                    value.setD22(reset.getString(36));
+                    value.setD23(reset.getString(37));
+                    value.setD24(reset.getString(38));
+                    value.setD25(reset.getString(39));
+                    value.setD26(reset.getString(40));
+                    value.setD27(reset.getString(41));
+                    value.setD28(reset.getString(42));
+                    value.setD29(reset.getString(43));
+                    value.setD30(reset.getString(44));
+                    value.setNHAPTAY(reset.getString(45));
+                    value.setFONTFORMAT(reset.getString(46));
+
+                    lstBcqt_NT.add(value);
+                }
+
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+//                if (conn != null) {
+//                    conn.close();
+//                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " getDataQd23_001 -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getDataQd23_001 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataQd23_001 -> " + e.getMessage());
+        }
+        return lstBcqt_NT;
     }
 }
