@@ -484,9 +484,16 @@
             </result>  
         </action>
         
-        <action name="loadDieuchinhPheduyet" class="vbsp.ims.nhaptaycn.action.QD23_001" method="loadDieuchinhPheduyet">
+        <action name="loadDieuchinhPheduyetChovay" class="vbsp.ims.nhaptaycn.action.QD23_001" method="loadDieuchinhPheduyetChovay">
+            <result name="pgd_dc_pheduyet_cv">/nhaptay-cn/table_qd23_001_dc_pheduyet_chovay.jsp</result>               
+            <result name="pgd_dc_pheduyet_gn">/nhaptay-cn/table_qd23_001_dc_pheduyet_giaingan.jsp</result>    
+            <result name="error">  
+                /chamdiem_canhan/success.jsp
+            </result>  
+        </action>
+        <action name="loadDieuchinhPheduyetGiaingan" class="vbsp.ims.nhaptaycn.action.QD23_001" method="loadDieuchinhPheduyetGiaingan">
             <result name="success">  
-                /nhaptay-cn/table_qd23_001_dc_pheduyet_pgd.jsp
+                /nhaptay-cn/table_qd23_001_dc_pheduyet_giaingan.jsp
             </result>               
             <result name="error">  
                 /chamdiem_canhan/success.jsp
@@ -498,6 +505,11 @@
         </action>
         
         <action name="saveDieuchinhKH" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveDieuchinhKH">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>
+        </action>
+        
+        <action name="saveDieuchinhPheduyet" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveDieuchinhPheduyet">
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>
         </action>
