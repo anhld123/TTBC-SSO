@@ -8438,7 +8438,16 @@ public class DaoNhaptaycnMain {
                     value.setD30(reset.getString(44));
                     value.setNHAPTAY(reset.getString(45));
                     value.setFONTFORMAT(reset.getString(46));
-
+                    
+                    value.setD31(reset.getString(48));
+                    value.setD32(reset.getString(49));
+                    value.setD33(reset.getString(50));
+                    value.setD34(reset.getString(51));
+                    value.setD35(reset.getString(52));
+                    value.setD36(reset.getString(53));
+                    value.setD37(reset.getString(54));
+                    value.setD38(reset.getString(55));
+                    value.setD39(reset.getString(56));
                     lstBcqt_NT.add(value);
                 }
 

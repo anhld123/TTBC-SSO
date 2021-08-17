@@ -226,6 +226,35 @@ public class QD23_001 extends ActionNhaptaycnMain
         addActionMessage("Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
     }
+    
+    public String saveDieuchinhPheduyet() {
+//        System.err.println("Save - QD23_001");
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            if (lstDulieuNt50 == null || lstDulieuNt50.size() == 0) {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
+                return ERROR;
+            }
+
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            HashMap hmParameter = getParameter();
+
+            if (!daoMain.saveQD23_001_Dieuchinh(hmParameter.get("khoadc").toString(), UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt50,hmParameter.get("thangbc").toString())) {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                return ERROR;
+            }
+
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> saveDieuchinhKH: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> saveDieuchinhKH: " + e.getMessage());
+            addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+            return ERROR;
+        }
+        addActionMessage("Bạn đã lưu dữ liệu thành công");
+        return SUCCESS;
+    }
 
     public String loadDieuchinhKh() {
         try {
@@ -246,7 +275,7 @@ public class QD23_001 extends ActionNhaptaycnMain
         return SUCCESS;
     }
     
-    public String loadDieuchinhPheduyet() {
+    public String loadDieuchinhPheduyetChovay() {
         try {
             if (!getParaSession()) {
                 return ERROR;
@@ -254,13 +283,19 @@ public class QD23_001 extends ActionNhaptaycnMain
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
-            lstDulieuNt50 = daoMain.getDataQd23_001_Dc_pheduyet(conn, hmParameter.get("khoadc").toString(), hmParameter.get("ngay_bc").toString(), UserName, Grade, hmParameter.get("masothue").toString(),hmParameter.get("thangbc").toString());
+            lstDulieuNt50 = daoMain.getDataQd23_001_Dc_pheduyet(conn, hmParameter.get("khoadc").toString(), 
+                    hmParameter.get("ngay_bc").toString(), UserName, Grade, hmParameter.get("masothue").toString(),hmParameter.get("thangbc").toString());
             if (conn != null) {
                 conn.close();
             }
+            if(hmParameter.get("khoadc").toString().equals("QD23_004"))
+                return "pgd_dc_pheduyet_cv";
+            else if (hmParameter.get("khoadc").toString().equals("QD23_005"))
+                return "pgd_dc_pheduyet_gn";
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
+            return ERROR;
         }
         return SUCCESS;
     }
