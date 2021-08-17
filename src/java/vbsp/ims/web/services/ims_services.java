@@ -126,7 +126,7 @@ public class ims_services {
                         return Define.WEB_SERVICES_STATUS_SEND;
                     }
                 }
-
+                break;
                 case Define.PARA_SYN_REPORT_PHIUT: {
                     HashMap<String, Object> hmHeader = new XmlBcqtSync().readXmlBCQT(strFulPathFile);
                     if (hmHeader.get(Define.XML_MA_BCQT).toString().equals("QD23_004")) {
@@ -140,7 +140,7 @@ public class ims_services {
                         }
                     }
                 }
-
+                break;
                 case Define.PARA_SYN_REPORT_KHNV2021: {
                     HashMap<String, Object> hmHeader = new XmlBcqtSync().readXmlBCQT(strFulPathFile);
                     int icount = new XDKHDao2021().getPosSendDataLockKHNV(hmHeader.get(Define.XML_TYPE_BCQT).toString(),
@@ -152,7 +152,6 @@ public class ims_services {
                         return Define.WEB_SERVICES_STATUS_SEND;
                     }
                 }
-
                 break;
                 case Define.PARA_SYN_REPORT_DATA:
                     break;
