@@ -484,6 +484,15 @@
             </result>  
         </action>
         
+        <action name="loadDieuchinhPheduyet" class="vbsp.ims.nhaptaycn.action.QD23_001" method="loadDieuchinhPheduyet">
+            <result name="success">  
+                /nhaptay-cn/table_qd23_001_dc_pheduyet_pgd.jsp
+            </result>               
+            <result name="error">  
+                /chamdiem_canhan/success.jsp
+            </result>  
+        </action>
+        
         <action name="saveUploadDsNguoiLD_QD23" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveUploadDsNguoiLD_QD23">
             <result name="success">/nhaptay-cn/table-result-upload-nld_qd23.jsp</result>               
         </action>
@@ -492,6 +501,11 @@
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>
         </action>
+        
+        <action name="QD23_001_ExpExcel" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="QD23_001_ExpExcel">
+            <result name="success">downfile_bcnhanh.jsp</result>  
+            <result name="error">/error.jsp</result>        
+        </action> 
                 
         <!--gui so lieu -->
         <action name="sendPhiUT" class="vbsp.ims.nhaptaycn.action.ActionNhaptaycnMain"  method="sendPhiUT">
