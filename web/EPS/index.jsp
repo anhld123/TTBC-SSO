@@ -116,6 +116,8 @@
         });
     });
     function SendData(event) {
+        $("#btnXem").val("Đang tải dữ liệu");
+        $("#btnXem").prop('disabled', true);
         var surl, sdata, idView, idForm, method;
         surl = event.data.url + "?status=" + event.data.status;
         idView = "#ShowData";
@@ -138,6 +140,11 @@
                     $(idView).html(result);
                 }
             },
+            complete: function () {
+                $("#btnXem").val("Xem dữ liệu");
+                $("#btnXem").prop('disabled', false);
+            }
+            ,
             error: function () {
                 alert('Lỗi khi thực hiện.');
             }

@@ -87,7 +87,7 @@
                         </td>
                         <td style="text-align: center;" class="mokhoa">
                             <s:if test="D5.equalsIgnoreCase('LOCK')">
-                                <input type="button" id="<s:property  value="%{#idxRows.index}" />" value="Mở khoá" style="background-color: transparent;border: 0px; color: blue;" onclick="<script>alert('đã mở khoá')</script>">
+                                <input type="button" id="<s:property  value="%{#idxRows.index}" />" value="Mở khoá" style="background-color: transparent;border: 0px; color: blue;">
                             </s:if>
                         </td>
                     </tr>
