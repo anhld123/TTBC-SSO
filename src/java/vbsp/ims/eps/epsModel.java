@@ -256,7 +256,7 @@ public class epsModel {
     public void openlock(List<String> macn, List<String> mapgd, List<String> makh, String ngaybc, List<String> soku, String tendn, String status) throws ParseException {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
-        int i = (int) Double.parseDouble(status);
+        int i = (int) Double.parseDouble(status)-1;
         try {
             //Lưu dữ liệu vào CSDL
             if (macn.size() > 0) {
