@@ -285,7 +285,7 @@
                             <tr>  
                                 <s:if test="THUTU.equals(1)">
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D44" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D44" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D44" class="TEN_KH" onfocus="this.select();" readonly="true"/>
                                     </td>
                                 </s:if>
@@ -293,180 +293,180 @@
                                     <td></td>
                                 </s:else>
                                 <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D1" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D1" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH D0" onfocus="this.select();" 
                                                readonly="true"/>
                                         <input type="hidden" value="<s:property  value="NHAPTAY" />" 
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>" />
                                     </td>                                
                                     <td align = "right" class="TD_TENKH" >
-                                        <input type="text"   value="<s:property  value="D2" />"
+                                        <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D2" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D2" class="TEN_KH" onfocus="this.select();" 
                                                readonly="readonly"/>
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D3" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D3" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH D0" onfocus="this.select();" 
                                                readonly="true"/>
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D4" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D4" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D4" class="TEN_KH D0" onfocus="this.select();" 
                                                readonly="true"/>
                                     </td>
                                     <td align = "right" class="TD_TENKH" >
-                                        <input type="text"   value="<s:property  value="D5" />"
+                                        <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>   value="<s:property  value="D5" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH" onfocus="this.select();" 
                                                readonly="true"/>                                                                        
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D6" />"
+                                        <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D6" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH D0" onfocus="this.select();" 
                                                readonly="true"/>                                                                        
                                     </td>
 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D7" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D7" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D7" class="TEN_KH D0" onfocus="this.select();" 
                                                readonly="true"/>                                                                        
                                     </td>
 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D20" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D20" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D20" class="TEN_KH D0" onfocus="this.select();" 
                                                readonly="true"/>                                                                        
                                     </td>
                                     <td align = "right" class="TD_TENKH" >
-                                        <input type="text"   value="<s:property  value="D21" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D21" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D21" class="TEN_KH" onfocus="this.select();" 
                                                readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D8" />"
+                                        <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D8" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH D0" onfocus="this.select();" 
                                                readonly="true"/>                                                                        
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D9" />"
+                                        <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D9" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D9" class="TEN_KH D0" onfocus="this.select();" 
                                                readonly="true"/>                                                                        
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D10" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D10" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D10" class="TEN_KH" onfocus="this.select();" 
                                                readonly="true"/>                                                                        
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D11" />"
+                                        <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D11" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH D0" onfocus="this.select();" 
                                                readonly="true"/>                                                                        
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"  value="<s:property  value="D15" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D15" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D15" class="D15 TEN_KH number" onfocus="this.select();" 
                                                readonly="true"/>
                                     </td>
                                     <td align = "right" class="TD_NGAY" >
-                                        <input type="text"   value="<s:property  value="D12" />"
+                                        <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D12" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D12" class="TEN_KH number" onfocus="this.select();" 
                                                readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_NGAY" >
-                                        <input type="text"   value="<s:property  value="D14" />"
+                                        <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D14" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D14" class="D14 TEN_KH number" onfocus="this.select();" 
                                                readonly="true"/>
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D13" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D13" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 TEN_KH number" onfocus="this.select();" 
                                                readonly="true"/>
                                     </td> 
 
 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"  value="<s:property  value="D18" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D18" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D18" class="D18 TEN_KH number" onfocus="this.select();" 
                                                readonly="true"/>
                                     </td>
                                     <td align = "right" class="TD_NGAY" >
-                                        <input type="text"   value="<s:property  value="D16" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D16" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D16" class="TEN_KH number" onfocus="this.select();" 
                                                readonly="true"/>
                                     </td>  
                                     <td align = "right" class="TD_NGAY" >
-                                        <input type="text"   value="<s:property  value="D19" />"
+                                        <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D19" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH" onfocus="this.select();" 
                                                readonly="true"/>
                                     </td>  
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D22" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D22" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D22" class="D13 TEN_KH number" onfocus="this.select();" 
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D23" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D23" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D23" class="D13 TEN_KH number" onfocus="this.select();"
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D24" />"
+                                        <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D24" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D24" class="D13 TEN_KH number" onfocus="this.select();" 
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D25" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D25" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D25" class="D13 TEN_KH number" onfocus="this.select();" 
                                                 readonly="true"/>
                                     </td> 
                                      <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D26" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D26" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D26" class="D13 TEN_KH" onfocus="this.select();" 
                                                 readonly="true"/>
                                     </td> 
                                     
                                     <!------------->
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D27" />"
+                                        <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D27" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D27" class="D13 TEN_KH number" onfocus="this.select();" 
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D28" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D28" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D28" class="D13 TEN_KH number" onfocus="this.select();" 
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D29" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D29" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D29" class="D13 TEN_KH number" onfocus="this.select();" 
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D30" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D30" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D30" class="D13 TEN_KH number" onfocus="this.select();" 
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D31" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D31" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D31" class="D13 TEN_KH number" onfocus="this.select();" 
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D32" />"
+                                        <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D32" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D32" class="D13 TEN_KH number" onfocus="this.select();" 
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D33" />"
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D33" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D33" class="D13 TEN_KH number" onfocus="this.select();" 
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D34" />"
+                                        <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D34" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D34" class="D13 TEN_KH number" onfocus="this.select();" 
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D35" />"
+                                        <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D35" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D35" class="D13 TEN_KH" onfocus="this.select();" 
                                                 readonly="true"/>
                                     </td> 
