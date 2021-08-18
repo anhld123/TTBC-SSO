@@ -360,7 +360,7 @@ public class QD23_001 extends ActionNhaptaycnMain
            DaoNhaptaycnMain dao = new DaoNhaptaycnMain();
             Connection conn = new DaoConnect().getConnect();
             String ngay = hmParameter.get("ngay_bc").toString();
-            lstDulieuNt = dao.getDataAfterUpFile(conn, "QD23_002", ngay, "", UserName, Grade, langiangan, masothue);
+            lstDulieuNt = dao.getDataAfterUpFile(conn, "QD23_002", ngay, "", UserName, Grade, hmParameter.get("thangbc").toString(), masothue);
              if (conn != null) {
                 conn.close();
             }
@@ -414,13 +414,13 @@ public class QD23_001 extends ActionNhaptaycnMain
                     addActionError("Bạn chọn file upload không đúng với báo cáo !");
                     return ERROR;
                 }
-                if (!dao.insert_DS_NGUOILD_QD23("QD23_002", poscd, getFileNameNew(), convertStringToDate(sNgayBC), UserName, lstExcel, masothue, langiangan)) {
+                if (!dao.insert_DS_NGUOILD_QD23("QD23_002", poscd, getFileNameNew(), convertStringToDate(sNgayBC), UserName, lstExcel, masothue, hmParameter.get("thangbc").toString())) {
                     addActionError("Lỗi khi đọc dữ liệu từ file excel ");
                     return ERROR;
                 }
             }
             Connection conn = new DaoConnect().getConnect();
-            lstDulieuNt = dao.getDataAfterUpFile(conn, "QD23_002", sNgayBC, poscd, UserName, Grade, langiangan, masothue);
+            lstDulieuNt = dao.getDataAfterUpFile(conn, "QD23_002", sNgayBC, poscd, UserName, Grade, hmParameter.get("thangbc").toString(), masothue);
             if (conn != null) {
                 conn.close();
             }

@@ -8509,7 +8509,7 @@ public class DaoNhaptaycnMain {
         return true;
     }
 
-    public boolean insert_DS_NGUOILD_QD23(String mabc, String poscd, String fileName, Date ngaybc, String username, List<ModelExcelFile> lstExcel, String masothue, String lanGN) throws Exception, SQLException {
+    public boolean insert_DS_NGUOILD_QD23(String mabc, String poscd, String fileName, Date ngaybc, String username, List<ModelExcelFile> lstExcel, String masothue, String thangvay) throws Exception, SQLException {
         boolean bSuccess = true;
         DaoConnect daoconnect = new DaoConnect();
         Connection conn = null;
@@ -8534,7 +8534,7 @@ public class DaoNhaptaycnMain {
 //                    statementDelete.setDate(1, new java.sql.Date(ngaybc.getTime()));
             statementDelete.setString(1, poscd);
             statementDelete.setString(2, mabc);
-            statementDelete.setString(3, dateStr);
+            statementDelete.setString(3, thangvay);
             statementDelete.setString(4, masothue);
 
             statementDelete.execute();
@@ -8553,7 +8553,7 @@ public class DaoNhaptaycnMain {
                 insert.setString(8, value.getN3());
 
                 insert.setString(9, value.getN4());
-                insert.setString(10, dateStr);
+                insert.setString(10, thangvay);
                 insert.setString(11, value.getN6());
                 insert.setString(12, value.getN7());
                 insert.setString(13, value.getN8());
