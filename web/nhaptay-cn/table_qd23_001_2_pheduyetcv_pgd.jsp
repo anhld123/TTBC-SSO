@@ -272,6 +272,7 @@
                                                 Điều chỉnh giảm
                                             </a>
                                         </td> 
+                                        
                                     </s:if>
                                     <s:else>
                                         <td></td>
