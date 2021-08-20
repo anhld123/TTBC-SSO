@@ -229,7 +229,7 @@
                             <td style="text-align: center">39</td>
                             <td style="text-align: center">40</td>
                             <td style="text-align: center">41</td>
-                            <!--<td style="text-align: center">14</td>-->
+                            <td style="text-align: center"></td>
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt50" var="modelView" status="rowstatus">                             
                             <tr>  

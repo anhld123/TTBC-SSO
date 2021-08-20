@@ -459,7 +459,13 @@
                                 <tr style="height: 30px;">
                                     <s:iterator value="lstNhaptaycnParams">
                                         <s:if test="label.equalsIgnoreCase('Mã số thuế/CMTND/CIF')">
-                                            <td >Tìm kiếm:</td>
+                                            <s:if test="Grade.equalsIgnoreCase('3')">
+                                                
+                                            </s:if>
+                                            <s:else>
+                                                <td >Tìm kiếm:</td>
+                                            </s:else>
+                                            
                                         </s:if>
                                         <s:else>
                                             <td ><s:property value="label"></s:property>:</td>
@@ -473,7 +479,13 @@
                                                 </s:if>
 
                                                 <s:else>
-                                                    <input type="text" value="" id="D_<s:property  value="%{fieldName}"/>" name="<s:property value="%{fieldName}"/>_TEXT" placeholder="<s:property value="label"/>"/>
+                                                    <s:if test="fieldName.equalsIgnoreCase('nha_dt') && Grade.equalsIgnoreCase('3')">
+                                                        <input type="hidden" value="" id="D_<s:property  value="%{fieldName}"/>" name="<s:property value="%{fieldName}"/>_TEXT" placeholder="<s:property value="label"/>"/>
+                                                    </s:if>
+                                                    <s:else>
+                                                        <input type="text" value="" id="D_<s:property  value="%{fieldName}"/>" name="<s:property value="%{fieldName}"/>_TEXT" placeholder="<s:property value="label"/>"/>
+                                                    </s:else>
+                                                    
                                                 </s:else>    
 
                                             </s:if>                                              
@@ -495,6 +507,7 @@
 
                                     </s:iterator>     
                                     <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001') && Grade.equalsIgnoreCase('3')">
+                                         <td>&nbsp;|&nbsp</td>
                                         <td >Số QĐ:</td>
                                         <td>
                                             <input type="text" style="text-align:right;width: 100px" value="AAA" id="soqd" name="soqd" class="" placeholder="Số duyết định" />
@@ -526,12 +539,9 @@
                                     <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                                 </td>
                                     
-                                <s:if test="Grade.equalsIgnoreCase('2') && khoa_nhaptaycn.equalsIgnoreCase('QD23_001')">
-                                     <td>&nbsp;&nbsp;&nbsp; </td>
-                                </s:if>
-                                <s:else>
+                               
                                      <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> </td>
-                                </s:else>
+                                <%--</s:else>--%>
                                
 
 
@@ -582,7 +592,7 @@
                                         <input type="button" id="idReLoadtmp" name="nameidReLoadtmp"  onclick="ExpEcel()" value="Xuất Excel" style="width:122px;height:25px;color: red;"/>
 
                                     </s:if>      -->
-                                    <s:if test="Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_001')">  
+                                    <s:if test="Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('QD23_001')">  
                                         <s:url id="idExpEcel" action="QD23_001_ExpExcel.action"></s:url>                                      
                                         <sj:submit id="idExpEceltmp" name="nameSend" href="%{idExpEcel}" value="Xuất 01.BCTK" targets="divExportReport"
                                                    onBeforeTopics="beforediv_send"
@@ -769,7 +779,7 @@
                         var day = getDaysOfMonth(month, year)
                         var daynow = day + "/" + month + "/" + year;
 //                                    alert(daynow)
-                        document.getElementById('ngay_bc_DATE').value = '17/8/2021';//daynow;
+                        document.getElementById('ngay_bc_DATE').value = '20/8/2021';//daynow;
                         var iDate = year + "" + addZeroToLead(month) + "" + addZeroToLead(day);
                         //Gan quy mac dinh
                         //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
