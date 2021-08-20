@@ -5030,7 +5030,7 @@ public class DaoNhaptaycnMain {
         return _retVal;
     }
     
-     public String checkData_Info_50(List<QT_DULIEU_NT_50> lstData, String skhoa, String sNgaybc, String sUser, String sCapbc, List<String> lstArrPoscd) throws SQLException {
+     public String checkData_Info_50(List<QT_DULIEU_NT_50> lstData, String skhoa, String sNgaybc, String sUser, String sCapbc, List<String> lstArrPoscd, String loainv) throws SQLException {
         String _retVal = "";
         Connection conn = new DaoConnect().getConnect();
         CallableStatement calstatement = null;
@@ -5048,7 +5048,7 @@ public class DaoNhaptaycnMain {
         ARRAY oracle_arrayPos = new ARRAY(des_ma, conn, arrayPoscd);
 
         //Khoi tao procedure cung voi tham so truyen vao la dau ?
-        String strStoreproce = "{ ? = call VBSP_IMS_NHAPTAYCN.F_CHECK_DATA_INFO_50(?,?,?,?,?,?) }";
+        String strStoreproce = "{ ? = call VBSP_IMS_NHAPTAYCN.F_CHECK_DATA_INFO_50(?,?,?,?,?,?,?) }";
 
         try {
             //Khoi tao goi Store
@@ -5062,6 +5062,7 @@ public class DaoNhaptaycnMain {
             calstatement.setString(5, sUser);
             calstatement.setString(6, sCapbc);
             calstatement.setArray(7, oracle_arrayPos);
+            calstatement.setString(8, loainv);
             //Thuc hien execute lay du lieu
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -8812,5 +8813,63 @@ public class DaoNhaptaycnMain {
             CoreLogger.error(this.getClass().getName() + " getDataQd23_001 -> " + e.getMessage());
         }
         return lstBcqt_NT;
+    }
+    
+    public List<String> getPosList(String username, String capbc){
+        List<String> lstData = new ArrayList<>();
+        
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call VBSP_IMS_NHAPTAYCN.P_GET_POS_LIST(?, ?, ?, ?, ?)}";
+            ResultSet rsPosList = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                
+                //Truyen vao username
+                calstatement.setString(1, username);          
+                calstatement.setString(2, capbc);          
+//                calstatement.setString(3, "1");          
+                
+                calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
+
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //Lay cursor ra resultset
+                rsPosList = (ResultSet) calstatement.getObject(5);
+
+                while (rsPosList.next()) {
+                    //POSModel p = new POSModel();
+                    //p.setId(rsPosList.getString("PO_MA"));
+                    //p.setDesc(rsPosList.getString("PO_MA") + " - " + rsPosList.getString("PO_TEN"));
+                    String subCommuneId = rsPosList.getString("PO_MA");
+                    lstData.add(subCommuneId);
+                }
+
+//                if (rsPosList != null) {
+//                    rsPosList.close();
+//                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Loi trong ham getPosList " + e.getMessage());
+                CoreLogger.error(DaoDieuchinhkh.class.getCanonicalName() + " getPosList  -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getPosList " + e.getMessage());
+            CoreLogger.error(DaoDieuchinhkh.class.getCanonicalName() + " getPosList  -> " + e.getMessage());
+        }
+        return lstData;
     }
 }

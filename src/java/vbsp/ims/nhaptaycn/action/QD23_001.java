@@ -176,7 +176,7 @@ public class QD23_001 extends ActionNhaptaycnMain
                 }
             else
             {
-                String iCheck = daoMain.checkData_Info_50(lstDulieuNt50,khoa_nhaptaycn,hmParameter.get("ngay_bc").toString(),UserName, Grade, lstDat);
+                String iCheck = daoMain.checkData_Info_50(lstDulieuNt50,khoa_nhaptaycn,hmParameter.get("ngay_bc").toString(),UserName, Grade, lstDat,hmParameter.get("type_action").toString());
                 if(!iCheck.equals("XXXAAA"))
                 {
                     addActionError("Lỗi! "+ iCheck);
@@ -440,8 +440,11 @@ public class QD23_001 extends ActionNhaptaycnMain
             String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
             ExcelExport excelExport = new ExcelExport();
             List<String> lstSubCommune = new ArrayList<>();
-            lstSubCommune.add("000401");
-            lstSubCommune.add("000402");
+            DaoNhaptaycnMain dao = new DaoNhaptaycnMain();
+//            lstSubCommune = dao.getPosList(UserName, Grade);
+            
+            lstSubCommune.add("000100");
+//            lstSubCommune.add("000402");
 //            if (commune_cd.equals("000000")) {
 //                addActionError("Bạn chưa chọn xã/phường");
 //                return ERROR;
@@ -463,8 +466,9 @@ public class QD23_001 extends ActionNhaptaycnMain
 //                    break;
 //                }
 //            }
-
-            FileExportInfo fileInfo = excelExport.xuatExcelMau01BCTK_QD23(lstSubCommune, "31-aug-2021", "!", savedDir);
+            HashMap hmParameter = getParameter();
+            String sNgayBC = hmParameter.get("ngay_bc").toString();
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01BCTK_QD23(lstSubCommune, hmParameter.get("ngay_bc").toString(), "", savedDir);
             fileNamelocal = fileInfo.fileName;
             filereport = fileInfo.filePath;
             return SUCCESS;
