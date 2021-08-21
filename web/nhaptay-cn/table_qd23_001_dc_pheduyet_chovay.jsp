@@ -56,7 +56,7 @@
                 $(".TD_TENKH").css({"width": "130px"});
                 $(".TD_SOKU").css({"width": "120px"});
                 $(".TD_SOTIEN").css({"width": "90px"});
-                $(".TD_CHITIEU").css({"width": "200px"});
+                $(".TD_CHITIEU").css({"width": "250px"});
                 $(".TEN_KH").css({"width": "100%"});
             });
 
@@ -110,7 +110,7 @@
                 <hr/>
                 <%--<s:iterator value="#attr.lstDulieuNt50" var="modelDcpt" status="rowstatus">--%>                        
                     <div class="cls-over">
-                <div id="scrolling_table_1"  style="width: 1440px; max-height:45vh">
+                <div id="scrolling_table_1"  style="width: 1600px; max-height:45vh">
                     <table class="editDelete cls-table" >
                         <tr height="50px">      
                             <!--<th  rowspan="2" class="TD_MAKH">Điều chỉnh phê duyệt cho vay</th>--> 
@@ -128,8 +128,8 @@
                             <th  rowspan="2" class="TD_CHITIEU">Ghi chú</th>    
 -->
                             <th colspan="3">NHẬP KẾT QUẢ PHÊ DUYỆT CHO VAY (NHCSCH) - Điều chỉnh <span style="color:red">+/-</span></th>   
-                            <th rowspan="2" class="TD_NGAY">Ngày đề nghị</th>
-                            <th rowspan="2" class="TD_NGAY">Mức lương vùng</th>
+<!--                            <th rowspan="2" class="TD_NGAY">Ngày đề nghị</th>-->
+                            <th rowspan="2" class="TD_CHITIEU">Lý do điều chỉnh</th>
                             <th rowspan="2" class="TD_NGAY">TT</th>
                         </tr>         
                         <tr>
@@ -171,8 +171,8 @@
                             <td style="text-align: center">23</td>
                             <td style="text-align: center">24</td>
                             <td style="text-align: center">25</td>
-                             <td style="text-align: center">8</td>
-                            <td style="text-align: center">9</td>
+                             <!--<td style="text-align: center">8</td>-->
+                            <td style="text-align: center">17</td>
                             <td style="text-align: center"></td>
                            
                         </tr>
@@ -251,14 +251,14 @@
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D25" class="D13 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                 readonly="true"/>
                                     </td> 
-                                    <td align = "right" class="TD_MAKH" >
+<!--                                    <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D8" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
                                                readonly="true"/>                                                                        
-                                    </td>
-                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D9" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D9" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
+                                    </td>-->
+                                     <td align = "right" class="TD_CHITIEU" >
+                                        <input type="text"   value="<s:property  value="D17" />"
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D17" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
                                                readonly="true"/>                                                                        
                                     </td> 
                                     <td align = "right" class="TD_NGAY" >
@@ -341,15 +341,14 @@
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D25" class="D13 TEN_KH number" onfocus="this.select();" 
                                                 />
                                     </td> 
-                                     <td align = "right" class="TD_MAKH" >
+<!--                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D8" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH D0" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                readonly="true"/>
-                                    </td> 
-                                    <td align = "center" class="TD_NGAY">
-                                        <input type="text" value="<s:property  value="D9" />" id="D8_<s:property  value="%{#rowstatus.index}" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D9" class="TEN_KH D0"  style="background: 	#C0C0C0 !important;"
-                                               readonly="true"/>
+                                    </td> -->
+                                    <td align = "center" class="TD_CHITIEU">
+                                        <input type="text" value="<s:property  value="D17" />" id="D8_<s:property  value="%{#rowstatus.index}" />"
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D17" class="TEN_KH" />
                                     </td>  
                                     <td align = "right" class="TD_NGAY" >
                                         <input type="text"   value="<s:property  value="D37" />"

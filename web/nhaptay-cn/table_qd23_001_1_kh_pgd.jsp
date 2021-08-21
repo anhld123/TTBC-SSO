@@ -72,6 +72,36 @@
                     swal('Lỗi', 'Lỗi: ' + e.toString(), 'error');
                 }
             }
+            
+            function nhapDieuchinhPheduyet(khoadc, masothue, tendn, thangbc) {
+                try
+                {
+                    if (masothue.length < 3)
+                    {
+                        alert('Doanh nghiệp chưa có mã số thuế !');
+                        return;
+                    }
+                    var pheduyet = 'N';
+                    var ht1 = screen.height -100;
+                    var wt1 = screen.width - 100;
+                    var left1 = 50;//(screen.width / 2) - (wt1 / 2);
+                    var top1 = 50;
+                    var ngay_bc = $("#ngay_bc_DATE").val();
+                    var khoa_cdtt = $("#khoa_cdtt").val();
+                    var url = "loadDieuchinhPheduyetChovay.action?masothue=" + masothue + "&ngay_bc=" + ngay_bc + "&tendn=" + tendn + "&khoadc=" + khoadc + "&thangbc=" + thangbc;
+
+                    //$.post(url,param,function(data){});
+                    popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+
+                    window.refreshData = function () {
+                        //alert('aaaa');
+                        $("#loadDatatmp").trigger("click");
+                    };
+                } catch (e)
+                {
+                    swal('Lỗi', 'Lỗi: ' + e.toString(), 'error');
+                }
+            }
 
             function updateDsNguoiLD_QD23(masothue, tendn,thangbc) {
                 try
@@ -192,7 +222,7 @@
                 <div id="scrolling_table_1"  style="width: 2300px; max-height:45vh">
                     <table class="editDelete cls-table" >
                         <tr height="50px">      
-                            <!--<th  rowspan="2" class="TD_MAKH">Điều chỉnh KH</th>--> 
+                            <th  rowspan="2" class="TD_MAKH">Điều chỉnh đề nghị</th> 
                             <th  rowspan="2" class="TD_MAKH">DS người lao động</th>
                             <th rowspan="2" class="TD_MAKH">Mã doanh nghiệp</th>                           
                             <th rowspan="2" class="TD_TENKH">Tên doanh nghiệp <span style="color:red">*</span></th>  
@@ -201,7 +231,7 @@
                             <th rowspan="2" class="TD_TENKH">Tên người đại diện</th>
                             <th rowspan="2" class="TD_NGAY">Ngày tiếp nhận hs <span style="color:red">*</span></th>
                             <th rowspan="2" class="TD_NGAY">Hình thức tiếp nhận <span style="color:red">*</span></th>                            
-                            <th rowspan="2" class="TD_NGAY">Ngành nghề KD chính</th> 
+                            <!--<th rowspan="2" class="TD_NGAY">Ngành nghề KD chính</th>--> 
                             <th rowspan="2" class="TD_TENKH">Địa chỉ</th> 
 
                             
@@ -223,7 +253,7 @@
 
                         </tr>
                         <tr>
-                            <!--<td style="text-align: center"></td>-->
+                            <td style="text-align: center"></td>
                             <td style="text-align: center"></td> 
                             <td style="text-align: center">1</td>
                             <td style="text-align: center">2</td>
@@ -232,7 +262,7 @@
                             <td style="text-align: center">5</td>
                             <td style="text-align: center">6</td>
                             <td style="text-align: center">7</td>
-                            <td style="text-align: center">20</td>
+                            <!--<td style="text-align: center">20</td>-->
                             <td style="text-align: center">21</td>
                             
                             <td style="text-align: center">10</td>
@@ -254,7 +284,16 @@
                                 <!--Doanh nghiệp đã được duyệt-->
                                 
                                 <s:if test="NHAPTAY.equalsIgnoreCase(1)"> 
-                                   
+                                    <s:if test="!D45.equalsIgnoreCase(1)">
+                                        <td align = "center" class="TD_MAKH">
+                                            <a href="javascript:nhapDieuchinhPheduyet('QD23_006','<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>')" class="SOKU linkKh">
+                                                Điều chỉnh
+                                            </a>
+                                        </td> 
+                                    </s:if>
+                                    <s:else>
+                                        <td></td>
+                                    </s:else>
 
                                      <s:if test="!D45.equalsIgnoreCase(9) && !D45.equalsIgnoreCase(0) && !D45.equalsIgnoreCase(5) && !D45.equalsIgnoreCase(6) && !D45.equalsIgnoreCase(7)">
                                         <td align = "center" class="TD_THOIGIAN">
@@ -307,11 +346,11 @@
                                                readonly="true"/>                                                                        
                                     </td>
 
-                                    <td align = "right" class="TD_MAKH" >
+<!--                                    <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D20" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D20" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
                                                readonly="true"/>                                                                        
-                                    </td>
+                                    </td>-->
                                     <td align = "right" class="TD_TENKH" >
                                         <input type="text"   value="<s:property  value="D21" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D21" class="TEN_KH" onfocus="this.select();" style="background:#C0C0C0 !important;"
@@ -384,9 +423,9 @@
                                 </s:if>
                                 <!--Doanh nghiệp chưa duyệt-->
                                 <s:else>
-<!--                                    <td>
+                                    <td>
 
-                                    </td> -->
+                                    </td> 
                                     <s:if test="!D45.equalsIgnoreCase(9) && !D45.equalsIgnoreCase(0) && !D45.equalsIgnoreCase(5) && !D45.equalsIgnoreCase(6) && !D45.equalsIgnoreCase(7)">
                                         <td align = "center" class="TD_THOIGIAN">
                                             <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>')" class="SOKU linkKh">
@@ -438,7 +477,7 @@
                                             cssStyle="width: 100%;vertical-align: middle;background-color: #FFCCBA; TEN_KH">
                                         </s:select>
                                     </td>  
-                                    <td align = "left" class="TD_NGAY">                                        
+<!--                                    <td align = "left" class="TD_NGAY">                                        
                                         <s:select  
                                             id="lstDulieuNt50[%{#rowstatus.index}].D20"
                                             name="lstDulieuNt50[%{#rowstatus.index}].D20"
@@ -449,7 +488,7 @@
                                             headerValue="--- Chọn ---"                                    
                                             cssStyle="width: 100%;vertical-align: middle;background-color: #FFCCBA; TEN_KH">
                                         </s:select>
-                                    </td> 
+                                    </td> -->
                                     <td align = "right" class="TD_TENKH" >
                                         <input type="text"   value="<s:property  value="D21" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D21" class="TEN_KH" onfocus="this.select();"/>

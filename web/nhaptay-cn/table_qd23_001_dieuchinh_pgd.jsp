@@ -30,6 +30,12 @@
             .editDelete td,th{
                 border: 1px solid #999;
             }
+            #idTitle{
+                font: 14px Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                color: #0077b3;
+                text-align: center;
+             }
         </style>
         <script src="js/jquery.number.js"></script>        
         <script type="text/javascript" src="BCQT/javascript/jquery-ui.min.js"></script>
@@ -115,7 +121,7 @@
                                     <th  class="TD_NGAY">Ngày đề nghị <span style="color:red">*</span></th>
                                     <th  class="TD_NGAY">Lần điều chỉnh</th>
                                     <!--<th  class="TD_NGAY">Tổng số lao động được đề nghị vay để trả lương</th>-->    
-                                    <th  class="TD_MAKH">Tổng số tiền được phê duyệt cho vay</th>
+                                    <th  class="TD_TENKH">Chỉ tiêu kế hoạch dư nợ thông báo</th>
                                     <th  class="TD_MAKH">Số tiền đã giải ngân <span style="color:red">*</span></th>
                                     <th  class="TD_MAKH">Số tiền tồn không giải ngân hết <span style="color:red">*</span></th>
                                     <th  class="TD_CHITIEU">Nguyên nhân không giải ngân hết <span style="color:red">*</span></th>
