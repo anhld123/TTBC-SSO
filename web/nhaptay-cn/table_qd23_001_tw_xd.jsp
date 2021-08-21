@@ -184,7 +184,7 @@
                             </div>-->
             </br>
             <div class="cls-over">
-                <div id="scrolling_table_1"  style="width: 1500px; max-height:20vh">
+                <div id="scrolling_table_1"  style="width: 1600px; max-height:20vh">
                     <table class="editDelete cls-table" >
                         <tr height="50px">                                                          
                             <th rowspan="2" class="TD_MAKH">Tỉnh</th>  
@@ -200,6 +200,7 @@
                             <th colspan="5" class="TD_NGAY">Duyệt kế hoạch</th>
                             <th rowspan="2" class="TD_SOTIEN">Giao kế hoạch</th>
                             <th rowspan="2" class="TD_TENKH">Số tài khoản</th>
+                            <th rowspan="2" class="TD_MAKH">Chốt kế hoạch</th>
                         </tr>         
                         <tr>
                             <th class="TD_MAKH">Tính chất vốn</th>
@@ -219,9 +220,9 @@
                             <!--<td>10</td>-->
                             <!--<td>11</td>-->
                             <!--<td>12</td>-->
-                            <td style="text-align: center">8</td>
-                            <td style="text-align: center">9</td>
-                            <td style="text-align: center">13</td>
+                            <td style="text-align: center">43</td>
+                            <td style="text-align: center">44</td>
+                            <td style="text-align: center">25</td>
                             <td style="text-align: center">15</td>
                             <td style="text-align: center">36</td>                            
                             <td style="text-align: center">37</td>                            
@@ -229,7 +230,8 @@
                             <td style="text-align: center">39</td>
                             <td style="text-align: center">40</td>
                             <td style="text-align: center">41</td>
-                            <td style="text-align: center"></td>
+                            <td style="text-align: center">42</td>
+                            <td style="text-align: center">47</td>
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt50" var="modelView" status="rowstatus">                             
                             <tr>  
@@ -270,19 +272,19 @@
                                 </td>
                                
                                 <td align = "right" class="TD_MAKH" >
-                                    <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D8" />"
-                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
+                                    <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D43" />"
+                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D43" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
                                            readonly="true"/>
                                 </td> 
                                 <td align = "right" class="TD_MAKH" >
-                                    <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D9" />"
-                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D9" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
+                                    <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D44" />"
+                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D44" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
                                            readonly="true"/>
                                 </td> 
                              
                                 <td align = "right" class="TD_SOTIEN" >
-                                    <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D13" />"
-                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 TEN_KH number" onfocus="this.select();" style="background:#C0C0C0 !important;"
+                                    <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D25" />"
+                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D25" class="D13 TEN_KH number" onfocus="this.select();" style="background:#C0C0C0 !important;"
                                            readonly="true"/>
                                 </td> 
                                 <td align = "right" class="TD_TENKH" >
@@ -327,6 +329,18 @@
                                     <input type="text"  value="<s:property  value="D42" />"
                                            name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D42" class="TEN_KH D0" onfocus="this.select();"/>
                                 </td>
+                                 <td align = "left" class="TD_MAKH">                                        
+                                    <s:select  
+                                        id="lstDulieuNt50[%{#rowstatus.index}].D47"
+                                        name="lstDulieuNt50[%{#rowstatus.index}].D47"
+                                        list="lstChotKH" 
+                                        listKey="sKey"
+                                        listValue="sDesc"
+                                        headerKey="-1"
+                                        headerValue="--- Chọn ---"                                    
+                                        cssStyle="width: 100%;vertical-align: middle;background-color: #FFCCBA; TEN_KH">
+                                    </s:select>
+                                </td>  
                             </tr>                                                                                                                                                                                   
                         </s:iterator>
                     </table>        
