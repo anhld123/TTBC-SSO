@@ -292,6 +292,8 @@ public class QD23_001 extends ActionNhaptaycnMain
                 return "pgd_dc_pheduyet_cv";
             else if (hmParameter.get("khoadc").toString().equals("QD23_005"))
                 return "pgd_dc_pheduyet_gn";
+            else if (hmParameter.get("khoadc").toString().equals("QD23_006"))
+                return "pgd_dc_pheduyet_dn";
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
