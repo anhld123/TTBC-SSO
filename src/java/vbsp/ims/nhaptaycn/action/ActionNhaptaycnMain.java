@@ -201,6 +201,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
         this.soku = soku;
     }
     protected String masothue;
+    protected String tc_von;
     protected String khoadc;
     protected String thangbc;
     
@@ -237,6 +238,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected List<ListValue> lstNgayluongHD = new ArrayList<ListValue>();
     protected List<ListValue> lstLuongVung = new ArrayList<ListValue>();
     protected List<ListValue> lstTinhchatNV = new ArrayList<ListValue>();
+    protected List<ListValue> lstChotKH = new ArrayList<ListValue>();
     protected List<ListValue> lstTide = new ArrayList<ListValue>();
     
     protected List<ListValue> lstPLKT = new ArrayList<ListValue>();
@@ -1059,6 +1061,14 @@ public class ActionNhaptaycnMain extends ActionSupport {
             List<String> lstPos = (List<String>) hmParameter.get("poscd");
             DaoNhaptaycnMain daosync = DaoNhaptaycnMain.newInstance();
             Map<String, Integer> mapStatusSend = new HashMap();
+            if(khoa_nhaptaycn.equals("QD23_001"))
+            {
+                 if(daosync.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString())==0)
+                {
+                    addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
+                            return ERROR; 
+                }
+            }
             if (khoa_nhaptaycn.equals("PHIUT_001")) {
                 lstPos = daosync.getAllPosUser(UserName, "PHIUT_001");
             }
@@ -1324,6 +1334,22 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     public void setKhoadc(String khoadc) {
         this.khoadc = khoadc;
+    }
+
+    public String getTc_von() {
+        return tc_von;
+    }
+
+    public void setTc_von(String tc_von) {
+        this.tc_von = tc_von;
+    }
+
+    public List<ListValue> getLstChotKH() {
+        return lstChotKH;
+    }
+
+    public void setLstChotKH(List<ListValue> lstChotKH) {
+        this.lstChotKH = lstChotKH;
     }
 
     

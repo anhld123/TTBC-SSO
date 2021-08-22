@@ -129,6 +129,7 @@ public class QD23_001 extends ActionNhaptaycnMain
                         soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh+"#"+sotide, 
                         hmParameter.get("type_action").toString());
                 setLstTinhchatNV(daoMain.getCanBo(UserName, "TINHTCHAT_NV"));
+                setLstChotKH(daoMain.getCanBo(UserName, "CHOTKH"));
                 return "xaydungkh_tw";
             }
             else if (Grade.equals("3") && hmParameter.get("type_action").toString().equals("2")) {
@@ -168,6 +169,11 @@ public class QD23_001 extends ActionNhaptaycnMain
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
 //            String sNv = hmParameter.get("type_action").toString();
+            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString())==0)
+            {
+                addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
+                        return ERROR; 
+            }
             if (hmParameter.get("type_action").toString().equals("2") && Grade.equals("3")) { //Duyệt TH điều chỉnh KH
                     if (!daoMain.saveQD23_001("QD23_003", UserName, "", hmParameter.get("ngay_bc").toString(), Grade, lstDulieuNt50, hmParameter.get("type_action").toString())) {
                         addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
@@ -211,7 +217,11 @@ public class QD23_001 extends ActionNhaptaycnMain
 
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
-
+            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString())==0)
+            {
+                addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
+                        return ERROR; 
+            }
             if (!daoMain.saveQD23_001_Dieuchinh("QD23_003", UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt50,hmParameter.get("thangbc").toString())) {
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;
@@ -240,7 +250,11 @@ public class QD23_001 extends ActionNhaptaycnMain
 
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
-
+            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString())==0)
+            {
+                addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
+                        return ERROR; 
+            }
             if (!daoMain.saveQD23_001_Dieuchinh(hmParameter.get("khoadc").toString(), UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt50,hmParameter.get("thangbc").toString())) {
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;
