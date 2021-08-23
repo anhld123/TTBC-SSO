@@ -868,7 +868,7 @@ public class ExcelExport {
         }
     }
     
-    public FileExportInfo xuatExcelMau01BCTK_QD23(List<String> lstPosCd, String reportDate, String capBC, String savedDirPath) {
+    public FileExportInfo xuatExcelMau01BCTK_QD23(List<String> lstPosCd, String reportDate, String capBC, String savedDirPath, String pos_user) {
         String filePath = "", fileName = "";
         List<String> lstOfTextFile = new ArrayList<>();
         List<DownloadFileInfor> filesList = new ArrayList<>();
@@ -884,11 +884,11 @@ public class ExcelExport {
 //            int preYear = Integer.parseInt(namBc) - 1;
 //            String strPreYear = Integer.toString(preYear);
 
-            for (String strSubCommuneCode : lstPosCd) {
+//            for (String strSubCommuneCode : lstPosCd) {
 
-                if (strSubCommuneCode.equals("000000")) {
-                    continue;
-                }
+//                if (strSubCommuneCode.equals("000000")) {
+//                    continue;
+//                }
                 //String save_id = "KHNV01A";
 
                 //xu ly cho export file ra PDF hoac la Excel
@@ -898,7 +898,7 @@ public class ExcelExport {
                 String strPathSave = savedDirPath;
                 //Ham nay lay ra ten file bao cao can tao, ten file jasper report
 
-                String strFileSave =  "MAU_01BCTK_" + strSubCommuneCode
+                String strFileSave =  "MAU_01BCTK_" + pos_user
                         + "_" + strCurrDate
                         + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
 
@@ -916,7 +916,7 @@ public class ExcelExport {
                 // Get data
 //                DaoMau01A daoMau01A = new DaoMau01A();
                 DaoNhaptaycnMain dao = new DaoNhaptaycnMain();
-                List<QT_DULIEU_NT_50> lstData = dao.getDataEportElxQD23001("QD23_001", strSubCommuneCode, "1",  reportDate);
+                List<QT_DULIEU_NT_50> lstData = dao.getDataEportElxQD23001("QD23_001", pos_user, "1",  reportDate, lstPosCd);
 
                 if (lstData.size() > 0) {
 
@@ -1035,6 +1035,57 @@ public class ExcelExport {
 //                        xssfCell05.setCellStyle(numberStyle);
                         xssfCell05.setCellValue(lstData.get(i).D5);
 
+                        XSSFCell xssfCell06 = xssfRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell06.setCellValue(lstData.get(i).D6);
+                        
+                         XSSFCell xssfCell07 = xssfRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell07.setCellValue(lstData.get(i).D7);
+                        
+                         XSSFCell xssfCell08 = xssfRow.getCell(7, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell08.setCellValue(lstData.get(i).D8);
+                        
+                         XSSFCell xssfCell09 = xssfRow.getCell(8, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell09.setCellValue(lstData.get(i).D9);
+                        
+                         XSSFCell xssfCell10 = xssfRow.getCell(9, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell10.setCellValue(lstData.get(i).D10);
+                        
+                         XSSFCell xssfCell11 = xssfRow.getCell(10, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell11.setCellValue(lstData.get(i).D11);
+                        
+                         XSSFCell xssfCell12 = xssfRow.getCell(11, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell12.setCellValue(lstData.get(i).D12);
+                        
+                         XSSFCell xssfCell13 = xssfRow.getCell(12, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell13.setCellValue(lstData.get(i).D13);
+                        
+                         XSSFCell xssfCell14 = xssfRow.getCell(13, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell14.setCellValue(lstData.get(i).D14);
+                        
+                         XSSFCell xssfCell15 = xssfRow.getCell(14, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell15.setCellValue(lstData.get(i).D15);
+                        
+                         XSSFCell xssfCell16 = xssfRow.getCell(15, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell16.setCellValue(lstData.get(i).D16);
+                        
+                         XSSFCell xssfCell17 = xssfRow.getCell(16, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell17.setCellValue(lstData.get(i).D17);
+                        
+                         XSSFCell xssfCell18 = xssfRow.getCell(17, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell18.setCellValue(lstData.get(i).D18);
+                        
+                         XSSFCell xssfCell19 = xssfRow.getCell(18, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell19.setCellValue(lstData.get(i).D19);
+                        
+                         XSSFCell xssfCell20 = xssfRow.getCell(19, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell20.setCellValue(lstData.get(i).D20);
+                        
+                         XSSFCell xssfCell21 = xssfRow.getCell(20, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell21.setCellValue(lstData.get(i).D21);
+                        
+                         XSSFCell xssfCell22 = xssfRow.getCell(21, Row.CREATE_NULL_AS_BLANK);
+                        xssfCell22.setCellValue(lstData.get(i).D22);
+                        
 //                        XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
 //                        lockStyle = xssfCell04.getCellStyle();
 //                        lockStyle.setDataFormat(format.getFormat("#,##0.00"));
@@ -1072,7 +1123,7 @@ public class ExcelExport {
                         DefineFun.round_up((double) file.getSize() / 1000) + " KB"));
                 fullPathList.add(file.getAbsolutePath());
                 zipPath = Define.M_ROOT + Define.M_REPORT_XLS + zipFile;
-            }
+//            }
 
             if (fullPathList.size() > 1) {
                 try {
