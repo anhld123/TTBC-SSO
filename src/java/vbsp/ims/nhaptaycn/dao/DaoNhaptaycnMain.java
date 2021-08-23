@@ -8526,8 +8526,8 @@ public class DaoNhaptaycnMain {
         try {
             conn = daoconnect.getConnect();
             sInsert = "insert into dulieu_nt(KHOA,TT_HIENTHI, MAPGD, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D15 , ngaybc, "
-                    + " NGUOI_NHAP)\n"
-                    + "values(?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + " NGUOI_NHAP, D19,D45)\n"
+                    + "values(?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, to_char(sysdate,'DD/MM/YYYY'),'1')";
             conn.setAutoCommit(false);
             insert = conn.prepareStatement(sInsert);
             Delete = "delete from dulieu_nt where MAPGD=? and khoa = ? and D7 = ? and d15 = ?";
@@ -8712,19 +8712,20 @@ public class DaoNhaptaycnMain {
         return posList;
     }
     
-    public List<QT_DULIEU_NT_50> getDataEportElxQD23001(String maBC, String poscd,String sGrade, String sNgaybc) {
+    public List<QT_DULIEU_NT_50> getDataEportElxQD23001(String maBC, String poscd,String sGrade, String sNgaybc, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT_50> lstBcqt_NT = new ArrayList<QT_DULIEU_NT_50>();
         try {
-//            ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
-//            String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
-//            ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
+            
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
             conn = daoconnect.getConnect();
-    
+            
+            ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
+            String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
+            ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_IMS_NHAPTAYCN.SP_GET_DATA_EXP_QD23001(?,?,?,?,?,?,?)}";
+            String strStoreproce = "{call VBSP_IMS_NHAPTAYCN.SP_GET_DATA_EXP_QD23001(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
 
             try {
@@ -8737,6 +8738,7 @@ public class DaoNhaptaycnMain {
                 calstatement.setString(2, poscd);
                 calstatement.setString(3, sGrade);
                 calstatement.setString(4, sNgaybc);
+                calstatement.setArray(8, oracle_arrayPoscd);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)

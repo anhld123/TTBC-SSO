@@ -217,7 +217,11 @@ public class QD23_001 extends ActionNhaptaycnMain
 
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
-            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString())==0)
+            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(hmParameter.get("ngay_bc").toString());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+            String dateStr = sdf.format(date1);
+            
+            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade, dateStr)==0)
             {
                 addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
                         return ERROR; 
@@ -250,7 +254,11 @@ public class QD23_001 extends ActionNhaptaycnMain
 
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
-            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString())==0)
+            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(hmParameter.get("ngay_bc").toString());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+            String dateStr = sdf.format(date1);
+            
+            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  dateStr)==0)
             {
                 addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
                         return ERROR; 
@@ -452,6 +460,9 @@ public class QD23_001 extends ActionNhaptaycnMain
     public String QD23_001_ExpExcel() {
         try {
 //            getInfo();
+            if (!getParaSession()) {
+                return ERROR;
+            }
             request = ServletActionContext.getRequest();
             String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
             ExcelExport excelExport = new ExcelExport();
@@ -484,7 +495,7 @@ public class QD23_001 extends ActionNhaptaycnMain
 //            }
             HashMap hmParameter = getParameter();
             String sNgayBC = hmParameter.get("ngay_bc").toString();
-            FileExportInfo fileInfo = excelExport.xuatExcelMau01BCTK_QD23(lstSubCommune, hmParameter.get("ngay_bc").toString(), "", savedDir);
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01BCTK_QD23(poscd, hmParameter.get("ngay_bc").toString(), "", savedDir, pos_cd_username);
             fileNamelocal = fileInfo.fileName;
             filereport = fileInfo.filePath;
             return SUCCESS;
