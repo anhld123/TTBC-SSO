@@ -17,6 +17,8 @@ public class ReportTemplate {
     public static int MAU_01A_START_ROW = 12;
     public static int MAU_02_START_ROW = 11;
     
+    public static int MAU_QD23001_START_ROW = 4;
+    
     public static String DIRECTORY = "1";
     public static String FILE = "2";
     

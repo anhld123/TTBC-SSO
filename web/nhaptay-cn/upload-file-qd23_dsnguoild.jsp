@@ -130,6 +130,7 @@
                 <input type="hidden" name="endcell" value="35" id="id_endcell">
                 <s:hidden name="ngay_bc" id="ngay_bc"/>
                 <s:hidden name="masothue" id="masothue"/>
+                <s:hidden name="thangbc" id="thangbc"/>
                 </br>
                 <div id="divTitle">
                     DANH SÁCH NGƯỜI LAO ĐỘNG

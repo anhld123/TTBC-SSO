@@ -69,7 +69,9 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
 
-     protected String pos_cd_username;
+    protected String pos_cd_username;
+    
+    protected int lockStatus;
      
     public List<ListValue> getLstBDD() {
         return lstBDD;
@@ -199,6 +201,10 @@ public class ActionNhaptaycnMain extends ActionSupport {
         this.soku = soku;
     }
     protected String masothue;
+    protected String tc_von;
+    protected String khoadc;
+    protected String thangbc;
+    
     protected String tenkh;
     protected String soku;
     
@@ -226,11 +232,17 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected TreeNode nodes_pos = new TreeNode();
     protected List<DULIEU_NT> lstNt = new ArrayList<>();
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
+    protected List<QT_DULIEU_NT_50> lstDulieuNt50 = new ArrayList<>();
     protected List<QT_DULIEU_NT> lstCombox = new ArrayList<>();
     protected List<ListValue> lstHinhthucTNHS = new ArrayList<ListValue>();
     protected List<ListValue> lstNgayluongHD = new ArrayList<ListValue>();
     protected List<ListValue> lstLuongVung = new ArrayList<ListValue>();
     protected List<ListValue> lstTinhchatNV = new ArrayList<ListValue>();
+    protected List<ListValue> lstChotKH = new ArrayList<ListValue>();
+    protected List<ListValue> lstTide = new ArrayList<ListValue>();
+    
+    protected List<ListValue> lstPLKT = new ArrayList<ListValue>();
+    protected List<ListValue> lstDTTH = new ArrayList<ListValue>();
 
     private List<ListValue> lstCapKT = new ArrayList<ListValue>();
     private List<ListValue> lstDVUT = new ArrayList<ListValue>();
@@ -661,11 +673,17 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 }
                 return "KSNB_02";
             }
+            if (khoa_nhaptaycn.equals("QD23_001")) {
+                setLstTide(daoMain.getCanBo(UserName, "TIDE595"));
+            }
+            
 
             lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn, UserName, Grade);
             if (conn != null) {
                 conn.close();
             }
+            
+            lockStatus = 0;
 
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> loadPataNhaptaycn: " + e.getMessage());
@@ -1001,6 +1019,37 @@ public class ActionNhaptaycnMain extends ActionSupport {
         }
         return SUCCESS;
     }
+    
+    public String unLockData() {
+        System.err.println("Vao ham unLockData");
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            DaoNhaptaycnMain daosync = DaoNhaptaycnMain.newInstance();
+            //Kiem tra xem cac pgd da du du lieu chua neu du moi cho xac nhan so lieu
+
+            HashMap hmParameter = getParameter();
+
+            setKhoa_nhaptaycn(hmParameter.get("khoa_nhaptaycn").toString());
+//            setType_bcqt(hmParameter.get("type_bcqt").toString());
+//            setMacn(hmParameter.get("macn").toString());
+            setNgay_bc(hmParameter.get("ngay_bc").toString());
+//            (String type, String khoa,List<String> lstMapgd,  String ngaybc, String tt_khoa,  String username,  String grade)
+            if (!daosync.setStatusLock("NT", khoa_nhaptaycn, poscd, hmParameter.get("ngay_bc").toString(),
+                    Define.WEB_SERVICES_STATUS_SEND, UserName, Grade)) {
+                addActionError("Lỗi !, Mở khóa bị lỗi xin liên hệ với quản trị để được khắc phục");
+                return ERROR;
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> sendPhiUT: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> sendPhiUT: " + e.getMessage());
+            addActionError("Bạn chưa gửi được dữ liệu xin liên hệ với quản trị để được khắc phục");
+            return ERROR;
+        }
+        addActionMessage("Bạn đã mở khóa thành công!");
+        return SUCCESS;
+    }
 
     public String sendPhiUT() {
         System.err.println("Vao ham sendPhiUT");
@@ -1012,6 +1061,14 @@ public class ActionNhaptaycnMain extends ActionSupport {
             List<String> lstPos = (List<String>) hmParameter.get("poscd");
             DaoNhaptaycnMain daosync = DaoNhaptaycnMain.newInstance();
             Map<String, Integer> mapStatusSend = new HashMap();
+            if(khoa_nhaptaycn.equals("QD23_001"))
+            {
+                 if(daosync.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString())==0)
+                {
+                    addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
+                            return ERROR; 
+                }
+            }
             if (khoa_nhaptaycn.equals("PHIUT_001")) {
                 lstPos = daosync.getAllPosUser(UserName, "PHIUT_001");
             }
@@ -1082,6 +1139,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
                         checkfile.delete();
                     }
                     mapStatusSend.put(mapgd, 4);  //gui du lieu thanh cong
+                    
                 } else {
 //                    addActionMessage("Bạn không thể gửi dữ liệu lên trung ương do bị khóa </br>Xin liên hệ về Ban KT&QLTC để được gửi lại số liệu ! ");
                     if (checkfile.exists()) {
@@ -1103,6 +1161,17 @@ public class ActionNhaptaycnMain extends ActionSupport {
         return SUCCESS;
     }
 
+    
+    public String checkLockStatus() throws Exception {
+        DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+        String sKey = ServletActionContext.getRequest().getParameter("Key");
+        String sReportDate = ServletActionContext.getRequest().getParameter("ReportDate");
+        String sReportGrade = ServletActionContext.getRequest().getParameter("ReportGrade");
+        String sUserName = ServletActionContext.getRequest().getParameter("UserName");
+        lockStatus = daoMain.getLockStatus(sKey, sReportDate, sUserName, sReportGrade);
+        return SUCCESS;    
+    }
+    
     public String getPoslist() {
         return poslist;
     }
@@ -1219,12 +1288,87 @@ public class ActionNhaptaycnMain extends ActionSupport {
         this.lstTinhchatNV = lstTinhchatNV;
     }
 
+    public List<ListValue> getLstPLKT() {
+        return lstPLKT;
+    }
+
+    public void setLstPLKT(List<ListValue> lstPLKT) {
+        this.lstPLKT = lstPLKT;
+    }
+
+    public List<ListValue> getLstDTTH() {
+        return lstDTTH;
+    }
+
+    public void setLstDTTH(List<ListValue> lstDTTH) {
+        this.lstDTTH = lstDTTH;
+    }
+
+    public List<QT_DULIEU_NT_50> getLstDulieuNt50() {
+        return lstDulieuNt50;
+    }
+
+    public void setLstDulieuNt50(List<QT_DULIEU_NT_50> lstDulieuNt50) {
+        this.lstDulieuNt50 = lstDulieuNt50;
+    }
+
+    public List<ListValue> getLstTide() {
+        return lstTide;
+    }
+
+    public void setLstTide(List<ListValue> lstTide) {
+        this.lstTide = lstTide;
+    }
+
+    public String getThangbc() {
+        return thangbc;
+    }
+
+    public void setThangbc(String thangbc) {
+        this.thangbc = thangbc;
+    }
+
+    public String getKhoadc() {
+        return khoadc;
+    }
+
+    public void setKhoadc(String khoadc) {
+        this.khoadc = khoadc;
+    }
+
+    public String getTc_von() {
+        return tc_von;
+    }
+
+    public void setTc_von(String tc_von) {
+        this.tc_von = tc_von;
+    }
+
+    public List<ListValue> getLstChotKH() {
+        return lstChotKH;
+    }
+
+    public void setLstChotKH(List<ListValue> lstChotKH) {
+        this.lstChotKH = lstChotKH;
+    }
+
     
 
     
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
+    
+    
+    
     public List<ListValue> getLstCapKT() {
         return lstCapKT;
+    }
+
+    public int getLockStatus() {
+        return lockStatus;
+    }
+
+    public void setLockStatus(int lockStatus) {
+        this.lockStatus = lockStatus;
     }
 
     public void setLstCapKT(List<ListValue> lstCapKT) {
