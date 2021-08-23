@@ -5,7 +5,6 @@
  */
 package vbsp.ims.eps;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
