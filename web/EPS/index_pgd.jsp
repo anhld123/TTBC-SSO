@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>EPS</title>
+        <title>Xác nhận kỹ quỹ - EPS</title>
         <script type="text/javascript" src="DMChitieu/js/jquery-ui.js"></script>
         <script src="js/jquery.number.js"></script>
         <style>
