@@ -624,14 +624,14 @@
                                             <input type="button" id="idReLoadtmp" name="nameidReLoadtmp"  onclick="ExpEcel()" value="Xuất Excel" style="width:122px;height:25px;color: red;"/>
     
                                         </s:if>      -->
-                                        <s:if test="Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('QD23_001')">  
+                                        <%--<s:if test="Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('QD23_001')">--%>  
                                             <s:url id="idExpEcel" action="QD23_001_ExpExcel.action"></s:url>                                      
                                             <sj:submit id="idExpEceltmp" name="nameSend" href="%{idExpEcel}" value="Xuất 01.BCTK" targets="divExportReport"
                                                        onBeforeTopics="beforediv_send"
                                                        onCompleteTopics="completediv_send" cssStyle="display:none"/>
                                             <input type="button" id="idReLoadtmp" name="nameidReLoadtmp"  onclick="ExpEcel()" value="Xuất 01.BCTK" />
 
-                                        </s:if>      
+                                        <%--</s:if>--%>      
                                     </td>
 
 
@@ -811,7 +811,7 @@
                                 var day = getDaysOfMonth(month, year)
                                 var daynow = day + "/" + month + "/" + year;
         //                                    alert(daynow)
-                                document.getElementById('ngay_bc_DATE').value = '22/8/2021';//daynow;
+                                document.getElementById('ngay_bc_DATE').value = '23/8/2021';//daynow;
                                 var iDate = year + "" + addZeroToLead(month) + "" + addZeroToLead(day);
                                 //Gan quy mac dinh
                                 //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);

@@ -266,7 +266,7 @@
                             <tr> 
                                 <!--Doanh nghiệp đã được duyệt-->
                                 <s:if test="NHAPTAY.equalsIgnoreCase(1)"> 
-                                     <s:if test="(D45.equalsIgnoreCase(5) || D45.equalsIgnoreCase(6) || D45.equalsIgnoreCase(7)) && (D36.equalsIgnoreCase(1) || D45.equalsIgnoreCase(2))">
+                                     <s:if test="(D45.equalsIgnoreCase(5) || D45.equalsIgnoreCase(6) || D45.equalsIgnoreCase(7)) && (D36.equalsIgnoreCase(1) || D45.equalsIgnoreCase(2)) && !D47.equalsIgnoreCase(1)">
                                         <td align = "center" class="TD_MAKH">
                                             <a href="javascript:nhapDieuchinh('<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>')" class="SOKU linkKh">
                                                 Điều chỉnh giảm
@@ -278,7 +278,7 @@
                                         <td></td>
                                     </s:else>
                                         
-                                    <s:if test="!D45.equalsIgnoreCase(9)">
+                                    <s:if test="!D45.equalsIgnoreCase(9) && !D45.equalsIgnoreCase(8) && !D47.equalsIgnoreCase(1)">
                                         <td align = "center" class="TD_MAKH">
                                             <a href="javascript:nhapDieuchinhPheduyet('QD23_004','<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>')" class="SOKU linkKh">
                                                 Điều chỉnh
@@ -392,7 +392,7 @@
                                        
                                     </td> 
                                     <td></td>
-                                    <s:if test="!D45.equalsIgnoreCase(9) && !D45.equalsIgnoreCase(0) && !D45.equalsIgnoreCase(5) && !D45.equalsIgnoreCase(6) && !D45.equalsIgnoreCase(7)">
+                                    <s:if test="!D45.equalsIgnoreCase(9) && !D45.equalsIgnoreCase(0) && !D45.equalsIgnoreCase(5) && !D45.equalsIgnoreCase(6) && !D45.equalsIgnoreCase(7) !D47.equalsIgnoreCase(1)">
                                         <td align = "center" class="TD_THOIGIAN">
                                             <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>')" class="SOKU linkKh">
                                                 Upload
@@ -480,7 +480,7 @@
                                     </td> 
                                     <td align = "center" class="TD_NGAY">
                                         <input type="text" value="<s:property  value="D9" />" id="D8_<s:property  value="%{#rowstatus.index}" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D9" class="TEN_KH D0"  
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D9" class="TEN_KH D0 datepicker" placeholder="dd/MM/yyyy"
                                                />
                                     </td>  
                                     <td align = "right" class="TD_NGAY" >
