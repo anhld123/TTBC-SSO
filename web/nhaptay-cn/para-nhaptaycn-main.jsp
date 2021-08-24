@@ -811,7 +811,7 @@
                                 var day = getDaysOfMonth(month, year)
                                 var daynow = day + "/" + month + "/" + year;
         //                                    alert(daynow)
-                                document.getElementById('ngay_bc_DATE').value = '23/8/2021';//daynow;
+                                document.getElementById('ngay_bc_DATE').value = '24/8/2021';//daynow;
                                 var iDate = year + "" + addZeroToLead(month) + "" + addZeroToLead(day);
                                 //Gan quy mac dinh
                                 //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
