@@ -502,7 +502,8 @@
         </action>
         
         <action name="saveUploadDsNguoiLD_QD23" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveUploadDsNguoiLD_QD23">
-            <result name="success">/nhaptay-cn/table-result-upload-nld_qd23.jsp</result>               
+            <result name="success">/nhaptay-cn/table-result-upload-nld_qd23.jsp</result>  
+           <result name="error">/BCQT/success.jsp</result>              
         </action>
         
         <action name="saveDieuchinhKH" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveDieuchinhKH">
