@@ -8875,13 +8875,13 @@ public class DaoNhaptaycnMain {
         return lstData;
     }
     
-    public int checkSave_Send(String mabc, String capbc, String ngaybc) throws SQLException {
+    public int checkSave_Send(String mabc, String capbc, String ngaybc, String type) throws SQLException {
         int _retVal = 0;
         Connection conn = new DaoConnect().getConnect();
         CallableStatement calstatement = null;
         ResultSet reset = null;
         //Khoi tao procedure cung voi tham so truyen vao la dau ?
-        String strStoreproce = "{ ? = call VBSP_IMS_NHAPTAYCN.F_CHECK_SAVE_SEND(?,?,?) }";
+        String strStoreproce = "{ ? = call VBSP_IMS_NHAPTAYCN.F_CHECK_SAVE_SEND(?,?,?,?) }";
 
         try {
             //Khoi tao goi Store
@@ -8891,6 +8891,7 @@ public class DaoNhaptaycnMain {
             calstatement.setString(2, mabc);
             calstatement.setString(3, capbc);
             calstatement.setString(4, ngaybc);
+            calstatement.setString(5, type);
             //Thuc hien execute lay du lieu
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -8899,6 +8900,46 @@ public class DaoNhaptaycnMain {
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " checkSave_Send -> " + e.getMessage());
+            throw new SQLException(e);
+        } finally {
+            if (reset != null) {
+                reset.close();
+            }
+            if (calstatement != null) {
+                calstatement.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return _retVal;
+    }
+    
+    public String checkUploadNLD(String mabc, String capbc, String thangbc, String masothue) throws SQLException {
+        String _retVal = "AAA";
+        Connection conn = new DaoConnect().getConnect();
+        CallableStatement calstatement = null;
+        ResultSet reset = null;
+        //Khoi tao procedure cung voi tham so truyen vao la dau ?
+        String strStoreproce = "{ ? = call VBSP_IMS_NHAPTAYCN.F_CHECK_DAT_QD23_UPLOAD(?,?,?,?) }";
+
+        try {
+            //Khoi tao goi Store
+            calstatement = conn.prepareCall(strStoreproce,
+                    ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.VARCHAR);
+            calstatement.setString(2, mabc);
+            calstatement.setString(3, capbc);
+            calstatement.setString(4, thangbc);
+            calstatement.setString(5, masothue);
+            //Thuc hien execute lay du lieu
+            calstatement.execute();
+            //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+            _retVal = calstatement.getString(1);
+
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " checkUploadNLD -> " + e.getMessage());
             throw new SQLException(e);
         } finally {
             if (reset != null) {
