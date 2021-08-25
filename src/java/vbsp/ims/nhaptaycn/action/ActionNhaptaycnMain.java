@@ -1063,9 +1063,9 @@ public class ActionNhaptaycnMain extends ActionSupport {
             Map<String, Integer> mapStatusSend = new HashMap();
             if(khoa_nhaptaycn.equals("QD23_001"))
             {
-                 if(daosync.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString())==0)
+                 if(daosync.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString(),"SEND")==0)
                 {
-                    addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
+                    addActionError("Kiểm tra ngày gửi(hiện tại) hoặc bạn chưa nhập số đề nghị, ngày dề nghị (43,44)!");
                             return ERROR; 
                 }
             }

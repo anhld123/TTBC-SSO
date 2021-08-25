@@ -169,7 +169,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
 //            String sNv = hmParameter.get("type_action").toString();
-            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString())==0)
+            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString(),"SAVE")==0)
             {
                 addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
                         return ERROR; 
@@ -221,7 +221,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
             String dateStr = sdf.format(date1);
             
-            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade, dateStr)==0)
+            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade, dateStr,"SAVE")==0)
             {
                 addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
                         return ERROR; 
@@ -258,7 +258,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
             String dateStr = sdf.format(date1);
             
-            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  dateStr)==0)
+            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  dateStr,"SAVE")==0)
             {
                 addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
                         return ERROR; 
@@ -441,6 +441,12 @@ public class QD23_001 extends ActionNhaptaycnMain
                 if (!dao.insert_DS_NGUOILD_QD23("QD23_002", poscd, getFileNameNew(), convertStringToDate(sNgayBC), UserName, lstExcel, masothue, hmParameter.get("thangbc").toString())) {
                     addActionError("Lỗi khi đọc dữ liệu từ file excel ");
                     return ERROR;
+                }
+                String sCheck = dao.checkUploadNLD(khoa_nhaptaycn, Grade,  hmParameter.get("thangbc").toString(), masothue);
+                if(!sCheck.equals("AAA"))
+                {
+                    addActionError("Lỗi! Trùng số sổ BHYT " + sCheck);
+                    return ERROR; 
                 }
             }
             Connection conn = new DaoConnect().getConnect();
