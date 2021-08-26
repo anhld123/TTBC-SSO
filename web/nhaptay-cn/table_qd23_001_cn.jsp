@@ -303,6 +303,8 @@
                                            readonly="true"/>
                                     <input type="hidden" value="<s:property  value="NHAPTAY" />" 
                                            name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>" />
+                                     <input type="hidden" value="<s:property  value="MAPGD" />" 
+                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].MAPGD" value="<s:property  value="MAPGD"/>" />
                                 </td>                                
                                 <td align = "right" class="TD_TENKH" >
                                     <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D2" />"

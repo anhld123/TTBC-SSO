@@ -450,7 +450,7 @@
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D3" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH D0" onfocus="this.select();"/>
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH D0" onfocus="this.select();" style="background: #FFBF00 !important;" /> 
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D4" />"

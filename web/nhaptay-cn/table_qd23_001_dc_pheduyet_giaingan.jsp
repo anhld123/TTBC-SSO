@@ -216,6 +216,11 @@
                                                readonly="true"/>
                                         <input type="hidden" value="<s:property  value="NHAPTAY" />" 
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>" />
+                                        
+                                        <input type="hidden" value="<s:property  value="D15" />" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D15" value="<s:property  value="D15"/>" />
+                                        <input type="hidden" value="<s:property  value="D27" />" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D27" value="<s:property  value="D27"/>" />
                                     </td>                                
                                     <td align = "right" class="TD_TENKH" >
                                         <input type="text"   value="<s:property  value="D2" />"
@@ -311,6 +316,10 @@
                                                readonly="readonly" style="background: 	#C0C0C0 !important;"/>
                                         <input type="hidden" value="<s:property  value="NHAPTAY" />" 
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>" />
+                                        <input type="hidden" value="<s:property  value="D15" />" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D15" value="<s:property  value="D15"/>" />
+                                        <input type="hidden" value="<s:property  value="D27" />" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D27" value="<s:property  value="D27"/>" />
                                         
                                     </td>                                
                                     <td align = "right" class="TD_TENKH" >

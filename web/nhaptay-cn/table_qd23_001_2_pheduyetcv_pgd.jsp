@@ -212,9 +212,10 @@
                             <th  rowspan="2" class="TD_MAKH">Ngày lương theo HĐ</th>    
                             <th  rowspan="2" class="TD_CHITIEU">Ghi chú</th>    
 -->
-                            <th colspan="4">NHẬP KẾT QUẢ PHÊ DUYỆT CHO VAY (NHCSCH)</th>   
-                            <th rowspan="2" class="TD_MAKH">Gấy đề nghị tái cấp vốn<span style="color:red">*</span></th>
-                            <th rowspan="2" class="TD_NGAY">Ngày đề nghị tái cấp vốn<span style="color:red">*</span></th>
+                            <th colspan="4">NHẬP KẾT QUẢ PHÊ DUYỆT CHO VAY (NHCSCH)</th>  
+                            <th colspan="3">Đề nghị giao chỉ tiêu KH</th>  
+<!--                            <th rowspan="2" class="TD_MAKH">Gấy đề nghị tái cấp vốn<span style="color:red">*</span></th>
+                            <th rowspan="2" class="TD_NGAY">Ngày đề nghị tái cấp vốn<span style="color:red">*</span></th>-->
                             <th rowspan="2" class="TD_NGAY">TT</th>
                         </tr>         
                         <tr>
@@ -227,7 +228,11 @@
                             <th class="TD_NGAY">Ngày phê duyệt</th>
                             <th class="TD_MAKH">Tổng số lượt lao động được phê duyệt cho vay để trả lương</th>
                             <th  class="TD_NGAY">Trong đó, số lao động mới được phê duyệt (nếu có)</th>    
-                            <th  class="TD_NGAY">Số tiền được phê duyệt cho vay</th>                            
+                            <th  class="TD_NGAY">Số tiền được phê duyệt cho vay</th>    
+                            
+                            <th class="TD_NGAY">Đề nghị giao chỉ tiêu KH</th>
+                            <th class="TD_NGAY">Số đề nghị</th>
+                            <th class="TD_NGAY">Ngày đề nghị</th>
                         </tr>
                         <tr>
                             <td style="text-align: center"></td>
@@ -257,6 +262,7 @@
                             <td style="text-align: center">23</td>
                             <td style="text-align: center">24</td>
                             <td style="text-align: center">25</td>
+                            <td style="text-align: center">16</td>
                             <td style="text-align: center">8</td>
                             <td style="text-align: center">9</td>
                             <td style="text-align: center"></td>
@@ -473,6 +479,18 @@
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D25" class="D13 TEN_KH number" onfocus="this.select();" 
                                                 />
                                     </td> 
+                                    <td align = "left" class="TD_NGAY">                                        
+                                        <s:select  
+                                            id="lstDulieuNt50[%{#rowstatus.index}].D16"
+                                            name="lstDulieuNt50[%{#rowstatus.index}].D16"
+                                            list="lstDNVON" 
+                                            listKey="sKey"
+                                            listValue="sDesc"
+                                            headerKey="-1"
+                                            headerValue="--- Chọn ---"                                    
+                                            cssStyle="width: 100%;vertical-align: middle;background-color: #FFCCBA; TEN_KH">
+                                        </s:select>
+                                    </td>  
                                      <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D8" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH D0" onfocus="this.select();" 

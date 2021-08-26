@@ -295,7 +295,7 @@
                                 <s:if test="NHAPTAY.equalsIgnoreCase(1)"> 
                                     <s:if test="!D45.equalsIgnoreCase(9)">
                                         <td align = "center" class="TD_MAKH">
-                                            <a href="javascript:nhapDieuchinhPheduyet('QD23_005','<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>')" class="SOKU linkKh">
+                                            <a href="javascript:nhapDieuchinhPheduyet('QD23_005','<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>_<s:property value='D15'/>_<s:property value='D27'/>')" class="SOKU linkKh">
                                                 Điều chỉnh
                                             </a>
                                         </td> 
@@ -464,7 +464,7 @@
                                     </td> 
                                     <s:if test="!D45.equalsIgnoreCase(9) && !D45.equalsIgnoreCase(0) && !D45.equalsIgnoreCase(7)">
                                         <td align = "center" class="TD_THOIGIAN">
-                                            <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>')" class="SOKU linkKh">
+                                            <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>_<s:property value='D15'/>_<s:property value='D27'/>')" class="SOKU linkKh">
                                                 Upload
                                             </a>
                                         </td>
