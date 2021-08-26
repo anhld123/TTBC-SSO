@@ -91,6 +91,7 @@ public class QD23_001 extends ActionNhaptaycnMain
                 setLstLuongVung(daoMain.getCanBo(UserName, "LUONGVUNG"));
                 setLstPLKT(daoMain.getCanBo(UserName, "PLKT1A"));
                 setLstDTTH(daoMain.getCanBo(UserName, "DTTH"));
+                setLstDNVON(daoMain.getCanBo(UserName, "DNVON"));
                 return "nhap_2_pheduyetcv_pgd";
             } 
             else if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("3")) {
@@ -101,6 +102,7 @@ public class QD23_001 extends ActionNhaptaycnMain
                 setLstLuongVung(daoMain.getCanBo(UserName, "LUONGVUNG"));
                 setLstPLKT(daoMain.getCanBo(UserName, "PLKT1A"));
                 setLstDTTH(daoMain.getCanBo(UserName, "DTTH"));
+                setLstDNVON(daoMain.getCanBo(UserName, "DNVON"));
                 return "nhap_3_pheduyetgn_pgd";
             } 
             //Điều chỉnh giảm
@@ -171,9 +173,11 @@ public class QD23_001 extends ActionNhaptaycnMain
 //            String sNv = hmParameter.get("type_action").toString();
             if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString(),"SAVE")==0)
             {
-                addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
+                addActionError("Bạn vui lòng chọn ngày hiện tại và nhập cột 43,44 (cấp chi nhánh)!");
                         return ERROR; 
             }
+            
+            
             if (hmParameter.get("type_action").toString().equals("2") && Grade.equals("3")) { //Duyệt TH điều chỉnh KH
                     if (!daoMain.saveQD23_001("QD23_003", UserName, "", hmParameter.get("ngay_bc").toString(), Grade, lstDulieuNt50, hmParameter.get("type_action").toString())) {
                         addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
@@ -221,7 +225,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
             String dateStr = sdf.format(date1);
             
-            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade, dateStr,"SAVE")==0)
+            if(daoMain.checkSave_Send("QD23_003", Grade, dateStr,"SAVE")==0)
             {
                 addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
                         return ERROR; 
@@ -258,7 +262,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
             String dateStr = sdf.format(date1);
             
-            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  dateStr,"SAVE")==0)
+            if(daoMain.checkSave_Send(hmParameter.get("khoadc").toString(), Grade,  dateStr,"SAVE")==0)
             {
                 addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
                         return ERROR; 
@@ -501,7 +505,7 @@ public class QD23_001 extends ActionNhaptaycnMain
 //            }
             HashMap hmParameter = getParameter();
             String sNgayBC = hmParameter.get("ngay_bc").toString();
-            FileExportInfo fileInfo = excelExport.xuatExcelMau01BCTK_QD23(poscd, hmParameter.get("ngay_bc").toString(), "", savedDir, pos_cd_username);
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01BCTK_QD23(poscd, hmParameter.get("ngay_bc").toString(), Grade, savedDir, pos_cd_username);
             fileNamelocal = fileInfo.fileName;
             filereport = fileInfo.filePath;
             return SUCCESS;

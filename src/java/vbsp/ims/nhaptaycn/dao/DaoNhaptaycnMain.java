@@ -8108,6 +8108,48 @@ public class DaoNhaptaycnMain {
         }
         return true;
     }
+    
+    public boolean saveQD23_001_checkbox(String khoa, String username, String mapgd, String ngaybc, String capBc, List<QT_DULIEU_NT_50> lstData, String loaiNV,List<String> lstArrPoscd) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT_50.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+        
+        ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("POS_CD", connection);
+
+        String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
+
+        ARRAY oracle_arrayPos = new ARRAY(des_ma, connection, arrayPoscd);
+
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NHAPTAYCN.SP_SAVE_QD23_001_CHECKBOX(?, ?, ?, ?, ?, ?, ?,?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, username);
+            cs.setString(3, mapgd);
+            cs.setString(4, ngaybc);
+            cs.setString(5, capBc);
+            cs.setArray(6, array_to_pass);
+            cs.setString(7, loaiNV);
+            cs.setArray(8, oracle_arrayPos);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham saveQD23_001 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveQD23_001 -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
 
     public List<QT_DULIEU_NT> getDataQd2368(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
@@ -8791,8 +8833,8 @@ public class DaoNhaptaycnMain {
                     value.setD28(reset.getString(42));
                     value.setD29(reset.getString(43));
                     value.setD30(reset.getString(44));
-                    value.setNHAPTAY(reset.getString(45));
-                    value.setFONTFORMAT(reset.getString(46));
+//                    value.setNHAPTAY(reset.getString(45));
+//                    value.setFONTFORMAT(reset.getString(46));
 
                     lstBcqt_NT.add(value);
                 }

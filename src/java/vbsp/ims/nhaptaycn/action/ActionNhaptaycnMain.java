@@ -243,6 +243,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
     
     protected List<ListValue> lstPLKT = new ArrayList<ListValue>();
     protected List<ListValue> lstDTTH = new ArrayList<ListValue>();
+    protected List<ListValue> lstDNVON = new ArrayList<ListValue>();
 
     private List<ListValue> lstCapKT = new ArrayList<ListValue>();
     private List<ListValue> lstDVUT = new ArrayList<ListValue>();
@@ -1063,11 +1064,11 @@ public class ActionNhaptaycnMain extends ActionSupport {
             Map<String, Integer> mapStatusSend = new HashMap();
             if(khoa_nhaptaycn.equals("QD23_001"))
             {
-                 if(daosync.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString(),"SEND")==0)
-                {
-                    addActionError("Kiểm tra ngày gửi(hiện tại) hoặc bạn chưa nhập số đề nghị, ngày dề nghị (43,44)!");
-                            return ERROR; 
-                }
+                  if(daosync.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString(),"SEND")==0)
+            {
+                addActionError("Bạn vui lòng chọn ngày hiện tại và nhập cột 43,44!");
+                        return ERROR; 
+            }
             }
             if (khoa_nhaptaycn.equals("PHIUT_001")) {
                 lstPos = daosync.getAllPosUser(UserName, "PHIUT_001");
@@ -1350,6 +1351,14 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     public void setLstChotKH(List<ListValue> lstChotKH) {
         this.lstChotKH = lstChotKH;
+    }
+
+    public List<ListValue> getLstDNVON() {
+        return lstDNVON;
+    }
+
+    public void setLstDNVON(List<ListValue> lstDNVON) {
+        this.lstDNVON = lstDNVON;
     }
 
     
