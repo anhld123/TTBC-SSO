@@ -62,6 +62,14 @@ public class PoorUploadAction extends ActionSupport
                     dtw_import.import_file(
                             new_file_path,
                             vbsp.ims.define.Constant.dtw_insert_table._LOVELEAF_POOR_TRANSACTION);
+                } else if (file_name.toUpperCase().startsWith("QTT_CHUYENTIEN_")) {
+                    dtw_import.import_file(
+                            new_file_path,
+                            vbsp.ims.define.Constant.dtw_insert_table._QTT_CHUYENTIEN);
+                } else if (file_name.toUpperCase().startsWith("QTT_DTTH_")) {
+                    dtw_import.import_file(
+                            new_file_path,
+                            vbsp.ims.define.Constant.dtw_insert_table._QTT_DTTH);
                 } else {
                     dtw_import.import_file(
                             new_file_path,

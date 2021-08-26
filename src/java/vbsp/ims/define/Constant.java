@@ -62,6 +62,8 @@ public class Constant {
         public static String _LOVELEAF_POOR_TRANSACTION = "LOVELEAF_UPLOAD";
         public static String _LOVELEAF_POOR_NOACCOUNT = "LOVELEAF_NOACCOUNT";
         public static String _ACCOUNT_UPOAD = "ACCOUNT_UPLOAD";
+        public static String _QTT_DTTH = "QTT_DTTH";
+        public static String _QTT_CHUYENTIEN = "QTT_CHUYENTIEN";
 
         public static String _CUST1_UPOAD = "CUST1_UPLOAD";    
         public static String _CUST2_UPOAD = "CUST2_UPLOAD";    
