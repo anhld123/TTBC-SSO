@@ -916,7 +916,7 @@ public class ExcelExport {
                 // Get data
 //                DaoMau01A daoMau01A = new DaoMau01A();
                 DaoNhaptaycnMain dao = new DaoNhaptaycnMain();
-                List<QT_DULIEU_NT_50> lstData = dao.getDataEportElxQD23001("QD23_001", pos_user, "1",  reportDate, lstPosCd);
+                List<QT_DULIEU_NT_50> lstData = dao.getDataEportElxQD23001("QD23_001", pos_user, capBC,  reportDate, lstPosCd);
 
                 if (lstData.size() > 0) {
 
@@ -986,11 +986,11 @@ public class ExcelExport {
                         XSSFCell xssfCell00 = xssfRow.getCell(0, Row.CREATE_NULL_AS_BLANK);
 
                         orderStyle = xssfCell00.getCellStyle();
-//                        orderStyle.setAlignment(HorizontalAlignment.LEFT);
-//                        orderStyle.setFont(font);
-//                        orderStyle.setLocked(true);
+                        orderStyle.setAlignment(HorizontalAlignment.CENTER);
+                        orderStyle.setFont(font);
+                        orderStyle.setLocked(false);
 
-//                        xssfCell00.setCellStyle(orderStyle);
+                        xssfCell00.setCellStyle(orderStyle);
                         xssfCell00.setCellValue(lstData.get(i).D1);
 //                        ----------
 
@@ -998,12 +998,12 @@ public class ExcelExport {
 
                         codeStyle = xssfCell01.getCellStyle();
                         codeStyle.setFont(font);
-                        codeStyle.setLocked(true);
+                        codeStyle.setLocked(false);
                         codeStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
                         codeStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
                         codeStyle.setAlignment(HorizontalAlignment.CENTER);
-
-//                        xssfCell01.setCellStyle(codeStyle);
+                        codeStyle.getFillBackgroundColor();
+                        xssfCell01.setCellStyle(codeStyle);
                         xssfCell01.setCellValue(lstData.get(i).D2);
 
                         XSSFCell xssfCell02 = xssfRow.getCell(2, Row.CREATE_NULL_AS_BLANK);
