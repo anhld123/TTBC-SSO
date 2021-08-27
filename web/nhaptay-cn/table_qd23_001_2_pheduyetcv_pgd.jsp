@@ -274,7 +274,7 @@
                                 <s:if test="NHAPTAY.equalsIgnoreCase(1)"> 
                                      <s:if test="(D45.equalsIgnoreCase(5) || D45.equalsIgnoreCase(6) || D45.equalsIgnoreCase(7)) && (D36.equalsIgnoreCase(1) || D45.equalsIgnoreCase(2)) && !D47.equalsIgnoreCase(1)">
                                         <td align = "center" class="TD_MAKH">
-                                            <a href="javascript:nhapDieuchinh('<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>')" class="SOKU linkKh">
+                                            <a href="javascript:nhapDieuchinh('<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>_<s:property value='D15'/>_<s:property value='D6'/>')" class="SOKU linkKh">
                                                 Điều chỉnh giảm
                                             </a>
                                         </td> 
@@ -286,7 +286,7 @@
                                         
                                     <s:if test="!D45.equalsIgnoreCase(9) && !D45.equalsIgnoreCase(8) && !D47.equalsIgnoreCase(1)">
                                         <td align = "center" class="TD_MAKH">
-                                            <a href="javascript:nhapDieuchinhPheduyet('QD23_004','<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>')" class="SOKU linkKh">
+                                            <a href="javascript:nhapDieuchinhPheduyet('QD23_004','<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>_<s:property value='D15'/>_<s:property value='D22'/>')" class="SOKU linkKh">
                                                 Điều chỉnh
                                             </a>
                                         </td> 
@@ -294,9 +294,9 @@
                                     <s:else>
                                         <td></td>
                                     </s:else>
-                                    <s:if test="!D45.equalsIgnoreCase(9) && !D45.equalsIgnoreCase(0) && !D45.equalsIgnoreCase(5) && !D45.equalsIgnoreCase(6) && !D45.equalsIgnoreCase(7)">
+                                    <s:if test="!D45.equalsIgnoreCase(9) && !D45.equalsIgnoreCase(0) && !D45.equalsIgnoreCase(4) && !D45.equalsIgnoreCase(5) && !D45.equalsIgnoreCase(6) && !D45.equalsIgnoreCase(7)">
                                         <td align = "center" class="TD_THOIGIAN">
-                                            <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>')" class="SOKU linkKh">
+                                            <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>_<s:property value='D15'/>_<s:property value='D6'/>')" class="SOKU linkKh">
                                                 Upload
                                             </a>
                                         </td>
@@ -357,7 +357,7 @@
                                     
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D22" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D22" class="D13 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D22" class="D13 TEN_KH " onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
@@ -375,6 +375,11 @@
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D25" class="D13 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                 readonly="true"/>
                                     </td> 
+                                    <td align = "right" class="TD_MAKH" >
+                                        <input type="text"   value="<s:property  value="D16" />"
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D16" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
+                                               readonly="true"/>                                                                        
+                                    </td>
                                      <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D8" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
@@ -398,9 +403,9 @@
                                        
                                     </td> 
                                     <td></td>
-                                    <s:if test="!D45.equalsIgnoreCase(9) && !D45.equalsIgnoreCase(0) && !D45.equalsIgnoreCase(5) && !D45.equalsIgnoreCase(6) && !D45.equalsIgnoreCase(7) !D47.equalsIgnoreCase(1)">
+                                    <s:if test="!D45.equalsIgnoreCase(9) && !D45.equalsIgnoreCase(0) && !D45.equalsIgnoreCase(5) && !D45.equalsIgnoreCase(6) && !D45.equalsIgnoreCase(7) && !D47.equalsIgnoreCase(1)">
                                         <td align = "center" class="TD_THOIGIAN">
-                                            <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>')" class="SOKU linkKh">
+                                            <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>_<s:property value='D15'/>_<s:property value='D6'/>')" class="SOKU linkKh">
                                                 Upload
                                             </a>
                                         </td>

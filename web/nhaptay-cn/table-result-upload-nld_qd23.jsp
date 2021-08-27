@@ -81,7 +81,7 @@
                     <th rowspan="2" class="TD_THOIGIAN">Tổng số tiền lương phải trả </th>					
                     <th rowspan="2" class="TD_THOIGIAN">Số tiền đề nghị vay để trả lương (đồng)</th>	
                     <th rowspan="2" class="TD_THOIGIAN">Tháng vay</th>	
-                    <th rowspan="2" class="TD_CHITIEU">Cảnh báo</th>	
+                    <th rowspan="2" class="TD_TENKH">Cảnh báo</th>	
                                    
                 </tr>
                 <tr>
@@ -130,7 +130,7 @@
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="TEN_KH D0" onfocus="this.select();"
                                            readonly="true"/>
                                 </td> 
-                                <td align = "right" class="TD_CHITIEU" >
+                                <td align = "right" class="TD_TENKH" >
                                     <input type="text"  value="<s:property  value="D8" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH D0" onfocus="this.select();"
                                            readonly="true"/>

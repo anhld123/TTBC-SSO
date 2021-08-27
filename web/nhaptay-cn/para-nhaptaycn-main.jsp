@@ -514,6 +514,21 @@
                                     </s:iterator>     
                                     <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001') && Grade.equalsIgnoreCase('3')">
                                         <td>&nbsp;|&nbsp</td>
+                                        
+
+                                        <td >Số thông báo:</td>
+                                        <td>
+                                            <input type="text" style="text-align:right;width: 100px" value="AAA" id="soqd" name="soqd" class="" placeholder="Số duyết định" />
+                                        </td>  
+                                        <td >Ngày thông báo:</td>
+                                        <td>
+                                            <sj:datepicker name="ngay_qd_DATE" value="%{new java.util.Date()}"  id="ngay_qd_DATE"
+                                                           placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL"/> 
+                                        </td>
+                                        <td >Thông báo lần:</td>
+                                        <td >
+                                            <input type="text" style="text-align:right;width: 50px" value="1" id="lanqd" name="lanqd" class=""  placeholder="Lần QĐ" />
+                                        </td> 
                                         <td >Tính chất vốn:</td>
                                         <td>
                                             <select name="tc_von" id="tc_von">
@@ -521,20 +536,6 @@
                                                 <option value="1">Tái cấp vốn</option>
                                                 <option value="2">Điều chuyển</option>
                                             </select>
-                                        </td> 
-
-                                        <td >Số QĐ:</td>
-                                        <td>
-                                            <input type="text" style="text-align:right;width: 100px" value="AAA" id="soqd" name="soqd" class="" placeholder="Số duyết định" />
-                                        </td>  
-                                        <td >Ngày QĐ:</td>
-                                        <td>
-                                            <sj:datepicker name="ngay_qd_DATE" value="%{new java.util.Date()}"  id="ngay_qd_DATE"
-                                                           placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL"/> 
-                                        </td>
-                                        <td >Quyết định lần:</td>
-                                        <td >
-                                            <input type="text" style="text-align:right;width: 50px" value="1" id="lanqd" name="lanqd" class=""  placeholder="Lần QĐ" />
                                         </td> 
                                         <td>&nbsp;|&nbsp</td>
 
@@ -811,7 +812,7 @@
                                 var day = getDaysOfMonth(month, year)
                                 var daynow = day + "/" + month + "/" + year;
         //                                    alert(daynow)
-                                document.getElementById('ngay_bc_DATE').value = '26/8/2021';//daynow;
+                                document.getElementById('ngay_bc_DATE').value = '27/8/2021';//daynow;
                                 var iDate = year + "" + addZeroToLead(month) + "" + addZeroToLead(day);
                                 //Gan quy mac dinh
                                 //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
