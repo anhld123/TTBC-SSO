@@ -65,14 +65,14 @@ public class ActionNhaptaycnMain extends ActionSupport {
     public List<ModelExcelFile> lstExcel = new ArrayList<>();
     private String fileNameNew;
     private List<ListValue> lstBDD = new ArrayList<ListValue>();
-    
+
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
 
     protected String pos_cd_username;
-    
+
     protected int lockStatus;
-     
+
     public List<ListValue> getLstBDD() {
         return lstBDD;
     }
@@ -204,10 +204,10 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected String tc_von;
     protected String khoadc;
     protected String thangbc;
-    
+
     protected String tenkh;
     protected String soku;
-    
+
     protected String type_action;
 
     public String getType_action() {
@@ -240,7 +240,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected List<ListValue> lstTinhchatNV = new ArrayList<ListValue>();
     protected List<ListValue> lstChotKH = new ArrayList<ListValue>();
     protected List<ListValue> lstTide = new ArrayList<ListValue>();
-    
+
     protected List<ListValue> lstPLKT = new ArrayList<ListValue>();
     protected List<ListValue> lstDTTH = new ArrayList<ListValue>();
     protected List<ListValue> lstDNVON = new ArrayList<ListValue>();
@@ -328,7 +328,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     private String exten1; //địa giới mới
     private String exten2; //địa giới cũ
-    
+
     String dvut_ksnb02 = null;
     String capkt_ksnb02 = null;
     String mato_ksnb02 = null;
@@ -547,7 +547,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
         }
         posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
         pos_cd_username = posMainModel.getPosCd();
-        
+
         return true;
     }
 
@@ -677,13 +677,12 @@ public class ActionNhaptaycnMain extends ActionSupport {
             if (khoa_nhaptaycn.equals("QD23_001")) {
                 setLstTide(daoMain.getCanBo(UserName, "TIDE595"));
             }
-            
 
             lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn, UserName, Grade);
             if (conn != null) {
                 conn.close();
             }
-            
+
             lockStatus = 0;
 
         } catch (Exception e) {
@@ -1006,7 +1005,6 @@ public class ActionNhaptaycnMain extends ActionSupport {
             }
 
 //            DaoDcptNo daoRisk = new DaoDcptNo();
-
             //Khoi tao cho treenode
 //            System.err.println("dvut_dcpt=" + dvut_dcpt + " poscd=" + ArrlstPosCd.size());
             //neu don vi uy thac khong phai la truc tiep thi moi load ma to truong hoac du an
@@ -1020,7 +1018,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
         }
         return SUCCESS;
     }
-    
+
     public String unLockData() {
         System.err.println("Vao ham unLockData");
         try {
@@ -1062,19 +1060,17 @@ public class ActionNhaptaycnMain extends ActionSupport {
             List<String> lstPos = (List<String>) hmParameter.get("poscd");
             DaoNhaptaycnMain daosync = DaoNhaptaycnMain.newInstance();
             Map<String, Integer> mapStatusSend = new HashMap();
-            if(khoa_nhaptaycn.equals("QD23_001"))
-            {
-                  if(daosync.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString(),"SEND")==0)
-            {
-                addActionError("Bạn vui lòng chọn ngày hiện tại và nhập cột 43,44!");
-                        return ERROR; 
-            }
+            if (khoa_nhaptaycn.equals("QD23_001")) {
+                if (daosync.checkSave_Send(khoa_nhaptaycn, Grade, hmParameter.get("ngay_bc").toString(), "SEND") == 0) {
+                    addActionError("Bạn vui lòng chọn ngày hiện tại và nhập cột 43,44!");
+                    return ERROR;
+                }
             }
             if (khoa_nhaptaycn.equals("PHIUT_001")) {
                 lstPos = daosync.getAllPosUser(UserName, "PHIUT_001");
             }
             if (khoa_nhaptaycn.equals("QD23_004")) {
-                lstPos =new ArrayList<>();
+                lstPos = new ArrayList<>();
                 lstPos.add(pos_cd_username);
             }
 
@@ -1140,7 +1136,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
                         checkfile.delete();
                     }
                     mapStatusSend.put(mapgd, 4);  //gui du lieu thanh cong
-                    
+
                 } else {
 //                    addActionMessage("Bạn không thể gửi dữ liệu lên trung ương do bị khóa </br>Xin liên hệ về Ban KT&QLTC để được gửi lại số liệu ! ");
                     if (checkfile.exists()) {
@@ -1162,7 +1158,6 @@ public class ActionNhaptaycnMain extends ActionSupport {
         return SUCCESS;
     }
 
-    
     public String checkLockStatus() throws Exception {
         DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
         String sKey = ServletActionContext.getRequest().getParameter("Key");
@@ -1170,9 +1165,9 @@ public class ActionNhaptaycnMain extends ActionSupport {
         String sReportGrade = ServletActionContext.getRequest().getParameter("ReportGrade");
         String sUserName = ServletActionContext.getRequest().getParameter("UserName");
         lockStatus = daoMain.getLockStatus(sKey, sReportDate, sUserName, sReportGrade);
-        return SUCCESS;    
+        return SUCCESS;
     }
-    
+
     public String getPoslist() {
         return poslist;
     }
@@ -1361,13 +1356,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
         this.lstDNVON = lstDNVON;
     }
 
-    
-
-    
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
-    
-    
-    
     public List<ListValue> getLstCapKT() {
         return lstCapKT;
     }
@@ -1595,7 +1584,8 @@ public class ActionNhaptaycnMain extends ActionSupport {
     public void setTt_nha_dt(String tt_nha_dt) {
         this.tt_nha_dt = tt_nha_dt;
     }
-        public DaoListPosFromUser getListKTNBDA() {
+
+    public DaoListPosFromUser getListKTNBDA() {
         return listKTNBDA;
     }
 
@@ -1610,7 +1600,6 @@ public class ActionNhaptaycnMain extends ActionSupport {
     public void setPosMainModel(PosMainModel posMainModel) {
         this.posMainModel = posMainModel;
     }
-    
 
     public String getPos_cd_username() {
         return pos_cd_username;
@@ -1620,7 +1609,5 @@ public class ActionNhaptaycnMain extends ActionSupport {
         this.pos_cd_username = pos_cd_username;
     }
     //</editor-fold>
-
-
 
 }

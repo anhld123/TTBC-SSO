@@ -8565,20 +8565,25 @@ public class DaoNhaptaycnMain {
         String sInsert = "";
         String Delete = "";
         String Update = "";
+//        08/2021_39_27/08/2021
+        String sThangvay = thangvay.substring(0, 7);  //thang
+        String sDTTH = thangvay.substring(8, 10);  //dtth
+        String sNGAY = thangvay.substring(11, 20); //Ngay
         try {
             conn = daoconnect.getConnect();
             sInsert = "insert into dulieu_nt(KHOA,TT_HIENTHI, MAPGD, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D15 , ngaybc, "
-                    + " NGUOI_NHAP, D19,D45)\n"
-                    + "values(?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, to_char(sysdate,'DD/MM/YYYY'),'1')";
+                    + " NGUOI_NHAP, D16, D19,D45)\n"
+                    + "values(?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, to_char(sysdate,'DD/MM/YYYY'),'1')";
             conn.setAutoCommit(false);
             insert = conn.prepareStatement(sInsert);
-            Delete = "delete from dulieu_nt where MAPGD=? and khoa = ? and D7 = ? and d15 = ?";
+            Delete = "delete from dulieu_nt where MAPGD=? and khoa = ? and D7 = ? and d15 = ? and D16 = ?";
             statementDelete = conn.prepareCall(Delete);
 //                    statementDelete.setDate(1, new java.sql.Date(ngaybc.getTime()));
             statementDelete.setString(1, poscd);
             statementDelete.setString(2, mabc);
-            statementDelete.setString(3, thangvay);
+            statementDelete.setString(3, sThangvay);
             statementDelete.setString(4, masothue);
+            statementDelete.setString(5, sDTTH);
 
             statementDelete.execute();
             for (int i = 0; i < lstExcel.size(); i++) {
@@ -8596,7 +8601,7 @@ public class DaoNhaptaycnMain {
                 insert.setString(8, value.getN3());
 
                 insert.setString(9, value.getN4());
-                insert.setString(10, thangvay);
+                insert.setString(10, sThangvay);
                 insert.setString(11, value.getN6());
                 insert.setString(12, value.getN7());
                 insert.setString(13, value.getN8());
@@ -8606,9 +8611,10 @@ public class DaoNhaptaycnMain {
 
                 insert.setDate(17, new java.sql.Date(ngaybc.getTime()));
                 insert.setString(18, username);
+                insert.setString(19, sDTTH);
                 insert.execute();
             }
-            Delete = "delete from dulieu_nt where (D2 is null or D4 is null)  and khoa = ?";
+            Delete = "delete from dulieu_nt where (D2 is null )  and khoa = ?";
             statementDelete = conn.prepareCall(Delete);
 //                    statementDelete.setDate(1, new java.sql.Date(ngaybc.getTime()));                    
             statementDelete.setString(1, mabc);
