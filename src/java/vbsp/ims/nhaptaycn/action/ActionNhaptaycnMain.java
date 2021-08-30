@@ -244,6 +244,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected List<ListValue> lstPLKT = new ArrayList<ListValue>();
     protected List<ListValue> lstDTTH = new ArrayList<ListValue>();
     protected List<ListValue> lstDNVON = new ArrayList<ListValue>();
+    protected List<ListValue> lstSoKU = new ArrayList<ListValue>();
 
     private List<ListValue> lstCapKT = new ArrayList<ListValue>();
     private List<ListValue> lstDVUT = new ArrayList<ListValue>();
@@ -1061,7 +1062,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
             DaoNhaptaycnMain daosync = DaoNhaptaycnMain.newInstance();
             Map<String, Integer> mapStatusSend = new HashMap();
             if (khoa_nhaptaycn.equals("QD23_001")) {
-                if (daosync.checkSave_Send(khoa_nhaptaycn, Grade, hmParameter.get("ngay_bc").toString(), "SEND") == 0) {
+                if (daosync.checkSave_Send(khoa_nhaptaycn, Grade, hmParameter.get("ngay_bc").toString(), "SEND", UserName, poscd) == 0) {
                     addActionError("Bạn vui lòng chọn ngày hiện tại và nhập cột 43,44!");
                     return ERROR;
                 }
@@ -1355,6 +1356,15 @@ public class ActionNhaptaycnMain extends ActionSupport {
     public void setLstDNVON(List<ListValue> lstDNVON) {
         this.lstDNVON = lstDNVON;
     }
+
+    public List<ListValue> getLstSoKU() {
+        return lstSoKU;
+    }
+
+    public void setLstSoKU(List<ListValue> lstSoKU) {
+        this.lstSoKU = lstSoKU;
+    }
+    
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
     public List<ListValue> getLstCapKT() {

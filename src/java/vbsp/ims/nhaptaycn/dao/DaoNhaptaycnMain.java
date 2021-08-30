@@ -8923,13 +8923,18 @@ public class DaoNhaptaycnMain {
         return lstData;
     }
     
-    public int checkSave_Send(String mabc, String capbc, String ngaybc, String type) throws SQLException {
+    public int checkSave_Send(String mabc, String capbc, String ngaybc, String type, String username, List<String> lstArrPoscd) throws SQLException {
         int _retVal = 0;
         Connection conn = new DaoConnect().getConnect();
         CallableStatement calstatement = null;
         ResultSet reset = null;
+        
+         ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
+            String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
+            ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
+            
         //Khoi tao procedure cung voi tham so truyen vao la dau ?
-        String strStoreproce = "{ ? = call VBSP_IMS_NHAPTAYCN.F_CHECK_SAVE_SEND(?,?,?,?) }";
+        String strStoreproce = "{ ? = call VBSP_IMS_NHAPTAYCN.F_CHECK_SAVE_SEND(?,?,?,?,?,?) }";
 
         try {
             //Khoi tao goi Store
@@ -8940,6 +8945,8 @@ public class DaoNhaptaycnMain {
             calstatement.setString(3, capbc);
             calstatement.setString(4, ngaybc);
             calstatement.setString(5, type);
+            calstatement.setString(6, username);
+                calstatement.setArray(7, oracle_arrayPoscd);
             //Thuc hien execute lay du lieu
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)

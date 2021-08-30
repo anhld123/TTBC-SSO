@@ -1064,4 +1064,68 @@ public class ExcelExport {
             return null;
         }
     }
+    
+    public FileExportInfo xuatExcelMau01BCTK_QD23_Temp(List<String> lstPosCd, String reportDate, String capBC, String savedDirPath, String pos_user) {
+        String filePath = "", fileName = "";
+        List<String> lstOfTextFile = new ArrayList<>();
+        List<DownloadFileInfor> filesList = new ArrayList<>();
+        List<String> zipFileList = new ArrayList<>();
+        lstOfTextFile.clear();
+        filesList.clear();
+        zipFileList.clear();
+        ArrayList<String> fullPathList = new ArrayList<>();
+        String strTimeFile = Long.toString(System.currentTimeMillis());
+        String zipFile = "FileNen_MAU_01BCTK_" + strTimeFile + ".zip", zipPath = "";
+        try {
+
+            Date dReportDate = new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate);
+            String strCurrDate = new SimpleDateFormat("ddMMyyyy").format(dReportDate);
+            //duong dan chua file tren o dia + Define.M_REPORT_XLS
+            String strPathSave = savedDirPath;
+            //Ham nay lay ra ten file bao cao can tao, ten file jasper report
+
+            String strFileSave =  pos_user
+                    + "_COVID_NLD_QD23_"  + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
+
+            strPathSave += Define.M_REPORT_XLS;
+            strFileSave += ".XLSX";
+            filePath = strFileSave;
+
+            String templateFile = savedDirPath + Define.M_EXCEL_TEMP + "/KHNV/COVID_NLD_QD23.xlsx";
+            fileName = strPathSave + strFileSave;
+            File source = new File(templateFile);
+            File dest = new File(fileName);
+
+            FileUtil.copyFile(source, dest);
+
+
+
+            lstOfTextFile.add(fileName);
+            FileInfo file = new FileInfo(new File(fileName));
+            filesList.add(new DownloadFileInfor(file.getName(), fileName,
+                    DefineFun.round_up((double) file.getSize() / 1000) + " KB"));
+            fullPathList.add(file.getAbsolutePath());
+            zipPath = Define.M_ROOT + Define.M_REPORT_XLS + zipFile;
+//            }
+
+            if (fullPathList.size() > 1) {
+                try {
+                    FileZip.ZipFileFromArray(fullPathList, zipPath);
+                    zipFileList.add(zipFile);
+                    zipFileList.add(zipPath);
+                } catch (Exception ex) {
+                    Logger.getLogger(ExportText2SbvManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                filePath = zipFile;
+                fileName = zipPath;
+            }
+
+            System.gc();
+            return new FileExportInfo(fileName, filePath);
+        } catch (Exception ex) {
+            CoreLogger.error(this.getClass().getName() + " get_data_xaydungkh " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " loi getDataXayDungKhDetail " + ex.getMessage());
+            return null;
+        }
+    }
 }

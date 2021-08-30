@@ -103,6 +103,7 @@ public class QD23_001 extends ActionNhaptaycnMain
                 setLstPLKT(daoMain.getCanBo(UserName, "PLKT1A"));
                 setLstDTTH(daoMain.getCanBo(UserName, "DTTH"));
                 setLstDNVON(daoMain.getCanBo(UserName, "DNVON"));
+                setLstSoKU(daoMain.getCanBo(UserName, "SOKU23"));
                 return "nhap_3_pheduyetgn_pgd";
             } 
             //Điều chỉnh giảm
@@ -171,7 +172,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
 //            String sNv = hmParameter.get("type_action").toString();
-            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString(),"SAVE")==0)
+            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString(),"SAVE", UserName, poscd)==0)
             {
                 addActionError("Bạn vui lòng chọn ngày hiện tại và nhập cột 43,44 (cấp chi nhánh)!");
                         return ERROR; 
@@ -225,7 +226,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
             String dateStr = sdf.format(date1);
             
-            if(daoMain.checkSave_Send("QD23_003", Grade, dateStr,"SAVE")==0)
+            if(daoMain.checkSave_Send("QD23_003", Grade, dateStr,"SAVE" , UserName, poscd)==0)
             {
                 addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
                         return ERROR; 
@@ -262,7 +263,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
             String dateStr = sdf.format(date1);
             
-            if(daoMain.checkSave_Send(hmParameter.get("khoadc").toString(), Grade,  dateStr,"SAVE")==0)
+            if(daoMain.checkSave_Send(hmParameter.get("khoadc").toString(), Grade,  dateStr,"SAVE", UserName, poscd)==0)
             {
                 addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
                         return ERROR; 
@@ -505,7 +506,35 @@ public class QD23_001 extends ActionNhaptaycnMain
 //            }
             HashMap hmParameter = getParameter();
             String sNgayBC = hmParameter.get("ngay_bc").toString();
-            FileExportInfo fileInfo = excelExport.xuatExcelMau01BCTK_QD23(poscd, hmParameter.get("ngay_bc").toString(), Grade, savedDir, pos_cd_username);
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01BCTK_QD23_Temp(poscd, hmParameter.get("ngay_bc").toString(), Grade, savedDir, pos_cd_username);
+            fileNamelocal = fileInfo.fileName;
+            filereport = fileInfo.filePath;
+            return SUCCESS;
+        } catch (Exception ex) {
+            CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv01a " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " Loi ExpExcelKhnv01a " + ex.getMessage());
+            return ERROR;
+        }
+    }
+    
+    public String QD23_001_ExpExcel_Temp() {
+        try {
+//            getInfo();
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            request = ServletActionContext.getRequest();
+            String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
+            ExcelExport excelExport = new ExcelExport();
+            List<String> lstSubCommune = new ArrayList<>();
+            DaoNhaptaycnMain dao = new DaoNhaptaycnMain();
+//            lstSubCommune = dao.getPosList(UserName, Grade);
+            
+            lstSubCommune.add(pos_cd_username);
+
+            HashMap hmParameter = getParameter();
+            String sNgayBC = hmParameter.get("ngay_bc").toString();
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01BCTK_QD23_Temp(poscd, hmParameter.get("ngay_bc").toString(), Grade, savedDir, pos_cd_username);
             fileNamelocal = fileInfo.fileName;
             filereport = fileInfo.filePath;
             return SUCCESS;
