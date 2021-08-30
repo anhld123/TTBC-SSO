@@ -331,13 +331,13 @@
         </action>-->
         
         <action name="COVID_03" class="vbsp.ims.nhaptaycn.action.COVID_03"  method="load">
-                <result name="success">/nhaptay-cn/table_covid_03.jsp</result>                
-                <result name="error">/nhaptay-cn/success.jsp</result>        
+            <result name="success">/nhaptay-cn/table_covid_03.jsp</result>                
+            <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>
 
         <action name="SAVE_COVID_03" class="vbsp.ims.nhaptaycn.action.COVID_03"  method="save">
-                <result name="success">/BCQT/success.jsp</result>
-                <result name="error">/BCQT/success.jsp</result>        
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
         </action>
         
         <action name="COVID_04" class="vbsp.ims.nhaptaycn.action.COVID_04"  method="load">
@@ -381,13 +381,13 @@
         </action>
         
         <action name="COVID_GIAINGAN" class="vbsp.ims.nhaptaycn.action.COVID_GIAINGAN"  method="load">
-                <result name="success">/nhaptay-cn/table_covid_02.jsp</result>                
-                <result name="error">/nhaptay-cn/success.jsp</result>        
+            <result name="success">/nhaptay-cn/table_covid_02.jsp</result>                
+            <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>
 
         <action name="SAVE_COVID_GIAINGAN" class="vbsp.ims.nhaptaycn.action.COVID_GIAINGAN"  method="save">
-                <result name="success">/BCQT/success.jsp</result>
-                <result name="error">/BCQT/success.jsp</result>        
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
         </action>
         
         <action name="COVID_GIAINGAN_ExpExcel" class="vbsp.ims.nhaptaycn.action.COVID_GIAINGAN"  method="ExpExcel">
@@ -435,25 +435,25 @@
         </action>
         
         <action name="SAVE_QD23_004" class="vbsp.ims.nhaptaycn.action.Qd2368Action"  method="save">
-                <result name="success">/nhaptay-cn/success.jsp</result>
-                <result name="error">/nhaptay-cn/success.jsp</result>        
+            <result name="success">/nhaptay-cn/success.jsp</result>
+            <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>
         
         <action name="QD23_001" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="load">
-                <result name="nhap_1_kh_pgd">/nhaptay-cn/table_qd23_001_1_kh_pgd.jsp</result>  
-                <result name="nhap_2_pheduyetcv_pgd">/nhaptay-cn/table_qd23_001_2_pheduyetcv_pgd.jsp</result>                      
-                <result name="nhap_3_pheduyetgn_pgd">/nhaptay-cn/table_qd23_001_3_pheduyetgn_pgd.jsp</result>       
-                <result name="xaydungkh_tw">/nhaptay-cn/table_qd23_001_tw_xd.jsp</result>   
-                <result name="dieuchinhkh_tw">/nhaptay-cn/table_qd23_001_tw_dc.jsp</result>   
-                <result name="xaydungkh_cn">/nhaptay-cn/table_qd23_001_cn.jsp</result>   
-                <result name="dieuchinh_pgd">/nhaptay-cn/table_qd23_001_dieuchinh_pgd.jsp</result>      
-                <result name="canhbao_pgd">/nhaptay-cn/table_qd23_001_canhbao_pgd.jsp</result>     
-                <result name="error">/nhaptay-cn/success.jsp</result>        
+            <result name="nhap_1_kh_pgd">/nhaptay-cn/table_qd23_001_1_kh_pgd.jsp</result>  
+            <result name="nhap_2_pheduyetcv_pgd">/nhaptay-cn/table_qd23_001_2_pheduyetcv_pgd.jsp</result>                      
+            <result name="nhap_3_pheduyetgn_pgd">/nhaptay-cn/table_qd23_001_3_pheduyetgn_pgd.jsp</result>       
+            <result name="xaydungkh_tw">/nhaptay-cn/table_qd23_001_tw_xd.jsp</result>   
+            <result name="dieuchinhkh_tw">/nhaptay-cn/table_qd23_001_tw_dc.jsp</result>   
+            <result name="xaydungkh_cn">/nhaptay-cn/table_qd23_001_cn.jsp</result>   
+            <result name="dieuchinh_pgd">/nhaptay-cn/table_qd23_001_dieuchinh_pgd.jsp</result>      
+            <result name="canhbao_pgd">/nhaptay-cn/table_qd23_001_canhbao_pgd.jsp</result>     
+            <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>
 
         <action name="SAVE_QD23_001" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="save">
-                <result name="success">/BCQT/success.jsp</result>
-                <result name="error">/BCQT/success.jsp</result>        
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
         </action>
         
         <action name="updateDsNguoiLD_QD23" class="vbsp.ims.nhaptaycn.action.QD23_001" method="updateDsNguoiLD_QD23">
@@ -503,7 +503,7 @@
         
         <action name="saveUploadDsNguoiLD_QD23" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveUploadDsNguoiLD_QD23">
             <result name="success">/nhaptay-cn/table-result-upload-nld_qd23.jsp</result>  
-           <result name="error">/BCQT/success.jsp</result>              
+            <result name="error">/BCQT/success.jsp</result>              
         </action>
         
         <action name="saveDieuchinhKH" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveDieuchinhKH">
@@ -520,7 +520,12 @@
             <result name="success">downfile_bcnhanh.jsp</result>  
             <result name="error">/error.jsp</result>        
         </action> 
-                
+        
+        <action name="QD23_001_ExpExcel_Temp" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="QD23_001_ExpExcel_Temp">
+            <result name="success">downfile_bcnhanh.jsp</result>  
+            <result name="error">/error.jsp</result>        
+        </action> 
+        
         <!--gui so lieu -->
         <action name="sendPhiUT" class="vbsp.ims.nhaptaycn.action.ActionNhaptaycnMain"  method="sendPhiUT">
             <result name="success">/nhaptay-cn/success.jsp</result>
