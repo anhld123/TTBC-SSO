@@ -195,7 +195,7 @@
                             <th rowspan="3" class="TD_TENKH">Tên người đại diện</th>
                             <th rowspan="3" class="TD_NGAY">Ngày tiếp nhận hs </th>
                             <th rowspan="3" class="TD_NGAY">Hình thức tiếp nhận </th>                            
-                            <th rowspan="3" class="TD_NGAY">Ngành nghề KD chính</th> 
+                            <!--<th rowspan="3" class="TD_NGAY">Ngành nghề KD chính</th>--> 
                             <!--<th rowspan="3" class="TD_TENKH">Địa chỉ</th>--> 
 
                             <!--                            <th rowspan="3" class="TD_MAKH">Giấy đề nghị </th>
@@ -253,7 +253,7 @@
                             <td style="text-align: center">5</td>
                             <td style="text-align: center">6</td>
                             <td style="text-align: center">7</td>
-                            <td style="text-align: center">20</td>
+                            <!--<td style="text-align: center">20</td>-->
                             <!--<td style="text-align: center">21</td>-->
                             <!--                            <td style="text-align: center">8</td>
                                                         <td style="text-align: center">9</td>-->
@@ -338,11 +338,11 @@
                                            readonly="true"/>                                                                        
                                 </td>
 
-                                <td align = "right" class="TD_MAKH" >
+<!--                                <td align = "right" class="TD_MAKH" >
                                     <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D20" />"
                                            name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D20" class="TEN_KH D0" onfocus="this.select();" 
                                            readonly="true"/>                                                                        
-                                </td>
+                                </td>-->
                                 <!--                                    <td align = "right" class="TD_TENKH" >
                                                                         <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D21" />"
                                                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D21" class="TEN_KH" onfocus="this.select();" 

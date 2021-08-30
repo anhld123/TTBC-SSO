@@ -404,8 +404,15 @@
 
                 $("#idExpEceltmp")[0].click();
                 bsubmit = false;
-            }
-            ;
+            };
+            function ExpEcelTemp()
+            {
+                $('#message_suc_err').empty();
+                $('#divExportReport').empty();
+
+                $("#idExpEceltmpTemp")[0].click();
+                bsubmit = false;
+            };
 
             function getDaysOfMonth(month, year) {
                 switch (month) {
@@ -625,14 +632,20 @@
                                             <input type="button" id="idReLoadtmp" name="nameidReLoadtmp"  onclick="ExpEcel()" value="Xuất Excel" style="width:122px;height:25px;color: red;"/>
     
                                         </s:if>      -->
-                                        <%--<s:if test="Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('QD23_001')">--%>  
+                                        <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001')">  
                                             <s:url id="idExpEcel" action="QD23_001_ExpExcel.action"></s:url>                                      
                                             <sj:submit id="idExpEceltmp" name="nameSend" href="%{idExpEcel}" value="Xuất 01.BCTK" targets="divExportReport"
                                                        onBeforeTopics="beforediv_send"
                                                        onCompleteTopics="completediv_send" cssStyle="display:none"/>
                                             <input type="button" id="idReLoadtmp" name="nameidReLoadtmp"  onclick="ExpEcel()" value="Xuất 01.BCTK" />
+                                            &nbsp;&nbsp;&nbsp;
+                                            <s:url id="idExpEcelTemp" action="QD23_001_ExpExcel_Temp.action"></s:url>                                      
+                                            <sj:submit id="idExpEceltmpTemp" name="nameSendTemp" href="%{idExpEcelTemp}" value="Mẫu danh sách NLĐ" targets="divExportReport"
+                                                       onBeforeTopics="beforediv_send"
+                                                       onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                            <input type="button" id="idReLoadtmpTemp" name="nameidReLoadtmpTemp"  onclick="ExpEcelTemp()" value="Mẫu danh sách NLĐ" />
 
-                                        <%--</s:if>--%>      
+                                        </s:if>      
                                     </td>
 
 
@@ -811,8 +824,10 @@
                                 var year = date.getFullYear(); //nam
                                 var day = getDaysOfMonth(month, year)
                                 var daynow = day + "/" + month + "/" + year;
-        //                                    alert(daynow)
-                                document.getElementById('ngay_bc_DATE').value = '27/8/2021';//daynow;
+//        //                                    alert(daynow)
+//                                var daynowQD23 = date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear();
+//                                
+                                document.getElementById('ngay_bc_DATE').value = daynow;
                                 var iDate = year + "" + addZeroToLead(month) + "" + addZeroToLead(day);
                                 //Gan quy mac dinh
                                 //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
