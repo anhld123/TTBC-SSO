@@ -824,10 +824,23 @@
                                 var year = date.getFullYear(); //nam
                                 var day = getDaysOfMonth(month, year)
                                 var daynow = day + "/" + month + "/" + year;
-//        //                                    alert(daynow)
-//                                var daynowQD23 = date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear();
-//                                
-                                document.getElementById('ngay_bc_DATE').value = daynow;
+                                //
+                                var today = new Date();
+                                    var dd = today.getDate();
+                                    var mm = today.getMonth() + 1;
+                                    var yyyy = today.getFullYear();
+                                    if (dd < 10) {
+                                        dd = '0' + dd;
+                                    }
+                                    if (mm < 10) {
+                                        mm = '0' + mm;
+                                    }
+                                    var today = dd + '/' + mm + '/' + yyyy;
+                                    if (document.getElementById('khoa_nhaptaycn').value == 'QD23_001') {
+                                        document.getElementById('ngay_bc_DATE').value = today;
+                                    } else {
+                                        document.getElementById('ngay_bc_DATE').value = daynow;//daynow;
+                                    }
                                 var iDate = year + "" + addZeroToLead(month) + "" + addZeroToLead(day);
                                 //Gan quy mac dinh
                                 //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);

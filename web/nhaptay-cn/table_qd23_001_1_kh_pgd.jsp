@@ -223,7 +223,7 @@
                     <table class="editDelete cls-table" >
                         <tr height="50px">      
                             <th  rowspan="2" class="TD_MAKH">Điều chỉnh đề nghị</th> 
-                            <th  rowspan="2" class="TD_MAKH">DS người lao động</th>
+                            <th  rowspan="2" class="TD_MAKH">DS người lao động <span style="color:red">(số lao động đã upload)</span></th>
                             <th rowspan="2" class="TD_MAKH">Mã doanh nghiệp</th>                           
                             <th rowspan="2" class="TD_TENKH">Tên doanh nghiệp <span style="color:red">*</span></th>  
                             <th rowspan="2" class="TD_MAKH">Mã số thuế <span style="color:red">*</span></th>    
@@ -298,7 +298,7 @@
                                      <s:if test="!D45.equalsIgnoreCase(9) && !D45.equalsIgnoreCase(0) && !D45.equalsIgnoreCase(5) && !D45.equalsIgnoreCase(6) && !D45.equalsIgnoreCase(7)">
                                         <td align = "center" class="TD_THOIGIAN">
                                             <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>_<s:property value='D15'/>_<s:property value='D6'/>')" class="SOKU linkKh">
-                                                Upload
+                                                Upload (<span style="color:red"><s:property value='TEN'/></span>)
                                             </a>
                                         </td>
                                     </s:if>    
@@ -429,7 +429,7 @@
                                     <s:if test="!D45.equalsIgnoreCase(9) && !D45.equalsIgnoreCase(0) && !D45.equalsIgnoreCase(5) && !D45.equalsIgnoreCase(6) && !D45.equalsIgnoreCase(7)">
                                         <td align = "center" class="TD_THOIGIAN">
                                             <a href="javascript:updateDsNguoiLD_QD23('<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>_<s:property value='D15'/>_<s:property value='D6'/>')" class="SOKU linkKh">
-                                                Upload
+                                                Upload (<span style="color:red"><s:property value='TEN'/></span>)
                                             </a>
                                         </td>
                                     </s:if>    
@@ -508,7 +508,7 @@
                                     </td>  
                                     <td align = "center" class="TD_NGAY">
                                         <input type="text" value="<s:property  value="D11" />" id="D11_<s:property  value="%{#rowstatus.index}" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH D0 datepicker_month" placeholder="MM/yyyy"/>
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH D0"  readonly="true"/>
                                     </td> 
                                     <td align = "left" class="TD_NGAY">                                        
                                         <s:select  

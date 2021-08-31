@@ -378,7 +378,7 @@
                                     
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D22" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D22" class="D13 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D22" class="D13 TEN_KH " onfocus="this.select();" style="background: 	#C0C0C0 !important;"
                                                 readonly="true"/>
                                     </td> 
                                     <td align = "right" class="TD_MAKH" >
@@ -538,8 +538,7 @@
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 TEN_KH number" onfocus="this.select();"  style="background: #C0C0C0 !important;"
                                                 readonly="true"/>
                                     </td> 
-                                    
-                                   
+                                                                       
                                     <td align = "center" class="TD_NGAY">
                                         <input type="text" value="<s:property  value="D22" />" 
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D22" class="TEN_KH D0" style="background: #C0C0C0 !important;" readonly="true" />
