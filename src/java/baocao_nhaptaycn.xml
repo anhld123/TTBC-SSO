@@ -465,7 +465,10 @@
             </result>  
         </action>
         
-        
+        <action name="UserGroup_deleteQD23" class="vbsp.ims.nhaptaycn.action.QD23_001" method="delete">            
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>
+        </action>
         
         <action name="loadUploadDsNguoild" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="loadParaUploadDsNguoild">
             <result name="success" type="json"></result>        
