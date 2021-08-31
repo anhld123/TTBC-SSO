@@ -438,8 +438,8 @@
                                            readonly="true"/>
                                 </td> 
                                 <td align = "right" class="TD_MAKH" >
-                                <%--<s:if test="D45.equalsIgnoreCase('3')">--%>
-                                     <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D43" />"
+                                
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D43" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D43" class="D13 TEN_KH D0" onfocus="this.select();" 
                                                style="background: #FFCDD2 !important;"/>
                                     </td> 
@@ -448,18 +448,7 @@
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D44" class="TEN_KH D0 datepicker" placeholder="dd/MM/yyyy"  
                                                style="background: #FFCDD2 !important;"/>
                                     </td> 
-<!--                                </s:if>    
-                                <s:else>
-                                <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D43" />"
-                                       name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D43" class="D13 TEN_KH D0" onfocus="this.select();" 
-                                       readonly="true"/>
-                                </td> 
-                                <td align = "right" class="TD_MAKH" >
-                                    <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D44" />"
-                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D44" class="TEN_KH D0 "  
-                                           readonly="true"/>
-                                </td> 
-                            </s:else>     -->
+                               
 
                             <!------------->
                             <td align = "right" class="TD_MAKH" >

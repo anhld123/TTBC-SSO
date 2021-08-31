@@ -172,6 +172,13 @@
                 }
                 //                              
             }
+            
+                function js_confirmDelete() {
+                    var r = confirm('(Msg)Bạn chắc chắn muốn xoá nhóm người dùng này?');
+                    if (r === false) {
+                        event.preventDefault();
+                    }
+                }
 
         </script>
 
@@ -222,6 +229,7 @@
                 <div id="scrolling_table_1"  style="width: 2100px; max-height:45vh">
                     <table class="editDelete cls-table" >
                         <tr height="50px">      
+                            <th  rowspan="2"</th> 
                             <th  rowspan="2" class="TD_MAKH">Điều chỉnh đề nghị</th> 
                             <th  rowspan="2" class="TD_MAKH">DS người lao động <span style="color:red">(số lao động đã upload)</span></th>
                             <th rowspan="2" class="TD_MAKH">Mã doanh nghiệp</th>                           
@@ -253,6 +261,7 @@
 
                         </tr>
                         <tr>
+                            <td></td>
                             <td style="text-align: center"></td>
                             <td style="text-align: center"></td> 
                             <td style="text-align: center">1</td>
@@ -282,7 +291,12 @@
                         <s:iterator value="#attr.lstDulieuNt50" var="modelView" status="rowstatus">                             
                             <tr> 
                                 <!--Doanh nghiệp đã được duyệt-->
-                                
+                                <td align = "center" class="TD_STT">
+                                    <s:url id="deleteUrlQD23" value="UserGroup_deleteQD23.action">
+                                        <s:param name="masothue" value="D3"/>
+                                    </s:url>
+                                    <s:a href="%{deleteUrlQD23}" onclick="js_confirmDelete();"><u>Xoá</u></s:a>
+                                 </td> 
                                 <s:if test="NHAPTAY.equalsIgnoreCase(1)"> 
                                     <s:if test="!D45.equalsIgnoreCase(1)">
                                         <td align = "center" class="TD_MAKH">
