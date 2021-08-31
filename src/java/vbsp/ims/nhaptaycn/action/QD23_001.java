@@ -396,6 +396,7 @@ public class QD23_001 extends ActionNhaptaycnMain
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> updateDsNguoiLD: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> updateDsNguoiLD: " + e.getMessage());
+             return SUCCESS;
         }
         return SUCCESS;
     }
@@ -407,6 +408,7 @@ public class QD23_001 extends ActionNhaptaycnMain
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> UploadDSGiaiNgan: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> UploadDSGiaiNgan: " + e.getMessage());
+             return SUCCESS;
         }
         return SUCCESS;
     }
@@ -506,7 +508,7 @@ public class QD23_001 extends ActionNhaptaycnMain
 //            }
             HashMap hmParameter = getParameter();
             String sNgayBC = hmParameter.get("ngay_bc").toString();
-            FileExportInfo fileInfo = excelExport.xuatExcelMau01BCTK_QD23_Temp(poscd, hmParameter.get("ngay_bc").toString(), Grade, savedDir, pos_cd_username);
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01BCTK_QD23(poscd, hmParameter.get("ngay_bc").toString(), Grade, savedDir, pos_cd_username);
             fileNamelocal = fileInfo.fileName;
             filereport = fileInfo.filePath;
             return SUCCESS;
