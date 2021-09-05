@@ -483,8 +483,13 @@
                                         </s:else>
 
 
-
-                                        <td >
+                                            <s:if test="fieldName.equalsIgnoreCase('nha_dt') && Grade.equalsIgnoreCase('3')">
+                                                <td style="width: 1px">
+                                            </s:if>
+                                            <s:else>
+                                                 <td >
+                                            </s:else>
+                                       
 
                                             <s:if test="type.equalsIgnoreCase('T')">  
                                                 <s:if test="khoa_nhaptaycn.equalsIgnoreCase('LOAITRU_3502')">
@@ -493,7 +498,7 @@
 
                                                 <s:else>
                                                     <s:if test="fieldName.equalsIgnoreCase('nha_dt') && Grade.equalsIgnoreCase('3')">
-                                                        <input type="hidden" value="" id="D_<s:property  value="%{fieldName}"/>" name="<s:property value="%{fieldName}"/>_TEXT" placeholder="<s:property value="label"/>"/>
+                                                        <input type="hidden" style="width: 1px" value="" id="D_<s:property  value="%{fieldName}"/>" name="<s:property value="%{fieldName}"/>_TEXT"/>
                                                     </s:if>
                                                     <s:else>
                                                         <input type="text" value="" id="D_<s:property  value="%{fieldName}"/>" name="<s:property value="%{fieldName}"/>_TEXT" placeholder="<s:property value="label"/>"/>
@@ -547,7 +552,13 @@
                                         <td>&nbsp;|&nbsp</td>
 
 
-                                        <td >Số Tide:</td>
+                                        
+                                          
+                                    </s:if>   
+                                    <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001') && Grade.equalsIgnoreCase('3')"> 
+                                         </tr>
+                                        <tr>
+                                            <td >Số Tide:</td>
                                         <td  >
                                             <!--<input type="text" style="text-align:right;width: 150px"  id="sotide" name="sotide" class=""   placeholder="Số tài khoản"/>-->
                                             <s:select  style="width: 200px;"  list="lstTide" id="sotide" name="sotide" listKey="sKey" listValue="sDesc"></s:select>
@@ -563,13 +574,8 @@
                                                 <!--<option value="2">Điều chuyển</option>-->
                                             </select>
                                         </td> 
-                                          
-                                    </s:if>   
-                                    <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001') && Grade.equalsIgnoreCase('3')"> 
-                                         </tr>
-                                        <tr>
                                     </s:if>            
-                               
+                                            
 
                                     <td >
                                         &nbsp;&nbsp;&nbsp;

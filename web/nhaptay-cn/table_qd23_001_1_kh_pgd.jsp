@@ -219,6 +219,7 @@
             </br>
             <div id="divTitle">
                 DANH SÁCH NGƯỜI SỬ DỤNG LAO ĐỘNG ĐƯỢC HƯỞNG CHÍNH SÁCH VAY VỐN ĐỂ TRẢ LƯƠNG NGỪNG VIỆC
+                <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nhaptaycn"/>
             <!--                <div id="divDonvitinh">
@@ -233,7 +234,7 @@
                             <th  rowspan="2" class="TD_MAKH">Điều chỉnh đề nghị</th> 
                             <th  rowspan="2" class="TD_MAKH">DS người lao động <span style="color:red">(số lao động đã upload)</span></th>
                             <th rowspan="2" class="TD_MAKH">Mã doanh nghiệp</th>                           
-                            <th rowspan="2" class="TD_TENKH">Tên doanh nghiệp <span style="color:red">*</span></th>  
+                            <th rowspan="2" class="TD_CHITIEU">Tên doanh nghiệp <span style="color:red">*</span></th>  
                             <th rowspan="2" class="TD_MAKH">Mã số thuế <span style="color:red">*</span></th>    
                             <th rowspan="2" class="TD_MAKH">CMND người đại diện</th>
                             <th rowspan="2" class="TD_TENKH">Tên người đại diện</th>
@@ -249,7 +250,7 @@
 <!--                            <th  rowspan="2" class="TD_MAKH">Ngày lương theo HĐ <span style="color:red">*</span></th> 
                             <th rowspan="2" class="TD_MAKH">Gấy đề nghị tái cấp vốn</th>
                             <th rowspan="2" class="TD_NGAY">Ngày đề nghị tái cấp vốn</th>-->
-                            <th  rowspan="2" class="TD_CHITIEU">Ghi chú</th>     
+                            <th  rowspan="2" class="TD_TENKH">Ghi chú</th>     
                             <th rowspan="2" class="TD_NGAY">TT Duyệt</th>
                         </tr>         
                         <tr>
@@ -293,9 +294,11 @@
                                 <!--Doanh nghiệp đã được duyệt-->
                                 <td align = "center" class="TD_STT">
                                     <s:url id="deleteUrlQD23" value="UserGroup_deleteQD23.action">
-                                        <s:param name="masothue" value="D3"/>
+                                        <s:param name="masothue">
+                                         ${D3}${D11}${D15}
+                                        </s:param> 
                                     </s:url>
-                                    <s:a href="%{deleteUrlQD23}" onclick="js_confirmDelete();"><u>Xoá</u></s:a>
+                                    <sj:a href="%{deleteUrlQD23}" targets="luu_thanhcong_del" onclick="js_confirmDelete();"><u>Xóa</u></sj:a>
                                  </td> 
                                 <s:if test="NHAPTAY.equalsIgnoreCase(1)"> 
                                     <s:if test="!D45.equalsIgnoreCase(1)">
@@ -353,6 +356,10 @@
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
                                                readonly="true"/>                                                                        
                                     </td>
+<!--                                    <td align = "center" class="TD_NGAY">
+                                        <input type="text" value="<s:property  value="D6" />" id="D5_<s:property  value="%{#rowstatus.index}" />"
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH D0 datepicker" placeholder="dd/MM/yyyy" />
+                                    </td> -->
 
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D7" />"
