@@ -60,7 +60,17 @@
                 <s:if test="D1.equalsIgnoreCase('PHANHOI')">
                     <tr id="phanhoi">
                         <td colspan="14">
-                            <span style="font-weight:bold;">Phản hồi chung của đơn vị: <s:property value='D6'/></span>
+                            <span style="font-weight:bold; line-height: 20px;">Trạng thái: <s:property value='D6'/></span>
+                            <select name="chotsl" disabled="disabled" style="border: 0px; width: 99.6%; margin-bottom: 0px 0px 5px 0px; border: 1px solid orange;height: 30px;">
+                                <option value="01" <s:if test="D4.equalsIgnoreCase('01')"> selected</s:if>>Đúng</option>
+                                <option value="02" <s:if test="D4.equalsIgnoreCase('02')"> selected</s:if>>Đang điều chỉnh</option>
+                                <option value="03" <s:if test="D4.equalsIgnoreCase('03')"> selected</s:if>>Hoàn thành điều chỉnh</option>
+                                <option value="04" <s:if test="D4.equalsIgnoreCase('04')"> selected</s:if>>Chưa xử lý</option>
+                                <option value="05" <s:if test="D4.equalsIgnoreCase('05')"> selected</s:if>>Loại trừ</option>
+                                <option value="07" <s:if test="D4.equalsIgnoreCase('07')"> selected</s:if>>Thiếu số liệu</option>
+                                </select>
+                                <br>
+                                <span style="font-weight:bold;">Ghi chú phàn hồi của PGD : <s:property value='D6'/></span>
                             <textarea id="phanhoichung" name="phanhoichung" style="margin-top: 5px;" readonly="readonly"><s:property value='D3'/></textarea>
                         </td>
                     </tr>
@@ -74,9 +84,10 @@
                             <select name="chotsl" disabled="disabled" style="border: 0px;">
                                 <option value="01" <s:if test="D4.equalsIgnoreCase('01')"> selected</s:if>>Đúng</option>
                                 <option value="02" <s:if test="D4.equalsIgnoreCase('02')"> selected</s:if>>Đang điều chỉnh</option>
-                                <option value="03" <s:if test="D4.equalsIgnoreCase('03')"> selected</s:if>>Hoành thành điều chỉnh</option>
+                                <option value="03" <s:if test="D4.equalsIgnoreCase('03')"> selected</s:if>>Hoàn thành điều chỉnh</option>
                                 <option value="04" <s:if test="D4.equalsIgnoreCase('04')"> selected</s:if>>Chưa xử lý</option>
                                 <option value="05" <s:if test="D4.equalsIgnoreCase('05')"> selected</s:if>>Loại trừ</option>
+                                <option value="07" <s:if test="D4.equalsIgnoreCase('07')"> selected</s:if>>Thiếu số liệu</option>
                                 </select>
                             </td>
                             <td style="text-align: center;">
@@ -124,6 +135,7 @@
                                 <option value="03" <s:if test="D4.equalsIgnoreCase('03')"> selected</s:if>>Hoành thành điều chỉnh</option>
                                 <option value="04" <s:if test="D4.equalsIgnoreCase('04')"> selected</s:if>>Chưa xử lý</option>
                                 <option value="05" <s:if test="D4.equalsIgnoreCase('05')"> selected</s:if>>Loại trừ</option>
+                                <option value="07" <s:if test="D4.equalsIgnoreCase('07')"> selected</s:if>>Thiếu số liệu</option>
                                 </select>
                             </td>
                             <td style="text-align: center;">
@@ -236,7 +248,7 @@
             }
             function CoutFilter() {
                 $('#idloc').children().remove().end();
-                var table, tr, td, i, txtValue, all = 0, loai01 = 0, loai02 = 0, loai03 = 0, loai04 = 0, loai05 = 0;
+                var table, tr, td, i, txtValue, all = 0, loai01 = 0, loai02 = 0, loai03 = 0, loai04 = 0, loai05 = 0, loai07 = 0;
                 table = document.getElementById("tblData");
                 tr = table.getElementsByTagName("tr");
                 const numbers = ['01', '02', '03', '04', '05'];
@@ -262,19 +274,23 @@
                                     case "05":
                                         loai05++;
                                         break;
+                                    case "07":
+                                        loai07++;
+                                        break;
                                 }
 
                             }
                         }
                     }
                 });
-                all = loai01 + loai02 + loai03 + loai04 + loai05;
+                all = loai01 + loai02 + loai03 + loai04 + loai05 + loai07;
                 $('#idloc').append('<option value="">Tất cả (' + all + ')</option>');
                 $('#idloc').append('<option value="01">Đúng (' + loai01 + ')</option>');
                 $('#idloc').append('<option value="02">Đang điều chỉnh (' + loai02 + ')</option>');
                 $('#idloc').append('<option value="03">Hoành thành điều chỉnh (' + loai03 + ')</option>');
                 $('#idloc').append('<option value="04">Chưa xử lý (' + loai04 + ')</option>');
                 $('#idloc').append('<option value="05">Loại trừ (' + loai05 + ')</option>');
+                $('#idloc').append('<option value="07">Thiếu số liệu (' + loai07 + ')</option>');
                 $('.giaitrinh').css("display", "none");
             }
             CoutFilter();
