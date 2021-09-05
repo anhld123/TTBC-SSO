@@ -36,11 +36,13 @@ public class epsGetSetSL {
     private String D8;
     private String D9;
     private String D10;
+    private String SOTK;
+    private String D16;
 
     public epsGetSetSL() {
     }
 
-    public epsGetSetSL(String KHOA, String MACN, String MAPGD, String MAKH, String TENKH, String NGAYSINH, String GIOITINH, String CMT_SO, String CMT_NOICAP, String CMT_NGAYCAP, String DIACHI, String NGAYKYQUY, String SOTIENKYQUY, String NGAYBC, String SOKU, String D1, String D2, String D3, String D4, String D5, String D6, String D7, String D8, String D9, String D10) {
+    public epsGetSetSL(String KHOA, String MACN, String MAPGD, String MAKH, String TENKH, String NGAYSINH, String GIOITINH, String CMT_SO, String CMT_NOICAP, String CMT_NGAYCAP, String DIACHI, String NGAYKYQUY, String SOTIENKYQUY, String NGAYBC, String SOKU, String D1, String D2, String D3, String D4, String D5, String D6, String D7, String D8, String D9, String D10, String SOTK, String D16) {
         this.KHOA = KHOA;
         this.MACN = MACN;
         this.MAPGD = MAPGD;
@@ -66,7 +68,28 @@ public class epsGetSetSL {
         this.D8 = D8;
         this.D9 = D9;
         this.D10 = D10;
+        this.SOTK = SOTK;
+        this.D16 = D16;
     }
+
+    public String getSOTK() {
+        return SOTK;
+    }
+
+    public void setSOTK(String SOTK) {
+        this.SOTK = SOTK;
+    }
+
+    
+    public String getD16() {
+        return D16;
+    }
+
+    public void setD16(String D16) {
+        this.D16 = D16;
+    }
+
+    
 
     public String getKHOA() {
         return KHOA;

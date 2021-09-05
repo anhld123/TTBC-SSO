@@ -16,6 +16,9 @@
         <action name="openlock" class="vbsp.ims.eps.epsAction" method="openlock">
             <result name="success">/EPS/epsDetails.jsp</result>
         </action>
+        <action name="TopngHopBaoCao" class="vbsp.ims.eps.epsAction" method="TopngHopBaoCao">
+            <result name="success">/EPS/TopngHopBaoCao.jsp</result>
+        </action>
         <action name="updateintellect" class="vbsp.ims.eps.epsAction" method="updateintellect">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>

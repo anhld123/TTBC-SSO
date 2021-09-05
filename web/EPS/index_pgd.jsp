@@ -136,12 +136,14 @@
             </h3>
         </div>
         <form id="frmMain" name="frmMain">
-            <div style="display:inline-flex;justify-content: space-between; width: 100%; border-top: 1px solid #ddd;">
-                <div style="display:flex; align-items:center;">
-                    &nbsp;&nbsp;<b>Lọc danh sách:&nbsp;</b>
-                    <select id="idloc" name="loc" onchange="Filter();" style="border: 1px solid black;">
-                    </select>
-                </div>
+            <div style="display:inline-flex;    justify-content: end;
+                 align-content: end;
+                 width: 100%;; width: 100%; border-top: 1px solid #ddd;">
+                <!--                <div style="display:flex; align-items:center;">
+                                    &nbsp;&nbsp;<b>Lọc danh sách:&nbsp;</b>
+                                    <select id="idloc" name="loc" onchange="Filter();" style="border: 1px solid black;">
+                                    </select>
+                                </div>-->
                 <div style="display:flex; align-items:center; padding: 7px 0px;" >
                     <div> Ngày báo cáo:<input type="text" id="datepicker" name="ngaybc" class="js-date" maxlength="10"> </div>
                     <input type="button" value = "Xem số liệu" id="cmdxemsl" style="margin-right: 5px;">

@@ -25,7 +25,7 @@ import java.util.Map;
 public class epsAction extends ActionSupport {
 
     //Cac truong chua thong tin bo xung luu du lieu
-    private String capbc, tendn, ngaybc, madv, status, linkReport, matinh, phanhoichung;
+    private String capbc, tendn, ngaybc, madv, status, linkReport, matinh, phanhoichung, cbophanhoi;
     private InputStream pageResult;
     private int totalRow;
     private Map session;
@@ -38,6 +38,7 @@ public class epsAction extends ActionSupport {
     private List<String> ngaysl = new ArrayList<>();
     private List<String> soku = new ArrayList<>();
     private List<String> chotsl = new ArrayList<>();
+    private List<String> sotk = new ArrayList<>();
     private List<String> nguyennhan = new ArrayList<>();
     private Map<String, String> lstPGD = new HashMap<String, String>();
 
@@ -96,7 +97,7 @@ public class epsAction extends ActionSupport {
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        new epsModel().luusleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan, tendn, phanhoichung);
+        new epsModel().luusleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan, tendn, phanhoichung, sotk, cbophanhoi);
         lstDetail = new epsModel().xemsleps(capbc, tendn, ngaybc);
         return SUCCESS;
     }
@@ -109,7 +110,7 @@ public class epsAction extends ActionSupport {
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        new epsModel().xacnhansleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan, tendn, phanhoichung);
+        new epsModel().xacnhansleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan, tendn, phanhoichung, sotk, cbophanhoi);
         lstDetail = new epsModel().xemsleps(capbc, tendn, ngaybc);
         return SUCCESS;
     }
@@ -138,10 +139,32 @@ public class epsAction extends ActionSupport {
         pageResult = new ByteArrayInputStream(String.valueOf(totalRow).getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
+    
+    //Cấp PGD
+    public String TopngHopBaoCao() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = sdf.parse(ngaybc);
+        DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
+        ngaybc = df3.format(date);
+        session = ActionContext.getContext().getSession();
+        capbc = (String) session.get("reportGrade");
+        tendn = (String) session.get("username");
+        lstDetail = new epsModel().TopngHopBaoCao(capbc, tendn, ngaybc);
+        return SUCCESS;
+    }
+    
 //<editor-fold defaultstate="collapsed" desc="Thuộc tính GET SET">
 
     public void setCapbc(String capbc) {
         this.capbc = capbc;
+    }
+
+    public String getCbophanhoi() {
+        return cbophanhoi;
+    }
+
+    public void setCbophanhoi(String cbophanhoi) {
+        this.cbophanhoi = cbophanhoi;
     }
 
     public Map<String, String> getLstPGD() {
@@ -170,6 +193,14 @@ public class epsAction extends ActionSupport {
 
     public List<String> getMacn() {
         return macn;
+    }
+
+    public List<String> getSotk() {
+        return sotk;
+    }
+
+    public void setSotk(List<String> sotk) {
+        this.sotk = sotk;
     }
 
     public void setMacn(List<String> macn) {

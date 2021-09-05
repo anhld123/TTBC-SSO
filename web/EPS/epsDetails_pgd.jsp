@@ -50,18 +50,20 @@
                 <s:if test="D1.equalsIgnoreCase('PHANHOI')">
                     <tr id="phanhoi">
                         <td colspan="13">
-                                <span style="font-weight:bold; line-height: 20px;">Trạng thái: <s:property value='D6'/></span>
-                                <select name="chotsl" disabled="disabled" style="border: 0px; width: 100%; margin-bottom: 5px; border: 1px solid orange;height: 30px;">
-                                    <option value="01" <s:if test="D4.equalsIgnoreCase('01')"> selected</s:if>>Đúng</option>
-                                    <option value="02" <s:if test="D4.equalsIgnoreCase('02')"> selected</s:if>>Đang điều chỉnh</option>
-                                    <option value="03" <s:if test="D4.equalsIgnoreCase('03')"> selected</s:if>>Hoàn thành điều chỉnh</option>
-                                    <option value="04" <s:if test="D4.equalsIgnoreCase('04')"> selected</s:if>>Chưa xử lý</option>
-                                    <option value="05" <s:if test="D4.equalsIgnoreCase('05')"> selected</s:if>>Loại trừ</option>
-                                    <option value="07" <s:if test="D4.equalsIgnoreCase('07')"> selected</s:if>>Thiếu số liệu</option>
+                            <strong>Tổng hợp PGD</strong> <hr>
+                                <span style="font-weight:bold; line-height: 20px;">Xác nhận dữ liệu: <s:property value='D6'/></span>
+                                <select name="cbophanhoi" <s:property value='D9'/> style="border: 0px; width: 100%; margin-bottom: 5px; border: 1px solid orange;height: 30px;">
+                                    <option value="01" <s:if test="D16.equalsIgnoreCase('01')"> selected</s:if>>Đúng</option>
+                                    <option value="02" <s:if test="D16.equalsIgnoreCase('02')"> selected</s:if>>Đang điều chỉnh</option>
+                                    <option value="03" <s:if test="D16.equalsIgnoreCase('03')"> selected</s:if>>Hoàn thành điều chỉnh</option>
+                                    <option value="04" <s:if test="D16.equalsIgnoreCase('04')"> selected</s:if>>Chưa xử lý</option>
+                                    <option value="05" <s:if test="D16.equalsIgnoreCase('05')"> selected</s:if>>Loại trừ</option>
+                                    <option value="07" <s:if test="D16.equalsIgnoreCase('07')"> selected</s:if>>Thiếu số liệu</option>
                                 </select>
                                 <br>
-                                <b>Ghi chú tổng hợp của PGD:</b>
+                                <b>Ghi chú dữ liệu:</b>
                                 <textarea id="phanhoichung" name="phanhoichung" <s:property value='D8'/>><s:property value='D3'/></textarea>
+                                    <hr> <strong>Chi tiết PGD</strong>
                         </td>
                     </tr>
                 </s:if>
