@@ -91,6 +91,7 @@ public class QD23_001 extends ActionNhaptaycnMain
                 setLstLuongVung(daoMain.getCanBo(UserName, "LUONGVUNG"));
                 setLstPLKT(daoMain.getCanBo(UserName, "PLKT1A"));
                 setLstDTTH(daoMain.getCanBo(UserName, "DTTH"));
+                setLstDNVON(daoMain.getCanBo(UserName, "DNVON"));
                 return "nhap_2_pheduyetcv_pgd";
             } 
             else if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("3")) {
@@ -101,6 +102,8 @@ public class QD23_001 extends ActionNhaptaycnMain
                 setLstLuongVung(daoMain.getCanBo(UserName, "LUONGVUNG"));
                 setLstPLKT(daoMain.getCanBo(UserName, "PLKT1A"));
                 setLstDTTH(daoMain.getCanBo(UserName, "DTTH"));
+                setLstDNVON(daoMain.getCanBo(UserName, "DNVON"));
+                setLstSoKU(daoMain.getCanBo(UserName, "SOKU23"));
                 return "nhap_3_pheduyetgn_pgd";
             } 
             //Điều chỉnh giảm
@@ -169,11 +172,13 @@ public class QD23_001 extends ActionNhaptaycnMain
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
 //            String sNv = hmParameter.get("type_action").toString();
-            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString())==0)
+            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString(),"SAVE", UserName, poscd)==0)
             {
-                addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
+                addActionError("Bạn vui lòng chọn ngày hiện tại và nhập cột 43,44 (cấp chi nhánh)!");
                         return ERROR; 
             }
+            
+            
             if (hmParameter.get("type_action").toString().equals("2") && Grade.equals("3")) { //Duyệt TH điều chỉnh KH
                     if (!daoMain.saveQD23_001("QD23_003", UserName, "", hmParameter.get("ngay_bc").toString(), Grade, lstDulieuNt50, hmParameter.get("type_action").toString())) {
                         addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
@@ -217,7 +222,11 @@ public class QD23_001 extends ActionNhaptaycnMain
 
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
-            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString())==0)
+            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(hmParameter.get("ngay_bc").toString());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+            String dateStr = sdf.format(date1);
+            
+            if(daoMain.checkSave_Send("QD23_003", Grade, dateStr,"SAVE" , UserName, poscd)==0)
             {
                 addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
                         return ERROR; 
@@ -250,7 +259,11 @@ public class QD23_001 extends ActionNhaptaycnMain
 
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
-            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString())==0)
+            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(hmParameter.get("ngay_bc").toString());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+            String dateStr = sdf.format(date1);
+            
+            if(daoMain.checkSave_Send(hmParameter.get("khoadc").toString(), Grade,  dateStr,"SAVE", UserName, poscd)==0)
             {
                 addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
                         return ERROR; 
@@ -383,6 +396,7 @@ public class QD23_001 extends ActionNhaptaycnMain
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> updateDsNguoiLD: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> updateDsNguoiLD: " + e.getMessage());
+             return SUCCESS;
         }
         return SUCCESS;
     }
@@ -394,6 +408,7 @@ public class QD23_001 extends ActionNhaptaycnMain
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> UploadDSGiaiNgan: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> UploadDSGiaiNgan: " + e.getMessage());
+             return SUCCESS;
         }
         return SUCCESS;
     }
@@ -434,6 +449,12 @@ public class QD23_001 extends ActionNhaptaycnMain
                     addActionError("Lỗi khi đọc dữ liệu từ file excel ");
                     return ERROR;
                 }
+                String sCheck = dao.checkUploadNLD(khoa_nhaptaycn, Grade,  hmParameter.get("thangbc").toString(), masothue);
+                if(!sCheck.equals("AAA"))
+                {
+                    addActionError("Lỗi! Trùng số sổ BHYT " + sCheck);
+                    return ERROR; 
+                }
             }
             Connection conn = new DaoConnect().getConnect();
             lstDulieuNt = dao.getDataAfterUpFile(conn, "QD23_002", sNgayBC, poscd, UserName, Grade, hmParameter.get("thangbc").toString(), masothue);
@@ -452,6 +473,9 @@ public class QD23_001 extends ActionNhaptaycnMain
     public String QD23_001_ExpExcel() {
         try {
 //            getInfo();
+            if (!getParaSession()) {
+                return ERROR;
+            }
             request = ServletActionContext.getRequest();
             String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
             ExcelExport excelExport = new ExcelExport();
@@ -484,7 +508,35 @@ public class QD23_001 extends ActionNhaptaycnMain
 //            }
             HashMap hmParameter = getParameter();
             String sNgayBC = hmParameter.get("ngay_bc").toString();
-            FileExportInfo fileInfo = excelExport.xuatExcelMau01BCTK_QD23(lstSubCommune, hmParameter.get("ngay_bc").toString(), "", savedDir);
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01BCTK_QD23(poscd, hmParameter.get("ngay_bc").toString(), Grade, savedDir, pos_cd_username);
+            fileNamelocal = fileInfo.fileName;
+            filereport = fileInfo.filePath;
+            return SUCCESS;
+        } catch (Exception ex) {
+            CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv01a " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " Loi ExpExcelKhnv01a " + ex.getMessage());
+            return ERROR;
+        }
+    }
+    
+    public String QD23_001_ExpExcel_Temp() {
+        try {
+//            getInfo();
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            request = ServletActionContext.getRequest();
+            String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
+            ExcelExport excelExport = new ExcelExport();
+            List<String> lstSubCommune = new ArrayList<>();
+            DaoNhaptaycnMain dao = new DaoNhaptaycnMain();
+//            lstSubCommune = dao.getPosList(UserName, Grade);
+            
+            lstSubCommune.add(pos_cd_username);
+
+            HashMap hmParameter = getParameter();
+            String sNgayBC = hmParameter.get("ngay_bc").toString();
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01BCTK_QD23_Temp(poscd, hmParameter.get("ngay_bc").toString(), Grade, savedDir, pos_cd_username);
             fileNamelocal = fileInfo.fileName;
             filereport = fileInfo.filePath;
             return SUCCESS;

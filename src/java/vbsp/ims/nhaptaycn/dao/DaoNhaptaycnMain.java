@@ -8108,6 +8108,48 @@ public class DaoNhaptaycnMain {
         }
         return true;
     }
+    
+    public boolean saveQD23_001_checkbox(String khoa, String username, String mapgd, String ngaybc, String capBc, List<QT_DULIEU_NT_50> lstData, String loaiNV,List<String> lstArrPoscd) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT_50.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+        
+        ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("POS_CD", connection);
+
+        String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
+
+        ARRAY oracle_arrayPos = new ARRAY(des_ma, connection, arrayPoscd);
+
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NHAPTAYCN.SP_SAVE_QD23_001_CHECKBOX(?, ?, ?, ?, ?, ?, ?,?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, username);
+            cs.setString(3, mapgd);
+            cs.setString(4, ngaybc);
+            cs.setString(5, capBc);
+            cs.setArray(6, array_to_pass);
+            cs.setString(7, loaiNV);
+            cs.setArray(8, oracle_arrayPos);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham saveQD23_001 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveQD23_001 -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
 
     public List<QT_DULIEU_NT> getDataQd2368(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
@@ -8523,20 +8565,25 @@ public class DaoNhaptaycnMain {
         String sInsert = "";
         String Delete = "";
         String Update = "";
+//        08/2021_39_27/08/2021
+        String sThangvay = thangvay.substring(0, 7);  //thang
+        String sDTTH = thangvay.substring(8, 10);  //dtth
+        String sNGAY = thangvay.substring(11, 20); //Ngay
         try {
             conn = daoconnect.getConnect();
             sInsert = "insert into dulieu_nt(KHOA,TT_HIENTHI, MAPGD, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D15 , ngaybc, "
-                    + " NGUOI_NHAP)\n"
-                    + "values(?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + " NGUOI_NHAP, D16, D19,D45)\n"
+                    + "values(?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, to_char(sysdate,'DD/MM/YYYY'),'1')";
             conn.setAutoCommit(false);
             insert = conn.prepareStatement(sInsert);
-            Delete = "delete from dulieu_nt where MAPGD=? and khoa = ? and D7 = ? and d15 = ?";
+            Delete = "delete from dulieu_nt where MAPGD=? and khoa = ? and D7 = ? and d15 = ? and D16 = ?";
             statementDelete = conn.prepareCall(Delete);
 //                    statementDelete.setDate(1, new java.sql.Date(ngaybc.getTime()));
             statementDelete.setString(1, poscd);
             statementDelete.setString(2, mabc);
-            statementDelete.setString(3, thangvay);
+            statementDelete.setString(3, sThangvay);
             statementDelete.setString(4, masothue);
+            statementDelete.setString(5, sDTTH);
 
             statementDelete.execute();
             for (int i = 0; i < lstExcel.size(); i++) {
@@ -8554,7 +8601,7 @@ public class DaoNhaptaycnMain {
                 insert.setString(8, value.getN3());
 
                 insert.setString(9, value.getN4());
-                insert.setString(10, thangvay);
+                insert.setString(10, sThangvay);
                 insert.setString(11, value.getN6());
                 insert.setString(12, value.getN7());
                 insert.setString(13, value.getN8());
@@ -8564,9 +8611,10 @@ public class DaoNhaptaycnMain {
 
                 insert.setDate(17, new java.sql.Date(ngaybc.getTime()));
                 insert.setString(18, username);
+                insert.setString(19, sDTTH);
                 insert.execute();
             }
-            Delete = "delete from dulieu_nt where (D2 is null or D4 is null)  and khoa = ?";
+            Delete = "delete from dulieu_nt where (D2 is null )  and khoa = ?";
             statementDelete = conn.prepareCall(Delete);
 //                    statementDelete.setDate(1, new java.sql.Date(ngaybc.getTime()));                    
             statementDelete.setString(1, mabc);
@@ -8712,19 +8760,20 @@ public class DaoNhaptaycnMain {
         return posList;
     }
     
-    public List<QT_DULIEU_NT_50> getDataEportElxQD23001(String maBC, String poscd,String sGrade, String sNgaybc) {
+    public List<QT_DULIEU_NT_50> getDataEportElxQD23001(String maBC, String poscd,String sGrade, String sNgaybc, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT_50> lstBcqt_NT = new ArrayList<QT_DULIEU_NT_50>();
         try {
-//            ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
-//            String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
-//            ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
+            
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
             conn = daoconnect.getConnect();
-    
+            
+            ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
+            String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
+            ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_IMS_NHAPTAYCN.SP_GET_DATA_EXP_QD23001(?,?,?,?,?,?,?)}";
+            String strStoreproce = "{call VBSP_IMS_NHAPTAYCN.SP_GET_DATA_EXP_QD23001(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
 
             try {
@@ -8737,6 +8786,7 @@ public class DaoNhaptaycnMain {
                 calstatement.setString(2, poscd);
                 calstatement.setString(3, sGrade);
                 calstatement.setString(4, sNgaybc);
+                calstatement.setArray(8, oracle_arrayPoscd);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -8789,8 +8839,8 @@ public class DaoNhaptaycnMain {
                     value.setD28(reset.getString(42));
                     value.setD29(reset.getString(43));
                     value.setD30(reset.getString(44));
-                    value.setNHAPTAY(reset.getString(45));
-                    value.setFONTFORMAT(reset.getString(46));
+//                    value.setNHAPTAY(reset.getString(45));
+//                    value.setFONTFORMAT(reset.getString(46));
 
                     lstBcqt_NT.add(value);
                 }
@@ -8873,13 +8923,18 @@ public class DaoNhaptaycnMain {
         return lstData;
     }
     
-    public int checkSave_Send(String mabc, String capbc, String ngaybc) throws SQLException {
+    public int checkSave_Send(String mabc, String capbc, String ngaybc, String type, String username, List<String> lstArrPoscd) throws SQLException {
         int _retVal = 0;
         Connection conn = new DaoConnect().getConnect();
         CallableStatement calstatement = null;
         ResultSet reset = null;
+        
+         ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
+            String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
+            ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
+            
         //Khoi tao procedure cung voi tham so truyen vao la dau ?
-        String strStoreproce = "{ ? = call VBSP_IMS_NHAPTAYCN.F_CHECK_SAVE_SEND(?,?,?) }";
+        String strStoreproce = "{ ? = call VBSP_IMS_NHAPTAYCN.F_CHECK_SAVE_SEND(?,?,?,?,?,?) }";
 
         try {
             //Khoi tao goi Store
@@ -8889,6 +8944,9 @@ public class DaoNhaptaycnMain {
             calstatement.setString(2, mabc);
             calstatement.setString(3, capbc);
             calstatement.setString(4, ngaybc);
+            calstatement.setString(5, type);
+            calstatement.setString(6, username);
+                calstatement.setArray(7, oracle_arrayPoscd);
             //Thuc hien execute lay du lieu
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -8897,6 +8955,46 @@ public class DaoNhaptaycnMain {
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " checkSave_Send -> " + e.getMessage());
+            throw new SQLException(e);
+        } finally {
+            if (reset != null) {
+                reset.close();
+            }
+            if (calstatement != null) {
+                calstatement.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return _retVal;
+    }
+    
+    public String checkUploadNLD(String mabc, String capbc, String thangbc, String masothue) throws SQLException {
+        String _retVal = "AAA";
+        Connection conn = new DaoConnect().getConnect();
+        CallableStatement calstatement = null;
+        ResultSet reset = null;
+        //Khoi tao procedure cung voi tham so truyen vao la dau ?
+        String strStoreproce = "{ ? = call VBSP_IMS_NHAPTAYCN.F_CHECK_DAT_QD23_UPLOAD(?,?,?,?) }";
+
+        try {
+            //Khoi tao goi Store
+            calstatement = conn.prepareCall(strStoreproce,
+                    ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.VARCHAR);
+            calstatement.setString(2, mabc);
+            calstatement.setString(3, capbc);
+            calstatement.setString(4, thangbc);
+            calstatement.setString(5, masothue);
+            //Thuc hien execute lay du lieu
+            calstatement.execute();
+            //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+            _retVal = calstatement.getString(1);
+
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " checkUploadNLD -> " + e.getMessage());
             throw new SQLException(e);
         } finally {
             if (reset != null) {

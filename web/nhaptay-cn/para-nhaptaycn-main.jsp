@@ -404,8 +404,15 @@
 
                 $("#idExpEceltmp")[0].click();
                 bsubmit = false;
-            }
-            ;
+            };
+            function ExpEcelTemp()
+            {
+                $('#message_suc_err').empty();
+                $('#divExportReport').empty();
+
+                $("#idExpEceltmpTemp")[0].click();
+                bsubmit = false;
+            };
 
             function getDaysOfMonth(month, year) {
                 switch (month) {
@@ -514,6 +521,21 @@
                                     </s:iterator>     
                                     <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001') && Grade.equalsIgnoreCase('3')">
                                         <td>&nbsp;|&nbsp</td>
+                                        
+
+                                        <td >Số thông báo:</td>
+                                        <td>
+                                            <input type="text" style="text-align:right;width: 100px" value="AAA" id="soqd" name="soqd" class="" placeholder="Số duyết định" />
+                                        </td>  
+                                        <td >Ngày thông báo:</td>
+                                        <td>
+                                            <sj:datepicker name="ngay_qd_DATE" value="%{new java.util.Date()}"  id="ngay_qd_DATE"
+                                                           placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL"/> 
+                                        </td>
+                                        <td >Thông báo lần:</td>
+                                        <td >
+                                            <input type="text" style="text-align:right;width: 50px" value="1" id="lanqd" name="lanqd" class=""  placeholder="Lần QĐ" />
+                                        </td> 
                                         <td >Tính chất vốn:</td>
                                         <td>
                                             <select name="tc_von" id="tc_von">
@@ -521,20 +543,6 @@
                                                 <option value="1">Tái cấp vốn</option>
                                                 <option value="2">Điều chuyển</option>
                                             </select>
-                                        </td> 
-
-                                        <td >Số QĐ:</td>
-                                        <td>
-                                            <input type="text" style="text-align:right;width: 100px" value="AAA" id="soqd" name="soqd" class="" placeholder="Số duyết định" />
-                                        </td>  
-                                        <td >Ngày QĐ:</td>
-                                        <td>
-                                            <sj:datepicker name="ngay_qd_DATE" value="%{new java.util.Date()}"  id="ngay_qd_DATE"
-                                                           placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL"/> 
-                                        </td>
-                                        <td >Quyết định lần:</td>
-                                        <td >
-                                            <input type="text" style="text-align:right;width: 50px" value="1" id="lanqd" name="lanqd" class=""  placeholder="Lần QĐ" />
                                         </td> 
                                         <td>&nbsp;|&nbsp</td>
 
@@ -624,12 +632,18 @@
                                             <input type="button" id="idReLoadtmp" name="nameidReLoadtmp"  onclick="ExpEcel()" value="Xuất Excel" style="width:122px;height:25px;color: red;"/>
     
                                         </s:if>      -->
-                                        <s:if test="Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('QD23_001')">  
+                                        <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001')">  
                                             <s:url id="idExpEcel" action="QD23_001_ExpExcel.action"></s:url>                                      
                                             <sj:submit id="idExpEceltmp" name="nameSend" href="%{idExpEcel}" value="Xuất 01.BCTK" targets="divExportReport"
                                                        onBeforeTopics="beforediv_send"
                                                        onCompleteTopics="completediv_send" cssStyle="display:none"/>
                                             <input type="button" id="idReLoadtmp" name="nameidReLoadtmp"  onclick="ExpEcel()" value="Xuất 01.BCTK" />
+                                            &nbsp;&nbsp;&nbsp;
+                                            <s:url id="idExpEcelTemp" action="QD23_001_ExpExcel_Temp.action"></s:url>                                      
+                                            <sj:submit id="idExpEceltmpTemp" name="nameSendTemp" href="%{idExpEcelTemp}" value="Mẫu danh sách NLĐ" targets="divExportReport"
+                                                       onBeforeTopics="beforediv_send"
+                                                       onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                            <input type="button" id="idReLoadtmpTemp" name="nameidReLoadtmpTemp"  onclick="ExpEcelTemp()" value="Mẫu danh sách NLĐ" />
 
                                         </s:if>      
                                     </td>
@@ -810,8 +824,23 @@
                                 var year = date.getFullYear(); //nam
                                 var day = getDaysOfMonth(month, year)
                                 var daynow = day + "/" + month + "/" + year;
-        //                                    alert(daynow)
-                                document.getElementById('ngay_bc_DATE').value = '22/8/2021';//daynow;
+                                //
+                                var today = new Date();
+                                    var dd = today.getDate();
+                                    var mm = today.getMonth() + 1;
+                                    var yyyy = today.getFullYear();
+                                    if (dd < 10) {
+                                        dd = '0' + dd;
+                                    }
+                                    if (mm < 10) {
+                                        mm = '0' + mm;
+                                    }
+                                    var today = dd + '/' + mm + '/' + yyyy;
+                                    if (document.getElementById('khoa_nhaptaycn').value == 'QD23_001') {
+                                        document.getElementById('ngay_bc_DATE').value = today;
+                                    } else {
+                                        document.getElementById('ngay_bc_DATE').value = daynow;//daynow;
+                                    }
                                 var iDate = year + "" + addZeroToLead(month) + "" + addZeroToLead(day);
                                 //Gan quy mac dinh
                                 //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
