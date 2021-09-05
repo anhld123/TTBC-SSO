@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EPS</title>
-        <script type="text/javascript" src="DMChitieu/js/jquery-ui.js"></script>
+       <script type="text/javascript" src="DMChitieu/js/jquery-ui.js"></script>
         <script src="js/jquery.number.js"></script>
         <script type="text/javascript" src="DMChitieu/js/jquery.session.js"></script>
         <style>
@@ -90,12 +90,13 @@
                         </select>
                     </div>
                     <b>Đơn vị trực thuộc</b>
-                    <select id="iddonvi" name="madv">
+                    <select id="iddonvi" name="madv" style="width: 200px;">
                         <s:iterator value="lstPos">
                             <option value="<s:property value='PosCode'/>"><s:property value='PosName'/></option>
                         </s:iterator>
                     </select>
-                    <div> <b>Ngày báo cáo:</b><input type="text" id="datepicker" name="ngaybc" class="js-date" maxlength="10"></div>
+                    <b>Ngày báo cáo:</b><input type="text" id="datepicker" name="ngaybc" class="js-date" maxlength="10" style="width: 100px;">
+                    <input type="button" id="btnTonghop" value="Tổng hợp báo cáo PGD"/>
                     <input type="button" id="btnXem" value="Xem số liệu"/>
                 </div>
             </div>

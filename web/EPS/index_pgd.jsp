@@ -183,8 +183,14 @@
                             return undefined;
                         }
                     }
+                    if ($(this).val() == '04') {
+                        alert('Có bản ghi đang ở trạng thái "Chưa xử lý"');
+                        constChk = 0;
+                        return undefined;
+                    }
                     index++;
                 });
+
             }
             if (constChk == 1) {
                 if (event.data.action == "xacnhansleps") {
