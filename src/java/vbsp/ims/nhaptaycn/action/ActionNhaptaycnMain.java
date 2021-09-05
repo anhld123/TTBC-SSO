@@ -204,6 +204,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected String tc_von;
     protected String khoadc;
     protected String thangbc;
+    protected String dtth;
 
     protected String tenkh;
     protected String soku;
@@ -1363,6 +1364,14 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     public void setLstSoKU(List<ListValue> lstSoKU) {
         this.lstSoKU = lstSoKU;
+    }
+
+    public String getDtth() {
+        return dtth;
+    }
+
+    public void setDtth(String dtth) {
+        this.dtth = dtth;
     }
     
 

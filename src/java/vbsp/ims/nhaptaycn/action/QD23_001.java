@@ -45,6 +45,7 @@ import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.DaoDCPLNO;
 import vbsp.ims.define.Define;
 import vbsp.ims.define.DefineFun;
+import vbsp.ims.encrypt.DES;
 import vbsp.ims.khnv2021.excel.ExcelExport;
 import vbsp.ims.khnv2021.model.FileExportInfo;
 import vbsp.ims.log.CoreLogger;
@@ -128,8 +129,9 @@ public class QD23_001 extends ActionNhaptaycnMain
                 String ngayquyetdinh = hmParameter.get("ngay_qd").toString(); 
                 String lanquyetdinh = hmParameter.get("lanqd").toString(); 
                 String sotide = hmParameter.get("sotide").toString(); 
+                String tinhchatvon = hmParameter.get("tc_von").toString(); 
                 lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, 
-                        soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh+"#"+sotide, 
+                        soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh+"#"+sotide+"#"+tinhchatvon, 
                         hmParameter.get("type_action").toString());
                 setLstTinhchatNV(daoMain.getCanBo(UserName, "TINHTCHAT_NV"));
                 setLstChotKH(daoMain.getCanBo(UserName, "CHOTKH"));
@@ -138,7 +140,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             else if (Grade.equals("3") && hmParameter.get("type_action").toString().equals("2")) {
                 String soquyetdinh = hmParameter.get("soqd").toString(); 
                 String ngayquyetdinh = hmParameter.get("ngay_qd").toString(); 
-                String lanquyetdinh = hmParameter.get("lanqd").toString(); 
+                String lanquyetdinh = hmParameter.get("lanqd").toString();                 
                 lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh, 
                         hmParameter.get("type_action").toString());
                 setLstTinhchatNV(daoMain.getCanBo(UserName, "TTDUYET"));
@@ -154,6 +156,7 @@ public class QD23_001 extends ActionNhaptaycnMain
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> QD23_001: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> QD23_001: " + e.getMessage());
+            return ERROR;
         }
         return SUCCESS;
     }
@@ -326,6 +329,29 @@ public class QD23_001 extends ActionNhaptaycnMain
             System.err.println(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
             return ERROR;
         }
+        return SUCCESS;
+    }
+    
+     public String delete() {
+         try{
+//        userGroupManager.delete(userGroupCode);
+        HashMap hmParameter = getParameter();
+        String s42 = masothue;
+//        String s4 = thangbc;
+//        String s = dtth;
+        DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+        if(daoMain.deleteQD23("QD23_001", UserName, "", Grade, masothue) == 0)
+        {
+            addActionError("Xóa lỗi");
+            return ERROR;
+        }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
+             addActionError("Xóa lỗi");
+            return ERROR;
+        }
+        addActionMessage("Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
     }
 
@@ -742,4 +768,5 @@ public class QD23_001 extends ActionNhaptaycnMain
         }
         return lstExcelKhnv;
     }
+    
 }
