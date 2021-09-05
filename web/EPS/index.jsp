@@ -74,12 +74,12 @@
             </h3>
         </div>
         <form id="frmMain" name="frmMain" style="margin-bottom: 0px;">
-            <div style="display:inline-flex;justify-content: space-between; width: 100%; border-top: 1px solid #ddd;">
-                <div style="display:flex; align-items:center;">
+            <div style="display:inline-flex;justify-content: end; align-items: end; width: 100%; border-top: 1px solid #ddd;">
+<!--                <div style="display:flex; align-items:center;">
                     &nbsp;<b>Lọc danh sách: &nbsp;</b>
                     <select id="idloc" name="loc" onchange="Filter();">
                     </select>
-                </div>
+                </div>-->
                 <div style="display:flex; align-items:center; padding: 7px 0px;" >
                     <div id="idcapbc">
                         <b>Chi nhánh</b>
@@ -96,8 +96,8 @@
                         </s:iterator>
                     </select>
                     <b>Ngày báo cáo:</b><input type="text" id="datepicker" name="ngaybc" class="js-date" maxlength="10" style="width: 100px;">
-                    <input type="button" id="btnTonghop" value="Tổng hợp báo cáo PGD"/>
                     <input type="button" id="btnXem" value="Xem số liệu"/>
+                    <input type="button" id="btnTonghop" value="Tổng hợp báo cáo PGD"/>
                 </div>
             </div>
         </div>
@@ -109,6 +109,7 @@
 </body>
 <script>
     $(document).ready(function () {
+        $("#btnTonghop").click({status: "", url: "TopngHopBaoCao.action"}, SendData);
         $("#btnXem").click({status: "", url: "loadIndex.action"}, SendData);
         $("#btnXem").trigger('click');
         $("#idtinh").change({status: "00", url: "getpgdfromcn.action"}, SendData);
@@ -119,6 +120,7 @@
     function SendData(event) {
         $("#btnXem").val("Đang tải dữ liệu");
         $("#btnXem").prop('disabled', true);
+        $("#btnTonghop").prop('disabled', true);
         var surl, sdata, idView, idForm, method;
         surl = event.data.url + "?status=" + event.data.status;
         idView = "#ShowData";
@@ -144,6 +146,7 @@
             complete: function () {
                 $("#btnXem").val("Xem dữ liệu");
                 $("#btnXem").prop('disabled', false);
+                $("#btnTonghop").prop('disabled', false);
             }
             ,
             error: function () {
