@@ -63,12 +63,8 @@
                             <strong>Tổng hợp: <s:property value='D6'/></strong> <hr>
                                 <span style="font-weight:bold; line-height: 20px;">Xác nhận dữ liệu:</span>
                                 <select name="cbophanhoi" disabled style="border: 0px; width: 100%; margin-bottom: 5px; border: 1px solid orange;height: 30px;">
-                                    <option value="01" <s:if test="D16.equalsIgnoreCase('01')"> selected</s:if>>Đúng</option>
-                                    <option value="02" <s:if test="D16.equalsIgnoreCase('02')"> selected</s:if>>Đang điều chỉnh</option>
-                                    <option value="03" <s:if test="D16.equalsIgnoreCase('03')"> selected</s:if>>Hoàn thành điều chỉnh</option>
-                                    <option value="04" <s:if test="D16.equalsIgnoreCase('04')"> selected</s:if>>Chưa xử lý</option>
-                                    <option value="05" <s:if test="D16.equalsIgnoreCase('05')"> selected</s:if>>Loại trừ</option>
-                                    <option value="07" <s:if test="D16.equalsIgnoreCase('07')"> selected</s:if>>Thiếu số liệu</option>
+                                    <option value="01" <s:if test="D16.equalsIgnoreCase('01')"> selected</s:if>>Xác nhận số liệu chuẩn</option>
+                                    <option value="02" <s:if test="D16.equalsIgnoreCase('02')"> selected</s:if>>Thiếu số liệu</option>
                                 </select>
                                 <br>
                                 <b>Ghi chú dữ liệu:</b>
