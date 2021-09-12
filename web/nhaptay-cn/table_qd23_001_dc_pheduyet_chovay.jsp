@@ -122,6 +122,7 @@
                             <th rowspan="2" class="TD_MAKH">Giấy đề nghị</th>
                                
                             <th rowspan="2" class="TD_NGAY">Tháng vay</th>
+                            <th rowspan="2" class="TD_NGAY">Ngày điều chỉnh</th>
                             <!--<th colspan="5">Đề nghị theo hồ sơ vay vốn</th>-->      
 <!--                            <th  rowspan="2" class="TD_MAKH">Kế hoạch dư nợ sau giao chỉ tiêu</th>   
                             <th  rowspan="2" class="TD_MAKH">Ngày lương theo HĐ</th>    
@@ -214,7 +215,13 @@
                                         <input type="text"   value="<s:property  value="D11" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
                                                readonly="true"/>                                                                        
-                                    </td><!--
+                                    </td>
+                                    <td align = "right" class="TD_MAKH" >
+                                        <input type="text"   value="<s:property  value="D19" />"
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
+                                               readonly="true"/>                                                                        
+                                    </td>
+                                    <!--
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"  value="<s:property  value="D15" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D15" class="D15 TEN_KH number" onfocus="this.select();" style="background: 	#C0C0C0 !important;"
@@ -311,6 +318,11 @@
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH D0 "  style="background: 	#C0C0C0 !important;"
                                                readonly="true"/>
                                     </td> 
+                                    <td align = "right" class="TD_MAKH" >
+                                        <input type="text"   value="<s:property  value="D19" />"
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
+                                               readonly="true"/>                                                                        
+                                    </td>
 <!--                                     <td align = "center" class="TD_NGAY">
                                         <input type="text" value="<s:property  value="D15" />" id="D11_<s:property  value="%{#rowstatus.index}" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D15" class="TEN_KH D0 "  style="background: 	#C0C0C0 !important;"

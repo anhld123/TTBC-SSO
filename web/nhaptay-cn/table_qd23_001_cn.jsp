@@ -29,7 +29,8 @@
                 $(".TD_MAKH").css({"width": "70px"});
                 $(".TD_NGAY").css({"width": "55px"});
                 $(".TD_TENKH").css({"width": "130px"});
-                $(".TD_SOKU").css({"width": "120px"});
+                 $(".TD_SOKU").css({"width": "95px"});
+//                $(".TD_SOKU").css({"width": "120px"});
                 $(".TD_SOTIEN").css({"width": "90px"});
                 $(".TD_CHITIEU").css({"width": "300px"});
                 $(".TEN_KH").css({"width": "100%"});
@@ -209,7 +210,7 @@
                             <!--<th  rowspan="3" class="TD_CHITIEU">Ghi chú</th>-->     
                             <!--<th rowspan="3" class="TD_NGAY">TT Duyệt</th>-->
                             <th colspan="7">NHẬP KẾT QUẢ PHÊ DUYỆT CHO VAY (NHCSCH)</th>  
-                            <th colspan="5">NHẬP KẾT QUẢ GIẢI NGÂN</th> 
+                            <th colspan="6">NHẬP KẾT QUẢ GIẢI NGÂN</th> 
                         </tr>         
                         <tr>
                             <th rowspan="2" class="TD_NGAY">Tháng vay </th>
@@ -224,10 +225,10 @@
                             <th  rowspan="2" class="TD_NGAY">Trong đó, số lao động mới được phê duyệt (nếu có)</th>    
                             <th rowspan="2" class="TD_NGAY">Số tiền được phê duyệt cho vay</th>  
                             <th  rowspan="2" class="TD_MAKH">Ngày nhập phê duyệt cho vay<span style="color:red">*</span></th>   
-                            <th rowspan="2" class="TD_MAKH">Gấy đề nghị tái cấp vốn<span style="color:red">*</span></th>
-                            <th rowspan="2" class="TD_NGAY">Ngày đề nghị tái cấp vốn<span style="color:red">*</span></th>
+                            <th rowspan="2" class="TD_MAKH">Gấy đề nghị tái cấp vốn<span style="color:red">(CN gửi TW)</span></th>
+                            <th rowspan="2" class="TD_NGAY">Ngày đề nghị tái cấp vốn<span style="color:red">(CN gửi TW)</span></th>
 
-                            <th colspan="4"  class="TD_NGAY">Số tiền giải ngân được nhập vào theo phát sinh hàng ngày (nếu có) trước 16 giờ chiều</th>  
+                            <th colspan="5"  class="TD_NGAY">Số tiền giải ngân được nhập vào theo phát sinh hàng ngày (nếu có) trước 16 giờ chiều</th>  
                             <!--<th colspan="4" class="TD_NGAY">Số tiền giải ngân trên Intellect</th>-->  
                             <th rowspan="2" class="TD_NGAY">Ngày nhập TT giải ngân <span style="color:red">*</span></th> 
 
@@ -237,6 +238,7 @@
                             <th class="TD_MAKH">Tổng số lượt lao động được giải ngân</th>
                             <th  class="TD_NGAY">Trong đó, số lao động mới được giải ngân(nếu có)</th>    
                             <th  class="TD_NGAY">Số tiền giải ngân</th>
+                            <th  class="TD_SOKU">Mã món vay</th>
 
                             <!--                            
                                                         <th class="TD_NGAY">Ngày phê duyệt</th>
@@ -281,6 +283,7 @@
                             <td style="text-align: center">28</td>
                             <td style="text-align: center">29</td>
                             <td style="text-align: center">30</td>
+                            <td style="text-align: center">31</td>
                             <!--                            <td style="text-align: center">31</td>
                                                         <td style="text-align: center">32</td>
                                                         <td style="text-align: center">33</td>
@@ -299,15 +302,29 @@
                                 <s:else>
                                     <td></td>
                                 </s:else>
-                                <td align = "right" class="TD_MAKH" >
-                                    <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D1" />"
-                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH D0" onfocus="this.select();" 
-                                           readonly="true"/>
-                                    <input type="hidden" value="<s:property  value="NHAPTAY" />" 
-                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>" />
-                                     <input type="hidden" value="<s:property  value="MAPGD" />" 
-                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].MAPGD" value="<s:property  value="MAPGD"/>" />
-                                </td>                                
+                                <s:if test="D1.length()>8">
+                                    <td align = "right" class="TD_MAKH" >
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D1" />"
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH D0" onfocus="this.select();" 
+                                               readonly="true"/>
+                                        <input type="hidden" value="<s:property  value="NHAPTAY" />" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>" />
+                                         <input type="hidden" value="<s:property  value="MAPGD" />" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].MAPGD" value="<s:property  value="MAPGD"/>" />
+                                    </td>   
+                                </s:if>  
+                                <s:else>
+                                    <td align = "right" class="TD_MAKH" >
+                                        <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D1" />"
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH D0" onfocus="this.select();" 
+                                               style="background: #E0F2A5 !important;"/>
+                                        <input type="hidden" value="<s:property  value="NHAPTAY" />" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>" />
+                                         <input type="hidden" value="<s:property  value="MAPGD" />" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].MAPGD" value="<s:property  value="MAPGD"/>" />
+                                    </td>   
+                                </s:else>    
+                                                             
                                 <td align = "right" class="TD_TENKH" >
                                     <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D2" />"
                                            name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D2" class="TEN_KH" onfocus="this.select();" 
@@ -328,11 +345,16 @@
                                            name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH" onfocus="this.select();" 
                                            readonly="true"/>                                                                        
                                 </td>
-                                <td align = "right" class="TD_MAKH" >
-                                    <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D6" />"
-                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH D0" onfocus="this.select();" 
+                                <td align = "right" class="TD_TENKH" >
+                                    <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>   value="<s:property  value="D6" />"
+                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH" onfocus="this.select();" 
                                            readonly="true"/>                                                                        
                                 </td>
+<!--                                <td align = "right" class="TD_MAKH" >
+                                    <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D6" />"
+                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH D0 datepicker" placeholder="dd/MM/yyyy"  
+                                           style="background: #E0F2A5 !important;"/>                                                                        
+                                </td>-->
 
                                 <td align = "right" class="TD_MAKH" >
                                     <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D7" />"
@@ -412,11 +434,16 @@
                                            name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH" onfocus="this.select();" 
                                            readonly="true"/>
                                 </td>  
-                                <td align = "right" class="TD_MAKH" >
-                                    <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D22" />"
-                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D22" class="D13 TEN_KH" onfocus="this.select();" 
+                                <td align = "right" class="TD_NGAY" >
+                                    <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D22" />"
+                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D22" class="TEN_KH" onfocus="this.select();" 
                                            readonly="true"/>
-                                </td> 
+                                </td>  
+<!--                                <td align = "right" class="TD_MAKH" >
+                                    <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D22" />"
+                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D22" class="D13 TEN_KH D0 datepicker" placeholder="dd/MM/yyyy"  
+                                           style="background: #E0F2A5 !important;"/>
+                                </td> -->
                                 <td align = "right" class="TD_MAKH" >
                                     <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D23" />"
                                            name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D23" class="D13 TEN_KH number" onfocus="this.select();"
@@ -449,13 +476,18 @@
                                                style="background: #FFCDD2 !important;"/>
                                     </td> 
                                
-
+                                   
                             <!------------->
                             <td align = "right" class="TD_MAKH" >
-                                <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D27" />"
+                                <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D27" />"
                                        name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D27" class="D13 TEN_KH" onfocus="this.select();" 
                                        readonly="true"/>
                             </td> 
+<!--                            <td align = "right" class="TD_MAKH" >
+                                <input type="text"  <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if> value="<s:property  value="D27" />"
+                                       name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D27" class="D13 TEN_KH D0 datepicker" placeholder="dd/MM/yyyy"  
+                                       style="background: #E0F2A5 !important;"/>
+                            </td> -->
                             <td align = "right" class="TD_MAKH" >
                                 <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D28" />"
                                        name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D28" class="D13 TEN_KH number" onfocus="this.select();" 
@@ -471,6 +503,21 @@
                                        name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D30" class="D13 TEN_KH number" onfocus="this.select();" 
                                        readonly="true"/>
                             </td> 
+                            <s:if test="D31.length()>14">
+                                <td align = "right" class="TD_SOKU" >
+                                    <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D31" />"
+                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D31" class="D13 TEN_KH" onfocus="this.select();" 
+                                           readonly="true"/>
+                                </td> 
+                            </s:if>
+                            <s:else>
+                                <td align = "right" class="TD_SOKU" >
+                                    <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D31" />"
+                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D31" class="D13 TEN_KH" onfocus="this.select();" 
+                                           style="background: #E0F2A5 !important;"/>
+                                </td> 
+                            </s:else>
+                            
                             <!--                                    <td align = "right" class="TD_MAKH" >
                                                                     <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D31" />"
                                                                            name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D31" class="D13 TEN_KH number" onfocus="this.select();" 
