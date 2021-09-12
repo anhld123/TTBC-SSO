@@ -8566,9 +8566,9 @@ public class DaoNhaptaycnMain {
         String Delete = "";
         String Update = "";
 //        08/2021_39_27/08/2021
-        String sThangvay = thangvay.substring(0, 7);  //thang
-        String sDTTH = thangvay.substring(8, 10);  //dtth
-        String sNGAY = thangvay.substring(11, 20); //Ngay
+        String sThangvay = thangvay.split("_")[0];  //thang
+        String sDTTH = thangvay.split("_")[1]; //dtth
+        String sNGAY = thangvay.split("_")[2]; //Ngay
         try {
             conn = daoconnect.getConnect();
             sInsert = "insert into dulieu_nt(KHOA,TT_HIENTHI, MAPGD, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D15 , ngaybc, "
