@@ -211,7 +211,7 @@
                     </s:if> 
                 </div>
                 <!--</br>-->
-                <div class="cls-over">
+                <!--<div class="cls-over">-->
                 <div id="scrolling_table_1" class="scrolly_table" style="width: 1800px; max-height:50vh">
                 <table >
                     <thead>
@@ -320,7 +320,7 @@
                 
                
                </div>
-                    </div>
+                    <!--</div>-->
         </s:form>
     </body>
     

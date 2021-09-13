@@ -95,12 +95,13 @@
         {
             height: 10px;
         }
-/*        .div-scroll
+        .div-scroll
         {
-            overflow-x: scroll;
-            overflow-y: scroll;
-            width:  290vh;
-        }*/
+            /*overflow-x: scroll;*/
+            /*overflow-y: scroll;*/
+            width:  193vh;
+            height: 68vh;
+        }
         
         input[type="text"]
         {
@@ -211,7 +212,7 @@
                 <sj:select href="%{buildCommuneComboUrl}" 
                            name="commune_cd"
                            id="form_ketqua_ktdc_dvut"
-                           list="custCommuneList"        
+                           list="lstDvut"        
                            onChangeTopics="reloadState"
                            onCompleteTopics = "reloadState"                                   
                            listKey="id"
@@ -224,7 +225,7 @@
                 <sj:select href="%{buildCommuneComboUrl}" 
                            name="subcommune_cd"
                            id="form_ketqua_ktdc_mato"
-                           list="custSubCommuneList"        
+                           list="lstMato"        
                            reloadTopics = "reloadState" 
                            listKey="id"
                            listValue="desc"                           

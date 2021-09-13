@@ -277,7 +277,7 @@
                                      <s:if test="(D45.equalsIgnoreCase(5) || D45.equalsIgnoreCase(6) || D45.equalsIgnoreCase(7)) && (D36.equalsIgnoreCase(1) || D45.equalsIgnoreCase(2)) && !D47.equalsIgnoreCase(1)">
                                         <td align = "center" class="TD_MAKH">
                                             <a href="javascript:nhapDieuchinh('<s:property value="D3"/>','<s:property value='D2'/>','<s:property value='D11'/>_<s:property value='D15'/>_<s:property value='D6'/>')" class="SOKU linkKh">
-                                                Điều chỉnh giảm
+                                                Điều chỉnh giảm CT KH
                                             </a>
                                         </td> 
                                         
