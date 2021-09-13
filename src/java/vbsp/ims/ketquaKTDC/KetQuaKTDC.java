@@ -20,8 +20,8 @@ public class KetQuaKTDC extends ActionMainKTDC {
 
     private KetQuaKtdcDao daoKtdc = new KetQuaKtdcDao();
 
-    private List<POSModel> custCommuneList = new ArrayList<>();
-    private List<POSModel> custSubCommuneList = new ArrayList<>();
+    private List<POSModel> lstDvut = new ArrayList<>();
+    private List<POSModel> lstMato = new ArrayList<>();
 
     public KetQuaKTDC() {
     }
@@ -38,8 +38,8 @@ public class KetQuaKTDC extends ActionMainKTDC {
             lstDoituongKT = daoKtdc.getLOV(userId, Define.KTDC_DOITUONG);
             lstHinhthucKT = daoKtdc.getLOV(userId, Define.KTDC_HINHTHUC);
             lstMaxa = daoKtdc.getLOV(userId, Define.KTDC_MAXA);
-            lstDvut = daoKtdc.getLOV(userId, Define.KTDC_DVUT);
-            lstMato = daoKtdc.getLOV(userId, Define.KTDC_MATO);
+//            lstDvut = daoKtdc.getLOV(userId, Define.KTDC_DVUT);
+//            lstMato = daoKtdc.getLOV(userId, Define.KTDC_MATO);
             lstMaCanbo = daoKtdc.getLOV(userId, Define.KTDC_CANBO);
 
         } catch (Exception e) {
@@ -55,9 +55,9 @@ public class KetQuaKTDC extends ActionMainKTDC {
     public String getMato() {
         try {
             getInfo();
-            custCommuneList = daoKtdc.getPosList(pos_cd_username, maCn, reportGrade);
+            lstDvut = daoKtdc.getListCombobox(pos_cd_username, maCn, reportGrade);
            
-            custSubCommuneList = daoKtdc.getSubCommuneList(pos_cd_username, "140801", reportGrade);
+            lstMato = daoKtdc.getSubCommuneList(pos_cd_username, "140801", reportGrade);
             
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -124,19 +124,21 @@ public class KetQuaKTDC extends ActionMainKTDC {
 //<editor-fold defaultstate="collapsed" desc="Getter Setter">
 
 //</editor-fold>    
-    public List<POSModel> getCustCommuneList() {
-        return custCommuneList;
+
+    public List<POSModel> getLstDvut() {
+        return lstDvut;
     }
 
-    public void setCustCommuneList(List<POSModel> custCommuneList) {
-        this.custCommuneList = custCommuneList;
+    public void setLstDvut(List<POSModel> lstDvut) {
+        this.lstDvut = lstDvut;
     }
 
-    public List<POSModel> getCustSubCommuneList() {
-        return custSubCommuneList;
+    public List<POSModel> getLstMato() {
+        return lstMato;
     }
 
-    public void setCustSubCommuneList(List<POSModel> custSubCommuneList) {
-        this.custSubCommuneList = custSubCommuneList;
+    public void setLstMato(List<POSModel> lstMato) {
+        this.lstMato = lstMato;
     }
+
 }

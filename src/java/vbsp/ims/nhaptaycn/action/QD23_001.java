@@ -144,6 +144,7 @@ public class QD23_001 extends ActionNhaptaycnMain
                 lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh, 
                         hmParameter.get("type_action").toString());
                 setLstTinhchatNV(daoMain.getCanBo(UserName, "TTDUYET"));
+                setLstChotKH(daoMain.getCanBo(UserName, "CHOTKH"));
                 return "dieuchinhkh_tw";
             }
             else if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("5")) {

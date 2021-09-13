@@ -46,8 +46,8 @@ public class ActionMainKTDC extends ActionSupport{
     public List<ListValue> lstDoituongKT = new ArrayList<>();
     public List<ListValue> lstHinhthucKT = new ArrayList<>();
     public List<ListValue> lstMaxa = new ArrayList<>();
-    public List<ListValue> lstDvut = new ArrayList<>();
-    public List<ListValue> lstMato = new ArrayList<>();
+//    public List<ListValue> lstDvut = new ArrayList<>();
+//    public List<ListValue> lstMato = new ArrayList<>();
     public List<ListValue> lstMaCanbo = new ArrayList<>();
     
     protected String macn;
@@ -381,29 +381,6 @@ public class ActionMainKTDC extends ActionSupport{
         this.lstMaxa = lstMaxa;
     }
 
-    public List<ListValue> getLstMato() {
-        return lstMato;
-    }
-
-    public void setLstMato(List<ListValue> lstMato) {
-        this.lstMato = lstMato;
-    }
-
-    public List<ListValue> getLstMaCanbo() {
-        return lstMaCanbo;
-    }
-
-    public void setLstMaCanbo(List<ListValue> lstMaCanbo) {
-        this.lstMaCanbo = lstMaCanbo;
-    }
-    
-    public List<ListValue> getLstDvut() {
-        return lstDvut;
-    }
-
-    public void setLstDvut(List<ListValue> lstDvut) {
-        this.lstDvut = lstDvut;
-    }
     
     public String getMacn() {
         return macn;
