@@ -247,8 +247,8 @@
                                    onCompleteTopics="completediv_send" class="cmd"/>
                          &nbsp;
                             &nbsp;
-                        <s:url id="idLoadDataKtdc" action="loadDataKtdc.action"></s:url>                                      
-                        <sj:submit id="idloadDataKtdctmp" name="nameSend" href="%{idLoadDataKtdc}" value="Lưu dữ liệu" targets="divKtdcDetail"
+                        <s:url id="idSaveKtdc" action="saveDataKtdc.action"></s:url>                                      
+                        <sj:submit id="idSaveKtdctmp" name="nameSave" href="%{idSaveKtdc}" value="Lưu dữ liệu" targets="divKtdcDetail"
                                    onBeforeTopics="beforediv_send"
                                    onCompleteTopics="completediv_send" class="cmd"/>
                     </div>    

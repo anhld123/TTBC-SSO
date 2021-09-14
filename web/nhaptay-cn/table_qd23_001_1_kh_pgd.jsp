@@ -461,7 +461,7 @@
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D1" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH D0" onfocus="this.select();"
-                                               readonly="readonly" style="background: 	#C0C0C0 !important;"/>
+                                                style="background: 	#ABEBC6 !important;"/>
                                         <input type="hidden" value="<s:property  value="NHAPTAY" />" 
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>" />
                                     </td>                                

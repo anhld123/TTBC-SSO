@@ -12,12 +12,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib uri="/struts-jquery-tree-tags" prefix="sjt" %>
 <!--<link rel="stylesheet" type="text/css"  href="css/bcqt.css" />-->
+
+<s:head/>
+<sj:head/>
 <html>
     <head>        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
+        <script type="text/javascript" src="BCQT/javascript/jquery-ui.min.js"></script>
         <style>
         *{
         font-family: tahoma;
@@ -180,6 +184,35 @@
             event.preventDefault();
         }
     }
+        function initTable()
+            {
+                var table = document.getElementById("scrolling_table_checkloan");
+//                alert(table);
+                var rowcount = table.rows.length;    
+                rowcount = rowcount > max_row ? rowcount : max_row;                
+                for (var i = 0; i < rowcount; i++)
+                {                    
+                    var matmp = getMabyNumber(i);//   
+                    
+                    if(matmp == 1)
+                    {
+                        $('input:checkbox[id='+i+']').attr('checked',true);
+                    }
+                }
+            }
+            
+            function getMabyNumber(idx)
+            {
+                var ma = '';
+                try {
+                    var ma_id = 'id_' + idx;
+                    ma = document.getElementById(ma_id).value;
+                } catch (e)
+                {
+                    ma = '999999';
+                }
+                return ma;
+            }
     
     
 //        var max_row = 0;
@@ -198,10 +231,6 @@
     <body style="font-family: ">
         <div id="luu_thanhcong"></div>
         <s:form id="id_ktdc_view_kiemtra_loan" theme="simple">
-            <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
-                <input type="hidden" id="<s:property  value="sKey" />" 
-                       name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
-            </s:iterator>   
                 <!--</br>-->
                 <div id="divTitle">
                     THÔNG TIN KIỂM TRA MÓN VAY
@@ -213,7 +242,7 @@
                 <!--</br>-->
                 <!--<div class="cls-over">-->
                 <div id="scrolling_table_1" class="scrolly_table" style="width: 1800px; max-height:50vh">
-                <table >
+                <table id="scrolling_table_checkloan">
                     <thead>
 <!--                        <tr>
                             <td colspan="3" style="text-align: left; border: 0px; font-weight: bold; background-color: orange ;"><span id="strHeader" style="text-transform: uppercase; color: white;"></span></td>
@@ -221,6 +250,7 @@
                         </tr>-->
                         <tr>
                             <th rowspan="3" class="TD_STT">STT</th>
+                            <th rowspan="3" class="TD_STT">Kiểm tra</th>
                             <th colspan="6">Thông tin hệ thống hỗ trợ xuất ra</th>
                             <th colspan="4">Nhập kết quả kiểm tra thực tế</th>
                             <th colspan="3">Biện pháp xử lý </th>                           
@@ -250,10 +280,15 @@
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                                                    
                             <tr> 
                                 <td class="TD_STT"></td>
+                                <td  align="center" class="TD_DAT_KODAT">    
+                                    <input type="checkbox" id ="<s:property  value="%{#rowstatus.index}" />"  class="checkboxdat" name="lstsaveNT_DAT[<s:property  value="%{#rowstatus.index}" />].D3" value="<s:property  value="MA" />" 
+                                           class="D0"/>
+                                </td> 
                                 <td  align="right" class="TD_SOTIEN">    
                                     <input type="text" value="<s:property  value="D1" />" 
                                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH" onfocus="this.select()" readonly="readonly"/>                                  
                                 </td> 
+                                
                                 <td  align="right" class="TD_SOKU">    
                                     <input type="text" value="<s:property  value="D3" />" 
                                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH" onfocus="this.select()" readonly="readonly"/>                                  
@@ -322,6 +357,9 @@
                </div>
                     <!--</div>-->
         </s:form>
+<!--        <script>
+            initTable();
+        </script>-->
     </body>
     
     
