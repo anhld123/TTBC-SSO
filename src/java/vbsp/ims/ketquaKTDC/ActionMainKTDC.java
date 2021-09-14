@@ -32,24 +32,26 @@ import vbsp.ims.report.fast.ListValue;
  *
  * @author HP
  */
-public class ActionMainKTDC extends ActionSupport{
+public class ActionMainKTDC extends ActionSupport {
+
     //Cac truong chua thong tin bo xung luu du lieu
     protected String userId; //user đăng nhập chương trình
     protected String pos_cd_username; //pos cd user
     protected String maCn;//mã chi nhánh
     protected String reportGrade; //cấp báo cao
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
-   
+    protected List<QT_DULIEU_NT.saveDulieuNT_Phi> lstsaveNT_DAT = new ArrayList<QT_DULIEU_NT.saveDulieuNT_Phi>();
+
     protected List<ListValue> lstParameters = new ArrayList<>();
-    
-    public List<ListValue> lstMaBaocao = new ArrayList<>();    
+
+    public List<ListValue> lstMaBaocao = new ArrayList<>();
     public List<ListValue> lstDoituongKT = new ArrayList<>();
     public List<ListValue> lstHinhthucKT = new ArrayList<>();
     public List<ListValue> lstMaxa = new ArrayList<>();
 //    public List<ListValue> lstDvut = new ArrayList<>();
 //    public List<ListValue> lstMato = new ArrayList<>();
     public List<ListValue> lstMaCanbo = new ArrayList<>();
-    
+
     protected String macn;
     protected String mabc;
     protected String ngay_kt;
@@ -62,26 +64,17 @@ public class ActionMainKTDC extends ActionSupport{
     protected String commune_cd;
     protected String subcommune_cd;
     protected String cust_search;
-    
-    
-    
+
     public List<ListValue> lstBienphapXuly = new ArrayList<ListValue>();
-    
+
     protected String ten_canbo;
-    protected String timkiem; 
-    
-    
-    
+    protected String timkiem;
+
     protected String defaultYearReport;
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
-    public List<POSModel> posList = new ArrayList<>();        
-    
-    
-    
+    public List<POSModel> posList = new ArrayList<>();
 
-    
-    
     protected HttpServletRequest request = null;
     protected String filereport;
     protected String query;
@@ -89,7 +82,7 @@ public class ActionMainKTDC extends ActionSupport{
     protected List<String> lstOfTextFile = new ArrayList<>();
     protected List<DownloadFileInfor> filesList = new ArrayList<>();
     protected List<String> zipFileList = new ArrayList<>();
-    
+
     public String getPathRoot() throws Exception {
         String path = ServletActionContext.getServletContext().getRealPath("/");
         path = DefineFun.backlashReplace(path);
@@ -98,7 +91,7 @@ public class ActionMainKTDC extends ActionSupport{
         }
         return path;
     }
-    
+
     protected HashMap<String, Object> getParameter() throws Exception {
         HashMap<String, Object> paramHashMap = new HashMap<>();
         Map<String, String[]> prameters = ServletActionContext.getRequest().getParameterMap();
@@ -130,7 +123,7 @@ public class ActionMainKTDC extends ActionSupport{
         }
         return paramHashMap;
     }
-    
+
     private List<String> convertStringtoList(String[] value) {
         List<String> lst = new ArrayList<>();
         try {
@@ -172,11 +165,10 @@ public class ActionMainKTDC extends ActionSupport{
         posMainModel = listKTNBDA.get_pos_main_pos(userId, reportGrade);
         pos_cd_username = posMainModel.getPosCd();
         maCn = posMainModel.getMainPosCd();
-        
+
     }
 
     //<editor-fold defaultstate="collapsed" desc="get set du lieu">
-
     public List<ListValue> getLstBienphapXuly() {
         return lstBienphapXuly;
     }
@@ -185,9 +177,6 @@ public class ActionMainKTDC extends ActionSupport{
         this.lstBienphapXuly = lstBienphapXuly;
     }
 
-
-    
-
     public List<QT_DULIEU_NT> getLstDulieuNt() {
         return lstDulieuNt;
     }
@@ -195,9 +184,6 @@ public class ActionMainKTDC extends ActionSupport{
     public void setLstDulieuNt(List<QT_DULIEU_NT> lstDulieuNt) {
         this.lstDulieuNt = lstDulieuNt;
     }
-        
-
-    
 
     public HttpServletRequest getRequest() {
         return request;
@@ -254,7 +240,7 @@ public class ActionMainKTDC extends ActionSupport{
     public void setZipFileList(List<String> zipFileList) {
         this.zipFileList = zipFileList;
     }
-            
+
     public List<POSModel> getPosList() {
         return posList;
     }
@@ -262,8 +248,7 @@ public class ActionMainKTDC extends ActionSupport{
     public void setPosList(List<POSModel> posList) {
         this.posList = posList;
     }
-    
-    
+
     public PosMainModel getPosMainModel() {
         return posMainModel;
     }
@@ -288,8 +273,6 @@ public class ActionMainKTDC extends ActionSupport{
         this.pos_cd_username = pos_cd_username;
     }
 
-
-
     public String getMaCn() {
         return maCn;
     }
@@ -306,7 +289,6 @@ public class ActionMainKTDC extends ActionSupport{
         this.reportGrade = reportGrade;
     }
 
-
     public String getDefaultYearReport() {
         return String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
     }
@@ -314,8 +296,6 @@ public class ActionMainKTDC extends ActionSupport{
     public void setDefaultYearReport(String defaultYearReport) {
         this.defaultYearReport = defaultYearReport;
     }
-    
-
 
     public List<ListValue> getLstParameters() {
         return lstParameters;
@@ -348,7 +328,7 @@ public class ActionMainKTDC extends ActionSupport{
     public void setListKTNBDA(DaoListPosFromUser listKTNBDA) {
         this.listKTNBDA = listKTNBDA;
     }
-    
+
     public List<ListValue> getLstMaBaocao() {
         return lstMaBaocao;
     }
@@ -381,7 +361,6 @@ public class ActionMainKTDC extends ActionSupport{
         this.lstMaxa = lstMaxa;
     }
 
-    
     public String getMacn() {
         return macn;
     }
@@ -469,13 +448,31 @@ public class ActionMainKTDC extends ActionSupport{
     public void setCust_search(String cust_search) {
         this.cust_search = cust_search;
     }
-    
-     public String getMabc() {
+
+    public String getMabc() {
         return mabc;
     }
 
     public void setMabc(String mabc) {
         this.mabc = mabc;
     }
-    //</editor-fold>
+
+    public List<QT_DULIEU_NT.saveDulieuNT_Phi> getLstsaveNT_DAT() {
+        return lstsaveNT_DAT;
+    }
+
+    public void setLstsaveNT_DAT(List<QT_DULIEU_NT.saveDulieuNT_Phi> lstsaveNT_DAT) {
+        this.lstsaveNT_DAT = lstsaveNT_DAT;
+    }
+
+    public List<ListValue> getLstMaCanbo() {
+        return lstMaCanbo;
+    }
+
+    public void setLstMaCanbo(List<ListValue> lstMaCanbo) {
+        this.lstMaCanbo = lstMaCanbo;
+    }
 }
+
+    
+    //</editor-fold>

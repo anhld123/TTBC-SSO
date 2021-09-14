@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import oracle.sql.ARRAY;
+import oracle.sql.ArrayDescriptor;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.export.excel.ExportExcelFile;
@@ -355,5 +357,46 @@ public class KetQuaKtdcDao {
             CoreLogger.error(this.getClass().getName() + " getDataTDNN_01 -> " + e.getMessage());
         }
         return lstBcqt_NT;
+    }
+   
+   public boolean saveKTDC(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData, String sCapKT, List<String> lstArrPoscd) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+
+        ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("POS_CD", connection);
+
+        String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
+
+        ARRAY oracle_arrayPos = new ARRAY(des_ma, connection, arrayPoscd);
+
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NHAPTAYCN.SP_SAVE_QLDB_01(?, ?, ?, ?, ? ,?, ?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, username);
+            cs.setString(3, mapgd);
+            cs.setString(4, ngaybc);
+            cs.setArray(5, array_to_pass);
+            cs.setString(6, sCapKT);
+            cs.setArray(7, oracle_arrayPos);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham saveGscmr01 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveGscmr01 -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
     }
 }

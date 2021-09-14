@@ -1,16 +1,18 @@
 package vbsp.ims.ketquaKTDC;
 
-import vbsp.ims.ketquaKTDC.*;
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
+import vbsp.ims.ketquaKTDC.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.struts2.ServletActionContext;
 import vbsp.ims.action.Utilities;
+import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.define.Define;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.khnv.POSModel;
+import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
 
 /**
  *
@@ -117,6 +119,41 @@ public class KetQuaKTDC extends ActionMainKTDC {
 
         return SUCCESS;
     }
+    
+    public String saveKTDC() {
+        System.err.println("Save - GSCMR_001");
+        try {
+           getInfo();
+            if (lstDulieuNt == null || lstDulieuNt.size() == 0) {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
+                return ERROR;
+            }
+            List<String> lstDat = new ArrayList<String>();
+            for (QT_DULIEU_NT.saveDulieuNT_Phi value : lstsaveNT_DAT) {
+                if(value != null)                    
+                    if (!value.getMA().equals("false")) {
+                        lstDat.add(value.getMA());
+                    }
+            }
+            
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();    
+            HashMap hmParameter = getParameter();            
+             if(!daoKtdc.saveKTDC("", userId, "",hmParameter.get("ngay_bc").toString(), lstDulieuNt, "",lstDat))
+            {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                return ERROR;
+            } 
+                        
+
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> QLDB_001: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> QLDB_001: " + e.getMessage());
+            addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                return ERROR;
+        }
+        addActionMessage("Bạn đã lưu dữ liệu thành công");
+        return SUCCESS;
+    }    
 
     public String openExcelUpload() {
         return SUCCESS;
