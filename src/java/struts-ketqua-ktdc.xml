@@ -44,6 +44,11 @@
                    
         </action>
         
+        <action name="saveDataKtdc" class="vbsp.ims.ketquaKTDC.KetQuaKTDC"  method="saveKTDC">
+            <result name="success">/ketqua_ktdc/success.jsp</result>
+            <result name="error">/ketqua_ktdc/success.jsp</result>        
+        </action>
+        
     </package>
         
     
