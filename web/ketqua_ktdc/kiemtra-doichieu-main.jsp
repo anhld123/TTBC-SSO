@@ -126,26 +126,60 @@
             background-color: #FFB951; 
             color:#000;
         }
+        
+        #your_div_id {
+            width: 255px;
+            margin:0 auto;
+            text-align: center;
+          }
 
     </style>
     <SCRIPT language="javascript">
-        $.subscribe("beforediv_send", function (event, data) {
-            $('#loadingImage_next').slideDown("slow");
-            $('#loadingImage_next').empty();
-            $('#divKtdcDetail').empty();
-        });
-
-        $.subscribe("completediv_send", function (event, data) {
-            $("#loadingImage_next").hide();
-            $('#loadingImage_next').empty();
-
-        });
-
-//        function onchangeHinhthuc()
-//        {
-//            $('#doituongkt').hide();
+          var bsubmit = false;
+          $.subscribe("myBeforeHandler", function(event, data) {
+                $("#loadingImage_next").show();
+            });
+            $.subscribe("myCompleteTopics", function(event, data) {
+                $("#loadingImage_next").hide();
+            });
+//        $.subscribe("beforediv_send", function (event, data) {
+//            $('#loadingImage_next').slideDown("slow");
+//            $('#loadingImage_next').empty();
+//            $('#divKtdcDetail').empty();
+//        });
 //
-//        }
+//        $.subscribe("completediv_send", function (event, data) {
+//            $("#loadingImage_next").hide();
+//            $('#loadingImage_next').empty();
+//
+//        });
+
+        function onSaveData()
+            {
+                $('#message_suc_err').empty();
+//                var khoa = $("#khoa").val() + "_save";
+//                if (!bsubmit)
+//                {
+////                    alert('Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !');
+//                    $('#message_suc_err').html("<h2 style='color: red'>Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !</h2>");
+//                    return;
+//                }
+//                var poscd = getposfromtreecheck();
+//                if (poscd == null ||  poscd == "")
+//                {
+//                    
+//                }
+//                else
+//                {
+//                    $('#message_suc_err').html("<h2 style='color: red'>Bạn không được tích chọn PGD khi lưu dữ liệu cho chi nhánh !</h2>");
+//                    bsubmit = false;
+//                    return;
+//                }
+                
+//                if (validateRequiredFields())
+                    $("#ktdc_save")[0].click();
+//                alert(khoa);
+            }
 
     </SCRIPT>
 </head>
@@ -155,19 +189,18 @@
             <div class="div-1">
                 <span class="clss-lable">Chọn đối tượng được kiểm tra, đối chiếu:</span>
                 <s:select list="lstMaBaocao" theme="simple"
-                          name="mabc" id="mabc"
-                          onchange="onchangeHinhthuc"
+                          name="mabc" id="mabc"                          
                           listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;                          
             </div> 
             <hr/>
             <div class="div-2">
                 <div>    
-                            <span class="clss-lable">Ngày KT:</span>  
+                            <span class="clss-lable">Ngày kiểm tra:</span>  
                         <sj:datepicker name="ngay_kt" value="%{new java.util.Date()}" 
-                                       placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL"/>   
+                                       placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" />   
                         &nbsp;&nbsp;
                         &nbsp;
-                        <span class="clss-lable">Ngày BC:</span>  
+                        <span class="clss-lable">Ngày số liệu:</span>  
                         <sj:datepicker name="ngay_bc" value="%{new java.util.Date()}" 
                                        placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL"/> 
                         &nbsp;&nbsp;
@@ -199,7 +232,7 @@
                 </div>   
                         <div class="div_h"></div>
                 <div>        
-                        <span class="clss-lable">Xã:</span>
+                        <span id="label_maxa" class="clss-lable">Xã:</span>
                         <s:select list="lstMaxa" theme="simple"
                                   name="maxa" id="maxa"
                                   listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
@@ -210,26 +243,29 @@
                         <span id="label_dvut" class="clss-lable">ĐVUT:</span>
                 <s:url var="buildCommuneComboUrl" action="communeBuildComboKTDC"></s:url>
                 <sj:select href="%{buildCommuneComboUrl}" 
-                           name="commune_cd"
+                           name="dvut"
                            id="form_ketqua_ktdc_dvut"
                            list="lstDvut"        
-                           onChangeTopics="reloadState"
-                           onCompleteTopics = "reloadState"                                   
+                           onChangeTopics="reloadState"                                                          
                            listKey="id"
                            listValue="desc"                           
                            theme="simple"
+                            onBeforeTopics="myBeforeHandler" 
+                           onCompleteTopics="myCompleteTopics"
                            ></sj:select> 
                     </b> &nbsp;&nbsp;           
                     &nbsp;
                     <span id="label_mato" class="clss-lable">Mã tổ:</span>
                 <sj:select href="%{buildCommuneComboUrl}" 
-                           name="subcommune_cd"
+                           name="mato"
                            id="form_ketqua_ktdc_mato"
                            list="lstMato"        
                            reloadTopics = "reloadState" 
                            listKey="id"
-                           listValue="desc"                           
+                           listValue="desc"                                                 
                            theme="simple"
+                           onBeforeTopics="myBeforeHandler" 
+                           onCompleteTopics="myCompleteTopics"
                            ></sj:select>                 
                     &nbsp;
                     &nbsp;
@@ -243,14 +279,19 @@
                     <div>
                         <s:url id="idLoadDataKtdc" action="loadDataKtdc.action"></s:url>                                      
                         <sj:submit id="idloadDataKtdctmp" name="nameSend" href="%{idLoadDataKtdc}" value="Xem dữ liệu" targets="divKtdcDetail"
-                                   onBeforeTopics="beforediv_send"
-                                   onCompleteTopics="completediv_send" class="cmd"/>
+                                   onBeforeTopics="myBeforeHandler"
+                                   onCompleteTopics="myCompleteTopics" class="cmd"/>
                          &nbsp;
                             &nbsp;
-                        <s:url id="idSaveKtdc" action="saveDataKtdc.action"></s:url>                                      
+<!--                        <s:url id="idSaveKtdc" action="saveDataKtdc.action"></s:url>                                      
                         <sj:submit id="idSaveKtdctmp" name="nameSave" href="%{idSaveKtdc}" value="Lưu dữ liệu" targets="divKtdcDetail"
                                    onBeforeTopics="beforediv_send"
                                    onCompleteTopics="completediv_send" class="cmd"/>
+                        -->
+                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu" class="cmd"/>
+                        &nbsp;
+                            &nbsp;
+                         <div id="message_result" style="margin: 0 auto; width:355px;">
                     </div>    
                     <hr/>
             </div>            
@@ -270,7 +311,7 @@
                     $("#mabc").change(function () {
 //                        alert($("#mabc").val().trim());
                         //Hộ vay
-                        if ($("#mabc").val().trim() == "KTDC01") {
+                        if ($("#mabc").val().trim() == "KTDC01" || $("#mabc").val().trim() == "KTDC02") {
                             $('#form_ketqua_ktdc_dvut').show();
                             $('#form_ketqua_ktdc_mato').show();
                             $('#lable_cust_search').show();
@@ -279,11 +320,13 @@
                             $('#hinhthuckt').show();
                             $('#label_dvut').show();
                             $('#label_mato').show();
+                            $('#label_maxa').show();
+                            $('#maxa').show();
 //                            $('#cboTonghop option')[0].selected = true;
 //                            $('.cls-over').height("86vh")
                         } 
                         //Tổ
-                         else //($("#mabc").val().trim() == "KTDC02") 
+                         else if ($("#mabc").val().trim() == "KTDC03" || $("#mabc").val().trim() == "KTDC04") 
                          {
                             $('#form_ketqua_ktdc_dvut').hide();
                             $('#form_ketqua_ktdc_mato').hide();
@@ -293,16 +336,27 @@
                             $('#hinhthuckt').hide();
                              $('#label_dvut').hide();
                             $('#label_mato').hide();
+                            $('#label_maxa').show();
+                            $('#maxa').show();
+
+                            
+                            
                         } 
-//                        else {
-//                            $('#idLuuDL').hide();
-//                            $('#cmdGuiDL').hide();
-//                            $('#cmdAuthor').show();
-//                            $('#cmdTraLaiDL').show();
-//                            $('#idNguyenNhan').show();
-//                            $('#idViewData').hide();
-//                            $('#cboTonghop option')[1].selected = true;
-//                        }
+                        else {
+                            $('#form_ketqua_ktdc_dvut').hide();
+                            $('#form_ketqua_ktdc_mato').hide();
+                            $('#lable_cust_search').hide();
+                            $('#cust_search').hide();
+                            $('#label_hinhthuckt').hide();
+                            $('#hinhthuckt').hide();
+                             $('#label_dvut').hide();
+                            $('#label_mato').hide();
+                            $('#label_maxa').hide();
+                            $('#maxa').hide();
+                        }
+                });
+                
+                $("#maxa").change(function () {
                 });
                 });
             </script>

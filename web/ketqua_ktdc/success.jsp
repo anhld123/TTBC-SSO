@@ -52,7 +52,7 @@
 <html>
     <body>
         <div style="height: 7px;"/>
-        <div class="bgcolor">
+        <div>
             <s:if test="hasActionMessages()">
                 <div class="success">
                     <s:iterator value="actionMessages">  

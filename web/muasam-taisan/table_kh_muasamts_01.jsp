@@ -92,7 +92,7 @@
             <table border="1" class="editDelete" id="tablemuasamts01" align="center">
                 <tr>
                     <s:if test="Grade.equalsIgnoreCase('2')">
-                        <th  class="TD_5">Mã PGD</th>
+                        <th  rowspan="2"  class="TD_5">Mã PGD</th>
                     </s:if> 
                         
                     <th rowspan="2"  class="TD_6">Mã nhóm TSCĐ</th>
@@ -137,7 +137,7 @@
                                 <input type="text" style="color: red" <s:if test="MA.equalsIgnoreCase('NC11')"> value="<s:property  value="MAPGD" />"  </s:if> 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD" class="<s:property value='FONTFORMAT'/> D0 <s:property value='FONTFORMAT'/> TEN_KH" onfocus="this.select()"                                   
                                    readonly="readonly"/>
-                        </td> 
+                            </td> 
                         </s:if>     
                         <td align = "right" class="TD_5">
                             <input type="text" value="<s:property  value="MA" />" 
