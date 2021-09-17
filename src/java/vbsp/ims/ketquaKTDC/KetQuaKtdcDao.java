@@ -146,61 +146,117 @@ public class KetQuaKtdcDao {
         return posList;
     }
    
-   public ArrayList<POSModel> getListCombobox(String posCD, String maCn, String reportGrade){
+   public ArrayList<POSModel> getListCombobox(String username, String type){
         ArrayList<POSModel> posList = new ArrayList<>();
-        
+                
         try {
+            
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_IMS_KHNV2021.p_get_pos_list(?, ?, ?, ?, ?, ?)}";
-            ResultSet rsPosList = null;
-
+            String strStoreproce = "{call VBSP_IMS_KETQUA_KTDC.SP_GET_LOV(?, ?, ?, ?, ?)}";
+            ResultSet reset = null;
             try {
                 //Khoi tao goi store
-                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                
-                //Truyen vao username
-                calstatement.setString(1, posCD);          
-                calstatement.setString(2, maCn);          
-                calstatement.setString(3, reportGrade);          
-                
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.setString(1, username);
+                calstatement.setString(2, type);
+               
+                calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
-                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
-                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
-
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
+                //Lấy mã hiệu giá trị lỗi (Nếu có) của thủ tục (procedure)
+                int iErr_CD = calstatement.getInt(3);
+                //Lấy nội dung thông báo lỗi (Nếu có) của thủ tục (procedure)
+                String sEdd_TXT = calstatement.getString(4);
                 //Lay cursor ra resultset
-                rsPosList = (ResultSet) calstatement.getObject(6);
-
-                while (rsPosList.next()) {
+                reset = (ResultSet) calstatement.getObject(5);
+                while (reset.next()) {
                     POSModel p = new POSModel();
-                    p.setId(rsPosList.getString("PO_MA"));
-                    p.setDesc(rsPosList.getString("PO_MA") + " - " + rsPosList.getString("PO_TEN"));
-
+                    p.setId(reset.getString(1));
+                    p.setDesc(reset.getString(2));
+                    
+                  
                     posList.add(p);
                 }
-
-                if (rsPosList != null) {
-                    rsPosList.close();
+                if (reset != null) {
+                    reset.close();
                 }
                 if (calstatement != null) {
                     calstatement.close();
                 }
-                if (conn != null) {
-                    conn.close();
-                }
+//                if (conn != null) {
+//                    conn.close();
+//                }
             } catch (SQLException e) {
-                System.err.println("Loi trong ham getPosList " + e.getMessage());
-                CoreLogger.error(POSModel.class.getCanonicalName() + " getPosList  -> " + e.getMessage());
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " VBSP_IMS_KETQUA_KTDC.SP_GET_LOV -> " + e.getMessage());
             }
         } catch (Exception e) {
-            System.err.println("Loi trong ham getPosList " + e.getMessage());
-            CoreLogger.error(DaoDieuchinhkh.class.getCanonicalName() + " getPosList  -> " + e.getMessage());
-        }
+            System.err.println("Doi chieu, Phan loai no -> Loi trong ham VBSP_IMS_KETQUA_KTDC.SP_GET_LOV " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " VBSP_IMS_KETQUA_KTDC.SP_GET_LOV -> " + e.getMessage());
+        }        
+        return posList;
+    }
+   
+   public ArrayList<POSModel> getListTo(String maxa, String dvut){
+        ArrayList<POSModel> posList = new ArrayList<>();
+                
+        try {
+            
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call VBSP_IMS_KETQUA_KTDC.SP_GET_MATO(?, ?, ?, ?, ?)}";
+            ResultSet reset = null;
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.setString(1, maxa);
+                calstatement.setString(2, dvut);
+               
+                calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //Lấy mã hiệu giá trị lỗi (Nếu có) của thủ tục (procedure)
+                int iErr_CD = calstatement.getInt(3);
+                //Lấy nội dung thông báo lỗi (Nếu có) của thủ tục (procedure)
+                String sEdd_TXT = calstatement.getString(4);
+                //Lay cursor ra resultset
+                reset = (ResultSet) calstatement.getObject(5);
+                while (reset.next()) {
+                    POSModel p = new POSModel();
+                    p.setId(reset.getString(1));
+                    p.setDesc(reset.getString(2));
+                    
+                  
+                    posList.add(p);
+                }
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+//                if (conn != null) {
+//                    conn.close();
+//                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " VBSP_IMS_KETQUA_KTDC.SP_GET_LOV -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Doi chieu, Phan loai no -> Loi trong ham VBSP_IMS_KETQUA_KTDC.SP_GET_LOV " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " VBSP_IMS_KETQUA_KTDC.SP_GET_LOV -> " + e.getMessage());
+        }        
         return posList;
     }
    
@@ -359,7 +415,9 @@ public class KetQuaKtdcDao {
         return lstBcqt_NT;
     }
    
-   public boolean saveKTDC(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData, String sCapKT, List<String> lstArrPoscd) throws SQLException {
+   public boolean saveKTDC(String mabc, String username, String capbc,
+           String ngaybc, String ngaykt, String doituongKT, String hinhthucKT, String canboKT, String maxa, String dvut, String mato
+          , List<QT_DULIEU_NT> lstData,  List<String> lstArrPoscd) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -367,7 +425,7 @@ public class KetQuaKtdcDao {
                 .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
         ARRAY array_to_pass = new ARRAY(des, connection, array);
 
-        ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("POS_CD", connection);
+        ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("INDICATOR", connection);
 
         String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
 
@@ -375,14 +433,23 @@ public class KetQuaKtdcDao {
 
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_IMS_NHAPTAYCN.SP_SAVE_QLDB_01(?, ?, ?, ?, ? ,?, ?)}");
-            cs.setString(1, khoa);
+            cs = connection.prepareCall("{call VBSP_IMS_KETQUA_KTDC.SP_SAVE_CHECKLOAN(?, ?, ?, ?, ? ,?, ?, ?, ?,?,?,?,?)}");
+            cs.setString(1, mabc);
             cs.setString(2, username);
-            cs.setString(3, mapgd);
+            cs.setString(3, capbc);
             cs.setString(4, ngaybc);
-            cs.setArray(5, array_to_pass);
-            cs.setString(6, sCapKT);
-            cs.setArray(7, oracle_arrayPos);
+            cs.setString(5, ngaykt);
+            
+            cs.setString(6, doituongKT);
+            cs.setString(7, hinhthucKT);
+            cs.setString(8, canboKT);
+            cs.setString(9, maxa);
+            cs.setString(10, dvut);
+            cs.setString(11, mato);
+            cs.setArray(12, array_to_pass);
+            
+            cs.setArray(13, oracle_arrayPos);
+            
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();

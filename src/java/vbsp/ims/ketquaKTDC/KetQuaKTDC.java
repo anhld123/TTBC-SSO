@@ -57,9 +57,9 @@ public class KetQuaKTDC extends ActionMainKTDC {
     public String getMato() {
         try {
             getInfo();
-            lstDvut = daoKtdc.getListCombobox(pos_cd_username, maCn, reportGrade);
+            lstDvut = daoKtdc.getListCombobox(userId, Define.KTDC_DVUT);
            
-            lstMato = daoKtdc.getSubCommuneList(pos_cd_username, "140801", reportGrade);
+            lstMato = daoKtdc.getListTo(maxa, dvut);
             
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -76,41 +76,30 @@ public class KetQuaKTDC extends ActionMainKTDC {
             if(mabc.equals("KTDC01"))
             {
                 lstBienphapXuly = daoKtdc.getLOV(userId, Define.KTDC_BIENPHAPXL);
-                lstDulieuNt = daoKtdc.getDataKiemtraLoan("", userId, reportGrade, "", "", "", "","", "", "","", mabc);
+                lstKetQuaHT = daoKtdc.getLOV(userId, Define.KTDC_KETQUAHT);
+                lstDulieuNt = daoKtdc.getDataKiemtraLoan(userId, reportGrade, ngay_bc, ngay_kt, doituongkt, hinhthuckt,canbokt,maxa, dvut, mato,cust_search, mabc);
                 return "kiemtraLoan";
+            }
+            else if (mabc.equals("KTDC02"))
+            {
+                lstNguyenNhanCL = daoKtdc.getLOV(userId, Define.KTDC_KTDC_NGUYENNHANCL);
+                lstDulieuNt = daoKtdc.getDataKiemtraLoan(userId, reportGrade, ngay_bc, ngay_kt, doituongkt, hinhthuckt,canbokt,maxa, dvut, mato,cust_search, mabc);
+                return "doichieuLoan";
+            }
+            else if (mabc.equals("KTDC03"))
+            {
+//                lstNguyenNhanCL = daoKtdc.getLOV(userId, Define.KTDC_KTDC_NGUYENNHANCL);
+                lstDulieuNt = daoKtdc.getDataKiemtraLoan(userId, reportGrade, ngay_bc, ngay_kt, doituongkt, hinhthuckt,canbokt,maxa, dvut, mato,cust_search, mabc);
+                return "kiemtraTo";
             }
             else
             {
-                lstBienphapXuly = daoKtdc.getLOV(userId, Define.KTDC_BIENPHAPXL);
-                lstDulieuNt = daoKtdc.getDataKiemtraLoan("", userId, reportGrade, "", "", "", "","", "", "","", mabc);
-                return "kiemtra-to-dvut";
+//                lstNguyenNhanCL = daoKtdc.getLOV(userId, Define.KTDC_KTDC_NGUYENNHANCL);
+                lstDulieuNt = daoKtdc.getDataKiemtraLoan(userId, reportGrade, ngay_bc, ngay_kt, doituongkt, hinhthuckt,canbokt,maxa, dvut, mato,cust_search, mabc);
+                return "kiemtraHoi";
             }
                     
-            
-//            setDotBc(dotBc);
-//            setNamBc(namBc);
-//            setReasonReject(daoXdkh.getReason(maBc, namBc, dotBc, pos_cd_username, reportGrade));
-//            //TH load mẫu 02 theo pos
-//            if (maBc.equals("KHNV_02")) {
-//                lstDulieuNt = daoXdkh.getDataAuthCommune(maBc, userId, reportGrade, namBc, dotBc, commune_cd, subcommune_cd);
-//                return "load02Pos";
-//            }
-//            //TH load theo 1 thôn
-//            if (maBc.equals("KHNV_01A") && !commune_cd.equals("000000") && !subcommune_cd.equals("000000")) {
-//                lstDulieuNt = daoXdkh.getDataAuthCommune(maBc, userId, reportGrade, namBc, dotBc, commune_cd, subcommune_cd);
-//                return "loadOneSubCommune";
-//            }
-//            //TH load các thôn trong xã
-//            if (maBc.equals("KHNV_01A") && !commune_cd.equals("000000") && subcommune_cd.equals("000000")) {
-//                lstDulieuNt = daoXdkh.getDataAuthCommune(maBc, userId, reportGrade, namBc, dotBc, commune_cd, subcommune_cd);
-//                return "loadAllSubCommune";
-//            }
-//            //TH load các xã
-//            if (maBc.equals("KHNV_01A") && commune_cd.equals("000000")) {
-//                lstDulieuNt = daoXdkh.getDataAuthCommune(maBc, userId, reportGrade, namBc, dotBc, commune_cd, subcommune_cd);
-//                lstDulieuNt2 = daoXdkh.getDataAuthCommuneSum(maBc, userId, reportGrade, namBc, dotBc, "000000", "000000");
-//                return "loadAllCommuneAuth";
-//            }            
+               
 
         } catch (Exception ex) {
             CoreLogger.error(this.getClass().getName() + " get_data_xaydungkh " + ex.getMessage());
@@ -131,14 +120,14 @@ public class KetQuaKTDC extends ActionMainKTDC {
             List<String> lstDat = new ArrayList<String>();
             for (QT_DULIEU_NT.saveDulieuNT_Phi value : lstsaveNT_DAT) {
                 if(value != null)                    
-                    if (!value.getMA().equals("false")) {
-                        lstDat.add(value.getMA());
+                    if (!value.getD3().equals("false")) {
+                        lstDat.add(value.getD3());
                     }
             }
             
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();    
             HashMap hmParameter = getParameter();            
-             if(!daoKtdc.saveKTDC("", userId, "",hmParameter.get("ngay_bc").toString(), lstDulieuNt, "",lstDat))
+            if(!daoKtdc.saveKTDC(mabc, userId, reportGrade,ngay_bc, ngay_kt,doituongkt,hinhthuckt,canbokt,maxa, dvut,mato, lstDulieuNt, lstDat))
             {
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;

@@ -37,11 +37,9 @@
         
         <action name="loadDataKtdc" class="vbsp.ims.ketquaKTDC.KetQuaKTDC" method="getDataKTDC">
             <result name="kiemtraLoan">/ketqua_ktdc/table_kiemtra-monvay.jsp</result>
-            <result name="loadAllCommuneAuth">/khnv2021/table_auth_commune.jsp</result>
-            <result name="loadAllSubCommune">/khnv2021/table_all_subcommune_bycommune.jsp</result>            
-            <result name="loadOneSubCommune">/khnv2021/table_detal_by_subcommune.jsp</result>     
-            <result name="load02Pos">/khnv2021/table_detal_by_pos_mau02.jsp</result>     
-                   
+            <result name="doichieuLoan">/ketqua_ktdc/table_doichieu-monvay.jsp</result>  
+            <result name="kiemtraHoi">/ketqua_ktdc/table_kiemtra-TC-CTXH.jsp</result>                     
+            <result name="kiemtraTo">/ketqua_ktdc/table_kiemtra-to.jsp</result> 
         </action>
         
         <action name="saveDataKtdc" class="vbsp.ims.ketquaKTDC.KetQuaKTDC"  method="saveKTDC">

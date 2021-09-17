@@ -53,6 +53,7 @@ public class ActionMainKTDC extends ActionSupport {
     public List<ListValue> lstMaCanbo = new ArrayList<>();
 
     protected String macn;
+    
     protected String mabc;
     protected String ngay_kt;
     protected String ngay_bc;
@@ -61,11 +62,13 @@ public class ActionMainKTDC extends ActionSupport {
     protected String canbokt;
     protected String canboinfo;
     protected String maxa;
-    protected String commune_cd;
-    protected String subcommune_cd;
+    protected String dvut;
+    protected String mato;
     protected String cust_search;
 
     public List<ListValue> lstBienphapXuly = new ArrayList<ListValue>();
+    public List<ListValue> lstKetQuaHT = new ArrayList<ListValue>();
+    public List<ListValue> lstNguyenNhanCL = new ArrayList<ListValue>();
 
     protected String ten_canbo;
     protected String timkiem;
@@ -425,21 +428,23 @@ public class ActionMainKTDC extends ActionSupport {
         this.maxa = maxa;
     }
 
-    public String getCommune_cd() {
-        return commune_cd;
+    public String getDvut() {
+        return dvut;
     }
 
-    public void setCommune_cd(String commune_cd) {
-        this.commune_cd = commune_cd;
+    public void setDvut(String dvut) {
+        this.dvut = dvut;
     }
 
-    public String getSubcommune_cd() {
-        return subcommune_cd;
+    public String getMato() {
+        return mato;
     }
 
-    public void setSubcommune_cd(String subcommune_cd) {
-        this.subcommune_cd = subcommune_cd;
+    public void setMato(String mato) {
+        this.mato = mato;
     }
+
+   
 
     public String getCust_search() {
         return cust_search;
@@ -472,6 +477,25 @@ public class ActionMainKTDC extends ActionSupport {
     public void setLstMaCanbo(List<ListValue> lstMaCanbo) {
         this.lstMaCanbo = lstMaCanbo;
     }
+
+    public List<ListValue> getLstKetQuaHT() {
+        return lstKetQuaHT;
+    }
+
+    public void setLstKetQuaHT(List<ListValue> lstKetQuaHT) {
+        this.lstKetQuaHT = lstKetQuaHT;
+    }
+
+    public List<ListValue> getLstNguyenNhanCL() {
+        return lstNguyenNhanCL;
+    }
+
+    public void setLstNguyenNhanCL(List<ListValue> lstNguyenNhanCL) {
+        this.lstNguyenNhanCL = lstNguyenNhanCL;
+    }
+    
+    
+    
 }
 
     

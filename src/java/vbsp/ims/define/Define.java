@@ -173,5 +173,7 @@ public class Define {
     public static final String KTDC_MATO = "MATO";    
     public static final String KTDC_CANBO = "CANBO";    
     public static final String KTDC_BIENPHAPXL = "BIENPHAPXL";    
+    public static final String KTDC_KETQUAHT = "KTDC_KETQUAHT";  
+    public static final String KTDC_KTDC_NGUYENNHANCL = "KTDC_NGUYENNHANCL";  
     
 }
