@@ -18,14 +18,14 @@ import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
  *
  * @author CuongBM0211
  */
-public class KetQuaKTDC extends ActionMainKTDC {
+public class DuyetKetQuaKTDC extends ActionMainKTDC {
 
     private KetQuaKtdcDao daoKtdc = new KetQuaKtdcDao();
 
     private List<POSModel> lstDvut = new ArrayList<>();
     private List<POSModel> lstMato = new ArrayList<>();
 
-    public KetQuaKTDC() {
+    public DuyetKetQuaKTDC() {
     }
 
     public String execute() throws Exception {
@@ -37,11 +37,12 @@ public class KetQuaKTDC extends ActionMainKTDC {
         try {
             getInfo();
             lstMaBaocao = daoKtdc.getLOV(userId, Define.KTDC_BAOCAO,reportGrade);
-            lstDoituongKT = daoKtdc.getLOV(userId, Define.KTDC_DOITUONG,reportGrade);
-            lstHinhthucKT = daoKtdc.getLOV(userId, Define.KTDC_HINHTHUC,reportGrade);
+//            lstDoituongKT = daoKtdc.getLOV(userId, Define.KTDC_DOITUONG);
+//            lstHinhthucKT = daoKtdc.getLOV(userId, Define.KTDC_HINHTHUC);
             lstMaxa = daoKtdc.getLOV(userId, Define.KTDC_MAXA,reportGrade);
 //            lstDvut = daoKtdc.getLOV(userId, Define.KTDC_DVUT);
-//            lstMato = daoKtdc.getLOV(userId, Define.KTDC_MATO);
+            lstMapgd = daoKtdc.getLOV(userId, Define.KTDC_PGD,reportGrade);
+            lstTrangthaiKT = daoKtdc.getLOV(userId, Define.KTDC_TRANGTHAI,reportGrade);
             lstMaCanbo = daoKtdc.getLOV(userId, Define.KTDC_CANBO,reportGrade);
 
         } catch (Exception e) {
@@ -53,22 +54,7 @@ public class KetQuaKTDC extends ActionMainKTDC {
     }
 
 
-    
-    public String getMato() {
-        try {
-            getInfo();
-            lstDvut = daoKtdc.getListCombobox(userId, Define.KTDC_DVUT,reportGrade);
-           
-            lstMato = daoKtdc.getListTo(maxa, dvut);
-            
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            CoreLogger.error(this.getClass().getCanonicalName() + " getSubcommune -> " + e.getMessage());
-        }
-        return "success";
-    }
-
-    public String getDataKTDC() {
+    public String getDataKTDCDuyet() {
         try {
             HashMap hmParameter = getParameter();
 

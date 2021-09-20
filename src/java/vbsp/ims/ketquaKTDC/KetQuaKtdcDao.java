@@ -35,7 +35,7 @@ import vbsp.ims.report.fast.ListValue;
  */
 public class KetQuaKtdcDao {
     
-    public List<ListValue> getLOV(String username, String type) {
+    public List<ListValue> getLOV(String username, String type, String capbc) {
         List<ListValue> lstDMNgNhan = new ArrayList<ListValue>();
         try {
             
@@ -44,7 +44,7 @@ public class KetQuaKtdcDao {
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_IMS_KETQUA_KTDC.SP_GET_LOV(?, ?, ?, ?, ?)}";
+            String strStoreproce = "{call VBSP_IMS_KETQUA_KTDC.SP_GET_LOV(?, ?, ?, ?, ?, ?)}";
             ResultSet reset = null;
             try {
                 //Khoi tao goi store
@@ -55,6 +55,7 @@ public class KetQuaKtdcDao {
                 calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(6, capbc);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //Lấy mã hiệu giá trị lỗi (Nếu có) của thủ tục (procedure)
@@ -146,7 +147,7 @@ public class KetQuaKtdcDao {
         return posList;
     }
    
-   public ArrayList<POSModel> getListCombobox(String username, String type){
+   public ArrayList<POSModel> getListCombobox(String username, String type, String capbc){
         ArrayList<POSModel> posList = new ArrayList<>();
                 
         try {
@@ -156,7 +157,7 @@ public class KetQuaKtdcDao {
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_IMS_KETQUA_KTDC.SP_GET_LOV(?, ?, ?, ?, ?)}";
+            String strStoreproce = "{call VBSP_IMS_KETQUA_KTDC.SP_GET_LOV(?, ?, ?, ?, ?, ?)}";
             ResultSet reset = null;
             try {
                 //Khoi tao goi store
@@ -167,6 +168,7 @@ public class KetQuaKtdcDao {
                 calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(6, capbc);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //Lấy mã hiệu giá trị lỗi (Nếu có) của thủ tục (procedure)

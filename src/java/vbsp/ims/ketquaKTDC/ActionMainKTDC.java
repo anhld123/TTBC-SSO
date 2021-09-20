@@ -51,6 +51,8 @@ public class ActionMainKTDC extends ActionSupport {
 //    public List<ListValue> lstDvut = new ArrayList<>();
 //    public List<ListValue> lstMato = new ArrayList<>();
     public List<ListValue> lstMaCanbo = new ArrayList<>();
+    public List<ListValue> lstMapgd = new ArrayList<>();
+    public List<ListValue> lstTrangthaiKT = new ArrayList<>();
 
     protected String macn;
     
@@ -65,6 +67,10 @@ public class ActionMainKTDC extends ActionSupport {
     protected String dvut;
     protected String mato;
     protected String cust_search;
+    
+    protected String mapgd;
+    protected String trangthai;
+    
 
     public List<ListValue> lstBienphapXuly = new ArrayList<ListValue>();
     public List<ListValue> lstKetQuaHT = new ArrayList<ListValue>();
@@ -172,6 +178,16 @@ public class ActionMainKTDC extends ActionSupport {
     }
 
     //<editor-fold defaultstate="collapsed" desc="get set du lieu">
+
+    public List<ListValue> getLstMapgd() {
+        return lstMapgd;
+    }
+
+    public void setLstMapgd(List<ListValue> lstMapgd) {
+        this.lstMapgd = lstMapgd;
+    }
+    
+    
     public List<ListValue> getLstBienphapXuly() {
         return lstBienphapXuly;
     }
@@ -492,6 +508,30 @@ public class ActionMainKTDC extends ActionSupport {
 
     public void setLstNguyenNhanCL(List<ListValue> lstNguyenNhanCL) {
         this.lstNguyenNhanCL = lstNguyenNhanCL;
+    }
+
+    public List<ListValue> getLstTrangthaiKT() {
+        return lstTrangthaiKT;
+    }
+
+    public void setLstTrangthaiKT(List<ListValue> lstTrangthaiKT) {
+        this.lstTrangthaiKT = lstTrangthaiKT;
+    }
+
+    public String getMapgd() {
+        return mapgd;
+    }
+
+    public void setMapgd(String mapgd) {
+        this.mapgd = mapgd;
+    }
+
+    public String getTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(String trangthai) {
+        this.trangthai = trangthai;
     }
     
     
