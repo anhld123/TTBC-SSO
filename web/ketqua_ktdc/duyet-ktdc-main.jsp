@@ -195,12 +195,18 @@
             <hr/>
             <div class="div-2">
                 <div> 
-                         <span id="label_maxa" class="clss-lable">Phòng giao dịch:</span>
+<!--                         <span id="label_maxa" class="clss-lable">Phòng giao dịch:</span>
                         <s:select list="lstMapgd" theme="simple"
                                   name="mapgd" id="mapgd"
                                   listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
-                        &nbsp;&nbsp;
-                        
+                        &nbsp;&nbsp;-->
+                        <span id="label_maxa" class="clss-lable">Xã: </span>
+                        <s:select list="lstMaxa" theme="simple"
+                                  name="maxa" id="maxa"
+                                  listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
+                        &nbsp;
+
+                        &nbsp;
                         <span class="clss-lable">Tháng kiểm tra:</span>  
                         <sj:datepicker name="ngay_kt" value="%{new java.util.Date()}" 
                                        placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="mm/yy" />   
