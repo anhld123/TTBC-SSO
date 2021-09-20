@@ -47,6 +47,19 @@
             <result name="error">/ketqua_ktdc/success.jsp</result>        
         </action>
         
+        <!--Ph du-->
+        <action name="duyet-ktdc-main" class="vbsp.ims.ketquaKTDC.DuyetKetQuaKTDC" method="get_parameter">
+            <result name="success">/ketqua_ktdc/duyet-ktdc-main.jsp</result>
+            <result name="error">/ketqua_ktdc/success.jsp</result> 
+        </action> 
+        
+        <action name="loadDataKtdcDuyet" class="vbsp.ims.ketquaKTDC.DuyetKetQuaKTDC" method="getDataKTDCDuyet">
+            <result name="kiemtraLoan">/ketqua_ktdc/table_kiemtra-monvay.jsp</result>
+            <result name="doichieuLoan">/ketqua_ktdc/table_doichieu-monvay.jsp</result>  
+            <result name="kiemtraHoi">/ketqua_ktdc/table_kiemtra-TC-CTXH.jsp</result>                     
+            <result name="kiemtraTo">/ketqua_ktdc/table_kiemtra-to.jsp</result> 
+        </action>
+        
     </package>
         
     
