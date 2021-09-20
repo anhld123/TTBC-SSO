@@ -54,7 +54,7 @@
         </action> 
         
         <action name="loadDataKtdcDuyet" class="vbsp.ims.ketquaKTDC.DuyetKetQuaKTDC" method="getDataKTDCDuyet">
-            <result name="kiemtraLoan">/ketqua_ktdc/table_kiemtra-monvay.jsp</result>
+            <result name="duyetKiemtraLoan">/ketqua_ktdc/table-duyet_kiemtra-monvay.jsp</result>
             <result name="doichieuLoan">/ketqua_ktdc/table_doichieu-monvay.jsp</result>  
             <result name="kiemtraHoi">/ketqua_ktdc/table_kiemtra-TC-CTXH.jsp</result>                     
             <result name="kiemtraTo">/ketqua_ktdc/table_kiemtra-to.jsp</result> 

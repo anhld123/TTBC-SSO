@@ -63,8 +63,8 @@ public class DuyetKetQuaKTDC extends ActionMainKTDC {
             {
                 lstBienphapXuly = daoKtdc.getLOV(userId, Define.KTDC_BIENPHAPXL,reportGrade);
                 lstKetQuaHT = daoKtdc.getLOV(userId, Define.KTDC_KETQUAHT,reportGrade);
-                lstDulieuNt = daoKtdc.getDataKiemtraLoan(userId, reportGrade, ngay_bc, ngay_kt, doituongkt, hinhthuckt,canbokt,maxa, dvut, mato,cust_search, mabc);
-                return "kiemtraLoan";
+                lstDulieuNt = daoKtdc.getDuyetDataKiemtraLoan(userId, userId, ngay_kt, maxa, mabc);
+                return "duyetKiemtraLoan";
             }
             else if (mabc.equals("KTDC02"))
             {

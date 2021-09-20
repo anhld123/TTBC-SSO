@@ -248,6 +248,17 @@ public class ProcessReportSyn {
                             hmHeader.get(Define.WEB_SERVICES_STATUS_SEND).toString());
                     break;
                 }
+                case Define.PARA_SYN_REPORT_KYQUY: {
+                    System.err.println("Bao cao KYQUY");
+                    HashMap<String, Object> hmHeader = new XmlSbvSync().readXmlSBV(strFileName);
+                    DaoSyncMain daoSync = DaoSyncMain.newInstance();
+                    bSuccess = daoSync.putXmlFileKyQuy(strFileName, hmHeader.get(Define.XML_MA_BCQT).toString(),
+                            hmHeader.get(Define.XML_TYPE_BCQT).toString(),
+                            hmHeader.get(Define.XML_POS_CD).toString(), hmHeader.get(Define.XML_NGAY_BC).toString(),
+                            hmHeader.get(Define.XML_GRADE).toString(), hmHeader.get(Define.XML_USER_ID).toString(), hmHeader.get(Define.XML_SYSDATE).toString(),
+                            hmHeader.get(Define.WEB_SERVICES_STATUS_SEND).toString());
+                    break;
+                }
                 case Define.PARA_SYN_REPORT_PHTS: {
                     System.err.println("Bao cao PHTS");
                     HashMap<String, Object> hmHeader = new XmlSbvSync().readXmlSBV(strFileName);

@@ -26,6 +26,7 @@ import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.DownloadFileInfor;
 import vbsp.ims.model.khnv.POSModel;
 import vbsp.ims.model.ktnb.PosMainModel;
+import vbsp.ims.nhaptaycn.action.QT_DULIEU_NT_50;
 import vbsp.ims.report.fast.ListValue;
 
 /**
@@ -39,7 +40,7 @@ public class ActionMainKTDC extends ActionSupport {
     protected String pos_cd_username; //pos cd user
     protected String maCn;//mã chi nhánh
     protected String reportGrade; //cấp báo cao
-    protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
+    protected List<QT_DULIEU_NT_50> lstDulieuNt = new ArrayList<>();
     protected List<QT_DULIEU_NT.saveDulieuNT_Phi> lstsaveNT_DAT = new ArrayList<QT_DULIEU_NT.saveDulieuNT_Phi>();
 
     protected List<ListValue> lstParameters = new ArrayList<>();
@@ -196,13 +197,15 @@ public class ActionMainKTDC extends ActionSupport {
         this.lstBienphapXuly = lstBienphapXuly;
     }
 
-    public List<QT_DULIEU_NT> getLstDulieuNt() {
+    public List<QT_DULIEU_NT_50> getLstDulieuNt() {
         return lstDulieuNt;
     }
 
-    public void setLstDulieuNt(List<QT_DULIEU_NT> lstDulieuNt) {
+    public void setLstDulieuNt(List<QT_DULIEU_NT_50> lstDulieuNt) {
         this.lstDulieuNt = lstDulieuNt;
     }
+
+
 
     public HttpServletRequest getRequest() {
         return request;

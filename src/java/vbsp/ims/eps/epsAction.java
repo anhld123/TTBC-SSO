@@ -11,6 +11,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.util.logging.Logger;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
@@ -21,7 +22,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.ServletContext;
+import org.apache.struts2.ServletActionContext;
+import vbsp.ims.define.Define;
+import vbsp.ims.log.CoreLogger;
 import vbsp.ims.report.fast.ListValue;
+import vbsp.ims.syn.ProcessReportSyn;
+import vbsp.ims.xml.XmlKtgsSync;
 
 public class epsAction extends ActionSupport {
 
@@ -117,6 +124,7 @@ public class epsAction extends ActionSupport {
         tendn = (String) session.get("username");
         new epsModel().xacnhansleps(macn, mapgd, makh, ngaybc, soku, chotsl, nguyennhan, tendn, phanhoichung, sotk, cbophanhoi);
         lstDetail = new epsModel().xemsleps(capbc, tendn, ngaybc);
+        sendTw();
         return SUCCESS;
     }
 
@@ -155,6 +163,88 @@ public class epsAction extends ActionSupport {
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
         lstDetail = new epsModel().TopngHopBaoCao(capbc, tendn, ngaybc);
+        return SUCCESS;
+    }
+    
+    public String sendTw() {
+        System.err.println("Vao ham sendTDNN");
+        try {
+            Map<String, Integer> mapStatusSend = new HashMap();
+
+            for (String mapgd : mapgd) {
+                ServletContext context = ServletActionContext.getServletContext();
+                String strPathSave = !context.getRealPath("/").endsWith("/")
+                        ? context.getRealPath("/") + "/" + Define.M_REPORT_XML
+                        : context.getRealPath("/") + Define.M_REPORT_XML;
+                strPathSave += "KYQUY_" + mapgd
+                        + "_" + tendn + "_"
+                        + Long.toString(System.currentTimeMillis()).substring(Long.toString(System.currentTimeMillis()).length() - 6) + ".xml";
+
+                List<String> lstData = new ArrayList<>();
+                boolean bStatus_file = false;
+
+                lstData = new epsModel().getDataSend("NT", "KYQUY",
+                        mapgd, ngaybc);
+                if (lstData == null || lstData.size() == 0) {
+                    mapStatusSend.put(mapgd, 6);
+                    continue;
+                }
+                bStatus_file = new XmlKtgsSync().createXmlFileKtgs(Define.PARA_SYN_REPORT_KYQUY, "NT",
+                        "KYQUY", ngaybc, tendn, capbc,
+                        mapgd, lstData, Define.WEB_SERVICES_STATUS_SEND, strPathSave);
+
+                if (!bStatus_file) {
+//                    addActionError("Bạn chưa tạo được file dữ liệu để gửi của PGD " + mapgd);
+                    CoreLogger.error(this.getClass().getName() + " Exception -> sendTw: Khong tao duoc file " + strPathSave);
+
+                    mapStatusSend.put(mapgd, 1); //1 la tao file xml bi loi
+//                    return ERROR;
+                }
+                //Tao file xml theo cau truc
+//
+                File checkfile = new File(strPathSave);
+                if (!checkfile.exists()) {
+//                    addActionError("Bạn chưa tạo được file dữ liệu để gửi. Xin liên hệ với quản trị để khắc phục");
+                    CoreLogger.error(this.getClass().getName() + " Exception -> sendTDNN: Khong tao duoc file " + strPathSave);
+                    mapStatusSend.put(mapgd, 2); //2 la khong tim thay file xml
+//                    return ERROR;
+                }
+                ProcessReportSyn clientWritexml = new ProcessReportSyn();
+                String sStatus = clientWritexml.SendFileXmlToWebServices(strPathSave);
+//
+                if (sStatus.equals(Define.WEB_SERVICES_STATUS_FAIL)) {
+                    System.err.println("Ban chua dong bo du lieu duoc ve TW");
+//                    addActionError("Lỗi bạn chưa gửi dữ liệu được về trung ương ");
+                    if (checkfile.exists()) {
+                        checkfile.delete();
+                    }
+                    CoreLogger.error(this.getClass().getName() + " Exception -> sendTDNN: Khong dong bo duoc file " + strPathSave);
+                    mapStatusSend.put(mapgd, 3); //3 la gui file du lieu bi loi
+//                    return ERROR;
+                } else if (sStatus.equals(Define.WEB_SERVICES_STATUS_OK)) {
+//                    addActionMessage("Bạn gửi dữ liệu về trung ương thành công");
+                    if (checkfile.exists()) {
+                        checkfile.delete();
+                    }
+                    mapStatusSend.put(mapgd, 4);  //gui du lieu thanh cong
+                } else {
+//                    addActionMessage("Bạn không thể gửi dữ liệu lên trung ương do bị khóa </br>Xin liên hệ về Ban KT&QLTC để được gửi lại số liệu ! ");
+                    if (checkfile.exists()) {
+                        checkfile.delete();
+                    }
+                    mapStatusSend.put(mapgd, 5);  //pgd bi khoa khong gui duoc du lieu
+//                    return ERROR;
+                }
+            }
+//            setLstViewSend(getViewStatusSend(lstPos, mapStatusSend));
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> sendTw: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> sendTw: " + e.getMessage());
+            addActionError("Bạn chưa gửi được dữ liệu xin liên hệ với quản trị để được khắc phục");
+            return ERROR;
+        }
+//        addActionMessage("Bạn gửi dữ liệu về trung ương thành công !");
+
         return SUCCESS;
     }
     

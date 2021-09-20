@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import oracle.jdbc.OracleTypes;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.khnv2021.PosClass;
+import vbsp.ims.log.CoreLogger;
 import vbsp.ims.report.fast.ListValue;
 /**
  *
@@ -375,5 +376,56 @@ public class epsModel {
         ListValue detailStatus = new ListValue("02", "Chưa xác nhận số liệu");
         statusList.add(detailStatus);
         return statusList;
+    }
+    
+    public List<String> getDataSend(String type, String khoa, String mapgd, String ngay_bc) throws SQLException {
+        List<String> lstData = new ArrayList<>();
+        DaoConnect daoconnect = new DaoConnect();
+        Connection conn = null;
+        conn = daoconnect.getConnect();
+        CallableStatement calstatement = null;
+        ResultSet reset = null;
+//        try {
+        //Khoi tao procedure cung voi tham so truyen vao la dau ?
+        String strStoreproce = "{call VBSP_IMS_TDNN.SP_GET_DATA_TDNN_SYNC(?,?,?,?,?,?,?)}";
+        try {
+            //Khoi tao goi store
+            calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
+            calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.VARCHAR);
+            calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.CURSOR);
+            calstatement.setString(1, type);
+            calstatement.setString(2, khoa);
+            calstatement.setString(3, mapgd);
+            calstatement.setString(4, ngay_bc);
+            //Thuc hien execute lay du lieu
+            calstatement.execute();
+            //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+            int pn_err_cd = calstatement.getInt(5);
+            //thu hien lay mo ta loi
+            String strEdd_txt = calstatement.getString(6);
+            //Lay cursor ra resultset
+            reset = (ResultSet) calstatement.getObject(7);
+            while (reset.next()) {
+
+                lstData.add(reset.getString(1));
+            }
+
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataSendBcqt -> " + e.getMessage());
+            throw new SQLException(e);
+        } finally {
+            if (reset != null) {
+                reset.close();
+            }
+            if (calstatement != null) {
+                calstatement.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return lstData;
     }
 }
