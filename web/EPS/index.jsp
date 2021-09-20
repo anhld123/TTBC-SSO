@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s" %>
+
+<s:head/>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -75,13 +78,8 @@
         </div>
         <form id="frmMain" name="frmMain" style="margin-bottom: 0px;">
             <div style="display:inline-flex;justify-content: end; align-items: end; width: 100%; border-top: 1px solid #ddd;">
-<!--                <div style="display:flex; align-items:center;">
-                    &nbsp;<b>Lọc danh sách: &nbsp;</b>
-                    <select id="idloc" name="loc" onchange="Filter();">
-                    </select>
-                </div>-->
-                <div style="display:flex; align-items:center; padding: 7px 0px;" >
-                    <div id="idcapbc">
+                <div style="display:flex; align-items:center; padding: 7px 0px;" >                    
+                    <div >
                         <b>Chi nhánh</b>
                         <select id="idtinh" name="matinh">
                             <s:iterator value="lstCN">
@@ -95,6 +93,16 @@
                             <option value="<s:property value='PosCode'/>"><s:property value='PosName'/></option>
                         </s:iterator>
                     </select>
+                    <div >
+                        <b>Trạng thái</b>
+                        <select id="idSearchStatus" name="searchStatus">
+                            <s:iterator value="lstStatus">
+                                <option value="<s:property value='sKey'/>"><s:property value='sDesc'/></option>
+                            </s:iterator>
+                        </select>
+                    </div>
+                    
+                    
                     <b>Ngày báo cáo:</b><input type="text" id="datepicker" name="ngaybc" class="js-date" maxlength="10" style="width: 100px;">
                     <input type="button" id="btnXem" value="Xem số liệu"/>
                     <input type="button" id="btnTonghop" value="Tổng hợp báo cáo PGD"/>
@@ -133,7 +141,7 @@
             type: method,
             async: true,
             success: function (result) {
-                if (event.data.status == "00") {
+                if (event.data.status === "00") {
                     $('#iddonvi').children().remove().end();
                     $.each(result.lstPGD, function (key, val) {
                         $('#iddonvi').append('<option value="' + key + '">' + val + '</option>');

@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import vbsp.ims.report.fast.ListValue;
 
 public class epsAction extends ActionSupport {
 
@@ -41,6 +42,8 @@ public class epsAction extends ActionSupport {
     private List<String> sotk = new ArrayList<>();
     private List<String> nguyennhan = new ArrayList<>();
     private Map<String, String> lstPGD = new HashMap<String, String>();
+    private List<ListValue> lstStatus = new ArrayList<>();
+    private String searchStatus;
 
     @Override
     //Cấp CN và TW
@@ -49,8 +52,10 @@ public class epsAction extends ActionSupport {
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
-        lstPos = new epsModel().getPGD(capbc, tendn);
-        lstCN = new epsModel().getChiNhanh(capbc, tendn);
+        epsModel dao =  new epsModel();
+        lstPos = dao.getPGD(capbc, tendn);
+        lstCN = dao.getChiNhanh(capbc, tendn);
+        lstStatus = dao.getSearchStatusList();
         return SUCCESS;
     }
 
@@ -72,7 +77,7 @@ public class epsAction extends ActionSupport {
         Date date = sdf.parse(ngaybc);
         DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
         ngaybc = df3.format(date);
-        lstDetail = new epsModel().getAllData(capbc, tendn, madv, ngaybc, status, matinh);
+        lstDetail = new epsModel().getAllData(capbc, tendn, madv, ngaybc, status, matinh, searchStatus);
         return SUCCESS;
     }
 
@@ -350,6 +355,27 @@ public class epsAction extends ActionSupport {
     public void setTotalRow(int totalRow) {
         this.totalRow = totalRow;
     }
+
+    public List<ListValue> getLstStatus() {
+        return lstStatus;
+    }
+
+    public void setLstStatus(List<ListValue> lstStatus) {
+        this.lstStatus = lstStatus;
+    }
+    
+    
+    
+       
+
+    public String getSearchStatus() {
+        return searchStatus;
+    }
+
+    public void setSearchStatus(String searchStatus) {
+        this.searchStatus = searchStatus;
+    }
+    
     //</editor-fold> 
 
 }

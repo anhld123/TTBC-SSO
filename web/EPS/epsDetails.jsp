@@ -60,7 +60,7 @@
                 <s:if test="D1.equalsIgnoreCase('PHANHOI')">
                     <tr id="phanhoi">
                         <td colspan="14">
-                            <strong>Tổng hợp: <s:property value='D6'/></strong> <hr>
+                            <strong><s:property value='THUTU'/>. Tổng hợp: <s:property value='D6'/></strong> <hr>
                                 <span style="font-weight:bold; line-height: 20px;">Xác nhận dữ liệu:</span>
                                 <select name="cbophanhoi" disabled style="border: 0px; width: 100%; margin-bottom: 5px; border: 1px solid orange;height: 30px;">
                                     <option value="01" <s:if test="D16.equalsIgnoreCase('01')"> selected</s:if>>Xác nhận số liệu chuẩn</option>

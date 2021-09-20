@@ -38,11 +38,13 @@ public class epsGetSetSL {
     private String D10;
     private String SOTK;
     private String D16;
+    private String THUTU;
 
     public epsGetSetSL() {
     }
 
-    public epsGetSetSL(String KHOA, String MACN, String MAPGD, String MAKH, String TENKH, String NGAYSINH, String GIOITINH, String CMT_SO, String CMT_NOICAP, String CMT_NGAYCAP, String DIACHI, String NGAYKYQUY, String SOTIENKYQUY, String NGAYBC, String SOKU, String D1, String D2, String D3, String D4, String D5, String D6, String D7, String D8, String D9, String D10, String SOTK, String D16) {
+    public epsGetSetSL(String KHOA, String MACN, String MAPGD, String MAKH, String TENKH, String NGAYSINH, String GIOITINH, String CMT_SO, String CMT_NOICAP, String CMT_NGAYCAP, String DIACHI, String NGAYKYQUY, String SOTIENKYQUY, String NGAYBC, String SOKU, String D1, String D2, String D3, String D4, String D5, String D6, String D7, String D8, String D9, String D10, String SOTK, String D16,
+            String THUTU) {
         this.KHOA = KHOA;
         this.MACN = MACN;
         this.MAPGD = MAPGD;
@@ -70,6 +72,8 @@ public class epsGetSetSL {
         this.D10 = D10;
         this.SOTK = SOTK;
         this.D16 = D16;
+        this.THUTU = THUTU;
+        
     }
 
     public String getSOTK() {
@@ -291,5 +295,14 @@ public class epsGetSetSL {
         this.D10 = D10;
     }
 
+    public String getTHUTU() {
+        return THUTU;
+    }
+
+    public void setTHUTU(String THUTU) {
+        this.THUTU = THUTU;
+    }
+
+    
     
 }

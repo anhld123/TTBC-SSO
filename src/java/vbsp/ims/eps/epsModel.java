@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 import oracle.jdbc.OracleTypes;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.khnv2021.PosClass;
-
+import vbsp.ims.report.fast.ListValue;
 /**
  *
  * @author ITCVBSP56
@@ -93,22 +93,24 @@ public class epsModel {
         return lst;
     }
 
-    public List<epsGetSetSL> getAllData(String capbc, String tendn, String madv, String ngaybc, String nghiepvu, String matinh) {
+    public List<epsGetSetSL> getAllData(String capbc, String tendn, String madv, String ngaybc, String nghiepvu, String matinh,
+            String searchStatus) {
         List<epsGetSetSL> lst = new ArrayList<>();
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
         try {
             //Lưu dữ liệu vào CSDL và trả về kết quả
-            CallableStatement st = con.prepareCall("{call PROC_GETPH_DONVI(?,?,?,?,?,?,?)}");
+            CallableStatement st = con.prepareCall("{call PROC_GETPH_DONVI(?,?,?,?,?,?,?,?)}");
             st.setString(1, capbc);
             st.setString(2, tendn);
             st.setString(3, madv);
             st.setString(4, ngaybc);
             st.setString(5, nghiepvu);
             st.setString(6, matinh);
-            st.registerOutParameter(7, OracleTypes.CURSOR);
+            st.setString(7, searchStatus);
+            st.registerOutParameter(8, OracleTypes.CURSOR);
             st.execute();
-            ResultSet rs = (ResultSet) st.getObject(7);
+            ResultSet rs = (ResultSet) st.getObject(8);
             while (rs.next()) {
                 lst.add(new epsGetSetSL(
                         rs.getString("KHOA"),
@@ -137,7 +139,8 @@ public class epsModel {
                         rs.getString("D9"),
                         rs.getString("D10"),
                         rs.getString("SOTK"),
-                        rs.getString("D16")
+                        rs.getString("D16"),
+                        rs.getString("TT_HIENTHI")
                 ));
             }
         } catch (SQLException ex) {
@@ -188,7 +191,8 @@ public class epsModel {
                         rs.getString("D9"),
                         rs.getString("D10"),
                         rs.getString("SOTK"),
-                        rs.getString("D16")
+                        rs.getString("D16"),
+                        ""
                 ));
             }
         } catch (SQLException ex) {
@@ -352,6 +356,7 @@ public class epsModel {
                         "",
                         "",
                         "",
+                        "",
                         ""
                 ));
             }
@@ -359,5 +364,16 @@ public class epsModel {
             Logger.getLogger(epsAction.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lst;
+    }
+    
+    public List<ListValue> getSearchStatusList(){
+        List<ListValue> statusList = new ArrayList<>();
+        ListValue allStatus = new ListValue("00", "--- Tất cả ---");
+        statusList.add(allStatus);
+        ListValue sumStatus = new ListValue("01", "Đã xác nhận số liệu");
+        statusList.add(sumStatus);
+        ListValue detailStatus = new ListValue("02", "Chưa xác nhận số liệu");
+        statusList.add(detailStatus);
+        return statusList;
     }
 }
