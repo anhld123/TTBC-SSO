@@ -130,8 +130,10 @@ public class QD23_001 extends ActionNhaptaycnMain
                 String lanquyetdinh = hmParameter.get("lanqd").toString(); 
                 String sotide = hmParameter.get("sotide").toString(); 
                 String tinhchatvon = hmParameter.get("tc_von").toString(); 
+                String chot_kh = hmParameter.get("chot_kh").toString(); 
+                
                 lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, 
-                        soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh+"#"+sotide+"#"+tinhchatvon, 
+                        soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh+"#"+sotide+"#"+tinhchatvon +"#"+chot_kh , 
                         hmParameter.get("type_action").toString());
                 setLstTinhchatNV(daoMain.getCanBo(UserName, "TINHTCHAT_NV"));
                 setLstChotKH(daoMain.getCanBo(UserName, "CHOTKH"));
@@ -140,8 +142,9 @@ public class QD23_001 extends ActionNhaptaycnMain
             else if (Grade.equals("3") && hmParameter.get("type_action").toString().equals("2")) {
                 String soquyetdinh = hmParameter.get("soqd").toString(); 
                 String ngayquyetdinh = hmParameter.get("ngay_qd").toString(); 
-                String lanquyetdinh = hmParameter.get("lanqd").toString();                 
-                lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh, 
+                String lanquyetdinh = hmParameter.get("lanqd").toString();         
+                String chot_kh = hmParameter.get("chot_kh").toString(); 
+                lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh+"#"+chot_kh , 
                         hmParameter.get("type_action").toString());
                 setLstTinhchatNV(daoMain.getCanBo(UserName, "TTDUYET"));
                 setLstChotKH(daoMain.getCanBo(UserName, "CHOTKH"));

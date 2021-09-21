@@ -246,6 +246,9 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected List<ListValue> lstDTTH = new ArrayList<ListValue>();
     protected List<ListValue> lstDNVON = new ArrayList<ListValue>();
     protected List<ListValue> lstSoKU = new ArrayList<ListValue>();
+    protected List<ListValue> lstTrong30Ngay = new ArrayList<ListValue>();
+    protected List<ListValue> lstSau30Ngay = new ArrayList<ListValue>();
+    protected List<ListValue> lstKTLai = new ArrayList<ListValue>();
 
     private List<ListValue> lstCapKT = new ArrayList<ListValue>();
     private List<ListValue> lstDVUT = new ArrayList<ListValue>();
@@ -1372,6 +1375,30 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     public void setDtth(String dtth) {
         this.dtth = dtth;
+    }
+
+    public List<ListValue> getLstTrong30Ngay() {
+        return lstTrong30Ngay;
+    }
+
+    public void setLstTrong30Ngay(List<ListValue> lstTrong30Ngay) {
+        this.lstTrong30Ngay = lstTrong30Ngay;
+    }
+
+    public List<ListValue> getLstSau30Ngay() {
+        return lstSau30Ngay;
+    }
+
+    public void setLstSau30Ngay(List<ListValue> lstSau30Ngay) {
+        this.lstSau30Ngay = lstSau30Ngay;
+    }
+
+    public List<ListValue> getLstKTLai() {
+        return lstKTLai;
+    }
+
+    public void setLstKTLai(List<ListValue> lstKTLai) {
+        this.lstKTLai = lstKTLai;
     }
     
 

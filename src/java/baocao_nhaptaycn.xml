@@ -529,6 +529,28 @@
             <result name="error">/error.jsp</result>        
         </action> 
         
+        <action name="QD23_007" class="vbsp.ims.nhaptaycn.action.QD23_007"  method="load">
+            <result name="nhap_1_trong30ngay">/nhaptay-cn/table_qd23_007_1_trong30ngay.jsp</result>    
+            <result name="nhap_1_sau30ngay">/nhaptay-cn/table_qd23_007_1_sau30ngay.jsp</result>   
+            <result name="nhap_1_kiemtralai">/nhaptay-cn/table_qd23_007_1_kiemtralai.jsp</result>  
+            <result name="duyet_2_cn">/nhaptay-cn/table_qd23_007_2_duyet_cn.jsp</result>    
+            <result name="error">/nhaptay-cn/success.jsp</result>        
+        </action>
+        
+        <action name="SAVE_QD23_007" class="vbsp.ims.nhaptaycn.action.QD23_007"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        <action name="QD23_008" class="vbsp.ims.nhaptaycn.action.QD23_008"  method="load">
+            <result name="success">/nhaptay-cn/table_qd23_008_rasoat.jsp</result>       
+            <result name="error">/nhaptay-cn/success.jsp</result>        
+        </action>
+        
+        <action name="SAVE_QD23_008" class="vbsp.ims.nhaptaycn.action.QD23_008"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
         <!--gui so lieu -->
         <action name="sendPhiUT" class="vbsp.ims.nhaptaycn.action.ActionNhaptaycnMain"  method="sendPhiUT">
             <result name="success">/nhaptay-cn/success.jsp</result>
