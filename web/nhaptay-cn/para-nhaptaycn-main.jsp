@@ -714,6 +714,8 @@
                           ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('DIEUCHUYENTO_01'))
                           ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('KSNB_01'))
                           ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QLDB_001'))
+                          ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_007'))
+                          ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_008'))
                           ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))"
                           >
                         <div id="containParm_full" align="center">
@@ -842,7 +844,7 @@
                                         mm = '0' + mm;
                                     }
                                     var today = dd + '/' + mm + '/' + yyyy;
-                                    if (document.getElementById('khoa_nhaptaycn').value == 'QD23_001') {
+                                    if (document.getElementById('khoa_nhaptaycn').value == 'QD23_001' || document.getElementById('khoa_nhaptaycn').value == 'QD23_007') {
                                         document.getElementById('ngay_bc_DATE').value = today;
                                     } else {
                                         document.getElementById('ngay_bc_DATE').value = daynow;//daynow;
