@@ -189,22 +189,25 @@
                         <tr height="50px">                                                          
                             <th rowspan="2" class="TD_MAKH">Tỉnh</th>  
                             <th rowspan="2" class="TD_CHITIEU">Tên doanh nghiệp</th>                              
-                            <th rowspan="2" class="TD_MAKH">Mã doanh nghiệp</th>
+                            <!--<th rowspan="2" class="TD_MAKH">Mã doanh nghiệp</th>-->
                             <!--<th rowspan="2" class="TD_SOKU">Tên người đại diện</th>-->                          
                             <th rowspan="2" class="TD_MAKH">Giấy đề nghị</th>
                             <th rowspan="2" class="TD_NGAY">Ngày đề nghị</th>
                             <th rowspan="2" class="TD_SOTIEN">Số tiền đề nghị vay</th>
-                            <!--<th rowspan="2" class="TD_SOTIEN">Đối tượng thụ hưởng</th>-->                                                                                                         
+                            <th colspan="2" class="TD_SOTIEN">Trong đó</th>                                                                                                         
                             <!--<th  rowspan="2" class="TD_MAKH">Ngày lương theo HĐ</th>-->    
                             <!--<th  rowspan="2" class="TD_CHITIEU">Ghi chú</th>-->      
-                            <th colspan="4" class="TD_NGAY">Duyệt kế hoạch</th>
+                            <th colspan="3" class="TD_NGAY">Duyệt kế hoạch</th>
                             <th rowspan="2" class="TD_SOTIEN">Giao kế hoạch</th>
                             <th rowspan="2" class="TD_MAKH">Chốt kế hoạch</th>
                             <th rowspan="2" class="TD_SOKU">Số tài khoản</th>
                             
                         </tr>         
                         <tr>
-                            <th class="TD_MAKH">Tính chất vốn</th>
+                            <th class="TD_MAKH">Để trả lương ngừng việc</th>
+                            <th class="TD_MAKH">Để trả lương khi phục hổi</th>
+                            
+                            <!--<th class="TD_MAKH">Tính chất vốn</th>-->
                             <th class="TD_MAKH">Số QĐ</th>
                             <th class="TD_MAKH">Ngày QĐ</th>
                             <th class="TD_STT">Thông báo lần</th>
@@ -216,7 +219,7 @@
                             <td style="text-align: center">2</td>
                             <!--<td>6</td>-->
                             <!--<td>7</td>-->
-                            <td style="text-align: center">3</td>
+                            <!--<td style="text-align: center">3</td>-->
                             <!--<td style="text-align: center">5</td>-->
                             <!--<td>10</td>-->
                             <!--<td>11</td>-->
@@ -225,8 +228,9 @@
                             <td style="text-align: center">44</td>
                             
                             <td style="text-align: center">25</td>
-                            <!--<td style="text-align: center">15</td>-->
-                            <td style="text-align: center">36</td>                            
+                            <td style="text-align: center">26</td>
+                            <td style="text-align: center">27</td>
+                            <!--<td style="text-align: center">36</td>-->                            
                             <td style="text-align: center">37</td>                            
                             <td style="text-align: center">38</td>  
                             <td style="text-align: center">39</td>
@@ -253,8 +257,8 @@
                                     <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D2" />"
                                            name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D2" class="TEN_KH" onfocus="this.select();" style="background:#C0C0C0 !important;"
                                            readonly="true"/>
-<!--                                    <input type="hidden" value="<s:property  value="D3" />"
-                                       name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D3" value="<s:property  value="D3"/>"/> -->
+                                    <input type="hidden" value="<s:property  value="D3" />"
+                                       name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D3" value="<s:property  value="D3"/>"/> 
                                     <input type="hidden" value="<s:property  value="D11" />"
                                        name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D11" value="<s:property  value="D11"/>"/> 
                                     <input type="hidden" value="<s:property  value="D15" />"
@@ -265,11 +269,11 @@
                                        name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].MAPGD" value="<s:property  value="MAPGD"/>"/> 
                                 </td>
 
-                                <td align = "right" class="TD_MAKH" >
+<!--                                <td align = "right" class="TD_MAKH" >
                                     <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D3" />"
                                            name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
                                            readonly="true"/>
-                                </td>
+                                </td>-->
 <!--                                <td align = "right" class="TD_SOKU" >
                                     <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D5" />"
                                            name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH" onfocus="this.select();" style="background:#C0C0C0 !important;"
@@ -292,17 +296,27 @@
                                            name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D25" class="D13 TEN_KH number" onfocus="this.select();" style="background:#C0C0C0 !important;"
                                            readonly="true"/>
                                 </td> 
+                                <td align = "right" class="TD_SOTIEN" >
+                                    <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D26" />"
+                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D26" class="D13 TEN_KH number" onfocus="this.select();" style="background:#C0C0C0 !important;"
+                                           readonly="true"/>
+                                </td> 
+                                <td align = "right" class="TD_SOTIEN" >
+                                    <input type="text" <s:if test="D19.equalsIgnoreCase('1')">style="color: red"</s:if>  value="<s:property  value="D27" />"
+                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D27" class="D13 TEN_KH number" onfocus="this.select();" style="background:#C0C0C0 !important;"
+                                           readonly="true"/>
+                                </td> 
 <!--                                <td align = "right" class="TD_TENKH" >
                                     <input type="text"  value="<s:property  value="D17" />"
                                            name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D17" class= "TEN_KH" onfocus="this.select();" style="background:#C0C0C0 !important;"
                                            readonly="true"/>
                                 </td>-->
                                 <s:if test="D47.equalsIgnoreCase(1)">
-                                    <td align = "right" class="TD_MAKH" >
+<!--                                    <td align = "right" class="TD_MAKH" >
                                         <input type="text"  value="<s:property  value="D36" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D36" class="TEN_KH D0" style="background:#C0C0C0 !important;"
                                            readonly="true"/>
-                                    </td>
+                                    </td>-->
 
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"  value="<s:property  value="D37" />"
@@ -330,7 +344,7 @@
                                     </td>
                                 </s:if> 
                                 <s:else>
-                                    <td align = "left" class="TD_MAKH">                                        
+<!--                                    <td align = "left" class="TD_MAKH">                                        
                                         <s:select  
                                             id="lstDulieuNt50[%{#rowstatus.index}].D36"
                                             name="lstDulieuNt50[%{#rowstatus.index}].D36"
@@ -341,7 +355,7 @@
                                             headerValue="--- Chọn ---"                                    
                                             cssStyle="width: 100%;vertical-align: middle;background-color: #FFCCBA; TEN_KH">
                                         </s:select>
-                                    </td>    
+                                    </td>    -->
 
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"  value="<s:property  value="D37" />"
