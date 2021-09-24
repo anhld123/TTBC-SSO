@@ -533,7 +533,9 @@
             <result name="nhap_1_trong30ngay">/nhaptay-cn/table_qd23_007_1_trong30ngay.jsp</result>    
             <result name="nhap_1_sau30ngay">/nhaptay-cn/table_qd23_007_1_sau30ngay.jsp</result>   
             <result name="nhap_1_kiemtralai">/nhaptay-cn/table_qd23_007_1_kiemtralai.jsp</result>  
-            <result name="duyet_2_cn">/nhaptay-cn/table_qd23_007_2_duyet_cn.jsp</result>    
+            <result name="nhap_2_trong30ngay">/nhaptay-cn/table_qd23_007_2_trong30ngay.jsp</result>    
+            <result name="nhap_2_sau30ngay">/nhaptay-cn/table_qd23_007_2_sau30ngay.jsp</result>   
+            <result name="nhap_2_kiemtralai">/nhaptay-cn/table_qd23_007_2_kiemtralai.jsp</result>  
             <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>
         
@@ -542,7 +544,8 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>
         <action name="QD23_008" class="vbsp.ims.nhaptaycn.action.QD23_008"  method="load">
-            <result name="success">/nhaptay-cn/table_qd23_008_rasoat.jsp</result>       
+            <result name="rasoat_1_pgd">/nhaptay-cn/table_qd23_008_1_rasoat_pgd.jsp</result>       
+            <result name="rasoat_2_cn">/nhaptay-cn/table_qd23_2_008_rasoat_cn.jsp</result>   
             <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>
         

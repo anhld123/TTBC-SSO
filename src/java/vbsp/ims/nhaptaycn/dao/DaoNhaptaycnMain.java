@@ -9237,6 +9237,41 @@ public class DaoNhaptaycnMain {
         return true;
     }
     
+    public boolean saveQD23_RaSoat_008(String khoa, String username, String mapgd, String ngaybc, String capBc, List<QT_DULIEU_NT_50> lstData) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT_50.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_KETQUA_KTDC.SP_SAVE_KIEMTRA_QD23_008(?, ?, ?, ?, ?, ?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, username);
+            cs.setString(3, mapgd);
+            cs.setString(4, ngaybc);
+            cs.setString(5, capBc);
+            cs.setArray(6, array_to_pass);
+            
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham saveQD23_RaSoat_008 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveQD23_RaSoat_008 -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
+    
     public List<QT_DULIEU_NT_50> getDataQd23_Rasoat_008(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT_50> lstBcqt_NT = new ArrayList<QT_DULIEU_NT_50>();

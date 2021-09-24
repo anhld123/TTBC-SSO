@@ -76,11 +76,14 @@ public class QD23_008 extends ActionNhaptaycnMain
             String dateStr = sdf.format(date1);
             setThangbc(dateStr);
                        
-            // Nhập kết quả lần 1
-            if (Grade.equals("1")) {
-                lstDulieuNt50 = daoMain.getDataQd23_Rasoat_008(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
-                return SUCCESS;
-            }             
+            
+            lstDulieuNt50 = daoMain.getDataQd23_Rasoat_008(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
+            if (Grade.equals("1")) {                
+                return "rasoat_1_pgd";
+            }   
+            else if (Grade.equals("2")) {                
+                return "rasoat_2_cn";
+            } 
             if (conn != null) {
                 conn.close();
             }
@@ -105,14 +108,8 @@ public class QD23_008 extends ActionNhaptaycnMain
             }
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
-                        
-            String iCheck = daoMain.checkData_Info_50(lstDulieuNt50,khoa_nhaptaycn,hmParameter.get("ngay_bc").toString(),UserName, Grade, lstDat,hmParameter.get("type_action").toString());
-            if(!iCheck.equals("XXXAAA"))
-            {
-                addActionError("Lỗi! "+ iCheck);
-                    return ERROR; 
-            }     
-            if (!daoMain.saveQD23_Kiemtra_007(khoa_nhaptaycn, UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt50, hmParameter.get("type_action").toString())) {
+                                    
+            if (!daoMain.saveQD23_RaSoat_008(khoa_nhaptaycn, UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt50)) {
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;
             }

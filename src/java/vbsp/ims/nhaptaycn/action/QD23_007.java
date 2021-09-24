@@ -71,57 +71,44 @@ public class QD23_007 extends ActionNhaptaycnMain
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String dateStr = sdf.format(date1);
+            setThangbc(dateStr);
                         
             // Nhập kết quả lần 1
             if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("1")) {
                 lstDulieuNt50 = daoMain.getDataQd23_Kiemtra(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
-                setLstTrong30Ngay(daoMain.getCanBo(UserName, "KQ_TRONG30NGAY"));                                
-
+//                setLstTrong30Ngay(daoMain.getCanBo(UserName, "KQ_TRONG30NGAY"));                                
                 return "nhap_1_trong30ngay";
             } 
             else if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("2")) {
                 lstDulieuNt50 = daoMain.getDataQd23_Kiemtra(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
-                setLstSau30Ngay(daoMain.getCanBo(UserName, "KQ_SAU30NGAY"));
+//                setLstSau30Ngay(daoMain.getCanBo(UserName, "KQ_SAU30NGAY"));
                 return "nhap_1_sau30ngay";
             } 
             else if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("3")) {
                 lstDulieuNt50 = daoMain.getDataQd23_Kiemtra(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
-                setLstKTLai(daoMain.getCanBo(UserName, "KT_LAI"));   
+//                setLstKTLai(daoMain.getCanBo(UserName, "KT_LAI"));   
                 return "nhap_1_kiemtralai";
             } 
 
-             else if (Grade.equals("2") && hmParameter.get("type_action").toString().equals("1")) {
-                 lstDulieuNt50 = daoMain.getDataQd23_Kiemtra(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
-                return "duyet_2_cn";
-            }
-            
-            else if (Grade.equals("3") && hmParameter.get("type_action").toString().equals("1")) {
-                String soquyetdinh = hmParameter.get("soqd").toString(); 
-                String ngayquyetdinh = hmParameter.get("ngay_qd").toString(); 
-                String lanquyetdinh = hmParameter.get("lanqd").toString(); 
-                String sotide = hmParameter.get("sotide").toString(); 
-                String tinhchatvon = hmParameter.get("tc_von").toString(); 
-                lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, 
-                        soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh+"#"+sotide+"#"+tinhchatvon, 
-                        hmParameter.get("type_action").toString());
-                setLstTinhchatNV(daoMain.getCanBo(UserName, "TINHTCHAT_NV"));
-                setLstChotKH(daoMain.getCanBo(UserName, "CHOTKH"));
-                return "xaydungkh_tw";
-            }
-            else if (Grade.equals("3") && hmParameter.get("type_action").toString().equals("2")) {
-                String soquyetdinh = hmParameter.get("soqd").toString(); 
-                String ngayquyetdinh = hmParameter.get("ngay_qd").toString(); 
-                String lanquyetdinh = hmParameter.get("lanqd").toString();                 
-                lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh, 
-                        hmParameter.get("type_action").toString());
-                setLstTinhchatNV(daoMain.getCanBo(UserName, "TTDUYET"));
-                setLstChotKH(daoMain.getCanBo(UserName, "CHOTKH"));
-                return "dieuchinhkh_tw";
-            }
-            else if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("5")) {
-                lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
-                return "canhbao_pgd";
+            else if (Grade.equals("2") && hmParameter.get("type_action").toString().equals("1")) {
+                lstDulieuNt50 = daoMain.getDataQd23_Kiemtra(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
+//                setLstTrong30Ngay(daoMain.getCanBo(UserName, "KQ_TRONG30NGAY"));                                
+                return "nhap_2_trong30ngay";
             } 
+            else if (Grade.equals("2") && hmParameter.get("type_action").toString().equals("2")) {
+                lstDulieuNt50 = daoMain.getDataQd23_Kiemtra(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
+//                setLstSau30Ngay(daoMain.getCanBo(UserName, "KQ_SAU30NGAY"));
+                return "nhap_2_sau30ngay";
+            } 
+            else if (Grade.equals("2") && hmParameter.get("type_action").toString().equals("3")) {
+                lstDulieuNt50 = daoMain.getDataQd23_Kiemtra(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
+//                setLstKTLai(daoMain.getCanBo(UserName, "KT_LAI"));   
+                return "nhap_2_kiemtralai";
+            } 
+
             if (conn != null) {
                 conn.close();
             }
