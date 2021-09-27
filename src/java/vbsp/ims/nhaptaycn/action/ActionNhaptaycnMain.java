@@ -1162,6 +1162,93 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
         return SUCCESS;
     }
+    
+    public String sendOnePos(String mabc, String ngaybc, String mapgd) {
+        System.err.println("Vao ham sendPhiUT");
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            HashMap hmParameter = getParameter();
+            List<String> lstPos = (List<String>) hmParameter.get("poscd");
+            DaoNhaptaycnMain daosync = DaoNhaptaycnMain.newInstance();
+//            Map<String, Integer> mapStatusSend = new HashMap();
+
+
+                ServletContext context = ServletActionContext.getServletContext();
+                String strPathSave = !context.getRealPath("/").endsWith("/")
+                        ? context.getRealPath("/") + "/" + Define.M_REPORT_XML
+                        : context.getRealPath("/") + Define.M_REPORT_XML;
+                strPathSave += hmParameter.get("khoa_nhaptaycn").toString() + "_" + mapgd
+                        + "_" + UserName + "_"
+                        + Long.toString(System.currentTimeMillis()).substring(Long.toString(System.currentTimeMillis()).length() - 6) + ".xml";
+
+                List<String> lstData = new ArrayList<>();
+                boolean bStatus_file = false;
+                lstData = daosync.getDataSendPhiut("NT", khoa_nhaptaycn,
+                        mapgd, hmParameter.get("ngay_bc").toString());
+
+                if (lstData == null || lstData.size() == 0) {
+//                    mapStatusSend.put(mapgd, 6);
+                    return "Không có dữ liệu";
+                }
+                bStatus_file = new XmlKtgsSync().createXmlFileKtgs(Define.PARA_SYN_REPORT_PHIUT, "NT",
+                        hmParameter.get("khoa_nhaptaycn").toString(), hmParameter.get("ngay_bc").toString(), UserName, Grade,
+                        mapgd, lstData, Define.WEB_SERVICES_STATUS_SEND, strPathSave);
+
+                if (!bStatus_file) {
+                    CoreLogger.error(this.getClass().getName() + " Exception -> sendPhiUT: Khong tao duoc file " + strPathSave);
+//                    mapStatusSend.put(mapgd, 1); //1 la tao file xml bi loi
+                    return "Không tạo được file gửi tw";
+                }
+                //Tao file xml theo cau truc
+//
+                File checkfile = new File(strPathSave);
+                if (!checkfile.exists()) {
+//                    addActionError("Bạn chưa tạo được file dữ liệu để gửi. Xin liên hệ với quản trị để khắc phục");
+                    CoreLogger.error(this.getClass().getName() + " Exception -> sendPhiUT: Khong tao duoc file " + strPathSave);
+//                    mapStatusSend.put(mapgd, 2); //2 la khong tim thay file xml
+                    return "Bạn chưa tạo được file dữ liệu để gửi. Xin liên hệ với quản trị để khắc phục";
+                }
+                ProcessReportSyn clientWritexml = new ProcessReportSyn();
+                String sStatus = clientWritexml.SendFileXmlToWebServices(strPathSave);
+//
+                if (sStatus.equals(Define.WEB_SERVICES_STATUS_FAIL)) {
+                    System.err.println("Ban chua dong bo du lieu duoc ve TW");
+//                    addActionError("Lỗi bạn chưa gửi dữ liệu được về trung ương ");
+                    if (checkfile.exists()) {
+                        checkfile.delete();
+                    }
+                    CoreLogger.error(this.getClass().getName() + " Exception -> sendPhiUT: Khong dong bo duoc file " + strPathSave);
+//                    mapStatusSend.put(mapgd, 3); //3 la gui file du lieu bi loi
+                    return "Ban chua dong bo du lieu duoc ve TW";
+                } else if (sStatus.equals(Define.WEB_SERVICES_STATUS_OK)) {
+//                    addActionMessage("Bạn gửi dữ liệu về trung ương thành công");
+                    if (checkfile.exists()) {
+                        checkfile.delete();
+                    }
+//                    mapStatusSend.put(mapgd, 4);  //gui du lieu thanh cong
+                    return SUCCESS;
+                } else {
+//                    addActionMessage("Bạn không thể gửi dữ liệu lên trung ương do bị khóa </br>Xin liên hệ về Ban KT&QLTC để được gửi lại số liệu ! ");
+                    if (checkfile.exists()) {
+                        checkfile.delete();
+                    }
+//                    mapStatusSend.put(mapgd, 5);  //pgd bi khoa khong gui duoc du lieu
+                    return "Bạn không thể gửi dữ liệu lên trung ương do bị khóa </br>Xin liên hệ về Ban KT&QLTC để được gửi lại số liệu ! ";
+                }
+            
+//            setLstViewSend(getViewStatusSend(lstPos, mapStatusSend));
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> sendPhiUT: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> sendPhiUT: " + e.getMessage());
+            addActionError("Bạn chưa gửi được dữ liệu xin liên hệ với quản trị để được khắc phục");
+            return ERROR;
+        }
+//        addActionMessage("Bạn gửi dữ liệu về trung ương thành công !");
+
+//        return SUCCESS;
+    }
 
     public String checkLockStatus() throws Exception {
         DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();

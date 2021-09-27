@@ -113,6 +113,20 @@ public class QD23_008 extends ActionNhaptaycnMain
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;
             }
+            else
+            {
+                String sResult = sendOnePos(khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), pos_cd_username);              
+                if(sResult.equals(SUCCESS))
+                {
+                    addActionMessage("Bạn đã lưu và gửi dữ liệu thành công");
+                    return SUCCESS;
+                }  
+                else
+                {
+                    addActionError(sResult);
+                    return ERROR;
+                }
+            }
             
 
         } catch (Exception e) {
@@ -121,8 +135,8 @@ public class QD23_008 extends ActionNhaptaycnMain
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
             return ERROR;
         }
-        addActionMessage("Bạn đã lưu dữ liệu thành công");
-        return SUCCESS;
+//        addActionMessage("Bạn đã lưu dữ liệu thành công");
+//        return SUCCESS;
     }
        
     
