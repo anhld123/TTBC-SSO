@@ -164,7 +164,7 @@
             <div id="divTitle">
                 KẾT QUẢ KIỂM TRA TRỰC TIẾP VIỆC SỬ DỤNG VỐN VAY CỦA KHÁCH HÀNG
                 </br>
-                <span style="color:red">Sau 30 ngày - Ngày ${thangbc}</span>
+                <span style="color:red">(Sau 30 ngày)</span>
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nhaptaycn"/>
@@ -189,8 +189,8 @@
                         </tr>   
                          <tr>
                              <th colspan="2"  class="TD_NGAY">Do khách quan - Sử dụng vốn đúng mục đích</th>
-                            <th  colspan="2" class="TD_NGAY">Do chủ quan - TB thu hồi nợ trước hạn</th> 
-                            <th  colspan="2" class="TD_NGAY">Do khách quan, CT chưa đầy đủ - KT lại</th>
+                            <th  colspan="2" class="TD_NGAY">Do chủ quan - Thông báo thu hồi nợ trước hạn</th> 
+                            <th  colspan="2" class="TD_NGAY">Do khách quan - Chứng từ chưa đầy đủ - Kiểm tra lại</th>
                             
                         </tr>
                         <tr>

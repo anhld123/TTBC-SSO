@@ -164,7 +164,7 @@
             <div id="divTitle">
                 KẾT QUẢ KIỂM TRA TRỰC TIẾP VIỆC SỬ DỤNG VỐN VAY CỦA KHÁCH HÀNG
                 </br>
-                <span style="color:red">Kiểm tra lại - Ngày ${thangbc}</span>
+                <span style="color:red">(Kiểm tra lại)</span>
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nhaptaycn"/>
@@ -180,10 +180,10 @@
                             <th rowspan="3"  class="TD_MAKH">Mã doanh nghiệp</th>                           
                             <th rowspan="3" class="TD_CHITIEU">Tên doanh nghiệp</th>  
                             <th rowspan="3" class="TD_MAKH">Mã số thuế </th>  
-                            <th rowspan="3" class="TD_NGAY">Số NLĐ</th>
-                            <th rowspan="3" class="TD_NGAY">Số tiền</th>                            
-                            <th rowspan="3" class="TD_NGAY">Ngày giải ngân</th> 
-                            <th rowspan="3" class="TD_NGAY">Ngày kiểm tra<span style="color:red">*</span></th>
+                            <th rowspan="3" class="TD_NGAY">Số NLĐ phải kiểm tra lại</th>
+                            <th rowspan="3" class="TD_NGAY">Số tiền phải kiểm tra lại</th>                            
+                            <th rowspan="3" class="TD_NGAY">Ngày kiểm tra trước</th> 
+                            <th rowspan="3" class="TD_NGAY">Ngày kiểm tra lại<span style="color:red">*</span></th>
                             <th colspan="4" class="TD_TENKH">Kết quả kiểm tra<span style="color:red">*</span></th>
                               
                         </tr>   

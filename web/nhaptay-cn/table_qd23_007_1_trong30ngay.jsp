@@ -164,7 +164,7 @@
             <div id="divTitle">
                 KẾT QUẢ KIỂM TRA TRỰC TIẾP VIỆC SỬ DỤNG VỐN VAY CỦA KHÁCH HÀNG
                 </br>
-                <span style="color:red">Trong 30 ngày - Ngày ${thangbc}</span>
+                <span style="color:red">(Trong 30 ngày)</span>
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nhaptaycn"/>
