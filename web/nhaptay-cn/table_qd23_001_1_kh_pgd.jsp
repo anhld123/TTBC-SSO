@@ -527,10 +527,22 @@
                                             cssStyle="width: 100%;vertical-align: middle;background-color: #FFCCBA; TEN_KH">
                                         </s:select>
                                     </td>  
-                                    <td align = "center" class="TD_NGAY">
+<!--                                    <td align = "center" class="TD_NGAY">
                                         <input type="text" value="<s:property  value="D11" />" id="D11_<s:property  value="%{#rowstatus.index}" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH D0"  readonly="true"/>
-                                    </td> 
+                                    </td> -->
+                                     <td align = "left" class="TD_NGAY">                                        
+                                        <s:select  
+                                            id="lstDulieuNt50[%{#rowstatus.index}].D11"
+                                            name="lstDulieuNt50[%{#rowstatus.index}].D11"
+                                            list="lstThangvay" 
+                                            listKey="sKey"
+                                            listValue="sDesc"
+                                            headerKey="-1"
+                                            headerValue="--- Chọn ---"                                    
+                                            cssStyle="width: 100%;vertical-align: middle;background-color: #FFCCBA; TEN_KH">
+                                        </s:select>
+                                    </td>  
                                     <td align = "left" class="TD_NGAY">                                        
                                         <s:select  
                                             id="lstDulieuNt50[%{#rowstatus.index}].D15"

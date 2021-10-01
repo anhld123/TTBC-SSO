@@ -168,9 +168,9 @@
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nhaptaycn"/>
-            <!--                <div id="divDonvitinh">
-                                Đơn vị tính: Đồng
-                            </div>-->
+                            <div id="divDonvitinh">
+                                Đơn vị tính: NLĐ, đồng
+                            </div>
             </br>
             <div class="cls-over">
                 <div id="scrolling_table_1"  style="width: 99%; max-height:45vh">
@@ -300,12 +300,12 @@
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D8" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH number" onfocus="this.select();" style="background:#C0C0C0 !important;"
-                                              />
+                                              readonly="true"/>
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D9" />"
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D9" class="TEN_KH D0" onfocus="this.select();" style="background:#C0C0C0 !important;"
-                                              />
+                                              readonly="true"/>
                                     </td>
                                     <td align = "center" class="TD_MAKH">
                                         <input type="text" value="<s:property  value="D5" />" 

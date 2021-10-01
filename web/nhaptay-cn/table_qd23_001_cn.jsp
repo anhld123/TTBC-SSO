@@ -210,7 +210,7 @@
                             <!--<th  rowspan="3" class="TD_CHITIEU">Ghi chú</th>-->     
                             <!--<th rowspan="3" class="TD_NGAY">TT Duyệt</th>-->
                             <th colspan="7">NHẬP KẾT QUẢ PHÊ DUYỆT CHO VAY (NHCSCH)</th>  
-                            <th colspan="6">NHẬP KẾT QUẢ GIẢI NGÂN</th> 
+                            <th colspan="5">NHẬP KẾT QUẢ GIẢI NGÂN</th> 
                         </tr>         
                         <tr>
                             <th rowspan="2" class="TD_NGAY">Tháng vay </th>
@@ -228,7 +228,7 @@
                             <th rowspan="2" class="TD_MAKH">Gấy đề nghị tái cấp vốn<span style="color:red">(CN gửi TW)</span></th>
                             <th rowspan="2" class="TD_NGAY">Ngày đề nghị tái cấp vốn<span style="color:red">(CN gửi TW)</span></th>
 
-                            <th colspan="5"  class="TD_NGAY">Số tiền giải ngân được nhập vào theo phát sinh hàng ngày (nếu có) trước 16 giờ chiều</th>  
+                            <th colspan="4"  class="TD_NGAY">Số tiền giải ngân được nhập vào theo phát sinh hàng ngày (nếu có) trước 16 giờ chiều</th>  
                             <!--<th colspan="4" class="TD_NGAY">Số tiền giải ngân trên Intellect</th>-->  
                             <th rowspan="2" class="TD_NGAY">Ngày nhập TT giải ngân <span style="color:red">*</span></th> 
 
@@ -238,7 +238,7 @@
                             <th class="TD_MAKH">Tổng số lượt lao động được giải ngân</th>
                             <th  class="TD_NGAY">Trong đó, số lao động mới được giải ngân(nếu có)</th>    
                             <th  class="TD_NGAY">Số tiền giải ngân</th>
-                            <th  class="TD_SOKU">Mã món vay</th>
+                            <!--<th  class="TD_SOKU">Mã món vay</th>-->
 
                             <!--                            
                                                         <th class="TD_NGAY">Ngày phê duyệt</th>
@@ -283,7 +283,7 @@
                             <td style="text-align: center">28</td>
                             <td style="text-align: center">29</td>
                             <td style="text-align: center">30</td>
-                            <td style="text-align: center">31</td>
+                            <!--<td style="text-align: center">31</td>-->
                             <!--                            <td style="text-align: center">31</td>
                                                         <td style="text-align: center">32</td>
                                                         <td style="text-align: center">33</td>
@@ -507,20 +507,7 @@
                                        name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D30" class="D13 TEN_KH number" onfocus="this.select();" 
                                        readonly="true"/>
                             </td> 
-                            <s:if test="D31.length()>14">
-                                <td align = "right" class="TD_SOKU" >
-                                    <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D31" />"
-                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D31" class="D13 TEN_KH" onfocus="this.select();" 
-                                           readonly="true"/>
-                                </td> 
-                            </s:if>
-                            <s:else>
-                                <td align = "right" class="TD_SOKU" >
-                                    <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D31" />"
-                                           name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D31" class="D13 TEN_KH" onfocus="this.select();" 
-                                           style="background: #E0F2A5 !important;"/>
-                                </td> 
-                            </s:else>
+                            
                             
                             <!--                                    <td align = "right" class="TD_MAKH" >
                                                                     <input type="text" <s:if test="!KHOA.equalsIgnoreCase('QD23_001')">style="color: red"</s:if>  value="<s:property  value="D31" />"

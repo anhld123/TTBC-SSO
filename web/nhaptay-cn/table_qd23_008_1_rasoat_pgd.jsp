@@ -43,40 +43,7 @@
         </script>     
 
         <script>
-            function nhapDieuchinh(masothue, tendn, thangbc) {
-                try
-                {
-                    if (masothue.length < 3)
-                    {
-                        alert('Doanh nghiệp chưa có mã số thuế !');
-                        return;
-                    }
-                    var pheduyet = 'N';
-                    var ht1 = screen.height - 100;
-                    var wt1 = screen.width - 100;
-                    var left1 = 50;//(screen.width / 2) - (wt1 / 2);
-                    var top1 = 50;
-                    var ngay_bc = $("#ngay_bc_DATE").val();
-                    var khoa_cdtt = $("#khoa_cdtt").val();
-                    var url = "loadDieuchinhKh.action?masothue=" + masothue + "&ngay_bc=" + ngay_bc + "&tendn=" + tendn + "&thangbc=" + thangbc;
-
-                    //$.post(url,param,function(data){});
-                    popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
-
-                    window.refreshData = function () {
-                        //alert('aaaa');
-                        $("#loadDatatmp").trigger("click");
-                    };
-                } catch (e)
-                {
-                    swal('Lỗi', 'Lỗi: ' + e.toString(), 'error');
-                }
-            }
-
-
-
-
-
+            
             function initTable()
             {
                 var table = document.getElementById("tablekyquy04");
@@ -108,10 +75,10 @@
 
             function autoEvaluate() {
 
-                var arrCot = [".D13", ".D14", ".D15"]; //Luu cac cot cua du lieu can tinh toan
+                var arrCot = [".D2", ".D3", ".D4"]; //Luu cac cot cua du lieu can tinh toan
                 for (var i = 0; i < 50; i++) {
                     //8=2+4-6
-                    $(".D13").eq(i).val(parseFloat($(".D14").eq(i).val()) + parseFloat($(".D15").eq(i).val()));
+                    $(".D2").eq(i).val(parseFloat($(".D3").eq(i).val()) + parseFloat($(".D4").eq(i).val()));
 
                 }
                 //                              
@@ -168,9 +135,9 @@
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nhaptaycn"/>
-            <!--                <div id="divDonvitinh">
-                                Đơn vị tính: Đồng
-                            </div>-->
+                    <div id="divDonvitinh">
+                                Đơn vị tính: NLĐ, đồng
+                            </div>
             </br>
             <div class="cls-over">
                 <div id="scrolling_table_1"  style="width: 90%; max-height:45vh">
@@ -192,7 +159,7 @@
                             <!--<td></td>-->                            
                             <!--<td style="text-align: center"></td>--> 
                             <td style="text-align: center">1</td>
-                            <td style="text-align: center">2</td>
+                            <td style="text-align: center">2=3+4</td>
                             <td style="text-align: center">3</td>
                             <td style="text-align: center">4</td>
                             <td style="text-align: center">5</td>
@@ -208,16 +175,19 @@
                                     </td>  
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D2" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D2" class="TEN_KH number" onfocus="this.select();"/>                                        
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D2" class="D2 TEN_KH number" onfocus="this.select();"
+                                                onblur="autoEvaluate()"/>                                        
                                     </td>                                
                                    
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D3" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH number" onfocus="this.select();" /> 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D3" class="D3 TEN_KH number" onfocus="this.select();" 
+                                                onblur="autoEvaluate()"/> 
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D4" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D4" class="TEN_KH number" onfocus="this.select();"/>
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D4" class="D4 TEN_KH number" onfocus="this.select();"
+                                                onblur="autoEvaluate()"/>
                                     </td>
                                    
                                      <td align = "right" class="TD_MAKH" >
@@ -240,16 +210,19 @@
                                     </td>  
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D2" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D2" class="TEN_KH number" onfocus="this.select();"/>                                        
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D2" class="D2 TEN_KH number" onfocus="this.select();" style="background:#C0C0C0 !important;"
+                                               onblur="autoEvaluate()" readonly="true"/>                                        
                                     </td>                                
                                    
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D3" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH number" onfocus="this.select();" /> 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D3" class="D3 TEN_KH number" onfocus="this.select();" 
+                                               onblur="autoEvaluate()"/> 
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D4" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D4" class="TEN_KH number" onfocus="this.select();"/>
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D4" class="D4 TEN_KH number" onfocus="this.select();"
+                                               onblur="autoEvaluate()"/>
                                     </td>
                                    
                                      <td align = "right" class="TD_MAKH" >
