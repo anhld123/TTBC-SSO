@@ -249,6 +249,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected List<ListValue> lstTrong30Ngay = new ArrayList<ListValue>();
     protected List<ListValue> lstSau30Ngay = new ArrayList<ListValue>();
     protected List<ListValue> lstKTLai = new ArrayList<ListValue>();
+    protected List<ListValue> lstThangvay = new ArrayList<ListValue>();
 
     private List<ListValue> lstCapKT = new ArrayList<ListValue>();
     private List<ListValue> lstDVUT = new ArrayList<ListValue>();
@@ -1486,6 +1487,14 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     public void setLstKTLai(List<ListValue> lstKTLai) {
         this.lstKTLai = lstKTLai;
+    }
+
+    public List<ListValue> getLstThangvay() {
+        return lstThangvay;
+    }
+
+    public void setLstThangvay(List<ListValue> lstThangvay) {
+        this.lstThangvay = lstThangvay;
     }
     
 

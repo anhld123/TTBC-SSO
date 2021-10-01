@@ -82,6 +82,7 @@ public class QD23_001 extends ActionNhaptaycnMain
                 setLstLuongVung(daoMain.getCanBo(UserName, "LUONGVUNG"));
                 setLstPLKT(daoMain.getCanBo(UserName, "PLKT1A"));
                 setLstDTTH(daoMain.getCanBo(UserName, "DTTH"));
+                setLstThangvay(daoMain.getCanBo(UserName, "THANGVAY"));
                 return "nhap_1_kh_pgd";
             } 
             else if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("2")) {
