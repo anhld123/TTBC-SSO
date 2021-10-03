@@ -101,20 +101,6 @@
         
         
         <action  name="setRejectRisk" class="vbsp.ims.action.RiskAction" method="RejectRisk">
-<!--                <result name="success" type="redirectAction">
-                <param name="actionName">loadDataRisk</param>
-                 <param name="parse">true</param>
-                <param name="nam_xlrr">${nam_xlrr}</param>
-                <param name="dot_xlrr">${dot_xlrr}</param>
-                <param name="nhom_xlrr">${nhom_xlrr}</param>
-                <param name="trangthai_xlrr">${trangthai_xlrr}</param>
-                <param name="chuongtrinh">${chuongtrinh}</param>
-                <param name="nguon_von">${nguon_von}</param>
-                <param name="poscd">${poscd}</param>
-            </result>-->
-<!--            <result name="success">
-                xulyruiro/success.jsp
-            </result>-->
             <result name="success" type="json"/>
             <result name="error">  
                 /error.jsp
@@ -275,6 +261,53 @@
             <result name="success"> 
                 xulyruiro/view_detail_history_send.jsp
             </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <!--Xử lý theo QD62-->
+        <action  name="loadXuLyRuiRo62" class="vbsp.ims.action.RiskAction" method="execute62">
+            <result name="success">  
+                xulyruiro/process-risk-62.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="loadDataRisk62" class="vbsp.ims.action.RiskAction" method="process_risk62">
+            <result name="cbXLN_duyet">xulyruiro/table_data_risk_62_cbXLN_duyet.jsp</result>  
+            <result name="ldXLN_duyet">xulyruiro/table_data_risk_62_ldXLN_duyet.jsp</result>
+            <result name="banKS_duyet">xulyruiro/table_data_risk_62.jsp</result>
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="xacNhanSoLieu62" class="vbsp.ims.action.RiskAction" method="browse_risk_62">
+            <result name="success">
+                xulyruiro/success.jsp
+            </result>
+            <result name="error">  
+                /error.jsp
+            </result>  
+            <!--            <result name="input">
+                xulyruiro/success.jsp
+            </result>-->
+        </action>  
+        
+        <action  name="getDetialCustomerReject62" class="vbsp.ims.action.RiskAction" method="getDetialCustomerReject62">
+            
+            <result name="success"> 
+                xulyruiro/reject_detail_customer_62.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>      
+        <action  name="setRejectRisk62" class="vbsp.ims.action.RiskAction" method="RejectRisk62">
+            <result name="success" type="json"/>
             <result name="error">  
                 /error.jsp
             </result>  

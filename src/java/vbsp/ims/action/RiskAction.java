@@ -103,6 +103,8 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
 
     private String reportGrade;
     private String sendData;
+    
+    private int capPheDuyet;
 
     private String result_reject;
 
@@ -147,6 +149,26 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
         try {
             DaoProcessRisk daoRisk = new DaoProcessRisk();
             HashMap<Integer, List<ListValue>> hmDmKhac = daoRisk.getDmKhac();
+            lstNamXlrr = hmDmKhac.get(50) == null ? new ArrayList<ListValue>() : hmDmKhac.get(50);
+            lstDotXlrr = hmDmKhac.get(51) == null ? new ArrayList<ListValue>() : hmDmKhac.get(51);
+            lstTrangthaiXlrr = hmDmKhac.get(52) == null ? new ArrayList<ListValue>() : hmDmKhac.get(52);
+            lstNhomXlrr = hmDmKhac.get(53) == null ? new ArrayList<ListValue>() : hmDmKhac.get(53);
+            lstChuongtrinh = hmDmKhac.get(54) == null ? new ArrayList<ListValue>() : hmDmKhac.get(54);
+            lstNguonvon = hmDmKhac.get(55) == null ? new ArrayList<ListValue>() : hmDmKhac.get(55);
+            lstVbXlrr = hmDmKhac.get(62) == null ? new ArrayList<ListValue>() : hmDmKhac.get(62);
+            return true;
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            CoreLogger.error(this.getClass().getCanonicalName() + " setDmKhac -> " + e.getMessage());
+            return false;
+        }
+//        return true;
+    }
+    
+        public boolean setDmKhacQD62() {
+        try {
+            DaoProcessRisk daoRisk = new DaoProcessRisk();
+            HashMap<Integer, List<ListValue>> hmDmKhac = daoRisk.getDmKhacQD62();
             lstNamXlrr = hmDmKhac.get(50) == null ? new ArrayList<ListValue>() : hmDmKhac.get(50);
             lstDotXlrr = hmDmKhac.get(51) == null ? new ArrayList<ListValue>() : hmDmKhac.get(51);
             lstTrangthaiXlrr = hmDmKhac.get(52) == null ? new ArrayList<ListValue>() : hmDmKhac.get(52);
@@ -319,6 +341,82 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
 
         return SUCCESS;
     }
+    
+    public String execute62() {
+        //Lay ra user tu sesstion
+        //lay ra session
+        try {
+            Map session = ActionContext.getContext().getSession();
+
+            if (session == null || session.size() == 0 || session.isEmpty()) {
+                setMessage("Bạn phải đăng nhập lại mới thực hiện được chức năng này");
+                return ERROR;
+            }
+            //lay ra user
+            String sUserName = session.get("username").toString();
+
+            System.err.println("execute sUserName=" + sUserName);
+
+            if (sUserName == null || sUserName.isEmpty()) {
+                setMessage("Không thể lấy ra được username bạn phải logout hệ thống sau đó đăng nhập lại ");
+                return ERROR;
+            }
+            //Lay ra du lieu cua xa, pos, chi nhanh dua vao user
+            DaoProcessRisk daoRisk = new DaoProcessRisk();
+            List<ModelTreeNode> lstModelTree = daoRisk.getDataPosTreeNode_QD62(sUserName);
+            reportGrade = session.get("reportGrade").toString();
+            if (reportGrade == null || reportGrade.isEmpty()) {
+                setMessage("Không thể lấy ra được cấp báo cáo \"reportGrade\" bạn phải logout hệ thống sau đó đăng nhập lại ");
+                return ERROR;
+            }
+            if (reportGrade.equals("3")) {
+                setTreeNodeGrade3(lstModelTree);
+            } else {
+                setTreeNodeGrade12(lstModelTree);
+            }
+            
+            //<editor-fold defaultstate="collapsed" desc="comment">
+//        nodes_pos.setId("rootNode");
+//        nodes_pos.setTitle("Root Node");
+//        nodes_pos.setState(TreeNode.NODE_STATE_OPEN);
+//        nodes_pos.setChildren(new LinkedList<TreeNode>());
+//        
+//        for (int i = 0; i < 3; i++) {
+//            TreeNode nodeA = new TreeNode();
+//            nodeA.setId("A");
+//            nodeA.setTitle("Node A");
+//            nodeA.setState(TreeNode.NODE_STATE_OPEN);
+//            
+//            TreeNode nodeAA = new TreeNode();
+//            nodeAA.setId("AA");
+//            nodeAA.setTitle("Node AA");
+//            
+//            TreeNode nodeAB = new TreeNode();
+//            nodeAB.setId("AB");
+//            nodeAB.setTitle("Node AB");
+//            
+//            nodeA.setChildren(new LinkedList<TreeNode>());
+//            nodeA.getChildren().add(nodeAA);
+//            nodeA.getChildren().add(nodeAB);
+//            nodes_pos.getChildren().add(nodeA);
+//        }
+//</editor-fold>
+            //Khoi tao cho treenode
+//            HashMap<Integer, List<ListValue>> hmDmKhac = daoRisk.getDmKhac();
+//            lstNamXlrr = hmDmKhac.get(46) == null ? new ArrayList<ListValue>() : hmDmKhac.get(46);
+//            lstDotXlrr = hmDmKhac.get(47) == null ? new ArrayList<ListValue>() : hmDmKhac.get(47);
+//            lstTrangthaiXlrr = hmDmKhac.get(48) == null ? new ArrayList<ListValue>() : hmDmKhac.get(48);
+//            lstNhomXlrr = hmDmKhac.get(49) == null ? new ArrayList<ListValue>() : hmDmKhac.get(49);
+//            lstChuongtrinh = hmDmKhac.get(50) == null ? new ArrayList<ListValue>() : hmDmKhac.get(50);
+//            lstNguonvon = hmDmKhac.get(51) == null ? new ArrayList<ListValue>() : hmDmKhac.get(51);
+            setDmKhacQD62();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            CoreLogger.error(this.getClass().getCanonicalName() + " execute -> " + e.getMessage());
+        }
+
+        return SUCCESS;
+    }
 
     //Xu ly cho button tai du lieu
     public String process_risk() {
@@ -429,6 +527,121 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
 
         return SUCCESS;
     }
+    
+    public String process_risk62() {
+        try {
+            System.err.println("Tai du lieu process_risk");
+            if (vb_xlrr == null || vb_xlrr.equals("-1")) {
+                setMessage("Bạn phải chọn văn bản hoặc quyết định xử lý rủi ro !");
+                return ERROR;
+            }
+            if (nam_xlrr == null || nam_xlrr.equals("-1")) {
+                setMessage("Bạn phải chọn năm xử lý rủi ro !");
+                return ERROR;
+            }
+            if (dot_xlrr == null || dot_xlrr.equals("-1")) {
+                setMessage("Bạn phải chọn đợt xử lý rủi ro !");
+                return ERROR;
+            }
+
+            if (nhom_xlrr == null || nhom_xlrr.equals("-1")) {
+                setMessage("Bạn phải chọn nhóm xử lý rủi ro !");
+                return ERROR;
+            }
+            if (trangthai_xlrr == null || trangthai_xlrr.equals("-1")) {
+                setMessage("Bạn phải chọn trạng thái xử lý rủi ro !");
+                return ERROR;
+            }
+//        System.err.println("Mang lay ra day " + date_risk);
+//        System.err.println("Check da chon la " + poscd);
+//        System.err.println("Dot xu ly " + times_risk);
+//        System.err.println("Trang thai " + status_risk);
+//        System.err.println("nhom no " + group_risk);
+            DaoProcessRisk daoRisk = new DaoProcessRisk();
+            ArrayList<String> ArrlstPosCd = new ArrayList<String>();
+            //Xu ly cho poscd
+            //DO khi chon pos se ra 1 danh sach : pos1, pos2, pos3...
+            //Sẽ cat pos nay ra sau do dua vao List
+            if (poscd != null && !poscd.isEmpty()) {
+                poscd = poscd.replace(" ", "");
+                //Dua tu chuoi pos ve dang mang
+                ArrlstPosCd = new ArrayList<String>(Arrays.asList(poscd.split(",")));
+            }
+            //Do phần nhóm rủi ro có nhóm nợ khoanh sẽ là 02,03 nên sẽ đưa về chuỗi dạng '02','03' sau đó truyền vao
+            //procedure để lấy in của chuỗi đó
+//        if (group_risk != null && group_risk.indexOf(",") > 0) {
+////            ArrayList<String> ArrlstGroupRisk = new ArrayList<String>(Arrays.asList(group_risk.split(",")));
+//            group_risk = group_risk.replace(" ", "");
+//            group_risk = group_risk.replace(",", "','");
+//        }
+
+//        System.err.println("Group khi da chuan hoa " + group_risk);
+            //Can lai dinh dang ngay bao cao ve dd-MMM-yyyy
+            //String strDateRisk = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(date_risk));
+            //Lay ra user hien tai dang dang nhap he thong
+            Map session = ActionContext.getContext().getSession();
+
+            if (session == null || session.size() == 0 || session.isEmpty()) {
+                setMessage("Bạn phải đăng nhập lại mới thực hiện được chức năng này");
+                return ERROR;
+            }
+            //lay ra user
+            String sUserName = session.get("username").toString();
+            if (sUserName == null || sUserName.isEmpty()) {
+                setMessage("Không thể lấy ra được username bạn phải logout hệ thống sau đó đăng nhập lại ");
+                return ERROR;
+            }
+            reportGrade = session.get("reportGrade").toString();
+            if (reportGrade == null || reportGrade.isEmpty()) {
+                setMessage("Không thể lấy ra được cấp báo cáo \"reportGrade\" bạn phải logout hệ thống sau đó đăng nhập lại ");
+                return ERROR;
+            }
+            Connection conn = null;
+
+//        HttpServletRequest request = ServletActionContext.getRequest();
+//        System.err.println("nam_xlrr -------> " + request.getParameter("nam_xlrr"));
+            //connect lớp Dao sau đó get số liệu
+            DaoConnect daoconnect = new DaoConnect();
+            conn = daoconnect.getConnect();
+            if (conn == null) {
+                setMessage("Không thể kết nối cơ sở dữ liệu ");
+                return ERROR;
+            }
+            capPheDuyet = daoRisk.getCapPheduyetQD62(sUserName, reportGrade);
+            //Lay ra tổng số bản ghi của du liêu để phân trang
+            if (pagination.getStart() == 0) {
+//            System.err.println("Thiet lap de lay tong so row data " + pagination.getStart() + " thang end " + pagination.getEnd());
+                int nTotalRow = daoRisk.getCountTotalRowRiskQD62(conn, sUserName, reportGrade, ArrlstPosCd, nam_xlrr, dot_xlrr,
+                        nhom_xlrr, trangthai_xlrr, chuongtrinh, nguon_von, vb_xlrr);
+                pagination.setPreperties(nTotalRow);
+            }
+            //Lay du lieu dua ra list table
+            lstTableRiskObj = daoRisk.getDataRiskQD62(conn, sUserName, reportGrade, ArrlstPosCd,
+                    nam_xlrr, dot_xlrr, nhom_xlrr, trangthai_xlrr, chuongtrinh, nguon_von,
+                    pagination.getStart() + 1, pagination.getStart() + pagination.getEnd(), vb_xlrr);
+
+            //Dua so dong du lieu len table
+            pagination.setPage_records(lstTableRiskObj.size());
+            setLstBrowerView(daoRisk.getDataViewLoanQD62(conn, sUserName, reportGrade, ArrlstPosCd, nam_xlrr, dot_xlrr,
+                    nhom_xlrr, trangthai_xlrr, chuongtrinh, nguon_von, vb_xlrr));
+            //Dong csdl
+            if (!conn.isClosed()) {
+                conn.close();
+//            System.err.println("Conn da close ");
+            }
+//        System.err.println("Pos da chon nao--------------- " + poscd);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            CoreLogger.error(this.getClass().getCanonicalName() + " process_risk -> " + e.getMessage());
+        }
+
+        if (capPheDuyet ==1)
+            return "cbXLN_duyet";
+        else if (capPheDuyet ==2)
+            return "ldXLN_duyet";
+        else 
+            return "banKS_duyet";
+    }
 
     //Xu ly cho button duyet du lieu
     public String browse_risk() throws Exception {
@@ -483,6 +696,70 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             vb_xlrr = request.getParameter("vb_xlrr");
 
             if (new DaoProcessRisk().setStatusRisk(sUserName, reportGrade, ArrlstPosCd, nam_xlrr, dot_xlrr, nhom_xlrr, chuongtrinh, lstDataRisk, vb_xlrr)) {
+                setMessage("Bạn đã phê duyệt thành công");
+            } else {
+                setMessage("Bạn phê duyệt chưa thành công xin kiểm tra lại");
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            CoreLogger.error(this.getClass().getCanonicalName() + " browse_risk -> " + e.getMessage());
+        }
+
+        return SUCCESS;
+    }
+    
+    public String browse_risk_62() throws Exception {
+        try {
+            System.err.println("So phan tu " + lstRisk.size());
+//        if (check_legacyid == null || check_legacyid.isEmpty()) {
+//            setMessage("Bạn phải chọn khách hàng cần duyệt ");
+//            return ERROR;
+//        }
+
+            HttpServletRequest request = ServletActionContext.getRequest();
+//            System.err.println("dunogoc_xl="+dunogoc_xl);
+            ArrayList<String> ArrlstPosCd = new ArrayList<String>();
+            poscd = request.getParameter("poscd");
+            if (poscd != null && !poscd.isEmpty()) {
+                poscd = poscd.replace(" ", "");
+                //Dua tu chuoi pos ve dang mang
+                ArrlstPosCd = new ArrayList<String>(Arrays.asList(poscd.split(",")));
+            }
+
+            Map session = ActionContext.getContext().getSession();
+
+            if (session == null || session.size() == 0 || session.isEmpty()) {
+                setMessage("Bạn phải đăng nhập lại mới thực hiện được chức năng này");
+                return ERROR;
+            }
+            //lay ra user
+            String sUserName = session.get("username").toString();
+            if (sUserName == null || sUserName.isEmpty()) {
+                setMessage("Không thể lấy ra được username bạn phải logout hệ thống sau đó đăng nhập lại ");
+                return ERROR;
+            }
+            reportGrade = session.get("reportGrade").toString();
+            if (reportGrade == null || reportGrade.isEmpty()) {
+                setMessage("Không thể lấy ra được cấp báo cáo \"reportGrade\" bạn phải logout hệ thống sau đó đăng nhập lại ");
+                return ERROR;
+            }
+            List<ListRisk> lstDataRisk = new ArrayList<ListRisk>();
+            for (ListRisk risk : lstRisk) {
+                if (!risk.getCheck_legacyid().toLowerCase().equals("false")) {
+                    lstDataRisk.add(risk);
+                    System.err.println("Soku=" + risk.getCheck_legacyid() + " duno_rr=" + risk.getDuno_rr() + " lai_rr=" + risk.getLai_rr());
+                }
+
+            }
+            //String sSoku = request.getParameter("soku_reject");
+            nam_xlrr = request.getParameter("nam_xlrr");
+            dot_xlrr = request.getParameter("dot_xlrr");
+            nhom_xlrr = request.getParameter("nhom_xlrr");
+            //trangthai_xlrr = request.getParameter("trangthai_xlrr");
+            chuongtrinh = request.getParameter("chuongtrinh");
+            vb_xlrr = request.getParameter("vb_xlrr");
+
+            if (new DaoProcessRisk().setStatusRiskQd62(sUserName, reportGrade, ArrlstPosCd, nam_xlrr, dot_xlrr, nhom_xlrr, chuongtrinh, lstDataRisk, vb_xlrr)) {
                 setMessage("Bạn đã phê duyệt thành công");
             } else {
                 setMessage("Bạn phê duyệt chưa thành công xin kiểm tra lại");
@@ -630,6 +907,55 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
     }
 
     public String getDetialCustomerReject() {
+        try {
+            System.err.println("vao ham get chi tiet khach hang");
+
+            HttpServletRequest request = ServletActionContext.getRequest();
+            ArrayList<String> ArrlstPosCd = new ArrayList<String>();
+            poscd = request.getParameter("poscd");
+            if (poscd != null && !poscd.isEmpty()) {
+                poscd = poscd.replace(" ", "");
+                //Dua tu chuoi pos ve dang mang
+                ArrlstPosCd = new ArrayList<String>(Arrays.asList(poscd.split(",")));
+            }
+
+            Map session = ActionContext.getContext().getSession();
+
+            if (session == null || session.size() == 0 || session.isEmpty()) {
+                setMessage("Bạn phải đăng nhập lại mới thực hiện được chức năng này");
+                return ERROR;
+            }
+            //lay ra user
+            String sUserName = session.get("username").toString();
+            if (sUserName == null || sUserName.isEmpty()) {
+                setMessage("Không thể lấy ra được username bạn phải logout hệ thống sau đó đăng nhập lại ");
+                return ERROR;
+            }
+            reportGrade = session.get("reportGrade").toString();
+            if (reportGrade == null || reportGrade.isEmpty()) {
+                setMessage("Không thể lấy ra được cấp báo cáo \"reportGrade\" bạn phải logout hệ thống sau đó đăng nhập lại ");
+                return ERROR;
+            }
+            String sSoku = request.getParameter("soku");
+            setSoku_reject(sSoku);
+            nam_xlrr = request.getParameter("nam_xlrr");
+            dot_xlrr = request.getParameter("dot_xlrr");
+            nhom_xlrr = request.getParameter("nhom_xlrr");
+            trangthai_xlrr = request.getParameter("trangthai_xlrr");
+            chuongtrinh = request.getParameter("chuongtrinh");
+            nguon_von = request.getParameter("nguon_von");
+            vb_xlrr = request.getParameter("vb_xlrr");
+            //Lay du lieu dua ra list table
+            lstTableRiskObj = new DaoProcessRisk().getDetailCustomer(sUserName, reportGrade, ArrlstPosCd,
+                    nam_xlrr, dot_xlrr, nhom_xlrr, trangthai_xlrr, chuongtrinh, sSoku, vb_xlrr);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            CoreLogger.error(this.getClass().getCanonicalName() + " getDetialCustomer -> " + e.getMessage());
+        }
+        return SUCCESS;
+    }
+    
+    public String getDetialCustomerReject62() {
         try {
             System.err.println("vao ham get chi tiet khach hang");
 
@@ -851,6 +1177,68 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             chuongtrinh = request.getParameter("chuongtrinh");
             vb_xlrr = request.getParameter("vb_xlrr");
             if (new DaoProcessRisk().setStatusReject(sUserName, reportGrade, ArrlstPosCd, nam_xlrr, dot_xlrr, nhom_xlrr, chuongtrinh, soku_reject, nguyennhan_tuchoi, vb_xlrr)) {
+                setMessage("Bạn đã từ chối thành công khoản vay " + soku_reject);
+            } else {
+                setMessage("Bạn chưa từ chối được khoản vay này " + soku_reject);
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            CoreLogger.error(this.getClass().getCanonicalName() + " RejectRisk -> " + e.getMessage());
+            setResult_reject("error");
+            return ERROR;
+        }
+        setResult_reject("success");
+        result_reject = "success";
+        return SUCCESS;
+    }
+    
+    public String RejectRisk62() {
+        try {
+            System.err.println("Vao action reject risk " + soku_reject);
+            if (soku_reject == null || soku_reject.isEmpty()) {
+                setMessage("Không lấy được số kế ước để từ chối");
+                setResult_reject("error");
+                result_reject = "error";
+                return ERROR;
+            }
+            HttpServletRequest request = ServletActionContext.getRequest();
+//            System.err.println("dunogoc_xl="+dunogoc_xl);
+            ArrayList<String> ArrlstPosCd = new ArrayList<String>();
+            poscd = request.getParameter("poscd");
+            if (poscd != null && !poscd.isEmpty()) {
+                poscd = poscd.replace(" ", "");
+                //Dua tu chuoi pos ve dang mang
+                ArrlstPosCd = new ArrayList<String>(Arrays.asList(poscd.split(",")));
+            }
+
+            Map session = ActionContext.getContext().getSession();
+
+            if (session == null || session.size() == 0 || session.isEmpty()) {
+                setMessage("Bạn phải đăng nhập lại mới thực hiện được chức năng này");
+                setResult_reject("error");
+                return ERROR;
+            }
+            //lay ra user
+            String sUserName = session.get("username").toString();
+            if (sUserName == null || sUserName.isEmpty()) {
+                setMessage("Không thể lấy ra được username bạn phải logout hệ thống sau đó đăng nhập lại ");
+                setResult_reject("error");
+                return ERROR;
+            }
+            reportGrade = session.get("reportGrade").toString();
+            if (reportGrade == null || reportGrade.isEmpty()) {
+                setMessage("Không thể lấy ra được cấp báo cáo \"reportGrade\" bạn phải logout hệ thống sau đó đăng nhập lại ");
+                setResult_reject("error");
+                return ERROR;
+            }
+            String sSoku = request.getParameter("soku_reject");
+            nam_xlrr = request.getParameter("nam_xlrr");
+            dot_xlrr = request.getParameter("dot_xlrr");
+            nhom_xlrr = request.getParameter("nhom_xlrr");
+            trangthai_xlrr = request.getParameter("trangthai_xlrr");
+            chuongtrinh = request.getParameter("chuongtrinh");
+            vb_xlrr = request.getParameter("vb_xlrr");
+            if (new DaoProcessRisk().setStatusRejectQD62(sUserName, reportGrade, ArrlstPosCd, nam_xlrr, dot_xlrr, nhom_xlrr, chuongtrinh, soku_reject, nguyennhan_tuchoi, vb_xlrr)) {
                 setMessage("Bạn đã từ chối thành công khoản vay " + soku_reject);
             } else {
                 setMessage("Bạn chưa từ chối được khoản vay này " + soku_reject);
@@ -2004,6 +2392,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
 
     //<editor-fold defaultstate="collapsed" desc="Thiet lap phuong thuc get, set">
 
+ 
     public String getDbHt_Dno() {
         return dbHt_Dno;
     }
@@ -2372,6 +2761,19 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
     public void setVb_xlrr(String vb_xlrr) {
         this.vb_xlrr = vb_xlrr;
     }
+    
+        public int getCapPheDuyet() {
+        return capPheDuyet;
+    }
+
+    public void setCapPheDuyet(int capPheDuyet) {
+        this.capPheDuyet = capPheDuyet;
+    }
+    
 //</editor-fold>
+
+
+
+
 
 }

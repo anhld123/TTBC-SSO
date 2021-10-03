@@ -70,6 +70,26 @@ public class ModelRiskProcess {
     public String sInt_pduyet_ngay_cn;
     public String sInt_pduyet_nguoi_cn;
     public String sNguyennhan_tc_cn;
+    
+    public String sTrangthai_duyet;
+    public String sNguyennhan_01;
+    public String sNguyennhan_02;
+    public String sNguyennhan_03;
+    public String sNguyennhan_04;
+    public BigDecimal dDuno_hientai;
+    public BigDecimal dLaiton_hientai;
+    public String sNgaycn_dn_lt;
+    
+    public String sNguoiduyet_01;
+    public String sNgayduyet_01;
+    public String sNguoiduyet_02;
+    public String sNgayduyet_02;
+    public String sNguoiduyet_03;
+    public String sNgayduyet_03;
+    public String sNguoiduyet_04;
+    public String sNgayduyet_04;
+    
+    
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Get set cho method">
     public String getsSoku() {
@@ -510,6 +530,134 @@ public class ModelRiskProcess {
 
     public void setsNguyennhan_tc_cn(String sNguyennhan_tc_cn) {
         this.sNguyennhan_tc_cn = sNguyennhan_tc_cn;
+    }
+
+    public String getsTrangthai_duyet() {
+        return sTrangthai_duyet;
+    }
+
+    public void setsTrangthai_duyet(String sTrangthai_duyet) {
+        this.sTrangthai_duyet = sTrangthai_duyet;
+    }
+
+    public String getsNguyennhan_01() {
+        return sNguyennhan_01;
+    }
+
+    public void setsNguyennhan_01(String sNguyennhan_01) {
+        this.sNguyennhan_01 = sNguyennhan_01;
+    }
+
+    public String getsNguyennhan_02() {
+        return sNguyennhan_02;
+    }
+
+    public void setsNguyennhan_02(String sNguyennhan_02) {
+        this.sNguyennhan_02 = sNguyennhan_02;
+    }
+
+    public String getsNguyennhan_03() {
+        return sNguyennhan_03;
+    }
+
+    public void setsNguyennhan_03(String sNguyennhan_03) {
+        this.sNguyennhan_03 = sNguyennhan_03;
+    }
+
+    public String getsNguyennhan_04() {
+        return sNguyennhan_04;
+    }
+
+    public void setsNguyennhan_04(String sNguyennhan_04) {
+        this.sNguyennhan_04 = sNguyennhan_04;
+    }
+
+    public BigDecimal getdDuno_hientai() {
+        return dDuno_hientai;
+    }
+
+    public void setdDuno_hientai(BigDecimal dDuno_hientai) {
+        this.dDuno_hientai = dDuno_hientai;
+    }
+
+    public BigDecimal getdLaiton_hientai() {
+        return dLaiton_hientai;
+    }
+
+    public void setdLaiton_hientai(BigDecimal dLaiton_hientai) {
+        this.dLaiton_hientai = dLaiton_hientai;
+    }
+
+    public String getsNgaycn_dn_lt() {
+        return sNgaycn_dn_lt;
+    }
+
+    public void setsNgaycn_dn_lt(String sNgaycn_dn_lt) {
+        this.sNgaycn_dn_lt = sNgaycn_dn_lt;
+    }
+
+    public String getsNguoiduyet_01() {
+        return sNguoiduyet_01;
+    }
+
+    public void setsNguoiduyet_01(String sNguoiduyet_01) {
+        this.sNguoiduyet_01 = sNguoiduyet_01;
+    }
+
+    public String getsNgayduyet_01() {
+        return sNgayduyet_01;
+    }
+
+    public void setsNgayduyet_01(String sNgayduyet_01) {
+        this.sNgayduyet_01 = sNgayduyet_01;
+    }
+
+    public String getsNguoiduyet_02() {
+        return sNguoiduyet_02;
+    }
+
+    public void setsNguoiduyet_02(String sNguoiduyet_02) {
+        this.sNguoiduyet_02 = sNguoiduyet_02;
+    }
+
+    public String getsNgayduyet_02() {
+        return sNgayduyet_02;
+    }
+
+    public void setsNgayduyet_02(String sNgayduyet_02) {
+        this.sNgayduyet_02 = sNgayduyet_02;
+    }
+
+    public String getsNguoiduyet_03() {
+        return sNguoiduyet_03;
+    }
+
+    public void setsNguoiduyet_03(String sNguoiduyet_03) {
+        this.sNguoiduyet_03 = sNguoiduyet_03;
+    }
+
+    public String getsNgayduyet_03() {
+        return sNgayduyet_03;
+    }
+
+    public void setsNgayduyet_03(String sNgayduyet_03) {
+        this.sNgayduyet_03 = sNgayduyet_03;
+    }
+
+    public String getsNguoiduyet_04() {
+        return sNguoiduyet_04;
+    }
+
+    public void setsNguoiduyet_04(String sNguoiduyet_04) {
+        this.sNguoiduyet_04 = sNguoiduyet_04;
+    }
+
+    public String getsNgayduyet_04() {
+        return sNgayduyet_04;
+    }
+
+    public void setsNgayduyet_04(String sNgayduyet_04) {
+        this.sNgayduyet_04 = sNgayduyet_04;
     }
 
   
