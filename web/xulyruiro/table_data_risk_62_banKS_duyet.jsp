@@ -278,7 +278,7 @@
             <!--<div style="margin: 7px 7px 7px 7px;" align="center">-->
             </br>
             <div id="divTitle">
-                    THÔNG TIN PHÊ DUYỆT HỒ SƠ RỦI RO - LÃNH ĐẠO BAN QLN
+                    THÔNG TIN PHÊ DUYỆT HỒ SƠ RỦI RO - BAN KIỂM SOÁT
                     </br>                      
                     
                 </div>
@@ -329,7 +329,8 @@
             </br>
             <table cellpadding="0" cellspacing="0" class="my-table" align="center" style="padding: 3px 0px 3px 3px; width: 99%">
                 <tr>
-                    <th colspan="2" class="MA_PGD_DP">Cán bộ duyệt</th>
+                    <th colspan="2" class="MA_PGD_DP">Kết quả Ban XLN duyệt</th>
+                    <!--<th colspan="2" class="MA_PGD_DP">Kết quả Ban KS duyệt</th>-->
                     <th rowspan="2" width="15" class="sortable"><s:checkbox id ="allCheck" name="allCheck" onclick="selectallMe()"/></th>                    
                     <th rowspan="2" class="MA_PGD_DP">Mã PGD</th>
                     <th rowspan="2" class="TEN_KH">Tên khách hàng</th>
@@ -350,6 +351,8 @@
                     <th rowspan="2" class="TUCHOI">Từ chối</th> 
                 </tr>
                 <tr>     
+<!--                    <th class="CHUONG_TRINH"  >Đồng ý</th>
+                    <th class="CHUONG_TRINH"  >Từ chối</th>-->
                     <th class="CHUONG_TRINH"  >Đồng ý</th>
                     <th class="CHUONG_TRINH"  >Từ chối</th>
                 </tr>
@@ -360,6 +363,7 @@
                     <s:else>
                     <tr class="ac_odd">
                     </s:else>
+                        
                         <td align = "center">
                             <input type="text" value="<s:property  value="sPduyet_Nguoi_Cn" />" name="sPduyet_Nguoi_Cn" class="CHUONG_TRINH" onfocus="this.select()" readonly="true"/>
                         </td>
