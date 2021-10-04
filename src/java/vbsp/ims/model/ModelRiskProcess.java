@@ -955,6 +955,12 @@ public class ModelRiskProcess {
         public String sTongDunoDn;
         public String sTongLaiDn;
         public String sNguyennhan_tc_cn;
+        
+        public String sSoKh_1;
+        public String sTongtien_1;
+        public String sTongDuno_1;
+        public String sTongLai_1;
+        
         public int getnStt() {
             return nStt;
         }
@@ -1057,6 +1063,40 @@ public class ModelRiskProcess {
         public void setsNguyennhan_tc_cn(String sNguyennhan_tc_cn) {
             this.sNguyennhan_tc_cn = sNguyennhan_tc_cn;
         }
+
+        public String getsSoKh_1() {
+            return sSoKh_1;
+        }
+
+        public void setsSoKh_1(String sSoKh_1) {
+            this.sSoKh_1 = sSoKh_1;
+        }
+
+        public String getsTongtien_1() {
+            return sTongtien_1;
+        }
+
+        public void setsTongtien_1(String sTongtien_1) {
+            this.sTongtien_1 = sTongtien_1;
+        }
+
+        public String getsTongDuno_1() {
+            return sTongDuno_1;
+        }
+
+        public void setsTongDuno_1(String sTongDuno_1) {
+            this.sTongDuno_1 = sTongDuno_1;
+        }
+
+        public String getsTongLai_1() {
+            return sTongLai_1;
+        }
+
+        public void setsTongLai_1(String sTongLai_1) {
+            this.sTongLai_1 = sTongLai_1;
+        }
+        
+        
         
     }
 //</editor-fold>

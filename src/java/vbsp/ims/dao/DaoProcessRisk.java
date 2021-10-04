@@ -798,6 +798,126 @@ public class DaoProcessRisk {
         }
         return lstModelRisk;
     }
+    
+    public List<ModelRiskProcess> getDetailCustomerSearch62(String strUserName, String sGrade,
+            String sNambc, String sDotrr, String sSoku, String sKhoa) {
+        //Duyet list dua ra danh sach main pos la dang "000314","000401","000501"....
+
+        List<ModelRiskProcess> lstModelRisk = new ArrayList<ModelRiskProcess>();
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call vbsp_ims_risk.SP_GET_DETAIL_CUST_SEARCH_62(?,?,?,?,?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
+                calstatement.setString(1, sKhoa);
+                calstatement.setString(2, strUserName);
+                calstatement.setString(3, sGrade);
+                calstatement.setString(4, sNambc);
+                calstatement.setString(5, sDotrr);
+                calstatement.setString(6, sSoku);
+//                calstatement.setString(2, strCommuneFlg);
+                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(8, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(9, oracle.jdbc.OracleTypes.CURSOR);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+                int pn_err_cd = calstatement.getInt(7);
+                //thu hien lay mo ta loi
+                String strEdd_txt = calstatement.getString(8);
+                //Lay cursor ra resultset
+                reset = (ResultSet) calstatement.getObject(9);
+                //COLUMN_DESC
+                HashMap<String, String> hmStatus = getStatusRisk(conn);
+
+                while (reset.next()) {
+                    ModelRiskProcess modelRisk = new ModelRiskProcess();
+//                    System.err.println("Gia tri So ku: ="+reset.getString(2));
+                    modelRisk.setsSoku(reset.getString(2));
+                    modelRisk.setsMakh(reset.getString(3));
+                    modelRisk.setsSoku(reset.getString(2));
+                    modelRisk.setsMakh(reset.getString(3));
+                    modelRisk.setsTenkh(reset.getString(4));
+                    modelRisk.setsDiachi(reset.getString(5));
+                    modelRisk.setsChtrinh(reset.getString(6));
+                    modelRisk.setsSprd_Cd(reset.getString(7));
+                    modelRisk.setsDq_Stat_Cd(reset.getString(8));
+                    modelRisk.setDbDngoc(reset.getBigDecimal(9));
+                    modelRisk.setDbLaith(reset.getBigDecimal(10));
+                    modelRisk.setDbLaiqh(reset.getBigDecimal(11));
+                    modelRisk.setDbDnghi_Dno(reset.getBigDecimal(12));
+                    modelRisk.setDbDnghi_Lai(reset.getBigDecimal(13));
+                    modelRisk.setDbXl_Duno(reset.getBigDecimal(14));
+                    modelRisk.setDbXl_Lai(reset.getBigDecimal(15));
+                    modelRisk.setDbHt_Dno(reset.getBigDecimal(16));
+                    modelRisk.setDbHt_Lai(reset.getBigDecimal(17));
+                    modelRisk.setsNgayvay(reset.getDate(18) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(18))); //new SimpleDateFormat("dd/MM/yyyy").format(reset.getString(18))
+                    modelRisk.setsNgaydh(reset.getDate(19) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(19)));
+                    modelRisk.setDbThoihanvay(reset.getBigDecimal(20));
+                    modelRisk.setDbMdthiethai(reset.getBigDecimal(21));
+                    Date str = reset.getDate(28);
+                    modelRisk.setsNgayrr(reset.getDate(22) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(22)));
+                    modelRisk.setDbDnghi_Tg(reset.getBigDecimal(23));
+                    modelRisk.setDbPduyet_Tg(reset.getBigDecimal(24));
+                    modelRisk.setsNguyennhan(reset.getString(25));
+                    modelRisk.setsMotann(reset.getString(26));
+                    modelRisk.setsTrangthai(hmStatus.get(reset.getString(27)));
+                    modelRisk.setsPduyet_Ngay_Cn(reset.getDate(28) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(28)));
+                    modelRisk.setsPduyet_Nguoi_Cn(reset.getString(29));
+                    modelRisk.setsPduyet_Ngay_Tw(reset.getDate(30) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(30)));
+                    modelRisk.setsPduyet_Nguoi_Tw(reset.getString(31));
+                    modelRisk.setsTaolap_Nguoi(reset.getString(32));
+                    modelRisk.setsTaolap_Ngay(reset.getDate(33) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(33)));
+                    modelRisk.setsMaqd(reset.getString(34));
+                    modelRisk.setsTenqd(reset.getString(35));
+                    modelRisk.setsNhomrr(reset.getString(36));
+                    modelRisk.setsMapgd(reset.getString(37));
+                    modelRisk.setsMacn(reset.getString(38));
+                    modelRisk.setsNgaybc(reset.getDate(39) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(39)));
+                    modelRisk.setsCapnhat(reset.getDate(40) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(40)));
+                    modelRisk.setsNgaytao(reset.getDate(41) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(41)));
+                    modelRisk.setsNguoitao(reset.getString(42));
+                    modelRisk.setsPduyet_Cap(reset.getString(43));
+                    modelRisk.setsNgayhl(reset.getDate(44) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(44)));
+                    modelRisk.setsHt_Tkxoano(reset.getString(45));
+                    modelRisk.setsNguonvon(reset.getString(46));
+                    modelRisk.setDbDotrr(reset.getBigDecimal(47));
+                    modelRisk.setsMadp(reset.getString(48));
+                    modelRisk.setsMato(reset.getString(49));
+                    modelRisk.setDbSolanxl(reset.getBigDecimal(50));
+                    modelRisk.setsNguoi_pduyet_pgd(reset.getString(51));
+                    modelRisk.setsNgay_pduyet_pgd(reset.getDate(52) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(52)));
+                    modelRisk.setsNguyennhan_tuchoi(reset.getString(53));
+                    lstModelRisk.add(modelRisk);
+                }
+
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(DaoProcessRisk.class.getCanonicalName() + " getDetailCustomerSearch -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getDetailCustomerSearch " + e.getMessage());
+            CoreLogger.error(DaoProcessRisk.class.getCanonicalName() + " getDetailCustomerSearch -> " + e.getMessage());
+        }
+        return lstModelRisk;
+    }
 
     //lay ra tong so ban ghi cua du lieu khi dua len bang
     /**
@@ -1127,6 +1247,57 @@ public class DaoProcessRisk {
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{ call vbsp_ims_risk.sp_reject_risk_search(?,?,?,?,?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            //calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
+            //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
+            calstatement.setString(1, sKhoa);
+            calstatement.setString(2, strUserName);
+            calstatement.setString(3, sGrade);
+            calstatement.setString(4, sNambc);
+            calstatement.setString(5, sDotrr);
+            calstatement.setString(6, sSoku);
+            calstatement.setString(7, snguyennhan_tuchoi);
+//            calstatement.setString(7, sChuongtrinh);
+//            calstatement.setString(8, sSoku);
+            calstatement.registerOutParameter(8, oracle.jdbc.OracleTypes.NUMBER);
+            calstatement.registerOutParameter(9, oracle.jdbc.OracleTypes.VARCHAR);
+//                calstatement.setString(2, strCommuneFlg);
+            calstatement.execute();
+            //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+            int pn_err_cd = calstatement.getInt(8);
+            //thu hien lay mo ta loi
+            String strEdd_txt = calstatement.getString(9);
+            if (reset != null) {
+                reset.close();
+            }
+            if (calstatement != null) {
+                calstatement.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+
+        } catch (Exception e) {
+            System.err.println("Loi trong ham setStatusRejectSearch " + e.getMessage());
+            CoreLogger.error(DaoProcessRisk.class.getCanonicalName() + " setStatusRejectSearch -> " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean setStatusRejectSearch62(String strUserName, String sGrade, String sNambc,
+            String sDotrr, String sSoku, String snguyennhan_tuchoi, String sKhoa) {
+        //Duyet list dua ra danh sach main pos la dang "000314","000401","000501"....
+
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{ call vbsp_ims_risk.SP_REJECT_RISK_SEARCH_62(?,?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
 
             calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -2081,6 +2252,51 @@ public class DaoProcessRisk {
 
         return nRowTotal;
     }
+    
+    public int getCountSearchRowRisk62(Connection conn, String sUserName, String sGrade, String sNambc, String sDotrr, String sSoku_Search, String sKhoa) {
+        int nRowTotal = 0;
+        try {
+            // DaoConnect daoconnect = new DaoConnect();
+            //Connection conn = null;
+            //conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{?=call vbsp_ims_risk.F_COUNT_SEARCH_62(?,?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            try {
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
+                //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
+                calstatement.setString(2, sKhoa);
+                calstatement.setString(3, sUserName);
+                calstatement.setString(4, sGrade);
+                calstatement.setString(5, sNambc);
+                calstatement.setString(6, sDotrr);
+                calstatement.setString(7, sSoku_Search);
+                calstatement.execute();
+                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+                nRowTotal = calstatement.getInt(1);
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+//                if (conn != null) {
+//                    conn.close();
+//                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(DaoProcessRisk.class.getCanonicalName() + " getCountSearchRowRisk -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getCountSearchRowRisk " + e.getMessage());
+            CoreLogger.error(DaoProcessRisk.class.getCanonicalName() + " getCountSearchRowRisk -> " + e.getMessage());
+        }
+
+        return nRowTotal;
+    }
 
     /**
      *
@@ -2103,6 +2319,123 @@ public class DaoProcessRisk {
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call vbsp_ims_risk.SP_SEARCH_LOAN(?,?,?,?,?,?,?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
+                calstatement.setString(1, sKhoa);
+                calstatement.setString(2, sUserName);
+                calstatement.setString(3, srGrade);
+                calstatement.setString(4, sNambc);
+                calstatement.setString(5, sDotrr);
+                calstatement.setString(6, sSoku_Search);
+                calstatement.setInt(7, startRow);
+                calstatement.setInt(8, EndRow);
+//                calstatement.setString(2, strCommuneFlg);
+                calstatement.registerOutParameter(9, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(10, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(11, oracle.jdbc.OracleTypes.CURSOR);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+                int pn_err_cd = calstatement.getInt(9);
+                //thu hien lay mo ta loi
+                String strEdd_txt = calstatement.getString(10);
+                //Lay cursor ra resultset
+                reset = (ResultSet) calstatement.getObject(11);
+                //COLUMN_DESC
+                while (reset.next()) {
+                    ModelRiskProcess modelRisk = new ModelRiskProcess();
+//                    System.err.println("Gia tri So ku: ="+reset.getString(2));
+                    modelRisk.setsSoku(reset.getString(2));
+                    modelRisk.setsMakh(reset.getString(3));
+                    modelRisk.setsSoku(reset.getString(2));
+                    modelRisk.setsMakh(reset.getString(3));
+                    modelRisk.setsTenkh(reset.getString(4));
+                    modelRisk.setsDiachi(reset.getString(5));
+                    modelRisk.setsChtrinh(reset.getString(6));
+                    modelRisk.setsSprd_Cd(reset.getString(7));
+                    modelRisk.setsDq_Stat_Cd(reset.getString(8));
+                    modelRisk.setDbDngoc(reset.getBigDecimal(9));
+                    modelRisk.setDbLaith(reset.getBigDecimal(10));
+                    modelRisk.setDbLaiqh(reset.getBigDecimal(11));
+                    modelRisk.setDbDnghi_Dno(reset.getBigDecimal(12));
+                    modelRisk.setDbDnghi_Lai(reset.getBigDecimal(13));
+                    modelRisk.setDbXl_Duno(reset.getBigDecimal(14));
+                    modelRisk.setDbXl_Lai(reset.getBigDecimal(15));
+                    modelRisk.setDbHt_Dno(reset.getBigDecimal(16));
+                    modelRisk.setDbHt_Lai(reset.getBigDecimal(17));
+                    modelRisk.setsNgayvay(reset.getDate(18) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(18))); //new SimpleDateFormat("dd/MM/yyyy").format(reset.getString(18))
+                    modelRisk.setsNgaydh(reset.getDate(19) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(19)));
+                    modelRisk.setDbThoihanvay(reset.getBigDecimal(20));
+                    modelRisk.setDbMdthiethai(reset.getBigDecimal(21));
+                    Date str = reset.getDate(28);
+                    modelRisk.setsNgayrr(reset.getDate(22) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(22)));
+                    modelRisk.setDbDnghi_Tg(reset.getBigDecimal(23));
+                    modelRisk.setDbPduyet_Tg(reset.getBigDecimal(24));
+                    modelRisk.setsNguyennhan(reset.getString(25));
+                    modelRisk.setsMotann(reset.getString(26));
+                    modelRisk.setsTrangthai(reset.getString(27));
+                    modelRisk.setsPduyet_Ngay_Cn(reset.getDate(28) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(28)));
+                    modelRisk.setsPduyet_Nguoi_Cn(reset.getString(29));
+                    modelRisk.setsPduyet_Ngay_Tw(reset.getDate(30) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(30)));
+                    modelRisk.setsPduyet_Nguoi_Tw(reset.getString(31));
+                    modelRisk.setsTaolap_Nguoi(reset.getString(32));
+                    modelRisk.setsTaolap_Ngay(reset.getDate(33) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(33)));
+                    modelRisk.setsMaqd(reset.getString(34));
+                    modelRisk.setsTenqd(reset.getString(35));
+                    modelRisk.setsNhomrr(reset.getString(36));
+                    modelRisk.setsMapgd(reset.getString(37));
+                    modelRisk.setsMacn(reset.getString(38));
+                    modelRisk.setsNgaybc(reset.getDate(39) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(39)));
+                    modelRisk.setsCapnhat(reset.getDate(40) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(40)));
+                    modelRisk.setsNgaytao(reset.getDate(41) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(41)));
+                    modelRisk.setsNguoitao(reset.getString(42));
+                    modelRisk.setsPduyet_Cap(reset.getString(43));
+                    modelRisk.setsNgayhl(reset.getDate(44) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(44)));
+                    modelRisk.setsHt_Tkxoano(reset.getString(45));
+                    modelRisk.setsNguonvon(reset.getString(46));
+                    modelRisk.setDbDotrr(reset.getBigDecimal(47));
+                    modelRisk.setsMadp(reset.getString(48));
+                    modelRisk.setsMato(reset.getString(49));
+                    modelRisk.setDbSolanxl(reset.getBigDecimal(50));
+                    modelRisk.setsNguoi_pduyet_pgd(reset.getString(51));
+                    modelRisk.setsNgay_pduyet_pgd(reset.getDate(52) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(52)));
+                    modelRisk.setsNguyennhan_tuchoi(reset.getString(53));
+                    lstModelRisk.add(modelRisk);
+                }
+
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+//                if (conn != null) {
+//                    conn.close();
+//                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(DaoProcessRisk.class.getCanonicalName() + " getDataSearchRisk -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getDataSearchRisk " + e.getMessage());
+            CoreLogger.error(DaoProcessRisk.class.getCanonicalName() + " getDataSearchRisk -> " + e.getMessage());
+        }
+        return lstModelRisk;
+    }
+    public List<ModelRiskProcess> getDataSearchRisk62(Connection conn, String sUserName, String srGrade, String sNambc, String sDotrr, String sSoku_Search, int startRow, int EndRow, String sKhoa) {
+        //Duyet list dua ra danh sach main pos la dang "000314","000401","000501"....
+        List<ModelRiskProcess> lstModelRisk = new ArrayList<ModelRiskProcess>();
+        try {
+            //DaoConnect daoconnect = new DaoConnect();
+            //Connection conn = null;
+            //conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call vbsp_ims_risk.SP_SEARCH_LOAN_62(?,?,?,?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
 
             try {
@@ -2302,6 +2635,87 @@ public class DaoProcessRisk {
         }
         return objTableDesc;
     }
+    
+    public DescTableBrower setStatusRiskDv62(String khoa,String strUserName, String sGrade, String sPoscd, String sNambc, String sDotrr, String sNhomrr, String sNguon_von) {
+        DescTableBrower objTableDesc = new DescTableBrower();
+        int pn_err_cd = 0;
+        String strEdd_txt = "";
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call vbsp_ims_risk.SP_SET_STATUS_DV_62(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            ResultSet reset = null;
+            //Khoi tao goi store
+            calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
+              calstatement.setString(1, khoa);
+            calstatement.setString(2, strUserName);
+            calstatement.setString(3, sGrade);
+            calstatement.setString(4, sPoscd);
+            calstatement.setString(5, sNambc);
+            calstatement.setString(6, sDotrr);
+            calstatement.setString(7, sNhomrr);
+            calstatement.setString(8, sNguon_von);
+//          calstatement.setString(2, strCommuneFlg);
+            calstatement.registerOutParameter(9, oracle.jdbc.OracleTypes.NUMBER);
+            calstatement.registerOutParameter(10, oracle.jdbc.OracleTypes.NUMBER);
+            calstatement.registerOutParameter(11, oracle.jdbc.OracleTypes.NUMBER);
+            calstatement.registerOutParameter(12, oracle.jdbc.OracleTypes.VARCHAR);
+            calstatement.registerOutParameter(13, oracle.jdbc.OracleTypes.NUMBER);
+            calstatement.registerOutParameter(14, oracle.jdbc.OracleTypes.VARCHAR);
+//            calstatement.registerOutParameter(10, oracle.jdbc.OracleTypes.CURSOR);
+            //Thuc hien execute lay du lieu
+            NumberFormat format = NumberFormat.getInstance(Locale.US);
+            calstatement.execute();
+            //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+            BigDecimal bTonggoc = calstatement.getBigDecimal(9);
+            BigDecimal bTonglai = calstatement.getBigDecimal(10);
+            BigDecimal bTongtien = BigDecimal.ZERO;
+            bTongtien = bTongtien.add(bTonggoc);
+            bTongtien = bTongtien.add(bTonglai);
+            objTableDesc.setsPoscd(sPoscd);
+            objTableDesc.setsTongDuno(format.format(bTonggoc));
+            objTableDesc.setsTongLai(format.format(bTonglai));
+            objTableDesc.setsTongtien(format.format(bTongtien));
+            objTableDesc.setsSoKh(format.format(calstatement.getBigDecimal(11)));
+            objTableDesc.setsPosDesc(calstatement.getString(12));
+            pn_err_cd = calstatement.getInt(13);
+            //thu hien lay mo ta loi
+            strEdd_txt = calstatement.getString(14);
+            //Lay cursor ra resultset
+//            reset = (ResultSet) calstatement.getObject(10);
+            //COLUMN_DESC
+//                HashMap<String, String> hmStatus = getStatusRisk(conn);
+//            while (reset.next()) {
+//                DescTableBrower modelRisk = new DescTableBrower();
+//                modelRisk.setCheck_legacyid(reset.getString(1));
+//                modelRisk.setDuno_rr(reset.getBigDecimal(2).toString());
+//                modelRisk.setLai_rr(reset.getBigDecimal(3).toString());
+//                modelRisk.setThang(reset.getBigDecimal(4).toString());
+//                lstRisk.add(modelRisk);
+//            }
+            if (reset != null) {
+                reset.close();
+            }
+            if (calstatement != null) {
+                calstatement.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+            objTableDesc.setsStatus("Thành công");
+            objTableDesc.setbSuccess(true);
+        } catch (Exception e) {
+            objTableDesc.setsStatus("Lỗi");
+            objTableDesc.setbSuccess(false);
+            System.err.println(strEdd_txt + " Loi trong ham setStatusRiskDv " + e.getMessage());
+            CoreLogger.error(strEdd_txt + this.getClass().getName() + " setStatusRiskDv -> " + e.getMessage());
+        }
+        return objTableDesc;
+    }
 
     /**
      *
@@ -2327,6 +2741,86 @@ public class DaoProcessRisk {
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call vbsp_ims_risk.SP_GET_DATA_POS_BY_POS(?,?,?,?,?,?,?,?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
+            String[] arrayPoscd = lstPoscd.toArray(new String[0]);
+            ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
+            //Khoi tao goi store
+            calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
+            calstatement.setString(1, sKhoa);
+            calstatement.setString(2, strUserName);
+            calstatement.setString(3, sGrade);
+            calstatement.setArray(4, oracle_arrayPoscd);
+            calstatement.setString(5, sNambc);
+            calstatement.setString(6, sDotrr);
+            calstatement.setString(7, sNhomrr);
+            calstatement.setString(8, sTrangthai);
+            calstatement.setString(9, sNguon_von);
+            calstatement.registerOutParameter(10, oracle.jdbc.OracleTypes.NUMBER);
+            calstatement.registerOutParameter(11, oracle.jdbc.OracleTypes.VARCHAR);
+            calstatement.registerOutParameter(12, oracle.jdbc.OracleTypes.CURSOR);
+//            calstatement.registerOutParameter(11, oracle.jdbc.OracleTypes.VARCHAR);
+//            calstatement.registerOutParameter(12, oracle.jdbc.OracleTypes.NUMBER);
+//            calstatement.registerOutParameter(13, oracle.jdbc.OracleTypes.VARCHAR);
+//            calstatement.registerOutParameter(10, oracle.jdbc.OracleTypes.CURSOR);
+            //Thuc hien execute lay du lieu
+            calstatement.execute();
+            //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+            NumberFormat format = NumberFormat.getInstance(Locale.US);
+            pn_err_cd = calstatement.getInt(10);
+            //thu hien lay mo ta loi
+            strEdd_txt = calstatement.getString(11);
+            //Lay cursor ra resultset
+            reset = (ResultSet) calstatement.getObject(12);
+
+            while (reset.next()) {
+                DescTableBrower modelRisk = new DescTableBrower();
+                BigDecimal bTonggoc = reset.getBigDecimal(4);
+                BigDecimal bTonglai = reset.getBigDecimal(5);
+                BigDecimal bTongtien = BigDecimal.ZERO;
+                bTongtien = bTongtien.add(bTonggoc);
+                bTongtien = bTongtien.add(bTonglai);
+                modelRisk.setnStt(reset.getInt(1));
+                modelRisk.setsPoscd(reset.getString(2));
+                modelRisk.setsPosDesc(reset.getString(3));
+                modelRisk.setsTongDuno(format.format(bTonggoc));
+                modelRisk.setsTongLai(format.format(bTonglai));
+                modelRisk.setsSoKh(format.format(reset.getBigDecimal(6)));
+                modelRisk.setsTongtien(format.format(bTongtien));
+                lstTableDesc.add(modelRisk);
+                System.err.println("pos_cd=" + modelRisk.getsPoscd());
+            }
+            if (reset != null) {
+                reset.close();
+            }
+            if (calstatement != null) {
+                calstatement.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+
+        } catch (Exception e) {
+            System.err.println(strEdd_txt + " Loi trong ham getDataBrowerView " + e.getMessage());
+            CoreLogger.error(strEdd_txt + this.getClass().getName() + " getDataBrowerView -> " + e.getMessage());
+        }
+        return lstTableDesc;
+    }
+    
+    public List<DescTableBrower> getDataBrowerView62(String strUserName, String sGrade, ArrayList<String> lstPoscd,
+            String sNambc, String sDotrr, String sNhomrr, String sTrangthai, String sNguon_von,String sKhoa) {
+        List<DescTableBrower> lstTableDesc = new ArrayList<DescTableBrower>();
+        int pn_err_cd = 0;
+        String strEdd_txt = "";
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call vbsp_ims_risk.SP_GET_DATA_POS_BY_POS_62(?,?,?,?,?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
 
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);

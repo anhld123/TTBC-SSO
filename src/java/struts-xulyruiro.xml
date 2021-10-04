@@ -89,8 +89,7 @@
                 /error.jsp
             </result>  
         </action>
-             <action  name="getDetialCustomerRejectSearch" class="vbsp.ims.action.RiskAction" method="getDetialCustomerRejectSearch">
-            
+        <action  name="getDetialCustomerRejectSearch" class="vbsp.ims.action.RiskAction" method="getDetialCustomerRejectSearch">            
             <result name="success"> 
                 xulyruiro/reject_detail_customer_search.jsp
             </result>  
@@ -278,8 +277,8 @@
         
         <action  name="loadDataRisk62" class="vbsp.ims.action.RiskAction" method="process_risk62">
             <result name="cbXLN_duyet">xulyruiro/table_data_risk_62_cbXLN_duyet.jsp</result>  
-            <result name="ldXLN_duyet">xulyruiro/table_data_risk_62_ldXLN_duyet.jsp</result>
-            <result name="banKS_duyet">xulyruiro/table_data_risk_62.jsp</result>
+            <result name="ldXLN_duyet">xulyruiro/table_data_risk_62_ldXLN_duyet_lan1.jsp</result>
+            <result name="banKS_duyet">xulyruiro/table_data_risk_62_banKS_duyet.jsp</result>
             <result name="error">  
                 /error.jsp
             </result>  
@@ -312,6 +311,60 @@
                 /error.jsp
             </result>  
         </action>
+        
+        <action  name="loadBrowerdonvi62" class="vbsp.ims.action.RiskAction" method="loadBrowerdonvi62">
+            <result name="success">  
+                xulyruiro/brower-risk-62.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="loadDataBrowerView62" class="vbsp.ims.action.RiskAction" method="loadDataBrowerView62">
+            <result name="cbXLN_view">xulyruiro/brower-view-62-cbBanXLN.jsp</result>
+            <result name="ldXLN_view_2">xulyruiro/brower-view-62-ldBanXLN.jsp</result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+          <action  name="BrowerDonvi62" class="vbsp.ims.action.RiskAction" method="BrowerDonvi62">
+            <result name="success">
+                xulyruiro/brower-view.jsp
+            </result>
+            <result name="error">  
+                /error.jsp
+            </result>  
+            <!--            <result name="input">
+                xulyruiro/success.jsp
+            </result>-->
+        </action> 
+        <action  name="searchCustomer62" class="vbsp.ims.action.RiskAction" method="searchCustomer62" >
+            <result name="success">  
+                xulyruiro/table_data_risk_search_62.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>              
+        </action>
+        
+        <action  name="getDetialCustomerRejectSearch62" class="vbsp.ims.action.RiskAction" method="getDetialCustomerRejectSearch62">            
+            <result name="success"> 
+                xulyruiro/reject_detail_customer_search_62.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+        
+        <action  name="setRejectRiskSearch62" class="vbsp.ims.action.RiskAction" method="RejectRiskSearch62">
+            <result name="success" type="json"/>
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>
+              
         
     </package>
 </struts>
