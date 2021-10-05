@@ -2869,6 +2869,16 @@ public class DaoProcessRisk {
                 modelRisk.setsTongLai(format.format(bTonglai));
                 modelRisk.setsSoKh(format.format(reset.getBigDecimal(6)));
                 modelRisk.setsTongtien(format.format(bTongtien));
+                
+                BigDecimal bTonggoc_1 = reset.getBigDecimal(7);
+                BigDecimal bTonglai_1 = reset.getBigDecimal(8);
+                modelRisk.setsSoKh_1(format.format(reset.getBigDecimal(9)));
+                modelRisk.setsTongDuno_1(format.format(bTonggoc_1));
+                modelRisk.setsTongLai_1(format.format(bTonglai_1));
+                BigDecimal bTongtien_1 = BigDecimal.ZERO;
+                bTongtien_1 = bTongtien_1.add(bTonggoc_1);
+                bTongtien_1 = bTongtien_1.add(bTonglai_1);
+                 modelRisk.setsTongtien_1(format.format(bTongtien_1));
                 lstTableDesc.add(modelRisk);
                 System.err.println("pos_cd=" + modelRisk.getsPoscd());
             }

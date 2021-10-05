@@ -2060,10 +2060,10 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
                 return "cbXLN_view";
         else if (capPheDuyet ==2 && trangthai_xlrr.equals("W"))
                 return "ldXLN_view_2";
-        else if (capPheDuyet ==3)
-                return "cbXLN_view";
-        else if (capPheDuyet ==4)
-                return "cbXLN_view";
+        else if (capPheDuyet ==3 && trangthai_xlrr.equals("W"))
+                return "ldXLN_view_2";
+        else if (capPheDuyet ==4 && trangthai_xlrr.equals("W"))
+                return "ldXLN_view_2";
         else
             return "cbXLN_view";
 
