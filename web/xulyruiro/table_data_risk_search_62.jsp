@@ -436,7 +436,7 @@ diennoidung_tuchoi<%--
                 </s:iterator>
             </table>
 
-            <sj:submit id="BrowseSubmit" name="BrowseSubmit" targets="divBrowseRisk" cssClass="metroButtonStyle" value="Thêm" cssStyle="display: none"></sj:submit>
+            <sj:submit id="BrowseSubmit62" name="BrowseSubmit62" targets="divBrowseRisk" cssClass="metroButtonStyle" value="Thêm" cssStyle="display: none"></sj:submit>
         </s:form>
         <s:form action="searchCustomer62.action" id="paginationForm">
             <s:hidden name="nam_xlrr" id="nam_xlrr"/>

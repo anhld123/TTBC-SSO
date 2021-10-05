@@ -59,7 +59,7 @@
                 if (bSearchStatus)
                 {
 //                    $("#divExportReport").empty();
-                    if ($("#frmDataRisk input:checkbox:checked").length > 0)
+                    if ($("#frmDataRisk62 input:checkbox:checked").length > 0)
                     {
                         if (validateRequiredFields())
                         {

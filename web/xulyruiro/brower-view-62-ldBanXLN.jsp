@@ -77,6 +77,11 @@
                         <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongtien" /></td>
                         <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongDuno" /></td>
                         <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongLai" /></td>
+                        
+                        <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sSoKh_1" /></td>
+                        <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongtien_1" /></td>
+                        <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongDuno_1" /></td>
+                        <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongLai_1" /></td>
                         <s:if test="sendData.equalsIgnoreCase('OK')">
                             <td style="text-align: right; color: #007fff; font-weight: bold;"></td>
                         </s:if>
@@ -112,10 +117,10 @@
                             <td style="text-align: right;"><s:property  value="sTongtien" /></td>
                             <td style="text-align: right;"><s:property  value="sTongDuno" /></td>
                             <td style="text-align: right;"><s:property  value="sTongLai" /></td>
-                            <td style="text-align: right;"><s:property  value="sSoKh" /></td>
-                            <td style="text-align: right;"><s:property  value="sTongtien" /></td>
-                            <td style="text-align: right;"><s:property  value="sTongDuno" /></td>
-                            <td style="text-align: right;"><s:property  value="sTongLai" /></td>
+                            <td style="text-align: right;"><s:property  value="sSoKh_1" /></td>
+                            <td style="text-align: right;"><s:property  value="sTongtien_1" /></td>
+                            <td style="text-align: right;"><s:property  value="sTongDuno_1" /></td>
+                            <td style="text-align: right;"><s:property  value="sTongLai_1" /></td>
                         </s:else>
                     </s:else>
                 </tr>
