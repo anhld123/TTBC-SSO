@@ -324,6 +324,7 @@
         <action  name="loadDataBrowerView62" class="vbsp.ims.action.RiskAction" method="loadDataBrowerView62">
             <result name="cbXLN_view">xulyruiro/brower-view-62-cbBanXLN.jsp</result>
             <result name="ldXLN_view_2">xulyruiro/brower-view-62-ldBanXLN.jsp</result>  
+            <result name="ldXLN_view_k">xulyruiro/brower-view-62-chenhlech.jsp</result>  
             <result name="error">  
                 /error.jsp
             </result>  
