@@ -84,6 +84,12 @@
                  class="vbsp.ims.loveleaf.DonatorAction"
                  method="build_period_combo" >                                            
             <result name="success" type="json"></result>                          
-        </action>                                                                                                                                                                                                                                                                                                                                                                                                                                
+        </action>     
+        
+               <action  name="loveleaf_build_program_combo" 
+                 class="vbsp.ims.loveleaf.DonatorAction"
+                 method="buildProgramCombo" >                                            
+            <result name="success" type="json"></result>                          
+        </action>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
     </package>          
 </struts>

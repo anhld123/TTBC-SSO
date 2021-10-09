@@ -70,6 +70,18 @@ public class PoorUploadAction extends ActionSupport
                     dtw_import.import_file(
                             new_file_path,
                             vbsp.ims.define.Constant.dtw_insert_table._QTT_DTTH);
+                } else if (file_name.toUpperCase().startsWith("VVC_DTTH_")) {
+                    dtw_import.import_file(
+                            new_file_path,
+                            vbsp.ims.define.Constant.dtw_insert_table._VVC_DTTH);
+                } else if (file_name.toUpperCase().startsWith("VVC_CHUYENTIEN_")) {
+                    dtw_import.import_file(
+                            new_file_path,
+                            vbsp.ims.define.Constant.dtw_insert_table._VVC_CHUYENTIEN);
+                } else if (file_name.toUpperCase().startsWith("VVC_CITAD_")) {
+                    dtw_import.import_file(
+                            new_file_path,
+                            vbsp.ims.define.Constant.dtw_insert_table._VVC_CITAD);
                 } else {
                     dtw_import.import_file(
                             new_file_path,

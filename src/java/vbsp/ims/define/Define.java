@@ -179,4 +179,7 @@ public class Define {
     public static final String KTDC_PGD = "MAPGD";    
     public static final String KTDC_TRANGTHAI = "TRANGTHAI";    
     
+    
+    public static final String LOVE_LEAF_PROGRAM = "LOVELEAF";    
+    public static final String VVC_PROGRAM = "VVC";    
 }

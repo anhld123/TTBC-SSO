@@ -67,5 +67,10 @@ public class Constant {
 
         public static String _CUST1_UPOAD = "CUST1_UPLOAD";    
         public static String _CUST2_UPOAD = "CUST2_UPLOAD";    
+        
+        
+        public static String _VVC_DTTH = "VVC_DTTH";
+        public static String _VVC_CHUYENTIEN = "VVC_CHUYENTIEN";
+        public static String _VVC_CITAD = "VVC_CITAD";
     }
 }

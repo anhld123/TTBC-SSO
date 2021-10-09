@@ -33,12 +33,14 @@ public class LoveLeafDao {
 //        daoConnect = new DaoConnect();
     }
 
-    public List<DonateTransaction> list_donate_trans(String pv_tran_dt,
+    public List<DonateTransaction> list_donate_trans(
+            String program,
+            String pv_tran_dt,
             String period,
             String gendata_FLG) {
         ArrayList<DonateTransaction> donateTrans = new ArrayList<>();
         String strStoreproce
-                = "{call app_loveleaf_proj.get_donator_transaction(?, ? , ? , ? , ? , ?)}";
+                = "{call app_loveleaf_proj.get_donator_transaction(?, ?, ? , ? , ? , ? , ?)}";
         try {
 //            if (conn == null) {
             daoConnect = new DaoConnect();
@@ -47,14 +49,15 @@ public class LoveLeafDao {
             ResultSet rs;
             try (CallableStatement calstatement = conn.prepareCall(strStoreproce,
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
-                calstatement.setString(1, pv_tran_dt);
-                calstatement.setString(2, period);
-                calstatement.setString(3, gendata_FLG);
-                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.NUMBER);
-                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.VARCHAR);
-                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(1, program);
+                calstatement.setString(2, pv_tran_dt);
+                calstatement.setString(3, period);
+                calstatement.setString(4, gendata_FLG);
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.CURSOR);
                 calstatement.execute();
-                rs = (ResultSet) calstatement.getObject(6);
+                rs = (ResultSet) calstatement.getObject(7);
                 String lv_ref_no;
                 String lv_donator_id;
                 String lv_donate_dt;

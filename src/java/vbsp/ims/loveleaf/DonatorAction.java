@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import vbsp.ims.define.Define;
 import vbsp.ims.define.DefineFun;
 import vbsp.ims.eom_help.EOMTaskHelpDao;
 import vbsp.ims.report.fast.ListValue;
@@ -36,8 +37,10 @@ public class DonatorAction extends ActionSupport
     private String permit;
     private String gendata_FLG;
     private String period;
+    private String program;
     
     private List<ListValue> periods;
+    private List<ListValue> programs;
 
 //    private Donator donator;
     @Override
@@ -54,8 +57,9 @@ public class DonatorAction extends ActionSupport
         System.err.println("DonatorAction~" + period + gendata_FLG+tran_dt);        
         if (gendata_FLG== null || gendata_FLG.isEmpty())
             gendata_FLG = "N";
-        if (tran_dt != null && !tran_dt.isEmpty()) {
+        if (tran_dt != null && !tran_dt.isEmpty()) {            
             donateTransaction = loveleafDao.list_donate_trans(
+                    program,
                     DefineFun.convert2OracleDateFormat(tran_dt),
                     period,
                     gendata_FLG
@@ -63,10 +67,21 @@ public class DonatorAction extends ActionSupport
         }
         return SUCCESS;
     }
+         
     
     public String build_period_combo() {
         EOMTaskHelpDao eomTaskDao = new EOMTaskHelpDao();
         periods = eomTaskDao.list_all_period("LOVELEAF");
+        return SUCCESS;
+    }
+    
+    
+    public String buildProgramCombo() {
+        //EOMTaskHelpDao eomTaskDao = new EOMTaskHelpDao();
+        //periods = eomTaskDao.list_all_period("LOVELEAF");
+        programs = new ArrayList<ListValue> ();
+        programs.add(new ListValue(Define.LOVE_LEAF_PROGRAM, "Cặp lá yêu thương"));
+        programs.add(new ListValue(Define.VVC_PROGRAM, "Nối vòng tay thương"));
         return SUCCESS;
     }
 
@@ -157,6 +172,23 @@ public class DonatorAction extends ActionSupport
         this.period = period;
     }
 
+    public String getProgram() {
+        return program;
+    }
+
+    public void setProgram(String program) {
+        this.program = program;
+    }
+
+    public List<ListValue> getPrograms() {
+        return programs;
+    }
+
+    public void setPrograms(List<ListValue> programs) {
+        this.programs = programs;
+    }
+
+    
     
     
     

@@ -54,6 +54,8 @@
                     (1) Cặp lá yêu thương: DSLARACH_ddmmyyyy.*, DSLCLMOTK_ddmmyyyy.*
                     <br/>
                     (2) Quỹ thiện tâm: QTT_DTTH_ddmmyyyy.*, QTT_CHUYENTIEN_ddmmyyyy.*
+                    <br/>
+                    (3) Nối vòng tay thương: VVC_DTTH_ddmmyyyy.*, VVC_CHUYENTIEN_ddmmyyyy.*, VVC_CITAD_ddmmyyyy.*
                 
     </div>
     </s:form>
