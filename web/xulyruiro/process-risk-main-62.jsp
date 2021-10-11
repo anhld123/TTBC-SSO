@@ -446,12 +446,12 @@
                         <!--style="padding:8px;"-->
                         <!--</br>-->
                         <div  id="divSearch1" style="padding:1px;" >
-                            <s:url id="idurlSearch" action="searchCustomer.action"></s:url>
+                            <s:url id="idurlSearch62" action="searchCustomer62.action"></s:url>
                             <s:label value="Mã khoản vay:" id="namesoku" cssStyle="color: #029c44;"> </s:label>
                                 <!--<input type="text" id="idsearch_soku" style="margin:0 auto;" value="" name="search_soku" onfocus="this.select()" readonly="true" />-->
                             <sj:textfield id="idsearch_soku" name="search_soku" onkeypress="javascript:keyPressEvent();"  
                                           style="border: 1px solid rgba(81, 203, 238, 1);margin:0 auto;width: 150px; background: white;"></sj:textfield>
-                            <sj:submit id="idSearch" name="nameSearch" href="%{idurlSearch}" value="Tìm kiếm" targets="divExportReport"
+                            <sj:submit id="idSearch" name="nameSearch" href="%{idurlSearch62}" value="Tìm kiếm" targets="divExportReport"
                                        onBeforeTopics="beforediv1"
                                        onCompleteTopics="completediv1" onclick="onFind()"/>
                              <s:if test="reportGrade.equalsIgnoreCase('3')">
@@ -462,7 +462,7 @@
                             </s:if>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <!--button tai du lieu-->
-                        <sj:submit id="loadsubmitform" name="loadsubmitform" value="Tải dữ liệu" targets="divExportReport" onclick="onclear()"
+                        <sj:submit id="loadsubmitform62" name="loadsubmitform62" value="Tải dữ liệu" targets="divExportReport" onclick="onclear()"
                                    cssStyle="height:28px;width:95px;color: #0000FF; background: #c5c5c5; font: bolder"
                                    onBeforeTopics="beforediv1"
                                    onCompleteTopics="completediv1"/>&nbsp;&nbsp
