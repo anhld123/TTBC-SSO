@@ -905,6 +905,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
                 setMessage("Không thể kết nối cơ sở dữ liệu ");
                 return ERROR;
             }
+            setLstNguyenNhanRR(new DaoNhaptaycnMain().getCanBo(sUserName, "NGUYENNHANRR"));
             //Lay ra tổng số bản ghi của du liêu để phân trang
             if (pagination.getStart() == 0) {
 //            System.err.println("Thiet lap de lay tong so row data " + pagination.getStart() + " thang end " + pagination.getEnd());
