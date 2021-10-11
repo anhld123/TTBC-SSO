@@ -255,6 +255,13 @@
             }
         }
     </script>
+    <script>
+        function handleChange(index, value) {
+            alert(index+ value);
+            var id = "DNN_"+ index;
+            $("#"+id).val(value);
+        }
+        </script>
     <script type="text/javascript" src="js/pagination.js">
     </script>
 
@@ -518,10 +525,11 @@
                                             listKey="sKey"
                                             listValue="sDesc"
                                             headerKey="-1"
-                                            headerValue="--- Chọn ---"                                    
+                                            headerValue="--- Chọn ---"              
+                                            onchange="handleChange(%{#rowstatus.index},this.value)"
                                             cssStyle="width: 100%;vertical-align: middle;background-color: #FFCCBA; TEN_KH">
                                         
-                                        <input type="hidden" value="<s:property  value="sNguyennhan" />" id="DNN_<s:property  value="sNguyennhan" />"
+                                        <input type="hidden" value="<s:property  value="sNguyennhan" />" id="DNN_<s:property  value="%{#rowstatus.index}" />"
                                            name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNguyennhan" class="TEN_KH"/>
                                     </s:select>
                             </td>    
