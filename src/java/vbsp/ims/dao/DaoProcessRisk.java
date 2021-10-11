@@ -1965,7 +1965,7 @@ public class DaoProcessRisk {
         return hm;
     }
     
-    public HashMap<Integer, List<ListValue>> getDmKhacQD62() {
+    public HashMap<Integer, List<ListValue>> getDmKhacQD62(String username) {
         HashMap<Integer, List<ListValue>> hm = new HashMap<Integer, List<ListValue>>();
 
         try {
@@ -1974,7 +1974,7 @@ public class DaoProcessRisk {
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call vbsp_ims_risk.SP_GET_DM_RISK_QD62(?,?,?)}";
+            String strStoreproce = "{call vbsp_ims_risk.SP_GET_DM_RISK_QD62(?,?,?,?)}";
             ResultSet reset = null;
 
             try {
@@ -1983,6 +1983,7 @@ public class DaoProcessRisk {
                 calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(4, username);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
