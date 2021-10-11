@@ -257,7 +257,7 @@
     </script>
     <script>
         function handleChange(index, value) {
-            alert(index+ value);
+//            alert(index+ value);
             var id = "DNN_"+ index;
             $("#"+id).val(value);
         }
