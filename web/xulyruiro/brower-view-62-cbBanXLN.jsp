@@ -46,23 +46,35 @@
         </s:if>
      </s:else>  
     <form id="formview62" action="viewdata62">
-        <table border="1" class="editDelete">
+        <table border="1" class="editDelete" style="padding: 3px 0px 3px 3px; width: 90%">
             <tr>
-                <th rowspan="2">STT</th>
-                <th rowspan="2">Mã Đơn vị</th>
-                <th rowspan="2">Tên Đơn vị</th>
-                <th rowspan="2">Tổng số món</th>
-                <th rowspan="2"> Tổng tiền </th>
-                <th colspan="2">Trong đó</th> 
+                <th rowspan="3">STT</th>
+                <th rowspan="3">Mã Đơn vị</th>
+                <th rowspan="3">Tên Đơn vị</th>
+                <th rowspan="3">Tổng số món</th>
+                
+                <th colspan="3">Số đề nghị</th>
+                <th colspan="3">Số hiện tại</th>
+                
+                 
                     <s:if test="sendData.equalsIgnoreCase('OK')">
-                    <th rowspan="2"> Trạng thái </th>
+                    <th rowspan="3"> Trạng thái </th>
                     </s:if>
 
             </tr>
             <tr>
+                <th rowspan="2"> Tổng tiền </th>
+                <th colspan="2">Trong đó</th>
+                <th rowspan="2"> Tổng tiền </th>
+                <th colspan="2">Trong đó</th>
+            </tr>
+            <tr>
                 <th>Tổng gốc</th>
                 <th>Tổng lãi</th>
-            </tr>
+                <th>Tổng gốc</th>
+                <th>Tổng lãi</th>
+            </tr>            
+            <%--<s:property  value="capPheDuyet" />--%>
             <s:iterator value="#attr.lstBrowerView" var="modelRiskView" status="rowstatus">
                 <tr>
                     <!--<td>aaaaaaaaaaaaaaaaaaa</td>-->
@@ -72,6 +84,10 @@
                         <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongtien" /></td>
                         <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongDuno" /></td>
                         <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongLai" /></td>
+                        <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongtien_1" /></td>
+                        <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongDuno_1" /></td>
+                        <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongLai_1" /></td>
+                        
                         <s:if test="sendData.equalsIgnoreCase('OK')">
                             <td style="text-align: right; color: #007fff; font-weight: bold;"></td>
                         </s:if>
@@ -86,6 +102,9 @@
                                 <td style="text-align: right;"><s:property  value="sTongtien" /></td>
                                 <td style="text-align: right;"><s:property  value="sTongDuno" /></td>
                                 <td style="text-align: right;"><s:property  value="sTongLai" /></td>
+                                <td style="text-align: right;"><s:property  value="sTongtien_1" /></td>
+                                <td style="text-align: right;"><s:property  value="sTongDuno_1" /></td>
+                                <td style="text-align: right;"><s:property  value="sTongLai_1" /></td>
                                 <td style="text-align: center;">Thành công</td>
                             </s:if>
                             <s:else>
@@ -96,17 +115,37 @@
                                 <td style="text-align: right; color: red"><s:property  value="sTongtien" /></td>
                                 <td style="text-align: right; color: red"><s:property  value="sTongDuno" /></td>
                                 <td style="text-align: right; color: red"><s:property  value="sTongLai" /></td>
+                                <td style="text-align: right; color: red"><s:property  value="sTongtien_1" /></td>
+                                <td style="text-align: right; color: red"><s:property  value="sTongDuno_1" /></td>
+                                <td style="text-align: right; color: red"><s:property  value="sTongLai_1" /></td>
                                 <td style="text-align: center; color: red">Lỗi</td>
                             </s:else>
                         </s:if>
                         <s:else>
-                            <td style="text-align: center;"><s:property  value="nStt" /></td>
-                            <td style="text-align: center;"><s:property  value="sPoscd" /></td>
-                            <td><s:property  value="sPosDesc" /></td>
-                            <td style="text-align: right;"><s:property  value="sSoKh" /></td>
-                            <td style="text-align: right;"><s:property  value="sTongtien" /></td>
-                            <td style="text-align: right;"><s:property  value="sTongDuno" /></td>
-                            <td style="text-align: right;"><s:property  value="sTongLai" /></td>
+                            <s:if test="!sTongtien.equalsIgnoreCase(sTongtien_1)">
+                                <td style="text-align: center; color: red"><s:property  value="nStt" /></td>
+                                <td style="text-align: center; color: red"><s:property  value="sPoscd" /></td>
+                                <td style="color: red"><s:property  value="sPosDesc" /></td>
+                                <td style="text-align: right; color: red"><s:property  value="sSoKh" /></td>
+                                <td style="text-align: right; color: red"><s:property  value="sTongtien" /></td>
+                                <td style="text-align: right; color: red"><s:property  value="sTongDuno" /></td>
+                                <td style="text-align: right; color: red"><s:property  value="sTongLai" /></td>
+                                 <td style="text-align: right; color: red"><s:property  value="sTongtien_1" /></td>
+                                <td style="text-align: right; color: red"><s:property  value="sTongDuno_1" /></td>
+                                <td style="text-align: right; color: red"><s:property  value="sTongLai_1" /></td>
+                            </s:if>   
+                            <s:else>
+                                <td style="text-align: center;"><s:property  value="nStt" /></td>
+                                <td style="text-align: center;"><s:property  value="sPoscd" /></td>
+                                <td><s:property  value="sPosDesc" /></td>
+                                <td style="text-align: right;"><s:property  value="sSoKh" /></td>
+                                <td style="text-align: right;"><s:property  value="sTongtien" /></td>
+                                <td style="text-align: right;"><s:property  value="sTongDuno" /></td>
+                                <td style="text-align: right;"><s:property  value="sTongLai" /></td>
+                                 <td style="text-align: right;"><s:property  value="sTongtien_1" /></td>
+                                <td style="text-align: right;"><s:property  value="sTongDuno_1" /></td>
+                                <td style="text-align: right;"><s:property  value="sTongLai_1" /></td>
+                            </s:else>    
                         </s:else>
                     </s:else>
                 </tr>

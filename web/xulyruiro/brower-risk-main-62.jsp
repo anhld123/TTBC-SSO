@@ -35,7 +35,7 @@
                 $("#idsearch_soku").val('');
                 bsubmit = true;
                 var trangthai_xlrr = $("#trangthai_xlrr").val();
-                if (trangthai_xlrr != 'W')
+                if (trangthai_xlrr != 'W' && trangthai_xlrr != 'T')
                 {
 //                    alert('Bạn chỉ phê duyệt được dữ liệu khi chọn trạng thái chờ phê duyệt');
                     bsubmit = false;

@@ -39,6 +39,8 @@ import vbsp.ims.model.ModelRiskProcess.ListRiskSync;
 import vbsp.ims.model.ModelRiskProcess.StatusHistorySend;
 import vbsp.ims.model.ModelTreeNode;
 import vbsp.ims.model.Pagination;
+import vbsp.ims.nhaptaycn.action.QT_DULIEU_NT_50;
+import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.ImsReadWriteXmlFile;
@@ -80,7 +82,9 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
     public List<String> dunogoc_xl;
     private List<ListRisk> lstRisk;
     private List<DescTableBrower> lstBrowerView = new ArrayList<DescTableBrower>();
-    ;
+  protected List<QT_DULIEU_NT_50> lstDulieuNt50 = new ArrayList<>();
+  protected List<ListValue> lstCanBo = new ArrayList<ListValue>();
+  protected List<ListValue> lstNguyenNhanRR = new ArrayList<ListValue>();
     
     //public String dunogoc_xl;
     //Ngay hoac nam bao cao
@@ -142,6 +146,16 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
         this.dbDnghi_Lai = dbDnghi_Lai;
     }
 
+    public List<QT_DULIEU_NT_50> getLstDulieuNt50() {
+        return lstDulieuNt50;
+    }
+
+    public void setLstDulieuNt50(List<QT_DULIEU_NT_50> lstDulieuNt50) {
+        this.lstDulieuNt50 = lstDulieuNt50;
+    }
+    
+    
+
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Phê duyệt theo khoản vay">
 //Khoi tao cho cac dieu kien du lieu
@@ -168,7 +182,13 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
         public boolean setDmKhacQD62() {
         try {
             DaoProcessRisk daoRisk = new DaoProcessRisk();
-            HashMap<Integer, List<ListValue>> hmDmKhac = daoRisk.getDmKhacQD62();
+             Map session = ActionContext.getContext().getSession();
+            String sUserName = session.get("username").toString();
+            if (sUserName == null || sUserName.isEmpty()) {
+                setMessage("Không thể lấy ra được username bạn phải logout hệ thống sau đó đăng nhập lại ");
+                 return false;
+            }
+            HashMap<Integer, List<ListValue>> hmDmKhac = daoRisk.getDmKhacQD62(sUserName);
             lstNamXlrr = hmDmKhac.get(50) == null ? new ArrayList<ListValue>() : hmDmKhac.get(50);
             lstDotXlrr = hmDmKhac.get(51) == null ? new ArrayList<ListValue>() : hmDmKhac.get(51);
             lstTrangthaiXlrr = hmDmKhac.get(52) == null ? new ArrayList<ListValue>() : hmDmKhac.get(52);
@@ -498,6 +518,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
                 setMessage("Không thể kết nối cơ sở dữ liệu ");
                 return ERROR;
             }
+            setLstNguyenNhanRR(new DaoNhaptaycnMain().getCanBo(sUserName, "NGUYENNHANRR"));
             //Lay ra tổng số bản ghi của du liêu để phân trang
             if (pagination.getStart() == 0) {
 //            System.err.println("Thiet lap de lay tong so row data " + pagination.getStart() + " thang end " + pagination.getEnd());
@@ -608,6 +629,8 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
                 return ERROR;
             }
             capPheDuyet = daoRisk.getCapPheduyetQD62(sUserName, reportGrade);
+            if (capPheDuyet != 1 )
+                return "cbXLN_duyet";
             //Lay ra tổng số bản ghi của du liêu để phân trang
             if (pagination.getStart() == 0) {
 //            System.err.println("Thiet lap de lay tong so row data " + pagination.getStart() + " thang end " + pagination.getEnd());
@@ -2049,24 +2072,49 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
                 ArrlstPosCd = new ArrayList<String>(Arrays.asList(poscd.split(",")));
             }
             capPheDuyet = new DaoProcessRisk().getCapPheduyetQD62(sUserName, reportGrade);
-            setLstBrowerView(new DaoProcessRisk().getDataBrowerView62(sUserName, reportGrade,
+            
+           
+                
+            if ((capPheDuyet ==2 ||capPheDuyet ==4) && trangthai_xlrr.equals("W"))
+            {
+                setLstBrowerView(new DaoProcessRisk().getDataBrowerView62(sUserName, reportGrade,
                     ArrlstPosCd, nam_xlrr, dot_xlrr, nhom_xlrr, trangthai_xlrr, nguon_von, vb_xlrr));
+                return "ldXLN_view_2";
+            }
+            else if (capPheDuyet ==3 && trangthai_xlrr.equals("W"))
+            {
+                setLstBrowerView(new DaoProcessRisk().getDataBrowerView62(sUserName, reportGrade,
+                    ArrlstPosCd, nam_xlrr, dot_xlrr, nhom_xlrr, trangthai_xlrr, nguon_von, vb_xlrr));
+                return "cbXLN_view";
+            }           
+            else if ((capPheDuyet ==1 ||capPheDuyet ==2 ||capPheDuyet ==3||capPheDuyet ==4) && trangthai_xlrr.equals("K"))
+            {
+                lstDulieuNt50 = new DaoProcessRisk().getData_clech(sUserName, reportGrade,ArrlstPosCd, nam_xlrr, dot_xlrr, nhom_xlrr, trangthai_xlrr, nguon_von, vb_xlrr);
+                return "ldXLN_view_k";
+            }
+            else if ((capPheDuyet ==1 ||capPheDuyet ==2 ||capPheDuyet ==3||capPheDuyet ==4) && trangthai_xlrr.equals("D"))
+            {
+                lstDulieuNt50 = new DaoProcessRisk().getData_clech(sUserName, reportGrade,ArrlstPosCd, nam_xlrr, dot_xlrr, nhom_xlrr, trangthai_xlrr, nguon_von, vb_xlrr);
+                return "ldXLN_view_d";
+            }
+            else if ((capPheDuyet ==2 ||capPheDuyet ==4) && trangthai_xlrr.equals("T"))
+            {
+                setLstCanBo(new DaoNhaptaycnMain().getCanBo(sUserName, "CANBORR"));
+                lstDulieuNt50 = new DaoProcessRisk().getData_clech(sUserName, reportGrade,ArrlstPosCd, nam_xlrr, dot_xlrr, nhom_xlrr, trangthai_xlrr, nguon_von, vb_xlrr);
+                return "ldXLN_view_t";
+            }
+            else
+            {
+                setLstBrowerView(new DaoProcessRisk().getDataBrowerView62(sUserName, reportGrade,
+                    ArrlstPosCd, nam_xlrr, dot_xlrr, nhom_xlrr, trangthai_xlrr, nguon_von, vb_xlrr));
+                return "cbXLN_view";
+            }
 //            System.err.println("poscd="+poscd);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             CoreLogger.error(this.getClass().getCanonicalName() + " loadDataBrowerView -> " + e.getMessage());
-        }
-        if (capPheDuyet ==1)
-                return "cbXLN_view";
-        else if (capPheDuyet ==2 && trangthai_xlrr.equals("W"))
-                return "ldXLN_view_2";
-        else if (capPheDuyet ==3 && trangthai_xlrr.equals("W"))
-                return "ldXLN_view_2";
-        else if (capPheDuyet ==4 && trangthai_xlrr.equals("W"))
-                return "ldXLN_view_2";
-        else
             return "cbXLN_view";
-
+        }        
     }
 //</editor-fold>
 
@@ -2842,6 +2890,23 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Thiet lap phuong thuc get, set">
+
+    public List<ListValue> getLstNguyenNhanRR() {
+        return lstNguyenNhanRR;
+    }
+
+    public void setLstNguyenNhanRR(List<ListValue> lstNguyenNhanRR) {
+        this.lstNguyenNhanRR = lstNguyenNhanRR;
+    }
+    
+
+    public List<ListValue> getLstCanBo() {
+        return lstCanBo;
+    }
+
+    public void setLstCanBo(List<ListValue> lstCanBo) {
+        this.lstCanBo = lstCanBo;
+    }
 
  
     public String getDbHt_Dno() {

@@ -31,6 +31,7 @@ import vbsp.ims.model.ModelRiskProcess.ListRisk;
 import vbsp.ims.model.ModelRiskProcess.ListRiskSync;
 import vbsp.ims.model.ModelRiskProcess.StatusHistorySend;
 import vbsp.ims.model.ModelTreeNode;
+import vbsp.ims.nhaptaycn.action.QT_DULIEU_NT_50;
 import vbsp.ims.report.fast.ListValue;
 
 /**
@@ -1964,7 +1965,7 @@ public class DaoProcessRisk {
         return hm;
     }
     
-    public HashMap<Integer, List<ListValue>> getDmKhacQD62() {
+    public HashMap<Integer, List<ListValue>> getDmKhacQD62(String username) {
         HashMap<Integer, List<ListValue>> hm = new HashMap<Integer, List<ListValue>>();
 
         try {
@@ -1973,7 +1974,7 @@ public class DaoProcessRisk {
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call vbsp_ims_risk.SP_GET_DM_RISK_QD62(?,?,?)}";
+            String strStoreproce = "{call vbsp_ims_risk.SP_GET_DM_RISK_QD62(?,?,?,?)}";
             ResultSet reset = null;
 
             try {
@@ -1982,6 +1983,7 @@ public class DaoProcessRisk {
                 calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(4, username);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -4080,6 +4082,140 @@ public class DaoProcessRisk {
             return false;
         }
         return true;
+    }
+    
+    public List<QT_DULIEU_NT_50> getData_clech(String strUserName, String sGrade, ArrayList<String> lstPoscd,
+            String sNambc, String sDotrr, String sNhomrr, String sTrangthai, String sNguon_von,String sKhoa) {
+        List<QT_DULIEU_NT_50> lstBcqt_NT = new ArrayList<QT_DULIEU_NT_50>();
+        int pn_err_cd = 0;
+        String strEdd_txt = "";
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call vbsp_ims_risk.SP_GET_DATA_CLECH(?,?,?,?,?,?,?,?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
+            String[] arrayPoscd = lstPoscd.toArray(new String[0]);
+            ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
+            //Khoi tao goi store
+            calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
+            calstatement.setString(1, sKhoa);
+            calstatement.setString(2, strUserName);
+            calstatement.setString(3, sGrade);
+            calstatement.setArray(4, oracle_arrayPoscd);
+            calstatement.setString(5, sNambc);
+            calstatement.setString(6, sDotrr);
+            calstatement.setString(7, sNhomrr);
+            calstatement.setString(8, sTrangthai);
+            calstatement.setString(9, sNguon_von);
+            calstatement.registerOutParameter(10, oracle.jdbc.OracleTypes.NUMBER);
+            calstatement.registerOutParameter(11, oracle.jdbc.OracleTypes.VARCHAR);
+            calstatement.registerOutParameter(12, oracle.jdbc.OracleTypes.CURSOR);
+//            calstatement.registerOutParameter(11, oracle.jdbc.OracleTypes.VARCHAR);
+//            calstatement.registerOutParameter(12, oracle.jdbc.OracleTypes.NUMBER);
+//            calstatement.registerOutParameter(13, oracle.jdbc.OracleTypes.VARCHAR);
+//            calstatement.registerOutParameter(10, oracle.jdbc.OracleTypes.CURSOR);
+            //Thuc hien execute lay du lieu
+            calstatement.execute();
+            //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+            NumberFormat format = NumberFormat.getInstance(Locale.US);
+            pn_err_cd = calstatement.getInt(10);
+            //thu hien lay mo ta loi
+            strEdd_txt = calstatement.getString(11);
+            //Lay cursor ra resultset
+                //Lay cursor ra resultset
+            reset = (ResultSet) calstatement.getObject(12);
+            while (reset.next()) {
+
+                QT_DULIEU_NT_50 value = QT_DULIEU_NT_50.newInstance();
+                value.setKHOA(reset.getString(1));
+                value.setTHUTU(reset.getInt(2));
+                value.setTT_HIENTHI(reset.getString(3));
+                value.setMA(reset.getString(4));
+                value.setTEN(reset.getString(5));
+                value.setNGAYBC(reset.getDate(6));
+                value.setNAMBC(reset.getInt(7));
+                value.setMAPGD(reset.getString(8));
+                value.setMACN(reset.getString(10));
+//                    value.setD1(reset.getString(14));
+                value.setD1(reset.getString(15));
+                value.setD2(reset.getString(16));
+                value.setD3(reset.getString(17));
+                value.setD4(reset.getString(18));
+                value.setD5(reset.getString(19));
+                value.setD6(reset.getString(20));
+                value.setD7(reset.getString(21));
+                value.setD8(reset.getString(22));
+                value.setD9(reset.getString(23));
+                value.setD10(reset.getString(24));
+                value.setD11(reset.getString(25));
+                value.setD12(reset.getString(26));
+                value.setD13(reset.getString(27));
+                value.setD14(reset.getString(28));
+                value.setD15(reset.getString(29));
+                value.setD16(reset.getString(30));
+                value.setD17(reset.getString(31));
+                value.setD18(reset.getString(32));
+                value.setD19(reset.getString(33));
+                value.setD20(reset.getString(34));
+                value.setD21(reset.getString(35));
+
+                value.setD22(reset.getString(36));
+                value.setD23(reset.getString(37));
+                value.setD24(reset.getString(38));
+                value.setD25(reset.getString(39));
+                value.setD26(reset.getString(40));
+                value.setD27(reset.getString(41));
+                value.setD28(reset.getString(42));
+                value.setD29(reset.getString(43));
+                value.setD30(reset.getString(44));
+                value.setNHAPTAY(reset.getString(45));
+                value.setFONTFORMAT(reset.getString(46));
+                value.setKIEUIN(reset.getInt(47));
+
+                value.setD31(reset.getString(48));
+                value.setD32(reset.getString(49));
+                value.setD33(reset.getString(50));
+                value.setD34(reset.getString(51));
+                value.setD35(reset.getString(52));
+                value.setD36(reset.getString(53));
+                value.setD37(reset.getString(54));
+                value.setD38(reset.getString(55));
+                value.setD39(reset.getString(56));
+                value.setD40(reset.getString(57));
+                value.setD41(reset.getString(58));
+                value.setD42(reset.getString(59));
+                value.setD43(reset.getString(60));
+                value.setD44(reset.getString(61));
+                value.setD45(reset.getString(62));
+                value.setD46(reset.getString(63));
+                value.setD47(reset.getString(64));
+                value.setD48(reset.getString(65));
+                value.setD49(reset.getString(66));
+
+
+                lstBcqt_NT.add(value);
+            }
+
+            if (reset != null) {
+                reset.close();
+            }
+            if (calstatement != null) {
+                calstatement.close();
+            }
+//                if (conn != null) {
+//                    conn.close();
+//                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " getData_clech -> " + e.getMessage());
+            }       
+        return lstBcqt_NT;
     }
 
 }
