@@ -38,6 +38,11 @@
                 method="downloadQTTFileUpload">
             <result name="success">/viewfilebc.jsp</result>
         </action>
+        
+        <action name="vvc_downloadFileUpload" class="vbsp.ims.loveleaf.ExportFileAction" 
+                method="downloadVVCFileUpload">
+            <result name="success">/viewfilebc.jsp</result>
+        </action>
                            
         <action name="loveleaf_upload_file" class="vbsp.ims.loveleaf.PoorUploadAction"
         method="upload_file">

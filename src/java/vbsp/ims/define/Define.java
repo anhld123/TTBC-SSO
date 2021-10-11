@@ -182,4 +182,5 @@ public class Define {
     
     public static final String LOVE_LEAF_PROGRAM = "LOVELEAF";    
     public static final String VVC_PROGRAM = "VVC";    
+    public static final String QTT_PROGRAM = "QTT";    
 }

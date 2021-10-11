@@ -426,9 +426,9 @@ public class LoveLeafDao {
         }
     }
     
-    public void export_qtt_upload_file(String pv_tran_dt, String pv_file_path) {
+    public void export_qtt_upload_file(String pv_program,String pv_tran_dt, String pv_file_path) {
         String strStoreproce
-                = "{call app_loveleaf_proj.SP_QTT_EXPORT_UPLOADFILE(?, ? )}";
+                = "{call app_loveleaf_proj.SP_QTT_EXPORT_UPLOADFILE(?, ?, ? )}";
         try {
 //            if (conn == null) {
             daoConnect = new DaoConnect();
@@ -437,10 +437,11 @@ public class LoveLeafDao {
             ResultSet rs;
             try (CallableStatement calstatement = conn.prepareCall(strStoreproce,
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
-                calstatement.setString(1, pv_tran_dt);
-                calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
+calstatement.setString(1, pv_program);
+                calstatement.setString(2, pv_tran_dt);
+                calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.CURSOR);
                 calstatement.execute();
-                rs = (ResultSet) calstatement.getObject(2);
+                rs = (ResultSet) calstatement.getObject(3);
 
                 ExportExcelFile export = new ExportExcelFile();
 

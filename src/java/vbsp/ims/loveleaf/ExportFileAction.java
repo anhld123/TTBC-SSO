@@ -97,6 +97,25 @@ public class ExportFileAction
         return SUCCESS;
     }
     
+    public String downloadVVCFileUpload(){
+        try {
+            System.err.println("downloadVVCFileUpload -->Query date" + query_dt);
+            ExcelFileWriter writer = new ExcelFileWriter();
+            String file_path = Define.M_ROOT + Define.M_REPORT_XLS + "VVC.FileUploadTC."
+                    + DefineFun.convertStrDateFormat(query_dt, "dd/MM/yyyy", "ddMMyyyy")
+                    +".xls";
+            writer.export_vvc_uploadfile(file_path,
+                    DefineFun.convert2OracleDateFormat(query_dt)
+            );
+            File fileToDownload = new File(file_path);
+            filereport = fileToDownload.getName();      
+            fileNamelocal = file_path;
+        } catch (ParseException ex) {
+            Logger.getLogger(ExportFileAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return SUCCESS;
+    }
+    
     public long getContentLength() {
         return contentLength;
     }

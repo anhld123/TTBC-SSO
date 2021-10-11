@@ -7,6 +7,7 @@
 package vbsp.ims.loveleaf;
 
 import java.sql.ResultSet;
+import vbsp.ims.define.Define;
 
 
 /**
@@ -43,7 +44,17 @@ public class ExcelFileWriter {
     {
         String lv_file_path =  pv_file_name;
         LoveLeafDao loveLeafDao = new LoveLeafDao();
-        loveLeafDao.export_qtt_upload_file(pv_tran_dt, lv_file_path);                         
+        loveLeafDao.export_qtt_upload_file(Define.QTT_PROGRAM, pv_tran_dt, lv_file_path);                         
+    }
+    
+    public void export_vvc_uploadfile(
+            String pv_file_name,
+            String pv_tran_dt         
+    )
+    {
+        String lv_file_path =  pv_file_name;
+        LoveLeafDao loveLeafDao = new LoveLeafDao();
+        loveLeafDao.export_qtt_upload_file(Define.VVC_PROGRAM, pv_tran_dt, lv_file_path);                         
     }
     
 }
