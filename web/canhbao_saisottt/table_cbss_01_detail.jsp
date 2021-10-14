@@ -223,7 +223,7 @@
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">     
                     <tr>
-                        <td style="text-align: center;" class="expand">&raquo;</td>
+                        <td style="text-align: center;font-weight: bold;" class="expand">&raquo;</td>
                         <td align = "center">
                             <input type="hidden"  value="<s:property  value="D17"/>"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17"

@@ -84,16 +84,16 @@
             //const date = new Date();
             const formattedDate = date.toLocaleDateString('en-GB', {
               day: 'numeric', month: 'short', year: 'numeric'
-            }).replace(/ /g, '-');
+                    }).replace(/ /g, '-');
 //            alert(formattedDate)formattedDate
-            var numError = parseInt(document.getElementById(chkVal).value.replace(',', ''));
-                if (numError > 50) {
-                    alert('Vui lòng giải trình bằng file Excel');
-                } else {
-            var url = "getGiaitrinh.action?khoa_detail=" + khoa1 + khoa2 + "&ngay_bc=" + formattedDate+ "&mapgd=" + mapgd + "&strComment=" + comment;
-            popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
-             }
-        }
+                    var numError = parseInt(document.getElementById(chkVal).value.replace(',', ''));
+                    if (numError > 50) {
+                        alert('Vui lòng giải trình bằng file Excel');
+                    } else {
+                        var url = "getGiaitrinh.action?khoa_detail=" + khoa1 + khoa2 + "&ngay_bc=" + formattedDate + "&mapgd=" + mapgd + "&strComment=" + comment;
+                        popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+                    }
+                }
         
         function giaitrinhfile(khoa1, khoa2, tenfilexls) {
             var ht1 = 350;
@@ -258,7 +258,7 @@
                                 </s:if>                                
                                 <s:else>
                                     <td align = "center" class="TD_STT">
-                                           <a href="javascript:hienthichitiet('<s:property value="D1"/>','<s:property value="D3"/>','<s:property value="D4"/>')">
+                                           <a href="javascript:hienthichitiet('<s:property value="D1"/>','<s:property value="D3"/>','<s:property value="D4"/>','lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9')">
                                                Chi tiết
                                            </a>
                                         </td>
