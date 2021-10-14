@@ -17,8 +17,8 @@
     <head>        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css"  href="css/css/style.css" />
-        
-        
+
+
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
         <script type='text/javascript'>
@@ -37,7 +37,7 @@
             $('.TEN_KH').blur(function () {
                 $(this).closest('tr').removeClass('highlight_row');
             });
-            
+
             $.subscribe("beforediv_send", function (event, data) {
                 $("#loadingImageDiv_data").show();
             });
@@ -88,7 +88,7 @@
                 popup = window.open(url, "_blank",
                         "directories=no, status=no,width=550, height=200,top=0,left=0");
             }
-            
+
             function onSaveTmp()
             {
 //                $('#message_suc_err').empty();
@@ -101,8 +101,8 @@
                 $("#idSaveTmp")[0].click();
                 bsubmit = false;
             }
-            
-            
+
+
             function onSave()
             {
 //                $('#message_suc_err').empty();
@@ -115,8 +115,8 @@
                 $("#idSave")[0].click();
                 bsubmit = false;
             }
-            
-            
+
+
         </script>
         <style>
             textarea{
@@ -134,8 +134,8 @@
             .cls6{width: 110px;}
             .cls7{width: 110px;}
             .clsduyet{width: 5px;
-            font-size: 12px;
-            font-family: tahoma;}
+                      font-size: 12px;
+                      font-family: tahoma;}
             span{
                 font-family: Tahoma;
                 font-size: 12px;
@@ -167,35 +167,35 @@
             <table border="0" style="width: 95%"  align="center">
                 <tr>
                     <td>
-                                    <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
-                                        <img id="loadingImage" src='img/loading.gif' border='0' >
-                                    </div>
+                        <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
+                            <img id="loadingImage" src='img/loading.gif' border='0' >
+                        </div>
 
-                                </td>
-                                <td>
-                                    <div id = "divExportReport"></div>
-                                </td>            
+                    </td>
+                    <td>
+                        <div id = "divExportReport"></div>
+                    </td>            
                     <td style="text-align: right;">
-                                    <s:if test="Grade.equalsIgnoreCase('1')">                                       
-                                        <s:url id="idSavedataTmp" action="saveDataTmp.action"></s:url>                                      
-                                        <sj:submit id="idSaveTmp" name="nameSend" href="%{idSavedataTmp}" value="        Lưu nháp        " targets="divExportReport"
-                                                   onBeforeTopics="beforediv_send"
-                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                        <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSaveTmp()" value="        Lưu nháp        " class="update_gtrinh" style="color: yellow;background-color: #017230;"/>
-                                    </s:if> 
+                        <s:if test="Grade.equalsIgnoreCase('1')">                                       
+                            <s:url id="idSavedataTmp" action="saveDataTmp.action"></s:url>                                      
+                            <sj:submit id="idSaveTmp" name="nameSend" href="%{idSavedataTmp}" value="        Lưu nháp        " targets="divExportReport"
+                                       onBeforeTopics="beforediv_send"
+                                       onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                            <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSaveTmp()" value="        Lưu nháp        " class="update_gtrinh" style="color: yellow;background-color: #017230;"/>
+                        </s:if> 
                     </td>
                     <td style="color: red; font-family: Arial; font-size: 7px;">
                         <s:actionmessage escape="false"></s:actionmessage>
-                        
-                        <!--<td style="text-align: right; width: 120px">-->   
+
+                            <!--<td style="text-align: right; width: 120px">-->   
                         <td style="text-align: right; width: 100px">
-                                    <s:if test="Grade.equalsIgnoreCase('1')">                                       
-                                        <s:url id="idSavedata" action="saveGiaitrinhP001.action"></s:url>                                      
-                                        <sj:submit id="idSave" name="nameSend1" href="%{idSavedata}" value="Cập nhật giải trình" targets="divExportReport"
-                                                   onBeforeTopics="beforediv_send"
-                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                        <input type="button" id="idSendtmp1" name="nameidSendtmp1"  onclick="onSave()" value="Cập nhật giải trình" class="update_gtrinh" style="color: yellow;background-color: #017230;"/>
-                                    </s:if> 
+                        <s:if test="Grade.equalsIgnoreCase('1')">                                       
+                            <s:url id="idSavedata" action="saveGiaitrinhP001.action"></s:url>                                      
+                            <sj:submit id="idSave" name="nameSend1" href="%{idSavedata}" value="Cập nhật giải trình" targets="divExportReport"
+                                       onBeforeTopics="beforediv_send"
+                                       onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                            <input type="button" id="idSendtmp1" name="nameidSendtmp1"  onclick="onSave()" value="Cập nhật giải trình" class="update_gtrinh" style="color: yellow;background-color: #017230;"/>
+                        </s:if> 
                     </td>
                     </td>
                 </tr>
@@ -206,7 +206,8 @@
                         Ngày số liệu: <s:property  value="ngay_bc" /> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Tên PGD: <span id="strPGD" style="color: yellow;"></span> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Cảnh báo sai sót:  <s:property  value="strComment" />
                     </th>
                 </tr>
-                <tr style="font-size: 12px;">                                            
+                <tr style="font-size: 12px;">
+                    <th class="cls1">Mở rộng</th>
                     <th class="cls1">TT</th>
                     <th class="cls2">Tên tỉnh</th>    
                     <th class="cls4">Tên xã</th>
@@ -219,10 +220,10 @@
                         <input type="button" value="mở rộng/Thu nhỏ" class="cmdmorong" id="cmdmorong1">
                     </th>
                     <th>Duyệt</th>  
-                </tr>  
+                </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">     
-
-                    <tr>                                      
+                    <tr>
+                        <td style="text-align: center;" class="expand">&raquo;</td>
                         <td align = "center">
                             <input type="hidden"  value="<s:property  value="D17"/>"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17"
@@ -280,7 +281,6 @@
                             </td>
                         </s:if>
                     </tr>                        
-
                 </s:iterator>
             </table>                    
         </s:form>
@@ -294,30 +294,40 @@
                         $("textarea").each(function () {
                             this.style.height = this.scrollHeight + "px";
                         });
-                    };
+                    }
+                    ;
                 });
                 $("#strPGD").html($("#idPGD").val());
+                $(".expand").click(function () {
+                    $("textarea").css("height", "20px");
+                    var set_height = $(".sNoiDung:eq(" + ($(this).closest("tr").index() - 2) + ")").prop('scrollHeight');
+                    $(".sNoiDung:eq(" + ($(this).closest("tr").index() - 2) + ")").css('height',set_height);
+                    $(".sGiaitrinh:eq(" + ($(this).closest("tr").index() - 2) + ")").css('height',set_height);
+                });
             });
             function auto_grow(element) {
                 $(element).css("height", (element.scrollHeight) + "px");
                 $("#chkChange").val('change');
-            };
-            function chkChangVal(element){
-               var chkChange = $("#chkChange").val();
-               if(element==''){
-                   if (chkChange == 'change'){
-                        var chkval = confirm('Dữ liệu của bạn chưa được lưu.Bạn có muốn tiếp tục đóng cửa sổ không ?');
-                        if(chkval==true){
-                           window.close();
-                        }
-                    };
-               }else{
-                  $("#chkChange").val(null);
-                  $("#btnSubmit").trigger('click'); 
-               };
             }
-           window.onbeforeunload = chkChangVal('');
-           
+            ;
+            function chkChangVal(element) {
+                var chkChange = $("#chkChange").val();
+                if (element == '') {
+                    if (chkChange == 'change') {
+                        var chkval = confirm('Dữ liệu của bạn chưa được lưu.Bạn có muốn tiếp tục đóng cửa sổ không ?');
+                        if (chkval == true) {
+                            window.close();
+                        }
+                    }
+                    ;
+                } else {
+                    $("#chkChange").val(null);
+                    $("#btnSubmit").trigger('click');
+                }
+                ;
+            }
+            window.onbeforeunload = chkChangVal('');
+
         </script>
     </body>
 </html>
