@@ -87,7 +87,7 @@
 //            //Cac truong bang so --> se co so truong = 0
             $('.number2').number(true, 0);
             $(".MA_PGD_DP").css({"width": "60px"});
-            $(".TEN_KH").css({"width": "130px"});
+            $(".TEN_KH").css({"width": "140px"});
             $(".SOKU").css({"width": "115px"});
             $(".GOC_RR").css({"width": "70px"});
 //            $(".GOC_RR").css({"border": "1px solid #18ab29"});
@@ -381,15 +381,15 @@
                         </td>
                         <!--thay doi ve gia tri khong co de ngay vao else-->
                         <s:if test="reportGrade<'4'">
-                            <td align = "left" >
+                            <td align = "left" class="TEN_KH">
                                 <input type="text" value="<s:property  value="sTenkh" />" 
-                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sTenkh" class="TEN_KH" onfocus="this.select()" readonly="true" />
+                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sTenkh"  onfocus="this.select()" readonly="true" style="width: 100%;" />
                             </td>
                         </s:if>
                         <s:else>
-                            <td align = "left" >
+                            <td align = "left" class="TEN_KH">
                                 <input type="text" value="<s:property  value="sTenkh" />" 
-                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sTenkh" class="TEN_KH" onfocus="this.select()" />
+                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sTenkh" onfocus="this.select()" style="width: 100%;"/>
                             </td>
                         </s:else>
 
