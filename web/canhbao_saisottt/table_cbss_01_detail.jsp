@@ -219,7 +219,9 @@
                     <th class="cls9">Giải trình
                         <input type="button" value="mở rộng/Thu nhỏ" class="cmdmorong" id="cmdmorong1">
                     </th>
-                    <th>Duyệt</th>  
+                     <s:if test="Grade.equalsIgnoreCase('2')">
+                        <th>Duyệt</th>  
+                     </s:if>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">     
                     <tr>
@@ -262,11 +264,6 @@
                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16"
                                       rows="3" <s:property value='D29'/>><s:property value='D16'/></textarea>
                         </td>
-                        <s:if test="Grade.equalsIgnoreCase('1')">
-                            <td class="clsduyet">
-                                <s:property  value="D30"/>
-                            </td>
-                        </s:if>
                         <s:if test="Grade.equalsIgnoreCase('2')">
                             <td align = "center" style="font-size:12px; color: red; font-weight: bold;">
                                 <s:url id="authCbssUrl" value="pheduyetP001.action">
