@@ -537,9 +537,7 @@
                                             name="lstDulieuNt50[%{#rowstatus.index}].D11"
                                             list="lstThangvay" 
                                             listKey="sKey"
-                                            listValue="sDesc"
-                                            headerKey="-1"
-                                            headerValue="--- Chọn ---"                                    
+                                            listValue="sDesc"                              
                                             cssStyle="width: 100%;vertical-align: middle;background-color: #FFCCBA; TEN_KH">
                                         </s:select>
                                     </td>  

@@ -400,7 +400,7 @@
                                 <td><input type="text" value="<s:property value='sTenqd'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
                             </tr>
                             <tr class="cscontent">
-                                <td><input type="text" value="01: khoanh nợ, 02: gia hạn, 03: Xóa nợ" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                                <td><input type="text" value="01: Gia hạn, 02: Khoanh nợ, 03: Xóa nợ" name="maPGD" class="maPGD" readonly="readonly"/></td>
                                 <td><input type="text" value="<s:property value='sNhomrr'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
                             </tr>
                             <tr class="cscontent">
