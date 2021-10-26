@@ -202,8 +202,15 @@
                 <s:hidden name="soku_reject" id="soku_reject"/>
                 <s:hidden name="dot_xlrr" id="dot_xlrr"/>
                 <s:hidden name="vb_xlrr" id="vb_xlrr"/>
+                <s:hidden name="capPheDuyet" id="capPheDuyet"/>
                 <div id="divChiTieu" style="">
-                    <span id="idTitle">Thông tin chi tiết khách hàng từ chối xử lý rủi ro</span>
+                    <s:if test="capPheDuyet==3">
+                        <span id="idTitle">Thông tin chi tiết khách hàng chưa đủ điều kiện xử lý</span>
+                    </s:if> 
+                    <s:else>
+                        <span id="idTitle">Thông tin chi tiết khách hàng từ chối xử lý rủi ro</span>
+                    </s:else>
+                    <%--<s:property value='capPheDuyet'/>--%>
                     <hr/>
                     <s:iterator value="lstTableRiskObj">
                         <table border="1px" id="tableKhnv" class="tableKhnv">
@@ -260,7 +267,13 @@
                         <table class="tableKhnv" align="center">
                             <tr align="center">
                                 <td colspan="2" align="center">
-                                    <span id="idTitle">Nhập nguyên nhân từ chối</span>
+                                     <s:if test="capPheDuyet==3">
+                                            <span id="idTitle">Nhập nguyên nhân chưa đủ điều kiện xử lý</span>
+                                        </s:if> 
+                                        <s:else>
+                                            <span id="idTitle">Nhập nguyên nhân từ chối</span>
+                                        </s:else>    
+                                    
                                 </td>
                             </tr>
                             <tr align="center">
