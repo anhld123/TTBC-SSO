@@ -89,6 +89,11 @@ public class ModelRiskProcess {
     public String sNguoiduyet_04;
     public String sNgayduyet_04;
     
+    public String sNgay_giahan;
+    public BigDecimal dSotien_giahan;
+    public String sNgay_giaodichgn;
+    public BigDecimal dSodu_Casa105;
+    public BigDecimal dRPA;
     
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Get set cho method">
@@ -99,6 +104,15 @@ public class ModelRiskProcess {
     public void setsSoku(String sSoku) {
         this.sSoku = sSoku;
     }
+
+    public String getsNgay_giaodichgn() {
+        return sNgay_giaodichgn;
+    }
+
+    public void setsNgay_giaodichgn(String sNgay_giaodichgn) {
+        this.sNgay_giaodichgn = sNgay_giaodichgn;
+    }
+    
     
     public String getsMakh() {
         return sMakh;
@@ -660,6 +674,40 @@ public class ModelRiskProcess {
         this.sNgayduyet_04 = sNgayduyet_04;
     }
 
+    public String getsNgay_giahan() {
+        return sNgay_giahan;
+    }
+
+    public void setsNgay_giahan(String sNgay_giahan) {
+        this.sNgay_giahan = sNgay_giahan;
+    }
+
+    public BigDecimal getdSotien_giahan() {
+        return dSotien_giahan;
+    }
+
+    public void setdSotien_giahan(BigDecimal dSotien_giahan) {
+        this.dSotien_giahan = dSotien_giahan;
+    }
+
+
+    public BigDecimal getdSodu_Casa105() {
+        return dSodu_Casa105;
+    }
+
+    public void setdSodu_Casa105(BigDecimal dSodu_Casa105) {
+        this.dSodu_Casa105 = dSodu_Casa105;
+    }
+
+    public BigDecimal getdRPA() {
+        return dRPA;
+    }
+
+    public void setdRPA(BigDecimal dRPA) {
+        this.dRPA = dRPA;
+    }
+
+    
   
 
 //</editor-fold>

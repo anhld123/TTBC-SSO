@@ -48,7 +48,7 @@ diennoidung_tuchoi<%--
         $(document).ready(function () {
             $('input.number').css({"text-align": "right"});
             $('input.number2').css({"text-align": "right"});
-            $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+            $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
             $('#ui-datepicker-div').css('clip', 'auto');
 //            $('input.number2').css({"width": "70px"});
             //Cac truong bang so --> se co so truong = 0
@@ -107,11 +107,11 @@ diennoidung_tuchoi<%--
 //                    alert(poscd);
 //            poscd = poscd.replace(' '/g, "");
 //            var url = "getDetialCustomer.action?soku=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&vb_xlrr=" + vb_xlrr;
-             var url = "getDetialCustomer.action?soku=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr
+            var url = "getDetialCustomer.action?soku=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr
                     + "&trangthai_xlrr=" + trangthai_xlrr + "&nhom_xlrr=" + nhom_xlrr + "&chuongtrinh=" + chuongtrinh + "&poscd=" + poscd
                     + "&vb_xlrr=" + vb_xlrr;
 //        alert(url)
-            
+
 //                    + "&trangthai_xlrr=" + trangthai_xlrr + "&nhom_xlrr=" + nhom_xlrr + "&chuongtrinh=" + chuongtrinh + "&poscd=" + poscd;
             //cong them chuoi doan "&namBc="+namBc de lay nam bao cao
             var resize = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
@@ -202,8 +202,7 @@ diennoidung_tuchoi<%--
 //                    $("#result").html('<span style="font-weight: bold; color">Thông báo:</span>  Bạn chưa nhập đầy đủ dữ liệu!');
                 focus();
                 return false;
-            }
-            else {
+            } else {
                 //Neu la kieu so --> Kiem tra xem kieu nhap co > 0 
 //                if (parseFloat(value) < 0) {
 //                    result = false;
@@ -240,6 +239,7 @@ diennoidung_tuchoi<%--
             <s:hidden name="nguon_von" id="nguon_von"/>
             <s:hidden name="search_soku" id="idsearch_soku"/>
             <s:hidden name="vb_xlrr" id="vb_xlrr"/>
+            <s:hidden name="capPheDuyet" id="capPheDuyet"/>
             <!--<div style="margin: 7px 7px 7px 7px;" align="center">-->
             <table cellpadding="0" cellspacing="0" class="my-table" align="center" style="padding: 3px 0px 3px 3px; width: 99%">
                 <tr>     
@@ -274,7 +274,13 @@ diennoidung_tuchoi<%--
                     <th class="TUCHOI">Tháng DN</th> 
                     <th class="NGUYEN_NHAN">Nguyên nhân</th> 
                     <th class="SOKU">Trạng thái</th> 
-                    <th class="TUCHOI">Từ chối</th> 
+                    <s:if test="capPheDuyet.equalsIgnoreCase('3')">
+                    <th class="TUCHOI">Từ chối</th>
+                    </s:if> 
+                    <s:else>
+                    <th class="TUCHOI">Chưa đủ Đk XL</th>
+                    </s:else>
+
                 </tr>
                 <s:iterator value="#attr.lstTableRiskObj" var="modelRisk" status="rowstatus">
                     <s:if test="#rowstatus.even == true">
@@ -294,18 +300,18 @@ diennoidung_tuchoi<%--
                             </s:else>
                         </td>
                         <!--thay doi ve gia tri khong co de ngay vao else-->
-                    <s:if test="reportGrade<'4'">
-                        <td align = "left" >
-                        <input type="text" value="<s:property  value="sTenkh" />" 
-                               name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sTenkh" class="TEN_KH" onfocus="this.select()" readonly="true" />
-                        </td>
-                    </s:if>
-                    <s:else>
-                        <td align = "left" >
-                        <input type="text" value="<s:property  value="sTenkh" />" 
-                               name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sTenkh" class="TEN_KH" onfocus="this.select()" />
-                        </td>
-                    </s:else>
+                        <s:if test="reportGrade<'4'">
+                            <td align = "left" >
+                                <input type="text" value="<s:property  value="sTenkh" />" 
+                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sTenkh" class="TEN_KH" onfocus="this.select()" readonly="true" />
+                            </td>
+                        </s:if>
+                        <s:else>
+                            <td align = "left" >
+                                <input type="text" value="<s:property  value="sTenkh" />" 
+                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sTenkh" class="TEN_KH" onfocus="this.select()" />
+                            </td>
+                        </s:else>
                         <td align = "center">
                             <a href="javascript:hienthichitiet('<s:property value="sSoku"/>')" class="SOKU linkKh">
                                 <s:property value='sSoku'/>
@@ -317,21 +323,31 @@ diennoidung_tuchoi<%--
 
                             <td align = "right">
                                 <input type="text" value="<s:property value='dbXl_Duno'/>" name="lstRisk[<s:property  value="%{#rowstatus.index}" />].duno_rr" class="GOC_RR_EDIT number2"
-                                       onblur="if (this.value == '') {this.value = 0};isNumber(this.value)" readonly="true"/>
+                                       onblur="if (this.value == '') {
+                                                   this.value = 0
+                                               }
+                                               ;
+                                               isNumber(this.value)" readonly="true"/>
                             </td>
                             <td align = "right">
                                 <input type="text" value="<s:property value='dbXl_Lai'/>" name="lstRisk[<s:property  value="%{#rowstatus.index}" />].lai_rr" class="GOC_RR_EDIT number2" 
-                                       onblur="if (this.value == '') {this.value = 0};isNumber(this.value)" readonly="true"/>
+                                       onblur="if (this.value == '') {
+                                                   this.value = 0};isNumber(this.value)" readonly="true"/>
                             </td>
                         </s:if>
                         <s:else>
                             <td align = "right">
                                 <input type="text" value="<s:property value='dbDnghi_Dno'/>" name="lstRisk[<s:property  value="%{#rowstatus.index}" />].duno_rr" class="GOC_RR_EDIT number2"
-                                       onblur="if (this.value == '') {this.value = 0};isNumber(this.value)" readonly="true"/>
+                                       onblur="if (this.value == '') {
+                                                   this.value = 0};isNumber(this.value)" readonly="true"/>
                             </td>
                             <td align = "right">
                                 <input type="text" value="<s:property value='dbDnghi_Lai'/>" name="lstRisk[<s:property  value="%{#rowstatus.index}" />].lai_rr" class="GOC_RR_EDIT number2" 
-                                       onblur="if (this.value == '') {this.value = 0};isNumber(this.value)" readonly="true"/>
+                                       onblur="if (this.value == '') {
+                                                   this.value = 0
+                                               }
+                                               ;
+                                               isNumber(this.value)" readonly="true"/>
                             </td>
                         </s:else>                     
 
@@ -339,83 +355,93 @@ diennoidung_tuchoi<%--
                             <input type="text" value="<s:property  value="sChtrinh" />" name="sChtrinh" class="CHUONG_TRINH" onfocus="this.select()" readonly="true"/>
 
                         </td>
-                         <!--voi cap pgd do khong cho sua ngay nen khong de datepicker-->
-                     <!--thay doi ve gia tri khong co de ngay vao else-->
-                    <s:if test="reportGrade<'4'">
-                    <td align = "center">
-                        <input type="text" value="<s:property  value="sNgayvay" />" 
-                               name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNgayvay" placeholder="dd/MM/yyyy" 
-                               class="NGAY_RR" onfocus="this.select()" readonly="true"/>
-                    </td>
-                    <td align = "center">
-                        <input type="text" value="<s:property  value="sNgaydh" />" 
-                               name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNgaydh" placeholder="dd/MM/yyyy" 
-                               class="NGAY_RR" onfocus="this.select()" readonly="true"/>
-                    </td>    
-                    <td align = "center">
-                        <input type="text" value="<s:property  value="sNgayrr" />" 
-                               name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNgayrr" placeholder="dd/MM/yyyy" 
-                               class="NGAY_RR" onfocus="this.select()" readonly="true"/>
-                    </td>
-                    <td align = "center">
-                        <input type="text" value="<s:property  value="dbMdthiethai" />" 
-                               name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sThiethai" 
-                               class=" number2" onfocus="this.select()" onblur="if (this.value == '') {this.value = 0};isNumber(this.value)" readonly="true"/>                        
-                    </td>
-                    </td>
-                    </s:if>
-                    
-                     <!--voi cap cn va tw do cho sua ngay nen de datepicker-->
-                     <!--khong cho dien ngay truc tiep ma cho chon tren datepicker-->
-                    <s:else>
-                        <td align = "center">
-                            <input type="text" value="<s:property  value="sNgayvay" />" 
-                                   name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNgayvay" placeholder="dd/MM/yyyy" 
-                                   class="NGAY_RR datepicker" onfocus="this.select()" readonly="true"/>
-                        </td>
-                        <td align = "center">
-                            <input type="text" value="<s:property  value="sNgaydh" />" 
-                                   name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNgaydh" placeholder="dd/MM/yyyy" 
-                                   class="NGAY_RR datepicker" onfocus="this.select()" readonly="true"/>
-                        </td>    
-                        <td align = "center">
-                            <input type="text" value="<s:property  value="sNgayrr" />" 
-                                   name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNgayrr" placeholder="dd/MM/yyyy" 
-                                   class="NGAY_RR datepicker" onfocus="this.select()" readonly="true"/>
-                        </td>
-                        <td align = "center">
-                            <input type="text" value="<s:property  value="dbMdthiethai" />"
-                                   name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sThiethai" 
-                                   class="TUCHOI number2" onfocus="this.select()" onblur="if (this.value == '') {this.value = 0};isNumber(this.value)"/>                        
-                        </td>
-                        </td>
-                    </s:else>
+                        <!--voi cap pgd do khong cho sua ngay nen khong de datepicker-->
+                        <!--thay doi ve gia tri khong co de ngay vao else-->
+                        <s:if test="reportGrade<'4'">
+                            <td align = "center">
+                                <input type="text" value="<s:property  value="sNgayvay" />" 
+                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNgayvay" placeholder="dd/MM/yyyy" 
+                                       class="NGAY_RR" onfocus="this.select()" readonly="true"/>
+                            </td>
+                            <td align = "center">
+                                <input type="text" value="<s:property  value="sNgaydh" />" 
+                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNgaydh" placeholder="dd/MM/yyyy" 
+                                       class="NGAY_RR" onfocus="this.select()" readonly="true"/>
+                            </td>    
+                            <td align = "center">
+                                <input type="text" value="<s:property  value="sNgayrr" />" 
+                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNgayrr" placeholder="dd/MM/yyyy" 
+                                       class="NGAY_RR" onfocus="this.select()" readonly="true"/>
+                            </td>
+                            <td align = "center">
+                                <input type="text" value="<s:property  value="dbMdthiethai" />" 
+                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sThiethai" 
+                                       class=" number2" onfocus="this.select()" onblur="if (this.value == '') {
+                                           this.value = 0};isNumber(this.value)" readonly="true"/>                        
+                            </td>
+                            </td>
+                        </s:if>
 
-                    <s:if test="reportGrade.equalsIgnoreCase('3')">
-                        <td align = "center" class="NGUYEN_NHAN_EDIT">
-                           <input type="text" value="<s:property  value="dbPduyet_Tg" />" name="lstRisk[<s:property  value="%{#rowstatus.index}" />].thang" class="NGUYEN_NHAN_EDIT number2" onfocus="this.select()"  
-                                  onblur="if (this.value == '') {this.value = 0};isNumber(this.value)" readonly="true"/>
-                           </td>
-                   </s:if>
-                   <s:else>
-                       <td align = "center" class="NGUYEN_NHAN_EDIT">
-                           <input type="text" value="<s:property  value="dbDnghi_Tg" />" name="lstRisk[<s:property  value="%{#rowstatus.index}" />].thang" class="NGUYEN_NHAN_EDIT number2" onfocus="this.select()"  
-                              onblur="if (this.value == '') {this.value = 0};isNumber(this.value)" readonly="true"/>
-                       </td>
-                   </s:else>
-                         <!--thay doi ve gia tri khong co de ngay vao else-->
-                    <s:if test="reportGrade<'4'">
-                        <td align = "center">
-                            <input type="text" value="<s:property  value="sNguyennhan" />" 
-                                   name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNguyennhan" class="NGUYEN_NHAN" onfocus="this.select()" readonly="true" size="2" maxlength="2"/>
-                        </td>
-                    </s:if>
-                    <s:else>
-                        <td align = "center">
-                            <input type="text" value="<s:property  value="sNguyennhan" />" 
-                                   name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNguyennhan" class="NGUYEN_NHAN" onfocus="this.select()" size="2" maxlength="2"/>
-                        </td>
-                    </s:else>
+                        <!--voi cap cn va tw do cho sua ngay nen de datepicker-->
+                        <!--khong cho dien ngay truc tiep ma cho chon tren datepicker-->
+                        <s:else>
+                            <td align = "center">
+                                <input type="text" value="<s:property  value="sNgayvay" />" 
+                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNgayvay" placeholder="dd/MM/yyyy" 
+                                       class="NGAY_RR datepicker" onfocus="this.select()" readonly="true"/>
+                            </td>
+                            <td align = "center">
+                                <input type="text" value="<s:property  value="sNgaydh" />" 
+                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNgaydh" placeholder="dd/MM/yyyy" 
+                                       class="NGAY_RR datepicker" onfocus="this.select()" readonly="true"/>
+                            </td>    
+                            <td align = "center">
+                                <input type="text" value="<s:property  value="sNgayrr" />" 
+                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNgayrr" placeholder="dd/MM/yyyy" 
+                                       class="NGAY_RR datepicker" onfocus="this.select()" readonly="true"/>
+                            </td>
+                            <td align = "center">
+                                <input type="text" value="<s:property  value="dbMdthiethai" />"
+                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sThiethai" 
+                                       class="TUCHOI number2" onfocus="this.select()" onblur="if (this.value == '') {
+                                               this.value = 0};isNumber(this.value)"/>                        
+                            </td>
+                            </td>
+                        </s:else>
+
+                        <s:if test="reportGrade.equalsIgnoreCase('3')">
+                            <td align = "center" class="NGUYEN_NHAN_EDIT">
+                                <input type="text" value="<s:property  value="dbPduyet_Tg" />" name="lstRisk[<s:property  value="%{#rowstatus.index}" />].thang" class="NGUYEN_NHAN_EDIT number2" onfocus="this.select()"  
+                                       onblur="if (this.value == '') {
+                                              this.value = 0
+                                          }
+                                          ;
+                                          isNumber(this.value)" readonly="true"/>
+                            </td>
+                        </s:if>
+                        <s:else>
+                            <td align = "center" class="NGUYEN_NHAN_EDIT">
+                                <input type="text" value="<s:property  value="dbDnghi_Tg" />" name="lstRisk[<s:property  value="%{#rowstatus.index}" />].thang" class="NGUYEN_NHAN_EDIT number2" onfocus="this.select()"  
+                                       onblur="if (this.value == '') {
+                                          this.value = 0
+                                      }
+                                      ;
+                                      isNumber(this.value)" readonly="true"/>
+                            </td>
+                        </s:else>
+                        <!--thay doi ve gia tri khong co de ngay vao else-->
+                        <s:if test="reportGrade<'4'">
+                            <td align = "center">
+                                <input type="text" value="<s:property  value="sNguyennhan" />" 
+                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNguyennhan" class="NGUYEN_NHAN" onfocus="this.select()" readonly="true" size="2" maxlength="2"/>
+                            </td>
+                        </s:if>
+                        <s:else>
+                            <td align = "center">
+                                <input type="text" value="<s:property  value="sNguyennhan" />" 
+                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNguyennhan" class="NGUYEN_NHAN" onfocus="this.select()" size="2" maxlength="2"/>
+                            </td>
+                        </s:else>
                         <td align = "center">
                             <input type="text" value="<s:property  value="sTrangthai" />" name="sTrangthai" class="SOKU" onfocus="this.select()" readonly="true"/>
 
@@ -429,7 +455,12 @@ diennoidung_tuchoi<%--
                             <%--<sj:a targets="divBrowseRisk" href="%{idRejectRisk}">Từ chối</sj:a>--%>
                             <a href="javascript:diennoidung_tuchoi_62('<s:property value="sSoku"/>')" class="SOKU linkKh">
                                 <%--<s:property value='sSoku'/>--%>
-                                Từ chối
+                                <s:if test="capPheDuyet.equalsIgnoreCase('3')">
+                                    Từ chối
+                                </s:if> 
+                                <s:else>
+                                    Chưa đủ Đk XL
+                                </s:else>
                             </a>
                         </td>
                     </tr>

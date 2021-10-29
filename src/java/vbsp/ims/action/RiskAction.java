@@ -850,6 +850,17 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             //Lay du lieu dua ra list table
             lstTableRiskObj = new DaoProcessRisk().getDetailCustomer(sUserName, reportGrade, ArrlstPosCd,
                     nam_xlrr, dot_xlrr, nhom_xlrr, trangthai_xlrr, chuongtrinh, sSoku, vb_xlrr);
+            if (lstTableRiskObj == null || lstTableRiskObj.isEmpty()) {
+                setMessage("Vui lòng kiểm tra lại Đợt xử và nhóm nợ");
+                return ERROR;
+            }
+            capPheDuyet = new DaoProcessRisk().getCapPheduyetQD62(sUserName, reportGrade);
+            if (capPheDuyet == 3)
+            {
+                return "success_ks";
+            }
+            else
+                return SUCCESS;
         } catch (Exception e) {
             System.err.println(e.getMessage());
             CoreLogger.error(this.getClass().getCanonicalName() + " getDetialCustomer -> " + e.getMessage());
@@ -982,6 +993,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
                 setMessage("Không thể kết nối cơ sở dữ liệu ");
                 return ERROR;
             }
+            capPheDuyet = daoRisk.getCapPheduyetQD62(sUserName, reportGrade);
             //Lay ra tổng số bản ghi của du liêu để phân trang
             if (pagination.getStart() == 0) {
 //            System.err.println("Thiet lap de lay tong so row data " + pagination.getStart() + " thang end " + pagination.getEnd());
@@ -1188,6 +1200,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
                 setMessage("Không thể lấy ra được cấp báo cáo \"reportGrade\" bạn phải logout hệ thống sau đó đăng nhập lại ");
                 return ERROR;
             }
+            capPheDuyet = new DaoProcessRisk().getCapPheduyetQD62(sUserName, reportGrade);
             String sSoku = request.getParameter("soku");
             setSoku_reject(sSoku);
             nam_xlrr = request.getParameter("nam_xlrr");
@@ -1799,6 +1812,13 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
                 ArrlstPosCd.remove("999999");
 
             }
+            capPheDuyet = daoRisk.getCapPheduyetQD62(sUserName, reportGrade);
+            if(capPheDuyet==3)
+            {
+                setMessage("Với người dùng thuộc Ban kiểm soát vui lòng tìm kiếm và duyệt theo từng món vay!");
+                return ERROR;
+            }
+            
             int nstt = 1;
             BigDecimal bTonggoc = BigDecimal.ZERO;
             BigDecimal bTonglai = BigDecimal.ZERO;
