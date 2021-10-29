@@ -332,6 +332,7 @@
         
         <action name="COVID_03" class="vbsp.ims.nhaptaycn.action.COVID_03"  method="load">
             <result name="success">/nhaptay-cn/table_covid_03.jsp</result>                
+            <result name="test">/nhaptay-cn/table_test_api.jsp</result>                
             <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>
 

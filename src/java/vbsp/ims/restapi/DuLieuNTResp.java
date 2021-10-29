@@ -1,0 +1,61 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package vbsp.ims.restapi;
+
+import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author HP
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+
+public class DuLieuNTResp {
+
+    private boolean isSuccess;
+    private float code;
+    private String message;
+    ArrayList< DuLieuNTRow> result = new ArrayList<>();
+
+    // Getter Methods 
+    public boolean getIsSuccess() {
+        return isSuccess;
+    }
+
+    public float getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    // Setter Methods 
+    public void setIsSuccess(boolean isSuccess) {
+        this.isSuccess = isSuccess;
+    }
+
+    public void setCode(float code) {
+        this.code = code;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public ArrayList<DuLieuNTRow> getResult() {
+        return result;
+    }
+
+    public void setResult(ArrayList<DuLieuNTRow> result) {
+        this.result = result;
+    }
+    
+    
+}

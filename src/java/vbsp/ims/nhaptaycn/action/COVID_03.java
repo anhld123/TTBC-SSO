@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package vbsp.ims.nhaptaycn.action;
 
 import static com.opensymphony.xwork2.Action.ERROR;
@@ -46,41 +45,121 @@ import vbsp.ims.dao.DaoDCPLNO;
 import vbsp.ims.define.Define;
 import vbsp.ims.define.DefineFun;
 import vbsp.ims.log.CoreLogger;
+import vbsp.ims.restapi.DuLieuNTRow;
+import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.tdnn.DaoTdnnMain;
 import vbsp.ims.xml.XmlKtgsSync;
+import vbsp.ims.util.DateUtil;
 
 /**
  *
  * @author Trung
  */
-public class COVID_03 extends ActionNhaptaycnMain 
-        
-        
-implements NhaptaycnFunction{
-    
+public class COVID_03 extends ActionNhaptaycnMain
+        implements NhaptaycnFunction {
+
+    DuLieuNTService service;
+
     @Override
-    public String load(){
-       try {
+    public String load() {
+//       try {
+//            System.err.println("COVID_03");
+//            if (!getParaSession()) {
+//                return ERROR;
+//            }
+//            HashMap hmParameter = getParameter();
+//            Connection conn = new DaoConnect().getConnect();
+//            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();            
+//                lstDulieuNt = daoMain.getDataCovid_03(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(),UserName, Grade,poscd, "", hmParameter.get("nha_dt").toString() );
+////                setLstCBKetoan(daoMain.getCanBo(UserName,"LT"));
+//            if (conn != null) {
+//                conn.close();
+//            }                                       
+//        } catch (Exception e) {
+//            CoreLogger.error(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
+//            System.err.println(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
+//        }        
+//        return SUCCESS;
+        try {
             System.err.println("COVID_03");
             if (!getParaSession()) {
                 return ERROR;
             }
-            HashMap hmParameter = getParameter();
-            Connection conn = new DaoConnect().getConnect();
-            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();            
-                lstDulieuNt = daoMain.getDataCovid_03(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(),UserName, Grade,poscd, "", hmParameter.get("nha_dt").toString() );
+//            HashMap hmParameter = getParameter();
+//            Connection conn = new DaoConnect().getConnect();
+//            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+//            lstDulieuNt = daoMain.getDataCovid_03(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, "", hmParameter.get("nha_dt").toString());
 //                setLstCBKetoan(daoMain.getCanBo(UserName,"LT"));
-            if (conn != null) {
-                conn.close();
-            }                                       
+//            if (conn != null) {
+//                conn.close();
+//            }
+
+            service = new DuLieuNTService();
+            ArrayList<DuLieuNTRow> lstData = service.getData("COVID_03", "000401", "S", "20210630");
+            for (DuLieuNTRow item : lstData) {
+                QT_DULIEU_NT row = new QT_DULIEU_NT();
+                row.setKHOA(item.getKey());
+                //row.setTHUTU(int.parseInt( item.getOrderValue()));                
+                row.setTT_HIENTHI(item.getOrderDescription());
+                row.setMA(item.getCode());
+                row.setTEN(item.getName());
+                
+                Date reportDate = DateUtil.toDate( item.getReportDate());
+                row.setNGAYBC(reportDate);
+                //row.setNAMBC(item.getReportYear());
+                row.setMAPGD(item.getPosCode());
+                row.setCO_TONGHOP(item.getPosFlag());
+                row.setMACN(item.getBranchCode());
+                row.setNGUOI_NHAP(item.getMakerId());
+                //row.setNGAY_NHAP(item.getMakerDate());
+                Date makerDate = DateUtil.toDate( item.getMakerDate());
+                row.setNGAY_NHAP(makerDate);
+                row.setNGUOI_DUYET(item.getAuthoriseId());
+                //row.setNGAY_DUYET(item.getAuthoriseDate());
+                Date authoriseDate = DateUtil.toDate( item.getAuthoriseDate());
+                row.setNGAY_DUYET(authoriseDate);
+                row.setD1(item.getD1());
+                row.setD2(item.getD2());
+                row.setD3(item.getD3());
+                row.setD4(item.getD4());
+                row.setD5(item.getD5());
+                row.setD6(item.getD6());
+                row.setD7(item.getD7());
+                row.setD8(item.getD8());
+                row.setD9(item.getD9());
+                row.setD10(item.getD10());
+                row.setD11(item.getD11());
+                row.setD12(item.getD12());
+                row.setD13(item.getD13());
+                row.setD14(item.getD14());
+                row.setD15(item.getD15());
+                row.setD16(item.getD16());
+                row.setD17(item.getD17());
+                row.setD18(item.getD18());
+                row.setD19(item.getD19());
+                row.setD20(item.getD20());
+                row.setD21(item.getD21());
+                row.setD22(item.getD22());
+                row.setD23(item.getD23());
+                row.setD24(item.getD24());
+                row.setD25(item.getD25());
+                row.setD26(item.getD26());
+                row.setD27(item.getD27());
+                row.setD28(item.getD28());
+                row.setD29(item.getD29());
+                row.setD30(item.getD30());
+                row.setNHAPTAY(item.getManualFlag());
+                row.setFONTFORMAT(item.getFontFormat());
+                row.setKIEUIN(item.getStyle());
+                lstDulieuNt.add(row);
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
-        }        
-        return SUCCESS;
+        }
+        return "test";
     }
-    
 
     @Override
     public String save() {
@@ -99,42 +178,40 @@ implements NhaptaycnFunction{
 //                        lstDat.add(value.getD2());
 //                    }
 //            }            
-            
-            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();    
-            HashMap hmParameter = getParameter();            
-            
+
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            HashMap hmParameter = getParameter();
+
 //            String iCheck = daoMain.checkData_Info(lstDulieuNt,khoa_nhaptaycn,hmParameter.get("ngay_bc").toString(),UserName, Grade, lstDat);
 //            if(!iCheck.equals("XXXAAA"))
 //            {
 //                addActionError("Lỗi! "+ iCheck);
 //                    return ERROR; 
 //            }                        
-            
-            if(!daoMain.saveCoVid03(khoa_nhaptaycn, UserName, "",hmParameter.get("ngay_bc").toString(), lstDulieuNt))
-            {
+            if (!daoMain.saveCoVid03(khoa_nhaptaycn, UserName, "", hmParameter.get("ngay_bc").toString(), lstDulieuNt)) {
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;
-            } 
+            }
 
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
-                return ERROR;
+            return ERROR;
         }
         addActionMessage("Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
-    }   
-    
-    public String UploadPL02(){
-       try {                                     
+    }
+
+    public String UploadPL02() {
+        try {
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
-        }        
+        }
         return SUCCESS;
     }
-    
+
     public String uploadCoVid() {
         try {
             System.err.println("Upload file");
@@ -147,7 +224,7 @@ implements NhaptaycnFunction{
                 return ERROR;
             }
             String pattern = "dd-MMM-yyyy";
-                String sNgayBC = hmParameter.get("ngay_bc").toString();
+            String sNgayBC = hmParameter.get("ngay_bc").toString();
             String new_file_path = copy_file();
             File new_file = new File(new_file_path);
             DaoNhaptaycnMain dao = new DaoNhaptaycnMain();
@@ -165,29 +242,28 @@ implements NhaptaycnFunction{
                 if (!getFileNameNew().contains("COVID_NLD_GOC")) {
                     addActionError("Bạn chọn file upload không đúng với báo cáo !");
                     return ERROR;
-                }                
-                if (!dao.insert_PL02_FILE("COVID_NLD_GOC", poscd, getFileNameNew(), convertStringToDate(sNgayBC), UserName, lstExcel, masothue)) 
-                {
+                }
+                if (!dao.insert_PL02_FILE("COVID_NLD_GOC", poscd, getFileNameNew(), convertStringToDate(sNgayBC), UserName, lstExcel, masothue)) {
                     addActionError("Lỗi khi đọc dữ liệu từ file excel ");
                     return ERROR;
-                }                                           
+                }
             }
             Connection conn = new DaoConnect().getConnect();
-                lstDulieuNt = dao.getDataAfterUpFile(conn, "COVID_NLD_GOC", sNgayBC, poscd, UserName, Grade,  langiangan, masothue);
-                if (conn != null) {
-                    conn.close();
-                }
+            lstDulieuNt = dao.getDataAfterUpFile(conn, "COVID_NLD_GOC", sNgayBC, poscd, UserName, Grade, langiangan, masothue);
+            if (conn != null) {
+                conn.close();
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> COVID_NLD_GOC: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> COVID_NLD_GOC: " + e.getMessage());
             addActionError("Có lỗi xảy ra: " + e.getMessage().replace("\\", "/").replace("'", "\""));
             return ERROR;
-        }        
-            return SUCCESS;
+        }
+        return SUCCESS;
     }
-    
-    public String UploadDSGiaiNgan(){
-       try {      
+
+    public String UploadDSGiaiNgan() {
+        try {
 //           if (!getParaSession()) {
 //                return ERROR;
 //            }
@@ -197,25 +273,25 @@ implements NhaptaycnFunction{
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> UploadDSGiaiNgan: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> UploadDSGiaiNgan: " + e.getMessage());
-        }        
+        }
         return SUCCESS;
     }
-    
-    public String UploadDSGiaiNgan1(){
-       try {      
-           if (!getParaSession()) {
+
+    public String UploadDSGiaiNgan1() {
+        try {
+            if (!getParaSession()) {
                 return ERROR;
             }
             HashMap hmParameter = getParameter();
-           DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();   
-           setLstAllCdtt(daoMain.getCanBo(UserName,"LANGN")); //Lần giải ngân
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            setLstAllCdtt(daoMain.getCanBo(UserName, "LANGN")); //Lần giải ngân
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> UploadDSGiaiNgan: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> UploadDSGiaiNgan: " + e.getMessage());
-        }        
+        }
         return SUCCESS;
     }
-    
+
     //Upload danh sách giải ngân
     public String uploadCoVid_GN() {
         try {
@@ -229,7 +305,7 @@ implements NhaptaycnFunction{
                 return ERROR;
             }
             String pattern = "dd-MMM-yyyy";
-                String sNgayBC = hmParameter.get("ngay_bc").toString();
+            String sNgayBC = hmParameter.get("ngay_bc").toString();
             String new_file_path = copy_file();
             File new_file = new File(new_file_path);
             DaoNhaptaycnMain dao = new DaoNhaptaycnMain();
@@ -247,25 +323,24 @@ implements NhaptaycnFunction{
                 if (!getFileNameNew().contains("COVID_GIAINGAN")) {
                     addActionError("Bạn chọn file upload không đúng với báo cáo !");
                     return ERROR;
-                }                
-                if (!dao.insert_COV_GAINGAN("COVID_GIAINGAN", poscd, getFileNameNew(), convertStringToDate(sNgayBC), UserName, lstExcel, masothue, langiangan)) 
-                {
+                }
+                if (!dao.insert_COV_GAINGAN("COVID_GIAINGAN", poscd, getFileNameNew(), convertStringToDate(sNgayBC), UserName, lstExcel, masothue, langiangan)) {
                     addActionError("Lỗi khi đọc dữ liệu từ file excel ");
                     return ERROR;
-                }                                           
+                }
             }
             Connection conn = new DaoConnect().getConnect();
-                lstDulieuNt = dao.getDataAfterUpFile(conn, "COVID_GIAINGAN", sNgayBC, poscd, UserName, Grade, langiangan, masothue);
-                if (conn != null) {
-                    conn.close();
-                }
+            lstDulieuNt = dao.getDataAfterUpFile(conn, "COVID_GIAINGAN", sNgayBC, poscd, UserName, Grade, langiangan, masothue);
+            if (conn != null) {
+                conn.close();
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> COVID_GIAINGAN: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> COVID_GIAINGAN: " + e.getMessage());
             addActionError("Có lỗi xảy ra: " + e.getMessage().replace("\\", "/").replace("'", "\""));
             return ERROR;
-        }        
-            return SUCCESS;
+        }
+        return SUCCESS;
     }
 
     public Date convertStringToDate(String dateString) {
