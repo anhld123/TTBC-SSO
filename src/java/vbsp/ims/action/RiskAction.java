@@ -9,8 +9,11 @@ import com.jgeppert.struts2.jquery.tree.result.TreeNode;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -76,6 +79,12 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
     private String soku_reject;
     private String search_soku;
     private String soku;
+    
+    private InputStream pageResult;
+    
+    //Xử lý check trạng thái dữ liệu theo đợt và năm
+    
+    private String styledisplay;
 
     
     //Cho phan phe duyet
@@ -850,6 +859,8 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             //Lay du lieu dua ra list table
             lstTableRiskObj = new DaoProcessRisk().getDetailCustomer(sUserName, reportGrade, ArrlstPosCd,
                     nam_xlrr, dot_xlrr, nhom_xlrr, trangthai_xlrr, chuongtrinh, sSoku, vb_xlrr);
+            
+            
             if (lstTableRiskObj == null || lstTableRiskObj.isEmpty()) {
                 setMessage("Vui lòng kiểm tra lại Đợt xử và nhóm nợ");
                 return ERROR;
@@ -1004,8 +1015,10 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             lstTableRiskObj = daoRisk.getDataSearchRisk62(conn, sUserName, reportGrade, nam_xlrr, dot_xlrr, search_soku,
                     pagination.getStart() + 1, pagination.getStart() + pagination.getEnd(), vb_xlrr);
 
+            
             //Dua so dong du lieu len table
             pagination.setPage_records(lstTableRiskObj.size());
+            styledisplay = new DaoProcessRisk().checkAutRisk(reportGrade, nam_xlrr, dot_xlrr);
             //Dong csdl
             if (!conn.isClosed()) {
                 conn.close();
@@ -1113,6 +1126,8 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             //Lay du lieu dua ra list table
             lstTableRiskObj = new DaoProcessRisk().getDetailCustomer(sUserName, reportGrade, ArrlstPosCd,
                     nam_xlrr, dot_xlrr, nhom_xlrr, trangthai_xlrr, chuongtrinh, sSoku, vb_xlrr);
+            
+            
         } catch (Exception e) {
             System.err.println(e.getMessage());
             CoreLogger.error(this.getClass().getCanonicalName() + " getDetialCustomer -> " + e.getMessage());
@@ -1213,7 +1228,8 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             //Lay du lieu dua ra list table
             lstTableRiskObj = new DaoProcessRisk().getDetailCustomerSearch62(sUserName, reportGrade,
                     nam_xlrr, dot_xlrr, sSoku, vb_xlrr);
-
+            
+            styledisplay = new DaoProcessRisk().checkAutRisk(reportGrade, nam_xlrr, dot_xlrr);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             CoreLogger.error(this.getClass().getCanonicalName() + " getDetailCustomerSearch62 -> " + e.getMessage());
@@ -2048,6 +2064,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
 //                + "<th>Tổng Lãi</th>"
 //                + "<th>Trạng thái</th></tr> </table> ";
         try {
+            
             if (vb_xlrr == null || vb_xlrr.equals("-1")) {
                 setMessage("Bạn phải chọn quyết định hoặc văn bản xử lý rủi ro !");
                 return ERROR;
@@ -2106,6 +2123,8 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             {
                 setLstBrowerView(new DaoProcessRisk().getDataBrowerView62(sUserName, reportGrade,
                     ArrlstPosCd, nam_xlrr, dot_xlrr, nhom_xlrr, trangthai_xlrr, nguon_von, vb_xlrr));
+                
+                styledisplay = new DaoProcessRisk().checkAutRisk(reportGrade, nam_xlrr, dot_xlrr);
                 return "cbXLN_view";
             }           
             else if ((capPheDuyet ==1 ||capPheDuyet ==2 ||capPheDuyet ==3||capPheDuyet ==4) && trangthai_xlrr.equals("K"))
@@ -2130,7 +2149,6 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
                     ArrlstPosCd, nam_xlrr, dot_xlrr, nhom_xlrr, trangthai_xlrr, nguon_von, vb_xlrr));
                 return "cbXLN_view";
             }
-//            System.err.println("poscd="+poscd);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             CoreLogger.error(this.getClass().getCanonicalName() + " loadDataBrowerView -> " + e.getMessage());
@@ -3307,10 +3325,40 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
         this.capPheDuyet = capPheDuyet;
     }
     
+    
 //</editor-fold>
 
+    public String getStyledisplay() {
+        return styledisplay;
+    }
+
+    public void setStyledisplay(String styledisplay) {
+        this.styledisplay = styledisplay;
+    }
 
 
+    public String xacnhansolieu(){
+        
+        Map session = ActionContext.getContext().getSession();
+        String sUserName = session.get("username").toString();
+        reportGrade = session.get("reportGrade").toString();
+        ArrayList<String> ArrlstPosCd = new ArrayList<String>();
+        poscd = poscd.replace(" ", "");
+        //Dua tu chuoi pos ve dang mang
+        ArrlstPosCd = new ArrayList<String>(Arrays.asList(poscd.split(",")));
+        String Code = new DaoProcessRisk().AUTDataRisk(sUserName, reportGrade, nam_xlrr, dot_xlrr);
+        pageResult = new ByteArrayInputStream(Code.getBytes(StandardCharsets.UTF_8));
+        return SUCCESS;
+        
+    }
 
+    public InputStream getPageResult() {
+        return pageResult;
+    }
 
+    public void setPageResult(InputStream pageResult) {
+        this.pageResult = pageResult;
+    }
+
+    
 }
