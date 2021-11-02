@@ -22,7 +22,6 @@
         {
             width: 100%;
             border: 0px;
-            /*color: #000000*/
             border-color: #18ab29;
             background: #F9F9F9;
             color:#666666;

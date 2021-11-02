@@ -25,12 +25,12 @@
     <!--<h3 style="color: red">-->
     <%--<s:property value="message" escape="false"/>--%>
     <!--</h3>-->
-     <s:if test="sendData.equalsIgnoreCase('OK')">
+    <s:if test="sendData.equalsIgnoreCase('OK')">
         <h2 style="color: red;">Danh sách chi tiết Phòng giao dịch thành công/lỗi</h2> </br>
-      </s:if>
-      <s:elseif test="sendData.equalsIgnoreCase('VIEW')">
+    </s:if>
+    <s:elseif test="sendData.equalsIgnoreCase('VIEW')">
         <h2 style="color: blue;">Chi tiết dữ liệu cần gửi lên Trung ương theo từng Phòng giao dịch</h2> </br>
-      </s:elseif>
+    </s:elseif>
     <s:else>
         <s:if test="trangthai_xlrr.equalsIgnoreCase('W')">
             <h2 style="color: red;">Danh sách khách hàng chờ phê duyệt</h2> </br>
@@ -44,7 +44,7 @@
         <s:if test="trangthai_xlrr.equalsIgnoreCase('P')">
             <h2 style="color: #029c44;">Danh sách khách hàng đã hạch toán</h2> </br>
         </s:if>
-     </s:else>  
+    </s:else>  
     <form id="formview62" action="viewdata62">
         <table border="1" class="editDelete" style="padding: 3px 0px 3px 3px; width: 90%">
             <tr>
@@ -52,12 +52,12 @@
                 <th rowspan="3">Mã Đơn vị</th>
                 <th rowspan="3">Tên Đơn vị</th>
                 <th rowspan="3">Tổng số món</th>
-                
+
                 <th colspan="3">Số đề nghị</th>
                 <th colspan="3">Số hiện tại</th>
-                
-                 
-                    <s:if test="sendData.equalsIgnoreCase('OK')">
+
+
+                <s:if test="sendData.equalsIgnoreCase('OK')">
                     <th rowspan="3"> Trạng thái </th>
                     </s:if>
 
@@ -87,7 +87,7 @@
                         <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongtien_1" /></td>
                         <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongDuno_1" /></td>
                         <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongLai_1" /></td>
-                        
+
                         <s:if test="sendData.equalsIgnoreCase('OK')">
                             <td style="text-align: right; color: #007fff; font-weight: bold;"></td>
                         </s:if>
@@ -130,7 +130,7 @@
                                 <td style="text-align: right; color: red"><s:property  value="sTongtien" /></td>
                                 <td style="text-align: right; color: red"><s:property  value="sTongDuno" /></td>
                                 <td style="text-align: right; color: red"><s:property  value="sTongLai" /></td>
-                                 <td style="text-align: right; color: red"><s:property  value="sTongtien_1" /></td>
+                                <td style="text-align: right; color: red"><s:property  value="sTongtien_1" /></td>
                                 <td style="text-align: right; color: red"><s:property  value="sTongDuno_1" /></td>
                                 <td style="text-align: right; color: red"><s:property  value="sTongLai_1" /></td>
                             </s:if>   
@@ -142,7 +142,7 @@
                                 <td style="text-align: right;"><s:property  value="sTongtien" /></td>
                                 <td style="text-align: right;"><s:property  value="sTongDuno" /></td>
                                 <td style="text-align: right;"><s:property  value="sTongLai" /></td>
-                                 <td style="text-align: right;"><s:property  value="sTongtien_1" /></td>
+                                <td style="text-align: right;"><s:property  value="sTongtien_1" /></td>
                                 <td style="text-align: right;"><s:property  value="sTongDuno_1" /></td>
                                 <td style="text-align: right;"><s:property  value="sTongLai_1" /></td>
                             </s:else>    
@@ -152,4 +152,17 @@
             </s:iterator>
         </table>
     </form>
+            <input type="hidden" value='<s:property value="styledisplay" />' id='chkLock' />
+    <script>
+        $(document).ready(function () {
+            if ($("#chkLock").val() === 'Unlock') {
+                $("#btnSend").css("display", "inline-block");
+                $("#idButtondonvitmp").css("display", "inline-block");
+            }else{
+                $("#btnSend").css("display", "none");
+                $("#idButtondonvitmp").css("display","none");
+            }
+        });
+    </script>
+
 </body>

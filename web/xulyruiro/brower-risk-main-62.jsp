@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 
 <html>
-       <sj:head jqueryui="true" loadAtOnce="true"
+    <sj:head jqueryui="true" loadAtOnce="true"
              jquerytheme="south-street" />
     <!--bat du lieu cho datepicker de hien thi ngay trong form table_data_risk.jsp-->
     <script type="text/javascript" src="js/jquery-ui-1.10.4.js"></script>
@@ -39,8 +39,7 @@
                 {
 //                    alert('Bạn chỉ phê duyệt được dữ liệu khi chọn trạng thái chờ phê duyệt');
                     bsubmit = false;
-                }
-                else
+                } else
                 {
                     bsubmit = true;
                 }
@@ -51,7 +50,7 @@
             function onFindStatus()
             {
                 bSearchStatus = true;
-                bsubmit=false;
+                bsubmit = false;
             }
             function submitloadData()
             {
@@ -72,13 +71,11 @@
                                 $("#divMessage").hide();
                             });
                         }
-                    }
-                    else
+                    } else
                     {
                         alert("Bạn phải chọn khách hàng cần phê duyệt!");
                     }
-                }
-                else
+                } else
                 {
                     if (!bsubmit)
                     {
@@ -86,8 +83,7 @@
                         $("#divExportReport").html('<span style="color:red"><h2><span style="font-weight: bold; color">Thông báo:</span>  Bạn chưa xem dữ liệu khách hàng chờ phê duyệt nên không thể phê duyệt!</br>\n\
                         Bạn chọn <span style="color:blue"> Trạng thái XL: Chờ phê duyệt </span> </br>Sau đó nhấn vào <span style="color:blue"> Tải dữ liệu </span> để xem dữ liệu sau đó mới phê duyệt được</h2></span>');
                         return;
-                    }
-                    else
+                    } else
                     {
                         var trangthai_xlrr = $("#trangthai_xlrr").val();
 //                    alert('Bạn đã view dữ liệu thành công '+trangthai_xlrr);
@@ -95,7 +91,7 @@
                     }
                 }
             }
-             function validateRequiredFields() {
+            function validateRequiredFields() {
                 var result = true; //Luu ket qua kiem tra kieu so co dung khong
 
                 //Cac class nubmer2 phai nhap kieu so
@@ -112,26 +108,26 @@
 //                        return false;
 //                    }
 //                    else {
-                        //Neu la kieu so --> Kiem tra xem kieu nhap co > 0 
-                        if (parseFloat(value) < 0) {
-                            result = false;
+                    //Neu la kieu so --> Kiem tra xem kieu nhap co > 0 
+                    if (parseFloat(value) < 0) {
+                        result = false;
 
-                            //Dua ra canh bao
-                            $("#divExportReport").html('<span style="color:red"><h2><span style="font-weight: bold; color">Thông báo:</span>  Bạn không được nhập giá trị < 0!</h2></span>');
-                            alert('Bạn không được nhập giá trị < 0!');
-                            return false;
-                        }
+                        //Dua ra canh bao
+                        $("#divExportReport").html('<span style="color:red"><h2><span style="font-weight: bold; color">Thông báo:</span>  Bạn không được nhập giá trị < 0!</h2></span>');
+                        alert('Bạn không được nhập giá trị < 0!');
+                        return false;
+                    }
 
-                        //Neu la kieu so --> Kiem tra xem kieu nhap co < 9999999999
-                        if (parseFloat(value) > 9999999999) {
-                            result = false;
+                    //Neu la kieu so --> Kiem tra xem kieu nhap co < 9999999999
+                    if (parseFloat(value) > 9999999999) {
+                        result = false;
 
-                            //Dua ra canh bao
-                            $("#divExportReport").html('<span style="color:red"><h2><span style="font-weight: bold; color">Thông báo:</span>  Giá trị bạn nhập vượt quá giới hạn!</h2></span>');
-                            alert('Giá trị bạn nhập vượt quá giới hạn!');
-                            return false;
-                        }
-                   // }
+                        //Dua ra canh bao
+                        $("#divExportReport").html('<span style="color:red"><h2><span style="font-weight: bold; color">Thông báo:</span>  Giá trị bạn nhập vượt quá giới hạn!</h2></span>');
+                        alert('Giá trị bạn nhập vượt quá giới hạn!');
+                        return false;
+                    }
+                    // }
                 });
                 return result;
             }
@@ -225,12 +221,42 @@
                     alert('Bạn phải chọn chi nhánh cần nhập dữ liệu trên cây rủi ro !');
                     return;
                 }
-                var url = "getRiskHeaderPos.action?vb_xlrr="+vb_xlrr+"&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr
+                var url = "getRiskHeaderPos.action?vb_xlrr=" + vb_xlrr + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr
                         + "&nhom_xlrr=" + nhom_xlrr + "&nguon_von=" + nguon_von + "&poscd=" + poscd;
                 //cong them chuoi doan "&namBc="+namBc de lay nam bao cao nguon_von
                 var resize = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
 
             }
+
+            $(document).ready(function () {
+                $("#btnSend").click(function () {
+                    var mcheck = confirm("Bạn chắc chắn muốn xác nhận số liệu");
+                    if (mcheck) {
+                       
+                        //Thực hiện khoá số liệu
+                        var url, sdata;
+                        url = "xacnhansolieu.action";
+                        sdata = jQuery("#loadFormRisk62").serialize();
+                        $.post(url, sdata, function (Code) {
+                            var mess="";
+                            if(Code==="200")
+                            {
+                                mess="Xác nhận số liệu thành công.";
+                                $("#btnSend").css("display", "none");
+                                $("#idButtondonvitmp").css("display", "none");
+                            } 
+                            else
+                            {
+                                mess="Lỗi không thể xác nhận số liệu.";
+                                $("#btnSend").css("display", "inline-block");
+                                $("#idButtondonvitmp").css("display", "inline-block");
+                            }
+                            alert(mess);
+                        });
+                    }
+                });
+            });
+
         </script>
 
         <style>
@@ -270,7 +296,7 @@
             }
 
             #navParam{
-                 height: 12%;
+                height: 12%;
                 padding:10px;
 
                 /*margin:5px;*/
@@ -328,14 +354,17 @@
                 margin-right: 20%;
                 /*width: 40%;*/
                 /*float: right;*/
-/*                padding:3px; 
-                border: 1px solid;
-                position: fixed;*/
+                /*                padding:3px; 
+                                border: 1px solid;
+                                position: fixed;*/
                 /*background: brown;*/
-                 /*height: 28px;*/
+                /*height: 28px;*/
                 /*border: 1px solid;*/     
                 width: 40%;
                 float: right;
+            }
+            #idButtondonvitmp, #btnSend{
+                display: none;
             }
         </style>
 
@@ -358,9 +387,9 @@
                                   list="lstVbXlrr" 
                                   listKey="sKey"
                                   listValue="sDesc" 
-                                   cssStyle="color: red;vertical-align: middle;">                    
+                                  cssStyle="color: red;vertical-align: middle;">                    
                         </s:select>
-                        
+
                         <s:label value="Năm XL:" cssStyle="color: #029c44;" />
                         <s:select id="nam_xlrr" 
                                   name="nam_xlrr"
@@ -377,7 +406,7 @@
                                   list="lstDotXlrr" 
                                   listKey="sKey"
                                   listValue="sDesc" 
-                                   cssStyle="color: red;vertical-align: middle;width: 70px;">                    
+                                  cssStyle="color: red;vertical-align: middle;width: 70px;">                    
                         </s:select>
                         <!--&nbsp;-->
                         <s:label value="Nhóm nợ:" cssStyle="color: #029c44;" />
@@ -416,7 +445,7 @@
                                    onBeforeTopics="beforediv1"
                                    onCompleteTopics="completediv1" cssStyle="display: none"/>
                         <input type="button" id="idButtondonvitmp" name="nameButtondonvitmp" onclick="submitloadData()" value="Phê Duyệt"/>
-
+                        <input type="button" id="btnSend" name="btnSend" value="Xác nhận số liệu"/>
                         <!--<input type="button" id="idButtondonvi" name="nameButtondonvi"  value="Phê Duyệt"/> cssStyle="display: none"-->
                         <hr>
                         <!--style="padding:8px;"-->
@@ -430,25 +459,26 @@
                             <sj:submit id="idSearch62" name="nameSearch62" href="%{idurlSearch62}" value="Tìm kiếm" targets="divExportReport"
                                        onBeforeTopics="beforediv1"
                                        onCompleteTopics="completediv1" onclick="onFindStatus()"/>
+                            <s:property value="styledisplay"/>
                             <s:if test="reportGrade.equalsIgnoreCase('3')">
                                 <%--<s:url id="idurlNguyennhancn" action="dienNguyennhanChinhanh.action"></s:url>--%>
-<!--                                <input type="button" id="idnguyennhancn" name="nameNguyennhanchinhanh" 
-                                       value="Nguyên nhân từ chối cn" targets="divExportReport" onclick="dienthongtintuchoicn()"
-                                       />-->
+                                <!--                                <input type="button" id="idnguyennhancn" name="nameNguyennhanchinhanh" 
+                                                                       value="Nguyên nhân từ chối cn" targets="divExportReport" onclick="dienthongtintuchoicn()"
+                                                                       />-->
                             </s:if>
-                                 <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
-                                <!--button tai du lieu-->
-<!--                        <sj:submit id="loadsubmitform62" name="loadsubmitform62" value="Tải dữ liệu" targets="divExportReport" onclick="onclear()"
-                                   cssStyle="height:28px;width:95px;color: #0000FF; background: #c5c5c5; font: bolder"
-                                   onBeforeTopics="beforediv1"
-                                   onCompleteTopics="completediv1"/>&nbsp;&nbsp-->
-                        <!--button phe duyet-->
-<!--                        <input type="button" id="idButton" name="idButton" onclick="onclickBrowseRisk()" value="Phê Duyệt"
-                               style=" height:28px;width:95px;color: #0000FF; background: #c5c5c5; font: bolder"/>-->
-                        <!--button quay ra-->
+                            <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+                            <!--button tai du lieu-->
+                            <!--                        <sj:submit id="loadsubmitform62" name="loadsubmitform62" value="Tải dữ liệu" targets="divExportReport" onclick="onclear()"
+                                       cssStyle="height:28px;width:95px;color: #0000FF; background: #c5c5c5; font: bolder"
+                                       onBeforeTopics="beforediv1"
+                                       onCompleteTopics="completediv1"/>&nbsp;&nbsp-->
+                            <!--button phe duyet-->
+                            <!--                        <input type="button" id="idButton" name="idButton" onclick="onclickBrowseRisk()" value="Phê Duyệt"
+                                                           style=" height:28px;width:95px;color: #0000FF; background: #c5c5c5; font: bolder"/>-->
+                            <!--button quay ra-->
                             <input type="button" id="idReturn" name="nameReturn" 
                                    onclick="onReturn()" value="Quay ra" style="float: right; height:28px;width:95px;"/>
-                             <div id="loadingImageDiv" style="display: none;" >
+                            <div id="loadingImageDiv" style="display: none;" >
                                 <img id="loadingImage" src='img/loading.gif' border='0' >
                             </div>
                         </div>

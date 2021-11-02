@@ -648,6 +648,13 @@ public class DaoProcessRisk {
                     modelRisk.setsInt_pduyet_ngay_cn(reset.getDate(54) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(54)));
                     modelRisk.setsInt_pduyet_nguoi_cn(reset.getString(55));
                     modelRisk.setsNguyennhan_tc_cn(reset.getString(56));
+                    
+                    modelRisk.setsNgay_giahan(reset.getString(57));
+                    modelRisk.setdSotien_giahan(reset.getBigDecimal(58));
+                     modelRisk.setsNgay_giaodichgn(reset.getString(59));
+                    modelRisk.setdSodu_Casa105(reset.getBigDecimal(60));
+                    modelRisk.setdRPA(reset.getBigDecimal(61));
+                    
                     lstModelRisk.add(modelRisk);
                 }
 
@@ -4216,6 +4223,77 @@ public class DaoProcessRisk {
                 CoreLogger.error(this.getClass().getName() + " getData_clech -> " + e.getMessage());
             }       
         return lstBcqt_NT;
+    }
+    
+    public String AUTDataRisk(String strUserName, String sGrade, String sNambc, String sDotrr) {
+
+        String Code = "";
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call vbsp_ims_risk.SP_XN_XLRR_QD62(?,?,?,?,?)}";
+
+            //Khoi tao goi store
+            calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
+            calstatement.setString(1, strUserName);
+            calstatement.setString(2, sGrade);
+            calstatement.setString(3, sNambc);
+            calstatement.setString(4, sDotrr);
+            calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.VARCHAR);
+            //Thuc hien execute lay du lieu
+            calstatement.execute();
+            
+            //thu hien lay mo ta loi
+            Code = calstatement.getString(5);
+           
+            if (conn != null) {
+                conn.close();
+            }
+
+        } catch (Exception e) {
+            System.err.println(" Loi trong ham getDataBrowerView " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataBrowerView -> " + e.getMessage());
+        }
+        return Code;
+    }
+    
+    public String checkAutRisk(String sGrade, String sNambc, String sDotrr) {
+
+        String Code = "";
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call vbsp_ims_risk.SP_CHK_XN_XLRR_QD62(?,?,?,?)}";
+
+            //Khoi tao goi store
+            calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
+            calstatement.setString(1, sGrade);
+            calstatement.setString(2, sNambc);
+            calstatement.setString(3, sDotrr);
+            calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
+            //Thuc hien execute lay du lieu ra biểu
+            calstatement.execute();
+            
+            //thu hien lay mo ta loi
+            Code = calstatement.getString(4);
+           
+            if (conn != null) {
+                conn.close();
+            }
+
+        } catch (Exception e) {
+            System.err.println(" Loi trong ham getDataBrowerView " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataBrowerView -> " + e.getMessage());
+        }
+        return Code;
     }
 
 }
