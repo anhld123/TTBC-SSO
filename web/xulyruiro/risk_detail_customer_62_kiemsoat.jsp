@@ -370,19 +370,19 @@
                             </tr>
                             <tr class="cscontent">
                                 <td><input type="text" value="Số tiền gia hạn nợ" name="maPGD" style="color: red" class="maPGD" readonly="readonly"/></td>
-                                <td><input type="text" value="<s:property value='sNgay_giahan'/>" name="tenPGD" style="color: red" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
+                                <td><input type="text" value="<s:property value='dSotien_giahan'/>" name="tenPGD" style="color: red" class="tenPGD number2" onfocus="this.select()" readonly="readonly"/></td>
                             </tr>
                             <tr class="cscontent">
                                 <td><input type="text" value="Ngày PS thu nợ cuối cùng" name="maPGD" style="color: red" class="maPGD" readonly="readonly"/></td>
-                                <td><input type="text" value="<s:property value='sNgay_giahan'/>" name="tenPGD" style="color: red" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
+                                <td><input type="text" value="<s:property value='sNgay_giaodichgn'/>" name="tenPGD" style="color: red" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
                             </tr>
                             <tr class="cscontent">
                                 <td><input type="text" value="Số dư TK tiền gửi CASA 105" name="maPGD" style="color: red" class="maPGD" readonly="readonly"/></td>
-                                <td><input type="text" value="<s:property value='sNgay_giahan'/>" name="tenPGD" style="color: red" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
+                                <td><input type="text" value="<s:property value='dSodu_Casa105'/>" name="tenPGD" style="color: red" class="tenPGD number2" onfocus="this.select()" readonly="readonly"/></td>
                             </tr>
                             <tr class="cscontent">
                                 <td><input type="text" value="Số tiền RPA" name="maPGD" style="color: red" class="maPGD" readonly="readonly"/></td>
-                                <td><input type="text" value="<s:property value='sNgay_giahan'/>" name="tenPGD" style="color: red" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
+                                <td><input type="text" value="<s:property value='dRPA'/>" name="tenPGD" style="color: red" class="tenPGD number2" onfocus="this.select()" readonly="readonly"/></td>
                             </tr>
                             
                             

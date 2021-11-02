@@ -648,6 +648,13 @@ public class DaoProcessRisk {
                     modelRisk.setsInt_pduyet_ngay_cn(reset.getDate(54) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(54)));
                     modelRisk.setsInt_pduyet_nguoi_cn(reset.getString(55));
                     modelRisk.setsNguyennhan_tc_cn(reset.getString(56));
+                    
+                    modelRisk.setsNgay_giahan(reset.getString(57));
+                    modelRisk.setdSotien_giahan(reset.getBigDecimal(58));
+                     modelRisk.setsNgay_giaodichgn(reset.getString(59));
+                    modelRisk.setdSodu_Casa105(reset.getBigDecimal(60));
+                    modelRisk.setdRPA(reset.getBigDecimal(61));
+                    
                     lstModelRisk.add(modelRisk);
                 }
 
