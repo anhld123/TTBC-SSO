@@ -152,7 +152,7 @@
             </s:iterator>
         </table>
     </form>
-    <input type="hidden" value='<s:property value="styledisplay" />' id='chkLock' />
+            <input type="hidden" value='<s:property value="styledisplay" />' id='chkLock' />
     <script>
         $(document).ready(function () {
             if ($("#chkLock").val() === 'Unlock') {

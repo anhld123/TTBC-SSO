@@ -497,7 +497,7 @@ diennoidung_tuchoi<%--
                        onBeforeTopics="batdauloaddata" onCompleteTopics="hoanthanhloaddata"/>
         </s:form>
         <div id="divBrowseRisk"></div>
-        <input type="hidden" value='<s:property value="styledisplay" />' id='chkLock' />
+        <input type="text" value='<s:property value="styledisplay" />' id='chkLock' />
         <script>
             $(document).ready(function () {
                 if ($("#chkLock").val() === 'Unlock') {
