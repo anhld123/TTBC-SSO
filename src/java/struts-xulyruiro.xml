@@ -75,7 +75,7 @@
             <result name="success"> 
                 xulyruiro/risk_detail_customer.jsp
             </result>  
-             <result name="success_ks"> 
+            <result name="success_ks"> 
                 xulyruiro/risk_detail_customer_62_kiemsoat.jsp
             </result> 
             <result name="error">  
@@ -183,7 +183,7 @@
             </result>              
         </action>
         <action  name="setRejectRiskSearch" class="vbsp.ims.action.RiskAction" method="RejectRiskSearch">
-<!--            <result name="success">
+            <!--            <result name="success">
                 xulyruiro/success.jsp
             </result>-->
             <result name="success" type="json"/>
@@ -201,7 +201,7 @@
                 /error.jsp
             </result>  
         </action>
-         <action  name="loadHistoryView" class="vbsp.ims.action.RiskAction" method="loadHistoryView">
+        <action  name="loadHistoryView" class="vbsp.ims.action.RiskAction" method="loadHistoryView">
             <result name="success">  
                 xulyruiro/table-history-send-risk.jsp
             </result>  
@@ -324,6 +324,14 @@
             </result>  
         </action>
         
+        
+        <action  name="xacnhansolieu" class="vbsp.ims.action.RiskAction" method="xacnhansolieu">
+              <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action>
+        
         <action  name="loadDataBrowerView62" class="vbsp.ims.action.RiskAction" method="loadDataBrowerView62">
             <result name="cbXLN_view">xulyruiro/brower-view-62-cbBanXLN.jsp</result>
             <result name="ldXLN_view_2">xulyruiro/brower-view-62-ldBanXLN.jsp</result>  
@@ -335,7 +343,7 @@
             </result>  
         </action>
         
-          <action  name="BrowerDonvi62" class="vbsp.ims.action.RiskAction" method="BrowerDonvi62">
+        <action  name="BrowerDonvi62" class="vbsp.ims.action.RiskAction" method="BrowerDonvi62">
             <result name="success">
                 xulyruiro/brower-view.jsp
             </result>
