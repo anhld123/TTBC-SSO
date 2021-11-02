@@ -274,12 +274,12 @@ diennoidung_tuchoi<%--
                     <th class="TUCHOI">Tháng DN</th> 
                     <th class="NGUYEN_NHAN">Nguyên nhân</th> 
                     <th class="SOKU">Trạng thái</th> 
-                    <s:if test="capPheDuyet.equalsIgnoreCase('3')">
-                    <th class="TUCHOI">Từ chối</th>
-                    </s:if> 
-                    <s:else>
-                    <th class="TUCHOI">Chưa đủ Đk XL</th>
-                    </s:else>
+                        <s:if test="capPheDuyet.equalsIgnoreCase('3')">
+                        <th class="TUCHOI">Từ chối</th>
+                        </s:if> 
+                        <s:else>
+                        <th class="TUCHOI">Chưa đủ Đk XL</th>
+                        </s:else>
 
                 </tr>
                 <s:iterator value="#attr.lstTableRiskObj" var="modelRisk" status="rowstatus">
@@ -332,14 +332,20 @@ diennoidung_tuchoi<%--
                             <td align = "right">
                                 <input type="text" value="<s:property value='dbXl_Lai'/>" name="lstRisk[<s:property  value="%{#rowstatus.index}" />].lai_rr" class="GOC_RR_EDIT number2" 
                                        onblur="if (this.value == '') {
-                                                   this.value = 0};isNumber(this.value)" readonly="true"/>
+                                                   this.value = 0
+                                               }
+                                               ;
+                                               isNumber(this.value)" readonly="true"/>
                             </td>
                         </s:if>
                         <s:else>
                             <td align = "right">
                                 <input type="text" value="<s:property value='dbDnghi_Dno'/>" name="lstRisk[<s:property  value="%{#rowstatus.index}" />].duno_rr" class="GOC_RR_EDIT number2"
                                        onblur="if (this.value == '') {
-                                                   this.value = 0};isNumber(this.value)" readonly="true"/>
+                                                   this.value = 0
+                                               }
+                                               ;
+                                               isNumber(this.value)" readonly="true"/>
                             </td>
                             <td align = "right">
                                 <input type="text" value="<s:property value='dbDnghi_Lai'/>" name="lstRisk[<s:property  value="%{#rowstatus.index}" />].lai_rr" class="GOC_RR_EDIT number2" 
@@ -377,7 +383,10 @@ diennoidung_tuchoi<%--
                                 <input type="text" value="<s:property  value="dbMdthiethai" />" 
                                        name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sThiethai" 
                                        class=" number2" onfocus="this.select()" onblur="if (this.value == '') {
-                                           this.value = 0};isNumber(this.value)" readonly="true"/>                        
+                                                   this.value = 0
+                                               }
+                                               ;
+                                               isNumber(this.value)" readonly="true"/>                        
                             </td>
                             </td>
                         </s:if>
@@ -404,7 +413,10 @@ diennoidung_tuchoi<%--
                                 <input type="text" value="<s:property  value="dbMdthiethai" />"
                                        name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sThiethai" 
                                        class="TUCHOI number2" onfocus="this.select()" onblur="if (this.value == '') {
-                                               this.value = 0};isNumber(this.value)"/>                        
+                                                   this.value = 0
+                                               }
+                                               ;
+                                               isNumber(this.value)"/>                        
                             </td>
                             </td>
                         </s:else>
@@ -413,20 +425,20 @@ diennoidung_tuchoi<%--
                             <td align = "center" class="NGUYEN_NHAN_EDIT">
                                 <input type="text" value="<s:property  value="dbPduyet_Tg" />" name="lstRisk[<s:property  value="%{#rowstatus.index}" />].thang" class="NGUYEN_NHAN_EDIT number2" onfocus="this.select()"  
                                        onblur="if (this.value == '') {
-                                              this.value = 0
-                                          }
-                                          ;
-                                          isNumber(this.value)" readonly="true"/>
+                                                   this.value = 0
+                                               }
+                                               ;
+                                               isNumber(this.value)" readonly="true"/>
                             </td>
                         </s:if>
                         <s:else>
                             <td align = "center" class="NGUYEN_NHAN_EDIT">
                                 <input type="text" value="<s:property  value="dbDnghi_Tg" />" name="lstRisk[<s:property  value="%{#rowstatus.index}" />].thang" class="NGUYEN_NHAN_EDIT number2" onfocus="this.select()"  
                                        onblur="if (this.value == '') {
-                                          this.value = 0
-                                      }
-                                      ;
-                                      isNumber(this.value)" readonly="true"/>
+                                                   this.value = 0
+                                               }
+                                               ;
+                                               isNumber(this.value)" readonly="true"/>
                             </td>
                         </s:else>
                         <!--thay doi ve gia tri khong co de ngay vao else-->
@@ -485,5 +497,17 @@ diennoidung_tuchoi<%--
                        onBeforeTopics="batdauloaddata" onCompleteTopics="hoanthanhloaddata"/>
         </s:form>
         <div id="divBrowseRisk"></div>
+        <input type="hidden" value='<s:property value="styledisplay" />' id='chkLock' />
+        <script>
+            $(document).ready(function () {
+                if ($("#chkLock").val() === 'Unlock') {
+                    $("#btnSend").css("display", "inline-block");
+                    $("#idButtondonvitmp").css("display", "inline-block");
+                }else{
+                    $("#btnSend").css("display", "none");
+                    $("#idButtondonvitmp").css("display","none");
+                }
+            });
+        </script>
     </body>
 </html>

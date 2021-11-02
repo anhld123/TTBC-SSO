@@ -153,10 +153,10 @@
 //                    var chuongtrinh = $("#chuongtrinh").val();
 //                    var nguon_von = $("#nguon_von").val();
 //                    var poscd = $('#poscd').val();
-                    var url = "setRejectRiskSearch62.action?soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nguyennhan_tuchoi=" + nguyennhan_tuchoi 
+                    var url = "setRejectRiskSearch62.action?soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nguyennhan_tuchoi=" + nguyennhan_tuchoi
                             + "&vb_xlrr=" + vb_xlrr;
                     var data1 = "soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nguyennhan_tuchoi=" + nguyennhan_tuchoi
-                        + "&vb_xlrr=" + vb_xlrr;
+                            + "&vb_xlrr=" + vb_xlrr;
                     $.ajax({
                         type: 'POST',
                         url: url,
@@ -164,15 +164,14 @@
                         dataType: 'json',
                         contentType: 'application/json',
                         type: 'POST',
-                                async: true,
+                        async: true,
                         success: function (data) {
                             try {
                                 alert("Bạn đã từ chối thành công khoảng vay " + soku)
                                 self.opener.document.forms['loadFormRisk62'].idSearch62.click();
                                 window.close();
 
-                            }
-                            catch (e)
+                            } catch (e)
                             {
                                 alert(e.toString());
                             }
@@ -267,13 +266,13 @@
                         <table class="tableKhnv" align="center">
                             <tr align="center">
                                 <td colspan="2" align="center">
-                                     <s:if test="capPheDuyet==3">
-                                            <span id="idTitle">Nhập nguyên nhân chưa đủ điều kiện xử lý</span>
-                                        </s:if> 
-                                        <s:else>
-                                            <span id="idTitle">Nhập nguyên nhân từ chối</span>
-                                        </s:else>    
-                                    
+                                    <s:if test="capPheDuyet==3">
+                                        <span id="idTitle">Nhập nguyên nhân chưa đủ điều kiện xử lý</span>
+                                    </s:if> 
+                                    <s:else>
+                                        <span id="idTitle">Nhập nguyên nhân từ chối</span>
+                                    </s:else>    
+
                                 </td>
                             </tr>
                             <tr align="center">
@@ -285,7 +284,7 @@
                             <tr align="center">
                                 <td  colspan="2" align="center">
                                     <s:textarea id="idnguyennhan_tuchoi" name="nguyennhan_tuchoi"  cols="60" rows="5" >
-                                          <s:param name="value" >
+                                        <s:param name="value" >
                                             <%--<s:property value='sNguyennhan_tuchoi' />--%>
                                             ${sNguyennhan_tuchoi}
                                         </s:param>
@@ -316,6 +315,26 @@
 
             </s:form>
         </div>
+        <s:if test="styledisplay.equalsIgnoreCase('Unlock')">
+            <style>
+                #idRejecttmp62{
+                    display: inline-block;
+                }
+                #idnguyennhan_tuchoi{
+                     pointer-events: auto;
+                }
+            </style>
+        </s:if>
+        <s:else>
+            <style>
+                #idnguyennhan_tuchoi{
+                     pointer-events: none;
+                }
+                #idRejecttmp62 {
+                    display: none;
+                }
+            </style>
+        </s:else>
     </body>
 </html>
 
