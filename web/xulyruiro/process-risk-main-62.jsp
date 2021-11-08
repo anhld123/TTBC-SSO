@@ -372,6 +372,7 @@
             <%--<s:param name="nam_xlrr" value="nam_xlrr"/>--%>
             <%--</s:url>--%>
             <s:form id="loadFormRisk62"  name="loadFormRisk62" var="test" action="loadDataRisk62" theme="simple">
+                <s:hidden name="capPheDuyet" id="capPheDuyet"/>
                 <div id="navParam" >
                     <div id="navParam2">
                         <!--</p>-->
@@ -467,7 +468,8 @@
                                    onBeforeTopics="beforediv1"
                                    onCompleteTopics="completediv1"/>&nbsp;&nbsp
                         <!--button phe duyet-->
-                        <input type="button" id="idButton" name="idButton" onclick="onclickBrowseRisk()" value="Phê Duyệt"
+                        <input type="button" id="idButton" name="idButton" onclick="onclickBrowseRisk()" <s:if test="capPheDuyet=3">value="Thẩm định"</s:if>
+                               <s:else>value="Phê Duyệt"</s:else>
                                style=" height:28px;width:95px;color: #0000FF; background: #c5c5c5; font: bolder"/>
                         <!--button quay ra-->
                             <input type="button" id="idReturn" name="nameReturn" 

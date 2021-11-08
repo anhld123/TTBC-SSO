@@ -218,7 +218,7 @@
             </s:iterator>   
             </br>
             <div id="divTitle">
-                DANH SÁCH NGƯỜI SỬ DỤNG LAO ĐỘNG ĐƯỢC HƯỞNG CHÍNH SÁCH VAY VỐN ĐỂ TRẢ LƯƠNG NGỪNG VIỆC
+                DANH SACHS NSDLĐ ĐƯỢC HƯỞNG CHÍNH SÁCH ĐỂ VAY VỐN TRẢ LƯƠNG NGỪNG VIỆC, TRẢ LƯƠNG PHỤC HỒI SẢN XUẤT
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nhaptaycn"/>

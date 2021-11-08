@@ -133,7 +133,7 @@
                     var nguyennhan_tuchoi = $("#idnguyennhan_tuchoi").val();
                     nguyennhan_tuchoi = nguyennhan_tuchoi.replace(/^\s*|\s*$/g, "");
 //                nguyennhan_tuchoi = trim(nguyennhan_tuchoi);
-                    if (nguyennhan_tuchoi == null || nguyennhan_tuchoi.length < 4)
+                    if (nguyennhan_tuchoi == null || nguyennhan_tuchoi.length < 2)
                     {
                         alert('Bạn phải nhập nguyên nhân từ chối trước khi nhấn đồng ý');
                         $('#divBrowseRisk').html("<h2 style='color: red'>Bạn phải nhập nguyên nhân từ chối trước khi nhấn đồng ý ! </h2>");
@@ -259,6 +259,12 @@
                                 <!--<td><input type="text" value="" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>-->
                                 <td><s:property value='sMotann'/></td>
                             </tr>
+                            <s:if test="capPheDuyet==3">
+                                <tr class="cscontent">
+                                    <td ><input type="text" style="text-align: center; color: red" value="Nguyên nhân từ chối BKS" name="maPGD" class="maPGD" readonly="readonly"/></td>                                
+                                    <td style="text-align: center; color: red"><s:property value='sNguyennhan'/></td>
+                                </tr>
+                            </s:if>    
                         </table>
 
                         <div id="divBrowseRisk"></div>
@@ -281,14 +287,29 @@
                                 </td>
                             </tr>
 
-                            <tr align="center">
+                           <tr align="center">
                                 <td  colspan="2" align="center">
-                                    <s:textarea id="idnguyennhan_tuchoi" name="nguyennhan_tuchoi"  cols="60" rows="5" >
-                                        <s:param name="value" >
-                                            <%--<s:property value='sNguyennhan_tuchoi' />--%>
-                                            ${sNguyennhan_tuchoi}
-                                        </s:param>
-                                    </s:textarea>
+                                    <s:if test="capPheDuyet==3">
+                                        <s:select  
+                                            id="idnguyennhan_tuchoi"
+                                            name="nguyennhan_tuchoi"
+                                            list="lstNNBanKS" 
+                                            listKey="sKey"
+                                            listValue="sDesc"
+                                            headerKey="-1"
+                                            headerValue="--- Chọn ---"                                    
+                                            cssStyle="height:25px;width: 100%;vertical-align: middle;background-color: #FFCCBA;">
+                                        </s:select>
+                                    </s:if>
+                                    <s:else>
+                                        <s:textarea id="idnguyennhan_tuchoi" name="nguyennhan_tuchoi"   cols="60" rows="5" >
+                                            <s:param name="value" >
+                                                <%--<s:property value='sNguyennhan_tuchoi' />--%>
+                                                ${sNguyennhan_tuchoi}
+                                            </s:param>
+                                        </s:textarea>
+                                    </s:else>
+                                    
                                 </td>
                             </tr>
                             <tr align="center">

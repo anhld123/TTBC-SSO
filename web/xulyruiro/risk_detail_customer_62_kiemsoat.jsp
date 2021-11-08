@@ -385,6 +385,16 @@
                                 <td><input type="text" value="<s:property value='dRPA'/>" name="tenPGD" style="color: red" class="tenPGD number2" onfocus="this.select()" readonly="readonly"/></td>
                             </tr>
                             
+                            <tr class="cscontent">
+                                <td><input type="text" value="Tên HSSV" name="maPGD" style="color: red" class="maPGD" readonly="readonly"/></td>
+                                <td><input type="text" value="<s:property value='sTenHSSV'/>" name="tenPGD" style="color: red" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
+                            </tr>
+                            <tr class="cscontent">
+                                <td><input type="text" value="Mục đích sử dụng vốn vay" name="maPGD" style="color: red" class="maPGD" readonly="readonly"/></td>
+                                <td><input type="text" value="<s:property value='sMucdicVV'/>" name="tenPGD" style="color: red" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
+                            </tr>
+                            
+                            
                             
                             <tr class="cscontent">
                                 <td><input type="text" value="Trạng thái bản ghi" name="maPGD" class="maPGD" readonly="readonly"/></td>
