@@ -95,6 +95,11 @@ public class ModelRiskProcess {
     public BigDecimal dSodu_Casa105;
     public BigDecimal dRPA;
     
+    public String sTenHSSV;
+    public String sMucdicVV;
+    
+    
+    
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Get set cho method">
     public String getsSoku() {
@@ -265,6 +270,23 @@ public class ModelRiskProcess {
     public void setDbMdthiethai(BigDecimal dbMdthiethai) {
         this.dbMdthiethai = dbMdthiethai;
     }
+
+    public String getsTenHSSV() {
+        return sTenHSSV;
+    }
+
+    public void setsTenHSSV(String sTenHSSV) {
+        this.sTenHSSV = sTenHSSV;
+    }
+
+    public String getsMucdicVV() {
+        return sMucdicVV;
+    }
+
+    public void setsMucdicVV(String sMucdicVV) {
+        this.sMucdicVV = sMucdicVV;
+    }
+    
     
     public String getsNgayrr() {
         return sNgayrr;
