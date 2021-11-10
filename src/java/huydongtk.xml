@@ -9,8 +9,8 @@
             <result name="thanhcong">/huydongtiengui/template.jsp</result>
         </action> 
         <action name="HDTK_Viewdata" class="vbsp.ims.huydongtk.TKActionSupport" method="viewdata">
-<!--            <result name="thanhcong">/huydongtiengui/viewdata.jsp</result>-->
-            <result name="thanhcong" type="json"></result>
+            <result name="thanhcong">/huydongtiengui/viewdata.jsp</result>
+<!--            <result name="thanhcong" type="json"></result>-->
         </action>  
         <action name="savedata" class="vbsp.ims.huydongtk.TKActionSupport" method="savedata">
             <result name="thanhcong" type="stream">

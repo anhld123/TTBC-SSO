@@ -13,7 +13,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.apache.struts2.ServletActionContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
+import org.apache.struts2.interceptor.ServletRequestAware;
 
 /**
  *
@@ -43,10 +45,13 @@ public class TKActionSupport extends ActionSupport {
     }
     
     public String viewdata(){
-        session = ActionContext.getContext().getSession();
-        capbc = (String) session.get("reportGrade");
-        tendn = (String) session.get("username");
-        lstData = new clsHuyDongTK().getData(ngaybc, tendn, capbc);
+        //session = ActionContext.getContext().getSession();
+        //capbc = (String) session.get("reportGrade");
+        //tendn = (String) session.get("username");
+        String sNgayBC = ServletActionContext.getRequest().getParameter("ReportDate");
+        String sUserName = ServletActionContext.getRequest().getParameter("Username");
+        String sCapBC = ServletActionContext.getRequest().getParameter("ReportGrade");
+        lstData = new clsHuyDongTK().getData(sNgayBC, sUserName, sCapBC);
         return "thanhcong";
     }
     

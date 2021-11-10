@@ -96,17 +96,21 @@
                 //Tải dữ liệu
                 $("#cmdTaiDL").click(function () {
                     $('#viewData').html('<img src="img/loading.gif"/>');
-                    var url, sdata;
-                    url = "HDTK_Viewdata.action";
-                    sdata = jQuery("#frmMain").serialize();
+                    var url;
+                    var reportDate = $("#dtNgaybc").val();
+                    var staffId = $('#lstCanBo option:selected').val();
+                    alert(reportDate + staffId);
+                    url = "HDTK_Viewdata?ReportDate="+reportDate+"&Username="+staffId+"&ReportGrade=3";
+                    //sdata = jQuery("#frmMain").serialize();
                     $.ajax({
                         type: "GET",                                        
                         url: url,
-                        success: function (data) {
-                            $("#viewData").html(data);
+                        success: function (res) {
+                            //alert(res);
+                            $("#viewData").html(res);
                         },
-                        error: function (data) {
-                            alert("No values found..!!");
+                        error: function (res) {
+                            alert("Lỗi xử lý!");
                         }
                     });
                 });
