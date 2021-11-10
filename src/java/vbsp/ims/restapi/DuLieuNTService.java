@@ -107,7 +107,6 @@ public class DuLieuNTService extends ReportService {
         ArrayList<DuLieuNTRow> lstData = service.getData("COVID_03", "000401", "S", "20210630");
         System.out.println(lstData.size());
 
-        //lstData.get(0).setD1("1004003452");
         ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
         DuLieuNTRow testItem = new DuLieuNTRow();
         testItem.setKey("COVID_03");

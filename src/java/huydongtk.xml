@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="huydongtietkiem" extends="struts-default,json-default">
+        <action name="rehuydongtk" class="vbsp.ims.huydongtk.TKActionSupport">
+            <result name="thanhcong">/huydongtiengui/template.jsp</result>
+        </action> 
+        <action name="HDTK_Viewdata" class="vbsp.ims.huydongtk.TKActionSupport" method="viewdata">
+<!--            <result name="thanhcong">/huydongtiengui/viewdata.jsp</result>-->
+            <result name="thanhcong" type="json"></result>
+        </action>  
+        <action name="savedata" class="vbsp.ims.huydongtk.TKActionSupport" method="savedata">
+            <result name="thanhcong" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action>  
+    </package>
+</struts>
