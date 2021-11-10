@@ -266,7 +266,7 @@
                         <input type="checkbox" name="chk_group_3" id="chk_group_3" value="3" 
                                onclick="js_handleclick();"/>TQ
 
-                        <s:hidden name="priRptGrade" id="js_chkbox_id"/>
+                        <s:hidden name="priRptGrade" id="js_chkbox_id" value="1"/>
 
                     </td>
                     <td><s:label value="Mã đơn vị"/></td>

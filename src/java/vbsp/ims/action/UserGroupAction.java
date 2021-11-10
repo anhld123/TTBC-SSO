@@ -27,7 +27,7 @@ import vbsp.ims.report.fast.ListValue;
 public class UserGroupAction extends ActionSupport
         implements ModelDriven, Preparable, ServletRequestAware {
 
-    private static UserGroupManager userGroupManager = new UserGroupManager();
+    private UserGroupManager userGroupManager = new UserGroupManager();
     private UserGroup userGroup = new UserGroup();
     private String userGroupCode = "";
     private List<UserGroup> userGroups;
