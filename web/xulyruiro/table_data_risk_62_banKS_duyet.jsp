@@ -170,7 +170,7 @@
             var poscd = $('#paginationForm #poscd').val();
 //                    alert(poscd);
 
-            var url = "getDetialCustomerReject.action?soku=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nhom_xlrr=" + nhom_xlrr
+            var url = "getDetialCustomerReject62.action?soku=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nhom_xlrr=" + nhom_xlrr
                     + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd+ "&vb_xlrr=" + vb_xlrr;
             //cong them chuoi doan "&namBc="+namBc de lay nam bao cao
             var resize = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
@@ -329,7 +329,7 @@
             </br>
             <table cellpadding="0" cellspacing="0" class="my-table" align="center" style="padding: 3px 0px 3px 3px; width: 99%">
                 <tr>
-                    <th colspan="2" class="MA_PGD_DP">Kết quả Ban XLN duyệt</th>
+                    <!--<th colspan="2" class="MA_PGD_DP">Kết quả Ban XLN duyệt</th>-->
                     <!--<th colspan="2" class="MA_PGD_DP">Kết quả Ban KS duyệt</th>-->
                     <th rowspan="2" width="15" class="sortable"><s:checkbox id ="allCheck" name="allCheck" onclick="selectallMe()"/></th>                    
                     <th rowspan="2" class="MA_PGD_DP">Mã PGD</th>
@@ -353,8 +353,8 @@
                 <tr>     
 <!--                    <th class="CHUONG_TRINH"  >Đồng ý</th>
                     <th class="CHUONG_TRINH"  >Từ chối</th>-->
-                    <th class="CHUONG_TRINH"  >Đồng ý</th>
-                    <th class="CHUONG_TRINH"  >Từ chối</th>
+<!--                    <th class="CHUONG_TRINH"  >Đồng ý</th>
+                    <th class="CHUONG_TRINH"  >Từ chối</th>-->
                 </tr>
                 <s:iterator value="#attr.lstTableRiskObj" var="modelRisk" status="rowstatus">
                     <s:if test="#rowstatus.even == true">
@@ -364,12 +364,12 @@
                     <tr class="ac_odd">
                     </s:else>
                         
-                        <td align = "center">
+<!--                        <td align = "center">
                             <input type="text" value="<s:property  value="sPduyet_Nguoi_Cn" />" name="sPduyet_Nguoi_Cn" class="CHUONG_TRINH" onfocus="this.select()" readonly="true"/>
                         </td>
                         <td>
                             <input type="text" value="<s:property  value="sPduyet_Nguoi_Tw" />" name="sPduyet_Nguoi_Tw" class="CHUONG_TRINH" onfocus="this.select()" readonly="true"/>
-                        </td>
+                        </td>-->
                         <td align = "center"> 
                             <s:checkbox id ="check_legacyid" name="lstRisk[%{#rowstatus.index}].check_legacyid" fieldValue="%{sSoku}" onclick="selectall()"/>
                         </td>

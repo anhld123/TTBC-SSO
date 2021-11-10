@@ -655,6 +655,9 @@ public class DaoProcessRisk {
                     modelRisk.setdSodu_Casa105(reset.getBigDecimal(60));
                     modelRisk.setdRPA(reset.getBigDecimal(61));
                     
+                    modelRisk.setsTenHSSV(reset.getString(62));
+                    modelRisk.setsMucdicVV(reset.getString(63));
+                    
                     lstModelRisk.add(modelRisk);
                 }
 

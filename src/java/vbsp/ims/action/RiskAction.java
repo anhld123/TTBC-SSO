@@ -68,6 +68,8 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
     private String chuongtrinh;
     private String nguon_von;
     private String vb_xlrr;//Ngay so lieu
+    
+    private List<ListValue> lstNNBanKS = new ArrayList<ListValue>();
     //cho form tu day
 
     //Khoi tao cho treeview
@@ -80,7 +82,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
     private String search_soku;
     private String soku;
     
-    private InputStream pageResult;
+    
     
     //Xử lý check trạng thái dữ liệu theo đợt và năm
     
@@ -138,6 +140,16 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
     private String dbHt_Lai;
     private String dbSolanxl;
     private String dbDnghi_Lai;
+    
+    private InputStream pageResult;
+
+    public List<ListValue> getLstNNBanKS() {
+        return lstNNBanKS;
+    }
+
+    public void setLstNNBanKS(List<ListValue> lstNNBanKS) {
+        this.lstNNBanKS = lstNNBanKS;
+    }
 
     public String getDbSolanxl() {
         return dbSolanxl;
@@ -403,6 +415,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             } else {
                 setTreeNodeGrade12(lstModelTree);
             }
+            capPheDuyet = daoRisk.getCapPheduyetQD62(sUserName, reportGrade);
             
             //<editor-fold defaultstate="collapsed" desc="comment">
 //        nodes_pos.setId("rootNode");
@@ -638,7 +651,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
                 return ERROR;
             }
             capPheDuyet = daoRisk.getCapPheduyetQD62(sUserName, reportGrade);
-            if (capPheDuyet != 1 )
+            if (capPheDuyet != 1 && capPheDuyet != 3)
                 return "cbXLN_duyet";
             //Lay ra tổng số bản ghi của du liêu để phân trang
             if (pagination.getStart() == 0) {
@@ -1005,6 +1018,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
                 return ERROR;
             }
             capPheDuyet = daoRisk.getCapPheduyetQD62(sUserName, reportGrade);
+            setLstNNBanKS(new DaoNhaptaycnMain().getCanBo(sUserName, "NN_BANKS"));
             //Lay ra tổng số bản ghi của du liêu để phân trang
             if (pagination.getStart() == 0) {
 //            System.err.println("Thiet lap de lay tong so row data " + pagination.getStart() + " thang end " + pagination.getEnd());
@@ -1114,6 +1128,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
                 setMessage("Không thể lấy ra được cấp báo cáo \"reportGrade\" bạn phải logout hệ thống sau đó đăng nhập lại ");
                 return ERROR;
             }
+            capPheDuyet = new DaoProcessRisk().getCapPheduyetQD62(sUserName, reportGrade);
             String sSoku = request.getParameter("soku");
             setSoku_reject(sSoku);
             nam_xlrr = request.getParameter("nam_xlrr");
@@ -1124,6 +1139,8 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             nguon_von = request.getParameter("nguon_von");
             vb_xlrr = request.getParameter("vb_xlrr");
             //Lay du lieu dua ra list table
+//            setLstCBNguonVon(daoMain.getCanBo(UserName, "NGUONVON"));
+            setLstNNBanKS(new DaoNhaptaycnMain().getCanBo(sUserName, "NN_BANKS"));
             lstTableRiskObj = new DaoProcessRisk().getDetailCustomer(sUserName, reportGrade, ArrlstPosCd,
                     nam_xlrr, dot_xlrr, nhom_xlrr, trangthai_xlrr, chuongtrinh, sSoku, vb_xlrr);
             
@@ -1216,6 +1233,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
                 return ERROR;
             }
             capPheDuyet = new DaoProcessRisk().getCapPheduyetQD62(sUserName, reportGrade);
+            setLstNNBanKS(new DaoNhaptaycnMain().getCanBo(sUserName, "NN_BANKS"));
             String sSoku = request.getParameter("soku");
             setSoku_reject(sSoku);
             nam_xlrr = request.getParameter("nam_xlrr");
