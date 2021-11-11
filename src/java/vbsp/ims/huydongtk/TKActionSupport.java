@@ -13,9 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.apache.struts2.ServletActionContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
-import org.apache.struts2.interceptor.ServletRequestAware;
 
 /**
  *
@@ -27,38 +25,33 @@ public class TKActionSupport extends ActionSupport {
     private ArrayList<String> chkChon = new ArrayList<>();
     private String dtNgaybc;
     private String txtChitieu;
+    private String cboCanBo;
     List<clsCanBo> lstCanBo = new ArrayList<>();
     List<QT_DULIEU_NT> lstData = new ArrayList<>();
     private String capbc, tendn, ngaybc;
     private Map session;
     
+
     public TKActionSupport() {
-    }
-    
-    @Override
-    public String execute() throws Exception {
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
+    }
+    
+    public String index() {
         lstCanBo = new clsHuyDongTK().getCanBo(capbc,tendn);
-        return "thanhcong";
+        return SUCCESS;
     }
     
     public String viewdata(){
-        //session = ActionContext.getContext().getSession();
-        //capbc = (String) session.get("reportGrade");
-        //tendn = (String) session.get("username");
-        String sNgayBC = ServletActionContext.getRequest().getParameter("ReportDate");
-        String sUserName = ServletActionContext.getRequest().getParameter("Username");
-        String sCapBC = ServletActionContext.getRequest().getParameter("ReportGrade");
-        lstData = new clsHuyDongTK().getData(sNgayBC, sUserName, sCapBC);
-        return "thanhcong";
+        lstData = new clsHuyDongTK().getData(dtNgaybc, tendn, capbc, cboCanBo);
+        return SUCCESS;
     }
     
     public String savedata(){
-        pageResult = new ByteArrayInputStream("Lưu dữ liệu thành công.".getBytes(StandardCharsets.UTF_8));
-        System.out.println(chkChon.toString());
-        return "thanhcong";
+        String code = new clsHuyDongTK().saveData(dtNgaybc, tendn, capbc, cboCanBo,txtChitieu, chkChon);
+        pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        return SUCCESS;
     }
 
     //<editor-fold defaultstate="collapsed" desc="Phương thức Get set">
@@ -109,10 +102,13 @@ public class TKActionSupport extends ActionSupport {
     public void setLstData(List<QT_DULIEU_NT> lstData) {
         this.lstData = lstData;
     }
-    
-//</editor-fold>
+     public String getCboCanBo() {
+        return cboCanBo;
+    }
 
-    
+    public void setCboCanBo(String cboCanBo) {
+        this.cboCanBo = cboCanBo;
+    }
 
-    
+//</editor-fold>  
 }
