@@ -75,6 +75,7 @@
             .dataTables_filter input{
                 padding: 3px !important;
                 margin-bottom: 3px !important;
+                width: 300px;
             }
         </style>
         <link rel="stylesheet" href="js/jquery.dataTables.min.css">
@@ -134,27 +135,30 @@
                 $("#cmdLuuDL").click(function () {
                     var chk = confirm("Bạn có chắc chắn muốn lưu dữ liệu");
                     if (chk) {
-                        var url, sdata;
-                        url = "savedata.action";
-                        sdata = jQuery("#HDTK_FrmMain").serialize();
-                        $.ajax({
-                            type: "POST",
-                            url: url,
-                            data: sdata,
-                            success: function (data) {
-                                if (data === "200") {
-                                    alert("Lưu dữ liệu thành công.");
-                                    $("#cmdTaiDL").click();
-                                } else {
-                                    alert("Lỗi khi thực hiện lưu dữ liệu.");
+                        if ($('#txtChitieu').val() <= 0) {
+                            alert('Số tiền giao chỉ tiêu phải > 0');
+                        } else {
+                            var url, sdata;
+                            url = "savedata.action";
+                            sdata = jQuery("#HDTK_FrmMain").serialize();
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: sdata,
+                                success: function (data) {
+                                    if (data === "200") {
+                                        alert("Lưu dữ liệu thành công.");
+                                        $("#cmdTaiDL").click();
+                                    } else {
+                                        alert("Lỗi khi thực hiện lưu dữ liệu.");
+                                    }
+                                },
+                                error: function (request) {
+                                    $("#viewData").html(request.responseText);
                                 }
-                            },
-                            error: function (request) {
-                                $("#viewData").html(request.responseText);
-                            }
-                        });
-                    }
-                    ;
+                            });
+                        };
+                    };
                 });
 
                 function checkAll() {
