@@ -69,6 +69,13 @@
             #cmdLuuDL{
                 display: none;
             }
+            .dataTables_length select{
+                padding: 2px !important;
+            }
+            .dataTables_filter input{
+                padding: 3px !important;
+                margin-bottom: 3px !important;
+            }
         </style>
         <link rel="stylesheet" href="js/jquery.dataTables.min.css">
         <script src="js/jquery.dataTables.min.js"></script>
