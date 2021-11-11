@@ -86,7 +86,7 @@
             <div style="margin: 12px;">
                 <div class="clsHeader"><h1>KẾT QUẢ HUY ĐỘNG TIẾT KIỆM</h1></div>
                 <div class="clsTitle">
-                    <b>Ngày báo cáo:</b> <input type="date" id="dtNgaybc" name="dtNgaybc">
+                    <b>Ngày báo cáo:</b> <input type="date" id="dtNgaybc" name="dtNgaybc" value="2020-06-30">
                     <b>Cán bộ:</b> 
                     <select id="cboCanBo" name="cboCanBo">
                         <option value="000000">----Chọn cán bộ----</option>
