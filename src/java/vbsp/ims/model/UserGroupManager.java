@@ -15,15 +15,16 @@ import java.util.List;
  */
 public class UserGroupManager {
 
-    private static List<UserGroup> userGroups;
-    public static String userGroupCode;    
+    private List<UserGroup> userGroups;
+    public String userGroupCode;    
 
     public UserGroupManager() {
         userGroups = new ArrayList<>();
-        userGroups = IMSRptDao.getUserGroups();
+//        userGroups = IMSRptDao.getUserGroups();
     }
 
     public List<UserGroup> getUserGroups() {
+        userGroups = IMSRptDao.getUserGroups();
         return userGroups;
     }
     
@@ -31,6 +32,7 @@ public class UserGroupManager {
         String js_privileage = IMSRptDao.findPrivilegeByUsr(userName);
         System.err.println("UserGroupAction~" + js_privileage);
         List<UserGroup> jl_usergroup = new ArrayList<>();
+        userGroups = IMSRptDao.getUserGroups();
         for (UserGroup userGrp : userGroups){
             if(js_privileage.contains(userGrp.getPriGroupCode())){
                 jl_usergroup.add(userGrp);
@@ -41,11 +43,12 @@ public class UserGroupManager {
     }
 
     public void create(UserGroup userGroup,String pMaker) {
-        userGroups.add(userGroup);
+        //userGroups.add(userGroup);
         IMSRptDao.addUserGroup(userGroup,pMaker);
     }
 
     public UserGroup find(String userGroupCode) {
+        userGroups = IMSRptDao.getUserGroups();
         for (UserGroup usegroup : userGroups) {
             if (usegroup.getPriGroupCode().equals(userGroupCode)) {
 //                System.out.println("found");
@@ -57,29 +60,31 @@ public class UserGroupManager {
 
     public void update(UserGroup pUserGroup,String pMaker) {
         
-        String lcUserGroupCode = pUserGroup.getPriGroupCode();
-        
-        for (UserGroup usegroup : userGroups) {
-            if (usegroup.getPriGroupCode().equals(lcUserGroupCode)) {
-                usegroup.setPriGroupDesc(pUserGroup.getPriGroupDesc());
-                usegroup.setPriGroupAlias(pUserGroup.getPriGroupAlias());
-                usegroup.setPriPrivilege(pUserGroup.getPriPrivilege());
-                usegroup.setPriGroupStatus(pUserGroup.getPriGroupStatus());
-                usegroup.setPriviewType(pUserGroup.getPriviewType());
-                // Cập nhật vào Database
-                IMSRptDao.updateUserGroup(usegroup,pMaker);
-            }
-        }
+        //String lcUserGroupCode = pUserGroup.getPriGroupCode();
+        IMSRptDao.updateUserGroup(pUserGroup,pMaker);
+//        userGroups = IMSRptDao.getUserGroups();
+//        for (UserGroup usegroup : userGroups) {
+//            if (usegroup.getPriGroupCode().equals(lcUserGroupCode)) {
+//                usegroup.setPriGroupDesc(pUserGroup.getPriGroupDesc());
+//                usegroup.setPriGroupAlias(pUserGroup.getPriGroupAlias());
+//                usegroup.setPriPrivilege(pUserGroup.getPriPrivilege());
+//                usegroup.setPriGroupStatus(pUserGroup.getPriGroupStatus());
+//                usegroup.setPriviewType(pUserGroup.getPriviewType());
+//                // Cập nhật vào Database
+//                IMSRptDao.updateUserGroup(usegroup,pMaker);
+//            }
+//        }
     }
 
     public void delete(String userGroupCode) {
-        for (UserGroup usegroup : userGroups) {
-            if (usegroup.getPriGroupCode().equals(userGroupCode)) {
-                userGroups.remove(usegroup);
-                IMSRptDao.deleteUserGroup(userGroupCode);
-                break;
-            }
-        }
+//        for (UserGroup usegroup : userGroups) {
+//            if (usegroup.getPriGroupCode().equals(userGroupCode)) {
+//                //userGroups.remove(usegroup);
+//                IMSRptDao.deleteUserGroup(userGroupCode);
+//                break;
+//            }
+//        }
+            IMSRptDao.deleteUserGroup(userGroupCode);
     }
     
     public List<MenuItem> getListOfMenuItem(){

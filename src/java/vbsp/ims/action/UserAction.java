@@ -36,12 +36,13 @@ public class UserAction extends ActionSupport
     private String success_msg="";
     private String suggess_val="";
     private List<ListValue> statusList = new ArrayList<>();
+    UserManager userManager = new UserManager();
     //private int ktMaCanBo = 0;
     
     @Override
     public void prepare() throws Exception{
         if (!userCode.isEmpty()){     
-            User findUser = UserManager.find(userCode);
+            User findUser = userManager.find(userCode);
             user = findUser.clone();            
         }
     }
@@ -66,12 +67,12 @@ public class UserAction extends ActionSupport
         statusList.add(activeStatus);
         ListValue closeStatus = new ListValue("C", "Đóng");
         statusList.add(closeStatus);
-        this.users = UserManager.getUsers(lcUserName,lcmanagerPosCode);
+        this.users = userManager.getUsers(lcUserName,lcmanagerPosCode);
         userCode = lcUserName;
         return "success";
     }
     public String create(){
-        UserManager.create(user);
+        userManager.create(user);
         return "success";
     }
     public String edit(){       
@@ -91,14 +92,16 @@ public class UserAction extends ActionSupport
         return "success";
     }
     public String update(){        
-        if (!updateType.isEmpty())
-            UserManager.update(user,updateType,updatePassword);        
-        else
-            System.err.println("Update Type is null");
+        if (updateType.isEmpty()){
+            System.err.println("Update Type is null");        
+        }
+        else {
+            userManager.update(user,updateType,updatePassword);
+        }
         return "success";
     }
     public String delete(){               
-        UserManager.delete(userCode);                    
+        userManager.delete(userCode);                    
         return "success";
     }
 
@@ -109,8 +112,6 @@ public class UserAction extends ActionSupport
     public void setStatusList(List<ListValue> statusList) {
         this.statusList = statusList;
     }
-    
-    
     
     public String checkUser(){
         String lcUserName = request.getSession().getAttribute("username").toString();      

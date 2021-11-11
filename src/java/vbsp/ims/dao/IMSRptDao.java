@@ -518,6 +518,11 @@ public class IMSRptDao {
                 calstatement.setString(2, pMaker);
                 calstatement.setString(3, "2");
                 int ji_updaterow = calstatement.executeUpdate();
+                //calstatement.close();
+                
+                strQuery = "{call sp_generate_menu()}";             
+                calstatement = con.prepareCall(strQuery);                
+                ji_updaterow = calstatement.executeUpdate();
                 calstatement.close();
             }
         } catch (SQLException e) {
