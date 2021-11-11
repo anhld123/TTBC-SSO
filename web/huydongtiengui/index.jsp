@@ -15,9 +15,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!--        <script type="text/javascript" src="DMChitieu/js/jquery-ui.js"></script>-->
-<!--        <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
-        <script src="js/jquery.number.js"></script>-->
         <style>
             *{
                 font-family: Tahoma, Arial, Helvetica, sans-serif;
@@ -69,60 +66,88 @@
             .clsChon{
                 text-align: center;
             }
+            #cmdLuuDL{
+                display: none;
+            }
         </style>
+        <link rel="stylesheet" href="js/jquery.dataTables.min.css">
+        <script src="js/jquery.dataTables.min.js"></script>
     </head>
     <body>
-        <form id="frmMain">
+        <form id="HDTK_FrmMain" name="HDTK_FrmMain">
             <div style="margin: 12px;">
                 <div class="clsHeader"><h1>KẾT QUẢ HUY ĐỘNG TIẾT KIỆM</h1></div>
                 <div class="clsTitle">
                     <b>Ngày báo cáo:</b> <input type="date" id="dtNgaybc" name="dtNgaybc">
                     <b>Cán bộ:</b> 
-                    <select id="lstCanBo" name="lstCanBo">
+                    <select id="cboCanBo" name="cboCanBo">
                         <option value="000000">----Chọn cán bộ----</option>
                         <s:iterator value="lstCanBo">
                             <option value='<s:property value="MaCB"/>'><s:property value="TenCB"/></option>
                         </s:iterator>
                     </select>
-                    <b>Chỉ tiêu được giao:</b> <input type="number" id="txtChitieu" name="txtChitieu" value=0>
+                    <b>Chỉ tiêu được giao:</b> <input type="text" style="text-align: right;" id="txtChitieu" name="txtChitieu" value=0 class="number">
                     <input type="button" value="Tải dữ liệu" id="cmdTaiDL" name="cmdTaiDL">
                     <input type="button" value="Lưu dữ liệu" id="cmdLuuDL" name="cmdLuuDL">
                 </div>
                 <div id="viewData"></div>
             </div>
         </form>
+        <script src="js/jquery.number.js"></script>
+        <script src="js/format_num.js"></script>
+
         <script>
             $(document).ready(function () {
                 //Tải dữ liệu
                 $("#cmdTaiDL").click(function () {
-                    $('#viewData').html('<img src="img/loading.gif"/>');
-                    var url;
-                    var reportDate = $("#dtNgaybc").val();
-                    var staffId = $('#lstCanBo option:selected').val();
-                    alert(reportDate + staffId);
-                    url = "HDTK_Viewdata?ReportDate="+reportDate+"&Username="+staffId+"&ReportGrade=3";
-                    //sdata = jQuery("#frmMain").serialize();
-                    $.ajax({
-                        type: "GET",                                        
-                        url: url,
-                        success: function (res) {
-                            //alert(res);
-                            $("#viewData").html(res);
-                        },
-                        error: function (res) {
-                            alert("Lỗi xử lý!");
-                        }
-                    });
+                    if ($("#cboCanBo").val() === '000000') {
+                        alert("Vui lòng chọn cán bộ cần gán dữ liệu.");
+                    } else {
+                        $('#viewData').html('<img src="img/loading.gif"/>');
+                        var url, sdata;
+                        url = "viewdata.action";
+                        sdata = jQuery("#HDTK_FrmMain").serialize();
+                        $.ajax({
+                            type: "GET",
+                            url: url,
+                            data: sdata,
+                            success: function (data) {
+                                $("#viewData").html(data);
+                                $("#cmdLuuDL").css("display", "inline-block");
+                            },
+                            error: function (request) {
+                                $("#viewData").html(request.responseText);
+                            }
+                        });
+                    }
+                    ;
                 });
 
                 //Lưu dữ liệu
                 $("#cmdLuuDL").click(function () {
-                    var url, sdata;
-                    url = "savedata.action";
-                    sdata = jQuery("#frmMain").serialize();
-                    $.post(url, sdata, function (data) {
-                        alert(data);
-                    });
+                    var chk = confirm("Bạn có chắc chắn muốn lưu dữ liệu");
+                    if (chk) {
+                        var url, sdata;
+                        url = "savedata.action";
+                        sdata = jQuery("#HDTK_FrmMain").serialize();
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: sdata,
+                            success: function (data) {
+                                if (data === "200") {
+                                    alert("Lưu dữ liệu thành công.");
+                                    $("#cmdTaiDL").click();
+                                } else {
+                                    alert("Lỗi khi thực hiện lưu dữ liệu.");
+                                }
+                            },
+                            error: function (request) {
+                                $("#viewData").html(request.responseText);
+                            }
+                        });
+                    }
+                    ;
                 });
 
                 function checkAll() {
@@ -131,6 +156,13 @@
                 }
                 ;
             });
+
+            $('.number').number(true, 0);
+
+            $("#cboCanBo").change(function () {
+                $("#cmdLuuDL").css("display", "none");
+            });
+
         </script>
     </body>
 </html>
