@@ -907,6 +907,7 @@ public class DaoProcessRisk {
                     modelRisk.setsNguoi_pduyet_pgd(reset.getString(51));
                     modelRisk.setsNgay_pduyet_pgd(reset.getDate(52) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(52)));
                     modelRisk.setsNguyennhan_tuchoi(reset.getString(53));
+                    modelRisk.setsNN_BanKs(reset.getString(54));
                     lstModelRisk.add(modelRisk);
                 }
 

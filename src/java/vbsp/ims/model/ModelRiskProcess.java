@@ -98,6 +98,8 @@ public class ModelRiskProcess {
     public String sTenHSSV;
     public String sMucdicVV;
     
+    public String sNN_BanKs;
+    
     
     
 //</editor-fold>
@@ -105,6 +107,15 @@ public class ModelRiskProcess {
     public String getsSoku() {
         return sSoku;
     }
+
+    public String getsNN_BanKs() {
+        return sNN_BanKs;
+    }
+
+    public void setsNN_BanKs(String sNN_BanKs) {
+        this.sNN_BanKs = sNN_BanKs;
+    }
+    
     
     public void setsSoku(String sSoku) {
         this.sSoku = sSoku;

@@ -124,6 +124,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
     private String result_reject;
 
     private String nguyennhan_tuchoi;
+    
 
     private List<StatusHistorySend> lstModelHist;
 
