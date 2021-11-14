@@ -153,16 +153,16 @@
         </table>
     </form>
             <input type="hidden" value='<s:property value="styledisplay" />' id='chkLock' />
-    <script>
+<!--    <script>
         $(document).ready(function () {
             if ($("#chkLock").val() === 'Unlock') {
                 $("#btnSend").css("display", "inline-block");
-                $("#idButtondonvitmp").css("display", "inline-block");
+                //$("#idButtondonvitmp").css("display", "inline-block");
             }else{
                 $("#btnSend").css("display", "none");
-                $("#idButtondonvitmp").css("display","none");
+                //$("#idButtondonvitmp").css("display","none");
             }
         });
-    </script>
+    </script>-->
 
 </body>

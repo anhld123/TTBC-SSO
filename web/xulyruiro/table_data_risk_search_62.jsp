@@ -467,7 +467,7 @@ diennoidung_tuchoi<%--
                             <%--<sj:a targets="divBrowseRisk" href="%{idRejectRisk}">Từ chối</sj:a>--%>
                             <a href="javascript:diennoidung_tuchoi_62('<s:property value="sSoku"/>')" class="SOKU linkKh">
                                 <%--<s:property value='sSoku'/>--%>
-                                <s:if test="capPheDuyet.equalsIgnoreCase('3')">
+                                <s:if test="capPheDuyet!=3">
                                     Từ chối
                                 </s:if> 
                                 <s:else>
@@ -497,17 +497,17 @@ diennoidung_tuchoi<%--
                        onBeforeTopics="batdauloaddata" onCompleteTopics="hoanthanhloaddata"/>
         </s:form>
         <div id="divBrowseRisk"></div>
-        <input type="text" value='<s:property value="styledisplay" />' id='chkLock' />
-        <script>
+        <input type="hidden" value='<s:property value="styledisplay" />' id='chkLock' />
+<!--        <script>
             $(document).ready(function () {
                 if ($("#chkLock").val() === 'Unlock') {
                     $("#btnSend").css("display", "inline-block");
-                    $("#idButtondonvitmp").css("display", "inline-block");
+                   // $("#idButtondonvitmp").css("display", "inline-block");
                 }else{
                     $("#btnSend").css("display", "none");
-                    $("#idButtondonvitmp").css("display","none");
+                   // $("#idButtondonvitmp").css("display","none");
                 }
             });
-        </script>
+        </script>-->
     </body>
 </html>

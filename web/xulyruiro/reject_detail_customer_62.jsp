@@ -131,6 +131,21 @@
                 $("#idRejecttmp").click(function () {
                     $('#divBrowseRisk').empty();
                     var nguyennhan_tuchoi = $("#idnguyennhan_tuchoi").val();
+                    var capPheDuyet = $("#capPheDuyet").val();
+                    var sNN_BanKs;
+                    if(capPheDuyet == 3)
+                    {
+                        sNN_BanKs =$("#sNN_BanKs").val();
+                        if (sNN_BanKs == -1)
+                        {
+                            alert('Bạn phải chọn nguyên nhân từ chối trước khi nhấn đồng ý');
+                            $('#divBrowseRisk').html("<h2 style='color: red'>Bạn phải nhập nguyên nhân từ chối trước khi nhấn đồng ý ! </h2>");
+                            $('#sNN_BanKs').focus();
+                            //document.getElementById("myAnchor").focus();
+                            return;
+                        }
+                    }
+//                    alert(capPheDuyet);
                     nguyennhan_tuchoi = nguyennhan_tuchoi.replace(/^\s*|\s*$/g, "");
 //                nguyennhan_tuchoi = trim(nguyennhan_tuchoi);
                     if (nguyennhan_tuchoi == null || nguyennhan_tuchoi.length < 2)
@@ -154,10 +169,10 @@
                     var vb_xlrr = $("#vb_xlrr").val();
                     var poscd = $('#poscd').val();
                     var url = "setRejectRisk62.action?soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nhom_xlrr=" + nhom_xlrr
-                            + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd + "&nguyennhan_tuchoi=" + nguyennhan_tuchoi
+                            + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd + "&nguyennhan_tuchoi=" + sNN_BanKs+nguyennhan_tuchoi
                             + "&vb_xlrr=" + vb_xlrr;
                     var data1 = "soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nhom_xlrr=" + nhom_xlrr
-                            + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd + "&nguyennhan_tuchoi=" + nguyennhan_tuchoi
+                            + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd + "&nguyennhan_tuchoi=" + sNN_BanKs+nguyennhan_tuchoi
                             + "&vb_xlrr=" + vb_xlrr;
                     $.ajax({
                         type: 'POST',
@@ -336,8 +351,8 @@
                                 <td  colspan="2" align="center">
                                     <s:if test="capPheDuyet==3">
                                         <s:select  
-                                            id="idnguyennhan_tuchoi"
-                                            name="nguyennhan_tuchoi"
+                                            id="sNN_BanKs"
+                                            name="sNN_BanKs"
                                             list="lstNNBanKS" 
                                             listKey="sKey"
                                             listValue="sDesc"
@@ -345,15 +360,19 @@
                                             headerValue="--- Chọn ---"                                    
                                             cssStyle="height:25px;width: 100%;vertical-align: middle;background-color: #FFCCBA;">
                                         </s:select>
-                                    </s:if>
-                                    <s:else>
+                                    </s:if>                                    
+                                </td>
+                            </tr>
+                            <tr align="center">
+                                <td  colspan="2" align="center">
+                                    
                                         <s:textarea id="idnguyennhan_tuchoi" name="nguyennhan_tuchoi"   cols="60" rows="5" >
                                             <s:param name="value" >
                                                 <%--<s:property value='sNguyennhan_tuchoi' />--%>
                                                 ${sNguyennhan_tuchoi}
                                             </s:param>
                                         </s:textarea>
-                                    </s:else>
+                                    
                                     
                                 </td>
                             </tr>

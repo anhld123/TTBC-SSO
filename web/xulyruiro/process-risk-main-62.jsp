@@ -59,7 +59,7 @@
 //                alert('vao han nay');
                 var keyPressed = evt.which || evt.keyCode;
                 if (keyPressed == 13) {
-                    document.getElementById('idSearch').click();
+                    document.getElementById('idSearch62').click();
 //                    $('#idSearch').click();
                     evt.cancel = true;
                 }
@@ -452,7 +452,7 @@
                                 <!--<input type="text" id="idsearch_soku" style="margin:0 auto;" value="" name="search_soku" onfocus="this.select()" readonly="true" />-->
                             <sj:textfield id="idsearch_soku" name="search_soku" onkeypress="javascript:keyPressEvent();"  
                                           style="border: 1px solid rgba(81, 203, 238, 1);margin:0 auto;width: 150px; background: white;"></sj:textfield>
-                            <sj:submit id="idSearch" name="nameSearch" href="%{idurlSearch62}" value="Tìm kiếm" targets="divExportReport"
+                            <sj:submit id="idSearch62" name="nameSearch62" href="%{idurlSearch62}" value="Tìm kiếm" targets="divExportReport"
                                        onBeforeTopics="beforediv1"
                                        onCompleteTopics="completediv1" onclick="onFind()"/>
                              <s:if test="reportGrade.equalsIgnoreCase('3')">
@@ -468,7 +468,7 @@
                                    onBeforeTopics="beforediv1"
                                    onCompleteTopics="completediv1"/>&nbsp;&nbsp
                         <!--button phe duyet-->
-                        <input type="button" id="idButton" name="idButton" onclick="onclickBrowseRisk()" <s:if test="capPheDuyet=3">value="Thẩm định"</s:if>
+                        <input type="button" id="idButton" name="idButton" onclick="onclickBrowseRisk()" <s:if test="capPheDuyet==3">value="Thẩm định"</s:if>
                                <s:else>value="Phê Duyệt"</s:else>
                                style=" height:28px;width:95px;color: #0000FF; background: #c5c5c5; font: bolder"/>
                         <!--button quay ra-->
