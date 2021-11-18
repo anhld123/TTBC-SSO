@@ -2439,7 +2439,7 @@ public class DaoProcessRisk {
         }
         return lstModelRisk;
     }
-    public List<ModelRiskProcess> getDataSearchRisk62(Connection conn, String sUserName, String srGrade, String sNambc, String sDotrr, String sSoku_Search, int startRow, int EndRow, String sKhoa) {
+    public List<ModelRiskProcess> getDataSearchRisk62(Connection conn, String sUserName, String srGrade, String sNambc, String sDotrr, String sSoku_Search, int startRow, int EndRow, String sKhoa, String sNhomRR) {
         //Duyet list dua ra danh sach main pos la dang "000314","000401","000501"....
         List<ModelRiskProcess> lstModelRisk = new ArrayList<ModelRiskProcess>();
         try {
@@ -2448,7 +2448,7 @@ public class DaoProcessRisk {
             //conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call vbsp_ims_risk.SP_SEARCH_LOAN_62(?,?,?,?,?,?,?,?,?,?,?)}";
+            String strStoreproce = "{call vbsp_ims_risk.SP_SEARCH_LOAN_62(?,?,?,?,?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
 
             try {
@@ -2467,6 +2467,7 @@ public class DaoProcessRisk {
                 calstatement.registerOutParameter(9, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(10, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(11, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(12, sNhomRR);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
