@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import oracle.jdbc.OracleTypes;
+import oracle.sql.ARRAY;
+import oracle.sql.ArrayDescriptor;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.eps.epsAction;
@@ -24,7 +26,8 @@ import vbsp.ims.log.CoreLogger;
  * @author WELCOME
  */
 public class clsHuyDongTK {
-    public List<clsCanBo> getCanBo(String capbc, String tendn){
+
+    public List<clsCanBo> getCanBo(String capbc, String tendn) {
         List<clsCanBo> lst = new ArrayList<>();
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
@@ -45,8 +48,8 @@ public class clsHuyDongTK {
         }
         return lst;
     }
-    
-    public List<QT_DULIEU_NT> getData(String sNgaybc, String sUser,String sGrade, String cboCanBo) {
+
+    public List<QT_DULIEU_NT> getData(String sNgaybc, String sUser, String sGrade, String cboCanBo) {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
         List<QT_DULIEU_NT> lstData = new ArrayList<>();
@@ -54,7 +57,6 @@ public class clsHuyDongTK {
             CallableStatement calstatement = null;
             String strStoreproce = "{call PROC_GETALL_HUYDONGCB(?,?,?,?,?)}";
             ResultSet reset = null;
-
             try {
                 calstatement = con.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
                 calstatement.setString(1, sNgaybc);
@@ -84,6 +86,7 @@ public class clsHuyDongTK {
                 if (calstatement != null) {
                     calstatement.close();
                 }
+
             } catch (SQLException e) {
                 System.err.print(e.getMessage());
                 CoreLogger.error(this.getClass().getName() + "getData -> " + e.getMessage());
@@ -94,14 +97,20 @@ public class clsHuyDongTK {
         }
         return lstData;
     }
-    
-    public String saveData(String sNgaybc, String sUser,String sGrade,String cbocanbo, String chitieu, ArrayList<String> chkChon) {
+
+    public String saveData(String sNgaybc, String sUser, String sGrade, String cbocanbo, String chitieu, ArrayList<String> chkChon, List<QT_DULIEU_NT> lstData) {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
         String code = "";
         try {
+            //------Chuyển rạng mảng thành Object của Oracle
+            Object array[] = lstData.toArray();
+            ArrayDescriptor des = ArrayDescriptor
+                    .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, con);
+            ARRAY array_to_pass = new ARRAY(des, con, array);
+            //---------------------------------------------------------------------------
             CallableStatement calstatement = null;
-            String strStoreproce = "{call PROC_SAVEALL_HUYDONGCB(?,?,?,?,?,?,?)}";
+            String strStoreproce = "{call PROC_SAVEALL_HUYDONGCB(?,?,?,?,?,?,?,?)}";
             try {
                 calstatement = con.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
                 calstatement.setString(1, sNgaybc);
@@ -110,9 +119,37 @@ public class clsHuyDongTK {
                 calstatement.setString(4, cbocanbo);
                 calstatement.setString(5, chitieu);
                 calstatement.setString(6, chkChon.toString());
-                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.setArray(7, array_to_pass);
+                calstatement.registerOutParameter(8, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.execute();
-                code = (String) calstatement.getString(7);
+                code = (String) calstatement.getString(8);
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + "saveData -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham saveData " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
+        }
+        return code;
+    }
+
+    public String CheckNgayBC(String sNgaybc) {
+        DaoConnect db = new DaoConnect();
+        Connection con = db.getConnect();
+        String code = "";
+        try {
+            CallableStatement calstatement = null;
+            String strStoreproce = "{call PROC_GET_DATE_HUYDONGCB(?,?)}";
+            try {
+                calstatement = con.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.setString(1, sNgaybc);
+                calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.execute();
+                code = (String) calstatement.getString(2);
                 if (calstatement != null) {
                     calstatement.close();
                 }

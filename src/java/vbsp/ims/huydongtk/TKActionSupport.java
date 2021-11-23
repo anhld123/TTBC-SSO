@@ -10,6 +10,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ import vbsp.ims.bcqt.model.QT_DULIEU_NT;
  * @author WELCOME
  */
 public class TKActionSupport extends ActionSupport {
-    
+
     private InputStream pageResult;
     private ArrayList<String> chkChon = new ArrayList<>();
     private String dtNgaybc;
@@ -28,28 +29,32 @@ public class TKActionSupport extends ActionSupport {
     private String cboCanBo;
     List<clsCanBo> lstCanBo = new ArrayList<>();
     List<QT_DULIEU_NT> lstData = new ArrayList<>();
-    private String capbc, tendn, ngaybc;
+    private String capbc, tendn;
     private Map session;
-    
+    private String displaNone = "200";
+    private List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();  
 
     public TKActionSupport() {
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
     }
-    
+
     public String index() {
-        lstCanBo = new clsHuyDongTK().getCanBo(capbc,tendn);
+        lstCanBo = new clsHuyDongTK().getCanBo(capbc, tendn);
         return SUCCESS;
     }
-    
-    public String viewdata(){
+
+    public String viewdata() throws ParseException {
+        displaNone = new clsHuyDongTK().CheckNgayBC(dtNgaybc);
         lstData = new clsHuyDongTK().getData(dtNgaybc, tendn, capbc, cboCanBo);
         return SUCCESS;
     }
-    
-    public String savedata(){
-        String code = new clsHuyDongTK().saveData(dtNgaybc, tendn, capbc, cboCanBo,txtChitieu, chkChon);
+
+    public String savedata() {
+        String code = new clsHuyDongTK().saveData(dtNgaybc, tendn, capbc, cboCanBo, txtChitieu, chkChon,lstDulieuNt);
+        /*Hàm gọi REST API để đẩy dữ liệu về TW*/
+         int Status = new HDTKRestApi().insertHDTK(dtNgaybc, tendn, capbc, cboCanBo,txtChitieu, chkChon);
         pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
@@ -86,7 +91,7 @@ public class TKActionSupport extends ActionSupport {
     public void setTxtChitieu(String txtChitieu) {
         this.txtChitieu = txtChitieu;
     }
-    
+
     public List<clsCanBo> getLstCanBo() {
         return lstCanBo;
     }
@@ -94,7 +99,7 @@ public class TKActionSupport extends ActionSupport {
     public void setLstCanBo(List<clsCanBo> lstCanBo) {
         this.lstCanBo = lstCanBo;
     }
-    
+
     public List<QT_DULIEU_NT> getLstData() {
         return lstData;
     }
@@ -102,7 +107,8 @@ public class TKActionSupport extends ActionSupport {
     public void setLstData(List<QT_DULIEU_NT> lstData) {
         this.lstData = lstData;
     }
-     public String getCboCanBo() {
+
+    public String getCboCanBo() {
         return cboCanBo;
     }
 
@@ -110,5 +116,23 @@ public class TKActionSupport extends ActionSupport {
         this.cboCanBo = cboCanBo;
     }
 
+    public String getDisplaNone() {
+        return displaNone;
+    }
+
+    public void setDisplaNone(String displaNone) {
+        this.displaNone = displaNone;
+    }
+    
+    public List<QT_DULIEU_NT> getLstDulieuNt() {
+        return lstDulieuNt;
+    }
+
+    public void setLstDulieuNt(List<QT_DULIEU_NT> lstDulieuNt) {
+        this.lstDulieuNt = lstDulieuNt;
+    }
 //</editor-fold>  
+
+    
+
 }
