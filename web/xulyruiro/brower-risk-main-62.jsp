@@ -142,7 +142,7 @@
 //                alert('vao han nay');
                 var keyPressed = evt.which || evt.keyCode;
                 if (keyPressed == 13) {
-                    document.getElementById('idSearch').click();
+                    document.getElementById('idSearch62').click();
 //                    $('#idSearch').click();
                     evt.cancel = true;
                 }
@@ -243,13 +243,13 @@
                             {
                                 mess="Xác nhận số liệu thành công.";
                                 $("#btnSend").css("display", "none");
-                                $("#idButtondonvitmp").css("display", "none");
+                               // $("#idButtondonvitmp").css("display", "none");
                             } 
                             else
                             {
                                 mess="Lỗi không thể xác nhận số liệu.";
                                 $("#btnSend").css("display", "inline-block");
-                                $("#idButtondonvitmp").css("display", "inline-block");
+                                //$("#idButtondonvitmp").css("display", "inline-block");
                             }
                             alert(mess);
                         });
@@ -363,7 +363,7 @@
                 width: 40%;
                 float: right;
             }
-            #idButtondonvitmp, #btnSend{
+             #btnSend{
                 display: none;
             }
         </style>

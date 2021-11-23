@@ -124,6 +124,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
     private String result_reject;
 
     private String nguyennhan_tuchoi;
+    
 
     private List<StatusHistorySend> lstModelHist;
 
@@ -1027,7 +1028,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             }
             //Lay du lieu dua ra list table
             lstTableRiskObj = daoRisk.getDataSearchRisk62(conn, sUserName, reportGrade, nam_xlrr, dot_xlrr, search_soku,
-                    pagination.getStart() + 1, pagination.getStart() + pagination.getEnd(), vb_xlrr);
+                    pagination.getStart() + 1, pagination.getStart() + pagination.getEnd(), vb_xlrr, nhom_xlrr);
 
             
             //Dua so dong du lieu len table
