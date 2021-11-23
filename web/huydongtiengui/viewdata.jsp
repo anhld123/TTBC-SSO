@@ -113,13 +113,11 @@
     $(document).on('click', '.paginate_button', function (e) {
         e.preventDefault();
         $('.number').number(true, 0);
-        /* khoá tạm đã
         if ($("#chkDate").val() === '200') {
             $("input.chkChonSh").removeAttr("disabled");
         } else {
             $("input.chkChonSh").attr("disabled", true);
         }
-        */
     });
 
     $('.number').number(true, 0);
