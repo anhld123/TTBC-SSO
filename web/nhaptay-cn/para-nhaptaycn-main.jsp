@@ -590,7 +590,12 @@
                                         <s:if test="(khoa_nhaptaycn.equalsIgnoreCase('QD23_007') || khoa_nhaptaycn.equalsIgnoreCase('QD23_008')) && Grade.equalsIgnoreCase('2')">                                        
                                         </s:if>
                                         <s:else>
-                                             <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> </td>
+                                            <%--<s:if test="(khoa_nhaptaycn.equalsIgnoreCase('QD23_007')">--%>
+                                                <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận dữ liệu"/> </td>
+                                                
+                                                 <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận tất cả"/> </td>
+                                            <%--</s:if>--%>
+                                             
                                         </s:else>
                                        
  
