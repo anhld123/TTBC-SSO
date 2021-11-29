@@ -129,7 +129,7 @@
             </s:iterator>   
             </br>
             <div id="divTitle">
-                KẾT QUẢ RÀ SOÁT VÀ NẮM BẮT NHU CẦU VAY VỐN ĐỂ TRẢ LƯƠNG NGỪNG VIỆC, TRẢ LƯƠNG PHỤC HỒI SẢN XUẤT
+                HỖ TRỢ LÃI SUẤT 2021
                 </br>
                 <span style="color:red">Tháng ${thangbc}</span>
                 <div id="luu_thanhcong_del"></div>
@@ -166,39 +166,39 @@
                             <td style="text-align: center">6</td>
                         
                         </tr>
-                        <s:iterator value="#attr.lstDulieuNt50" var="modelView" status="rowstatus">                             
+                        <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                             <tr> 
                                 <s:if test="NHAPTAY.equalsIgnoreCase(1)">                                     
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D1" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH number" onfocus="this.select();"/>                                        
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH number" onfocus="this.select();"/>                                        
                                     </td>  
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D2" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D2" class="D2 TEN_KH number" onfocus="this.select();"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="D2 TEN_KH number" onfocus="this.select();"
                                                 onblur="autoEvaluate()"/>                                        
                                     </td>                                
                                    
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D3" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D3" class="D3 TEN_KH number" onfocus="this.select();" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="D3 TEN_KH number" onfocus="this.select();" 
                                                 onblur="autoEvaluate()"/> 
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D4" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D4" class="D4 TEN_KH number" onfocus="this.select();"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="D4 TEN_KH number" onfocus="this.select();"
                                                 onblur="autoEvaluate()"/>
                                     </td>
                                    
                                      <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D5" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();" />
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();" />
                                     </td>
 
                                    
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D6" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH number" onfocus="this.select();" />
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH number" onfocus="this.select();" />
                                     </td>
                                 </s:if>
                                 <!--Doanh nghiệp chưa duyệt-->
@@ -206,34 +206,34 @@
                                     <!--<td></td>-->
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D1" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH number" onfocus="this.select();"/>                                        
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH number" onfocus="this.select();"/>                                        
                                     </td>  
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D2" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D2" class="D2 TEN_KH number" onfocus="this.select();" style="background:#C0C0C0 !important;"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="D2 TEN_KH number" onfocus="this.select();" style="background:#C0C0C0 !important;"
                                                onblur="autoEvaluate()" readonly="true"/>                                        
                                     </td>                                
                                    
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D3" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D3" class="D3 TEN_KH number" onfocus="this.select();" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="D3 TEN_KH number" onfocus="this.select();" 
                                                onblur="autoEvaluate()"/> 
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D4" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D4" class="D4 TEN_KH number" onfocus="this.select();"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="D4 TEN_KH number" onfocus="this.select();"
                                                onblur="autoEvaluate()"/>
                                     </td>
                                    
                                      <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D5" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();" />
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();" />
                                     </td>
 
                                    
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D6" />"
-                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH number" onfocus="this.select();" />
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH number" onfocus="this.select();" />
                                     </td>
 
                                 </s:else>
