@@ -721,6 +721,7 @@
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QLDB_001'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_007'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_008'))
+                              ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('HTLS2021'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))"
                               >
                             <div id="containParm_full" align="center">
