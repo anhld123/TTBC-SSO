@@ -120,8 +120,8 @@
                 margin-bottom: 10px;
                 color: #e67300;
             }
-            
-            
+
+
             *{
                 font-family: Tahoma, Arial, Helvetica, sans-serif;
                 font-size: 12px;
@@ -147,10 +147,31 @@
                 text-align: center;
                 background-color: #FFCCBA;
             }
-            
+
             .TEN_KH{
                 border: 0px !important;
                 outline: none;
+            }
+
+            #loadDatatmp, #idsaveDatatmp{
+                cursor: pointer;
+                display: inline-block;
+                min-height: 1em;
+                outline: none;
+                border: none;
+                vertical-align: baseline;
+                background: #fafafa linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.09));
+                color: rgba(0, 0, 0, 0.6);
+                padding: 8px 24px 8px 24px;
+                text-transform: none;
+                text-shadow: none;
+                font-weight: bold;
+                line-height: 1em;
+                font-style: normal;
+                text-align: center;
+                text-decoration: none;
+                border-radius: 0.28571429rem;
+                box-shadow: 0px 0px 0px 1px rgb(34 36 38 / 15%) inset, 0px 0em 0px 0px rgb(34 36 38 / 15%) inset;
             }
 
         </style>
@@ -258,9 +279,6 @@
                        onCompleteTopics="completediv_ss" cssStyle="display: none"/>
         </s:form>
         <div id="luu_thanhcong"></div>
-        <!--        <script>
-                    initTable();
-                </script>-->
     </body>
 
 
