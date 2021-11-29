@@ -131,7 +131,7 @@
             <div id="divTitle">
                 HỖ TRỢ LÃI SUẤT 2021
                 </br>
-                <span style="color:red">Tháng ${thangbc}</span>
+                <span style="color:red">Chương trình hộ nghèo</span>
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nhaptaycn"/>
