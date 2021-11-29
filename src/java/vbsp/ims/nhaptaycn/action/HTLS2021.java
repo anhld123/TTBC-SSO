@@ -55,7 +55,8 @@ implements NhaptaycnFunction{
             String dateStr = sdf.format(date1);
             setThangbc(dateStr);
                        
-            
+            setLstHinhthucTNHS(daoMain.getCanBo(UserName, "PHANLOAIRPA"));
+            setLstNgayluongHD(daoMain.getCanBo(UserName, "XACNHANSL"));
             lstDulieuNt = daoMain.getDataHTLS2021(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);            
             if (conn != null) {
                 conn.close();
