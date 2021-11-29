@@ -121,7 +121,13 @@
                             data: sdata,
                             success: function (data) {
                                 $("#viewData").html(data);
-                                $("#cmdLuuDL").css("display", "inline-block");
+                                if ($("#chkDate").val() === '200') {
+                                    $("#cmdLuuDL").css("display", "inline-block");
+                                    $("input.chkChonSh").removeAttr("disabled");
+                                } else {
+                                    $("#cmdLuuDL").css("display", "none");
+                                    $("input.chkChonSh").attr("disabled", true);
+                                }
                             },
                             error: function (request) {
                                 $("#viewData").html(request.responseText);
@@ -157,8 +163,10 @@
                                     $("#viewData").html(request.responseText);
                                 }
                             });
-                        };
-                    };
+                        }
+                        ;
+                    }
+                    ;
                 });
 
                 function checkAll() {
