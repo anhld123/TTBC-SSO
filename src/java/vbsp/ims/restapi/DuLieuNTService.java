@@ -16,6 +16,7 @@ import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
+import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 
 /**
  *
@@ -65,6 +66,61 @@ public class DuLieuNTService extends ReportService {
         } else {
             return null;
         }
+    }
+     
+     public ArrayList<InvestorModel> getDataNDT2021(String posCode, String reportDate) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("investor-deduction-data")
+//                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("reportDate", reportDate);
+//                .queryParam("program", program)
+//                .queryParam("communeId", communeId)
+//                .queryParam("groupId", groupId);                
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            InvestorResp dulieuNTResp = response.readEntity(InvestorResp.class);
+            ArrayList<InvestorModel> listOfRow = dulieuNTResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+     
+     public int updateData2021Ndt(String key, String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
+            ArrayList<QT_DULIEU_NT> data) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("update-manual-data")
+                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", posFlag)
+                .queryParam("reportDate", reportDate)
+                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
+        
+        String json = "";
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(Include.NON_NULL);
+        try {
+            json = mapper.writeValueAsString(data);
+            //System.out.println("ResultingJSONstring = " + json);            
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        //json = "[{\"key\": \"COVID_03\",\"code\": \"1004003452\", \"reportDate\": \"2021-06-30T00:00:00.000Z\",\"posCode\": \"000401\",\"posFlag\": \"S\",\"makerId\": \"trungnt\",\"makerDate\": \"2021-10-28T07:51:49.872Z\",\"d50\": \"1\",\"style\": 0}]";
+        //json ="[{\"key\":\"COVID_03\",\"orderValue\":\"0\",\"code\":\"1004003452\",\"reportDate\":\"2021-06-30T00:00:00\",\"reportYear\":2021,\"posCode\":\"000401\",\"posFlag\":\"S\",\"branchCode\":\"000401\",\"makerId\":\"trungnt\",\"makerDate\":\"2021-10-29T15:04:56\",\"d1\":\"1004003452\",\"d50\":\"1\",\"manualFlag\":\"Y\",\"style\":0}]";
+        
+        Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
+
+        return response.getStatus();
     }
 
     public int updateData(String key, String posCode, String posFlag, String reportDate, String makerId, String authoriseId,

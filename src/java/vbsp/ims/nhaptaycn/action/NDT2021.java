@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package vbsp.ims.nhaptaycn.action;
 
 import static com.opensymphony.xwork2.Action.ERROR;
@@ -28,8 +27,10 @@ import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.define.Define;
 import vbsp.ims.log.CoreLogger;
+import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.IntDeductionModel;
 import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.InvestorModel;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.tdnn.DaoTdnnMain;
 import vbsp.ims.util.DateUtil;
@@ -39,103 +40,117 @@ import vbsp.ims.xml.XmlKtgsSync;
  *
  * @author Trung
  */
-public class NDT2021 extends ActionNhaptaycnMain 
-        
-implements NhaptaycnFunction{
+public class NDT2021 extends ActionNhaptaycnMain
+        implements NhaptaycnFunction {
+
     DuLieuNTService service;
-    
+
     @Override
-    public String load(){
-         try {
+    public String load() {
+        try {
 //            System.err.println("QD23_001");
             if (!getParaSession()) {
                 return ERROR;
             }
-            service = new DuLieuNTService();
-            ArrayList<IntDeductionModel> lstData = service.getDataHTLS2021("001801", "20211031", "01", "","");
-            int i =1;
-            for (IntDeductionModel item : lstData) {
-                QT_DULIEU_NT row = new QT_DULIEU_NT();
-                row.setKHOA("ID_001");
-                row.setTHUTU(i);          
-                i++;
-//                row.setTT_HIENTHI(item.getOrderDescription());
-//                row.setMA(item.getCode());
-//                row.setTEN(item.getName());
-                
-                Date reportDate = DateUtil.toDate( item.getReportDate());
-                row.setNGAYBC(reportDate);
-                //row.setNAMBC(item.getReportYear());
-                row.setMAPGD(item.getPosCode());
-//                row.setCO_TONGHOP(item.getPosFlag());
-                row.setMACN(item.getMainPos());
-//                row.setNGUOI_NHAP(item.getMakerId());
-                //row.setNGAY_NHAP(item.getMakerDate());
-//                Date makerDate = DateUtil.toDate( item.getMakerDate());
-//                row.setNGAY_NHAP(makerDate);
-//                row.setNGUOI_DUYET(item.getAuthoriseId());
-                //row.setNGAY_DUYET(item.getAuthoriseDate());
-//                Date authoriseDate = DateUtil.toDate( item.getAuthoriseDate());
-//                row.setNGAY_DUYET(authoriseDate);
-                row.setD1(item.getGroupId());
-                row.setD2(item.getCustomerId());
-                row.setD3(item.getLoanId());
-                row.setD4(Float.toString(item.getPrinTotal()));
-                row.setD5(Float.toString(item.getNormalAmt()));
-                row.setD6(Float.toString(item.getOverdueAmt()));
-                row.setD7(Float.toString(item.getFreezeAmt()));
-                row.setD8(Float.toString(item.getInterestRate()));
-                row.setD9(item.getLoanProgram());
-                row.setD10(item.getSpecificProductCode());
-                row.setD11(item.getDecisionCode());
-                row.setD12(item.getLoanStatus());
-                row.setD13(item.getCapitalSourceCode());
-                row.setD14(item.getInvestorCode());
-                row.setD15(item.getCasaAccount());
-                row.setD16(Float.toString(item.getIntTotalAmt()));
-                
-                row.setD17(Float.toString(item.getIntDeductionTotalAmt()));
-                row.setD18(Float.toString(item.getIntDeductionM10Amt()));
-                row.setD19(Float.toString(item.getIntDeductionM11Amt()));
-                row.setD20(Float.toString(item.getIntDeductionM12Amt()));
-                row.setD21(Float.toString(item.getIntDeductionAdjustM10Amt()));
-                row.setD22(Float.toString(item.getIntDeductionAdjustM11Amt()));
-                row.setD23(Float.toString(item.getIntDeductionAdjustM12Amt()));
-                
-                row.setD24(item.getPaymentFlag());
-                row.setD25(item.getIntConfirmFlag());
-                row.setD26(item.getDeductionTranRef());
-                row.setD27(item.getDeductionTranDate());
-                
-                row.setD28(Float.toString(item.getAccountingIntAmt()));
-                row.setD29(Float.toString(item.getRpaAmt()));
-                row.setD30(Float.toString(item.getCasaAmt()));
-                row.setD31(Float.toString(item.getCashAmt()));
-                
-                row.setD32(item.getPosTranRef());
-                row.setD33(item.getM10Status());
-                row.setD34(item.getM11Status());
-                row.setD35(item.getM12Status());
-                row.setD36(item.getPaymentFlag());
-                row.setD37(item.getIntConfirmFlag());
-                row.setD38(item.getDeductionTranRef());
-                row.setD39(item.getDeductionTranDate());
-                
-                row.setD43(Float.toString(item.getIntTotalM10Amt()));
-                row.setD44(Float.toString(item.getIntTotalM11Amt()));
-                row.setD45(Float.toString(item.getIntTotalM12Amt()));
-                row.setD46(item.getCommuneId());    
-                
-//                row.setNHAPTAY(item.getManualFlag());
-//                row.setFONTFORMAT(item.getFontFormat());
-//                row.setKIEUIN(item.getStyle());
-                if (i>10)
-                {
-                    continue;
-                }
-                lstDulieuNt.add(row);
-                
-            }  
+            HashMap hmParameter = getParameter();
+            Connection conn = new DaoConnect().getConnect();
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
+            String dateStr = sdf.format(date1);
+            setThangbc(dateStr);
+
+            setLstHinhthucTNHS(daoMain.getCanBo(UserName, "PHANLOAIRPA"));
+            setLstNgayluongHD(daoMain.getCanBo(UserName, "XACNHANSL"));
+            lstDulieuNt = daoMain.getDataHTLS2021(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
+            if (conn != null) {
+                conn.close();
+            }
+//            service = new DuLieuNTService();
+//            ArrayList<InvestorModel> lstData = service.getDataNDT2021("001801", "20211031");
+//            int i =1;
+//            for (InvestorModel item : lstData) {
+//                QT_DULIEU_NT row = new QT_DULIEU_NT();
+//                row.setKHOA("ID_001");
+//                row.setTHUTU(i);          
+//                i++;
+////                row.setTT_HIENTHI(item.getOrderDescription());
+////                row.setMA(item.getCode());
+////                row.setTEN(item.getName());
+//                
+//                Date reportDate = DateUtil.toDate( item.getReportDate());
+//                row.setNGAYBC(reportDate);
+//                //row.setNAMBC(item.getReportYear());
+//                row.setMAPGD(item.getPosCode());
+////                row.setCO_TONGHOP(item.getPosFlag());
+//                row.setMACN(item.getMainPos());
+////                row.setNGUOI_NHAP(item.getMakerId());
+//                //row.setNGAY_NHAP(item.getMakerDate());
+////                Date makerDate = DateUtil.toDate( item.getMakerDate());
+////                row.setNGAY_NHAP(makerDate);
+////                row.setNGUOI_DUYET(item.getAuthoriseId());
+//                //row.setNGAY_DUYET(item.getAuthoriseDate());
+////                Date authoriseDate = DateUtil.toDate( item.getAuthoriseDate());
+////                row.setNGAY_DUYET(authoriseDate);
+////                row.setD1(item.getGroupId());
+////                row.setD2(item.getCustomerId());
+////                row.setD3(item.getLoanId());
+////                row.setD4(Float.toString(item.getPrinTotal()));
+////                row.setD5(Float.toString(item.getNormalAmt()));
+////                row.setD6(Float.toString(item.getOverdueAmt()));
+////                row.setD7(Float.toString(item.getFreezeAmt()));
+////                row.setD8(Float.toString(item.getInterestRate()));
+////                row.setD9(item.getLoanProgram());
+////                row.setD10(item.getSpecificProductCode());
+////                row.setD11(item.getDecisionCode());
+////                row.setD12(item.getLoanStatus());
+////                row.setD13(item.getCapitalSourceCode());
+////                row.setD14(item.getInvestorCode());
+////                row.setD15(item.getCasaAccount());
+////                row.setD16(Float.toString(item.getIntTotalAmt()));
+////                
+////                row.setD17(Float.toString(item.getIntDeductionTotalAmt()));
+////                row.setD18(Float.toString(item.getIntDeductionM10Amt()));
+////                row.setD19(Float.toString(item.getIntDeductionM11Amt()));
+////                row.setD20(Float.toString(item.getIntDeductionM12Amt()));
+////                row.setD21(Float.toString(item.getIntDeductionAdjustM10Amt()));
+////                row.setD22(Float.toString(item.getIntDeductionAdjustM11Amt()));
+////                row.setD23(Float.toString(item.getIntDeductionAdjustM12Amt()));
+////                
+////                row.setD24(item.getPaymentFlag());
+////                row.setD25(item.getIntConfirmFlag());
+////                row.setD26(item.getDeductionTranRef());
+////                row.setD27(item.getDeductionTranDate());
+////                
+////                row.setD28(Float.toString(item.getAccountingIntAmt()));
+////                row.setD29(Float.toString(item.getRpaAmt()));
+////                row.setD30(Float.toString(item.getCasaAmt()));
+////                row.setD31(Float.toString(item.getCashAmt()));
+////                
+////                row.setD32(item.getPosTranRef());
+////                row.setD33(item.getM10Status());
+////                row.setD34(item.getM11Status());
+////                row.setD35(item.getM12Status());
+////                row.setD36(item.getPaymentFlag());
+////                row.setD37(item.getIntConfirmFlag());
+////                row.setD38(item.getDeductionTranRef());
+////                row.setD39(item.getDeductionTranDate());
+////                
+////                row.setD43(Float.toString(item.getIntTotalM10Amt()));
+////                row.setD44(Float.toString(item.getIntTotalM11Amt()));
+////                row.setD45(Float.toString(item.getIntTotalM12Amt()));
+////                row.setD46(item.getCommuneId());    
+////                
+////                row.setNHAPTAY(item.getManualFlag());
+////                row.setFONTFORMAT(item.getFontFormat());
+////                row.setKIEUIN(item.getStyle());
+//                if (i>10)
+//                {
+//                    continue;
+//                }
+//                lstDulieuNt.add(row);
+
+//            }  
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> QD23_008: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> QD23_008: " + e.getMessage());
@@ -143,8 +158,6 @@ implements NhaptaycnFunction{
         }
         return SUCCESS;
     }
-    
-   
 
     @Override
     public String save() {
@@ -152,37 +165,53 @@ implements NhaptaycnFunction{
             if (!getParaSession()) {
                 return ERROR;
             }
-           if (lstDulieuNt == null || lstDulieuNt.size() == 0 || lstCombox.size() == 0 ) {
+            if (lstDulieuNt == null || lstDulieuNt.size() == 0 || lstCombox.size() == 0) {
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
                 return ERROR;
             }
 
             DaoNhaptaycnMain daoMain = DaoNhaptaycnMain.newInstance();
-            HashMap hmParameter = getParameter();   
-            
-            String iCheck = daoMain.checkData_Info(lstCombox,khoa_nhaptaycn,hmParameter.get("ngay_bc").toString(),UserName, Grade, lstDat);
-            if(!iCheck.equals("XXXAAA"))
-            {
-                addActionError("Lỗi! "+ iCheck);
-                    return ERROR; 
-            }     
-            
-            
-            if(!daoMain.saveNtmoi01("NTMOI_001", UserName, "",hmParameter.get("ngay_bc").toString(), lstDulieuNt, lstCombox))
-            {
-                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
-                return ERROR;
+            HashMap hmParameter = getParameter();
+
+            ArrayList<QT_DULIEU_NT> lstUpdateDate = new ArrayList<>();
+            for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                QT_DULIEU_NT temp = new QT_DULIEU_NT();
+                if (findStringInList(tmp.getD4(),lstCombox) >0) {
+                    temp.setD1("1");
+                    temp.setD2("1");
+                    temp.setD3("1");
+                    temp.setD4("1");
+                    temp.setD5("1");
+                    lstUpdateDate.add(temp);
+                }
             }
+            
+            int status = service.updateData2021Ndt("COVID_03", "000401", "S", "20210630", "trungnt", "", lstUpdateDate);
+
+//            if (!daoMain.saveNtmoi01("NTMOI_001", UserName, "", hmParameter.get("ngay_bc").toString(), lstDulieuNt, lstCombox)) {
+//                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+//                return ERROR;
+//            }
 
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> SMS_001: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> SMS_001: " + e.getMessage());
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
-                return ERROR;
+            return ERROR;
         }
         addActionMessage("Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
-    }     
-    
-    
+    }
+
+    public int findStringInList(
+            String name, List<QT_DULIEU_NT> customers) {
+
+        for (QT_DULIEU_NT customer : customers) {
+            if (customer.getD4().equals(name)) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+
 }
