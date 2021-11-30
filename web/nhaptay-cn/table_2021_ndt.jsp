@@ -47,7 +47,31 @@
 
             function initTable()
             {
-              
+                var table = document.getElementById("tblTable");
+                var rowcount = table.rows.length;
+                rowcount = rowcount > max_row ? rowcount : max_row;
+                for (var i = 0; i < rowcount; i++)
+                {
+                    //cho combox 1
+                    var matmp1 = getMabyNumber1(i);//                       
+                    if (matmp1 == 1)
+                    {
+                        $('input:checkbox[id=idc11' + i + ']').attr('checked', true);
+                    }
+                }
+            }
+
+            function getMabyNumber1(idx)
+            {
+                var ma = '';
+                try {
+                    var ma_id = 'id7_' + idx;
+                    ma = document.getElementById(ma_id).value;
+                } catch (e)
+                {
+                    ma = '999999';
+                }
+                return ma;
             }
 
         </script>
@@ -158,10 +182,10 @@
                             <th rowspan="1" class="TD_TENKH">Tên NĐT</th>    
                             <th rowspan="1"  class="TD_MAKH">Mã SP cụ thể</th>                             
                             <th rowspan="1"  class="TD_TENKH">Tên SP cụ thể</th>   
-                             <th rowspan="1"  class="TD_STT">Xác nhận</th>                          
-                                                                            
+                            <th rowspan="1"  class="TD_STT">Xác nhận</th>                          
+
                         </tr>         
-                        
+
                         <tr style="font-style: italic;">
                             <td style="text-align: center">(1)</td>
                             <!--<td style="text-align: center">(2)</td>-->
@@ -170,16 +194,19 @@
                             <td style="text-align: center">(4)</td>
                             <td style="text-align: center">(5)</td>
                             <!--<td style="text-align: center">(6)</td>-->
-                              <th class="TD_STT" >
-                                            <s:checkbox id ="allCheck_pgd" name="allCheck"/></th>      
-                           
-                            
+                            <th class="TD_STT" >
+                                <s:checkbox id ="allCheck_pgd" name="allCheck"/></th>      
+
+
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                             <tr>                               
                                 <td align = "right" class="TD_STT" >
                                     <input type="text"   value="<s:property  value="D1" />" style="background: #C0C0C0 !important;"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="D0 TEN_KH " onfocus="this.select();"/>                                        
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="D0 TEN_KH " onfocus="this.select();"/>  
+                                    
+                                    <input type="hidden" value="<s:property  value="D7" />"  id="id7_<s:property  value="%{#rowstatus.index}" />" 
+                                        value="<s:property  value="D7"/>"/>
                                 </td>  
 
                                 <td align = "right" class="TD_MAKH" >
@@ -203,14 +230,15 @@
                                     <input type="text"   value="<s:property  value="D6" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D0 TEN_KH " onfocus="this.select();" />
                                 </td>
-                                 
-                                
+
+
                                 <td  align="center" class="TD_CHECKBOX">    
                                     <input type="checkbox" id ="idc11<s:property  value="%{#rowstatus.index}" />"  class=" TEN_KH D0" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" value="<s:property  value="D7" />"                                            
-                                            />
+                                           name="lstCombox[<s:property  value="%{#rowstatus.index}" />].D1" value="<s:property  value="D4" />"                                            
+                                           />
                                 </td> 
-                              
+
+
                             </tr>                                                                                                                                                                                   
                         </s:iterator>
                     </table>        
@@ -221,6 +249,9 @@
                        onCompleteTopics="completediv_ss" cssStyle="display: none"/>
         </s:form>
         <div id="luu_thanhcong"></div>
+        <script>
+            initTable();
+        </script>
     </body>
 
 
