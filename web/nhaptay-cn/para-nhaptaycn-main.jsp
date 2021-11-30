@@ -590,11 +590,15 @@
                                         <s:if test="(khoa_nhaptaycn.equalsIgnoreCase('QD23_007') || khoa_nhaptaycn.equalsIgnoreCase('QD23_008')) && Grade.equalsIgnoreCase('2')">                                        
                                         </s:if>
                                         <s:else>
-                                            <%--<s:if test="(khoa_nhaptaycn.equalsIgnoreCase('QD23_007')">--%>
-                                                <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận dữ liệu"/> </td>
+                                            <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021')">
+                                                <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/> </td>
                                                 
-                                                 <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận tất cả"/> </td>
-                                            <%--</s:if>--%>
+                                                 <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận hạch toán"/> </td>
+                                            </s:if>      
+                                                <s:else>
+                                                   <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> </td>
+                                                </s:else>     
+                                     
                                              
                                         </s:else>
                                        
@@ -727,6 +731,7 @@
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_007'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_008'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('HTLS2021'))
+                              ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('NDT2021'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))"
                               >
                             <div id="containParm_full" align="center">
