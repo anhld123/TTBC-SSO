@@ -1299,6 +1299,7 @@ public class ModelRiskProcess {
         public String sSend;
         public String sStatus;
         public String vb_xlrr;
+        public String trangthai;
         
         public int getnStt() {
             return nStt;
@@ -1348,6 +1349,15 @@ public class ModelRiskProcess {
         public void setVb_xlrr(String vb_xlrr) {
             this.vb_xlrr = vb_xlrr;
         }
+
+        public String getTrangthai() {
+            return trangthai;
+        }
+
+        public void setTrangthai(String trangthai) {
+            this.trangthai = trangthai;
+        }
+        
         
     }
 //</editor-fold>

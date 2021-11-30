@@ -43,6 +43,29 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
+    
+     public ArrayList<IntDeductionModel> getDataHTLS2021(String posCode, String reportDate, String program, String communeId, String groupId) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("int-deduction-data")
+//                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("reportDate", reportDate)
+                .queryParam("program", program)
+                .queryParam("communeId", communeId)
+                .queryParam("groupId", groupId);                
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            InDeductionResp dulieuNTResp = response.readEntity(InDeductionResp.class);
+            ArrayList<IntDeductionModel> listOfRow = dulieuNTResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
 
     public int updateData(String key, String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
             ArrayList<DuLieuNTRow> data) {

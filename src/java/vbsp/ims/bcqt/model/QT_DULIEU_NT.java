@@ -70,13 +70,277 @@ public class QT_DULIEU_NT implements SQLData {
     private String D30;
     private String NHAPTAY;
     private String FONTFORMAT;
+    
+    private String D31;
+    private String D32;
+    private String D33;
+    private String D34;
+    private String D35;
+    private String D36;
+    private String D37;
+    private String D38;
+    private String D39;
 
+    private String D40;
+    private String D41;
+    private String D42;
+    private String D43;
+    private String D44;
+    private String D45;
+    private String D46;
+    private String D47;
+    private String D48;
+    private String D49;
+    
+    private String D50;
+    private String D51;
+    private String D52;
+    private String D53;
+    private String D54;
+    private String D55;
+    private String D56;
+    private String D57;
+    private String D58;
+    private String D59;
     
     private int KIEUIN;
     private String CAP;
     private String CO_CONGCAP;
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Phuong thuc get/set">
+
+    public String getD31() {
+        return D31;
+    }
+
+    public void setD31(String D31) {
+        this.D31 = D31;
+    }
+
+    public String getD32() {
+        return D32;
+    }
+
+    public void setD32(String D32) {
+        this.D32 = D32;
+    }
+
+    public String getD33() {
+        return D33;
+    }
+
+    public void setD33(String D33) {
+        this.D33 = D33;
+    }
+
+    public String getD34() {
+        return D34;
+    }
+
+    public void setD34(String D34) {
+        this.D34 = D34;
+    }
+
+    public String getD35() {
+        return D35;
+    }
+
+    public void setD35(String D35) {
+        this.D35 = D35;
+    }
+
+    public String getD36() {
+        return D36;
+    }
+
+    public void setD36(String D36) {
+        this.D36 = D36;
+    }
+
+    public String getD37() {
+        return D37;
+    }
+
+    public void setD37(String D37) {
+        this.D37 = D37;
+    }
+
+    public String getD38() {
+        return D38;
+    }
+
+    public void setD38(String D38) {
+        this.D38 = D38;
+    }
+
+    public String getD39() {
+        return D39;
+    }
+
+    public void setD39(String D39) {
+        this.D39 = D39;
+    }
+
+    public String getD40() {
+        return D40;
+    }
+
+    public void setD40(String D40) {
+        this.D40 = D40;
+    }
+
+    public String getD41() {
+        return D41;
+    }
+
+    public void setD41(String D41) {
+        this.D41 = D41;
+    }
+
+    public String getD42() {
+        return D42;
+    }
+
+    public void setD42(String D42) {
+        this.D42 = D42;
+    }
+
+    public String getD43() {
+        return D43;
+    }
+
+    public void setD43(String D43) {
+        this.D43 = D43;
+    }
+
+    public String getD44() {
+        return D44;
+    }
+
+    public void setD44(String D44) {
+        this.D44 = D44;
+    }
+
+    public String getD45() {
+        return D45;
+    }
+
+    public void setD45(String D45) {
+        this.D45 = D45;
+    }
+
+    public String getD46() {
+        return D46;
+    }
+
+    public void setD46(String D46) {
+        this.D46 = D46;
+    }
+
+    public String getD47() {
+        return D47;
+    }
+
+    public void setD47(String D47) {
+        this.D47 = D47;
+    }
+
+    public String getD48() {
+        return D48;
+    }
+
+    public void setD48(String D48) {
+        this.D48 = D48;
+    }
+
+    public String getD49() {
+        return D49;
+    }
+
+    public void setD49(String D49) {
+        this.D49 = D49;
+    }
+
+    public String getD50() {
+        return D50;
+    }
+
+    public void setD50(String D50) {
+        this.D50 = D50;
+    }
+
+    public String getD51() {
+        return D51;
+    }
+
+    public void setD51(String D51) {
+        this.D51 = D51;
+    }
+
+    public String getD52() {
+        return D52;
+    }
+
+    public void setD52(String D52) {
+        this.D52 = D52;
+    }
+
+    public String getD53() {
+        return D53;
+    }
+
+    public void setD53(String D53) {
+        this.D53 = D53;
+    }
+
+    public String getD54() {
+        return D54;
+    }
+
+    public void setD54(String D54) {
+        this.D54 = D54;
+    }
+
+    public String getD55() {
+        return D55;
+    }
+
+    public void setD55(String D55) {
+        this.D55 = D55;
+    }
+
+    public String getD56() {
+        return D56;
+    }
+
+    public void setD56(String D56) {
+        this.D56 = D56;
+    }
+
+    public String getD57() {
+        return D57;
+    }
+
+    public void setD57(String D57) {
+        this.D57 = D57;
+    }
+
+    public String getD58() {
+        return D58;
+    }
+
+    public void setD58(String D58) {
+        this.D58 = D58;
+    }
+
+    public String getD59() {
+        return D59;
+    }
+
+    public void setD59(String D59) {
+        this.D59 = D59;
+    }
+    
     
     public String getNHAPTAY() {
         return NHAPTAY;

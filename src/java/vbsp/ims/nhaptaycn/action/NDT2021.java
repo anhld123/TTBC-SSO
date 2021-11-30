@@ -39,7 +39,7 @@ import vbsp.ims.xml.XmlKtgsSync;
  *
  * @author Trung
  */
-public class HTLS2021 extends ActionNhaptaycnMain 
+public class NDT2021 extends ActionNhaptaycnMain 
         
 implements NhaptaycnFunction{
     DuLieuNTService service;
@@ -51,21 +51,7 @@ implements NhaptaycnFunction{
             if (!getParaSession()) {
                 return ERROR;
             }
-//            HashMap hmParameter = getParameter();
-//            Connection conn = new DaoConnect().getConnect();
-//            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
-//            Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
-//            SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
-//            String dateStr = sdf.format(date1);
-//            setThangbc(dateStr);
-//                       
-//            setLstHinhthucTNHS(daoMain.getCanBo(UserName, "PHANLOAIRPA"));
-//            setLstNgayluongHD(daoMain.getCanBo(UserName, "XACNHANSL"));
-//            lstDulieuNt = daoMain.getDataHTLS2021(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);            
-//            if (conn != null) {
-//                conn.close();
-//            }
-              service = new DuLieuNTService();
+            service = new DuLieuNTService();
             ArrayList<IntDeductionModel> lstData = service.getDataHTLS2021("001801", "20211031", "01", "","");
             int i =1;
             for (IntDeductionModel item : lstData) {
@@ -166,7 +152,27 @@ implements NhaptaycnFunction{
             if (!getParaSession()) {
                 return ERROR;
             }
-           
+           if (lstDulieuNt == null || lstDulieuNt.size() == 0 || lstCombox.size() == 0 ) {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
+                return ERROR;
+            }
+
+            DaoNhaptaycnMain daoMain = DaoNhaptaycnMain.newInstance();
+            HashMap hmParameter = getParameter();   
+            
+            String iCheck = daoMain.checkData_Info(lstCombox,khoa_nhaptaycn,hmParameter.get("ngay_bc").toString(),UserName, Grade, lstDat);
+            if(!iCheck.equals("XXXAAA"))
+            {
+                addActionError("Lỗi! "+ iCheck);
+                    return ERROR; 
+            }     
+            
+            
+            if(!daoMain.saveNtmoi01("NTMOI_001", UserName, "",hmParameter.get("ngay_bc").toString(), lstDulieuNt, lstCombox))
+            {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                return ERROR;
+            }
 
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> SMS_001: " + e.getMessage());

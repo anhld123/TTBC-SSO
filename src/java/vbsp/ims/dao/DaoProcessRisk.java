@@ -3786,6 +3786,7 @@ public class DaoProcessRisk {
                     modelHist.setsTencn(reset.getString(2));
                     modelHist.setsSend(reset.getString(3));
                     modelHist.setsStatus(reset.getString(4));
+                    modelHist.setTrangthai(reset.getString(5));
                     modelHist.setVb_xlrr(sKhoa);
                     lstModelHist.add(modelHist);
                     nStt += 1;

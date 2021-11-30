@@ -15,12 +15,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 
-public class DuLieuNTResp {
+public class InDeductionResp {
 
     private boolean isSuccess;
     private float code;
     private String message;
-    ArrayList< DuLieuNTRow> result = new ArrayList<>();
+    ArrayList< IntDeductionModel> result = new ArrayList<>();
 
     // Getter Methods 
     public boolean getIsSuccess() {
@@ -48,11 +48,11 @@ public class DuLieuNTResp {
         this.message = message;
     }
 
-    public ArrayList<DuLieuNTRow> getResult() {
+    public ArrayList<IntDeductionModel> getResult() {
         return result;
     }
 
-    public void setResult(ArrayList<DuLieuNTRow> result) {
+    public void setResult(ArrayList<IntDeductionModel> result) {
         this.result = result;
     }
     
