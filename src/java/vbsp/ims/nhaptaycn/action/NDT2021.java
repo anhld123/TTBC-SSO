@@ -11,10 +11,12 @@ import java.io.File;
 import vbsp.ims.nhaptaycn.action.*;
 import vbsp.ims.nhaptaycn.action.*;
 import java.sql.Connection;
+import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -48,112 +50,72 @@ public class NDT2021 extends ActionNhaptaycnMain
     @Override
     public String load() {
         try {
-//            System.err.println("QD23_001");
+            System.err.println("NDT2021");
             if (!getParaSession()) {
                 return ERROR;
             }
             HashMap hmParameter = getParameter();
-            Connection conn = new DaoConnect().getConnect();
-            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+//            Connection conn = new DaoConnect().getConnect();
+//            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             String dateStr = sdf.format(date1);
-            setThangbc(dateStr);
+//            setThangbc(dateStr);
+//
+//            setLstHinhthucTNHS(daoMain.getCanBo(UserName, "PHANLOAIRPA"));
+//            setLstNgayluongHD(daoMain.getCanBo(UserName, "XACNHANSL"));
+//            lstDulieuNt = daoMain.getDataHTLS2021(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
+//            if (conn != null) {
+//                conn.close();
+//            }
+             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd_username = posMainModel.getPosCd();
+            service = new DuLieuNTService();
+               System.err.println("service");
+               System.err.println(pos_cd_username + " - lstData - " +dateStr);
+            ArrayList<InvestorModel> lstData = service.getDataNDT2021(pos_cd_username, dateStr);
+            
+            int i =1;
+            for (InvestorModel item : lstData) {
+                QT_DULIEU_NT row = new QT_DULIEU_NT();
+                row.setKHOA("NDT2021_001");
+                row.setTHUTU(i);          
+                i++;
+//                row.setTT_HIENTHI(item.getOrderDescription());
+//                row.setMA(item.getCode());
+//                row.setTEN(item.getName());
+                
+                Date reportDate = DateUtil.toDate( item.getReportDate());
+                row.setNGAYBC(reportDate);
+                //row.setNAMBC(item.getReportYear());
+                row.setMAPGD(item.getPosCode());
+//                row.setCO_TONGHOP(item.getPosFlag());
+                row.setMACN(item.getMainPos());
+//                row.setNGUOI_NHAP(item.getMakerId());
+                //row.setNGAY_NHAP(item.getMakerDate());
+//                Date makerDate = DateUtil.toDate( item.getMakerDate());
+//                row.setNGAY_NHAP(makerDate);
+//                row.setNGUOI_DUYET(item.getAuthoriseId());
+                //row.setNGAY_DUYET(item.getAuthoriseDate());
+//                Date authoriseDate = DateUtil.toDate( item.getAuthoriseDate());
+//                row.setNGAY_DUYET(authoriseDate);
+                row.setD1(item.getInvestorCode());
+                row.setD2(item.getInvestorName());
+                row.setD3(item.getSpecificProductCode());
+                
+                row.setD4(item.getSpecificProductName());
+                row.setD5(item.getMakerId());
+                row.setD6(item.getMakerDate());
+                row.setD7(item.getUpdateId());
+                row.setD8(item.getUpdateDate());
+                row.setD9(item.getStatus());
 
-            setLstHinhthucTNHS(daoMain.getCanBo(UserName, "PHANLOAIRPA"));
-            setLstNgayluongHD(daoMain.getCanBo(UserName, "XACNHANSL"));
-            lstDulieuNt = daoMain.getDataHTLS2021(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
-            if (conn != null) {
-                conn.close();
-            }
-//            service = new DuLieuNTService();
-//            ArrayList<InvestorModel> lstData = service.getDataNDT2021("001801", "20211031");
-//            int i =1;
-//            for (InvestorModel item : lstData) {
-//                QT_DULIEU_NT row = new QT_DULIEU_NT();
-//                row.setKHOA("ID_001");
-//                row.setTHUTU(i);          
-//                i++;
-////                row.setTT_HIENTHI(item.getOrderDescription());
-////                row.setMA(item.getCode());
-////                row.setTEN(item.getName());
-//                
-//                Date reportDate = DateUtil.toDate( item.getReportDate());
-//                row.setNGAYBC(reportDate);
-//                //row.setNAMBC(item.getReportYear());
-//                row.setMAPGD(item.getPosCode());
-////                row.setCO_TONGHOP(item.getPosFlag());
-//                row.setMACN(item.getMainPos());
-////                row.setNGUOI_NHAP(item.getMakerId());
-//                //row.setNGAY_NHAP(item.getMakerDate());
-////                Date makerDate = DateUtil.toDate( item.getMakerDate());
-////                row.setNGAY_NHAP(makerDate);
-////                row.setNGUOI_DUYET(item.getAuthoriseId());
-//                //row.setNGAY_DUYET(item.getAuthoriseDate());
-////                Date authoriseDate = DateUtil.toDate( item.getAuthoriseDate());
-////                row.setNGAY_DUYET(authoriseDate);
-////                row.setD1(item.getGroupId());
-////                row.setD2(item.getCustomerId());
-////                row.setD3(item.getLoanId());
-////                row.setD4(Float.toString(item.getPrinTotal()));
-////                row.setD5(Float.toString(item.getNormalAmt()));
-////                row.setD6(Float.toString(item.getOverdueAmt()));
-////                row.setD7(Float.toString(item.getFreezeAmt()));
-////                row.setD8(Float.toString(item.getInterestRate()));
-////                row.setD9(item.getLoanProgram());
-////                row.setD10(item.getSpecificProductCode());
-////                row.setD11(item.getDecisionCode());
-////                row.setD12(item.getLoanStatus());
-////                row.setD13(item.getCapitalSourceCode());
-////                row.setD14(item.getInvestorCode());
-////                row.setD15(item.getCasaAccount());
-////                row.setD16(Float.toString(item.getIntTotalAmt()));
-////                
-////                row.setD17(Float.toString(item.getIntDeductionTotalAmt()));
-////                row.setD18(Float.toString(item.getIntDeductionM10Amt()));
-////                row.setD19(Float.toString(item.getIntDeductionM11Amt()));
-////                row.setD20(Float.toString(item.getIntDeductionM12Amt()));
-////                row.setD21(Float.toString(item.getIntDeductionAdjustM10Amt()));
-////                row.setD22(Float.toString(item.getIntDeductionAdjustM11Amt()));
-////                row.setD23(Float.toString(item.getIntDeductionAdjustM12Amt()));
-////                
-////                row.setD24(item.getPaymentFlag());
-////                row.setD25(item.getIntConfirmFlag());
-////                row.setD26(item.getDeductionTranRef());
-////                row.setD27(item.getDeductionTranDate());
-////                
-////                row.setD28(Float.toString(item.getAccountingIntAmt()));
-////                row.setD29(Float.toString(item.getRpaAmt()));
-////                row.setD30(Float.toString(item.getCasaAmt()));
-////                row.setD31(Float.toString(item.getCashAmt()));
-////                
-////                row.setD32(item.getPosTranRef());
-////                row.setD33(item.getM10Status());
-////                row.setD34(item.getM11Status());
-////                row.setD35(item.getM12Status());
-////                row.setD36(item.getPaymentFlag());
-////                row.setD37(item.getIntConfirmFlag());
-////                row.setD38(item.getDeductionTranRef());
-////                row.setD39(item.getDeductionTranDate());
-////                
-////                row.setD43(Float.toString(item.getIntTotalM10Amt()));
-////                row.setD44(Float.toString(item.getIntTotalM11Amt()));
-////                row.setD45(Float.toString(item.getIntTotalM12Amt()));
-////                row.setD46(item.getCommuneId());    
-////                
-////                row.setNHAPTAY(item.getManualFlag());
-////                row.setFONTFORMAT(item.getFontFormat());
-////                row.setKIEUIN(item.getStyle());
-//                if (i>10)
-//                {
-//                    continue;
-//                }
-//                lstDulieuNt.add(row);
+                lstDulieuNt.add(row);
 
-//            }  
+            }  
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> QD23_008: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> QD23_008: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> NDT2021: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> NDT2021: " + e.getMessage());
             return ERROR;
         }
         return SUCCESS;
@@ -170,23 +132,42 @@ public class NDT2021 extends ActionNhaptaycnMain
                 return ERROR;
             }
 
-            DaoNhaptaycnMain daoMain = DaoNhaptaycnMain.newInstance();
+//            DaoNhaptaycnMain daoMain = DaoNhaptaycnMain.newInstance();
             HashMap hmParameter = getParameter();
-
-            ArrayList<QT_DULIEU_NT> lstUpdateDate = new ArrayList<>();
+            String sngaybc = hmParameter.get("ngay_bc").toString();
+            Date date1=new SimpleDateFormat("dd-MMM-yyyy").parse(sngaybc); 
+            
+//            Date date = Calendar.getInstance().getTime();  
+            DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");  
+            String strDate = dateFormat.format(date1); 
+            service = new DuLieuNTService();
+            ArrayList<InvestorModel> lstUpdateDate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                QT_DULIEU_NT temp = new QT_DULIEU_NT();
-                if (findStringInList(tmp.getD4(),lstCombox) >0) {
-                    temp.setD1("1");
-                    temp.setD2("1");
-                    temp.setD3("1");
-                    temp.setD4("1");
-                    temp.setD5("1");
-                    lstUpdateDate.add(temp);
+                InvestorModel tempadd = new InvestorModel();
+                if (findStringInList(tmp.getD1() + tmp.getD3(),lstCombox) >0) {
+//                    tempadd.setMAPGD(INPUT);
+                    tempadd.setMainPos(tmp.getMACN());
+                    tempadd.setPosCode(tmp.getMAPGD());
+//                    tempadd.setReportDate("20211031");
+                    tempadd.setInvestorCode(tmp.getD1());
+                    tempadd.setSpecificProductCode(tmp.getD3());
+                    tempadd.setStatus("1");
+                    lstUpdateDate.add(tempadd);
+                }
+                else
+                {
+                    tempadd.setMainPos(tmp.getMACN());
+                    tempadd.setPosCode(tmp.getMAPGD());
+//                    tempadd.setReportDate("20211031");
+                    tempadd.setInvestorCode(tmp.getD1());
+                    tempadd.setSpecificProductCode(tmp.getD3());
+                    tempadd.setStatus("0");
+                    lstUpdateDate.add(tempadd);
                 }
             }
-            
-            int status = service.updateData2021Ndt("COVID_03", "000401", "S", "20210630", "trungnt", "", lstUpdateDate);
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd_username = posMainModel.getPosCd();
+            int status = service.updateData2021Ndt(pos_cd_username, strDate,UserName, lstUpdateDate);
 
 //            if (!daoMain.saveNtmoi01("NTMOI_001", UserName, "", hmParameter.get("ngay_bc").toString(), lstDulieuNt, lstCombox)) {
 //                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
@@ -205,9 +186,12 @@ public class NDT2021 extends ActionNhaptaycnMain
 
     public int findStringInList(
             String name, List<QT_DULIEU_NT> customers) {
-
         for (QT_DULIEU_NT customer : customers) {
-            if (customer.getD4().equals(name)) {
+            if (customer == null)
+            {
+                continue;
+            }
+            if (customer.getD1().equals(name)) {
                 return 1;
             }
         }

@@ -116,7 +116,7 @@ implements NhaptaycnFunction{
                 row.setD22(Float.toString(item.getIntDeductionAdjustM11Amt()));
                 row.setD23(Float.toString(item.getIntDeductionAdjustM12Amt()));
                 
-                row.setD24(item.getPaymentFlag());
+                row.setD24(item.getPaymentFlag()== "0" ? "RPA" : "HT phải trả");
                 row.setD25(item.getIntConfirmFlag());
                 row.setD26(item.getDeductionTranRef());
                 row.setD27(item.getDeductionTranDate());
@@ -131,14 +131,16 @@ implements NhaptaycnFunction{
                 row.setD34(item.getM11Status());
                 row.setD35(item.getM12Status());
                 row.setD36(item.getPaymentFlag());
-                row.setD37(item.getIntConfirmFlag());
-                row.setD38(item.getDeductionTranRef());
-                row.setD39(item.getDeductionTranDate());
+//                row.setD37(item.getIntConfirmFlag());
+//                row.setD38(item.getDeductionTranRef());
+//                row.setD39(item.getDeductionTranDate());
                 
                 row.setD43(Float.toString(item.getIntTotalM10Amt()));
                 row.setD44(Float.toString(item.getIntTotalM11Amt()));
                 row.setD45(Float.toString(item.getIntTotalM12Amt()));
                 row.setD46(item.getCommuneId());    
+                
+                row.setD50(item.getCommuneId());    
                 
 //                row.setNHAPTAY(item.getManualFlag());
 //                row.setFONTFORMAT(item.getFontFormat());

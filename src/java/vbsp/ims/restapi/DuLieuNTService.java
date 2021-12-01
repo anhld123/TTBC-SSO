@@ -91,17 +91,17 @@ public class DuLieuNTService extends ReportService {
         }
     }
      
-     public int updateData2021Ndt(String key, String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
-            ArrayList<QT_DULIEU_NT> data) {
+     public int updateData2021Ndt( String posCode,  String reportDate, String makerId,
+            ArrayList<InvestorModel> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
-        WebTarget target = client.target(getBaseURI()).path("update-manual-data")
-                .queryParam("key", key)
+        WebTarget target = client.target(getBaseURI()).path("investor-deduction-update")
+//                .queryParam("key", key)
                 .queryParam("posCode", posCode)
-                .queryParam("posFlag", posFlag)
+//                .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
-                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
-                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+                .queryParam("updateId", makerId == null || makerId == "" ? "" : makerId);
+//                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
         
         String json = "";
