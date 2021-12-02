@@ -188,7 +188,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                     row.setD45(df.format(item.getIntTotalM12Amt()));
                     row.setD46(item.getCommuneId());
 
-                    row.setD50(item.getCommuneId());
+                    row.setD50(item.getCustomerName());
 
                     lstDulieuNt.add(row);
 
