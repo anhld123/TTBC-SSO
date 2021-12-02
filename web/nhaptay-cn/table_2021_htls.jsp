@@ -381,8 +381,8 @@
 
 
                                 <td align = "right" class="TD_TENKH" >
-                                    <input type="text"   value="<s:property  value="" />" style="background: #C0C0C0 !important;"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D50" class="D0 TEN_KH " onfocus="this.select();" 
+                                    <input type="text"   value="<s:property  value="D50" />" style="background: #C0C0C0 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D50" class=" TEN_KH " onfocus="this.select();" 
                                            readonly="true"/> 
                                     
                                     <input type="hidden" value="<s:property  value="D25" />"  id="id9_<s:property  value="%{#rowstatus.index}" />" 
