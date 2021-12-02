@@ -593,7 +593,7 @@
                                             <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021')">
                                                 <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/> </td>
                                                 
-                                                 <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận hạch toán"/> </td>
+                                                 <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Cập nhật TT giảm lãi"/> </td>
                                             </s:if>      
                                                 <s:else>
                                                    <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> </td>
