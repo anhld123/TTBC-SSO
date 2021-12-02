@@ -68,6 +68,28 @@ public class DuLieuNTService extends ReportService {
         }
     }
      
+     public ArrayList<LockSendModel> getDataLockSendS2021(String posCode, String flagReport, String reportDate) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("pos-send-status-data")
+//                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", flagReport)
+                .queryParam("reportDate", reportDate);
+            
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            LockSenResp dulieuNTResp = response.readEntity(LockSenResp.class);
+            ArrayList<LockSendModel> listOfRow = dulieuNTResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+     
      public ArrayList<InvestorModel> getDataNDT2021(String posCode, String reportDate) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);

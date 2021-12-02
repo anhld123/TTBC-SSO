@@ -557,6 +557,7 @@
         
         <action name="HTLS2021" class="vbsp.ims.nhaptaycn.action.HTLS2021"  method="load">
             <result name="success">/nhaptay-cn/table_2021_htls.jsp</result>     
+            <result name="cap2_chot">/nhaptay-cn/table_2021_htls_cnchot.jsp</result> 
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
         
