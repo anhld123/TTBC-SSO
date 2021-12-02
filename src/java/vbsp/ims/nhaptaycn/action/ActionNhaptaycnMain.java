@@ -210,6 +210,44 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected String soku;
 
     protected String type_action;
+    protected String chuongtrinh;
+    protected String maxa;
+    protected String mato;
+    protected String phanloai;
+
+    public String getChuongtrinh() {
+        return chuongtrinh;
+    }
+
+    public void setChuongtrinh(String chuongtrinh) {
+        this.chuongtrinh = chuongtrinh;
+    }
+
+    public String getMaxa() {
+        return maxa;
+    }
+
+    public void setMaxa(String maxa) {
+        this.maxa = maxa;
+    }
+
+    public String getMato() {
+        return mato;
+    }
+
+    public void setMato(String mato) {
+        this.mato = mato;
+    }
+
+    public String getPhanloai() {
+        return phanloai;
+    }
+
+    public void setPhanloai(String phanloai) {
+        this.phanloai = phanloai;
+    }
+    
+    
 
     public String getType_action() {
         return type_action;
@@ -233,6 +271,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected TreeNode nodes_pos = new TreeNode();
     protected List<DULIEU_NT> lstNt = new ArrayList<>();
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
+    protected List<QT_DULIEU_NT> lstDulieuNt_tong = new ArrayList<>();
     protected List<QT_DULIEU_NT_50> lstDulieuNt50 = new ArrayList<>();
     protected List<QT_DULIEU_NT> lstCombox = new ArrayList<>();
     protected List<ListValue> lstHinhthucTNHS = new ArrayList<ListValue>();
@@ -272,6 +311,16 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected List<QT_DULIEU_NT.saveDulieuNT_Phi> lstsaveNT_XAKK = new ArrayList<QT_DULIEU_NT.saveDulieuNT_Phi>();
     protected List<QT_DULIEU_NT.saveDulieuNT_Phi> lstsaveNT_XAKOKK_VAY = new ArrayList<QT_DULIEU_NT.saveDulieuNT_Phi>();
 
+    public List<QT_DULIEU_NT> getLstDulieuNt_tong() {
+        return lstDulieuNt_tong;
+    }
+
+    public void setLstDulieuNt_tong(List<QT_DULIEU_NT> lstDulieuNt_tong) {
+        this.lstDulieuNt_tong = lstDulieuNt_tong;
+    }
+
+    
+        
     public List<saveDulieuNT_Phi> getLstsaveNT_XAKK() {
         return lstsaveNT_XAKK;
     }
