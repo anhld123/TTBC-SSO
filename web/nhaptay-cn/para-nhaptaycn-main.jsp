@@ -590,16 +590,18 @@
                                         <s:if test="(khoa_nhaptaycn.equalsIgnoreCase('QD23_007') || khoa_nhaptaycn.equalsIgnoreCase('QD23_008')) && Grade.equalsIgnoreCase('2')">                                        
                                         </s:if>
                                         <s:else>
-                                            <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021')">
+                                            <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021') && Grade.equalsIgnoreCase('1')">
                                                 <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/> </td>
                                                 
                                                  <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Cập nhật TT giảm lãi"/> </td>
-                                            </s:if>      
+                                            </s:if>     
+                                            <s:elseif test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021') && Grade.equalsIgnoreCase('2')">
+                                                    <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt"/> </td>
+                                            </s:elseif>
                                                 <s:else>
                                                    <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> </td>
                                                 </s:else>     
-                                     
-                                             
+                                                                                  
                                         </s:else>
                                        
  
