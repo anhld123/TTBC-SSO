@@ -67,6 +67,17 @@ private String mainPos;
  private float intTotalM11Amt;
  private float intTotalM12Amt;
  private String communeId;
+ private String customerName;
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+ 
+ 
 
     public String getMainPos() {
         return mainPos;
