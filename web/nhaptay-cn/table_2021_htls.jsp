@@ -483,7 +483,7 @@
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D32" class="TEN_KH " onfocus="this.select();" />
                                 </td>
                                 <td  align="center" class="TD_CHECKBOX">    
-                                    <input type="checkbox" id ='idchk<s:property  value="%{#rowstatus.index}" />'  
+                                    <input type="checkbox" id ='idchk<s:property  value="%{#rowstatus.index}" />' class="checkboxdat TEN_KH" 
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D33" value="<s:property  value="D33"/>"                                            
                                            />
                                 </td> 
