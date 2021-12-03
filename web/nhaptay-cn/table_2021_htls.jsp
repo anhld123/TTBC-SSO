@@ -433,15 +433,15 @@
                                 <!--Lai giam cac tháng-->
                                 <td align = "right" class="TD_MAKH" >
                                     <input type="text"   value="<s:property  value="D18" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number" onfocus="this.select();" onchange="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />')" />
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number" onfocus="this.select();" onchange="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />','ChangeVal')" />
                                 </td>
                                 <td align = "right" class="TD_MAKH" >
                                     <input type="text"   value="<s:property  value="D19" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH number" onfocus="this.select();"  onchange="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />')" />
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH number" onfocus="this.select();"  onchange="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />','ChangeVal')" />
                                 </td>
                                 <td align = "right" class="TD_MAKH" >
                                     <input type="text"   value="<s:property  value="D20" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" class="TEN_KH number" onfocus="this.select();"  onchange="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />')" />
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" class="TEN_KH number" onfocus="this.select();"  onchange="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />','ChangeVal')" />
                                 </td>
 
                                 <td align = "right" class="TD_MAKH" >
@@ -454,7 +454,7 @@
                             </td>      -->
                                 <td  align="center" class="TD_CHECKBOX">    
                                     <input type="checkbox" id ="idc11<s:property  value="%{#rowstatus.index}" />"  class="checkboxdat TEN_KH D0" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25" value="<s:property  value="D25"/>" onclick="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />')"                                           
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25" value="<s:property  value="D25"/>" onclick="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />','ClickCheck')"                                           
                                            />
                                 </td> 
 
@@ -500,8 +500,16 @@
 
         <script>
             initTable();
-            function CheckUpdate(idchk) {
-                $('#' + idchk).attr('checked', true);
+            function CheckUpdate(idchk, status) {
+                if (status == "ChangeVal") {
+                    $('#' + idchk).attr('checked', true);
+                } else {
+                    if ($('#' + idchk).prop('checked')) {
+                        $('#' + idchk).prop('checked', false);
+                    } else {
+                        $('#' + idchk).prop('checked', true);
+                    }
+                }
             }
         </script>
     </body>
