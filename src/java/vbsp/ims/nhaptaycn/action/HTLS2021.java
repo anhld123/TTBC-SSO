@@ -66,7 +66,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                 posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                 pos_cd_username = posMainModel.getPosCd();
                 service = new DuLieuNTService();
-                ArrayList<IntDeductionModel> lstData = service.getDataHTLS2021(pos_cd_username, "20211031", hmParameter.get("chuongtrinh").toString(),
+                ArrayList<IntDeductionModel> lstData = service.getDataHTLS2021(pos_cd_username, dateStr, hmParameter.get("chuongtrinh").toString(),
                         hmParameter.get("maxa").toString(), hmParameter.get("mato").toString());
                 int i = 1;
 
@@ -356,7 +356,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
             }
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
-            int status = service.updateData2021HTLS(pos_cd_username, "20211031", UserName, lstUpdateDate);
+            int status = service.updateData2021HTLS(pos_cd_username, strDate, UserName, lstUpdateDate);
 
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> SMS_001: " + e.getMessage());
