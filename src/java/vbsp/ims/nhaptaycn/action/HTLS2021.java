@@ -90,7 +90,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                 //String formatted = df.format(2.00023);
 
                 for (IntDeductionModel item : lstData) {
-                    
+
 //                if (i>10)
 //                {
 //                    continue;
@@ -182,9 +182,27 @@ public class HTLS2021 extends ActionNhaptaycnMain
                     row.setD46(item.getCommuneId());
 
                     row.setD50(item.getCustomerName());
-                    String lll= hmParameter.get("phanloai").toString();
-                    if(hmParameter.get("phanloai").toString().equals("-1"))
-                    {
+                    String lll = hmParameter.get("phanloai").toString();
+                    if (hmParameter.get("phanloai").toString().equals("-1")) {
+                        i++;
+                        tong.setD1(df.format(dn_tronhan + dn_quahan + dn_khoanh));
+                        tong.setD2(df.format(dn_tronhan));
+                        tong.setD3(df.format(dn_quahan));
+                        tong.setD4(df.format(dn_khoanh));
+
+                        tong.setD5(df.format(lai_t10));
+                        tong.setD6(df.format(lai_t11));
+                        tong.setD7(df.format(lai_t12));
+
+                        tong.setD8(df.format(lai_t10dc));
+                        tong.setD9(df.format(lai_t11dc));
+                        tong.setD10(df.format(lai_t12dc));
+
+                        tong.setD11(df.format(lai_20 + lai_21));
+                        tong.setD12(df.format(lai_20));
+                        tong.setD13(df.format(lai_21));
+                        lstDulieuNt.add(row);
+                    } else if (hmParameter.get("phanloai").toString().equals(item.getPaymentFlag())) {
                         i++;
                         tong.setD1(df.format(dn_tronhan + dn_quahan + dn_khoanh));
                         tong.setD2(df.format(dn_tronhan));
@@ -204,32 +222,8 @@ public class HTLS2021 extends ActionNhaptaycnMain
                         tong.setD13(df.format(lai_21));
                         lstDulieuNt.add(row);
                     }
-                    else if (hmParameter.get("phanloai").toString().equals(item.getPaymentFlag()))
-                    {
-                        i++;
-                        tong.setD1(df.format(dn_tronhan + dn_quahan + dn_khoanh));
-                        tong.setD2(df.format(dn_tronhan));
-                        tong.setD3(df.format(dn_quahan));
-                        tong.setD4(df.format(dn_khoanh));
-
-                        tong.setD5(df.format(lai_t10));
-                        tong.setD6(df.format(lai_t11));
-                        tong.setD7(df.format(lai_t12));
-
-                        tong.setD8(df.format(lai_t10dc));
-                        tong.setD9(df.format(lai_t11dc));
-                        tong.setD10(df.format(lai_t12dc));
-
-                        tong.setD11(df.format(lai_20 + lai_21));
-                        tong.setD12(df.format(lai_20));
-                        tong.setD13(df.format(lai_21));
-                        lstDulieuNt.add(row);
-                    }
-                    
 
                 }
-
-                
 
                 lstDulieuNt_tong.add(tong);
             } else if (Grade.equals("2")) {
@@ -248,7 +242,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                 posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                 pos_cd_username = posMainModel.getPosCd();
                 service = new DuLieuNTService();
-                ArrayList<LockSendModel> lstData = service.getDataLockSendS2021(pos_cd_username,"M", dateStr);
+                ArrayList<LockSendModel> lstData = service.getDataLockSendS2021(pos_cd_username, "M", dateStr);
                 int i = 0;
 
                 DecimalFormat df = new DecimalFormat("#.##");
@@ -319,39 +313,41 @@ public class HTLS2021 extends ActionNhaptaycnMain
             String strDate = dateFormat.format(date1);
 
             service = new DuLieuNTService();
-             ArrayList<LockSendModel> lstDataLock = service.getDataLockSendS2021(pos_cd_username,"S", strDate);
-                if(lstDataLock.size()>0)
-                {
-                    if (lstDataLock.get(0).getStatus().equals("1")){
-                        addActionError("Chi nhánh đã chốt số liệu. Bạn không thể điều chỉnh.");;
-                        return ERROR;
-                    }
+            ArrayList<LockSendModel> lstDataLock = service.getDataLockSendS2021(pos_cd_username, "S", strDate);
+            if (lstDataLock.size() > 0) {
+                if (lstDataLock.get(0).getStatus().equals("1")) {
+                    addActionError("Chi nhánh đã chốt số liệu. Bạn không thể điều chỉnh.");;
+                    return ERROR;
                 }
-            
+            }
+
             ArrayList<IntDeductionModel> lstUpdateDate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                IntDeductionModel tempadd = new IntDeductionModel();
-                if (tmp.getD25() == null) {
-                    tempadd.setMainPos(tmp.getMACN());
-                    tempadd.setPosCode(tmp.getMAPGD());
-                    tempadd.setLoanId(tmp.getD3());
-                    tempadd.setIntDeductionAdjustM10Amt(Float.parseFloat(tmp.getD18()));
-                    tempadd.setIntDeductionAdjustM11Amt(Float.parseFloat(tmp.getD19()));
-                    tempadd.setIntDeductionAdjustM12Amt(Float.parseFloat(tmp.getD20()));
-                    tempadd.setIntConfirmFlag("0");
-                    lstUpdateDate.add(tempadd);
-                } else {
-                    tempadd.setMainPos(tmp.getMACN());
-                    tempadd.setPosCode(tmp.getMAPGD());
-                    tempadd.setLoanId(tmp.getD3());
-                    tempadd.setIntDeductionAdjustM10Amt(Float.parseFloat(tmp.getD18()));
-                    tempadd.setIntDeductionAdjustM11Amt(Float.parseFloat(tmp.getD19()));
-                    tempadd.setIntDeductionAdjustM12Amt(Float.parseFloat(tmp.getD20()));
-                    tempadd.setM10Status(strDate.equals("20211130") ? "1" : "");
-                    tempadd.setM11Status(strDate.equals("20211130") ? "1" : "");
-                    tempadd.setM12Status(strDate.equals("20211231") ? "1" : "");
-                    tempadd.setIntConfirmFlag("1");
-                    lstUpdateDate.add(tempadd);
+                if (tmp.getD33() != null) {
+
+                    IntDeductionModel tempadd = new IntDeductionModel();
+                    if (tmp.getD25() == null) {
+                        tempadd.setMainPos(tmp.getMACN());
+                        tempadd.setPosCode(tmp.getMAPGD());
+                        tempadd.setLoanId(tmp.getD3());
+                        tempadd.setIntDeductionAdjustM10Amt(Float.parseFloat(tmp.getD18()));
+                        tempadd.setIntDeductionAdjustM11Amt(Float.parseFloat(tmp.getD19()));
+                        tempadd.setIntDeductionAdjustM12Amt(Float.parseFloat(tmp.getD20()));
+                        tempadd.setIntConfirmFlag("0");
+                        lstUpdateDate.add(tempadd);
+                    } else {
+                        tempadd.setMainPos(tmp.getMACN());
+                        tempadd.setPosCode(tmp.getMAPGD());
+                        tempadd.setLoanId(tmp.getD3());
+                        tempadd.setIntDeductionAdjustM10Amt(Float.parseFloat(tmp.getD18()));
+                        tempadd.setIntDeductionAdjustM11Amt(Float.parseFloat(tmp.getD19()));
+                        tempadd.setIntDeductionAdjustM12Amt(Float.parseFloat(tmp.getD20()));
+                        tempadd.setM10Status(strDate.equals("20211130") ? "1" : "");
+                        tempadd.setM11Status(strDate.equals("20211130") ? "1" : "");
+                        tempadd.setM12Status(strDate.equals("20211231") ? "1" : "");
+                        tempadd.setIntConfirmFlag("1");
+                        lstUpdateDate.add(tempadd);
+                    }
                 }
             }
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
