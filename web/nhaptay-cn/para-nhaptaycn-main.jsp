@@ -596,7 +596,7 @@
                                             <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021') && Grade.equalsIgnoreCase('1')">
                                                 <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/> </td>
                                                 
-                                                 <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Cập nhật TT giảm lãi"/> </td>
+                                                 <!--<td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Cập nhật TT giảm lãi"/> </td>-->
                                             </s:if>     
                                             <s:elseif test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021') && Grade.equalsIgnoreCase('2')">
                                                     <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt"/> </td>
@@ -875,7 +875,7 @@
                                     //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
                                     $("#ReportDate").val(iDate);
                                     getLockStatus();
-                                    $("#loadDatatmp").click();
+//                                    $("#loadDatatmp").click();
                                 });
 
                             </script>
