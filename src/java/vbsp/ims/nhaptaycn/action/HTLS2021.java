@@ -320,6 +320,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                     return ERROR;
                 }
             }
+            
 
             ArrayList<IntDeductionModel> lstUpdateDate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
