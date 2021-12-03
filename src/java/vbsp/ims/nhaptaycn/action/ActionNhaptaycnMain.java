@@ -734,9 +734,13 @@ public class ActionNhaptaycnMain extends ActionSupport {
             }
 
             lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn, UserName, Grade);
+            
             if (conn != null) {
                 conn.close();
             }
+//            if (khoa_nhaptaycn.equals("HTLS2021")) {
+//                return "htls2021";
+//            }
 
             lockStatus = 0;
 

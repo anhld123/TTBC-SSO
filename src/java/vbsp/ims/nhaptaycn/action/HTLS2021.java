@@ -62,14 +62,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                 Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                 String dateStr = sdf.format(date1);
-//            setThangbc(dateStr);
-//                       
-//            setLstHinhthucTNHS(daoMain.getCanBo(UserName, "PHANLOAIRPA"));
-//            setLstNgayluongHD(daoMain.getCanBo(UserName, "XACNHANSL"));
-//            lstDulieuNt = daoMain.getDataHTLS2021(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);            
-//            if (conn != null) {
-//                conn.close();
-//            }
+
                 posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                 pos_cd_username = posMainModel.getPosCd();
                 service = new DuLieuNTService();
@@ -97,7 +90,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                 //String formatted = df.format(2.00023);
 
                 for (IntDeductionModel item : lstData) {
-                    i++;
+                    
 //                if (i>10)
 //                {
 //                    continue;
@@ -188,28 +181,55 @@ public class HTLS2021 extends ActionNhaptaycnMain
                     row.setD45(df.format(item.getIntTotalM12Amt()));
                     row.setD46(item.getCommuneId());
 
-                    row.setD50(item.getCommuneId());
+                    row.setD50(item.getCustomerName());
+                    String lll= hmParameter.get("phanloai").toString();
+                    if(hmParameter.get("phanloai").toString().equals("-1"))
+                    {
+                        i++;
+                        tong.setD1(df.format(dn_tronhan + dn_quahan + dn_khoanh));
+                        tong.setD2(df.format(dn_tronhan));
+                        tong.setD3(df.format(dn_quahan));
+                        tong.setD4(df.format(dn_khoanh));
 
-                    lstDulieuNt.add(row);
+                        tong.setD5(df.format(lai_t10));
+                        tong.setD6(df.format(lai_t11));
+                        tong.setD7(df.format(lai_t12));
+
+                        tong.setD8(df.format(lai_t10dc));
+                        tong.setD9(df.format(lai_t11dc));
+                        tong.setD10(df.format(lai_t12dc));
+
+                        tong.setD11(df.format(lai_20 + lai_21));
+                        tong.setD12(df.format(lai_20));
+                        tong.setD13(df.format(lai_21));
+                        lstDulieuNt.add(row);
+                    }
+                    else if (hmParameter.get("phanloai").toString().equals(item.getPaymentFlag()))
+                    {
+                        i++;
+                        tong.setD1(df.format(dn_tronhan + dn_quahan + dn_khoanh));
+                        tong.setD2(df.format(dn_tronhan));
+                        tong.setD3(df.format(dn_quahan));
+                        tong.setD4(df.format(dn_khoanh));
+
+                        tong.setD5(df.format(lai_t10));
+                        tong.setD6(df.format(lai_t11));
+                        tong.setD7(df.format(lai_t12));
+
+                        tong.setD8(df.format(lai_t10dc));
+                        tong.setD9(df.format(lai_t11dc));
+                        tong.setD10(df.format(lai_t12dc));
+
+                        tong.setD11(df.format(lai_20 + lai_21));
+                        tong.setD12(df.format(lai_20));
+                        tong.setD13(df.format(lai_21));
+                        lstDulieuNt.add(row);
+                    }
+                    
 
                 }
 
-                tong.setD1(df.format(dn_tronhan + dn_quahan + dn_khoanh));
-                tong.setD2(df.format(dn_tronhan));
-                tong.setD3(df.format(dn_quahan));
-                tong.setD4(df.format(dn_khoanh));
-
-                tong.setD5(df.format(lai_t10));
-                tong.setD6(df.format(lai_t11));
-                tong.setD7(df.format(lai_t12));
-
-                tong.setD8(df.format(lai_t10dc));
-                tong.setD9(df.format(lai_t11dc));
-                tong.setD10(df.format(lai_t12dc));
-
-                tong.setD11(df.format(lai_20 + lai_21));
-                tong.setD12(df.format(lai_20));
-                tong.setD13(df.format(lai_21));
+                
 
                 lstDulieuNt_tong.add(tong);
             } else if (Grade.equals("2")) {
@@ -299,6 +319,15 @@ public class HTLS2021 extends ActionNhaptaycnMain
             String strDate = dateFormat.format(date1);
 
             service = new DuLieuNTService();
+             ArrayList<LockSendModel> lstDataLock = service.getDataLockSendS2021(pos_cd_username,"S", strDate);
+                if(lstDataLock.size()>0)
+                {
+                    if (lstDataLock.get(0).getStatus().equals("1")){
+                        addActionError("Chi nhánh đã chốt số liệu. Bạn không thể điều chỉnh.");;
+                        return ERROR;
+                    }
+                }
+            
             ArrayList<IntDeductionModel> lstUpdateDate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
                 IntDeductionModel tempadd = new IntDeductionModel();

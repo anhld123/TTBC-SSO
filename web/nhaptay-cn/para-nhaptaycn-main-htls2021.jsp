@@ -147,7 +147,7 @@
                                 padding:5px;*/
             }
             #navParam{
-                height: 35px;
+                height: 65px;
                 padding:0px;
                 padding-bottom: 0px;
                 padding-top: 0px;
@@ -162,7 +162,7 @@
                                 padding:5px;*/
             }
             #navParam3{
-                height: 35px;
+                height: 65px;
                 border: 0px solid;
                 margin-left: 10px;
                 font-weight: bold;
@@ -458,31 +458,17 @@
                 <s:hidden name="ReportDate" id="ReportDate" value=""/>
                 <s:hidden name="Grade" id="Grade"/>
                 <s:hidden name="UserName" id="UserName"/>
-                <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HANOI_003') || khoa_nhaptaycn.equalsIgnoreCase('HTLS2021')">
-                    <div id="navParamUp" >                       
-                    </s:if>  
-                    <s:elseif test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001') && Grade.equalsIgnoreCase('3')">
-                        <div id="navParamUp" > 
-                        </s:elseif>        
-                        <s:else>
+
+           
                             <div id="navParam" >     
-                            </s:else>         
+                                   
                             <div id="navParam3">     
                                 <table>
                                     <tr style="height: 30px;">
                                         <s:iterator value="lstNhaptaycnParams">
-                                            <s:if test="label.equalsIgnoreCase('Mã số thuế/CMTND/CIF')">
-                                                <s:if test="Grade.equalsIgnoreCase('3')">
-
-                                                </s:if>
-                                                <s:else>
-                                                    <td >Tìm kiếm:</td>
-                                                </s:else>
-
-                                            </s:if>
-                                            <s:else>
+                                            
                                                 <td ><s:property value="label"></s:property>:</td>
-                                            </s:else>
+                                            
 
 
                                             <s:if test="fieldName.equalsIgnoreCase('nha_dt') && Grade.equalsIgnoreCase('3')">
@@ -494,11 +480,7 @@
 
 
                                                 <s:if test="type.equalsIgnoreCase('T')">  
-                                                    <s:if test="khoa_nhaptaycn.equalsIgnoreCase('LOAITRU_3502')">
-                                                        <input type="text" style="text-align:right;width: 100px" value="10" id="<s:property value="fieldName"/>" name="<s:property value="fieldName"/>" class="" placeholder="<s:property value="label"/>" readonly="readonly"/>
-                                                    </s:if>
-
-                                                    <s:else>
+                                                   
                                                         <s:if test="fieldName.equalsIgnoreCase('nha_dt') && Grade.equalsIgnoreCase('3')">
                                                             <input type="hidden" style="width: 1px" value="" id="D_<s:property  value="%{fieldName}"/>" name="<s:property value="%{fieldName}"/>_TEXT"/>
                                                         </s:if>
@@ -506,7 +488,7 @@
                                                             <input type="text" value="" id="D_<s:property  value="%{fieldName}"/>" name="<s:property value="%{fieldName}"/>_TEXT" placeholder="<s:property value="label"/>"/>
                                                         </s:else>
 
-                                                    </s:else>    
+                                                     
 
                                                 </s:if>                                              
 
@@ -526,61 +508,9 @@
                                             </td>
 
                                         </s:iterator>     
-                                        <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001') && Grade.equalsIgnoreCase('3')">
-                                            <td>&nbsp;|&nbsp</td>
+                                     
+                                                
 
-
-                                            <td >Số thông báo:</td>
-                                            <td>
-                                                <input type="text" style="text-align:right;width: 100px" value="AAA" id="soqd" name="soqd" class="" placeholder="Số duyết định" />
-                                            </td>  
-                                            <td >Ngày thông báo:</td>
-                                            <td>
-                                                <sj:datepicker name="ngay_qd_DATE" value="%{new java.util.Date()}"  id="ngay_qd_DATE"
-                                                               placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL"/> 
-                                            </td>
-                                            <td >Thông báo lần:</td>
-                                            <td >
-                                                <input type="text" style="text-align:right;width: 50px" value="1" id="lanqd" name="lanqd" class=""  placeholder="Lần QĐ" />
-                                            </td> 
-                                            <td >Tính chất vốn:</td>
-                                            <td>
-                                                <select name="tc_von" id="tc_von">
-                                                    <option value="0">--Chọn--</option>
-                                                    <option value="1">Tái cấp vốn</option>
-                                                    <option value="2">Điều chuyển</option>
-                                                </select>
-                                            </td> 
-                                            <td>&nbsp;|&nbsp</td>
-
-
-
-
-                                        </s:if>   
-                                        <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001') && Grade.equalsIgnoreCase('3')"> 
-                                        </tr>
-                                        <tr>
-                                            <td >Số Tide:</td>
-                                            <td  >
-                                                <!--<input type="text" style="text-align:right;width: 150px"  id="sotide" name="sotide" class=""   placeholder="Số tài khoản"/>-->
-                                                <s:select  style="width: 200px;"  list="lstTide" id="sotide" name="sotide" listKey="sKey" listValue="sDesc"></s:select>
-                                                </td> 
-
-                                                <td>&nbsp;|&nbsp</td>
-                                                <td >Chốt kế hoạch:</td>
-                                                <td>
-                                                    <select name="chot_kh" id="chot_kh">
-                                                        <option value="-1">--Chọn--</option>
-                                                        <option value="0">Mở</option>
-                                                        <option value="1">Chốt</option>
-                                                        <!--<option value="2">Điều chuyển</option>-->
-                                                    </select>
-                                                </td> 
-                                        </s:if>            
-                                                <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021')">
-                                                    </tr>
-                                             <tr>
-                                                </s:if>         
 
                                         <td >
                                             &nbsp;&nbsp;&nbsp;
