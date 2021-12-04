@@ -178,12 +178,12 @@ public class DuLieuNTService extends ReportService {
     }
      
      public int updateData2021HTLS_ChotSL( String posCode,  String reportDate, String makerId,
-            ArrayList<LockSendModel> data) {
+            ArrayList<UpdateLockModel> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("pos-send-status-update")
 //                .queryParam("key", key)
-                .queryParam("posCode", posCode)
+                .queryParam("mainPos", posCode)
 //                .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
                 .queryParam("updateId", makerId == null || makerId == "" ? "" : makerId);

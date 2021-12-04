@@ -33,6 +33,7 @@ import vbsp.ims.restapi.IntDeductionModel;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.InvestorModel;
 import vbsp.ims.restapi.LockSendModel;
+import vbsp.ims.restapi.UpdateLockModel;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.tdnn.DaoTdnnMain;
 import vbsp.ims.util.DateUtil;
@@ -275,7 +276,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                     row.setD5(df.format(item.getDeductionLoanTotal()));
                     row.setD6(df.format(item.getNoDeductionLoanTotal()));
                     row.setD7(df.format(item.getNoDeductionIntTotal()));
-                    row.setD10(item.getStatus());
+                    row.setD25(item.getStatus());
 //                    row.setD7(df.format(item.getDeductionIntTotal()));                   
                     lstDulieuNt.add(row);
 
@@ -358,21 +359,21 @@ public class HTLS2021 extends ActionNhaptaycnMain
                 }
                 int status = service.updateData2021HTLS(pos_cd_username, strDate, UserName, lstUpdateDate);
             } else if (Grade.equals("2")) {
-                ArrayList<LockSendModel> lstUpdateDateLock = new ArrayList<>();
+                ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
                 for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                    LockSendModel tempadd = new LockSendModel();
+                    UpdateLockModel tempadd = new UpdateLockModel();
                     if (tmp.getD25() == null) {
-                        tempadd.setMainPos(tmp.getMACN());
+//                        tempadd.setMainPos(tmp.getMACN());
                         tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setReportDate(strDate);
-                        tempadd.setPosFlag("S");
+//                        tempadd.setReportDate(strDate);
+//                        tempadd.setPosFlag("S");
                         tempadd.setStatus("0");
                         lstUpdateDateLock.add(tempadd);
                     } else {
-                        tempadd.setMainPos(tmp.getMACN());
+//                        tempadd.setMainPos(tmp.getMACN());
                         tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setReportDate(strDate);
-                        tempadd.setPosFlag("S");
+//                        tempadd.setReportDate(strDate);
+//                        tempadd.setPosFlag("S");
                         tempadd.setStatus("1");
                         lstUpdateDateLock.add(tempadd);
                     }
