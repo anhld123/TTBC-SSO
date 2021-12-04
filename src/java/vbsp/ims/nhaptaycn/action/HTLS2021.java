@@ -267,6 +267,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                     row.setMAPGD(item.getPosCode());
 //                row.setCO_TONGHOP(item.getPosFlag());
                     row.setMACN(item.getMainPos());
+                    row.setTEN(item.getPosName());
                     row.setD1(df.format(item.getLoanTotal()));
                     row.setD2(df.format(item.getPrinTotal()));
                     row.setD3(df.format(item.getIntTotal()));
@@ -313,51 +314,75 @@ public class HTLS2021 extends ActionNhaptaycnMain
             String strDate = dateFormat.format(date1);
 
             service = new DuLieuNTService();
-            ArrayList<LockSendModel> lstDataLock = service.getDataLockSendS2021(pos_cd_username, "S", strDate);
-            if (lstDataLock.size() > 0) {
-                if (lstDataLock.get(0).getStatus().equals("1")) {
-                    addActionError("Chi nhánh đã chốt số liệu. Bạn không thể điều chỉnh.");;
-                    return ERROR;
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd_username = posMainModel.getPosCd();
+
+            if (Grade.equals("1")) {
+                ArrayList<LockSendModel> lstDataLock = service.getDataLockSendS2021(pos_cd_username, "S", strDate);
+                //                Check xem khóa chưa
+                if (lstDataLock.size() > 0) {
+                    if (lstDataLock.get(0).getStatus().equals("1")) {
+                        addActionError("Chi nhánh đã chốt số liệu. Bạn không thể điều chỉnh.");;
+                        return ERROR;
+                    }
                 }
-            }
-            
 
-            ArrayList<IntDeductionModel> lstUpdateDate = new ArrayList<>();
-            for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                if (tmp.getD33() != null) {
+                ArrayList<IntDeductionModel> lstUpdateDate = new ArrayList<>();
+                for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                    if (tmp.getD33() != null) {
 
-                    IntDeductionModel tempadd = new IntDeductionModel();
+                        IntDeductionModel tempadd = new IntDeductionModel();
+                        if (tmp.getD25() == null) {
+                            tempadd.setMainPos(tmp.getMACN());
+                            tempadd.setPosCode(tmp.getMAPGD());
+                            tempadd.setLoanId(tmp.getD3());
+                            tempadd.setIntDeductionAdjustM10Amt(Float.parseFloat(tmp.getD18()));
+                            tempadd.setIntDeductionAdjustM11Amt(Float.parseFloat(tmp.getD19()));
+                            tempadd.setIntDeductionAdjustM12Amt(Float.parseFloat(tmp.getD20()));
+                            tempadd.setIntConfirmFlag("0");
+                            lstUpdateDate.add(tempadd);
+                        } else {
+                            tempadd.setMainPos(tmp.getMACN());
+                            tempadd.setPosCode(tmp.getMAPGD());
+                            tempadd.setLoanId(tmp.getD3());
+                            tempadd.setIntDeductionAdjustM10Amt(Float.parseFloat(tmp.getD18()));
+                            tempadd.setIntDeductionAdjustM11Amt(Float.parseFloat(tmp.getD19()));
+                            tempadd.setIntDeductionAdjustM12Amt(Float.parseFloat(tmp.getD20()));
+                            tempadd.setM10Status(strDate.equals("20211130") ? "1" : "");
+                            tempadd.setM11Status(strDate.equals("20211130") ? "1" : "");
+                            tempadd.setM12Status(strDate.equals("20211231") ? "1" : "");
+                            tempadd.setIntConfirmFlag("1");
+                            lstUpdateDate.add(tempadd);
+                        }
+                    }
+                }
+                int status = service.updateData2021HTLS(pos_cd_username, strDate, UserName, lstUpdateDate);
+            } else if (Grade.equals("2")) {
+                ArrayList<LockSendModel> lstUpdateDateLock = new ArrayList<>();
+                for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                    LockSendModel tempadd = new LockSendModel();
                     if (tmp.getD25() == null) {
                         tempadd.setMainPos(tmp.getMACN());
                         tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setLoanId(tmp.getD3());
-                        tempadd.setIntDeductionAdjustM10Amt(Float.parseFloat(tmp.getD18()));
-                        tempadd.setIntDeductionAdjustM11Amt(Float.parseFloat(tmp.getD19()));
-                        tempadd.setIntDeductionAdjustM12Amt(Float.parseFloat(tmp.getD20()));
-                        tempadd.setIntConfirmFlag("0");
-                        lstUpdateDate.add(tempadd);
+                        tempadd.setReportDate(strDate);
+                        tempadd.setPosFlag("S");
+                        tempadd.setStatus("0");
+                        lstUpdateDateLock.add(tempadd);
                     } else {
                         tempadd.setMainPos(tmp.getMACN());
                         tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setLoanId(tmp.getD3());
-                        tempadd.setIntDeductionAdjustM10Amt(Float.parseFloat(tmp.getD18()));
-                        tempadd.setIntDeductionAdjustM11Amt(Float.parseFloat(tmp.getD19()));
-                        tempadd.setIntDeductionAdjustM12Amt(Float.parseFloat(tmp.getD20()));
-                        tempadd.setM10Status(strDate.equals("20211130") ? "1" : "");
-                        tempadd.setM11Status(strDate.equals("20211130") ? "1" : "");
-                        tempadd.setM12Status(strDate.equals("20211231") ? "1" : "");
-                        tempadd.setIntConfirmFlag("1");
-                        lstUpdateDate.add(tempadd);
+                        tempadd.setReportDate(strDate);
+                        tempadd.setPosFlag("S");
+                        tempadd.setStatus("1");
+                        lstUpdateDateLock.add(tempadd);
                     }
                 }
+                int status = service.updateData2021HTLS_ChotSL(pos_cd_username, strDate, UserName, lstUpdateDateLock);
             }
-            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
-            pos_cd_username = posMainModel.getPosCd();
-            int status = service.updateData2021HTLS(pos_cd_username, strDate, UserName, lstUpdateDate);
 
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> SMS_001: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> SMS_001: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
             return ERROR;
         }

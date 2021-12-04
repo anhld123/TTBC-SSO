@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 public class LockSendModel {
  private String mainPos;
  private String posCode;
+ private String posName;
  private String posFlag;
  private String reportDate;
  private String status;
@@ -34,6 +35,16 @@ public class LockSendModel {
  private float deductionIntTotal;
  private float noDeductionLoanTotal;
  private float noDeductionIntTotal;
+
+    public String getPosName() {
+        return posName;
+    }
+
+    public void setPosName(String posName) {
+        this.posName = posName;
+    }
+ 
+ 
 
     public String getMainPos() {
         return mainPos;
