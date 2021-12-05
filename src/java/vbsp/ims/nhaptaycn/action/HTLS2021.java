@@ -305,7 +305,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                 return ERROR;
             }
 
-//            DaoNhaptaycnMain daoMain = DaoNhaptaycnMain.newInstance();
+            DaoNhaptaycnMain daoMain = DaoNhaptaycnMain.newInstance();
             HashMap hmParameter = getParameter();
             String sngaybc = hmParameter.get("ngay_bc").toString();
             Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(sngaybc);
@@ -313,6 +313,9 @@ public class HTLS2021 extends ActionNhaptaycnMain
 //            Date date = Calendar.getInstance().getTime();  
             DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
             String strDate = dateFormat.format(date1);
+            
+            DateFormat dateFormat1 = new SimpleDateFormat("dd-MMM-yyyy");
+            String strDate1 = dateFormat1.format(date1);
 
             service = new DuLieuNTService();
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
@@ -358,6 +361,21 @@ public class HTLS2021 extends ActionNhaptaycnMain
                     }
                 }
                 int status = service.updateData2021HTLS(pos_cd_username, strDate, UserName, lstUpdateDate);
+                if (status == 200) {
+                    ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
+                    DecimalFormat df = new DecimalFormat("#.##");
+                    for(IntDeductionModel item: lstUpdateDate){
+                        QT_DULIEU_NT updateRow = new QT_DULIEU_NT();
+                        updateRow.setD1( item.getLoanId());
+                        updateRow.setD2( df.format(item.getIntDeductionAdjustM10Amt()));
+                        updateRow.setD3( df.format(item.getIntDeductionAdjustM11Amt()));
+                        updateRow.setD4( df.format(item.getIntDeductionAdjustM12Amt()));
+                        updateRow.setD5( item.getIntConfirmFlag().toString());
+                        
+                        lstLocalDataUpdate.add(updateRow);
+                    }
+                    daoMain.saveGiamLai1990(UserName, pos_cd_username, strDate1, lstLocalDataUpdate);
+                }
             } else if (Grade.equals("2")) {
                 ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
                 for (QT_DULIEU_NT tmp : lstDulieuNt) {

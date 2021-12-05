@@ -54,6 +54,7 @@
                 <th >Mã Đơn vị</th>
                 <th >Tên Đơn vị</th>
                 <th >Trạng thái</th>
+                <th >Trạng thái duyệt</th>
                 <!--                <th >Cho phép gửi</th>
                                 <th>Khóa gửi</th> -->
 
@@ -75,6 +76,7 @@
                         </td>
                         <td><s:property  value="sTencn" /></td>
                         <td style="text-align: left;"><s:property  value="sStatus" /></td>
+                        <td><s:property  value="trangthai" /></td>
                         <!--                         <td style="text-align: center;"> 
                         <s:url id="idOpenSend" value="setOpenSend.action"  escapeAmp="false">
                             <s:param name="macn" value="sMacn"/>
@@ -109,6 +111,7 @@
                         </td>
                         <td style=" color: red"><s:property  value="sTencn" /></td>
                         <td style="text-align: left; color: red"><s:property  value="sStatus" /></td>
+                        <td><s:property  value="trangthai" /></td>
                         <!--                         <td style="text-align: center;"> 
                         <s:url id="idOpenSend" value="setOpenSend.action"  escapeAmp="false">
                             <s:param name="macn" value="sMacn"/>
