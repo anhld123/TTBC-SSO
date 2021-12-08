@@ -126,6 +126,7 @@ public class ExportText2SbvAction extends ActionSupport
                 System.err.println(downloadfile.getFileName()+"~"+downloadfile.getFilePath());
             }
             
+            System.err.println("success ~" + filesList.size());
             return "success";
         }
     }
