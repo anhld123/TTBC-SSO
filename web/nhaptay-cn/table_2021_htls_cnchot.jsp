@@ -272,6 +272,11 @@
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="number TEN_KH " onfocus="this.select();" 
                                            readonly="true"/>
                                 </td>
+                                <td align = "right" class="TD_NGAY" >
+                                    <input type="text"   value="<s:property  value="D5" />" style="background: #C0C0C0 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();" 
+                                           readonly="true"/>
+                                </td>
                                  <td align = "right" class="TD_NGAY" >
                                     <input type="text"   value="<s:property  value="D4" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="number TEN_KH " onfocus="this.select();" 
@@ -279,11 +284,7 @@
                                 </td>
                                 
                                 <!--Du no: trong qua khoanh-->
-                                <td align = "right" class="TD_NGAY" >
-                                    <input type="text"   value="<s:property  value="D5" />" style="background: #C0C0C0 !important;"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();" 
-                                           readonly="true"/>
-                                </td>
+                                
                                 <td align = "right" class="TD_NGAY" >
                                     <input type="text"   value="<s:property  value="D6" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH number" onfocus="this.select();" 
