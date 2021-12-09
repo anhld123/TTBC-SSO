@@ -12,6 +12,9 @@
     .css_text.number{
         text-align: right;
     }
+    .dataFillter{
+        display: none;
+    }
 </style>
 <div class="clsBody">
     <table id="tblTable">
@@ -28,6 +31,16 @@
                 <th>Số dư HĐ</th>
                 <th>Kỳ hạn</th>
                 <th>Cán bộ</th>
+                <th class="dataFillter"></th>
+                <th class="dataFillter"></th>
+                <th class="dataFillter"></th>
+                <th class="dataFillter"></th>
+                <th class="dataFillter"></th>
+                <th class="dataFillter"></th>
+                <th class="dataFillter"></th>
+                <th class="dataFillter"></th>
+                <th class="dataFillter"></th>
+                <th class="dataFillter"></th>
             </tr>
         </thead>
         <tbody>
@@ -51,6 +64,16 @@
                     <td><input type="text" class='css_text number' value='<s:property value="D8"/>' readonly="readonly"></td>
                     <td><input type="text" class='css_text number' value='<s:property value="D9"/>' readonly="readonly"></td>
                     <td><input type="text" class='css_text' value='<s:property value="D10"/>' readonly="readonly"></td>
+                    <td class="dataFillter"><s:property value="D1"/></td>
+                    <td class="dataFillter"><s:property value="D2"/></td>
+                    <td class="dataFillter"><s:property value="D3"/></td>
+                    <td class="dataFillter"><s:property value="D4"/></td>
+                    <td class="dataFillter"><s:property value="D5"/></td>
+                    <td class="dataFillter"><s:property value="D6"/></td>
+                    <td class="dataFillter"><s:property value="D7"/></td>
+                    <td class="dataFillter"><s:property value="D8"/></td>
+                    <td class="dataFillter"><s:property value="D9"/></td>
+                    <td class="dataFillter"><s:property value="D10"/></td>
                 </tr>
             </s:iterator>
         </tbody>
@@ -78,17 +101,15 @@
     </div>
 </div>
 <script>
-
     function setChecked(id) {
         if ($('#' + id).prop('checked')) {
             $('#' + id).prop('checked', false);
         } else {
             $('#' + id).prop('checked', true);
         }
-        ;
     }
 
-    $('#tblTable').DataTable({
+    var table = $('#tblTable').DataTable({
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         "pageLength": 10,
         "language": {
@@ -110,7 +131,17 @@
         }
     });
 
+
     $(document).on('click', '.paginate_button', function (e) {
+        e.preventDefault();
+        $('.number').number(true, 0);
+        if ($("#chkDate").val() === '200') {
+            $("input.chkChonSh").removeAttr("disabled");
+        } else {
+            $("input.chkChonSh").attr("disabled", true);
+        }
+    });
+    $("select[name='tblTable_length']").change(function (e) {
         e.preventDefault();
         $('.number').number(true, 0);
         if ($("#chkDate").val() === '200') {
@@ -121,5 +152,4 @@
     });
 
     $('.number').number(true, 0);
-
 </script>

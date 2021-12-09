@@ -15,6 +15,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="js/jquery.dataTables.min.css">
+        <script src="js/jquery.dataTables.min.js"></script>
         <style>
             *{
                 font-family: Tahoma, Arial, Helvetica, sans-serif;
@@ -78,27 +80,26 @@
                 width: 300px;
             }
         </style>
-        <link rel="stylesheet" href="js/jquery.dataTables.min.css">
-        <script src="js/jquery.dataTables.min.js"></script>
     </head>
     <body>
         <form id="HDTK_FrmMain" name="HDTK_FrmMain">
             <div style="margin: 12px;">
                 <div class="clsHeader"><h1>KẾT QUẢ HUY ĐỘNG TIẾT KIỆM</h1></div>
                 <div class="clsTitle">
-                    <b>Ngày báo cáo:</b> <input type="date" id="dtNgaybc" name="dtNgaybc" value="2020-06-30">
-                    <b>Cán bộ:</b> 
+                    Ngày báo cáo <input type="date" id="dtNgaybc" name="dtNgaybc" value="2020-06-30">
+                    Cán bộ 
                     <select id="cboCanBo" name="cboCanBo">
                         <option value="000000">----Chọn cán bộ----</option>
                         <s:iterator value="lstCanBo">
                             <option value='<s:property value="MaCB"/>'><s:property value="TenCB"/></option>
                         </s:iterator>
                     </select>
-                    <b>Chỉ tiêu được giao:</b> <input type="text" style="text-align: right;" id="txtChitieu" name="txtChitieu" value=0 class="number">
+                    Chỉ tiêu được giao <input type="text" style="text-align: right;" id="txtChitieu" name="txtChitieu" value=0 class="number">
+                    Chỉ hiện những số đã gắn cán bộ <input type="checkbox" checked="true" name="flgFilter" id="flgFilter">
                     <input type="button" value="Tải dữ liệu" id="cmdTaiDL" name="cmdTaiDL">
                     <input type="button" value="Lưu dữ liệu" id="cmdLuuDL" name="cmdLuuDL">
                 </div>
-                <div id="viewData"></div>
+                <div id="viewData" style="width: 99%;"></div>
             </div>
         </form>
         <script src="js/jquery.number.js"></script>
