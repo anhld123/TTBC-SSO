@@ -72,6 +72,36 @@
                     swal('Lỗi', 'Lỗi: ' + e.toString(), 'error');
                 }
             }
+            
+            function nhapDieuchinh(masothue, tendn, thangbc) {
+                try
+                {
+                    if (masothue.length < 3)
+                    {
+                        alert('Doanh nghiệp chưa có mã số thuế !');
+                        return;
+                    }
+                    var pheduyet = 'N';
+                    var ht1 = screen.height - 100;
+                    var wt1 = screen.width - 100;
+                    var left1 = 50;//(screen.width / 2) - (wt1 / 2);
+                    var top1 = 50;
+                    var ngay_bc = $("#ngay_bc_DATE").val();
+                    var khoa_cdtt = $("#khoa_cdtt").val();
+                    var url = "loadDieuchinhKh.action?masothue=" + masothue + "&ngay_bc=" + ngay_bc + "&tendn=" + tendn+ "&thangbc=" + thangbc;
+
+                    //$.post(url,param,function(data){});
+                    popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+
+                    window.refreshData = function () {
+                        //alert('aaaa');
+                        $("#loadDatatmp").trigger("click");
+                    };
+                } catch (e)
+                {
+                    swal('Lỗi', 'Lỗi: ' + e.toString(), 'error');
+                }
+            }
 
             function updateDsNguoiLD_QD23(masothue, tendn,thangbc) {
                 try

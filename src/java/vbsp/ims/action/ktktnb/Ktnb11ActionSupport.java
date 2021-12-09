@@ -288,7 +288,7 @@ public class Ktnb11ActionSupport extends ActionSupport implements ServletRequest
 //        }
 //        //========== END DONG BO DU LIEU =======================================
 //        
-//        return "success";
+//        return "success";Bạn phải xem và chọn tất cả các PGD để gửi
     }
     
         public String Auth() throws SQLException{        
@@ -308,6 +308,7 @@ public class Ktnb11ActionSupport extends ActionSupport implements ServletRequest
         String lsPos = listKTNBDA.getListPos(maCn);
         if (lsPos.length() != listOfPos.length())
         {
+             System.err.print("so sánh " + lsPos.length() + " - " + listOfPos.length());
             return "error-pos";
         }
 //        String listOfPos = getListOfPos();

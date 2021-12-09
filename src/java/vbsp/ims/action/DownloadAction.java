@@ -53,6 +53,7 @@ public class DownloadAction extends ActionSupport {
             setFileInputStream(new FileInputStream(file));
             return "success";
         } catch (FileNotFoundException e) {
+            System.err.println("download error" + e.getMessage());
             throw e;
         }
     }

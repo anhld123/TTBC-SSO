@@ -236,6 +236,7 @@ public class Ktnb01ActionSupport extends ActionSupport  implements ServletReques
         String lsPos = listKTNBDA.getListPos(maCn);
         if (lsPos.length() != listOfPos.length())
         {
+            System.err.print("So pos " + lsPos.length());
             return "error-pos";
         }
 //        if(KT_STT_HT == null)

@@ -5,35 +5,39 @@
  */
 package vbsp.ims.restapi;
 
+import java.math.BigInteger;
+
+
 /**
  *
  * @author HP
  */
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
- 
+
 //@XmlRootElement(name = "dulieuNT")
-@XmlAccessorType (XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 
 public class LockSendModel {
- private String mainPos;
- private String posCode;
- private String posFlag;
- private String reportDate;
- private String status;
- private String makerId;
- private String makerDate;
- private String updateId;
- private String updateDate;
- private float loanTotal;
- private float prinTotal;
- private float intTotal;
- private float intDeductionTotal;
- private float deductionLoanTotal;
- private float deductionIntTotal;
- private float noDeductionLoanTotal;
- private float noDeductionIntTotal;
+
+    private String mainPos;
+    private String posCode;
+    private String posName;
+    private String posFlag;
+    private String reportDate;
+    private String status;
+    private String makerId;
+    private String makerDate;
+    private String updateId;
+    private String updateDate;
+    private BigInteger loanTotal;
+    private BigInteger prinTotal;
+    private double intTotal;
+    private BigInteger intDeductionTotal;
+    private BigInteger deductionLoanTotal;
+    private BigInteger deductionIntTotal;
+    private BigInteger noDeductionLoanTotal;
+    private BigInteger noDeductionIntTotal;
 
     public String getMainPos() {
         return mainPos;
@@ -49,6 +53,14 @@ public class LockSendModel {
 
     public void setPosCode(String posCode) {
         this.posCode = posCode;
+    }
+
+    public String getPosName() {
+        return posName;
+    }
+
+    public void setPosName(String posName) {
+        this.posName = posName;
     }
 
     public String getPosFlag() {
@@ -107,69 +119,70 @@ public class LockSendModel {
         this.updateDate = updateDate;
     }
 
-    public float getLoanTotal() {
+    public BigInteger getLoanTotal() {
         return loanTotal;
     }
 
-    public void setLoanTotal(float loanTotal) {
+    public void setLoanTotal(BigInteger loanTotal) {
         this.loanTotal = loanTotal;
     }
 
-    public float getPrinTotal() {
+    public BigInteger getPrinTotal() {
         return prinTotal;
     }
 
-    public void setPrinTotal(float prinTotal) {
+    public void setPrinTotal(BigInteger prinTotal) {
         this.prinTotal = prinTotal;
     }
 
-    public float getIntTotal() {
+    public double getIntTotal() {
         return intTotal;
     }
 
-    public void setIntTotal(float intTotal) {
+    public void setIntTotal(double intTotal) {
         this.intTotal = intTotal;
     }
 
-    public float getIntDeductionTotal() {
+    public BigInteger getIntDeductionTotal() {
         return intDeductionTotal;
     }
 
-    public void setIntDeductionTotal(float intDeductionTotal) {
+    public void setIntDeductionTotal(BigInteger intDeductionTotal) {
         this.intDeductionTotal = intDeductionTotal;
     }
 
-    public float getDeductionLoanTotal() {
+    public BigInteger getDeductionLoanTotal() {
         return deductionLoanTotal;
     }
 
-    public void setDeductionLoanTotal(float deductionLoanTotal) {
+    public void setDeductionLoanTotal(BigInteger deductionLoanTotal) {
         this.deductionLoanTotal = deductionLoanTotal;
     }
 
-    public float getDeductionIntTotal() {
+    public BigInteger getDeductionIntTotal() {
         return deductionIntTotal;
     }
 
-    public void setDeductionIntTotal(float deductionIntTotal) {
+    public void setDeductionIntTotal(BigInteger deductionIntTotal) {
         this.deductionIntTotal = deductionIntTotal;
     }
 
-    public float getNoDeductionLoanTotal() {
+    public BigInteger getNoDeductionLoanTotal() {
         return noDeductionLoanTotal;
     }
 
-    public void setNoDeductionLoanTotal(float noDeductionLoanTotal) {
+    public void setNoDeductionLoanTotal(BigInteger noDeductionLoanTotal) {
         this.noDeductionLoanTotal = noDeductionLoanTotal;
     }
 
-    public float getNoDeductionIntTotal() {
+    public BigInteger getNoDeductionIntTotal() {
         return noDeductionIntTotal;
     }
 
-    public void setNoDeductionIntTotal(float noDeductionIntTotal) {
+    public void setNoDeductionIntTotal(BigInteger noDeductionIntTotal) {
         this.noDeductionIntTotal = noDeductionIntTotal;
     }
- 
- 
+
+    
+   
 }

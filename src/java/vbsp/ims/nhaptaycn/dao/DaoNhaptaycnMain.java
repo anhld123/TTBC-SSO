@@ -9523,4 +9523,36 @@ public class DaoNhaptaycnMain {
         }
         return lstBcqt_NT;
     }
+    
+    
+    public boolean saveGiamLai1990(String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) 
+            throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NHAPTAYCN.SP_SAVE_GIAM_LAI_QD1990(?, ?, ?, ?)}");
+            cs.setString(1, username);
+            cs.setString(2, mapgd);
+            cs.setString(3, ngaybc);
+            cs.setArray(4, array_to_pass);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham saveGiamLai1990 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveGiamLai1990 -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
 }
