@@ -49,13 +49,13 @@ public class clsHuyDongTK {
         return lst;
     }
 
-    public List<QT_DULIEU_NT> getData(String sNgaybc, String sUser, String sGrade, String cboCanBo) {
+    public List<QT_DULIEU_NT> getData(String sNgaybc, String sUser, String sGrade, String cboCanBo, String flgFilter) {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
         List<QT_DULIEU_NT> lstData = new ArrayList<>();
         try {
             CallableStatement calstatement = null;
-            String strStoreproce = "{call PROC_GETALL_HUYDONGCB(?,?,?,?,?)}";
+            String strStoreproce = "{call PROC_GETALL_HUYDONGCB(?,?,?,?,?,?)}";
             ResultSet reset = null;
             try {
                 calstatement = con.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -63,9 +63,10 @@ public class clsHuyDongTK {
                 calstatement.setString(2, sUser);
                 calstatement.setString(3, sGrade);
                 calstatement.setString(4, cboCanBo);
-                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(5, flgFilter);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
                 calstatement.execute();
-                reset = (ResultSet) calstatement.getObject(5);
+                reset = (ResultSet) calstatement.getObject(6);
                 while (reset.next()) {
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setD1(reset.getString("GL_TK"));

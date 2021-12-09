@@ -27,6 +27,7 @@ public class TKActionSupport extends ActionSupport {
     private String dtNgaybc;
     private String txtChitieu;
     private String cboCanBo;
+    private String flgFilter;
     List<clsCanBo> lstCanBo = new ArrayList<>();
     List<QT_DULIEU_NT> lstData = new ArrayList<>();
     private String capbc, tendn;
@@ -47,14 +48,15 @@ public class TKActionSupport extends ActionSupport {
 
     public String viewdata() throws ParseException {
         displaNone = new clsHuyDongTK().CheckNgayBC(dtNgaybc);
-        lstData = new clsHuyDongTK().getData(dtNgaybc, tendn, capbc, cboCanBo);
+        if(flgFilter != null){flgFilter ="on";}else{flgFilter="off";};
+        lstData = new clsHuyDongTK().getData(dtNgaybc, tendn, capbc, cboCanBo, flgFilter);
         return SUCCESS;
     }
 
     public String savedata() {
         String code = new clsHuyDongTK().saveData(dtNgaybc, tendn, capbc, cboCanBo, txtChitieu, chkChon,lstDulieuNt);
         /*Hàm gọi REST API để đẩy dữ liệu về TW*/
-         int Status = new HDTKRestApi().insertHDTK(dtNgaybc, tendn, capbc, cboCanBo,txtChitieu, chkChon);
+        int Status = new HDTKRestApi().insertHDTK(dtNgaybc, tendn, capbc, cboCanBo,txtChitieu, chkChon);
         pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
@@ -131,8 +133,14 @@ public class TKActionSupport extends ActionSupport {
     public void setLstDulieuNt(List<QT_DULIEU_NT> lstDulieuNt) {
         this.lstDulieuNt = lstDulieuNt;
     }
-//</editor-fold>  
-
     
+    public String getFlgFilter() {
+        return flgFilter;
+    }
 
+    public void setFlgFilter(String flgFilter) {
+        this.flgFilter = flgFilter;
+    }
+
+//</editor-fold>  
 }
