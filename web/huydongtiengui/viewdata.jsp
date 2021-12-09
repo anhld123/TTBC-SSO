@@ -23,9 +23,9 @@
                 <th style="width: 20px;">&nbsp;</th>
                 <th>GL</th>
                 <th>Số sổ</th>
-                <th>Số TK</th>
+                <th style="width: 100px;">Số TK</th>
                 <th>Mã KH</th>
-                <th>Tên KH</th>
+                <th style="width: 200px;">Tên KH</th>
                 <th>Sản phẩm</th>
                 <th>Số dư SK</th>
                 <th>Số dư HĐ</th>
