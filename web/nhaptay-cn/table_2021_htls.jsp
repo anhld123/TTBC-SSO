@@ -509,7 +509,7 @@
         <script>
             initTable();
             function CheckUpdate(idchk, iddata, status) {
-                if (status == "ChangeVal") {
+                if (status === "ChangeVal") {
                     var val = $('#' + iddata).val();
                     var valbk = $('#' + iddata + 'BK').val();
                     if (val === valbk) {
