@@ -220,6 +220,7 @@
         
         <action name="get_data_ktnb10_auth" class="vbsp.ims.action.ktktnb.Ktnb10ActionSupport" method="get_data_ktnb10_auth">
             <result name="success">/ktktnb/ktnb10Auth.jsp</result>
+            <result name="error">/ktktnb/error.jsp</result> 
         </action>              
         
         <action  name="KTNB10_viewAction" class="vbsp.ims.action.ktktnb.Ktnb10ActionSupport"
@@ -239,6 +240,7 @@
         
         <action name="get_data_ktnb11_auth" class="vbsp.ims.action.ktktnb.Ktnb11ActionSupport" method="get_data_ktnb11_auth">
             <result name="success">/ktktnb/ktnb11Auth.jsp</result>
+            <result name="error">/ktktnb/error.jsp</result> 
         </action>              
         
         <action  name="KTNB11_viewAction" class="vbsp.ims.action.ktktnb.Ktnb11ActionSupport"

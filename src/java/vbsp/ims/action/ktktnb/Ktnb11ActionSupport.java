@@ -201,7 +201,8 @@ public class Ktnb11ActionSupport extends ActionSupport implements ServletRequest
                 BuildPosTreeDao buildPosTreeDao = new BuildPosTreeDao(reportGrade, userName);
                 buildPosTreeDao.build();
                 this.searchNodes = buildPosTreeDao.getNodes();
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
+                System.err.println("Loi " + ex.getMessage());
             }
         }
         String listOfPos = getListOfPos();
