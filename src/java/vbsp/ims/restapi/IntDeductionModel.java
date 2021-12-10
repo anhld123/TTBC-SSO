@@ -10,6 +10,7 @@ package vbsp.ims.restapi;
  * @author HP
  */
 
+import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
  
@@ -23,11 +24,11 @@ private String mainPos;
  private String groupId;
  private String customerId;
  private String loanId;
- private float prinTotal;
- private float normalAmt;
- private float overdueAmt;
- private float freezeAmt;
- private float interestRate;
+ private double prinTotal;
+ private double normalAmt;
+ private double overdueAmt;
+ private double freezeAmt;
+ private double interestRate;
  private String loanProgram;
  private String specificProductCode;
  private String decisionCode;
@@ -36,21 +37,21 @@ private String mainPos;
  private String investorCode;
  private String casaAccount;
  private float intTotalAmt;
- private float intDeductionTotalAmt;
- private float intDeductionM10Amt;
- private float intDeductionM11Amt;
- private float intDeductionM12Amt;
- private float intDeductionAdjustM10Amt;
- private float intDeductionAdjustM11Amt;
- private float intDeductionAdjustM12Amt;
+ private BigInteger intDeductionTotalAmt;
+ private BigInteger intDeductionM10Amt;
+ private BigInteger intDeductionM11Amt;
+ private BigInteger intDeductionM12Amt;
+ private BigInteger intDeductionAdjustM10Amt;
+ private BigInteger intDeductionAdjustM11Amt;
+ private BigInteger intDeductionAdjustM12Amt;
  private String paymentFlag;
  private String intConfirmFlag;
  private String deductionTranRef;
  private String deductionTranDate;
- private float accountingIntAmt;
- private float rpaAmt;
- private float casaAmt;
- private float cashAmt;
+ private BigInteger accountingIntAmt;
+ private BigInteger rpaAmt;
+ private BigInteger casaAmt;
+ private BigInteger cashAmt;
  private String posTranRef;
  private String m10Status;
  private String m11Status;
@@ -63,21 +64,11 @@ private String mainPos;
  private String m11UpdateDate;
  private String m12UpdateId;
  private String m12UpdateDate;
- private float intTotalM10Amt;
- private float intTotalM11Amt;
- private float intTotalM12Amt;
+ private double intTotalM10Amt;
+ private double intTotalM11Amt;
+ private double intTotalM12Amt;
  private String communeId;
  private String customerName;
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
- 
- 
 
     public String getMainPos() {
         return mainPos;
@@ -127,43 +118,43 @@ private String mainPos;
         this.loanId = loanId;
     }
 
-    public float getPrinTotal() {
+    public double getPrinTotal() {
         return prinTotal;
     }
 
-    public void setPrinTotal(float prinTotal) {
+    public void setPrinTotal(double prinTotal) {
         this.prinTotal = prinTotal;
     }
 
-    public float getNormalAmt() {
+    public double getNormalAmt() {
         return normalAmt;
     }
 
-    public void setNormalAmt(float normalAmt) {
+    public void setNormalAmt(double normalAmt) {
         this.normalAmt = normalAmt;
     }
 
-    public float getOverdueAmt() {
+    public double getOverdueAmt() {
         return overdueAmt;
     }
 
-    public void setOverdueAmt(float overdueAmt) {
+    public void setOverdueAmt(double overdueAmt) {
         this.overdueAmt = overdueAmt;
     }
 
-    public float getFreezeAmt() {
+    public double getFreezeAmt() {
         return freezeAmt;
     }
 
-    public void setFreezeAmt(float freezeAmt) {
+    public void setFreezeAmt(double freezeAmt) {
         this.freezeAmt = freezeAmt;
     }
 
-    public float getInterestRate() {
+    public double getInterestRate() {
         return interestRate;
     }
 
-    public void setInterestRate(float interestRate) {
+    public void setInterestRate(double interestRate) {
         this.interestRate = interestRate;
     }
 
@@ -231,59 +222,59 @@ private String mainPos;
         this.intTotalAmt = intTotalAmt;
     }
 
-    public float getIntDeductionTotalAmt() {
+    public BigInteger getIntDeductionTotalAmt() {
         return intDeductionTotalAmt;
     }
 
-    public void setIntDeductionTotalAmt(float intDeductionTotalAmt) {
+    public void setIntDeductionTotalAmt(BigInteger intDeductionTotalAmt) {
         this.intDeductionTotalAmt = intDeductionTotalAmt;
     }
 
-    public float getIntDeductionM10Amt() {
+    public BigInteger getIntDeductionM10Amt() {
         return intDeductionM10Amt;
     }
 
-    public void setIntDeductionM10Amt(float intDeductionM10Amt) {
+    public void setIntDeductionM10Amt(BigInteger intDeductionM10Amt) {
         this.intDeductionM10Amt = intDeductionM10Amt;
     }
 
-    public float getIntDeductionM11Amt() {
+    public BigInteger getIntDeductionM11Amt() {
         return intDeductionM11Amt;
     }
 
-    public void setIntDeductionM11Amt(float intDeductionM11Amt) {
+    public void setIntDeductionM11Amt(BigInteger intDeductionM11Amt) {
         this.intDeductionM11Amt = intDeductionM11Amt;
     }
 
-    public float getIntDeductionM12Amt() {
+    public BigInteger getIntDeductionM12Amt() {
         return intDeductionM12Amt;
     }
 
-    public void setIntDeductionM12Amt(float intDeductionM12Amt) {
+    public void setIntDeductionM12Amt(BigInteger intDeductionM12Amt) {
         this.intDeductionM12Amt = intDeductionM12Amt;
     }
 
-    public float getIntDeductionAdjustM10Amt() {
+    public BigInteger getIntDeductionAdjustM10Amt() {
         return intDeductionAdjustM10Amt;
     }
 
-    public void setIntDeductionAdjustM10Amt(float intDeductionAdjustM10Amt) {
+    public void setIntDeductionAdjustM10Amt(BigInteger intDeductionAdjustM10Amt) {
         this.intDeductionAdjustM10Amt = intDeductionAdjustM10Amt;
     }
 
-    public float getIntDeductionAdjustM11Amt() {
+    public BigInteger getIntDeductionAdjustM11Amt() {
         return intDeductionAdjustM11Amt;
     }
 
-    public void setIntDeductionAdjustM11Amt(float intDeductionAdjustM11Amt) {
+    public void setIntDeductionAdjustM11Amt(BigInteger intDeductionAdjustM11Amt) {
         this.intDeductionAdjustM11Amt = intDeductionAdjustM11Amt;
     }
 
-    public float getIntDeductionAdjustM12Amt() {
+    public BigInteger getIntDeductionAdjustM12Amt() {
         return intDeductionAdjustM12Amt;
     }
 
-    public void setIntDeductionAdjustM12Amt(float intDeductionAdjustM12Amt) {
+    public void setIntDeductionAdjustM12Amt(BigInteger intDeductionAdjustM12Amt) {
         this.intDeductionAdjustM12Amt = intDeductionAdjustM12Amt;
     }
 
@@ -319,35 +310,35 @@ private String mainPos;
         this.deductionTranDate = deductionTranDate;
     }
 
-    public float getAccountingIntAmt() {
+    public BigInteger getAccountingIntAmt() {
         return accountingIntAmt;
     }
 
-    public void setAccountingIntAmt(float accountingIntAmt) {
+    public void setAccountingIntAmt(BigInteger accountingIntAmt) {
         this.accountingIntAmt = accountingIntAmt;
     }
 
-    public float getRpaAmt() {
+    public BigInteger getRpaAmt() {
         return rpaAmt;
     }
 
-    public void setRpaAmt(float rpaAmt) {
+    public void setRpaAmt(BigInteger rpaAmt) {
         this.rpaAmt = rpaAmt;
     }
 
-    public float getCasaAmt() {
+    public BigInteger getCasaAmt() {
         return casaAmt;
     }
 
-    public void setCasaAmt(float casaAmt) {
+    public void setCasaAmt(BigInteger casaAmt) {
         this.casaAmt = casaAmt;
     }
 
-    public float getCashAmt() {
+    public BigInteger getCashAmt() {
         return cashAmt;
     }
 
-    public void setCashAmt(float cashAmt) {
+    public void setCashAmt(BigInteger cashAmt) {
         this.cashAmt = cashAmt;
     }
 
@@ -447,29 +438,31 @@ private String mainPos;
         this.m12UpdateDate = m12UpdateDate;
     }
 
-    public float getIntTotalM10Amt() {
+    public double getIntTotalM10Amt() {
         return intTotalM10Amt;
     }
 
-    public void setIntTotalM10Amt(float intTotalM10Amt) {
+    public void setIntTotalM10Amt(double intTotalM10Amt) {
         this.intTotalM10Amt = intTotalM10Amt;
     }
 
-    public float getIntTotalM11Amt() {
+    public double getIntTotalM11Amt() {
         return intTotalM11Amt;
     }
 
-    public void setIntTotalM11Amt(float intTotalM11Amt) {
+    public void setIntTotalM11Amt(double intTotalM11Amt) {
         this.intTotalM11Amt = intTotalM11Amt;
     }
 
-    public float getIntTotalM12Amt() {
+    public double getIntTotalM12Amt() {
         return intTotalM12Amt;
     }
 
-    public void setIntTotalM12Amt(float intTotalM12Amt) {
+    public void setIntTotalM12Amt(double intTotalM12Amt) {
         this.intTotalM12Amt = intTotalM12Amt;
     }
+
+    
 
     public String getCommuneId() {
         return communeId;
@@ -478,7 +471,15 @@ private String mainPos;
     public void setCommuneId(String communeId) {
         this.communeId = communeId;
     }
- 
- 
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    
  
 }
