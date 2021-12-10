@@ -230,6 +230,33 @@
                     onLoadData();
                 }
             }
+            
+            function onSaveDataHTLai()
+            {
+                $('#message_suc_err').empty();
+                $('#divExportReportLink').empty();
+                var poscd = getposfromtreecheck();
+//                alert(poscd);
+                var khoa = $("#khoa_nhaptaycn").val() + "_save_htlai";
+                if (!bsubmit)
+                {
+//                    alert('Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !');
+                    $('#message_suc_err').html("<h2 style='color: red'>Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !</h2>");
+                    return;
+                }
+
+// Trung bo sung phan validate data
+                if (typeof validateData !== 'undefined' && typeof validateData === 'function') {
+                    if (!validateData())
+                        return false;
+                }
+
+
+                if (validateRequiredFields())
+                    $("#" + khoa)[0].click();
+
+
+            }
 
             function wait(ms) {
                 var start = new Date().getTime();
@@ -596,7 +623,7 @@
                                             <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021') && Grade.equalsIgnoreCase('1')">
                                                 <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/> </td>
                                                 
-                                                 <!--<td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Cập nhật TT giảm lãi"/> </td>-->
+                                                 <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="Cập nhật HT giảm lãi"/> </td>
                                             </s:if>     
                                             <s:elseif test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021') && Grade.equalsIgnoreCase('2')">
                                                     <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/> </td>
