@@ -518,7 +518,7 @@
                         $('#' + idchk).attr('checked', true);
                     }
                 } else {
-                    if ($('#' + idchk).is(":checked")) {
+                    if ($('#' + idchk).prop('checked')) {
                         $('#' + idchk).prop('checked', false);
                     } else {
                         $('#' + idchk).prop('checked', true);

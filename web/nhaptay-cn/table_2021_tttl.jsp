@@ -451,15 +451,6 @@
                                     <input type="text"   value="<s:property  value="D24" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24" class="TEN_KH D0" onfocus="this.select();" readonly="true"/>
                                 </td>
-                                <!--D25 xac nhận giảm-->
-                                <!--                                 <td align = "center" class="TD_CHECKBOX"> 
-                                <s:checkbox id ="%{#rowstatus.index}" cssClass="checkboxsp" name="lstsaveNT_SP[%{#rowstatus.index}].MA" fieldValue="%{MA}"/>
-                            </td>      -->
-<!--                                <td  align="center" class="TD_CHECKBOX">    
-                                    <input type="checkbox" id ="idc11<s:property  value="%{#rowstatus.index}" />"  class="checkboxdat TEN_KH D0" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25" value="<s:property  value="D25"/>" onclick="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />','ClickCheck')"                                           
-                                           />
-                                </td> -->
 
                                 <td align = "right" class="TD_SOKU" >
                                     <input type="text"   value="<s:property  value="D26" />" style="background: #C0C0C0 !important;"
@@ -471,15 +462,21 @@
                                 </td>
                                 <td align = "right" class="TD_MAKH" >
                                     <input type="text"   value="<s:property  value="D28" />" style="background: #C0C0C0 !important;"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28" class="TEN_KH number" onfocus="this.select();" readonly="true"/>
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28" class="TEN_KH number" onfocus="this.select();" readonly="true"
+                                           id  ='D28<s:property  value="%{#rowstatus.index}" />'
+                                    />
                                 </td>
                                 <td align = "right" class="TD_MAKH" >
                                     <input type="text"   value="<s:property  value="D30" />"  
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" class="TEN_KH number" onfocus="this.select();" />
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" class="TEN_KH number" onfocus="fncSetVal('D30',<s:property  value="%{#rowstatus.index}" />)"
+                                           id  ='D30<s:property  value="%{#rowstatus.index}" />'
+                                    />
                                 </td>
                                 <td align = "right" class="TD_MAKH" >
                                     <input type="text"   value="<s:property  value="D31" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D31" class="TEN_KH number" onfocus="this.select();" />
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D31" class="TEN_KH number" onfocus="fncSetVal('D31',<s:property  value="%{#rowstatus.index}" />)"
+                                           id  ='D31<s:property  value="%{#rowstatus.index}" />'
+                                    />
                                 </td>
                                 <td align = "right" class="TD_TENKH" >
                                     <input type="text"   value="<s:property  value="D32" />" 
@@ -502,10 +499,16 @@
         <div id="luu_thanhcong"></div>
 
         <script>
-            initTable();
-            function CheckUpdate(idchk, status) {
-                if (status == "ChangeVal") {
-                    $('#' + idchk).attr('checked', true);
+            initTable();    
+            function CheckUpdate(idchk, iddata, status) {
+                if (status === "ChangeVal") {
+                    var val = $('#' + iddata).val();
+                    var valbk = $('#' + iddata + 'BK').val();
+                    if (val === valbk) {
+                        $('#' + idchk).attr('checked', true);
+                    } else {
+                        $('#' + idchk).attr('checked', true);
+                    }
                 } else {
                     if ($('#' + idchk).prop('checked')) {
                         $('#' + idchk).prop('checked', false);
@@ -513,6 +516,16 @@
                         $('#' + idchk).prop('checked', true);
                     }
                 }
+            }
+            function fncSetVal(obj,index){
+                 var D28=D30=D31=0;
+                 D28 = $('#D28' + index).val();
+                 D30 = $('#D30' + index).val();
+                 D31 = $('#D30' + index).val();
+                 $('#D28' + index).val(0);
+                 $('#D30' + index).val(0);
+                 $('#D30' + index).val(0);
+                 $('#' + obj + index).val(D28 + D30 + D31);
             }
         </script>
     </body>
