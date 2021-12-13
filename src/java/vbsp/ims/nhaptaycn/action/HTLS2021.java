@@ -99,8 +99,8 @@ public class HTLS2021 extends ActionNhaptaycnMain
                 BigInteger lai_20 = new BigInteger("0");
                 BigInteger lai_21 = new BigInteger("0");
 
-                DecimalFormat df = new DecimalFormat("#");
-                DecimalFormat df1 = new DecimalFormat("#.#");
+                DecimalFormat df = new DecimalFormat("#.##");
+//                DecimalFormat df1 = new DecimalFormat("#.#");
                 //String formatted = df.format(2.00023);
 
                 for (IntDeductionModel item : lstData) {
@@ -138,7 +138,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                     row.setD6(df.format(item.getOverdueAmt()));
                     row.setD7(df.format(item.getFreezeAmt()));
 
-                    row.setD8(df1.format(item.getInterestRate()));
+                    row.setD8(df.format(item.getInterestRate()));
                     row.setD9(item.getLoanProgram());
                     row.setD10(item.getSpecificProductCode());
                     row.setD11(item.getDecisionCode());
@@ -147,9 +147,13 @@ public class HTLS2021 extends ActionNhaptaycnMain
                     row.setD14(item.getInvestorCode());
                     row.setD15(item.getCasaAccount());
                     row.setD16(df.format(item.getIntTotalAmt()));
-
+                    if (i == 107) {
+                        System.err.println("kkkk--" + i);
+                    }
                     row.setD17(df.format(item.getIntDeductionTotalAmt()));
-
+                    BigInteger ad =item.getIntDeductionM10Amt();
+                    
+                    //Die tư day dong 108
                     row.setD18(df.format(item.getIntDeductionM10Amt()));
                     row.setD19(df.format(item.getIntDeductionM11Amt()));
                     row.setD20(df.format(item.getIntDeductionM12Amt()));
@@ -375,21 +379,21 @@ public class HTLS2021 extends ActionNhaptaycnMain
 
             if (Grade.equals("1")) {
                 ArrayList<LockSendModel> lstDataLock = service.getDataLockSendS2021(pos_cd_username, "S", strDate);
-                ArrayList<IntDeductionModel> lstUpdateDate = new ArrayList<>();               
+                ArrayList<IntDeductionModel> lstUpdateDate = new ArrayList<>();
                 if (lstDataLock.size() > 0) {
                     //Lưu phần phân loại hạch toán
                     if (lstDataLock.get(0).getStatus().equals("1")) {
                         for (QT_DULIEU_NT tmp : lstDulieuNt) {
                             if (tmp.getD33() != null) {
-                                IntDeductionModel tempadd = new IntDeductionModel();                                
-                                    tempadd.setMainPos(tmp.getMACN());
-                                    tempadd.setPosCode(tmp.getMAPGD());
-                                    tempadd.setLoanId(tmp.getD3());
+                                IntDeductionModel tempadd = new IntDeductionModel();
+                                tempadd.setMainPos(tmp.getMACN());
+                                tempadd.setPosCode(tmp.getMAPGD());
+                                tempadd.setLoanId(tmp.getD3());
 //                            tempadd.setIntDeductionAdjustM10Amt(Float.parseFloat(tmp.getD18()));
 //                            tempadd.setIntDeductionAdjustM11Amt(Float.parseFloat(tmp.getD19()));
 //                            tempadd.setIntDeductionAdjustM12Amt(Float.parseFloat(tmp.getD20()));
-                                    tempadd.setIntConfirmFlag("0");
-                                    lstUpdateDate.add(tempadd);                                
+                                tempadd.setIntConfirmFlag("0");
+                                lstUpdateDate.add(tempadd);
                             }
                         }
                         int status = service.updateData2021HTLS(pos_cd_username, strDate, UserName, lstUpdateDate);
@@ -408,8 +412,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                             }
                             daoMain.saveGiamLai1990(UserName, pos_cd_username, strDate1, lstLocalDataUpdate);
                         }
-                    } 
-                    //Lưu phần xác nhận lãi giảm
+                    } //Lưu phần xác nhận lãi giảm
                     else {
 //                         DecimalFormat df = new DecimalFormat("#.##");
                         for (QT_DULIEU_NT tmp : lstDulieuNt) {
@@ -420,18 +423,18 @@ public class HTLS2021 extends ActionNhaptaycnMain
                                     tempadd.setMainPos(tmp.getMACN());
                                     tempadd.setPosCode(tmp.getMAPGD());
                                     tempadd.setLoanId(tmp.getD3());
-                                    tempadd.setIntDeductionAdjustM10Amt(new BigInteger( tmp.getD18()));
-                                    tempadd.setIntDeductionAdjustM11Amt(new BigInteger( tmp.getD19()));
-                                    tempadd.setIntDeductionAdjustM12Amt(new BigInteger( tmp.getD20()));
+                                    tempadd.setIntDeductionAdjustM10Amt(new BigInteger(tmp.getD18()));
+                                    tempadd.setIntDeductionAdjustM11Amt(new BigInteger(tmp.getD19()));
+                                    tempadd.setIntDeductionAdjustM12Amt(new BigInteger(tmp.getD20()));
                                     tempadd.setIntConfirmFlag("0");
                                     lstUpdateDate.add(tempadd);
                                 } else {
                                     tempadd.setMainPos(tmp.getMACN());
                                     tempadd.setPosCode(tmp.getMAPGD());
                                     tempadd.setLoanId(tmp.getD3());
-                                    tempadd.setIntDeductionAdjustM10Amt(new BigInteger( tmp.getD18()));
-                                    tempadd.setIntDeductionAdjustM11Amt(new BigInteger( tmp.getD19()));
-                                    tempadd.setIntDeductionAdjustM12Amt(new BigInteger( tmp.getD20()));
+                                    tempadd.setIntDeductionAdjustM10Amt(new BigInteger(tmp.getD18()));
+                                    tempadd.setIntDeductionAdjustM11Amt(new BigInteger(tmp.getD19()));
+                                    tempadd.setIntDeductionAdjustM12Amt(new BigInteger(tmp.getD20()));
 //                            tempadd.setIntDeductionAdjustM10Amt(Float.parseFloat(tmp.getD18()));
 //                            tempadd.setIntDeductionAdjustM11Amt(Float.parseFloat(tmp.getD19()));
 //                            tempadd.setIntDeductionAdjustM12Amt(Float.parseFloat(tmp.getD20()));
