@@ -804,7 +804,7 @@ public class actionExpSbv extends ActionSupport {
                 try (OutputStream os = new FileOutputStream(fullPathFileOut)) {
                     Context context = new Context();
                     //Thuc hien lay du lieu cho tat ca cac truy van
-                    for (int i = 0; i < lstQuery.size(); i++) {
+                    for (int i = 0; i < lstQuery.size(); i++) {                        
                         List<String> qryparameters = lstQuery.get(i).splitParaProcedure();
                         String qryPara = lstQuery.get(i).removeParaProcedure();
                         PlSqlQueryExecuterIms execute = new PlSqlQueryExecuterIms(conn, qryparameters, parameters, qryPara);

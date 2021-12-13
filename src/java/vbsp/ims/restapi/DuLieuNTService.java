@@ -82,9 +82,14 @@ public class DuLieuNTService extends ReportService {
         Response response = invocationBuilder.get();
 
         if (response.getStatus() == 200) {
-            LockSenResp dulieuNTResp = response.readEntity(LockSenResp.class);
-            ArrayList<LockSendModel> listOfRow = dulieuNTResp.result;
-            return listOfRow;
+            try {
+                LockSenResp dulieuNTResp = response.readEntity(LockSenResp.class);
+                ArrayList<LockSendModel> listOfRow = dulieuNTResp.result;
+                return listOfRow;
+            } catch(Exception e) {
+                System.err.println("loi: " + e.getMessage());
+                return null;
+            }
         } else {
             return null;
         }

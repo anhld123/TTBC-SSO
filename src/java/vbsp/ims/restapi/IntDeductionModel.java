@@ -13,6 +13,7 @@ package vbsp.ims.restapi;
 import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
  
 //@XmlRootElement(name = "dulieuNT")
 @XmlAccessorType (XmlAccessType.FIELD)
@@ -37,13 +38,28 @@ private String mainPos;
  private String investorCode;
  private String casaAccount;
  private float intTotalAmt;
+ 
+ @XmlElement(defaultValue = "0")
  private BigInteger intDeductionTotalAmt;
+ 
+ @XmlElement(defaultValue = "0")
  private BigInteger intDeductionM10Amt;
+ 
+ @XmlElement(defaultValue = "0")
  private BigInteger intDeductionM11Amt;
+ 
+ @XmlElement(defaultValue = "0")
  private BigInteger intDeductionM12Amt;
+ 
+ @XmlElement(defaultValue = "0")
  private BigInteger intDeductionAdjustM10Amt;
+ 
+ @XmlElement(defaultValue = "0")
  private BigInteger intDeductionAdjustM11Amt;
+ 
+ @XmlElement(defaultValue = "0")
  private BigInteger intDeductionAdjustM12Amt;
+ 
  private String paymentFlag;
  private String intConfirmFlag;
  private String deductionTranRef;
