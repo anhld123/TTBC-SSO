@@ -147,9 +147,9 @@ public class HTLS2021 extends ActionNhaptaycnMain
                     row.setD14(item.getInvestorCode());
                     row.setD15(item.getCasaAccount());
                     row.setD16(df.format(item.getIntTotalAmt()));
-                    if (i == 107) {
-                        System.err.println("kkkk--" + i);
-                    }
+//                    if (i == 107) {
+//                        System.err.println("kkkk--" + i);
+//                    }
                     row.setD17(df.format(item.getIntDeductionTotalAmt()));
                     BigInteger ad =item.getIntDeductionM10Amt();
                     

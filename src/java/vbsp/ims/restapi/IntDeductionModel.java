@@ -247,7 +247,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionM10Amt() {
-        return intDeductionM10Amt;
+        return intDeductionM10Amt==null? new BigInteger("0"):intDeductionM10Amt;
     }
 
     public void setIntDeductionM10Amt(BigInteger intDeductionM10Amt) {
@@ -255,7 +255,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionM11Amt() {
-        return intDeductionM11Amt;
+        return intDeductionM11Amt==null? new BigInteger("0"):intDeductionM11Amt;
     }
 
     public void setIntDeductionM11Amt(BigInteger intDeductionM11Amt) {
@@ -263,7 +263,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionM12Amt() {
-        return intDeductionM12Amt;
+        return intDeductionM12Amt==null? new BigInteger("0"):intDeductionM12Amt;
     }
 
     public void setIntDeductionM12Amt(BigInteger intDeductionM12Amt) {
@@ -271,7 +271,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionAdjustM10Amt() {
-        return intDeductionAdjustM10Amt;
+        return intDeductionAdjustM10Amt==null? new BigInteger("0"):intDeductionAdjustM10Amt;
     }
 
     public void setIntDeductionAdjustM10Amt(BigInteger intDeductionAdjustM10Amt) {
@@ -279,7 +279,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionAdjustM11Amt() {
-        return intDeductionAdjustM11Amt;
+        return intDeductionAdjustM11Amt==null? new BigInteger("0"):intDeductionAdjustM11Amt;
     }
 
     public void setIntDeductionAdjustM11Amt(BigInteger intDeductionAdjustM11Amt) {
@@ -287,7 +287,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionAdjustM12Amt() {
-        return intDeductionAdjustM12Amt;
+        return intDeductionAdjustM12Amt==null? new BigInteger("0"):intDeductionAdjustM12Amt;
     }
 
     public void setIntDeductionAdjustM12Amt(BigInteger intDeductionAdjustM12Amt) {
@@ -327,7 +327,7 @@ private String mainPos;
     }
 
     public BigInteger getAccountingIntAmt() {
-        return accountingIntAmt;
+        return accountingIntAmt==null? new BigInteger("0"):accountingIntAmt;
     }
 
     public void setAccountingIntAmt(BigInteger accountingIntAmt) {
@@ -335,7 +335,7 @@ private String mainPos;
     }
 
     public BigInteger getRpaAmt() {
-        return rpaAmt;
+        return rpaAmt==null? new BigInteger("0"):rpaAmt;
     }
 
     public void setRpaAmt(BigInteger rpaAmt) {
@@ -343,7 +343,7 @@ private String mainPos;
     }
 
     public BigInteger getCasaAmt() {
-        return casaAmt;
+        return casaAmt==null? new BigInteger("0"):casaAmt;
     }
 
     public void setCasaAmt(BigInteger casaAmt) {
@@ -351,7 +351,7 @@ private String mainPos;
     }
 
     public BigInteger getCashAmt() {
-        return cashAmt;
+        return cashAmt==null? new BigInteger("0"):cashAmt;
     }
 
     public void setCashAmt(BigInteger cashAmt) {
