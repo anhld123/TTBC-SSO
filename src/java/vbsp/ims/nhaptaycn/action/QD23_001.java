@@ -71,8 +71,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
-            
-            
+
             // Nhập kế hoạch
             if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("1")) {
                 lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
@@ -84,8 +83,7 @@ public class QD23_001 extends ActionNhaptaycnMain
                 setLstDTTH(daoMain.getCanBo(UserName, "DTTH"));
                 setLstThangvay(daoMain.getCanBo(UserName, "THANGVAY"));
                 return "nhap_1_kh_pgd";
-            } 
-            else if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("2")) {
+            } else if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("2")) {
                 lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
                 setLstHinhthucTNHS(daoMain.getCanBo(UserName, "HINHTHUCTNHS"));
                 setLstNgayluongHD(daoMain.getCanBo(UserName, "NGAYLUONGHD"));
@@ -95,8 +93,7 @@ public class QD23_001 extends ActionNhaptaycnMain
                 setLstDTTH(daoMain.getCanBo(UserName, "DTTH"));
                 setLstDNVON(daoMain.getCanBo(UserName, "DNVON"));
                 return "nhap_2_pheduyetcv_pgd";
-            } 
-            else if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("3")) {
+            } else if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("3")) {
                 lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
                 setLstHinhthucTNHS(daoMain.getCanBo(UserName, "HINHTHUCTNHS"));
                 setLstNgayluongHD(daoMain.getCanBo(UserName, "NGAYLUONGHD"));
@@ -107,54 +104,49 @@ public class QD23_001 extends ActionNhaptaycnMain
                 setLstDNVON(daoMain.getCanBo(UserName, "DNVON"));
                 setLstSoKU(daoMain.getCanBo(UserName, "SOKU23"));
                 return "nhap_3_pheduyetgn_pgd";
-            } 
-            //Điều chỉnh giảm
-//            else if (Grade.equals("1") && hmParameter.get("type_action").toString().substring(0, 1).equals("G")) {
-//                lstDulieuNt = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
-//                setLstHinhthucTNHS(daoMain.getCanBo(UserName, "HINHTHUCTNHS"));
-//                setLstNgayluongHD(daoMain.getCanBo(UserName, "NGAYLUONGHD"));
-//                setLstNgayluongHD(daoMain.getCanBo(UserName, "NGAYLUONGHD"));
-//                setLstLuongVung(daoMain.getCanBo(UserName, "LUONGVUNG"));
-//                return "dieuchinh_pgd";
-//            }
-             else if (Grade.equals("2") && hmParameter.get("type_action").toString().equals("1")) {
-                 lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
+            } //Điều chỉnh giảm
+            //            else if (Grade.equals("1") && hmParameter.get("type_action").toString().substring(0, 1).equals("G")) {
+            //                lstDulieuNt = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
+            //                setLstHinhthucTNHS(daoMain.getCanBo(UserName, "HINHTHUCTNHS"));
+            //                setLstNgayluongHD(daoMain.getCanBo(UserName, "NGAYLUONGHD"));
+            //                setLstNgayluongHD(daoMain.getCanBo(UserName, "NGAYLUONGHD"));
+            //                setLstLuongVung(daoMain.getCanBo(UserName, "LUONGVUNG"));
+            //                return "dieuchinh_pgd";
+            //            }
+            else if (Grade.equals("2") && hmParameter.get("type_action").toString().equals("1")) {
+                lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
                 return "xaydungkh_cn";
-            }
-            else if (Grade.equals("2") && hmParameter.get("type_action").toString().equals("2")) {
+            } else if (Grade.equals("2") && hmParameter.get("type_action").toString().equals("2")) {
                 lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
                 return "dieuchinhkh_cn";
-            } 
-            else if (Grade.equals("3") && hmParameter.get("type_action").toString().equals("1")) {
-                String soquyetdinh = hmParameter.get("soqd").toString(); 
-                String ngayquyetdinh = hmParameter.get("ngay_qd").toString(); 
-                String lanquyetdinh = hmParameter.get("lanqd").toString(); 
-                String sotide = hmParameter.get("sotide").toString(); 
-                String tinhchatvon = hmParameter.get("tc_von").toString(); 
-                String chot_kh = hmParameter.get("chot_kh").toString(); 
-                
-                lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, 
-                        soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh+"#"+sotide+"#"+tinhchatvon +"#"+chot_kh , 
+            } else if (Grade.equals("3") && hmParameter.get("type_action").toString().equals("1")) {
+                String soquyetdinh = hmParameter.get("soqd").toString();
+                String ngayquyetdinh = hmParameter.get("ngay_qd").toString();
+                String lanquyetdinh = hmParameter.get("lanqd").toString();
+                String sotide = hmParameter.get("sotide").toString();
+                String tinhchatvon = hmParameter.get("tc_von").toString();
+                String chot_kh = hmParameter.get("chot_kh").toString();
+
+                lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd,
+                        soquyetdinh + "#" + ngayquyetdinh + "#" + lanquyetdinh + "#" + sotide + "#" + tinhchatvon + "#" + chot_kh,
                         hmParameter.get("type_action").toString());
                 setLstTinhchatNV(daoMain.getCanBo(UserName, "TINHTCHAT_NV"));
                 setLstChotKH(daoMain.getCanBo(UserName, "CHOTKH"));
                 return "xaydungkh_tw";
-            }
-            else if (Grade.equals("3") && hmParameter.get("type_action").toString().equals("2")) {
-                String soquyetdinh = hmParameter.get("soqd").toString(); 
-                String ngayquyetdinh = hmParameter.get("ngay_qd").toString(); 
-                String lanquyetdinh = hmParameter.get("lanqd").toString();         
-                String chot_kh = hmParameter.get("chot_kh").toString(); 
-                lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, soquyetdinh+"#"+ngayquyetdinh+"#"+lanquyetdinh+"#"+chot_kh , 
+            } else if (Grade.equals("3") && hmParameter.get("type_action").toString().equals("2")) {
+                String soquyetdinh = hmParameter.get("soqd").toString();
+                String ngayquyetdinh = hmParameter.get("ngay_qd").toString();
+                String lanquyetdinh = hmParameter.get("lanqd").toString();
+                String chot_kh = hmParameter.get("chot_kh").toString();
+                lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, soquyetdinh + "#" + ngayquyetdinh + "#" + lanquyetdinh + "#" + chot_kh,
                         hmParameter.get("type_action").toString());
                 setLstTinhchatNV(daoMain.getCanBo(UserName, "TTDUYET"));
                 setLstChotKH(daoMain.getCanBo(UserName, "CHOTKH"));
                 return "dieuchinhkh_tw";
-            }
-            else if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("5")) {
+            } else if (Grade.equals("1") && hmParameter.get("type_action").toString().equals("5")) {
                 lstDulieuNt50 = daoMain.getDataQd23_001(conn, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nha_dt").toString(), hmParameter.get("type_action").toString());
                 return "canhbao_pgd";
-            } 
+            }
             if (conn != null) {
                 conn.close();
             }
@@ -180,28 +172,23 @@ public class QD23_001 extends ActionNhaptaycnMain
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
 //            String sNv = hmParameter.get("type_action").toString();
-            if(daoMain.checkSave_Send(khoa_nhaptaycn, Grade,  hmParameter.get("ngay_bc").toString(),"SAVE", UserName, poscd)==0)
-            {
+            if (daoMain.checkSave_Send(khoa_nhaptaycn, Grade, hmParameter.get("ngay_bc").toString(), "SAVE", UserName, poscd) == 0) {
                 addActionError("Bạn vui lòng chọn ngày hiện tại và nhập cột 43,44 (cấp chi nhánh)!");
-                        return ERROR; 
+                return ERROR;
             }
-            
-            
+
             if (hmParameter.get("type_action").toString().equals("2") && Grade.equals("3")) { //Duyệt TH điều chỉnh KH
-                    if (!daoMain.saveQD23_001("QD23_003", UserName, "", hmParameter.get("ngay_bc").toString(), Grade, lstDulieuNt50, hmParameter.get("type_action").toString())) {
-                        addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
-                        return ERROR;
-                    }
+                if (!daoMain.saveQD23_001("QD23_003", UserName, "", hmParameter.get("ngay_bc").toString(), Grade, lstDulieuNt50, hmParameter.get("type_action").toString())) {
+                    addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                    return ERROR;
                 }
-            else
-            {
-                String iCheck = daoMain.checkData_Info_50(lstDulieuNt50,khoa_nhaptaycn,hmParameter.get("ngay_bc").toString(),UserName, Grade, lstDat,hmParameter.get("type_action").toString());
-                if(!iCheck.equals("XXXAAA"))
-                {
-                    addActionError("Lỗi! "+ iCheck);
-                        return ERROR; 
-                }     
-                if (!daoMain.saveQD23_001(khoa_nhaptaycn, UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt50, hmParameter.get("type_action").toString())) {
+            } else {
+                String iCheck = daoMain.checkData_Info_50(lstDulieuNt50, khoa_nhaptaycn, hmParameter.get("ngay_bc").toString(), UserName, Grade, lstDat, hmParameter.get("type_action").toString());
+                if (!iCheck.equals("XXXAAA")) {
+                    addActionError("Lỗi! " + iCheck);
+                    return ERROR;
+                }
+                if (!daoMain.saveQD23_001(khoa_nhaptaycn, UserName, "", hmParameter.get("ngay_bc").toString(), Grade, lstDulieuNt50, hmParameter.get("type_action").toString())) {
                     addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                     return ERROR;
                 }
@@ -216,7 +203,7 @@ public class QD23_001 extends ActionNhaptaycnMain
         addActionMessage("Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
     }
-    
+
     public String saveDieuchinhKH() {
 //        System.err.println("Save - QD23_001");
         try {
@@ -233,13 +220,12 @@ public class QD23_001 extends ActionNhaptaycnMain
             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(hmParameter.get("ngay_bc").toString());
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
             String dateStr = sdf.format(date1);
-            
-            if(daoMain.checkSave_Send("QD23_003", Grade, dateStr,"SAVE" , UserName, poscd)==0)
-            {
+
+            if (daoMain.checkSave_Send("QD23_003", Grade, dateStr, "SAVE", UserName, poscd) == 0) {
                 addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
-                        return ERROR; 
+                return ERROR;
             }
-            if (!daoMain.saveQD23_001_Dieuchinh("QD23_003", UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt50,hmParameter.get("thangbc").toString())) {
+            if (!daoMain.saveQD23_001_Dieuchinh("QD23_003", UserName, "", hmParameter.get("ngay_bc").toString(), Grade, lstDulieuNt50, hmParameter.get("thangbc").toString())) {
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;
             }
@@ -253,7 +239,7 @@ public class QD23_001 extends ActionNhaptaycnMain
         addActionMessage("Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
     }
-    
+
     public String saveDieuchinhPheduyet() {
 //        System.err.println("Save - QD23_001");
         try {
@@ -270,13 +256,12 @@ public class QD23_001 extends ActionNhaptaycnMain
             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(hmParameter.get("ngay_bc").toString());
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
             String dateStr = sdf.format(date1);
-            
-            if(daoMain.checkSave_Send(hmParameter.get("khoadc").toString(), Grade,  dateStr,"SAVE", UserName, poscd)==0)
-            {
+
+            if (daoMain.checkSave_Send(hmParameter.get("khoadc").toString(), Grade, dateStr, "SAVE", UserName, poscd) == 0) {
                 addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
-                        return ERROR; 
+                return ERROR;
             }
-            if (!daoMain.saveQD23_001_Dieuchinh(hmParameter.get("khoadc").toString(), UserName, "", hmParameter.get("ngay_bc").toString(),Grade, lstDulieuNt50,hmParameter.get("thangbc").toString())) {
+            if (!daoMain.saveQD23_001_Dieuchinh(hmParameter.get("khoadc").toString(), UserName, "", hmParameter.get("ngay_bc").toString(), Grade, lstDulieuNt50, hmParameter.get("thangbc").toString())) {
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;
             }
@@ -299,7 +284,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
-            lstDulieuNt50 = daoMain.getDataQd23_001_Dieuchinh(conn, "QD23_003", hmParameter.get("ngay_bc").toString(), UserName, Grade, hmParameter.get("masothue").toString(),hmParameter.get("thangbc").toString());
+            lstDulieuNt50 = daoMain.getDataQd23_001_Dieuchinh(conn, "QD23_003", hmParameter.get("ngay_bc").toString(), UserName, Grade, hmParameter.get("masothue").toString(), hmParameter.get("thangbc").toString());
             if (conn != null) {
                 conn.close();
             }
@@ -309,7 +294,7 @@ public class QD23_001 extends ActionNhaptaycnMain
         }
         return SUCCESS;
     }
-    
+
     public String loadDieuchinhPheduyetChovay() {
         try {
             if (!getParaSession()) {
@@ -318,17 +303,18 @@ public class QD23_001 extends ActionNhaptaycnMain
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
-            lstDulieuNt50 = daoMain.getDataQd23_001_Dc_pheduyet(conn, hmParameter.get("khoadc").toString(), 
-                    hmParameter.get("ngay_bc").toString(), UserName, Grade, hmParameter.get("masothue").toString(),hmParameter.get("thangbc").toString());
+            lstDulieuNt50 = daoMain.getDataQd23_001_Dc_pheduyet(conn, hmParameter.get("khoadc").toString(),
+                    hmParameter.get("ngay_bc").toString(), UserName, Grade, hmParameter.get("masothue").toString(), hmParameter.get("thangbc").toString());
             if (conn != null) {
                 conn.close();
             }
-            if(hmParameter.get("khoadc").toString().equals("QD23_004"))
+            if (hmParameter.get("khoadc").toString().equals("QD23_004")) {
                 return "pgd_dc_pheduyet_cv";
-            else if (hmParameter.get("khoadc").toString().equals("QD23_005"))
+            } else if (hmParameter.get("khoadc").toString().equals("QD23_005")) {
                 return "pgd_dc_pheduyet_gn";
-            else if (hmParameter.get("khoadc").toString().equals("QD23_006"))
+            } else if (hmParameter.get("khoadc").toString().equals("QD23_006")) {
                 return "pgd_dc_pheduyet_dn";
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
@@ -336,24 +322,26 @@ public class QD23_001 extends ActionNhaptaycnMain
         }
         return SUCCESS;
     }
-    
-     public String delete() {
-         try{
+
+    public String delete() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
 //        userGroupManager.delete(userGroupCode);
-        HashMap hmParameter = getParameter();
-        String s42 = masothue;
+            HashMap hmParameter = getParameter();
+            String s42 = masothue;
 //        String s4 = thangbc;
 //        String s = dtth;
-        DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
-        if(daoMain.deleteQD23("QD23_001", UserName, "", Grade, masothue) == 0)
-        {
-            addActionError("Xóa lỗi");
-            return ERROR;
-        }
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            if (daoMain.deleteQD23("QD23_001", UserName, "", Grade, masothue) == 0) {
+                addActionError("Xóa lỗi");
+                return ERROR;
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> COVID_03: " + e.getMessage());
-             addActionError("Xóa lỗi");
+            addActionError("Xóa lỗi");
             return ERROR;
         }
         addActionMessage("Bạn đã lưu dữ liệu thành công");
@@ -412,22 +400,22 @@ public class QD23_001 extends ActionNhaptaycnMain
 
     public String updateDsNguoiLD_QD23() {
         try {
-           if (!getParaSession()) {
+            if (!getParaSession()) {
                 return ERROR;
             }
             HashMap hmParameter = getParameter();
-           DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();   
-           DaoNhaptaycnMain dao = new DaoNhaptaycnMain();
+            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            DaoNhaptaycnMain dao = new DaoNhaptaycnMain();
             Connection conn = new DaoConnect().getConnect();
             String ngay = hmParameter.get("ngay_bc").toString();
             lstDulieuNt = dao.getDataAfterUpFile(conn, "QD23_002", ngay, "", UserName, Grade, hmParameter.get("thangbc").toString(), masothue);
-             if (conn != null) {
+            if (conn != null) {
                 conn.close();
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> updateDsNguoiLD: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> updateDsNguoiLD: " + e.getMessage());
-             return SUCCESS;
+            return SUCCESS;
         }
         return SUCCESS;
     }
@@ -435,11 +423,10 @@ public class QD23_001 extends ActionNhaptaycnMain
     public String loadParaUploadDsNguoild() {
         try {
 
-           
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> UploadDSGiaiNgan: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> UploadDSGiaiNgan: " + e.getMessage());
-             return SUCCESS;
+            return SUCCESS;
         }
         return SUCCESS;
     }
@@ -480,11 +467,10 @@ public class QD23_001 extends ActionNhaptaycnMain
                     addActionError("Lỗi khi đọc dữ liệu từ file excel ");
                     return ERROR;
                 }
-                String sCheck = dao.checkUploadNLD(khoa_nhaptaycn, Grade,  hmParameter.get("thangbc").toString(), masothue);
-                if(!sCheck.equals("AAA"))
-                {
+                String sCheck = dao.checkUploadNLD(khoa_nhaptaycn, Grade, hmParameter.get("thangbc").toString(), masothue);
+                if (!sCheck.equals("AAA")) {
                     addActionError("Lỗi! Trùng số sổ BHYT " + sCheck);
-                    return ERROR; 
+                    return ERROR;
                 }
             }
             Connection conn = new DaoConnect().getConnect();
@@ -500,7 +486,7 @@ public class QD23_001 extends ActionNhaptaycnMain
         }
         return SUCCESS;
     }
-    
+
     public String QD23_001_ExpExcel() {
         try {
 //            getInfo();
@@ -513,7 +499,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             List<String> lstSubCommune = new ArrayList<>();
             DaoNhaptaycnMain dao = new DaoNhaptaycnMain();
 //            lstSubCommune = dao.getPosList(UserName, Grade);
-            
+
             lstSubCommune.add("000100");
 //            lstSubCommune.add("000402");
 //            if (commune_cd.equals("000000")) {
@@ -549,7 +535,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             return ERROR;
         }
     }
-    
+
     public String QD23_001_ExpExcel_Temp() {
         try {
 //            getInfo();
@@ -562,7 +548,7 @@ public class QD23_001 extends ActionNhaptaycnMain
             List<String> lstSubCommune = new ArrayList<>();
             DaoNhaptaycnMain dao = new DaoNhaptaycnMain();
 //            lstSubCommune = dao.getPosList(UserName, Grade);
-            
+
             lstSubCommune.add(pos_cd_username);
 
             HashMap hmParameter = getParameter();
@@ -711,8 +697,8 @@ public class QD23_001 extends ActionNhaptaycnMain
         }
         return lstExcelKhnv;
     }
-    
-     private List<ModelExcelFile> readFileExcelQD23(String fileName, int startRow, int EndCell) throws IOException, InvalidFormatException {
+
+    private List<ModelExcelFile> readFileExcelQD23(String fileName, int startRow, int EndCell) throws IOException, InvalidFormatException {
         List<ModelExcelFile> lstExcelKhnv = new ArrayList<>();
         try {
             Workbook workbook = WorkbookFactory.create(new File(fileName));
@@ -773,5 +759,5 @@ public class QD23_001 extends ActionNhaptaycnMain
         }
         return lstExcelKhnv;
     }
-    
+
 }
