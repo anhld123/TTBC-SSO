@@ -113,7 +113,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                     row.setKHOA("ID_001");
                     row.setTHUTU(i);
 
-//                row.setTT_HIENTHI(item.getOrderDescription());
+                row.setTT_HIENTHI(dateStr);
 //                row.setMA(item.getCode());
 //                row.setTEN(item.getName());
                     Date reportDate = DateUtil.toDate(item.getReportDate());
@@ -383,35 +383,8 @@ public class HTLS2021 extends ActionNhaptaycnMain
                 if (lstDataLock.size() > 0) {
                     //Lưu phần phân loại hạch toán
                     if (lstDataLock.get(0).getStatus().equals("1")) {
-                        for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                            if (tmp.getD33() != null) {
-                                IntDeductionModel tempadd = new IntDeductionModel();
-                                tempadd.setMainPos(tmp.getMACN());
-                                tempadd.setPosCode(tmp.getMAPGD());
-                                tempadd.setLoanId(tmp.getD3());
-//                            tempadd.setIntDeductionAdjustM10Amt(Float.parseFloat(tmp.getD18()));
-//                            tempadd.setIntDeductionAdjustM11Amt(Float.parseFloat(tmp.getD19()));
-//                            tempadd.setIntDeductionAdjustM12Amt(Float.parseFloat(tmp.getD20()));
-                                tempadd.setIntConfirmFlag("0");
-                                lstUpdateDate.add(tempadd);
-                            }
-                        }
-                        int status = service.updateData2021HTLS(pos_cd_username, strDate, UserName, lstUpdateDate);
-                        if (status == 200) {
-                            ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
-                            DecimalFormat df = new DecimalFormat("#.##");
-                            for (IntDeductionModel item : lstUpdateDate) {
-                                QT_DULIEU_NT updateRow = new QT_DULIEU_NT();
-                                updateRow.setD1(item.getLoanId());
-                                updateRow.setD2(df.format(item.getIntDeductionAdjustM10Amt()));
-                                updateRow.setD3(df.format(item.getIntDeductionAdjustM11Amt()));
-                                updateRow.setD4(df.format(item.getIntDeductionAdjustM12Amt()));
-                                updateRow.setD5(item.getIntConfirmFlag().toString());
-
-                                lstLocalDataUpdate.add(updateRow);
-                            }
-                            daoMain.saveGiamLai1990(UserName, pos_cd_username, strDate1, lstLocalDataUpdate);
-                        }
+                        addActionError("Chi nhánh dã chốt số liệu. Bạn không thể điều chỉnh.");;
+                        return ERROR;
                     } //Lưu phần xác nhận lãi giảm
                     else {
 //                         DecimalFormat df = new DecimalFormat("#.##");
@@ -460,7 +433,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
 
                                 lstLocalDataUpdate.add(updateRow);
                             }
-                            daoMain.saveGiamLai1990(UserName, pos_cd_username, strDate1, lstLocalDataUpdate);
+                            daoMain.saveGiamLai1990(UserName, pos_cd_username, strDate1, lstLocalDataUpdate,"1");
                         }
                     }
                 }
@@ -498,4 +471,77 @@ public class HTLS2021 extends ActionNhaptaycnMain
         return SUCCESS;
     }
 
+    public String save_htl() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            if (lstDulieuNt == null || lstDulieuNt.size() == 0) {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
+                return ERROR;
+            }
+
+            DaoNhaptaycnMain daoMain = DaoNhaptaycnMain.newInstance();
+            HashMap hmParameter = getParameter();
+            String sngaybc = hmParameter.get("ngay_bc").toString();
+            Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(sngaybc);
+
+//            Date date = Calendar.getInstance().getTime();  
+            DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            String strDate = dateFormat.format(date1);
+
+            DateFormat dateFormat1 = new SimpleDateFormat("dd-MMM-yyyy");
+            String strDate1 = dateFormat1.format(date1);
+
+            service = new DuLieuNTService();
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd_username = posMainModel.getPosCd();
+
+            if (Grade.equals("1")) {
+                ArrayList<LockSendModel> lstDataLock = service.getDataLockSendS2021(pos_cd_username, "S", strDate);
+                ArrayList<IntDeductionModel> lstUpdateDate = new ArrayList<>();
+                if (lstDataLock.size() > 0) {
+                    //Lưu phần phân loại hạch toán
+                    if (lstDataLock.get(0).getStatus().equals("1")) {
+                        for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                            if (tmp.getD33() != null) {
+                                IntDeductionModel tempadd = new IntDeductionModel();
+                                tempadd.setMainPos(tmp.getMACN());
+                                tempadd.setPosCode(tmp.getMAPGD());
+                                tempadd.setLoanId(tmp.getD3());
+                                tempadd.setCasaAmt(new BigInteger(tmp.getD30()));
+                                tempadd.setCashAmt(new BigInteger(tmp.getD31()));
+                                tempadd.setPosTranRef(tmp.getD32());
+                                lstUpdateDate.add(tempadd);
+                            }
+                        }
+                        int status = service.updateData2021HTLS(pos_cd_username, strDate, UserName, lstUpdateDate);
+                        if (status == 200) {
+                            ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
+                            DecimalFormat df = new DecimalFormat("#.##");
+                            for (IntDeductionModel item : lstUpdateDate) {
+                                QT_DULIEU_NT updateRow = new QT_DULIEU_NT();
+                                updateRow.setD1(item.getLoanId());
+                                updateRow.setD2(df.format(item.getCasaAmt()));
+                                updateRow.setD3(df.format(item.getCashAmt()));
+//                                updateRow.setD4(df.format(item.getIntDeductionAdjustM12Amt()));
+                                updateRow.setD4(item.getPosTranRef());
+
+                                lstLocalDataUpdate.add(updateRow);
+                            }
+                            daoMain.saveGiamLai1990(UserName, pos_cd_username, strDate1, lstLocalDataUpdate,"2");
+                        }
+                    } //Lưu phần xác nhận lãi giảm                    
+                }
+
+            } 
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
+            addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+            return ERROR;
+        }
+        addActionMessage("Bạn đã lưu dữ liệu thành công");
+        return SUCCESS;
+    }
 }

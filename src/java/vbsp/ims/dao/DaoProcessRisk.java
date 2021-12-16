@@ -1104,6 +1104,60 @@ public class DaoProcessRisk {
 
         return nRowTotal;
     }
+    
+    public int checkReadDataCheckLock(String sKhoa, String strUserName, String capbc, String nambc, String dotbc, ArrayList<String> lstArrPoscd) {
+        int nRowTotal = 0;        
+        String strStringPosCd = "";
+        for (int i = 0; i < lstArrPoscd.size(); i++) {
+            if (i != lstArrPoscd.size() - 1) {
+                strStringPosCd += "\"" + lstArrPoscd.get(i).toString() + "\",";
+            } else {
+                strStringPosCd += "\"" + lstArrPoscd.get(i).toString() + "\"";
+            }
+        }
+
+        try {
+             DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{?=call vbsp_ims_risk.F_CHECK_LOCK(?,?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            try {
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
+                //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
+                calstatement.setString(2, sKhoa);
+                calstatement.setString(3, strUserName);     
+                calstatement.setString(4, capbc);
+                calstatement.setString(5, nambc);  
+                calstatement.setString(6, dotbc);
+                calstatement.setString(7, strStringPosCd);  
+                calstatement.execute();
+                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+                nRowTotal = calstatement.getInt(1);
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+//                if (conn != null) {
+//                    conn.close();
+//                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(DaoProcessRisk.class.getCanonicalName() + " getCapPheduyetQD62 -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getCapPheduyetQD62 " + e.getMessage());
+            CoreLogger.error(DaoProcessRisk.class.getCanonicalName() + " getCapPheduyetQD62 -> " + e.getMessage());
+        }
+
+        return nRowTotal;
+    }
 
     /**
      *
@@ -4267,7 +4321,7 @@ public class DaoProcessRisk {
         return Code;
     }
     
-    public String checkAutRisk(String sGrade, String sNambc, String sDotrr) {
+    public String checkAutRisk(String sGrade, String sNambc, String sDotrr, String username) {
 
         String Code = "";
         try {
@@ -4276,7 +4330,7 @@ public class DaoProcessRisk {
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call vbsp_ims_risk.SP_CHK_XN_XLRR_QD62(?,?,?,?)}";
+            String strStoreproce = "{call vbsp_ims_risk.SP_CHK_XN_XLRR_QD62(?,?,?,?,?)}";
 
             //Khoi tao goi store
             calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -4285,6 +4339,7 @@ public class DaoProcessRisk {
             calstatement.setString(2, sNambc);
             calstatement.setString(3, sDotrr);
             calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
+            calstatement.setString(5, username);
             //Thuc hien execute lay du lieu ra biểu
             calstatement.execute();
             

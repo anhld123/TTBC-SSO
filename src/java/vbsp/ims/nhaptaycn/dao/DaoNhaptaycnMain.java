@@ -9524,8 +9524,8 @@ public class DaoNhaptaycnMain {
         return lstBcqt_NT;
     }
     
-    
-    public boolean saveGiamLai1990(String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) 
+    //     1: lưu xác nhận lại; 2: lưu phân loại ht
+    public boolean saveGiamLai1990(String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData, String phanloai) 
             throws SQLException {
         Connection connection = new DaoConnect().getConnect();
         Object array[] = lstData.toArray();
@@ -9534,11 +9534,12 @@ public class DaoNhaptaycnMain {
         ARRAY array_to_pass = new ARRAY(des, connection, array);
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_IMS_NHAPTAYCN.SP_SAVE_GIAM_LAI_QD1990(?, ?, ?, ?)}");
+            cs = connection.prepareCall("{call VBSP_IMS_NHAPTAYCN.SP_SAVE_GIAM_LAI_QD1990(?, ?, ?, ?, ?)}");
             cs.setString(1, username);
             cs.setString(2, mapgd);
             cs.setString(3, ngaybc);
             cs.setArray(4, array_to_pass);
+            cs.setString(5, phanloai);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();

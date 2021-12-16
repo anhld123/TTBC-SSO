@@ -149,7 +149,7 @@ public class DuLieuNTService extends ReportService {
 
         return response.getStatus();
     }
-     
+//     1: lưu xác nhận lại; 2: lưu phân loại ht
      public int updateData2021HTLS( String posCode,  String reportDate, String makerId,
             ArrayList<IntDeductionModel> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();

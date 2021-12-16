@@ -1033,7 +1033,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             
             //Dua so dong du lieu len table
             pagination.setPage_records(lstTableRiskObj.size());
-            styledisplay = new DaoProcessRisk().checkAutRisk(reportGrade, nam_xlrr, dot_xlrr);
+            styledisplay = new DaoProcessRisk().checkAutRisk(reportGrade, nam_xlrr, dot_xlrr, sUserName);
             //Dong csdl
             if (!conn.isClosed()) {
                 conn.close();
@@ -1248,7 +1248,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             lstTableRiskObj = new DaoProcessRisk().getDetailCustomerSearch62(sUserName, reportGrade,
                     nam_xlrr, dot_xlrr, sSoku, vb_xlrr);
             
-            styledisplay = new DaoProcessRisk().checkAutRisk(reportGrade, nam_xlrr, dot_xlrr);
+            styledisplay = new DaoProcessRisk().checkAutRisk(reportGrade, nam_xlrr, dot_xlrr, sUserName);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             CoreLogger.error(this.getClass().getCanonicalName() + " getDetailCustomerSearch62 -> " + e.getMessage());
@@ -2143,7 +2143,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
                 setLstBrowerView(new DaoProcessRisk().getDataBrowerView62(sUserName, reportGrade,
                     ArrlstPosCd, nam_xlrr, dot_xlrr, nhom_xlrr, trangthai_xlrr, nguon_von, vb_xlrr));
                 
-                styledisplay = new DaoProcessRisk().checkAutRisk(reportGrade, nam_xlrr, dot_xlrr);
+                styledisplay = new DaoProcessRisk().checkAutRisk(reportGrade, nam_xlrr, dot_xlrr,sUserName);
                 return "cbXLN_view";
             }           
             else if ((capPheDuyet ==1 ||capPheDuyet ==2 ||capPheDuyet ==3||capPheDuyet ==4) && trangthai_xlrr.equals("K"))
