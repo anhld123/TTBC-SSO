@@ -85,6 +85,17 @@ private String mainPos;
  private double intTotalM12Amt;
  private String communeId;
  private String customerName;
+ private String disbursalDate;
+
+    public String getDisbursalDate() {
+//        return disbursalDate;
+        return disbursalDate==null? "19000101" : disbursalDate;
+    }
+
+    public void setDisbursalDate(String disbursalDate) {
+        this.disbursalDate = disbursalDate;
+    }
+ 
 
     public String getMainPos() {
         return mainPos;

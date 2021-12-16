@@ -63,8 +63,9 @@ public class HTLS2021 extends ActionNhaptaycnMain
 //            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
                 Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
                 String dateStr = sdf.format(date1);
-
+                setThangbc(sdf1.format(date1));
                 posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                 pos_cd_username = posMainModel.getPosCd();
                 service = new DuLieuNTService();
@@ -103,6 +104,9 @@ public class HTLS2021 extends ActionNhaptaycnMain
 //                DecimalFormat df1 = new DecimalFormat("#.#");
                 //String formatted = df.format(2.00023);
 
+                String sPhanloai = hmParameter.get("phanloai").toString();
+                String sGiaingan = hmParameter.get("giaingan").toString();
+                String sNhadt = hmParameter.get("nha_dt").toString();
                 for (IntDeductionModel item : lstData) {
 
 //                if (i>10)
@@ -113,7 +117,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                     row.setKHOA("ID_001");
                     row.setTHUTU(i);
 
-                row.setTT_HIENTHI(dateStr);
+                    row.setTT_HIENTHI(dateStr);
 //                row.setMA(item.getCode());
 //                row.setTEN(item.getName());
                     Date reportDate = DateUtil.toDate(item.getReportDate());
@@ -151,8 +155,8 @@ public class HTLS2021 extends ActionNhaptaycnMain
 //                        System.err.println("kkkk--" + i);
 //                    }
                     row.setD17(df.format(item.getIntDeductionTotalAmt()));
-                    BigInteger ad =item.getIntDeductionM10Amt();
-                    
+                    BigInteger ad = item.getIntDeductionM10Amt();
+
                     //Die tư day dong 108
                     row.setD18(df.format(item.getIntDeductionM10Amt()));
                     row.setD19(df.format(item.getIntDeductionM11Amt()));
@@ -188,79 +192,140 @@ public class HTLS2021 extends ActionNhaptaycnMain
                     row.setD46(item.getCommuneId());
 
                     row.setD50(item.getCustomerName());
-                    String lll = hmParameter.get("phanloai").toString();
-                    if (!chotsl.equals("1") && hmParameter.get("phanloai").toString().equals("-1")) {
-                        i++;
-                        dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
-                        dn_quahan = dn_quahan + (long) item.getOverdueAmt();
-                        dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
-
-                        lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
-                        lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
-                        lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
-
-                        lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
-                        lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
-                        lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
-
-                        lai_20 = lai_20.add(item.getCasaAmt());
-                        lai_21 = lai_21.add(item.getCashAmt());
-                        lstDulieuNt.add(row);
-                    } else if (!chotsl.equals("1") && hmParameter.get("phanloai").toString().equals(item.getPaymentFlag())) {
-                        i++;
-                        dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
-                        dn_quahan = dn_quahan + (long) item.getOverdueAmt();
-                        dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
-
-                        lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
-                        lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
-                        lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
-
-                        lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
-                        lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
-                        lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
-
-                        lai_20 = lai_20.add(item.getCasaAmt());
-                        lai_21 = lai_21.add(item.getCashAmt());
-                        lstDulieuNt.add(row);
-                    } else if (chotsl.equals("1") && hmParameter.get("phanloai").toString().equals(item.getPaymentFlag()) && item.getIntConfirmFlag().equals("1")) {
-                        i++;
-                        dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
-                        dn_quahan = dn_quahan + (long) item.getOverdueAmt();
-                        dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
-
-                        lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
-                        lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
-                        lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
-
-                        lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
-                        lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
-                        lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
-
-                        lai_20 = lai_20.add(item.getCasaAmt());
-                        lai_21 = lai_21.add(item.getCashAmt());
-                        lstDulieuNt.add(row);
-                    } else if (chotsl.equals("1") && hmParameter.get("phanloai").toString().equals("-1")) {
-                        if (item.getPaymentFlag().equals("1") && item.getIntConfirmFlag().equals("1")) {
+//                    Lấy món vay xác nhận lãi
+                    if (!chotsl.equals("1")) {
+                        if ((sPhanloai.equals("-1") || sPhanloai.equals(item.getPaymentFlag()))
+                                && (sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode()))
+                                && (sGiaingan.equals("-1") || !item.getDisbursalDate().equals("19000101"))) {
                             i++;
-                            dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
-                            dn_quahan = dn_quahan + (long) item.getOverdueAmt();
-                            dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
+                        dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
+                        dn_quahan = dn_quahan + (long) item.getOverdueAmt();
+                        dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
 
-                            lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
-                            lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
-                            lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
+                        lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
+                        lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
+                        lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
 
-                            lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
-                            lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
-                            lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
+                        lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
+                        lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
+                        lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
 
-                            lai_20 = lai_20.add(item.getCasaAmt());
-                            lai_21 = lai_21.add(item.getCashAmt());
-                            lstDulieuNt.add(row);
+                        lai_20 = lai_20.add(item.getCasaAmt());
+                        lai_21 = lai_21.add(item.getCashAmt());
+                        lstDulieuNt.add(row);
                         }
+                    } else {
+                        if ((sPhanloai.equals("-1") || sPhanloai.equals(item.getPaymentFlag()))
+                                && (sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode()))
+                                && (sGiaingan.equals("-1") || !item.getDisbursalDate().equals("19000101"))) {
+                            if (item.getPaymentFlag().equals("1") && item.getIntConfirmFlag().equals("1")) {
+                                i++;
+                                dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
+                                dn_quahan = dn_quahan + (long) item.getOverdueAmt();
+                                dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
+
+                                lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
+                                lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
+                                lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
+
+                                lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
+                                lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
+                                lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
+
+                                lai_20 = lai_20.add(item.getCasaAmt());
+                                lai_21 = lai_21.add(item.getCashAmt());
+                                lstDulieuNt.add(row);
+                            }
+                        }
+//                        i++;
+//                        dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
+//                        dn_quahan = dn_quahan + (long) item.getOverdueAmt();
+//                        dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
+//
+//                        lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
+//                        lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
+//                        lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
+//
+//                        lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
+//                        lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
+//                        lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
+//
+//                        lai_20 = lai_20.add(item.getCasaAmt());
+//                        lai_21 = lai_21.add(item.getCashAmt());    
+//                        lstDulieuNt.add(row);
                     }
 
+//                    if (!chotsl.equals("1") && hmParameter.get("phanloai").toString().equals("-1")) {
+//                        i++;
+//                        dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
+//                        dn_quahan = dn_quahan + (long) item.getOverdueAmt();
+//                        dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
+//
+//                        lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
+//                        lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
+//                        lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
+//
+//                        lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
+//                        lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
+//                        lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
+//
+//                        lai_20 = lai_20.add(item.getCasaAmt());
+//                        lai_21 = lai_21.add(item.getCashAmt());
+//                        lstDulieuNt.add(row);
+//                    } else if (!chotsl.equals("1") && hmParameter.get("phanloai").toString().equals(item.getPaymentFlag())) {
+//                        i++;
+//                        dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
+//                        dn_quahan = dn_quahan + (long) item.getOverdueAmt();
+//                        dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
+//
+//                        lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
+//                        lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
+//                        lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
+//
+//                        lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
+//                        lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
+//                        lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
+//
+//                        lai_20 = lai_20.add(item.getCasaAmt());
+//                        lai_21 = lai_21.add(item.getCashAmt());
+//                        lstDulieuNt.add(row);
+//                    } else if (chotsl.equals("1") && hmParameter.get("phanloai").toString().equals(item.getPaymentFlag()) && item.getIntConfirmFlag().equals("1")) {
+//                        i++;
+//                        dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
+//                        dn_quahan = dn_quahan + (long) item.getOverdueAmt();
+//                        dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
+//
+//                        lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
+//                        lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
+//                        lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
+//
+//                        lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
+//                        lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
+//                        lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
+//
+//                        lai_20 = lai_20.add(item.getCasaAmt());
+//                        lai_21 = lai_21.add(item.getCashAmt());
+//                        lstDulieuNt.add(row);
+//                    } else if (chotsl.equals("1") && hmParameter.get("phanloai").toString().equals("-1")) {
+//                        if (item.getPaymentFlag().equals("1") && item.getIntConfirmFlag().equals("1")) {
+//                            i++;
+//                            dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
+//                            dn_quahan = dn_quahan + (long) item.getOverdueAmt();
+//                            dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
+//
+//                            lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
+//                            lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
+//                            lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
+//
+//                            lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
+//                            lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
+//                            lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
+//
+//                            lai_20 = lai_20.add(item.getCasaAmt());
+//                            lai_21 = lai_21.add(item.getCashAmt());
+//                            lstDulieuNt.add(row);
+//                        }
+//                    }
                 }
                 tong.setD1(df.format(dn_tronhan + dn_quahan + dn_khoanh));
                 tong.setD2(df.format(dn_tronhan));
@@ -396,21 +461,25 @@ public class HTLS2021 extends ActionNhaptaycnMain
                                     tempadd.setMainPos(tmp.getMACN());
                                     tempadd.setPosCode(tmp.getMAPGD());
                                     tempadd.setLoanId(tmp.getD3());
-                                    tempadd.setIntDeductionAdjustM10Amt(new BigInteger(tmp.getD18()));
-                                    tempadd.setIntDeductionAdjustM11Amt(new BigInteger(tmp.getD19()));
-                                    tempadd.setIntDeductionAdjustM12Amt(new BigInteger(tmp.getD20()));
+                                    if (strDate.equals("20211130")) {
+                                        tempadd.setIntDeductionAdjustM10Amt(new BigInteger(tmp.getD18()));
+                                        tempadd.setIntDeductionAdjustM11Amt(new BigInteger(tmp.getD19()));
+                                    } else {
+                                        tempadd.setIntDeductionAdjustM12Amt(new BigInteger(tmp.getD20()));
+                                    }
+
                                     tempadd.setIntConfirmFlag("0");
                                     lstUpdateDate.add(tempadd);
                                 } else {
                                     tempadd.setMainPos(tmp.getMACN());
                                     tempadd.setPosCode(tmp.getMAPGD());
                                     tempadd.setLoanId(tmp.getD3());
-                                    tempadd.setIntDeductionAdjustM10Amt(new BigInteger(tmp.getD18()));
-                                    tempadd.setIntDeductionAdjustM11Amt(new BigInteger(tmp.getD19()));
-                                    tempadd.setIntDeductionAdjustM12Amt(new BigInteger(tmp.getD20()));
-//                            tempadd.setIntDeductionAdjustM10Amt(Float.parseFloat(tmp.getD18()));
-//                            tempadd.setIntDeductionAdjustM11Amt(Float.parseFloat(tmp.getD19()));
-//                            tempadd.setIntDeductionAdjustM12Amt(Float.parseFloat(tmp.getD20()));
+                                    if (strDate.equals("20211130")) {
+                                        tempadd.setIntDeductionAdjustM10Amt(new BigInteger(tmp.getD18()));
+                                        tempadd.setIntDeductionAdjustM11Amt(new BigInteger(tmp.getD19()));
+                                    } else {
+                                        tempadd.setIntDeductionAdjustM12Amt(new BigInteger(tmp.getD20()));
+                                    }
                                     tempadd.setM10Status(strDate.equals("20211130") ? "1" : "");
                                     tempadd.setM11Status(strDate.equals("20211130") ? "1" : "");
                                     tempadd.setM12Status(strDate.equals("20211231") ? "1" : "");
@@ -426,14 +495,18 @@ public class HTLS2021 extends ActionNhaptaycnMain
                             for (IntDeductionModel item : lstUpdateDate) {
                                 QT_DULIEU_NT updateRow = new QT_DULIEU_NT();
                                 updateRow.setD1(item.getLoanId());
-                                updateRow.setD2(df.format(item.getIntDeductionAdjustM10Amt()));
-                                updateRow.setD3(df.format(item.getIntDeductionAdjustM11Amt()));
-                                updateRow.setD4(df.format(item.getIntDeductionAdjustM12Amt()));
+                                if (strDate.equals("20211130")) {
+                                    updateRow.setD2(df.format(item.getIntDeductionAdjustM10Amt()));
+                                    updateRow.setD3(df.format(item.getIntDeductionAdjustM11Amt()));
+                                } else {
+                                    updateRow.setD4(df.format(item.getIntDeductionAdjustM12Amt()));
+                                }
+
                                 updateRow.setD5(item.getIntConfirmFlag().toString());
 
                                 lstLocalDataUpdate.add(updateRow);
                             }
-                            daoMain.saveGiamLai1990(UserName, pos_cd_username, strDate1, lstLocalDataUpdate,"1");
+                            daoMain.saveGiamLai1990(UserName, pos_cd_username, strDate1, lstLocalDataUpdate, "1");
                         }
                     }
                 }
@@ -529,12 +602,12 @@ public class HTLS2021 extends ActionNhaptaycnMain
 
                                 lstLocalDataUpdate.add(updateRow);
                             }
-                            daoMain.saveGiamLai1990(UserName, pos_cd_username, strDate1, lstLocalDataUpdate,"2");
+                            daoMain.saveGiamLai1990(UserName, pos_cd_username, strDate1, lstLocalDataUpdate, "2");
                         }
                     } //Lưu phần xác nhận lãi giảm                    
                 }
 
-            } 
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());

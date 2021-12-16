@@ -280,6 +280,8 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected List<ListValue> lstTinhchatNV = new ArrayList<ListValue>();
     protected List<ListValue> lstChotKH = new ArrayList<ListValue>();
     protected List<ListValue> lstTide = new ArrayList<ListValue>();
+    protected List<ListValue> lstGiaiNgan = new ArrayList<ListValue>();
+    protected List<ListValue> lstNhadautu = new ArrayList<ListValue>();
 
     protected List<ListValue> lstPLKT = new ArrayList<ListValue>();
     protected List<ListValue> lstDTTH = new ArrayList<ListValue>();
@@ -731,6 +733,10 @@ public class ActionNhaptaycnMain extends ActionSupport {
             }
             if (khoa_nhaptaycn.equals("QD23_001")) {
                 setLstTide(daoMain.getCanBo(UserName, "TIDE595"));
+            }
+            else if (khoa_nhaptaycn.equals("HTLS2021")) {
+//                setLstGiaiNgan(daoMain.getCanBo(UserName, "TIDE595"));
+                setLstNhadautu(daoMain.getCanBo(UserName, "NHADT"));
             }
 
             lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn, UserName, Grade);
@@ -1549,6 +1555,23 @@ public class ActionNhaptaycnMain extends ActionSupport {
     public void setLstThangvay(List<ListValue> lstThangvay) {
         this.lstThangvay = lstThangvay;
     }
+
+    public List<ListValue> getLstGiaiNgan() {
+        return lstGiaiNgan;
+    }
+
+    public void setLstGiaiNgan(List<ListValue> lstGiaiNgan) {
+        this.lstGiaiNgan = lstGiaiNgan;
+    }
+
+    public List<ListValue> getLstNhadautu() {
+        return lstNhadautu;
+    }
+
+    public void setLstNhadautu(List<ListValue> lstNhadautu) {
+        this.lstNhadautu = lstNhadautu;
+    }
+    
     
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
