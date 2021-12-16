@@ -325,14 +325,14 @@
 
                             <th rowspan="2"  class="TD_MAKH">Phân loại RPA hoặc Phải trả</th>  
                             <th rowspan="2"  class="TD_MAKH">Đơn vị xác nhận số tiền giảm lãi</th>                              
-                            <th rowspan="2"  class="TD_MAKH">Số tham chiếu giao dịch hạch toán giảm lãi trên Intellect</th>  
+<!--                            <th rowspan="2"  class="TD_MAKH">Số tham chiếu giao dịch hạch toán giảm lãi trên Intellect</th>  
                             <th rowspan="2"  class="TD_MAKH">Ngày hạch toán giảm lãi</th>  
                             <th rowspan="2"  class="TD_MAKH">Số tiền hạch toán giảm lãi</th>  
-                            <!--<th rowspan="2"  class="TD_MAKH">Số tiền lãi giảm chuyển vào RPA</th>-->  
+                            <th rowspan="2"  class="TD_MAKH">Số tiền lãi giảm chuyển vào RPA</th>  
                             <th rowspan="2"  class="TD_MAKH">Số tiền lãi giảm chuyển vào CASA</th>  
                             <th rowspan="2"  class="TD_MAKH">Số tiền giảm lãi đã chi bằng tiền mặt</th>  
 
-                            <th rowspan="2"  class="TD_MAKH">Số bút hạch toán lãi giảm vào CASA hoặc chi tiền mặt</th>  
+                            <th rowspan="2"  class="TD_MAKH">Số bút hạch toán lãi giảm vào CASA hoặc chi tiền mặt</th>  -->
                             <th rowspan="2"  class="TD_MAKH">Cập nhật</th>  
 
 
@@ -365,13 +365,13 @@
                             <th  class="TD_STT">
                                 <input type="checkbox" id ="allCheck_dat" name="allCheck_dat"  />
                             </th>  
-                            <td style="text-align: center">(15)</td>
+<!--                            <td style="text-align: center">(15)</td>
                             <td style="text-align: center">(16)</td>
                             <td style="text-align: center">(17)</td>
-                            <!--<td style="text-align: center">(19)</td>-->
+                            <td style="text-align: center">(19)</td>
                             <td style="text-align: center">(18)</td>
                             <td style="text-align: center">(19)</td>
-                            <td style="text-align: center">(20)</td>
+                            <td style="text-align: center">(20)</td>-->
                             <td style="text-align: center">(21)</td>
 
                         </tr>
@@ -466,7 +466,7 @@
                                            />
                                 </td> 
 
-                                <td align = "right" class="TD_SOKU" >
+<!--                                <td align = "right" class="TD_SOKU" >
                                     <input type="text"   value="<s:property  value="D26" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26" class="TEN_KH" onfocus="this.select();" readonly="true"/>
                                 </td>
@@ -489,7 +489,7 @@
                                 <td align = "right" class="TD_TENKH" >
                                     <input type="text"   value="<s:property  value="D32" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D32" class="TEN_KH " onfocus="this.select();" />
-                                </td>
+                                </td>-->
                                 <td  align="center" class="TD_CHECKBOX">    
                                     <input type="checkbox" id ='idchk<s:property  value="%{#rowstatus.index}" />' class="checkboxdat TEN_KH" 
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D33" value="<s:property  value="D33"/>"                                            

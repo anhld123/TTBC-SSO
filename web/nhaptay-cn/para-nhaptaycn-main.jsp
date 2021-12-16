@@ -207,6 +207,7 @@
                 var poscd = getposfromtreecheck();
 //                alert(poscd);
                 var khoa = $("#khoa_nhaptaycn").val() + "_save";
+//                alert(khoa);
                 if (!bsubmit)
                 {
 //                    alert('Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !');
@@ -217,7 +218,10 @@
 // Trung bo sung phan validate data
                 if (typeof validateData !== 'undefined' && typeof validateData === 'function') {
                     if (!validateData())
+                    {
+                        alert('vao day');
                         return false;
+                    }
                 }
 
 
