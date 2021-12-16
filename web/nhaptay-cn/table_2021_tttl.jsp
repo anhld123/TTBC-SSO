@@ -329,7 +329,7 @@
                             <th rowspan="2"  class="TD_MAKH">Số tiền hạch toán giảm lãi</th>  
                             <!--<th rowspan="2"  class="TD_MAKH">Số tiền lãi giảm chuyển vào RPA</th>-->  
                             <!--<th colspan="3"  class="TD_MAKH">Tháng 10</th>-->    
-                            <th colspan="3"  class="TD_MAKH">Tháng 11</th>
+                            <th colspan="3"  class="TD_MAKH">Tháng <s:property  value="thangbc"/></th>
                             <!--<th colspan="3"  class="TD_MAKH">Tháng 12</th>-->
                            
                             <th rowspan="2"  class="TD_MAKH">Cập nhật</th>  

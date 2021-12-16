@@ -206,6 +206,11 @@
                 $('#divExportReportLink').empty();
                 var poscd = getposfromtreecheck();
 //                alert(poscd);
+//                if(poscd === '' || poscd.length ===0)
+//                {
+//                    $('#message_suc_err').html("<h2 style='color: red'>Bạn đã chốt số liệu, vui lòng chọn Cập nhật hạch toán GL !</h2>");
+//                    return;
+//                }
                 var khoa = $("#khoa_nhaptaycn").val() + "_save";
 //                alert(khoa);
                 if (!bsubmit)
@@ -234,12 +239,17 @@
                     onLoadData();
                 }
             }
-            
+
             function onSaveDataHTLai()
             {
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
                 var poscd = getposfromtreecheck();
+//                if(poscd === '' || poscd.length ===0)
+//                {
+//                    $('#message_suc_err').html("<h2 style='color: red'>Bạn chưa chốt số liệu, vui lòng chọn Xác nhận giảm lãi !</h2>");
+//                    return;
+//                }
 //                alert(poscd);
                 var khoa = $("#khoa_nhaptaycn").val() + "_save_htlai";
                 if (!bsubmit)
@@ -588,6 +598,8 @@
 
 
                                         </s:if>   
+
+
                                         <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QD23_001') && Grade.equalsIgnoreCase('3')"> 
                                         </tr>
                                         <tr>
@@ -608,10 +620,22 @@
                                                     </select>
                                                 </td> 
                                         </s:if>            
-                                                <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021')">
-                                                    </tr>
-                                             <tr>
-                                                </s:if>         
+                                        <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021')">
+                                        </tr>
+                                        <tr>
+                                            <td >Giải ngân:</td>
+                                            <td>
+                                                <select name="giaingan" id="giaingan">
+                                                    <option value="-1">--Tất cả--</option>
+                                                    <option value="1">Giải ngân 12/2021</option>
+                                                    <!--<option value="2">Điều chuyển</option>-->
+                                                </select>
+                                            </td> 
+                                            <td >Nhà đầu tư:</td>
+                                            <td  >                                               
+                                                <s:select  style="width: 200px;"  list="lstNhadautu" id="nha_dt" name="nha_dt" listKey="sKey" listValue="sDesc"></s:select>
+                                                </td> 
+                                        </s:if>         
 
                                         <td >
                                             &nbsp;&nbsp;&nbsp;
@@ -626,19 +650,19 @@
                                         <s:else>
                                             <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021') && Grade.equalsIgnoreCase('1')">
                                                 <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/> </td>
-                                                
-                                                 <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="Cập nhật HT giảm lãi"/> </td>
-                                            </s:if>     
-                                            <s:elseif test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021') && Grade.equalsIgnoreCase('2')">
-                                                    <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/> </td>
-                                            </s:elseif>
+
+                                                <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="Cập nhật hạch toán GL"/> </td>
+                                                </s:if>     
+                                                <s:elseif test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021') && Grade.equalsIgnoreCase('2')">
+                                                <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/> </td>
+                                                </s:elseif>
                                                 <s:else>
-                                                   <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> </td>
+                                                <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> </td>
                                                 </s:else>     
-                                                                                  
+
                                         </s:else>
-                                       
- 
+
+
 
 
 
@@ -674,12 +698,12 @@
                                                            onCompleteTopics="completediv_send" cssStyle="display:none"/>
 
                                                 <s:if test="(Grade.equalsIgnoreCase('2') && khoa_nhaptaycn.equalsIgnoreCase('HTLS2021'))">
-                                                    
+
                                                 </s:if>            
                                                 <s:else>
                                                     <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu"/>
                                                 </s:else>
-                                                
+
                                             </s:if>    
                                             <s:if test="(Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))">                                       
                                                 <input type="button" id="idUnlockDatatmp" name="namesaveDatatmp"  onclick="openClick()" value="Mở khóa"/>
