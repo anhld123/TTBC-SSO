@@ -250,7 +250,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionTotalAmt() {
-        return intDeductionTotalAmt;
+        return intDeductionTotalAmt==null? new BigInteger("0"):intDeductionTotalAmt;
     }
 
     public void setIntDeductionTotalAmt(BigInteger intDeductionTotalAmt) {

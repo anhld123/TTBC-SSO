@@ -108,117 +108,95 @@ public class HTLS2021 extends ActionNhaptaycnMain
                 String sGiaingan = hmParameter.get("giaingan").toString();
                 String sNhadt = hmParameter.get("nha_dt").toString();
                 for (IntDeductionModel item : lstData) {
-
-//                if (i>10)
+                    try {
+                        //                if (i>10)
 //                {
 //                    continue;
 //                }
-                    QT_DULIEU_NT row = new QT_DULIEU_NT();
-                    row.setKHOA("ID_001");
-                    row.setTHUTU(i);
+                        QT_DULIEU_NT row = new QT_DULIEU_NT();
+                        row.setKHOA("ID_001");
+                        row.setTHUTU(i);
 
-                    row.setTT_HIENTHI(dateStr);
+                        row.setTT_HIENTHI(dateStr);
 //                row.setMA(item.getCode());
 //                row.setTEN(item.getName());
-                    Date reportDate = DateUtil.toDate(item.getReportDate());
-                    row.setNGAYBC(reportDate);
-                    //row.setNAMBC(item.getReportYear());
-                    row.setMAPGD(item.getPosCode());
+                        Date reportDate = DateUtil.toDate(item.getReportDate());
+                        row.setNGAYBC(reportDate);
+                        //row.setNAMBC(item.getReportYear());
+                        row.setMAPGD(item.getPosCode());
 //                row.setCO_TONGHOP(item.getPosFlag());
-                    row.setMACN(item.getMainPos());
+                        row.setMACN(item.getMainPos());
 //                row.setNGUOI_NHAP(item.getMakerId());
-                    //row.setNGAY_NHAP(item.getMakerDate());
+                        //row.setNGAY_NHAP(item.getMakerDate());
 //                Date makerDate = DateUtil.toDate( item.getMakerDate());
 //                row.setNGAY_NHAP(makerDate);
 //                row.setNGUOI_DUYET(item.getAuthoriseId());
-                    //row.setNGAY_DUYET(item.getAuthoriseDate());
+                        //row.setNGAY_DUYET(item.getAuthoriseDate());
 //                Date authoriseDate = DateUtil.toDate( item.getAuthoriseDate());
 //                row.setNGAY_DUYET(authoriseDate);
-                    row.setD1(item.getGroupId());
-                    row.setD2(item.getCustomerId());
-                    row.setD3(item.getLoanId());
-                    row.setD4(df.format(item.getPrinTotal()));
-                    row.setD5(df.format(item.getNormalAmt()));
-                    row.setD6(df.format(item.getOverdueAmt()));
-                    row.setD7(df.format(item.getFreezeAmt()));
+                        row.setD1(item.getGroupId());
+                        row.setD2(item.getCustomerId());
+                        row.setD3(item.getLoanId());
+                        row.setD4(df.format(item.getPrinTotal()));
+                        row.setD5(df.format(item.getNormalAmt()));
+                        row.setD6(df.format(item.getOverdueAmt()));
+                        row.setD7(df.format(item.getFreezeAmt()));
 
-                    row.setD8(df.format(item.getInterestRate()));
-                    row.setD9(item.getLoanProgram());
-                    row.setD10(item.getSpecificProductCode());
-                    row.setD11(item.getDecisionCode());
-                    row.setD12(item.getLoanStatus());
-                    row.setD13(item.getCapitalSourceCode());
-                    row.setD14(item.getInvestorCode());
-                    row.setD15(item.getCasaAccount());
-                    row.setD16(df.format(item.getIntTotalAmt()));
+                        row.setD8(df.format(item.getInterestRate()));
+                        row.setD9(item.getLoanProgram());
+                        row.setD10(item.getSpecificProductCode());
+                        row.setD11(item.getDecisionCode());
+                        row.setD12(item.getLoanStatus());
+                        row.setD13(item.getCapitalSourceCode());
+                        row.setD14(item.getInvestorCode());
+                        row.setD15(item.getCasaAccount());
+                        row.setD16(df.format(item.getIntTotalAmt()));
 //                    if (i == 107) {
 //                        System.err.println("kkkk--" + i);
 //                    }
-                    row.setD17(df.format(item.getIntDeductionTotalAmt()));
-                    BigInteger ad = item.getIntDeductionM10Amt();
+                        row.setD17(df.format(item.getIntDeductionTotalAmt()));
+                        BigInteger ad = item.getIntDeductionM10Amt();
 
-                    //Die tư day dong 108
-                    row.setD18(df.format(item.getIntDeductionM10Amt()));
-                    row.setD19(df.format(item.getIntDeductionM11Amt()));
-                    row.setD20(df.format(item.getIntDeductionM12Amt()));
+                        //Die tư day dong 108
+                        row.setD18(df.format(item.getIntDeductionM10Amt()));
+                        row.setD19(df.format(item.getIntDeductionM11Amt()));
+                        row.setD20(df.format(item.getIntDeductionM12Amt()));
 
-                    row.setD21(df.format(item.getIntDeductionAdjustM10Amt()));
-                    row.setD22(df.format(item.getIntDeductionAdjustM11Amt()));
-                    row.setD23(df.format(item.getIntDeductionAdjustM12Amt()));
+                        row.setD21(df.format(item.getIntDeductionAdjustM10Amt()));
+                        row.setD22(df.format(item.getIntDeductionAdjustM11Amt()));
+                        row.setD23(df.format(item.getIntDeductionAdjustM12Amt()));
 
-                    row.setD24(item.getPaymentFlag().equals("0") ? "RPA" : "HT phải trả");
-                    row.setD25(item.getIntConfirmFlag());
-                    row.setD26(item.getDeductionTranRef());
-                    row.setD27(item.getDeductionTranDate());
+                        row.setD24(item.getPaymentFlag().equals("0") ? "RPA" : "HT phải trả");
+                        row.setD25(item.getIntConfirmFlag());
+                        row.setD26(item.getDeductionTranRef());
+                        row.setD27(item.getDeductionTranDate());
 
-                    row.setD28(df.format(item.getAccountingIntAmt()));
-                    row.setD29(df.format(item.getRpaAmt()));
-                    row.setD30(df.format(item.getCasaAmt()));
-                    row.setD31(df.format(item.getCashAmt()));
+                        row.setD28(df.format(item.getAccountingIntAmt()));
+                        row.setD29(df.format(item.getRpaAmt()));
+                        row.setD30(df.format(item.getCasaAmt()));
+                        row.setD31(df.format(item.getCashAmt()));
 
 //                lai_18 = item.getIntDeductionAdjustM10Amt();
-                    row.setD32(item.getPosTranRef());
-                    row.setD33(item.getM10Status());
-                    row.setD34(item.getM11Status());
-                    row.setD35(item.getM12Status());
-                    row.setD36(item.getPaymentFlag());
+                        row.setD32(item.getPosTranRef());
+                        row.setD33(item.getM10Status());
+                        row.setD34(item.getM11Status());
+                        row.setD35(item.getM12Status());
+                        row.setD36(item.getPaymentFlag());
 //                row.setD37(item.getIntConfirmFlag());
 //                row.setD38(item.getDeductionTranRef());
 //                row.setD39(item.getDeductionTranDate());
 
-                    row.setD43(df.format(item.getIntTotalM10Amt()));
-                    row.setD44(df.format(item.getIntTotalM11Amt()));
-                    row.setD45(df.format(item.getIntTotalM12Amt()));
-                    row.setD46(item.getCommuneId());
+                        row.setD43(df.format(item.getIntTotalM10Amt()));
+                        row.setD44(df.format(item.getIntTotalM11Amt()));
+                        row.setD45(df.format(item.getIntTotalM12Amt()));
+                        row.setD46(item.getCommuneId());
 
-                    row.setD50(item.getCustomerName());
+                        row.setD50(item.getCustomerName());
 //                    Lấy món vay xác nhận lãi
-                    if (!chotsl.equals("1")) {
-                        if ((sPhanloai.equals("-1") || sPhanloai.equals(item.getPaymentFlag()))
-                                && (sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode()))
-                                && (sGiaingan.equals("-1") || !item.getDisbursalDate().equals("19000101"))) {
-                            i++;
-                        dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
-                        dn_quahan = dn_quahan + (long) item.getOverdueAmt();
-                        dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
-
-                        lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
-                        lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
-                        lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
-
-                        lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
-                        lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
-                        lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
-
-                        lai_20 = lai_20.add(item.getCasaAmt());
-                        lai_21 = lai_21.add(item.getCashAmt());
-                        lstDulieuNt.add(row);
-                        }
-                    } else {
-                        if ((sPhanloai.equals("-1") || sPhanloai.equals(item.getPaymentFlag()))
-                                && (sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode()))
-                                && (sGiaingan.equals("-1") || !item.getDisbursalDate().equals("19000101"))) {
-                            if (item.getPaymentFlag().equals("1") && item.getIntConfirmFlag().equals("1")) {
+                        if (!chotsl.equals("1")) {
+                            if ((sPhanloai.equals("-1") || sPhanloai.equals(item.getPaymentFlag()))
+                                    && (sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode()))
+                                    && (sGiaingan.equals("-1") || !item.getDisbursalDate().equals("19000101"))) {
                                 i++;
                                 dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
                                 dn_quahan = dn_quahan + (long) item.getOverdueAmt();
@@ -236,96 +214,34 @@ public class HTLS2021 extends ActionNhaptaycnMain
                                 lai_21 = lai_21.add(item.getCashAmt());
                                 lstDulieuNt.add(row);
                             }
-                        }
-//                        i++;
-//                        dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
-//                        dn_quahan = dn_quahan + (long) item.getOverdueAmt();
-//                        dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
-//
-//                        lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
-//                        lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
-//                        lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
-//
-//                        lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
-//                        lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
-//                        lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
-//
-//                        lai_20 = lai_20.add(item.getCasaAmt());
-//                        lai_21 = lai_21.add(item.getCashAmt());    
-//                        lstDulieuNt.add(row);
-                    }
+                        } else {
+                            if ((sPhanloai.equals("-1") || sPhanloai.equals(item.getPaymentFlag()))
+                                    && (sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode()))
+                                    && (sGiaingan.equals("-1") || !item.getDisbursalDate().equals("19000101"))) {
+                                if (item.getPaymentFlag().equals("1") && item.getIntConfirmFlag().equals("1")) {
+                                    i++;
+                                    dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
+                                    dn_quahan = dn_quahan + (long) item.getOverdueAmt();
+                                    dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
 
-//                    if (!chotsl.equals("1") && hmParameter.get("phanloai").toString().equals("-1")) {
-//                        i++;
-//                        dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
-//                        dn_quahan = dn_quahan + (long) item.getOverdueAmt();
-//                        dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
-//
-//                        lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
-//                        lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
-//                        lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
-//
-//                        lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
-//                        lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
-//                        lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
-//
-//                        lai_20 = lai_20.add(item.getCasaAmt());
-//                        lai_21 = lai_21.add(item.getCashAmt());
-//                        lstDulieuNt.add(row);
-//                    } else if (!chotsl.equals("1") && hmParameter.get("phanloai").toString().equals(item.getPaymentFlag())) {
-//                        i++;
-//                        dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
-//                        dn_quahan = dn_quahan + (long) item.getOverdueAmt();
-//                        dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
-//
-//                        lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
-//                        lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
-//                        lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
-//
-//                        lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
-//                        lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
-//                        lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
-//
-//                        lai_20 = lai_20.add(item.getCasaAmt());
-//                        lai_21 = lai_21.add(item.getCashAmt());
-//                        lstDulieuNt.add(row);
-//                    } else if (chotsl.equals("1") && hmParameter.get("phanloai").toString().equals(item.getPaymentFlag()) && item.getIntConfirmFlag().equals("1")) {
-//                        i++;
-//                        dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
-//                        dn_quahan = dn_quahan + (long) item.getOverdueAmt();
-//                        dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
-//
-//                        lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
-//                        lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
-//                        lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
-//
-//                        lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
-//                        lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
-//                        lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
-//
-//                        lai_20 = lai_20.add(item.getCasaAmt());
-//                        lai_21 = lai_21.add(item.getCashAmt());
-//                        lstDulieuNt.add(row);
-//                    } else if (chotsl.equals("1") && hmParameter.get("phanloai").toString().equals("-1")) {
-//                        if (item.getPaymentFlag().equals("1") && item.getIntConfirmFlag().equals("1")) {
-//                            i++;
-//                            dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
-//                            dn_quahan = dn_quahan + (long) item.getOverdueAmt();
-//                            dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
-//
-//                            lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
-//                            lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
-//                            lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
-//
-//                            lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
-//                            lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
-//                            lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
-//
-//                            lai_20 = lai_20.add(item.getCasaAmt());
-//                            lai_21 = lai_21.add(item.getCashAmt());
-//                            lstDulieuNt.add(row);
-//                        }
-//                    }
+                                    lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
+                                    lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
+                                    lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
+
+                                    lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
+                                    lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
+                                    lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
+
+                                    lai_20 = lai_20.add(item.getCasaAmt());
+                                    lai_21 = lai_21.add(item.getCashAmt());
+                                    lstDulieuNt.add(row);
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
+                        System.err.println(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());            
+                    }
                 }
                 tong.setD1(df.format(dn_tronhan + dn_quahan + dn_khoanh));
                 tong.setD2(df.format(dn_tronhan));
