@@ -196,7 +196,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                         if (!chotsl.equals("1")) {
                             if ((sPhanloai.equals("-1") || sPhanloai.equals(item.getPaymentFlag()))
                                     && (sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode()))
-                                    && (sGiaingan.equals("-1") || !item.getDisbursalDate().equals("19000101"))) {
+                                    && (sGiaingan.equals("-1") || item.getDisbursalDate() != null)) {
                                 i++;
                                 dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
                                 dn_quahan = dn_quahan + (long) item.getOverdueAmt();
@@ -217,7 +217,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                         } else {
                             if ((sPhanloai.equals("-1") || sPhanloai.equals(item.getPaymentFlag()))
                                     && (sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode()))
-                                    && (sGiaingan.equals("-1") || !item.getDisbursalDate().equals("19000101"))) {
+                                    && (sGiaingan.equals("-1") || item.getDisbursalDate() != null)) {
                                 if (item.getPaymentFlag().equals("1") && item.getIntConfirmFlag().equals("1")) {
                                     i++;
                                     dn_tronhan = dn_tronhan + (long) item.getNormalAmt();

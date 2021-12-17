@@ -89,7 +89,7 @@ private String mainPos;
 
     public String getDisbursalDate() {
 //        return disbursalDate;
-        return disbursalDate==null? "19000101" : disbursalDate;
+        return disbursalDate; //==null? "19000101" : disbursalDate;
     }
 
     public void setDisbursalDate(String disbursalDate) {

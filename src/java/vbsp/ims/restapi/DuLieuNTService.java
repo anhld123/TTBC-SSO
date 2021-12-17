@@ -165,6 +165,7 @@ public class DuLieuNTService extends ReportService {
         
         String json = "";
 
+        // chuan hoa du lieu truoc khi day len        
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(Include.NON_NULL);
         try {
