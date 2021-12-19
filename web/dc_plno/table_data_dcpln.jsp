@@ -80,7 +80,7 @@
             $(".TD_SOKU").css({"width": "115px"});
             $(".TD_NGUYEN_NHAN").css({"width": "150px"});
             $(".TD_NGUYEN_NHAN").css({"text-align": "center"});
-            $(".TD_NGUYEN_NHAN_KHOANH").css({"width": "170px"});
+            $(".TD_NGUYEN_NHAN_KHOANH").css({"width": "120px"});
             $(".TD_CHTRINH").css({"width": "80px"});
         });
         function hienthichitiet(soku, stt) {
@@ -338,14 +338,14 @@
                     <th class="TD_SOKU" rowspan="3">Mã món vay</th>
                     <th class="TD_CHTRINH" rowspan="3">Chương trình</th>
                     <th class="TD_DU_NO" colspan="5">Số liệu tại NHCSXH</th> 
-                    <th class="TD_DU_NO" colspan="3">Phân loại khả năng trả nợ</th> 
+                    <th class="TD_DU_NO" colspan="4">Phân loại khả năng trả nợ</th> 
                     <th class="TD_NGUYEN_NHAN_KHOANH" rowspan="3">Nguyên nhân nợ khoanh (Không có khả năng trả nợ)</th>
                 </tr>
                 <tr>
                     <th class="TD_DU_NO" colspan="4">Nợ gốc</th> 
                     <th class="TD_LAITON" rowspan="2">Nợ lãi</th> 
                     <th class="TD_DU_NO" rowspan="2">Có khả năng trả nợ</th> 
-                    <th class="TD_DU_NO" colspan="2">Không có khả năng trả nợ</th>
+                    <th class="TD_DU_NO" colspan="3">Không có khả năng trả nợ</th>
                 </tr>
                 <tr>
                     <th class="TD_DU_NO">Tổng số</th>
@@ -353,7 +353,8 @@
                     <th class="TD_DU_NO">Nợ quá hạn</th>
                     <th class="TD_DU_NO">Nợ khoanh</th>
                     <th class="TD_DU_NO">Số tiền</th>
-                    <th class="TD_NGUYEN_NHAN_KHOANH">Nguyên nhân</th>
+                    <th class="TD_NGUYEN_NHAN_KHOANH">Nguyên nhân cấp 1</th>
+                    <th class="TD_NGUYEN_NHAN_KHOANH">Nguyên nhân cấp 2</th>
                 </tr>
                 <tr>
 
@@ -442,9 +443,24 @@
                             listValue="sDesc"
                             headerKey="-1"
                             headerValue="--- Chọn ---"
-                            cssStyle="width: 180px;vertical-align: middle;background-color: #FFCCBA;">
+                            cssStyle="width: 120px;vertical-align: middle;background-color: #FFCCBA;">
                         </s:select>
-                    </td>                   
+                    </td>   
+                    <td align = "left" class="TD_NGUYEN_NHAN_KHOANH">
+                        <input type="hidden" id="sNgnhan_Kckntn_<s:property  value="%{#rowstatus.index}" />" 
+                               name="Ngnhan_Kckntn_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="sNgnhan_Kckntn"/>"/>
+                        <s:select  
+                            id="nguyennhanc2_%{#rowstatus.index}"
+                            name="lstSavePln[%{#rowstatus.index}].sK_Ma_NgnhanC2"
+                            list="lstDMNgNhanC2" 
+                            listKey="sKey"
+                            listValue="sDesc"
+                            headerKey="-1"
+                            headerValue="--- Chọn ---"
+                            cssStyle="width: 120px;vertical-align: middle;background-color: #FFCCBA;">
+                        </s:select>
+                    </td>       
+                    
                     <td align = "left" class="TD_NGUYEN_NHAN_KHOANH">
                         <input type="text" value="<s:property value='sK_Ngnhan_Kh'/>" name="lstSavePln[<s:property  value="%{#rowstatus.index}" />].sK_Ngnhan_Kh" class="DU_NO" 
                                onfocus="this.select()" style="background-color: #FFCCBA" 

@@ -448,7 +448,7 @@
                                                 class="DataHiden" id='D19<s:property  value="%{#rowstatus.index}" />BK'/>
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D20" />"
+                                        <input type="text"   value="<s:property  value="D20" />" <s:if test="MA.equalsIgnoreCase('1')">style="background: #C0C0C0 !important;"</s:if>
                                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" class="TEN_KH number" onfocus="this.select();" id='D20<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D20<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" />
                                         <input type="text"   value="<s:property  value="D20" />"
                                                class="DataHiden" id='D20<s:property  value="%{#rowstatus.index}" />BK'/>
@@ -456,13 +456,13 @@
                                 </s:if>
                                 <s:else>
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D18" />"
+                                        <input type="text"   value="<s:property  value="D18" />" <s:if test="MA.equalsIgnoreCase('1')">style="background: #C0C0C0 !important;"</s:if>
                                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number" onfocus="this.select();" id='D18<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D18<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" />
                                         <input type="text"   value="<s:property  value="D18" />"
                                                 class="DataHiden" id='D18<s:property  value="%{#rowstatus.index}" />BK'/>
                                     </td>
                                     <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D19" />"
+                                        <input type="text"   value="<s:property  value="D19" />" <s:if test="MA.equalsIgnoreCase('1')">style="background: #C0C0C0 !important;"</s:if>
                                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH number" onfocus="this.select();" id='D19<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D19<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" />
                                         <input type="text"   value="<s:property  value="D19" />"
                                                class="DataHiden" id='D19<s:property  value="%{#rowstatus.index}" />BK'/>
@@ -484,11 +484,17 @@
                                 <!--                                 <td align = "center" class="TD_CHECKBOX"> 
                                 <s:checkbox id ="%{#rowstatus.index}" cssClass="checkboxsp" name="lstsaveNT_SP[%{#rowstatus.index}].MA" fieldValue="%{MA}"/>
                             </td>      -->
-                                <td  align="center" class="TD_CHECKBOX">    
-                                    <input type="checkbox" id ="idc11<s:property  value="%{#rowstatus.index}" />"  class="checkboxdat TEN_KH D0" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25" value="<s:property  value="D25"/>" onclick="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'ClickCheck')"                                           
-                                           />
-                                </td> 
+                                 <s:if test="MA.equalsIgnoreCase('1')">
+                                    <td></td>
+                                </s:if>    
+                                <s:else>
+                                    <td  align="center" class="TD_CHECKBOX">    
+                                        <input type="checkbox" id ="idc11<s:property  value="%{#rowstatus.index}" />"  class="checkboxdat TEN_KH D0" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25" value="<s:property  value="D25"/>" onclick="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'ClickCheck')"                                           
+                                               />
+                                    </td> 
+                                </s:else>    
+                                
 
 <!--                                <td align = "right" class="TD_SOKU" >
                                     <input type="text"   value="<s:property  value="D26" />" style="background: #C0C0C0 !important;"
@@ -514,11 +520,17 @@
                                     <input type="text"   value="<s:property  value="D32" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D32" class="TEN_KH " onfocus="this.select();" />
                                 </td>-->
-                                <td  align="center" class="TD_CHECKBOX">    
-                                    <input type="checkbox" id ='idchk<s:property  value="%{#rowstatus.index}" />' class="checkboxdat TEN_KH" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D33" value="<s:property  value="D33"/>"                                            
-                                           />
-                                </td> 
+                                <s:if test="MA.equalsIgnoreCase('1')">
+                                    <td></td>
+                                </s:if>    
+                                <s:else>
+                                    <td  align="center" class="TD_CHECKBOX">    
+                                        <input type="checkbox" id ='idchk<s:property  value="%{#rowstatus.index}" />' class="checkboxdat TEN_KH" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D33" value="<s:property  value="D33"/>"                                            
+                                               />
+                                    </td> 
+                                </s:else>    
+                                
                             </tr>                                                                                                                                                                                   
                         </s:iterator>
                     </table>        
