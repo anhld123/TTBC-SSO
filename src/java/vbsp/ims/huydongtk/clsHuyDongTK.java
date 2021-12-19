@@ -79,6 +79,7 @@ public class clsHuyDongTK {
                     value.setD8(reset.getString("SODU_HD"));
                     value.setD9(reset.getString("KYHAN"));
                     value.setD10(reset.getString("MACB"));
+                    value.setD11(reset.getString("NGAYGANSO"));
                     lstData.add(value);
                 }
                 if (reset != null) {

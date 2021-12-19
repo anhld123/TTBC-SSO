@@ -47,7 +47,7 @@ public class TKActionSupport extends ActionSupport {
     }
 
     public String viewdata() throws ParseException {
-        displaNone = new clsHuyDongTK().CheckNgayBC(dtNgaybc);
+        // displaNone = new clsHuyDongTK().CheckNgayBC(dtNgaybc);
         if(flgFilter != null){flgFilter ="on";}else{flgFilter="off";};
         lstData = new clsHuyDongTK().getData(dtNgaybc, tendn, capbc, cboCanBo, flgFilter);
         return SUCCESS;
@@ -56,7 +56,7 @@ public class TKActionSupport extends ActionSupport {
     public String savedata() {
         String code = new clsHuyDongTK().saveData(dtNgaybc, tendn, capbc, cboCanBo, txtChitieu, chkChon,lstDulieuNt);
         /*Hàm gọi REST API để đẩy dữ liệu về TW*/
-        int Status = new HDTKRestApi().insertHDTK(dtNgaybc, tendn, capbc, cboCanBo,txtChitieu, chkChon);
+        /* int Status = new HDTKRestApi().insertHDTK(dtNgaybc, tendn, capbc, cboCanBo,txtChitieu, chkChon); */
         pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
