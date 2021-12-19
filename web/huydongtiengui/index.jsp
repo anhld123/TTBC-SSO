@@ -86,7 +86,7 @@
             <div style="margin: 12px;">
                 <div class="clsHeader"><h1>KẾT QUẢ HUY ĐỘNG TIẾT KIỆM</h1></div>
                 <div class="clsTitle">
-                    Ngày báo cáo <input type="date" id="dtNgaybc" name="dtNgaybc" value="2020-06-30">
+                    Ngày báo cáo <input type="date" id="dtNgaybc" name="dtNgaybc" value="2020-07-22">
                     Cán bộ 
                     <select id="cboCanBo" name="cboCanBo">
                         <option value="000000">----Chọn cán bộ----</option>
@@ -145,6 +145,8 @@
                         if ($('#txtChitieu').val() <= 0) {
                             alert('Số tiền giao chỉ tiêu phải > 0');
                         } else {
+                            $("#cmdLuuDL").html("Đang thực hiện...");
+                            $("#cmdLuuDL").prop('disabled', true);
                             var url, sdata;
                             url = "savedata.action";
                             sdata = jQuery("#HDTK_FrmMain").serialize();
@@ -154,13 +156,19 @@
                                 data: sdata,
                                 success: function (data) {
                                     if (data === "200") {
+                                        $("#cmdLuuDL").prop('disabled', false);
+                                        $("#cmdLuuDL").html("Lưu dữ liệu");
                                         alert("Lưu dữ liệu thành công.");
                                         $("#cmdTaiDL").click();
                                     } else {
                                         alert("Lỗi khi thực hiện lưu dữ liệu.");
+                                        $("#cmdLuuDL").html("Lưu dữ liệu");
+                                        $("#cmdLuuDL").prop('disabled', false);
                                     }
                                 },
                                 error: function (request) {
+                                    $("#cmdLuuDL").prop('disabled', false);
+                                    $("#cmdLuuDL").html("Lưu dữ liệu");
                                     $("#viewData").html(request.responseText);
                                 }
                             });

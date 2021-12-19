@@ -27,6 +27,7 @@
                 <th>Mã KH</th>
                 <th style="width: 200px;">Tên KH</th>
                 <th>Sản phẩm</th>
+                <th>Ngày gán sổ</th>
                 <th>Số dư SK</th>
                 <th>Số dư HĐ</th>
                 <th>Kỳ hạn</th>
@@ -60,6 +61,7 @@
                     <td><input type="text" class='css_text' value='<s:property value="D4"/>' readonly="readonly"></td>
                     <td><input type="text" class='css_text' value='<s:property value="D5"/>' readonly="readonly"></td>
                     <td><input type="text" class='css_text' value='<s:property value="D6"/>' readonly="readonly"></td>
+                    <td><input type="text" class='css_text' value='<s:property value="D11"/>' readonly="readonly"></td>
                     <td><input type="text" class='css_text number' value='<s:property value="D7"/>' readonly="readonly"></td>
                     <td><input type="text" class='css_text number' value='<s:property value="D8"/>' readonly="readonly"></td>
                     <td><input type="text" class='css_text number' value='<s:property value="D9"/>' readonly="readonly"></td>
