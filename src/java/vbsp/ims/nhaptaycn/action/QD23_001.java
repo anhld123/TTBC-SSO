@@ -171,6 +171,12 @@ public class QD23_001 extends ActionNhaptaycnMain
             }
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
+            if(daoMain.check_date_input_qd23(khoa_nhaptaycn) ==1)
+            {
+                addActionError("Đã hết thời gian nhập số liệu, vui lòng quay trở lại vào hôm sau.");
+                return ERROR;
+            }
+            
 //            String sNv = hmParameter.get("type_action").toString();
             if (daoMain.checkSave_Send(khoa_nhaptaycn, Grade, hmParameter.get("ngay_bc").toString(), "SAVE", UserName, poscd) == 0) {
                 addActionError("Bạn vui lòng chọn ngày hiện tại và nhập cột 43,44 (cấp chi nhánh)!");
@@ -253,6 +259,11 @@ public class QD23_001 extends ActionNhaptaycnMain
 
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
+            if(daoMain.check_date_input_qd23(khoa_nhaptaycn) ==1)
+            {
+                addActionError("Đã hết thời gian nhập số liệu, vui lòng quay trở lại vào hôm sau.");
+                return ERROR;
+            }
             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(hmParameter.get("ngay_bc").toString());
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
             String dateStr = sdf.format(date1);
@@ -303,6 +314,11 @@ public class QD23_001 extends ActionNhaptaycnMain
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            if(daoMain.check_date_input_qd23(khoa_nhaptaycn) ==1)
+            {
+                addActionError("Đã hết thời gian nhập số liệu, vui lòng quay trở lại vào hôm sau.");
+                return ERROR;
+            }
             lstDulieuNt50 = daoMain.getDataQd23_001_Dc_pheduyet(conn, hmParameter.get("khoadc").toString(),
                     hmParameter.get("ngay_bc").toString(), UserName, Grade, hmParameter.get("masothue").toString(), hmParameter.get("thangbc").toString());
             if (conn != null) {

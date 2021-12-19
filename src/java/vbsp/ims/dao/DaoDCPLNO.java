@@ -169,6 +169,55 @@ public class DaoDCPLNO {
         }
         return lstDMNgNhan;
     }
+    
+    public List<ListValue> getNgNhan_KCKNTN_C2(Connection conn) {
+        List<ListValue> lstDMNgNhan = new ArrayList<ListValue>();
+        try {
+//            DaoConnect daoconnect = new DaoConnect();
+//            Connection conn = null;
+//            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call PLNO_TAOSOLIEU.SP_GET_NGNHAN_KCKNTN_C2(?,?,?)}";
+            ResultSet reset = null;
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.CURSOR);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //Lấy mã hiệu giá trị lỗi (Nếu có) của thủ tục (procedure)
+                int iErr_CD = calstatement.getInt(1);
+                //Lấy nội dung thông báo lỗi (Nếu có) của thủ tục (procedure)
+                String sEdd_TXT = calstatement.getString(2);
+                //Lay cursor ra resultset
+                reset = (ResultSet) calstatement.getObject(3);
+                while (reset.next()) {
+                    String key = reset.getString(1);
+                    String des = reset.getString(2);
+                    lstDMNgNhan.add(new ListValue(key, des));
+                }
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+//                if (conn != null) {
+//                    conn.close();
+//                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " getNgNhan_KCKNTN -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Doi chieu, Phan loai no -> Loi trong ham getNgNhan_KCKNTN " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getNgNhan_KCKNTN -> " + e.getMessage());
+        }
+        return lstDMNgNhan;
+    }
 
     /**
      * Hàm thực hiện Load danh sach các đơn vị trực thuộc. Voi quy uoc: - TW:

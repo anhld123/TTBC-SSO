@@ -1143,6 +1143,11 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 return SUCCESS;
             }
 //            String khoa =  hmParameter.get("khoa_nhaptaycn").toString();
+            if(khoa_nhaptaycn.equals("QD23_001") && new DaoNhaptaycnMain().check_date_input_qd23(khoa_nhaptaycn) ==1)
+            {
+                addActionError("Đã hết thời gian gửi số liệu, vui lòng quay trở lại vào hôm sau.");
+                return ERROR;
+            }
 
             for (String mapgd : lstPos) {
 

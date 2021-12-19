@@ -55,6 +55,7 @@ public class DcplnAction extends ActionSupport {
     private List<ListValue> lstNguonvon = new ArrayList<ListValue>();
     private List<DcplnModel> lstDcplnModel = new ArrayList<DcplnModel>();
     private List<ListValue> lstDMNgNhan = new ArrayList<ListValue>();
+    private List<ListValue> lstDMNgNhanC2 = new ArrayList<ListValue>();
 
     private List<DcplnModel.ViewTotalLoan> lstViewTotal = new ArrayList<DcplnModel.ViewTotalLoan>();
 
@@ -62,6 +63,15 @@ public class DcplnAction extends ActionSupport {
     private List<String> poscd = new ArrayList<String>();
     private List<PLNO_DULIEU> lstSavePln = new ArrayList<PLNO_DULIEU>();
 
+    public List<ListValue> getLstDMNgNhanC2() {
+        return lstDMNgNhanC2;
+    }
+
+    public void setLstDMNgNhanC2(List<ListValue> lstDMNgNhanC2) {
+        this.lstDMNgNhanC2 = lstDMNgNhanC2;
+    }
+    
+    
     public List<PLNO_DULIEU> getLstSavePln() {
         return lstSavePln;
     }
@@ -521,6 +531,7 @@ public class DcplnAction extends ActionSupport {
             setLstViewTotal(daoPln.getViewTotalLoanData(conn, UserName, Grade,
                     sNgaySl, poscd, dvut_dcpln, totruong_dcpln, ngvon_dcpln, chtrinh_dcpln, trangthai));
             setLstDMNgNhan(daoPln.getNgNhan_KCKNTN(conn));
+            setLstDMNgNhanC2(daoPln.getNgNhan_KCKNTN_C2(conn));
             if (!conn.isClosed()) {
                 conn.close();
             }

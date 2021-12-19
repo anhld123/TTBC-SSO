@@ -161,6 +161,20 @@ public class HTLS2021 extends ActionNhaptaycnMain
                         row.setD18(df.format(item.getIntDeductionM10Amt()));
                         row.setD19(df.format(item.getIntDeductionM11Amt()));
                         row.setD20(df.format(item.getIntDeductionM12Amt()));
+                        
+                        if(item.getLoanStatus().equals("C") && dateStr.equals("20211130") &&
+                                item.getIntDeductionM10Amt().add(item.getIntDeductionM11Amt()).compareTo(new BigInteger("5000")) <0 )
+                        {
+                            row.setMA("1");
+                        }
+                        else if (item.getLoanStatus().equals("C") && dateStr.equals("20211231") &&
+                                item.getIntDeductionM10Amt().compareTo(new BigInteger("5000")) <0 )
+                        {
+                            row.setMA("1");
+                        }
+                        else{
+                            row.setMA("0");
+                        }
 
                         row.setD21(df.format(item.getIntDeductionAdjustM10Amt()));
                         row.setD22(df.format(item.getIntDeductionAdjustM11Amt()));

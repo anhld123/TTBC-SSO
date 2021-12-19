@@ -24,6 +24,7 @@ public class PLNO_DULIEU implements SQLData {
     public BigDecimal bC_Kntn_Sodu;
     public BigDecimal bK_Kntn_Sodu;
     public String sK_Ma_Ngnhan;
+    public String sK_Ma_NgnhanC2;
     public String sK_Ngnhan_Kh;
     public String sQuanhe_Kh;
     public String sTrangthai;
@@ -70,6 +71,16 @@ public class PLNO_DULIEU implements SQLData {
     public void setbK_Kntn_Sodu(BigDecimal bK_Kntn_Sodu) {
         this.bK_Kntn_Sodu = bK_Kntn_Sodu;
     }
+
+    public String getsK_Ma_NgnhanC2() {
+        return sK_Ma_NgnhanC2;
+    }
+
+    public void setsK_Ma_NgnhanC2(String sK_Ma_NgnhanC2) {
+        this.sK_Ma_NgnhanC2 = sK_Ma_NgnhanC2;
+    }
+    
+    
 
     public String getsK_Ngnhan_Kh() {
         return sK_Ngnhan_Kh;
