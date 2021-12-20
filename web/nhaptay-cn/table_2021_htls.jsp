@@ -209,17 +209,16 @@
                     <th  class="TD_SOKU">Quá hạn</th>
                     <th  class="TD_SOKU">Khoanh</th>                            
 
-                    <th  class="TD_TOTIEN">Lãi giảm tháng 10</th>                                                        
-                    <!--<th  class="TD_TOTIEN">Lãi giảm tháng 10 - điều chỉnh</th>--> 
+                    <th  class="TD_TOTIEN">Giảm lãi tháng 10</th>                                                                             
 
-                    <th  class="TD_TOTIEN">Lãi giảm tháng 11</th>   
-                    <!--<th  class="TD_TOTIEN">Lãi giảm tháng 11 - diều chỉnh</th>-->
-                    <th  class="TD_TOTIEN">Lãi giảm tháng 12</th> 
-                    <!--<th  class="TD_TOTIEN">Lãi giảm tháng 12 - diều chỉnh</th>--> 
+                    <th  class="TD_TOTIEN">Giảm lãi tháng 11</th>   
+                    
+                    <th  class="TD_TOTIEN">Giảm lãi tháng 12</th> 
+                    
 
 
                     <th rowspan="1"  class="TD_TOTIEN">Số tiền hạch toán giảm lãi</th>                              
-                    <th rowspan="1"  class="TD_TOTIEN">Số tiền lãi giảm chuyển vào CASA</th>  
+                    <th rowspan="1"  class="TD_TOTIEN">Số tiền giảm lãi chuyển vào CASA</th>  
                     <th rowspan="1"  class="TD_TOTIEN">Số tiền giảm lãi chuyển vào chi bằng tiền mặt</th>  
 
                 </tr>         
@@ -320,19 +319,10 @@
                             <th rowspan="2"  class="TD_NGAY">Lãi suất</th>   
                             <th rowspan="2"  class="TD_NGAY">Trạng thái món vay</th>   
                             <th colspan="3"  class="TD_MAKH">Dư nợ</th>                             
-                            <th colspan="3"  class="TD_MAKH">Lãi giảm các tháng trong năm 2021</th>                             
-                            <!--<th rowspan="2"  class="TD_MAKH">Tổng số tiền lãi được giảm</th>-->            
+                            <th colspan="3"  class="TD_MAKH">Giảm lãi các tháng trong năm 2021</th>                                                                   
 
                             <th rowspan="2"  class="TD_MAKH">Phân loại RPA hoặc Phải trả</th>  
                             <th rowspan="2"  class="TD_MAKH">Đơn vị xác nhận số tiền giảm lãi (Có/Không)</th>                              
-<!--                            <th rowspan="2"  class="TD_MAKH">Số tham chiếu giao dịch hạch toán giảm lãi trên Intellect</th>  
-                            <th rowspan="2"  class="TD_MAKH">Ngày hạch toán giảm lãi</th>  
-                            <th rowspan="2"  class="TD_MAKH">Số tiền hạch toán giảm lãi</th>  
-                            <th rowspan="2"  class="TD_MAKH">Số tiền lãi giảm chuyển vào RPA</th>  
-                            <th rowspan="2"  class="TD_MAKH">Số tiền lãi giảm chuyển vào CASA</th>  
-                            <th rowspan="2"  class="TD_MAKH">Số tiền giảm lãi đã chi bằng tiền mặt</th>  
-
-                            <th rowspan="2"  class="TD_MAKH">Số bút hạch toán lãi giảm vào CASA hoặc chi tiền mặt</th>  -->
                             <th rowspan="2"  class="TD_MAKH">Cập nhật</th>  
 
 

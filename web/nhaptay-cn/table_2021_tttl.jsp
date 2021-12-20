@@ -573,9 +573,10 @@
                  D28 = $('#D28' + index).val();
                  D30 = $('#D30' + index).val();
                  D31 = $('#D31' + index).val();
-                 $('#D28' + index).val(0);
+//                 $('#D28' + index).val(0);
                  $('#D30' + index).val(0);
                  $('#D31' + index).val(0);
+                 
                  $('#' + obj + index).val(D28);
             }
         </script>
