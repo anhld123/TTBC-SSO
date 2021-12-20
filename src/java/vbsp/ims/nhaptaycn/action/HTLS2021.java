@@ -18,6 +18,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -126,7 +127,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                         row.setMAPGD(item.getPosCode());
 //                row.setCO_TONGHOP(item.getPosFlag());
                         row.setMACN(item.getMainPos());
-//                row.setNGUOI_NHAP(item.getMakerId());
+//                 row.setNGUOI_NHAP(item.getGroupId());
                         //row.setNGAY_NHAP(item.getMakerDate());
 //                Date makerDate = DateUtil.toDate( item.getMakerDate());
 //                row.setNGAY_NHAP(makerDate);
@@ -252,11 +253,14 @@ public class HTLS2021 extends ActionNhaptaycnMain
                                 }
                             }
                         }
+                        
                     } catch (Exception e) {
                         CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
                         System.err.println(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());            
                     }
                 }
+                lstDulieuNt.sort(Comparator.comparing(o -> o.getD1() + o.getD3()));
+            
                 tong.setD1(df.format(dn_tronhan + dn_quahan + dn_khoanh));
                 tong.setD2(df.format(dn_tronhan));
                 tong.setD3(df.format(dn_quahan));
