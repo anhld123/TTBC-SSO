@@ -67,7 +67,11 @@ public class CDTT_CN extends ActionChamdiemttMain implements CdttFunction {
             }
             HashMap hmParameter = getParameter();
             DaoChamdiemttMain daoMain = new DaoChamdiemttMain();
-
+            if (poscd.size() > 11)
+            {
+                addActionError("Bạn chỉ được chọn tối đa 10 đơn vị để duyệt.");
+                return ERROR;
+            }
             int input = daoMain.isCheckPGDInput(khoa_cdtt, UserName, hmParameter.get("ngay_bc").toString(), Grade, "1", UserName);
             if (input == 2 && Grade.equals("3")) {
                 addActionError("Ban CMNV chưa duyệt hết số liệu");
