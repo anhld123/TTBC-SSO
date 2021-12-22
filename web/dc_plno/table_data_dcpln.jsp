@@ -450,6 +450,7 @@
                             listKey="sKey"
                             listValue="sDesc"
                             headerKey="-1"
+                            cssClass="nguyennhanc2"
                             headerValue="--- Chọn ---"
                             cssStyle="width: 120px;vertical-align: middle;background-color: #FFCCBA;">
                         </s:select>
@@ -495,7 +496,8 @@
 </body>
 <script>
     initSelectOption();
-
+    $(".nguyennhanc2").children().remove().end();
+    $(".nguyennhanc2").prepend("<option value='-1' selected='selected'>--- Chọn ---</option>");
     function reLoadValue(val,idNgnhan) {
          var var2;
          $("[id=" + idNgnhan + "]").children().remove().end();
