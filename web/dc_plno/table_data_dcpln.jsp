@@ -502,7 +502,7 @@
          var var2;
          $("[id=" + idNgnhan + "]").children().remove().end();
          $("[id=" + idNgnhan + "_data] > option").each(function() {
-            var2 = $(this).text().substr(0, 2);
+            var2 = $(this).val().substr(0, 2);
             if(val.trim() == var2.trim()){
                 $("[id=" + idNgnhan + "]").prepend("<option value='" + $(this).val() + "'> " + $(this).text() + " </option>");
             }
@@ -510,6 +510,10 @@
          if(val!='01' && val!='04'){
             $("[id=" + idNgnhan + "]").prepend("<option value='-1' selected='selected'>--- Chọn ---</option>");  
         }
+        
+        $("#" + idNgnhan).html($("#" + idNgnhan + " option").sort(function (a, b) {
+            return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+        }));
     }
 </script>
 </html>
