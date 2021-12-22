@@ -508,7 +508,7 @@
             }
          });
          if(val!='01' && val!='04'){
-            $("[id=" + idNgnhan + "]").prepend("<option value='-1' selected='selected'>--- Chọn ---</option>");
+            $("[id=" + idNgnhan + "]").prepend("<option value='-1' selected='selected'>--- Chọn ---</option>");  
         }
     }
 </script>
