@@ -51,13 +51,13 @@
         }
     </style>
     <SCRIPT language="javascript">
-        $.subscribe('batdauduyet', function(event, data) {
+        $.subscribe('batdauduyet', function (event, data) {
             $("#divMessage").show();
         });
-        $.subscribe('ketthucduyet', function(event, data) {
+        $.subscribe('ketthucduyet', function (event, data) {
             $("#divMessage").hide();
         });
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('input.number').css({"text-align": "right"});
             $('input.number2').css({"text-align": "right"});
             $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
@@ -122,8 +122,7 @@
                 alert('Bạn nhập không đúng kiểu số xin nhập lại dữ liệu. Vui lòng kiểm tra lại!');
                 focus();
                 return false;
-            }
-            else {
+            } else {
                 //Neu la kieu so --> Kiem tra xem kieu nhap co < 9999999999
                 if (parseFloat(value) > 9999999999) {
                     result = false;
@@ -134,39 +133,39 @@
             }
         }
 
-        $(document).ready(function() {
-            $("#allCheck").change(function() {
+        $(document).ready(function () {
+            $("#allCheck").change(function () {
                 $(".checkbox1").prop('checked', $(this).prop("checked"));
             });
         });
-        $('.MAKH').focus(function() {
+        $('.MAKH').focus(function () {
             $(this).closest('tr').addClass('highlight_row');
         });
-        $('.MAKH').blur(function() {
+        $('.MAKH').blur(function () {
             $(this).closest('tr').removeClass('highlight_row');
         });
-        $('.DU_NO').focus(function() {
+        $('.DU_NO').focus(function () {
             $(this).closest('tr').addClass('highlight_row');
         });
-        $('.DU_NO').blur(function() {
+        $('.DU_NO').blur(function () {
             $(this).closest('tr').removeClass('highlight_row');
         });
-        $('.TEN_KH').focus(function() {
+        $('.TEN_KH').focus(function () {
             $(this).closest('tr').addClass('highlight_row');
         });
-        $('.TEN_KH').blur(function() {
+        $('.TEN_KH').blur(function () {
             $(this).closest('tr').removeClass('highlight_row');
         });
-        $('.checkbox1').focus(function() {
+        $('.checkbox1').focus(function () {
             $(this).closest('tr').addClass('highlight_row');
         });
-        $('.checkbox1').blur(function() {
+        $('.checkbox1').blur(function () {
             $(this).closest('tr').removeClass('highlight_row');
         });
-        $('.SOKU').focus(function() {
+        $('.SOKU').focus(function () {
             $(this).closest('tr').addClass('highlight_row');
         });
-        $('.SOKU').blur(function() {
+        $('.SOKU').blur(function () {
             $(this).closest('tr').removeClass('highlight_row');
         });
 
@@ -183,8 +182,7 @@
                     var id = $("#sNgnhan_Kckntn" + number_id).val();
                     if (id == '01' || id == '02' || id == '03' || id == '04' || id == '05' || id == '06' || id == '07' || id == '08' || id == '09' || id == '10' || id == '11') {
                         document.frmDataDc.elements[k].value = id;
-                    }
-                    else {
+                    } else {
                         document.frmDataDc.elements[k].value = "-1";
                     }
                 }
@@ -205,8 +203,7 @@
                     $('.number2').number(true, 0);
                     $('.number2').number(true, 0);
                 }
-            }
-            catch (e) {
+            } catch (e) {
                 alert('Lỗi thực hiện gán giá trị khi Phân loại khả năng trả nợ của Khách hàng: ' + e.toString());
             }
         }
@@ -223,8 +220,7 @@
                     $('.number2').number(true, 0);
                     $('.number2').number(true, 0);
                 }
-            }
-            catch (e) {
+            } catch (e) {
                 alert('Lỗi thực hiện gán giá trị khi Phân loại khả năng trả nợ của Khách hàng: ' + e.toString());
             }
         }
@@ -247,8 +243,7 @@
                     $('#dukhong_kntn_' + id.toString()).attr("disabled", true);
                     $('#ngnhan_kh_' + id.toString()).attr("disabled", false);
                     $('#nguyennhan_' + id.toString()).attr("disabled", true);
-                }
-                else
+                } else
                 {
                     $('#dukhong_kntn_' + +id.toString()).attr("disabled", false);
                     $('#ngnhan_kh_' + id.toString()).attr("disabled", true);
@@ -259,16 +254,14 @@
                 {
                     $('#nguyennhan_' + id.toString()).attr("disabled", true);
                     document.getElementById("nguyennhan_" + id.toString()).value = '-1';
-                }
-                else {
+                } else {
                     $('#nguyennhan_' + id.toString()).attr("disabled", false);
                 }
 
                 if (parseFloat(duno_kntn_khong) > 0)
                 {
                     $('#nguyennhan_' + +id.toString()).attr("disabled", false);
-                }
-                else {
+                } else {
                     $('#nguyennhan_' + +id.toString()).attr("disabled", true);
                     document.getElementById("nguyennhan_" + id.toString()).value = '-1';
                 }
@@ -285,8 +278,7 @@
                     document.getElementById("dukhong_kntn_" + id.toString()).value = tongduno;
                     return;
                 }
-            }
-            catch (e) {
+            } catch (e) {
                 alert('Lỗi thực hiện gán giá trị khi Phân loại khả năng trả nợ của Khách hàng: ' + e.toString());
             }
         }
@@ -419,7 +411,8 @@
                                        }
                                        isNumber(this.value);
                                        on_valib(<s:property  value="%{#rowstatus.index}" />, this)" onfocus="this.select()" style="background-color: #FFCCBA"
-                               id="duco_kntn_<s:property  value="%{#rowstatus.index}" />" onclick="ChangeValue_CKNTN(<s:property  value="%{#rowstatus.index}" />, this); on_valib(<s:property  value="%{#rowstatus.index}" />, this)"/>
+                               id="duco_kntn_<s:property  value="%{#rowstatus.index}" />" onclick="ChangeValue_CKNTN(<s:property  value="%{#rowstatus.index}" />, this);
+                                       on_valib(<s:property  value="%{#rowstatus.index}" />, this)"/>
                     </td>
 
                     <td align = "right" class="TD_DU_NO">
@@ -442,6 +435,7 @@
                             listKey="sKey"
                             listValue="sDesc"
                             headerKey="-1"
+                            onchange="reLoadValue(this.value,'nguyennhanc2_%{#rowstatus.index}')"
                             headerValue="--- Chọn ---"
                             cssStyle="width: 120px;vertical-align: middle;background-color: #FFCCBA;">
                         </s:select>
@@ -459,8 +453,17 @@
                             headerValue="--- Chọn ---"
                             cssStyle="width: 120px;vertical-align: middle;background-color: #FFCCBA;">
                         </s:select>
+                        <s:select  
+                            id="nguyennhanc2_%{#rowstatus.index}_data"
+                            list="lstDMNgNhanC2" 
+                            listKey="sKey"
+                            listValue="sDesc"
+                            headerKey="-1"
+                            headerValue="--- Chọn ---"
+                            cssStyle="display:none;">
+                        </s:select>
                     </td>       
-                    
+
                     <td align = "left" class="TD_NGUYEN_NHAN_KHOANH">
                         <input type="text" value="<s:property value='sK_Ngnhan_Kh'/>" name="lstSavePln[<s:property  value="%{#rowstatus.index}" />].sK_Ngnhan_Kh" class="DU_NO" 
                                onfocus="this.select()" style="background-color: #FFCCBA" 
@@ -492,5 +495,17 @@
 </body>
 <script>
     initSelectOption();
+
+    function reLoadValue(val,idNgnhan) {
+         var var2;
+         $("[id=" + idNgnhan + "]").children().remove().end();
+         $("[id=" + idNgnhan + "_data] > option").each(function() {
+            var2 = $(this).text().substr(0, 2);
+            if(val.trim() == var2.trim()){
+                $("[id=" + idNgnhan + "]").prepend("<option value='" + $(this).val() + "'> " + $(this).text() + " </option>");
+            }
+         });
+         $("[id=" + idNgnhan + "]").prepend("<option value='-1' selected='selected'>--- Chọn ---</option>");
+    }
 </script>
 </html>
