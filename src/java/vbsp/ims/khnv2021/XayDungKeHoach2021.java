@@ -1,5 +1,6 @@
 package vbsp.ims.khnv2021;
 
+import com.lowagie.text.pdf.PdfName;
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import vbsp.ims.khnv2021.dao.XDKHDao2021;
@@ -212,46 +213,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
         }
     }
 
-    public String ExpExcelKhnv01a() {
-        try {
-            getInfo();
-            request = ServletActionContext.getRequest();
-            String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
-            ExcelExport excelExport = new ExcelExport();
-            List<String> lstSubCommune = new ArrayList<>();
 
-            if (commune_cd.equals("000000")) {
-                addActionError("Bạn chưa chọn xã/phường");
-                return ERROR;
-            }
-
-            List<POSModel> lstCommuneFull = new ArrayList<>();
-            lstCommuneFull = daoXdkh.getCommuneListAll(pos_cd_username);
-
-            if (!subcommune_cd.equals("000000")) {
-                lstSubCommune.add(subcommune_cd);
-            } else {
-                lstSubCommune = daoXdkh.getAllSubCommune(pos_cd_username, commune_cd);
-            }
-
-            String communeName = "";
-            for (int i = 0; i < lstCommuneFull.size(); i++) {
-                if (lstCommuneFull.get(i).getId().equals(commune_cd)) {
-                    communeName = lstCommuneFull.get(i).getDesc();
-                    break;
-                }
-            }
-
-            FileExportInfo fileInfo = excelExport.xuatExcelMau01a(pos_cd_username, commune_cd, communeName, lstSubCommune, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
-            fileNamelocal = fileInfo.fileName;
-            filereport = fileInfo.filePath;
-            return SUCCESS;
-        } catch (Exception ex) {
-            CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv01a " + ex.getMessage());
-            System.err.println(this.getClass().getName() + " Loi ExpExcelKhnv01a " + ex.getMessage());
-            return ERROR;
-        }
-    }
 //    Xuất xls các chỉ tiêu thuyết minh mẫu 01
 
     public String ExpExcelKhnv01New() {

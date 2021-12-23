@@ -162,6 +162,7 @@ public class Define {
 // Định nghĩa cho KHNV    
     public static final String LOV_NAMBC = "NAMBC"; 
     public static final String LOV_MABC = "MABC"; 
+    public static final String LOV_MABC_QT = "MABC_QT"; 
     public static final String LOV_DOTBC = "DOTBC"; 
     public static final String LOV_VIEW_TYPE = "VIEW"; 
     
@@ -183,4 +184,6 @@ public class Define {
     public static final String LOVE_LEAF_PROGRAM = "LOVELEAF";    
     public static final String VVC_PROGRAM = "VVC";    
     public static final String QTT_PROGRAM = "QTT";    
+    
+    public static final String NV_QT = "NV_QT";    
 }

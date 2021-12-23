@@ -259,7 +259,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                         System.err.println(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());            
                     }
                 }
-                lstDulieuNt.sort(Comparator.comparing(o -> o.getD1() + o.getD3()));
+                lstDulieuNt.sort(Comparator.comparing(o -> o.getD1() + o.getD2() + o.getD3()));
             
                 tong.setD1(df.format(dn_tronhan + dn_quahan + dn_khoanh));
                 tong.setD2(df.format(dn_tronhan));
@@ -522,7 +522,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                                 lstUpdateDate.add(tempadd);
                             }
                         }
-                        int status = service.updateData2021HTLS(pos_cd_username, strDate, UserName, lstUpdateDate);
+                        int status = service.updateData2021HTLS_HT(pos_cd_username, strDate, UserName, lstUpdateDate);
                         if (status == 200) {
                             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
                             DecimalFormat df = new DecimalFormat("#.##");
