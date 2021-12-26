@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public class LockSendModel {
-
+   private String reportKey; 
     private String mainPos;
     private String posCode;
     private String posName;
@@ -38,6 +38,14 @@ public class LockSendModel {
     private BigInteger deductionIntTotal;
     private BigInteger noDeductionLoanTotal;
     private BigInteger noDeductionIntTotal;
+
+    public String getReportKey() {
+        return reportKey;
+    }
+
+    public void setReportKey(String reportKey) {
+        this.reportKey = reportKey;
+    }        
 
     public String getMainPos() {
         return mainPos;

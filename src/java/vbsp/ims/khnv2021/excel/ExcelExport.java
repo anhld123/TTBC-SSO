@@ -1129,7 +1129,7 @@ public class ExcelExport {
         }
     }
     
-    public FileExportInfo xuatExcelMauQT11(String posCode, String capbc, String reportDate, String namBc,  String savedDirPath) {
+    public FileExportInfo xuatExcelMauQT11(String posCode, String capbc, String reportDate, String namBc,  String savedDirPath, String username) {
         String filePath = "", fileName = "";
         List<String> lstOfTextFile = new ArrayList<>();
         List<DownloadFileInfor> filesList = new ArrayList<>();
@@ -1147,13 +1147,13 @@ public class ExcelExport {
 
                 //xu ly cho export file ra PDF hoac la Excel
                 Date dReportDate = new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate);
-                String strCurrDate = new SimpleDateFormat("ddMMyyyy").format(dReportDate);
+                String strCurrDate = new SimpleDateFormat("yyyyMMdd").format(dReportDate);
                 //duong dan chua file tren o dia + Define.M_REPORT_XLS
                 String strPathSave = savedDirPath;
                 //Ham nay lay ra ten file bao cao can tao, ten file jasper report
                 String coth = capbc.equals("1") ? "S":"M";
                 String strFileSave = "NV_QT_" + posCode +"_" + coth
-                        + "_" + strCurrDate
+                        + "_" + strCurrDate+ "_" + username
                         + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
 
                 strPathSave += Define.M_REPORT_XLS;

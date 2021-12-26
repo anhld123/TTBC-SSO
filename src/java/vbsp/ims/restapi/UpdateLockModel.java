@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType (XmlAccessType.FIELD)
 
 public class UpdateLockModel {
+ private String reportKey;   
  private String mainPos;
  private String posCode;
  private String posFlag;
@@ -28,12 +29,19 @@ public class UpdateLockModel {
  private String updateId;
  private String updateDate;
 
-
- // Getter Methods 
-
- public String getMainPos() {
-  return mainPos;
+ 
+ public String getReportKey() {
+  return reportKey;
  }
+
+    // Getter Methods
+    public void setReportKey(String reportKey) {
+        this.reportKey = reportKey;
+    }
+
+    public String getMainPos() {
+        return mainPos;
+    }
 
  public String getPosCode() {
   return posCode;
