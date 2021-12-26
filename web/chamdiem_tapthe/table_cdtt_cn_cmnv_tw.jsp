@@ -159,7 +159,8 @@
                                        </s:if>     
                                        <s:else> 
                                            class="number2 TEN_KH"
-                                       </s:else> readonly="readonly"/>
+                                       </s:else>                                        
+                                />
                             </td>  
                             <td align = "right" class="TD_NGUYENGIA">                            
                                 <input type="text" id="D10_<s:property value='MA'/>_<s:property value="MAPGD"/>" value="<s:property value='D10'/>" 

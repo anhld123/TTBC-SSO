@@ -31,7 +31,7 @@
             text-align: left;
             padding: 8px;
             border: 1PX solid #f2f2f2;
-            /*text-align: center;*/
+            text-align: center;
         }
 
         tr:nth-child(even){background-color: #f2f2f2}
@@ -139,10 +139,10 @@
                                                 <td colspan="4" style="text-align: right; border: 0px;font-style: italic;">Đơn vị: triệu đồng, %, hộ, người</td>
                                             </tr>-->
                         <tr>
-                            <th rowspan="2" class="TD_STT">STT</th>
+                            <th rowspan="2" class="TD_STT" align="center">STT</th>
                             <th rowspan="2" class="TD_CHITIEU">CHỈ TIÊU</th>
                             <!--<th rowspan="3" class="TD_GIATRI">Thực hiện đến 31/12/<s:property value="namBc_pre"/></th>-->
-                            <th rowspan="2" class="TD_GIATRI">Số thực hiện đến 31/12/<s:property value="namBc_pre"/></th>
+                            <th rowspan="2" class="TD_GIATRI D0">Số thực hiện đến 31/12/<s:property value="namBc_pre"/></th>
                             <th colspan="2" >Năm báo cáo</th>
                             <th rowspan="2" >Tăng/giảm so với năm <s:property value="namBc"/></th>
                             <th rowspan="2" >Tỷ lệ hoàn thành kế hoạch giao tăng trưởng (%)</th>
@@ -158,13 +158,12 @@
                         <tr class="sttCol">
                             <td>1</td>
                             <td>2</td>
-                            <!--<td>3</td>-->
+                            <td>3</td>
                             <td>4</td>
                             <td>5</td>
                             <td>6</td>
                             <td>7</td>
-                            <td>6</td>
-                            <!--<td>7</td>-->
+
                         </tr>
                     </thead>                                  
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                                                    
@@ -177,26 +176,23 @@
                                     <s:property value="TEN"/>
                                 </td>
                                 
-<!--                            <td style="text-align:right"  class="TD_SOKU <s:property value="D19"/>">
-                                    <s:property value="D13"/>
-                                </td>-->
+                            <td style="text-align:right"  class="number TD_GIATRI <s:property value="D19"/>">
+                                    <s:property value="D1"/>
+                                </td>
 
-                           <td style="text-align:right"  class="TD_GIATRI <s:property value="D19"/>">
-                                    <s:property value="D14"/>
+                           <td style="text-align:right"  class="TD_GIATRI number <s:property value="D19"/>">
+                                    <s:property value="D2"/>
                                 </td>
-                             <td style="text-align:right"  class="TD_GIATRI <s:property value="D19"/>">
-                                    <s:property value="D15"/>
+                             <td style="text-align:right"  class="TD_GIATRI number <s:property value="D19"/>">
+                                    <s:property value="D3"/>
                                 </td>
-                                 <td style="text-align:right"  class="TD_GIATRI <s:property value="D19"/>">
-                                    <s:property value="D16"/>
+                                 <td style="text-align:right"  class="TD_GIATRI number <s:property value="D19"/>">
+                                    <s:property value="D4"/>
                                 </td>
-                                 <td style="text-align:right"  class="TD_GIATRI <s:property value="D19"/>">
-                                    <s:property value="D17"/>
+                                 <td style="text-align:right"  class="TD_GIATRI number2 <s:property value="D19"/>">
+                                    <s:property value="D5"/>
                                 </td>
-                                 <td style="text-align:right"  class="TD_GIATRI <s:property value="D19"/>">
-                                    <s:property value="D16"/>
-                                </td>
-                              
+
                         </tr>                                                                                                       
                     </s:iterator>
                 </table>                    

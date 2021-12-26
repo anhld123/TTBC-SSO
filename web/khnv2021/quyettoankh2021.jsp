@@ -71,6 +71,12 @@
         .CLS-BOLD{
             font-weight: bold;
         }
+        
+        
+        .CLS-ITALIC{
+            font-style: italic;
+        }
+        
         iframe:focus {
             outline: none;
         }
@@ -139,9 +145,16 @@
                           name="namBc" id="namBc"
                           listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
                 &nbsp;
+                <s:if test="reportGrade.equalsIgnoreCase('2')">
+                    <span class="clss-lable">Đơn vị:</span>
+                    <s:select list="lstDonvi" theme="simple"
+                              name="donvi" id="donvi"
+                              listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
+                    &nbsp;
+                </s:if>
+                
 
-
-
+                     
                     <!--<input type="button" id="cmdTai" name="cmdTai" value="Tải dữ liệu" class="cmd">-->
                 <s:url id="idLoadDataQtKhnv" action="loadDataQuyettoan2021.action"></s:url>                                      
                 <sj:submit id="idloadDataQtKhnvtmp" name="nameSend" href="%{idLoadDataQtKhnv}" value="Xem dữ liệu" targets="divKhDetail"
@@ -149,15 +162,29 @@
                            onCompleteTopics="completediv_send" class="cmd"/>
 
 
-                <s:url id="idSendCNKhnv" action="sendCN.action"></s:url>                                      
-                <sj:submit id="idloadDataQtKhnvtmp2" name="nameSend2" href="%{idSendCNKhnv}" value="Chốt số liệu" targets="divKhDetail"
+                <s:url id="idChotQtKehoach" action="ChotQtKehoach.action"></s:url>                                      
+                <sj:submit id="idloadDataQtKhnvtmp2" name="nameSend2" href="%{idChotQtKehoach}" value="Chốt số liệu" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
                 
-                <s:url id="cmdPrint" action="SendAction.action">
-                    <s:param name="status">4</s:param>
-                </s:url>                                      
+                                                   
                 
+               
+                
+                 <s:if test="reportGrade.equalsIgnoreCase('2')">
+                      <s:url id="idMoChotQtKehoach" action="MoChotQtKehoach.action"></s:url>                                      
+                        <sj:submit id="idloadDataMoChotQtKhnvtmp2" name="nameChot2" href="%{idMoChotQtKehoach}" value="Mở chốt số liệu" targets="divKhDetail"
+                                   onBeforeTopics="beforediv_send"
+                                   onCompleteTopics="completediv_send" class="cmd"/>
+                
+                     &nbsp;&nbsp;|&nbsp;&nbsp;
+                    <s:url id="idTongHopKehoach" action="TongHopQtKehoach.action"></s:url>                                      
+                    <sj:submit id="idloadTongHopQtKhnvtmp2" name="nameTongHop" href="%{idTongHopKehoach}" value="Tổng hợp số liệu" targets="divKhDetail"
+                               onBeforeTopics="beforediv_send"
+                               onCompleteTopics="completediv_send" class="cmd"/>    
+                 </s:if>
+                                      
+                    
       
             </div>
             <hr/>
@@ -170,7 +197,7 @@
 
 
                 &nbsp;&nbsp;|&nbsp;&nbsp;
-                <sj:a class="cmd" href="#" onclick="callDirectLink('khvn_open_upload?');" cssClass="metroButtonStyle">
+                <sj:a class="cmd" href="#" onclick="callDirectLink('khvn_open_upload_qt_kh?');" cssClass="metroButtonStyle">
                     <b> <u>Upload Excel</u>  </b> </sj:a>                        
                 </div>
                 <hr/>
