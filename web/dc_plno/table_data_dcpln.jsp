@@ -441,8 +441,8 @@
                         </s:select>
                     </td>   
                     <td align = "left" class="TD_NGUYEN_NHAN_KHOANH">
-                        <input type="hidden" id="sNgnhan_Kckntn_<s:property  value="%{#rowstatus.index}" />" 
-                               name="Ngnhan_Kckntn_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="sNgnhan_Kckntn"/>"/>
+                        <input type="hidden" id="sNgnhan_KckntnC2_<s:property  value="%{#rowstatus.index}" />" 
+                               name="Ngnhan_KckntnC2_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="sNgnhan_KckntnC2"/>"/>
                         <s:select  
                             id="nguyennhanc2_%{#rowstatus.index}"
                             name="lstSavePln[%{#rowstatus.index}].sK_Ma_NgnhanC2"
