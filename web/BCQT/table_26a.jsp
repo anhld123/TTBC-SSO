@@ -20,6 +20,9 @@
                 font-size: 13px;
                 width: 95%;
             }
+            .CLS-BOLD{
+            font-weight: bold;
+        }
         </style>
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
