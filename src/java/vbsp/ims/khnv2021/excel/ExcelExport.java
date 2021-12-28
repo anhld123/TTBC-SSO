@@ -1272,27 +1272,37 @@ public class ExcelExport {
                         numberStyle.setDataFormat(format.getFormat("#,##0.00"));
                         numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                         numberStyle.setFont(font);
-                        numberStyle.setLocked(false);
+                        
+                        if(lstData.get(i).getSubCommuneName().equals("1"))
+                            numberStyle.setLocked(true);
+                        else
+                            numberStyle.setLocked(false);
                         xssfCell03.setCellStyle(numberStyle);
-                        xssfCell03.setCellValue(lstData.get(i).d2);
+                        xssfCell03.setCellValue(lstData.get(i).d1);
                         
                         XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
                         numberStyle = xssfCell04.getCellStyle();
                         numberStyle.setDataFormat(format.getFormat("#,##0.00"));
                         numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                         numberStyle.setFont(font);
-                        numberStyle.setLocked(false);
+                        if(lstData.get(i).getSubCommuneName().equals("1"))
+                            numberStyle.setLocked(true);
+                        else
+                            numberStyle.setLocked(false);
                         xssfCell04.setCellStyle(numberStyle);
-                        xssfCell04.setCellValue(lstData.get(i).d3);
+                        xssfCell04.setCellValue(lstData.get(i).d2);
 
                         XSSFCell xssfCell05 = xssfRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
                         numberStyle = xssfCell05.getCellStyle();
                         numberStyle.setDataFormat(format.getFormat("#,##0.00"));
                         numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                         numberStyle.setFont(font);
-                        numberStyle.setLocked(false);
+                        if(lstData.get(i).getSubCommuneName().equals("1"))
+                            numberStyle.setLocked(true);
+                        else
+                            numberStyle.setLocked(false);
                         xssfCell05.setCellStyle(numberStyle);
-                        xssfCell05.setCellValue(lstData.get(i).d4);
+                        xssfCell05.setCellValue(lstData.get(i).d3);
 
 //                        XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
 //                        lockStyle = xssfCell04.getCellStyle();

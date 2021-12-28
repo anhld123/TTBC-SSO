@@ -694,6 +694,7 @@ public class DaoDCPLNO {
                 value.setsNgaybc(reset.getString(31));
                 value.setsNguoi_Pln(reset.getString(32));
                 value.setsNgay_Pln(reset.getString(33));
+                value.setsNgnhan_KckntnC2(reset.getString(34));
                 lstDcplNo.add(value);
             }
 

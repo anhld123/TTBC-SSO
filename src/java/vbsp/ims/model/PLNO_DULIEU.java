@@ -136,6 +136,7 @@ public class PLNO_DULIEU implements SQLData {
         setbC_Kntn_Sodu(stream.readBigDecimal());
         setbK_Kntn_Sodu(stream.readBigDecimal());
         setsK_Ma_Ngnhan(stream.readString());
+        setsK_Ma_NgnhanC2(stream.readString());
         setsK_Ngnhan_Kh(stream.readString());
         setsQuanhe_Kh(stream.readString());
         setsTrangthai(stream.readString());
@@ -150,6 +151,7 @@ public class PLNO_DULIEU implements SQLData {
         stream.writeBigDecimal(getbC_Kntn_Sodu());
         stream.writeBigDecimal(getbK_Kntn_Sodu());
         stream.writeString(getsK_Ma_Ngnhan());
+        stream.writeString(getsK_Ma_NgnhanC2());
         stream.writeString(getsK_Ngnhan_Kh());
         stream.writeString(getsQuanhe_Kh());
         stream.writeString(getsTrangthai());

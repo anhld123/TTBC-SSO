@@ -163,13 +163,13 @@ public class HTLS2021 extends ActionNhaptaycnMain
                         row.setD19(df.format(item.getIntDeductionM11Amt()));
                         row.setD20(df.format(item.getIntDeductionM12Amt()));
                         
-                        if(item.getLoanStatus().equals("C") && dateStr.equals("20211130") &&
+                        if(item.getLoanStatus().equals("C") && dateStr.equals("20211130") && item.getCasaAccount() == null &&
                                 item.getIntDeductionM10Amt().add(item.getIntDeductionM11Amt()).compareTo(new BigInteger("5000")) <0 )
                         {
                             row.setMA("1");
                         }
-                        else if (item.getLoanStatus().equals("C") && dateStr.equals("20211231") &&
-                                item.getIntDeductionM10Amt().compareTo(new BigInteger("5000")) <0 )
+                        else if (item.getLoanStatus().equals("C") && dateStr.equals("20211231") && item.getCasaAccount() == null &&
+                                item.getIntDeductionM12Amt().compareTo(new BigInteger("5000")) <0 )
                         {
                             row.setMA("1");
                         }
@@ -259,7 +259,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                         System.err.println(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());            
                     }
                 }
-                lstDulieuNt.sort(Comparator.comparing(o -> o.getD1() + o.getD2() + o.getD3()));
+//                lstDulieuNt.sort(Comparator.comparing(o -> o.getD1() + o.getD2() + o.getD3()));
             
                 tong.setD1(df.format(dn_tronhan + dn_quahan + dn_khoanh));
                 tong.setD2(df.format(dn_tronhan));

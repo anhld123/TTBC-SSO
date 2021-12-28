@@ -69,6 +69,7 @@ public class DcplnModel {
     public String sChtrinh_Ten;
     public String sChtrinh_Tenvt;
     public String sNgnhan_Kckntn;
+    public String sNgnhan_KckntnC2;    
     public String sNgnhan_Kckntn_Ten;
     public String sDvut_Ten;
     public String sMaxa;
@@ -85,6 +86,15 @@ public class DcplnModel {
     public String sTchat_No;
     public String sTchat_No_Ten;
     public String sLoaito_Ten;
+    
+
+    public String getsNgnhan_KckntnC2() {
+        return sNgnhan_KckntnC2;
+    }
+
+    public void setsNgnhan_KckntnC2(String sNgnhan_KckntnC2) {
+        this.sNgnhan_KckntnC2 = sNgnhan_KckntnC2;
+    }
 
     public int getbStt() {
         return bStt;
