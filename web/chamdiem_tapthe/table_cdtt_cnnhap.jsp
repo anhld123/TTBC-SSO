@@ -96,6 +96,9 @@
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TEN_KH" onfocus="this.select()"    readonly="readonly" />                                                                    
                             <input type="hidden" value="<s:property  value="THUTU" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU"/> 
+                            <input type="hidden" value="<s:property  value="NGAYBC" />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NGAYBC"/> 
+                            
                             <input type="hidden" value="<s:property  value="MA" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/> 
                             <input type="hidden" value="<s:property  value="MAPGD" />" 
@@ -151,7 +154,9 @@
                                        <s:else> 
                                            class="number2 TEN_KH"
                                        </s:else> 
-											   readonly="readonly"/>
+                                       <s:if test="MA.equalsIgnoreCase('CDTT08') && NGUOI_NHAP.equalsIgnoreCase('AAA')"></s:if>
+                                        <s:else>readonly="readonly"</s:else>
+											 />
                             </td>      
                             <td align = "right" class="hideColumn">                            
                                 <input type="text" id="D6_<s:property value='MA'/>" value="<s:property value='D6'/>" 

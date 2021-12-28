@@ -13,11 +13,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.define.Define;
 import vbsp.ims.dtw.UploadFileLogObject;
 import vbsp.ims.dtw.dao.DtwUploadDao;
@@ -25,6 +27,9 @@ import vbsp.ims.fileutil.FileUtil;
 import vbsp.ims.zip.FileZip;
 import vbsp.ims.khnv2021.ReportTemplate;
 import vbsp.ims.excel_upload.model.ResultModel;
+import vbsp.ims.khnv2021.dao.XDKHDao2021;
+import vbsp.ims.restapi.DuLieuNTRow;
+import vbsp.ims.restapi.DuLieuNTService;
 
 /**
  *
@@ -32,7 +37,8 @@ import vbsp.ims.excel_upload.model.ResultModel;
  */
 public class ExcelUploadAction extends ActionSupport
         implements ServletRequestAware {
-    
+
+    DuLieuNTService service;
     private List<File> fileUpload = new ArrayList<>();
     private List<String> fileUploadContentType = new ArrayList<>();
     private List<String> fileUploadFileName = new ArrayList<>();
@@ -50,27 +56,27 @@ public class ExcelUploadAction extends ActionSupport
     }
 
     public String upload_file() {
-        
+
         //System.err.println("Vao phan upload file");
         if (fileUploadFileName.isEmpty()) {
-            
+
             message = "(*) Chưa có file nào được lựa chọn. Bạn hãy kiểm tra lại. ";
             return "success";
-            
+
         } else {
-            
+
             /* Phan cap nhat file */
             String new_file_path = copy_file();
             File new_file = new File(new_file_path);
-            
+
             if (new_file.isFile()) {
-                
+
                 String fileExtend = FilenameUtils.getExtension(new_file_path);
                 String file_name = new_file.getName();
-                
+
                 if (fileExtend.toLowerCase().equals("zip")) {
                     boolean is_unzip = unzip_file(new_file.getAbsolutePath(), new_file.getParent());
-                
+
                     if (is_unzip) {
 
                         ExcelUploader excelUploader = new ExcelUploader();
@@ -85,7 +91,7 @@ public class ExcelUploadAction extends ActionSupport
                         logPathType = ReportTemplate.DIRECTORY;
                         logObj = uploadDao.get_uploaded_log(dir_path.replace("/", "\\"), ReportTemplate.DIRECTORY);
                         if (status.status) {
-                        message = "(*) Copy và giải nén vào thư mục thành công: [" + file_name + "].";
+                            message = "(*) Copy và giải nén vào thư mục thành công: [" + file_name + "].";
                         } else {
                             message = status.message;
                         }
@@ -96,30 +102,82 @@ public class ExcelUploadAction extends ActionSupport
                 } else if (fileExtend.toLowerCase().equals("xls")
                         || fileExtend.toLowerCase().equals("xlsx")) {
                     ExcelUploader excelUploader = new ExcelUploader();
-                       ResultModel status = excelUploader.import_file(new_file.getAbsolutePath(), font_type);
+                    ResultModel status = excelUploader.import_file(new_file.getAbsolutePath(), font_type);
 
-                        DtwUploadDao uploadDao = new DtwUploadDao();
-                        String file_path = FilenameUtils.removeExtension(new_file.getAbsolutePath());
+                    DtwUploadDao uploadDao = new DtwUploadDao();
+                    String file_path = FilenameUtils.removeExtension(new_file.getAbsolutePath());
 
-                        logPath = file_name;
-                        logPathType = ReportTemplate.FILE;
-                        logObj = uploadDao.get_uploaded_log(file_name,ReportTemplate.FILE);
-                        if (status.status) {
-                        message = "(*) Xử lý file thành công: [" + file_name + "].";
-                        }else {
-                            message = status.message;
-                        }
+                    logPath = file_name;
+                    logPathType = ReportTemplate.FILE;
+                    logObj = uploadDao.get_uploaded_log(file_name, ReportTemplate.FILE);
+                    if (status.status) {
+                        if (file_name.startsWith(Define.NV_QT)) {
+                            List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
+                            lstDulieuNt = new XDKHDao2021().getDataQtKehoachByFile(Define.NV_QT, file_name);
+                            String sReturn = sendDataNV_QTByApi(lstDulieuNt,file_name);
+                            if(sReturn.equals(SUCCESS))
+                                message = "(*) Xử lý file thành công: [" + file_name + "].";
+                                else
+                                message = "(*) Xử lý api thành công: [" + file_name + "].";                                
+                        }                        
+
+                    } else {
+                        message = status.message;
+                    }
                 } else {
                     message = "(*) Không hỗ trợ định dạng file: " + fileExtend.toLowerCase();
                 }
-                
-                
+
             } else {
                 message = "(*) Copy file vào thư mục thất bại.";
             }
 
             return "success";
         }
+    }
+
+    public String sendDataNV_QTByApi(List<QT_DULIEU_NT> lstDulieuNt, String file) {
+        ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
+        SimpleDateFormat sdf;
+        sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                DuLieuNTRow tempadd = new DuLieuNTRow();
+                tempadd.setKey(tmp.getKHOA());
+//                tempadd.setOrderValue(tmp.getTHUTU());
+                tempadd.setOrderDescription(tmp.getTT_HIENTHI());
+                tempadd.setCode(tmp.getMA());
+                tempadd.setName(tmp.getTEN());
+//                tempadd.setReportDate(tmp.getNGAYBC());
+                String text = sdf.format(tmp.getNGAYBC());
+                tempadd.setReportDate(text);
+                
+                tempadd.setReportYear(tmp.getNAMBC());
+                tempadd.setPosCode(tmp.getMAPGD());
+                
+                tempadd.setPosFlag(tmp.getCO_TONGHOP());
+                tempadd.setBranchCode(tmp.getMACN());
+                tempadd.setMakerId(tmp.getNGUOI_NHAP());
+
+                tempadd.setD1(tmp.getD1());
+                tempadd.setD2(tmp.getD2());
+                tempadd.setD3(tmp.getD3());
+                tempadd.setD4(tmp.getD4());
+                tempadd.setD5(tmp.getD5());
+                tempadd.setD6(tmp.getD6());
+                tempadd.setD7(tmp.getD7());
+                tempadd.setD8(tmp.getD8());
+                tempadd.setD9(tmp.getD9());
+                                
+                lstUpdateDate.add(tempadd);
+            }
+        service = new DuLieuNTService();
+//        int status = service.insertData("insert","system",lstUpdateDate);
+        int status = service.updateData(Define.NV_QT, file.split("_", -1)[2], file.split("_", -1)[3], file.split("_", -1)[4], file.split("_", -1)[5], "system", lstUpdateDate);  
+        if (status == 200) {
+            return SUCCESS;
+        }
+
+        return ERROR;
     }
 
     public String view_log() {
@@ -130,7 +188,6 @@ public class ExcelUploadAction extends ActionSupport
     }
 
     //-----------------------------------------------------------------------------------------------
-
     private String copy_file() {
         String destPath, mainReportPath = "";
         File destFile;
@@ -157,10 +214,10 @@ public class ExcelUploadAction extends ActionSupport
 
     private static void copyFileUsingFileStreams(File source, File dest)
             throws IOException {
-        
+
         InputStream input = null;
         OutputStream output = null;
-        
+
         try {
             input = new FileInputStream(source);
             output = new FileOutputStream(dest);
@@ -180,16 +237,16 @@ public class ExcelUploadAction extends ActionSupport
     }
 
     private boolean unzip_file(String zip_file_path, String directory_path) {
-        
-        File zip_file = new File(zip_file_path);        
+
+        File zip_file = new File(zip_file_path);
         String strFileName = zip_file.getName();
-        
+
         // Xoa du lieu truoc khi giai nen
-            FileUtil.deleteFolder(directory_path +  "/"
-                            + FilenameUtils.removeExtension(strFileName));
-        
+        FileUtil.deleteFolder(directory_path + "/"
+                + FilenameUtils.removeExtension(strFileName));
+
         String file_ext = FilenameUtils.getExtension(zip_file_path);
-        
+
         if (zip_file.isFile()
                 && file_ext.toLowerCase().equals("zip")) {
             FileZip.UnzipFile(zip_file_path, directory_path);
@@ -265,8 +322,5 @@ public class ExcelUploadAction extends ActionSupport
     public void setLogPathType(String logPathType) {
         this.logPathType = logPathType;
     }
-    
-    
 
-    
 }

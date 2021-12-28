@@ -435,14 +435,14 @@
                             listKey="sKey"
                             listValue="sDesc"
                             headerKey="-1"
-                            onchange="reLoadValue(this.value,%{#rowstatus.index})"
+                            onchange="reLoadValue(this.value,'nguyennhanc2_%{#rowstatus.index}')"
                             headerValue="--- Chọn ---"
                             cssStyle="width: 120px;vertical-align: middle;background-color: #FFCCBA;">
                         </s:select>
                     </td>   
                     <td align = "left" class="TD_NGUYEN_NHAN_KHOANH">
-                        <input type="hidden" id="sNgnhanc2_Kckntn_<s:property  value="%{#rowstatus.index}" />" 
-                               name="Ngnhanc_Kckntn_<s:property  value="%{#rowstatus.index}" />" value="0402"/>
+                        <input type="hidden" id="sNgnhan_KckntnC2_<s:property  value="%{#rowstatus.index}" />" 
+                               name="Ngnhan_KckntnC2_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="sNgnhan_KckntnC2"/>"/>
                         <s:select  
                             id="nguyennhanc2_%{#rowstatus.index}"
                             name="lstSavePln[%{#rowstatus.index}].sK_Ma_NgnhanC2"
@@ -461,7 +461,6 @@
                             listValue="sDesc"
                             headerKey="-1"
                             headerValue="--- Chọn ---"
-                            cssClass="nguyennhanc2_data"
                             cssStyle="display:none;">
                         </s:select>
                     </td>       
@@ -499,48 +498,22 @@
     initSelectOption();
     $(".nguyennhanc2").children().remove().end();
     $(".nguyennhanc2").prepend("<option value='-1' selected='selected'>--- Chọn ---</option>");
-    function reLoadValue(val, idNgnhan) {
-        var var2, vartxt, selected;
-        $("#nguyennhanc2_" + idNgnhan).children().remove().end();
-        vartxt = $("#sNgnhanc2_Kckntn_" + idNgnhan).val();
-        $("#nguyennhanc2_" + idNgnhan + "_data > option").each(function () {
+    function reLoadValue(val,idNgnhan) {
+         var var2;
+         $("[id=" + idNgnhan + "]").children().remove().end();
+         $("[id=" + idNgnhan + "_data] > option").each(function() {
             var2 = $(this).val().substr(0, 2);
-            if (val.trim() == var2.trim()) {
-                $(this).val() == vartxt ? selected = " selected" : selected = "";
-                $("#nguyennhanc2_" + idNgnhan).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+            if(val.trim() == var2.trim()){
+                $("[id=" + idNgnhan + "]").prepend("<option value='" + $(this).val() + "'> " + $(this).text() + " </option>");
             }
-        });
-        if (val != '01' && val != '04') {
-            $("#nguyennhanc2_" + idNgnhan).prepend("<option value='-1' selected='selected'>--- Chọn ---</option>");
+         });
+         if(val!='01' && val!='04'){
+            $("[id=" + idNgnhan + "]").prepend("<option value='-1' selected='selected'>--- Chọn ---</option>");  
         }
-
-        $("#nguyennhanc2_" + idNgnhan).html($("#nguyennhanc2_" + idNgnhan + " option").sort(function (a, b) {
+        
+        $("#" + idNgnhan).html($("#" + idNgnhan + " option").sort(function (a, b) {
             return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
         }));
     }
-    ;
-    //Thực hiện ngay khi mới load form để trả về những dữ liệu đã được lưu
-    (function () {
-        $(".nguyennhanc2_data").each(function (index, value) {
-            var var1, var2, vartxt, selected;
-            $("#nguyennhanc2_" + index).children().remove().end();
-            var1 = $("#nguyennhan_" + index).val();
-            vartxt = $("#sNgnhanc2_Kckntn_" + index).val();
-            $("#nguyennhanc2_" + index + "_data > option").each(function () {
-                var2 = $(this).val().substr(0, 2);
-                if (var1.trim() == var2.trim()) {
-                    $(this).val() == vartxt ? selected = " selected" : selected = "";
-                    $("#nguyennhanc2_" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-                }
-            });
-            if (var1.trim() != '01' && var1.trim() != '04') {
-                $("#nguyennhanc2_" + index).prepend("<option value='-1' selected='selected'>--- Chọn ---</option>");
-            }
-
-            $("#nguyennhanc2_" + index).html($("#nguyennhanc2_" + index + " option").sort(function (a, b) {
-                return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-            }));
-        });
-    })();
 </script>
 </html>

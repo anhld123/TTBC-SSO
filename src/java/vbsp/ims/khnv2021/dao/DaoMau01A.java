@@ -377,5 +377,77 @@ public class DaoMau01A {
         return strQuery;
 
     }
+    
+    
+    public List<Mau01AModel> getExportDataQt11(String posCode, String capbc, String reportDate){
+        List<Mau01AModel> lstData = new ArrayList<>();
+        
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call PK_KHNV_DATA_EXPORT.EXPORT_QT11(?, ?, ?, ?)}";
+            ResultSet cursor = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);                
+                //Truyen vao username
+                calstatement.setString(1, posCode);          
+                calstatement.setString(2, capbc);          
+//                calstatement.setString(3, subCommuneCode);          
+                calstatement.setString(3, reportDate);                                         
+                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.CURSOR);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //Lay cursor ra resultset
+                cursor = (ResultSet) calstatement.getObject(4);
+
+                while (cursor.next()) {
+                    Mau01AModel item = new Mau01AModel();
+                    //item.reportDate = cursor.getString("TEN_THON");
+                    item.subCommuneCode = cursor.getString("MA_THON");
+                    item.subCommuneName = cursor.getString("TEN_THON");
+                    item.order = cursor.getString("THUTU");
+                    item.orderDisplay = cursor.getString("TT_HIENTHI");
+                    item.code = cursor.getString("MACHITIEU");
+                    item.name = cursor.getString("TENCHITIEU");
+                    item.editFlag = cursor.getInt("THUCONG");
+                    item.level = cursor.getInt("CAPCT");
+                    item.levelCode = cursor.getString("CAPCT_MA");
+                    item.printType = cursor.getInt("KIEUIN");
+                    item.totalFlag = cursor.getInt("CONGCAP");                    
+                    item.d1 = Double.parseDouble(getNumberValueString(cursor.getString("D1")));
+                    item.d2 = Double.parseDouble(getNumberValueString(cursor.getString("D2")));
+                    item.d3 = Double.parseDouble(getNumberValueString(cursor.getString("D3")));
+                    item.d4 = Double.parseDouble(getNumberValueString(cursor.getString("D4")));
+                    item.d5 = Double.parseDouble(getNumberValueString(cursor.getString("D5")));
+                    item.d6 = Double.parseDouble(getNumberValueString(cursor.getString("D6")));
+                    
+                    lstData.add(item);
+                }
+
+                if (cursor != null) {
+                    cursor.close();
+                }
+                
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Loi trong ham DaoMau01A.getExportData " + e.getMessage());
+                CoreLogger.error(DaoMau01A.class.getCanonicalName() + " getExportData  -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham DaoMau01A.getExportData " + e.getMessage());
+            CoreLogger.error(DaoMau01A.class.getCanonicalName() + " getExportData  -> " + e.getMessage());
+        }
+        return lstData;
+    }
         
 }

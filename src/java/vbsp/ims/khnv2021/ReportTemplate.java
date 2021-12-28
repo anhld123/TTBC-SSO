@@ -14,6 +14,8 @@ public class ReportTemplate {
     public static String MAU_01 = "KHNV01";
     public static String MAU_02 = "KHNV02";
     
+    public static String MAU_QT11 = "KHNV_QT11";
+    
     public static int MAU_01A_START_ROW = 12;
     public static int MAU_02_START_ROW = 11;
     

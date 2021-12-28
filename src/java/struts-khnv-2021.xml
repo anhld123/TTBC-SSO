@@ -139,7 +139,50 @@
         <action name="khvn_open_upload" class="vbsp.ims.khnv2021.XayDungKeHoach2021"
                 method="openExcelUpload">
             <result name="success">/EXCEL_UPLOAD/util_excel_upload_file-main.jsp</result>           
-        </action>   
+        </action>  
+        
+         
+        <action name="get_data_quyettoankh_2021" class="vbsp.ims.khnv2021.QuyetToanKeHoach20211" method="get_data_quyettoankh_2021">
+            <result name="success">/khnv2021/quyettoankh2021.jsp</result>
+            <result name="error">/khnv2021/success.jsp</result> 
+        </action> 
+        
+         <action name="khnv/dk/ExpExcelEcelQtKhnv11" class="vbsp.ims.khnv2021.QuyetToanKeHoach20211"  method="ExpExcelEcelQtKhnv11">
+            <result name="success">/khnv2021/downfile_excel.jsp</result>  
+            <result name="error">/khnv2021/error.jsp</result>        
+        </action> 
+        
+         <action name="loadDataQuyettoan2021" class="vbsp.ims.khnv2021.QuyetToanKeHoach20211" method="getDataQtKehoach">
+            <!--<result name="success">/khnv2021/xaydung-kh-detail.jsp</result>-->
+            <!--<result name="loadAllCommuneAuth">/khnv2021/table_auth_commune.jsp</result>-->
+            <!--<result name="loadAllSubCommune">/khnv2021/table_all_subcommune_bycommune.jsp</result>-->            
+            <result name="success">/khnv2021/table_detal_qt_kehoach.jsp</result>     
+            <!--<result name="load02Pos">/khnv2021/table_detal_by_pos_mau02.jsp</result>-->    
+            <result name="error">/khnv2021/error.jsp</result>      
+                   
+        </action>
+        
+        <action name="ChotQtKehoach" class="vbsp.ims.khnv2021.QuyetToanKeHoach20211" method="chotQtKehoach">
+            <result name="success">khnv2021/success.jsp</result>  
+            <result name="error">/khnv2021/success.jsp</result> 
+        </action>
+        
+        <action name="MoChotQtKehoach" class="vbsp.ims.khnv2021.QuyetToanKeHoach20211" method="MoChotQtKehoach">
+            <result name="success">khnv2021/success.jsp</result>  
+            <result name="error">/khnv2021/success.jsp</result> 
+        </action>
+        
+        <action name="khvn_open_upload_qt_kh" class="vbsp.ims.khnv2021.QuyetToanKeHoach20211"
+                method="openExcelUploadQtKh">
+            <result name="success">/EXCEL_UPLOAD/util_excel_upload_file-main.jsp</result>       
+            <result name="error">/khnv2021/success.jsp</result>     
+        </action>  
+        
+         <action name="TongHopQtKehoach" class="vbsp.ims.khnv2021.QuyetToanKeHoach20211" method="TongHopQtKehoach">          
+            <result name="success">/khnv2021/table_detal_qt_kehoach.jsp</result>                 
+            <result name="error">/khnv2021/error.jsp</result>      
+                   
+        </action>
                       
     </package>
         

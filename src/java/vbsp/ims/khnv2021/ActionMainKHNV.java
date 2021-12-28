@@ -39,6 +39,7 @@ public class ActionMainKHNV extends ActionSupport{
     protected String namSau;//năm báo cáo +1
     protected String maCn;//mã chi nhánh
     protected String reportGrade; //cấp báo cao
+    protected String donvi;//
     protected List<ListValue> lstXa = new ArrayList<>();
     protected String pos_cd;//lay ra ma pos, ma xa tu combobox
     protected String commune_cd;
@@ -62,6 +63,7 @@ public class ActionMainKHNV extends ActionSupport{
     protected List<ListValue> lstMaBC = new ArrayList<>();
     protected List<ListValue> lstNamBC = new ArrayList<>();
     protected List<ListValue> lstDotBC = new ArrayList<>();
+    protected List<ListValue> lstDonvi = new ArrayList<>();
     protected List<ListValue> lstTongHop = new ArrayList<>();
     protected String namBc_pre;
     protected String namBc_2pre;
@@ -166,6 +168,25 @@ public class ActionMainKHNV extends ActionSupport{
     }
 
     //<editor-fold defaultstate="collapsed" desc="get set du lieu">
+
+    public String getDonvi() {
+        return donvi;
+    }
+
+    public void setDonvi(String donvi) {
+        this.donvi = donvi;
+    }
+    
+        
+    public List<ListValue> getLstDonvi() {
+        return lstDonvi;
+    }
+
+    public void setLstDonvi(List<ListValue> lstDonvi) {
+        this.lstDonvi = lstDonvi;
+    }
+    
+    
 
     public String getNamBc_2pre() {
         return namBc_2pre;
