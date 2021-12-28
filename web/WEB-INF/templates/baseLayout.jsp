@@ -15,8 +15,7 @@
         </style>
     </head>
     <body style="height:100%;" style="font-family: Tahoma; font-size: 10pt" topmargin="0" leftmargin="0">
-        <table border="0" cellpadding="0" cellspacing="0" width="100%" valign = "top" 
-               style="background: url(img/Background_Index.png) no-repeat right bottom;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" valign = "top">
             <tr>
                 <td valign="top" height="20px">
                     <jsp:include page="${param.header}" flush="false"/>
@@ -32,7 +31,7 @@
                 </td>                
             </tr>
             <tr>
-                <td valign="top" height="522px">                    
+                <td valign="top" style="height:calc(100vh - 153px);">                    
                         <jsp:include page="${param.body}" flush="true"/>                    
                 </td>
             </tr>
