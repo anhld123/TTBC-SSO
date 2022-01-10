@@ -855,7 +855,7 @@
 
                                 </s:form>
                             </div>
-                            <script>
+<!--                            <script>
                                 $.subscribe('changeTopic', function (event, data) {
                                     //alert('Date : '+event.originalEvent.dateText);
                                     var strDate = event.originalEvent.dateText;
@@ -938,7 +938,7 @@
 //                                    $("#loadDatatmp").click();
                                 });
 
-                            </script>
+                            </script>-->
                         </div>
                         </body>
                         </html>

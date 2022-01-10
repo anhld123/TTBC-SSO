@@ -145,7 +145,7 @@
                           name="namBc" id="namBc"
                           listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
                 &nbsp;
-                <s:if test="reportGrade.equalsIgnoreCase('2')">
+                <s:if test="reportGrade.equalsIgnoreCase('2') || reportGrade.equalsIgnoreCase('3')">
                     <span class="clss-lable">Đơn vị:</span>
                     <s:select list="lstDonvi" theme="simple"
                               name="donvi" id="donvi"
@@ -161,14 +161,14 @@
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
 
-
-                <s:url id="idChotQtKehoach" action="ChotQtKehoach.action"></s:url>                                      
-                <sj:submit id="idloadDataQtKhnvtmp2" name="nameSend2" href="%{idChotQtKehoach}" value="Chốt số liệu" targets="divKhDetail"
-                           onBeforeTopics="beforediv_send"
-                           onCompleteTopics="completediv_send" class="cmd"/>
+                <s:if test="!reportGrade.equalsIgnoreCase('3')">
+                    <s:url id="idChotQtKehoach" action="ChotQtKehoach.action"></s:url>                                      
+                    <sj:submit id="idloadDataQtKhnvtmp2" name="nameSend2" href="%{idChotQtKehoach}" value="Chốt số liệu" targets="divKhDetail"
+                               onBeforeTopics="beforediv_send"
+                               onCompleteTopics="completediv_send" class="cmd"/>
                 
                                                    
-                
+                </s:if>
                
                 
                  <s:if test="reportGrade.equalsIgnoreCase('2')">
@@ -177,11 +177,14 @@
                                    onBeforeTopics="beforediv_send"
                                    onCompleteTopics="completediv_send" class="cmd"/>
                 
-                     &nbsp;&nbsp;|&nbsp;&nbsp;
-                    <s:url id="idTongHopKehoach" action="TongHopQtKehoach.action"></s:url>                                      
-                    <sj:submit id="idloadTongHopQtKhnvtmp2" name="nameTongHop" href="%{idTongHopKehoach}" value="Tổng hợp số liệu" targets="divKhDetail"
-                               onBeforeTopics="beforediv_send"
-                               onCompleteTopics="completediv_send" class="cmd"/>    
+                        <s:if test="reportGrade.equalsIgnoreCase('2')">
+                             &nbsp;&nbsp;|&nbsp;&nbsp;
+                                <s:url id="idTongHopKehoach" action="TongHopQtKehoach.action"></s:url>                                      
+                                <sj:submit id="idloadTongHopQtKhnvtmp2" name="nameTongHop" href="%{idTongHopKehoach}" value="Tổng hợp số liệu" targets="divKhDetail"
+                                           onBeforeTopics="beforediv_send"
+                                           onCompleteTopics="completediv_send" class="cmd"/>   
+                        </s:if>
+                     
                  </s:if>
                                       
                     

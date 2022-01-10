@@ -144,7 +144,7 @@
                             <!--<th rowspan="3" class="TD_GIATRI">Thực hiện đến 31/12/<s:property value="namBc_pre"/></th>-->
                             <th rowspan="2" class="TD_GIATRI D0">Số thực hiện đến 31/12/<s:property value="namBc_pre"/></th>
                             <th colspan="2" >Năm báo cáo</th>
-                            <th rowspan="2" >Tăng/giảm so với năm <s:property value="namBc"/></th>
+                            <th rowspan="2" >Tăng/giảm so với năm <s:property value="namBc_pre"/></th>
                             <th rowspan="2" >Tỷ lệ hoàn thành kế hoạch giao tăng trưởng (%)</th>
                         </tr>
 <!--                        <tr>
@@ -153,7 +153,7 @@
                         </tr>-->
                         <tr>
                             <th class="TD_GIATRI">Kế hoạch giao tăng trưởng năm <s:property value="namBc"/></th>
-                            <th class="TD_GIATRI">Số thực hiện đến 31/12/<s:property value="namBc_pre"/></th>
+                            <th class="TD_GIATRI">Số thực hiện đến 31/12/<s:property value="namBc"/></th>
                         </tr>
                         <tr class="sttCol">
                             <td>1</td>

@@ -235,6 +235,8 @@
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>" />
                                          <input type="hidden" value="<s:property  value="D1" />" 
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D1" value="<s:property  value="D1"/>" />
+                                         <input type="hidden" value="<s:property  value="MA" />" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>" />
                                     </td>                                
                                     <td align = "right" class="TD_TENKH" >
                                         <input type="text"   value="<s:property  value="D2" />"
@@ -279,6 +281,8 @@
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>" />
                                         <input type="hidden" value="<s:property  value="D1" />" 
                                                name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].D1" value="<s:property  value="D1"/>" />
+                                        <input type="hidden" value="<s:property  value="MA" />" 
+                                               name="lstDulieuNt50[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>" />
                                     </td>                                
                                    
                                     <td align = "right" class="TD_MAKH" >
