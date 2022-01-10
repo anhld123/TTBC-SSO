@@ -108,6 +108,10 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
             {
                 lstData = service.getData(Define.NV_QT, donvi, "S", namBc + "1231");
             }
+            else if(reportGrade.equals("3"))
+            {
+                lstData = service.getData(Define.NV_QT, donvi, "M", namBc + "1231");
+            }
            
                                             
             
@@ -248,6 +252,7 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
             getInfo();
 
             ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
+            service = new DuLieuNTService();
             if(donvi.equals("000000") && reportGrade.equals("2"))
             {       
 //                service.getSetLockDataManual(Define.NV_QT,pos_cd_username,reportGrade,namBc + "1231",Define.NHAPTAY_MOCHOT,userId);
@@ -261,7 +266,7 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
             else if (reportGrade.equals("1")) {
                 service.getSetLockDataManual(Define.NV_QT,pos_cd_username,"S",namBc + "1231",Define.NHAPTAY_MOCHOT,userId);
             }                        
-            addActionMessage("Bạn đã chốt thành công số liệu.");
+            addActionMessage("Bạn đã mở chốt thành công số liệu.");
             return SUCCESS;
         } catch (Exception ex) {
             CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv01 " + ex.getMessage());

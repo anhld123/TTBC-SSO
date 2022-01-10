@@ -9557,13 +9557,13 @@ public class DaoNhaptaycnMain {
         return true;
     }
     
-    public int check_date_input_qd23(String sKhoa) throws SQLException {
+    public int check_date_input_qd23(String sKhoa, String timeServer) throws SQLException {
         int _retVal = 0;
         Connection conn = new DaoConnect().getConnect();
         CallableStatement calstatement = null;
         ResultSet reset = null;
         //Khoi tao procedure cung voi tham so truyen vao la dau ?
-        String strStoreproce = "{ ? = call VBSP_IMS_KETQUA_KTDC.F_DATE_INPUT_QD23 (?) }";
+        String strStoreproce = "{ ? = call VBSP_IMS_KETQUA_KTDC.F_DATE_INPUT_QD23 (?,?) }";
 
         try {
             //Khoi tao goi Store
@@ -9571,6 +9571,7 @@ public class DaoNhaptaycnMain {
                     ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
             calstatement.setString(2, sKhoa);
+            calstatement.setString(3, timeServer);
             //Thuc hien execute lay du lieu
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)

@@ -15,8 +15,11 @@ import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.define.Define;
@@ -362,6 +365,9 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
+    
+    
+   
 
     //    Khóa nhập tay
     public ArrayList<LockSendModel> getSetLockDataManual(String key, String posCode, String flagReport, String reportDate, String dataFlag, String updateId) {
@@ -424,38 +430,7 @@ public class DuLieuNTService extends ReportService {
         return response.getStatus();
     }
 
-    public static void main(String[] args) {
-          String file = "NV_QT_000401_S_31122021_quyennv_6283";
-          
-          String[] array = file.split("_", -1);
-          String s1 = array[0];
-          String s2 = array[3];        
-          String s3 = array[1];    
-//        DuLieuNTService service = new DuLieuNTService();
-
-//        ArrayList<DuLieuNTRow> lstData = service.getData("COVID_03", "000401", "S", "20210630");
-//        System.out.println(lstData.size());
-//
-//        ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
-//        DuLieuNTRow testItem = new DuLieuNTRow();
-//        testItem.setKey("COVID_03");
-//        testItem.setCode("1004003452");
-//        testItem.setReportDate("2021-06-30T00:00:00");
-//        testItem.setPosCode("000401");
-//        testItem.setPosFlag("S");
-//        testItem.setD1("1004003452");
-//        testItem.setD2("100");
-//        testItem.setReportYear(2021);
-//        lstUpdateDate.add(testItem );
-//
-//        int status = service.updateData("COVID_03", "000401", "S", "20210630", "trungnt", "", lstUpdateDate);
-        List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
-        lstDulieuNt = new XDKHDao2021().getDataQtKehoachByFile(Define.NV_QT, "NV_QT_000401_S_31122021_6283");
-       
-        String kkk = sendDataNV_QTByApi(lstDulieuNt, "NV_QT_000401_S_31122021_6283");
-
-//        System.out.println(status);
-    }
+   
 
     static String sendDataNV_QTByApi(List<QT_DULIEU_NT> lstDulieuNt, String file) {
         ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
@@ -519,6 +494,67 @@ public class DuLieuNTService extends ReportService {
         Response response = invocationBuilder.get();
 
         return response.getStatus();
+    }
+    
+     public String getTimeServer() {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("system-date");
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");  
+        Date date;
+        if (response.getStatus() == 200) {
+            try {
+                date = response.readEntity(Date.class);                
+                String strDate = dateFormat.format(date);  
+                return strDate;                
+            } catch (Exception e) {
+                System.err.println("loi: " + e.getMessage());                
+                return dateFormat.format(new Date());  
+            }
+        } else {
+            return dateFormat.format(new Date());  
+        }
+    }
+    
+     public static void main(String[] args) {
+         DuLieuNTService service = new DuLieuNTService();
+//        Date timeServer = service.getTimeServer();
+        
+//         Date date = Calendar.getInstance().getTime();  
+//                DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");  
+//                String strDate = dateFormat.format(timeServer);  
+                System.out.println("Converted String: " + service.getTimeServer());  
+//          String file = "NV_QT_000401_S_31122021_quyennv_6283";
+//          
+//          String[] array = file.split("_", -1);
+//          String s1 = array[0];
+//          String s2 = array[3];
+//          String s3 = array[1];    
+        
+//        ArrayList<DuLieuNTRow> lstData = service.getData("COVID_03", "000401", "S", "20210630");
+//        System.out.println(lstData.size());
+//
+//        ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
+//        DuLieuNTRow testItem = new DuLieuNTRow();
+//        testItem.setKey("COVID_03");
+//        testItem.setCode("1004003452");
+//        testItem.setReportDate("2021-06-30T00:00:00");
+//        testItem.setPosCode("000401");
+//        testItem.setPosFlag("S");
+//        testItem.setD1("1004003452");
+//        testItem.setD2("100");
+//        testItem.setReportYear(2021);
+//        lstUpdateDate.add(testItem );
+//
+//        int status = service.updateData("COVID_03", "000401", "S", "20210630", "trungnt", "", lstUpdateDate);
+//        List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
+//        lstDulieuNt = new XDKHDao2021().getDataQtKehoachByFile(Define.NV_QT, "NV_QT_000703_S_20211231_HUYNQ01_3324");
+////       
+//        String kkk = sendDataNV_QTByApi(lstDulieuNt, "NV_QT_000703_S_20211231_HUYNQ01_3324");
+//        System.out.println(status);
     }
 }
 

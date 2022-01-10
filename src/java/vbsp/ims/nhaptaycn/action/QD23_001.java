@@ -50,6 +50,8 @@ import vbsp.ims.khnv2021.excel.ExcelExport;
 import vbsp.ims.khnv2021.model.FileExportInfo;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.khnv.POSModel;
+import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.tdnn.DaoTdnnMain;
 import vbsp.ims.xml.XmlKtgsSync;
@@ -60,6 +62,7 @@ import vbsp.ims.xml.XmlKtgsSync;
  */
 public class QD23_001 extends ActionNhaptaycnMain
         implements NhaptaycnFunction {
+    DuLieuNTService service;
 
     @Override
     public String load() {
@@ -171,10 +174,20 @@ public class QD23_001 extends ActionNhaptaycnMain
             }
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
-            if(daoMain.check_date_input_qd23(khoa_nhaptaycn) ==1)
-            {
-                addActionError("Đã hết thời gian nhập số liệu, vui lòng quay trở lại vào hôm sau.");
-                return ERROR;
+            service = new DuLieuNTService();         
+            String timeServer = service.getTimeServer();
+            if(daoMain.check_date_input_qd23(khoa_nhaptaycn,timeServer) ==1)
+            {                
+                ArrayList<LockSendModel> lstDataLock = new ArrayList<>();
+
+                lstDataLock = service.getDataLockManual("SEND_QD23", pos_cd_username, "M", "20211231");
+                if (lstDataLock.size() > 0) {
+                    if (lstDataLock.get(0).getStatus().equals("1")) {
+                        addActionError("Đã hết thời gian nhập số liệu, vui lòng quay trở lại vào hôm sau.");
+                        return ERROR;
+                    }
+                }
+
             }
             
 //            String sNv = hmParameter.get("type_action").toString();
@@ -259,10 +272,20 @@ public class QD23_001 extends ActionNhaptaycnMain
 
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             HashMap hmParameter = getParameter();
-            if(daoMain.check_date_input_qd23(khoa_nhaptaycn) ==1)
-            {
-                addActionError("Đã hết thời gian nhập số liệu, vui lòng quay trở lại vào hôm sau.");
-                return ERROR;
+            service = new DuLieuNTService();         
+            String timeServer = service.getTimeServer();
+            if(daoMain.check_date_input_qd23(khoa_nhaptaycn,timeServer) ==1)
+            {                
+                ArrayList<LockSendModel> lstDataLock = new ArrayList<>();
+
+                lstDataLock = service.getDataLockManual("SEND_QD23", pos_cd_username, "M", "20211231");
+                if (lstDataLock.size() > 0) {
+                    if (lstDataLock.get(0).getStatus().equals("1")) {
+                        addActionError("Đã hết thời gian nhập số liệu, vui lòng quay trở lại vào hôm sau.");
+                        return ERROR;
+                    }
+                }
+
             }
             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(hmParameter.get("ngay_bc").toString());
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
@@ -314,10 +337,20 @@ public class QD23_001 extends ActionNhaptaycnMain
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
-            if(daoMain.check_date_input_qd23(khoa_nhaptaycn) ==1)
-            {
-                addActionError("Đã hết thời gian nhập số liệu, vui lòng quay trở lại vào hôm sau.");
-                return ERROR;
+            service = new DuLieuNTService();         
+            String timeServer = service.getTimeServer();
+            if(daoMain.check_date_input_qd23(khoa_nhaptaycn,timeServer) ==1)
+            {                
+                ArrayList<LockSendModel> lstDataLock = new ArrayList<>();
+
+                lstDataLock = service.getDataLockManual("SEND_QD23", pos_cd_username, "M", "20211231");
+                if (lstDataLock.size() > 0) {
+                    if (lstDataLock.get(0).getStatus().equals("1")) {
+                        addActionError("Đã hết thời gian nhập số liệu, vui lòng quay trở lại vào hôm sau.");
+                        return ERROR;
+                    }
+                }
+
             }
             lstDulieuNt50 = daoMain.getDataQd23_001_Dc_pheduyet(conn, hmParameter.get("khoadc").toString(),
                     hmParameter.get("ngay_bc").toString(), UserName, Grade, hmParameter.get("masothue").toString(), hmParameter.get("thangbc").toString());

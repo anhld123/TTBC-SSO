@@ -44,6 +44,7 @@ import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.query.ImsFillParaMeter;
 import vbsp.ims.query.ImsPlSqlQuery;
 import vbsp.ims.report.fast.ListValue;
+import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.sbv.daoSbv;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlKtgsSync;
@@ -1142,8 +1143,11 @@ public class ActionNhaptaycnMain extends ActionSupport {
             if (khoa_nhaptaycn.equals("NHAPTAYCN_02")) {
                 return SUCCESS;
             }
+            DuLieuNTService service;
+            service = new DuLieuNTService();         
+            String timeServer = service.getTimeServer();
 //            String khoa =  hmParameter.get("khoa_nhaptaycn").toString();
-            if(khoa_nhaptaycn.equals("QD23_001") && new DaoNhaptaycnMain().check_date_input_qd23(khoa_nhaptaycn) ==1)
+            if(khoa_nhaptaycn.equals("QD23_001") && new DaoNhaptaycnMain().check_date_input_qd23(khoa_nhaptaycn, timeServer) ==1)
             {
                 addActionError("Đã hết thời gian gửi số liệu, vui lòng quay trở lại vào hôm sau.");
                 return ERROR;
