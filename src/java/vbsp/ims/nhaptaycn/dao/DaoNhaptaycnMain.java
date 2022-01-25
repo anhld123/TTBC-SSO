@@ -9594,4 +9594,39 @@ public class DaoNhaptaycnMain {
         }
         return _retVal;
     }
+    
+    public boolean updateAfterSendQd23(String mabc, String mapgd, String ngaybc) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+//        Object array[] = lstData.toArray();
+//        ArrayDescriptor des = ArrayDescriptor
+//                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+//        ARRAY array_to_pass = new ARRAY(des, connection, array);
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NHAPTAYCN.SP_UPDATE_AFTER_QD23(?, ?, ?, ?, ?)}");
+            cs.setString(1, mabc);
+            cs.setString(2, mapgd);
+            cs.setString(3, ngaybc);
+            cs.registerOutParameter(4, oracle.jdbc.OracleTypes.NUMBER);
+                cs.registerOutParameter(5, oracle.jdbc.OracleTypes.VARCHAR);
+            cs.execute();
+            int pn_err_cd = cs.getInt(4);
+                //thu hien lay mo ta loi
+                String strEdd_txt = cs.getString(5);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham updateAfterSend " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " updateAfterSend -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
 }

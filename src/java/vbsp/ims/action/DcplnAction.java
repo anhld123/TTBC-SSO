@@ -11,6 +11,7 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.sql.Connection;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,12 +22,15 @@ import java.util.Map;
 import org.apache.struts2.ServletActionContext;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.DaoDCPLNO;
+import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.DcplnModel;
 import vbsp.ims.model.ModelTreeNode;
 import vbsp.ims.model.PLNO_DULIEU;
 import vbsp.ims.model.Pagination;
+import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.report.fast.ListValue;
+import vbsp.ims.restapi.DuLieuNTService;
 
 /**
  *
@@ -34,7 +38,11 @@ import vbsp.ims.report.fast.ListValue;
  */
 public class DcplnAction extends ActionSupport {
 
+    DuLieuNTService service;
+    
+
     //<editor-fold defaultstate="collapsed" desc="Khai bao bien">
+    protected PosMainModel posMainModel;
     protected String Grade;
     protected String UserName;
     protected String Message;
@@ -63,6 +71,16 @@ public class DcplnAction extends ActionSupport {
     private List<String> poscd = new ArrayList<String>();
     private List<PLNO_DULIEU> lstSavePln = new ArrayList<PLNO_DULIEU>();
 
+    public PosMainModel getPosMainModel() {
+        return posMainModel;
+    }
+
+    public void setPosMainModel(PosMainModel posMainModel) {
+        this.posMainModel = posMainModel;
+    }
+    
+    
+
     public List<ListValue> getLstDMNgNhanC2() {
         return lstDMNgNhanC2;
     }
@@ -70,8 +88,7 @@ public class DcplnAction extends ActionSupport {
     public void setLstDMNgNhanC2(List<ListValue> lstDMNgNhanC2) {
         this.lstDMNgNhanC2 = lstDMNgNhanC2;
     }
-    
-    
+
     public List<PLNO_DULIEU> getLstSavePln() {
         return lstSavePln;
     }
@@ -169,7 +186,6 @@ public class DcplnAction extends ActionSupport {
     }
 
     //</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc="Phuong thu get/set Cho bien dung chung">
     public String getGrade() {
         return Grade;
@@ -465,7 +481,7 @@ public class DcplnAction extends ActionSupport {
 //            System.err.println("dvut_dcpln=" + dvut_dcpln + " poscd=" + ArrlstPosCd.size());
             //neu don vi uy thac khong phai la truc tiep thi moi load ma to truong hoac du an
             if (!dvut_dcpln.equals("1")) {
-                setLstTotruongDcpln(daoRisk.getToTruong(UserName, Grade, ArrlstPosCd, dvut_dcpln,sNgaySl));
+                setLstTotruongDcpln(daoRisk.getToTruong(UserName, Grade, ArrlstPosCd, dvut_dcpln, sNgaySl));
             }
 
         } catch (Exception e) {
@@ -669,7 +685,9 @@ public class DcplnAction extends ActionSupport {
 
     //<editor-fold defaultstate="collapsed" desc="Action Cập nhật thông tin Phân loại nợ">
     /**
-     * Hàm thưc hiện cập nhật thông tin Phân loại nợ theo khả năng trả nợ khách hàng
+     * Hàm thưc hiện cập nhật thông tin Phân loại nợ theo khả năng trả nợ khách
+     * hàng
+     *
      * @return: SUCCESS - Nếu thành công; ERROR - Nếu có lỗi xẩy ra
      */
     public String saveDataPLNo_KHTN() {
@@ -699,10 +717,27 @@ public class DcplnAction extends ActionSupport {
                 }
             }
             DaoDCPLNO daoPlno = new DaoDCPLNO();
-             System.err.println("số --" + lstdctmp.size());
+            System.err.println("số --" + lstdctmp.size());
             if (daoPlno.SaveDataPLNO_KHTN(UserName, sNgaySl, totruong_dcpln, lstdctmp)) {
-                addActionError("Đã cập nhật số liệu thông tin Phân loại nợ thành công!");
-                setMessage("SUCCESS");
+//                Lấy lại thông tin để gửi lên tw
+                List<DcplnModel> lstDataSend = new ArrayList<>();
+                lstDataSend = daoPlno.getDataPLN_Api(UserName, "1", sNgaySl, lstdctmp);
+                service = new DuLieuNTService();
+                Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(sNgaySl);
+                DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+                String strDate = dateFormat.format(date1);
+                
+                posMainModel = new DaoListPosFromUser().get_pos_main_pos(UserName, Grade);                
+                String kkk = service.sendDataPLN_ByApi(posMainModel.getPosCd(), "N", strDate, lstDataSend, UserName);
+                if (kkk.equals("1")) {
+                    addActionError("Đã cập nhật số liệu thông tin Phân loại nợ thành công!");
+                    setMessage("SUCCESS");
+                }
+                else{
+                    addActionError("Lưu thành công nhưng chưa cập nhật được lên tw! ");
+                    setMessage("Lưu thành công nhưng chưa cập nhật được lên tw! ");
+                    return ERROR;
+                }
             } else {
                 addActionError("Bạn chưa cập nhật được số liệu xin liên hệ quản trị để khắc phục lỗi! ");
                 setMessage("Bạn chưa cập nhật được số liệu xin liên hệ quản trị để khắc phục lỗi! ");
@@ -718,7 +753,9 @@ public class DcplnAction extends ActionSupport {
     }
 
     /**
-     * Hàm thực hiện cập nhật thông tin bổ sung về Phân loại nợ (Quan hệ khách hàng, Chênh lệch đối chiếu)
+     * Hàm thực hiện cập nhật thông tin bổ sung về Phân loại nợ (Quan hệ khách
+     * hàng, Chênh lệch đối chiếu)
+     *
      * @return: SUCCESS - Nếu thành công; ERROR - Nếu có lỗi xẩy ra
      */
     public String saveDataPLNo_DC() {
@@ -740,12 +777,10 @@ public class DcplnAction extends ActionSupport {
             }
 
             List<PLNO_DULIEU> lstdctmp = new ArrayList<PLNO_DULIEU>();
-            for (PLNO_DULIEU value : lstSavePln) 
-            {
+            for (PLNO_DULIEU value : lstSavePln) {
                 if (!value.getsSoku().equals("false")) {
-                    if(value.getsTrangthai().equals("R") && value.getsNgnhan_Clech().trim().isEmpty())
-                    {
-                       // addActionError("Bạn phải nhập nguyên nhân với món vay Không đối chiếu được! ");
+                    if (value.getsTrangthai().equals("R") && value.getsNgnhan_Clech().trim().isEmpty()) {
+                        // addActionError("Bạn phải nhập nguyên nhân với món vay Không đối chiếu được! ");
                         setMessage("Bạn phải nhập nguyên nhân với món vay Không đối chiếu được! ");
                         return ERROR;
                     }
@@ -754,8 +789,25 @@ public class DcplnAction extends ActionSupport {
             }
             DaoDCPLNO daoPlno = new DaoDCPLNO();
             if (daoPlno.SaveDataPLNO_DC(UserName, sNgaySl, totruong_dcpln, lstdctmp)) {
-                addActionError("Đã cập nhật số liệu thông tin Phân loại nợ thành công!");
-                setMessage("SUCCESS");
+//                 Lấy lại thông tin để gửi lên tw
+                List<DcplnModel> lstDataSend = new ArrayList<>();
+                lstDataSend = daoPlno.getDataPLN_Api(UserName, "1", sNgaySl, lstdctmp);
+                service = new DuLieuNTService();
+                Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(sNgaySl);
+                DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+                String strDate = dateFormat.format(date1);
+                
+                posMainModel = new DaoListPosFromUser().get_pos_main_pos(UserName, Grade);                
+                String kkk = service.sendDataPLN_ByApi(posMainModel.getPosCd(), "N", strDate, lstDataSend, UserName);
+                if (kkk.equals("1")) {
+                    addActionError("Đã cập nhật số liệu thông tin Phân loại nợ thành công!");
+                    setMessage("SUCCESS");
+                }
+                else{
+                    addActionError("Lưu thành công nhưng chưa cập nhật được lên tw! ");
+                    setMessage("Lưu thành công nhưng chưa cập nhật được lên tw! ");
+                    return ERROR;
+                }
             } else {
                 addActionError("Bạn chưa cập nhật được số liệu xin liên hệ quản trị để khắc phục lỗi! ");
                 setMessage("Bạn chưa cập nhật được số liệu xin liên hệ quản trị để khắc phục lỗi! ");

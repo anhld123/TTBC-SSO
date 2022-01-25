@@ -67,6 +67,7 @@ public class XmlDcpln {
     private String Nguoi_Nhap_pln = "NIPLN";
     private String Ngay_Nhap_pln = "NYPLN";
     private String Quan_he = "QHE";
+    private String PLN_NGUYENNHAN_C2 = "PLN_NGUYENNHAN_C2";
 
     private String Ma_PGD = "MAPGD";
     private String Mto = "MTO";
@@ -243,6 +244,7 @@ public class XmlDcpln {
                     value.setsNguoi_Pln(data.getElementsByTagName(Nguoi_Nhap_pln).item(0).getTextContent().trim());
                     value.setsNgay_Pln(data.getElementsByTagName(Ngay_Nhap_pln).item(0).getTextContent().trim());
                     value.setsQuanhe_Kh(data.getElementsByTagName(Quan_he).item(0).getTextContent().trim());
+                    value.setsNgnhan_KckntnC2(data.getElementsByTagName(PLN_NGUYENNHAN_C2).item(0).getTextContent().trim());
                     lstPln.add(value);
                 }
             }

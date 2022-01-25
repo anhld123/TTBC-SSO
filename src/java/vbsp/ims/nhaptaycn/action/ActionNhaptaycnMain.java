@@ -1210,6 +1210,9 @@ public class ActionNhaptaycnMain extends ActionSupport {
                         checkfile.delete();
                     }
                     mapStatusSend.put(mapgd, 4);  //gui du lieu thanh cong
+                    if(khoa_nhaptaycn.equals("QD23_001")){
+                        new DaoNhaptaycnMain().updateAfterSendQd23(khoa_nhaptaycn, mapgd, hmParameter.get("ngay_bc").toString());
+                    }
 
                 } else {
 //                    addActionMessage("Bạn không thể gửi dữ liệu lên trung ương do bị khóa </br>Xin liên hệ về Ban KT&QLTC để được gửi lại số liệu ! ");

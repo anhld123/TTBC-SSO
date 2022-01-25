@@ -1711,7 +1711,7 @@ public class DaoDCPLNO {
                 int index = 0;
                 for (DcplnModel value : lstDcPln) {
 
-                    Object[] params = new Object[24];
+                    Object[] params = new Object[25];
                     params[0]=value.getsSoku();
                     params[1]=value.getsDvut();
                     params[2]=value.getsMato();
@@ -1739,6 +1739,7 @@ public class DaoDCPLNO {
                     params[21]=value.getsNgay_Pln();
                     params[22]=value.getsNgay_Pln();
                     params[23]=value.getsQuanhe_Kh();
+                    params[24]=value.getsNgnhan_KckntnC2();
 
                     STRUCT struct = new STRUCT(structDescriptor,
                             conn, params);
@@ -1836,6 +1837,117 @@ public class DaoDCPLNO {
             return false;
         }
         return true;
+    }
+//    Lấy dữ liệu gửi api
+    public List<DcplnModel> getDataPLN_Api(String sUserName, String sGrade, String sNgaySL,
+            List<PLNO_DULIEU> lstPLNo) {
+        List<DcplnModel> lstDcplNo = new ArrayList<DcplnModel>();
+        int iErr_CD = 0;
+        String sEdd_TXT = "";
+        DaoConnect daoconnect = new DaoConnect();
+        Connection conn = null;
+        conn = daoconnect.getConnect();
+        try {
+//            ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
+//            String[] arrayPoscd = lstArrPosCD.toArray(new String[0]);
+//            ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
+//            
+            Object array[] = lstPLNo.toArray();
+            ArrayDescriptor des = ArrayDescriptor.createDescriptor(PLNO_DULIEU.ORACLE_TABLE_TYPE, conn);
+            ARRAY array_to_pass = new ARRAY(des, conn, array);
+        
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{CALL PLNO_TAOSOLIEU.SP_GET_SEND_API(?,?,?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
+            calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.VARCHAR);
+            calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.CURSOR);
+            //Tham so thu nhat truyen vao la co lay theo pos hay main pos
+            calstatement.setString(1, sUserName);
+            calstatement.setString(2, sGrade);
+            calstatement.setString(3, sNgaySL);
+            calstatement.setArray(4, array_to_pass);
+
+            calstatement.execute();
+            reset = (ResultSet) calstatement.getObject(7);
+
+            iErr_CD = calstatement.getInt(5);
+            sEdd_TXT = calstatement.getString(6);
+
+            while (reset.next()) {
+                DcplnModel value = new DcplnModel();
+                value.setbStt(reset.getInt(1));
+                value.setsMacn(reset.getString(2));
+                value.setsMapgd(reset.getString(3));
+                value.setsMaxa(reset.getString(4));
+                value.setsNguonvon(reset.getString(5));
+                value.setsNguonvon_Ten(reset.getString(6));
+                value.setsDvut(reset.getString(7));
+                value.setsDvut_Ten(reset.getString(8));
+                value.setsChtrinh(reset.getString(9));
+                value.setsChtrinh_Ten(reset.getString(10));
+                value.setsChtrinh_Tenvt(reset.getString(11));
+                value.setsMato(reset.getString(12));
+                value.setsTentt(reset.getString(13));
+                value.setsMakh(reset.getString(14));
+                value.setsTenkh(reset.getString(15));
+                value.setsSoku(reset.getString(16));
+                value.setsDnothan(reset.getBigDecimal(17).toString());
+                value.setsDnoqhan(reset.getBigDecimal(18).toString());
+                value.setsDnokhoanh(reset.getBigDecimal(19).toString());
+
+                BigDecimal bTongDN = BigDecimal.ZERO;
+                bTongDN = bTongDN.add(reset.getBigDecimal(17));
+                bTongDN = bTongDN.add(reset.getBigDecimal(18));
+                bTongDN = bTongDN.add(reset.getBigDecimal(19));
+                value.setsTongDN(bTongDN.toString());
+                value.setsTonglaiton(reset.getBigDecimal(20).toString());
+                value.setsC_Kntn_Sodu(reset.getBigDecimal(21).toString());
+                value.setsK_Kntn_Sodu(reset.getBigDecimal(22).toString());
+                value.setsNgnhan_Kckntn(reset.getString(23));
+                value.setsK_Ngnhan_Kh(reset.getString(24));
+                value.setsQuanhe_Kh(reset.getString(25));
+                value.setsTrangthai(reset.getString(26));
+                value.setsNogoc_Clech(reset.getBigDecimal(27).toString());
+                value.setsNolai_Clech(reset.getBigDecimal(28).toString());
+                value.setsNgnhan_Clech(reset.getString(29));
+                value.setsTt_Monvay(reset.getString(30));
+                value.setsNgaybc(reset.getString(31));
+                value.setsNguoi_Pln(reset.getString(32));
+                value.setsNgay_Pln(reset.getString(33));
+                value.setsNgnhan_KckntnC2(reset.getString(34));
+                
+                value.setsK_Kntn_Sd01(reset.getString(35));
+                value.setsK_Kntn_Sd02(reset.getString(36));
+                value.setsK_Kntn_Sd03(reset.getString(37));
+                value.setsK_Kntn_Sd04(reset.getString(38));
+                value.setsK_Kntn_Sd05(reset.getString(39));
+                value.setsK_Kntn_Sd06(reset.getString(40));
+                value.setsK_Kntn_Sd07(reset.getString(41));
+                value.setsK_Kntn_Sd08(reset.getString(42));
+                value.setsK_Kntn_Sd09(reset.getString(43));
+                value.setsK_Kntn_Sd10(reset.getString(44));
+                value.setsK_Kntn_Sd11(reset.getString(45));
+                
+
+                
+                lstDcplNo.add(value);
+            }
+
+            if (reset != null) {
+                reset.close();
+            }
+            if (calstatement != null) {
+                calstatement.close();
+            }
+        } catch (Exception e) {
+            System.err.println("Doi chieu, Phan loai no -> Loi trong ham getDataPLN " + e.getMessage());
+            CoreLogger.error(this.getClass().getCanonicalName() + " getDataPLN -> " + e.getMessage());
+        }
+        return lstDcplNo;
     }
     //</editor-fold>
 }
