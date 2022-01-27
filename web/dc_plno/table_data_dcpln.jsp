@@ -358,8 +358,8 @@
                     <td align = "center" class="TD_CHON"> 
                         <s:checkbox id ="%{#rowstatus.index}" cssClass="checkbox1" name="lstSavePln[%{#rowstatus.index}].sSoku" fieldValue="%{sSoku}"/>
                     </td>
-                    <td align = "left" class="TD_TEN_KH">
-                        <input type="text" value="<s:property  value="sTenkh" />" 
+                    <td align = "left" class="TD_TEN_KH" style="font-size: 10px!important">
+                        <input type="text" value="<s:property  value="sTenkh" />" title="<s:property  value="sTenkh" />"
                                name="sTenkh" class="TEN_KH" onfocus="this.select()" readonly="true"/>
                     </td>
                     <td align = "center" class="TD_SOKU"> 
@@ -367,36 +367,36 @@
                             <s:property value='sSoku'/>
                         </a>
                     </td>
-                    <td align = "left" class="TD_CHTRINH">
+                    <td align = "left" class="TD_CHTRINH" style="font-size: 10px!important"> 
                         <input type="text" value="<s:property  value="sChtrinh_Tenvt" />" 
                                name="sChtrinh_Tenvt" class="TD_CHTRINH" onfocus="this.select()" readonly="true"/>
                     </td>
-                    <td align = "right" class="TD_DU_NO">
+                    <td align = "right" class="TD_DU_NO" style="font-size: 10px!important">
                         <input type="text" value="<s:property value='sTongDN'/>" name="sTongDN" class="DU_NO number2"
                                onblur="if (this.value == '') {
                                            this.value = 0
                                        }" onfocus="this.select()" readonly="true" id="id_TongDN_<s:property  value="%{#rowstatus.index}" />"/>
                     </td>
-                    <td align = "right" class="TD_DU_NO">
+                    <td align = "right" class="TD_DU_NO" style="font-size: 10px!important">
                         <input type="text" value="<s:property value='sDnothan'/>" name="sDnothan" class="DU_NO number2" 
                                onblur="if (this.value == '') {
                                            this.value = 0
                                        }" onfocus="this.select()" readonly="true" id="id_Dnohan_<s:property  value="%{#rowstatus.index}" />"/>
                     </td>
 
-                    <td align = "right" class="TD_DU_NO">
+                    <td align = "right" class="TD_DU_NO" style="font-size: 10px!important">
                         <input type="text" value="<s:property value='sDnoqhan'/>" name="sDnoqhan" class="DU_NO number2"
                                onblur="if (this.value == '') {
                                            this.value = 0
                                        }" onfocus="this.select()" readonly="true" id="id_Dnoqhan_<s:property  value="%{#rowstatus.index}" />"/>
                     </td>
-                    <td align = "right" class="TD_DU_NO">
+                    <td align = "right" class="TD_DU_NO" style="font-size: 10px!important">
                         <input type="text" value="<s:property value='sDnokhoanh'/>" name="sDnokhoanh" class="DU_NO number2" 
                                onblur="if (this.value == '') {
                                            this.value = 0
                                        }" onfocus="this.select()" readonly="true" id="id_Dnokhoanh_<s:property  value="%{#rowstatus.index}" />"/>
                     </td>
-                    <td align = "right" class="TD_LAITON">
+                    <td align = "right" class="TD_LAITON" style="font-size: 10px!important">
                         <input type="text" value="<s:property value='sTonglaiton'/>" name="sTonglaiton" class="DU_NO number2" 
                                onblur="if (this.value == '') {
                                            this.value = 0
@@ -404,7 +404,7 @@
                     </td>
 
                     <!--chi tieu nhap tay tu day--> 
-                    <td align = "right" class="TD_DU_NO">
+                    <td align = "right" class="TD_DU_NO" style="font-size: 10px!important">
                         <input type="text" value="<s:property value='sC_Kntn_Sodu'/>" name="lstSavePln[<s:property  value="%{#rowstatus.index}" />].bC_Kntn_Sodu" class="DU_NO number2" 
                                onblur="if (this.value == '') {
                                            this.value = 0
@@ -415,7 +415,7 @@
                                        on_valib(<s:property  value="%{#rowstatus.index}" />, this)"/>
                     </td>
 
-                    <td align = "right" class="TD_DU_NO">
+                    <td align = "right" class="TD_DU_NO" style="font-size: 10px!important">
                         <input type="text" value="<s:property value='sK_Kntn_Sodu'/>" name="lstSavePln[<s:property  value="%{#rowstatus.index}" />].bK_Kntn_Sodu" class="DU_NO number2" 
                                onblur="if (this.value == '') {
                                            this.value = 0
@@ -425,7 +425,7 @@
                                id="dukhong_kntn_<s:property  value="%{#rowstatus.index}" />" onclick="ChangeValue_KCKNTN(<s:property  value="%{#rowstatus.index}" />, this); on_valib(<s:property  value="%{#rowstatus.index}" />, this)"/>
                     </td>
 
-                    <td align = "left" class="TD_NGUYEN_NHAN_KHOANH">
+                    <td align = "left" class="TD_NGUYEN_NHAN_KHOANH" style="font-size: 10px!important">
                         <input type="hidden" id="sNgnhan_Kckntn_<s:property  value="%{#rowstatus.index}" />" 
                                name="Ngnhan_Kckntn_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="sNgnhan_Kckntn"/>"/>
                         <s:select  
@@ -440,7 +440,7 @@
                             cssStyle="width: 120px;vertical-align: middle;background-color: #FFCCBA;">
                         </s:select>
                     </td>   
-                    <td align = "left" class="TD_NGUYEN_NHAN_KHOANH">
+                    <td align = "left" class="TD_NGUYEN_NHAN_KHOANH" style="font-size: 10px!important">
                         <input type="hidden" id="sNgnhanc2_Kckntn_<s:property  value="%{#rowstatus.index}" />" 
                                name="Ngnhanc_Kckntn_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="sNgnhan_KckntnC2"/>"/>
                         <s:select  
@@ -466,7 +466,7 @@
                         </s:select>
                     </td>       
 
-                    <td align = "left" class="TD_NGUYEN_NHAN_KHOANH">
+                    <td align = "left" class="TD_NGUYEN_NHAN_KHOANH" style="font-size: 10px!important">
                         <input type="text" value="<s:property value='sK_Ngnhan_Kh'/>" name="lstSavePln[<s:property  value="%{#rowstatus.index}" />].sK_Ngnhan_Kh" class="DU_NO" 
                                onfocus="this.select()" style="background-color: #FFCCBA" 
                                id="ngnhan_kh_<s:property  value="%{#rowstatus.index}" />"/>
