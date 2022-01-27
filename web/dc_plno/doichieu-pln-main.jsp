@@ -192,6 +192,8 @@
             function submitloadData()
             {
                 var iSuccess = 0;
+                $("#containParm").hide();
+                $("#loadingImageDiv").show();
                 $("#frmDataDc input[type=checkbox]").each(function()
                 {
                     var num_id = this.id;
@@ -263,6 +265,12 @@
                 else {
                     alert("Bạn phải chọn khách hàng cần đối chiếu trước khi lưu dữ liệu!");
                 }
+                setTimeout(setTime,2000);   
+            }
+            function setTime(){
+                //Đoạn này chỉ để chứng minh đã xử lý xong phần load Image loading
+                $("#loadingImageDiv").hide();
+                $("#containParm").show();
             }
             function validateRequiredFields() {
                 var result = true; //Luu ket qua kiem tra kieu so co dung khong
@@ -385,10 +393,10 @@
                                            onclick="onReturn()" value="Quay ra" style="float: right; width:81px;"/>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <sj:submit id="loadsubmitform" name="loadsubmitform" value="Tải dữ liệu" targets="divExportReport" onclick="onclear()"
-                                               onBeforeTopics="beforediv1" onCompleteTopics="completediv1" cssStyle="display: none"/>
+                                               onBeforeTopics="beforediv1" onCompleteTopics="completediv1" cssStyle="display: none;"/>
                                     <input type="button" id="loaddata" name="loaddata" onclick="onLoadData()" value="Tải dữ liệu"/>
                                     <sj:submit id="idButtondonvi" name="nameButtondonvi" value="Lưu dữ liệu" targets="divExportReport"
-                                               onBeforeTopics="beforediv1"
+                                               onBeforeTopics="myBeforeHandler"
                                                onCompleteTopics="completediv1" cssStyle="display: none"/>
                                     <input type="button" id="idButtondonvitmp" name="nameButtondonvitmp" onclick="submitloadData()" value="Lưu dữ liệu"/>
                                 </td>
