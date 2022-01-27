@@ -265,7 +265,7 @@
                 else {
                     alert("Bạn phải chọn khách hàng cần đối chiếu trước khi lưu dữ liệu!");
                 }
-                setTimeout(setTime,2000);   
+                setTimeout(setTime,1000);   
             }
             function setTime(){
                 //Đoạn này chỉ để chứng minh đã xử lý xong phần load Image loading
