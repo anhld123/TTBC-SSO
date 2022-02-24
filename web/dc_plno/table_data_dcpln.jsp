@@ -69,7 +69,7 @@
             $(".MAKH").css({"width": "100%"});
             $(".MAKH").css({"text-align": "center"});
             $(".DU_NO").css({"width": "100%"});
-            $(".TEN_KH").css({"width": "100%"});
+            $(".TEN_KH").css({"width": "max-content"});
             $(".SOKU").css({"width": "100%"});
             $(".TD_CHON").css({"width": "30px"});
             $(".TD_MAKH").css({"width": "80px"});
