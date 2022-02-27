@@ -90,7 +90,7 @@
             </s:iterator>   
             </br>
             <div id="divTitle">
-                XÁC NHẬN SỐ TIỀN ĐƯỢC HTLS CHO VAY CÁC CHƯƠNG TRÌNH TÍN DỤNG CHÍNH SÁCH THEO QUYẾT ĐỊNH 11/NQ-CP CỦA THỦ TƯỚNG CHÍNH PHỦ
+                XÁC NHẬN SỐ TIỀN ĐƯỢC HTLS CHO VAY CÁC CHƯƠNG TRÌNH TÍN DỤNG CHÍNH SÁCH THEO NGHỊ QUYẾT 11/NQ-CP CỦA THỦ TƯỚNG CHÍNH PHỦ
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nghiquyet11cp"/>

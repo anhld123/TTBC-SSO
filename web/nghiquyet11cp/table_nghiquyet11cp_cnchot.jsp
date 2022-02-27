@@ -186,17 +186,17 @@
         <link href="css/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body style="font-family: ">
-        <s:form id="id_sv_%{khoa_nhaptaycn}" action="SAVE_%{khoa_nhaptaycn}" theme="simple">
+        <s:form id="id_sv_NQ11CP_001" action="SAVE_NQ11CP_001" theme="simple">
             <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
                 <input type="hidden" id="<s:property  value="sKey" />" 
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
             </s:iterator>   
             </br>
             <div id="divTitle">
-                XÁC NHẬN SỐ TIỀN ĐƯỢC HTLS CHO VAY CÁC CHƯƠNG TRÌNH TÍN DỤNG CHÍNH SÁCH THEO QUYẾT ĐỊNH 11/NQ-CP CỦA THỦ TƯỚNG CHÍNH PHỦ
+                XÁC NHẬN SỐ TIỀN ĐƯỢC HTLS CHO VAY CÁC CHƯƠNG TRÌNH TÍN DỤNG CHÍNH SÁCH THEO NGHỊ QUYẾT 11/NQ-CP CỦA THỦ TƯỚNG CHÍNH PHỦ
                 <div id="luu_thanhcong_del"></div>
             </div>
-            <s:hidden name="khoa_nhaptaycn"/>
+            <s:hidden name="khoa_nghiquyet11cp"/>
 
             <div class="cls-over">
                 <div id="scrolling_table_1"  style="width: 98%; max-height:45vh">
@@ -228,6 +228,7 @@
                             <td style="text-align: center">(8)</td>
                             <td style="text-align: center">(9)</td>
                             <td style="text-align: center">(10)</td>
+                            <td style="text-align: center">(11)</td>
                             
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
@@ -310,7 +311,7 @@
                 </div>
             </div>
 
-            <sj:submit id="%{khoa_nhaptaycn}_save" name="%{khoa_nhaptaycn}_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
+            <sj:submit id="NQ11CP_001_save" name="NQ11CP_001_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
                        onCompleteTopics="completediv_ss" cssStyle="display: none"/>
         </s:form>
         <div id="luu_thanhcong"></div>
