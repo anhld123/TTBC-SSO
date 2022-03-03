@@ -62,7 +62,7 @@
                 background-color: transparent;
                 outline: none;
             }
-            select{
+            #cboCanBo{
                 min-width: 155px;
             }
             .clsChon{
@@ -86,13 +86,14 @@
             <div style="margin: 12px;">
                 <div class="clsHeader"><h1>KẾT QUẢ HUY ĐỘNG TIẾT KIỆM</h1></div>
                 <div class="clsTitle">
-                    Ngày báo cáo <input type="date" id="dtNgaybc" name="dtNgaybc" value="2020-07-22">
+                    Ngày báo cáo <input type="text" id="dtNgaybc" name="dtNgaybc" value="" readonly="readonly">
                     Cán bộ 
                     <select id="cboCanBo" name="cboCanBo">
                         <option value="000000">----Chọn cán bộ----</option>
                         <s:iterator value="lstCanBo">
                             <option value='<s:property value="MaCB"/>'><s:property value="TenCB"/></option>
                         </s:iterator>
+                        <option value="000001">----Chọn cán bộ còn lại----</option>
                     </select>
                     Chỉ tiêu được giao <input type="text" style="text-align: right;" id="txtChitieu" name="txtChitieu" value=0 class="number">
                     Chỉ hiện những số đã gắn cán bộ <input type="checkbox" checked="true" name="flgFilter" id="flgFilter">
@@ -104,7 +105,7 @@
         </form>
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
-
+        <script src="js/js/jquery-ui.min.js"></script>
         <script>
             $(document).ready(function () {
                 //Tải dữ liệu
@@ -190,7 +191,16 @@
             $("#cboCanBo").change(function () {
                 $("#cmdLuuDL").css("display", "none");
             });
-
+            $("#dtNgaybc").datepicker(
+             {  dateFormat: 'dd/mm/yy',
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                showOn: "button",
+                monthNames: ["1","2","3","4","5","6","7","8","9","10","11","12"],
+                monthNamesShort: ["1","2","3","4","5","6","7","8","9","10","11","12"]
+             });
+            $("#dtNgaybc").datepicker('setDate', new Date());
         </script>
     </body>
 </html>

@@ -32,6 +32,7 @@
                 <th>Số dư HĐ</th>
                 <th>Kỳ hạn</th>
                 <th>Cán bộ</th>
+                <th>Ngày gửi</th>
                 <th class="dataFillter"></th>
                 <th class="dataFillter"></th>
                 <th class="dataFillter"></th>
@@ -66,6 +67,7 @@
                     <td><input type="text" class='css_text number' value='<s:property value="D8"/>' readonly="readonly"></td>
                     <td><input type="text" class='css_text number' value='<s:property value="D9"/>' readonly="readonly"></td>
                     <td><input type="text" class='css_text' value='<s:property value="D10"/>' readonly="readonly"></td>
+                    <td><input type="text" class='css_text' value='<s:property value="D12"/>' readonly="readonly"></td>
                     <td class="dataFillter"><s:property value="D1"/></td>
                     <td class="dataFillter"><s:property value="D2"/></td>
                     <td class="dataFillter"><s:property value="D3"/></td>
@@ -98,6 +100,7 @@
             <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value='<s:property value="D8"/>' readonly="readonly">
             <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value='<s:property value="D9"/>' readonly="readonly">
             <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" value='<s:property value="D10"/>' readonly="readonly">
+            <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" value='<s:property value="D12"/>' readonly="readonly">
         </s:iterator>
         <input type="text" value="<s:property value="displaNone"/>" name="chkDate" id="chkDate">        
     </div>
@@ -125,7 +128,7 @@
         "oLanguage": {
             "oPaginate": {
                 "sFirst": "Đầu",
-                "sPrevious": "Sau",
+                "sPrevious": "Trước",
                 "sLast": "Cuối",
                 "sNext": "Sau"
             },
