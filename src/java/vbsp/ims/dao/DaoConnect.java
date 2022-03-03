@@ -83,7 +83,8 @@ public class DaoConnect {
         //return getConnect("10.63.8.63", "VBSPIMS1", 1521, "intellect", "intellect");
 //        return getConnect("10.27.0.56", "imsreport", 1521, "intellect", "intellect");
 //        return getConnect("10.18.0.56", "imsreport", 1521, "intellect", "intellect");
-        return getConnect("10.0.19.12", "VBSPBKA", 1521, "intellect", "intellect");
+      //  return getConnect("10.0.19.12", "VBSPBKA", 1521, "intellect", "intellect");
+        return getConnect("10.63.48.70", "IMSDEV", 1521, "intellect", "intellect");
         //return getConnect("10.69.0.56", "imsreport", 1521, "intellect", "intellect");
 //        return getConnect("10.63.8.78", "VBSPIMS", 1521, "intellect", "intellect");
         } catch (Exception ex) {
