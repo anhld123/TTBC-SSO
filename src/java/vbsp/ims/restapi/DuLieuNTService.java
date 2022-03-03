@@ -81,7 +81,8 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-
+    
+    
     public ArrayList<LockSendModel> getDataLockSendS2021(String posCode, String flagReport, String reportDate) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -107,6 +108,35 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
+    
+    
+    
+    public ArrayList<LockSendModel> getDataLockSendNQ11CP(String posCode, String flagReport, String reportDate) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("subsidy-send-status-data")
+                //                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", flagReport)
+                .queryParam("reportDate", reportDate);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            try {
+                LockSenResp dulieuNTResp = response.readEntity(LockSenResp.class);
+                ArrayList<LockSendModel> listOfRow = dulieuNTResp.result;
+                return listOfRow;
+            } catch (Exception e) {
+                System.err.println("loi: " + e.getMessage());
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+    
 
     public ArrayList<InvestorModel> getDataNDT2021(String posCode, String reportDate) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
@@ -162,12 +192,44 @@ public class DuLieuNTService extends ReportService {
         return response.getStatus();
     }
 //     1: lưu xác nhận lại; 2: lưu phân loại ht
-
     public int updateData2021HTLS(String posCode, String reportDate, String makerId,
             ArrayList<IntDeductionModel> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("int-deduction-update-12")
+                //                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                //                .queryParam("posFlag", posFlag)
+                .queryParam("reportDate", reportDate)
+                .queryParam("updateId", makerId == null || makerId == "" ? "" : makerId);
+//                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
+
+        String json = "";
+
+        // chuan hoa du lieu truoc khi day len        
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(Include.NON_NULL);
+        try {
+            json = mapper.writeValueAsString(data);
+            //System.out.println("ResultingJSONstring = " + json);            
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        //json = "[{\"key\": \"COVID_03\",\"code\": \"1004003452\", \"reportDate\": \"2021-06-30T00:00:00.000Z\",\"posCode\": \"000401\",\"posFlag\": \"S\",\"makerId\": \"trungnt\",\"makerDate\": \"2021-10-28T07:51:49.872Z\",\"d50\": \"1\",\"style\": 0}]";
+        //json ="[{\"key\":\"COVID_03\",\"orderValue\":\"0\",\"code\":\"1004003452\",\"reportDate\":\"2021-06-30T00:00:00\",\"reportYear\":2021,\"posCode\":\"000401\",\"posFlag\":\"S\",\"branchCode\":\"000401\",\"makerId\":\"trungnt\",\"makerDate\":\"2021-10-29T15:04:56\",\"d1\":\"1004003452\",\"d50\":\"1\",\"manualFlag\":\"Y\",\"style\":0}]";
+        Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
+
+        return response.getStatus();
+    }
+    
+    //     1: lưu xác nhận lại; 2: lưu phân loại ht
+    public int updateDataNQ11CP_001(String posCode, String reportDate, String makerId,
+            ArrayList<NQ11cpModel> data) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("int-subsidy-update")
                 //                .queryParam("key", key)
                 .queryParam("posCode", posCode)
                 //                .queryParam("posFlag", posFlag)
@@ -232,6 +294,37 @@ public class DuLieuNTService extends ReportService {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("pos-send-status-update")
+                //                .queryParam("key", key)
+                .queryParam("mainPos", posCode)
+                //                .queryParam("posFlag", posFlag)
+                .queryParam("reportDate", reportDate)
+                .queryParam("updateId", makerId == null || makerId == "" ? "" : makerId);
+//                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
+
+        String json = "";
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(Include.NON_NULL);
+        try {
+            json = mapper.writeValueAsString(data);
+            //System.out.println("ResultingJSONstring = " + json);            
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        //json = "[{\"key\": \"COVID_03\",\"code\": \"1004003452\", \"reportDate\": \"2021-06-30T00:00:00.000Z\",\"posCode\": \"000401\",\"posFlag\": \"S\",\"makerId\": \"trungnt\",\"makerDate\": \"2021-10-28T07:51:49.872Z\",\"d50\": \"1\",\"style\": 0}]";
+        //json ="[{\"key\":\"COVID_03\",\"orderValue\":\"0\",\"code\":\"1004003452\",\"reportDate\":\"2021-06-30T00:00:00\",\"reportYear\":2021,\"posCode\":\"000401\",\"posFlag\":\"S\",\"branchCode\":\"000401\",\"makerId\":\"trungnt\",\"makerDate\":\"2021-10-29T15:04:56\",\"d1\":\"1004003452\",\"d50\":\"1\",\"manualFlag\":\"Y\",\"style\":0}]";
+        Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
+
+        return response.getStatus();
+    }
+    
+    public int updateDataNQ11CP_ChotSL(String posCode, String reportDate, String makerId,
+            ArrayList<UpdateLockModel> data) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("subsidy-send-status-update")
                 //                .queryParam("key", key)
                 .queryParam("mainPos", posCode)
                 //                .queryParam("posFlag", posFlag)
@@ -615,6 +708,29 @@ public class DuLieuNTService extends ReportService {
         }
     }
     
+    public ArrayList<NQ11cpModel> getDataNQ11CP(String posCode, String reportDate, String program, String communeId, String groupId) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("int-subsidy-data")
+                //                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("reportDate", reportDate)
+                .queryParam("program", program)
+                .queryParam("communeId", communeId.equals("000000") ? "" : communeId)
+                .queryParam("groupId", groupId.equals("0000000") ? "" : groupId);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            NQ11cpResp dulieuNTResp = response.readEntity(NQ11cpResp.class);
+            ArrayList<NQ11cpModel> listOfRow = dulieuNTResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+    
      public static void main(String[] args) {
          DuLieuNTService service = new DuLieuNTService();
 //        Date timeServer = service.getTimeServer();
@@ -654,6 +770,8 @@ public class DuLieuNTService extends ReportService {
         
         List<DcplnModel> lstDulieuNt = new ArrayList<>();
         lstDulieuNt = new DaoDCPLNO().getDataPLN_Api("000401", "1", "31-dec-2021", lstPLNo);
+        
+        
 ////       
 //        String kkk = sendDataNV_QTByApi(lstDulieuNt, "NV_QT_000703_S_20211231_HUYNQ01_3324");
 //            try {
