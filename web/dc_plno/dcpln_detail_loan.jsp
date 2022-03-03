@@ -211,7 +211,7 @@
                 }
                 else {
                     //Neu la kieu so --> Kiem tra xem kieu nhap co < 9999999999
-                    if (parseFloat(value) > 9999999999) {
+                    if (parseFloat(value) > 99999999999) {
                         result = false;
                         alert('Giá trị bạn nhập vượt quá giới hạn!');
                         focus();

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>           
+    <package name="main_nghiquyet11cp" extends="struts-default,json-default">                       
+        <action name="loadAllNghiquyet11cp" class="vbsp.ims.nghiquyet11cp.ActionNghiquyet11cpMain"  method="execute">
+            <result name="success" type="json"></result>        
+        </action>   
+        
+        <action name="LoadParaNghiquyet11cp" class="vbsp.ims.nghiquyet11cp.ActionNghiquyet11cpMain"  method="loadParaBaocao">
+            <result name="nghiquyet11cp_01">/nghiquyet11cp/para_nghiquyet11cp.jsp</result>
+            <result name="error">/nghiquyet11cp/success.jsp</result>        
+        </action>  
+        
+        <action name="NQ11CP_001" class="vbsp.ims.nghiquyet11cp.NQ11CP_001"  method="load">
+            <result name="success">/nghiquyet11cp/table_nq11cp_htls.jsp</result>                 
+            <result name="cap2_chot">/nghiquyet11cp/table_nghiquyet11cp_cnchot.jsp</result> 
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        
+        <action name="SAVE_NQ11CP_001" class="vbsp.ims.nghiquyet11cp.NQ11CP_001"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="HTL_NQ11CP_001" class="vbsp.ims.nghiquyet11cp.NQ11CP_001"  method="save_htl">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+                
+        
+    </package>
+    
+</struts>

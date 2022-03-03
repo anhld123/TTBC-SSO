@@ -277,7 +277,7 @@
                 $(".number2").each(function(index) {
                     var value = $(this).val();
                     value = value.replace(/,/g, "");
-                    if (parseFloat(value) > 9999999999) {
+                    if (parseFloat(value) > 99999999999) {
                         result = false;
                         alert('Giá trị bạn nhập vượt quá giới hạn!');
                         return false;
@@ -315,7 +315,7 @@
                                 <td>
                                     <s:label value="Ngày báo cáo " cssStyle="color: #029c44;"/>
                                     <sj:datepicker name="ngay_dcpln" id="ngay_dcpln"
-                                                   value="%{new java.util.Date()}" onblur="validatedate(this.value)" cssClass="NGAY_SL"
+                                                   value="%{'31/12/2021'}" onblur="validatedate(this.value)" cssClass="NGAY_SL"
                                                    placeholder="DD/MM/YYYY" changeYear="true"  changeMonth="true" displayFormat="dd/mm/yy" 
                                                    cssStyle="vertical-align: middle;"/> 
                                     &nbsp;
@@ -432,5 +432,12 @@
             </s:form>
         </div>
     </p>
+    <script>
+        $(document).ready(function () {
+            alert('1');
+//            $("#ngay_dcpln").val("31/12/2021");
+            document.getElementById('ngay_dcpln').value = "31/12/2021";
+        }
+    </script>
 </body>
 </html>

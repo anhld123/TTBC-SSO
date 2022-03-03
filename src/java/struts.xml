@@ -402,5 +402,7 @@
     <include file="struts_cic_tt200.xml"/>
     <include file="struts-eps.xml"/>
     <include file="struts-ketqua-ktdc.xml"/>   
-    <include file ="huydongtk.xml"></include>   
+    <include file ="huydongtk.xml"></include> 
+    <include file="struts_nghiquyet11cp.xml"/>    
+     
 </struts>
