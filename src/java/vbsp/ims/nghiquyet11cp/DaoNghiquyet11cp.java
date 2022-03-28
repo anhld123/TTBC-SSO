@@ -4461,8 +4461,8 @@ public class DaoNghiquyet11cp {
     public static void main(String[] args) throws Exception {
         DuLieuNTService service = new DuLieuNTService();
         ArrayList<NQ11cpModel> lstData = service.getDataNQ11CP("000601", "20220228", "03",
-                "060101", "0091543");
-        new NQ11CP_001().margerData(lstData,"0","0000");
+                "060102", "0000000");
+        new NQ11CP_001().margerData(lstData,"0","0000","1");
         
         String s= "000000_1234567";
         String k = s.split("_")[1];

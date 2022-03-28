@@ -190,6 +190,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     private String tt_khoa;
     private String macn;
     private String ngay_bc;
+    public String chotsl;
 
     protected String totalDataView;
 
@@ -391,6 +392,18 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
                 setLstNhadautu(daoMain.getDanhMuc(UserName, "NHADT", Grade));
                 return "nghiquyet11cp_01";
             }
+            else if (khoa_nghiquyet11cp.equals("NQ11CP_02SK")) {
+                setLstChuongtrinh(daoMain.getDanhMuc(UserName, "CHUONGTRINH", Grade));
+                setLstMaxa(daoMain.getDanhMuc(UserName, "MAXA", Grade));
+                setLstMato(daoMain.getDanhMuc(UserName, "MATO", Grade));
+                setLstPhanloai(daoMain.getDanhMuc(UserName, "PHANLOAI", Grade));
+                setLstGiaiNgan(daoMain.getDanhMuc(UserName, "GIAINGAN", Grade));
+                setLstNhadautu(daoMain.getDanhMuc(UserName, "NHADT", Grade));
+                return "nghiquyet11cp_02_sk";
+            }
+            else if (khoa_nghiquyet11cp.equals("NQ11CP_01KH")) {
+                return "nghiquyet11cp_01_kh";
+            }
             else{
                 return "";
             }
@@ -403,6 +416,18 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
+
+    public String getChotsl() {
+        return chotsl;
+    }
+
+    public void setChotsl(String chotsl) {
+        this.chotsl = chotsl;
+    }
+
+
+    
+    
     public String getPoslist() {
         return poslist;
     }
