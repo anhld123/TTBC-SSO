@@ -11,6 +11,8 @@
         
         <action name="LoadParaNghiquyet11cp" class="vbsp.ims.nghiquyet11cp.ActionNghiquyet11cpMain"  method="loadParaBaocao">
             <result name="nghiquyet11cp_01">/nghiquyet11cp/para_nghiquyet11cp.jsp</result>
+            <result name="nghiquyet11cp_01_kh">/nghiquyet11cp/para_nghiquyet11cp_01_kh.jsp</result>
+            <result name="nghiquyet11cp_02_sk">/nghiquyet11cp/para_nghiquyet11cp_02_sk.jsp</result>
             <result name="error">/nghiquyet11cp/success.jsp</result>        
         </action>  
         
@@ -29,8 +31,30 @@
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>
-                
         
+        <!--01 kế hoạch-->
+        <action name="NQ11CP_01KH" class="vbsp.ims.nghiquyet11cp.NQ11CP_01KH"  method="load">
+                <result name="success">/nghiquyet11cp/table_nq11cp_01_kehoach.jsp</result>                 
+                <result name="cap2_chot">/nghiquyet11cp/table_nghiquyet11cp_cnchot.jsp</result> 
+                <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+
+        <action name="SAVE_NQ11CP_01KH" class="vbsp.ims.nghiquyet11cp.NQ11CP_01KH"  method="save">
+                <result name="success">/BCQT/success.jsp</result>
+                <result name="error">/BCQT/success.jsp</result>        
+        </action>                
+        
+        <!--02 Sao kê-->
+        <action name="NQ11CP_02SK" class="vbsp.ims.nghiquyet11cp.NQ11CP_02SK"  method="load">
+                <result name="success">/nghiquyet11cp/table_nq11cp_02_saoke.jsp</result>                 
+                <result name="cap2_chot">/nghiquyet11cp/table_nghiquyet11cp_cnchot.jsp</result> 
+                <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+
+        <action name="SAVE_NQ11CP_02SK" class="vbsp.ims.nghiquyet11cp.NQ11CP_02SK"  method="save">
+                <result name="success">/BCQT/success.jsp</result>
+                <result name="error">/BCQT/success.jsp</result>        
+        </action>                
     </package>
     
 </struts>
