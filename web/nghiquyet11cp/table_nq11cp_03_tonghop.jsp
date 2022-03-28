@@ -90,16 +90,12 @@
             </s:iterator>   
             </br>
             <div id="divTitle">
-                <s:if test="chotsl.equalsIgnoreCase('1')">                     
-                    XÁC NHẬN <font color="red">SỐ TIỀN</font> ĐƯỢC HTLS CHO VAY CÁC CHƯƠNG TRÌNH TÍN DỤNG CHÍNH SÁCH THEO NGHỊ QUYẾT 11/NQ-CP CỦA THỦ TƯỚNG CHÍNH PHỦ 
-                </s:if>              
-                <s:else>
-                     XÁC NHẬN <font color="red">MÓN VAY</font> ĐƯỢC HTLS CHO VAY CÁC CHƯƠNG TRÌNH TÍN DỤNG CHÍNH SÁCH THEO NGHỊ QUYẾT 11/NQ-CP CỦA THỦ TƯỚNG CHÍNH PHỦ 
-                </s:else>    
+                XÁC NHẬN SỐ TIỀN ĐƯỢC HTLS CHO VAY CÁC CHƯƠNG TRÌNH TÍN DỤNG CHÍNH SÁCH THEO NGHỊ QUYẾT 11/NQ-CP CỦA THỦ TƯỚNG CHÍNH PHỦ
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nghiquyet11cp"/>
-            <s:hidden name="chotsl"/>
+            <!--            <div class="cls-over">
+                            <div id="scrolling_table_1"  style="width: 98%; max-height:45vh">-->
             <table id="tblTable12" class="tblTable" style="width: 88%;">
                 <tr>      
                     <th rowspan="2" class="TD_TOTIEN">Tổng cộng</th> 
@@ -252,13 +248,7 @@
                             <!--<td style="text-align: center">(13)</td>-->
                             <!--<td style="text-align: center">(15)</td>-->
                             <th  class="TD_STT">
-                                <s:if test="chotsl.equalsIgnoreCase('0')">
-                                    <input type="checkbox" id ="allCheck_dat" name="allCheck_dat"  />
-                                </s:if>
-                                <s:else>
-                                    
-                                </s:else>
-                                
+                                <input type="checkbox" id ="allCheck_dat" name="allCheck_dat"  />
                             </th>  
 <!--                            <td style="text-align: center">(15)</td>
                             <td style="text-align: center">(16)</td>
@@ -329,27 +319,7 @@
                                            readonly="true"/>
                                 </td>
                                 <!--Lai giam cac tháng-->
-                                <s:if test="chotsl.equalsIgnoreCase('0')">
-                                    <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D18" />" style="background: #C0C0C0 !important;"
-                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number" onfocus="this.select();" id='D18<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D18<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" readonly="true"/>
-                                        <input type="text"   value="<s:property  value="D18" />"
-                                                class="DataHiden" id='D18<s:property  value="%{#rowstatus.index}" />BK'/>
-                                    </td>
-                                    <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D19" />" style="background: #C0C0C0 !important;"
-                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH number" onfocus="this.select();" id='D19<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D19<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" readonly="true"/>
-                                        <input type="text"   value="<s:property  value="D19" />"
-                                               class="DataHiden" id='D19<s:property  value="%{#rowstatus.index}" />BK'/>
-                                    </td>
-                                    <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D20" />" style="background: #C0C0C0 !important;"
-                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" class="TEN_KH number" onfocus="this.select();" id='D20<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D20<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" readonly="true"/>
-                                        <input type="text"   value="<s:property  value="D20" />"
-                                               class="DataHiden" id='D20<s:property  value="%{#rowstatus.index}" />BK'/>
-                                    </td>
-                                </s:if>
-                                <s:else>
+                                
                                     <td align = "right" class="TD_MAKH" >
                                         <input type="text"   value="<s:property  value="D18" />" <s:if test="MA.equalsIgnoreCase('1')">style="background: #C0C0C0 !important;"</s:if>
                                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number" onfocus="this.select();" id='D18<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D18<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" />
@@ -368,8 +338,6 @@
                                         <input type="text"   value="<s:property  value="D20" />"
                                                class="DataHiden" id='D20<s:property  value="%{#rowstatus.index}" />BK'/>
                                     </td>
-                                </s:else>
-                                    
                                  
                                 
 
@@ -378,23 +346,15 @@
                                 <!--                                 <td align = "center" class="TD_CHECKBOX"> 
                                 <s:checkbox id ="%{#rowstatus.index}" cssClass="checkboxsp" name="lstsaveNT_SP[%{#rowstatus.index}].MA" fieldValue="%{MA}"/>
                             </td>      -->
-                                <s:if test="MA.equalsIgnoreCase('1')">
+                                 <s:if test="MA.equalsIgnoreCase('1')">
                                     <td></td>
                                 </s:if>    
                                 <s:else>
-                                    <s:if test="chotsl.equalsIgnoreCase('0')">
-                                        <td  align="center" class="TD_CHECKBOX">    
-                                            <input type="checkbox" id ="idc11<s:property  value="%{#rowstatus.index}" />"  class="checkboxdat TEN_KH D0" 
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25" value="<s:property  value="D25"/>" onclick="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'ClickCheck')"                                           
-                                                   />
-                                        </td> 
-                                    </s:if>
-                                    <s:else>
-                                        <td  align="center" class="TD_CHECKBOX">    
-                                            <input type="checkbox" disabled="disabled" checked="checked">
-                                        </td> 
-                                    </s:else>
-                                    
+                                    <td  align="center" class="TD_CHECKBOX">    
+                                        <input type="checkbox" id ="idc11<s:property  value="%{#rowstatus.index}" />"  class="checkboxdat TEN_KH D0" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25" value="<s:property  value="D25"/>" onclick="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'ClickCheck')"                                           
+                                               />
+                                    </td> 
                                 </s:else>    
                                 
 

@@ -132,7 +132,7 @@
             }
 
             #navParamUp{
-                height: 65px;
+                height: 35px;
                 padding:0px;
                 padding-bottom: 0px;
                 padding-top: 0px;
@@ -188,8 +188,7 @@
             function onLoadData()
             {
 //                var grade = $.session.get('reportGrade').toString();
-//                $.session.get()
-//                alert(grade);
+//                $.session.get()                
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
                 $('#divExportReportLink').empty();
@@ -452,54 +451,10 @@
                             <tr style="height: 30px;">
                                 <td>Ngày BC</td>
                                 <td>
-                                    <sj:datepicker name="ngay_bc_DATE" value="%{'31/03/2022'}"  id="ngay_bc_DATE"
+                                    <sj:datepicker name="ngay_bc_DATE" value="%{'28/02/2022'}"  id="ngay_bc_DATE"
                                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
                                 </td>
-                                <td>Chương trình:</td>
-                                <td>                                               
-                                    <s:select  style="width: 150px;"  list="lstChuongtrinh" id="chuongtrinh" name="chuongtrinh" listKey="sKey" listValue="sDesc"></s:select> &nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td >Mã xã:</td>
-                                <td  >                                               
-                                    <s:select  style="width: 229px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
-                                               onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td >Mã tổ:</td>
-                                <td>
-                                    <s:select  style="width: 220px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc"></s:select>
-                                    <s:select  
-                                        id="mato_data"
-                                        list="lstMato" 
-                                        listKey="sKey"
-                                        listValue="sDesc"
-                                        headerKey="-1"
-                                        headerValue="--- Chọn ---"                                        
-                                        cssStyle="display:none;">
-                                    </s:select>
-                                </td>
-                                <!--  <td >Phân loại:</td>
-                                <td  >                                               
-                                    <s:select  style="width: 100px;"  list="lstPhanloai" id="phanloai" name="phanloai" listKey="sKey" listValue="sDesc"></s:select>
-                                </td>-->
-                            </tr>  
-                            <tr>
-<!--                                    <td >Giải ngân:</td>
-                                    <td  >                                               
-                                        <s:select  style="width: 100px;"  list="lstGiaiNgan" id="giaingan" name="giaingan" listKey="sKey" listValue="sDesc"></s:select>
-                                    </td>-->
-                                <td >Giải ngân:</td>
-                                            <td>
-                                                <select name="giaingan" id="giaingan">
-                                                    <option value="-1">--Tất cả--</option>
-                                                    <option value="1">Giải ngân sau 28/3</option>                                                    
-                                                </select>
-                                            </td>         
-
-                                <td >Nhà đầu tư:</td>
-                                <td colspan="3">                                               
-                                    <s:select  style="width: 345px;"  list="lstNhadautu" id="nha_dt" name="nha_dt" listKey="sKey" listValue="sDesc"></s:select>
-                                </td>     
-                                <td colspan="2">                                        
+                                <td >                                        
                                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                                onBeforeTopics="beforediv_data"
                                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
@@ -512,12 +467,6 @@
                                     </s:else>    
                                     
                                 </td>
-<!--                                <td colspan="2">
-                                    <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/>
-                                </td>-->
-                                <td></td>
-<!--                                <td colspan="2">
-                                    <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="Cập nhật hạch toán GL"/> </td>                                -->
                                 <td  colspan="2">
                                     <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
                                         <img id="loadingImage" src='img/loading.gif' border='0' >
@@ -527,12 +476,13 @@
                                     <div id="message_suc_err"> 
                                     </div>
                                 </td>
-                            </tr>
+                            </tr>  
+                       
                         </table>    
                     </div>
                 </div>
 
-                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11CP_001')">
+                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11CP_01KH')">
                     <div id="containParm_full" align="center">
                         <div id="divExportReport"></div>
                         <div align="right"  id="divExportReportLink"></div>

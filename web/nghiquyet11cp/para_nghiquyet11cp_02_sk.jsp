@@ -452,7 +452,7 @@
                             <tr style="height: 30px;">
                                 <td>Ngày BC</td>
                                 <td>
-                                    <sj:datepicker name="ngay_bc_DATE" value="%{'31/03/2022'}"  id="ngay_bc_DATE"
+                                    <sj:datepicker name="ngay_bc_DATE" value="%{'28/02/2022'}"  id="ngay_bc_DATE"
                                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
                                 </td>
                                 <td>Chương trình:</td>
@@ -477,28 +477,16 @@
                                         cssStyle="display:none;">
                                     </s:select>
                                 </td>
-                                <!--  <td >Phân loại:</td>
-                                <td  >                                               
-                                    <s:select  style="width: 100px;"  list="lstPhanloai" id="phanloai" name="phanloai" listKey="sKey" listValue="sDesc"></s:select>
-                                </td>-->
                             </tr>  
                             <tr>
-<!--                                    <td >Giải ngân:</td>
-                                    <td  >                                               
-                                        <s:select  style="width: 100px;"  list="lstGiaiNgan" id="giaingan" name="giaingan" listKey="sKey" listValue="sDesc"></s:select>
-                                    </td>-->
-                                <td >Giải ngân:</td>
-                                            <td>
-                                                <select name="giaingan" id="giaingan">
-                                                    <option value="-1">--Tất cả--</option>
-                                                    <option value="1">Giải ngân sau 28/3</option>                                                    
-                                                </select>
-                                            </td>         
-
-                                <td >Nhà đầu tư:</td>
+                                <td >Mã KH/Số KU:</td>
+                                <td colspan="2">
+                                    <input type="text" id="lanqd" name="lanqd" class=""  placeholder="Mã KH/Số KU" />
+                                </td> 
+<!--                                <td >Nhà đầu tư:</td>
                                 <td colspan="3">                                               
                                     <s:select  style="width: 345px;"  list="lstNhadautu" id="nha_dt" name="nha_dt" listKey="sKey" listValue="sDesc"></s:select>
-                                </td>     
+                                </td>     -->
                                 <td colspan="2">                                        
                                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                                onBeforeTopics="beforediv_data"
@@ -532,7 +520,7 @@
                     </div>
                 </div>
 
-                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11CP_001')">
+                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11CP_02SK')">
                     <div id="containParm_full" align="center">
                         <div id="divExportReport"></div>
                         <div align="right"  id="divExportReportLink"></div>
