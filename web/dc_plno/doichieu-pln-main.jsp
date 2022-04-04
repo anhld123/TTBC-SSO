@@ -277,7 +277,7 @@
                 $(".number2").each(function(index) {
                     var value = $(this).val();
                     value = value.replace(/,/g, "");
-                    if (parseFloat(value) > 99999999999) {
+                    if (parseFloat(value) > 999999999999) {
                         result = false;
                         alert('Giá trị bạn nhập vượt quá giới hạn!');
                         return false;
@@ -433,11 +433,10 @@
         </div>
     </p>
     <script>
-        $(document).ready(function () {
-            alert('1');
+        $(document).ready(function () {            
 //            $("#ngay_dcpln").val("31/12/2021");
             document.getElementById('ngay_dcpln').value = "31/12/2021";
-        }
+        })
     </script>
 </body>
 </html>
