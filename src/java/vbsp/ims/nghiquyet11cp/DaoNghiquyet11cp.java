@@ -3983,8 +3983,8 @@ public class DaoNghiquyet11cp {
         return true;
     }
 
-    public List<QT_DULIEU_NT> getDataSms01(Connection conn, String sKhoa, String sNgaybc, String sUser,
-            String sGrade, List<String> lstArrPoscd, String sDvut, String tenkh) {
+    public List<QT_DULIEU_NT> getDataKH04(Connection conn, String sKhoa, String sNgaybc, String sUser,
+            String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
@@ -3995,7 +3995,7 @@ public class DaoNghiquyet11cp {
 //            conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_IMS_NGHIQUYET11CP.SP_GET_DATA_SMS01(?,?,?,?,?,?,?,?,?,?)}";
+            String strStoreproce = "{call VBSP_IMS_NGHIQUYET11CP.SP_GET_DATA_KH04(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
 
             try {
@@ -4009,8 +4009,6 @@ public class DaoNghiquyet11cp {
                 calstatement.setString(3, sGrade);
                 calstatement.setString(4, sNgaybc);
                 calstatement.setArray(5, oracle_arrayPoscd);
-                calstatement.setString(9, sDvut);
-                calstatement.setString(10, tenkh);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -4080,11 +4078,11 @@ public class DaoNghiquyet11cp {
 //                }
             } catch (SQLException e) {
                 System.err.print(e.getMessage());
-                CoreLogger.error(this.getClass().getName() + " getDataTDNN_01 -> " + e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
             }
         } catch (Exception e) {
-            System.err.println("Loi trong ham getDataTDNN_01 " + e.getMessage());
-            CoreLogger.error(this.getClass().getName() + " getDataTDNN_01 -> " + e.getMessage());
+            System.err.println("Loi trong ham getDataKH04 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
         }
         return lstBcqt_NT;
     }
@@ -4457,6 +4455,39 @@ public class DaoNghiquyet11cp {
         }
         return true;
     }
+    
+    public boolean saveNQ11CP_01KEHOACH(String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) 
+            throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_SAVE_01KEHOACH_NQ11CP(?, ?, ?, ?)}");
+            cs.setString(1, username);
+            cs.setString(2, mapgd);
+            cs.setString(3, ngaybc);
+            cs.setArray(4, array_to_pass);            
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham saveNQ11CP_01KEHOACH " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveNQ11CP_01KEHOACH -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
+    
+    
     
     public static void main(String[] args) throws Exception {
         DuLieuNTService service = new DuLieuNTService();

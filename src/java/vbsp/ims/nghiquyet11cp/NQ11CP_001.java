@@ -158,14 +158,17 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
         BigInteger lai_t10 = new BigInteger("0");
         BigInteger lai_t11 = new BigInteger("0");
         BigInteger lai_t12 = new BigInteger("0");
+        BigInteger lai_t13 = new BigInteger("0");
 
         BigInteger lai_t10dc = new BigInteger("0");
         BigInteger lai_t11dc = new BigInteger("0");
         BigInteger lai_t12dc = new BigInteger("0");
+        BigInteger lai_t13dc = new BigInteger("0");
 
         BigInteger lai_18 = new BigInteger("0");
         BigInteger lai_20 = new BigInteger("0");
         BigInteger lai_21 = new BigInteger("0");
+        BigInteger lai_22 = new BigInteger("0");
 
         DecimalFormat df = new DecimalFormat("#.##");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -205,10 +208,12 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                     row.setD18(df.format(item.getIntSubsidyM01Amt()));
                     row.setD19(df.format(item.getIntSubsidyM02Amt()));
                     row.setD20(df.format(item.getIntSubsidyM03Amt()));
+                    row.setD55(df.format(item.getIntSubsidyM04Amt()));
                     //Bỏ TH món vay đóng và lãi <5k
                     row.setD21(df.format(item.getIntSubsidyAdjustM01Amt()));
                     row.setD22(df.format(item.getIntSubsidyAdjustM02Amt()));
                     row.setD23(df.format(item.getIntSubsidyAdjustM03Amt()));
+                    row.setD56(df.format(item.getIntSubsidyAdjustM04Amt()));
                     row.setD24(item.getPaymentFlag().equals("0") ? "RPA" : "HT phải trả");
                     row.setD25(item.getIntConfirmFlag());
                     row.setD26(item.getSubsidyTranRef());
@@ -223,18 +228,21 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                     row.setD33(item.getM01Status());
                     row.setD34(item.getM02Status());
                     row.setD35(item.getM03Status());
+                    row.setD57(item.getM04Status());
                     row.setD36(item.getPaymentFlag());
 
                     row.setD43(df.format(item.getIntTotalM01Amt()));
                     row.setD44(df.format(item.getIntTotalM02Amt()));
                     row.setD45(df.format(item.getIntTotalM03Amt()));
+                    row.setD58(df.format(item.getIntTotalM04Amt()));
                     row.setD46(item.getCommuneId());
                     row.setD47(item.getRejectReason());
                     row.setD50(item.getCustomerName());
+                    row.setD59(item.getPaymentMethod());
 //                    Lấy món vay xác nhận lãi
                     if (chotsl.equals("0")) {
                         if ((sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode()))
-                                && (sGiaingan.equals("-1") || sdf.parse(item.getDisbursalDate()).after(df1.parse("03/28/2022")))) {
+                                && (sGiaingan.equals("-1") || sdf.parse(item.getDisbursalDate()).after(df1.parse("04/01/2022")))) {
                             i++;
                             dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
                             dn_quahan = dn_quahan + (long) item.getOverdueAmt();
@@ -242,9 +250,11 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                             lai_t10 = lai_t10.add(item.getIntSubsidyM01Amt());
                             lai_t11 = lai_t11.add(item.getIntSubsidyM02Amt());
                             lai_t12 = lai_t12.add(item.getIntSubsidyM03Amt());
+                            lai_t13 = lai_t13.add(item.getIntSubsidyM04Amt());
                             lai_t10dc = lai_t10dc.add(item.getIntSubsidyAdjustM01Amt());
                             lai_t11dc = lai_t11dc.add(item.getIntSubsidyAdjustM02Amt());
                             lai_t12dc = lai_t12dc.add(item.getIntSubsidyAdjustM03Amt());
+                            lai_t13dc = lai_t13dc.add(item.getIntSubsidyAdjustM04Amt());
                             lai_20 = lai_20.add(item.getCasaAmt());
                             lai_21 = lai_21.add(item.getCashAmt());
                             lstDulieuNt.add(row);
@@ -260,9 +270,11 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                                 lai_t10 = lai_t10.add(item.getIntSubsidyM01Amt());
                                 lai_t11 = lai_t11.add(item.getIntSubsidyM02Amt());
                                 lai_t12 = lai_t12.add(item.getIntSubsidyM03Amt());
+                                lai_t13 = lai_t13.add(item.getIntSubsidyM04Amt());
                                 lai_t10dc = lai_t10dc.add(item.getIntSubsidyAdjustM01Amt());
                                 lai_t11dc = lai_t11dc.add(item.getIntSubsidyAdjustM02Amt());
                                 lai_t12dc = lai_t12dc.add(item.getIntSubsidyAdjustM03Amt());
+                                lai_t13dc = lai_t13dc.add(item.getIntSubsidyAdjustM04Amt());
                                 lai_20 = lai_20.add(item.getCasaAmt());
                                 lai_21 = lai_21.add(item.getCashAmt());
                                 lstDulieuNt.add(row);
@@ -285,10 +297,12 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
             tong.setD5(df.format(lai_t10));
             tong.setD6(df.format(lai_t11));
             tong.setD7(df.format(lai_t12));
+            tong.setD15(df.format(lai_t13));
 
             tong.setD8(df.format(lai_t10dc));
             tong.setD9(df.format(lai_t11dc));
             tong.setD10(df.format(lai_t12dc));
+            tong.setD16(df.format(lai_t13dc));
 
             tong.setD11(df.format(lai_20.add(lai_21)));
             tong.setD12(df.format(lai_20));
@@ -348,6 +362,7 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                                     tempadd.setIntSubsidyAdjustM01Amt(new BigInteger(tmp.getD18()));
                                     tempadd.setIntSubsidyAdjustM02Amt(new BigInteger(tmp.getD19()));
                                     tempadd.setIntSubsidyAdjustM03Amt(new BigInteger(tmp.getD20()));
+                                    tempadd.setIntSubsidyAdjustM04Amt(new BigInteger(tmp.getD56()));
                                     tempadd.setIntConfirmFlag("0");
                                     tempadd.setRejectReason(tmp.getD47());
                                     lstUpdateDate.add(tempadd);
@@ -358,10 +373,12 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                                     tempadd.setIntSubsidyAdjustM01Amt(new BigInteger(tmp.getD18()));
                                     tempadd.setIntSubsidyAdjustM02Amt(new BigInteger(tmp.getD19()));
                                     tempadd.setIntSubsidyAdjustM03Amt(new BigInteger(tmp.getD20()));
+                                    tempadd.setIntSubsidyAdjustM04Amt(new BigInteger(tmp.getD56()));
 
                                     tempadd.setM01Status("1");
                                     tempadd.setM02Status("1");
                                     tempadd.setM03Status("1");
+                                    tempadd.setM04Status("1");
                                     tempadd.setIntConfirmFlag("1");
                                     tempadd.setRejectReason(tmp.getD47());
                                     lstUpdateDate.add(tempadd);
@@ -379,6 +396,7 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                                 updateRow.setD2(df.format(item.getIntSubsidyAdjustM01Amt()));
                                 updateRow.setD3(df.format(item.getIntSubsidyAdjustM02Amt()));
                                 updateRow.setD4(df.format(item.getIntSubsidyAdjustM03Amt()));
+                                updateRow.setD10(df.format(item.getIntSubsidyAdjustM04Amt()));
                                 updateRow.setD5(item.getIntConfirmFlag().toString());
                                 updateRow.setD6(item.getRejectReason());
 

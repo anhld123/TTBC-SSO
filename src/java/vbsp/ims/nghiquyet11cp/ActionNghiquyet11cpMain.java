@@ -404,6 +404,9 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
             else if (khoa_nghiquyet11cp.equals("NQ11CP_01KH")) {
                 return "nghiquyet11cp_01_kh";
             }
+            else if (khoa_nghiquyet11cp.equals("NQ11CP_04KH")) {
+                return "nghiquyet11cp_04_kh";
+            }
             else{
                 return "";
             }

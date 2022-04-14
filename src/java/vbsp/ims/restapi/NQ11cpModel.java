@@ -39,6 +39,7 @@ public class NQ11cpModel {
   String investorCode;
   String casaAccount;
   float intTotalAmt;
+  
   @XmlElement(defaultValue = "0")
   BigInteger intSubsidyTotalAmt;
   @XmlElement(defaultValue = "0")
@@ -48,11 +49,17 @@ public class NQ11cpModel {
   @XmlElement(defaultValue = "0")
   BigInteger intSubsidyM03Amt;
   @XmlElement(defaultValue = "0")
+  BigInteger intSubsidyM04Amt;
+  
+  @XmlElement(defaultValue = "0")
   BigInteger intSubsidyAdjustM01Amt;
   @XmlElement(defaultValue = "0")
   BigInteger intSubsidyAdjustM02Amt;
   @XmlElement(defaultValue = "0")
   BigInteger intSubsidyAdjustM03Amt;
+  @XmlElement(defaultValue = "0")
+  BigInteger intSubsidyAdjustM04Amt;
+  
   String paymentFlag;
   String intConfirmFlag;
   String subsidyTranRef;
@@ -65,6 +72,7 @@ public class NQ11cpModel {
   String m01Status;
   String m02Status;
   String m03Status;
+  String m04Status;
   String createdBy;
   String createdDate;
   String m01UpdateBy;
@@ -73,9 +81,13 @@ public class NQ11cpModel {
   String m02UpdateDate;
   String m03UpdateBy;
   String m03UpdateDate;
+  String m04UpdateBy;
+  String m04UpdateDate;
+  
   double intTotalM01Amt;
   double intTotalM02Amt;
   double intTotalM03Amt;
+  double intTotalM04Amt;
   String communeId;
   String m01SubsidyTranRef;
   String m01SubsidyTranDate;
@@ -89,6 +101,7 @@ public class NQ11cpModel {
   String disbursalDate;
   String editFlag;
   String rejectReason;
+  String paymentMethod;
 
     public String getMainPos() {
         return mainPos;
@@ -592,6 +605,62 @@ public class NQ11cpModel {
 
     public void setIntSubsidyTotalAmt(BigInteger intSubsidyTotalAmt) {
         this.intSubsidyTotalAmt = intSubsidyTotalAmt;
+    }
+
+    public BigInteger getIntSubsidyM04Amt() {
+        return intSubsidyM04Amt;
+    }
+
+    public void setIntSubsidyM04Amt(BigInteger intSubsidyM04Amt) {
+        this.intSubsidyM04Amt = intSubsidyM04Amt;
+    }
+
+    public BigInteger getIntSubsidyAdjustM04Amt() {
+        return intSubsidyAdjustM04Amt==null? new BigInteger("0"):intSubsidyAdjustM04Amt;          
+    }
+
+    public void setIntSubsidyAdjustM04Amt(BigInteger intSubsidyAdjustM04Amt) {
+        this.intSubsidyAdjustM04Amt = intSubsidyAdjustM04Amt;
+    }
+
+    public String getM04Status() {
+        return m04Status;
+    }
+
+    public void setM04Status(String m04Status) {
+        this.m04Status = m04Status;
+    }
+
+    public String getM04UpdateBy() {
+        return m04UpdateBy;
+    }
+
+    public void setM04UpdateBy(String m04UpdateBy) {
+        this.m04UpdateBy = m04UpdateBy;
+    }
+
+    public String getM04UpdateDate() {
+        return m04UpdateDate;
+    }
+
+    public void setM04UpdateDate(String m04UpdateDate) {
+        this.m04UpdateDate = m04UpdateDate;
+    }
+
+    public double getIntTotalM04Amt() {
+        return intTotalM04Amt;
+    }
+
+    public void setIntTotalM04Amt(double intTotalM04Amt) {
+        this.intTotalM04Amt = intTotalM04Amt;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
   
  
