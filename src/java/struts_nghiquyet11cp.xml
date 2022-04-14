@@ -12,6 +12,7 @@
         <action name="LoadParaNghiquyet11cp" class="vbsp.ims.nghiquyet11cp.ActionNghiquyet11cpMain"  method="loadParaBaocao">
             <result name="nghiquyet11cp_01">/nghiquyet11cp/para_nghiquyet11cp.jsp</result>
             <result name="nghiquyet11cp_01_kh">/nghiquyet11cp/para_nghiquyet11cp_01_kh.jsp</result>
+            <result name="nghiquyet11cp_04_kh">/nghiquyet11cp/para_nghiquyet11cp_04_kh.jsp</result>
             <result name="nghiquyet11cp_02_sk">/nghiquyet11cp/para_nghiquyet11cp_02_sk.jsp</result>
             <result name="error">/nghiquyet11cp/success.jsp</result>        
         </action>  
@@ -54,7 +55,24 @@
         <action name="SAVE_NQ11CP_02SK" class="vbsp.ims.nghiquyet11cp.NQ11CP_02SK"  method="save">
                 <result name="success">/BCQT/success.jsp</result>
                 <result name="error">/BCQT/success.jsp</result>        
-        </action>                
+        </action> 
+        
+        <!--Upload file-->
+        <action name="nq11_04kh_open_upload" class="vbsp.ims.nghiquyet11cp.NQ11CP_04KH"
+                method="openExcelUpload">
+            <result name="success">/EXCEL_UPLOAD/util_excel_upload_file-main.jsp</result>           
+        </action>  
+        
+        <action name="NQ11CP_04KH" class="vbsp.ims.nghiquyet11cp.NQ11CP_04KH"  method="load">
+                <result name="success">/nghiquyet11cp/table_nq11cp_04_kehoach.jsp</result>                                 
+                <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+
+        <action name="SAVE_NQ11CP_04KH" class="vbsp.ims.nghiquyet11cp.NQ11CP_04KH"  method="save">
+                <result name="success">/BCQT/success.jsp</result>
+                <result name="error">/BCQT/success.jsp</result>        
+        </action>      
+                                      
     </package>
     
 </struts>
