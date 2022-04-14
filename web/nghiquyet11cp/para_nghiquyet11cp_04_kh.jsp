@@ -94,10 +94,10 @@
 
             #containParm{
                 width: 84%;
-                height: 450px;
+                height: 400px;
                 padding-left: 5px;
                 float: left;
-                overflow-x: scroll;
+                /*overflow-x: scroll;*/
             }
 
             #containParmQD23_2{
@@ -132,7 +132,7 @@
             }
 
             #navParamUp{
-                height: 65px;
+                height: 35px;
                 padding:0px;
                 padding-bottom: 0px;
                 padding-top: 0px;
@@ -185,25 +185,70 @@
                 $(".NGAY_SL").css({"width": "80px"});
             });
 
+            function getDaysOfMonth(month, year) {
+                switch (month) {
+                    case 1:
+                        return 31;
+                    case 2:
+                        if (year % 4 === 0)
+                            return 29;
+                        else
+                            return 28;
+                    case 3:
+                        return 31;
+                    case 4:
+                        return 30;
+                    case 5:
+                        return 31;
+                    case 6:
+                        return 30;
+                    case 7:
+                        return 31;
+                    case 8:
+                        return 31;
+                    case 9:
+                        return 30;
+                    case 10:
+                        return 31;
+                    case 11:
+                        return 30;
+                    case 12:
+                        return 31;
+                }
+            }
+            ;
+
             function onLoadData()
             {
-//                var grade = $.session.get('reportGrade').toString();
-//                $.session.get()
-//                alert(grade);
-                $('#message_suc_err').empty();
-                $('#divExportReport').empty();
-                $('#divExportReportLink').empty();
-//                var khoa_nghiquyet11cp = $("#khoa_nghiquyet11cp").val();
-//                var maxa = $("#maxa").val();
-////                alert(maxa);
-//                if(maxa === "000000")
-//                {
-//                    $('#message_suc_err').html("<h2 style='color: red'>Bạn cần chọn mã xã trước khi tải số liệu !</h2>");
-//                    return;
-//                }
+                var ngay_bc = $("#ngay_bc_DATE").val();
+//                alert(ngay_bc);
+                var lv_day = parseInt(ngay_bc.substr(0, 2));
+                var lv_month = parseInt(ngay_bc.substr(3, 2));
+                var lv_year = parseInt(ngay_bc.substr(6, 4));
+                if (lv_day == getDaysOfMonth(lv_month, lv_year)) {
+//                    var r = confirm("Bạn có thật sự muốn nhập số liệu tháng này, tiếp tục  không ? OK : Đồng ý, Cancel : Hủy bỏ");
+//                    if (r == true) {
+                        $('#message_suc_err').empty();
+                        $('#divExportReport').empty();
+                        $('#divExportReportLink').empty();
 
-                $("#loadData")[0].click();
-                bsubmit = true;
+                        //                var khoa_nghiquyet11cp = $("#khoa_nghiquyet11cp").val();
+                        //                var maxa = $("#maxa").val();
+                        ////                alert(maxa);
+                        //                if(maxa === "000000")
+                        //                {
+                        //                    $('#message_suc_err').html("<h2 style='color: red'>Bạn cần chọn mã xã trước khi tải số liệu !</h2>");
+                        //                    return;
+                        //                }
+
+                        $("#loadData")[0].click();
+                        bsubmit = true;
+//                    }
+
+                } else
+                {
+                    alert("Vui lòng chọn đúng quý báo cáo.");
+                }
 //                return true;
             }
             function onSaveData()
@@ -415,29 +460,50 @@
 //                    $('#divExportReport').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần mở khóa !</h2>");
                 }
             }
-            
+
             function reLoadValue(val) {
-                    var var2, vartxt, selected;
-                    $("#mato").children().remove().end();
-                    $("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-                    $("#mato_data > option").each(function () {
-                        var2 = $(this).val().substr(0, 6);
-                        if (val.trim() == var2.trim()) {
-                            $(this).val() == vartxt ? selected = " selected" : selected = "";
-                            $("#mato").prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-                        }
-                    });
-                    
-                    $("#mato").html($("#mato option").sort(function (a, b) {
-                        return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-                    }));
-                };
+                var var2, vartxt, selected;
+                $("#mato").children().remove().end();
+                $("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
+                $("#mato_data > option").each(function () {
+                    var2 = $(this).val().substr(0, 6);
+                    if (val.trim() == var2.trim()) {
+                        $(this).val() == vartxt ? selected = " selected" : selected = "";
+                        $("#mato").prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+                    }
+                });
 
+                $("#mato").html($("#mato option").sort(function (a, b) {
+                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+                }));
+            };
 
+            function callDirectLink(link) {
+            var ht = screen.availHeight / 5 + 35;
+            var wt = screen.availWidth / 5 + 20;
+
+            var resize = window.open(link
+                    + "random=" + Math.random(),
+                    "IMS_REPORTS_FRM2", "height=" + ht + ",width=" + wt
+                    + ",left=0,top=0,directories=no,status=no,menubar=no,\n\
+        personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+
+            if (navigator.userAgent.indexOf('Chrome') !== -1
+                    && parseFloat(
+                            navigator.userAgent.substring(
+                                    navigator.userAgent.indexOf('Chrome') + 7
+                                    ).split(' ')[0]) >= 15) {
+                resize.resizeBy(wt, ht);
+            } else {
+                resize.resizeTo(wt, ht);
+            }
+            resize.moveTo(wt, ht);
+            resize.focus();
+        }
 
         </script>
     </head>
-<!--new java.util.Date()-->
+    <!--new java.util.Date()-->
     <body>
         <div id="container" >
             <s:form id="id_%{khoa_nghiquyet11cp}" name="name_%{khoa_nghiquyet11cp}" action="%{khoa_nghiquyet11cp}" theme="simple">
@@ -452,72 +518,38 @@
                             <tr style="height: 30px;">
                                 <td>Ngày BC</td>
                                 <td>
-                                    <sj:datepicker name="ngay_bc_DATE" value="%{'30/04/2022'}"  id="ngay_bc_DATE"
+                                    <sj:datepicker name="ngay_bc_DATE" value="%{'28/02/2022'}"  id="ngay_bc_DATE"
                                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
                                 </td>
-                                <td>Chương trình:</td>
-                                <td>                                               
-                                    <s:select  style="width: 150px;"  list="lstChuongtrinh" id="chuongtrinh" name="chuongtrinh" listKey="sKey" listValue="sDesc"></s:select> &nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td >Mã xã:</td>
-                                <td  >                                               
-                                    <s:select  style="width: 229px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
-                                               onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td >Mã tổ:</td>
-                                <td>
-                                    <s:select  style="width: 220px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc"></s:select>
-                                    <s:select  
-                                        id="mato_data"
-                                        list="lstMato" 
-                                        listKey="sKey"
-                                        listValue="sDesc"
-                                        headerKey="-1"
-                                        headerValue="--- Chọn ---"                                        
-                                        cssStyle="display:none;">
-                                    </s:select>
-                                </td>
-                                <!--  <td >Phân loại:</td>
-                                <td  >                                               
-                                    <s:select  style="width: 100px;"  list="lstPhanloai" id="phanloai" name="phanloai" listKey="sKey" listValue="sDesc"></s:select>
-                                </td>-->
-                            </tr>  
-                            <tr>
-<!--                                    <td >Giải ngân:</td>
-                                    <td  >                                               
-                                        <s:select  style="width: 100px;"  list="lstGiaiNgan" id="giaingan" name="giaingan" listKey="sKey" listValue="sDesc"></s:select>
-                                    </td>-->
-                                <td >Giải ngân:</td>
-                                            <td>
-                                                <select name="giaingan" id="giaingan">
-                                                    <option value="-1">--Tất cả--</option>
-                                                    <option value="1">Giải ngân sau 31/3</option>                                                    
-                                                </select>
-                                            </td>         
-
-                                <td >Nhà đầu tư:</td>
-                                <td colspan="3">                                               
-                                    <s:select  style="width: 345px;"  list="lstNhadautu" id="nha_dt" name="nha_dt" listKey="sKey" listValue="sDesc"></s:select>
-                                </td>     
-                                <td colspan="2">                                        
+                                <td >                                        
                                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                                onBeforeTopics="beforediv_data"
                                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
                                     <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                                     <s:if test="Grade.equalsIgnoreCase('1')">
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận HTLS"/>
+                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu số liệu"/>
                                     </s:if>
                                     <s:else>
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/>
+                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu số liệu"/>
                                     </s:else>    
+                                        
                                     
+                                      
                                 </td>
-<!--                                <td colspan="2">
-                                    <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/>
+<!--                                <td>
+                                    
+                                        
+                                    <s:url id="idxacnhan" action="sendLockBCQT.action"></s:url>                                      
+                                        <sj:submit id="idSendLock" name="nameSend" href="%{idxacnhan}" value="Gửi dữ liệu" targets="divExportReport"
+                                                   onBeforeTopics="beforediv_send"
+                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                        <input type="button" id="idsaveDatatmp" name="nameidSendLocktmp"  onclick="onSentLockData()" value="Xuất xls mẫu"/>    
                                 </td>-->
-                                <td></td>
-<!--                                <td colspan="2">
-                                    <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="Cập nhật hạch toán GL"/> </td>                                -->
+                                <td>
+                                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                                    <sj:a class="cmd" href="#" onclick="callDirectLink('nq11_04kh_open_upload?');" >
+                                        <b> <u>Upload Excel</u>  </b> </sj:a>   
+                                </td>
                                 <td  colspan="2">
                                     <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
                                         <img id="loadingImage" src='img/loading.gif' border='0' >
@@ -527,12 +559,15 @@
                                     <div id="message_suc_err"> 
                                     </div>
                                 </td>
-                            </tr>
+                            </tr>  
+<!--                            <tr>
+                                
+                            </tr>-->
                         </table>    
                     </div>
                 </div>
 
-                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11CP_001')">
+                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11CP_01KH')">
                     <div id="containParm_full" align="center">
                         <div id="divExportReport"></div>
                         <div align="right"  id="divExportReportLink"></div>
@@ -556,16 +591,15 @@
                     </div>
                     <div id="containParm" align="center">
                         <div id="divExportReport"></div>
-                        <div id="divExportReport"></div>
+                        
                     </div>
                 </s:else>                     
 
             </s:form>
         </div>
         <script>
-        $(document).ready(function () {            
-            document.getElementById('ngay_bc_DATE').value = "30/04/2022";
-        })
+
+
         </script>
     </div>
 </body>

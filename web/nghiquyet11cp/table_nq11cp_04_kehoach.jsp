@@ -29,7 +29,7 @@
                 $(".TD_MAKH").css({"width": "50px"});
                 $(".TD_TOTIEN").css({"width": "70px"});
                 $(".TD_NGAY").css({"width": "55px"});
-                $(".TD_TENKH").css({"width": "130px"});
+                $(".TD_TENKH").css({"width": "330px"});
                 $(".TD_SOKU").css({"width": "80px"});
                 $(".TD_NGAY").css({"width": "40px"});
                 $(".TD_CHITIEU").css({"width": "300px"});
@@ -181,45 +181,37 @@
             </s:iterator>   
             </br>
             <div id="divTitle">
-                KẾ HOẠCH HỖ TRỢ LÃI SUẤT CHO KHÁCH HÀNG VAY VỐN        
+                KẾ HOẠCH TĂNG TRƯỞNG DƯ NỢ - CHƯƠNG TRÌNH ĐẶC THÙ    
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nghiquyet11cp"/>
             <!--            <div class="cls-over">
                             <div id="scrolling_table_1"  style="width: 98%; max-height:45vh">-->       
             <div id="divDonvitinh">
-                Đơn vị tính: Triệu đồng              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Đơn vị tính: Triệu đồng              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </div>
-            <div class="cls-over">
-                <div id="scrolling_table_1"  style="width: 88%; max-height:45vh">
+            <!--<div class="cls-over">-->
+                <div id="scrolling_table_1"  style="width: 95%; max-height:45vh">
                     <table id="tblTable">
                         <tr >      
-                            <th rowspan="2" class="TD_STT">STT</th>                                                       
-                            <th rowspan="2" class="TD_TENKH">Chỉ tiêu</th>  
-                            <th colspan="2" class="TD_TENKH">Kỳ trước</th>  
-                            <th colspan="2" class="TD_TENKH">Kỳ báo cáo</th>                                                      
+                            <th rowspan="1" class="TD_STT">STT</th>                                                       
+                            <th rowspan="1" class="TD_TENKH">Chỉ tiêu</th>                              
+                            <th colspan="1" class="TD_SOKU">Tăng trưởng dư nợ</th>                                                      
                         </tr>         
-                        <tr>
-                            <th class="TD_SOKU">Dư nợ cho vay được hỗ trợ lãi suất</th>    
-                            <th class="TD_SOKU">Số tiền hỗ trợ lãi suất</th>  
-                            <th  class="TD_SOKU">Dư nợ cho vay được hỗ trợ lãi suất</th>    
-                            <th  class="TD_SOKU">Số tiền hỗ trợ lãi suất</th>  
-                        </tr>
+                       
                         
                         <tr style="font-style: italic;">
                             <td style="text-align: center">(1)</td>                            
                             <td style="text-align: center">(2)</td>
                             <td style="text-align: center">(3)</td>
-                            <td style="text-align: center">(4)</td>   
-                            <td style="text-align: center">(5)</td>
-                            <td style="text-align: center">(6)</td>  
+                            
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                             <tr>                               
                                 <td align = "right" class="TD_STT" >
                                     <input type="text"   value="<s:property  value="TT_HIENTHI" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" 
-                                           class=" TEN_KH D0 <s:if test="MA.equalsIgnoreCase('01_S00000') || MA.equalsIgnoreCase('02_S00000') || MA.equalsIgnoreCase('03_S00000') || MA.equalsIgnoreCase('04_S00000')">CLS-BOLD</s:if>" 
+                                           class=" TEN_KH D0 " 
                                            onfocus="this.select();"
                                            readonly="true"/>                                                                                 
                                     <input type="hidden" value="<s:property  value="MA" />" id="id_<s:property  value="%{#rowstatus.index}" />"
@@ -230,48 +222,22 @@
                                 <td align = "right" class="TD_TENKH" >
                                     <input type="text"   value="<s:property  value="TEN" />" style="background: #C0C0C0 !important;" title="<s:property  value="TEN" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" 
-                                           class=" TEN_KH  <s:if test="MA.equalsIgnoreCase('01_S00000') || MA.equalsIgnoreCase('02_S00000') || MA.equalsIgnoreCase('03_S00000') || MA.equalsIgnoreCase('04_S00000')">CLS-BOLD</s:if>" 
+                                           class=" TEN_KH  " 
                                            onfocus="this.select();" readonly="true"/> 
                                 </td>
                                 <td align = "right" class="TD_SOKU" >
-                                    <input type="text"   value="<s:property  value="D3" />" style="background: #C0C0C0 !important;" title="<s:property  value="D3" />"
+                                    <input type="text"   value="<s:property  value="D3" />" title="<s:property  value="D3" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" 
-                                           class=" TEN_KH  <s:if test="MA.equalsIgnoreCase('01_S00000') || MA.equalsIgnoreCase('02_S00000') || MA.equalsIgnoreCase('03_S00000') || MA.equalsIgnoreCase('04_S00000')">CLS-BOLD</s:if>" 
-                                           onfocus="this.select();" readonly="true"/> 
+                                           class=" TEN_KH  number" 
+                                           onfocus="this.select();"/> 
                                 </td>
-                                <td align = "right" class="TD_SOKU" >
-                                    <input type="text"   value="<s:property  value="D4" />" style="background: #C0C0C0 !important;" title="<s:property  value="D4" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
-                                           class=" TEN_KH  <s:if test="MA.equalsIgnoreCase('01_S00000') || MA.equalsIgnoreCase('02_S00000') || MA.equalsIgnoreCase('03_S00000') || MA.equalsIgnoreCase('04_S00000')">CLS-BOLD</s:if>" 
-                                           onfocus="this.select();" readonly="true"/> 
-                                </td>
-                                <td align = "right" class="TD_SOKU" >
-                                    <input type="text"   value="<s:property  value="D1" />" id="D1_<s:property  value="%{#rowstatus.index}" />"
-                                        <s:if test="MA.equalsIgnoreCase('01_S00000') || MA.equalsIgnoreCase('02_S00000') || MA.equalsIgnoreCase('03_S00000') || MA.equalsIgnoreCase('04_S00000')">style="background: #C0C0C0 !important;"</s:if>
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class=" TEN_KH number <s:if test="MA.equalsIgnoreCase('01_S00000') || MA.equalsIgnoreCase('02_S00000') || MA.equalsIgnoreCase('03_S00000') || MA.equalsIgnoreCase('04_S00000')">CLS-BOLD</s:if>" 
-                                           onblur="if (this.value == '') {
-                                                   this.value = 0
-                                               }
-                                               ; sumColumn('<s:property  value="MA"/>');"
-                                               <s:if test="MA.equalsIgnoreCase('01_S00000') || MA.equalsIgnoreCase('02_S00000') || MA.equalsIgnoreCase('03_S00000') || MA.equalsIgnoreCase('04_S00000')">readonly="true"</s:if>/>
-                                </td>
-
-                               <td align = "right" class="TD_SOKU" >
-                                    <input type="text"   value="<s:property  value="D2" />" id="D2_<s:property  value="%{#rowstatus.index}" />"
-                                      <s:if test="MA.equalsIgnoreCase('01_S00000') || MA.equalsIgnoreCase('02_S00000') || MA.equalsIgnoreCase('03_S00000') || MA.equalsIgnoreCase('04_S00000')">style="background: #C0C0C0 !important;"</s:if>
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class=" TEN_KH number <s:if test="MA.equalsIgnoreCase('01_S00000') || MA.equalsIgnoreCase('02_S00000') || MA.equalsIgnoreCase('03_S00000') || MA.equalsIgnoreCase('04_S00000')">CLS-BOLD</s:if>" 
-                                           onblur="if (this.value == '') {
-                                                   this.value = 0
-                                               }
-                                               ; sumColumn('<s:property  value="MA"/>');"
-                                               <s:if test="MA.equalsIgnoreCase('01_S00000') || MA.equalsIgnoreCase('02_S00000') || MA.equalsIgnoreCase('03_S00000') || MA.equalsIgnoreCase('04_S00000')">readonly="true"</s:if>/>
-                                </td>
+                                
                                 
                             </tr>                                                                                                                                                                                   
                         </s:iterator>
                     </table>        
                 </div>
-            </div>
+            <!--</div>-->
 
             <sj:submit id="NQ11CP_01KH_save" name="NQ11CP_01KH_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
                        onCompleteTopics="completediv_ss" cssStyle="display: none"/>
