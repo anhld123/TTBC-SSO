@@ -94,10 +94,10 @@
 
             #containParm{
                 width: 84%;
-                height: 400px;
+                height: 500px;
                 padding-left: 5px;
                 float: left;
-                /*overflow-x: scroll;*/
+                overflow-x: scroll;
             }
 
             #containParmQD23_2{
@@ -228,21 +228,21 @@
                 if (lv_day == getDaysOfMonth(lv_month, lv_year)) {
 //                    var r = confirm("Bạn có thật sự muốn nhập số liệu tháng này, tiếp tục  không ? OK : Đồng ý, Cancel : Hủy bỏ");
 //                    if (r == true) {
-                        $('#message_suc_err').empty();
-                        $('#divExportReport').empty();
-                        $('#divExportReportLink').empty();
+                    $('#message_suc_err').empty();
+                    $('#divExportReport').empty();
+                    $('#divExportReportLink').empty();
 
-                        //                var khoa_nghiquyet11cp = $("#khoa_nghiquyet11cp").val();
-                        //                var maxa = $("#maxa").val();
-                        ////                alert(maxa);
-                        //                if(maxa === "000000")
-                        //                {
-                        //                    $('#message_suc_err').html("<h2 style='color: red'>Bạn cần chọn mã xã trước khi tải số liệu !</h2>");
-                        //                    return;
-                        //                }
+                    //                var khoa_nghiquyet11cp = $("#khoa_nghiquyet11cp").val();
+                    //                var maxa = $("#maxa").val();
+                    ////                alert(maxa);
+                    //                if(maxa === "000000")
+                    //                {
+                    //                    $('#message_suc_err').html("<h2 style='color: red'>Bạn cần chọn mã xã trước khi tải số liệu !</h2>");
+                    //                    return;
+                    //                }
 
-                        $("#loadData")[0].click();
-                        bsubmit = true;
+                    $("#loadData")[0].click();
+                    bsubmit = true;
 //                    }
 
                 } else
@@ -255,7 +255,7 @@
             {
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
-                var poscd = getposfromtreecheck();
+//                var poscd = getposfromtreecheck();
 //                alert(poscd);
 //                if(poscd === '' || poscd.length ===0)
 //                {
@@ -284,44 +284,14 @@
                 if (validateRequiredFields())
                     $("#" + khoa)[0].click();
 
-                if (khoa === 'COVID_03_save')
+                if (khoa === 'NQ11CP_04KH_save')
                 {
                     wait(2000);
                     onLoadData();
                 }
             }
 
-            function onSaveDataHTLai()
-            {
-                $('#message_suc_err').empty();
-                $('#divExportReportLink').empty();
-                var poscd = getposfromtreecheck();
-//                if(poscd === '' || poscd.length ===0)
-//                {
-//                    $('#message_suc_err').html("<h2 style='color: red'>Bạn chưa chốt số liệu, vui lòng chọn Xác nhận giảm lãi !</h2>");
-//                    return;
-//                }
-//                alert(poscd);
-                var khoa = $("#khoa_nghiquyet11cp").val() + "_save_htlai";
-                if (!bsubmit)
-                {
-//                    alert('Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !');
-                    $('#message_suc_err').html("<h2 style='color: red'>Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !</h2>");
-                    return;
-                }
 
-// Trung bo sung phan validate data
-                if (typeof validateData !== 'undefined' && typeof validateData === 'function') {
-                    if (!validateData())
-                        return false;
-                }
-
-
-                if (validateRequiredFields())
-                    $("#" + khoa)[0].click();
-
-
-            }
 
             function wait(ms) {
                 var start = new Date().getTime();
@@ -476,30 +446,31 @@
                 $("#mato").html($("#mato option").sort(function (a, b) {
                     return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
                 }));
-            };
+            }
+            ;
 
             function callDirectLink(link) {
-            var ht = screen.availHeight / 5 + 35;
-            var wt = screen.availWidth / 5 + 20;
+                var ht = screen.availHeight;
+                var wt = screen.availWidth;
 
-            var resize = window.open(link
-                    + "random=" + Math.random(),
-                    "IMS_REPORTS_FRM2", "height=" + ht + ",width=" + wt
-                    + ",left=0,top=0,directories=no,status=no,menubar=no,\n\
+                var resize = window.open(link
+                        + "random=" + Math.random(),
+                        "IMS_REPORTS_FRM2", "height=" + ht + ",width=" + wt
+                        + ",left=0,top=0,directories=no,status=no,menubar=no,\n\
         personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
 
-            if (navigator.userAgent.indexOf('Chrome') !== -1
-                    && parseFloat(
-                            navigator.userAgent.substring(
-                                    navigator.userAgent.indexOf('Chrome') + 7
-                                    ).split(' ')[0]) >= 15) {
-                resize.resizeBy(wt, ht);
-            } else {
-                resize.resizeTo(wt, ht);
+                if (navigator.userAgent.indexOf('Chrome') !== -1
+                        && parseFloat(
+                                navigator.userAgent.substring(
+                                        navigator.userAgent.indexOf('Chrome') + 7
+                                        ).split(' ')[0]) >= 15) {
+                    resize.resizeBy(wt, ht);
+                } else {
+                    resize.resizeTo(wt, ht);
+                }
+                resize.moveTo(wt, ht);
+                resize.focus();
             }
-            resize.moveTo(wt, ht);
-            resize.focus();
-        }
 
         </script>
     </head>
@@ -518,9 +489,20 @@
                             <tr style="height: 30px;">
                                 <td>Ngày BC</td>
                                 <td>
-                                    <sj:datepicker name="ngay_bc_DATE" value="%{'28/02/2022'}"  id="ngay_bc_DATE"
+                                    <sj:datepicker name="ngay_bc_DATE" value="%{'30/04/2022'}"  id="ngay_bc_DATE"
                                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
                                 </td>
+                                <td>
+                                    <p class="normal_font">Nghiệp vụ:</p>
+                                </td>
+                                <td>
+                                    <select name="nghiepvu" id="nghiepvu">
+                                        <option value="0">Giao kế hoạch</option>
+                                        <option value="1">Điều chỉnh lần 1</option>
+                                        <option value="2">Điều chỉnh lần 2</option>
+                                        <option value="3">Điều chỉnh lần 3</option>
+                                    </select>
+                                </td> 
                                 <td >                                        
                                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                                onBeforeTopics="beforediv_data"
@@ -532,40 +514,40 @@
                                     <s:else>
                                         <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu số liệu"/>
                                     </s:else>    
-                                        
-                                    
-                                      
+
+
+
                                 </td>
-<!--                                <td>
-                                    
-                                        
-                                    <s:url id="idxacnhan" action="sendLockBCQT.action"></s:url>                                      
-                                        <sj:submit id="idSendLock" name="nameSend" href="%{idxacnhan}" value="Gửi dữ liệu" targets="divExportReport"
-                                                   onBeforeTopics="beforediv_send"
-                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                        <input type="button" id="idsaveDatatmp" name="nameidSendLocktmp"  onclick="onSentLockData()" value="Xuất xls mẫu"/>    
-                                </td>-->
+                                <!--                                <td>
+                                                                    
+                                                                        
+                                <s:url id="idxacnhan" action="sendLockBCQT.action"></s:url>                                      
+                                <sj:submit id="idSendLock" name="nameSend" href="%{idxacnhan}" value="Gửi dữ liệu" targets="divExportReport"
+                                           onBeforeTopics="beforediv_send"
+                                           onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                <input type="button" id="idsaveDatatmp" name="nameidSendLocktmp"  onclick="onSentLockData()" value="Xuất xls mẫu"/>    
+                        </td>-->
                                 <td>
                                     &nbsp;&nbsp;|&nbsp;&nbsp;
                                     <sj:a class="cmd" href="#" onclick="callDirectLink('nq11_04kh_open_upload?');" >
                                         <b> <u>Upload Excel</u>  </b> </sj:a>   
-                                </td>
-                                <td  colspan="2">
-                                    <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
-                                        <img id="loadingImage" src='img/loading.gif' border='0' >
-                                    </div>
-                                </td>
-                                <td colspan="2">
-                                    <div id="message_suc_err"> 
-                                    </div>
-                                </td>
-                            </tr>  
-<!--                            <tr>
-                                
-                            </tr>-->
-                        </table>    
+                                    </td>
+                                    <td  colspan="2">
+                                        <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
+                                            <img id="loadingImage" src='img/loading.gif' border='0' >
+                                        </div>
+                                    </td>
+                                    <td colspan="2">
+                                        <div id="message_suc_err"> 
+                                        </div>
+                                    </td>
+                                </tr>  
+                                <!--                            <tr>
+                                                                
+                                                            </tr>-->
+                            </table>    
+                        </div>
                     </div>
-                </div>
 
                 <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11CP_01KH')">
                     <div id="containParm_full" align="center">
@@ -591,7 +573,7 @@
                     </div>
                     <div id="containParm" align="center">
                         <div id="divExportReport"></div>
-                        
+
                     </div>
                 </s:else>                     
 
