@@ -58,10 +58,26 @@
         </action> 
         
         <!--Upload file-->
-        <action name="nq11_04kh_open_upload" class="vbsp.ims.nghiquyet11cp.NQ11CP_04KH"
-                method="openExcelUpload">
-            <result name="success">/EXCEL_UPLOAD/util_excel_upload_file-main.jsp</result>           
-        </action>  
+        
+        <action name="nq11_04kh_open_upload" class="vbsp.ims.nghiquyet11cp.NQ11CP_04KH" method="openExcelUpload">
+            <result name="success">  
+                /nghiquyet11cp/upload-file-nq11cp.jsp
+            </result>               
+            <result name="error">  
+                /chamdiem_canhan/success.jsp
+            </result>  
+        </action>
+        
+        <action name="saveUploadKH04" class="vbsp.ims.nghiquyet11cp.NQ11CP_04KH"  method="saveUploadKH04">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">209715200</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">/WEB-INF/datawarehouse_input-log.jsp</result>
+            <result name="error">/error.jsp</result>            
+        </action>
+        
+        <!--Mẫu 04KH-->
         
         <action name="NQ11CP_04KH" class="vbsp.ims.nghiquyet11cp.NQ11CP_04KH"  method="load">
                 <result name="success">/nghiquyet11cp/table_nq11cp_04_kehoach.jsp</result>                                 

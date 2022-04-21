@@ -187,6 +187,7 @@ public class Define {
     public static final String QTT_PROGRAM = "QTT";    
     
     public static final String NV_QT = "NV_QT";    
+    public static final String GIAO_KHTDNQ11 = "GIAO_KHTDNQ11";    
     
     public static final String NHAPTAY_CHOT = "1";          
     public static final String NHAPTAY_MOCHOT = "0";

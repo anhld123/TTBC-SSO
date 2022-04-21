@@ -65,6 +65,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     public List<String> fileUploadFileName = new ArrayList<>();
     public List<ModelExcelFile> lstExcel = new ArrayList<>();
     private String fileNameNew;
+    public String message;
 
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
@@ -78,6 +79,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
         return request;
     }
 
+    
     public void setRequest(HttpServletRequest request) {
         this.request = request;
     }
@@ -126,6 +128,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
         return fileNameNew;
     }
 
+    
     public void setFileNameNew(String fileNameNew) {
         this.fileNameNew = fileNameNew;
     }
