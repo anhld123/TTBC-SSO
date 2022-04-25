@@ -19,7 +19,7 @@
         <action name="loatruyvan" class="vbsp.ims.action.LoadTruyVanCT">
             <result name="success">/chitieu/loadchitieu.jsp</result>
         </action>
-        <action name="danhsachPGD" class="vbsp.ims.action.ChiTieuNHCSXH">
+        <action name="danhsachPGD" class="vbsp.ims.action.ChiTieuNHCSXH"> 
             <result name="success" type="json"></result>
         </action>
         <action name="extoexcel" class="vbsp.ims.action.expExcelgiatrichitieu">

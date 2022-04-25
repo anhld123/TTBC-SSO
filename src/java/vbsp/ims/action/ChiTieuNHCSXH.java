@@ -51,7 +51,7 @@ public class ChiTieuNHCSXH extends ActionSupport {
     }
 
     @Override
-    public String execute() throws Exception {
+    public String execute() throws Exception { 
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
         dmctieu = new ArrayList<>();  
