@@ -126,7 +126,16 @@ public class NQ11CP_04KH extends ActionNghiquyet11cpMain
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
+            BigInteger b1 = new BigInteger("0");
+            BigInteger b2 = new BigInteger("0");
+            DecimalFormat df = new DecimalFormat("#.##");
             lstDulieuNt = daoMain.getDataKH04(conn, "NQ11CP_04KH", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nghiepvu").toString());
+            for (QT_DULIEU_NT dulieu: lstDulieuNt) {
+                b1 = b1.add(new BigInteger(dulieu.getD2()));
+                b2 = b2.add(new BigInteger(dulieu.getD4()));
+            }
+            setVieclam_total(String.format("%,d", b1));
+            setNoxh_total(String.format("%,d", b2));
             if (conn != null) {
                 conn.close();
             }

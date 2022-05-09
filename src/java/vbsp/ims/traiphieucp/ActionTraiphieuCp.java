@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vbsp.ims.nghiquyet11cp;
+package vbsp.ims.traiphieucp;
 
+import vbsp.ims.nghiquyet11cp.*;
 import vbsp.ims.nhaptaycn.action.*;
 import com.jgeppert.struts2.jquery.tree.result.TreeNode;
 import static com.opensymphony.xwork2.Action.ERROR;
@@ -35,6 +36,7 @@ import vbsp.ims.dao.DaoDcptNo;
 import vbsp.ims.dao.DaoRptQuery;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.define.Define;
+import vbsp.ims.khnv2021.dao.XDKHDao2021;
 import vbsp.ims.ktgs.dao.DaoKtgsMain;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
@@ -54,7 +56,7 @@ import vbsp.ims.xml.XmlKtgsSync;
  *
  * @author LION
  */
-public class ActionNghiquyet11cpMain extends ActionSupport {
+public class ActionTraiphieuCp extends ActionSupport {
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao cac bien">
     String fileNamelocal;
@@ -66,6 +68,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     public List<ModelExcelFile> lstExcel = new ArrayList<>();
     private String fileNameNew;
     public String message;
+    protected List<ListValue> lstNamBC = new ArrayList<>();
 
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
@@ -137,6 +140,16 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
         return reportId;
     }
 
+    public List<ListValue> getLstNamBC() {
+        return lstNamBC;
+    }
+
+    public void setLstNamBC(List<ListValue> lstNamBC) {
+        this.lstNamBC = lstNamBC;
+    }
+
+    
+
     public void setReportId(String reportId) {
         this.reportId = reportId;
     }
@@ -160,7 +173,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     protected String UserName;
 
     protected String Message;
-    protected String khoa_nghiquyet11cp;
+    protected String khoa_traiphieucp;
     protected List<ListValue> lstAllBaocao = new ArrayList<>();
     protected List<ReportParam> lstNhaptaycnParams = new ArrayList<>();
     protected TreeNode nodes_pos = new TreeNode();
@@ -194,9 +207,6 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     private String macn;
     private String ngay_bc;
     public String chotsl;
-    
-    public String vieclam_total;
-    public String noxh_total;
 
     protected String totalDataView;
 
@@ -366,7 +376,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
             if (!getParaSession()) {
                 return ERROR;
             }
-            setLstAllBaocao(DaoNghiquyet11cp.newInstance().getAllBaocao(Grade, "NGHIQUYET11"));
+            setLstAllBaocao(DaoNghiquyet11cp.newInstance().getAllBaocao(Grade,"TRAIPHIEUCP"));
 
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> execute: " + e.getMessage());
@@ -383,65 +393,29 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
             Connection conn = new DaoConnect().getConnect();
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
             //khoi tao cho treeview cac pos
-            List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_nghiquyet11cp);
+            List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_traiphieucp);
             if (Grade.equals("3")) {
                 setTreeNodeGrade3(lstModelTree);
             } else {
                 setTreeNodeGrade12(lstModelTree);
             }
-            if (khoa_nghiquyet11cp.equals("NQ11CP_001")) {
-                setLstChuongtrinh(daoMain.getDanhMuc(UserName, "CHUONGTRINH", Grade));
-                setLstMaxa(daoMain.getDanhMuc(UserName, "MAXA", Grade));
-                setLstMato(daoMain.getDanhMuc(UserName, "MATO", Grade));
-                setLstPhanloai(daoMain.getDanhMuc(UserName, "PHANLOAI", Grade));
-                setLstGiaiNgan(daoMain.getDanhMuc(UserName, "GIAINGAN", Grade));
-                setLstNhadautu(daoMain.getDanhMuc(UserName, "NHADT", Grade));
-                return "nghiquyet11cp_01";
-            }
-            else if (khoa_nghiquyet11cp.equals("NQ11CP_02SK")) {
-                setLstChuongtrinh(daoMain.getDanhMuc(UserName, "CHUONGTRINH", Grade));
-                setLstMaxa(daoMain.getDanhMuc(UserName, "MAXA", Grade));
-                setLstMato(daoMain.getDanhMuc(UserName, "MATO", Grade));
-                setLstPhanloai(daoMain.getDanhMuc(UserName, "PHANLOAI", Grade));
-                setLstGiaiNgan(daoMain.getDanhMuc(UserName, "GIAINGAN", Grade));
-                setLstNhadautu(daoMain.getDanhMuc(UserName, "NHADT", Grade));
-                return "nghiquyet11cp_02_sk";
-            }
-            else if (khoa_nghiquyet11cp.equals("NQ11CP_01KH")) {
-                return "nghiquyet11cp_01_kh";
-            }
-            else if (khoa_nghiquyet11cp.equals("NQ11CP_04KH")) {
-                return "nghiquyet11cp_04_kh";
-            }
-            else{
-                return "";
+            if(khoa_traiphieucp.equals("TRAIPHIEU_001"))
+                return SUCCESS;
+            else if(khoa_traiphieucp.equals("TRAIPHIEU_002"))
+            {
+                lstNamBC = new XDKHDao2021().getLOV(UserName, "NAM_TP");
+                return "phi_phaitra";
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> loadParaBaocao: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> loadParaBaocao: " + e.getMessage());
             return ERROR;
-        }        
+        }       
+        return SUCCESS;
     }
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
-
-    public String getVieclam_total() {
-        return vieclam_total;
-    }
-
-    public void setVieclam_total(String vieclam_total) {
-        this.vieclam_total = vieclam_total;
-    }
-
-    public String getNoxh_total() {
-        return noxh_total;
-    }
-
-    public void setNoxh_total(String noxh_total) {
-        this.noxh_total = noxh_total;
-    }
-    
 
     public String getChotsl() {
         return chotsl;
@@ -622,12 +596,12 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
         this.lstViewSend = lstViewSend;
     }
 
-    public String getKhoa_nghiquyet11cp() {
-        return khoa_nghiquyet11cp;
+    public String getKhoa_traiphieucp() {
+        return khoa_traiphieucp;
     }
 
-    public void setKhoa_nghiquyet11cp(String khoa_nghiquyet11cp) {
-        this.khoa_nghiquyet11cp = khoa_nghiquyet11cp;
+    public void setKhoa_traiphieucp(String khoa_traiphieucp) {
+        this.khoa_traiphieucp = khoa_traiphieucp;
     }
 
     public String getTt_khoa() {

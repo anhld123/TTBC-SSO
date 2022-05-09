@@ -88,7 +88,38 @@
                 <result name="success">/BCQT/success.jsp</result>
                 <result name="error">/BCQT/success.jsp</result>        
         </action>      
-                                      
+                    
+        <!--Trái phiếu chính phủ ==========================================================================================================================================-->
+        <action name="loadAllTraiphieuCp" class="vbsp.ims.traiphieucp.ActionTraiphieuCp"  method="execute">
+                <result name="success" type="json"></result>        
+        </action>
+        
+        <action name="LoadParaTraiphieuCp" class="vbsp.ims.traiphieucp.ActionTraiphieuCp"  method="loadParaBaocao">
+            <result name="success">/traiphieu_cp/para_traiphieu_cp.jsp</result>     
+            <result name="phi_phaitra">/traiphieu_cp/para_traiphieu_cp_phi.jsp</result>            
+            <result name="error">/nghiquyet11cp/success.jsp</result>        
+        </action>  
+        
+        <action name="TRAIPHIEU_001" class="vbsp.ims.traiphieucp.TRAIPHIEU_001"  method="load">
+		<result name="success">/traiphieu_cp/table_traiphieu_001.jsp</result>                                 
+		<result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+
+        <action name="SAVE_TRAIPHIEU_001" class="vbsp.ims.traiphieucp.TRAIPHIEU_001"  method="save">
+                        <result name="success">/BCQT/success.jsp</result>
+                        <result name="error">/BCQT/success.jsp</result>        
+        </action> 
+        
+        <action name="TRAIPHIEU_002" class="vbsp.ims.traiphieucp.TRAIPHIEU_002"  method="load">
+		<result name="success">/traiphieu_cp/table_traiphieu_002.jsp</result>                                 
+		<result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+
+        <action name="SAVE_TRAIPHIEU_002" class="vbsp.ims.traiphieucp.TRAIPHIEU_002"  method="save">
+                        <result name="success">/BCQT/success.jsp</result>
+                        <result name="error">/BCQT/success.jsp</result>        
+        </action> 
+        
     </package>
     
 </struts>
