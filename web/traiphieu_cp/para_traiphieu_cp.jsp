@@ -232,14 +232,6 @@
                     $('#divExportReport').empty();
                     $('#divExportReportLink').empty();
 
-                    //                var khoa_nghiquyet11cp = $("#khoa_nghiquyet11cp").val();
-                    //                var maxa = $("#maxa").val();
-                    ////                alert(maxa);
-                    //                if(maxa === "000000")
-                    //                {
-                    //                    $('#message_suc_err').html("<h2 style='color: red'>Bạn cần chọn mã xã trước khi tải số liệu !</h2>");
-                    //                    return;
-                    //                }
 
                     $("#loadData")[0].click();
                     bsubmit = true;
@@ -262,7 +254,7 @@
 //                    $('#message_suc_err').html("<h2 style='color: red'>Bạn đã chốt số liệu, vui lòng chọn Cập nhật hạch toán GL !</h2>");
 //                    return;
 //                }
-                var khoa = $("#khoa_nghiquyet11cp").val() + "_save";
+                var khoa = $("#khoa_traiphieucp").val() + "_save";
 //                alert(khoa);
                 if (!bsubmit)
                 {
@@ -284,7 +276,7 @@
                 if (validateRequiredFields())
                     $("#" + khoa)[0].click();
 
-//                if (khoa === 'NQ11CP_04KH_save')
+//                if (khoa === 'TRAIPHIEU_001_save')
 //                {
 //                    wait(2000);
 //                    onLoadData();
@@ -349,7 +341,7 @@
             {
 
                 var pos_cd = '';
-                var idform = 'id_' + '<s:property value="khoa_nghiquyet11cp"/>';
+                var idform = 'id_' + '<s:property value="khoa_traiphieucp"/>';
                 var element = document.forms[idform].elements;
 //                 alert('bat dau goi submit idform='+idform);
                 var i = element.length;
@@ -394,7 +386,7 @@
                             return false;
                         }
                         //Neu la kieu so --> Kiem tra xem kieu nhap co < 9999999999
-                        if (parseFloat(value) > 999999999999) {
+                        if (parseFloat(value) > 999999999999999) {
                             result = false;
                             //Dua ra canh bao
                             $("#message_suc_err").html('<span style="color:red"><h2><span style="font-weight: bold; color">Thông báo:</span>  Giá trị bạn nhập vượt quá giới hạn!</h2></span>');
@@ -419,7 +411,7 @@
 //                    return;
 //                }
 
-                var idform = 'idform_open_' + '<s:property value="khoa_nghiquyet11cp"/>';
+                var idform = 'idform_open_' + '<s:property value="khoa_traiphieucp"/>';
                 if ($('#' + idform + ' input:checkbox:checked').length > 0)
                 {
                     $("#" + khoa)[0].click();
@@ -477,8 +469,8 @@
     <!--new java.util.Date()-->
     <body>
         <div id="container" >
-            <s:form id="id_%{khoa_nghiquyet11cp}" name="name_%{khoa_nghiquyet11cp}" action="%{khoa_nghiquyet11cp}" theme="simple">
-                <s:hidden name="khoa_nghiquyet11cp" id="khoa"/>
+            <s:form id="id_%{khoa_traiphieucp}" name="name_%{khoa_traiphieucp}" action="%{khoa_traiphieucp}" theme="simple">
+                <s:hidden name="khoa_traiphieucp" id="khoa"/>
                 <s:hidden name="ReportDate" id="ReportDate" value=""/>
                 <s:hidden name="Grade" id="Grade"/>
                 <s:hidden name="UserName" id="UserName"/>
@@ -489,18 +481,34 @@
                             <tr style="height: 30px;">
                                 <td>Ngày BC</td>
                                 <td>
-                                    <sj:datepicker name="ngay_bc_DATE" value="%{'30/04/2022'}"  id="ngay_bc_DATE"
+                                    <sj:datepicker name="ngay_bc_DATE" value="%{'31/07/2021'}"  id="ngay_bc_DATE"
                                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
                                 </td>
+                                <td></td>
                                 <td>
-                                    <p class="normal_font">Nghiệp vụ:</p>
+                                    <p class="normal_font">Sản phẩm:</p>
                                 </td>
                                 <td>
-                                    <select name="nghiepvu" id="nghiepvu">
-                                        <option value="0">Giao kế hoạch</option>
-                                        <option value="1">Điều chỉnh lần 1</option>
-                                        <option value="2">Điều chỉnh lần 2</option>
-                                        <option value="3">Điều chỉnh lần 3</option>
+                                    <select style="width: 100px;" name="sanpham" id="sanpham">
+                                        <option value="0">  Tất cả  </option>
+                                        <option value="491">491</option>
+                                        <option value="493">493</option>                                        
+                                    </select>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <p class="normal_font">Kỳ hạn:</p>
+                                </td>
+                                <td>
+                                    <select  style="width: 100px;" name="kyhan" id="kyhan">
+                                        <option value="0">  Tất cả  </option>
+                                        <option value="M60">60 - tháng</option>
+                                        <option value="M120">120 - tháng</option>
+                                        <option value="M180">180 - tháng</option>
+                                        <option value="Y3">3 - năm</option>
+                                        <option value="Y5">5 - năm</option>
+                                        <option value="Y10">10 - năm</option>
+                                        <option value="Y15">15 - năm</option>
                                     </select>
                                 </td> 
                                 <td >                                        
@@ -518,20 +526,7 @@
 
 
                                 </td>
-                                <!--                                <td>
-                                                                    
-                                                                        
-                                <s:url id="idxacnhan" action="sendLockBCQT.action"></s:url>                                      
-                                <sj:submit id="idSendLock" name="nameSend" href="%{idxacnhan}" value="Gửi dữ liệu" targets="divExportReport"
-                                           onBeforeTopics="beforediv_send"
-                                           onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                <input type="button" id="idsaveDatatmp" name="nameidSendLocktmp"  onclick="onSentLockData()" value="Xuất xls mẫu"/>    
-                        </td>-->
-                                <td>
-                                    &nbsp;&nbsp;|&nbsp;&nbsp;
-                                    <sj:a class="cmd" href="#" onclick="callDirectLink('nq11_04kh_open_upload?');" >
-                                        <b> <u>Upload Excel</u>  </b> </sj:a>   
-                                    </td>
+
                                     <td  colspan="2">
                                         <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
                                             <img id="loadingImage" src='img/loading.gif' border='0' >
@@ -542,40 +537,16 @@
                                         </div>
                                     </td>
                                 </tr>  
-                                <!--                            <tr>
-                                                                
-                                                            </tr>-->
                             </table>    
                         </div>
                     </div>
 
-                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11CP_01KH')">
+                
                     <div id="containParm_full" align="center">
                         <div id="divExportReport"></div>
                         <div align="right"  id="divExportReportLink"></div>
                     </div>
-                </s:if>
-                <s:else>
-                    <div id="containTree">
-                        <sjt:tree
-                            name="poscd"
-                            id="treeDynamicCheckboxes"
-                            jstreetheme="apple"
-                            rootNode="nodes_pos"
-                            childCollectionProperty="children"
-                            nodeTitleProperty="title"
-                            nodeIdProperty="id"
-                            openAllOnLoad="true"
-                            checkbox="true"
-                            showThemeDots="false"
-                            showThemeIcons="true" 
-                            />
-                    </div>
-                    <div id="containParm" align="center">
-                        <div id="divExportReport"></div>
-
-                    </div>
-                </s:else>                     
+                                   
 
             </s:form>
         </div>
