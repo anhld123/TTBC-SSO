@@ -38,6 +38,11 @@
                 method="downloadQTTFileUpload">
             <result name="success">/viewfilebc.jsp</result>
         </action>
+        
+        <action name="vvc_downloadFileUpload" class="vbsp.ims.loveleaf.ExportFileAction" 
+                method="downloadVVCFileUpload">
+            <result name="success">/viewfilebc.jsp</result>
+        </action>
                            
         <action name="loveleaf_upload_file" class="vbsp.ims.loveleaf.PoorUploadAction"
         method="upload_file">
@@ -84,6 +89,12 @@
                  class="vbsp.ims.loveleaf.DonatorAction"
                  method="build_period_combo" >                                            
             <result name="success" type="json"></result>                          
-        </action>                                                                                                                                                                                                                                                                                                                                                                                                                                
+        </action>     
+        
+               <action  name="loveleaf_build_program_combo" 
+                 class="vbsp.ims.loveleaf.DonatorAction"
+                 method="buildProgramCombo" >                                            
+            <result name="success" type="json"></result>                          
+        </action>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
     </package>          
 </struts>

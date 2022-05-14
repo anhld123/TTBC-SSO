@@ -8,7 +8,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="${param.css}" type="text/css" rel="stylesheet" />
-        <link href="../css/css/style.css" rel="stylesheet" type="text/css"/>
         <title> ${param.title}</title>
         <sx:head/>
         <sj:head/>

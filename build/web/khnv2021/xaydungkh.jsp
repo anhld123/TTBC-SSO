@@ -6,11 +6,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
-<%@ taglib prefix="sjt" uri="/struts-jquery-tree-tags"%>
-<%@ taglib prefix="sjg" uri="/struts-jquery-grid-tags"%>
-
 <s:head/>
 <sj:head/>
 
@@ -153,15 +150,34 @@
                           listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
                 &nbsp;-->
                 &nbsp;
+
                 <span class="clss-lable">Mã xã:</span>
-                <s:select id="commune_cd" name="commune_cd" list="posList" listKey="id" listValue="desc"/> </b> &nbsp;&nbsp;
-
-                &nbsp;
-                <span class="clss-lable">Mã thôn:</span>
-                <s:select id="subcommune_cd" name="subcommune_cd" list="subCommuneList" listKey="id" listValue="desc"/> </b> &nbsp;&nbsp;
-                &nbsp;
-
-                <!--<input type="button" id="cmdTai" name="cmdTai" value="Tải dữ liệu" class="cmd">-->
+                <s:url var="buildCommuneComboUrl" action="communeBuildCombo"></s:url>
+                <sj:select href="%{buildCommuneComboUrl}" 
+                           name="commune_cd"
+                           id="form_khnv2021_commune_cd"
+                           list="custCommuneList"        
+                           onChangeTopics="reloadState"
+                           onCompleteTopics = "reloadState"                                   
+                           listKey="id"
+                           listValue="desc"                           
+                           theme="simple"
+                           ></sj:select> 
+                    </b> &nbsp;&nbsp;           
+                    &nbsp;
+                    <span class="clss-lable">Mã thôn:</span>
+                <sj:select href="%{buildCommuneComboUrl}" 
+                           name="subcommune_cd"
+                           id="form_khnv2021_subcommune_cd"
+                           list="custSubCommuneList"        
+                           reloadTopics = "reloadState" 
+                           listKey="id"
+                           listValue="desc"                           
+                           theme="simple"
+                           ></sj:select>                 
+                    &nbsp;
+                    &nbsp;
+                    <!--<input type="button" id="cmdTai" name="cmdTai" value="Tải dữ liệu" class="cmd">-->
                 <s:url id="idLoadDataKhnv" action="loadDataKhnv.action"></s:url>                                      
                 <sj:submit id="idloadDataKhnvtmp" name="nameSend" href="%{idLoadDataKhnv}" value="Xem dữ liệu" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
@@ -172,7 +188,14 @@
                 <sj:submit id="idloadDataKhnvtmp2" name="nameSend2" href="%{idSendCNKhnv}" value="Gửi chi nhánh" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
-                <input type="button" name="cmdPrint" id="cmdPrint" value="In bao cáo" class="cmd">
+                
+                <s:url id="cmdPrint" action="SendAction.action">
+                    <s:param name="status">4</s:param>
+                </s:url>                                      
+                <sj:submit id="cmdPrinttmp" name="cmdPrint" href="%{cmdPrint}" value="In báo cáo" targets="divKhDetail"
+                           onBeforeTopics="beforediv_send"
+                           onCompleteTopics="completediv_send" class="cmd"/>
+      
             </div>
             <hr/>
             <div>
@@ -214,9 +237,6 @@
     <script>
         $(document).ready(function () {
             $("#ifPrint").hide();
-            $("#cmdPrint").click(function () {
-                $("#divKhDetail").html('<iframe id="ifPrint" src="/IMS_REPORTS/Menu_redirect.action?menuUrl=include_rptmanaget&menuId=179" width="100%" height="100%" ></iframe>');
-            });
         });
     </script>
 </body>

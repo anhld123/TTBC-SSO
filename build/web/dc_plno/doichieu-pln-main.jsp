@@ -192,6 +192,8 @@
             function submitloadData()
             {
                 var iSuccess = 0;
+                $("#containParm").hide();
+                $("#loadingImageDiv").show();
                 $("#frmDataDc input[type=checkbox]").each(function()
                 {
                     var num_id = this.id;
@@ -263,13 +265,19 @@
                 else {
                     alert("Bạn phải chọn khách hàng cần đối chiếu trước khi lưu dữ liệu!");
                 }
+                setTimeout(setTime,1000);   
+            }
+            function setTime(){
+                //Đoạn này chỉ để chứng minh đã xử lý xong phần load Image loading
+                $("#loadingImageDiv").hide();
+                $("#containParm").show();
             }
             function validateRequiredFields() {
                 var result = true; //Luu ket qua kiem tra kieu so co dung khong
                 $(".number2").each(function(index) {
                     var value = $(this).val();
                     value = value.replace(/,/g, "");
-                    if (parseFloat(value) > 9999999999) {
+                    if (parseFloat(value) > 999999999999) {
                         result = false;
                         alert('Giá trị bạn nhập vượt quá giới hạn!');
                         return false;
@@ -307,7 +315,7 @@
                                 <td>
                                     <s:label value="Ngày báo cáo " cssStyle="color: #029c44;"/>
                                     <sj:datepicker name="ngay_dcpln" id="ngay_dcpln"
-                                                   value="%{new java.util.Date()}" onblur="validatedate(this.value)" cssClass="NGAY_SL"
+                                                   value="%{'31/12/2021'}" onblur="validatedate(this.value)" cssClass="NGAY_SL"
                                                    placeholder="DD/MM/YYYY" changeYear="true"  changeMonth="true" displayFormat="dd/mm/yy" 
                                                    cssStyle="vertical-align: middle;"/> 
                                     &nbsp;
@@ -385,10 +393,10 @@
                                            onclick="onReturn()" value="Quay ra" style="float: right; width:81px;"/>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <sj:submit id="loadsubmitform" name="loadsubmitform" value="Tải dữ liệu" targets="divExportReport" onclick="onclear()"
-                                               onBeforeTopics="beforediv1" onCompleteTopics="completediv1" cssStyle="display: none"/>
+                                               onBeforeTopics="beforediv1" onCompleteTopics="completediv1" cssStyle="display: none;"/>
                                     <input type="button" id="loaddata" name="loaddata" onclick="onLoadData()" value="Tải dữ liệu"/>
                                     <sj:submit id="idButtondonvi" name="nameButtondonvi" value="Lưu dữ liệu" targets="divExportReport"
-                                               onBeforeTopics="beforediv1"
+                                               onBeforeTopics="myBeforeHandler"
                                                onCompleteTopics="completediv1" cssStyle="display: none"/>
                                     <input type="button" id="idButtondonvitmp" name="nameButtondonvitmp" onclick="submitloadData()" value="Lưu dữ liệu"/>
                                 </td>
@@ -424,5 +432,11 @@
             </s:form>
         </div>
     </p>
+    <script>
+        $(document).ready(function () {            
+//            $("#ngay_dcpln").val("31/12/2021");
+            document.getElementById('ngay_dcpln').value = "31/12/2021";
+        })
+    </script>
 </body>
 </html>

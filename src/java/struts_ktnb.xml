@@ -408,6 +408,13 @@
             <result name="success">/ktktnb/success.jsp</result>
         </action>
         
+        <!--Mẫu Phản ánh kiến nghị-->
+        <action name="get_data_pakn01tcd" class="vbsp.ims.action.ktktnb.ktnbpakn" method="get_data_pakn01tcd">
+            <result name="M01TCD">/PAKN/M01TCD.jsp</result>
+        </action>
+        
+        
+        
 <!--        <action name="load_m01bdd" class="vbsp.ims.dao.ktnb.M01BDDActionSupport" method="load">
             <result name="success">/ktktnb/VNP01-01BDD-SUB.jsp</result>
         </action>

@@ -154,7 +154,7 @@
                 
                 if (r === true) {
                     js_parent_id.value = js_new_str;
-                    alert(js_new_str);
+                    //alert(js_new_str);
                 } else {
                     e.preventDefault();
                 }

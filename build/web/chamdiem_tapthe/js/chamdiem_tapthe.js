@@ -178,8 +178,16 @@ function evaluateSum_Mapgd(table_id, subid, Mapgd) {
                         console.log(' ma_ct=' + ma_ct);
                         continue;
                     } else
-                        document.getElementById(subid + '_' + ma_ct+'_'+Mapgd).value = tongcong;
-
+                    {
+                        if (subid + '_' + ma_ct === 'D11_CDTT11')
+                        {
+                            document.getElementById(subid + '_' + ma_ct+'_'+Mapgd).value = tongcong/3;
+                        }
+                        else{
+                            document.getElementById(subid + '_' + ma_ct+'_'+Mapgd).value = tongcong;
+                        }
+                        
+                        }
                 }
             }
 

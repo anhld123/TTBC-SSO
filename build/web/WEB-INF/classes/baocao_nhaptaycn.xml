@@ -11,6 +11,7 @@
         
         <action name="LoadParaNhaptaycn" class="vbsp.ims.nhaptaycn.action.ActionNhaptaycnMain"  method="loadPataNhaptaycn">
             <result name="success">/nhaptay-cn/para-nhaptaycn-main.jsp</result>
+            <result name="htls2021">/nhaptay-cn/para-nhaptaycn-main-htls2021.jsp</result>
             <result name="PHIUT_001">/nhaptay-cn/para-nhaptaycn-main_phiut.jsp</result>
             <result name="CHART_001">/nhaptay-cn/para-nhaptaycn-main_chart.jsp</result>
             <result name="KSNB_02">/nhaptay-cn/para-nhaptaycn-main_ktnb02.jsp</result>
@@ -331,13 +332,14 @@
         </action>-->
         
         <action name="COVID_03" class="vbsp.ims.nhaptaycn.action.COVID_03"  method="load">
-                <result name="success">/nhaptay-cn/table_covid_03.jsp</result>                
-                <result name="error">/nhaptay-cn/success.jsp</result>        
+            <result name="success">/nhaptay-cn/table_covid_03.jsp</result>                
+            <result name="test">/nhaptay-cn/table_test_api.jsp</result>                
+            <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>
 
         <action name="SAVE_COVID_03" class="vbsp.ims.nhaptaycn.action.COVID_03"  method="save">
-                <result name="success">/BCQT/success.jsp</result>
-                <result name="error">/BCQT/success.jsp</result>        
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
         </action>
         
         <action name="COVID_04" class="vbsp.ims.nhaptaycn.action.COVID_04"  method="load">
@@ -381,13 +383,13 @@
         </action>
         
         <action name="COVID_GIAINGAN" class="vbsp.ims.nhaptaycn.action.COVID_GIAINGAN"  method="load">
-                <result name="success">/nhaptay-cn/table_covid_02.jsp</result>                
-                <result name="error">/nhaptay-cn/success.jsp</result>        
+            <result name="success">/nhaptay-cn/table_covid_02.jsp</result>                
+            <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>
 
         <action name="SAVE_COVID_GIAINGAN" class="vbsp.ims.nhaptaycn.action.COVID_GIAINGAN"  method="save">
-                <result name="success">/BCQT/success.jsp</result>
-                <result name="error">/BCQT/success.jsp</result>        
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
         </action>
         
         <action name="COVID_GIAINGAN_ExpExcel" class="vbsp.ims.nhaptaycn.action.COVID_GIAINGAN"  method="ExpExcel">
@@ -423,19 +425,37 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>
         
+        <action name="KSNB_01_001" class="vbsp.ims.nhaptaycn.action.KSNB_01"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="QD23_004" class="vbsp.ims.nhaptaycn.action.Qd2368Action"  method="load">
+            <result name="success">/nhaptay-cn/table_qd2368_pgd.jsp</result>
+            <result name="view_tw">/nhaptay-cn/table_unlock.jsp</result>
+            <result name="error">/nhaptay-cn/success.jsp</result>        
+        </action>
+        
+        <action name="SAVE_QD23_004" class="vbsp.ims.nhaptaycn.action.Qd2368Action"  method="save">
+            <result name="success">/nhaptay-cn/success.jsp</result>
+            <result name="error">/nhaptay-cn/success.jsp</result>        
+        </action>
+        
         <action name="QD23_001" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="load">
-                <result name="nhap_pgd">/nhaptay-cn/table_qd23_001_pgd.jsp</result>                
-                <result name="xaydungkh_tw">/nhaptay-cn/table_qd23_001_tw_xd.jsp</result>   
-                <result name="dieuchinhkh_tw">/nhaptay-cn/table_qd23_001_tw_dc.jsp</result>   
-                <result name="nhap_cn">/nhaptay-cn/table_qd23_001_cn.jsp</result>   
-                <result name="dieuchinh_pgd">/nhaptay-cn/table_qd23_001_dieuchinh_pgd.jsp</result>      
-                <result name="canhbao_pgd">/nhaptay-cn/table_qd23_001_canhbao_pgd.jsp</result>     
-                <result name="error">/nhaptay-cn/success.jsp</result>        
+            <result name="nhap_1_kh_pgd">/nhaptay-cn/table_qd23_001_1_kh_pgd.jsp</result>  
+            <result name="nhap_2_pheduyetcv_pgd">/nhaptay-cn/table_qd23_001_2_pheduyetcv_pgd.jsp</result>                      
+            <result name="nhap_3_pheduyetgn_pgd">/nhaptay-cn/table_qd23_001_3_pheduyetgn_pgd.jsp</result>       
+            <result name="xaydungkh_tw">/nhaptay-cn/table_qd23_001_tw_xd.jsp</result>   
+            <result name="dieuchinhkh_tw">/nhaptay-cn/table_qd23_001_tw_dc.jsp</result>   
+            <result name="xaydungkh_cn">/nhaptay-cn/table_qd23_001_cn.jsp</result>   
+            <result name="dieuchinh_pgd">/nhaptay-cn/table_qd23_001_dieuchinh_pgd.jsp</result>      
+            <result name="canhbao_pgd">/nhaptay-cn/table_qd23_001_canhbao_pgd.jsp</result>     
+            <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>
 
         <action name="SAVE_QD23_001" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="save">
-                <result name="success">/BCQT/success.jsp</result>
-                <result name="error">/BCQT/success.jsp</result>        
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
         </action>
         
         <action name="updateDsNguoiLD_QD23" class="vbsp.ims.nhaptaycn.action.QD23_001" method="updateDsNguoiLD_QD23">
@@ -447,7 +467,10 @@
             </result>  
         </action>
         
-        
+        <action name="UserGroup_deleteQD23" class="vbsp.ims.nhaptaycn.action.QD23_001" method="delete">            
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>   
+        </action>
         
         <action name="loadUploadDsNguoild" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="loadParaUploadDsNguoild">
             <result name="success" type="json"></result>        
@@ -466,20 +489,114 @@
             </result>  
         </action>
         
+        <action name="loadDieuchinhPheduyetChovay" class="vbsp.ims.nhaptaycn.action.QD23_001" method="loadDieuchinhPheduyetChovay">
+            <result name="pgd_dc_pheduyet_cv">/nhaptay-cn/table_qd23_001_dc_pheduyet_chovay.jsp</result>               
+            <result name="pgd_dc_pheduyet_gn">/nhaptay-cn/table_qd23_001_dc_pheduyet_giaingan.jsp</result>    
+            <result name="pgd_dc_pheduyet_dn">/nhaptay-cn/table_qd23_001_dc_denghi.jsp</result>    
+            <result name="error">  
+                /chamdiem_canhan/success.jsp
+            </result>  
+        </action>
+        <action name="loadDieuchinhPheduyetGiaingan" class="vbsp.ims.nhaptaycn.action.QD23_001" method="loadDieuchinhPheduyetGiaingan">
+            <result name="success">  
+                /nhaptay-cn/table_qd23_001_dc_pheduyet_giaingan.jsp
+            </result>               
+            <result name="error">  
+                /chamdiem_canhan/success.jsp
+            </result>  
+        </action>
+        
         <action name="saveUploadDsNguoiLD_QD23" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveUploadDsNguoiLD_QD23">
-            <result name="success">/nhaptay-cn/table-result-upload-nld_qd23.jsp</result>               
+            <result name="success">/nhaptay-cn/table-result-upload-nld_qd23.jsp</result>  
+            <result name="error">/BCQT/success.jsp</result>              
         </action>
         
         <action name="saveDieuchinhKH" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveDieuchinhKH">
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>
         </action>
-                
+        
+        <action name="saveDieuchinhPheduyet" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="saveDieuchinhPheduyet">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>
+        </action>
+        
+        <action name="QD23_001_ExpExcel" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="QD23_001_ExpExcel">
+            <result name="success">downfile_bcnhanh.jsp</result>  
+            <result name="error">/error.jsp</result>        
+        </action> 
+        
+        <action name="QD23_001_ExpExcel_Temp" class="vbsp.ims.nhaptaycn.action.QD23_001"  method="QD23_001_ExpExcel_Temp">
+            <result name="success">downfile_bcnhanh.jsp</result>  
+            <result name="error">/error.jsp</result>        
+        </action> 
+        
+        <action name="QD23_007" class="vbsp.ims.nhaptaycn.action.QD23_007"  method="load">
+            <result name="nhap_1_trong30ngay">/nhaptay-cn/table_qd23_007_1_trong30ngay.jsp</result>    
+            <result name="nhap_1_sau30ngay">/nhaptay-cn/table_qd23_007_1_sau30ngay.jsp</result>   
+            <result name="nhap_1_kiemtralai">/nhaptay-cn/table_qd23_007_1_kiemtralai.jsp</result>  
+            <result name="nhap_2_trong30ngay">/nhaptay-cn/table_qd23_007_2_trong30ngay.jsp</result>    
+            <result name="nhap_2_sau30ngay">/nhaptay-cn/table_qd23_007_2_sau30ngay.jsp</result>   
+            <result name="nhap_2_kiemtralai">/nhaptay-cn/table_qd23_007_2_kiemtralai.jsp</result>  
+            <result name="error">/nhaptay-cn/success.jsp</result>        
+        </action>
+        
+        <action name="SAVE_QD23_007" class="vbsp.ims.nhaptaycn.action.QD23_007"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        <action name="QD23_008" class="vbsp.ims.nhaptaycn.action.QD23_008"  method="load">
+            <result name="rasoat_1_pgd">/nhaptay-cn/table_qd23_008_1_rasoat_pgd.jsp</result>       
+            <result name="rasoat_2_cn">/nhaptay-cn/table_qd23_2_008_rasoat_cn.jsp</result>   
+            <result name="error">/nhaptay-cn/success.jsp</result>        
+        </action>
+        
+        <action name="SAVE_QD23_008" class="vbsp.ims.nhaptaycn.action.QD23_008"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="HTLS2021" class="vbsp.ims.nhaptaycn.action.HTLS2021"  method="load">
+            <result name="success">/nhaptay-cn/table_2021_htls.jsp</result>     
+            <result name="xacnhanht">/nhaptay-cn/table_2021_tttl.jsp</result>     
+            <result name="cap2_chot">/nhaptay-cn/table_2021_htls_cnchot.jsp</result> 
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        
+        <action name="SAVE_HTLS2021" class="vbsp.ims.nhaptaycn.action.HTLS2021"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="HTL_SAVE_HTLS2021" class="vbsp.ims.nhaptaycn.action.HTLS2021"  method="save_htl">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="NDT2021" class="vbsp.ims.nhaptaycn.action.NDT2021"  method="load">
+            <result name="success">/nhaptay-cn/table_2021_ndt.jsp</result>     
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        
+         <action name="SAVE_NDT2021" class="vbsp.ims.nhaptaycn.action.NDT2021"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
         <!--gui so lieu -->
         <action name="sendPhiUT" class="vbsp.ims.nhaptaycn.action.ActionNhaptaycnMain"  method="sendPhiUT">
             <result name="success">/nhaptay-cn/success.jsp</result>
             <result name="error">/nhaptay-cn/success.jsp</result>        
-        </action>    
+        </action>  
+        
+        <action name="OPEN_PGD_NHAPTAYCN" class="vbsp.ims.nhaptaycn.action.ActionNhaptaycnMain"  method="unLockData">
+            <result name="success">/nhaptay-cn/success.jsp</result>
+            <result name="error">/nhaptay-cn/success.jsp</result>        
+        </action>     
+        
+        <action name="GetLockStatus" class="vbsp.ims.nhaptaycn.action.ActionNhaptaycnMain" method="checkLockStatus">
+            <result name="success" type="json"></result>
+        </action>
     </package>
     
 </struts>

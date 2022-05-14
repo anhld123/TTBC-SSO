@@ -255,6 +255,13 @@
             }
         }
     </script>
+    <script>
+        function handleChange(index, value) {
+//            alert(index+ value);
+            var id = "DNN_"+ index;
+            $("#"+id).val(value);
+        }
+        </script>
     <script type="text/javascript" src="js/pagination.js">
     </script>
 
@@ -315,7 +322,7 @@
                 </s:iterator>
             </table>
             </br>
-            <table cellpadding="0" cellspacing="0" class="my-table" align="center">
+            <table cellpadding="0" cellspacing="0" class="my-table" align="center" style="width: 98%">
                 <tr>     
                     <th width="15" class="sortable"><s:checkbox id ="allCheck" name="allCheck" onclick="selectallMe()"/></th>                    
                         <s:if test="reportGrade.equalsIgnoreCase('1')"> 
@@ -346,7 +353,7 @@
                     <th class="NGAY_RR">Ngày rủi ro</th> 
                     <th class="NGUYEN_NHAN">Thiệt hại</th>   
                     <th class="NGUYEN_NHAN_EDIT">Tháng DN</th> 
-                    <th class="NGUYEN_NHAN">Nguyên nhân</th> 
+                    <th class="TEN_KH">Nguyên nhân</th> 
                     <th class="TUCHOI">Từ chối</th> 
                 </tr>
                 <s:iterator value="#attr.lstTableRiskObj" var="modelRisk" status="rowstatus">
@@ -506,16 +513,36 @@
                         </s:else>
                         <!--thay doi ve gia tri khong co de ngay vao else-->
                         <s:if test="reportGrade<'4'">
-                            <td align = "center">
+<!--                            <td align = "center">
                                 <input type="text" value="<s:property  value="sNguyennhan" />" 
                                        name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNguyennhan" class="NGUYEN_NHAN" onfocus="this.select()" readonly="true" size="2" maxlength="2"/>
-                            </td>
+                            </td>-->
+                            <td align = "left" class="TD_TENKH">                                        
+                                    <s:select   
+                                            id="lstTableRiskObj[%{#rowstatus.index}].sNguyennhan"
+                                            name="lstTableRiskObj[%{#rowstatus.index}].sNguyennhan"
+                                            list="lstNguyenNhanRR"                                             
+                                            listKey="sKey"
+                                            listValue="sDesc"                                                      
+                                            onchange="handleChange(%{#rowstatus.index},this.value)"
+                                            cssStyle="width: 100%;vertical-align: middle;background-color: #FFCCBA; TEN_KH">
+                                        
+                                        <input type="hidden" value="<s:property  value="sNguyennhan" />" id="DNN_<s:property  value="%{#rowstatus.index}" />"
+                                           name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNguyennhan" class="TEN_KH"/>
+                                    </s:select>
+                            </td>    
                         </s:if>
                         <s:else>
-                            <td align = "center">
-                                <input type="text" value="<s:property  value="sNguyennhan" />" 
-                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNguyennhan" class="NGUYEN_NHAN" onfocus="this.select()" size="2" maxlength="2"/>
-                            </td>
+                            <td align = "left" class="TD_TENKH">                                        
+                                    <s:select  
+                                            id="lstTableRiskObj[%{#rowstatus.index}].sNguyennhan"
+                                            name="lstRisk[%{#rowstatus.index}].sNguyennhan"
+                                            list="lstNguyenNhanRR" 
+                                            listKey="sKey"
+                                            listValue="sDesc"                                                                             
+                                            cssStyle="width: 100%;vertical-align: middle;background-color: #FFCCBA; TEN_KH">
+                                    </s:select>
+                            </td>    
                         </s:else>
                         <td style="text-align: center;" class="TUCHOI">
                             <a href="javascript:diennoidung_tuchoi('<s:property value="sSoku"/>')" class="SOKU linkKh">

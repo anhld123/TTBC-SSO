@@ -293,7 +293,7 @@
                             <s:url id="reloadData" action="reloadDvutSendPln" includeParams="post"></s:url>
                             <s:label value="Ngày SL:" cssStyle="color: #029c44;" />
                             <sj:datepicker name="ngay_dcpt" id="ngay_dcpt"
-                                           value="%{new java.util.Date()}" onblur="validatedate(this.value)" cssClass="NGAY_SL"
+                                           value="%{'31/12/2021'}" onblur="validatedate(this.value)" cssClass="NGAY_SL"
                                            placeholder="DD/MM/YYYY" changeYear="true"  changeMonth="true" displayFormat="dd/mm/yy" 
                                            cssStyle="font-weight: bold;vertical-align: middle;"/>                             
                             <s:label value="Tổ chức hội:" cssStyle="color: #029c44;" />

@@ -23,7 +23,7 @@
 <script src="js/Checkdate.js"></script>
 
 <div id="main_screen_div" align="left">   
-    <h3><u>Cập nhật thông tin cặp lá:</u></h3>
+    <h3><u>Cập nhật thông tin Cặp lá/Quỹ thiện tâm:</u></h3>
             <s:form id="dtw_upload_form" 
                     theme="simple"
                     enctype="multipart/form-data"
@@ -47,7 +47,17 @@
                                onCompleteTopics="after-next"/>
                 </td>
             </tr>                                                                   
-        </table>                               
+        </table>       
+    <hr/>
+    <div >
+        
+                    (1) Cặp lá yêu thương: DSLARACH_ddmmyyyy.*, DSLCLMOTK_ddmmyyyy.*
+                    <br/>
+                    (2) Quỹ thiện tâm: QTT_DTTH_ddmmyyyy.*, QTT_CHUYENTIEN_ddmmyyyy.*
+                    <br/>
+                    (3) Nối vòng tay thương: VVC_DTTH_ddmmyyyy.*, VVC_CHUYENTIEN_ddmmyyyy.*, VVC_CITAD_ddmmyyyy.*
+                
+    </div>
     </s:form>
     <div id="loadingImageDiv" style="display: none;">
         <img id="loadingImage" src='img/loading.gif' border='0' >

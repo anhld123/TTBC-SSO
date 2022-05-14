@@ -1,0 +1,23 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package vbsp.ims.action.ktktnb;
+
+import com.opensymphony.xwork2.ActionSupport;
+
+/**
+ *
+ * @author NGUYEN PHU VINH
+ */
+public class ktnbpakn extends ActionSupport {
+    
+    public ktnbpakn() {
+    }
+    
+    public String get_data_pakn01tcd() throws Exception {
+        return  "M01TCD";
+    }
+    
+}

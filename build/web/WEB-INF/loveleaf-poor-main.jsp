@@ -51,7 +51,7 @@
 </script>
 
 <div id="main_screen_div" align="left">   
-    <h3><u>Cập nhật thông tin cặp lá:</u></h3>
+    <h3><u>Cập nhật thông tin cặp lá/Quỹ thiện tâm/Nối vòng tay thương</u></h3>
             <s:form id="dtw_upload_form" 
                     theme="simple"            
                     action="#">     
@@ -149,6 +149,7 @@
                     
                 </b>
             </sj:a>      
+            
         </u> 
         
         &nbsp;&nbsp;
@@ -164,6 +165,25 @@
                 <b>          
                     
                     [8]Tải File QTT upload
+                    
+                </b>
+            </sj:a>      
+        </u> 
+        
+        
+        &nbsp;&nbsp;
+         <s:url action="vvc_downloadFileUpload.action" id="downloadVVCFileurl_ID" />            
+        <u> <sj:a id="fileVVCUpload_ID" 
+              formIds="dtw_upload_form" 
+              targets="upload_result_div"                                                   
+              onBeforeTopics="before-next"                                                         
+              onCompleteTopics="after-next"
+              href="%{downloadVVCFileurl_ID}"
+              cssClass="metroButtonStyle"
+              button="false"> 
+                <b>          
+                    
+                    [9]Tải File VVC upload
                     
                 </b>
             </sj:a>      

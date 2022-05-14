@@ -47,9 +47,9 @@
                         <td>
                             <p class="normal_font" >
                             <input type="radio" name="font_type" id="font_type_ID" value="TCVN"
-                                   checked="true">
+                                   >
                             <font style="font-family: Tahoma;font-size: 10pt;color:blue;"> TCVN</font></input>                                                        
-                            <input type="radio" name="font_type" id="font_type_ID" value="UTF8"                                   >Unicode</input>
+                            <input type="radio" name="font_type" id="font_type_ID" value="UTF8"     checked="true"                              >Unicode</input>
                             </p>
                         </td>
                     </tr>

@@ -169,15 +169,27 @@
                             <tr> 
                                 <s:if test="MA.equalsIgnoreCase('XD00001')">
                                     <td style="text-align:center" class="TD_GIATRI <s:property value="D19"/>" >
-                                            <s:property value="D6"/>
+                                            
+                                            <s:if test="D16.equalsIgnoreCase('1')">
+                                                <font color="red"><s:property value="D6"/></font>   
+                                            </s:if>
+                                            <s:else>
+                                                <s:property value="D6"/>
+                                            </s:else>   
                                         </td>
 
                                         
                                         
                                     <td align = "left" class="TD_TEN <s:property value="D19"/>" >
-                                        <a href="javascript:hienthichitietThon('<s:property value="D5"/>','<s:property value="D6"/>')" class="linkKh">
+                                        
+                                        <s:if test="D16.equalsIgnoreCase('1')">
+                                                <font color="red"><s:property value="D9"/></font>   
+                                            </s:if>
+                                            <s:else>
+                                                <a href="javascript:hienthichitietThon('<s:property value="D5"/>','<s:property value="D6"/>')" class="linkKh">
                                             <s:property value='D9'/> 
                                         </a>
+                                            </s:else>   
                                     </td>
                                 </s:if>
                                     <s:else>
@@ -191,15 +203,30 @@
                                 
                                 
                                 
-                                <td style="text-align:center"  class="TD_STT <s:property value="D19"/>">
-                                     <s:property value="MA"/>
+                                <td style="text-align:center"  class="TD_STT <s:property value="D19"/>">                                     
+                                     <s:if test="D16.equalsIgnoreCase('1')">
+                                        <font color="red"><s:property value="MA"/></font>   
+                                    </s:if>
+                                    <s:else>
+                                        <s:property value="MA"/>
+                                    </s:else>   
                                 </td>
-                                <td align = "left" class="TD_CHITIEU <s:property value="D19"/>">
-                                     <s:property value="TEN"/>
+                                <td align = "left" class="TD_CHITIEU <s:property value="D19"/>">                                     
+                                     <s:if test="D16.equalsIgnoreCase('1')">
+                                        <font color="red"><s:property value="TEN"/></font>   
+                                    </s:if>
+                                    <s:else>
+                                        <s:property value="TEN"/>
+                                    </s:else>   
                                 </td>
                                 
                                 <td style="text-align:right"  class="TD_GIATRI <s:property value="D19"/>">
-                                    <s:property value="D15"/>
+                                    <s:if test="D16.equalsIgnoreCase('1')">
+                                        <font color="red"><s:property value="D15"/></font>   
+                                    </s:if>
+                                    <s:else>
+                                        <s:property value="D15"/>
+                                    </s:else>                                                                        
                                 </td>
 <!--
                                 <s:if test="D3.equalsIgnoreCase('2B')&& D1.equalsIgnoreCase('000301')">

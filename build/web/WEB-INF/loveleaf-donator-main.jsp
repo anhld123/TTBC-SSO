@@ -79,12 +79,27 @@
             <font style="color: blue; font: 13px Arial, Helvetica, sans-serif; ">
             Kỳ báo cáo: 
             </font>
-            <s:url var="buildComboUrl" 
+            <s:url var="buildTermComboUrl" 
                    action="loveleaf_build_period_combo"></s:url>
-            <sj:select href="%{buildComboUrl}" 
+            <sj:select href="%{buildTermComboUrl}" 
                        name="period"
                        id="period_id"
                        list="periods" 
+                       listKey="sKey"
+                       listValue="sDesc"
+                       emptyOption="false"                                             
+                       theme="simple"     
+                       ></sj:select>    
+                &nbsp;&nbsp;
+                <font style="color: blue; font: 13px Arial, Helvetica, sans-serif; ">
+            Chương trình: 
+            </font>
+            <s:url var="buildProgramComboUrl" 
+                   action="loveleaf_build_program_combo"></s:url>
+            <sj:select href="%{buildProgramComboUrl}" 
+                       name="program"
+                       id="program_id"
+                       list="programs" 
                        listKey="sKey"
                        listValue="sDesc"
                        emptyOption="false"                                             

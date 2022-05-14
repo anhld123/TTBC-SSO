@@ -145,6 +145,7 @@
                 /*background: #99ffff;*/
                 animation: blinker 1s linear infinite;
             }
+            
         </style>
     </head>
     <body>
@@ -163,7 +164,8 @@
                        name="khoa"/> 
 
                 <table border="1" class="editDelete" id="CHAMDIEMTT_001" align="center">
-                    <tr height="23">
+                    <thead>
+                        <tr height="23">
                         <th class="TD_THUTU" style="width: 60px;color: #18ab29">Mã chỉ tiêu</th>
                         <th class="TD_THUTU"  style="width: 100px;color: #18ab29">Tên chỉ tiêu</th>
                             <s:iterator value="#attr.lstMapCot" var="modelCot" status="rowstatus">
@@ -181,7 +183,9 @@
                                 </s:elseif>
                             </s:iterator>
                     </tr>
-
+                    </thead>
+                    
+                    <tbody>
                     <s:iterator value="#attr.lstDuliewView" var="modelView" status="rowstatus">
                         <tr height="16" align="center">
                         <input type="hidden" value="<s:property  value="khoa" />"  name="lstDulieu[<s:property  value="%{#rowstatus.index}" />].KHOA"/> 
@@ -811,6 +815,7 @@
 
                         </tr>
                     </s:iterator>
+                        </tbody>
 
                 </table>
                 <sj:submit id="id_savedlNhaptay" name="DulieuNT_save" value="save" targets="message_suc_err"  onBeforeTopics="beforediv"
