@@ -41,14 +41,17 @@
     <body>
         <s:form name="frmdata" id="frmdata" action="save_data_ktnb01.action" theme="simple">
             <div style="padding: 3px 3px 3px 3px;">
-                <table border="0" cellspacing="0" cellpading="0" height="100%">
+                <table border="0" cellspacing="0" cellpading="0" height="100%" style="width: 100%;">
                     <tr>
                         <td colspan="2" style="font-size: 14px; font-weight: bold; padding-bottom: 10px; text-transform: uppercase; color: red;" id="tenbc"></td>                    
                     </tr>
                     <tr>
-                        <td width="70%" >
-                            <input type="button" id="idSave" value="Cập nhật" style="width:122px;height:25px;color: red; font-size: 12px;"/>
+                        <td>
                             <b style="padding-right: 3px;">Ngày báo cáo</b><input type="text" name="datepicker" id="datepicker" readonly="readonly"/>    
+                        </td>
+                        <td style="text-align: right;">
+                            <input type="button" id="idLoad" value="Xem dữ liệu" style="width:122px;height:25px;color: red; font-size: 12px;"/>
+                            <input type="button" id="idSave" value="Cập nhật" style="width:122px;height:25px;color: red; font-size: 12px;"/>
                         </td>
                     </tr>
                 </table>
@@ -125,7 +128,7 @@
                 </table>
             </div>
         </s:form>
-        <i style="font-size: 11px; color: red;">Nhấp chuột ra vùng ngoải bảng biểu để sư dụng HostKey: Ctrl+A: Thêm dòng</i>
+        <i style="font-size: 11px; color: red;">Nhấp chuột vào đây để sử dụng HostKey: Ctrl+A: Thêm dòng</i>
         <script>
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
