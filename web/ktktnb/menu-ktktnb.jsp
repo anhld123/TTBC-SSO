@@ -9,8 +9,11 @@
         <sj:head/>
     </head>
     <script>
-        function Callbaocao(fullname) {
-            var thamso = "?quyBc=" + document.getElementById("cboquybc").value + "&namBc=" + document.getElementById("cbonam").value;
+        $('.textlink').click(function(){
+            alert( $('.textlink').index(this) );
+        });
+        function Callbaocao(fullname,linktext) {
+            var thamso = "?quyBc=" + document.getElementById("cboquybc").value + "&namBc=" + document.getElementById("cbonam").value+ "&textlink=" + linktext;
             var ht = screen.availHeight;
             var wt = screen.availWidth;
             var resize = window.open(fullname + thamso+"&vbsprandom="+Math.random(), "IMS_REPORTS", "height=" + ht + ",width=" + wt + ",left=0,top=0,directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
@@ -72,7 +75,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <table border="1px">
+                            <table border="1px" id="tblHead">
                                 <tr class="tbhead">
                                     <td>Mã KTNB</td>
                                     <td>Tên mẫu - Nhấn vào tên mẫu để nhập liệu cho biểu KTNB</td>
@@ -81,7 +84,9 @@
                                 <s:iterator value="DSKTNB">
                                     <tr class="cscontent">
                                         <td><s:property value="TENVT"/></td>
-                                        <td><a href="javascript:Callbaocao('<s:property value="LINKBC"/>.action')" style="text-decoration:none;"><s:property value="MOTA"/></a></td>
+                                        <td>
+                                            <a href="javascript:Callbaocao('<s:property value="LINKBC"/>.action','<s:property value="MOTA"/>')" style="text-decoration:none;" class="textlink"><s:property value="MOTA"/></a>
+                                        </td>
                                         <td><s:property value="KYBC"/><input type="hidden" value="<s:property value="KYBC"/>" id="txtkybaocao"/></td>
                                     </tr>
                                 </s:iterator>
