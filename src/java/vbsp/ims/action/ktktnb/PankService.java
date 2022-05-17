@@ -36,9 +36,9 @@ public class PankService {
             ResultSet Rset = null;
             try {
                 calstatement = con.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-                calstatement.setString(1, sNgaybc);
-                calstatement.setString(2, sUser);
-                calstatement.setString(3, sGrade);
+                calstatement.setString(1, sUser);
+                calstatement.setString(2, sGrade);
+                calstatement.setString(3, sNgaybc);
                 calstatement.setString(4, sMaBc);
                 calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
                 calstatement.execute();
@@ -124,18 +124,18 @@ public class PankService {
         Connection con = db.getConnect();
         String code = "";
         try {
-            //------Chuyển rạng mảng thành Object của Oracle
+            //------Chuyển dạng mảng thành Object của Oracle
             Object array[] = ModelList.toArray();
             ArrayDescriptor des = ArrayDescriptor.createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, con);
             ARRAY array_to_pass = new ARRAY(des, con, array);
             //---------------------------------------------------------------------------
             CallableStatement calstatement = null;
-            String strStoreproce = "{call PKG_KTKSNB_PAKN.PROC_PAKN_GETDATA(?,?,?,?,?,?)}";
+            String strStoreproce = "{call PKG_KTKSNB_PAKN.PROC_PAKN_SAVEDATA(?,?,?,?,?,?)}";
             try {
                 calstatement = con.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-                calstatement.setString(1, sNgaybc);
-                calstatement.setString(2, sUser);
-                calstatement.setString(3, sGrade);
+                calstatement.setString(1, sUser);
+                calstatement.setString(2, sGrade);
+                calstatement.setString(3, sNgaybc);
                 calstatement.setString(4, sMaBc);
                 calstatement.setArray(5, array_to_pass);
                 calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.VARCHAR);

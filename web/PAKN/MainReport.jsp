@@ -50,8 +50,11 @@
                             <b style="padding-right: 3px;">Ngày báo cáo</b><input type="text" name="txtNgaybc" id="datepicker" readonly="readonly"/>    
                         </td>
                         <td style="text-align: right;">
+                            <div style="display: inline-flex;">
                             <input type="button" id="idLoad" value="Xem dữ liệu" style="width:122px;height:25px;color: red; font-size: 12px;"/>
-                            <input type="button" id="idSave" value="Cập nhật" style="width:122px;height:25px;color: red; font-size: 12px;"/>
+                            &nbsp;&nbsp;
+                            <input type="button" id="idSave" value="Cập nhật" style="width:122px;height:25px;color: red; font-size: 12px; display: none;"/>
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -81,6 +84,7 @@
                     data: sdata,
                     success: function (data) {
                         $("#viewData").html(data);
+                        $("#idSave").css('display','block');
                     },
                     error: function (request) {
                         alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
@@ -90,6 +94,7 @@
             //Lưu dữ liệu
             $("#idSave").click(function () {
                 var url, sdata;
+                $(".cssD40").val($("#txtGhiChu").val());
                 url = "saveDataByTem.action";
                 sdata = jQuery("#frmdata").serialize();
                 $.ajax({

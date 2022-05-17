@@ -20,7 +20,7 @@ import vbsp.ims.bcqt.model.QT_DULIEU_NT;
  */
 public class ktnbpakn extends ActionSupport {
 
-    private String txtNgaybc, sUser, sGrade, txtMaBc, jsp, code;
+    private String txtNgaybc, sUser, sGrade, txtMaBc, jsp, code, txtGhiChu;
     private InputStream pageResult;
     private List<QT_DULIEU_NT> ModelList = new ArrayList<>();
 
@@ -87,6 +87,14 @@ public class ktnbpakn extends ActionSupport {
 
     public void setPageResult(InputStream pageResult) {
         this.pageResult = pageResult;
+    }
+    
+    public String getTxtGhiChu() {
+        return txtGhiChu;
+    }
+
+    public void setTxtGhiChu(String txtGhiChu) {
+        this.txtGhiChu = txtGhiChu;
     }
     //</editor-fold>    
 
