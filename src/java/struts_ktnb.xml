@@ -409,17 +409,16 @@
         </action>
         
         <!--Mẫu Phản ánh kiến nghị-->
-        <action name="get_data_pakn01tcd" class="vbsp.ims.action.ktktnb.ktnbpakn" method="get_data_pakn01tcd"><result name="thanhcong">/PAKN/get_data_pakn01tcd.jsp</result></action>
-        <action name="get_data_pakn02tcd" class="vbsp.ims.action.ktktnb.ktnbpakn" method="get_data_pakn02tcd"><result name="thanhcong">/PAKN/get_data_pakn02tcd.jsp</result></action>
-        <action name="get_data_pakn01xld" class="vbsp.ims.action.ktktnb.ktnbpakn" method="get_data_pakn01xld"><result name="thanhcong">/PAKN/get_data_pakn01xld.jsp</result></action>
-        <action name="get_data_pakn02xld" class="vbsp.ims.action.ktktnb.ktnbpakn" method="get_data_pakn02xld"><result name="thanhcong">/PAKN/get_data_pakn02xld.jsp</result></action>
-        <action name="get_data_pakn03xld" class="vbsp.ims.action.ktktnb.ktnbpakn" method="get_data_pakn03xld"><result name="thanhcong">/PAKN/get_data_pakn03xld.jsp</result></action>
-        <action name="get_data_pakn04xld" class="vbsp.ims.action.ktktnb.ktnbpakn" method="get_data_pakn04xld"><result name="thanhcong">/PAKN/get_data_pakn04xld.jsp</result></action>
-        <action name="get_data_pakn01kqgq" class="vbsp.ims.action.ktktnb.ktnbpakn" method="get_data_pakn01kqgq"><result name="thanhcong">/PAKN/get_data_pakn01kqgq.jsp</result></action>
-        <action name="get_data_pakn02kqgq" class="vbsp.ims.action.ktktnb.ktnbpakn" method="get_data_pakn02kqgq"><result name="thanhcong">/PAKN/get_data_pakn02kqgq.jsp</result></action>
-        <action name="get_data_pakn03kqgq" class="vbsp.ims.action.ktktnb.ktnbpakn" method="get_data_pakn03kqgq"><result name="thanhcong">/PAKN/get_data_pakn03kqgq.jsp</result></action>
-        <action name="get_data_pakn04kqgq" class="vbsp.ims.action.ktktnb.ktnbpakn" method="get_data_pakn04kqgq"><result name="thanhcong">/PAKN/get_data_pakn04kqgq.jsp</result></action>
-        <action name="get_data_pakn03qlnn" class="vbsp.ims.action.ktktnb.ktnbpakn" method="get_data_pakn03qlnn"><result name="thanhcong">/PAKN/get_data_pakn03qlnn.jsp</result></action>
+        <action name="get_data_pakn01tcd" class="vbsp.ims.action.ktktnb.ktnbpakn" method="get_data_pakn01tcd">
+            <result name="thanhcong">/PAKN/MainReport.jsp</result>
+        </action>
+        <action name="loadDataByTem" class="vbsp.ims.action.ktktnb.ktnbpakn" method="loadDataByTem">
+            <result name="ViewData">/PAKN/${jsp}</result>
+        </action>
+        <action name="saveDataByTem" class="vbsp.ims.action.ktktnb.ktnbpakn" method="saveDataByTem">
+            <param name="contentType">text/plain</param>
+            <result type="stream" name="SaveData">${sResult}</result>
+        </action>
 
         
         

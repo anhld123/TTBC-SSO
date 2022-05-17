@@ -1,0 +1,93 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="s" uri="/struts-tags" %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+        <script src="js/jquery.number.js"></script>
+        <script src="js/format_num.js"></script>
+        <style>
+            *{
+                font-family: Tahoma;
+                font-size: 12px;
+            }
+            #tableKtnb {
+                border-collapse: collapse;
+                width: 98%;
+            }
+
+            #tableKtnb td, #tableKtnb th {
+                border: 1px solid #ddd;
+            }
+
+            #tableKtnb th {
+                padding: 5px;
+                text-align: center;
+                background-color: lightslategray;
+                color: white;
+            }
+            .cssItem{
+                width: 70px;
+                border: none;
+                background-color: transparent;
+                outline-style: none;
+            }
+        </style>
+    </head>
+    <body>
+        <s:form name="frmdata" id="frmdata" theme="simple">
+            <input type="hidden" value="KTKSNB_PAKN_TCD01" name="txtMaBc">
+            <div style="padding: 3px 3px 3px 3px;">
+                <table border="0" cellspacing="0" cellpading="0" height="100%" style="width: 100%;">
+                    <tr>
+                        <td colspan="2" style="font-size: 14px; font-weight: bold; padding-bottom: 10px; text-transform: uppercase; color: red;" id="tenbc"></td>                    
+                    </tr>
+                    <tr>
+                        <td>
+                            <b style="padding-right: 3px;">Ngày báo cáo</b><input type="text" name="txtNgaybc" id="datepicker" readonly="readonly"/>    
+                        </td>
+                        <td style="text-align: right;">
+                            <input type="button" id="idLoad" value="Xem dữ liệu" style="width:122px;height:25px;color: red; font-size: 12px;"/>
+                            <input type="button" id="idSave" value="Cập nhật" style="width:122px;height:25px;color: red; font-size: 12px;"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <hr>
+            </div>
+            <div style="overflow: scroll; width: 100%; height: 83vh;" id="viewData"></div>
+        </s:form>
+        <script>
+            //Lấy tham số lần đầu
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            $("#tenbc").text(urlParams.get('textlink'));
+
+            $(function () {
+                $("#datepicker").datepicker({dateFormat: 'dd/mm/yy'}).val(new Date().toLocaleDateString("zh-HK", {year: 'numeric', month: '2-digit', day: '2-digit'}));
+            });
+
+            //Tải dữ liệu
+            $("#idLoad").click(function () {
+                $('#viewData').html('<img src="img/loading.gif"/>');
+                var url, sdata;
+                url = "loadDataByTem.action";
+                sdata = jQuery("#frmdata").serialize();
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: sdata,
+                    success: function (data) {
+                        $("#viewData").html(data);
+                    },
+                    error: function (request) {
+                        alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

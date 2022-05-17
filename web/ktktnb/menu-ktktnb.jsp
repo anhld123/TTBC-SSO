@@ -13,7 +13,7 @@
             alert( $('.textlink').index(this) );
         });
         function Callbaocao(fullname,linktext) {
-            var thamso = "?quyBc=" + document.getElementById("cboquybc").value + "&namBc=" + document.getElementById("cbonam").value+ "&textlink=" + linktext;
+            var thamso = "?quyBc=" + document.getElementById("cboquybc").value + "&namBc=" + document.getElementById("cbonam").value+ "&textlink=" + linktext + "&action=" + fullname;
             var ht = screen.availHeight;
             var wt = screen.availWidth;
             var resize = window.open(fullname + thamso+"&vbsprandom="+Math.random(), "IMS_REPORTS", "height=" + ht + ",width=" + wt + ",left=0,top=0,directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");

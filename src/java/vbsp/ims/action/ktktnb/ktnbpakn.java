@@ -5,7 +5,13 @@
  */
 package vbsp.ims.action.ktktnb;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 
 /**
  *
@@ -13,6 +19,11 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class ktnbpakn extends ActionSupport {
 
+    String txtNgaybc, sUser, sGrade, txtMaBc, jsp;
+    ByteArrayInputStream sResult;
+    List<QT_DULIEU_NT> ModelList = new ArrayList<>();
+
+    //<editor-fold defaultstate="collapsed" desc="Hàm load form lần đầu">
     public ktnbpakn() {
     }
 
@@ -20,44 +31,62 @@ public class ktnbpakn extends ActionSupport {
         return "thanhcong";
     }
 
-    public String get_data_pakn02tcd() throws Exception {
-        return "thanhcong";
+    //</editor-fold>
+    public String loadDataByTem() throws Exception {
+        sGrade = (String) ActionContext.getContext().getSession().get("reportGrade");
+        sUser = (String) ActionContext.getContext().getSession().get("username");
+        ModelList = new PankService().getDataByTem(txtNgaybc, sUser, sGrade, txtMaBc);
+        jsp = txtMaBc + ".jsp";
+        return "ViewData";
+    }
+     public String saveDataByTem() throws Exception {
+        sGrade = (String) ActionContext.getContext().getSession().get("reportGrade");
+        sUser = (String) ActionContext.getContext().getSession().get("username");
+        sResult = new ByteArrayInputStream("Thành công: Lưu dữ liệu.".getBytes(StandardCharsets.UTF_8));
+        return "SaveData";
+    }
+    //<editor-fold defaultstate="collapsed" desc="Khai báo biến">
+
+    public String getTxtNgaybc() {
+        return txtNgaybc;
     }
 
-    public String get_data_pakn01xld() throws Exception {
-        return "thanhcong";
+    public void setTxtNgaybc(String txtNgaybc) {
+        this.txtNgaybc = txtNgaybc;
     }
 
-    public String get_data_pakn02xld() throws Exception {
-        return "thanhcong";
+    public String getTxtMaBc() {
+        return txtMaBc;
     }
 
-    public String get_data_pakn03xld() throws Exception {
-        return "thanhcong";
+    public void setTxtMaBc(String txtMaBc) {
+        this.txtMaBc = txtMaBc;
     }
 
-    public String get_data_pakn04xld() throws Exception {
-        return "thanhcong";
+    public List<QT_DULIEU_NT> getModelList() {
+        return ModelList;
     }
 
-    public String get_data_pakn01kqgq() throws Exception {
-        return "thanhcong";
+    public void setModelList(List<QT_DULIEU_NT> ModelList) {
+        this.ModelList = ModelList;
     }
 
-    public String get_data_pakn02kqgq() throws Exception {
-        return "thanhcong";
+    public String getJsp() {
+        return jsp;
     }
 
-    public String get_data_pakn03kqgq() throws Exception {
-        return "thanhcong";
+    public void setJsp(String jsp) {
+        this.jsp = jsp;
+    }
+    
+    public ByteArrayInputStream getsResult() {
+        return sResult;
     }
 
-    public String get_data_pakn04kqgq() throws Exception {
-        return "thanhcong";
+    public void setsResult(ByteArrayInputStream sResult) {
+        this.sResult = sResult;
     }
+    //</editor-fold>    
 
-    public String get_data_pakn03qlnn() throws Exception {
-        return "thanhcong";
-    }
-
+    
 }
