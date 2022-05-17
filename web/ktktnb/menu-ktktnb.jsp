@@ -85,7 +85,7 @@
                                     <tr class="cscontent">
                                         <td><s:property value="TENVT"/></td>
                                         <td>
-                                            <a href="javascript:Callbaocao('<s:property value="LINKBC"/>.action','<s:property value="MOTA"/>')" style="text-decoration:none;" class="textlink"><s:property value="MOTA"/></a>
+                                            <a href="javascript:Callbaocao('<s:property value="LINKBC"/>','<s:property value="MOTA"/>')" style="text-decoration:none;" class="textlink"><s:property value="MOTA"/></a>
                                         </td>
                                         <td><s:property value="KYBC"/><input type="hidden" value="<s:property value="KYBC"/>" id="txtkybaocao"/></td>
                                     </tr>

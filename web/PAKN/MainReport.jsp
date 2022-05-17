@@ -70,8 +70,7 @@
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             $("#tenbc").text(urlParams.get('textlink'));
-            alert(urlParams.get('action'));
-            $("#txtMaBc").text(urlParams.get('action'));
+            $("#txtMaBc").val(urlParams.get('action'));
             
 
             $(function () {
