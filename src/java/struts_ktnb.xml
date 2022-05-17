@@ -409,7 +409,37 @@
         </action>
         
         <!--Mẫu Phản ánh kiến nghị-->
-        <action name="get_data_pakn01tcd" class="vbsp.ims.action.ktktnb.ktnbpakn" method="get_data_pakn01tcd">
+        <action name="KTKSNB_PAKN_KQGQ01" class="vbsp.ims.action.ktktnb.ktnbpakn" method="MainReportPAKN">
+            <result name="thanhcong">/PAKN/MainReport.jsp</result>
+        </action>
+        <action name="KTKSNB_PAKN_KQGQ02" class="vbsp.ims.action.ktktnb.ktnbpakn" method="MainReportPAKN">
+            <result name="thanhcong">/PAKN/MainReport.jsp</result>
+        </action>
+        <action name="KTKSNB_PAKN_KQGQ03" class="vbsp.ims.action.ktktnb.ktnbpakn" method="MainReportPAKN">
+            <result name="thanhcong">/PAKN/MainReport.jsp</result>
+        </action>
+        <action name="KTKSNB_PAKN_KQGQ04" class="vbsp.ims.action.ktktnb.ktnbpakn" method="MainReportPAKN">
+            <result name="thanhcong">/PAKN/MainReport.jsp</result>
+        </action>
+        <action name="KTKSNB_PAKN_QLNN03" class="vbsp.ims.action.ktktnb.ktnbpakn" method="MainReportPAKN">
+            <result name="thanhcong">/PAKN/MainReport.jsp</result>
+        </action>
+        <action name="KTKSNB_PAKN_TCD01" class="vbsp.ims.action.ktktnb.ktnbpakn" method="MainReportPAKN">
+            <result name="thanhcong">/PAKN/MainReport.jsp</result>
+        </action>
+        <action name="KTKSNB_PAKN_TCD02" class="vbsp.ims.action.ktktnb.ktnbpakn" method="MainReportPAKN">
+            <result name="thanhcong">/PAKN/MainReport.jsp</result>
+        </action>
+        <action name="KTKSNB_PAKN_XLD01" class="vbsp.ims.action.ktktnb.ktnbpakn" method="MainReportPAKN">
+            <result name="thanhcong">/PAKN/MainReport.jsp</result>
+        </action>
+        <action name="KTKSNB_PAKN_XLD02" class="vbsp.ims.action.ktktnb.ktnbpakn" method="MainReportPAKN">
+            <result name="thanhcong">/PAKN/MainReport.jsp</result>
+        </action>
+        <action name="KTKSNB_PAKN_XLD03" class="vbsp.ims.action.ktktnb.ktnbpakn" method="MainReportPAKN">
+            <result name="thanhcong">/PAKN/MainReport.jsp</result>
+        </action>
+        <action name="KTKSNB_PAKN_XLD04" class="vbsp.ims.action.ktktnb.ktnbpakn" method="MainReportPAKN">
             <result name="thanhcong">/PAKN/MainReport.jsp</result>
         </action>
         <action name="loadDataByTem" class="vbsp.ims.action.ktktnb.ktnbpakn" method="loadDataByTem">

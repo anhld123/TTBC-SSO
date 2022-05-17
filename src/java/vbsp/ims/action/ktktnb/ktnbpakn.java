@@ -28,7 +28,7 @@ public class ktnbpakn extends ActionSupport {
     public ktnbpakn() {
     }
 
-    public String get_data_pakn01tcd() throws Exception {
+    public String MainReportPAKN() throws Exception {
         return "thanhcong";
     }
 

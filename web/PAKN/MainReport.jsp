@@ -34,12 +34,14 @@
                 border: none;
                 background-color: transparent;
                 outline-style: none;
+                text-align: right;
+                padding-right: 3px;
             }
         </style>
     </head>
     <body>
         <s:form name="frmdata" id="frmdata" theme="simple">
-            <input type="hidden" value="KTKSNB_PAKN_TCD01" name="txtMaBc">
+            <input type="hidden" value="" name="txtMaBc" id="txtMaBc">
             <div style="padding: 3px 3px 3px 3px;">
                 <table border="0" cellspacing="0" cellpading="0" height="100%" style="width: 100%;">
                     <tr>
@@ -51,9 +53,9 @@
                         </td>
                         <td style="text-align: right;">
                             <div style="display: inline-flex;">
-                            <input type="button" id="idLoad" value="Xem dữ liệu" style="width:122px;height:25px;color: red; font-size: 12px;"/>
-                            &nbsp;&nbsp;
-                            <input type="button" id="idSave" value="Cập nhật" style="width:122px;height:25px;color: red; font-size: 12px; display: none;"/>
+                                <input type="button" id="idLoad" value="Xem dữ liệu" style="width:122px;height:25px;color: red; font-size: 12px;"/>
+                                &nbsp;&nbsp;
+                                <input type="button" id="idSave" value="Cập nhật" style="width:122px;height:25px;color: red; font-size: 12px; display: none;"/>
                             </div>
                         </td>
                     </tr>
@@ -68,9 +70,16 @@
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             $("#tenbc").text(urlParams.get('textlink'));
+            alert(urlParams.get('action'));
+            $("#txtMaBc").text(urlParams.get('action'));
+            
 
             $(function () {
-                $("#datepicker").datepicker({dateFormat: 'dd/mm/yy'}).val(new Date().toLocaleDateString("zh-HK", {year: 'numeric', month: '2-digit', day: '2-digit'}));
+                $("#datepicker").datepicker({dateFormat: 'dd/mm/yy', showOn: "button",
+                    buttonImage: "img/icon-ui_datepicker.png",
+                    buttonImageOnly: true,
+                    buttonText: "icono",
+                    showOn: "both"}).val(new Date().toLocaleDateString("zh-HK", {year: 'numeric', month: '2-digit', day: '2-digit'}));
             });
 
             //Tải dữ liệu
@@ -84,7 +93,7 @@
                     data: sdata,
                     success: function (data) {
                         $("#viewData").html(data);
-                        $("#idSave").css('display','block');
+                        $("#idSave").css('display', 'block');
                     },
                     error: function (request) {
                         alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
@@ -104,7 +113,7 @@
                     success: function (data) {
                         if (data === "200") {
                             alert("Thành công: Lưu dữ liệu.");
-                        }else{
+                        } else {
                             alert("Lỗi: Lưu dữ liệu.");
                         }
                     },
