@@ -72,7 +72,6 @@
 
             //Tải dữ liệu
             $("#idLoad").click(function () {
-                $('#viewData').html('<img src="img/loading.gif"/>');
                 var url, sdata;
                 url = "loadDataByTem.action";
                 sdata = jQuery("#frmdata").serialize();
@@ -82,6 +81,27 @@
                     data: sdata,
                     success: function (data) {
                         $("#viewData").html(data);
+                    },
+                    error: function (request) {
+                        alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                    }
+                });
+            });
+            //Lưu dữ liệu
+            $("#idSave").click(function () {
+                var url, sdata;
+                url = "saveDataByTem.action";
+                sdata = jQuery("#frmdata").serialize();
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: sdata,
+                    success: function (data) {
+                        if (data === "200") {
+                            alert("Thành công: Lưu dữ liệu.");
+                        }else{
+                            alert("Lỗi: Lưu dữ liệu.");
+                        }
                     },
                     error: function (request) {
                         alert("Lỗi: Vui lòng liên hệ với quản trị viên.");

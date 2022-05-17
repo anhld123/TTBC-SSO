@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import oracle.sql.ARRAY;
+import oracle.sql.ArrayDescriptor;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.log.CoreLogger;
@@ -116,5 +118,40 @@ public class PankService {
             CoreLogger.error(this.getClass().getName() + " getDataByTem -> " + e.getMessage());
         }
         return lstData;
+    }
+    public String saveDataByTem(String sNgaybc, String sUser, String sGrade, String sMaBc, List<QT_DULIEU_NT> ModelList) {
+        DaoConnect db = new DaoConnect();
+        Connection con = db.getConnect();
+        String code = "";
+        try {
+            //------Chuyển rạng mảng thành Object của Oracle
+            Object array[] = ModelList.toArray();
+            ArrayDescriptor des = ArrayDescriptor.createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, con);
+            ARRAY array_to_pass = new ARRAY(des, con, array);
+            //---------------------------------------------------------------------------
+            CallableStatement calstatement = null;
+            String strStoreproce = "{call PKG_KTKSNB_PAKN.PROC_PAKN_GETDATA(?,?,?,?,?,?)}";
+            try {
+                calstatement = con.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.setString(1, sNgaybc);
+                calstatement.setString(2, sUser);
+                calstatement.setString(3, sGrade);
+                calstatement.setString(4, sMaBc);
+                calstatement.setArray(5, array_to_pass);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.execute();
+                code = (String) calstatement.getString(6);
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + "saveDataByTem -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham saveDataByTem " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveDataByTem -> " + e.getMessage());
+        }
+        return code;
     }
 }

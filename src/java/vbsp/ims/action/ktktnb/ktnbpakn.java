@@ -8,6 +8,7 @@ package vbsp.ims.action.ktktnb;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +20,9 @@ import vbsp.ims.bcqt.model.QT_DULIEU_NT;
  */
 public class ktnbpakn extends ActionSupport {
 
-    String txtNgaybc, sUser, sGrade, txtMaBc, jsp;
-    ByteArrayInputStream sResult;
-    List<QT_DULIEU_NT> ModelList = new ArrayList<>();
+    private String txtNgaybc, sUser, sGrade, txtMaBc, jsp, code;
+    private InputStream pageResult;
+    private List<QT_DULIEU_NT> ModelList = new ArrayList<>();
 
     //<editor-fold defaultstate="collapsed" desc="Hàm load form lần đầu">
     public ktnbpakn() {
@@ -42,7 +43,8 @@ public class ktnbpakn extends ActionSupport {
      public String saveDataByTem() throws Exception {
         sGrade = (String) ActionContext.getContext().getSession().get("reportGrade");
         sUser = (String) ActionContext.getContext().getSession().get("username");
-        sResult = new ByteArrayInputStream("Thành công: Lưu dữ liệu.".getBytes(StandardCharsets.UTF_8));
+        code = new PankService().saveDataByTem(txtNgaybc, sUser, sGrade, txtMaBc, ModelList);
+        pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return "SaveData";
     }
     //<editor-fold defaultstate="collapsed" desc="Khai báo biến">
@@ -79,14 +81,13 @@ public class ktnbpakn extends ActionSupport {
         this.jsp = jsp;
     }
     
-    public ByteArrayInputStream getsResult() {
-        return sResult;
+   public InputStream getPageResult() {
+        return pageResult;
     }
 
-    public void setsResult(ByteArrayInputStream sResult) {
-        this.sResult = sResult;
+    public void setPageResult(InputStream pageResult) {
+        this.pageResult = pageResult;
     }
     //</editor-fold>    
 
-    
 }
