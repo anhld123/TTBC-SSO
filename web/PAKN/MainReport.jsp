@@ -29,13 +29,28 @@
                 background-color: lightslategray;
                 color: white;
             }
+            #tableKtnb td{
+                padding: 5px;
+            }
             .cssItem{
-                width: 70px;
+                width: 75px;
                 border: none;
                 background-color: transparent;
                 outline-style: none;
                 text-align: right;
-                padding-right: 3px;
+            }
+            .cssTong{
+                background-color: lightslategray;
+                color: white;
+                text-align: right;
+                padding: 5px;
+                font-weight: bold;
+            }
+            .cssTEN{
+                text-align: left;
+            }
+            .cssD3{
+                width: 98%;
             }
         </style>
     </head>

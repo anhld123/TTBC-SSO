@@ -20,55 +20,91 @@
 <table border="1px" id="tableKtnb">
     <thead>
         <tr>
-            <th rowspan="4">Đơn vị</th>
-            <th rowspan="4">Tổng số lượt tiếp</th>
-            <th rowspan="4">Tổng số người được tiếp</th>
-            <th rowspan="4">Tổng số vụ được tiếp</th>
-            <th colspan="8">Tiếp thường xuyên</th>
-            <th colspan="18">Tiếp định kỳ và đột xuất của Thủ trưởng</th>
+            <th rowspan="3">Đơn vị</th>
+            <th rowspan="3">Tổng số đơn</th>
+            <th colspan="3">Đơn kỳ trước chuyển sang</th>
+            <th colspan="3">Đơn tiếp nhận đơn trong kỳ</th>
+            <th colspan="3">Đơn đã xử lý</th>
+            <th colspan="2">Đủ điều kiện xử lý</th>
+            <th colspan="9">Phân loại vụ việc theo nội dung</th>
+            <th colspan="4">Phân loại vụ việc theo tình trạng giải quyết</th>
+            <th colspan="7">Kết quả xử lý</th>
+            <th rowspan="3">Số văn bản phúc đáp nhận được do chuyển đơn</th>
         </tr>
         <tr>
-            <th rowspan="3">Số lượt tiếp</th>
-            <th rowspan="3">Số người được tiếp</th>
-            <th colspan="2">Số vụ việc</th>
-            <th colspan="4">Trong đó đoàn đông người</th>
-            <th colspan="9">Thủ trưởng tiếp</th>
-            <th colspan="9">Uỷ quyền tiếp</th>
+            <th rowspan="2">Đơn có nhiều người đứng tên</th>
+            <th rowspan="2">Đơn một người đứng tên</th>
+            <th rowspan="2">Đơn khác</th>
+            <th rowspan="2">Đơn có nhiều người đứng tên</th>
+            <th rowspan="2">Đơn một người đứng tên</th>
+            <th rowspan="2">Đơn khác</th>
+            <th rowspan="2">Tổng</th>
+            <th rowspan="2">Đơn kỳ trước chuyển sang</th>
+            <th rowspan="2">Đơn tiếp nhận trong kỳ</th>
+            <th rowspan="2">Số đơn</th>
+            <th rowspan="2">Số vụ việc</th>
+            <th colspan="5">Lĩnh vực hành chính</th>
+            <th rowspan="2">Tham nhũng</th>
+            <th rowspan="2">Lĩnh vực Tư pháp</th>
+            <th rowspan="2">Lĩnh vực Tư phápLĩnh vực Đảng, đoàn thể</th>
+            <th rowspan="2">Lĩnh vực khác</th>
+            <th rowspan="2">Chưa giải quyết, trong hạn</th>
+            <th rowspan="2">Đang giải quyết</th>
+            <th colspan="2">Tố cáo tiếp</th>
+            <th colspan="3">Vụ việc thuộc thẩm quyền</th>
+            <th colspan="4">Vụ việc không thuộc thẩm quyền</th>
         </tr>
         <tr>
-            <th rowspan="2">Tiếp lần đầu</th>
-            <th rowspan="2">Tiếp nhiều lần</th>
-            <th rowspan="2">Số đoàn được tiếp</th>
-            <th rowspan="2">Số người được tiếp</th>
-            <th rowspan="2">Tiếp lần đầu</th>
-            <th rowspan="2">Tiếp nhiều lần</th>
-            <th rowspan="2">Số kỳ tiếp</th>
-            <th rowspan="2">Số lượt tiếp</th>
-            <th rowspan="2">Số người được tiếp</th>
-            <th colspan="2">Số vụ việc</th>
-            <th colspan="4">Trong đó đoàn đông người</th>
-            <th rowspan="2">Số kỳ tiếp</th>
-            <th rowspan="2">Số lượt tiếp</th>
-            <th rowspan="2">Số người được tiếp</th>
-            <th colspan="2">Số vụ việc</th>
-            <th colspan="4">Trong đó đoàn đông người</th>
-        </tr>
-        <tr>
-            <th>Tiếp lần đầu</th>
-            <th>Tiếp nhiều lần</th>
-            <th>Số đoàn được tiếp</th>
-            <th>Số người được tiếp</th>
-            <th>Tiếp lần đầu</th>
-            <th>Tiếp nhiều lần</th>
-            <th>Tiếp lần đầu</th>
-            <th>Tiếp nhiều lần</th>
-            <th>Số đoàn được tiếp</th>
-            <th>Số người được tiếp</th>
-            <th>Tiếp lần đầu</th>
-            <th>Tiếp nhiều lần</th>
+            <th>Tổng cộng</th>
+            <th>Chế độ, chính sách</th>
+            <th>Đất đai, nhà cửa</th>
+            <th>Công chức, công vụ</th>
+            <th>Khác</th>
+            <th>Quá thời hạn chưa giải quyết</th>
+            <th>Đã có kết luận giải quyết</th>
+            <th>Tổng số</th>
+            <th>Tố cáo lần đầu</th>
+            <th>Tố cáo tiếp</th>
+            <th>Tổng số</th>
+            <th>Hướng dẫn</th>
+            <th>Chuyển đơn</th>
+            <th>Đôn đốc giải quyết</th>
         </tr>
         <tr style="font-style: italic; text-align: center;" class="lock">
-            <td>MS</td><td>1=4+13+22</td><td>2=5+14+23</td><td>3=6+7+15+16+24+25</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td>
+            <td>MS</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>14</td>
+            <td>15</td>
+            <td>16</td>
+            <td>17</td>
+            <td>18</td>
+            <td>19</td>
+            <td>20</td>
+            <td>21</td>
+            <td>22</td>
+            <td>23</td>
+            <td>24</td>
+            <td>25</td>
+            <td>26</td>
+            <td>27</td>
+            <td>28</td>
+            <td>29</td>
+            <td>30</td>
+            <td>31</td>
+            <td>32</td>
+            <td>33</td>
         </tr>
     </thead>
     <tbody id="tbody">
@@ -77,7 +113,7 @@
                 <td class="cssTdTEN lock"><input type="text" value="<s:property value='TEN'/>" name="ModelList[<s:property  value='%{#status.index}' />].TEN" class="cssItem cssTEN" readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdD1 lock"><input type="text" value="<s:property value='D1'/>" name="ModelList[<s:property  value='%{#status.index}' />].D1" class="cssItem cssD1" readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdD2 lock"><input type="text" value="<s:property value='D2'/>" name="ModelList[<s:property  value='%{#status.index}' />].D2" class="cssItem cssD2"  readonly="readonly" onblur="SumCol()" /></td>
-                <td class="cssTdD3 lock"><input type="text" value="<s:property value='D3'/>" name="ModelList[<s:property  value='%{#status.index}' />].D3" class="cssItem cssD3"  readonly="readonly" onblur="SumCol()" /></td>
+                <td class="cssTdD3"><input type="text" value="<s:property value='D3'/>" name="ModelList[<s:property  value='%{#status.index}' />].D3" class="cssItem cssD3"  onblur="SumCol()" /></td>
                 <td class="cssTdD4"><input type="text" value="<s:property value='D4'/>" name="ModelList[<s:property  value='%{#status.index}' />].D4" class="cssItem cssD4" onblur="SumCol()" /></td>
                 <td class="cssTdD5"><input type="text" value="<s:property value='D5'/>" name="ModelList[<s:property  value='%{#status.index}' />].D5" class="cssItem cssD5"  onblur="SumCol()" /></td>
                 <td class="cssTdD6"><input type="text" value="<s:property value='D6'/>" name="ModelList[<s:property  value='%{#status.index}' />].D6" class="cssItem cssD6"  onblur="SumCol()" /></td>
@@ -104,10 +140,10 @@
                 <td class="cssTdD27"><input type="text" value="<s:property value='D27'/>" name="ModelList[<s:property  value='%{#status.index}' />].D27" class="cssItem cssD27"  onblur="SumCol()" /></td>
                 <td class="cssTdD28"><input type="text" value="<s:property value='D28'/>" name="ModelList[<s:property  value='%{#status.index}' />].D28" class="cssItem cssD28"  onblur="SumCol()" /></td>
                 <td class="cssTdD29"><input type="text" value="<s:property value='D29'/>" name="ModelList[<s:property  value='%{#status.index}' />].D29" class="cssItem cssD29"  onblur="SumCol()" /></td>
-                <td class="cssTdD30 colHiden"><input type="text" value="<s:property value='D30'/>" name="ModelList[<s:property  value='%{#status.index}' />].D30" class="cssItem cssD30"  onblur="SumCol()" /></td>
-                <td class="cssTdD31 colHiden"><input type="text" value="<s:property value='D31'/>" name="ModelList[<s:property  value='%{#status.index}' />].D31" class="cssItem cssD31"  onblur="SumCol()" /></td>
-                <td class="cssTdD32 colHiden"><input type="text" value="<s:property value='D32'/>" name="ModelList[<s:property  value='%{#status.index}' />].D32" class="cssItem cssD32"  onblur="SumCol()" /></td>
-                <td class="cssTdD33 colHiden"><input type="text" value="<s:property value='D33'/>" name="ModelList[<s:property  value='%{#status.index}' />].D33" class="cssItem cssD33"  onblur="SumCol()" /></td>
+                <td class="cssTdD30"><input type="text" value="<s:property value='D30'/>" name="ModelList[<s:property  value='%{#status.index}' />].D30" class="cssItem cssD30"  onblur="SumCol()" /></td>
+                <td class="cssTdD31"><input type="text" value="<s:property value='D31'/>" name="ModelList[<s:property  value='%{#status.index}' />].D31" class="cssItem cssD31"  onblur="SumCol()" /></td>
+                <td class="cssTdD32"><input type="text" value="<s:property value='D32'/>" name="ModelList[<s:property  value='%{#status.index}' />].D32" class="cssItem cssD32"  onblur="SumCol()" /></td>
+                <td class="cssTdD33"><input type="text" value="<s:property value='D33'/>" name="ModelList[<s:property  value='%{#status.index}' />].D33" class="cssItem cssD33"  onblur="SumCol()" /></td>
                 <td class="cssTdD34 colHiden"><input type="text" value="<s:property value='D34'/>" name="ModelList[<s:property  value='%{#status.index}' />].D34" class="cssItem cssD34"  onblur="SumCol()" /></td>
                 <td class="cssTdD35 colHiden"><input type="text" value="<s:property value='D35'/>" name="ModelList[<s:property  value='%{#status.index}' />].D35" class="cssItem cssD35"  onblur="SumCol()" /></td>
                 <td class="cssTdD36 colHiden"><input type="text" value="<s:property value='D36'/>" name="ModelList[<s:property  value='%{#status.index}' />].D36" class="cssItem cssD36"  onblur="SumCol()" /></td>
@@ -129,13 +165,13 @@
                 <td class="cssTdNGAYBC colHiden"><input type="text" value="<s:property value='NGAYBC'/>" name="ModelList[<s:property  value='%{#status.index}' />].NGAYBC" class="cssItem cssNGAYBC"  readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdMAPGD colHiden"><input type="text" value="<s:property value='MAPGD'/>" name="ModelList[<s:property  value='%{#status.index}' />].MAPGD" class="cssItem cssMAPGD"  readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdMACN colHiden"><input type="text" value="<s:property value='MACN'/>" name="ModelList[<s:property  value='%{#status.index}' />].MACN" class="cssItem cssMACN"  readonly="readonly" onblur="SumCol()" /></td>
-
+                <td class="cssTdMA colHiden"><input type="text" value="<s:property value='MA'/>" name="ModelList[<s:property  value='%{#status.index}' />].MA" class="cssItem cssMA"  readonly="readonly" onblur="SumCol()" /></td>
             </tr>
         </s:iterator>
     </tbody>
     <tfoot id="tfoot">
         <tr>
-            <th id="tsms">Tổng</th><th id="ts1"></th><th id="ts2"></th><th id="ts3"></th><th id="ts4"></th><th id="ts5"></th><th id="ts6"></th><th id="ts7"></th><th id="ts8"></th><th id="ts9"></th><th id="ts10"></th><th id="ts11"></th><th id="ts12"></th><th id="ts13"></th><th id="ts14"></th><th id="ts15"></th><th id="ts16"></th><th id="ts17"></th><th id="ts18"></th><th id="ts19"></th><th id="ts20"></th><th id="ts21"></th><th id="ts22"></th><th id="ts23"></th><th id="ts24"></th><th id="ts25"></th><th id="ts26"></th><th id="ts27"></th><th id="ts28"></th><th id="ts29"></th>
+            <td class="cssTong" id="tsms">Tổng</td><td class="cssTong" id="ts1"></td><td class="cssTong" id="ts2"></td><td class="cssTong" id="ts3"></td><td class="cssTong" id="ts4"></td><td class="cssTong" id="ts5"></td><td class="cssTong" id="ts6"></td><td class="cssTong" id="ts7"></td><td class="cssTong" id="ts8"></td><td class="cssTong" id="ts9"></td><td class="cssTong" id="ts10"></td><td class="cssTong" id="ts11"></td><td class="cssTong" id="ts12"></td><td class="cssTong" id="ts13"></td><td class="cssTong" id="ts14"></td><td class="cssTong" id="ts15"></td><td class="cssTong" id="ts16"></td><td class="cssTong" id="ts17"></td><td class="cssTong" id="ts18"></td><td class="cssTong" id="ts19"></td><td class="cssTong" id="ts20"></td><td class="cssTong" id="ts21"></td><td class="cssTong" id="ts22"></td><td class="cssTong" id="ts23"></td><td class="cssTong" id="ts24"></td><td class="cssTong" id="ts25"></td><td class="cssTong" id="ts26"></td><td class="cssTong" id="ts27"></td><td class="cssTong" id="ts28"></td><td class="cssTong" id="ts29"></td><td class="cssTong" id="ts30"></td><td class="cssTong" id="ts31"></td><td class="cssTong" id="ts32"></td><td class="cssTong" id="ts33"></td>
         </tr>
         <tr>
             <td colspan="56"><span style="font-weight: bold; color: red; margin-bottom: 7px; margin-top: 7px;">Ghi chú: </span></td>
@@ -150,10 +186,25 @@
     $(".cssD4").focus();
 
     //Xử lý hàm cộng các cột
-    function SumCol(){
-        $(".cssD1").val(parseInt($(".cssD4").val()) + parseInt($(".cssD13").val()) + parseInt($(".cssD22").val()));
-        $(".cssD2").val(parseInt($(".cssD5").val()) + parseInt($(".cssD14").val()) + parseInt($(".cssD23").val()));
-        $(".cssD3").val(parseInt($(".cssD6").val()) + parseInt($(".cssD7").val()) + parseInt($(".cssD15").val()) + parseInt($(".cssD16").val())+ parseInt($(".cssD24").val())+ parseInt($(".cssD25").val()));
+    function SumCol() {
+        for (var j = 0; j < $(".cssKHOA").length; j++) {
+            $('.cssD1').eq(j).val(parseInt($('.cssD4').eq(j).val()) + parseInt($('.cssD13').eq(j).val()) + parseInt($('.cssD22').eq(j).val()));
+            $('.cssD2').eq(j).val(parseInt($('.cssD5').eq(j).val()) + parseInt($('.cssD14').eq(j).val()) + parseInt($('.cssD23').eq(j).val()));
+            $('.cssD3').eq(j).val(parseInt($('.cssD6').eq(j).val()) + parseInt($('.cssD7').eq(j).val()) + parseInt($('.cssD15').eq(j).val()) + parseInt($('.cssD16').eq(j).val()) + parseInt($('.cssD24').eq(j).val()) + parseInt($('.cssD25').eq(j).val()));
+        }
+        SumRow();
     }
+
+    function SumRow() {
+        let RowSum = 0;
+        for (var i = 1; i <= 33; i++) {
+            RowSum = 0;
+            for (var j = 0; j < $(".cssKHOA").length; j++) {
+                RowSum += parseInt($('.cssD' + i).eq(j).val());
+            }
+            $("#ts" + i).html(RowSum);
+        }
+    }
+    SumRow();
 </script>
 

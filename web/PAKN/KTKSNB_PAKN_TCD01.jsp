@@ -130,13 +130,12 @@
                 <td class="cssTdMAPGD colHiden"><input type="text" value="<s:property value='MAPGD'/>" name="ModelList[<s:property  value='%{#status.index}' />].MAPGD" class="cssItem cssMAPGD"  readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdMACN colHiden"><input type="text" value="<s:property value='MACN'/>" name="ModelList[<s:property  value='%{#status.index}' />].MACN" class="cssItem cssMACN"  readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdMA colHiden"><input type="text" value="<s:property value='MA'/>" name="ModelList[<s:property  value='%{#status.index}' />].MA" class="cssItem cssMA"  readonly="readonly" onblur="SumCol()" /></td>
-
             </tr>
         </s:iterator>
     </tbody>
     <tfoot id="tfoot">
         <tr>
-            <th id="tsms">Tổng</th><th id="ts1"></th><th id="ts2"></th><th id="ts3"></th><th id="ts4"></th><th id="ts5"></th><th id="ts6"></th><th id="ts7"></th><th id="ts8"></th><th id="ts9"></th><th id="ts10"></th><th id="ts11"></th><th id="ts12"></th><th id="ts13"></th><th id="ts14"></th><th id="ts15"></th><th id="ts16"></th><th id="ts17"></th><th id="ts18"></th><th id="ts19"></th><th id="ts20"></th><th id="ts21"></th><th id="ts22"></th><th id="ts23"></th><th id="ts24"></th><th id="ts25"></th><th id="ts26"></th><th id="ts27"></th><th id="ts28"></th><th id="ts29"></th>
+            <td class="cssTong" id="tsms">Tổng</td><td class="cssTong" id="ts1"></td><td class="cssTong" id="ts2"></td><td class="cssTong" id="ts3"></td><td class="cssTong" id="ts4"></td><td class="cssTong" id="ts5"></td><td class="cssTong" id="ts6"></td><td class="cssTong" id="ts7"></td><td class="cssTong" id="ts8"></td><td class="cssTong" id="ts9"></td><td class="cssTong" id="ts10"></td><td class="cssTong" id="ts11"></td><td class="cssTong" id="ts12"></td><td class="cssTong" id="ts13"></td><td class="cssTong" id="ts14"></td><td class="cssTong" id="ts15"></td><td class="cssTong" id="ts16"></td><td class="cssTong" id="ts17"></td><td class="cssTong" id="ts18"></td><td class="cssTong" id="ts19"></td><td class="cssTong" id="ts20"></td><td class="cssTong" id="ts21"></td><td class="cssTong" id="ts22"></td><td class="cssTong" id="ts23"></td><td class="cssTong" id="ts24"></td><td class="cssTong" id="ts25"></td><td class="cssTong" id="ts26"></td><td class="cssTong" id="ts27"></td><td class="cssTong" id="ts28"></td><td class="cssTong" id="ts29"></td>
         </tr>
         <tr>
             <td colspan="56"><span style="font-weight: bold; color: red; margin-bottom: 7px; margin-top: 7px;">Ghi chú: </span></td>
@@ -151,10 +150,25 @@
     $(".cssD4").focus();
 
     //Xử lý hàm cộng các cột
-    function SumCol(){
-        $(".cssD1").val(parseInt($(".cssD4").val()) + parseInt($(".cssD13").val()) + parseInt($(".cssD22").val()));
-        $(".cssD2").val(parseInt($(".cssD5").val()) + parseInt($(".cssD14").val()) + parseInt($(".cssD23").val()));
-        $(".cssD3").val(parseInt($(".cssD6").val()) + parseInt($(".cssD7").val()) + parseInt($(".cssD15").val()) + parseInt($(".cssD16").val())+ parseInt($(".cssD24").val())+ parseInt($(".cssD25").val()));
+    function SumCol() {
+        for (var j = 0; j < $(".cssKHOA").length; j++) {
+            $('.cssD1').eq(j).val(parseInt($('.cssD4').eq(j).val()) + parseInt($('.cssD13').eq(j).val()) + parseInt($('.cssD22').eq(j).val()));
+            $('.cssD2').eq(j).val(parseInt($('.cssD5').eq(j).val()) + parseInt($('.cssD14').eq(j).val()) + parseInt($('.cssD23').eq(j).val()));
+            $('.cssD3').eq(j).val(parseInt($('.cssD6').eq(j).val()) + parseInt($('.cssD7').eq(j).val()) + parseInt($('.cssD15').eq(j).val()) + parseInt($('.cssD16').eq(j).val()) + parseInt($('.cssD24').eq(j).val()) + parseInt($('.cssD25').eq(j).val()));
+        }
+        SumRow();
     }
+
+    function SumRow() {
+        let RowSum = 0;
+        for (var i = 1; i <= 29; i++) {
+            RowSum = 0;
+            for (var j = 0; j < $(".cssKHOA").length; j++) {
+                RowSum += parseInt($('.cssD' + i).eq(j).val());
+            }
+            $("#ts" + i).html(RowSum);
+        }
+    }
+    SumRow();
 </script>
 
