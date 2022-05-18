@@ -156,8 +156,7 @@
     function SumCol() {
         for (var j = 0; j < $(".cssKHOA").length; j++) {
             $('.cssD1').eq(j).val(parseInt($('.cssD4').eq(j).val()) + parseInt($('.cssD13').eq(j).val()) + parseInt($('.cssD22').eq(j).val()));
-            $('.cssD2').eq(j).val(parseInt($('.cssD5').eq(j).val()) + parseInt($('.cssD14').eq(j).val()) + parseInt($('.cssD23').eq(j).val()));
-            $('.cssD3').eq(j).val(parseInt($('.cssD6').eq(j).val()) + parseInt($('.cssD7').eq(j).val()) + parseInt($('.cssD15').eq(j).val()) + parseInt($('.cssD16').eq(j).val()) + parseInt($('.cssD24').eq(j).val()) + parseInt($('.cssD25').eq(j).val()));
+            $('.cssD2').eq(j).val(parseInt($('.cssD3').eq(j).val()) + parseInt($('.cssD5').eq(j).val()) + parseInt($('.cssD7').eq(j).val()));
         }
         SumRow();
     }
