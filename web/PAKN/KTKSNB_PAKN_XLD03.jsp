@@ -112,7 +112,7 @@
             <tr>
                 <td class="cssTdTEN lock"><input type="text" value="<s:property value='TEN'/>" name="ModelList[<s:property  value='%{#status.index}' />].TEN" class="cssItem cssTEN" readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdD1 lock"><input type="text" value="<s:property value='D1'/>" name="ModelList[<s:property  value='%{#status.index}' />].D1" class="cssItem cssD1" readonly="readonly" onblur="SumCol()" /></td>
-                <td class="cssTdD2 lock"><input type="text" value="<s:property value='D2'/>" name="ModelList[<s:property  value='%{#status.index}' />].D2" class="cssItem cssD2"  readonly="readonly" onblur="SumCol()" /></td>
+                <td class="cssTdD2"><input type="text" value="<s:property value='D2'/>" name="ModelList[<s:property  value='%{#status.index}' />].D2" class="cssItem cssD2" onblur="SumCol()" /></td>
                 <td class="cssTdD3"><input type="text" value="<s:property value='D3'/>" name="ModelList[<s:property  value='%{#status.index}' />].D3" class="cssItem cssD3"  onblur="SumCol()" /></td>
                 <td class="cssTdD4"><input type="text" value="<s:property value='D4'/>" name="ModelList[<s:property  value='%{#status.index}' />].D4" class="cssItem cssD4" onblur="SumCol()" /></td>
                 <td class="cssTdD5"><input type="text" value="<s:property value='D5'/>" name="ModelList[<s:property  value='%{#status.index}' />].D5" class="cssItem cssD5"  onblur="SumCol()" /></td>
@@ -122,7 +122,7 @@
                 <td class="cssTdD9"><input type="text" value="<s:property value='D9'/>" name="ModelList[<s:property  value='%{#status.index}' />].D9" class="cssItem cssD9"  onblur="SumCol()" /></td>
                 <td class="cssTdD10"><input type="text" value="<s:property value='D10'/>" name="ModelList[<s:property  value='%{#status.index}' />].D10" class="cssItem cssD10"  onblur="SumCol()" /></td>
                 <td class="cssTdD11"><input type="text" value="<s:property value='D11'/>" name="ModelList[<s:property  value='%{#status.index}' />].D11" class="cssItem cssD11"  onblur="SumCol()" /></td>
-                <td class="cssTdD12"><input type="text" value="<s:property value='D12'/>" name="ModelList[<s:property  value='%{#status.index}' />].D12" class="cssItem cssD12"  onblur="SumCol()" /></td>
+                <td class="cssTdD12 lock"><input type="text" value="<s:property value='D12'/>" name="ModelList[<s:property  value='%{#status.index}' />].D12" class="cssItem cssD12" readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdD13"><input type="text" value="<s:property value='D13'/>" name="ModelList[<s:property  value='%{#status.index}' />].D13" class="cssItem cssD13"  onblur="SumCol()" /></td>
                 <td class="cssTdD14"><input type="text" value="<s:property value='D14'/>" name="ModelList[<s:property  value='%{#status.index}' />].D14" class="cssItem cssD14"  onblur="SumCol()" /></td>
                 <td class="cssTdD15"><input type="text" value="<s:property value='D15'/>" name="ModelList[<s:property  value='%{#status.index}' />].D15" class="cssItem cssD15"  onblur="SumCol()" /></td>
@@ -136,10 +136,10 @@
                 <td class="cssTdD23"><input type="text" value="<s:property value='D23'/>" name="ModelList[<s:property  value='%{#status.index}' />].D23" class="cssItem cssD23"  onblur="SumCol()" /></td>
                 <td class="cssTdD24"><input type="text" value="<s:property value='D24'/>" name="ModelList[<s:property  value='%{#status.index}' />].D24" class="cssItem cssD24"  onblur="SumCol()" /></td>
                 <td class="cssTdD25"><input type="text" value="<s:property value='D25'/>" name="ModelList[<s:property  value='%{#status.index}' />].D25" class="cssItem cssD25"  onblur="SumCol()" /></td>
-                <td class="cssTdD26"><input type="text" value="<s:property value='D26'/>" name="ModelList[<s:property  value='%{#status.index}' />].D26" class="cssItem cssD26"  onblur="SumCol()" /></td>
+                <td class="cssTdD26 lock"><input type="text" value="<s:property value='D26'/>" name="ModelList[<s:property  value='%{#status.index}' />].D26" class="cssItem cssD26" readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdD27"><input type="text" value="<s:property value='D27'/>" name="ModelList[<s:property  value='%{#status.index}' />].D27" class="cssItem cssD27"  onblur="SumCol()" /></td>
                 <td class="cssTdD28"><input type="text" value="<s:property value='D28'/>" name="ModelList[<s:property  value='%{#status.index}' />].D28" class="cssItem cssD28"  onblur="SumCol()" /></td>
-                <td class="cssTdD29"><input type="text" value="<s:property value='D29'/>" name="ModelList[<s:property  value='%{#status.index}' />].D29" class="cssItem cssD29"  onblur="SumCol()" /></td>
+                <td class="cssTdD29 lock"><input type="text" value="<s:property value='D29'/>" name="ModelList[<s:property  value='%{#status.index}' />].D29" class="cssItem cssD29" readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdD30"><input type="text" value="<s:property value='D30'/>" name="ModelList[<s:property  value='%{#status.index}' />].D30" class="cssItem cssD30"  onblur="SumCol()" /></td>
                 <td class="cssTdD31"><input type="text" value="<s:property value='D31'/>" name="ModelList[<s:property  value='%{#status.index}' />].D31" class="cssItem cssD31"  onblur="SumCol()" /></td>
                 <td class="cssTdD32"><input type="text" value="<s:property value='D32'/>" name="ModelList[<s:property  value='%{#status.index}' />].D32" class="cssItem cssD32"  onblur="SumCol()" /></td>
