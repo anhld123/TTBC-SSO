@@ -53,6 +53,7 @@ public class PankService {
                 while (Rset.next()) {
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(Rset.getString("KHOA"));
+                    value.setMA(Rset.getString("MA"));
                     value.setTEN(Rset.getString("TEN"));
                     value.setNGAYBC(Rset.getDate("NGAYBC"));
                     value.setMAPGD(Rset.getString("MAPGD"));
@@ -171,7 +172,7 @@ public class PankService {
         for (int i = 0; i < ModelList.size(); i++) {
             DuLieuNTRow item = new DuLieuNTRow();
             item.setKey(sMaBc);
-            item.setCode(ModelList.get(i).getMAPGD() + "-" + new Random().nextInt(1000));
+            item.setCode(ModelList.get(i).getMA());
             item.setBranchCode(ModelList.get(i).getMACN());
             item.setPosCode(ModelList.get(i).getMAPGD());
             item.setName(ModelList.get(i).getTEN());
@@ -235,7 +236,8 @@ public class PankService {
 
     public void CallApiUpdateData(String sNgaybc, String sUser, String sGrade, String sMaBc, List<QT_DULIEU_NT> ModelList) throws ParseException {
         DuLieuNTService service = new DuLieuNTService();
-        SimpleDateFormat CvDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        SimpleDateFormat CvDate = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat LsDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         ArrayList<DuLieuNTRow> lstInsert = new ArrayList<>();
         for (int i = 0; i < ModelList.size(); i++) {
             DuLieuNTRow item = new DuLieuNTRow();
@@ -244,7 +246,7 @@ public class PankService {
             item.setBranchCode(ModelList.get(i).getMACN());
             item.setPosCode(ModelList.get(i).getMAPGD());
             item.setName(ModelList.get(i).getTEN());
-            item.setReportDate(CvDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(sNgaybc)));
+            item.setReportDate(LsDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(sNgaybc)));
             item.setReportYear(Integer.parseInt(sNgaybc.substring(6, 10)));
             item.setPosFlag("S");
             item.setD1(ModelList.get(i).getD1());
@@ -300,6 +302,6 @@ public class PankService {
             lstInsert.add(item);
         }
         PosMainModel PosCD = new DaoListPosFromUser().get_pos_main_pos(sUser, sGrade);
-        int check = service.updateData(sMaBc, PosCD.getPosCd(), "S", CvDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(sNgaybc)), "", "", lstInsert);
+        service.updateData(sMaBc, PosCD.getPosCd(), "S",CvDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(sNgaybc)), "", "", lstInsert);
     }
 }
