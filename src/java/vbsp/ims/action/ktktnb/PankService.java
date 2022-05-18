@@ -9,13 +9,20 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
+import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.log.CoreLogger;
+import vbsp.ims.model.ktnb.PosMainModel;
+import vbsp.ims.restapi.DuLieuNTRow;
+import vbsp.ims.restapi.DuLieuNTService;
 
 /**
  *
@@ -119,6 +126,7 @@ public class PankService {
         }
         return lstData;
     }
+
     public String saveDataByTem(String sNgaybc, String sUser, String sGrade, String sMaBc, List<QT_DULIEU_NT> ModelList) {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
@@ -153,5 +161,145 @@ public class PankService {
             CoreLogger.error(this.getClass().getName() + " saveDataByTem -> " + e.getMessage());
         }
         return code;
+    }
+
+    public void CallApiAddData(String sNgaybc, String sUser, String sGrade, String sMaBc, List<QT_DULIEU_NT> ModelList) throws ParseException {
+
+        DuLieuNTService service = new DuLieuNTService();
+        SimpleDateFormat CvDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        ArrayList<DuLieuNTRow> lstInsert = new ArrayList<>();
+        for (int i = 0; i < ModelList.size(); i++) {
+            DuLieuNTRow item = new DuLieuNTRow();
+            item.setKey(sMaBc);
+            item.setCode(ModelList.get(i).getMAPGD() + "-" + new Random().nextInt(1000));
+            item.setBranchCode(ModelList.get(i).getMACN());
+            item.setPosCode(ModelList.get(i).getMAPGD());
+            item.setName(ModelList.get(i).getTEN());
+            item.setReportDate(CvDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(sNgaybc)));
+            item.setReportYear(Integer.parseInt(sNgaybc.substring(6, 10)));
+            item.setPosFlag("S");
+            item.setD1(ModelList.get(i).getD1());
+            item.setD2(ModelList.get(i).getD2());
+            item.setD3(ModelList.get(i).getD3());
+            item.setD4(ModelList.get(i).getD4());
+            item.setD5(ModelList.get(i).getD5());
+            item.setD6(ModelList.get(i).getD6());
+            item.setD7(ModelList.get(i).getD7());
+            item.setD8(ModelList.get(i).getD8());
+            item.setD9(ModelList.get(i).getD9());
+            item.setD10(ModelList.get(i).getD10());
+            item.setD11(ModelList.get(i).getD11());
+            item.setD12(ModelList.get(i).getD12());
+            item.setD13(ModelList.get(i).getD13());
+            item.setD14(ModelList.get(i).getD14());
+            item.setD15(ModelList.get(i).getD15());
+            item.setD16(ModelList.get(i).getD16());
+            item.setD17(ModelList.get(i).getD17());
+            item.setD18(ModelList.get(i).getD18());
+            item.setD19(ModelList.get(i).getD19());
+            item.setD20(ModelList.get(i).getD20());
+            item.setD21(ModelList.get(i).getD21());
+            item.setD22(ModelList.get(i).getD22());
+            item.setD23(ModelList.get(i).getD23());
+            item.setD24(ModelList.get(i).getD24());
+            item.setD25(ModelList.get(i).getD25());
+            item.setD26(ModelList.get(i).getD26());
+            item.setD27(ModelList.get(i).getD27());
+            item.setD28(ModelList.get(i).getD28());
+            item.setD29(ModelList.get(i).getD29());
+            item.setD30(ModelList.get(i).getD30());
+            item.setD31(ModelList.get(i).getD31());
+            item.setD32(ModelList.get(i).getD32());
+            item.setD33(ModelList.get(i).getD33());
+            item.setD34(ModelList.get(i).getD34());
+            item.setD35(ModelList.get(i).getD35());
+            item.setD36(ModelList.get(i).getD36());
+            item.setD37(ModelList.get(i).getD37());
+            item.setD38(ModelList.get(i).getD38());
+            item.setD39(ModelList.get(i).getD39());
+            item.setD40(ModelList.get(i).getD40());
+            item.setD41(ModelList.get(i).getD41());
+            item.setD42(ModelList.get(i).getD42());
+            item.setD43(ModelList.get(i).getD43());
+            item.setD44(ModelList.get(i).getD44());
+            item.setD45(ModelList.get(i).getD45());
+            item.setD46(ModelList.get(i).getD46());
+            item.setD47(ModelList.get(i).getD47());
+            item.setD48(ModelList.get(i).getD48());
+            item.setD49(ModelList.get(i).getD49());
+            item.setD50(ModelList.get(i).getD50());
+            lstInsert.add(item);
+        }
+        service.insertData(sUser, "", lstInsert);
+    }
+
+    public void CallApiUpdateData(String sNgaybc, String sUser, String sGrade, String sMaBc, List<QT_DULIEU_NT> ModelList) throws ParseException {
+        DuLieuNTService service = new DuLieuNTService();
+        SimpleDateFormat CvDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        ArrayList<DuLieuNTRow> lstInsert = new ArrayList<>();
+        for (int i = 0; i < ModelList.size(); i++) {
+            DuLieuNTRow item = new DuLieuNTRow();
+            item.setKey(sMaBc);
+            item.setCode(ModelList.get(i).getMAPGD() + "-" + new Random().nextInt(1000));
+            item.setBranchCode(ModelList.get(i).getMACN());
+            item.setPosCode(ModelList.get(i).getMAPGD());
+            item.setName(ModelList.get(i).getTEN());
+            item.setReportDate(CvDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(sNgaybc)));
+            item.setReportYear(Integer.parseInt(sNgaybc.substring(6, 10)));
+            item.setPosFlag("S");
+            item.setD1(ModelList.get(i).getD1());
+            item.setD2(ModelList.get(i).getD2());
+            item.setD3(ModelList.get(i).getD3());
+            item.setD4(ModelList.get(i).getD4());
+            item.setD5(ModelList.get(i).getD5());
+            item.setD6(ModelList.get(i).getD6());
+            item.setD7(ModelList.get(i).getD7());
+            item.setD8(ModelList.get(i).getD8());
+            item.setD9(ModelList.get(i).getD9());
+            item.setD10(ModelList.get(i).getD10());
+            item.setD11(ModelList.get(i).getD11());
+            item.setD12(ModelList.get(i).getD12());
+            item.setD13(ModelList.get(i).getD13());
+            item.setD14(ModelList.get(i).getD14());
+            item.setD15(ModelList.get(i).getD15());
+            item.setD16(ModelList.get(i).getD16());
+            item.setD17(ModelList.get(i).getD17());
+            item.setD18(ModelList.get(i).getD18());
+            item.setD19(ModelList.get(i).getD19());
+            item.setD20(ModelList.get(i).getD20());
+            item.setD21(ModelList.get(i).getD21());
+            item.setD22(ModelList.get(i).getD22());
+            item.setD23(ModelList.get(i).getD23());
+            item.setD24(ModelList.get(i).getD24());
+            item.setD25(ModelList.get(i).getD25());
+            item.setD26(ModelList.get(i).getD26());
+            item.setD27(ModelList.get(i).getD27());
+            item.setD28(ModelList.get(i).getD28());
+            item.setD29(ModelList.get(i).getD29());
+            item.setD30(ModelList.get(i).getD30());
+            item.setD31(ModelList.get(i).getD31());
+            item.setD32(ModelList.get(i).getD32());
+            item.setD33(ModelList.get(i).getD33());
+            item.setD34(ModelList.get(i).getD34());
+            item.setD35(ModelList.get(i).getD35());
+            item.setD36(ModelList.get(i).getD36());
+            item.setD37(ModelList.get(i).getD37());
+            item.setD38(ModelList.get(i).getD38());
+            item.setD39(ModelList.get(i).getD39());
+            item.setD40(ModelList.get(i).getD40());
+            item.setD41(ModelList.get(i).getD41());
+            item.setD42(ModelList.get(i).getD42());
+            item.setD43(ModelList.get(i).getD43());
+            item.setD44(ModelList.get(i).getD44());
+            item.setD45(ModelList.get(i).getD45());
+            item.setD46(ModelList.get(i).getD46());
+            item.setD47(ModelList.get(i).getD47());
+            item.setD48(ModelList.get(i).getD48());
+            item.setD49(ModelList.get(i).getD49());
+            item.setD50(ModelList.get(i).getD50());
+            lstInsert.add(item);
+        }
+        PosMainModel PosCD = new DaoListPosFromUser().get_pos_main_pos(sUser, sGrade);
+        service.updateData(sMaBc, PosCD.getPosCd(), "S", CvDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(sNgaybc)), "", "", lstInsert);
     }
 }

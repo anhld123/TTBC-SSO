@@ -26,6 +26,8 @@ public class ktnbpakn extends ActionSupport {
 
     //<editor-fold defaultstate="collapsed" desc="Hàm load form lần đầu">
     public ktnbpakn() {
+        sGrade = (String) ActionContext.getContext().getSession().get("reportGrade");
+        sUser = (String) ActionContext.getContext().getSession().get("username");
     }
 
     public String MainReportPAKN() throws Exception {
@@ -34,18 +36,26 @@ public class ktnbpakn extends ActionSupport {
 
     //</editor-fold>
     public String loadDataByTem() throws Exception {
-        sGrade = (String) ActionContext.getContext().getSession().get("reportGrade");
-        sUser = (String) ActionContext.getContext().getSession().get("username");
         ModelList = new PankService().getDataByTem(txtNgaybc, sUser, sGrade, txtMaBc);
         jsp = txtMaBc + ".jsp";
         return "ViewData";
     }
-     public String saveDataByTem() throws Exception {
-        sGrade = (String) ActionContext.getContext().getSession().get("reportGrade");
-        sUser = (String) ActionContext.getContext().getSession().get("username");
+
+    public String saveDataByTem() throws Exception {
         code = new PankService().saveDataByTem(txtNgaybc, sUser, sGrade, txtMaBc, ModelList);
         pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        ApiDataByTem();
         return "SaveData";
+    }
+
+    public void ApiDataByTem() throws Exception {
+        /*Thêm mới dữ liệu cho API*/
+        String chkExists = ModelList.get(0).getKHOA();
+        if (chkExists.isEmpty() || chkExists.equals("")) {
+            new PankService().CallApiAddData(txtNgaybc, sUser, sGrade, txtMaBc, ModelList);
+        }else{
+            new PankService().CallApiUpdateData(txtNgaybc, sUser, sGrade, txtMaBc, ModelList);
+        }
     }
     //<editor-fold defaultstate="collapsed" desc="Khai báo biến">
 
@@ -80,15 +90,15 @@ public class ktnbpakn extends ActionSupport {
     public void setJsp(String jsp) {
         this.jsp = jsp;
     }
-    
-   public InputStream getPageResult() {
+
+    public InputStream getPageResult() {
         return pageResult;
     }
 
     public void setPageResult(InputStream pageResult) {
         this.pageResult = pageResult;
     }
-    
+
     public String getTxtGhiChu() {
         return txtGhiChu;
     }

@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/03.Projects/IMS_REPORTS/web/khnv2021/ShowMessage.jsp</file>
-            <file>file:/D:/03.Projects/IMS_REPORTS/web/khnv2021/ViewAuthor.jsp</file>
-            <file>file:/D:/03.Projects/IMS_REPORTS/src/java/vbsp/ims/khnv2021/AuthorModel.java</file>
-            <file>file:/D:/03.Projects/IMS_REPORTS/web/khnv2021/ViewAuthorDetail.jsp</file>
-            <file>file:/D:/03.Projects/IMS_REPORTS/src/java/vbsp/ims/khnv2021/AuthorAction.java</file>
+            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/src/java/vbsp/ims/action/ktktnb/ktnbpakn.java</file>
+            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/web/PAKN/MainReport.jsp</file>
+            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/src/java/vbsp/ims/action/ktktnb/PankService.java</file>
+            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/src/java/vbsp/ims/restapi/DuLieuNTService.java</file>
         </group>
     </open-files>
 </project-private>
