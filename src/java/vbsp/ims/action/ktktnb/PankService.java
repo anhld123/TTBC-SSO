@@ -240,7 +240,7 @@ public class PankService {
         for (int i = 0; i < ModelList.size(); i++) {
             DuLieuNTRow item = new DuLieuNTRow();
             item.setKey(sMaBc);
-            item.setCode(ModelList.get(i).getMAPGD() + "-" + new Random().nextInt(1000));
+            item.setCode(ModelList.get(i).getMA());
             item.setBranchCode(ModelList.get(i).getMACN());
             item.setPosCode(ModelList.get(i).getMAPGD());
             item.setName(ModelList.get(i).getTEN());
@@ -300,6 +300,6 @@ public class PankService {
             lstInsert.add(item);
         }
         PosMainModel PosCD = new DaoListPosFromUser().get_pos_main_pos(sUser, sGrade);
-        service.updateData(sMaBc, PosCD.getPosCd(), "S", CvDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(sNgaybc)), "", "", lstInsert);
+        int check = service.updateData(sMaBc, PosCD.getPosCd(), "S", CvDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(sNgaybc)), "", "", lstInsert);
     }
 }
