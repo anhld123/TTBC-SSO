@@ -4,8 +4,9 @@
     Author     : NGUYEN PHU VINH
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags" %>
+<%@taglib prefix="sj" uri="/struts-jquery-tags" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <style>
     .colHiden{
         display: none;
@@ -16,6 +17,7 @@
     .lock{
         background-color: lightgrey;
     }
+    hr{border-top: 1px solid grey;}
 </style>
 <table border="1px" id="tableKtnb">
     <thead>
@@ -26,6 +28,7 @@
             <th rowspan="4">Tổng số vụ được tiếp</th>
             <th colspan="8">Tiếp thường xuyên</th>
             <th colspan="18">Tiếp định kỳ và đột xuất của Thủ trưởng</th>
+            <th rowspan="4">Ngày nhập liệu</th>
         </tr>
         <tr>
             <th rowspan="3">Số lượt tiếp</th>
@@ -68,7 +71,10 @@
             <th>Tiếp nhiều lần</th>
         </tr>
         <tr style="font-style: italic; text-align: center;" class="lock">
-            <td>MS</td><td>1=4+13+22</td><td>2=5+14+23</td><td>3=6+7+15+16+24+25</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td>
+            <td>
+                <input type="text" id="idSearch" onkeyup="FuncSearch()" placeholder="Tìm kiếm theo tên đơn vị" title="Nhập tên đơn vị" style="outline: none;">
+            </td>
+            <td>1=4+13+22</td><td>2=5+14+23</td><td>3=6+7+15+16+24+25</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td></td>
         </tr>
     </thead>
     <tbody id="tbody">
@@ -104,6 +110,7 @@
                 <td class="cssTdD27"><input type="text" value="<s:property value='D27'/>" name="ModelList[<s:property  value='%{#status.index}' />].D27" class="cssItem cssD27"  onblur="SumCol()" /></td>
                 <td class="cssTdD28"><input type="text" value="<s:property value='D28'/>" name="ModelList[<s:property  value='%{#status.index}' />].D28" class="cssItem cssD28"  onblur="SumCol()" /></td>
                 <td class="cssTdD29"><input type="text" value="<s:property value='D29'/>" name="ModelList[<s:property  value='%{#status.index}' />].D29" class="cssItem cssD29"  onblur="SumCol()" /></td>
+                <td class="cssTdNGAYBC lock"><input type="text" value="<s:property value='NGAYBC'/>" name="ModelList[<s:property  value='%{#status.index}' />].NGAYBC" class="cssItem cssNGAYBC"  readonly="readonly"/></td>
                 <td class="cssTdD30 colHiden"><input type="text" value="<s:property value='D30'/>" name="ModelList[<s:property  value='%{#status.index}' />].D30" class="cssItem cssD30"  onblur="SumCol()" /></td>
                 <td class="cssTdD31 colHiden"><input type="text" value="<s:property value='D31'/>" name="ModelList[<s:property  value='%{#status.index}' />].D31" class="cssItem cssD31"  onblur="SumCol()" /></td>
                 <td class="cssTdD32 colHiden"><input type="text" value="<s:property value='D32'/>" name="ModelList[<s:property  value='%{#status.index}' />].D32" class="cssItem cssD32"  onblur="SumCol()" /></td>
@@ -126,7 +133,6 @@
                 <td class="cssTdD49 colHiden"><input type="text" value="<s:property value='D49'/>" name="ModelList[<s:property  value='%{#status.index}' />].D49" class="cssItem cssD49"  onblur="SumCol()" /></td>
                 <td class="cssTdD50 colHiden"><input type="text" value="<s:property value='D50'/>" name="ModelList[<s:property  value='%{#status.index}' />].D50" class="cssItem cssD50"  onblur="SumCol()" /></td>
                 <td class="cssTdKHOA colHiden"><input type="text" value="<s:property value='KHOA'/>" name="ModelList[<s:property  value='%{#status.index}' />].KHOA" class="cssItem cssKHOA"  readonly="readonly" onblur="SumCol()" /></td>
-                <td class="cssTdNGAYBC colHiden"><input type="text" value="<s:property value='NGAYBC'/>" name="ModelList[<s:property  value='%{#status.index}' />].NGAYBC" class="cssItem cssNGAYBC"  readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdMAPGD colHiden"><input type="text" value="<s:property value='MAPGD'/>" name="ModelList[<s:property  value='%{#status.index}' />].MAPGD" class="cssItem cssMAPGD"  readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdMACN colHiden"><input type="text" value="<s:property value='MACN'/>" name="ModelList[<s:property  value='%{#status.index}' />].MACN" class="cssItem cssMACN"  readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdMA colHiden"><input type="text" value="<s:property value='MA'/>" name="ModelList[<s:property  value='%{#status.index}' />].MA" class="cssItem cssMA"  readonly="readonly" onblur="SumCol()" /></td>
@@ -135,16 +141,20 @@
     </tbody>
     <tfoot id="tfoot">
         <tr>
-            <td class="cssTong" id="tsms">Tổng</td><td class="cssTong" id="ts1"></td><td class="cssTong" id="ts2"></td><td class="cssTong" id="ts3"></td><td class="cssTong" id="ts4"></td><td class="cssTong" id="ts5"></td><td class="cssTong" id="ts6"></td><td class="cssTong" id="ts7"></td><td class="cssTong" id="ts8"></td><td class="cssTong" id="ts9"></td><td class="cssTong" id="ts10"></td><td class="cssTong" id="ts11"></td><td class="cssTong" id="ts12"></td><td class="cssTong" id="ts13"></td><td class="cssTong" id="ts14"></td><td class="cssTong" id="ts15"></td><td class="cssTong" id="ts16"></td><td class="cssTong" id="ts17"></td><td class="cssTong" id="ts18"></td><td class="cssTong" id="ts19"></td><td class="cssTong" id="ts20"></td><td class="cssTong" id="ts21"></td><td class="cssTong" id="ts22"></td><td class="cssTong" id="ts23"></td><td class="cssTong" id="ts24"></td><td class="cssTong" id="ts25"></td><td class="cssTong" id="ts26"></td><td class="cssTong" id="ts27"></td><td class="cssTong" id="ts28"></td><td class="cssTong" id="ts29"></td>
+            <td class="cssTong" id="tsms">Tổng</td><td class="cssTong" id="ts1"></td><td class="cssTong" id="ts2"></td><td class="cssTong" id="ts3"></td><td class="cssTong" id="ts4"></td><td class="cssTong" id="ts5"></td><td class="cssTong" id="ts6"></td><td class="cssTong" id="ts7"></td><td class="cssTong" id="ts8"></td><td class="cssTong" id="ts9"></td><td class="cssTong" id="ts10"></td><td class="cssTong" id="ts11"></td><td class="cssTong" id="ts12"></td><td class="cssTong" id="ts13"></td><td class="cssTong" id="ts14"></td><td class="cssTong" id="ts15"></td><td class="cssTong" id="ts16"></td><td class="cssTong" id="ts17"></td><td class="cssTong" id="ts18"></td><td class="cssTong" id="ts19"></td><td class="cssTong" id="ts20"></td><td class="cssTong" id="ts21"></td><td class="cssTong" id="ts22"></td><td class="cssTong" id="ts23"></td><td class="cssTong" id="ts24"></td><td class="cssTong" id="ts25"></td><td class="cssTong" id="ts26"></td><td class="cssTong" id="ts27"></td><td class="cssTong" id="ts28"></td><td class="cssTong" id="ts29"></td><td class="cssTong">&nbsp;</td>
         </tr>
         <tr>
             <td colspan="56"><span style="font-weight: bold; color: red; margin-bottom: 7px; margin-top: 7px;">Ghi chú: </span></td>
         </tr>
-        <tr>
+        <tr class="ShowNhaplieu">
             <td colspan="56"><textarea name = "txtGhiChu" style="width: 100%; height: 20vh; border: 0px; outline: none;" id="txtGhiChu"></textarea></td>
+        </tr>
+        <tr class="ShowGhichu">
+            <td colspan="56" style="line-height: 17px;"><s:property value='txtGhiChu' escape="false"/></td>
         </tr>
     </tfoot>
 </table>
+<input type="hidden" value="<s:property value='txtsGrade'/>" name="vGrade" id="vGrade"/>
 <script>
     $("#txtGhiChu").val($(".cssD40").val());
     $(".cssD4").focus();
@@ -170,5 +180,20 @@
         }
     }
     SumRow();
+    function FuncSearch() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("idSearch");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("tbody");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            txtValue = $(".cssTEN").eq(i).val();
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
 </script>
 

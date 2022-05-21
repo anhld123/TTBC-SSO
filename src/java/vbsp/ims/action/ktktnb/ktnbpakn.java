@@ -20,7 +20,7 @@ import vbsp.ims.bcqt.model.QT_DULIEU_NT;
  */
 public class ktnbpakn extends ActionSupport {
 
-    private String txtNgaybc, sUser, sGrade, txtMaBc, jsp, code, txtGhiChu;
+    private String txtNgaybc, sUser, sGrade, txtMaBc, jsp, code, txtGhiChu, txtsGrade,txtTuNgay, txtDenNgay, chkTongHop;
     private InputStream pageResult;
     private List<QT_DULIEU_NT> ModelList = new ArrayList<>();
 
@@ -36,8 +36,20 @@ public class ktnbpakn extends ActionSupport {
 
     //</editor-fold>
     public String loadDataByTem() throws Exception {
-        ModelList = new PankService().getDataByTem(txtNgaybc, sUser, sGrade, txtMaBc);
+        PankService sPakn = new PankService();
+        ModelList = sPakn.getDataByTem(txtNgaybc, sUser, sGrade, txtMaBc);
         jsp = txtMaBc + ".jsp";
+        txtsGrade = sGrade;
+        txtGhiChu = sPakn.getsGhiChu();
+        return "ViewData";
+    }
+    
+    public String queryDataByTem() throws Exception {
+        PankService sPakn = new PankService();
+        ModelList = sPakn.queryDataByTem(txtTuNgay, txtDenNgay, chkTongHop, sUser, sGrade, txtMaBc);
+        jsp = txtMaBc + ".jsp";
+        txtsGrade = sGrade;
+        txtGhiChu = sPakn.getsGhiChu();
         return "ViewData";
     }
 
@@ -106,6 +118,37 @@ public class ktnbpakn extends ActionSupport {
     public void setTxtGhiChu(String txtGhiChu) {
         this.txtGhiChu = txtGhiChu;
     }
-    //</editor-fold>    
+    
+    public String getTxtsGrade() {
+        return txtsGrade;
+    }
 
+    public void setTxtsGrade(String txtsGrade) {
+        this.txtsGrade = txtsGrade;
+    }
+    
+    public String getTxtTuNgay() {
+        return txtTuNgay;
+    }
+
+    public void setTxtTuNgay(String txtTuNgay) {
+        this.txtTuNgay = txtTuNgay;
+    }
+
+    public String getTxtDenNgay() {
+        return txtDenNgay;
+    }
+
+    public void setTxtDenNgay(String txtDenNgay) {
+        this.txtDenNgay = txtDenNgay;
+    }
+    
+    public String getChkTongHop() {
+        return chkTongHop;
+    }
+
+    public void setChkTongHop(String chkTongHop) {
+        this.chkTongHop = chkTongHop;
+    }
+    //</editor-fold>       
 }

@@ -445,6 +445,9 @@
         <action name="loadDataByTem" class="vbsp.ims.action.ktktnb.ktnbpakn" method="loadDataByTem">
             <result name="ViewData">/PAKN/${jsp}</result>
         </action>
+        <action name="queryDataByTem" class="vbsp.ims.action.ktktnb.ktnbpakn" method="queryDataByTem">
+            <result name="ViewData">/PAKN/${jsp}</result>
+        </action>
         <action name="saveDataByTem" class="vbsp.ims.action.ktktnb.ktnbpakn" method="saveDataByTem">
             <result name="SaveData" type="stream">
                 <param name="contentType">text/html</param>
