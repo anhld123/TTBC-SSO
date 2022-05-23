@@ -90,7 +90,7 @@
         <s:iterator value="ModelList" status="status">     
             <tr>
                 <s:if test="txtsGrade.equalsIgnoreCase('3')">
-                    <td class="cssTdD4 lock"><input type="text" value="<s:property value='D41'/>" name="ModelList[<s:property  value='%{#status.index}' />].D41" class="cssItem cssD41"  readonly="readonly" /></td>
+                    <td class="cssTdD41 lock"><input type="text" value="<s:property value='D41'/>" name="ModelList[<s:property  value='%{#status.index}' />].D41" class="cssItem cssD41"  readonly="readonly" /></td>
                 </s:if>
                 <td class="cssTdTEN lock"><input type="text" value="<s:property value='TEN'/>" name="ModelList[<s:property  value='%{#status.index}' />].TEN" class="cssItem cssTEN" readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdD1"><input type="text" value="<s:property value='D1'/>" name="ModelList[<s:property  value='%{#status.index}' />].D1" class="cssItem cssD1" onblur="SumCol()" /></td>
@@ -110,6 +110,7 @@
                 <td class="cssTdD15"><input type="text" value="<s:property value='D15'/>" name="ModelList[<s:property  value='%{#status.index}' />].D15" class="cssItem cssD15"  onblur="SumCol()" /></td>
                 <td class="cssTdD16"><input type="text" value="<s:property value='D16'/>" name="ModelList[<s:property  value='%{#status.index}' />].D16" class="cssItem cssD16"  onblur="SumCol()" /></td>
                 <td class="cssTdD17"><input type="text" value="<s:property value='D17'/>" name="ModelList[<s:property  value='%{#status.index}' />].D17" class="cssItem cssD17"  onblur="SumCol()" /></td>
+                <td class="cssTdNGAYBC lock"><input type="text" value="<s:property value='NGAYBC'/>" name="ModelList[<s:property  value='%{#status.index}' />].NGAYBC" class="cssItem cssNGAYBC" readonly="readonly"/></td>
                 <td class="cssTdD18 colHiden"><input type="text" value="<s:property value='D18'/>" name="ModelList[<s:property  value='%{#status.index}' />].D18" class="cssItem cssD18"  onblur="SumCol()" /></td>
                 <td class="cssTdD19 colHiden"><input type="text" value="<s:property value='D19'/>" name="ModelList[<s:property  value='%{#status.index}' />].D19" class="cssItem cssD19"  onblur="SumCol()" /></td>
                 <td class="cssTdD20 colHiden"><input type="text" value="<s:property value='D20'/>" name="ModelList[<s:property  value='%{#status.index}' />].D20" class="cssItem cssD20"  onblur="SumCol()" /></td>
@@ -133,7 +134,6 @@
                 <td class="cssTdD38 colHiden"><input type="text" value="<s:property value='D38'/>" name="ModelList[<s:property  value='%{#status.index}' />].D38" class="cssItem cssD38"  onblur="SumCol()" /></td>
                 <td class="cssTdD39 colHiden"><input type="text" value="<s:property value='D39'/>" name="ModelList[<s:property  value='%{#status.index}' />].D39" class="cssItem cssD39"  onblur="SumCol()" /></td>
                 <td class="cssTdD40 colHiden"><input type="text" value="<s:property value='D40'/>" name="ModelList[<s:property  value='%{#status.index}' />].D40" class="cssItem cssD40"  onblur="SumCol()" /></td>
-                <td class="cssTdD41 colHiden"><input type="text" value="<s:property value='D41'/>" name="ModelList[<s:property  value='%{#status.index}' />].D41" class="cssItem cssD41"  onblur="SumCol()" /></td>
                 <td class="cssTdD42 colHiden"><input type="text" value="<s:property value='D42'/>" name="ModelList[<s:property  value='%{#status.index}' />].D42" class="cssItem cssD42"  onblur="SumCol()" /></td>
                 <td class="cssTdD43 colHiden"><input type="text" value="<s:property value='D43'/>" name="ModelList[<s:property  value='%{#status.index}' />].D43" class="cssItem cssD43"  onblur="SumCol()" /></td>
                 <td class="cssTdD44 colHiden"><input type="text" value="<s:property value='D44'/>" name="ModelList[<s:property  value='%{#status.index}' />].D44" class="cssItem cssD44"  onblur="SumCol()" /></td>
@@ -144,7 +144,6 @@
                 <td class="cssTdD49 colHiden"><input type="text" value="<s:property value='D49'/>" name="ModelList[<s:property  value='%{#status.index}' />].D49" class="cssItem cssD49"  onblur="SumCol()" /></td>
                 <td class="cssTdD50 colHiden"><input type="text" value="<s:property value='D50'/>" name="ModelList[<s:property  value='%{#status.index}' />].D50" class="cssItem cssD50"  onblur="SumCol()" /></td>
                 <td class="cssTdKHOA colHiden"><input type="text" value="<s:property value='KHOA'/>" name="ModelList[<s:property  value='%{#status.index}' />].KHOA" class="cssItem cssKHOA"  readonly="readonly" onblur="SumCol()" /></td>
-                <td class="cssTdNGAYBC colHiden"><input type="text" value="<s:property value='NGAYBC'/>" name="ModelList[<s:property  value='%{#status.index}' />].NGAYBC" class="cssItem cssNGAYBC"  readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdMAPGD colHiden"><input type="text" value="<s:property value='MAPGD'/>" name="ModelList[<s:property  value='%{#status.index}' />].MAPGD" class="cssItem cssMAPGD"  readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdMACN colHiden"><input type="text" value="<s:property value='MACN'/>" name="ModelList[<s:property  value='%{#status.index}' />].MACN" class="cssItem cssMACN"  readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdMA colHiden"><input type="text" value="<s:property value='MA'/>" name="ModelList[<s:property  value='%{#status.index}' />].MA" class="cssItem cssMA"  readonly="readonly" onblur="SumCol()" /></td>
@@ -153,6 +152,7 @@
     </tbody>
     <tfoot id="tfoot">
         <tr>
+            <s:if test="txtsGrade.equalsIgnoreCase('3')"><td class="cssTong"/></s:if>
             <td class="cssTong" id="tsms">Tổng</td>
             <td class="cssTong" id="ts1"></td>
             <td class="cssTong" id="ts2"></td>
@@ -175,8 +175,11 @@
         <tr>
             <td colspan="56"><span style="font-weight: bold; color: red; margin-bottom: 7px; margin-top: 7px;">Ghi chú: </span></td>
         </tr>
-        <tr>
-            <td colspan="56"><textarea name = "txtGhiChu" style="width: 100%; height: 20vh; border: 0px; outline: none;" id="txtGhiChu"></textarea></td>
+        <tr class="ShowNhaplieu">
+                <td colspan="56"><textarea name = "txtGhiChu" style="width: 100%; height: 20vh; border: 0px; outline: none;" id="txtGhiChu"></textarea></td>
+            </tr>
+            <tr class="ShowGhichu">
+                <td colspan="56" style="line-height: 17px;"><s:property value='txtGhiChu' escape="false"/></td>
         </tr>
     </tfoot>
 </table>
