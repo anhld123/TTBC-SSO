@@ -28,6 +28,7 @@ public class ktnbpakn extends ActionSupport {
     public ktnbpakn() {
         sGrade = (String) ActionContext.getContext().getSession().get("reportGrade");
         sUser = (String) ActionContext.getContext().getSession().get("username");
+        txtsGrade = sGrade;
     }
 
     public String MainReportPAKN() throws Exception {

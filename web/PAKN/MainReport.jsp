@@ -67,8 +67,11 @@
                         <td>
                             <div style="display: inline-flex;">
                                 <div>
-                                    <label for="sInsert">Nhập liệu: </label><input type="radio" value="sInsert" id="sInsert" name="group1">
-                                    <label for="sQuery">Truy vấn: </label><input type="radio" value="sQuery" id="sQuery" name="group1" checked="checked">
+                                    <s:if test="type.equalsIgnoreCase('1')">
+                                        <label for="sInsert">Nhập liệu: </label><input type="radio" value="sInsert" id="sInsert" name="group1">
+                                    </s:if>
+                                    <label for="sQuery">Truy vấn: </label>
+                                    <input type="radio" value="sQuery" id="sQuery" name="group1" checked="checked">
                                 </div>
                                 <div style="margin-left: 10px; display: none;" class="sNhapLieu">
                                     <b style="padding-right: 3px;">Ngày báo cáo</b><input type="text" name="txtNgaybc" id="txtNgaybc" readonly="readonly"/>

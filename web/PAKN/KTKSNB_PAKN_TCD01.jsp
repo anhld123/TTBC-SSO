@@ -22,6 +22,9 @@
 <table border="1px" id="tableKtnb">
     <thead>
         <tr>
+            <s:if test="type.equalsIgnoreCase('3')">
+                <th rowspan="4">Tỉnh</th>
+                </s:if>
             <th rowspan="4">Đơn vị</th>
             <th rowspan="4">Tổng số lượt tiếp</th>
             <th rowspan="4">Tổng số người được tiếp</th>
@@ -71,8 +74,13 @@
             <th>Tiếp nhiều lần</th>
         </tr>
         <tr style="font-style: italic; text-align: center;" class="lock">
+            <s:if test="type.equalsIgnoreCase('3')">
+                <td>
+                    <input type="text" id="idSearch1" onkeyup="FuncSearch(true)" placeholder="Tìm kiếm theo tên đơn vị" title="Nhập tên đơn vị" style="outline: none;">
+                </td>
+            </s:if>
             <td>
-                <input type="text" id="idSearch" onkeyup="FuncSearch()" placeholder="Tìm kiếm theo tên đơn vị" title="Nhập tên đơn vị" style="outline: none;">
+                <input type="text" id="idSearch2" onkeyup="FuncSearch(false)" placeholder="Tìm kiếm theo tên đơn vị" title="Nhập tên đơn vị" style="outline: none;">
             </td>
             <td>1=4+13+22</td><td>2=5+14+23</td><td>3=6+7+15+16+24+25</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td></td>
         </tr>
@@ -80,6 +88,8 @@
     <tbody id="tbody">
         <s:iterator value="ModelList" status="status">     
             <tr>
+                <s:if test="type.equalsIgnoreCase('3')">
+                    <td class="cssTdD4 lock"><input type="text" value="<s:property value='D41'/>" name="ModelList[<s:property  value='%{#status.index}' />].D41" class="cssItem cssD41"  readonly="readonly" /></td></s:if>
                 <td class="cssTdTEN lock"><input type="text" value="<s:property value='TEN'/>" name="ModelList[<s:property  value='%{#status.index}' />].TEN" class="cssItem cssTEN" readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdD1 lock"><input type="text" value="<s:property value='D1'/>" name="ModelList[<s:property  value='%{#status.index}' />].D1" class="cssItem cssD1" readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdD2 lock"><input type="text" value="<s:property value='D2'/>" name="ModelList[<s:property  value='%{#status.index}' />].D2" class="cssItem cssD2"  readonly="readonly" onblur="SumCol()" /></td>
@@ -122,7 +132,6 @@
                 <td class="cssTdD38 colHiden"><input type="text" value="<s:property value='D38'/>" name="ModelList[<s:property  value='%{#status.index}' />].D38" class="cssItem cssD38"  onblur="SumCol()" /></td>
                 <td class="cssTdD39 colHiden"><input type="text" value="<s:property value='D39'/>" name="ModelList[<s:property  value='%{#status.index}' />].D39" class="cssItem cssD39"  onblur="SumCol()" /></td>
                 <td class="cssTdD40 colHiden"><input type="text" value="<s:property value='D40'/>" name="ModelList[<s:property  value='%{#status.index}' />].D40" class="cssItem cssD40"  onblur="SumCol()" /></td>
-                <td class="cssTdD41 colHiden"><input type="text" value="<s:property value='D41'/>" name="ModelList[<s:property  value='%{#status.index}' />].D41" class="cssItem cssD41"  onblur="SumCol()" /></td>
                 <td class="cssTdD42 colHiden"><input type="text" value="<s:property value='D42'/>" name="ModelList[<s:property  value='%{#status.index}' />].D42" class="cssItem cssD42"  onblur="SumCol()" /></td>
                 <td class="cssTdD43 colHiden"><input type="text" value="<s:property value='D43'/>" name="ModelList[<s:property  value='%{#status.index}' />].D43" class="cssItem cssD43"  onblur="SumCol()" /></td>
                 <td class="cssTdD44 colHiden"><input type="text" value="<s:property value='D44'/>" name="ModelList[<s:property  value='%{#status.index}' />].D44" class="cssItem cssD44"  onblur="SumCol()" /></td>
@@ -141,16 +150,16 @@
     </tbody>
     <tfoot id="tfoot">
         <tr>
-            <td class="cssTong" id="tsms">Tổng</td><td class="cssTong" id="ts1"></td><td class="cssTong" id="ts2"></td><td class="cssTong" id="ts3"></td><td class="cssTong" id="ts4"></td><td class="cssTong" id="ts5"></td><td class="cssTong" id="ts6"></td><td class="cssTong" id="ts7"></td><td class="cssTong" id="ts8"></td><td class="cssTong" id="ts9"></td><td class="cssTong" id="ts10"></td><td class="cssTong" id="ts11"></td><td class="cssTong" id="ts12"></td><td class="cssTong" id="ts13"></td><td class="cssTong" id="ts14"></td><td class="cssTong" id="ts15"></td><td class="cssTong" id="ts16"></td><td class="cssTong" id="ts17"></td><td class="cssTong" id="ts18"></td><td class="cssTong" id="ts19"></td><td class="cssTong" id="ts20"></td><td class="cssTong" id="ts21"></td><td class="cssTong" id="ts22"></td><td class="cssTong" id="ts23"></td><td class="cssTong" id="ts24"></td><td class="cssTong" id="ts25"></td><td class="cssTong" id="ts26"></td><td class="cssTong" id="ts27"></td><td class="cssTong" id="ts28"></td><td class="cssTong" id="ts29"></td><td class="cssTong">&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="56"><span style="font-weight: bold; color: red; margin-bottom: 7px; margin-top: 7px;">Ghi chú: </span></td>
-        </tr>
-        <tr class="ShowNhaplieu">
-            <td colspan="56"><textarea name = "txtGhiChu" style="width: 100%; height: 20vh; border: 0px; outline: none;" id="txtGhiChu"></textarea></td>
-        </tr>
-        <tr class="ShowGhichu">
-            <td colspan="56" style="line-height: 17px;"><s:property value='txtGhiChu' escape="false"/></td>
+            <s:if test="type.equalsIgnoreCase('3')"><td class="cssTong"/></s:if><td class="cssTong" id="tsms" style="text-align:left;">Tổng</td><td class="cssTong" id="ts1"></td><td class="cssTong" id="ts2"></td><td class="cssTong" id="ts3"></td><td class="cssTong" id="ts4"></td><td class="cssTong" id="ts5"></td><td class="cssTong" id="ts6"></td><td class="cssTong" id="ts7"></td><td class="cssTong" id="ts8"></td><td class="cssTong" id="ts9"></td><td class="cssTong" id="ts10"></td><td class="cssTong" id="ts11"></td><td class="cssTong" id="ts12"></td><td class="cssTong" id="ts13"></td><td class="cssTong" id="ts14"></td><td class="cssTong" id="ts15"></td><td class="cssTong" id="ts16"></td><td class="cssTong" id="ts17"></td><td class="cssTong" id="ts18"></td><td class="cssTong" id="ts19"></td><td class="cssTong" id="ts20"></td><td class="cssTong" id="ts21"></td><td class="cssTong" id="ts22"></td><td class="cssTong" id="ts23"></td><td class="cssTong" id="ts24"></td><td class="cssTong" id="ts25"></td><td class="cssTong" id="ts26"></td><td class="cssTong" id="ts27"></td><td class="cssTong" id="ts28"></td><td class="cssTong" id="ts29"></td><td class="cssTong">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="56"><span style="font-weight: bold; color: red; margin-bottom: 7px; margin-top: 7px;">Ghi chú: </span></td>
+            </tr>
+            <tr class="ShowNhaplieu">
+                <td colspan="56"><textarea name = "txtGhiChu" style="width: 100%; height: 20vh; border: 0px; outline: none;" id="txtGhiChu"></textarea></td>
+            </tr>
+            <tr class="ShowGhichu">
+                <td colspan="56" style="line-height: 17px;"><s:property value='txtGhiChu' escape="false"/></td>
         </tr>
     </tfoot>
 </table>
@@ -180,14 +189,20 @@
         }
     }
     SumRow();
-    function FuncSearch() {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("idSearch");
+    function FuncSearch(expr) {
+        var input, filter, table, tr, loai, i, txtValue;
+        if (expr) {
+            loai = "cssD41";
+            input = document.getElementById("idSearch1");
+        } else {
+            loai = "cssTEN";
+            input = document.getElementById("idSearch2");
+        }
         filter = input.value.toUpperCase();
         table = document.getElementById("tbody");
         tr = table.getElementsByTagName("tr");
         for (i = 0; i < tr.length; i++) {
-            txtValue = $(".cssTEN").eq(i).val();
+            txtValue = $("." + loai).eq(i).val();
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 tr[i].style.display = "";
             } else {
