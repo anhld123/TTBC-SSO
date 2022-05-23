@@ -30,6 +30,7 @@
             <th colspan="7">Phân loại theo thẩm quyền</th>
             <th rowspan="4">Số văn bản phúc đáp nhận được do chuyển đơn</th>
             <th rowspan="4">Ghi chú</th>
+            <th rowspan="4">Ngày nhập liệu</th>
         </tr>
         <tr>
             <th colspan="2">Khiếu nại</th>
@@ -150,7 +151,7 @@
     </tbody>
     <tfoot id="tfoot">
         <tr>
-            <s:if test="txtsGrade.equalsIgnoreCase('3')"><td class="cssTong"/></s:if><td class="cssTong" id="tsms">Tổng</td><td class="cssTong" id="ts1"></td><td class="cssTong" id="ts2"></td><td class="cssTong" id="ts3"></td><td class="cssTong" id="ts4"></td><td class="cssTong" id="ts5"></td><td class="cssTong" id="ts6"></td><td class="cssTong" id="ts7"></td><td class="cssTong" id="ts8"></td><td class="cssTong" id="ts9"></td><td class="cssTong" id="ts10"></td><td class="cssTong" id="ts11"></td><td class="cssTong" id="ts12"></td><td class="cssTong" id="ts13"></td><td class="cssTong" id="ts14"></td><td class="cssTong" id="ts15"></td><td class="cssTong" id="ts16"></td><td class="cssTong" id="ts17">
+            <s:if test="txtsGrade.equalsIgnoreCase('3')"><td class="cssTong"/></s:if><td class="cssTong" id="tsms">Tổng</td><td class="cssTong" id="ts1"></td><td class="cssTong" id="ts2"></td><td class="cssTong" id="ts3"></td><td class="cssTong" id="ts4"></td><td class="cssTong" id="ts5"></td><td class="cssTong" id="ts6"></td><td class="cssTong" id="ts7"></td><td class="cssTong" id="ts8"></td><td class="cssTong" id="ts9"></td><td class="cssTong" id="ts10"></td><td class="cssTong" id="ts11"></td><td class="cssTong" id="ts12"></td><td class="cssTong" id="ts13"></td><td class="cssTong" id="ts14"></td><td class="cssTong" id="ts15"></td><td class="cssTong" id="ts16"></td><td class="cssTong" id="ts17"><td class="cssTong"/>
         </tr>
         <tr>
             <td colspan="56"><span style="font-weight: bold; color: red; margin-bottom: 7px; margin-top: 7px;">Ghi chú: </span></td>

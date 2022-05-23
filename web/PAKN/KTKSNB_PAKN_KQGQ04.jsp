@@ -30,6 +30,7 @@
             <th colspan="12">Trả lại cho tổ chức, cá nhân</th>
             <th colspan="3">Đã xử lý hành chính</th>
             <th colspan="3">Đã khởi tố</th>
+            <th rowspan="4">Ngày nhập liệu</th>
         </tr>
         <tr>
             <th colspan="2">Phải thu</th>
@@ -194,6 +195,7 @@
             <td class="cssTong" id="ts22"></td>
             <td class="cssTong" id="ts23"></td>
             <td class="cssTong" id="ts24"></td>
+            <td class="cssTong"/>
         </tr>
         <tr>
             <td colspan="56"><span style="font-weight: bold; color: red; margin-bottom: 7px; margin-top: 7px;">Ghi chú: </span></td>

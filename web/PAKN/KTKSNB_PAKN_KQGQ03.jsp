@@ -30,6 +30,7 @@
             <th colspan="18">Kết quả giải quyết</th>
             <th colspan="6">Phân tích kết quả giải quyết (vụ việc)</th>
             <th colspan="2">Chấp hành thời hạn giải quyết</th>
+            <th rowspan="4">Ngày nhập liệu</th>
         </tr>
         <tr>
             <th rowspan="3">Tổng số</th>
@@ -214,6 +215,7 @@
             <td class="cssTong" id="ts29"></td>
             <td class="cssTong" id="ts30"></td>
             <td class="cssTong" id="ts31"></td>
+            <td class="cssTong"/>
         </tr>
         <tr>
             <td colspan="56"><span style="font-weight: bold; color: red; margin-bottom: 7px; margin-top: 7px;">Ghi chú: </span></td>

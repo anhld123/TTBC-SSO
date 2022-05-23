@@ -28,6 +28,7 @@
             <th colspan="2">Tập huấn, tuyên truyền, giáo dục pháp luật về TCD, KN, TC</th>
             <th colspan="7">Thanh tra, kiểm tra trách nhiệm</th>
             <th colspan="5">Kết quả thực hiện kết luận, quyết định xử lý về thanh tra trách nhiệm</th>
+            <th rowspan="4">Ngày nhập liệu</th>
         </tr>
         <tr>
             <th rowspan="3">Số văn bản ban hành mới</th>
@@ -171,6 +172,7 @@
             <td class="cssTong" id="ts15"></td>
             <td class="cssTong" id="ts16"></td>
             <td class="cssTong" id="ts17"></td>
+            <td class="cssTong"/>
         </tr>
         <tr>
             <td colspan="56"><span style="font-weight: bold; color: red; margin-bottom: 7px; margin-top: 7px;">Ghi chú: </span></td>
