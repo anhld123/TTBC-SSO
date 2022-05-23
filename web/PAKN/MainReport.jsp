@@ -67,7 +67,7 @@
                         <td>
                             <div style="display: inline-flex;">
                                 <div>
-                                    <s:if test="type.equalsIgnoreCase('1')">
+                                    <s:if test="txtsGrade.equalsIgnoreCase('1')">
                                         <label for="sInsert">Nhập liệu: </label><input type="radio" value="sInsert" id="sInsert" name="group1">
                                     </s:if>
                                     <label for="sQuery">Truy vấn: </label>

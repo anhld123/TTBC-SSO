@@ -20,6 +20,9 @@
 <table border="1px" id="tableKtnb">
     <thead>
         <tr>
+            <s:if test="txtsGrade.equalsIgnoreCase('3')">
+                <th rowspan="4">Tỉnh</th>
+            </s:if>
             <th rowspan="4">Đơn vị</th>
             <th rowspan="4">Tổng số đơn nhận được qua tiếp công dân</th>
             <th rowspan="4">Tổng số vụ việc được tiếp</th>
@@ -54,7 +57,14 @@
             <th>Đôn đốc giải quyết</th>
         </tr>
         <tr style="font-style: italic; text-align: center;" class="lock">
-            <td>MS</td>
+            <s:if test="txtsGrade.equalsIgnoreCase('3')">
+                <td>
+                    <input type="text" id="idSearch1" onkeyup="FuncSearch(true)" placeholder="Tìm kiếm theo tên đơn vị" title="Nhập tên đơn vị" style="outline: none;">
+                </td>
+            </s:if>
+            <td>
+                <input type="text" id="idSearch2" onkeyup="FuncSearch(false)" placeholder="Tìm kiếm theo tên đơn vị" title="Nhập tên đơn vị" style="outline: none;">
+            </td>
             <td>1</td>
             <td>2</td>
             <td>3</td>
@@ -77,6 +87,9 @@
     <tbody id="tbody">
         <s:iterator value="ModelList" status="status">     
             <tr>
+                <s:if test="txtsGrade.equalsIgnoreCase('3')">
+                    <td class="cssTdD4 lock"><input type="text" value="<s:property value='D41'/>" name="ModelList[<s:property  value='%{#status.index}' />].D41" class="cssItem cssD41"  readonly="readonly" /></td>
+                </s:if>
                 <td class="cssTdTEN lock"><input type="text" value="<s:property value='TEN'/>" name="ModelList[<s:property  value='%{#status.index}' />].TEN" class="cssItem cssTEN" readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdD1 lock"><input type="text" value="<s:property value='D1'/>" name="ModelList[<s:property  value='%{#status.index}' />].D1" class="cssItem cssD1" readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdD2 lock"><input type="text" value="<s:property value='D2'/>" name="ModelList[<s:property  value='%{#status.index}' />].D2" class="cssItem cssD2"  readonly="readonly" onblur="SumCol()" /></td>
@@ -172,5 +185,26 @@
         }
     }
     SumRow();
+    function FuncSearch(expr) {
+        var input, filter, table, tr, loai, i, txtValue;
+        if (expr) {
+            loai = "cssD41";
+            input = document.getElementById("idSearch1");
+        } else {
+            loai = "cssTEN";
+            input = document.getElementById("idSearch2");
+        }
+        filter = input.value.toUpperCase();
+        table = document.getElementById("tbody");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            txtValue = $("." + loai).eq(i).val();
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
 </script>
 

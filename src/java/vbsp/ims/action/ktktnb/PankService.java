@@ -30,7 +30,7 @@ import vbsp.ims.restapi.DuLieuNTService;
 public class PankService {
 
     private String sGhiChu;
-    
+
     public PankService() {
     }
 
@@ -115,7 +115,7 @@ public class PankService {
                     value.setD50(Rset.getString("D50"));
                     lstData.add(value);
                 }
-                
+
                 if (Rset != null) {
                     Rset.close();
                 }
@@ -133,7 +133,7 @@ public class PankService {
         }
         return lstData;
     }
-    
+
     public List<QT_DULIEU_NT> getDataByTem(String sNgaybc, String sUser, String sGrade, String sMaBc) {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
@@ -213,7 +213,7 @@ public class PankService {
                     value.setD50(Rset.getString("D50"));
                     lstData.add(value);
                 }
-                
+
                 if (Rset != null) {
                     Rset.close();
                 }
@@ -406,7 +406,7 @@ public class PankService {
             lstInsert.add(item);
         }
         PosMainModel PosCD = new DaoListPosFromUser().get_pos_main_pos(sUser, sGrade);
-        service.updateData(sMaBc, PosCD.getPosCd(), "S",CvDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(sNgaybc)), "", "", lstInsert);
+        service.updateData(sMaBc, PosCD.getPosCd(), "S", CvDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(sNgaybc)), "", "", lstInsert);
     }
 
     public String getsGhiChu() {
@@ -416,6 +416,5 @@ public class PankService {
     public void setsGhiChu(String sGhiChu) {
         this.sGhiChu = sGhiChu;
     }
-    
-    
+
 }

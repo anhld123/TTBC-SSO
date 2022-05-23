@@ -22,9 +22,9 @@
 <table border="1px" id="tableKtnb">
     <thead>
         <tr>
-            <s:if test="type.equalsIgnoreCase('3')">
+            <s:if test="txtsGrade.equalsIgnoreCase('3')">
                 <th rowspan="4">Tỉnh</th>
-                </s:if>
+            </s:if>
             <th rowspan="4">Đơn vị</th>
             <th rowspan="4">Tổng số lượt tiếp</th>
             <th rowspan="4">Tổng số người được tiếp</th>
@@ -74,7 +74,7 @@
             <th>Tiếp nhiều lần</th>
         </tr>
         <tr style="font-style: italic; text-align: center;" class="lock">
-            <s:if test="type.equalsIgnoreCase('3')">
+            <s:if test="txtsGrade.equalsIgnoreCase('3')">
                 <td>
                     <input type="text" id="idSearch1" onkeyup="FuncSearch(true)" placeholder="Tìm kiếm theo tên đơn vị" title="Nhập tên đơn vị" style="outline: none;">
                 </td>
@@ -88,8 +88,9 @@
     <tbody id="tbody">
         <s:iterator value="ModelList" status="status">     
             <tr>
-                <s:if test="type.equalsIgnoreCase('3')">
-                    <td class="cssTdD4 lock"><input type="text" value="<s:property value='D41'/>" name="ModelList[<s:property  value='%{#status.index}' />].D41" class="cssItem cssD41"  readonly="readonly" /></td></s:if>
+                <s:if test="txtsGrade.equalsIgnoreCase('3')">
+                    <td class="cssTdD4 lock"><input type="text" value="<s:property value='D41'/>" name="ModelList[<s:property  value='%{#status.index}' />].D41" class="cssItem cssD41"  readonly="readonly" /></td>
+                </s:if>
                 <td class="cssTdTEN lock"><input type="text" value="<s:property value='TEN'/>" name="ModelList[<s:property  value='%{#status.index}' />].TEN" class="cssItem cssTEN" readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdD1 lock"><input type="text" value="<s:property value='D1'/>" name="ModelList[<s:property  value='%{#status.index}' />].D1" class="cssItem cssD1" readonly="readonly" onblur="SumCol()" /></td>
                 <td class="cssTdD2 lock"><input type="text" value="<s:property value='D2'/>" name="ModelList[<s:property  value='%{#status.index}' />].D2" class="cssItem cssD2"  readonly="readonly" onblur="SumCol()" /></td>
@@ -120,7 +121,7 @@
                 <td class="cssTdD27"><input type="text" value="<s:property value='D27'/>" name="ModelList[<s:property  value='%{#status.index}' />].D27" class="cssItem cssD27"  onblur="SumCol()" /></td>
                 <td class="cssTdD28"><input type="text" value="<s:property value='D28'/>" name="ModelList[<s:property  value='%{#status.index}' />].D28" class="cssItem cssD28"  onblur="SumCol()" /></td>
                 <td class="cssTdD29"><input type="text" value="<s:property value='D29'/>" name="ModelList[<s:property  value='%{#status.index}' />].D29" class="cssItem cssD29"  onblur="SumCol()" /></td>
-                <td class="cssTdNGAYBC lock"><input type="text" value="<s:property value='NGAYBC'/>" name="ModelList[<s:property  value='%{#status.index}' />].NGAYBC" class="cssItem cssNGAYBC"  readonly="readonly"/></td>
+                <td class="cssTdNGAYBC lock"><input type="text" value="<s:property value='NGAYBC'/>" name="ModelList[<s:property  value='%{#status.index}' />].NGAYBC" class="cssItem cssNGAYBC" readonly="readonly"/></td>
                 <td class="cssTdD30 colHiden"><input type="text" value="<s:property value='D30'/>" name="ModelList[<s:property  value='%{#status.index}' />].D30" class="cssItem cssD30"  onblur="SumCol()" /></td>
                 <td class="cssTdD31 colHiden"><input type="text" value="<s:property value='D31'/>" name="ModelList[<s:property  value='%{#status.index}' />].D31" class="cssItem cssD31"  onblur="SumCol()" /></td>
                 <td class="cssTdD32 colHiden"><input type="text" value="<s:property value='D32'/>" name="ModelList[<s:property  value='%{#status.index}' />].D32" class="cssItem cssD32"  onblur="SumCol()" /></td>
@@ -150,7 +151,7 @@
     </tbody>
     <tfoot id="tfoot">
         <tr>
-            <s:if test="type.equalsIgnoreCase('3')"><td class="cssTong"/></s:if><td class="cssTong" id="tsms" style="text-align:left;">Tổng</td><td class="cssTong" id="ts1"></td><td class="cssTong" id="ts2"></td><td class="cssTong" id="ts3"></td><td class="cssTong" id="ts4"></td><td class="cssTong" id="ts5"></td><td class="cssTong" id="ts6"></td><td class="cssTong" id="ts7"></td><td class="cssTong" id="ts8"></td><td class="cssTong" id="ts9"></td><td class="cssTong" id="ts10"></td><td class="cssTong" id="ts11"></td><td class="cssTong" id="ts12"></td><td class="cssTong" id="ts13"></td><td class="cssTong" id="ts14"></td><td class="cssTong" id="ts15"></td><td class="cssTong" id="ts16"></td><td class="cssTong" id="ts17"></td><td class="cssTong" id="ts18"></td><td class="cssTong" id="ts19"></td><td class="cssTong" id="ts20"></td><td class="cssTong" id="ts21"></td><td class="cssTong" id="ts22"></td><td class="cssTong" id="ts23"></td><td class="cssTong" id="ts24"></td><td class="cssTong" id="ts25"></td><td class="cssTong" id="ts26"></td><td class="cssTong" id="ts27"></td><td class="cssTong" id="ts28"></td><td class="cssTong" id="ts29"></td><td class="cssTong">&nbsp;</td>
+            <s:if test="txtsGrade.equalsIgnoreCase('3')"><td class="cssTong"/></s:if><td class="cssTong" id="tsms" style="text-align:left;">Tổng</td><td class="cssTong" id="ts1"></td><td class="cssTong" id="ts2"></td><td class="cssTong" id="ts3"></td><td class="cssTong" id="ts4"></td><td class="cssTong" id="ts5"></td><td class="cssTong" id="ts6"></td><td class="cssTong" id="ts7"></td><td class="cssTong" id="ts8"></td><td class="cssTong" id="ts9"></td><td class="cssTong" id="ts10"></td><td class="cssTong" id="ts11"></td><td class="cssTong" id="ts12"></td><td class="cssTong" id="ts13"></td><td class="cssTong" id="ts14"></td><td class="cssTong" id="ts15"></td><td class="cssTong" id="ts16"></td><td class="cssTong" id="ts17"></td><td class="cssTong" id="ts18"></td><td class="cssTong" id="ts19"></td><td class="cssTong" id="ts20"></td><td class="cssTong" id="ts21"></td><td class="cssTong" id="ts22"></td><td class="cssTong" id="ts23"></td><td class="cssTong" id="ts24"></td><td class="cssTong" id="ts25"></td><td class="cssTong" id="ts26"></td><td class="cssTong" id="ts27"></td><td class="cssTong" id="ts28"></td><td class="cssTong" id="ts29"></td><td class="cssTong">&nbsp;</td>
             </tr>
             <tr>
                 <td colspan="56"><span style="font-weight: bold; color: red; margin-bottom: 7px; margin-top: 7px;">Ghi chú: </span></td>
