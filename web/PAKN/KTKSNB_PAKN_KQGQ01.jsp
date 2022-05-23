@@ -106,6 +106,7 @@
             <td>24</td>
             <td>25</td>
             <td>26</td>
+            <td></td>
         </tr>
     </thead>
     <tbody id="tbody">
