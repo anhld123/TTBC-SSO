@@ -21,7 +21,7 @@
     <thead>
         <tr>
             <s:if test="txtsGrade.equalsIgnoreCase('3')">
-                <th rowspan="4">Tỉnh</th>
+                <th rowspan="3">Tỉnh</th>
             </s:if>
             <th rowspan="3">Đơn vị </th>
             <th rowspan="3">Tổng số đơn </th>
