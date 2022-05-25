@@ -3,17 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/web/PAKN/KTKSNB_PAKN_QLNN03.jsp</file>
-            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/web/PAKN/KTKSNB_PAKN_XLD04.jsp</file>
-            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/web/PAKN/KTKSNB_PAKN_XLD03.jsp</file>
-            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/web/PAKN/KTKSNB_PAKN_KQGQ02.jsp</file>
-            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/web/PAKN/KTKSNB_PAKN_TCD02.jsp</file>
-            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/web/PAKN/KTKSNB_PAKN_TCD01.jsp</file>
-            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/web/PAKN/KTKSNB_PAKN_KQGQ04.jsp</file>
-            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/web/PAKN/KTKSNB_PAKN_KQGQ03.jsp</file>
-            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/web/PAKN/KTKSNB_PAKN_KQGQ01.jsp</file>
-            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/web/PAKN/KTKSNB_PAKN_XLD01.jsp</file>
-            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/web/PAKN/KTKSNB_PAKN_XLD02.jsp</file>
+            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/web/PAKN/MainReport.jsp</file>
+            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/src/java/vbsp/ims/action/ktktnb/PankService.java</file>
+            <file>file:/D:/02.VBSP/01.Projects/IMS_REPORTS/src/java/vbsp/ims/bcqt/model/QT_DULIEU_NT.java</file>
         </group>
     </open-files>
 </project-private>
