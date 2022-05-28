@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 
 /**
  *
@@ -22,7 +21,7 @@ public class ktnbpakn extends ActionSupport {
 
     private String txtNgaybc, sUser, sGrade, txtMaBc, jsp, code, txtGhiChu, txtsGrade,txtTuNgay, txtDenNgay, chkTongHop;
     private InputStream pageResult;
-    private List<QT_DULIEU_NT> ModelList = new ArrayList<>();
+    private List<DULIEU_NT_TQ> ModelList = new ArrayList<>();
 
     //<editor-fold defaultstate="collapsed" desc="Hàm load form lần đầu">
     public ktnbpakn() {
@@ -88,11 +87,11 @@ public class ktnbpakn extends ActionSupport {
         this.txtMaBc = txtMaBc;
     }
 
-    public List<QT_DULIEU_NT> getModelList() {
+    public List<DULIEU_NT_TQ> getModelList() {
         return ModelList;
     }
 
-    public void setModelList(List<QT_DULIEU_NT> ModelList) {
+    public void setModelList(List<DULIEU_NT_TQ> ModelList) {
         this.ModelList = ModelList;
     }
 

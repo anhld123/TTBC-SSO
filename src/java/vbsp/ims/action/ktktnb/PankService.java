@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
-import vbsp.ims.bcqt.model.QT_DULIEU_NT;
+import vbsp.ims.action.ktktnb.DULIEU_NT_TQ;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.log.CoreLogger;
@@ -34,10 +34,10 @@ public class PankService {
     public PankService() {
     }
 
-    public List<QT_DULIEU_NT> queryDataByTem(String txtTuNgay, String txtDenNgay, String chkTongHop, String sUser, String sGrade, String sMaBc) {
+    public List<DULIEU_NT_TQ> queryDataByTem(String txtTuNgay, String txtDenNgay, String chkTongHop, String sUser, String sGrade, String sMaBc) {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
-        List<QT_DULIEU_NT> lstData = new ArrayList<>();
+        List<DULIEU_NT_TQ> lstData = new ArrayList<>();
         try {
             CallableStatement calstatement = null;
             String strStoreproce = "{call PKG_KTKSNB_PAKN.PROC_PAKN_QUERY(?,?,?,?,?,?,?,?)}";
@@ -56,7 +56,7 @@ public class PankService {
                 sGhiChu = (String) calstatement.getObject(7);
                 Rset = (ResultSet) calstatement.getObject(8);
                 while (Rset.next()) {
-                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+                    DULIEU_NT_TQ value = DULIEU_NT_TQ.newInstance();
                     value.setKHOA(Rset.getString("KHOA"));
                     value.setMA(Rset.getString("MA"));
                     value.setTEN(Rset.getString("TEN"));
@@ -134,10 +134,10 @@ public class PankService {
         return lstData;
     }
 
-    public List<QT_DULIEU_NT> getDataByTem(String sNgaybc, String sUser, String sGrade, String sMaBc) {
+    public List<DULIEU_NT_TQ> getDataByTem(String sNgaybc, String sUser, String sGrade, String sMaBc) {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
-        List<QT_DULIEU_NT> lstData = new ArrayList<>();
+        List<DULIEU_NT_TQ> lstData = new ArrayList<>();
         try {
             CallableStatement calstatement = null;
             String strStoreproce = "{call PKG_KTKSNB_PAKN.PROC_PAKN_GETDATA(?,?,?,?,?,?)}";
@@ -154,7 +154,7 @@ public class PankService {
                 sGhiChu = (String) calstatement.getObject(5);
                 Rset = (ResultSet) calstatement.getObject(6);
                 while (Rset.next()) {
-                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+                    DULIEU_NT_TQ value = DULIEU_NT_TQ.newInstance();
                     value.setKHOA(Rset.getString("KHOA"));
                     value.setMA(Rset.getString("MA"));
                     value.setTEN(Rset.getString("TEN"));
@@ -232,14 +232,14 @@ public class PankService {
         return lstData;
     }
 
-    public String saveDataByTem(String sNgaybc, String sUser, String sGrade, String sMaBc, List<QT_DULIEU_NT> ModelList) {
+    public String saveDataByTem(String sNgaybc, String sUser, String sGrade, String sMaBc, List<DULIEU_NT_TQ> ModelList) {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
         String code = "";
         try {
             //------Chuyển dạng mảng thành Object của Oracle
             Object array[] = ModelList.toArray();
-            ArrayDescriptor des = ArrayDescriptor.createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, con);
+            ArrayDescriptor des = ArrayDescriptor.createDescriptor(DULIEU_NT_TQ.ORACLE_TABLE_TYPE, con);
             ARRAY array_to_pass = new ARRAY(des, con, array);
             //---------------------------------------------------------------------------
             CallableStatement calstatement = null;
@@ -268,7 +268,7 @@ public class PankService {
         return code;
     }
 
-    public void CallApiAddData(String sNgaybc, String sUser, String sGrade, String sMaBc, List<QT_DULIEU_NT> ModelList) throws ParseException {
+    public void CallApiAddData(String sNgaybc, String sUser, String sGrade, String sMaBc, List<DULIEU_NT_TQ> ModelList) throws ParseException {
 
         DuLieuNTService service = new DuLieuNTService();
         SimpleDateFormat CvDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -338,7 +338,7 @@ public class PankService {
         service.insertData(sUser, "", lstInsert);
     }
 
-    public void CallApiUpdateData(String sNgaybc, String sUser, String sGrade, String sMaBc, List<QT_DULIEU_NT> ModelList) throws ParseException {
+    public void CallApiUpdateData(String sNgaybc, String sUser, String sGrade, String sMaBc, List<DULIEU_NT_TQ> ModelList) throws ParseException {
         DuLieuNTService service = new DuLieuNTService();
         SimpleDateFormat CvDate = new SimpleDateFormat("yyyyMMdd");
         SimpleDateFormat LsDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");

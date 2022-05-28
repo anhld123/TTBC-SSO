@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package vbsp.ims.bcqt.model;
+package vbsp.ims.action.ktktnb;
 
 import java.sql.SQLData;
 import java.sql.SQLException;
@@ -15,13 +10,13 @@ import java.util.Date;
  *
  * @author LION
  */
-public class QT_DULIEU_NT implements SQLData {
+public class DULIEU_NT_TQ implements SQLData {
 
-    public static final String ORACLE_OBJECT_TYPE = "TYPE_DULIEU_NT";
-    public static final String ORACLE_TABLE_TYPE = "TAB_DULIEU_NT";
+    public static final String ORACLE_OBJECT_TYPE = "TYPE_DULIEU_NT_TQ";
+    public static final String ORACLE_TABLE_TYPE = "TAB_DULIEU_NT_TQ";
 
-    public static QT_DULIEU_NT newInstance() {
-        return new QT_DULIEU_NT();
+    public static DULIEU_NT_TQ newInstance() {
+        return new DULIEU_NT_TQ();
     }
     //<editor-fold defaultstate="collapsed" desc="Khao bao bien">
     private String KHOA;
@@ -857,89 +852,29 @@ public class QT_DULIEU_NT implements SQLData {
         stream.writeString(getD28());
         stream.writeString(getD29());
         stream.writeString(getD30());
+        stream.writeString(getD31());
+        stream.writeString(getD32());
+        stream.writeString(getD33());
+        stream.writeString(getD34());
+        stream.writeString(getD35());
+        stream.writeString(getD36());
+        stream.writeString(getD37());
+        stream.writeString(getD38());
+        stream.writeString(getD39());
+        stream.writeString(getD40());
+        stream.writeString(getD41());
+        stream.writeString(getD42());
+        stream.writeString(getD43());
+        stream.writeString(getD44());
+        stream.writeString(getD45());
+        stream.writeString(getD46());
+        stream.writeString(getD47());
+        stream.writeString(getD48());
+        stream.writeString(getD49());
+        stream.writeString(getD50());
         stream.writeString(getNHAPTAY());
         stream.writeString(getFONTFORMAT());
     }
 //</editor-fold>
-    
-    public static class saveDulieuNT {
-        
-        
-        public String D2;
-        public String D13;
-        public String D14;
 
-        public String getD2() {
-            return D2;
-        }
-
-        public void setD2(String D2) {
-            this.D2 = D2;
-        }
-
-        public String getD13() {
-            return D13;
-        }
-
-        public void setD13(String D13) {
-            this.D13 = D13;
-        }
-
-        public String getD14() {
-            return D14;
-        }
-
-        public void setD14(String D14) {
-            this.D14 = D14;
-        }
-        
-    }
-    
-    public static class saveDulieuNT_Phi {
-        public String MA;
-        public String D1;
-        public String D2;
-        public String D3;
-        public String D4;
-
-        public String getD4() {
-            return D4;
-        }
-
-        public void setD4(String D4) {
-            this.D4 = D4;
-        }
-                
-        public String getMA() {
-            return MA;
-        }
-
-        public void setMA(String MA) {
-            this.MA = MA;
-        }
-
-        public String getD1() {
-            return D1;
-        }
-
-        public void setD1(String D1) {
-            this.D1 = D1;
-        }
-
-        public String getD2() {
-            return D2;
-        }
-
-        public void setD2(String D2) {
-            this.D2 = D2;
-        }
-
-        public String getD3() {
-            return D3;
-        }
-
-        public void setD3(String D3) {
-            this.D3 = D3;
-        }                
-    }
 }
