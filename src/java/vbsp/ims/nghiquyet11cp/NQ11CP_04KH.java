@@ -129,15 +129,73 @@ public class NQ11CP_04KH extends ActionNghiquyet11cpMain
             BigInteger b1 = new BigInteger("0");
             BigInteger b2 = new BigInteger("0");
             DecimalFormat df = new DecimalFormat("#.##");
-            lstDulieuNt = daoMain.getDataKH04(conn, "NQ11CP_04KH", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nghiepvu").toString());
-            for (QT_DULIEU_NT dulieu: lstDulieuNt) {
-                b1 = b1.add(new BigInteger(dulieu.getD2()));
-                b2 = b2.add(new BigInteger(dulieu.getD4()));
-            }
-            setVieclam_total(String.format("%,d", b1));
-            setNoxh_total(String.format("%,d", b2));
-            if (conn != null) {
-                conn.close();
+            if (Grade.equals("3")) {
+                lstDulieuNt = daoMain.getDataKH04(conn, "NQ11CP_04KH", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nghiepvu").toString());
+                for (QT_DULIEU_NT dulieu : lstDulieuNt) {
+                    b1 = b1.add(new BigInteger(dulieu.getD2()));
+                    b2 = b2.add(new BigInteger(dulieu.getD4()));
+                }
+                setVieclam_total(String.format("%,d", b1));
+                setNoxh_total(String.format("%,d", b2));
+                if (conn != null) {
+                    conn.close();
+                }
+                return "success_c3";
+            } else {
+                ArrayList<DuLieuNTRow> lstDataM = new ArrayList<>();
+                service = new DuLieuNTService();
+                Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
+                String dateStr = sdf.format(date1);
+                lstDataM = service.getData("GIAO_KHTDNQ11", main_pos_username, "M", dateStr);
+                if (lstDataM.size() == 0 || lstDataM == null) {
+                    addActionError("Trung ương chưa giao kế hoạch tháng này.");
+                    return ERROR;
+                }
+                b1 = new BigInteger(lstDataM.get(0).getD2());
+                b2 = new BigInteger(lstDataM.get(0).getD4());
+                setVieclam_total(String.format("%,d", b1));
+                setNoxh_total(String.format("%,d", b2));
+                ArrayList<DuLieuNTRow> lstDataS = new ArrayList<>();
+                lstDataS = service.getData_condition("GIAO_KHTDNQ11", main_pos_username, "S", dateStr, "D15=" + hmParameter.get("nghiepvu").toString() + "|");
+                int i = 1;
+                for (DuLieuNTRow item : lstDataS) {
+                    try {
+                        QT_DULIEU_NT row = new QT_DULIEU_NT();
+                        row.setKHOA(Define.NV_QT);
+                        row.setTHUTU(i);
+                        row.setTT_HIENTHI(String.valueOf(i));
+                        row.setMA(item.getCode());
+                        row.setTEN(item.getName());
+
+                        Date reportDate = DateUtil.toDate(item.getReportDate());
+                        row.setNGAYBC(reportDate);
+                        row.setMAPGD(item.getPosCode());
+                        row.setMACN(item.getBranchCode());
+
+                        row.setD1(item.getD1());
+                        row.setD2(item.getD2());
+                        row.setD3(item.getD3());
+                        row.setD4(item.getD4());
+                        row.setD5(item.getD5());
+                        row.setD6(item.getD6());
+                        row.setD7(item.getD7());
+                        row.setD8(item.getD8());
+                        row.setD9(item.getD9());
+                        row.setD10(item.getD10());
+                        row.setD19(item.getD19());
+                        lstDulieuNt.add(row);
+                        i++;
+                    } catch (Exception e) {
+                        CoreLogger.error(this.getClass().getName() + " Exception -> NQ11CP_04KH: " + e.getMessage());
+                        System.err.println(this.getClass().getName() + " Exception -> NQ11CP_04KH: " + e.getMessage());
+                    }
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+                return "success_c2";
             }
 
         } catch (Exception e) {
@@ -177,11 +235,65 @@ public class NQ11CP_04KH extends ActionNghiquyet11cpMain
 
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
             HashMap hmParameter = getParameter();
-            if (!daoMain.saveNQ11CP_KH04(khoa_nghiquyet11cp, UserName, Grade, hmParameter.get("ngay_bc").toString(), lstDulieuNt, poscd,  hmParameter.get("nghiepvu").toString())) {
-                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
-                return ERROR;
-            }
+            if (Grade.equals("3")) {
+                if (!daoMain.saveNQ11CP_KH04(khoa_nghiquyet11cp, UserName, Grade, hmParameter.get("ngay_bc").toString(), lstDulieuNt, poscd, hmParameter.get("nghiepvu").toString())) {
+                    addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                    return ERROR;
+                }
+            } else if (Grade.equals("2")) {
+                String sngaybc = hmParameter.get("ngay_bc").toString();
+                Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(sngaybc);
 
+                DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+                String strDate = dateFormat.format(date1);
+
+                DateFormat dateFormat1 = new SimpleDateFormat("dd-MMM-yyyy");
+                String strDate1 = dateFormat1.format(date1);
+
+                service = new DuLieuNTService();
+                posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+                pos_cd_username = posMainModel.getPosCd();
+                ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
+                ArrayList<DuLieuNTRow> lstDataM = new ArrayList<>();
+                
+                lstDataM = service.getData("GIAO_KHTDNQ11", pos_cd_username, "M", strDate);                
+                BigInteger gqvl = new BigInteger(lstDataM.get(0).getD2());
+                BigInteger noxh = new BigInteger(lstDataM.get(0).getD4());
+                BigInteger b1 = new BigInteger("0");
+                BigInteger b2 = new BigInteger("0");                
+                
+                for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                    DuLieuNTRow tempadd = new DuLieuNTRow();
+                    tempadd.setKey(tmp.getKHOA());
+                    tempadd.setCode(tmp.getMA());
+                    tempadd.setPosCode(tmp.getMAPGD());
+                    tempadd.setD2(tmp.getD2());
+                    tempadd.setD4(tmp.getD4());
+                    
+                    
+                    b1 = b1.add(new BigInteger(tmp.getD2()));
+                    b2 = b2.add(new BigInteger(tmp.getD4()));
+                    lstUpdateDate.add(tempadd);                    
+                }
+                if(b1.compareTo(gqvl) ==1)
+                {
+                    addActionError("Ban không được giao vượt số trung ương (gqvl) " + String.format("%,d", b1) + " > " + String.format("%,d", gqvl));
+                    return ERROR;
+                }
+                if(b1.compareTo(gqvl) ==1)
+                {
+                    addActionError("Ban không được giao vượt số trung ương (noxh)" + String.format("%,d", b2) + " > " + String.format("%,d", noxh));
+                    return ERROR;
+                }
+                int status = service.updateData("GIAO_KHTDNQ11", pos_cd_username, "S", strDate, UserName, "system", lstUpdateDate);
+                if (status == 200) {
+                    if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_04KEHOACH(UserName, pos_cd_username, strDate1, lstDulieuNt,hmParameter.get("nghiepvu").toString())) {
+                        addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                        return ERROR;
+                    }
+                }
+
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> NQ11CP_04KH: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> NQ11CP_04KH: " + e.getMessage());
@@ -200,7 +312,6 @@ public class NQ11CP_04KH extends ActionNghiquyet11cpMain
             }
 
             HashMap hmParameter = getParameter();
-            
 
             Date date_ngay_bc = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
 
@@ -335,7 +446,7 @@ public class NQ11CP_04KH extends ActionNghiquyet11cpMain
                     if (!new File(destPath).exists()) {
                         new File(destPath).mkdirs();
                     }
-                    filename = String.valueOf(System.currentTimeMillis()) + "_" + nghiepvu +  "_"+ ngaybc +  "_"+ filename   ;
+                    filename = String.valueOf(System.currentTimeMillis()) + "_" + nghiepvu + "_" + ngaybc + "_" + filename;
                     destFile = new File(destPath, filename);
                     //FileUtils.copyFile(fileUpload.get(index), destFile);
                     copyFileUsingFileStreams(fileUpload.get(index), destFile);

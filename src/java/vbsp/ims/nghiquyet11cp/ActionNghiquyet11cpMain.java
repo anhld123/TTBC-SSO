@@ -71,12 +71,21 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     protected PosMainModel posMainModel;
 
     protected String pos_cd_username;
+    protected String main_pos_username;
 
     public HttpServletRequest request = null;
     public String query;
 
     public HttpServletRequest getRequest() {
         return request;
+    }
+
+    public String getMain_pos_username() {
+        return main_pos_username;
+    }
+
+    public void setMain_pos_username(String main_pos_username) {
+        this.main_pos_username = main_pos_username;
     }
 
     
@@ -310,6 +319,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
         }
         posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
         pos_cd_username = posMainModel.getPosCd();
+        main_pos_username = posMainModel.getMainPosCd();
 
         return true;
     }

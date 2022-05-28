@@ -58,6 +58,28 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
+    
+    public ArrayList<DuLieuNTRow> getData_condition(String key, String posCode, String posFlag, String reportDate, String condition) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("report-manual-data")
+                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", posFlag)
+                .queryParam("reportDate", reportDate)
+                .queryParam("conditions", condition);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            DuLieuNTResp dulieuNTResp = response.readEntity(DuLieuNTResp.class);
+            ArrayList<DuLieuNTRow> listOfRow = dulieuNTResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
 
     public ArrayList<IntDeductionModel> getDataHTLS2021(String posCode, String reportDate, String program, String communeId, String groupId) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();

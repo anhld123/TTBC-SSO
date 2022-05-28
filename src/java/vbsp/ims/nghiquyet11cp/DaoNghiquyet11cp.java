@@ -688,6 +688,38 @@ public class DaoNghiquyet11cp {
         return true;
     }
     
+    public boolean saveNQ11CP_04KEHOACH(String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData, String nghiepvu) 
+            throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_SAVE_04KEHOACH_NQ11CP(?, ?, ?, ?, ?)}");
+            cs.setString(1, username);
+            cs.setString(2, mapgd);
+            cs.setString(3, ngaybc);
+            cs.setArray(4, array_to_pass); 
+            cs.setString(5, nghiepvu);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham saveNQ11CP_04KEHOACH " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveNQ11CP_04KEHOACH -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
+    
     public boolean saveTraiphieu_001(String khoa, String username, String capbc, String ngaybc, List<QT_DULIEU_NT> lstData, List<String> lstArrPoscd, String nghiepvu) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());

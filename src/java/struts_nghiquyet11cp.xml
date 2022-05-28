@@ -80,7 +80,8 @@
         <!--Mẫu 04KH-->
         
         <action name="NQ11CP_04KH" class="vbsp.ims.nghiquyet11cp.NQ11CP_04KH"  method="load">
-                <result name="success">/nghiquyet11cp/table_nq11cp_04_kehoach.jsp</result>                                 
+                <result name="success_c3">/nghiquyet11cp/table_nq11cp_04_kehoach_c3.jsp</result>   
+                <result name="success_c2">/nghiquyet11cp/table_nq11cp_04_kehoach_c2.jsp</result>                                 
                 <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
 
