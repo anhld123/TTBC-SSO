@@ -247,7 +247,7 @@
 
                 } else
                 {
-                    alert("Vui lòng chọn đúng quý báo cáo.");
+                    alert("Vui lòng chọn đúng tháng báo cáo.");
                 }
 //                return true;
             }
@@ -501,6 +501,7 @@
                                         <option value="1">Điều chỉnh lần 1</option>
                                         <option value="2">Điều chỉnh lần 2</option>
                                         <option value="3">Điều chỉnh lần 3</option>
+                                        <option value="4">Lũy kế</option>
                                     </select>
                                 </td> 
                                 <td >                                        
@@ -518,38 +519,32 @@
 
 
                                 </td>
-                                <!--                                <td>
-                                                                    
-                                                                        
-                                <s:url id="idxacnhan" action="sendLockBCQT.action"></s:url>                                      
-                                <sj:submit id="idSendLock" name="nameSend" href="%{idxacnhan}" value="Gửi dữ liệu" targets="divExportReport"
-                                           onBeforeTopics="beforediv_send"
-                                           onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                <input type="button" id="idsaveDatatmp" name="nameidSendLocktmp"  onclick="onSentLockData()" value="Xuất xls mẫu"/>    
-                        </td>-->
-                                <td>
-                                    &nbsp;&nbsp;|&nbsp;&nbsp;
-                                    <sj:a class="cmd" href="#" onclick="callDirectLink('nq11_04kh_open_upload?');" >
-                                        <b> <u>Upload Excel</u>  </b> </sj:a>   
-                                    </td>
-                                    <td  colspan="2">
-                                        <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
-                                            <img id="loadingImage" src='img/loading.gif' border='0' >
-                                        </div>
-                                    </td>
-                                    <td colspan="2">
-                                        <div id="message_suc_err"> 
-                                        </div>
-                                    </td>
-                                </tr>  
-                                <!--                            <tr>
-                                                                
-                                                            </tr>-->
-                            </table>    
-                        </div>
+         
+                                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11CP_04KH')&&Grade.equalsIgnoreCase('3')">
+                                    <td>
+                                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                                        <sj:a class="cmd" href="#" onclick="callDirectLink('nq11_04kh_open_upload?');" >
+                                            <b> <u>Upload Excel</u>  </b> </sj:a>   
+                                        </td>
+                                </s:if>    
+                                <td  colspan="2">
+                                    <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
+                                        <img id="loadingImage" src='img/loading.gif' border='0' >
+                                    </div>
+                                </td>
+                                <td colspan="2">
+                                    <div id="message_suc_err"> 
+                                    </div>
+                                </td>
+                            </tr>  
+                            <!--                            <tr>
+                                                            
+                                                        </tr>-->
+                        </table>    
                     </div>
+                </div>
 
-                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11CP_01KH')">
+                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11CP_04KH')&&Grade.equalsIgnoreCase('2')">
                     <div id="containParm_full" align="center">
                         <div id="divExportReport"></div>
                         <div align="right"  id="divExportReportLink"></div>
@@ -580,7 +575,41 @@
             </s:form>
         </div>
         <script>
-
+                function addZeroToLead(value) {
+                                    var strVal = value.toString();
+                                    if (strVal.length < 2) {
+                                        return "0" + value;
+                                    } else {
+                                        return strVal;
+                                    }
+                                };                                                
+                 $(document).ready(function () {
+                                    var date = new Date();
+                                    var month = date.getMonth();
+                                    var year = date.getFullYear(); //nam
+                                    var day = getDaysOfMonth(month, year)
+                                    var daynow = day + "/" + month + "/" + year;
+                                    //
+                                    var today = new Date();
+                                    var dd = today.getDate();
+                                    var mm = today.getMonth() + 1;
+                                    var yyyy = today.getFullYear();
+                                    if (dd < 10) {
+                                        dd = '0' + dd;
+                                    }
+                                    if (mm < 10) {
+                                        mm = '0' + mm;
+                                    }
+                                    var today = dd + '/' + mm + '/' + yyyy;
+                                    
+                                        document.getElementById('ngay_bc_DATE').value = daynow;//daynow;
+                                    
+                                    var iDate = year + "" + addZeroToLead(month) + "" + addZeroToLead(day);
+                                    //Gan quy mac dinh
+                                    //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
+                                    $("#ReportDate").val(iDate);                                    
+//                                    $("#loadDatatmp").click();
+                                });                                                                    
 
         </script>
     </div>
