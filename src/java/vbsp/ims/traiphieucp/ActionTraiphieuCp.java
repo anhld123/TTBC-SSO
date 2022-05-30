@@ -12,7 +12,9 @@ import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,6 +68,7 @@ public class ActionTraiphieuCp extends ActionSupport {
     private List<String> fileUploadContentType = new ArrayList<>();
     public List<String> fileUploadFileName = new ArrayList<>();
     public List<ModelExcelFile> lstExcel = new ArrayList<>();
+    private List<QT_DULIEU_NT> ModelList = new ArrayList<>();
     private String fileNameNew;
     public String message;
     protected List<ListValue> lstNamBC = new ArrayList<>();
@@ -101,6 +104,14 @@ public class ActionTraiphieuCp extends ActionSupport {
 
     public void setFileUpload(List<File> fileUpload) {
         this.fileUpload = fileUpload;
+    }
+
+    public List<QT_DULIEU_NT> getModelList() {
+        return ModelList;
+    }
+
+    public void setModelList(List<QT_DULIEU_NT> ModelList) {
+        this.ModelList = ModelList;
     }
 
     public List<String> getFileUploadContentType() {
@@ -406,6 +417,11 @@ public class ActionTraiphieuCp extends ActionSupport {
                 lstNamBC = new XDKHDao2021().getLOV(UserName, "NAM_TP");
                 return "phi_phaitra";
             }
+            else if(khoa_traiphieucp.equals("TP_07LSBQ"))
+            {
+                ModelList = new CP07LSBQServices().loadCP07LSBQ(UserName, Grade);
+                return "CP_07LSBQ";
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> loadParaBaocao: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> loadParaBaocao: " + e.getMessage());
@@ -413,7 +429,7 @@ public class ActionTraiphieuCp extends ActionSupport {
         }       
         return SUCCESS;
     }
-
+    
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
 

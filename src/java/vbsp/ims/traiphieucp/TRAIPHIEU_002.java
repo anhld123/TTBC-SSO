@@ -10,6 +10,7 @@ import vbsp.ims.nhaptaycn.action.*;
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.inject.util.Strings;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -69,6 +71,9 @@ import vbsp.ims.zip.FileZip;
  */
 public class TRAIPHIEU_002 extends ActionTraiphieuCp
         implements NhaptaycnFunction {
+    
+    private InputStream pageResult;
+    private List<QT_DULIEU_NT> ModelList = new ArrayList<>();
 
 
     
@@ -125,7 +130,11 @@ public class TRAIPHIEU_002 extends ActionTraiphieuCp
         return SUCCESS;
     }
 
-   
+   public String saveCP07LSBQ(){
+        String code = new CP07LSBQServices().saveCP07LSBQ(UserName, Grade, ModelList);
+        pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        return "CP_07LSBQ";
+    }
 
     public void main(String[] args) {
 //        saveUploadKH04();
@@ -172,4 +181,21 @@ public class TRAIPHIEU_002 extends ActionTraiphieuCp
 //        ArrayList<DuLieuNTRow> lstData = service.getDataNQ11CP_01KH("000601", "20220331", "S");
 //        margerData(lstData,"0","0000");
     }
+
+    public InputStream getPageResult() {
+        return pageResult;
+    }
+
+    public void setPageResult(InputStream pageResult) {
+        this.pageResult = pageResult;
+    }
+
+    public List<QT_DULIEU_NT> getModelList() {
+        return ModelList;
+    }
+
+    public void setModelList(List<QT_DULIEU_NT> ModelList) {
+        this.ModelList = ModelList;
+    }
+    
 }

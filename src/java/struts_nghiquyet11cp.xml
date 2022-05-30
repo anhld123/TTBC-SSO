@@ -35,26 +35,26 @@
         
         <!--01 kế hoạch-->
         <action name="NQ11CP_01KH" class="vbsp.ims.nghiquyet11cp.NQ11CP_01KH"  method="load">
-                <result name="success">/nghiquyet11cp/table_nq11cp_01_kehoach.jsp</result>                 
-                <result name="cap2_chot">/nghiquyet11cp/table_nghiquyet11cp_cnchot.jsp</result> 
-                <result name="error">/nhaptay-cn/success.jsp</result>       
+            <result name="success">/nghiquyet11cp/table_nq11cp_01_kehoach.jsp</result>                 
+            <result name="cap2_chot">/nghiquyet11cp/table_nghiquyet11cp_cnchot.jsp</result> 
+            <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
 
         <action name="SAVE_NQ11CP_01KH" class="vbsp.ims.nghiquyet11cp.NQ11CP_01KH"  method="save">
-                <result name="success">/BCQT/success.jsp</result>
-                <result name="error">/BCQT/success.jsp</result>        
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
         </action>                
         
         <!--02 Sao kê-->
         <action name="NQ11CP_02SK" class="vbsp.ims.nghiquyet11cp.NQ11CP_02SK"  method="load">
-                <result name="success">/nghiquyet11cp/table_nq11cp_02_saoke.jsp</result>                 
-                <result name="cap2_chot">/nghiquyet11cp/table_nghiquyet11cp_cnchot.jsp</result> 
-                <result name="error">/nhaptay-cn/success.jsp</result>       
+            <result name="success">/nghiquyet11cp/table_nq11cp_02_saoke.jsp</result>                 
+            <result name="cap2_chot">/nghiquyet11cp/table_nghiquyet11cp_cnchot.jsp</result> 
+            <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
 
         <action name="SAVE_NQ11CP_02SK" class="vbsp.ims.nghiquyet11cp.NQ11CP_02SK"  method="save">
-                <result name="success">/BCQT/success.jsp</result>
-                <result name="error">/BCQT/success.jsp</result>        
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
         </action> 
         
         <!--Upload file-->
@@ -80,46 +80,56 @@
         <!--Mẫu 04KH-->
         
         <action name="NQ11CP_04KH" class="vbsp.ims.nghiquyet11cp.NQ11CP_04KH"  method="load">
-                <result name="success_c3">/nghiquyet11cp/table_nq11cp_04_kehoach_c3.jsp</result>   
-                <result name="success_c2">/nghiquyet11cp/table_nq11cp_04_kehoach_c2.jsp</result>                                 
-                <result name="error">/nhaptay-cn/success.jsp</result>       
+            <result name="success_c3">/nghiquyet11cp/table_nq11cp_04_kehoach_c3.jsp</result>   
+            <result name="success_c2">/nghiquyet11cp/table_nq11cp_04_kehoach_c2.jsp</result>                                 
+            <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
 
         <action name="SAVE_NQ11CP_04KH" class="vbsp.ims.nghiquyet11cp.NQ11CP_04KH"  method="save">
-                <result name="success">/BCQT/success.jsp</result>
-                <result name="error">/BCQT/success.jsp</result>        
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
         </action>      
                     
         <!--Trái phiếu chính phủ ==========================================================================================================================================-->
         <action name="loadAllTraiphieuCp" class="vbsp.ims.traiphieucp.ActionTraiphieuCp"  method="execute">
-                <result name="success" type="json"></result>        
+            <result name="success" type="json"></result>        
         </action>
         
         <action name="LoadParaTraiphieuCp" class="vbsp.ims.traiphieucp.ActionTraiphieuCp"  method="loadParaBaocao">
             <result name="success">/traiphieu_cp/para_traiphieu_cp.jsp</result>     
-            <result name="phi_phaitra">/traiphieu_cp/para_traiphieu_cp_phi.jsp</result>            
+            <result name="phi_phaitra">/traiphieu_cp/para_traiphieu_cp_phi.jsp</result> 
+            <result name="CP_07LSBQ">/traiphieu_cp/CP_07LSBQ.jsp</result> 
             <result name="error">/nghiquyet11cp/success.jsp</result>        
         </action>  
         
         <action name="TRAIPHIEU_001" class="vbsp.ims.traiphieucp.TRAIPHIEU_001"  method="load">
-		<result name="success">/traiphieu_cp/table_traiphieu_001.jsp</result>                                 
-		<result name="error">/nhaptay-cn/success.jsp</result>       
+            <result name="success">/traiphieu_cp/table_traiphieu_001.jsp</result>                                 
+            <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
 
         <action name="SAVE_TRAIPHIEU_001" class="vbsp.ims.traiphieucp.TRAIPHIEU_001"  method="save">
-                        <result name="success">/BCQT/success.jsp</result>
-                        <result name="error">/BCQT/success.jsp</result>        
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
         </action> 
         
         <action name="TRAIPHIEU_002" class="vbsp.ims.traiphieucp.TRAIPHIEU_002"  method="load">
-		<result name="success">/traiphieu_cp/table_traiphieu_002.jsp</result>                                 
-		<result name="error">/nhaptay-cn/success.jsp</result>       
+            <result name="success">/traiphieu_cp/table_traiphieu_002.jsp</result>                                 
+            <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
 
         <action name="SAVE_TRAIPHIEU_002" class="vbsp.ims.traiphieucp.TRAIPHIEU_002"  method="save">
-                        <result name="success">/BCQT/success.jsp</result>
-                        <result name="error">/BCQT/success.jsp</result>        
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
         </action> 
+        
+        <!---->
+        <action name="saveCP07LSBQ" class="vbsp.ims.traiphieucp.TRAIPHIEU_002"  method="saveCP07LSBQ">
+            <result name="CP_07LSBQ" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>                                       
+        </action>
+        
         
     </package>
     
