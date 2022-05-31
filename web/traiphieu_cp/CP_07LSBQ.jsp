@@ -16,7 +16,7 @@
                 border-collapse: collapse;
                 font-size: 0.9em;
                 font-family: Tahoma;
-                width: 97%;
+                width: 100%;
                 border: 1px solid #ffcdbb;
             }
             .styled-table thead tr {
@@ -43,49 +43,54 @@
         </style>
     </head>
     <body>
-        <form id="frmCPMain">
-            <div style="width: 98.5%; padding: 10px 0px; text-align: right;"><input type="button" value="Lưu dữ liệu" name="idSave" id="idSave"></div>
-            <div style="width: 100%; padding: 0px 20px;">
-                <table class="styled-table">
-                    <thead>
-                        <tr>
-                            <th colspan="6">KỲ HẠN VÀ LÃI SUẤT PHÁT HÀNH TRÁI PHIẾU NHCSXH</th>
-                        </tr>
-                        <tr>
-                            <th rowspan="5">Sửa</th>
-                            <th rowspan="5">Năm</th>
-                            <th colspan="4">Các loại phí phả trả</th>
-                        </tr>
-                        <tr>
-                            <th rowspan="2">Tổng số</th>
-                            <th colspan="3">Trong đó</th>
-                        </tr>
-                        <tr>
-                            <th>Phí đấu thầu</th>
-                            <th>Phí thanh toán</th>
-                            <th>Phí bảo lãnh</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <s:iterator value="ModelList" status="status">     
-                            <tr <s:if test="!D5.equalsIgnoreCase('1')"> class="cssBorder"</s:if> id="idRow<s:property  value='%{#status.index}' />">
-                                <td style="display: none;"><input type="text" value="<s:property value='NAMBC'/>" name="loadListYear" readonly="readonly"/></td>
-                                <td style="display: none;"><input type="text" value="<s:property value='KHOA'/>" name="ModelList[<s:property  value='%{#status.index}' />].KHOA" readonly="readonly"/></td>
-                                <td style="display: none;"><input type="text" value="<s:property value='MACN'/>" name="ModelList[<s:property  value='%{#status.index}' />].MACN" readonly="readonly"/></td>
-                                <td style="display: none;"><input type="text" value="<s:property value='MAPGD'/>" name="ModelList[<s:property  value='%{#status.index}' />].MAPGD" readonly="readonly"/></td>
-                                <td style="display: none;"><input type="text" value="<s:property value='D5'/>" name="selectD5" readonly="readonly"/></td>
-                                <td ><input type="checkbox" onclick="funCheck(this,<s:property  value='%{#status.index}'/>)" <s:if test="D5.equalsIgnoreCase('1')"> checked disabled</s:if>/></td>
-                                <td id="lstSelect<s:property  value='%{#status.index}' />"></td>
-                                <td><input type="text" id="D1<s:property  value='%{#status.index}' />" value="<s:property value='D1'/>" name="ModelList[<s:property  value='%{#status.index}' />].D1" class="noneBorder" <s:if test="!D5.equalsIgnoreCase('1')"> disabled></s:if></td>
-                                <td><input type="text" id="D2<s:property  value='%{#status.index}' />" value="<s:property value='D2'/>" name="ModelList[<s:property  value='%{#status.index}' />].D2" class="noneBorder" <s:if test="!D5.equalsIgnoreCase('1')"> disabled></s:if></td>
-                                <td><input type="text" id="D3<s:property  value='%{#status.index}' />" value="<s:property value='D3'/>" name="ModelList[<s:property  value='%{#status.index}' />].D3" class="noneBorder" <s:if test="!D5.equalsIgnoreCase('1')"> disabled></s:if></td>
-                                <td><input type="text" id="D4<s:property  value='%{#status.index}' />" value="<s:property value='D4'/>" name="ModelList[<s:property  value='%{#status.index}' />].D4" class="noneBorder" <s:if test="!D5.equalsIgnoreCase('1')"> disabled></s:if></td>
-                                </tr>
-                        </s:iterator>
-                    </tbody>
-                </table>
-            </div> 
-        </form>
+        <div style="width: 100%; display: flex; justify-content: center;">
+            <form id="frmCPMain" style="flex-grow: 1;">
+                <div style="width: 100%; padding: 10px 0px; text-align: right;">
+                    <input type="button" value="Làm mới" name="idLoad" id="idLoad">
+                    <input type="button" value="Lưu dữ liệu" name="idSave" id="idSave">
+                </div>
+                <div style="width: 100%;">
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th colspan="6">KỲ HẠN VÀ LÃI SUẤT PHÁT HÀNH TRÁI PHIẾU NHCSXH</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="5">Sửa</th>
+                                <th rowspan="5">Năm</th>
+                                <th colspan="4">Các loại phí phả trả</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">Tổng số</th>
+                                <th colspan="3">Trong đó</th>
+                            </tr>
+                            <tr>
+                                <th>Phí đấu thầu</th>
+                                <th>Phí thanh toán</th>
+                                <th>Phí bảo lãnh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <s:iterator value="ModelList" status="status">     
+                                <tr <s:if test="!D5.equalsIgnoreCase('1')"> class="cssBorder"</s:if> id="idRow<s:property  value='%{#status.index}' />">
+                                    <td style="display: none;"><input type="text" value="<s:property value='NAMBC'/>" name="loadListYear" readonly="readonly"/></td>
+                                    <td style="display: none;"><input type="text" value="<s:property value='KHOA'/>" name="ModelList[<s:property  value='%{#status.index}' />].KHOA" readonly="readonly"/></td>
+                                    <td style="display: none;"><input type="text" value="<s:property value='MACN'/>" name="ModelList[<s:property  value='%{#status.index}' />].MACN" readonly="readonly"/></td>
+                                    <td style="display: none;"><input type="text" value="<s:property value='MAPGD'/>" name="ModelList[<s:property  value='%{#status.index}' />].MAPGD" readonly="readonly"/></td>
+                                    <td style="display: none;"><input type="text" value="<s:property value='D5'/>" name="selectD5" readonly="readonly"/></td>
+                                    <td ><input type="checkbox" onclick="funCheck(this,<s:property  value='%{#status.index}'/>)" <s:if test="D5.equalsIgnoreCase('1')"> checked disabled</s:if>/></td>
+                                    <td id="lstSelect<s:property  value='%{#status.index}' />"></td>
+                                    <td><input type="text" id="D1<s:property  value='%{#status.index}' />" value="<s:property value='D1'/>" name="ModelList[<s:property  value='%{#status.index}' />].D1" class="noneBorder" <s:if test="!D5.equalsIgnoreCase('1')"> disabled readonly="readonly" onblur="autoSum()"></s:if></td>
+                                    <td><input type="text" id="D2<s:property  value='%{#status.index}' />" value="<s:property value='D2'/>" name="ModelList[<s:property  value='%{#status.index}' />].D2" class="noneBorder" <s:if test="!D5.equalsIgnoreCase('1')"> disabled onblur="autoSum()"></s:if></td>
+                                    <td><input type="text" id="D3<s:property  value='%{#status.index}' />" value="<s:property value='D3'/>" name="ModelList[<s:property  value='%{#status.index}' />].D3" class="noneBorder" <s:if test="!D5.equalsIgnoreCase('1')"> disabled onblur="autoSum()"></s:if></td>
+                                    <td><input type="text" id="D4<s:property  value='%{#status.index}' />" value="<s:property value='D4'/>" name="ModelList[<s:property  value='%{#status.index}' />].D4" class="noneBorder" <s:if test="!D5.equalsIgnoreCase('1')"> disabled onblur="autoSum()"></s:if></td>
+                                    </tr>
+                            </s:iterator>
+                        </tbody>
+                    </table>
+                </div> 
+            </form>
+        </div>
         <script>
             const curYear = new Date().getFullYear();
             const mSize = $("input[name='loadListYear']").length;
@@ -106,24 +111,25 @@
                         opt += '<option value="' + i + '">' + i + '</option>';
                     }
                 }
-                $("#lstSelect" + j).html('<select name="ModelList[' + j + '].NAMBC" class="noneBorder" ' + disa + ' id="namBC'+ j +'">' + opt + '</select>');
+                $("#lstSelect" + j).html('<select name="ModelList[' + j + '].NAMBC" class="noneBorder" ' + disa + ' id="namBC' + j + '">' + opt + '</select>');
             }
-            function funCheck(elm,index) {
-                if (elm.checked == true){
+            function funCheck(elm, index) {
+                if (elm.checked == true) {
                     $("#idRow" + index).removeClass('cssBorder');
                     $("#D1" + index).removeAttr('disabled');
                     $("#D2" + index).removeAttr('disabled');
                     $("#D3" + index).removeAttr('disabled');
                     $("#D4" + index).removeAttr('disabled');
                     $("#namBC" + index).removeAttr('disabled');
-                }else{
-                    $("#idRow" + index).addClass('cssBorder');   
-                    $("#D1" + index).prop('disabled','true');
-                    $("#D2" + index).prop('disabled','true');
-                    $("#D3" + index).prop('disabled','true');
-                    $("#D4" + index).prop('disabled','true');
-                    $("#namBC" + index).prop('disabled','true');
-                };
+                } else {
+                    $("#idRow" + index).addClass('cssBorder');
+                    $("#D1" + index).prop('disabled', 'true');
+                    $("#D2" + index).prop('disabled', 'true');
+                    $("#D3" + index).prop('disabled', 'true');
+                    $("#D4" + index).prop('disabled', 'true');
+                    $("#namBC" + index).prop('disabled', 'true');
+                }
+                ;
             }
             //Lưu dữ liệu
             $("#idSave").click(function () {
@@ -138,6 +144,7 @@
                         data: sdata,
                         success: function (data) {
                             if (data === "200") {
+                                $("#loadParameter").trigger("click");
                                 alert("Thành công: Lưu dữ liệu.");
                             } else {
                                 alert("Lỗi: Lưu dữ liệu.");
@@ -149,6 +156,16 @@
                     });
                 }
             });
+            $("#idLoad").click(function () {
+                $("#loadParameter").trigger("click");
+            });
+            function autoSum() {
+                let RowSum = 0;
+                RowSum = 0;
+                for (var j = 0; j < mSize; j++) {
+                    $("#D1" + j).val(parseInt($("#D2" + j).val()) + parseInt($("#D3" + j).val()) + parseInt($("#D4" + j).val()));
+                }
+            }
         </script>
     </body>
 </html>
