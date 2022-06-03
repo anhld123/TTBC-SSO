@@ -78,7 +78,7 @@ public class NQ11CP_01KH extends ActionNhaptaycnMain
                     return ERROR;
                 }
                 margerData(lstData, chotsl);
-
+                 lstDulieuNt.sort(Comparator.comparing(o -> o.getTHUTU()));
                 return SUCCESS;
             } else if (Grade.equals("2")) {
                 if (!getParaSession()) {

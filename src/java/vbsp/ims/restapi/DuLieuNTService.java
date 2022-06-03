@@ -58,7 +58,7 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
+
     public ArrayList<DuLieuNTRow> getData_condition(String key, String posCode, String posFlag, String reportDate, String condition) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -103,8 +103,7 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
-    
+
     public ArrayList<LockSendModel> getDataLockSendS2021(String posCode, String flagReport, String reportDate) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -130,9 +129,7 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
-    
-    
+
     public ArrayList<LockSendModel> getDataLockSendNQ11CP(String posCode, String flagReport, String reportDate) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -158,7 +155,6 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
 
     public ArrayList<InvestorModel> getDataNDT2021(String posCode, String reportDate) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
@@ -214,6 +210,7 @@ public class DuLieuNTService extends ReportService {
         return response.getStatus();
     }
 //     1: lưu xác nhận lại; 2: lưu phân loại ht
+
     public int updateData2021HTLS(String posCode, String reportDate, String makerId,
             ArrayList<IntDeductionModel> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
@@ -245,7 +242,7 @@ public class DuLieuNTService extends ReportService {
 
         return response.getStatus();
     }
-    
+
     //     1: lưu xác nhận lại; 2: lưu phân loại ht
     public int updateDataNQ11CP_001(String posCode, String reportDate, String makerId,
             ArrayList<NQ11cpModel> data) {
@@ -341,7 +338,7 @@ public class DuLieuNTService extends ReportService {
 
         return response.getStatus();
     }
-    
+
     public int updateDataNQ11CP_ChotSL(String posCode, String reportDate, String makerId,
             ArrayList<UpdateLockModel> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
@@ -487,9 +484,6 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
-    
-   
 
     //    Khóa nhập tay
     public ArrayList<LockSendModel> getSetLockDataManual(String key, String posCode, String flagReport, String reportDate, String dataFlag, String updateId) {
@@ -552,13 +546,11 @@ public class DuLieuNTService extends ReportService {
         return response.getStatus();
     }
 
-   
-
     static String sendDataNV_QTByApi(List<QT_DULIEU_NT> lstDulieuNt, String file) {
         ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
         SimpleDateFormat sdf;
         sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        
+
         for (QT_DULIEU_NT tmp : lstDulieuNt) {
             DuLieuNTRow tempadd = new DuLieuNTRow();
             tempadd.setKey(tmp.getKHOA());
@@ -600,13 +592,12 @@ public class DuLieuNTService extends ReportService {
 
         return "";
     }
-    
-    
+
     public int summaryData(String posCode, String posFlag, String reportDate, String makerId) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("capital-source-summary")
-//                .queryParam("key", key)
+                //                .queryParam("key", key)
                 .queryParam("posCode", posCode)
                 .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
@@ -617,30 +608,30 @@ public class DuLieuNTService extends ReportService {
 
         return response.getStatus();
     }
-    
-     public String getTimeServer() {
+
+    public String getTimeServer() {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("system-date");
 
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();
-        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");  
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Date date;
         if (response.getStatus() == 200) {
             try {
-                date = response.readEntity(Date.class);                
-                String strDate = dateFormat.format(date);  
-                return strDate;                
+                date = response.readEntity(Date.class);
+                String strDate = dateFormat.format(date);
+                return strDate;
             } catch (Exception e) {
-                System.err.println("loi: " + e.getMessage());                
-                return dateFormat.format(new Date());  
+                System.err.println("loi: " + e.getMessage());
+                return dateFormat.format(new Date());
             }
         } else {
-            return dateFormat.format(new Date());  
+            return dateFormat.format(new Date());
         }
     }
-     
+
     public int updatePLN(String posCode, String reportDate, String makerId,
             ArrayList<PlnApiModel> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
@@ -671,14 +662,14 @@ public class DuLieuNTService extends ReportService {
         Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
 
         return response.getStatus();
-    } 
-    
+    }
+
     public String sendDataPLN_ByApi(String posCode, String posFlag, String reportDate, List<DcplnModel> lstDulieuNt, String User) {
         ArrayList<PlnApiModel> lstUpdateDate = new ArrayList<>();
         SimpleDateFormat sdf;
         sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         DecimalFormat df = new DecimalFormat("#.##");
-        
+
         for (DcplnModel tmp : lstDulieuNt) {
             PlnApiModel tempadd = new PlnApiModel();
             tempadd.setLoanId(tmp.getsSoku());
@@ -703,17 +694,13 @@ public class DuLieuNTService extends ReportService {
             tempadd.setDeviant_Amt(new BigInteger(tmp.getsNogoc_Clech()));
             tempadd.setDeviant_Int(new BigInteger(tmp.getsNolai_Clech()));
 
-            
-            
 //            Thieu            
-             
-            
             tempadd.setUnAble_ToPay_Reason(tmp.getsNgnhan_Clech());
-            tempadd.setCustRelationship(tmp.getsQuanhe_Kh());            
+            tempadd.setCustRelationship(tmp.getsQuanhe_Kh());
             tempadd.setStatus(tmp.getsTrangthai());
-            
+
             tempadd.setUpdateBy(tmp.getsNguoi_Pln());
-            tempadd.setUpdateTime(tmp.getsNgay_Pln());            
+            tempadd.setUpdateTime(tmp.getsNgay_Pln());
             tempadd.setReason_Deviant02(tmp.getsNgnhan_KckntnC2());
 
             lstUpdateDate.add(tempadd);
@@ -721,15 +708,14 @@ public class DuLieuNTService extends ReportService {
         DuLieuNTService service = new DuLieuNTService();
         service = new DuLieuNTService();
 //        int status = service.insertData("insert", "system", lstUpdateDate);
-        int status = service.updatePLN(posCode, reportDate,User, lstUpdateDate);
+        int status = service.updatePLN(posCode, reportDate, User, lstUpdateDate);
         if (status == 200) {
             return "1";
-        }
-        else{
+        } else {
             return "0";
         }
     }
-    
+
     public ArrayList<NQ11cpModel> getDataNQ11CP(String posCode, String reportDate, String program, String communeId, String groupId) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -752,7 +738,7 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
+
     public ArrayList<DuLieuNTRow> getDataNQ11CP_01KH(String posCode, String reportDate, String flag) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -774,45 +760,44 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
-    public ArrayList<NQ11cpModel> getDataNQ11CP_02SK(String posCode, String reportDate) {
+
+    public ArrayList<DuLieuNTRow> getDataNQ11CP_02SK(String key, String posCode, String posFlag, String reportDate, String conditions) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
-        WebTarget target = client.target(getBaseURI()).path("int-subsidy-data")
-                //                .queryParam("key", key)
+        WebTarget target = client.target(getBaseURI()).path("report-manual-data")
+                .queryParam("key", key)
                 .queryParam("posCode", posCode)
+                .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
-                .queryParam("program", "03")
-                .queryParam("communeId", "060102")
-                .queryParam("groupId", "0023222");
+                .queryParam("conditions", conditions);
 
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();
 
         if (response.getStatus() == 200) {
-            NQ11cpResp dulieuNTResp = response.readEntity(NQ11cpResp.class);
-            ArrayList<NQ11cpModel> listOfRow = dulieuNTResp.result;
+            DuLieuNTResp dulieuNTResp = response.readEntity(DuLieuNTResp.class);
+            ArrayList<DuLieuNTRow> listOfRow = dulieuNTResp.result;
             return listOfRow;
         } else {
             return null;
         }
     }
-    
-     public static void main(String[] args) {
-         DuLieuNTService service = new DuLieuNTService();
+
+    public static void main(String[] args) {
+        DuLieuNTService service = new DuLieuNTService();
 //        Date timeServer = service.getTimeServer();
-        
+
 //         Date date = Calendar.getInstance().getTime();  
 //                DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");  
 //                String strDate = dateFormat.format(timeServer);  
-                System.out.println("Converted String: " + service.getTimeServer());  
+        System.out.println("Converted String: " + service.getTimeServer());
 //          String file = "NV_QT_000401_S_31122021_quyennv_6283";
 //          
 //          String[] array = file.split("_", -1);
 //          String s1 = array[0];
 //          String s2 = array[3];
 //          String s3 = array[1];    
-        
+
 //        ArrayList<DuLieuNTRow> lstData = service.getData("COVID_03", "000401", "S", "20210630");
 //        System.out.println(lstData.size());
 //
@@ -834,11 +819,10 @@ public class DuLieuNTService extends ReportService {
         plno_dulieu.setsSoku("6600000715491945");
         plno_dulieu.setsSoku("6600000717477667");
         lstPLNo.add(plno_dulieu);
-        
+
         List<DcplnModel> lstDulieuNt = new ArrayList<>();
         lstDulieuNt = new DaoDCPLNO().getDataPLN_Api("000401", "1", "31-dec-2021", lstPLNo);
-        
-        
+
 ////       
 //        String kkk = sendDataNV_QTByApi(lstDulieuNt, "NV_QT_000703_S_20211231_HUYNQ01_3324");
 //            try {
@@ -846,9 +830,6 @@ public class DuLieuNTService extends ReportService {
 //         } catch (Exception e) {
 //                 System.err.println(e.getMessage());
 //         }
-        
 //        System.out.println(status);
     }
 }
-
-

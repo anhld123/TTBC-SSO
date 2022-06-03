@@ -9,99 +9,117 @@ package vbsp.ims.restapi;
  *
  * @author HP
  */
-
 import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
- 
+
 //@XmlRootElement(name = "dulieuNT")
-@XmlAccessorType (XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 
 public class NQ11cpModel {
+
     String mainPos;
-  String posCode;
-  String reportDate;
-  String groupId;
-  String customerId;
-  String customerName;
-  String loanId;
-  double prinTotal;
-  double normalAmt;
-  double overdueAmt;
-  double freezeAmt;
-  double interestRate;
-  String loanProgram;
-  String specificProductCode;
-  String decisionCode;
-  String loanStatus;
-  String capitalSourceCode;
-  String investorCode;
-  String casaAccount;
-  float intTotalAmt;
-  
-  @XmlElement(defaultValue = "0")
-  BigInteger intSubsidyTotalAmt;
-  @XmlElement(defaultValue = "0")
-  BigInteger intSubsidyM01Amt;
-  @XmlElement(defaultValue = "0")
-  BigInteger intSubsidyM02Amt;
-  @XmlElement(defaultValue = "0")
-  BigInteger intSubsidyM03Amt;
-  @XmlElement(defaultValue = "0")
-  BigInteger intSubsidyM04Amt;
-  
-  @XmlElement(defaultValue = "0")
-  BigInteger intSubsidyAdjustM01Amt;
-  @XmlElement(defaultValue = "0")
-  BigInteger intSubsidyAdjustM02Amt;
-  @XmlElement(defaultValue = "0")
-  BigInteger intSubsidyAdjustM03Amt;
-  @XmlElement(defaultValue = "0")
-  BigInteger intSubsidyAdjustM04Amt;
-  
-  String paymentFlag;
-  String intConfirmFlag;
-  String subsidyTranRef;
-  String subsidyTranDate;
-  BigInteger accountingIntAmt;
-  BigInteger rpaAmt;
-  BigInteger casaAmt;
-  BigInteger cashAmt;
-  String posTranRef;
-  String m01Status;
-  String m02Status;
-  String m03Status;
-  String m04Status;
-  String createdBy;
-  String createdDate;
-  String m01UpdateBy;
-  String m01UpdateDate;
-  String m02UpdateBy;
-  String m02UpdateDate;
-  String m03UpdateBy;
-  String m03UpdateDate;
-  String m04UpdateBy;
-  String m04UpdateDate;
-  
-  double intTotalM01Amt;
-  double intTotalM02Amt;
-  double intTotalM03Amt;
-  double intTotalM04Amt;
-  String communeId;
-  String m01SubsidyTranRef;
-  String m01SubsidyTranDate;
-  double m10AccountingIntAmt;
-  String m02SubsidyTranRef;
-  String m02SubsidyTranDate;
-  int m11AccountingIntAmt;
-  String m03SubsidyTranRef;
-  String m03SubsidyTranDate;
-  double m12AccountingIntAmt;
-  String disbursalDate;
-  String editFlag;
-  String rejectReason;
-  String paymentMethod;
+    String posCode;
+    String reportDate;
+    String groupId;
+    String customerId;
+    String customerName;
+    String loanId;
+    double prinTotal;
+    double normalAmt;
+    double overdueAmt;
+    double freezeAmt;
+    double interestRate;
+    String loanProgram;
+    String specificProductCode;
+    String decisionCode;
+    String loanStatus;
+    String capitalSourceCode;
+    String investorCode;
+    String casaAccount;
+    float intTotalAmt;
+
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyTotalAmt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyM01Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyM02Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyM03Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyM04Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyM05Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyM06Amt;
+
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyAdjustM01Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyAdjustM02Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyAdjustM03Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyAdjustM04Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyAdjustM05Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyAdjustM06Amt;
+
+    String paymentFlag;
+    String intConfirmFlag;
+    String subsidyTranRef;
+    String subsidyTranDate;
+    BigInteger accountingIntAmt;
+    BigInteger rpaAmt;
+    BigInteger casaAmt;
+    BigInteger cashAmt;
+    String posTranRef;
+    String m01Status;
+    String m02Status;
+    String m03Status;
+    String m04Status;
+    String m05Status;
+    String m06Status;
+    
+    String createdBy;
+    String createdDate;
+    String m01UpdateBy;
+    String m01UpdateDate;
+    String m02UpdateBy;
+    String m02UpdateDate;
+    String m03UpdateBy;
+    String m03UpdateDate;
+    String m04UpdateBy;
+    String m04UpdateDate;
+    String m05UpdateBy;
+    String m05UpdateDate;
+    String m06UpdateBy;
+    String m06UpdateDate;
+
+    double intTotalM01Amt;
+    double intTotalM02Amt;
+    double intTotalM03Amt;
+    double intTotalM04Amt;
+    double intTotalM05Amt;
+    double intTotalM06Amt;
+
+    String communeId;
+    String m01SubsidyTranRef;
+    String m01SubsidyTranDate;
+    double m10AccountingIntAmt;
+    String m02SubsidyTranRef;
+    String m02SubsidyTranDate;
+    int m11AccountingIntAmt;
+    String m03SubsidyTranRef;
+    String m03SubsidyTranDate;
+    double m12AccountingIntAmt;
+    String disbursalDate;
+    String editFlag;
+    String rejectReason;
+    String paymentMethod;
 
     public String getMainPos() {
         return mainPos;
@@ -240,7 +258,7 @@ public class NQ11cpModel {
     }
 
     public String getInvestorCode() {
-        return investorCode==null? "-1":investorCode;        
+        return investorCode == null ? "-1" : investorCode;
     }
 
     public void setInvestorCode(String investorCode) {
@@ -264,7 +282,7 @@ public class NQ11cpModel {
     }
 
     public BigInteger getIntSubsidyM01Amt() {
-        return intSubsidyM01Amt==null? new BigInteger("0"):intSubsidyM01Amt;        
+        return intSubsidyM01Amt == null ? new BigInteger("0") : intSubsidyM01Amt;
     }
 
     public void setIntSubsidyM01Amt(BigInteger intSubsidyM01Amt) {
@@ -272,7 +290,7 @@ public class NQ11cpModel {
     }
 
     public BigInteger getIntSubsidyM02Amt() {
-        return intSubsidyM02Amt==null? new BigInteger("0"):intSubsidyM02Amt;             
+        return intSubsidyM02Amt == null ? new BigInteger("0") : intSubsidyM02Amt;
     }
 
     public void setIntSubsidyM02Amt(BigInteger intSubsidyM02Amt) {
@@ -280,7 +298,7 @@ public class NQ11cpModel {
     }
 
     public BigInteger getIntSubsidyM03Amt() {
-        return intSubsidyM03Amt==null? new BigInteger("0"):intSubsidyM03Amt;         
+        return intSubsidyM03Amt == null ? new BigInteger("0") : intSubsidyM03Amt;
     }
 
     public void setIntSubsidyM03Amt(BigInteger intSubsidyM03Amt) {
@@ -288,7 +306,7 @@ public class NQ11cpModel {
     }
 
     public BigInteger getIntSubsidyAdjustM01Amt() {
-        return intSubsidyAdjustM01Amt==null? new BigInteger("0"):intSubsidyAdjustM01Amt;         
+        return intSubsidyAdjustM01Amt == null ? new BigInteger("0") : intSubsidyAdjustM01Amt;
     }
 
     public void setIntSubsidyAdjustM01Amt(BigInteger intSubsidyAdjustM01Amt) {
@@ -296,7 +314,7 @@ public class NQ11cpModel {
     }
 
     public BigInteger getIntSubsidyAdjustM02Amt() {
-        return intSubsidyAdjustM02Amt==null? new BigInteger("0"):intSubsidyAdjustM02Amt;         
+        return intSubsidyAdjustM02Amt == null ? new BigInteger("0") : intSubsidyAdjustM02Amt;
     }
 
     public void setIntSubsidyAdjustM02Amt(BigInteger intSubsidyAdjustM02Amt) {
@@ -304,7 +322,7 @@ public class NQ11cpModel {
     }
 
     public BigInteger getIntSubsidyAdjustM03Amt() {
-        return intSubsidyAdjustM03Amt==null? new BigInteger("0"):intSubsidyAdjustM03Amt;         
+        return intSubsidyAdjustM03Amt == null ? new BigInteger("0") : intSubsidyAdjustM03Amt;
     }
 
     public void setIntSubsidyAdjustM03Amt(BigInteger intSubsidyAdjustM03Amt) {
@@ -344,7 +362,7 @@ public class NQ11cpModel {
     }
 
     public BigInteger getAccountingIntAmt() {
-        return accountingIntAmt==null? new BigInteger("0"):accountingIntAmt;           
+        return accountingIntAmt == null ? new BigInteger("0") : accountingIntAmt;
     }
 
     public void setAccountingIntAmt(BigInteger accountingIntAmt) {
@@ -352,7 +370,7 @@ public class NQ11cpModel {
     }
 
     public BigInteger getRpaAmt() {
-        return rpaAmt==null? new BigInteger("0"):rpaAmt;           
+        return rpaAmt == null ? new BigInteger("0") : rpaAmt;
     }
 
     public void setRpaAmt(BigInteger rpaAmt) {
@@ -360,7 +378,7 @@ public class NQ11cpModel {
     }
 
     public BigInteger getCasaAmt() {
-        return casaAmt==null? new BigInteger("0"):casaAmt;          
+        return casaAmt == null ? new BigInteger("0") : casaAmt;
     }
 
     public void setCasaAmt(BigInteger casaAmt) {
@@ -368,7 +386,7 @@ public class NQ11cpModel {
     }
 
     public BigInteger getCashAmt() {
-        return cashAmt==null? new BigInteger("0"):cashAmt;             
+        return cashAmt == null ? new BigInteger("0") : cashAmt;
     }
 
     public void setCashAmt(BigInteger cashAmt) {
@@ -608,7 +626,7 @@ public class NQ11cpModel {
     }
 
     public BigInteger getIntSubsidyM04Amt() {
-        return intSubsidyM04Amt;
+        return intSubsidyM04Amt == null ? new BigInteger("0") : intSubsidyM04Amt;
     }
 
     public void setIntSubsidyM04Amt(BigInteger intSubsidyM04Amt) {
@@ -616,7 +634,7 @@ public class NQ11cpModel {
     }
 
     public BigInteger getIntSubsidyAdjustM04Amt() {
-        return intSubsidyAdjustM04Amt==null? new BigInteger("0"):intSubsidyAdjustM04Amt;          
+        return intSubsidyAdjustM04Amt == null ? new BigInteger("0") : intSubsidyAdjustM04Amt;
     }
 
     public void setIntSubsidyAdjustM04Amt(BigInteger intSubsidyAdjustM04Amt) {
@@ -662,7 +680,103 @@ public class NQ11cpModel {
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
-  
- 
-  
+
+    public BigInteger getIntSubsidyM05Amt() {
+        return intSubsidyM05Amt == null ? new BigInteger("0") : intSubsidyM05Amt;
+    }
+
+    public void setIntSubsidyM05Amt(BigInteger intSubsidyM05Amt) {
+        this.intSubsidyM05Amt = intSubsidyM05Amt;
+    }
+
+    public BigInteger getIntSubsidyM06Amt() {
+        return intSubsidyM06Amt == null ? new BigInteger("0") : intSubsidyM06Amt;
+    }
+
+    public void setIntSubsidyM06Amt(BigInteger intSubsidyM06Amt) {
+        this.intSubsidyM06Amt = intSubsidyM06Amt;
+    }
+
+    public BigInteger getIntSubsidyAdjustM05Amt() {
+        return intSubsidyAdjustM05Amt == null ? new BigInteger("0") : intSubsidyAdjustM05Amt;
+    }
+
+    public void setIntSubsidyAdjustM05Amt(BigInteger intSubsidyAdjustM05Amt) {
+        this.intSubsidyAdjustM05Amt = intSubsidyAdjustM05Amt;
+    }
+
+    public BigInteger getIntSubsidyAdjustM06Amt() {
+        return intSubsidyAdjustM06Amt == null ? new BigInteger("0") : intSubsidyAdjustM06Amt;
+    }
+
+    public void setIntSubsidyAdjustM06Amt(BigInteger intSubsidyAdjustM06Amt) {
+        this.intSubsidyAdjustM06Amt = intSubsidyAdjustM06Amt;
+    }
+
+    public String getM05UpdateBy() {
+        return m05UpdateBy;
+    }
+
+    public void setM05UpdateBy(String m05UpdateBy) {
+        this.m05UpdateBy = m05UpdateBy;
+    }
+
+    public String getM05UpdateDate() {
+        return m05UpdateDate;
+    }
+
+    public void setM05UpdateDate(String m05UpdateDate) {
+        this.m05UpdateDate = m05UpdateDate;
+    }
+
+    public String getM06UpdateBy() {
+        return m06UpdateBy;
+    }
+
+    public void setM06UpdateBy(String m06UpdateBy) {
+        this.m06UpdateBy = m06UpdateBy;
+    }
+
+    public String getM06UpdateDate() {
+        return m06UpdateDate;
+    }
+
+    public void setM06UpdateDate(String m06UpdateDate) {
+        this.m06UpdateDate = m06UpdateDate;
+    }
+
+    public double getIntTotalM05Amt() {
+        return intTotalM05Amt;
+    }
+
+    public void setIntTotalM05Amt(double intTotalM05Amt) {
+        this.intTotalM05Amt = intTotalM05Amt;
+    }
+
+    public double getIntTotalM06Amt() {
+        return intTotalM06Amt;
+    }
+
+    public void setIntTotalM06Amt(double intTotalM06Amt) {
+        this.intTotalM06Amt = intTotalM06Amt;
+    }
+
+    public String getM05Status() {
+        return m05Status;
+    }
+
+    public void setM05Status(String m05Status) {
+        this.m05Status = m05Status;
+    }
+
+    public String getM06Status() {
+        return m06Status;
+    }
+
+    public void setM06Status(String m06Status) {
+        this.m06Status = m06Status;
+    }
+
+    
+    
 }
