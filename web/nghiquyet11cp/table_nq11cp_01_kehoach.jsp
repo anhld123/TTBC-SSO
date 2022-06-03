@@ -29,7 +29,7 @@
                 $(".TD_MAKH").css({"width": "50px"});
                 $(".TD_TOTIEN").css({"width": "70px"});
                 $(".TD_NGAY").css({"width": "55px"});
-                $(".TD_TENKH").css({"width": "130px"});
+                $(".TD_TENKH").css({"width": "180px"});
                 $(".TD_SOKU").css({"width": "80px"});
                 $(".TD_NGAY").css({"width": "40px"});
                 $(".TD_CHITIEU").css({"width": "300px"});

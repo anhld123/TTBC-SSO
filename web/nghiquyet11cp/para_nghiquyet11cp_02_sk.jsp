@@ -479,9 +479,9 @@
                                 </td>
                             </tr>  
                             <tr>
-                                <td >Mã KH/Số KU:</td>
+                                <td >Số KU: </td>
                                 <td colspan="2">
-                                    <input type="text" id="lanqd" name="lanqd" class=""  placeholder="Mã KH/Số KU" />
+                                    <input type="text" id="soku" name="soku" soku=""  placeholder="Số KU" />
                                 </td> 
 <!--                                <td >Nhà đầu tư:</td>
                                 <td colspan="3">                                               

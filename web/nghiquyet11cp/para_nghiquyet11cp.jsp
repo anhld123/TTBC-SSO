@@ -452,7 +452,7 @@
                             <tr style="height: 30px;">
                                 <td>Ngày BC</td>
                                 <td>
-                                    <sj:datepicker name="ngay_bc_DATE" value="%{'30/04/2022'}"  id="ngay_bc_DATE"
+                                    <sj:datepicker name="ngay_bc_DATE" value="%{'30/06/2022'}"  id="ngay_bc_DATE"
                                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
                                 </td>
                                 <td>Chương trình:</td>
@@ -487,11 +487,11 @@
                                     <td  >                                               
                                         <s:select  style="width: 100px;"  list="lstGiaiNgan" id="giaingan" name="giaingan" listKey="sKey" listValue="sDesc"></s:select>
                                     </td>-->
-                                <td >Giải ngân:</td>
+                                <td >Trạng thái:</td>
                                             <td>
                                                 <select name="giaingan" id="giaingan">
                                                     <option value="-1">--Tất cả--</option>
-                                                    <option value="1">Giải ngân sau 31/3</option>                                                    
+                                                    <option value="1">Món vay tất toán</option>                                                    
                                                 </select>
                                             </td>         
 
@@ -564,7 +564,7 @@
         </div>
         <script>
         $(document).ready(function () {            
-            document.getElementById('ngay_bc_DATE').value = "30/04/2022";
+            document.getElementById('ngay_bc_DATE').value = "30/06/2022";
         })
         </script>
     </div>
