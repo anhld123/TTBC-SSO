@@ -184,6 +184,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     protected List<ListValue> lstPhanloai = new ArrayList<ListValue>();
     protected List<ListValue> lstGiaiNgan = new ArrayList<ListValue>();
     protected List<ListValue> lstNhadautu = new ArrayList<ListValue>();
+    protected List<ListValue> lstNam = new ArrayList<ListValue>();
 
     public List<QT_DULIEU_NT> getLstDulieuNt_tong() {
         return lstDulieuNt_tong;
@@ -344,11 +345,11 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
         Map<String, String[]> prameters = ServletActionContext.getRequest().getParameterMap();
         for (String parameter : prameters.keySet()) {
             String[] values = prameters.get(parameter);
+                if (parameter.indexOf("DATE") > 0) {
             if (parameter.indexOf("TEXT") > 0 || parameter.indexOf("DATE") > 0 || parameter.indexOf("LIST") > 0) {
                 if (parameter.startsWith("1_")) {
                     parameter = parameter.substring(2, parameter.length());
                 }
-                if (parameter.indexOf("DATE") > 0) {
                     Date sdf = new SimpleDateFormat("dd/MM/yyyy").parse(values[0]);
                     paramHashMap.put(parameter.substring(0, parameter.length() - 5), new SimpleDateFormat("dd-MMM-yyyy").format(sdf));
                     lstParameters.add(new ListValue(parameter, values[0]));
@@ -422,6 +423,10 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
             }
             else if (khoa_nghiquyet11cp.equals("NQ11CP_04KH")) {
                 return "nghiquyet11cp_04_kh";
+            }
+            else if (khoa_nghiquyet11cp.equals("NQ11_DKKH")) {
+                setLstNam(daoMain.getDanhMuc(UserName, "NAMKH", Grade));
+                return "nghiquyet11cp_01_dkkh";
             }
             else{
                 return "";
@@ -687,6 +692,16 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     public void setPos_cd_username(String pos_cd_username) {
         this.pos_cd_username = pos_cd_username;
     }
+    public List<ListValue> getLstNam() {
+        return lstNam;
+    }
+
+    public void setLstNam(List<ListValue> lstNam) {
+        this.lstNam = lstNam;
+    }
+    
     //</editor-fold>
+
+    
 
 }

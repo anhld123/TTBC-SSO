@@ -11,9 +11,10 @@
         
         <action name="LoadParaNghiquyet11cp" class="vbsp.ims.nghiquyet11cp.ActionNghiquyet11cpMain"  method="loadParaBaocao">
             <result name="nghiquyet11cp_01">/nghiquyet11cp/para_nghiquyet11cp.jsp</result>
-            <result name="nghiquyet11cp_01_kh">/nghiquyet11cp/para_nghiquyet11cp_01_kh.jsp</result>
+            <!--<result name="nghiquyet11cp_01_kh">/nghiquyet11cp/para_nghiquyet11cp_01_kh.jsp</result>-->
             <result name="nghiquyet11cp_04_kh">/nghiquyet11cp/para_nghiquyet11cp_04_kh.jsp</result>
             <result name="nghiquyet11cp_02_sk">/nghiquyet11cp/para_nghiquyet11cp_02_sk.jsp</result>
+            <result name="nghiquyet11cp_01_dkkh">/nghiquyet11cp/para_nghiquyet11cp_01_dkkh.jsp</result>
             <result name="error">/nghiquyet11cp/success.jsp</result>        
         </action>  
         
@@ -76,6 +77,26 @@
             <result name="success">/WEB-INF/datawarehouse_input-log.jsp</result>
             <result name="error">/error.jsp</result>            
         </action>
+        
+        <action name="nq11_dkkh_open_upload" class="vbsp.ims.nghiquyet11cp.NQ11_DKKH" method="openExcelUpload">
+            <result name="success">  
+                /nghiquyet11cp/upload-file-dkkh.jsp
+            </result>               
+            <result name="error">  
+                /chamdiem_canhan/success.jsp
+            </result>  
+        </action>
+        
+        <action name="saveUpload01DKKH" class="vbsp.ims.nghiquyet11cp.NQ11_DKKH"  method="saveUpload01DKKH">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">209715200</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">/WEB-INF/datawarehouse_input-log.jsp</result>
+            <result name="error">/error.jsp</result>            
+        </action>
+        
+        
         
         <!--Mẫu 04KH-->
         
