@@ -220,36 +220,11 @@
 
             function onLoadData()
             {
-                var ngay_bc = $("#ngay_bc_DATE").val();
-//                alert(ngay_bc);
-                var lv_day = parseInt(ngay_bc.substr(0, 2));
-                var lv_month = parseInt(ngay_bc.substr(3, 2));
-                var lv_year = parseInt(ngay_bc.substr(6, 4));
-                if (lv_day == getDaysOfMonth(lv_month, lv_year)) {
-//                    var r = confirm("Bạn có thật sự muốn nhập số liệu tháng này, tiếp tục  không ? OK : Đồng ý, Cancel : Hủy bỏ");
-//                    if (r == true) {
-                    $('#message_suc_err').empty();
-                    $('#divExportReport').empty();
-                    $('#divExportReportLink').empty();
-
-                    //                var khoa_nghiquyet11cp = $("#khoa_nghiquyet11cp").val();
-                    //                var maxa = $("#maxa").val();
-                    ////                alert(maxa);
-                    //                if(maxa === "000000")
-                    //                {
-                    //                    $('#message_suc_err').html("<h2 style='color: red'>Bạn cần chọn mã xã trước khi tải số liệu !</h2>");
-                    //                    return;
-                    //                }
+                
 
                     $("#loadData")[0].click();
                     bsubmit = true;
-//                    }
 
-                } else
-                {
-                    alert("Vui lòng chọn đúng tháng báo cáo.");
-                }
-//                return true;
             }
             function onSaveData()
             {
@@ -495,7 +470,7 @@
                                 <td>Kế hoạch năm: </td>
                                 <td>
                                     <s:select list="lstNam" theme="simple"
-                                    name="namBc" id="namBc"
+                                    name="nambc" id="nambc"
                                     listKey="sKey" listValue="sDesc" />
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>    
