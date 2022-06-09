@@ -78,6 +78,7 @@
             <result name="error">/error.jsp</result>            
         </action>
         
+        <!--Mẫu 01 - KHKH-->
         <action name="nq11_dkkh_open_upload" class="vbsp.ims.nghiquyet11cp.NQ11_DKKH" method="openExcelUpload">
             <result name="success">  
                 /nghiquyet11cp/upload-file-dkkh.jsp
@@ -96,7 +97,11 @@
             <result name="error">/error.jsp</result>            
         </action>
         
-        
+         <action name="NQ11_DKKH" class="vbsp.ims.nghiquyet11cp.NQ11_DKKH"  method="load">
+            <result name="success_c2">/nghiquyet11cp/table_nq11cp_01_dkkh_c2.jsp</result>   
+            <result name="success_c1">/nghiquyet11cp/table_nq11cp_01_dkkh_c1.jsp</result>                                 
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
         
         <!--Mẫu 04KH-->
         
