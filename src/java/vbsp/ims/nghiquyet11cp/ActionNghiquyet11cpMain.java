@@ -15,39 +15,23 @@ import java.io.File;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
-import vbsp.ims.bcqt.model.DULIEU_NT;
 import vbsp.ims.bcqt.model.ModelViewSend;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
-import vbsp.ims.bcqt.model.QT_DULIEU_NT.saveDulieuNT;
-import vbsp.ims.bcqt.model.QT_DULIEU_NT.saveDulieuNT_Phi;
 import vbsp.ims.chamdiemcn.ModelExcelFile;
 import vbsp.ims.dao.DaoConnect;
-import vbsp.ims.dao.DaoDcptNo;
-import vbsp.ims.dao.DaoRptQuery;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
-import vbsp.ims.define.Define;
-import vbsp.ims.ktgs.dao.DaoKtgsMain;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
-import vbsp.ims.model.Pagination;
 import vbsp.ims.model.ktnb.PosMainModel;
-import vbsp.ims.query.ImsFillParaMeter;
-import vbsp.ims.query.ImsPlSqlQuery;
 import vbsp.ims.report.fast.ListValue;
-import vbsp.ims.restapi.DuLieuNTService;
-import vbsp.ims.sbv.daoSbv;
-import vbsp.ims.syn.ProcessReportSyn;
-import vbsp.ims.xml.XmlKtgsSync;
 //import vbsp.ims.xml.XmlNhaptaycnSync;
 
 /**
@@ -421,6 +405,11 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
                 setLstMaPGD(daoMain.getDanhMuc(UserName, "MAPGD", Grade));
                 return "nghiquyet11cp_01_dkkh";
             }
+            else if (khoa_nghiquyet11cp.equals("NQ11_GKH")) {
+                setLstNam(daoMain.getDanhMuc(UserName, "NAMKH", Grade));
+                setLstMaPGD(daoMain.getDanhMuc(UserName, "MAPGD", Grade));
+                return "nghiquyet11cp_gkh";
+            }
             else{
                 return "";
             }
@@ -458,10 +447,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     public void setChotsl(String chotsl) {
         this.chotsl = chotsl;
     }
-
-
-    
-    
+       
     public String getPoslist() {
         return poslist;
     }

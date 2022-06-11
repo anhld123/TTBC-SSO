@@ -191,4 +191,17 @@ public class Define {
     
     public static final String NHAPTAY_CHOT = "1";          
     public static final String NHAPTAY_MOCHOT = "0";
+    
+    
+    public static final String NQ11_GIAO_KE_HOACH = "NQ11_GKH";
+    
+    public static final String HEAD_POS_CODE = "000100";
+    
+    public static final String HEAD_POS_FLAG = "H";
+    public static final String MAIN_POS_FLAG = "M";
+    public static final String SUB_POS_FLAG = "S";
+    
+    public static final String HEAD_POS_GRADE = "3";
+    public static final String MAIN_POS_GRADE = "2";
+    public static final String SUB_POS_GRADE = "1";
 }

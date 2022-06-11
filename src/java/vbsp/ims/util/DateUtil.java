@@ -29,4 +29,11 @@ public class DateUtil {
     public static Date toDate(String value) {
         return stringToDate(value, "yyyy-MM-dd'T'HH:mm:ss");
     }
+    
+    public static String dateToString(Date value, String format)
+    {
+        SimpleDateFormat formatter = new SimpleDateFormat(format);  
+        String strDate = formatter.format(value);  
+        return strDate;
+    }
 }
