@@ -416,7 +416,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
             else if (khoa_nghiquyet11cp.equals("NQ11CP_04KH")) {
                 return "nghiquyet11cp_04_kh";
             }
-            else if (khoa_nghiquyet11cp.equals("NQ11_DKKH")) {
+            else if (khoa_nghiquyet11cp.equals("NQ11_DKKH") || khoa_nghiquyet11cp.equals("NQ11_DCKH")) {
                 setLstNam(daoMain.getDanhMuc(UserName, "NAMKH", Grade));
                 setLstMaPGD(daoMain.getDanhMuc(UserName, "MAPGD", Grade));
                 return "nghiquyet11cp_01_dkkh";

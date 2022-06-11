@@ -138,10 +138,17 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
             pos_cd_username = posMainModel.getPosCd();
 
             if (Grade.equals("2")) {
-                lstData = service.getData("NQ11_DKKH", posMainModel.getMainPosCd(), "M", hmParameter.get("nambc").toString() + "1231");
+                String mapgd = hmParameter.get("mapgd").toString();
+                if(mapgd.equals("000000"))
+                {
+                    lstData = service.getData(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), "M", hmParameter.get("nambc").toString() + "1231");
+                }
+                else
+                {
+                    lstData = service.getData(khoa_nghiquyet11cp, mapgd, "S", hmParameter.get("nambc").toString() + "1231");
+                }
             } else if (Grade.equals("1")) {
-
-                lstData = service.getData("NQ11_DKKH", pos_cd_username, "S", hmParameter.get("nambc").toString() + "1231");
+                lstData = service.getData(khoa_nghiquyet11cp, pos_cd_username, "S", hmParameter.get("nambc").toString() + "1231");
             }
             lstData.sort(Comparator.comparing(o -> Integer.parseInt(o.getOrderValue())));
             int i = 1;
@@ -227,10 +234,9 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
             service = new DuLieuNTService();
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
-
+            ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
             if (Grade.equals("1")) {
-                ArrayList<LockSendModel> lstDataLock = service.getDataLockManual("NQ11_DKKH", pos_cd_username, "S", hmParameter.get("nambc").toString() + "1231");
-                ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
+                ArrayList<LockSendModel> lstDataLock = service.getDataLockManual(khoa_nghiquyet11cp, pos_cd_username, "S", hmParameter.get("nambc").toString() + "1231");                
 //                if (lstDataLock.size() > 0) {                    
                 if (lstDataLock != null && lstDataLock.get(0).getStatus().equals("1")) {
                     addActionError("Đơn vị đã chốt số liệu. Bạn không thể điều chỉnh.");
@@ -264,10 +270,10 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
                     }
                     int status
                             = //service.updateDataNQ11CP_001(pos_cd_username, strDate, UserName, lstUpdateDate);
-                            service.updateData("NQ11_DKKH", pos_cd_username, "S", hmParameter.get("nambc").toString() + "1231", UserName, "system", lstUpdateDate);
+                            service.updateData(khoa_nghiquyet11cp, pos_cd_username, "S", hmParameter.get("nambc").toString() + "1231", UserName, "system", lstUpdateDate);
                     System.err.println("Vao day: " + status);
                     if (status == 200) {
-                        if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_01_DKKH(UserName, Grade, pos_cd_username, "31-DEC-" + hmParameter.get("nambc").toString(), lstDulieuNt)) {
+                        if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_01_DKKH(khoa_nghiquyet11cp, UserName, Grade, pos_cd_username, "31-DEC-" + hmParameter.get("nambc").toString(), lstDulieuNt)) {
                             addActionError("Cập nhật thành công tại CN nhưng API không thành công. Xin liên hệ với quản trị để khắc phục");
                             return ERROR;
                         }
@@ -275,20 +281,48 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
                 }
 
             } else if (Grade.equals("2")) {
-                ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
-                for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                    UpdateLockModel tempadd = new UpdateLockModel();
-                    if (tmp.getD25() == null) {
-                        tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setStatus("0");
-                        lstUpdateDateLock.add(tempadd);
-                    } else {
-                        tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setStatus("1");
-                        lstUpdateDateLock.add(tempadd);
+                System.err.println("Vao day: cap 2" );
+                    String mapgd = hmParameter.get("mapgd").toString();
+                    if(!mapgd.endsWith("000000") || !lstDulieuNt.get(0).getMAPGD().equals(posMainModel.getMainPosCd()))
+                    {
+                        addActionError("Bạn không được phép cập nhật dữ liệu cho PGD");
+                            return ERROR;
                     }
-                }
-                int status = service.updateDataNQ11CP_ChotSL(pos_cd_username, hmParameter.get("nambc").toString() + "1231", UserName, lstUpdateDateLock);
+                    SimpleDateFormat sdf;
+                    sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                    for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                        DuLieuNTRow tempadd = new DuLieuNTRow();
+                        tempadd.setKey(tmp.getKHOA());
+                        tempadd.setOrderDescription(tmp.getTT_HIENTHI());
+                        tempadd.setCode(tmp.getMA());
+                        tempadd.setName(tmp.getTEN());
+                        tempadd.setPosCode(tmp.getMAPGD());
+                        tempadd.setD1(tmp.getD1());
+                        tempadd.setD2(tmp.getD2());
+                        tempadd.setD3(tmp.getD3());
+                        tempadd.setD4(tmp.getD4());
+                        tempadd.setD5(tmp.getD5());
+                        tempadd.setD6(tmp.getD6());
+                        tempadd.setD7(tmp.getD7());
+                        tempadd.setD8(tmp.getD8());
+                        tempadd.setD9(tmp.getD9());
+                        tempadd.setD10(tmp.getD10());
+                        tempadd.setD11(tmp.getD11());
+                        tempadd.setD12(tmp.getD12());
+                        tempadd.setD13(tmp.getD13());
+                        tempadd.setD14(tmp.getD14());
+                        lstUpdateDate.add(tempadd);
+                    }
+                    int status
+                            = //service.updateDataNQ11CP_001(pos_cd_username, strDate, UserName, lstUpdateDate);
+                            service.updateData(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), "M", hmParameter.get("nambc").toString() + "1231", UserName, "system", lstUpdateDate);
+                    System.err.println("Vao day: " + status);
+                    if (status == 200) {
+                        if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_01_DKKH(khoa_nghiquyet11cp, UserName, Grade, posMainModel.getMainPosCd(), "31-DEC-" + hmParameter.get("nambc").toString(), lstDulieuNt)) {
+                            addActionError("Cập nhật thành công tại CN nhưng API không thành công. Xin liên hệ với quản trị để khắc phục");
+                            return ERROR;
+                        }
+                    }
             }
 
         } catch (Exception e) {
@@ -373,7 +407,7 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
 //                            if (file_name.startsWith(Define.GIAO_KHTDNQ11)) {
                             List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
                             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
-                            lstDulieuNt = daoMain.getDataSendApiDKKH("NQ11_DKKH", file_name);
+                            lstDulieuNt = daoMain.getDataSendApiDKKH(khoa_nghiquyet11cp, file_name);
                             String sReturn = sendDataNV_QTByApi(lstDulieuNt, file_name);
                             if (sReturn.equals(SUCCESS)) {
                                 message = "(*) Xử lý file thành công: [" + file_name + "].";
@@ -446,7 +480,7 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
         }
         service = new DuLieuNTService();
 //        int status = service.insertData("insert","system",lstUpdateDate);
-        int status = service.updateData("NQ11_DKKH", file.split("_", -1)[2], "S", file.split("_", -1)[1] + "1231", UserName, "system", lstUpdateDate);
+        int status = service.updateData(khoa_nghiquyet11cp, file.split("_", -1)[2], "S", file.split("_", -1)[1] + "1231", UserName, "system", lstUpdateDate);
         if (status == 200) {
             return SUCCESS;
         }
@@ -617,9 +651,9 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
             ArrayList<DuLieuNTRow> lstData = new ArrayList<>();
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
 
-            int sTonghop = service.summaryDataManual("NQ11_DKKH", posMainModel.getMainPosCd(), "M", hmParameter.get("nambc").toString() + "1231", UserName, "D1|D2|D3|D4|D5|D6|D7|D8|D9|D10|D11|D12");
+            int sTonghop = service.summaryDataManual(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), "M", hmParameter.get("nambc").toString() + "1231", UserName, "D1|D2|D3|D4|D5|D6|D7|D8|D9|D10|D11|D12");
 
-            lstData = service.getData("NQ11_DKKH", posMainModel.getMainPosCd(), "M", hmParameter.get("nambc").toString() + "1231");
+            lstData = service.getData(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), "M", hmParameter.get("nambc").toString() + "1231");
 
             lstData.sort(Comparator.comparing(o -> Integer.parseInt(o.getOrderValue())));
             int i = 1;
@@ -657,6 +691,67 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
                 } catch (Exception e) {
                     CoreLogger.error(this.getClass().getName() + " Exception -> NQ11_DKKH: " + e.getMessage());
                     System.err.println(this.getClass().getName() + " Exception -> NQ11_DKKH: " + e.getMessage());
+                }
+            }
+
+            return "success";
+
+        } catch (Exception ex) {
+            CoreLogger.error(this.getClass().getName() + " getDataQtKehoach " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " loi getDataQtKehoach " + ex.getMessage());
+        }
+
+        return SUCCESS;
+    }
+    
+    public String TaiDulieuDangKy() {
+        try {
+            HashMap hmParameter = getParameter();
+            service = new DuLieuNTService();
+
+            ArrayList<DuLieuNTRow> lstData = new ArrayList<>();
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+
+//            int sTonghop = service.summaryDataManual(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), "M", hmParameter.get("nambc").toString() + "1231", UserName, "D1|D2|D3|D4|D5|D6|D7|D8|D9|D10|D11|D12");
+
+            lstData = service.getData("NQ11_DKKH", posMainModel.getPosCd(), "S", hmParameter.get("nambc").toString() + "1231");
+
+            lstData.sort(Comparator.comparing(o -> Integer.parseInt(o.getOrderValue())));
+            int i = 1;
+            for (DuLieuNTRow item : lstData) {
+                try {
+                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+                    row.setKHOA(Define.NV_QT);
+                    row.setTHUTU(i);
+                    row.setTT_HIENTHI(item.getOrderDescription());
+                    row.setMA(item.getCode());
+                    row.setTEN(item.getName());
+
+                    Date reportDate = DateUtil.toDate(item.getReportDate());
+                    row.setNGAYBC(reportDate);
+                    row.setMAPGD(item.getPosCode());
+                    row.setMACN(item.getBranchCode());
+
+                    row.setD1(item.getD1());
+                    row.setD2(item.getD2());
+                    row.setD3(item.getD3());
+                    row.setD4(item.getD4());
+                    row.setD5(item.getD5());
+                    row.setD6(item.getD6());
+                    row.setD7(item.getD7());
+                    row.setD8(item.getD8());
+                    row.setD9(item.getD9());
+                    row.setD10(item.getD10());
+                    row.setD11(item.getD11());
+                    row.setD12(item.getD12());
+                    row.setD13(item.getD13());
+                    row.setD14(item.getD14());
+//                        row.setD19(item.getD19());
+                    lstDulieuNt.add(row);
+                    i++;
+                } catch (Exception e) {
+                    CoreLogger.error(this.getClass().getName() + " Exception -> TaiDulieuDangKy: " + e.getMessage());
+                    System.err.println(this.getClass().getName() + " Exception -> TaiDulieuDangKy: " + e.getMessage());
                 }
             }
 
