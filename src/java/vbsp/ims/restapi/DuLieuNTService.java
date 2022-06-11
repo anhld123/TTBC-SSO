@@ -421,7 +421,7 @@ public class DuLieuNTService extends ReportService {
         mapper.setSerializationInclusion(Include.NON_NULL);
         try {
             json = mapper.writeValueAsString(data);
-            //System.out.println("ResultingJSONstring = " + json);            
+            System.out.println("ResultingJSONstring = " + json);            
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -602,6 +602,25 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
                 .queryParam("updateId", makerId == null || makerId == "" ? "" : makerId);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        return response.getStatus();
+    }
+    
+    public int summaryDataManual(String key, String posCode, String posFlag, String reportDate, String makerId, String fields) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("manual-data-summary")
+                //                .queryParam("key", key)
+                .queryParam("key", key)
+                .queryParam("posCode", posCode )
+                .queryParam("posFlag", posFlag )
+                .queryParam("reportDate", reportDate)
+                .queryParam("updateId", makerId == null || makerId == "" ? "" : makerId)
+                .queryParam("fields", fields )
+;
 
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();

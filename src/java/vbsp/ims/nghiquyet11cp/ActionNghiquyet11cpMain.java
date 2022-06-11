@@ -185,15 +185,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     protected List<ListValue> lstGiaiNgan = new ArrayList<ListValue>();
     protected List<ListValue> lstNhadautu = new ArrayList<ListValue>();
     protected List<ListValue> lstNam = new ArrayList<ListValue>();
-
-    public List<QT_DULIEU_NT> getLstDulieuNt_tong() {
-        return lstDulieuNt_tong;
-    }
-
-    public void setLstDulieuNt_tong(List<QT_DULIEU_NT> lstDulieuNt_tong) {
-        this.lstDulieuNt_tong = lstDulieuNt_tong;
-    }
-
+    protected List<ListValue> lstMaPGD = new ArrayList<ListValue>();         
     protected List<ListValue> lstParameters = new ArrayList<>();
     protected List<String> poscd = new ArrayList<String>();
     protected String poslist;
@@ -426,6 +418,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
             }
             else if (khoa_nghiquyet11cp.equals("NQ11_DKKH")) {
                 setLstNam(daoMain.getDanhMuc(UserName, "NAMKH", Grade));
+                setLstMaPGD(daoMain.getDanhMuc(UserName, "MAPGD", Grade));
                 return "nghiquyet11cp_01_dkkh";
             }
             else{
@@ -700,6 +693,21 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
         this.lstNam = lstNam;
     }
     
+    public List<QT_DULIEU_NT> getLstDulieuNt_tong() {
+        return lstDulieuNt_tong;
+    }
+
+    public void setLstDulieuNt_tong(List<QT_DULIEU_NT> lstDulieuNt_tong) {
+        this.lstDulieuNt_tong = lstDulieuNt_tong;
+    }
+
+    public List<ListValue> getLstMaPGD() {
+        return lstMaPGD;
+    }
+
+    public void setLstMaPGD(List<ListValue> lstMaPGD) {
+        this.lstMaPGD = lstMaPGD;
+    }
     //</editor-fold>
 
     
