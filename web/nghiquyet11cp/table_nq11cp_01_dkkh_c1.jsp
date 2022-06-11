@@ -77,6 +77,11 @@
                 }
                 return ma;
             }
+//             function showChange(col, stt)
+//            {
+//                setValue('showChange', col+stt);
+//                document.getElementById('showChange').innerHTML =col+stt
+//            }
 
             function sumColumn(mainput_tmp)
             {
@@ -139,20 +144,20 @@
                         setValue('D14_' + pos, Math.round(getValue('D13_' + pos)*0.02).toFixed(2));
                         
                     }    
-                    setValue('D1_47' , getValue('D1_0') + getValue('D1_30'));    
-                    setValue('D2_47' , getValue('D2_0') + getValue('D2_30'));   
-                    setValue('D3_47' , getValue('D3_0') + getValue('D3_30'));   
-                    setValue('D4_47' , getValue('D4_0') + getValue('D4_30'));   
-                    setValue('D5_47' , getValue('D5_0') + getValue('D5_30'));   
-                    setValue('D6_47' , getValue('D6_0') + getValue('D6_30'));   
-                    setValue('D7_47' , getValue('D7_0') + getValue('D7_30'));   
-                    setValue('D8_47' , getValue('D8_0') + getValue('D8_30'));   
-                    setValue('D9_47' , getValue('D9_0') + getValue('D9_30'));   
-                    setValue('D10_47' , getValue('D10_0') + getValue('D10_30'));   
-                    setValue('D11_47' , getValue('D11_0') + getValue('D11_30')); 
-                    setValue('D12_47' , getValue('D12_0') + getValue('D12_30')); 
-                    setValue('D13_47' , getValue('D13_0') + getValue('D13_30')); 
-                    setValue('D14_47' , getValue('D14_0') + getValue('D14_30')); 
+                    setValue('D1_46' , getValue('D1_0') + getValue('D1_30'));    
+                    setValue('D2_46' , getValue('D2_0') + getValue('D2_30'));   
+                    setValue('D3_46' , getValue('D3_0') + getValue('D3_30'));   
+                    setValue('D4_46' , getValue('D4_0') + getValue('D4_30'));   
+                    setValue('D5_46' , getValue('D5_0') + getValue('D5_30'));   
+                    setValue('D6_46' , getValue('D6_0') + getValue('D6_30'));   
+                    setValue('D7_46' , getValue('D7_0') + getValue('D7_30'));   
+                    setValue('D8_46' , getValue('D8_0') + getValue('D8_30'));   
+                    setValue('D9_46' , getValue('D9_0') + getValue('D9_30'));   
+                    setValue('D10_46' , getValue('D10_0') + getValue('D10_30'));   
+                    setValue('D11_46' , getValue('D11_0') + getValue('D11_30')); 
+                    setValue('D12_46' , getValue('D12_0') + getValue('D12_30')); 
+                    setValue('D13_46' , getValue('D13_0') + getValue('D13_30')); 
+                    setValue('D14_46' , getValue('D14_0') + getValue('D14_30')); 
                 } catch (e)
                 {
                     alert(e);
@@ -215,7 +220,7 @@
         </style>
     </head>
     <body style="font-family: ">
-        <s:form id="id_sv_NQ11_DKKH" action="SAVE_NQ11_DKKH" theme="simple">
+        <s:form id="id_sv_%{khoa_nghiquyet11cp}" action="SAVE_%{khoa_nghiquyet11cp}" theme="simple">
             <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
                 <input type="hidden" id="<s:property  value="sKey" />" 
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
@@ -223,8 +228,13 @@
                 
             </br>
             <div id="divTitle">
-                ĐĂNG KÝ KẾ HOẠCH HỖ TRỢ LÃI SUẤT CHO KHÁCH HÀNG VAY VỐN
-                <!--</br><font color="red">(Trung ương giao: Cho vay hỗ trợ tạo việc làm - <s:property  value="vieclam_total"/> &nbsp;&nbsp; Cho vay Nhà ở xã hội - <s:property  value="noxh_total"/>)</font>--> 
+                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11_DKKH')">
+                    <font color="red"> ĐĂNG KÝ </font> KẾ HOẠCH HỖ TRỢ LÃI SUẤT CHO KHÁCH HÀNG VAY VỐN  
+                </s:if>
+                <s:else>
+                    <font color="red"> ĐIỀU CHỈNH </font> KẾ HOẠCH HỖ TRỢ LÃI SUẤT CHO KHÁCH HÀNG VAY VỐN  
+                </s:else>    
+                              
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nghiquyet11cp"/>
@@ -233,6 +243,7 @@
             <div id="divDonvitinh">
                 Đơn vị tính: Triệu đồng              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </div>
+<!--            <label id="showChange"></label>-->
             <div class="cls-over">
             <div id="scrolling_table_1"   class="editDelete" style="width: 98%; max-height:45vh">
                 <table id="tblTable">
@@ -288,6 +299,8 @@
                                        readonly="true"/>   
                                 <input type="hidden" value="<s:property  value="MA" />" id="id_<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/> 
+                                <input type="hidden" value="<s:property  value="MAPGD" />" id="id_<s:property  value="%{#rowstatus.index}" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD"/> 
                             </td>  
 <!--                            <td align = "right" class="TD_SOKU" >
                                 <input type="text"   value="<s:property  value="MA" />" style="background: #C0C0C0 !important;" title="<s:property  value="MA" />" id="id_<s:property  value="%{#rowstatus.index}" />"
@@ -431,7 +444,7 @@
             </div>
             </div>
 
-            <sj:submit id="NQ11_DKKH_save" name="NQ11_DKKH_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
+            <sj:submit id="%{khoa_nghiquyet11cp}_save" name="%{khoa_nghiquyet11cp}_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
                        onCompleteTopics="completediv_ss" cssStyle="display: none"/>
         </s:form>
            
