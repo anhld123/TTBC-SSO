@@ -220,8 +220,9 @@
 
             function onLoadData()
             {
-
-
+                $('#message_suc_err').empty();
+                $('#divExportReport').empty();
+                $('#divExportReportLink').empty();
                 $("#loadData")[0].click();
                 bsubmit = true;
 
@@ -506,34 +507,43 @@
                                         &nbsp;&nbsp;&nbsp;&nbsp;
                                     </td>    
                                 </s:if>
-                                <td >                                        
+                                <td >
+                                    <s:if test="Grade.equalsIgnoreCase('1') && khoa_nghiquyet11cp.equalsIgnoreCase('NQ11_DCKH')">
+                                        <s:url id="idReloadData" action="NQ11_DCKH_DKKH.action"></s:url>                                      
+                                        <sj:submit id="idReLoad" name="nameloadDatatmp" href="%{idReloadData}" value="Tải dữ liệu ĐK" targets="divExportReport"
+                                                   onBeforeTopics="beforediv_send"
+                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                        <input type="button" id="idSumDatatmp" name="idSumDatatmp"  onclick="onReLoadData()" value="Tải dữ liệu ĐK" style="color: red;"/>
+                                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                                    </s:if>
+                                    
                                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                                onBeforeTopics="beforediv_data"
                                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                                    <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
+                                    <input type="button" id="loadDatatmp" name="loadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                                     <s:if test="Grade.equalsIgnoreCase('1')">
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu số liệu"/>
+                                        <input type="button" id="idSaveDatatmp" name="idSaveDatatmp"  onclick="onSaveData()" value="Lưu số liệu"/>
                                     </s:if>
                                     <s:else>
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu số liệu"/>
+                                        <input type="button" id="idSaveDatatmp" name="idSaveDatatmp"  onclick="onSaveData()" value="Lưu số liệu"/>
                                     </s:else>    
 
 
 
                                 </td>
-                                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11_DKKH')&&Grade.equalsIgnoreCase('2')">
+                                <s:if test="Grade.equalsIgnoreCase('2')">
                                     <td>
                                         &nbsp;|&nbsp;&nbsp;
                                         <s:url id="idReloadData" action="NQ11_DKKH_SUMMARY.action"></s:url>                                      
                                         <sj:submit id="idReLoad" name="nameloadDatatmp" href="%{idReloadData}" value="Tổng hợp từ đơn vị" targets="divExportReport"
                                                    onBeforeTopics="beforediv_send"
                                                    onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                        <input type="button" id="idsaveDatatmp" name="nameloadDatatmp"  onclick="onReLoadData()" value="Tổng hợp từ đơn vị" style="color: red;"/>
+                                        <input type="button" id="idSumDatatmp" name="idSumDatatmp"  onclick="onReLoadData()" value="Tổng hợp từ đơn vị" style="color: red;"/>
                                     </td>      
 
                                 </s:if>
 
-                                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11_DKKH')&&Grade.equalsIgnoreCase('1')">
+                                <s:if test="Grade.equalsIgnoreCase('1') && khoa_nghiquyet11cp.equalsIgnoreCase('NQ11_DKKH')">
                                     <td>
                                         &nbsp;&nbsp;|&nbsp;&nbsp;
                                         <sj:a class="cmd" href="#" onclick="callDirectLink('nq11_dkkh_open_upload?');" >
@@ -554,7 +564,7 @@
                     </div>
                 </div>
 
-                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11_DKKH')&& (Grade.equalsIgnoreCase('1') || Grade.equalsIgnoreCase('2'))">
+                <s:if test="(khoa_nghiquyet11cp.equalsIgnoreCase('NQ11_DKKH') || khoa_nghiquyet11cp.equalsIgnoreCase('NQ11_DCKH'))&& (Grade.equalsIgnoreCase('1') || Grade.equalsIgnoreCase('2'))">
                     <div id="containParm_full" align="center">
                         <div id="divExportReport"></div>
                         <div align="right"  id="divExportReportLink"></div>

@@ -995,7 +995,7 @@ public class DaoNghiquyet11cp {
         return true;
     }
     
-    public boolean saveNQ11CP_01_DKKH(String username, String capbc, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) 
+    public boolean saveNQ11CP_01_DKKH(String khoa, String username, String capbc, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) 
             throws SQLException {
         Connection connection = new DaoConnect().getConnect();
         Object array[] = lstData.toArray();
@@ -1004,11 +1004,12 @@ public class DaoNghiquyet11cp {
         ARRAY array_to_pass = new ARRAY(des, connection, array);
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_SAVE_01_DKKH(?, ?, ?, ?)}");
-            cs.setString(1, username);
-            cs.setString(2, capbc);            
-            cs.setString(3, ngaybc);
-            cs.setArray(4, array_to_pass);            
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_SAVE_01_DKKH(?, ?, ?, ?, ?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, username);
+            cs.setString(3, capbc);            
+            cs.setString(4, ngaybc);
+            cs.setArray(5, array_to_pass);            
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();

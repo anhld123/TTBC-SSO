@@ -164,7 +164,7 @@
                 outline: none;
             }
 
-            #loadDatatmp, #idsaveDatatmp{
+            #loadDatatmp, #idsaveDatatmp, #idSumDatatmp{
                 cursor: pointer;
                 display: inline-block;
                 min-height: 1em;
