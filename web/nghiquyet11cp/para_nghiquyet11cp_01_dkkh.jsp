@@ -220,10 +220,10 @@
 
             function onLoadData()
             {
-                
 
-                    $("#loadData")[0].click();
-                    bsubmit = true;
+
+                $("#loadData")[0].click();
+                bsubmit = true;
 
             }
             function onSaveData()
@@ -447,6 +447,29 @@
                 resize.focus();
             }
 
+            function onReLoadData()
+            {
+                $('#message_suc_err').empty();
+                $('#divExportReport').empty();
+//                var khoa_tdnn = $("#khoa").val();
+
+                var poscd = getposfromtreecheck();
+                var k = confirm("Bạn chắc chắn muốn Tổng hợp (lại) số liệu ? OK : Đồng ý, Cancel : Hủy bỏ");
+                if (k == true) {
+                    $("#idReLoad")[0].click();
+                }
+//                if (!bsubmit)
+//                {
+////                    alert('Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !');
+//                    $('#message_suc_err').html("<h2 style='color: red'>Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !</h2>");
+//                    return;
+//                }
+
+
+//                bsubmit = false;
+            }
+
+
         </script>
     </head>
     <!--new java.util.Date()-->
@@ -462,18 +485,27 @@
                     <div id="navParam3">     
                         <table>
                             <tr style="height: 30px;">
-<!--                                <td>Ngày BC</td>
-                                <td>
-                                    <sj:datepicker name="ngay_bc_DATE" value="%{'30/04/2022'}"  id="ngay_bc_DATE"
-                                                   placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
-                                </td>-->
+                                <!--                                <td>Ngày BC</td>
+                                                                <td>
+                                <sj:datepicker name="ngay_bc_DATE" value="%{'30/04/2022'}"  id="ngay_bc_DATE"
+                                               placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
+                            </td>-->
                                 <td>Kế hoạch năm: </td>
                                 <td>
                                     <s:select list="lstNam" theme="simple"
-                                    name="nambc" id="nambc"
-                                    listKey="sKey" listValue="sDesc" />
+                                              name="nambc" id="nambc"
+                                              listKey="sKey" listValue="sDesc" />
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>    
+                                <s:if test="Grade.equalsIgnoreCase('2')">
+                                    <td>Đơn vị: </td>
+                                    <td>
+                                        <s:select list="lstMaPGD" theme="simple"
+                                                  name="mapgd" id="mapgd"
+                                                  listKey="sKey" listValue="sDesc" />
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                    </td>    
+                                </s:if>
                                 <td >                                        
                                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                                onBeforeTopics="beforediv_data"
@@ -491,16 +523,16 @@
                                 </td>
                                 <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11_DKKH')&&Grade.equalsIgnoreCase('2')">
                                     <td>
-                                    &nbsp;|&nbsp;&nbsp;
-                                                <s:url id="idReloadData" action="NQ11_DKKH_reload.action"></s:url>                                      
-                                                <sj:submit id="idReLoad" name="nameloadDatatmp" href="%{idReloadData}" value="Tổng hợp từ đơn vị" targets="divExportReport"
-                                                           onBeforeTopics="beforediv_send"
-                                                           onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                                <input type="button" id="idsaveDatatmp" name="nameloadDatatmp"  onclick="onReLoadData()" value="Tổng hợp từ đơn vị" style="color: red;"/>
-                                     </td>      
+                                        &nbsp;|&nbsp;&nbsp;
+                                        <s:url id="idReloadData" action="NQ11_DKKH_SUMMARY.action"></s:url>                                      
+                                        <sj:submit id="idReLoad" name="nameloadDatatmp" href="%{idReloadData}" value="Tổng hợp từ đơn vị" targets="divExportReport"
+                                                   onBeforeTopics="beforediv_send"
+                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                        <input type="button" id="idsaveDatatmp" name="nameloadDatatmp"  onclick="onReLoadData()" value="Tổng hợp từ đơn vị" style="color: red;"/>
+                                    </td>      
 
                                 </s:if>
-                                
+
                                 <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11_DKKH')&&Grade.equalsIgnoreCase('1')">
                                     <td>
                                         &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -522,7 +554,7 @@
                     </div>
                 </div>
 
-                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11_DKKH')&&Grade.equalsIgnoreCase('1')">
+                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11_DKKH')&& (Grade.equalsIgnoreCase('1') || Grade.equalsIgnoreCase('2'))">
                     <div id="containParm_full" align="center">
                         <div id="divExportReport"></div>
                         <div align="right"  id="divExportReportLink"></div>
@@ -553,15 +585,16 @@
             </s:form>
         </div>
         <script>
-                function addZeroToLead(value) {
-                                    var strVal = value.toString();
-                                    if (strVal.length < 2) {
-                                        return "0" + value;
-                                    } else {
-                                        return strVal;
-                                    }
-                                };                                                
-                        
+            function addZeroToLead(value) {
+                var strVal = value.toString();
+                if (strVal.length < 2) {
+                    return "0" + value;
+                } else {
+                    return strVal;
+                }
+            }
+            ;
+
         </script>
     </div>
 </body>

@@ -30,7 +30,7 @@
                 $(".TD_TOTIEN").css({"width": "70px"});
                 $(".TD_NGAY").css({"width": "55px"});
                 $(".TD_TENKH").css({"width": "330px"});
-                $(".TD_SOKU").css({"width": "80px"});
+                $(".TD_SOKU").css({"width": "60px"});
                 $(".TD_NGAY").css({"width": "40px"});
                 $(".TD_CHITIEU").css({"width": "300px"});
                 $(".TD_GHICHU").css({"width": "150px"});
@@ -81,43 +81,85 @@
             function sumColumn(mainput_tmp)
             {
                 var mainput = $.trim(mainput_tmp.toString());
+                
                 try {
                     var table = document.getElementById("tblTable");
                     var rowcount = table.rows.length;
                     rowcount = rowcount > max_row ? rowcount : max_row;
-                    var D1 = 0, D2 = 0;
+                    var D1 = 0, D2 = 0, D3 = 0, D4 = 0, D5 = 0,D6 = 0,D7 = 0,D8 = 0,D9 = 0,D10 = 0,D11 = 0,D12 = 0, D13 = 0, D14;
                     var pos = -1;
 
                     for (var i = 0; i < rowcount; i++)
                     {
                         var matmp = getMabyNumber(i);
-//                        alert(matmp);
-
-                        if (mainput.substr(1, 3) == matmp.substr(1, 3))
-                        {
-//                            alert(matmp.substr(4,8));
-                            if (matmp.substr(4, 8) != '00000')
+//                       alert(matmp.substr(4, 8) + i);
+                        if (matmp.substr(4, 8) == '0000')
                             {
-                                //lay ra gia tri cua truong D7,D8,D9
-                                D1 = D1 + getValue('D1_' + i);
-                                D2 = D2 + getValue('D2_' + i);
-                            }
-                            if (matmp.substr(4, 8) == '00000')
-                            {
+                                D1 = 0, D2 = 0, D3 = 0, D4 = 0, D5 = 0,D6 = 0,D7 = 0,D8 = 0,D9 = 0,D10 = 0,D11 = 0,D12 = 0, D13=0, D14=0;
                                 pos = i;
-                            }
-
+                            }                            
+                        if (mainput.substr(1, 3) == matmp.substr(1, 3))
+                        {                       
+                            if (matmp.substr(4, 8) != '0000')
+                            {                                                                
+                                D1 = D1 + getValue('D1_' + i);                             
+                                D2 = D2 + getValue('D2_' + i);
+                                D3 = D3 + getValue('D3_' + i);
+                                D4 = D4 + getValue('D4_' + i);
+                                D5 = D5 + getValue('D5_' + i);
+                                D6 = D6 + getValue('D6_' + i);
+                                D7 = D7 + getValue('D7_' + i);
+                                D8 = D8 + getValue('D8_' + i);
+                                D9 = D9 + getValue('D9_' + i);
+                                D10 = D10 + getValue('D10_' + i);
+                                D11 = D11 + getValue('D11_' + i);
+                                D12 = D12 + getValue('D12_' + i);
+                                setValue('D13_' + i, getValue('D1_' + i) + getValue('D2_' + i) + getValue('D3_' + i) + getValue('D4_' + i) + getValue('D5_' + i) + getValue('D6_' + i) + 
+                                getValue('D7_' + i) + getValue('D8_' + i) + getValue('D9_' + i) + getValue('D10_' + i) + getValue('D11_' + i) + getValue('D12_' + i) )
+                                D13 = D13 + getValue('D13_' + i);
+                                setValue('D14_' + i, Math.round(getValue('D13_' + i)*0.02).toFixed(2))
+                            }                                                       
                         }
-
-                    }
-                    setValue('D1_' + pos, D1);
-                    setValue('D2_' + pos, D2);
+                        
+                        
+                        setValue('D1_' + pos, D1);
+                        setValue('D2_' + pos, D2);
+                        setValue('D3_' + pos, D3);
+                        setValue('D4_' + pos, D4);
+                        setValue('D5_' + pos, D5);
+                        setValue('D6_' + pos, D6);
+                        setValue('D7_' + pos, D7);
+                        setValue('D8_' + pos, D8);
+                        setValue('D9_' + pos, D9);
+                        setValue('D10_' + pos, D10);
+                        setValue('D11_' + pos, D11);
+                        setValue('D12_' + pos, D12);
+                        setValue('D13_' + pos, D13);
+//                        alert(Math.round(getValue('D13_' + pos)*0.02).toFixed(2))
+                        setValue('D14_' + pos, Math.round(getValue('D13_' + pos)*0.02).toFixed(2));
+                        
+                    }    
+                    setValue('D1_47' , getValue('D1_0') + getValue('D1_30'));    
+                    setValue('D2_47' , getValue('D2_0') + getValue('D2_30'));   
+                    setValue('D3_47' , getValue('D3_0') + getValue('D3_30'));   
+                    setValue('D4_47' , getValue('D4_0') + getValue('D4_30'));   
+                    setValue('D5_47' , getValue('D5_0') + getValue('D5_30'));   
+                    setValue('D6_47' , getValue('D6_0') + getValue('D6_30'));   
+                    setValue('D7_47' , getValue('D7_0') + getValue('D7_30'));   
+                    setValue('D8_47' , getValue('D8_0') + getValue('D8_30'));   
+                    setValue('D9_47' , getValue('D9_0') + getValue('D9_30'));   
+                    setValue('D10_47' , getValue('D10_0') + getValue('D10_30'));   
+                    setValue('D11_47' , getValue('D11_0') + getValue('D11_30')); 
+                    setValue('D12_47' , getValue('D12_0') + getValue('D12_30')); 
+                    setValue('D13_47' , getValue('D13_0') + getValue('D13_30')); 
+                    setValue('D14_47' , getValue('D14_0') + getValue('D14_30')); 
                 } catch (e)
                 {
                     alert(e);
                     console.log(e.toString());
                 }
                 $('.number').number(true, 0);
+//                $('.number2').number(true, 2);
             }
 
             function getMabyNumber(idx)
@@ -173,7 +215,7 @@
         </style>
     </head>
     <body style="font-family: ">
-        <s:form id="id_sv_NQ11CP_04KH" action="SAVE_NQ11CP_04KH" theme="simple">
+        <s:form id="id_sv_NQ11_DKKH" action="SAVE_NQ11_DKKH" theme="simple">
             <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
                 <input type="hidden" id="<s:property  value="sKey" />" 
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
@@ -181,83 +223,215 @@
                 
             </br>
             <div id="divTitle">
-                DỰ KIẾN GIAO CHỈ TIÊU KẾ HOẠCH TÍN DỤNG MỘT SỐ CHƯƠNG TRÌNH CHO VAY THEO NGHỊ QUYẾT 11/NQ-CP
-                </br><font color="red">(Trung ương giao: Cho vay hỗ trợ tạo việc làm - <s:property  value="vieclam_total"/> &nbsp;&nbsp; Cho vay Nhà ở xã hội - <s:property  value="noxh_total"/>)</font> 
+                ĐĂNG KÝ KẾ HOẠCH HỖ TRỢ LÃI SUẤT CHO KHÁCH HÀNG VAY VỐN
+                <!--</br><font color="red">(Trung ương giao: Cho vay hỗ trợ tạo việc làm - <s:property  value="vieclam_total"/> &nbsp;&nbsp; Cho vay Nhà ở xã hội - <s:property  value="noxh_total"/>)</font>--> 
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nghiquyet11cp"/>
             <!--            <div class="cls-over">
                             <div id="scrolling_table_1"  style="width: 98%; max-height:45vh">-->       
             <div id="divDonvitinh">
-                Đơn vị tính: Triệu đồng              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Đơn vị tính: Triệu đồng              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </div>
             <div class="cls-over">
-            <div id="scrolling_table_1"   class="editDelete" style="width: 85%; max-height:45vh">
+            <div id="scrolling_table_1"   class="editDelete" style="width: 98%; max-height:45vh">
                 <table id="tblTable">
                     <tr >                                                                                  
-                        <th rowspan="1" class="TD_STT">STT</th>   
-                        <th colspan="1" class="TD_SOKU">Mã đơn vị - nv</th>   
-                        <th rowspan="1" class="TD_TENKH">Tên chi nhánh</th>                              
-                        <th colspan="1" class="TD_SOKU">Cho vay hỗ trợ tạo việc làm</th>                                                      
-                        <th colspan="1" class="TD_SOKU">Cho vay Nhà ở xã hội</th>   
+                        <th rowspan="2" class="TD_STT">STT</th>   
+                        <!--<th rowspan="2" class="TD_SOKU">MA</th>-->   
+                        <th rowspan="2" class="TD_TENKH">Chỉ tiêu</th>   
+                        <th colspan="12" class="TD_TENKH">Dự kiến dư nợ cho vay được hỗ trợ lãi suất</th>                              
+                        <th rowspan="2" class="TD_SOKU">Tổng cộng</th>                                                      
+                        <th rowspan="2" class="TD_SOKU">Nhu cầu hỗ trợ lãi suất trong tháng</th>   
                     </tr>         
 
-
-                    <tr style="font-style: italic;">
-                        <td style="text-align: center"></td> 
+                    <tr>
+                        <th  class="TD_STT">T1</th>   
+                        <th  class="TD_STT">T2</th>   
+                        <th  class="TD_STT">T3</th>   
+                        <th  class="TD_STT">T4</th>   
+                        <th  class="TD_STT">T5</th>   
+                        <th  class="TD_STT">T6</th>   
+                        <th  class="TD_STT">T7</th>   
+                        <th  class="TD_STT">T8</th>   
+                        <th  class="TD_STT">T9</th>   
+                        <th  class="TD_STT">T10</th>   
+                        <th  class="TD_STT">T11</th>   
+                        <th  class="TD_STT">T12</th>   
+                        
+                    </tr>        
+                    <tr style="font-style: italic;">                        
                         <td style="text-align: center">(1)</td>                            
                         <td style="text-align: center">(2)</td>
                         <td style="text-align: center">(3)</td>
                         <td style="text-align: center">(4)</td>
-
+                        <td style="text-align: center">(5)</td> 
+                        <td style="text-align: center">(6)</td>                            
+                        <td style="text-align: center">(7)</td>
+                        <td style="text-align: center">(8)</td>
+                        <td style="text-align: center">(9)</td>
+                        <td style="text-align: center">(10)</td> 
+                        <td style="text-align: center">(11)</td>                            
+                        <td style="text-align: center">(12)</td>
+                        <td style="text-align: center">(13)</td>
+                        <td style="text-align: center">(14)</td>
+                        <td style="text-align: center">(15)</td>
+                        <td style="text-align: center">(16)</td>
                     </tr>
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                         <tr>  
-
                             <td align = "right" class="TD_STT" >
                                 <input type="text"   value="<s:property  value="TT_HIENTHI" />" style="background: #C0C0C0 !important;"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" 
-                                       class=" TEN_KH D0 " 
+                                       class=" TEN_KH D0 <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>" 
                                        onfocus="this.select();"
-                                       readonly="true"/>                                                                                                                
-                                <input type="hidden" value="<s:property  value="MACN" />" id="id_<s:property  value="%{#rowstatus.index}" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN"/> 
-                                <input type="hidden" value="<s:property  value="D15" />" id="id_<s:property  value="%{#rowstatus.index}" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15"/>
+                                       readonly="true"/>   
+                                <input type="hidden" value="<s:property  value="MA" />" id="id_<s:property  value="%{#rowstatus.index}" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/> 
                             </td>  
-
-                            <td align = "right" class="TD_SOKU" >
-                                <input type="text"   value="<s:property  value="MA" />" style="background: #C0C0C0 !important;"
+<!--                            <td align = "right" class="TD_SOKU" >
+                                <input type="text"   value="<s:property  value="MA" />" style="background: #C0C0C0 !important;" title="<s:property  value="MA" />" id="id_<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" 
-                                       class=" TEN_KH " 
+                                       class=" TEN_KH  <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>" 
                                        onfocus="this.select();" readonly="true"/> 
-                            </td>
+                            </td>-->
                             <td align = "right" class="TD_TENKH" >
                                 <input type="text"   value="<s:property  value="TEN" />" style="background: #C0C0C0 !important;" title="<s:property  value="TEN" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" 
-                                       class=" TEN_KH  " 
+                                       class=" TEN_KH <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>" 
                                        onfocus="this.select();" readonly="true"/> 
                             </td>
                             <td align = "right" class="TD_SOKU" >
-                                <input type="text"   value="<s:property  value="D2" />" title="<s:property  value="D2" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" 
-                                       class=" TEN_KH  number" 
-                                       onfocus="this.select();"/> 
+                                <input type="text"   value="<s:property  value="D1" />"  id="D1_<s:property  value="%{#rowstatus.index}" />"
+                                    style="<s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000')||MA.equalsIgnoreCase('3_S99999') "> background: #C0C0C0 !important; </s:if>"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
+                                       class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>"                                        
+                                       onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
+                                        <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">readonly</s:if>/> 
                             </td>
                             <td align = "right" class="TD_SOKU" >
-                                <input type="text"   value="<s:property  value="D4" />" title="<s:property  value="D4" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
-                                       class=" TEN_KH  number" 
-                                       onfocus="this.select();"/> 
+                                <input type="text"   value="<s:property  value="D2" />" id="D2_<s:property  value="%{#rowstatus.index}" />"
+                                   style="<s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000')||MA.equalsIgnoreCase('3_S99999') "> background: #C0C0C0 !important; </s:if>"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" 
+                                       class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>" 
+                                       onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
+                                       <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">readonly</s:if>/> 
+                            </td>
+                            <td align = "right" class="TD_SOKU" >
+                                <input type="text"   value="<s:property  value="D3" />" id="D3_<s:property  value="%{#rowstatus.index}" />"
+                                   style="<s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000')||MA.equalsIgnoreCase('3_S99999') "> background: #C0C0C0 !important; </s:if>"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" 
+                                       class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>" 
+                                       onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
+                                       <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">readonly</s:if>/> 
+                            </td>
+                            
+                            <td align = "right" class="TD_SOKU" >
+                                    <input type="text"   value="<s:property  value="D4" />"  id="D4_<s:property  value="%{#rowstatus.index}" />"
+                                            style="<s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000')||MA.equalsIgnoreCase('3_S99999') "> background: #C0C0C0 !important; </s:if>"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
+                                               class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>"                                        
+                                               onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
+                                                    <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">readonly</s:if>/> 
+                            </td>
+                            
+                            <td align = "right" class="TD_SOKU" >
+                                    <input type="text"   value="<s:property  value="D5" />"  id="D5_<s:property  value="%{#rowstatus.index}" />"
+                                            style="<s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000')||MA.equalsIgnoreCase('3_S99999') "> background: #C0C0C0 !important; </s:if>"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
+                                               class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>"                                        
+                                               onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
+                                                    <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">readonly</s:if>/> 
                             </td>
 
+                            <td align = "right" class="TD_SOKU" >
+                                    <input type="text"   value="<s:property  value="D6" />"  id="D6_<s:property  value="%{#rowstatus.index}" />"
+                                            style="<s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000')||MA.equalsIgnoreCase('3_S99999') "> background: #C0C0C0 !important; </s:if>"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" 
+                                               class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>"                                        
+                                               onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
+                                                    <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">readonly</s:if>/> 
+                            </td>
+
+                            <td align = "right" class="TD_SOKU" >
+                                    <input type="text"   value="<s:property  value="D7" />"  id="D7_<s:property  value="%{#rowstatus.index}" />"
+                                            style="<s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000')||MA.equalsIgnoreCase('3_S99999') "> background: #C0C0C0 !important; </s:if>"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" 
+                                               class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>"                                        
+                                               onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
+                                                    <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">readonly</s:if>/> 
+                            </td>
+
+                            <td align = "right" class="TD_SOKU" >
+                                    <input type="text"   value="<s:property  value="D8" />"  id="D8_<s:property  value="%{#rowstatus.index}" />"
+                                            style="<s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000')||MA.equalsIgnoreCase('3_S99999') "> background: #C0C0C0 !important; </s:if>"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" 
+                                               class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>"                                        
+                                               onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
+                                                    <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">readonly</s:if>/> 
+                            </td>
+
+                            <td align = "right" class="TD_SOKU" >
+                                    <input type="text"   value="<s:property  value="D9" />"  id="D9_<s:property  value="%{#rowstatus.index}" />"
+                                            style="<s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000')||MA.equalsIgnoreCase('3_S99999') "> background: #C0C0C0 !important; </s:if>"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" 
+                                               class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>"                                        
+                                               onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
+                                                    <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">readonly</s:if>/> 
+                            </td>
+
+                            <td align = "right" class="TD_SOKU" >
+                                    <input type="text"   value="<s:property  value="D10" />"  id="D10_<s:property  value="%{#rowstatus.index}" />"
+                                            style="<s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000')||MA.equalsIgnoreCase('3_S99999') "> background: #C0C0C0 !important; </s:if>"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" 
+                                               class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>"                                        
+                                               onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
+                                                    <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">readonly</s:if>/> 
+                            </td>
+
+                            <td align = "right" class="TD_SOKU" >
+                                    <input type="text"   value="<s:property  value="D11" />"  id="D11_<s:property  value="%{#rowstatus.index}" />"
+                                            style="<s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000')||MA.equalsIgnoreCase('3_S99999') "> background: #C0C0C0 !important; </s:if>"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" 
+                                               class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>"                                        
+                                               onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
+                                                    <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">readonly</s:if>/> 
+                            </td>
+
+                            <td align = "right" class="TD_SOKU" >
+                                    <input type="text"   value="<s:property  value="D12" />"  id="D12_<s:property  value="%{#rowstatus.index}" />"
+                                            style="<s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000')||MA.equalsIgnoreCase('3_S99999') "> background: #C0C0C0 !important; </s:if>"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" 
+                                               class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>"                                        
+                                               onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
+                                                    <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">readonly</s:if>/> 
+                            </td>
+
+                            <td align = "right" class="TD_SOKU" >
+                                    <input type="text"   value="<s:property  value="D13" />"  id="D13_<s:property  value="%{#rowstatus.index}" />"
+                                            style="background: #C0C0C0 !important;"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" 
+                                               class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>"                                        
+                                               onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
+                                                    readonly="true"/> 
+                            </td>
+
+                            <td align = "right" class="TD_SOKU" >
+                                    <input type="text"   value="<s:property  value="D14" />"  id="D14_<s:property  value="%{#rowstatus.index}" />"
+                                            style="background: #C0C0C0 !important;"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14" 
+                                               class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>"                                        
+                                               onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
+                                                    readonly="true"/> 
+                            </td>
+                                              
                         </tr>                                                                                                                                                                                   
                     </s:iterator>
                 </table>        
             </div>
             </div>
 
-            <sj:submit id="NQ11CP_04KH_save" name="NQ11CP_04KH_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
+            <sj:submit id="NQ11_DKKH_save" name="NQ11_DKKH_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
                        onCompleteTopics="completediv_ss" cssStyle="display: none"/>
         </s:form>
            
