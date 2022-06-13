@@ -190,7 +190,7 @@
                 </div>                
             </div>
             <div id="upload_result_div"/>
-            <div style="width: 100%; height: 500px">
+<!--            <div style="width: 100%; height: 500px">
                 <table border=1  id="editDelete" class="cls-table">
                     <tr>                    
                         <th rowspan="1" class="TD_STT">TT</th>
@@ -229,7 +229,7 @@
                         </tr>                                                                                                                                                                                   
                     </s:iterator>
                 </table>
-            </div>
+            </div>-->
 
         </div>    
 
