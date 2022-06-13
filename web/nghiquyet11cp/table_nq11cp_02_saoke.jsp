@@ -192,7 +192,7 @@
                                 </td>
                                 <td  align="center" class="TD_CHECKBOX">    
                                         <input type="checkbox" id ='idchk<s:property  value="%{#rowstatus.index}" />' class="checkboxdat TEN_KH" 
-                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" value="<s:property  value="D10"/>"                                            
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D33" value="<s:property  value="D33"/>"                                            
                                                />
                                     </td>
                                 <td align = "right" class="TD_TENKH" >
