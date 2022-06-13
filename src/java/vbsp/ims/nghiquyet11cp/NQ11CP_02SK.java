@@ -74,23 +74,24 @@ public class NQ11CP_02SK extends ActionNhaptaycnMain
                 String conditions = "";
 //                String sMaxa = (hmParameter.get("maxa").toString() == "000000" ? "" : hmParameter.get("maxa").toString());
 //                String sMato = (hmParameter.get("mato").toString() == "000000_0000000" ? "" : hmParameter.get("mato").toString().substring(7, 7));
-                String sSoku = "" ;
-                if(hmParameter.get("soku").toString().isEmpty() || hmParameter.get("soku").toString().equals(""))
+                String sSoku = "";
+                if (hmParameter.get("soku").toString().isEmpty() || hmParameter.get("soku").toString().equals("")) {
                     sSoku = "AAA";
-                else
-                    sSoku =hmParameter.get("soku").toString();
-                System.out.println("maxa: " + hmParameter.get("maxa").toString() + "mato: " + hmParameter.get("mato").toString().substring(7, 14) + "soku="+ sSoku);
-                
-                conditions = (hmParameter.get("maxa").toString().equals("000000") ? "" : "D6=" + hmParameter.get("maxa").toString() + "|") +
-                        (hmParameter.get("mato").toString().equals("000000_0000000") ? "" : "D4=" + hmParameter.get("mato").toString().substring(7, 14) + "|") +
-                        (sSoku.equals("AAA") ? "" : "D3=" + sSoku + "|") ;
+                } else {
+                    sSoku = hmParameter.get("soku").toString();
+                }
+                System.out.println("maxa: " + hmParameter.get("maxa").toString() + "mato: " + hmParameter.get("mato").toString().substring(7, 14) + "soku=" + sSoku);
+
+                conditions = (hmParameter.get("maxa").toString().equals("000000") ? "" : "D6=" + hmParameter.get("maxa").toString() + "|")
+                        + (hmParameter.get("mato").toString().equals("000000_0000000") ? "" : "D4=" + hmParameter.get("mato").toString().substring(7, 14) + "|")
+                        + (sSoku.equals("AAA") ? "" : "D3=" + sSoku + "|");
                 System.out.println(conditions);
                 ArrayList<DuLieuNTRow> lstData = service.getDataNQ11CP_02SK("NQ11CP_02SK", pos_cd_username, "S", dateStr, conditions);
                 if (lstData.size() > 499) {
                     addActionError("Dữ liệu quá lớn. Vui lòng chọn từng tổ để xác nhận.");;
                     return ERROR;
                 }
-                int iStt =1;
+                int iStt = 1;
                 for (DuLieuNTRow item : lstData) {
                     QT_DULIEU_NT row = new QT_DULIEU_NT();
                     row.setKHOA(item.getKey());
@@ -327,94 +328,67 @@ public class NQ11CP_02SK extends ActionNhaptaycnMain
 
             if (Grade.equals("1")) {
                 ArrayList<LockSendModel> lstDataLock = service.getDataLockSendNQ11CP(pos_cd_username, "S", strDate);
-                ArrayList<NQ11cpModel> lstUpdateDate = new ArrayList<>();
+                ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
                 if (lstDataLock.size() > 0) {
                     //Lưu phần phân loại hạch toán
                     if (lstDataLock.get(0).getStatus().equals("1")) {
                         addActionError("Đơn vị đã chốt số liệu. Bạn không thể điều chỉnh.");;
                         return ERROR;
                     } //Lưu phần xác nhận lãi giảm
-                    else {
+                }
+
 //                         DecimalFormat df = new DecimalFormat("#.##");
-                        for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                            if (tmp.getD33() != null) {
-
-                                NQ11cpModel tempadd = new NQ11cpModel();
-                                if (tmp.getD25() == null) {
-                                    tempadd.setMainPos(tmp.getMACN());
-                                    tempadd.setPosCode(tmp.getMAPGD());
-                                    tempadd.setLoanId(tmp.getD3());
-                                    tempadd.setIntSubsidyAdjustM01Amt(new BigInteger(tmp.getD18()));
-                                    tempadd.setIntSubsidyAdjustM02Amt(new BigInteger(tmp.getD19()));
-                                    tempadd.setIntSubsidyAdjustM03Amt(new BigInteger(tmp.getD20()));
-                                    tempadd.setIntConfirmFlag("0");
-                                    tempadd.setRejectReason(tmp.getD47());
-                                    lstUpdateDate.add(tempadd);
-                                } else {
-                                    tempadd.setMainPos(tmp.getMACN());
-                                    tempadd.setPosCode(tmp.getMAPGD());
-                                    tempadd.setLoanId(tmp.getD3());
-                                    tempadd.setIntSubsidyAdjustM01Amt(new BigInteger(tmp.getD18()));
-                                    tempadd.setIntSubsidyAdjustM02Amt(new BigInteger(tmp.getD19()));
-                                    tempadd.setIntSubsidyAdjustM03Amt(new BigInteger(tmp.getD20()));
-
-                                    tempadd.setM01Status("1");
-                                    tempadd.setM02Status("1");
-                                    tempadd.setM03Status("1");
-                                    tempadd.setIntConfirmFlag("1");
-                                    tempadd.setRejectReason(tmp.getD47());
-                                    lstUpdateDate.add(tempadd);
-                                }
-                            }
-                        }
-                        int status = service.updateDataNQ11CP_001(pos_cd_username, strDate, UserName, lstUpdateDate);
-                        if (status == 200) {
-                            ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
-                            DecimalFormat df = new DecimalFormat("#.##");
-                            for (NQ11cpModel item : lstUpdateDate) {
-                                QT_DULIEU_NT updateRow = new QT_DULIEU_NT();
-                                updateRow.setD1(item.getLoanId());
-
-                                updateRow.setD2(df.format(item.getIntSubsidyAdjustM01Amt()));
-                                updateRow.setD3(df.format(item.getIntSubsidyAdjustM02Amt()));
-                                updateRow.setD4(df.format(item.getIntSubsidyAdjustM03Amt()));
-                                updateRow.setD5(item.getIntConfirmFlag().toString());
-                                updateRow.setD6(item.getRejectReason());
-
-                                lstLocalDataUpdate.add(updateRow);
-                            }
-                            if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_001(UserName, pos_cd_username, strDate1, lstLocalDataUpdate, "1")) {
-                                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
-                                return ERROR;
-                            }
-                        }
-                    }
-                }
-
-            } else if (Grade.equals("2")) {
-                ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
+                ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
                 for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                    UpdateLockModel tempadd = new UpdateLockModel();
-                    if (tmp.getD25() == null) {
+                    if (tmp.getD33() != null) {
+                        DuLieuNTRow tempadd = new DuLieuNTRow();
+
+                        tempadd.setBranchCode(tmp.getMACN());
                         tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setStatus("0");
-                        lstUpdateDateLock.add(tempadd);
-                    } else {
-                        tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setStatus("1");
-                        lstUpdateDateLock.add(tempadd);
+                        tempadd.setCode(tmp.getD3());
+                        tempadd.setD3(tmp.getD3());
+                        tempadd.setD15(tmp.getD15());
+                        tempadd.setD16(tmp.getD16());
+                        tempadd.setD17(tmp.getD17());
+                        lstUpdateDate.add(tempadd);
+                        lstLocalDataUpdate.add(tmp);
                     }
                 }
-                int status = service.updateDataNQ11CP_ChotSL(pos_cd_username, strDate, UserName, lstUpdateDateLock);
+                int status = service.updateData("NQ11CP_02SK", pos_cd_username, "S", strDate, UserName, UserName, lstUpdateDate);
+                if (status == 200) {
+                    System.out.println("vbsp.ims.nghiquyet11cp.NQ11CP_02SK.save()");
+                    if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_02SK(UserName, pos_cd_username, strDate1, lstLocalDataUpdate)) {
+                        addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                        return ERROR;
+                    }
+                }
             }
 
+//        else if (Grade.equals("2")) {
+//                ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
+//                for (QT_DULIEU_NT tmp : lstDulieuNt) {
+//                    UpdateLockModel tempadd = new UpdateLockModel();
+//                    if (tmp.getD25() == null) {
+//                        tempadd.setPosCode(tmp.getMAPGD());
+//                        tempadd.setStatus("0");
+//                        lstUpdateDateLock.add(tempadd);
+//                    } else {
+//                        tempadd.setPosCode(tmp.getMAPGD());
+//                        tempadd.setStatus("1");
+//                        lstUpdateDateLock.add(tempadd);
+//                    }
+//                }
+//                int status = service.updateDataNQ11CP_ChotSL(pos_cd_username, strDate, UserName, lstUpdateDateLock);
+//            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> NQ11CP_02SK: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> NQ11CP_02SK: " + e.getMessage());
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
             return ERROR;
         }
-        addActionMessage("Bạn đã lưu dữ liệu thành công");
+
+        addActionMessage(
+                "Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
     }
 
