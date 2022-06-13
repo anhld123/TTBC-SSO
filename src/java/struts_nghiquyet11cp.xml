@@ -113,7 +113,7 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>
         
-        <action name="SAVE_NQ11_GKH" class="vbsp.ims.nghiquyet11cp.NQ11_DKH"  method="save">
+        <action name="SAVE_NQ11_GKH" class="vbsp.ims.nghiquyet11cp.NQ11_GKH"  method="save">
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>   

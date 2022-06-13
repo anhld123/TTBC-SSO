@@ -51,57 +51,27 @@
                 var table = document.getElementById("tblTable");
                 var rowcount = table.rows.length;
                 rowcount = rowcount > max_row ? rowcount : max_row;
-                for (var i = 0; i < rowcount; i++)
-                {                    
-                    var matmp1 = getMabyNumber1(i);//                       
-                    if (matmp1 === 1)
-                    {
-                        $('input:checkbox[id=idc11' + i + ']').attr('checked', true);
-                    }
-                }
+//                for (var i = 0; i < rowcount; i++)
+//                {                    
+//                    var matmp1 = getMabyNumber1(i);//                       
+//                    if (matmp1 === 1)
+//                    {
+//                        $('input:checkbox[id=idc11' + i + ']').attr('checked', true);
+//                    }
+//                }
             }
 
-            function getMabyNumber1(idx)
+            function sumColumn()
             {
-                var ma = '';
-                try {
-                    var ma_id = 'id9_' + idx;
-                    ma = document.getElementById(ma_id).value;
-                } catch (e)
-                {
-                    ma = '999999';
-                }
-                return ma;
-            }
-
-            function sumColumn(mainput_tmp)
-            {
-                var mainput = $.trim(mainput_tmp.toString());                
                 try {
                     var table = document.getElementById("tblTable");
                     var rowcount = table.rows.length;
                     rowcount = rowcount > max_row ? rowcount : max_row;
-                    var D1 = 0;
-                    var pos = -1;
-
+                    var value = 0;
                     for (var i = 0; i < rowcount; i++)
-                    {
-                        var matmp = getMabyNumber(i);
-                        if (matmp.substr(4, 8) === '0000')
-                            {
-                                D1 = 0;
-                                pos = i;
-                            }                            
-                        if (mainput.substr(1, 3) === matmp.substr(1, 3))
-                        {                       
-                            if (matmp.substr(4, 8) !== '0000')
-                            {                                                                
-                                D1 = D1 + getValue('D1_' + i);                                                             
-                            }                                                       
-                        }
-                        setValue('D1_' + pos, D1);                                                
-                        setValue('D2_' + pos, Math.round(getValue('D1_' + pos)*0.02).toFixed(2));
-                        
+                    {        
+                        value = (getValue('D1_' + i)*0.02).toFixed(2);
+                        setValue('D2_' + i, value);
                     }                        
                 } 
                 catch (e)
@@ -109,20 +79,7 @@
                     alert(e);
                     console.log(e.toString());
                 }
-                $('.number').number(true, 0);
-            }
-
-            function getMabyNumber(idx)
-            {
-                var ma = '';
-                try {
-                    var ma_id = 'id_' + idx;
-                    ma = document.getElementById(ma_id).value;
-                } catch (e)
-                {
-                    ma = '999999';
-                }
-                return ma;
+                $('.number2').number(true, 2);
             }
 
             function getValue(id)
@@ -141,6 +98,7 @@
                 }
                 return parseFloat(value);
             }
+            
             function setValue(id, value)
             {
                 try 
@@ -167,7 +125,7 @@
         </style>
     </head>
     <body style="font-family: ">
-        <s:form id="id_sv_NQ11_DKKH" action="SAVE_NQ11_DKKH" theme="simple">
+        <s:form id="id_sv_NQ11_GKH" action="SAVE_NQ11_GKH" theme="simple">
             <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
                 <input type="hidden" id="<s:property  value="sKey" />" 
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
@@ -175,7 +133,7 @@
                 
             </br>
             <div id="divTitle">
-                GIAO KẾ HOẠCH HỖ TRỢ LÃI SUẤT CHO KHÁCH HÀNG VAY VỐN NĂM ...                
+                <s:property  value="title" />                
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nghiquyet11cp"/>            
@@ -201,35 +159,34 @@
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                         <tr>  
                             <td align = "right" class="TD_STT" >
-                                <input type="text"   value="<s:property  value="TT_HIENTHI" />" style="background: #C0C0C0 !important;"
+                                <input type="text"   value="<s:property  value="TT_HIENTHI" />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" 
-                                       class=" TEN_KH D0 <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>" 
+                                       class=" TEN_KH D0" 
                                        onfocus="this.select();"
                                        readonly="true"/>   
                                 <input type="hidden" value="<s:property  value="MA" />" id="id_<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/> 
                             </td>  
                             <td align = "right" class="TD_TENKH" >
-                                <input type="text"   value="<s:property  value="TEN" />" style="background: #C0C0C0 !important;" title="<s:property  value="TEN" />"
+                                <input type="text"   value="<s:property  value="TEN" />" style="color: green;" title="<s:property  value="TEN" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" 
-                                       class=" TEN_KH <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>" 
+                                       class=" TEN_KH " 
                                        onfocus="this.select();" readonly="true"/> 
                             </td>
                             <td align = "right" class="TD_SOKU" >
-                                <input type="text"   value="<s:property  value="D1" />"  id="D1_<s:property  value="%{#rowstatus.index}" />"
-                                    style="<s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000')||MA.equalsIgnoreCase('3_S99999') "> background: #C0C0C0 !important; </s:if>"
+                                <input type="text"   value="<s:property  value="D1" />"  id="D1_<s:property  value="%{#rowstatus.index}" />"                                    
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
-                                       class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>"                                        
-                                       onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
-                                        <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">readonly</s:if>/> 
+                                       class=" TEN_KH  number"                                       
+                                       onblur="if (this.value === '') {this.value = 0;}; sumColumn();"
+                                       /> 
                             </td>
                             <td align = "right" class="TD_SOKU" >
-                                <input type="text"   value="<s:property  value="D2" />" id="D2_<s:property  value="%{#rowstatus.index}" />"
-                                   style="<s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000')||MA.equalsIgnoreCase('3_S99999') "> background: #C0C0C0 !important; </s:if>"
+                                <input type="text"   value="<s:property  value="D2" />" id="D2_<s:property  value="%{#rowstatus.index}" />"        
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" 
-                                       class=" TEN_KH  number <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">CLS-BOLD</s:if>" 
-                                       onblur="if (this.value == '') {this.value = 0}; sumColumn('<s:property  value="MA"/>');"
-                                       <s:if test="MA.equalsIgnoreCase('1_S00000') || MA.equalsIgnoreCase('2_S00000') || MA.equalsIgnoreCase('3_S99999')">readonly</s:if>/> 
+                                       class=" TEN_KH  number2" 
+                                       readonly
+                                       style="background: #C0C0C0 !important;"
+                                       /> 
                             </td>                                  
                         </tr>                                                                                                                                                                                   
                     </s:iterator>
@@ -237,7 +194,7 @@
             </div>
             </div>
 
-            <sj:submit id="NQ11_DKKH_save" name="NQ11_DKKH_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
+            <sj:submit id="NQ11_GKH_save" name="NQ11_GKH_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
                        onCompleteTopics="completediv_ss" cssStyle="display: none"/>
         </s:form>
            

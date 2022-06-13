@@ -207,47 +207,14 @@
                 // Trung bo sung phan validate data
                 if (typeof validateData !== 'undefined' && typeof validateData === 'function') {
                     if (!validateData())
-                    {
-                        alert('vao day');
+                    {                        
                         return false;
                     }
                 }
 
-
                 if (validateRequiredFields())
-                    $("#" + khoa)[0].click();
-
-                if (khoa === 'COVID_03_save')
-                {
-                    wait(2000);
-                    onLoadData();
-                }
-            }
-
-            function onSaveDataHTLai()
-            {
-                $('#message_suc_err').empty();
-                $('#divExportReportLink').empty();
-                var poscd = getposfromtreecheck();
-                var khoa = $("#khoa_nghiquyet11cp").val() + "_save_htlai";
-                if (!bsubmit)
-                {
-                    $('#message_suc_err').html("<h2 style='color: red'>Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !</h2>");
-                    return;
-                }
-
-                // Trung bo sung phan validate data
-                if (typeof validateData !== 'undefined' && typeof validateData === 'function') {
-                    if (!validateData())
-                        return false;
-                }
-
-
-                if (validateRequiredFields())
-                    $("#" + khoa)[0].click();
-
-
-            }
+                    $("#" + khoa)[0].click();                
+            }            
 
             function wait(ms) {
                 var start = new Date().getTime();
@@ -412,21 +379,15 @@
                             <tr style="height: 30px;">
                                 <td>Ngày BC</td>
                                 <td>
-                                    <sj:datepicker name="ngay_bc_DATE" value="%{'28/02/2022'}"  id="ngay_bc_DATE"
+                                    <sj:datepicker name="ngay_bc_DATE" value="%{''}" id="ngay_bc_DATE"
                                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
                                 </td>
                                 <td >                                        
                                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                                onBeforeTopics="beforediv_data"
                                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                                    <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
-                                    
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu số liệu"/>
-                                    
-                                    
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/>
-                                    
-
+                                    <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>                                    
+                                    <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu số liệu"/>
                                 </td>
                                 <td  colspan="2">
                                     <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
@@ -474,8 +435,11 @@
             </s:form>
         </div>
         <script>
-
-
+            $(document).ready(function () {
+                const d = new Date();
+                let year = d.getFullYear();
+                $('#ngay_bc_DATE').val('31/12/' + year);
+            });
         </script>
     </div>
 </body>

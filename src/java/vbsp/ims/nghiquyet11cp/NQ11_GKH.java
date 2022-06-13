@@ -46,6 +46,7 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
     private String logPath;
     private String logPathType;
     private String nghiepvu;
+    private String title;
 
     public String getNghiepvu() {
         return nghiepvu;
@@ -87,6 +88,16 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
         this.logPathType = logPathType;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    
+    
     @Override
     public String load() {
         try {
@@ -104,6 +115,11 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
             String sReportDate = hmParameter.get("ngay_bc").toString();
             Date reportDate = DateUtil.stringToDate(sReportDate, "dd-MMM-yyyy");
             String sApiReportDate = DateUtil.dateToString(reportDate, "yyyyMMdd");
+            String yearStr = DateUtil.dateToString(reportDate, "yyyy");
+            
+            title = "GIAO KẾ HOẠCH HỖ TRỢ LÃI SUẤT CHO KHÁCH HÀNG VAY VỐN NĂM " + yearStr;
+            
+            ArrayList lstPos = (ArrayList)hmParameter.get("poscd");
                 
             if (Grade.equals(Define.HEAD_POS_GRADE )) 
             {                
@@ -129,9 +145,22 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
                     row.setMACN(item.getBranchCode());
 
                     row.setD1(item.getD1());
-                    row.setD2(item.getD2());                    
-                    lstDulieuNt.add(row);
-                    i++;
+                    row.setD2(item.getD2()); 
+                    
+                    if (lstPos != null && lstPos.size() > 0) 
+                    {
+                        if (lstPos.contains(item.getCode()))
+                        {
+                            lstDulieuNt.add(row);
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        lstDulieuNt.add(row);
+                        i++;
+                    }
+                    
                 } catch (Exception e) {
                     CoreLogger.error(this.getClass().getName() + " Exception -> NQ11_GKH: " + e.getMessage());
                     System.err.println(this.getClass().getName() + " Exception -> NQ11_GKH: " + e.getMessage());
@@ -171,7 +200,7 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
             ArrayList<LockSendModel> lstDataLock = service.getDataLockManual(Define.NQ11_GIAO_KE_HOACH, pos_cd_username, Define.SUB_POS_GRADE, sApiReportDate);
             ArrayList<DuLieuNTRow> lstUpdateData = new ArrayList<>();
             
-            if (lstDataLock != null && lstDataLock.get(0).getStatus().equals("1")) 
+            if (lstDataLock != null && lstDataLock.size() > 0 && lstDataLock.get(0).getStatus().equals("1")) 
             {
                 addActionError("Đơn vị đã chốt số liệu. Bạn không thể điều chỉnh.");
                 return ERROR;
@@ -199,7 +228,7 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
                 int status = service.updateData(Define.NQ11_GIAO_KE_HOACH, pos_cd_username, sPosFlag, sApiReportDate, UserName, "system", lstUpdateData);                
                 if (status == 200 && Grade.equals(Define.MAIN_POS_GRADE)) 
                 {                    
-                    if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_01_DKKH(UserName, sPosFlag, pos_cd_username, sReportDate, lstDulieuNt)) {
+                    if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_01_DKKH(Define.NQ11_GIAO_KE_HOACH, UserName, sPosFlag, pos_cd_username, sReportDate, lstDulieuNt)) {
                         addActionError("Cập nhật thành công tại CN nhưng API không thành công. Xin liên hệ với quản trị để khắc phục");
                         return ERROR;
                     }                    
