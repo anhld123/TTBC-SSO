@@ -199,10 +199,10 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
                 int status = service.updateData(Define.NQ11_GIAO_KE_HOACH, pos_cd_username, sPosFlag, sApiReportDate, UserName, "system", lstUpdateData);                
                 if (status == 200 && Grade.equals(Define.MAIN_POS_GRADE)) 
                 {                    
-                    if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_01_DKKH(UserName, sPosFlag, pos_cd_username, sReportDate, lstDulieuNt)) {
-                        addActionError("Cập nhật thành công tại CN nhưng API không thành công. Xin liên hệ với quản trị để khắc phục");
-                        return ERROR;
-                    }                    
+                    if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_01_DKKH(khoa_nghiquyet11cp, UserName, Grade, posMainModel.getMainPosCd(), "31-DEC-" + hmParameter.get("nambc").toString(), lstDulieuNt)) {
+                            addActionError("Cập nhật thành công tại CN nhưng API không thành công. Xin liên hệ với quản trị để khắc phục");
+                            return ERROR;
+                        }                    
                 }
             }
         } catch (Exception e) {
