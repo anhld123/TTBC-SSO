@@ -47,6 +47,9 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
     private String logPathType;
     private String nghiepvu;
     private String title;
+    
+    private Double keHoachDuocGiao = 0.0;
+    private Double nhuCauDuocGiao = 0.0; // = 2% keHoachDuocGiao
 
     public String getNghiepvu() {
         return nghiepvu;
@@ -98,6 +101,7 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
 
     
     
+    
     @Override
     public String load() {
         try {
@@ -107,6 +111,7 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();           
             ArrayList<DuLieuNTRow> lstData = new ArrayList<>();
+            ArrayList<DuLieuNTRow> lstKeHoachDuocGiaoData = new ArrayList<>();
             service = new DuLieuNTService();
             
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
@@ -128,6 +133,13 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
             else if (Grade.equals(Define.MAIN_POS_GRADE)) 
             {
                 lstData = service.getData(Define.NQ11_GIAO_KE_HOACH, posMainModel.getMainPosCd(), Define.MAIN_POS_FLAG, sApiReportDate);
+                String conditionStr = "D3="+posMainModel.getMainPosCd()+"|";
+                lstKeHoachDuocGiaoData = service.getData_condition(Define.NQ11_GIAO_KE_HOACH, Define.HEAD_POS_CODE, Define.HEAD_POS_FLAG, sApiReportDate, conditionStr);
+                if (lstKeHoachDuocGiaoData != null && lstKeHoachDuocGiaoData.size() > 0) 
+                {
+                    keHoachDuocGiao = Double.parseDouble(lstKeHoachDuocGiaoData.get(0).getD1());
+                    nhuCauDuocGiao = Double.parseDouble(lstKeHoachDuocGiaoData.get(0).getD2());
+                }
             }
             lstData.sort(Comparator.comparing(o -> Integer.parseInt(o.getOrderValue())));
             int i = 1;
@@ -176,6 +188,22 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
         }
         return SUCCESS;
     }    
+
+    public Double getKeHoachDuocGiao() {
+        return keHoachDuocGiao;
+    }
+
+    public void setKeHoachDuocGiao(Double keHoachDuocGiao) {
+        this.keHoachDuocGiao = keHoachDuocGiao;
+    }
+
+    public Double getNhuCauDuocGiao() {
+        return nhuCauDuocGiao;
+    }
+
+    public void setNhuCauDuocGiao(Double nhuCauDuocGiao) {
+        this.nhuCauDuocGiao = nhuCauDuocGiao;
+    }
 
     @Override
     public String save() {

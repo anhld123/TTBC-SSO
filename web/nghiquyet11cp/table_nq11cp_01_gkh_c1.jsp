@@ -48,9 +48,10 @@
 
             function initTable()
             {
-                var table = document.getElementById("tblTable");
-                var rowcount = table.rows.length;
-                rowcount = rowcount > max_row ? rowcount : max_row;
+                sumColumn();
+//                var table = document.getElementById("tblTable");
+//                var rowcount = table.rows.length;
+//                rowcount = rowcount > max_row ? rowcount : max_row;
 //                for (var i = 0; i < rowcount; i++)
 //                {                    
 //                    var matmp1 = getMabyNumber1(i);//                       
@@ -68,17 +69,24 @@
                     var rowcount = table.rows.length;
                     rowcount = rowcount > max_row ? rowcount : max_row;
                     var value = 0;
+                    var totalValue = 0;
+                    var percentValue = 0;
                     for (var i = 0; i < rowcount; i++)
                     {        
                         value = (getValue('D1_' + i)*0.02).toFixed(2);
                         setValue('D2_' + i, value);
+                        totalValue += getValue('D1_' + i);
                     }                        
+                    percentValue = (totalValue*0.02).toFixed(2);
+                    setValue('total_D1_txt', totalValue);
+                    setValue('total_D2_txt', percentValue);
                 } 
                 catch (e)
                 {
                     alert(e);
                     console.log(e.toString());
                 }
+                $('.number').number(true, 0);
                 $('.number2').number(true, 2);
             }
 
@@ -136,64 +144,104 @@
                 <s:property  value="title" />                
                 <div id="luu_thanhcong_del"></div>
             </div>
+            <s:if test="Grade.equalsIgnoreCase('2')">
+                <div style="width: 98%;">
+                    <table style="width: 80%;">
+                    <tr >                                                                                                                                   
+                        <th class="TD_TENKH" rowspan="2">Kế hoạch được giao (triệu đồng)</th>   
+                        <th class="TD_TENKH">Dự kiến dư nợ cho vay được hỗ trợ lãi suất</th>                              
+                        <th class="TD_SOKU">Nhu cầu hỗ trợ lãi suất</th>                                                                              
+                    </tr> 
+                    <tr >                                                                                                                                                           
+                        <th ><input type="text"   value="<s:property value="keHoachDuocGiao" />" style="color: green;" title="<s:property value="keHoachDuocGiao" />"                                       
+                                       class=" TEN_KH  number" 
+                                       readonly="true"/> </th>                              
+                        <th ><input type="text"   value="<s:property value="nhuCauDuocGiao" />" style="color: green;" title="<s:property value="nhuCauDuocGiao" />"                                       
+                                       class=" TEN_KH  number2" 
+                                       readonly="true"/></th>                                                                              
+                    </tr> 
+                </table>
+                </div>                
+            </s:if>
+                
+            
+                
             <s:hidden name="khoa_nghiquyet11cp"/>            
             <div id="divDonvitinh">
                 Đơn vị tính: Triệu đồng              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </div>
-            <div class="cls-over">
-            <div id="scrolling_table_1" class="editDelete" style="width: 98%; max-height:80vh">
-                <table id="tblTable">
-                    <tr >                                                                                  
-                        <th class="TD_STT">STT</th>                           
-                        <th class="TD_TENKH">Đơn vị</th>   
-                        <th class="TD_TENKH">Dự kiến dư nợ cho vay được hỗ trợ lãi suất</th>                              
-                        <th class="TD_SOKU">Nhu cầu hỗ trợ lãi suất </th>                                                                              
-                    </tr>         
-                        
-                    <tr style="font-style: italic;">                        
-                        <td style="text-align: center">(1)</td>                            
-                        <td style="text-align: center">(2)</td>
-                        <td style="text-align: center">(3)</td>
-                        <td style="text-align: center">(4)=(3)*2%</td>                        
-                    </tr>
-                    <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
-                        <tr>  
-                            <td align = "right" class="TD_STT" >
-                                <input type="text"   value="<s:property  value="TT_HIENTHI" />" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" 
-                                       class=" TEN_KH D0" 
-                                       onfocus="this.select();"
-                                       readonly="true"/>   
-                                <input type="hidden" value="<s:property  value="MA" />" id="id_<s:property  value="%{#rowstatus.index}" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/> 
-                            </td>  
-                            <td align = "right" class="TD_TENKH" >
-                                <input type="text"   value="<s:property  value="TEN" />" style="color: green;" title="<s:property  value="TEN" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" 
-                                       class=" TEN_KH " 
-                                       onfocus="this.select();" readonly="true"/> 
-                            </td>
-                            <td align = "right" class="TD_SOKU" >
-                                <input type="text"   value="<s:property  value="D1" />"  id="D1_<s:property  value="%{#rowstatus.index}" />"                                    
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
-                                       class=" TEN_KH  number"                                       
-                                       onblur="if (this.value === '') {this.value = 0;}; sumColumn();"
-                                       /> 
-                            </td>
-                            <td align = "right" class="TD_SOKU" >
-                                <input type="text"   value="<s:property  value="D2" />" id="D2_<s:property  value="%{#rowstatus.index}" />"        
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" 
-                                       class=" TEN_KH  number2" 
-                                       readonly
-                                       style="background: #C0C0C0 !important;"
-                                       /> 
-                            </td>                                  
-                        </tr>                                                                                                                                                                                   
-                    </s:iterator>
-                </table>        
-            </div>
-            </div>
+            <div>
+                <div id="scrolling_table_1" class="editDelete" style="width: 98%; max-height:80vh">                    
+                    <table id="tblTable">
+                        <tr >                                                                                  
+                            <th class="TD_STT">STT</th>                           
+                            <th class="TD_TENKH">Đơn vị</th>   
+                            <th class="TD_TENKH">Dự kiến dư nợ cho vay được hỗ trợ lãi suất</th>                              
+                            <th class="TD_SOKU">Nhu cầu hỗ trợ lãi suất </th>                                                                              
+                        </tr>         
 
+                        <tr style="font-style: italic;">                        
+                            <td style="text-align: center">(1)</td>                            
+                            <td style="text-align: center">(2)</td>
+                            <td style="text-align: center">(3)</td>
+                            <td style="text-align: center">(4)=(3)*2%</td>                        
+                        </tr>
+                        <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
+                            <tr>  
+                                <td align = "right" class="TD_STT" >
+                                    <input type="text"   value="<s:property  value="TT_HIENTHI" />" 
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" 
+                                           class=" TEN_KH D0" 
+                                           onfocus="this.select();"
+                                           readonly="true"/>   
+                                    <input type="hidden" value="<s:property  value="MA" />" id="id_<s:property  value="%{#rowstatus.index}" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/> 
+                                </td>  
+                                <td align = "right" class="TD_TENKH" >
+                                    <input type="text"   value="<s:property  value="TEN" />" style="color: green;" title="<s:property  value="TEN" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" 
+                                           class=" TEN_KH " 
+                                           onfocus="this.select();" readonly="true"/> 
+                                </td>
+                                <td align = "right" class="TD_SOKU" >
+                                    <input type="text"   value="<s:property  value="D1" />"  id="D1_<s:property  value="%{#rowstatus.index}" />"                                    
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
+                                           class=" TEN_KH  number"                                       
+                                           onblur="if (this.value === '') {this.value = 0;}; sumColumn();"
+                                           /> 
+                                </td>
+                                <td align = "right" class="TD_SOKU" >
+                                    <input type="text"   value="<s:property  value="D2" />" id="D2_<s:property  value="%{#rowstatus.index}" />"        
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" 
+                                           class=" TEN_KH  number2" 
+                                           readonly
+                                           style="background: #C0C0C0 !important;"
+                                           /> 
+                                </td>                                  
+                            </tr>                                                                                                                                                                                   
+                        </s:iterator>
+                            <tr >                                                                                                                                     
+                                <td class="TD_TENKH" colspan="2" style="text-align: center; font-weight: bold;">TỔNG CỘNG</td>   
+                                <td class="TD_TENKH">
+                                    <input type="text" value="0" id="total_D1_txt"                                                                               
+                                           class=" TEN_KH  number"                                       
+                                           readonly="true"
+                                           /> 
+                                </td>                              
+                                <td class="TD_SOKU">
+                                    <input type="text" value="0" id="total_D2_txt"                                                                               
+                                           class=" TEN_KH  number2"                                       
+                                           readonly="true"
+                                           /> 
+                                </td>                                                                              
+                        </tr>  
+                    </table>    
+                    
+                </div>
+                
+            </div>
+            
+            
             <sj:submit id="NQ11_GKH_save" name="NQ11_GKH_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
                        onCompleteTopics="completediv_ss" cssStyle="display: none"/>
         </s:form>
@@ -202,7 +250,10 @@
         <div id="luu_thanhcong"></div>
 
         <script>
-            initTable();
+            
+            $(document).ready(function () {
+                initTable();
+            });
         </script>
     </body>
 </html>
