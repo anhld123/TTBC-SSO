@@ -46,6 +46,10 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
     private String logPath;
     private String logPathType;
     private String nghiepvu;
+    private String title;
+    
+    private Double keHoachDuocGiao = 0.0;
+    private Double nhuCauDuocGiao = 0.0; // = 2% keHoachDuocGiao
 
     public String getNghiepvu() {
         return nghiepvu;
@@ -87,6 +91,17 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
         this.logPathType = logPathType;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    
+    
+    
     @Override
     public String load() {
         try {
@@ -96,6 +111,7 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();           
             ArrayList<DuLieuNTRow> lstData = new ArrayList<>();
+            ArrayList<DuLieuNTRow> lstKeHoachDuocGiaoData = new ArrayList<>();
             service = new DuLieuNTService();
             
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
@@ -104,6 +120,11 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
             String sReportDate = hmParameter.get("ngay_bc").toString();
             Date reportDate = DateUtil.stringToDate(sReportDate, "dd-MMM-yyyy");
             String sApiReportDate = DateUtil.dateToString(reportDate, "yyyyMMdd");
+            String yearStr = DateUtil.dateToString(reportDate, "yyyy");
+            
+            title = "GIAO KẾ HOẠCH HỖ TRỢ LÃI SUẤT CHO KHÁCH HÀNG VAY VỐN NĂM " + yearStr;
+            
+            ArrayList lstPos = (ArrayList)hmParameter.get("poscd");
                 
             if (Grade.equals(Define.HEAD_POS_GRADE )) 
             {                
@@ -112,6 +133,13 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
             else if (Grade.equals(Define.MAIN_POS_GRADE)) 
             {
                 lstData = service.getData(Define.NQ11_GIAO_KE_HOACH, posMainModel.getMainPosCd(), Define.MAIN_POS_FLAG, sApiReportDate);
+                String conditionStr = "D3="+posMainModel.getMainPosCd()+"|";
+                lstKeHoachDuocGiaoData = service.getData_condition(Define.NQ11_GIAO_KE_HOACH, Define.HEAD_POS_CODE, Define.HEAD_POS_FLAG, sApiReportDate, conditionStr);
+                if (lstKeHoachDuocGiaoData != null && lstKeHoachDuocGiaoData.size() > 0) 
+                {
+                    keHoachDuocGiao = Double.parseDouble(lstKeHoachDuocGiaoData.get(0).getD1());
+                    nhuCauDuocGiao = Double.parseDouble(lstKeHoachDuocGiaoData.get(0).getD2());
+                }
             }
             lstData.sort(Comparator.comparing(o -> Integer.parseInt(o.getOrderValue())));
             int i = 1;
@@ -129,9 +157,22 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
                     row.setMACN(item.getBranchCode());
 
                     row.setD1(item.getD1());
-                    row.setD2(item.getD2());                    
-                    lstDulieuNt.add(row);
-                    i++;
+                    row.setD2(item.getD2()); 
+                    
+                    if (lstPos != null && lstPos.size() > 0) 
+                    {
+                        if (lstPos.contains(item.getCode()))
+                        {
+                            lstDulieuNt.add(row);
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        lstDulieuNt.add(row);
+                        i++;
+                    }
+                    
                 } catch (Exception e) {
                     CoreLogger.error(this.getClass().getName() + " Exception -> NQ11_GKH: " + e.getMessage());
                     System.err.println(this.getClass().getName() + " Exception -> NQ11_GKH: " + e.getMessage());
@@ -147,6 +188,22 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
         }
         return SUCCESS;
     }    
+
+    public Double getKeHoachDuocGiao() {
+        return keHoachDuocGiao;
+    }
+
+    public void setKeHoachDuocGiao(Double keHoachDuocGiao) {
+        this.keHoachDuocGiao = keHoachDuocGiao;
+    }
+
+    public Double getNhuCauDuocGiao() {
+        return nhuCauDuocGiao;
+    }
+
+    public void setNhuCauDuocGiao(Double nhuCauDuocGiao) {
+        this.nhuCauDuocGiao = nhuCauDuocGiao;
+    }
 
     @Override
     public String save() {
@@ -171,7 +228,7 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
             ArrayList<LockSendModel> lstDataLock = service.getDataLockManual(Define.NQ11_GIAO_KE_HOACH, pos_cd_username, Define.SUB_POS_GRADE, sApiReportDate);
             ArrayList<DuLieuNTRow> lstUpdateData = new ArrayList<>();
             
-            if (lstDataLock != null && lstDataLock.get(0).getStatus().equals("1")) 
+            if (lstDataLock != null && lstDataLock.size() > 0 && lstDataLock.get(0).getStatus().equals("1")) 
             {
                 addActionError("Đơn vị đã chốt số liệu. Bạn không thể điều chỉnh.");
                 return ERROR;
@@ -199,10 +256,10 @@ public class NQ11_GKH extends ActionNghiquyet11cpMain
                 int status = service.updateData(Define.NQ11_GIAO_KE_HOACH, pos_cd_username, sPosFlag, sApiReportDate, UserName, "system", lstUpdateData);                
                 if (status == 200 && Grade.equals(Define.MAIN_POS_GRADE)) 
                 {                    
-                    if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_01_DKKH(khoa_nghiquyet11cp, UserName, Grade, posMainModel.getMainPosCd(), "31-DEC-" + hmParameter.get("nambc").toString(), lstDulieuNt)) {
-                            addActionError("Cập nhật thành công tại CN nhưng API không thành công. Xin liên hệ với quản trị để khắc phục");
-                            return ERROR;
-                        }                    
+                    if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_01_DKKH(Define.NQ11_GIAO_KE_HOACH, UserName, sPosFlag, pos_cd_username, sReportDate, lstDulieuNt)) {
+                        addActionError("Cập nhật thành công tại CN nhưng API không thành công. Xin liên hệ với quản trị để khắc phục");
+                        return ERROR;
+                    }                    
                 }
             }
         } catch (Exception e) {
