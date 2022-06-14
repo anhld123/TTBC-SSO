@@ -16,6 +16,7 @@
             <result name="nghiquyet11cp_02_sk">/nghiquyet11cp/para_nghiquyet11cp_02_sk.jsp</result>
             <result name="nghiquyet11cp_01_dkkh">/nghiquyet11cp/para_nghiquyet11cp_01_dkkh.jsp</result>
             <result name="nghiquyet11cp_gkh">/nghiquyet11cp/para_nghiquyet11cp_gkh.jsp</result>
+            <result name="nq11_dieuchinhkehoach_htls">/nghiquyet11cp/nq11_dieuchinhkehoach_htls.jsp</result>
             <result name="error">/nghiquyet11cp/success.jsp</result>        
         </action>  
         
@@ -189,6 +190,17 @@
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
             </result>                                       
+        </action>
+        
+        <!--Điều chỉnh kế hoạch HTLS-->
+        <action name="loadDCHTLS" class="vbsp.ims.nghiquyet11cp.NQ11_DCKH_CNTW"  method="loadDCHTLS">
+             <result name="loadDCHTLS">/nghiquyet11cp/nq11_dieuchinhkehoach_htls_detail.jsp</result>                                       
+        </action>
+        <action name="saveDCHTLS" class="vbsp.ims.nghiquyet11cp.NQ11_DCKH_CNTW"  method="saveDCHTLS">
+            <result name="saveDCHTLS" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>                                   
         </action>
         
         

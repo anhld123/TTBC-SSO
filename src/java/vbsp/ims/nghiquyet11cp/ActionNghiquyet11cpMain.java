@@ -410,6 +410,9 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
                 setLstMaPGD(daoMain.getDanhMuc(UserName, "MAPGD", Grade));
                 return "nghiquyet11cp_gkh";
             }
+            else if (khoa_nghiquyet11cp.equals("NQ11_DCKH_CNTW")) {
+                return "nq11_dieuchinhkehoach_htls";
+            }
             else{
                 return "";
             }
@@ -419,7 +422,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
             return ERROR;
         }        
     }
-
+    
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
 
