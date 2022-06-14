@@ -30,6 +30,9 @@
                         <th colspan="7">ĐIỀU CHỈNH KẾ HOẠCH HỖ TRỢ LÃI SUẤT CHO KHÁCH HÀNG VAY VỐN NĂM <span id="idNamBC"/></th>
                     </tr>
                     <tr>
+                        <th colspan="7" style="text-align: left; width: 100%;">Dư nợ được điều chỉnh: <input type="text" value="<s:property value='dieuchinh'/>" class="cssItem number2" style="width: 300px; font-weight: bold; color: red;" readonly="readonly"/></th>
+                    </tr>
+                    <tr>
                         <th rowspan="2" class="Mwidth">STT</th>
                         <th rowspan="2" class="Mwidth">Đơn vị</th>
                         <th colspan="2" class="Mwidth">Kế hoạch</th>

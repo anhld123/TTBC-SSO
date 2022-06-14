@@ -20,7 +20,7 @@ import vbsp.ims.action.ktktnb.DULIEU_NT_TQ;
  */
 public class NQ11_DCKH_CNTW extends ActionSupport {
 
-    private String sUser, sGrade, NamBc, code;
+    private String sUser, sGrade, NamBc, code, dieuchinh;
     private InputStream pageResult;
     private List<DULIEU_NT_TQ> ModelList = new ArrayList<>();
     
@@ -31,15 +31,15 @@ public class NQ11_DCKH_CNTW extends ActionSupport {
     }
 //</editor-fold>
     public String loadDCHTLS() throws Exception {
-        //Lấy dữ liệu từ API
-        
+        if(sGrade.equals("2")){
+            dieuchinh = new NQ11_DCKHService().getDCHTLS_API(sUser, sGrade, NamBc);
+        }
         ModelList = new NQ11_DCKHService().getDCHTLS(sUser,sGrade,NamBc);
         return "loadDCHTLS";
     }
      public String saveDCHTLS() throws Exception {
+        //Do không có cập nhật ngược về TW nên sẽ không gọi API lưu ở đây
         code = new NQ11_DCKHService().saveDCHTLS(sUser,sGrade,NamBc,ModelList);
-        //Lưu dữ liệu về API
-        
         pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return "saveDCHTLS";
     }
@@ -83,7 +83,20 @@ public class NQ11_DCKH_CNTW extends ActionSupport {
     public void setModelList(List<DULIEU_NT_TQ> ModelList) {
         this.ModelList = ModelList;
     }
-    //</editor-fold>
+     public String getCode() {
+        return code;
+    }
 
-   
+    public void setCode(String code) {
+        this.code = code;
+    }
+    
+    public String getDieuchinh() {
+        return dieuchinh;
+    }
+
+    public void setDieuchinh(String dieuchinh) {
+        this.dieuchinh = dieuchinh;
+    }
+    //</editor-fold>
 }

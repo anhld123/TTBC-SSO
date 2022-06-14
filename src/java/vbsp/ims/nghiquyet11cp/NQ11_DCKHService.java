@@ -9,24 +9,33 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import vbsp.ims.action.ktktnb.DULIEU_NT_TQ;
 import vbsp.ims.dao.DaoConnect;
+import vbsp.ims.dao.khnv.DaoListPosFromUser;
+import vbsp.ims.define.Define;
 import vbsp.ims.log.CoreLogger;
+import vbsp.ims.model.ktnb.PosMainModel;
+import vbsp.ims.restapi.DuLieuNTRow;
+import vbsp.ims.restapi.DuLieuNTService;
 
 /**
  *
  * @author NGUYEN PHU VINH
  */
 public class NQ11_DCKHService {
-    
+
     private String txtError;
     private Number txtCode;
-    
-    public List<DULIEU_NT_TQ> getDCHTLS(String sUser, String sGrade, String sNamBC){
+    private DuLieuNTService service = new DuLieuNTService();
+
+    public List<DULIEU_NT_TQ> getDCHTLS(String sUser, String sGrade, String sNamBC) {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
         List<DULIEU_NT_TQ> lstData = new ArrayList<>();
@@ -82,7 +91,7 @@ public class NQ11_DCKHService {
         }
         return lstData;
     }
-    
+
     public String saveDCHTLS(String sUser, String sGrade, String sNamBC, List<DULIEU_NT_TQ> ModelList) {
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
@@ -116,5 +125,25 @@ public class NQ11_DCKHService {
             CoreLogger.error(this.getClass().getName() + " saveDCHTLS -> " + e.getMessage());
         }
         return code;
+    }
+
+    public String getDCHTLS_API(String sUser, String sGrade, String sNamBC) throws ParseException {
+        DaoConnect db = new DaoConnect();
+        Connection con = db.getConnect();
+        ArrayList<DuLieuNTRow> lstAPI = new ArrayList<>();
+        
+        
+        String dieuchinh = "";
+        String dateStr = sNamBC + "1231";
+        
+        DaoListPosFromUser LstPos = new DaoListPosFromUser();
+        String MainPost = LstPos.get_pos_main_pos(sUser, sGrade).getPosCd();
+        
+
+        lstAPI = service.getData("NQ11_DCKH_CNTW", MainPost , "M", dateStr);
+        for (DuLieuNTRow item : lstAPI) {
+            dieuchinh = item.getD4();
+        }
+        return dieuchinh;
     }
 }
