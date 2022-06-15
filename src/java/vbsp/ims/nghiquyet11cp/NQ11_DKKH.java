@@ -51,6 +51,7 @@ import vbsp.ims.fileutil.FileUtil;
 import vbsp.ims.khnv2021.ReportTemplate;
 import vbsp.ims.khnv2021.dao.XDKHDao2021;
 import vbsp.ims.log.CoreLogger;
+import vbsp.ims.loveleaf.ExcelFileWriter;
 import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
 import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.IntDeductionModel;
@@ -76,9 +77,39 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
     private String logPath;
     private String logPathType;
     private String nghiepvu;
+    
+    private InputStream fileInputStream;
+    private String fileName;
+    private long contentLength;
+    
+    
 
     public String getNghiepvu() {
         return nghiepvu;
+    }
+
+    public InputStream getFileInputStream() {
+        return fileInputStream;
+    }
+
+    public void setFileInputStream(InputStream fileInputStream) {
+        this.fileInputStream = fileInputStream;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public long getContentLength() {
+        return contentLength;
+    }
+
+    public void setContentLength(long contentLength) {
+        this.contentLength = contentLength;
     }
 
     public void setNghiepvu(String nghiepvu) {
@@ -125,10 +156,10 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
             }
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();
-            DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
-            BigInteger b1 = new BigInteger("0");
-            BigInteger b2 = new BigInteger("0");
-            DecimalFormat df = new DecimalFormat("#.##");
+//            DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
+//            BigInteger b1 = new BigInteger("0");
+//            BigInteger b2 = new BigInteger("0");
+//            DecimalFormat df = new DecimalFormat("#.##");
 
             ArrayList<DuLieuNTRow> lstData = new ArrayList<>();
             service = new DuLieuNTService();
@@ -137,18 +168,39 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
 
-            if (Grade.equals("2")) {
-                String mapgd = hmParameter.get("mapgd").toString();
+            ArrayList lstPos = (ArrayList)hmParameter.get("poscd");                       
+            String mapgd = "000000";
+            if (lstPos != null && lstPos.size() > 0) 
+            {
+                mapgd = lstPos.get(0).toString();
+            }
+            
+            if (Grade.equals(Define.HEAD_POS_GRADE)) {
+                //String mapgd = hmParameter.get("poscd").toString();
                 if(mapgd.equals("000000"))
                 {
-                    lstData = service.getData(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), "M", hmParameter.get("nambc").toString() + "1231");
+                    lstData = service.getData(khoa_nghiquyet11cp, Define.HEAD_POS_CODE, Define.HEAD_POS_FLAG, hmParameter.get("nambc").toString() + "1231");
                 }
                 else
                 {
-                    lstData = service.getData(khoa_nghiquyet11cp, mapgd, "S", hmParameter.get("nambc").toString() + "1231");
+                    lstData = service.getData(khoa_nghiquyet11cp, mapgd, Define.MAIN_POS_FLAG, hmParameter.get("nambc").toString() + "1231");
                 }
-            } else if (Grade.equals("1")) {
-                lstData = service.getData(khoa_nghiquyet11cp, pos_cd_username, "S", hmParameter.get("nambc").toString() + "1231");
+            } 
+            else if (Grade.equals(Define.MAIN_POS_GRADE)) 
+            {
+                //String mapgd = hmParameter.get("mapgd").toString();
+                if(mapgd.equals("000000"))
+                {
+                    lstData = service.getData(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), Define.MAIN_POS_FLAG, hmParameter.get("nambc").toString() + "1231");
+                }
+                else
+                {
+                    lstData = service.getData(khoa_nghiquyet11cp, mapgd, Define.SUB_POS_FLAG, hmParameter.get("nambc").toString() + "1231");
+                }
+            } 
+            else if (Grade.equals(Define.SUB_POS_GRADE)) 
+            {
+                lstData = service.getData(khoa_nghiquyet11cp, pos_cd_username, Define.SUB_POS_FLAG, hmParameter.get("nambc").toString() + "1231");
             }
             lstData.sort(Comparator.comparing(o -> Integer.parseInt(o.getOrderValue())));
             int i = 1;
@@ -201,12 +253,30 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
 
     }
 
+    public String downloadFileExcel() 
+            throws Exception {              
+        
+        if (!getParaSession()) 
+        {
+            return ERROR;
+        }
+        
+        pos_cd_username = posMainModel.getPosCd();
+        
+        String file_path = Define.M_ROOT + Define.M_EXCEL_TEMP + "NQ11_DKKH_xxxxxx.xlsx";        
+        File fileToDownload = new File(file_path);         
+        fileInputStream = new FileInputStream(fileToDownload);
+        fileName = "NQ11_DKKH_" + pos_cd_username + ".xlsx";//fileToDownload.getName();
+        contentLength = fileToDownload.length();                 
+        return SUCCESS;
+    }
+    
     public String openExcelUpload() throws Exception {
         try {
             if (!getParaSession()) {
                 return ERROR;
             }
-            HashMap hmParameter = getParameter();
+//            HashMap hmParameter = getParameter();
 //            String s = hmParameter.get("nambc").toString();
 //            System.err.println("Upload file 1 ---" + s);
 //            String q = "";
@@ -225,7 +295,7 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
             if (!getParaSession()) {
                 return ERROR;
             }
-            if (lstDulieuNt == null || lstDulieuNt.size() == 0) {
+            if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
                 return ERROR;
             }

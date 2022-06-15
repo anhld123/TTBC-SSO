@@ -545,10 +545,11 @@
 
                                 <s:if test="Grade.equalsIgnoreCase('1') && khoa_nghiquyet11cp.equalsIgnoreCase('NQ11_DKKH')">
                                     <td>
-                                        &nbsp;&nbsp;|&nbsp;&nbsp;
+<!--                                        &nbsp;&nbsp;|&nbsp;&nbsp;
                                         <sj:a class="cmd" href="#" onclick="callDirectLink('nq11_dkkh_open_upload?');" >
-                                            <b> <u>Upload Excel</u>  </b> </sj:a>   
-                                        </td>
+                                            <b> <u>Upload Excel</u>  </b> </sj:a>   -->
+                                        <input type="button" id="loadDatatmp" onclick="callDirectLink('nq11_dkkh_open_upload?');" value="Upload Excel">
+                                    </td>
                                 </s:if>    
                                 <td  colspan="2">
                                     <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >

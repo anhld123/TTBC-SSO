@@ -81,7 +81,7 @@
         </action>
         
         <!--Mẫu 01 - KHKH-->
-        
+               
         <action name="nq11_dkkh_open_upload" class="vbsp.ims.nghiquyet11cp.NQ11_DKKH" method="openExcelUpload">
             <result name="success">  
                 /nghiquyet11cp/upload-file-dkkh.jsp
@@ -89,6 +89,15 @@
             <result name="error">  
                 /chamdiem_canhan/success.jsp
             </result>  
+        </action>
+        
+        <action name="nq11_dkkh_file_temp_download" class="vbsp.ims.nghiquyet11cp.NQ11_DKKH" method="downloadFileExcel">
+            <result name="success" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">fileInputStream</param>
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>
+                <param name="bufferSize">4096</param>
+            </result>
         </action>
         
         <action name="saveUpload01DKKH" class="vbsp.ims.nghiquyet11cp.NQ11_DKKH"  method="saveUpload01DKKH">

@@ -147,7 +147,19 @@
                 <div id="divTitle">
                     ĐĂNG KÝ KẾ HOẠCH HỖ TRỢ LÃI SUẤT CHO KHÁCH HÀNG VAY VỐN
                 </div>
-                <p align="" style="line-height: 100%; margin-top: 10;margin-left: 10; margin-bottom: 10"><b>
+                <hr/>
+            <s:url action="nq11_dkkh_file_temp_download.action" id="downloadFileurl_ID" />            
+        <u> <s:a href="%{downloadFileurl_ID}"> 
+                <b>          
+                    
+                    [1]Tải file mẫu
+                    
+                </b>
+            </s:a>      
+            
+        </u> 
+                
+                <p align="" style="line-height: 100%; margin-top: 10px;margin-left: 10; margin-bottom: 10"><b>
                         <font size="1"> </font></b></p>                                      
                 <table cellspacing="0">   
                    
@@ -173,7 +185,7 @@
                         </td>
                         <td>
                             <s:file label="File báo cáo" name="fileUpload" size="65" theme="simple"/> 
-                            <input type="button" id="idSendtmp" name="nameidTransGNtmp"  onclick="onTransData()" value="Upload dữ liệu"/>
+                            <input type="button" id="idSendtmp" name="nameidTransGNtmp"  onclick="onTransData()" value="[2] Upload dữ liệu"/>
                             <s:url id="idUpload01DKKH" action="saveUpload01DKKH.action"></s:url>                                      
                             <sj:submit id="idTransGN" name="nameTrans" href="%{idUpload01DKKH}" value="Upload dữ liệu" targets="upload_result_div"
                                        onBeforeTopics="before-next"
