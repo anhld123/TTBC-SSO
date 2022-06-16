@@ -163,8 +163,7 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
 
             ArrayList<DuLieuNTRow> lstData = new ArrayList<>();
             service = new DuLieuNTService();
-            String s = hmParameter.get("nambc").toString();
-            System.err.println("Upload file nambc ---" + s);
+            String s = hmParameter.get("nambc").toString();            
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
 
@@ -188,7 +187,8 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
             } 
             else if (Grade.equals(Define.MAIN_POS_GRADE)) 
             {
-                //String mapgd = hmParameter.get("mapgd").toString();
+                mapgd = hmParameter.get("mapgd").toString();
+                System.err.println("mapgd ---" + mapgd);
                 if(mapgd.equals("000000"))
                 {
                     lstData = service.getData(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), Define.MAIN_POS_FLAG, hmParameter.get("nambc").toString() + "1231");
