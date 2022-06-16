@@ -50,19 +50,59 @@
         <script>
 
             function initTable()
-            {
-                var table = document.getElementById("tblTable");
-                var rowcount = table.rows.length;
-                rowcount = rowcount > max_row ? rowcount : max_row;
-                for (var i = 0; i < rowcount; i++)
-                {
-                    //cho combox 1
-                    var matmp1 = getMabyNumber1(i);//                       
-                    if (matmp1 == 1)
+            {                
+                
+                try {
+                    var table = document.getElementById("tblTable");
+                    var rowcount = table.rows.length;
+                    rowcount = rowcount > max_row ? rowcount : max_row;
+                    var D1 = 0, D2 = 0, D3 = 0, D4 = 0, D5 = 0,D6 = 0,D7 = 0,D8 = 0,D9 = 0,D10 = 0,D11 = 0,D12 = 0, D13 = 0, D14;
+                    var pos = -1;
+
+                    for (var i = 0; i < rowcount; i++)
                     {
-                        $('input:checkbox[id=idc11' + i + ']').attr('checked', true);
-                    }
+                        var matmp = getMabyNumber(i);                         
+
+                                setValue('D13_' + i, getValue('D1_' + i) + getValue('D2_' + i) + getValue('D3_' + i) + getValue('D4_' + i) + getValue('D5_' + i) + getValue('D6_' + i) + 
+                                getValue('D7_' + i) + getValue('D8_' + i) + getValue('D9_' + i) + getValue('D10_' + i) + getValue('D11_' + i) + getValue('D12_' + i) )
+                                D13 = D13 + getValue('D13_' + i);
+                                setValue('D14_' + i, Math.round(getValue('D13_' + i)*0.02).toFixed(2))
+                                
+//                        setValue('D14_' + pos, Math.round(getValue('D13_' + pos)*0.02).toFixed(2));
+                        
+                    }    
+//                    setValue('D1_46' , getValue('D1_0') + getValue('D1_30'));    
+//                    setValue('D2_46' , getValue('D2_0') + getValue('D2_30'));   
+//                    setValue('D3_46' , getValue('D3_0') + getValue('D3_30'));   
+//                    setValue('D4_46' , getValue('D4_0') + getValue('D4_30'));   
+//                    setValue('D5_46' , getValue('D5_0') + getValue('D5_30'));   
+//                    setValue('D6_46' , getValue('D6_0') + getValue('D6_30'));   
+//                    setValue('D7_46' , getValue('D7_0') + getValue('D7_30'));   
+//                    setValue('D8_46' , getValue('D8_0') + getValue('D8_30'));   
+//                    setValue('D9_46' , getValue('D9_0') + getValue('D9_30'));   
+//                    setValue('D10_46' , getValue('D10_0') + getValue('D10_30'));   
+//                    setValue('D11_46' , getValue('D11_0') + getValue('D11_30')); 
+//                    setValue('D12_46' , getValue('D12_0') + getValue('D12_30')); 
+//                    setValue('D13_46' , getValue('D13_0') + getValue('D13_30')); 
+//                    setValue('D14_46' , getValue('D14_0') + getValue('D14_30')); 
+                } catch (e)
+                {
+                    alert(e);
+                    console.log(e.toString());
                 }
+                $('.number').number(true, 0);
+//                var table = document.getElementById("tblTable");
+//                var rowcount = table.rows.length;
+//                rowcount = rowcount > max_row ? rowcount : max_row;
+//                for (var i = 0; i < rowcount; i++)
+//                {
+//                    //cho combox 1
+//                    var matmp1 = getMabyNumber1(i);//                       
+//                    if (matmp1 == 1)
+//                    {
+//                        $('input:checkbox[id=idc11' + i + ']').attr('checked', true);
+//                    }
+//                }
             }
 
             function getMabyNumber1(idx)

@@ -29,10 +29,10 @@
                 $(".TD_MAKH").css({"width": "30px"});
                 $(".TD_TOTIEN").css({"width": "70px"});
                 $(".TD_NGAY").css({"width": "55px"});
-                $(".TD_TENKH").css({"width": "280px"});
+                $(".TD_TENKH").css({"width": "250px"});
                 $(".TD_SOKU").css({"width": "80px"});
                 $(".TD_TIDE").css({"width": "100px"});
-                $(".TD_NGAY").css({"width": "40px"});
+                $(".TD_NGAY").css({"width": "55px"});
                 $(".TD_CHITIEU").css({"width": "300px"});
                 $(".TD_GHICHU").css({"width": "150px"});
                 $(".TEN_KH").css({"width": "100%"});
@@ -203,6 +203,8 @@
                         <th colspan="1" class="TD_TENKH">Tên chủ sở hữu</th>
                         <th rowspan="1" class="TD_TIDE">Số TK</th>  
                         <th colspan="1" class="TD_NGAY">Sản phẩm</th> 
+                        <th colspan="1" class="TD_NGAY">Ngày phát hành</th> 
+                        <th colspan="1" class="TD_NGAY">Ngày đến hạn</th> 
                         
                         <th colspan="1" class="TD_SOKU">Số dư đầu kỳ</th>                                                      
                         <th colspan="1" class="TD_SOKU">Số dư cuối kỳ</th>   
@@ -222,7 +224,9 @@
                         <td style="text-align: center">(6)</td>
                         <td style="text-align: center">(7)</td>
                         <td style="text-align: center">(8)</td>
-                        <td style="text-align: center">(9)</td>                      
+                        <td style="text-align: center">(9)</td>        
+                        <td style="text-align: center">(10)</td>
+                        <td style="text-align: center">(11)</td>      
                     </tr>
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                         <tr>  
@@ -258,6 +262,18 @@
                             <td align = "right" class="TD_NGAY" >
                                 <input type="text"   value="<s:property  value="D16" />" style="background: #E7DCDA !important;"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" 
+                                       class=" TEN_KH D0" 
+                                       onfocus="this.select();" readonly="true"/> 
+                            </td>
+                            <td align = "right" class="TD_NGAY" >
+                                <input type="text"   value="<s:property  value="D18" />" style="background: #E7DCDA !important;"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" 
+                                       class=" TEN_KH D0" 
+                                       onfocus="this.select();" readonly="true"/> 
+                            </td>
+                            <td align = "right" class="TD_NGAY" >
+                                <input type="text"   value="<s:property  value="D19" />" style="background: #E7DCDA !important;"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" 
                                        class=" TEN_KH D0" 
                                        onfocus="this.select();" readonly="true"/> 
                             </td>
