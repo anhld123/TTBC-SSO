@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags" %>
+<script src="js/jquery.number.js"></script>
+<script src="js/format_num.js"></script>
 <style>
     .Mwidth{
         width: 155px;
@@ -18,6 +20,9 @@
     }
     #ts01, #ts02,#ts03, #ts04,#ts05{
         font-weight: bold;
+    }
+    .number2{
+        text-align: right;
     }
 </style>
 <br>
@@ -99,8 +104,8 @@
         D1 = D2 = D3 = D4 = D5 = 0;
         for (var j = 0; j < $(".cssD1").length; j++) {
             $('.cssD2').eq(j).val((parseInt($('.cssD1').eq(j).val()) * 0.02));
-            $('.cssD5').eq(j).val((parseInt($('.cssD4').eq(j).val()) * 0.02));
             $('.cssD4').eq(j).val((parseInt($('.cssD1').eq(j).val()) + parseInt($('.cssD3').eq(j).val())));
+            $('.cssD5').eq(j).val((parseInt($('.cssD4').eq(j).val()) * 0.02));
             D1 += parseInt($('.cssD1').eq(j).val());
             D2 += parseInt($('.cssD2').eq(j).val());
             D3 += parseInt($('.cssD3').eq(j).val());

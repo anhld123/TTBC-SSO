@@ -95,7 +95,7 @@
                             alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
                         }
                     });
-                    $("#idSave").hide()();
+                    $("#idSave").hide();
                 }
             });
         </script>
