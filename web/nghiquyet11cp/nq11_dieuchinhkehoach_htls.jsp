@@ -1,9 +1,12 @@
+<%@ taglib prefix="sx" uri="/struts-dojo-tags" %> 
+<%@ taglib prefix="sj" uri="/struts-jquery-tags" %> 
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@taglib uri="/struts-jquery-tree-tags" prefix="sjt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="s" uri="/struts-tags" %>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="js/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="js/3.6.0/jquery-ui.css">
         <script src="js/3.6.0/jquery-ui.js"></script>

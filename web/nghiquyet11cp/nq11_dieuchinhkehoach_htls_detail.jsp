@@ -1,7 +1,9 @@
+<%@ taglib prefix="sx" uri="/struts-dojo-tags" %> 
+<%@ taglib prefix="sj" uri="/struts-jquery-tags" %> 
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@taglib uri="/struts-jquery-tree-tags" prefix="sjt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="s" uri="/struts-tags" %>
-<script src="js/jquery.number.js"></script>
-<script src="js/format_num.js"></script>
+
 <style>
     .Mwidth{
         width: 155px;
