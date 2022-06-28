@@ -157,6 +157,141 @@ public class ExcelExport {
             return null;
         }
     }
+    
+    public FileExportInfo xuatExcelMau01B(String posCode, List<POSModel> lstCommune, String reportDate, String namBc, String dotBc, String savedDirPath) {        String filePath = "", fileName = "";
+        List<String> lstOfTextFile = new ArrayList<>();
+        List<DownloadFileInfor> filesList = new ArrayList<>();
+        List<String> zipFileList = new ArrayList<>();
+        lstOfTextFile.clear();
+        filesList.clear();
+        zipFileList.clear();
+        ArrayList<String> fullPathList = new ArrayList<>();
+        String strTimeFile = Long.toString(System.currentTimeMillis());
+        String zipFile = "FileNen_KHNV01_" + strTimeFile + ".zip", zipPath = "";
+        try {
+            for (POSModel commune : lstCommune) {
+                if (commune.getId().equals("000000")) {
+                    continue;
+                }             
+                //xu ly cho export file ra PDF hoac la Excel
+                Date dReportDate = new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate);
+                String strCurrDate = new SimpleDateFormat("ddMMyyyy").format(dReportDate);                
+                String strPathSave = savedDirPath;
+                //Ham nay lay ra ten file bao cao can tao, ten file jasper report
+                String strFileSave = ReportTemplate.MAU_01B + "_" + posCode + "_"  + commune.getId()
+                        + "_" + strCurrDate;
+
+                strPathSave += Define.M_REPORT_XLS;
+                strFileSave += ".XLSX";
+                filePath = strFileSave;
+
+                String templateFile = savedDirPath + Define.M_EXCEL_TEMP + "/KHNV/KHNV_DK01B.xlsx";
+                fileName = strPathSave + strFileSave;
+                File source = new File(templateFile);
+                File dest = new File(fileName);
+
+                FileUtil.copyFile(source, dest);
+                
+                XDKHDao2021 daoXdkh = new XDKHDao2021();
+                List<POSModel> subCommuneList = daoXdkh.getSubCommuneList(posCode, commune.getId());
+                
+                // Style
+                XSSFCellStyle orderStyle;
+                // Get data
+                if (subCommuneList.size() > 0) {
+
+                    // Fill data              
+                    XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new java.io.FileInputStream(fileName));                    
+                    XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
+                  
+                    XSSFRow titleRow = sheet.getRow(3);
+                    if (titleRow == null) 
+                    {
+                        titleRow = sheet.createRow(3);
+                    }
+                    
+                    XSSFCell titleCell = titleRow.getCell(1, Row.CREATE_NULL_AS_BLANK);
+                    fillTitle(titleCell, "NHU CẦU VỐN TÍN DỤNG CHÍNH SÁCH NĂM " + namBc);
+                    
+                    XSSFRow subTitleRow = sheet.getRow(4);
+                    if (subTitleRow == null) 
+                    {
+                        subTitleRow = sheet.createRow(4);
+                    }
+                    
+                    XSSFCell subTitleCell = subTitleRow.getCell(1, Row.CREATE_NULL_AS_BLANK);
+                    fillTitle(subTitleCell, "XÃ/PHƯỜNG/THỊ TRẤN: " + commune.getDesc().toUpperCase());
+                    
+                    XSSFRow codeRow = sheet.getRow(10);
+                    if (codeRow == null) 
+                    {
+                        codeRow = sheet.createRow(10);
+                    }
+                    
+                    XSSFRow nameRow = sheet.getRow(7);
+                    if (nameRow == null) 
+                    {
+                        nameRow = sheet.createRow(7);
+                    }
+                    
+                    int col = 0;
+                    
+                    for (int i = 0; i < subCommuneList.size(); i++) {
+                                 
+                        if (subCommuneList.get(i).getId().equals("000000")) 
+                        {
+                            continue;
+                        }                        
+                        XSSFCell codeCell = codeRow.getCell(col+4, Row.CREATE_NULL_AS_BLANK);
+                        orderStyle = codeCell.getCellStyle();
+                        orderStyle.setAlignment(HorizontalAlignment.LEFT);
+                        orderStyle.setLocked(true);                        
+                        codeCell.setCellValue(subCommuneList.get(i).getId());
+                        
+                        XSSFCell nameCell = nameRow.getCell(col+4, Row.CREATE_NULL_AS_BLANK);
+                        orderStyle = nameCell.getCellStyle();
+                        orderStyle.setAlignment(HorizontalAlignment.LEFT);
+                        orderStyle.setLocked(true);                        
+                        nameCell.setCellValue(subCommuneList.get(i).getDesc());
+                        
+                        col++;
+                        
+                    }
+
+                    sheet.protectSheet("1234567890");
+                    java.io.FileOutputStream out = new java.io.FileOutputStream(fileName);
+                    xssfWorkbook.write(out);
+                    out.close();
+                }
+
+                lstOfTextFile.add(fileName);
+                FileInfo file = new FileInfo(new File(fileName));
+                filesList.add(new DownloadFileInfor(file.getName(), fileName,
+                        DefineFun.round_up((double) file.getSize() / 1000) + " KB"));
+                fullPathList.add(file.getAbsolutePath());
+                zipPath = Define.M_ROOT + Define.M_REPORT_XLS + zipFile;
+            }
+
+            if (fullPathList.size() > 1) {
+                try {
+                    FileZip.ZipFileFromArray(fullPathList, zipPath);
+                    zipFileList.add(zipFile);
+                    zipFileList.add(zipPath);
+                } catch (Exception ex) {
+                    Logger.getLogger(ExportText2SbvManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                filePath = zipFile;
+                fileName = zipPath;
+            }
+
+            System.gc();
+            return new FileExportInfo(fileName, filePath);
+        } catch (Exception ex) {
+            CoreLogger.error(this.getClass().getName() + " get_data_xaydungkh " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " loi getDataXayDungKhDetail " + ex.getMessage());
+            return null;
+        }
+    }
 
     private void fillTitle(XSSFCell cell, String value) {
         XSSFCellStyle titleStyle;

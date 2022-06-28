@@ -329,6 +329,56 @@ public class XDKHDao2021 {
         return posList;
     }
     
+    public ArrayList<POSModel> getSubCommuneList(String posCD, String communeId){
+        ArrayList<POSModel> posList = new ArrayList<>();
+        
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn ;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call VBSP_IMS_KHNV2021.P_GET_SUBCOMMUNE_LIST(?, ?, ?, ?, ?, ?)}";
+            ResultSet rsPosList;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                
+                //Truyen vao username
+                calstatement.setString(1, posCD);          
+                calstatement.setString(2, communeId);          
+                calstatement.setString(3, "1");          
+                
+                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
+
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //Lay cursor ra resultset
+                rsPosList = (ResultSet) calstatement.getObject(6);
+
+                while (rsPosList.next()) {
+                    POSModel p = new POSModel();
+                    p.setId(rsPosList.getString("PO_MA"));
+                    p.setDesc(rsPosList.getString("PO_TEN"));
+                    posList.add(p);
+                }
+                rsPosList.close();
+                calstatement.close();
+                conn.close();
+            } catch (SQLException e) {
+                System.err.println("Loi trong ham getPosList " + e.getMessage());
+                CoreLogger.error(POSModel.class.getCanonicalName() + " getPosList  -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getPosList " + e.getMessage());
+            CoreLogger.error(DaoDieuchinhkh.class.getCanonicalName() + " getPosList  -> " + e.getMessage());
+        }
+        return posList;
+    }
+    
     public ArrayList<POSModel> getCommuneListAll(String posCode){
         ArrayList<POSModel> posList = new ArrayList<>();
         

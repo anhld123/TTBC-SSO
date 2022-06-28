@@ -205,26 +205,30 @@
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
 
-                &nbsp;&nbsp;|&nbsp;&nbsp;      
-                <s:url id="idExpEcelKhnv01New" action="khnv/dk/ExpExcelKhnv01New.action"></s:url>                                      
-                <sj:submit id="idExpEcelKhnvtmp01new" name="nameSendnew" href="%{idExpEcelKhnv01New}" value="Xuất xls mẫu 01" targets="divKhDetail"
+<!--                &nbsp;&nbsp;|&nbsp;&nbsp;      -->
+                <s:url id="idExpEcelKhnv01B" action="khnv/dk/ExpExcelKhnv01B.action"></s:url>                                      
+                <sj:submit id="idExpEcelKhnvtmp01new" name="nameSendnew" href="%{idExpEcelKhnv01B}" value="Xuất xls mẫu 01" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
 
-                <s:url id="idExpEcelKhnv01" action="ExpExcelKhnv01.action"></s:url>                                      
+<!--                <s:url id="idExpEcelKhnv01" action="ExpExcelKhnv01.action"></s:url>                                      
                 <sj:submit id="idExpEcelKhnvtmp01" name="nameSend" href="%{idExpEcelKhnv01}" value="   In mẫu 01   " targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
-                           onCompleteTopics="completediv_send" class="cmd"/>
+                           onCompleteTopics="completediv_send" class="cmd"/>-->
+                
+                
 
-                &nbsp;&nbsp;|&nbsp;&nbsp;
+<!--                &nbsp;&nbsp;|&nbsp;&nbsp;-->
                 <s:url id="idExpEcelKhnv02" action="khnv/dk/ExpExcelKhnv02"></s:url>                                      
                 <sj:submit id="idExpEcelKhnvtmp02" name="nameSend02" href="%{idExpEcelKhnv02}" value="Xuất xls mẫu 02" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
-                           onCompleteTopics="completediv_send" class="cmd"/>&nbsp;
+                           onCompleteTopics="completediv_send" class="cmd"/>
 
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                <sj:a class="cmd" href="#" onclick="callDirectLink('khvn_open_upload?');" cssClass="metroButtonStyle">
-                    <b> <u>Upload Excel</u>  </b> </sj:a>                        
+<!--                &nbsp;&nbsp;|&nbsp;&nbsp;-->
+<!--                <sj:a class="cmd" href="#" onclick="callDirectLink('khvn_open_upload?');" cssClass="metroButtonStyle">
+                    <b> <u>Upload Excel</u>  </b> 
+                </sj:a>                        -->
+<input type="button" class="cmd" onclick="callDirectLink('khvn_open_upload?');" value="Upload Excel">
                 </div>
                 <hr/>
             </div>
