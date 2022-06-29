@@ -759,8 +759,8 @@ public class ExcelExport {
             List<DistrictInfo> lstDistrict = daoMau02.getDistrictByPos(posCode);
             String templateFile = savedDirPath + Define.M_EXCEL_TEMP + "/KHNV/KHNV_DK02.xlsx";
 
-            for (DistrictInfo district : lstDistrict) {
-                String strFileSave = ReportTemplate.MAU_02 + "_" + posCode + "_" + strPosFlag + "_" + district.districtCode
+//            for (DistrictInfo district : lstDistrict) {
+                String strFileSave = ReportTemplate.MAU_02 + "_" + posCode + "_" + strPosFlag //+ "_" + district.districtCode
                         + "_" + strCurrDate
                         + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
 
@@ -775,7 +775,7 @@ public class ExcelExport {
                 FileUtil.copyFile(source, dest);
 
                 // Get data
-                List<Mau02Model> lstData = daoMau02.getExportData(posCode, posFlag, district.districtCode, reportDate);
+                List<Mau02Model> lstData = daoMau02.getExportData(posCode, posFlag, "", reportDate);
 
                 if (lstData.size() > 0) {
 
@@ -797,7 +797,7 @@ public class ExcelExport {
                     XSSFCell xssfCellTitle = sheet.getRow(4).getCell(0, Row.CREATE_NULL_AS_BLANK);
                     fillTitle(xssfCellTitle, strTitle);
 
-                    String strPosTitle = pos.getDesc() + " - " + district.districtName;
+                    String strPosTitle = pos.getDesc() + " - " + "";
                     XSSFCell xssfPosTitle = sheet.getRow(2).getCell(1, Row.CREATE_NULL_AS_BLANK);
                     fillTitle(xssfPosTitle, strPosTitle);
 
@@ -970,7 +970,7 @@ public class ExcelExport {
                     fullPathList.add(file.getAbsolutePath());
                     zipPath = Define.M_ROOT + Define.M_REPORT_XLS + zipFile;
                 }
-            }
+//            }
 
             if (fullPathList.size() > 1) {
                 try {

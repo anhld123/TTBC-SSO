@@ -77,12 +77,10 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
     private String logPath;
     private String logPathType;
     private String nghiepvu;
-    
+
     private InputStream fileInputStream;
     private String fileName;
     private long contentLength;
-    
-    
 
     public String getNghiepvu() {
         return nghiepvu;
@@ -163,43 +161,32 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
 
             ArrayList<DuLieuNTRow> lstData = new ArrayList<>();
             service = new DuLieuNTService();
-            String s = hmParameter.get("nambc").toString();            
+            String s = hmParameter.get("nambc").toString();
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
 
-            ArrayList lstPos = (ArrayList)hmParameter.get("poscd");                       
+            ArrayList lstPos = (ArrayList) hmParameter.get("poscd");
             String mapgd = "000000";
-            if (lstPos != null && lstPos.size() > 0) 
-            {
+            if (lstPos != null && lstPos.size() > 0) {
                 mapgd = lstPos.get(0).toString();
             }
-            
+
             if (Grade.equals(Define.HEAD_POS_GRADE)) {
                 //String mapgd = hmParameter.get("poscd").toString();
-                if(mapgd.equals("000000"))
-                {
+                if (mapgd.equals("000000")) {
                     lstData = service.getData(khoa_nghiquyet11cp, Define.HEAD_POS_CODE, Define.HEAD_POS_FLAG, hmParameter.get("nambc").toString() + "1231");
-                }
-                else
-                {
+                } else {
                     lstData = service.getData(khoa_nghiquyet11cp, mapgd, Define.MAIN_POS_FLAG, hmParameter.get("nambc").toString() + "1231");
                 }
-            } 
-            else if (Grade.equals(Define.MAIN_POS_GRADE)) 
-            {
+            } else if (Grade.equals(Define.MAIN_POS_GRADE)) {
                 mapgd = hmParameter.get("mapgd").toString();
                 System.err.println("mapgd ---" + mapgd);
-                if(mapgd.equals("000000"))
-                {
+                if (mapgd.equals("000000")) {
                     lstData = service.getData(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), Define.MAIN_POS_FLAG, hmParameter.get("nambc").toString() + "1231");
-                }
-                else
-                {
+                } else {
                     lstData = service.getData(khoa_nghiquyet11cp, mapgd, Define.SUB_POS_FLAG, hmParameter.get("nambc").toString() + "1231");
                 }
-            } 
-            else if (Grade.equals(Define.SUB_POS_GRADE)) 
-            {
+            } else if (Grade.equals(Define.SUB_POS_GRADE)) {
                 lstData = service.getData(khoa_nghiquyet11cp, pos_cd_username, Define.SUB_POS_FLAG, hmParameter.get("nambc").toString() + "1231");
             }
             lstData.sort(Comparator.comparing(o -> Integer.parseInt(o.getOrderValue())));
@@ -253,24 +240,23 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
 
     }
 
-    public String downloadFileExcel() 
-            throws Exception {              
-        
-        if (!getParaSession()) 
-        {
+    public String downloadFileExcel()
+            throws Exception {
+
+        if (!getParaSession()) {
             return ERROR;
         }
-        
+
         pos_cd_username = posMainModel.getPosCd();
-        
-        String file_path = Define.M_ROOT + Define.M_EXCEL_TEMP + "NQ11_DKKH_xxxxxx.xlsx";        
-        File fileToDownload = new File(file_path);         
+
+        String file_path = Define.M_ROOT + Define.M_EXCEL_TEMP + "NQ11_DKKH_xxxxxx.xlsx";
+        File fileToDownload = new File(file_path);
         fileInputStream = new FileInputStream(fileToDownload);
         fileName = "NQ11_DKKH_" + pos_cd_username + ".xlsx";//fileToDownload.getName();
-        contentLength = fileToDownload.length();                 
+        contentLength = fileToDownload.length();
         return SUCCESS;
     }
-    
+
     public String openExcelUpload() throws Exception {
         try {
             if (!getParaSession()) {
@@ -306,7 +292,7 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
             pos_cd_username = posMainModel.getPosCd();
             ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
             if (Grade.equals("1")) {
-                ArrayList<LockSendModel> lstDataLock = service.getDataLockManual(khoa_nghiquyet11cp, pos_cd_username, "S", hmParameter.get("nambc").toString() + "1231");                
+                ArrayList<LockSendModel> lstDataLock = service.getDataLockManual(khoa_nghiquyet11cp, pos_cd_username, "S", hmParameter.get("nambc").toString() + "1231");
 //                if (lstDataLock.size() > 0) {                    
                 if (lstDataLock != null && lstDataLock.get(0).getStatus().equals("1")) {
                     addActionError("Đơn vị đã chốt số liệu. Bạn không thể điều chỉnh.");
@@ -351,48 +337,47 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
                 }
 
             } else if (Grade.equals("2")) {
-                System.err.println("Vao day: cap 2" );
-                    String mapgd = hmParameter.get("mapgd").toString();
-                    if(!mapgd.endsWith("000000") || !lstDulieuNt.get(0).getMAPGD().equals(posMainModel.getMainPosCd()))
-                    {
-                        addActionError("Bạn không được phép cập nhật dữ liệu cho PGD");
-                            return ERROR;
+                System.err.println("Vao day: cap 2");
+                String mapgd = hmParameter.get("mapgd").toString();
+                if (!mapgd.endsWith("000000") || !lstDulieuNt.get(0).getMAPGD().equals(posMainModel.getMainPosCd())) {
+                    addActionError("Bạn không được phép cập nhật dữ liệu cho PGD");
+                    return ERROR;
+                }
+                SimpleDateFormat sdf;
+                sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                    DuLieuNTRow tempadd = new DuLieuNTRow();
+                    tempadd.setKey(tmp.getKHOA());
+                    tempadd.setOrderDescription(tmp.getTT_HIENTHI());
+                    tempadd.setCode(tmp.getMA());
+                    tempadd.setName(tmp.getTEN());
+                    tempadd.setPosCode(tmp.getMAPGD());
+                    tempadd.setD1(tmp.getD1());
+                    tempadd.setD2(tmp.getD2());
+                    tempadd.setD3(tmp.getD3());
+                    tempadd.setD4(tmp.getD4());
+                    tempadd.setD5(tmp.getD5());
+                    tempadd.setD6(tmp.getD6());
+                    tempadd.setD7(tmp.getD7());
+                    tempadd.setD8(tmp.getD8());
+                    tempadd.setD9(tmp.getD9());
+                    tempadd.setD10(tmp.getD10());
+                    tempadd.setD11(tmp.getD11());
+                    tempadd.setD12(tmp.getD12());
+                    tempadd.setD13(tmp.getD13());
+                    tempadd.setD14(tmp.getD14());
+                    lstUpdateDate.add(tempadd);
+                }
+                int status
+                        = //service.updateDataNQ11CP_001(pos_cd_username, strDate, UserName, lstUpdateDate);
+                        service.updateData(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), "M", hmParameter.get("nambc").toString() + "1231", UserName, "system", lstUpdateDate);
+                System.err.println("Vao day: " + status);
+                if (status == 200) {
+                    if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_01_DKKH(khoa_nghiquyet11cp, UserName, Grade, posMainModel.getMainPosCd(), "31-DEC-" + hmParameter.get("nambc").toString(), lstDulieuNt)) {
+                        addActionError("Cập nhật thành công tại CN nhưng API không thành công. Xin liên hệ với quản trị để khắc phục");
+                        return ERROR;
                     }
-                    SimpleDateFormat sdf;
-                    sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                    for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                        DuLieuNTRow tempadd = new DuLieuNTRow();
-                        tempadd.setKey(tmp.getKHOA());
-                        tempadd.setOrderDescription(tmp.getTT_HIENTHI());
-                        tempadd.setCode(tmp.getMA());
-                        tempadd.setName(tmp.getTEN());
-                        tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setD1(tmp.getD1());
-                        tempadd.setD2(tmp.getD2());
-                        tempadd.setD3(tmp.getD3());
-                        tempadd.setD4(tmp.getD4());
-                        tempadd.setD5(tmp.getD5());
-                        tempadd.setD6(tmp.getD6());
-                        tempadd.setD7(tmp.getD7());
-                        tempadd.setD8(tmp.getD8());
-                        tempadd.setD9(tmp.getD9());
-                        tempadd.setD10(tmp.getD10());
-                        tempadd.setD11(tmp.getD11());
-                        tempadd.setD12(tmp.getD12());
-                        tempadd.setD13(tmp.getD13());
-                        tempadd.setD14(tmp.getD14());
-                        lstUpdateDate.add(tempadd);
-                    }
-                    int status
-                            = //service.updateDataNQ11CP_001(pos_cd_username, strDate, UserName, lstUpdateDate);
-                            service.updateData(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), "M", hmParameter.get("nambc").toString() + "1231", UserName, "system", lstUpdateDate);
-                    System.err.println("Vao day: " + status);
-                    if (status == 200) {
-                        if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_01_DKKH(khoa_nghiquyet11cp, UserName, Grade, posMainModel.getMainPosCd(), "31-DEC-" + hmParameter.get("nambc").toString(), lstDulieuNt)) {
-                            addActionError("Cập nhật thành công tại CN nhưng API không thành công. Xin liên hệ với quản trị để khắc phục");
-                            return ERROR;
-                        }
-                    }
+                }
             }
 
         } catch (Exception e) {
@@ -550,7 +535,7 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
         }
         service = new DuLieuNTService();
 //        int status = service.insertData("insert","system",lstUpdateDate);
-        int status = service.updateData(khoa_nghiquyet11cp, file.split("_", -1)[2], "S", file.split("_", -1)[1] + "1231", UserName, "system", lstUpdateDate);
+        int status = service.updateData("NQ11_DKKH", file.split("_", -1)[2], "S", file.split("_", -1)[1] + "1231", UserName, "system", lstUpdateDate);
         if (status == 200) {
             return SUCCESS;
         }
@@ -720,11 +705,16 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
 
             ArrayList<DuLieuNTRow> lstData = new ArrayList<>();
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
-
-            int sTonghop = service.summaryDataManual(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), "M", hmParameter.get("nambc").toString() + "1231", UserName, "D1|D2|D3|D4|D5|D6|D7|D8|D9|D10|D11|D12");
-
-            lstData = service.getData(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), "M", hmParameter.get("nambc").toString() + "1231");
-
+            int sTonghop;
+            System.err.println("Khoa = " + khoa_nghiquyet11cp + "pos=" + posMainModel.getMainPosCd() + "nambc=" + hmParameter.get("nambc").toString());
+            if (Grade.equals(Define.HEAD_POS_GRADE)) {
+                sTonghop = service.summaryDataManual(khoa_nghiquyet11cp, "000100", Define.HEAD_POS_FLAG, hmParameter.get("nambc").toString() + "1231", UserName, "D1|D2|D3|D4|D5|D6|D7|D8|D9|D10|D11|D12");
+                lstData = service.getData(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), Define.HEAD_POS_FLAG, hmParameter.get("nambc").toString() + "1231");
+            }
+            else if(Grade.equals(Define.MAIN_POS_GRADE)) {
+                sTonghop = service.summaryDataManual(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), Define.MAIN_POS_FLAG, hmParameter.get("nambc").toString() + "1231", UserName, "D1|D2|D3|D4|D5|D6|D7|D8|D9|D10|D11|D12");
+                lstData = service.getData(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), Define.MAIN_POS_FLAG, hmParameter.get("nambc").toString() + "1231");
+            }
             lstData.sort(Comparator.comparing(o -> Integer.parseInt(o.getOrderValue())));
             int i = 1;
             for (DuLieuNTRow item : lstData) {
@@ -773,7 +763,7 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
 
         return SUCCESS;
     }
-    
+
     public String TaiDulieuDangKy() {
         try {
             HashMap hmParameter = getParameter();
@@ -783,7 +773,6 @@ public class NQ11_DKKH extends ActionNghiquyet11cpMain
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
 
 //            int sTonghop = service.summaryDataManual(khoa_nghiquyet11cp, posMainModel.getMainPosCd(), "M", hmParameter.get("nambc").toString() + "1231", UserName, "D1|D2|D3|D4|D5|D6|D7|D8|D9|D10|D11|D12");
-
             lstData = service.getData("NQ11_DKKH", posMainModel.getPosCd(), "S", hmParameter.get("nambc").toString() + "1231");
 
             lstData.sort(Comparator.comparing(o -> Integer.parseInt(o.getOrderValue())));

@@ -175,15 +175,15 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
         DecimalFormat df = new DecimalFormat("#.##");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         DateFormat df1 = new SimpleDateFormat("MM/dd/yyyy");
-
+        DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
         try {
             for (NQ11cpModel item : lstData) {
                 try {
                     QT_DULIEU_NT row = new QT_DULIEU_NT();
                     row.setKHOA("SUBS_001");
                     row.setTHUTU(i);
-
-                    row.setTT_HIENTHI("20220228");
+                    
+                    row.setTT_HIENTHI(dateHienthi.format(sdf.parse(item.getDisbursalDate())));
                     Date reportDate = DateUtil.toDate(item.getReportDate());
                     row.setNGAYBC(reportDate);
                     row.setMAPGD(item.getPosCode());
