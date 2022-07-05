@@ -106,7 +106,8 @@
             </interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">/WEB-INF/datawarehouse_input-log.jsp</result>
-            <result name="error">/error.jsp</result>            
+            <result name="error">/error.jsp</result>          
+            <result name="error_1">/nhaptay-cn/success.jsp</result>      
         </action>
         
         <action name="NQ11_DKKH" class="vbsp.ims.nghiquyet11cp.NQ11_DKKH"  method="load">               

@@ -1059,6 +1059,46 @@ public class DaoNghiquyet11cp {
         return true;
     }
     
+     public int checkSyncData(String khoa, String mapgd, String capbc, String ngaybc) throws SQLException {
+        int _retVal = 0;
+        Connection conn = new DaoConnect().getConnect();
+        CallableStatement calstatement = null;
+        ResultSet reset = null;
+        //Khoi tao procedure cung voi tham so truyen vao la dau ?
+        String strStoreproce = "{ ? = call VBSP_IMS_NGHIQUYET11CP.F_CHECK_SYNC_DATA(?, ?, ?, ?) }";
+
+        try {
+            //Khoi tao goi Store
+            calstatement = conn.prepareCall(strStoreproce,
+                    ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
+            calstatement.setString(2, khoa);
+            calstatement.setString(3, mapgd);
+	   calstatement.setString(4, capbc);
+           calstatement.setString(5, ngaybc);
+            //Thuc hien execute lay du lieu
+            calstatement.execute();
+            //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+            _retVal = calstatement.getInt(1);
+
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " checkSyncData -> " + e.getMessage());
+            throw new SQLException(e);
+        } finally {
+            if (reset != null) {
+                reset.close();
+            }
+            if (calstatement != null) {
+                calstatement.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return _retVal;
+    }
+    
     public static void main(String[] args) throws Exception {
         String s = "30-APR-2022";
         Date date_ngay_bc = new SimpleDateFormat("dd-MMM-yyyy").parse(s);
