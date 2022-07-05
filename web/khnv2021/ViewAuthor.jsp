@@ -105,6 +105,9 @@
                 border: 0px !important;
                 outline: none;
             }
+            .cls {
+                background-color: lightgoldenrodyellow;
+            }
         </style>
         <link href="css/css/style.css" rel="stylesheet" type="text/css"/>
     </head>

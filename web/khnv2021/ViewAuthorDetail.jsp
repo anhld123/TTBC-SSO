@@ -99,6 +99,9 @@
         border: 0px !important;
         outline: none;
     }
+    .cls {
+        background-color: orange;
+    }
 </style>
 
 <table>
