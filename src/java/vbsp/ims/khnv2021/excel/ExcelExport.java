@@ -40,6 +40,8 @@ import vbsp.ims.query.ImsFillParaMeter;
 import vbsp.ims.query.ImsPlSqlQuery;
 import vbsp.ims.zip.FileZip;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
@@ -236,12 +238,20 @@ public class ExcelExport {
                     
                     int col = 0;
                     
+                    DaoMau01A daoMau01A = new DaoMau01A();
+                    
+                    XSSFCellStyle numberStyle;
+                    XSSFDataFormat format = xssfWorkbook.createDataFormat();
+                    
                     for (int i = 0; i < subCommuneList.size(); i++) {
                                  
                         if (subCommuneList.get(i).getId().equals("000000")) 
                         {
                             continue;
-                        }                        
+                        }      
+                                                
+                        List<Mau01AModel> lstData = daoMau01A.getExportData(posCode, commune.getId(), subCommuneList.get(i).getId(), reportDate);
+                                                
                         XSSFCell codeCell = codeRow.getCell(col+4, Row.CREATE_NULL_AS_BLANK);
                         orderStyle = codeCell.getCellStyle();
                         orderStyle.setAlignment(HorizontalAlignment.LEFT);
@@ -254,8 +264,93 @@ public class ExcelExport {
                         orderStyle.setLocked(true);                        
                         nameCell.setCellValue(subCommuneList.get(i).getDesc());
                         
+                        for(int j = 11; j < 106; j++)
+                        {
+                            XSSFRow dataRow = sheet.getRow(j);
+                            XSSFCell dataCodeCell = dataRow.getCell(0, Row.CREATE_NULL_AS_BLANK);
+                            XSSFCell dataPrinCell = dataRow.getCell(col+4, Row.CREATE_NULL_AS_BLANK);
+                            String code = dataCodeCell.getStringCellValue();
+                            for(int k = 0; k < lstData.size(); k++)
+                            {
+                                if (lstData.get(k).code.equals(code))
+                                {
+                                    numberStyle = dataPrinCell.getCellStyle();
+                                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                                    numberStyle.setAlignment(HorizontalAlignment.RIGHT);
+                                    //numberStyle.setFont(font);
+                                    numberStyle.setLocked(false);
+                                    dataPrinCell.setCellStyle(numberStyle);
+                                    dataPrinCell.setCellValue(lstData.get(k).d2);
+                                    break;
+                                }
+                            }
+                        }
+                                                
                         col++;
                         
+                    }
+
+                    //final FormulaEvaluator evaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
+                    
+                    for(int l = 3; l < 201; l++)
+                    {
+                        sheet.autoSizeColumn(l);
+//                        for (int m = 11; m <= sheet.getLastRowNum(); m++) 
+//                        {
+//                            final XSSFRow row = sheet.getRow(m);
+//                            if (row != null) 
+//                            {
+//                                XSSFCell cell = row.getCell(l);
+//                                if (cell != null && (cell.getCellType() != Cell.CELL_TYPE_BLANK)) 
+//                                {
+//                                    //formula type
+//                                    if (cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
+//                                        evaluator.evaluate(cell);                                    
+//                                    }
+//                                }
+//                            }
+//                        }
+                    }
+                    
+                    
+                    
+//                    for (int m = sheet.getLastRowNum(); m >= 11 ; m--) 
+//                    {
+//                        final XSSFRow row = sheet.getRow(m);
+//                        if (row != null) 
+//                        {
+//                            XSSFCell cell = row.getCell(3);
+//                            if (cell != null && (cell.getCellType() != Cell.CELL_TYPE_BLANK)) 
+//                            {
+//                                //formula type
+//                                if (cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
+//                                    evaluator.evaluate(cell);                                    
+//                                }
+//                            }
+//                        }
+//                    }
+                                               
+                    FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
+                    formulaEvaluator.evaluateAll();
+                    
+                    for(int l = 3; l < 201; l++)
+                    {
+                        sheet.autoSizeColumn(l);
+//                        for (int m = 11; m <= sheet.getLastRowNum(); m++) 
+//                        {
+//                            final XSSFRow row = sheet.getRow(m);
+//                            if (row != null) 
+//                            {
+//                                XSSFCell cell = row.getCell(l);
+//                                if (cell != null && (cell.getCellType() != Cell.CELL_TYPE_BLANK)) 
+//                                {
+//                                    //formula type
+//                                    if (cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
+//                                        evaluator.evaluate(cell);                                    
+//                                    }
+//                                }
+//                            }
+//                        }
                     }
 
                     sheet.protectSheet("1234567890");
