@@ -28,10 +28,10 @@
                 $(".TD_STT").css({"width": "20px"});
                 $(".TD_MAKH").css({"width": "50px"});
                 $(".TD_TOTIEN").css({"width": "70px"});
-                $(".TD_NGAY").css({"width": "55px"});
+                $(".TD_NGAY").css({"width": "65px"});
                 $(".TD_TENKH").css({"width": "130px"});
                 $(".TD_SOKU").css({"width": "100px"});
-                $(".TD_NGAY").css({"width": "40px"});
+//                $(".TD_NGAY").css({"width": "40px"});
                 $(".TD_CHITIEU").css({"width": "300px"});
                 $(".TD_GHICHU").css({"width": "150px"});
                 $(".TEN_KH").css({"width": "100%"});
@@ -218,6 +218,7 @@
                             <th rowspan="2"  class="TD_NGAY">Lãi suất</th>   
                             <th rowspan="2"  class="TD_NGAY">Trạng thái món vay</th>   
                             <th rowspan="2"  class="TD_NGAY">Kiểu định lịch trả nợ</th>  
+                            <th rowspan="2"  class="TD_NGAY">Ngày giải ngân</th>  
                             <th colspan="3"  class="TD_MAKH">Dư nợ</th>                             
                             <th colspan="6"  class="TD_MAKH">Số tiền HTLS các tháng trong năm 2022</th>                                                                   
 
@@ -246,6 +247,7 @@
                             <td style="text-align: center">(4)</td>
                             <td style="text-align: center">(5)</td>
                             <td style="text-align: center">(6)</td>
+                            <td style="text-align: center">()</td>
                             <td style="text-align: center">()</td>
                             <td style="text-align: center">(7)</td>
                             <td style="text-align: center">(8)</td>
@@ -320,6 +322,12 @@
                                 <td align = "right" class="TD_NGAY" >
                                     <input type="text"   value="<s:property  value="D59" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D59" class="D0 TEN_KH " onfocus="this.select();" 
+                                           readonly="true"/>
+                                </td>
+                                
+                                <td align = "right" class="TD_NGAY" >
+                                    <input type="text"   value="<s:property  value="TT_HIENTHI" />" style="background: #C0C0C0 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TEN_KH " onfocus="this.select();" 
                                            readonly="true"/>
                                 </td>
 

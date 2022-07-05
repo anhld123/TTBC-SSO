@@ -531,7 +531,7 @@
 
 
                                 </td>
-                                <s:if test="Grade.equalsIgnoreCase('2')">
+                                <s:if test="Grade.equalsIgnoreCase('2') || Grade.equalsIgnoreCase('3')">
                                     <td>
                                         &nbsp;|&nbsp;&nbsp;
                                         <s:url id="idReloadData" action="NQ11_DKKH_SUMMARY.action"></s:url>                                      

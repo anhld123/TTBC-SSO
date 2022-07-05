@@ -371,18 +371,27 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
             //khoi tao cho treeview cac pos
             List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_nghiquyet11cp);
+//            System.err.println("SDQ---1");
             if (Grade.equals("3")) {
                 setTreeNodeGrade3(lstModelTree);
             } else {
                 setTreeNodeGrade12(lstModelTree);
             }
+            System.err.println("SDQ---2" + khoa_nghiquyet11cp);
             if (khoa_nghiquyet11cp.equals("NQ11CP_001")) {
+                System.err.println("SDQ---0");
                 setLstChuongtrinh(daoMain.getDanhMuc(UserName, "CHUONGTRINH", Grade));
+                System.err.println("SDQ---1");
                 setLstMaxa(daoMain.getDanhMuc(UserName, "MAXA", Grade));
+                System.err.println("SDQ---2");
                 setLstMato(daoMain.getDanhMuc(UserName, "MATO", Grade));
+                System.err.println("SDQ---3");
                 setLstPhanloai(daoMain.getDanhMuc(UserName, "PHANLOAI", Grade));
+                System.err.println("SDQ---4");
                 setLstGiaiNgan(daoMain.getDanhMuc(UserName, "GIAINGAN", Grade));
+                System.err.println("SDQ---3");
                 setLstNhadautu(daoMain.getDanhMuc(UserName, "NHADT", Grade));
+                System.err.println("SDQ---5");
                 return "nghiquyet11cp_01";
             }
             else if (khoa_nghiquyet11cp.equals("NQ11CP_02SK")) {
