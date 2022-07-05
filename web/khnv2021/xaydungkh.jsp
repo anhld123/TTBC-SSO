@@ -201,9 +201,9 @@
             <div>
 
                 <s:url id="idExpEcelKhnv01a" action="khnv/dk/ExpExcelKhnv01a"></s:url>                                      
-                <sj:submit id="idExpEcelKhnvtmp01a" name="nameSend01a" href="%{idExpEcelKhnv01a}" value="Xuất xls mẫu 01a" targets="divKhDetail"
+              <!--  <sj:submit id="idExpEcelKhnvtmp01a" name="nameSend01a" href="%{idExpEcelKhnv01a}" value="Xuất xls mẫu 01a" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
-                           onCompleteTopics="completediv_send" class="cmd"/>
+                           onCompleteTopics="completediv_send" class="cmd"/> -->
 
 <!--                &nbsp;&nbsp;|&nbsp;&nbsp;      -->
                 <s:url id="idExpEcelKhnv01B" action="khnv/dk/ExpExcelKhnv01B.action"></s:url>                                      
