@@ -175,6 +175,16 @@ implements NhaptaycnFunction{
                 addActionError("Bạn chưa chọn file để thực hiện upload !");
                 return ERROR;
             }
+            
+             //Kiểm tra file xem có đúng là xls ko
+            for(int i =0; i<fileUploadFileName.size();i++)
+            {
+                 if(!DefineFun.isFileExcel(fileUploadFileName.get(i)))
+                 {
+                      addActionError("(*) File không phải là file excel. "+fileUploadFileName.get(i));
+                      return ERROR;
+                 }
+            }
 //            String pattern = "dd-MMM-yyyy";
 //                String sNgayBC = hmParameter.get("ngay_bc").toString();
 //                

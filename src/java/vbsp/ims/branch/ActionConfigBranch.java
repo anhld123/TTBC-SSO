@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import vbsp.ims.define.Define;
+import vbsp.ims.define.DefineFun;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.report.fast.ListValue;
@@ -818,6 +819,14 @@ public class ActionConfigBranch extends ActionInputFormBranchMain {
             }
 
             List<DULIEU_NT_CN> lstThamso = getParameterLoadData(hmParameter);
+            for (DULIEU_NT_CN dl : lstThamso) {
+                if (!DefineFun.isValid(dl.getTEN())) {
+                    setMessage("Dữ liệu trường tham số không đúng, xin nhập lại dữ liệu tham số THAMSO="+dl.getMA()+" -> VALUE="+dl.getTEN());
+                    addActionError(message);
+                    setMsg(message);
+                    return ERROR;
+                }
+            }
             //Lấy dữ liệu đã lưu
             setLstDulieu(daobranc.getDulieuBaocaoNhap(khoa, lstThamso, UserName, Grade));
             //Lấy tên cột và mapping đã lưu vào bảng
@@ -876,7 +885,19 @@ public class ActionConfigBranch extends ActionInputFormBranchMain {
             for (DULIEU_NT_CN dulieu : lstDulieu) {
                 dulieu.setNGUOI_NHAP(UserName);
             }
-
+             
+            for (DULIEU_NT_CN dl : lstDulieu) {
+                if (!DefineFun.isValid(dl.getTHAMSO_1())||!DefineFun.isValid(dl.getTHAMSO_2())
+                        ||!DefineFun.isValid(dl.getTHAMSO_3())||!DefineFun.isValid(dl.getTHAMSO_4())
+                        ||!DefineFun.isValid(dl.getTHAMSO_5())||!DefineFun.isValid(dl.getTHAMSO_6())
+                        ||!DefineFun.isValid(dl.getTHAMSO_7())||!DefineFun.isValid(dl.getTHAMSO_8())
+                        ||!DefineFun.isValid(dl.getTHAMSO_9())||!DefineFun.isValid(dl.getTHAMSO_10())) {
+                    setMessage("Dữ liệu trường tham số đã bị điều chỉnh không đúng, xin nhập lại dữ liệu tham số ");
+                    addActionError(message);
+                    setMsg(message);
+                    return ERROR;
+                }
+            }
             if (daobranc.saveDulieuNhapTay(khoa, lstDulieu, UserName, Grade)) {
                 addActionMessage("Bạn đã lưu dữ liệu thành công");
             }
@@ -892,6 +913,10 @@ public class ActionConfigBranch extends ActionInputFormBranchMain {
         return SUCCESS;
     }
 
+    private boolean isValidateData(DULIEU_NT_CN dulieu)
+    {
+        return true;
+    }
     public String sendDulieuNhapTaySync() {
         System.err.println("Vao ham sendDulieuNhapTaySync");
         try {

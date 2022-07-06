@@ -7,6 +7,7 @@ package vbsp.ims.dtw;
 
 import java.io.File;
 import java.util.List;
+import vbsp.ims.define.DefineFun;
 import vbsp.ims.dtw.dao.DtwUploadDao;
 import vbsp.ims.excel_upload.model.ResultModel;
 import vbsp.ims.model.RefObject;
@@ -22,7 +23,7 @@ public class Dtw_Import {
     public Dtw_Import() {
     }
 
-    public void import_directory(String directory_path, String font_format) {
+    public void import_directory(String directory_path, String font_format) throws Exception {
 
 //        DateFormat date_format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 //        dtwDao = new DtwUploadDao();
@@ -30,6 +31,22 @@ public class Dtw_Import {
         ExcelFileLibrary excel_file_library = new ExcelFileLibrary();
 
         ExcelFile excel_file;
+        boolean isExcel = true;
+        
+        for (File file : files) {
+            //Kiểm tra file xem có đúng là xls ko
+            if (!DefineFun.isFileExcel(file.getAbsolutePath())) {
+                isExcel = true;
+            }
+        }
+        //Nếu có file không phải là file excel thì xóa hết file đi
+        if (isExcel) {
+            for (File file : files) {
+                file.delete();
+            }
+            throw new Exception("Trong file upload có file không phải là định dạng excel");
+        }
+        
         for (File file : files) {
 
 //            Date begin_time = new Date();
@@ -55,6 +72,7 @@ public class Dtw_Import {
 //                            "");
 //            dtwDao.write_log(log_obj);
         }
+       
     }
 
     public void import_excel_file(String file_path, String font_format) {
@@ -105,7 +123,7 @@ public class Dtw_Import {
     }
 
     public ResultModel process_file_common(ExcelFile excel_file, String table_id) {
-        ResultModel process_status, import_status ;
+        ResultModel process_status, import_status;
         dtwDao = new DtwUploadDao();
         RefObject row_total = new RefObject();
         RefObject process_row = new RefObject();
@@ -116,12 +134,12 @@ public class Dtw_Import {
                 row_total,
                 process_row,
                 error_msg);
-        
+
         dtwDao.update_row_process(excel_file.getFile_name(),
                 row_total.getInt01(),
                 process_row.getInt01(),
                 error_msg.getString01());
-        
+
         if (process_status.status) {
             import_status = dtwDao.process_raw_data_common(
                     table_id,
@@ -129,7 +147,7 @@ public class Dtw_Import {
             return import_status;
         } else {
             return process_status;
-        }        
+        }
     }
 
     /**

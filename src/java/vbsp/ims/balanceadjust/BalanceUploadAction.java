@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import vbsp.ims.define.Define;
+import vbsp.ims.define.DefineFun;
 import vbsp.ims.dtw.Dtw_Import;
 
 /**
@@ -47,7 +48,18 @@ public class BalanceUploadAction extends ActionSupport
             return ERROR;
 
         } else {
-
+            
+            //Kiểm tra file xem có đúng là xls ko
+            for(int i =0; i<fileUploadFileName.size();i++)
+            {
+                 if(!DefineFun.isFileExcel(fileUploadFileName.get(i)))
+                 {
+                     
+                      message = "(*) File không phải là file excel. "+fileUploadFileName.get(i);
+                      return ERROR;
+                 }
+            }
+           
             /* Phan cap nhat file */
             String new_file_path = copy_file();
             File new_file = new File(new_file_path);

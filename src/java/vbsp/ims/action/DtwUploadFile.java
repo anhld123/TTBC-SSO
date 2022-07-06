@@ -5,6 +5,7 @@
  */
 package vbsp.ims.action;
 
+import static com.opensymphony.xwork2.Action.ERROR;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,10 +15,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import vbsp.ims.define.Define;
+import vbsp.ims.define.DefineFun;
 import vbsp.ims.dtw.Dtw_Import;
 import vbsp.ims.dtw.UploadFileLogObject;
 import vbsp.ims.dtw.dao.DtwUploadDao;
@@ -53,6 +57,7 @@ public class DtwUploadFile extends ActionSupport
             message = "(*) Chưa có file nào được lựa chọn. Bạn hãy kiểm tra lại. ";
             return "success";
         } else {
+            
             /* Phan cap nhat file */
             String new_file_path = copy_file();
             File new_file = new File(new_file_path);
@@ -67,8 +72,14 @@ public class DtwUploadFile extends ActionSupport
                 if (is_unzip) {
                     System.err.println("Vao phan doc du lieu");
                     Dtw_Import dtw_import = new Dtw_Import();
-                    dtw_import.import_directory(new_file.getParent() + "/"
-                            + FilenameUtils.removeExtension(file_name), font_type);
+                    try {
+                        dtw_import.import_directory(new_file.getParent() + "/"
+                                + FilenameUtils.removeExtension(file_name), font_type);
+                    } catch (Exception ex) {
+                        Logger.getLogger(DtwUploadFile.class.getName()).log(Level.SEVERE, null, ex);
+                         message = "(*) [" + file_name + "]. "+ex.getMessage();
+                         return ERROR;
+                    }
                     DtwUploadDao uploadDao = new DtwUploadDao();
                     String dir_path = new_file.getParent() + "/"
                             + FilenameUtils.removeExtension(file_name);

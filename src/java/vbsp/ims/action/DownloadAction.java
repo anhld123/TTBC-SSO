@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import vbsp.ims.define.DefineFun;
 
 /**
  *
@@ -46,7 +47,7 @@ public class DownloadAction extends ActionSupport {
         this.downloadFileName = downloadFileName;
     }
 
-    public String download() throws Exception {        
+    public String download() throws Exception {
         String filesPath = downloadFileName.trim();//Define.M_ROOT + Define.M_REPORT_TXT;
         try {
             String file = filesPath; //+ File.separator + getDownloadFileName();
@@ -57,14 +58,18 @@ public class DownloadAction extends ActionSupport {
             throw e;
         }
     }
-    
-    private String getFileName(String filePath){
+
+    private String getFileName(String filePath) {
         File fileOut = new File(downloadFileName);
-        if (!fileOut.exists()) {
-            System.err.println("Khong co file du lieu");            
+        if (!DefineFun.isPathDownloadFile(filePath)) {
+            System.err.println("Duong dan tai file khong dung");
             return ERROR;
         }
-        String strPath=fileOut.getName();
+        if (!fileOut.exists()) {
+            System.err.println("Khong co file du lieu");
+            return ERROR;
+        }
+        String strPath = fileOut.getName();
 //        String strPath = filePath.substring(filePath.lastIndexOf("/")+1, 
 //                filePath.length());
         return strPath;

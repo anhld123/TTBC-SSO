@@ -6,29 +6,35 @@ import java.io.InputStream;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
+import vbsp.ims.define.DefineFun;
 
-public class DownloadFileAction extends ActionSupport implements Action  {
+public class DownloadFileAction extends ActionSupport implements Action {
 
     private InputStream fileInputStream;
     private String fileName;
     String fileNamelocal;
     String message;
+
     public InputStream getFileInputStream() {
         return fileInputStream;
     }
 
     public String execute() throws Exception {
-       
-     
+
         //System.err.println("File da tao ra ----- -----"+fileNamelocal);
+        if (!DefineFun.isPathDownloadFile(fileNamelocal)) {
+            System.err.println("Khong dung duong dan file file du lieu");
+            setMessage("Không đúng đường dẫn file nên không thể tải được file");
+            return ERROR;
+        }
         File fileOut = new File(fileNamelocal);
         if (!fileOut.exists()) {
             System.err.println("Khong co file du lieu");
             setMessage("Bạn chưa tạo được file nên không thể tải file");
             return ERROR;
         }
-        fileName=fileOut.getName();
-        fileInputStream = new FileInputStream(new File(fileOut.getParent()+"/"+fileName));
+        fileName = fileOut.getName();
+        fileInputStream = new FileInputStream(new File(fileOut.getParent() + "/" + fileName));
         System.gc();
         return SUCCESS;
     }
@@ -41,7 +47,6 @@ public class DownloadFileAction extends ActionSupport implements Action  {
         this.message = message;
     }
 
-    
     public String getFileNamelocal() {
         return fileNamelocal;
     }
@@ -49,7 +54,7 @@ public class DownloadFileAction extends ActionSupport implements Action  {
     public void setFileNamelocal(String fileNamelocal) {
         this.fileNamelocal = fileNamelocal;
     }
-    
+
     public String getFileName() {
         return fileName;
     }

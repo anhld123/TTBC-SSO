@@ -468,6 +468,16 @@ public class ActionChamdiemcnUpload extends ActionSupport {
                 addActionError("Bạn chưa chọn file để thực hiện upload !");
                 return ERROR;
             }
+              //Kiểm tra file xem có đúng là xls ko
+            for(int i =0; i<fileUploadFileName.size();i++)
+            {
+                 if(!DefineFun.isFileExcel(fileUploadFileName.get(i)))
+                 {
+                     System.out.println("(*) File không phải là file excel. "+fileUploadFileName.get(i));
+                      addActionError("(*) File không phải là file excel. "+fileUploadFileName.get(i));
+                      return ERROR;
+                 }
+            }
             String new_file_path = copy_file();
             File new_file = new File(new_file_path);
             DaoChamdiemcnMain dao = new DaoChamdiemcnMain();
