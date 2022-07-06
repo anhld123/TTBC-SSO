@@ -901,4 +901,24 @@ public class DULIEU_NT_CN implements SQLData {
     }
 //</editor-fold>
 
+    @Override
+    public String toString() {
+        return getKHOA() + " " + getTHUTU() + " " + getTT_HIENTHI() + " " + getMA() + " " + 
+                getTEN() + " " + getNGAYBC() + " " + getNAMBC() + " " + getMAPGD() + " " + 
+                getCO_TONGHOP() + " " + getMACN() + " " + getNGUOI_NHAP() + " " + getNGAY_NHAP() + " " + 
+                getNGUOI_DUYET() + " " + getNGAY_DUYET() + " " + getTHAMSO_1() + " " + getTHAMSO_2() + " " + 
+                getTHAMSO_3() + " " + getTHAMSO_4() + " " + getTHAMSO_5() + " " + getTHAMSO_6() + " " + 
+                getTHAMSO_7() + " " + getTHAMSO_8() + " " + getTHAMSO_9() + " " + getTHAMSO_10() + " " + 
+                getD1() + " " + getD2() + " " + getD3() + " " + getD4() + " " + getD5() + " " + getD6() + " " + 
+                getD7() + " " + getD8() + " " + getD9() + " " + getD10() + " " + getD11() + " " + getD12() + " " + 
+                getD13() + " " + getD14() + " " + getD15() + " " + getD16() + " " + getD17() + " " + 
+                getD18() + " " + getD19() + " " + getD20() + " " + getD21() + " " + getD22() + " " + 
+                getD23() + " " + getD24() + " " + getD25() + " " + getD26() + " " + getD27() + " " + 
+                getD28() + " " + getD29() + " " + getD30() + " " + getD31() + " " + getD32() + " " + 
+                getD33() + " " + getD34() + " " + getD35() + " " + getD36() + " " + getD37() + " " + 
+                getD38() + " " + getD39() + " " + getD40() + " " + getD41() + " " + getD42() + " " + 
+                getD43() + " " + getD44() + " " + getD45() + " " + getD46() + " " + getD47() + " " + 
+                getD48() + " " + getD49() + " " + getD50() + " " + getNHAPTAY() + " " + getFONTFORMAT() + " " + 
+                getKIEUIN() + " " + getKIEUDULIEU();
+    }
 }

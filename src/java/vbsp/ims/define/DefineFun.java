@@ -34,6 +34,30 @@ import vbsp.ims.model.ValueFormula;
 
 public class DefineFun {
 
+    public static boolean isValid(final String stringRegex) {
+        if (stringRegex == null||stringRegex.isEmpty()) {
+            return true;
+        }
+        String REGEX_STRING = "^[0-9A-Za-z.()_ \\-\\s]{0,200}[0-9A-Za-z.()_ \\-\\s]$";
+        Pattern pattern = Pattern.compile(REGEX_STRING);
+        Matcher matcher = pattern.matcher(stringRegex);
+        return matcher.matches();
+    }
+
+    public static boolean isFileExcel(String fullPath) {
+        if (!fullPath.toLowerCase().contains(".xls")) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isPathDownloadFile(String path) {
+        if (!path.contains("IMS_REPORTS")) {
+            return false;
+        }
+        return true;
+    }
+
     /* 
      Hàm lấy nhân sinh khoá cho thủ tục mã hoá DES 
      type = "1" - Không sinh chuỗi ngẫu nhiên sau đoạn mã
@@ -80,6 +104,7 @@ public class DefineFun {
         NumberFormat format = NumberFormat.getInstance(Locale.US);
         return format.format(bInput);
     }
+
     /* 
      Hàm cắt chuỗi ký tự thành mảng        
      Create by TRUNGNT88        
@@ -177,6 +202,7 @@ public class DefineFun {
 
         return ArrlstOut;
     }
+
     /* 
      Hàm lấy tên cân đối dựa vào tham số truyền vào là loại cân đối 
      Người viết: TrungNT88
@@ -942,7 +968,7 @@ public class DefineFun {
     }
 
     public static void main(String[] args) throws ParseException {
-        
+
         System.err.println(backlashReplace("I:\\PROJECT\\IMS_REPORTS\\IMS_REPORTS\\build\\web\\EXCEL_TEMPLATE\\TEMPLATE_CONFIG"));
         String input = "111110001111111111001111111000000000000000000111111111111101011111010111111";
         System.out.println(replaceStr(input, 7, "1"));

@@ -260,13 +260,17 @@
         document.getElementById("lstData[0].D16").value = parseInt(document.getElementById("lstData[1].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[9].D16").value.replaceAll(',', ''));
         document.getElementById("lstData[0].D17").value = parseInt(document.getElementById("lstData[1].D17").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[9].D17").value.replaceAll(',', ''));
 
-        //Cập nhật lại toàn bộ phần tính % ước D17
-        for (var i = 0; i < 100; i++) {
-            document.getElementById("lstData["+i+"].D17").value = (parseInt(document.getElementById("lstData["+i+"].D16").value.replaceAll(',', ''))/parseInt(document.getElementById("lstData["+i+"].D14").value.replaceAll(',', '')))*100;
-        }
-
         $('.number').number(true, 0);
         $('.number2').number(true, 2);
+        
+        //Cập nhật lại toàn bộ phần tính % ước D17
+        for (var i = 0; i < $(".number ").size(); i++) {
+            let mauso, element;
+            element = document.getElementById("lstData[" + i + "].D14");
+            if (element != null) {
+                document.getElementById("lstData[" + i + "].D17").value = (parseInt(document.getElementById("lstData[" + i + "].D16").value.replaceAll(',', '')) / parseInt(document.getElementById("lstData[" + i + "].D14").value.replaceAll(',', ''))) * 100;
+            }
+        }
     }
     autoPlus(11);
 </script>

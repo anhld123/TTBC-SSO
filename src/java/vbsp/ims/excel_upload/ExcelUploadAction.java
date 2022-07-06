@@ -55,7 +55,7 @@ public class ExcelUploadAction extends ActionSupport
         this.request = request;
     }
 
-    public String upload_file() {
+    public String upload_file() throws Exception {
 
         //System.err.println("Vao phan upload file");
         if (fileUploadFileName.isEmpty()) {
@@ -80,6 +80,7 @@ public class ExcelUploadAction extends ActionSupport
                     if (is_unzip) {
 
                         ExcelUploader excelUploader = new ExcelUploader();
+                        
                         ResultModel status = excelUploader.import_directory(new_file.getParent() + "/"
                                 + FilenameUtils.removeExtension(file_name), font_type);
 

@@ -855,216 +855,192 @@ public class ExcelExport {
             String templateFile = savedDirPath + Define.M_EXCEL_TEMP + "/KHNV/KHNV_DK02.xlsx";
 
 //            for (DistrictInfo district : lstDistrict) {
-                String strFileSave = ReportTemplate.MAU_02 + "_" + posCode + "_" + strPosFlag //+ "_" + district.districtCode
-                        + "_" + strCurrDate
-                        + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
+            String strFileSave = ReportTemplate.MAU_02 + "_" + posCode + "_" + strPosFlag //+ "_" + district.districtCode
+                    + "_" + strCurrDate
+                    + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
 
-                String strPathSave = savedDirPath + Define.M_REPORT_XLS;
-                strFileSave += ".XLSX";
-                filePath = strFileSave;
+            String strPathSave = savedDirPath + Define.M_REPORT_XLS;
+            strFileSave += ".XLSX";
+            filePath = strFileSave;
 
-                fileName = strPathSave + strFileSave;
-                File source = new File(templateFile);
-                File dest = new File(fileName);
+            fileName = strPathSave + strFileSave;
+            File source = new File(templateFile);
+            File dest = new File(fileName);
 
-                FileUtil.copyFile(source, dest);
+            FileUtil.copyFile(source, dest);
 
-                // Get data
-                List<Mau02Model> lstData = daoMau02.getExportData(posCode, posFlag, "", reportDate);
+            // Get data
+            List<Mau02Model> lstData = daoMau02.getExportData(posCode, posFlag, "", reportDate);
 
-                if (lstData.size() > 0) {
+            if (lstData.size() > 0) {
 
-                    // Fill data              
-                    XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new java.io.FileInputStream(fileName));
-                    //SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
-                    XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
+                // Fill data              
+                XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new java.io.FileInputStream(fileName));
+                //SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
+                XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
 
-                    // style
-                    XSSFCellStyle numberStyle;
-                    XSSFDataFormat format = xssfWorkbook.createDataFormat();
+                // style
+                XSSFCellStyle numberStyle;
+                XSSFDataFormat format = xssfWorkbook.createDataFormat();
 
-                    XSSFCellStyle orderStyle;
-                    XSSFCellStyle codeStyle;
-                    XSSFCellStyle nameStyle;
-                    XSSFCellStyle lockStyle;
+                XSSFCellStyle orderStyle;
+                XSSFCellStyle codeStyle;
+                XSSFCellStyle nameStyle;
+                XSSFCellStyle lockStyle;
 
-                    String strTitle = "KẾ HOẠCH TÍN DỤNG NĂM " + namBc;
-                    XSSFCell xssfCellTitle = sheet.getRow(4).getCell(0, Row.CREATE_NULL_AS_BLANK);
-                    fillTitle(xssfCellTitle, strTitle);
+                String strTitle = "KẾ HOẠCH TÍN DỤNG NĂM " + namBc;
+                XSSFCell xssfCellTitle = sheet.getRow(4).getCell(0, Row.CREATE_NULL_AS_BLANK);
+                fillTitle(xssfCellTitle, strTitle);
 
-                    String strPosTitle = pos.getDesc() + " - " + "";
-                    XSSFCell xssfPosTitle = sheet.getRow(2).getCell(1, Row.CREATE_NULL_AS_BLANK);
-                    fillTitle(xssfPosTitle, strPosTitle);
+                String strPosTitle = pos.getDesc() + " - " + "";
+                XSSFCell xssfPosTitle = sheet.getRow(2).getCell(1, Row.CREATE_NULL_AS_BLANK);
+                fillTitle(xssfPosTitle, strPosTitle);
 
-                    String colTitle3 = "Thực hiện đến 31/12/" + strTwoYearAgo;
-                    XSSFCell colTitle = sheet.getRow(6).getCell(3, Row.CREATE_NULL_AS_BLANK);
-                    fillTitle(colTitle, colTitle3);
+                String colTitle3 = "Thực hiện đến 31/12/" + strTwoYearAgo;
+                XSSFCell colTitle = sheet.getRow(6).getCell(3, Row.CREATE_NULL_AS_BLANK);
+                fillTitle(colTitle, colTitle3);
 
-                    String colTitle5 = "Ước thực hiện đến 31/12/" + strPreYear;
-                    colTitle = sheet.getRow(6).getCell(4, Row.CREATE_NULL_AS_BLANK);
-                    fillTitle(colTitle, colTitle5);
+                String colTitle5 = "Ước thực hiện đến 31/12/" + strPreYear;
+                colTitle = sheet.getRow(6).getCell(4, Row.CREATE_NULL_AS_BLANK);
+                fillTitle(colTitle, colTitle5);
 
-                    String colTitle6 = "Kế hoạch tín dụng năm " + namBc;
-                    colTitle = sheet.getRow(6).getCell(5, Row.CREATE_NULL_AS_BLANK);
-                    fillTitle(colTitle, colTitle6);
+                String colTitle6 = "Kế hoạch tín dụng năm " + namBc;
+                colTitle = sheet.getRow(6).getCell(5, Row.CREATE_NULL_AS_BLANK);
+                fillTitle(colTitle, colTitle6);
 
-                    String colTitle7 = "Tổng số";
-                    colTitle = sheet.getRow(7).getCell(5, Row.CREATE_NULL_AS_BLANK);
-                    fillTitle(colTitle, colTitle7);
+                String colTitle7 = "Tổng số";
+                colTitle = sheet.getRow(7).getCell(5, Row.CREATE_NULL_AS_BLANK);
+                fillTitle(colTitle, colTitle7);
 
-                    colTitle = sheet.getRow(7).getCell(6, Row.CREATE_NULL_AS_BLANK);
-                    fillTitle(colTitle, colTitle7);
+                colTitle = sheet.getRow(7).getCell(6, Row.CREATE_NULL_AS_BLANK);
+                fillTitle(colTitle, colTitle7);
 
-                    for (int i = 0; i < lstData.size(); i++) {
+                for (int i = 0; i < lstData.size(); i++) {
 
-                        XSSFRow xssfRow = sheet.getRow(i + ReportTemplate.MAU_02_START_ROW);
-                        if (xssfRow == null) {
-                            xssfRow = sheet.createRow(i + ReportTemplate.MAU_02_START_ROW);
-                        }
-                        XSSFCell xssfCell00 = xssfRow.getCell(0, Row.CREATE_NULL_AS_BLANK);
+                    XSSFRow xssfRow = sheet.getRow(i + ReportTemplate.MAU_02_START_ROW);
+                    if (xssfRow == null) {
+                        xssfRow = sheet.createRow(i + ReportTemplate.MAU_02_START_ROW);
+                    }
+                    XSSFCell xssfCell00 = xssfRow.getCell(0, Row.CREATE_NULL_AS_BLANK);
 
-                        orderStyle = xssfCell00.getCellStyle();
-                        orderStyle.setAlignment(HorizontalAlignment.LEFT);
-                        orderStyle.setLocked(true);
-                        xssfCell00.setCellStyle(orderStyle);
-                        xssfCell00.setCellValue(lstData.get(i).order);
+                    orderStyle = xssfCell00.getCellStyle();
+                    orderStyle.setAlignment(HorizontalAlignment.LEFT);
+                    orderStyle.setLocked(true);
+                    xssfCell00.setCellStyle(orderStyle);
+                    xssfCell00.setCellValue(lstData.get(i).order);
 
-                        XSSFCell xssfCell01 = xssfRow.getCell(1, Row.CREATE_NULL_AS_BLANK);
+                    XSSFCell xssfCell01 = xssfRow.getCell(1, Row.CREATE_NULL_AS_BLANK);
 
-                        codeStyle = xssfCell01.getCellStyle();
-                        codeStyle.setLocked(true);
-                        codeStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-                        codeStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                        codeStyle.setAlignment(HorizontalAlignment.CENTER);
+                    codeStyle = xssfCell01.getCellStyle();
+                    codeStyle.setLocked(true);
+                    codeStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+                    codeStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+                    codeStyle.setAlignment(HorizontalAlignment.CENTER);
 
-                        xssfCell01.setCellStyle(codeStyle);
-                        xssfCell01.setCellValue(lstData.get(i).code);
+                    xssfCell01.setCellStyle(codeStyle);
+                    xssfCell01.setCellValue(lstData.get(i).code);
 
-                        XSSFCell xssfCell02 = xssfRow.getCell(2, Row.CREATE_NULL_AS_BLANK);
+                    XSSFCell xssfCell02 = xssfRow.getCell(2, Row.CREATE_NULL_AS_BLANK);
 
-                        nameStyle = xssfCell02.getCellStyle();
-                        nameStyle.setAlignment(HorizontalAlignment.LEFT);
-                        nameStyle.setLocked(true);
-                        nameStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-                        nameStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                        xssfCell02.setCellStyle(nameStyle);
-                        xssfCell02.setCellValue(lstData.get(i).name);
+                    nameStyle = xssfCell02.getCellStyle();
+                    nameStyle.setAlignment(HorizontalAlignment.LEFT);
+                    nameStyle.setLocked(true);
+                    nameStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+                    nameStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+                    xssfCell02.setCellStyle(nameStyle);
+                    xssfCell02.setCellValue(lstData.get(i).name);
 
-                        XSSFCell xssfCell03 = xssfRow.getCell(3, Row.CREATE_NULL_AS_BLANK);
-                        lockStyle = xssfCell03.getCellStyle();
-                        lockStyle.setDataFormat(format.getFormat("#,##0"));
-                        lockStyle.setAlignment(HorizontalAlignment.RIGHT);
+                    XSSFCell xssfCell03 = xssfRow.getCell(3, Row.CREATE_NULL_AS_BLANK);
+                    lockStyle = xssfCell03.getCellStyle();
+                    lockStyle.setDataFormat(format.getFormat("#,##0"));
+                    lockStyle.setAlignment(HorizontalAlignment.RIGHT);
 
-                        if (lstData.get(i).code.equals("XD00110")
-                                || lstData.get(i).code.equals("XD00111")
-                                || lstData.get(i).code.equals("XD00067")
-                                || lstData.get(i).code.equals("XD00068")
-                                || lstData.get(i).code.equals("XD00069")
-                                || lstData.get(i).code.equals("XD00070")
-                                || lstData.get(i).code.equals("XD00071")
-                                || lstData.get(i).code.equals("XD00072")
-                                || lstData.get(i).code.equals("XD00073")
-                                || lstData.get(i).code.equals("XD00074")
-                                || lstData.get(i).code.equals("XD00075")
-                                || lstData.get(i).code.equals("XD00076")
-                                || lstData.get(i).code.equals("XD00077")
-                                || lstData.get(i).code.equals("XD00078")
-                                || lstData.get(i).code.equals("XD00079")
-                                || lstData.get(i).code.equals("XD00080")
-                                || lstData.get(i).code.equals("XD00081")
-                                || lstData.get(i).code.equals("XD00082")
-                                || lstData.get(i).code.equals("XD00083")
-                                || lstData.get(i).code.equals("XD00084")
-                                || lstData.get(i).code.equals("XD00195")
-                                || lstData.get(i).code.equals("XD00196")) {
-                            xssfCell03.setCellStyle(lockStyle);
-                            xssfCell03.setCellValue(lstData.get(i).d1);
-                        } else {
-                            lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-                            lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                            lockStyle.setLocked(true);
-                            xssfCell03.setCellStyle(lockStyle);
-                            xssfCell03.setCellValue(lstData.get(i).d1);
-                        }
-
-                        XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
-                        numberStyle = xssfCell04.getCellStyle();
-                        numberStyle.setDataFormat(format.getFormat("#,##0.00"));
-                        numberStyle.setAlignment(HorizontalAlignment.RIGHT);
-                        numberStyle.setLocked(false);
-                        xssfCell04.setCellStyle(numberStyle);
-                        xssfCell04.setCellValue(lstData.get(i).d2);
-
-                        XSSFCell xssfCell05 = xssfRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
-                        lockStyle = xssfCell05.getCellStyle();
-                        lockStyle.setDataFormat(format.getFormat("#,##0.00"));
-                        lockStyle.setAlignment(HorizontalAlignment.RIGHT);
-
-                        if (lstData.get(i).code.equals("XD00110")
-                                || lstData.get(i).code.equals("XD00111")
-                                || lstData.get(i).code.equals("XD00067")
-                                || lstData.get(i).code.equals("XD00068")
-                                || lstData.get(i).code.equals("XD00069")
-                                || lstData.get(i).code.equals("XD00070")
-                                || lstData.get(i).code.equals("XD00071")
-                                || lstData.get(i).code.equals("XD00072")
-                                || lstData.get(i).code.equals("XD00073")
-                                || lstData.get(i).code.equals("XD00074")
-                                || lstData.get(i).code.equals("XD00075")
-                                || lstData.get(i).code.equals("XD00076")
-                                || lstData.get(i).code.equals("XD00077")
-                                || lstData.get(i).code.equals("XD00078")
-                                || lstData.get(i).code.equals("XD00079")
-                                || lstData.get(i).code.equals("XD00080")
-                                || lstData.get(i).code.equals("XD00081")
-                                || lstData.get(i).code.equals("XD00082")
-                                || lstData.get(i).code.equals("XD00083")
-                                || lstData.get(i).code.equals("XD00084")
-                                || lstData.get(i).code.equals("XD00195")
-                                || lstData.get(i).code.equals("XD00196")) {
-                            xssfCell05.setCellStyle(lockStyle);
-                            xssfCell05.setCellValue(lstData.get(i).d3);
-                        } else {
-                            lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-                            lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                            lockStyle.setLocked(true);
-                            xssfCell05.setCellStyle(lockStyle);
-                            //xssfCell05.setCellValue(lstData.get(i).d3);
-                        }
-
-                        XSSFCell xssfCell06 = xssfRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
-                        numberStyle = xssfCell06.getCellStyle();
-                        numberStyle.setDataFormat(format.getFormat("#,##0.00"));
-                        numberStyle.setAlignment(HorizontalAlignment.RIGHT);
-                        numberStyle.setLocked(false);
-                        xssfCell06.setCellStyle(numberStyle);
-                        xssfCell06.setCellValue(lstData.get(i).d4);
-
-                        XSSFCell xssfCell07 = xssfRow.getCell(7, Row.CREATE_NULL_AS_BLANK);
-                        lockStyle = xssfCell07.getCellStyle();
-                        lockStyle.setDataFormat(format.getFormat("#,##0.00"));
-                        lockStyle.setAlignment(HorizontalAlignment.RIGHT);
-                        lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-                        lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                        lockStyle.setLocked(true);
-                        xssfCell07.setCellStyle(lockStyle);
-
+                    if (lstData.get(i).code.equals("XD00100")
+		|| lstData.get(i).code.equals("XD00101")
+		|| lstData.get(i).code.equals("XD00102")
+		|| lstData.get(i).code.equals("XD00103")
+		|| lstData.get(i).code.equals("XD00109")
+		|| lstData.get(i).code.equals("XD00110")
+		|| lstData.get(i).code.equals("XD00002")
+		|| lstData.get(i).code.equals("XD00030")
+		|| lstData.get(i).code.equals("XD00039")
+		|| lstData.get(i).code.equals("XD00111")) {
+                        xssfCell03.setCellStyle(lockStyle);
+                        xssfCell03.setCellValue(lstData.get(i).d1);
+                    } else {
+//                        lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+//                        lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+//                        lockStyle.setLocked(true);
+//                        xssfCell03.setCellStyle(lockStyle);
+                        xssfCell03.setCellValue(lstData.get(i).d1);
                     }
 
-                    FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
-                    formulaEvaluator.evaluateAll();
-                    sheet.protectSheet("123456");
-                    java.io.FileOutputStream out = new java.io.FileOutputStream(fileName);
-                    xssfWorkbook.write(out);
-                    out.close();
+                    XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
+                    numberStyle = xssfCell04.getCellStyle();
+                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                    numberStyle.setAlignment(HorizontalAlignment.RIGHT);
+//                    numberStyle.setLocked(false);
+//                    xssfCell04.setCellStyle(numberStyle);
+                    xssfCell04.setCellValue(lstData.get(i).d2);
 
-                    lstOfTextFile.add(fileName);
-                    FileInfo file = new FileInfo(new File(fileName));
-                    filesList.add(new DownloadFileInfor(file.getName(), fileName,
-                            DefineFun.round_up((double) file.getSize() / 1000) + " KB"));
-                    fullPathList.add(file.getAbsolutePath());
-                    zipPath = Define.M_ROOT + Define.M_REPORT_XLS + zipFile;
+                    XSSFCell xssfCell05 = xssfRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
+                    lockStyle = xssfCell05.getCellStyle();
+                    lockStyle.setDataFormat(format.getFormat("#,##0.00"));
+                    lockStyle.setAlignment(HorizontalAlignment.RIGHT);
+
+                    if (lstData.get(i).code.equals("XD00100")
+		|| lstData.get(i).code.equals("XD00101")
+		|| lstData.get(i).code.equals("XD00102")
+		|| lstData.get(i).code.equals("XD00103")
+		|| lstData.get(i).code.equals("XD00109")
+		|| lstData.get(i).code.equals("XD00110")
+		|| lstData.get(i).code.equals("XD00002")
+		|| lstData.get(i).code.equals("XD00030")
+		|| lstData.get(i).code.equals("XD00039")
+		|| lstData.get(i).code.equals("XD00111")) {
+                        xssfCell05.setCellStyle(lockStyle);
+                        xssfCell05.setCellValue(lstData.get(i).d3);
+                    } else {
+//                        lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+//                        lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+//                        lockStyle.setLocked(true);
+//                        xssfCell05.setCellStyle(lockStyle);
+                        xssfCell05.setCellValue(lstData.get(i).d3);
+                    }
+
+                    XSSFCell xssfCell06 = xssfRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
+                    numberStyle = xssfCell06.getCellStyle();
+                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                    numberStyle.setAlignment(HorizontalAlignment.RIGHT);
+                    numberStyle.setLocked(true);
+                    xssfCell06.setCellStyle(numberStyle);
+                    xssfCell06.setCellValue(lstData.get(i).d4);
+
+                    XSSFCell xssfCell07 = xssfRow.getCell(7, Row.CREATE_NULL_AS_BLANK);
+                    lockStyle = xssfCell07.getCellStyle();
+                    lockStyle.setDataFormat(format.getFormat("#,##0.00"));
+                    lockStyle.setAlignment(HorizontalAlignment.RIGHT);
+                    lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+                    lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+                    lockStyle.setLocked(true);
+                    xssfCell07.setCellStyle(lockStyle);
+
                 }
+
+                FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
+                formulaEvaluator.evaluateAll();
+                sheet.protectSheet("123456");
+                java.io.FileOutputStream out = new java.io.FileOutputStream(fileName);
+                xssfWorkbook.write(out);
+                out.close();
+
+                lstOfTextFile.add(fileName);
+                FileInfo file = new FileInfo(new File(fileName));
+                filesList.add(new DownloadFileInfor(file.getName(), fileName,
+                        DefineFun.round_up((double) file.getSize() / 1000) + " KB"));
+                fullPathList.add(file.getAbsolutePath());
+                zipPath = Define.M_ROOT + Define.M_REPORT_XLS + zipFile;
+            }
 //            }
 
             if (fullPathList.size() > 1) {
