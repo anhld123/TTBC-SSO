@@ -169,18 +169,9 @@
         $('.number2').number(true, 2);
     });
     
-    
-    //Hàm tính tổng các chỉ tiêu theo cấp
-    function sumUp()
+    //Ham tính tổng theo list chỉ tiêu truyền vào
+    function sumUpByList(indiArr, totalIndex)
     {
-        //I NGUỒN VỐN (XD00116)	= A(XD00101) + B(XD00106)
-        document.getElementById("lstData[0].D13").value = parseInt(document.getElementById("lstData[1].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[6].D13").value.replaceAll(',', '')) ;
-        document.getElementById("lstData[0].D14").value = parseInt(document.getElementById("lstData[1].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[6].D14").value.replaceAll(',', '')) ;
-        document.getElementById("lstData[0].D15").value = parseInt(document.getElementById("lstData[1].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[6].D15").value.replaceAll(',', '')) ;
-        document.getElementById("lstData[0].D16").value = parseInt(document.getElementById("lstData[1].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[6].D16").value.replaceAll(',', '')) ;        
-        
-        //B DƯ NỢ NGUỒN VỐN ĐỊA PHƯƠNG(XD00050)
-        let indiArr = ["XD00048","XD00049","XD00050","XD00051","XD00052","XD00054","XD00056","XD00057","XD00058","XD00059","XD00060","XD00061","XD00063","XD00064","XD00065","XD00069","XD00074","XD00075","XD00076","XD00078","XD00079"];
         var D13, D14, D15, D16, D17, indi;        
         D13 = 0;
         D14 = 0;
@@ -198,24 +189,44 @@
                     D13 += parseInt(document.getElementById("lstData[" + i + "].D13").value.replace(',', ''));
                     D14 += parseInt(document.getElementById("lstData[" + i + "].D14").value.replace(',', ''));
                     D16 += parseInt(document.getElementById("lstData[" + i + "].D16").value.replace(',', ''));
-                    D15 += D14 + D16;
                 }
             }
             
         }
                 
+        D15 = (D14 + D16);        
         D17 = (D16 / D14) * 100;
-        document.getElementById("lstData[56].D13").value = D13 ;
-        document.getElementById("lstData[56].D14").value = D14;
-        document.getElementById("lstData[56].D15").value = D15;
-        document.getElementById("lstData[56].D16").value = D16;        
-        document.getElementById("lstData[56].D17").value = D17;        
+        document.getElementById("lstData["+totalIndex+"].D13").value = D13 ;
+        document.getElementById("lstData["+totalIndex+"].D14").value = D14;
+        document.getElementById("lstData["+totalIndex+"].D15").value = D15;
+        document.getElementById("lstData["+totalIndex+"].D16").value = D16;        
+        document.getElementById("lstData["+totalIndex+"].D17").value = D17;     
+    }
+    
+    
+    //Hàm tính tổng các chỉ tiêu theo cấp
+    function sumUp()
+    {
+        //B NGUỒN VỐN NHẬN ỦY THÁC ĐẦU TƯ TẠI ĐỊA PHƯƠNG (XD00106)       
+        let indiArr = ["XD00107","XD00108"];
+        sumUpByList(indiArr, 6);
         
+        //I NGUỒN VỐN (XD00116)	= A(XD00101) + B(XD00106)
+        document.getElementById("lstData[0].D13").value = parseInt(document.getElementById("lstData[1].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[6].D13").value.replaceAll(',', '')) ;
+        document.getElementById("lstData[0].D14").value = parseInt(document.getElementById("lstData[1].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[6].D14").value.replaceAll(',', '')) ;
+        document.getElementById("lstData[0].D15").value = parseInt(document.getElementById("lstData[1].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[6].D15").value.replaceAll(',', '')) ;
+        document.getElementById("lstData[0].D16").value = parseInt(document.getElementById("lstData[1].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[6].D16").value.replaceAll(',', '')) ;        
+        
+        //II SỬ DỤNG VỐN
+        //B DƯ NỢ NGUỒN VỐN ĐỊA PHƯƠNG(XD00050)
+        indiArr = ["XD00048","XD00049","XD00050","XD00051","XD00052","XD00054","XD00056","XD00057","XD00058","XD00059","XD00060","XD00061","XD00063","XD00064","XD00065","XD00069","XD00074","XD00075","XD00076","XD00078","XD00079"];
+        sumUpByList(indiArr, 56);
+                        
         //II SỬ DỤNG VỐN(XD00109) = A + B + C
         document.getElementById("lstData[9].D13").value = parseInt(document.getElementById("lstData[10].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[56].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[83].D13").value.replaceAll(',', ''));
-        document.getElementById("lstData[9].D14").value = parseInt(document.getElementById("lstData[10].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[56].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[83].D13").value.replaceAll(',', ''));
-        document.getElementById("lstData[9].D15").value = parseInt(document.getElementById("lstData[10].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[56].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[83].D13").value.replaceAll(',', ''));
-        document.getElementById("lstData[9].D16").value = parseInt(document.getElementById("lstData[10].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[56].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[83].D13").value.replaceAll(',', ''));        
+        document.getElementById("lstData[9].D14").value = parseInt(document.getElementById("lstData[10].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[56].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[83].D14").value.replaceAll(',', ''));
+        document.getElementById("lstData[9].D15").value = parseInt(document.getElementById("lstData[10].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[56].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[83].D15").value.replaceAll(',', ''));
+        document.getElementById("lstData[9].D16").value = parseInt(document.getElementById("lstData[10].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[56].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[83].D16").value.replaceAll(',', ''));        
     }    
     //Hàm xử lý tính toán cho 2 chỉ tiêu nguôn kế hoạch B
     function autoPlus(idx) {
