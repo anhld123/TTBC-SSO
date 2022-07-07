@@ -164,21 +164,67 @@
         $("#lbNamUoc").html($("#cboNam option:selected").val() - 1);
         $("#lbNamTD").html(parseInt($("#cboNam option:selected").val()));
         $("#lbTangGiam").html($("#cboNam option:selected").val() - 1);
+        //autoPlus(11);
+        $('.number').number(true, 0);
+        $('.number2').number(true, 2);
     });
-//Hàm xử lý tính toán cho 2 chỉ tiêu nguông kế hoạch B
+    
+    
+    //Hàm tính tổng các chỉ tiêu theo cấp
+    function sumUp()
+    {
+        //I NGUỒN VỐN (XD00116)	= A(XD00101) + B(XD00106)
+        document.getElementById("lstData[0].D13").value = parseInt(document.getElementById("lstData[1].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[6].D13").value.replaceAll(',', '')) ;
+        document.getElementById("lstData[0].D14").value = parseInt(document.getElementById("lstData[1].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[6].D14").value.replaceAll(',', '')) ;
+        document.getElementById("lstData[0].D15").value = parseInt(document.getElementById("lstData[1].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[6].D15").value.replaceAll(',', '')) ;
+        document.getElementById("lstData[0].D16").value = parseInt(document.getElementById("lstData[1].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[6].D16").value.replaceAll(',', '')) ;        
+        
+        //B DƯ NỢ NGUỒN VỐN ĐỊA PHƯƠNG(XD00050)
+        let indiArr = ["XD00048","XD00049","XD00050","XD00051","XD00052","XD00054","XD00056","XD00057","XD00058","XD00059","XD00060","XD00061","XD00063","XD00064","XD00065","XD00069","XD00074","XD00075","XD00076","XD00078","XD00079"];
+        var D13, D14, D15, D16, D17, indi;        
+        D13 = 0;
+        D14 = 0;
+        D15 = 0;
+        D16 = 0;
+        D17 = 0;        
+        
+        for (var i = 0; i < $(".number ").size(); i++) {
+            let item = document.getElementById("lstData[" + i + "].MA");
+            if (item !== null)
+            {
+                indi = item.value;
+                if (indi !== '' && indiArr.includes(indi))
+                {
+                    D13 += parseInt(document.getElementById("lstData[" + i + "].D13").value.replace(',', ''));
+                    D14 += parseInt(document.getElementById("lstData[" + i + "].D14").value.replace(',', ''));
+                    D16 += parseInt(document.getElementById("lstData[" + i + "].D16").value.replace(',', ''));
+                    D15 += D14 + D16;
+                }
+            }
+            
+        }
+                
+        D17 = (D16 / D14) * 100;
+        document.getElementById("lstData[56].D13").value = D13 ;
+        document.getElementById("lstData[56].D14").value = D14;
+        document.getElementById("lstData[56].D15").value = D15;
+        document.getElementById("lstData[56].D16").value = D16;        
+        document.getElementById("lstData[56].D17").value = D17;        
+        
+    }    
+    //Hàm xử lý tính toán cho 2 chỉ tiêu nguôn kế hoạch B
     function autoPlus(idx) {
-        var D139, D149, D159, D169, D179;
+        
         var D13, D14, D15, D16, D17, indi;
         indi = document.getElementById("lstData[" + idx + "].MA").value;
-
         D13 = 0;
         D14 = 0;
         D15 = 0;
         D16 = 0;
         D17 = 0;
-        if (["XD00110", "XD00111", "XD00038", "XD00039", "XD00040", "XD00041", "XD00042", "XD00043", "XD00044", "XD00045", "XD00046", "XD00047",
-            "XD00048", "XD00049", "XD00050", "XD00051", "XD00052", "XD00053", "XD00054", "XD00055", "XD00056", "XD00057", "XD00058", "XD00059", "XD00087",
-            "XD00060", "XD00061", "XD00062", "XD00063"].includes(indi)) {
+        
+        if (["XD00111","XD00048","XD00049","XD00050","XD00051","XD00052","XD00053","XD00054","XD00055","XD00056","XD00057","XD00058","XD00059","XD00060","XD00061","XD00063","XD00064","XD00065","XD00069","XD00070","XD00071","XD00072","XD00074","XD00075","XD00076","XD00078","XD00079","XD00109",
+        "XD00106","XD00107","XD00108","XD00116"].includes(indi)) {
             D13 = document.getElementById("lstData[" + idx + "].D13").value.replace(',', '');
             D14 = document.getElementById("lstData[" + idx + "].D14").value.replace(',', '');
             D16 = document.getElementById("lstData[" + idx + "].D16").value.replace(',', '');
@@ -187,90 +233,19 @@
             D17 = (D16 / D14) * 100;
             document.getElementById("lstData[" + idx + "].D17").value = D17;
         }
-        D139 = 0;
-        D149 = 0;
-        D159 = 0;
-        D169 = 0;
-        D179 = 0;
-        if (["XD00110", "XD00111"].includes(indi)) {
-            D139 = parseFloat(document.getElementById("lstData[10].D13").value.replaceAll(',', '')) + parseFloat(document.getElementById("lstData[11].D13").value.replaceAll(',', ''));
-            D149 = parseFloat(document.getElementById("lstData[10].D14").value.replaceAll(',', '')) + parseFloat(document.getElementById("lstData[11].D14").value.replaceAll(',', ''));
-            D169 = parseFloat(document.getElementById("lstData[10].D16").value.replaceAll(',', '')) + parseFloat(document.getElementById("lstData[11].D16").value.replaceAll(',', ''));
-            D159 = D149 + D169;
-            D179 = (D169 / D149) * 100;
-            document.getElementById("lstData[9].D13").value = D139;
-            document.getElementById("lstData[9].D14").value = D149;
-            document.getElementById("lstData[9].D15").value = D159;
-            document.getElementById("lstData[9].D16").value = D169;
-            document.getElementById("lstData[9].D17").value = D179;
-        }
-
-
-        D139 = 0;
-        D149 = 0;
-        D159 = 0;
-        D169 = 0;
-        D179 = 0;
-        if (["XD00038", "XD00039", "XD00040", "XD00041", "XD00042", "XD00043", "XD00044", "XD00045", "XD00046", "XD00047", "XD00048", "XD00049", "XD00050", "XD00051", "XD00052", "XD00053", "XD00054", "XD00055", "XD00056", "XD00057", "XD00058", "XD00059", "XD00087", "XD00060", "XD00061", "XD00062", "XD00063"].includes(indi)) {
-            for (var i = 51; i < 78; i++) {
-                D139 += parseFloat(document.getElementById("lstData[" + i + "].D13").value.replaceAll(',', ''));
-                D149 += parseFloat(document.getElementById("lstData[" + i + "].D14").value.replaceAll(',', ''));
-                D169 += parseFloat(document.getElementById("lstData[" + i + "].D16").value.replaceAll(',', ''));
-            }
-            D159 = D149 + D169;
-            D179 = (D169 / D149) * 100;
-            document.getElementById("lstData[50].D13").value = D139;
-            document.getElementById("lstData[50].D14").value = D149;
-            document.getElementById("lstData[50].D15").value = D159;
-            document.getElementById("lstData[50].D16").value = D169;
-            document.getElementById("lstData[50].D17").value = D179;
-        }
-
-        //Cập nhật lại cho chỉ tiêu II
-        document.getElementById("lstData[12].D13").value = parseInt(document.getElementById("lstData[13].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[78].D13").value.replaceAll(',', ''));
-        document.getElementById("lstData[12].D14").value = parseInt(document.getElementById("lstData[13].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[78].D14").value.replaceAll(',', ''));
-        document.getElementById("lstData[12].D15").value = parseInt(document.getElementById("lstData[13].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[78].D15").value.replaceAll(',', ''));
-        document.getElementById("lstData[12].D16").value = parseInt(document.getElementById("lstData[13].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[78].D16").value.replaceAll(',', ''));
-        document.getElementById("lstData[12].D17").value = parseInt(document.getElementById("lstData[13].D17").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[50].D17").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[78].D17").value.replaceAll(',', ''));
-
-        //Cập nhật các chỉ tiêu theo công thức mới ban KHNV gửi ngày 20/07/2021
-        document.getElementById("lstData[3].D13").value = parseInt(document.getElementById("lstData[4].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[8].D13").value.replaceAll(',', ''));
-        document.getElementById("lstData[3].D14").value = parseInt(document.getElementById("lstData[4].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[8].D14").value.replaceAll(',', ''));
-        document.getElementById("lstData[3].D15").value = parseInt(document.getElementById("lstData[4].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[8].D15").value.replaceAll(',', ''));
-        document.getElementById("lstData[3].D16").value = parseInt(document.getElementById("lstData[4].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[8].D16").value.replaceAll(',', ''))
-        document.getElementById("lstData[3].D17").value = parseInt(document.getElementById("lstData[4].D17").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[8].D17").value.replaceAll(',', ''));
-
-        document.getElementById("lstData[2].D13").value = parseInt(document.getElementById("lstData[12].D13").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D13").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[3].D13").value.replaceAll(',', ''));
-        document.getElementById("lstData[2].D14").value = parseInt(document.getElementById("lstData[12].D14").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D14").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[3].D14").value.replaceAll(',', ''));
-        document.getElementById("lstData[2].D15").value = parseInt(document.getElementById("lstData[12].D15").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D15").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[3].D15").value.replaceAll(',', ''));
-        document.getElementById("lstData[2].D16").value = parseInt(document.getElementById("lstData[12].D16").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D16").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[3].D16").value.replaceAll(',', ''));
-        document.getElementById("lstData[2].D17").value = parseInt(document.getElementById("lstData[12].D17").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[9].D17").value.replaceAll(',', '')) - parseInt(document.getElementById("lstData[3].D17").value.replaceAll(',', ''));
-
-        document.getElementById("lstData[1].D13").value = parseInt(document.getElementById("lstData[2].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[3].D13").value.replaceAll(',', ''));
-        document.getElementById("lstData[1].D14").value = parseInt(document.getElementById("lstData[2].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[3].D14").value.replaceAll(',', ''));
-        document.getElementById("lstData[1].D15").value = parseInt(document.getElementById("lstData[2].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[3].D15").value.replaceAll(',', ''));
-        document.getElementById("lstData[1].D16").value = parseInt(document.getElementById("lstData[2].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[3].D16").value.replaceAll(',', ''))
-        document.getElementById("lstData[1].D17").value = parseInt(document.getElementById("lstData[2].D17").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[3].D17").value.replaceAll(',', ''));
-
-
-        //Cập nhật lại cho chỉ tiêu I
-        document.getElementById("lstData[0].D13").value = parseInt(document.getElementById("lstData[1].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[9].D13").value.replaceAll(',', ''));
-        document.getElementById("lstData[0].D14").value = parseInt(document.getElementById("lstData[1].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[9].D14").value.replaceAll(',', ''));
-        document.getElementById("lstData[0].D15").value = parseInt(document.getElementById("lstData[1].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[9].D15").value.replaceAll(',', ''));
-        document.getElementById("lstData[0].D16").value = parseInt(document.getElementById("lstData[1].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[9].D16").value.replaceAll(',', ''));
-        document.getElementById("lstData[0].D17").value = parseInt(document.getElementById("lstData[1].D17").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[9].D17").value.replaceAll(',', ''));
-
-        $('.number').number(true, 0);
-        $('.number2').number(true, 2);
         
+        sumUp();
+                
         //Cập nhật lại toàn bộ phần tính % ước D17
         for (var i = 0; i < $(".number ").size(); i++) {
-            let mauso, element;
+            let element;
             element = document.getElementById("lstData[" + i + "].D14");
-            if (element != null) {
+            if (element !== null) {
                 document.getElementById("lstData[" + i + "].D17").value = (parseInt(document.getElementById("lstData[" + i + "].D16").value.replaceAll(',', '')) / parseInt(document.getElementById("lstData[" + i + "].D14").value.replaceAll(',', ''))) * 100;
             }
         }
-    }
-    autoPlus(11);
+        
+        $('.number').number(true, 0);
+        $('.number2').number(true, 2);
+    }    
 </script>
