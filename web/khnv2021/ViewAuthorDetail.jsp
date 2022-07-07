@@ -211,6 +211,11 @@
         document.getElementById("lstData[56].D16").value = D16;        
         document.getElementById("lstData[56].D17").value = D17;        
         
+        //II SỬ DỤNG VỐN(XD00109) = A + B + C
+        document.getElementById("lstData[9].D13").value = parseInt(document.getElementById("lstData[10].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[56].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[83].D13").value.replaceAll(',', ''));
+        document.getElementById("lstData[9].D14").value = parseInt(document.getElementById("lstData[10].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[56].D14").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[83].D13").value.replaceAll(',', ''));
+        document.getElementById("lstData[9].D15").value = parseInt(document.getElementById("lstData[10].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[56].D15").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[83].D13").value.replaceAll(',', ''));
+        document.getElementById("lstData[9].D16").value = parseInt(document.getElementById("lstData[10].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[56].D16").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[83].D13").value.replaceAll(',', ''));        
     }    
     //Hàm xử lý tính toán cho 2 chỉ tiêu nguôn kế hoạch B
     function autoPlus(idx) {
