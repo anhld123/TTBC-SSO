@@ -38,6 +38,27 @@ import vbsp.ims.model.PLNO_DULIEU;
  */
 public class DuLieuNTService extends ReportService {
 
+    
+    public ArrayList<CommisionFeeModel> getCommisionFeeData(String posCode, String reportDate, String flagType) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("commission-fee-list-by-poscode-type")                
+                .queryParam("pPosCode", posCode)
+                .queryParam("pReportDate", reportDate)
+                .queryParam("pFlagType", flagType);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            CommisionFeeResp dataResp = response.readEntity(CommisionFeeResp.class);
+            ArrayList<CommisionFeeModel> listOfRow = dataResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+    
     public ArrayList<DuLieuNTRow> getData(String key, String posCode, String posFlag, String reportDate) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);

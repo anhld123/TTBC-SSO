@@ -5,7 +5,15 @@
  */
 package vbsp.ims.model;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,9 +21,14 @@ import java.util.logging.Logger;
 import vbsp.ims.dao.ExportText2SbvDao;
 import vbsp.ims.define.Define;
 import vbsp.ims.define.DefineFun;
+import vbsp.ims.export.excel.ExportFileHstdCt;
 import vbsp.ims.export.excel.SbvExcelTemplateExport;
+import vbsp.ims.log.CoreLogger;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.zip.FileZip;
+import vbsp.ims.restapi.*;
+import java.util.Date;
+import vbsp.ims.util.*;
 
 /**
  *
@@ -88,8 +101,9 @@ public class ExportText2SbvManager {
             String reportDate, String considateFlag, String period, String sbvSendIndiGroup,
             boolean send2Sbv, boolean send9acc) {
         String mapReport = exportDao.getMappingReport(report);
-
         templateExport = new SbvExcelTemplateExport();
+        Date dReportDate = DateUtil.stringToDate(reportDate, "dd-MMM-yyyy");
+        String apiReportDate = DateUtil.dateToString(dReportDate, "yyyyMMdd");
 
         ArrayList<String> listOfPos
                 = (ArrayList<String>) DefineFun.string2Array(lstOfPos, ",", 2);
@@ -141,6 +155,16 @@ public class ExportText2SbvManager {
                         }
                         textFilePath = exportDao.getDataExportFile(mapReport, pos_cd, considateFlag,
                                 reportDate, period, send2sbvStr, Define.M_ROOT + Define.M_REPORT_TXT);
+                        zipPath = Define.M_ROOT + Define.M_REPORT_TXT + zipFile;
+                        break;
+                    case "HOA_HONG":                        
+                        textFilePath = Define.M_ROOT + Define.M_REPORT_TXT + "/commision_" + pos_cd + "_" + apiReportDate + ".txt";
+                        exportCommisionFee(textFilePath, pos_cd, apiReportDate, "C");
+                        zipPath = Define.M_ROOT + Define.M_REPORT_TXT + zipFile;
+                        break;
+                    case "PHI":                        
+                        textFilePath = Define.M_ROOT + Define.M_REPORT_TXT + "/fee_" + pos_cd + "_" + apiReportDate + ".txt";
+                        exportCommisionFee(textFilePath, pos_cd, apiReportDate, "F");
                         zipPath = Define.M_ROOT + Define.M_REPORT_TXT + zipFile;
                         break;
                     default:
@@ -201,6 +225,57 @@ public class ExportText2SbvManager {
         saveDir = new File(dirPath);
         if (!saveDir.exists()) {
             saveDir.mkdir();
+        }
+    }
+    
+
+// type : C - Hoa hong, F - Phi    
+    void exportCommisionFee(String commisionFile, String posCode, String reportDate, String type)
+    {
+        DuLieuNTService service = new DuLieuNTService();        
+        //String commisionFile = Define.M_ROOT + Define.M_REPORT_TXT + "/commision.txt";
+        //String feeFile = Define.M_ROOT + Define.M_REPORT_TXT + "/fee.txt";
+        //Date dReportDate = DateUtil.stringToDate(reportDate, "dd-MMM-yyyy");
+        //String apiReportDate = DateUtil.dateToString(dReportDate, "yyyyMMdd");
+        ArrayList<CommisionFeeModel> commisionData = service.getCommisionFeeData(posCode, reportDate, type); 
+        if (commisionData != null && commisionData.size() > 0)
+        {
+            exportToFile(commisionFile, commisionData);
+        }
+//        ArrayList<CommisionFeeModel> feeData = service.getCommisionFeeData(posCode, reportDate, "F"); 
+//        if (feeData != null && feeData.size() > 0)
+//        {
+//            exportToFile(feeFile, feeData);
+//        }
+        
+    }
+    
+    void exportToFile(String filePath, ArrayList<CommisionFeeModel> data)
+    {
+        try {
+            Writer outfile = null;
+            try {
+                outfile = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(filePath), "UTF-8"));
+            } catch (UnsupportedEncodingException ex) {
+                CoreLogger.error(ExportFileHstdCt.class.getCanonicalName() 
+                        + " Loi khi khoi tao UTF-8 ExportFileHstdCt -> " + ex.getMessage());
+            }
+            try {
+                for(int i = 0; i < data.size(); i++)
+                {
+                    String strRow =  data.get(i).toString() + "\r\n";
+                    Writer append = outfile.append(strRow);
+                }                
+                outfile.flush();
+                outfile.close();                
+            } catch (IOException efile) {
+                CoreLogger.error(ExportFileHstdCt.class.getCanonicalName() 
+                        + " Loi khi ghi file ExportFile2Sbv -> " + efile.getMessage());
+            }
+        } catch (Exception e) {
+            CoreLogger.error(ExportFileHstdCt.class.getCanonicalName() 
+                    + " Loi khi getdata ExportFile2Sbv -> " + e.getMessage());
         }
     }
 }

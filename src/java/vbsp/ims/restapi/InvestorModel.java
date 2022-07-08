@@ -16,7 +16,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 //@XmlRootElement(name = "dulieuNT")
 @XmlAccessorType (XmlAccessType.FIELD)
 
-public class InvestorModel {private String mainPos;
+public class InvestorModel {
+    private String mainPos;
  private String posCode;
  private String reportDate;
  private String investorCode;
