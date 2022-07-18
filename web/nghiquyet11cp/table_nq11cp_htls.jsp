@@ -125,7 +125,7 @@
                     <th  class="TD_TOTIEN">Số tiền HTLS tháng 4</th>
                     <th  class="TD_TOTIEN">Số tiền HTLS tháng 5</th>
                     <th  class="TD_TOTIEN">Số tiền HTLS tháng 6</th>
-
+                    <th  class="TD_TOTIEN">Số tiền HTLS tháng 7</th> 
 
                     <th rowspan="1"  class="TD_TOTIEN">Số tiền hạch toán HTLS</th>                              
 
@@ -193,7 +193,11 @@
                                    name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D17" class="TEN_KH number" onfocus="this.select();" 
                                    readonly="true"/>
                         </td>
-
+                        <td align = "right" class="TD_TOTIEN" >
+                            <input type="text"   value="<s:property  value="D18" />" 
+                                   name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number" onfocus="this.select();" 
+                                   readonly="true"/>
+                        </td>    
                         <td align = "right" class="TD_TOTIEN" >
                             <input type="text"   value="<s:property  value="D11" />" 
                                    name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH number" onfocus="this.select();" 
@@ -220,7 +224,7 @@
                             <th rowspan="2"  class="TD_NGAY">Kiểu định lịch trả nợ</th>  
                             <th rowspan="2"  class="TD_NGAY">Ngày giải ngân</th>  
                             <th colspan="3"  class="TD_MAKH">Dư nợ</th>                             
-                            <th colspan="6"  class="TD_MAKH">Số tiền HTLS các tháng trong năm 2022</th>                                                                   
+                            <th colspan="7"  class="TD_MAKH">Số tiền HTLS các tháng trong năm 2022</th>                                                                   
 
                             <!--<th rowspan="2"  class="TD_MAKH">Phân loại RPA hoặc Phải trả</th>-->  
                             <th rowspan="2"  class="TD_MAKH">Đơn vị xác nhận món vay được HTLS (Có/Không)</th>                              
@@ -238,6 +242,7 @@
                             <th  class="TD_NGAY">Tháng 4</th>   
                             <th  class="TD_NGAY">Tháng 5</th>   
                             <th  class="TD_NGAY">Tháng 6</th>   
+                            <th  class="TD_NGAY">Tháng 7</th>   
                         </tr>
                         <tr style="font-style: italic;">
                             <td style="text-align: center">(1)</td>
@@ -257,8 +262,9 @@
                             <td style="text-align: center">(12)</td>
                             <td style="text-align: center">(13)</td>
                             <td style="text-align: center">(14)</td>
-                            <!--<td style="text-align: center">(13)</td>-->
                             <td style="text-align: center">(15)</td>
+                            <!--<td style="text-align: center">(13)</td>-->
+                            <td style="text-align: center">(16)</td>
                             <th  class="TD_STT">
                                 <s:if test="chotsl.equalsIgnoreCase('0')">
                                     <input type="checkbox" id ="allCheck_dat" name="allCheck_dat"  />
@@ -385,6 +391,12 @@
                                         <input type="text"   value="<s:property  value="D40" />"
                                                class="DataHiden" id='D40<s:property  value="%{#rowstatus.index}" />BK'/>
                                     </td>
+                                    <td align = "right" class="TD_MAKH" >
+                                        <input type="text"   value="<s:property  value="D52" />" style="background: #C0C0C0 !important;"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D52" class="TEN_KH number" onfocus="this.select();" id='D52<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D52<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" readonly="true"/>
+                                        <input type="text"   value="<s:property  value="D52" />"
+                                               class="DataHiden" id='D52<s:property  value="%{#rowstatus.index}" />BK'/>
+                                    </td>
                                 </s:if>
                                 <s:else>
                                     <td align = "right" class="TD_MAKH" >
@@ -423,7 +435,14 @@
                                         <input type="text"   value="<s:property  value="D40" />"
                                                class="DataHiden" id='D40<s:property  value="%{#rowstatus.index}" />BK'/>
                                     </td>
-                                </s:else>
+                                    
+                                    <td align = "right" class="TD_MAKH" >
+                                            <input type="text"   value="<s:property  value="D52" />" <s:if test="MA.equalsIgnoreCase('1')">style="background: #C0C0C0 !important;"</s:if>
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D52" class="TEN_KH number" onfocus="this.select();" id='D52<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D52<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" />
+                                            <input type="text"   value="<s:property  value="D52" />"
+                                                       class="DataHiden" id='D52<s:property  value="%{#rowstatus.index}" />BK'/>
+                                    </td>
+                                                </s:else>
                                     
                                  
                                 

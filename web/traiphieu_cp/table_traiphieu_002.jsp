@@ -287,7 +287,7 @@
                                 <input type="text"   value="<s:property  value="D4" />" style="background: #E7DCDA !important;"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
                                        class=" TEN_KH  number" 
-                                       onfocus="this.select();"/> 
+                                       onfocus="this.select();" readonly="true"/> 
                             </td>
                             <td align = "right" class="TD_SOKU" >
                                 <input type="text"   value="<s:property  value="D9" />"  
