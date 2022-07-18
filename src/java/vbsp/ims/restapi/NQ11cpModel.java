@@ -54,6 +54,8 @@ public class NQ11cpModel {
     BigInteger intSubsidyM05Amt;
     @XmlElement(defaultValue = "0")
     BigInteger intSubsidyM06Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyM07Amt;
 
     @XmlElement(defaultValue = "0")
     BigInteger intSubsidyAdjustM01Amt;
@@ -67,6 +69,8 @@ public class NQ11cpModel {
     BigInteger intSubsidyAdjustM05Amt;
     @XmlElement(defaultValue = "0")
     BigInteger intSubsidyAdjustM06Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyAdjustM07Amt;
 
     String paymentFlag;
     String intConfirmFlag;
@@ -105,6 +109,7 @@ public class NQ11cpModel {
     double intTotalM04Amt;
     double intTotalM05Amt;
     double intTotalM06Amt;
+    double intTotalM07Amt;
 
     String communeId;
     String m01SubsidyTranRef;
@@ -777,6 +782,30 @@ public class NQ11cpModel {
         this.m06Status = m06Status;
     }
 
+    public BigInteger getIntSubsidyM07Amt() {
+        return intSubsidyM07Amt == null ? new BigInteger("0") : intSubsidyM07Amt;
+    }
+    
+    public void setIntSubsidyM07Amt(BigInteger intSubsidyM07Amt) {
+        this.intSubsidyM07Amt = intSubsidyM07Amt;
+    }
+    public BigInteger getIntSubsidyAdjustM07Amt() {
+        return intSubsidyAdjustM07Amt == null ? new BigInteger("0") : intSubsidyAdjustM07Amt;
+    }
+
+    public void setIntSubsidyAdjustM07Amt(BigInteger intSubsidyAdjustM07Amt) {
+        this.intSubsidyAdjustM07Amt = intSubsidyAdjustM07Amt;
+    }
+
+    public double getIntTotalM07Amt() {
+        return intTotalM07Amt;
+    }
+
+    public void setIntTotalM07Amt(double intTotalM07Amt) {
+        this.intTotalM07Amt = intTotalM07Amt;
+    }
+
+    
     
     
 }
