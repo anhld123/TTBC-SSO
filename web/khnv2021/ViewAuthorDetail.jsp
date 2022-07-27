@@ -196,9 +196,9 @@
                 indi = item.value;
                 if (indi !== '' && indiArr.includes(indi))
                 {
-                    D13 += parseInt(document.getElementById("lstData[" + i + "].D13").value.replace(',', ''));
-                    D14 += parseInt(document.getElementById("lstData[" + i + "].D14").value.replace(',', ''));
-                    D16 += parseInt(document.getElementById("lstData[" + i + "].D16").value.replace(',', ''));
+                    D13 += parseInt(document.getElementById("lstData[" + i + "].D13").value.replaceAll(',', ''));
+                    D14 += parseInt(document.getElementById("lstData[" + i + "].D14").value.replaceAll(',', ''));
+                    D16 += parseInt(document.getElementById("lstData[" + i + "].D16").value.replaceAll(',', ''));
                 }
             }
             
@@ -210,7 +210,7 @@
         document.getElementById("lstData["+totalIndex+"].D14").value = D14;
         document.getElementById("lstData["+totalIndex+"].D15").value = D15;
         document.getElementById("lstData["+totalIndex+"].D16").value = D16;        
-        document.getElementById("lstData["+totalIndex+"].D17").value = D17;     
+        document.getElementById("lstData["+totalIndex+"].D17").value = D17; 
     }
     
     
@@ -262,9 +262,9 @@
         
         if (["XD00111","XD00048","XD00049","XD00050","XD00051","XD00052","XD00053","XD00054","XD00055","XD00056","XD00057","XD00058","XD00059","XD00060","XD00061","XD00063","XD00064","XD00065","XD00069","XD00070","XD00071","XD00072","XD00074","XD00075","XD00076","XD00078","XD00079","XD00109",
         "XD00106","XD00107","XD00108","XD00116"].includes(indi)) {
-            D13 = document.getElementById("lstData[" + idx + "].D13").value.replace(',', '');
-            D14 = document.getElementById("lstData[" + idx + "].D14").value.replace(',', '');
-            D16 = document.getElementById("lstData[" + idx + "].D16").value.replace(',', '');
+            D13 = document.getElementById("lstData[" + idx + "].D13").value.replaceAll(',', '');
+            D14 = document.getElementById("lstData[" + idx + "].D14").value.replaceAll(',', '');
+            D16 = document.getElementById("lstData[" + idx + "].D16").value.replaceAll(',', '');
             D15 = parseFloat(D14) + parseFloat(D16);
             document.getElementById("lstData[" + idx + "].D15").value = D15;
             D17 = (D16 / D14) * 100;
