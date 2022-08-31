@@ -26,11 +26,12 @@
 //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 2);
                 $(".TD_STT").css({"width": "20px"});
+                $(".TD_CHECK").css({"width": "35px"});
                 $(".TD_MAKH").css({"width": "50px"});
                 $(".TD_TOTIEN").css({"width": "70px"});
                 $(".TD_NGAY").css({"width": "65px"});
                 $(".TD_TENKH").css({"width": "130px"});
-                $(".TD_SOKU").css({"width": "100px"});
+                $(".TD_SOKU").css({"width": "110px"});
 //                $(".TD_NGAY").css({"width": "40px"});
                 $(".TD_CHITIEU").css({"width": "300px"});
                 $(".TD_GHICHU").css({"width": "150px"});
@@ -126,6 +127,7 @@
                     <th  class="TD_TOTIEN">Số tiền HTLS tháng 5</th>
                     <th  class="TD_TOTIEN">Số tiền HTLS tháng 6</th>
                     <th  class="TD_TOTIEN">Số tiền HTLS tháng 7</th> 
+                    <th  class="TD_TOTIEN">Số tiền HTLS tháng 8</th> 
 
                     <th rowspan="1"  class="TD_TOTIEN">Số tiền hạch toán HTLS</th>                              
 
@@ -199,6 +201,11 @@
                                    readonly="true"/>
                         </td>    
                         <td align = "right" class="TD_TOTIEN" >
+                            <input type="text"   value="<s:property  value="D19" />" 
+                                   name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH number" onfocus="this.select();" 
+                                   readonly="true"/>
+                        </td>  
+                        <td align = "right" class="TD_TOTIEN" >
                             <input type="text"   value="<s:property  value="D11" />" 
                                    name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH number" onfocus="this.select();" 
                                    readonly="true"/>
@@ -211,7 +218,7 @@
                         </div>
             -->
             <div class="cls-over">
-                <div id="scrolling_table_1"  style="width: 98%; max-height:45vh">
+                <div id="scrolling_table_1"  style="width: 110%; height:500px">
                     <table id="tblTable">
                         <tr >      
                             <th rowspan="2" class="TD_STT">STT</th>                           
@@ -224,11 +231,11 @@
                             <th rowspan="2"  class="TD_NGAY">Kiểu định lịch trả nợ</th>  
                             <th rowspan="2"  class="TD_NGAY">Ngày giải ngân</th>  
                             <th colspan="3"  class="TD_MAKH">Dư nợ</th>                             
-                            <th colspan="7"  class="TD_MAKH">Số tiền HTLS các tháng trong năm 2022</th>                                                                   
+                            <th colspan="8"  class="TD_MAKH">Số tiền HTLS các tháng trong năm 2022</th>                                                                   
 
                             <!--<th rowspan="2"  class="TD_MAKH">Phân loại RPA hoặc Phải trả</th>-->  
-                            <th rowspan="2"  class="TD_MAKH">Đơn vị xác nhận món vay được HTLS (Có/Không)</th>                              
-                            <th rowspan="2"  class="TD_MAKH">Cập nhật</th>  
+                            <th rowspan="2"  class="TD_CHECK">Đơn vị xác nhận món vay được HTLS</th>                              
+                            <th rowspan="2"  class="TD_CHECK">Cập nhật</th>  
                             <!--<th rowspan="2"  class="TD_GHICHU">Ghi chú</th>-->  
 
                         </tr>         
@@ -243,6 +250,7 @@
                             <th  class="TD_NGAY">Tháng 5</th>   
                             <th  class="TD_NGAY">Tháng 6</th>   
                             <th  class="TD_NGAY">Tháng 7</th>   
+                            <th  class="TD_NGAY">Tháng 8</th>   
                         </tr>
                         <tr style="font-style: italic;">
                             <td style="text-align: center">(1)</td>
@@ -265,7 +273,8 @@
                             <td style="text-align: center">(15)</td>
                             <!--<td style="text-align: center">(13)</td>-->
                             <td style="text-align: center">(16)</td>
-                            <th  class="TD_STT">
+                            <td style="text-align: center">(17)</td>
+                            <th  class="TD_CHECK">
                                 <s:if test="chotsl.equalsIgnoreCase('0')">
                                     <input type="checkbox" id ="allCheck_dat" name="allCheck_dat"  />
                                 </s:if>
@@ -303,7 +312,7 @@
                                            value="<s:property  value="D25"/>"/>
                                 </td>
                                 <td align = "right" class="TD_SOKU" >
-                                    <input type="text"   value="<s:property  value="D3" />" style="background: #C0C0C0 !important;"
+                                    <input type="text"   value="<s:property  value="D3" />" style="background: #C0C0C0 !important;" title="<s:property  value="D3" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="D0 TEN_KH " onfocus="this.select();"
                                            readonly="true"/>
                                 </td>
@@ -397,6 +406,12 @@
                                         <input type="text"   value="<s:property  value="D52" />"
                                                class="DataHiden" id='D52<s:property  value="%{#rowstatus.index}" />BK'/>
                                     </td>
+                                    <td align = "right" class="TD_MAKH" >
+                                        <input type="text"   value="<s:property  value="D61" />" style="background: #C0C0C0 !important;"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D61" class="TEN_KH number" onfocus="this.select();" id='D61<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D61<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" readonly="true"/>
+                                        <input type="text"   value="<s:property  value="D61" />"
+                                               class="DataHiden" id='D61<s:property  value="%{#rowstatus.index}" />BK'/>
+                                    </td>
                                 </s:if>
                                 <s:else>
                                     <td align = "right" class="TD_MAKH" >
@@ -442,6 +457,12 @@
                                             <input type="text"   value="<s:property  value="D52" />"
                                                        class="DataHiden" id='D52<s:property  value="%{#rowstatus.index}" />BK'/>
                                     </td>
+                                    <td align = "right" class="TD_MAKH" >
+                                            <input type="text"   value="<s:property  value="D61" />" <s:if test="MA.equalsIgnoreCase('1')">style="background: #C0C0C0 !important;"</s:if>
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D61" class="TEN_KH number" onfocus="this.select();" id='D61<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D61<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" />
+                                            <input type="text"   value="<s:property  value="D61" />"
+                                                       class="DataHiden" id='D61<s:property  value="%{#rowstatus.index}" />BK'/>
+                                    </td>
                                                 </s:else>
                                     
                                  
@@ -457,14 +478,14 @@
                                 </s:if>    
                                 <s:else>
                                     <s:if test="chotsl.equalsIgnoreCase('0')">
-                                        <td  align="center" class="TD_CHECKBOX">    
+                                        <td  align="center" class="TD_CHECK">    
                                             <input type="checkbox" id ="idc11<s:property  value="%{#rowstatus.index}" />"  class="checkboxdat TEN_KH D0" 
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25" value="<s:property  value="D25"/>" onclick="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'ClickCheck')"                                           
                                                    />
                                         </td> 
                                     </s:if>
                                     <s:else>
-                                        <td  align="center" class="TD_CHECKBOX">    
+                                        <td  align="center" class="TD_CHECK">    
                                             <input type="checkbox" disabled="disabled" checked="checked">
                                         </td> 
                                     </s:else>
@@ -475,7 +496,7 @@
                                     <td></td>
                                 </s:if>    
                                 <s:else>
-                                    <td  align="center" class="TD_CHECKBOX">    
+                                    <td  align="center" class="TD_CHECK">    
                                         <input type="checkbox" id ='idchk<s:property  value="%{#rowstatus.index}" />' class="checkboxdat TEN_KH" 
                                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D33" value="<s:property  value="D33"/>"                                            
                                                />
