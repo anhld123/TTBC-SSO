@@ -56,6 +56,8 @@ public class NQ11cpModel {
     BigInteger intSubsidyM06Amt;
     @XmlElement(defaultValue = "0")
     BigInteger intSubsidyM07Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyM08Amt;
 
     @XmlElement(defaultValue = "0")
     BigInteger intSubsidyAdjustM01Amt;
@@ -71,6 +73,8 @@ public class NQ11cpModel {
     BigInteger intSubsidyAdjustM06Amt;
     @XmlElement(defaultValue = "0")
     BigInteger intSubsidyAdjustM07Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyAdjustM08Amt;
 
     String paymentFlag;
     String intConfirmFlag;
@@ -110,6 +114,7 @@ public class NQ11cpModel {
     double intTotalM05Amt;
     double intTotalM06Amt;
     double intTotalM07Amt;
+    double intTotalM08Amt;
 
     String communeId;
     String m01SubsidyTranRef;
@@ -789,12 +794,29 @@ public class NQ11cpModel {
     public void setIntSubsidyM07Amt(BigInteger intSubsidyM07Amt) {
         this.intSubsidyM07Amt = intSubsidyM07Amt;
     }
+    
+     public BigInteger getIntSubsidyM08Amt() {
+        return intSubsidyM08Amt == null ? new BigInteger("0") : intSubsidyM08Amt;
+    }
+    
+    public void setIntSubsidyM08Amt(BigInteger intSubsidyM08Amt) {
+        this.intSubsidyM08Amt = intSubsidyM08Amt;
+    }
+    
     public BigInteger getIntSubsidyAdjustM07Amt() {
         return intSubsidyAdjustM07Amt == null ? new BigInteger("0") : intSubsidyAdjustM07Amt;
     }
 
     public void setIntSubsidyAdjustM07Amt(BigInteger intSubsidyAdjustM07Amt) {
         this.intSubsidyAdjustM07Amt = intSubsidyAdjustM07Amt;
+    }
+    
+    public BigInteger getIntSubsidyAdjustM08Amt() {
+        return intSubsidyAdjustM08Amt == null ? new BigInteger("0") : intSubsidyAdjustM08Amt;
+    }
+
+    public void setIntSubsidyAdjustM08Amt(BigInteger intSubsidyAdjustM08Amt) {
+        this.intSubsidyAdjustM08Amt = intSubsidyAdjustM08Amt;
     }
 
     public double getIntTotalM07Amt() {
@@ -806,6 +828,12 @@ public class NQ11cpModel {
     }
 
     
-    
+    public double getIntTotalM08Amt() {
+        return intTotalM08Amt;
+    }
+
+    public void setIntTotalM08Amt(double intTotalM08Amt) {
+        this.intTotalM08Amt = intTotalM08Amt;
+    }
     
 }

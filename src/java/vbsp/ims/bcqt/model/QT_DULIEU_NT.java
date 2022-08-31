@@ -103,11 +103,104 @@ public class QT_DULIEU_NT implements SQLData {
     private String D58;
     private String D59;
     
+    private String D60;
+    private String D61;
+    private String D62;
+    private String D63;
+    private String D64;
+    private String D65;
+    private String D66;
+    private String D67;
+    private String D68;
+    private String D69;	
+    
     private int KIEUIN;
     private String CAP;
     private String CO_CONGCAP;
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Phuong thuc get/set">
+
+    public String getD60() {
+        return D60;
+    }
+
+    public void setD60(String D60) {
+        this.D60 = D60;
+    }
+
+    public String getD61() {
+        return D61;
+    }
+
+    public void setD61(String D61) {
+        this.D61 = D61;
+    }
+
+    public String getD62() {
+        return D62;
+    }
+
+    public void setD62(String D62) {
+        this.D62 = D62;
+    }
+
+    public String getD63() {
+        return D63;
+    }
+
+    public void setD63(String D63) {
+        this.D63 = D63;
+    }
+
+    public String getD64() {
+        return D64;
+    }
+
+    public void setD64(String D64) {
+        this.D64 = D64;
+    }
+
+    public String getD65() {
+        return D65;
+    }
+
+    public void setD65(String D65) {
+        this.D65 = D65;
+    }
+
+    public String getD66() {
+        return D66;
+    }
+
+    public void setD66(String D66) {
+        this.D66 = D66;
+    }
+
+    public String getD67() {
+        return D67;
+    }
+
+    public void setD67(String D67) {
+        this.D67 = D67;
+    }
+
+    public String getD68() {
+        return D68;
+    }
+
+    public void setD68(String D68) {
+        this.D68 = D68;
+    }
+
+    public String getD69() {
+        return D69;
+    }
+
+    public void setD69(String D69) {
+        this.D69 = D69;
+    }
+    
+    
 
     public String getD31() {
         return D31;
