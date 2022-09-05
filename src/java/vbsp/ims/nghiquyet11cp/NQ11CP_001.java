@@ -271,7 +271,9 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                     if (chotsl.equals("0")) {
                         if ((sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode()))
                                 //                                && (sGiaingan.equals("-1") || sdf.parse(item.getDisbursalDate()).after(df1.parse("04/01/2022")))
-                                && (sGiaingan.equals("-1") || item.getLoanStatus().equals("C"))) {
+                                && (sGiaingan.equals("1") ? item.getLoanStatus().equals("C") : sGiaingan.equals("2") ?
+                                sdf.parse(item.getDisbursalDate()).after(df1.parse("06/01/2022")) : sdf.parse(item.getDisbursalDate()).after(df1.parse("06/01/1990")))
+                                ) {
                             i++;
                             dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
                             dn_quahan = dn_quahan + (long) item.getOverdueAmt();
