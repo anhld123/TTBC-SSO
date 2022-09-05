@@ -58,6 +58,8 @@ public class NQ11cpModel {
     BigInteger intSubsidyM07Amt;
     @XmlElement(defaultValue = "0")
     BigInteger intSubsidyM08Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyM09Amt;
 
     @XmlElement(defaultValue = "0")
     BigInteger intSubsidyAdjustM01Amt;
@@ -75,6 +77,8 @@ public class NQ11cpModel {
     BigInteger intSubsidyAdjustM07Amt;
     @XmlElement(defaultValue = "0")
     BigInteger intSubsidyAdjustM08Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyAdjustM09Amt;
 
     String paymentFlag;
     String intConfirmFlag;
@@ -115,6 +119,7 @@ public class NQ11cpModel {
     double intTotalM06Amt;
     double intTotalM07Amt;
     double intTotalM08Amt;
+    double intTotalM09Amt;
 
     String communeId;
     String m01SubsidyTranRef;
@@ -795,12 +800,20 @@ public class NQ11cpModel {
         this.intSubsidyM07Amt = intSubsidyM07Amt;
     }
     
-     public BigInteger getIntSubsidyM08Amt() {
+    public BigInteger getIntSubsidyM08Amt() {
         return intSubsidyM08Amt == null ? new BigInteger("0") : intSubsidyM08Amt;
     }
     
     public void setIntSubsidyM08Amt(BigInteger intSubsidyM08Amt) {
         this.intSubsidyM08Amt = intSubsidyM08Amt;
+    }
+    
+    public BigInteger getIntSubsidyM09Amt() {
+        return intSubsidyM09Amt == null ? new BigInteger("0") : intSubsidyM09Amt;
+    }
+    
+    public void setIntSubsidyM09Amt(BigInteger intSubsidyM09Amt) {
+        this.intSubsidyM09Amt = intSubsidyM09Amt;
     }
     
     public BigInteger getIntSubsidyAdjustM07Amt() {
@@ -810,13 +823,20 @@ public class NQ11cpModel {
     public void setIntSubsidyAdjustM07Amt(BigInteger intSubsidyAdjustM07Amt) {
         this.intSubsidyAdjustM07Amt = intSubsidyAdjustM07Amt;
     }
-    
     public BigInteger getIntSubsidyAdjustM08Amt() {
         return intSubsidyAdjustM08Amt == null ? new BigInteger("0") : intSubsidyAdjustM08Amt;
     }
 
     public void setIntSubsidyAdjustM08Amt(BigInteger intSubsidyAdjustM08Amt) {
         this.intSubsidyAdjustM08Amt = intSubsidyAdjustM08Amt;
+    }
+    
+    public BigInteger getIntSubsidyAdjustM09Amt() {
+        return intSubsidyAdjustM09Amt == null ? new BigInteger("0") : intSubsidyAdjustM09Amt;
+    }
+
+    public void setIntSubsidyAdjustM09Amt(BigInteger intSubsidyAdjustM09Amt) {
+        this.intSubsidyAdjustM09Amt = intSubsidyAdjustM09Amt;
     }
 
     public double getIntTotalM07Amt() {
@@ -826,14 +846,20 @@ public class NQ11cpModel {
     public void setIntTotalM07Amt(double intTotalM07Amt) {
         this.intTotalM07Amt = intTotalM07Amt;
     }
-
-    
     public double getIntTotalM08Amt() {
         return intTotalM08Amt;
     }
 
     public void setIntTotalM08Amt(double intTotalM08Amt) {
         this.intTotalM08Amt = intTotalM08Amt;
+    }
+    
+    public double getIntTotalM09Amt() {
+        return intTotalM09Amt;
+    }
+
+    public void setIntTotalM09Amt(double intTotalM09Amt) {
+        this.intTotalM09Amt = intTotalM09Amt;
     }
     
 }
