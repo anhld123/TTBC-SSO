@@ -492,6 +492,7 @@
                                                 <select name="giaingan" id="giaingan">
                                                     <option value="-1">--Tất cả--</option>
                                                     <option value="1">Món vay tất toán</option>                                                    
+                                                    <option value="2">Giải ngân sau 31/5/2022</option>        
                                                 </select>
                                             </td>         
 
