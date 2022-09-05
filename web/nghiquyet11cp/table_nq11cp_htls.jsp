@@ -128,6 +128,7 @@
                     <th  class="TD_TOTIEN">Số tiền HTLS tháng 6</th>
                     <th  class="TD_TOTIEN">Số tiền HTLS tháng 7</th> 
                     <th  class="TD_TOTIEN">Số tiền HTLS tháng 8</th> 
+                    <th  class="TD_TOTIEN">Số tiền HTLS tháng 9</th> 
 
                     <th rowspan="1"  class="TD_TOTIEN">Số tiền hạch toán HTLS</th>                              
 
@@ -206,6 +207,11 @@
                                    readonly="true"/>
                         </td>  
                         <td align = "right" class="TD_TOTIEN" >
+                            <input type="text"   value="<s:property  value="D27" />" 
+                                   name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D27" class="TEN_KH number" onfocus="this.select();" 
+                                   readonly="true"/>
+                        </td>  
+                        <td align = "right" class="TD_TOTIEN" >
                             <input type="text"   value="<s:property  value="D11" />" 
                                    name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH number" onfocus="this.select();" 
                                    readonly="true"/>
@@ -231,7 +237,7 @@
                             <th rowspan="2"  class="TD_NGAY">Kiểu định lịch trả nợ</th>  
                             <th rowspan="2"  class="TD_NGAY">Ngày giải ngân</th>  
                             <th colspan="3"  class="TD_MAKH">Dư nợ</th>                             
-                            <th colspan="8"  class="TD_MAKH">Số tiền HTLS các tháng trong năm 2022</th>                                                                   
+                            <th colspan="9"  class="TD_MAKH">Số tiền HTLS các tháng trong năm 2022</th>                                                                   
 
                             <!--<th rowspan="2"  class="TD_MAKH">Phân loại RPA hoặc Phải trả</th>-->  
                             <th rowspan="2"  class="TD_CHECK">Đơn vị xác nhận món vay được HTLS</th>                              
@@ -251,6 +257,7 @@
                             <th  class="TD_NGAY">Tháng 6</th>   
                             <th  class="TD_NGAY">Tháng 7</th>   
                             <th  class="TD_NGAY">Tháng 8</th>   
+                            <th  class="TD_NGAY">Tháng 9</th>   
                         </tr>
                         <tr style="font-style: italic;">
                             <td style="text-align: center">(1)</td>
@@ -274,6 +281,7 @@
                             <!--<td style="text-align: center">(13)</td>-->
                             <td style="text-align: center">(16)</td>
                             <td style="text-align: center">(17)</td>
+                            <td style="text-align: center">(18)</td>
                             <th  class="TD_CHECK">
                                 <s:if test="chotsl.equalsIgnoreCase('0')">
                                     <input type="checkbox" id ="allCheck_dat" name="allCheck_dat"  />
@@ -412,6 +420,12 @@
                                         <input type="text"   value="<s:property  value="D61" />"
                                                class="DataHiden" id='D61<s:property  value="%{#rowstatus.index}" />BK'/>
                                     </td>
+                                    <td align = "right" class="TD_MAKH" >
+                                        <input type="text"   value="<s:property  value="D64" />" style="background: #C0C0C0 !important;"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D64" class="TEN_KH number" onfocus="this.select();" id='D64<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D64<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" readonly="true"/>
+                                        <input type="text"   value="<s:property  value="D64" />"
+                                               class="DataHiden" id='D64<s:property  value="%{#rowstatus.index}" />BK'/>
+                                    </td>
                                 </s:if>
                                 <s:else>
                                     <td align = "right" class="TD_MAKH" >
@@ -462,6 +476,12 @@
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D61" class="TEN_KH number" onfocus="this.select();" id='D61<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D61<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" />
                                             <input type="text"   value="<s:property  value="D61" />"
                                                        class="DataHiden" id='D61<s:property  value="%{#rowstatus.index}" />BK'/>
+                                    </td>
+                                    <td align = "right" class="TD_MAKH" >
+                                            <input type="text"   value="<s:property  value="D64" />" <s:if test="MA.equalsIgnoreCase('1')">style="background: #C0C0C0 !important;"</s:if>
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D64" class="TEN_KH number" onfocus="this.select();" id='D64<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D64<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" />
+                                            <input type="text"   value="<s:property  value="D64" />"
+                                                       class="DataHiden" id='D64<s:property  value="%{#rowstatus.index}" />BK'/>
                                     </td>
                                                 </s:else>
                                     
