@@ -433,12 +433,12 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                                     tempadd.setIntSubsidyAdjustM02Amt(new BigInteger(tmp.getD19()));
                                     tempadd.setIntSubsidyAdjustM03Amt(new BigInteger(tmp.getD20()));
                                     tempadd.setIntSubsidyAdjustM04Amt(new BigInteger(tmp.getD55()));
-                                    tempadd.setIntSubsidyAdjustM05Amt(new BigInteger(tmp.getD39()));
-                                    tempadd.setIntSubsidyAdjustM06Amt(new BigInteger(tmp.getD40()));
-                                    tempadd.setIntSubsidyAdjustM07Amt(new BigInteger(tmp.getD52()));
-                                    tempadd.setIntSubsidyAdjustM08Amt(new BigInteger(tmp.getD61()));
-                                    tempadd.setIntSubsidyAdjustM09Amt(new BigInteger(tmp.getD64()));
-                                    if(chotsl.equals("1")) 
+                                    tempadd.setIntSubsidyAdjustM05Amt(new BigInteger(tmp.getD37()));
+                                    tempadd.setIntSubsidyAdjustM06Amt(new BigInteger(tmp.getD38()));
+                                    tempadd.setIntSubsidyAdjustM07Amt(new BigInteger(tmp.getD51()));
+                                    tempadd.setIntSubsidyAdjustM08Amt(new BigInteger(tmp.getD60()));
+                                    tempadd.setIntSubsidyAdjustM09Amt(new BigInteger(tmp.getD63()));
+                                    if(chotsl.equals("1") || chotsl.equals("3")) 
                                         tempadd.setIntConfirmFlag("1") ;
                                     else
                                         tempadd.setIntConfirmFlag("0") ;
@@ -452,11 +452,11 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                                     tempadd.setIntSubsidyAdjustM02Amt(new BigInteger(tmp.getD19()));
                                     tempadd.setIntSubsidyAdjustM03Amt(new BigInteger(tmp.getD20()));
                                     tempadd.setIntSubsidyAdjustM04Amt(new BigInteger(tmp.getD55()));
-                                    tempadd.setIntSubsidyAdjustM05Amt(new BigInteger(tmp.getD39()));
-                                    tempadd.setIntSubsidyAdjustM06Amt(new BigInteger(tmp.getD40()));
-                                    tempadd.setIntSubsidyAdjustM07Amt(new BigInteger(tmp.getD52()));
-                                    tempadd.setIntSubsidyAdjustM08Amt(new BigInteger(tmp.getD61()));
-                                    tempadd.setIntSubsidyAdjustM09Amt(new BigInteger(tmp.getD64()));
+                                    tempadd.setIntSubsidyAdjustM05Amt(new BigInteger(tmp.getD37()));
+                                    tempadd.setIntSubsidyAdjustM06Amt(new BigInteger(tmp.getD38()));
+                                    tempadd.setIntSubsidyAdjustM07Amt(new BigInteger(tmp.getD51()));
+                                    tempadd.setIntSubsidyAdjustM08Amt(new BigInteger(tmp.getD60()));
+                                    tempadd.setIntSubsidyAdjustM09Amt(new BigInteger(tmp.getD63()));
 
                                     tempadd.setM01Status("1");
                                     tempadd.setM02Status("1");
