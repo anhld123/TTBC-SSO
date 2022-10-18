@@ -117,11 +117,16 @@ public class ExcelUploadAction extends ActionSupport
                             lstDulieuNt = new XDKHDao2021().getDataQtKehoachByFile(Define.NV_QT, file_name);
                             String sReturn = sendDataNV_QTByApi(lstDulieuNt,file_name);
                             if(sReturn.equals(SUCCESS))
+                            {
                                 message = "(*) Xử lý file thành công: [" + file_name + "].";
-                                else
+                            }
+                            else
+                            {
                                 message = "(*) Xử lý api thành công: [" + file_name + "].";                                
+                            }
+                        } else {
+                            message = "(*) Xử lý file thành công: [" + file_name + "].";
                         }                        
-
                     } else {
                         message = status.message;
                     }
