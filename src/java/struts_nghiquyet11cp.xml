@@ -21,7 +21,8 @@
         </action>  
         
         <action name="NQ11CP_001" class="vbsp.ims.nghiquyet11cp.NQ11CP_001"  method="load">
-            <result name="success">/nghiquyet11cp/table_nq11cp_htls.jsp</result>                 
+            <result name="xacnhan">/nghiquyet11cp/table_nq11cp_htls.jsp</result>                 
+            <result name="success">/nghiquyet11cp/table_nq11cp_htls_hachtoan.jsp</result> 
             <result name="cap2_chot">/nghiquyet11cp/table_nghiquyet11cp_cnchot.jsp</result> 
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
@@ -31,7 +32,7 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>
         
-        <action name="HTL_NQ11CP_001" class="vbsp.ims.nghiquyet11cp.NQ11CP_001"  method="save_htl">
+        <action name="SAVE_HT_NQ11CP_001" class="vbsp.ims.nghiquyet11cp.NQ11CP_001"  method="save_htl">
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>
