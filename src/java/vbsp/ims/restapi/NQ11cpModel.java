@@ -60,6 +60,12 @@ public class NQ11cpModel {
     BigInteger intSubsidyM08Amt;
     @XmlElement(defaultValue = "0")
     BigInteger intSubsidyM09Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyM10Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyM11Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyM12Amt;
 
     @XmlElement(defaultValue = "0")
     BigInteger intSubsidyAdjustM01Amt;
@@ -79,6 +85,12 @@ public class NQ11cpModel {
     BigInteger intSubsidyAdjustM08Amt;
     @XmlElement(defaultValue = "0")
     BigInteger intSubsidyAdjustM09Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyAdjustM10Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyAdjustM11Amt;
+    @XmlElement(defaultValue = "0")
+    BigInteger intSubsidyAdjustM12Amt;
 
     String paymentFlag;
     String intConfirmFlag;
@@ -120,6 +132,9 @@ public class NQ11cpModel {
     double intTotalM07Amt;
     double intTotalM08Amt;
     double intTotalM09Amt;
+    double intTotalM10Amt;
+    double intTotalM11Amt;
+    double intTotalM12Amt;
 
     String communeId;
     String m01SubsidyTranRef;
@@ -816,6 +831,30 @@ public class NQ11cpModel {
         this.intSubsidyM09Amt = intSubsidyM09Amt;
     }
     
+    public BigInteger getIntSubsidyM10Amt() {
+        return intSubsidyM10Amt == null ? new BigInteger("0") : intSubsidyM10Amt;
+    }
+    
+    public void setIntSubsidyM10Amt(BigInteger intSubsidyM10Amt) {
+        this.intSubsidyM10Amt = intSubsidyM10Amt;
+    }
+    
+    public BigInteger getIntSubsidyM11Amt() {
+        return intSubsidyM11Amt == null ? new BigInteger("0") : intSubsidyM11Amt;
+    }
+    
+    public void setIntSubsidyM11Amt(BigInteger intSubsidyM11Amt) {
+        this.intSubsidyM11Amt = intSubsidyM11Amt;
+    }
+    
+    public BigInteger getIntSubsidyM12Amt() {
+        return intSubsidyM12Amt == null ? new BigInteger("0") : intSubsidyM12Amt;
+    }
+    
+    public void setIntSubsidyM12Amt(BigInteger intSubsidyM12Amt) {
+        this.intSubsidyM12Amt = intSubsidyM12Amt;
+    }
+    
     public BigInteger getIntSubsidyAdjustM07Amt() {
         return intSubsidyAdjustM07Amt == null ? new BigInteger("0") : intSubsidyAdjustM07Amt;
     }
@@ -839,6 +878,30 @@ public class NQ11cpModel {
         this.intSubsidyAdjustM09Amt = intSubsidyAdjustM09Amt;
     }
 
+    public BigInteger getIntSubsidyAdjustM10Amt() {
+        return intSubsidyAdjustM10Amt == null ? new BigInteger("0") : intSubsidyAdjustM10Amt;
+    }
+
+    public void setIntSubsidyAdjustM10Amt(BigInteger intSubsidyAdjustM10Amt) {
+        this.intSubsidyAdjustM10Amt = intSubsidyAdjustM10Amt;
+    }
+    
+    public BigInteger getIntSubsidyAdjustM11Amt() {
+        return intSubsidyAdjustM11Amt == null ? new BigInteger("0") : intSubsidyAdjustM11Amt;
+    }
+
+    public void setIntSubsidyAdjustM11Amt(BigInteger intSubsidyAdjustM11Amt) {
+        this.intSubsidyAdjustM11Amt = intSubsidyAdjustM11Amt;
+    }
+    
+    public BigInteger getIntSubsidyAdjustM12Amt() {
+        return intSubsidyAdjustM12Amt == null ? new BigInteger("0") : intSubsidyAdjustM12Amt;
+    }
+
+    public void setIntSubsidyAdjustM12Amt(BigInteger intSubsidyAdjustM12Amt) {
+        this.intSubsidyAdjustM12Amt = intSubsidyAdjustM12Amt;
+    }
+    
     public double getIntTotalM07Amt() {
         return intTotalM07Amt;
     }
@@ -860,6 +923,30 @@ public class NQ11cpModel {
 
     public void setIntTotalM09Amt(double intTotalM09Amt) {
         this.intTotalM09Amt = intTotalM09Amt;
+    }
+    
+    public double getIntTotalM10Amt() {
+        return intTotalM10Amt;
+    }
+
+    public void setIntTotalM10Amt(double intTotalM10Amt) {
+        this.intTotalM10Amt = intTotalM10Amt;
+    }
+    
+    public double getIntTotalM11Amt() {
+        return intTotalM11Amt;
+    }
+
+    public void setIntTotalM11Amt(double intTotalM11Amt) {
+        this.intTotalM11Amt = intTotalM11Amt;
+    }
+    
+    public double getIntTotalM12Amt() {
+        return intTotalM12Amt;
+    }
+
+    public void setIntTotalM12Amt(double intTotalM12Amt) {
+        this.intTotalM12Amt = intTotalM12Amt;
     }
     
 }
