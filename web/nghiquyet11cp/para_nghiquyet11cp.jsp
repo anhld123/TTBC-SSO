@@ -250,7 +250,7 @@
             {
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
-                var poscd = getposfromtreecheck();
+//                var poscd = getposfromtreecheck();
 //                if(poscd === '' || poscd.length ===0)
 //                {
 //                    $('#message_suc_err').html("<h2 style='color: red'>Bạn chưa chốt số liệu, vui lòng chọn Xác nhận giảm lãi !</h2>");
@@ -258,6 +258,7 @@
 //                }
 //                alert(poscd);
                 var khoa = $("#khoa_nghiquyet11cp").val() + "_save_htlai";
+//                alert(khoa);
                 if (!bsubmit)
                 {
 //                    alert('Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !');
@@ -481,6 +482,15 @@
                                 <td  >                                               
                                     <s:select  style="width: 100px;"  list="lstPhanloai" id="phanloai" name="phanloai" listKey="sKey" listValue="sDesc"></s:select>
                                 </td>-->
+                                    
+                                <td >Phân loại:</td>
+                                            <td>
+                                                <select name="phanloai" id="phanloai">
+                                                    <option value="-1">--Tất cả--</option>
+                                                    <option value="0">RPA</option>                                                    
+                                                    <option value="1">Hạch toán</option>        
+                                                </select>
+                                            </td>       
                             </tr>  
                             <tr>
 <!--                                    <td >Giải ngân:</td>
@@ -506,7 +516,9 @@
                                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
                                     <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                                     <s:if test="Grade.equalsIgnoreCase('1')">
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận HTLS"/>
+                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận HTLS"/> 
+                                        <td><input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="CN hạch toán GL"/> </td>
+                                        
                                     </s:if>
                                     <s:else>
                                         <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/>
