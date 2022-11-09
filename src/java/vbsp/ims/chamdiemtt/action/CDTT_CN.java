@@ -67,9 +67,9 @@ public class CDTT_CN extends ActionChamdiemttMain implements CdttFunction {
             }
             HashMap hmParameter = getParameter();
             DaoChamdiemttMain daoMain = new DaoChamdiemttMain();
-            if (poscd.size() > 11)
+            if (poscd.size() > 15)
             {
-                addActionError("Bạn chỉ được chọn tối đa 10 đơn vị để duyệt.");
+                addActionError("Bạn chỉ được chọn tối đa 14 đơn vị để duyệt.");
                 return ERROR;
             }
             int input = daoMain.isCheckPGDInput(khoa_cdtt, UserName, hmParameter.get("ngay_bc").toString(), Grade, "1", UserName);

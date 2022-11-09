@@ -205,101 +205,7 @@ public class NQ11CP_02SK extends ActionNhaptaycnMain
 
     }
 
-    public void margerData(List<NQ11cpModel> lstData, String chotsl) {
-        int i = 1;
-
-        QT_DULIEU_NT tong = new QT_DULIEU_NT();
-        double dn_tronhan = 0;
-        double dn_quahan = 0;
-        double dn_khoanh = 0;
-
-        BigInteger lai_t10 = new BigInteger("0");
-        BigInteger lai_t11 = new BigInteger("0");
-        BigInteger lai_t12 = new BigInteger("0");
-
-        BigInteger lai_t10dc = new BigInteger("0");
-        BigInteger lai_t11dc = new BigInteger("0");
-        BigInteger lai_t12dc = new BigInteger("0");
-
-        BigInteger lai_18 = new BigInteger("0");
-        BigInteger lai_20 = new BigInteger("0");
-        BigInteger lai_21 = new BigInteger("0");
-
-        DecimalFormat df = new DecimalFormat("#.##");
-        try {
-//        String sPhanloai = "-1";
-//        String sGiaingan = "-1";
-//        String sNhadt = hmParameter.get("nha_dt").toString();
-            for (NQ11cpModel item : lstData) {
-                try {
-                    QT_DULIEU_NT row = new QT_DULIEU_NT();
-                    row.setKHOA("SUBS_001");
-                    row.setTHUTU(i);
-
-                    row.setTT_HIENTHI("20220228");
-                    Date reportDate = DateUtil.toDate(item.getReportDate());
-                    row.setNGAYBC(reportDate);
-                    row.setMAPGD(item.getPosCode());
-                    row.setMACN(item.getMainPos());
-                    row.setD1(item.getGroupId());
-                    row.setD2(item.getCustomerId());
-                    row.setD3(item.getLoanId());
-                    row.setD4(df.format(item.getPrinTotal()));
-                    row.setD5(df.format(item.getNormalAmt()));
-                    row.setD6(df.format(item.getOverdueAmt()));
-                    row.setD7(df.format(item.getFreezeAmt()));
-
-                    row.setD8(df.format(item.getInterestRate()));
-                    row.setD9(item.getLoanProgram());
-                    row.setD10(item.getSpecificProductCode());
-                    row.setD11(item.getDecisionCode());
-                    row.setD12(item.getLoanStatus());
-                    row.setD13(item.getCapitalSourceCode());
-                    row.setD14(item.getInvestorCode());
-                    row.setD15(item.getCasaAccount());
-                    row.setD16(df.format(item.getIntTotalAmt()));
-                    row.setD17(df.format(item.getIntSubsidyTotalAmt()));
-                    row.setD18(df.format(item.getIntSubsidyM01Amt()));
-                    row.setD19(df.format(item.getIntSubsidyM02Amt()));
-                    row.setD20(df.format(item.getIntSubsidyM03Amt()));
-                    //Bỏ TH món vay đóng và lãi <5k
-                    row.setD21(df.format(item.getIntSubsidyAdjustM01Amt()));
-                    row.setD22(df.format(item.getIntSubsidyAdjustM02Amt()));
-                    row.setD23(df.format(item.getIntSubsidyAdjustM03Amt()));
-                    row.setD24(item.getPaymentFlag().equals("0") ? "RPA" : "HT phải trả");
-                    row.setD25(item.getIntConfirmFlag());
-                    row.setD26(item.getSubsidyTranRef());
-                    row.setD27(item.getSubsidyTranDate());
-
-                    row.setD28(df.format(item.getAccountingIntAmt()));
-                    row.setD29(df.format(item.getRpaAmt()));
-                    row.setD30(df.format(item.getCasaAmt()));
-                    row.setD31(df.format(item.getCashAmt()));
-
-                    row.setD32(item.getPosTranRef());
-                    row.setD33(item.getM01Status());
-                    row.setD34(item.getM02Status());
-                    row.setD35(item.getM03Status());
-                    row.setD36(item.getPaymentFlag());
-
-                    row.setD43(df.format(item.getIntTotalM01Amt()));
-                    row.setD44(df.format(item.getIntTotalM02Amt()));
-                    row.setD45(df.format(item.getIntTotalM03Amt()));
-                    row.setD46(item.getCommuneId());
-                    row.setD47(item.getRejectReason());
-                    row.setD50(item.getCustomerName());
-                    lstDulieuNt.add(row);
-                } catch (Exception e) {
-                    CoreLogger.error(this.getClass().getName() + " Exception -> NQ11CP_02SK: " + e.getMessage());
-                    System.err.println(this.getClass().getName() + " Exception -> NQ11CP_02SK: " + e.getMessage());
-                }
-            }
-        } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> NQ11CP_02SK: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> NQ11CP_02SK: " + e.getMessage());
-        }
-    }
-
+   
     @Override
     public String save() {
         try {
@@ -350,6 +256,8 @@ public class NQ11CP_02SK extends ActionNhaptaycnMain
                         tempadd.setD15(tmp.getD15());
                         tempadd.setD16(tmp.getD16());
                         tempadd.setD17(tmp.getD17());
+                        tempadd.setD18(tmp.getD18());
+                        tempadd.setD19(tmp.getD19());
                         lstUpdateDate.add(tempadd);
                         lstLocalDataUpdate.add(tmp);
                     }

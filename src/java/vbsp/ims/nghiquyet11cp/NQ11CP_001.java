@@ -86,9 +86,12 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                     addActionError("Dữ liệu quá lớn. Vui lòng chọn từng tổ để xác nhận.");;
                     return ERROR;
                 }
-                margerData(lstData, chotsl, hmParameter.get("nha_dt").toString(), hmParameter.get("giaingan").toString());
-
-                return SUCCESS;
+                margerData(lstData, chotsl, hmParameter.get("nha_dt").toString(), hmParameter.get("giaingan").toString(), hmParameter.get("phanloai").toString());
+                if (chotsl.equals("2") || chotsl.equals("3")) {
+                    return SUCCESS;
+                } else {
+                    return "xacnhan";
+                }
             } else if (Grade.equals("2")) {
                 if (!getParaSession()) {
                     return ERROR;
@@ -145,13 +148,16 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
 
     }
 
-    public void margerData(List<NQ11cpModel> lstData, String chotsl, String sNhadt, String sGiaingan) {
+    public void margerData(List<NQ11cpModel> lstData, String chotsl, String sNhadt, String sGiaingan, String phanloai) {
+        System.err.println("phanloai=" + phanloai);
         int i = 1;
 
         QT_DULIEU_NT tong = new QT_DULIEU_NT();
         double dn_tronhan = 0;
         double dn_quahan = 0;
         double dn_khoanh = 0;
+
+        BigInteger lai_tong = new BigInteger("0");
 
         BigInteger lai_t1 = new BigInteger("0");
         BigInteger lai_t2 = new BigInteger("0");
@@ -160,6 +166,9 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
         BigInteger lai_t5 = new BigInteger("0");
         BigInteger lai_t6 = new BigInteger("0");
         BigInteger lai_t7 = new BigInteger("0");
+        BigInteger lai_t8 = new BigInteger("0");
+        BigInteger lai_t9 = new BigInteger("0");
+        BigInteger lai_t10 = new BigInteger("0");
 
         BigInteger lai_t1dc = new BigInteger("0");
         BigInteger lai_t2dc = new BigInteger("0");
@@ -168,6 +177,9 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
         BigInteger lai_t5dc = new BigInteger("0");
         BigInteger lai_t6dc = new BigInteger("0");
         BigInteger lai_t7dc = new BigInteger("0");
+        BigInteger lai_t8dc = new BigInteger("0");
+        BigInteger lai_t9dc = new BigInteger("0");
+        BigInteger lai_t10dc = new BigInteger("0");
 
 //        BigInteger lai_18 = new BigInteger("0");
         BigInteger lai_20 = new BigInteger("0");
@@ -184,7 +196,7 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                     QT_DULIEU_NT row = new QT_DULIEU_NT();
                     row.setKHOA("SUBS_001");
                     row.setTHUTU(i);
-                    
+
                     row.setTT_HIENTHI(dateHienthi.format(sdf.parse(item.getDisbursalDate())));
                     Date reportDate = DateUtil.toDate(item.getReportDate());
                     row.setNGAYBC(reportDate);
@@ -209,14 +221,29 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                     row.setD16(df.format(item.getIntTotalAmt()));
                     row.setD17(df.format(item.getIntSubsidyTotalAmt()));
 
-                    row.setD18(df.format(item.getIntSubsidyM01Amt()));
-                    row.setD19(df.format(item.getIntSubsidyM02Amt()));
-                    row.setD20(df.format(item.getIntSubsidyM03Amt()));
-                    row.setD55(df.format(item.getIntSubsidyM04Amt()));
-                    row.setD37(df.format(item.getIntSubsidyM05Amt()));
-                    row.setD38(df.format(item.getIntSubsidyM06Amt()));
-                    row.setD51(df.format(item.getIntSubsidyM07Amt()));
-                    
+                    if (chotsl.equals("3") || chotsl.equals("2")) {
+                        row.setD18(df.format(item.getAccountingIntAmt()));
+                        row.setD19(df.format(item.getCasaAmt()));
+                        row.setD20(df.format(item.getCashAmt()));
+                        row.setD55(item.getPosTranRef());
+                    } else {
+                        row.setD18(df.format(item.getIntSubsidyM01Amt()));
+                        row.setD19(df.format(item.getIntSubsidyM02Amt()));
+                        row.setD20(df.format(item.getIntSubsidyM03Amt()));
+                        row.setD55(df.format(item.getIntSubsidyM04Amt()));
+                        row.setD37(df.format(item.getIntSubsidyM05Amt()));
+                        row.setD38(df.format(item.getIntSubsidyM06Amt()));
+                        row.setD51(df.format(item.getIntSubsidyM07Amt()));
+                        row.setD60(df.format(item.getIntSubsidyM08Amt()));
+                        row.setD63(df.format(item.getIntSubsidyM09Amt()));
+                        row.setD66(df.format(item.getIntSubsidyM10Amt()));                                               
+                    }
+//                    row.setD37(df.format(item.getIntSubsidyM05Amt()));
+//                    row.setD38(df.format(item.getIntSubsidyM06Amt()));
+//                    row.setD51(df.format(item.getIntSubsidyM07Amt()));
+//                    row.setD60(df.format(item.getIntSubsidyM08Amt()));
+//                    row.setD63(df.format(item.getIntSubsidyM09Amt()));
+
                     //Bỏ TH món vay đóng và lãi <5k
                     row.setD21(df.format(item.getIntSubsidyAdjustM01Amt()));
                     row.setD22(df.format(item.getIntSubsidyAdjustM02Amt()));
@@ -225,6 +252,9 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                     row.setD39(df.format(item.getIntSubsidyAdjustM05Amt()));
                     row.setD40(df.format(item.getIntSubsidyAdjustM06Amt()));
                     row.setD52(df.format(item.getIntSubsidyAdjustM07Amt()));
+                    row.setD61(df.format(item.getIntSubsidyAdjustM08Amt()));
+                    row.setD64(df.format(item.getIntSubsidyAdjustM09Amt()));
+                    row.setD67(df.format(item.getIntSubsidyAdjustM10Amt()));                    
 
                     row.setD24(item.getPaymentFlag().equals("0") ? "RPA" : "HT phải trả");
                     row.setD25(item.getIntConfirmFlag());
@@ -252,6 +282,10 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                     row.setD48(df.format(item.getIntTotalM05Amt()));
                     row.setD49(df.format(item.getIntTotalM06Amt()));
                     row.setD53(df.format(item.getIntTotalM07Amt()));
+                    row.setD62(df.format(item.getIntTotalM08Amt()));
+                    row.setD65(df.format(item.getIntTotalM09Amt()));
+                    row.setD68(df.format(item.getIntTotalM10Amt()));
+
 
                     row.setD46(item.getCommuneId());
                     row.setD47(item.getRejectReason());
@@ -259,9 +293,11 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                     row.setD59(item.getPaymentMethod());
 //                    Lấy món vay xác nhận lãi
                     if (chotsl.equals("0")) {
-                        if ((sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode()))
+                        if ((phanloai.equals("-1") || phanloai.equals(item.getPaymentFlag()))
+                                && (sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode()))
                                 //                                && (sGiaingan.equals("-1") || sdf.parse(item.getDisbursalDate()).after(df1.parse("04/01/2022")))
-                                && (sGiaingan.equals("-1") || item.getLoanStatus().equals("C"))) {
+                                && (sGiaingan.equals("1") ? item.getLoanStatus().equals("C") : sGiaingan.equals("2")
+                                ? sdf.parse(item.getDisbursalDate()).after(df1.parse("06/01/2022")) : sdf.parse(item.getDisbursalDate()).after(df1.parse("06/01/1990")))) {
                             i++;
                             dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
                             dn_quahan = dn_quahan + (long) item.getOverdueAmt();
@@ -273,6 +309,11 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                             lai_t5 = lai_t5.add(item.getIntSubsidyM05Amt());
                             lai_t6 = lai_t6.add(item.getIntSubsidyM06Amt());
                             lai_t7 = lai_t7.add(item.getIntSubsidyM07Amt());
+                            lai_t8 = lai_t8.add(item.getIntSubsidyM08Amt());
+                            lai_t9 = lai_t9.add(item.getIntSubsidyM09Amt());
+                            lai_t10 = lai_t10.add(item.getIntSubsidyM10Amt());
+
+                            lai_tong = lai_tong.add(item.getAccountingIntAmt());
 
                             lai_t1dc = lai_t1dc.add(item.getIntSubsidyAdjustM01Amt());
                             lai_t2dc = lai_t2dc.add(item.getIntSubsidyAdjustM02Amt());
@@ -281,13 +322,16 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                             lai_t5dc = lai_t5dc.add(item.getIntSubsidyAdjustM05Amt());
                             lai_t6dc = lai_t6dc.add(item.getIntSubsidyAdjustM06Amt());
                             lai_t7dc = lai_t7dc.add(item.getIntSubsidyAdjustM07Amt());
+                            lai_t8dc = lai_t8dc.add(item.getIntSubsidyAdjustM08Amt());
+                            lai_t9dc = lai_t9dc.add(item.getIntSubsidyAdjustM09Amt());
+                            lai_t10dc = lai_t10dc.add(item.getIntSubsidyAdjustM10Amt());
 
                             lai_20 = lai_20.add(item.getCasaAmt());
                             lai_21 = lai_21.add(item.getCashAmt());
                             lstDulieuNt.add(row);
                         }
                     } else {
-                        if (sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode())) {
+                        if ((sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode())) && (phanloai.equals("-1") || phanloai.equals(item.getPaymentFlag()))) {
                             if (item.getIntConfirmFlag().equals("1")) {
                                 i++;
                                 dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
@@ -301,6 +345,11 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                                 lai_t5 = lai_t5.add(item.getIntSubsidyM05Amt());
                                 lai_t6 = lai_t6.add(item.getIntSubsidyM06Amt());
                                 lai_t7 = lai_t7.add(item.getIntSubsidyM07Amt());
+                                lai_t8 = lai_t8.add(item.getIntSubsidyM08Amt());
+                                lai_t9 = lai_t9.add(item.getIntSubsidyM09Amt());
+                                lai_t10 = lai_t10.add(item.getIntSubsidyM10Amt());
+
+                                lai_tong = lai_tong.add(item.getAccountingIntAmt());
 
                                 lai_t1dc = lai_t1dc.add(item.getIntSubsidyAdjustM01Amt());
                                 lai_t2dc = lai_t2dc.add(item.getIntSubsidyAdjustM02Amt());
@@ -309,6 +358,9 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                                 lai_t5dc = lai_t5dc.add(item.getIntSubsidyAdjustM05Amt());
                                 lai_t6dc = lai_t6dc.add(item.getIntSubsidyAdjustM06Amt());
                                 lai_t7dc = lai_t7dc.add(item.getIntSubsidyAdjustM07Amt());
+                                lai_t8dc = lai_t8dc.add(item.getIntSubsidyAdjustM08Amt());
+                                lai_t9dc = lai_t9dc.add(item.getIntSubsidyAdjustM09Amt());
+                                lai_t10dc = lai_t10dc.add(item.getIntSubsidyAdjustM10Amt());
 
                                 lai_20 = lai_20.add(item.getCasaAmt());
                                 lai_21 = lai_21.add(item.getCashAmt());
@@ -336,6 +388,9 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
             tong.setD16(df.format(lai_t5));
             tong.setD17(df.format(lai_t6));
             tong.setD18(df.format(lai_t7));
+            tong.setD19(df.format(lai_t8));
+            tong.setD27(df.format(lai_t9));
+            tong.setD28(df.format(lai_t10));
 
             tong.setD8(df.format(lai_t1dc));
             tong.setD9(df.format(lai_t2dc));
@@ -344,8 +399,12 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
             tong.setD21(df.format(lai_t5dc));
             tong.setD22(df.format(lai_t6dc));
             tong.setD23(df.format(lai_t7dc));
+            tong.setD24(df.format(lai_t8dc));
+            tong.setD25(df.format(lai_t9dc));
+            tong.setD26(df.format(lai_t10dc));
+            tong.setD11(df.format(lai_tong)); //tong lai hs
 
-            tong.setD11(df.format(lai_20.add(lai_21)));
+//            tong.setD11(df.format(lai_20.add(lai_21)));
             tong.setD12(df.format(lai_20));
             tong.setD13(df.format(lai_21));
             lstDulieuNt_tong.add(tong);
@@ -368,7 +427,7 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
 
             HashMap hmParameter = getParameter();
             String sngaybc = hmParameter.get("ngay_bc").toString();
-            Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(sngaybc); 
+            Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(sngaybc);
 
 //            Date date = Calendar.getInstance().getTime();  
             DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -390,7 +449,10 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                         addActionError("Đơn vị đã chốt số liệu. Bạn không thể điều chỉnh.");;
                         return ERROR;
                     } //Lưu phần xác nhận lãi giảm
-                    else {
+                    else if (lstDataLock.get(0).getStatus().equals("3")) {
+                        addActionError("Vui lòng chọn nút cập nhật hạch toán với trường hợp cập nhật hạch toán vào casa hoặc bằng tiền mặt");;
+                        return ERROR;
+                    } else {
                         try {
                             setChotsl(lstDataLock.get(0).getStatus());
                         } catch (Exception e) {
@@ -409,13 +471,17 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                                     tempadd.setIntSubsidyAdjustM02Amt(new BigInteger(tmp.getD19()));
                                     tempadd.setIntSubsidyAdjustM03Amt(new BigInteger(tmp.getD20()));
                                     tempadd.setIntSubsidyAdjustM04Amt(new BigInteger(tmp.getD55()));
-                                    tempadd.setIntSubsidyAdjustM05Amt(new BigInteger(tmp.getD39()));
-                                    tempadd.setIntSubsidyAdjustM06Amt(new BigInteger(tmp.getD40()));
-                                    tempadd.setIntSubsidyAdjustM07Amt(new BigInteger(tmp.getD52()));
-                                    if(chotsl.equals("1")) 
-                                        tempadd.setIntConfirmFlag("1") ;
-                                    else
-                                        tempadd.setIntConfirmFlag("0") ;
+                                    tempadd.setIntSubsidyAdjustM05Amt(new BigInteger(tmp.getD37()));
+                                    tempadd.setIntSubsidyAdjustM06Amt(new BigInteger(tmp.getD38()));
+                                    tempadd.setIntSubsidyAdjustM07Amt(new BigInteger(tmp.getD51()));
+                                    tempadd.setIntSubsidyAdjustM08Amt(new BigInteger(tmp.getD60()));
+                                    tempadd.setIntSubsidyAdjustM09Amt(new BigInteger(tmp.getD63()));
+                                    tempadd.setIntSubsidyAdjustM10Amt(new BigInteger(tmp.getD66()));
+                                    if (chotsl.equals("1") || chotsl.equals("3")) {
+                                        tempadd.setIntConfirmFlag("1");
+                                    } else {
+                                        tempadd.setIntConfirmFlag("0");
+                                    }
                                     tempadd.setRejectReason(tmp.getD47());
                                     lstUpdateDate.add(tempadd);
                                 } else {
@@ -426,9 +492,12 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                                     tempadd.setIntSubsidyAdjustM02Amt(new BigInteger(tmp.getD19()));
                                     tempadd.setIntSubsidyAdjustM03Amt(new BigInteger(tmp.getD20()));
                                     tempadd.setIntSubsidyAdjustM04Amt(new BigInteger(tmp.getD55()));
-                                    tempadd.setIntSubsidyAdjustM05Amt(new BigInteger(tmp.getD39()));
-                                    tempadd.setIntSubsidyAdjustM06Amt(new BigInteger(tmp.getD40()));
-                                    tempadd.setIntSubsidyAdjustM07Amt(new BigInteger(tmp.getD52()));
+                                    tempadd.setIntSubsidyAdjustM05Amt(new BigInteger(tmp.getD37()));
+                                    tempadd.setIntSubsidyAdjustM06Amt(new BigInteger(tmp.getD38()));
+                                    tempadd.setIntSubsidyAdjustM07Amt(new BigInteger(tmp.getD51()));
+                                    tempadd.setIntSubsidyAdjustM08Amt(new BigInteger(tmp.getD60()));
+                                    tempadd.setIntSubsidyAdjustM09Amt(new BigInteger(tmp.getD63()));
+                                    tempadd.setIntSubsidyAdjustM10Amt(new BigInteger(tmp.getD66()));
 
                                     tempadd.setM01Status("1");
                                     tempadd.setM02Status("1");
@@ -457,6 +526,9 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                                 updateRow.setD11(df.format(item.getIntSubsidyAdjustM05Amt()));
                                 updateRow.setD12(df.format(item.getIntSubsidyAdjustM06Amt()));
                                 updateRow.setD13(df.format(item.getIntSubsidyAdjustM07Amt()));
+                                updateRow.setD14(df.format(item.getIntSubsidyAdjustM08Amt()));
+                                updateRow.setD15(df.format(item.getIntSubsidyAdjustM09Amt()));
+                                updateRow.setD16(df.format(item.getIntSubsidyAdjustM10Amt()));
                                 updateRow.setD5(item.getIntConfirmFlag().toString());
                                 updateRow.setD6(item.getRejectReason());
 
@@ -504,6 +576,88 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> NQ11CP: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> NQ11CP: " + e.getMessage());
+            addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+            return ERROR;
+        }
+        addActionMessage("Bạn đã lưu dữ liệu thành công");
+        return SUCCESS;
+    }
+
+    public String save_htl() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            if (lstDulieuNt == null || lstDulieuNt.size() == 0) {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
+                return ERROR;
+            }
+
+            DaoNhaptaycnMain daoMain = DaoNhaptaycnMain.newInstance();
+            HashMap hmParameter = getParameter();
+            String sngaybc = hmParameter.get("ngay_bc").toString();
+            Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(sngaybc);
+
+//            Date date = Calendar.getInstance().getTime();  
+            DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            String strDate = dateFormat.format(date1);
+
+            DateFormat dateFormat1 = new SimpleDateFormat("dd-MMM-yyyy");
+            String strDate1 = dateFormat1.format(date1);
+
+            service = new DuLieuNTService();
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd_username = posMainModel.getPosCd();
+
+            if (Grade.equals("1")) {
+                ArrayList<LockSendModel> lstDataLock = service.getDataLockSendNQ11CP(pos_cd_username, "S", strDate);
+                ArrayList<NQ11cpModel> lstUpdateDate = new ArrayList<>();
+                if (lstDataLock.size() > 0) {
+                    //Lưu phần phân loại hạch toán
+                    if (lstDataLock.get(0).getStatus().equals("3") || lstDataLock.get(0).getStatus().equals("2")) {
+                        for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                            if (tmp.getD33() != null) {
+                                NQ11cpModel tempadd = new NQ11cpModel();
+                                tempadd.setMainPos(tmp.getMACN());
+                                tempadd.setPosCode(tmp.getMAPGD());
+                                tempadd.setLoanId(tmp.getD3());
+                                tempadd.setCasaAmt(new BigInteger(tmp.getD19()));
+                                tempadd.setCashAmt(new BigInteger(tmp.getD20()));
+                                tempadd.setPosTranRef(tmp.getD55());
+                                lstUpdateDate.add(tempadd);
+                            }
+                        }
+                        int status = service.updateDataHTLS_NQ11_HT(pos_cd_username, strDate, UserName, lstUpdateDate);
+                        if (status == 200) {
+                            ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
+                            DecimalFormat df = new DecimalFormat("#.##");
+                            for (NQ11cpModel item : lstUpdateDate) {
+                                QT_DULIEU_NT updateRow = new QT_DULIEU_NT();
+                                updateRow.setD1(item.getLoanId());
+                                updateRow.setD2(df.format(item.getCasaAmt()));
+                                updateRow.setD3(df.format(item.getCashAmt()));
+//                                updateRow.setD4(df.format(item.getIntDeductionAdjustM12Amt()));
+                                updateRow.setD4(item.getPosTranRef());
+
+                                lstLocalDataUpdate.add(updateRow);
+                            }
+//                            daoMain.saveGiamLai1990(UserName, pos_cd_username, strDate1, lstLocalDataUpdate, "2");
+                            if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_001(UserName, pos_cd_username, strDate1, lstLocalDataUpdate, "2")) {
+                                addActionError("Bạn chưa lưu số liệu tại đơn vị. Liên hệ với quản trị để khắc phục");
+                                return ERROR;
+                            }
+                        }
+                    } //Lưu phần xác nhận lãi giảm       
+                    else {
+                        addActionError("Bạn chưa chốt số liệu nên chưa cập nhận hạch toán GL được");
+                        return ERROR;
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
             return ERROR;
         }
