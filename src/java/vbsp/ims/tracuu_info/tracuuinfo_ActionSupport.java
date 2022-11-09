@@ -21,6 +21,7 @@ public class tracuuinfo_ActionSupport extends ActionSupport {
     private List ListDK;
     private List ListVal;
     private List<tracuuinfo_listgt> listgt;
+    private String chkexcel;
     public tracuuinfo_ActionSupport() {
     }
     
@@ -44,8 +45,11 @@ public class tracuuinfo_ActionSupport extends ActionSupport {
             dieukien = dieukien + ListVal.get(i) + "/TV/";
         }
         dieukien = dieukien.substring(0,dieukien.length() - 4);
+        if(chkexcel == null){
+            chkexcel = "OFF";
+        }
         listgt = null;
-        listgt = new tracuuinfo_model().get_query_info(dieukien,loaitc);
+        listgt = new tracuuinfo_model().get_query_info(dieukien,loaitc,chkexcel.toUpperCase());
         return "thanhcong";
     }
     
@@ -96,7 +100,14 @@ public class tracuuinfo_ActionSupport extends ActionSupport {
     public void setListgt(List<tracuuinfo_listgt> listgt) {
         this.listgt = listgt;
     }
-//</editor-fold>   
-
     
+    public String getChkexcel() {
+        return chkexcel;
+    }
+
+    public void setChkexcel(String chkexcel) {
+        this.chkexcel = chkexcel;
+    }
+
+//</editor-fold>   
 }
