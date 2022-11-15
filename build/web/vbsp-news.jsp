@@ -13,7 +13,7 @@
 
 <!--TUNGNV: Thay doi chuoi connect o day bang config-->
 <sql:setDataSource var="db" driver="oracle.jdbc.driver.OracleDriver"
-                   url="jdbc:oracle:thin:@10.63.48.70:1521:IMSDEV"
+                   url="jdbc:oracle:thin:@10.0.19.12:1521:vbspbka"
                    user="intellect" password="intellect" />
 <sql:query dataSource="${db}" var="newsObjs">
     SELECT MESSAGE FROM VBSP_NEWS

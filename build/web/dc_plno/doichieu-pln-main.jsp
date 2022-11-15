@@ -250,6 +250,7 @@
                         }
                     }
                 });
+                alert(iSuccess);
                 if (iSuccess != 0)
                 {
                     alert('Nhập dữ liệu phân loại khả năng trả nợ chưa hợp lệ. Vui lòng kiểm tra lại!');

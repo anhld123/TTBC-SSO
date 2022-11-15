@@ -142,6 +142,7 @@
             <TABLE border="1"  width="100%">
                 <tr style="background-color: #F4F3F2;">
                     <td colspan="2">
+                        
                         <span class="head"> TRA CỨU THÔNG TIN:</span>
                         <select name="loaitc" onchange="fn_get_dk_info(this);">
                             <option value="all">00.Chọn thông tin cần tra cứu</option>
@@ -152,6 +153,7 @@
                         &nbsp;
                         <INPUT type="button" value="Ẩn/Hiện điều kiện" id="btnhide" onclick="funcandk()" disabled="true"/>
                         <INPUT type="button" value="Thực hiện" id="btnthuchien" onclick="funsubmitdata()" disabled="true"/>
+                        <span style="display: none;" id="chkKH"><input type="checkbox" id="chkexcel" name="chkexcel"/><label for="chkexcel">Kiểm tra theo file excel đã upload</label></span>
                     </td>
                 </tr>
                 <tr id="dieukien">
@@ -168,12 +170,11 @@
                 </tr>
             </table>
         </form>
-        <script>
-            //ẩn hiện đối tượng hiển thị
+        
+        <SCRIPT language="javascript">
             $("#dieukien").hide();
             $("#viewdata").hide();
-        </script>
-        <SCRIPT language="javascript">
+            
             function fn_get_dk_info(val) {
                 var btnarr = ["btnhide", "btnthuchien"];
                 if (val.value === "all") {
@@ -195,6 +196,11 @@
                     $.post(url, function (data) {
                         $("#viewdk").html(data);
                     });
+                }
+                if (val.value === "KH"){
+                    $("#chkKH").show();
+                }else{
+                    $("#chkKH").hide();
                 }
             }
             function funcandk() {

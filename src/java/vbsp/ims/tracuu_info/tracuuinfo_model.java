@@ -96,19 +96,20 @@ public class tracuuinfo_model {
     
     // Thực hiện lấy dữ liệu từ Query
     // Đưa cấp và User xuống Query để có thể lọc được dữ liệu
-    public List<tracuuinfo_listgt> get_query_info(String dieukien, String loainv) throws SQLException {
+    public List<tracuuinfo_listgt> get_query_info(String dieukien, String loainv,String chkexcel) throws SQLException {
         List<tracuuinfo_listgt> lsinfo = new ArrayList<>();
         get_cap_user();
         Connection con = connectCSDL();
         // VinhNP: Chuyển từ viết câu lệnh select thành chạy các Procedure
-        CallableStatement st = con.prepareCall("{call APP_TRACUU_TT.PROC_INFO_QUERY(?,?,?,?,?)}");
+        CallableStatement st = con.prepareCall("{call APP_TRACUU_TT.PROC_INFO_QUERY(?,?,?,?,?,?)}");
         st.setString(1, dieukien);
-        st.setString(2, loainv);
-        st.setString(3, capbc);
-        st.setString(4, tendn);
-        st.registerOutParameter(5, OracleTypes.CURSOR);
+        st.setString(2, chkexcel);
+        st.setString(3, loainv);
+        st.setString(4, capbc);
+        st.setString(5, tendn);
+        st.registerOutParameter(6, OracleTypes.CURSOR);
         st.execute();
-        ResultSet rs = (ResultSet) st.getObject(5);
+        ResultSet rs = (ResultSet) st.getObject(6);
         // Thực hiện lấy Metadata
         ResultSetMetaData rsmd = rs.getMetaData();
         int numberOfColumns = rsmd.getColumnCount();
