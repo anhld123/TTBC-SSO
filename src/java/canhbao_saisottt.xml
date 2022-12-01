@@ -35,6 +35,10 @@
             <result name="success">/canhbao_saisottt/table_cbss_01_main.jsp</result>
             <result name="error">/canhbao_saisottt/success.jsp</result>        
         </action>
+        <action name="P0006" class="vbsp.ims.canhbaosaisottt.P0001"  method="load">
+            <result name="success">/canhbao_saisottt/table_cbss_01_main.jsp</result>
+            <result name="error">/canhbao_saisottt/success.jsp</result>        
+        </action>
  <!--Phần xuất Excel của QuyếnNV-->                  
         <action name="SAVE_P000" class="vbsp.ims.canhbaosaisottt.P0001"  method="xuatxls">
             <result name="success">downfile_bcnhanh.jsp</result>  

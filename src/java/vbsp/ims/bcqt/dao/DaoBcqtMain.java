@@ -4279,4 +4279,35 @@ public class DaoBcqtMain {
         }
         return lstDMNgNhan;
     }
+    
+    public boolean ResetData(String type, String khoa, String username, String ngaybc, String poscd) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_BCQT.SP_RESET_DATA(?, ?, ?, ?, ?)}");
+            cs.setString(1, type);
+            cs.setString(2, khoa);
+            cs.setString(3, username);
+            cs.setString(4, ngaybc);
+            cs.setString(5, poscd);        
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham ResetData " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " ResetData -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
 }

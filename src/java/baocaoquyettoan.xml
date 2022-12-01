@@ -57,6 +57,12 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action> 
         
+        <!--reset so lieu quyet toan-->
+        <action name="Reset_Data_BCQT" class="vbsp.ims.bcqt.action.ActionBcqtMain"  method="resetData">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
         <!--gui so lieu quyet toan-->
         <action name="sendBCQT" class="vbsp.ims.bcqt.action.ActionBcqtMain"  method="sendBCQT">
             <result name="success">/BCQT/success.jsp</result>

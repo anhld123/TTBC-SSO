@@ -515,6 +515,42 @@ public class ActionBcqtMain extends ActionSupport {
         return SUCCESS;
     }
 //</editor-fold>
+    
+    public String resetData() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            //Kiem tra xem cac pgd da du du lieu chua neu du moi cho xac nhan so lieu
+
+            HashMap hmParameter = getParameter();
+            List<String> lstPos = (List<String>) hmParameter.get("poscd");
+            if(lstPos.size()>1 || lstPos.size() ==0)
+            {
+                addActionError("Bạn chỉ được reset dữ liệu cho 1 phòng giao dịch");
+                return ERROR;
+            }
+            
+            DaoBcqtMain daoMain = DaoBcqtMain.newInstance();
+//            String s= hmParameter.get("ngay_bc").toString();
+//            System.out.println("Ngaybc="+s);
+            
+//            String pos_cd_check = daoMain.ResetData(type_bcqt, hmParameter.get("khoa_bcqt").toString(), UserName, hmParameter.get("ngay_bc").toString(),"");
+            
+            if (!daoMain.ResetData(type_bcqt, hmParameter.get("khoa_bcqt").toString(), UserName, hmParameter.get("ngay_bc").toString(),lstPos.get(0))) {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                return ERROR;
+            }
+
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> SAVE_BCQT_M12A: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> SAVE_BCQT_M12A: " + e.getMessage());
+            addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+            return ERROR;
+        }
+        addActionMessage("Bạn đã reset dữ liệu thành công");
+        return SUCCESS;
+    }
 
     public String loadDMChtrinh() {
         try {
