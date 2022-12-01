@@ -477,14 +477,14 @@
                                         &nbsp;&nbsp;
                                         <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/>                                                                                                                                  
                                         &nbsp;&nbsp;&nbsp; 
-                                        ||
+<!--                                        ||
                                         &nbsp;&nbsp;&nbsp; 
                                         <s:url id="idTongHopData" action="TongHopTDNN.action"></s:url>                                      
                                             <sj:submit id="idTongHop" name="nameidTongHop" href="%{idTongHopData}" value="Kiểm duyệt" targets="divExportReport"
                                                        onBeforeTopics="beforediv_send"
                                                        onCompleteTopics="completediv_send" cssStyle="display:none"/>
                                         <input type="button" id="ididTongHoptmp" name="nameidTongHoptmp"  onclick="onTongHopData()" value="Kiểm duyệt"  style="color: red;"/>
-                                        &nbsp;&nbsp;
+                                        &nbsp;&nbsp;-->
                                     </s:else>    
                                     &nbsp;&nbsp;&nbsp;                                                                        
                                 </td>
