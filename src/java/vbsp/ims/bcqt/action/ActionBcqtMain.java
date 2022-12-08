@@ -32,6 +32,7 @@ import vbsp.ims.define.Define;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
+import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlBcqtSync;
@@ -60,6 +61,12 @@ public class ActionBcqtMain extends ActionSupport {
     protected String type_bcqt;
     protected List<ModelViewSend> lstViewSend = new ArrayList<>();
     private Map<String, String> dmChtrinh = new LinkedHashMap<String, String>();
+    
+    protected List<ListValue> lstChuongtrinh = new ArrayList<ListValue>();
+    protected List<ListValue> lstMaxa = new ArrayList<ListValue>();
+    protected List<ListValue> lstNguonvon = new ArrayList<ListValue>();
+    
+    
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Xu ly cho action">
@@ -259,6 +266,14 @@ public class ActionBcqtMain extends ActionSupport {
             isDisplayTM = tmDao.getCO_TM(khoa_bcqt);
             if (conn != null) {
                 conn.close();
+            }
+            if(khoa_bcqt.equals("BCQT_LAIAM") && Grade.equals("1"))
+            {
+                DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();                
+                setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CHUONGTRINH", Grade));                
+                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));                
+                setLstNguonvon(daoMain11.getDanhMuc(UserName, "NGUONVON", Grade));                
+                return "BCQT_LAIAM";
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> loadPataBcqt: " + e.getMessage());
@@ -582,6 +597,32 @@ public class ActionBcqtMain extends ActionSupport {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
+
+    public List<ListValue> getLstChuongtrinh() {
+        return lstChuongtrinh;
+    }
+
+    public void setLstChuongtrinh(List<ListValue> lstChuongtrinh) {
+        this.lstChuongtrinh = lstChuongtrinh;
+    }
+
+    public List<ListValue> getLstMaxa() {
+        return lstMaxa;
+    }
+
+    public void setLstMaxa(List<ListValue> lstMaxa) {
+        this.lstMaxa = lstMaxa;
+    }
+
+    public List<ListValue> getLstNguonvon() {
+        return lstNguonvon;
+    }
+
+    public void setLstNguonvon(List<ListValue> lstNguonvon) {
+        this.lstNguonvon = lstNguonvon;
+    }
+    
+    
 
     public String getMsgError() {
         return msgError;
