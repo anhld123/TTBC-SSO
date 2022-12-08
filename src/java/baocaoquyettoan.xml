@@ -176,6 +176,27 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>
         
+        <action name="BCQT_M05A" class="vbsp.ims.bcqt.action.BCQT_M05A"  method="load">
+            <result name="success">/BCQT/table_bcqt_ms05a.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="SAVE_BCQT_M05A" class="vbsp.ims.bcqt.action.BCQT_M05A"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="BCQT_M05B" class="vbsp.ims.bcqt.action.BCQT_M05B"  method="load">
+            <result name="success">/BCQT/table_bcqt_ms05.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="SAVE_BCQT_M05B" class="vbsp.ims.bcqt.action.BCQT_M05B"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        
         <action name="BCQT_M05PL" class="vbsp.ims.bcqt.action.BCQT_M05PL"  method="load">
             <result name="success">/BCQT/table_bcqt_ms05pl.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
