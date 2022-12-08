@@ -193,7 +193,7 @@
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
                 $('#divExportReportLink').empty();
-//                var khoa_nghiquyet11cp = $("#khoa_nghiquyet11cp").val();
+//                var khoa_bcqt = $("#khoa_bcqt").val();
 //                var maxa = $("#maxa").val();
 ////                alert(maxa);
 //                if(maxa === "000000")
@@ -218,7 +218,7 @@
 //                    return;
 //                }
                  
-                var khoa = $("#khoa_nghiquyet11cp").val() + "_save";
+                var khoa = $("#khoa_bcqt").val() + "_save";
 //                alert(khoa);
                 if (!bsubmit)
                 {
@@ -258,7 +258,7 @@
 //                    return;
 //                }
 //                alert(poscd);
-                var khoa = $("#khoa_nghiquyet11cp").val() + "_save_htlai";
+                var khoa = $("#khoa_bcqt").val() + "_save_htlai";
 //                alert(khoa);
                 if (!bsubmit)
                 {
@@ -336,7 +336,7 @@
             {
 
                 var pos_cd = '';
-                var idform = 'id_' + '<s:property value="khoa_nghiquyet11cp"/>';
+                var idform = 'id_' + '<s:property value="khoa_bcqt"/>';
                 var element = document.forms[idform].elements;
 //                 alert('bat dau goi submit idform='+idform);
                 var i = element.length;
@@ -406,7 +406,7 @@
 //                    return;
 //                }
 
-                var idform = 'idform_open_' + '<s:property value="khoa_nghiquyet11cp"/>';
+                var idform = 'idform_open_' + '<s:property value="khoa_bcqt"/>';
                 if ($('#' + idform + ' input:checkbox:checked').length > 0)
                 {
                     $("#" + khoa)[0].click();
@@ -442,8 +442,8 @@
 <!--new java.util.Date()-->
     <body>
         <div id="container" >
-            <s:form id="id_%{khoa_nghiquyet11cp}" name="name_%{khoa_nghiquyet11cp}" action="%{khoa_nghiquyet11cp}" theme="simple">
-                <s:hidden name="khoa_nghiquyet11cp" id="khoa"/>
+            <s:form id="id_%{khoa_bcqt}" name="name_%{khoa_bcqt}" action="%{khoa_bcqt}" theme="simple">
+                <s:hidden name="khoa_bcqt" id="khoa"/>
                 <s:hidden name="ReportDate" id="ReportDate" value=""/>
                 <s:hidden name="Grade" id="Grade"/>
                 <s:hidden name="UserName" id="UserName"/>
@@ -454,7 +454,7 @@
                             <tr style="height: 30px;">
                                 <td>Ngày BC</td>
                                 <td>
-                                    <sj:datepicker name="ngay_bc_DATE" value="%{'30/06/2022'}"  id="ngay_bc_DATE"
+                                    <sj:datepicker name="ngay_bc_DATE" value="%{new java.util.Date()}"   id="ngay_bc_DATE"
                                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
                                 </td>
                                 <td>Chương trình:</td>
@@ -464,74 +464,29 @@
                                 <td >Mã xã:</td>
                                 <td  >                                               
                                     <s:select  style="width: 229px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
-                                               onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
+                                               ></s:select>  &nbsp;&nbsp;&nbsp;
                                 </td>
-                                <td >Mã tổ:</td>
-                                <td>
-                                    <s:select  style="width: 220px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc"></s:select>
-                                    <s:select  
-                                        id="mato_data"
-                                        list="lstMato" 
-                                        listKey="sKey"
-                                        listValue="sDesc"
-                                        headerKey="-1"
-                                        headerValue="--- Chọn ---"                                        
-                                        cssStyle="display:none;">
-                                    </s:select>
-                                </td>
-                                <!--  <td >Phân loại:</td>
+                                <td >Nguồn vốn:</td>
                                 <td  >                                               
-                                    <s:select  style="width: 100px;"  list="lstPhanloai" id="phanloai" name="phanloai" listKey="sKey" listValue="sDesc"></s:select>
-                                </td>-->
-                                    
-                                <td >Phân loại:</td>
-                                            <td>
-                                                <select name="phanloai" id="phanloai">
-                                                    <option value="-1">--Tất cả--</option>
-                                                    <option value="0">RPA</option>                                                    
-                                                    <option value="1">Hạch toán</option>        
-                                                </select>
-                                            </td>       
+                                    <s:select  style="width: 229px;"  list="lstNguonvon" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
+                                               ></s:select>  &nbsp;&nbsp;&nbsp;
+                                </td>   
                             </tr>  
                             <tr>
-<!--                                    <td >Giải ngân:</td>
-                                    <td  >                                               
-                                        <s:select  style="width: 100px;"  list="lstGiaiNgan" id="giaingan" name="giaingan" listKey="sKey" listValue="sDesc"></s:select>
-                                    </td>-->
-                                <td >Trạng thái:</td>
-                                            <td>
-                                                <select name="giaingan" id="giaingan">
-                                                    <option value="-1">--Tất cả--</option>
-                                                    <!--<option value="1">Món vay tất toán</option>-->                                                    
-                                                    <option value="2">Giải ngân sau 31/5/2022</option>        
-                                                </select>
-                                            </td>         
-
-                                <td >Nhà đầu tư:</td>
-                                <td colspan="3">                                               
-                                    <s:select  style="width: 345px;"  list="lstNhadautu" id="nha_dt" name="nha_dt" listKey="sKey" listValue="sDesc"></s:select>
-                                </td>     
+  
                                 <td colspan="2">                                        
                                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                                onBeforeTopics="beforediv_data"
                                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
                                     <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                                     <s:if test="Grade.equalsIgnoreCase('1')">
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận HTLS"/> 
-                                        <td><input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="CN hạch toán GL"/> </td>
+                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu số liệu"/> 
+                                        <!--<td><input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="CN hạch toán GL"/> </td>-->
                                         
                                     </s:if>
-                                    <s:else>
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/>
-                                    </s:else>    
+                                    
                                     
                                 </td>
-<!--                                <td colspan="2">
-                                    <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/>
-                                </td>-->
-                                <td></td>
-<!--                                <td colspan="2">
-                                    <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="Cập nhật hạch toán GL"/> </td>                                -->
                                 <td  colspan="2">
                                     <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
                                         <img id="loadingImage" src='img/loading.gif' border='0' >
@@ -546,7 +501,7 @@
                     </div>
                 </div>
 
-                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11CP_001')">
+                <s:if test="khoa_bcqt.equalsIgnoreCase('BCQT_LAIAM')">
                     <div id="containParm_full" align="center">
                         <div id="divExportReport"></div>
                         <div align="right"  id="divExportReportLink"></div>

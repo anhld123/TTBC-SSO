@@ -96,8 +96,9 @@
                                 <td align = "right" class="TD_TEN_KH"><input type="text" value="0" id="D14_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D14" class="TEN_KH number3" onfocus="this.select();sumColumn(' + code + ');" readonly="true"/></td>\n\
                                 <td align = "right" class="TD_TEN_KH"><input type="text" value="0" id="D15_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D15" class="TEN_KH number3" onfocus="this.select();sumColumn(' + code + ');" readonly="true"/></td>\n\
                                 <td align = "right" class="TD_TEN_KH"><input type="text" value="0" id="D16_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D16" class="TEN_KH number3" onfocus="this.select();sumColumn(' + code + ');" readonly="true"/></td>\n\
-                                    \n\<td align = "right" class="TD_TEN_KH"><input type="text" value="0" id="D17_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D17" class="TEN_KH number3" onfocus="this.select();sumColumn(' + code + ');" readonly="true"/></td>\n\
-\n\<td align = "right" class="TD_TEN_KH"><input type="text" value="0" id="D18_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D18" class="TEN_KH number3" onfocus="this.select();sumColumn(' + code + ');" readonly="true"/></td>\n\
+                                \n\<td></td>\n\
+                                \n\<td align = "right" class="TD_TEN_KH"><input type="text" value="0" id="D18_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D18" class="TEN_KH number3" onfocus="this.select();sumColumn(' + code + ');" readonly="true"/></td>\n\
+\n\                             <td align = "right" class="TD_TEN_KH"><input type="text" value="0" id="D19_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D19" class="TEN_KH number3" onfocus="this.select();sumColumn(' + code + ');" readonly="true"/></td>\n\
                                 <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="TEN_KH"/></td>\n\
                                 </tr>';
                 $($('table#tablepl01 tr')[index]).after(newTr);
@@ -174,8 +175,11 @@
                     var rowcount = table.rows.length;
                     rowcount = rowcount > max_row ? rowcount : max_row;
                     var D2 = 0, D3 = 0.000, D4 = 0.000, D5 = 0.000, D6 = 0.000, D7 = 0.000, D8 = 0.000,
-                            D9 = 0.000, D10 = 0.000, D11 = 0.000, D12 = 0.000, D13 = 0.000, D14 = 0.000, D15 = 0.000, D16 = 0.000;
+                            D9 = 0.000, D10 = 0.000, D11 = 0.000, D12 = 0.000, D13 = 0.000, D14 = 0.000, D15 = 0.000, D16 = 0.000,
+                             D17= 0.000,
+                            D18 = 0.000, D19 = 0.000;;
                     var pos = -1;
+                     console.log('rowcount=' + rowcount);
                     for (var i = 0; i < rowcount; i++)
                     {
                         var matmp = getMabyNumber(i); //Lấy ra mã
@@ -235,11 +239,19 @@
 
                                     D15 = D14 + Math.round(getValue('D12_' + i) * getValue('D13_' + i) * 1000) / 1000;
 
-                                    console.log('D12=' + D12 + ' D13=' + D13 + ' D14=' + D14 + ' D15=' + D15);
+//                                    console.log('D12=' + D12 + ' D13=' + D13 + ' D14=' + D14 + ' D15=' + D15);
                                     //setValue('D15_' + pos, parseFloat(D15));
                                     setValue('D15_' + pos, Math.round((D15) * 1000) / 1000);
 
                                     D16 = D16 + Math.round((getValue('D11_' + i) + getValue('D15_' + i)) * 1000) / 1000;
+                                    D18 = D18 + Math.round(parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) ) 
+                                            + parseFloat(getValue('D7_' + i))
+                                            + parseFloat(getValue('D8_' + i))
+                                            + parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) ) *0.8
+                                            );
+//                                     console.log('D12=' + D12 + ' D13=' + D13 + ' D14=' + D14 + ' D15=' + D15);
+                                     setValue('D18_' + pos, Math.round((D18) * 1000) / 1000);
+                                    D19 = D19 + Math.round((getValue('D18_' + i) + getValue('D15_' + i)) * 1000) / 1000;
 
                                 }
 
@@ -252,6 +264,12 @@
                                     setValue('D15_' + pos, Math.round((D15) * 1000) / 1000);
                                     //D15 = getValue('D15_' + pos)
                                     setValue('D16_' + pos, Math.round((D11 + D15) * 1000) / 1000);
+                                    D18 = D18 + Math.round(parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) * getValue('D17_' + i)) 
+                                            + parseFloat(getValue('D7_' + i))
+                                            + parseFloat(getValue('D8_' + i))
+                                            + parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) * getValue('D17_' + i)) *0.8
+                                            )/ 1000;
+                                    setValue('D19_' + pos, Math.round((D18 + D15) * 1000) / 1000);
                                 }
                             }
                         } else //nếu cấp báo cáo là Chi nhánh: cấp 2
@@ -274,7 +292,13 @@
                                 D14 = Math.round(D14*1000 + getValue('D14_' + i)*1000)/1000;
                                 D15 = Math.round(D15*1000 + getValue('D15_' + i)*1000)/1000;
 
-                                D16 = Math.round(D11*1000 + D15*1000)/1000;;
+                                D16 = Math.round(D11*1000 + D15*1000)/1000;
+//                                D18 = D18 + Math.round(parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) * getValue('D17_' + i)) 
+//                                            + parseFloat(getValue('D7_' + i))
+//                                            + parseFloat(getValue('D8_' + i))
+//                                            + parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) * getValue('D17_' + i)) *0.8
+//                                            )/ 1000;
+                                D19 = Math.round(D18*1000 + D15*1000)/1000;
                                 if (matmp.substr(matmp.length - 2, matmp.length) == '01')
                                 {
                                     D2 = 0.0;
@@ -292,6 +316,9 @@
                                     D14 = 0.0;
                                     D16 = 0.0;
                                     D15 = 0.0;
+                                     D17 = 0.0;
+//                                      D18 = 0.0;
+                                       D19 = 0.0;
                                     pos = i;
                                 }
                             }
@@ -312,9 +339,14 @@
                             setValue('D14_' + pos, Math.round((D14) * 1000) / 1000);
                             setValue('D15_' + pos, Math.round((D15) * 1000) / 1000);
                             setValue('D16_' + pos, Math.round((D16) * 1000) / 1000);
+                            
+                            setValue('D17_' + pos, Math.round((D17) * 1000) / 1000)
+//                            setValue('D18_' + pos, Math.round((D18) * 1000) / 1000)
+                            setValue('D19_' + pos, Math.round((D19) * 1000) / 1000)
 //                            console.log(D7);
                         }
                     }
+                    
                 } catch (e)
                 {
                     alert(e);
@@ -384,7 +416,7 @@
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
             </s:iterator>
             <div id="divTitle">
-                BÁO CÁO TÌNH HÌNH LAO ĐỘNG TIỀN LƯƠNG NĂM <s:property  value="nambc"/>
+               PL/01A - BÁO CÁO TÌNH HÌNH LAO ĐỘNG TIỀN LƯƠNG NĂM <s:property  value="nambc"/>
             </div>
             <s:hidden name="khoa_bcqt"/>
             <div id="divDonvitinh">
@@ -396,8 +428,9 @@
                     <th colspan="10">Lương cán bộ làm CMNV</th>
                     <th colspan="4">Tiền công, phụ cấp bảo vệ, lao công, tạp vụ</th>
                     <th rowspan="2" style="width: 30px;" class="TD_TEN_KH">Tổng tiền lương tiền công kế hoạch</th>
-                    <th rowspan="2" style="width: 30px;" class="TD_TEN_KH">Tổng tiền lương CB làm CMNV (V1KH + V2KH) tính theo mức lương cơ sở quy đổi</th>
-                    <th rowspan="2" style="width: 30px;" class="TD_TEN_KH">Quỹ tiền lương V</th>
+                    <th rowspan="2" style="width: 40px;" class="TD_TEN_KH">Lương cơ sở quy đổi</th>
+                    <th rowspan="2" style="width: 40px;" class="TD_TEN_KH">Tổng tiền lương CB làm CMNV (V1KH + V2KH) tính theo mức lương cơ sở quy đổi</th>
+                    <th rowspan="2" style="width: 40px;" class="TD_TEN_KH">Quỹ tiền lương V </th>
                         <s:if test="Grade.equalsIgnoreCase('1')">
                         <th rowspan="2" style="width: 30px;" class="TD_TEN_KH">Thêm/Xóa</th>
                         </s:if>
@@ -437,8 +470,9 @@
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(14)</th>
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(15)=(12)x(13)+(14)</th>
                     <th style="width: 30px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(16)=(11)+(15)</th>
-                    <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(17)</th>
+                    <th style="width: 30px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(17)</th>
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(18)</th>
+                    <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(19)=(18)+(15)</th>
                         <s:if test="Grade.equalsIgnoreCase('1')">
                         <th style="width: 30px; font: italic; font-size: xx-small;" class="TD_TEN_KH"></th>
                         </s:if>
@@ -542,16 +576,33 @@
                                                    sumColumn('<s:property  value="MA"/>');" readonly="true"/>
                                 </td>
                                 <td align = "right" class="TD_TEN_KH">
-                                    <input type="text" value="<s:property  value="D17" />" id="D17_<s:property  value="%{#rowstatus.index}" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" class="TEN_KH number3" onfocus="this.select();
-                                                   sumColumn('<s:property  value="MA"/>');" />
+                                    <input type="hidden" id="TMP_D517_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="D17" />" 
+                                           name="d5517" class="TEN_KH number3" onfocus="this.select()"/>
+                                    <s:select 
+                                        id="D5_%{#rowstatus.index}"
+                                        name="lstDulieuNt[%{#rowstatus.index}].D17"
+                                        list="lstAllBcqt" 
+                                        listKey="sKey"
+                                        listValue="sDesc"           
+                                        headerKey="-1"
+                                        headerValue="-- Chọn --" 
+                                        cssStyle="font-weight: bold;vertical-align: middle;width: 30px;"
+                                        onBeforeTopics="myBeforeHandler" 
+                                        onCompleteTopics="myCompleteTopics" cssClass="TEN_KH"
+                                        >                    
+                                    </s:select>
                                 </td>
-                                
                                 <td align = "right" class="TD_TEN_KH">
                                     <input type="text" value="<s:property  value="D18" />" id="D18_<s:property  value="%{#rowstatus.index}" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number3" onfocus="this.select();
-                                                   sumColumn('<s:property  value="MA"/>');" />
+                                                   sumColumn('<s:property  value="MA"/>');"  readonly="true"/>
                                 </td>
+                                <td align = "right" class="TD_TEN_KH">
+                                    <input type="text" value="<s:property  value="D19" />" id="D19_<s:property  value="%{#rowstatus.index}" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH number3" onfocus="this.select();
+                                                   sumColumn('<s:property  value="MA"/>');" readonly="true"/>
+                                </td>
+                                
                             </s:if>
                             <s:else>
                                 <td><input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
@@ -584,13 +635,30 @@
                                                    sumColumn('<s:property  value="MA"/>');" readonly="true"/>
                                 </td>
                                 <td align = "right" class="TD_TEN_KH">
-                                    <input type="text" value="<s:property  value="D17" />" id="D17_<s:property  value="%{#rowstatus.index}" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" class="TEN_KH number3" onfocus="this.select();
-                                                   sumColumn('<s:property  value="MA"/>');" readonly="true"/>
+                                    <input type="hidden" id="TMP_D517_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="D17" />" 
+                                           name="d5517" class="TEN_KH number3" onfocus="this.select()"/>
+                                    <s:select 
+                                        id="D5_%{#rowstatus.index}"
+                                        name="lstDulieuNt[%{#rowstatus.index}].D17"
+                                        list="lstAllBcqt" 
+                                        listKey="sKey"
+                                        listValue="sDesc"           
+                                        headerKey="-1"
+                                        headerValue="-- Chọn --" 
+                                        cssStyle="font-weight: bold;vertical-align: middle;width: 30px;"
+                                        onBeforeTopics="myBeforeHandler" 
+                                        onCompleteTopics="myCompleteTopics" cssClass="TEN_KH"
+                                        >                    
+                                    </s:select>
                                 </td>
                                 <td align = "right" class="TD_TEN_KH">
                                     <input type="text" value="<s:property  value="D18" />" id="D18_<s:property  value="%{#rowstatus.index}" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number3" onfocus="this.select();
+                                                   sumColumn('<s:property  value="MA"/>');"  readonly="true"/>
+                                </td>
+                                <td align = "right" class="TD_TEN_KH">
+                                    <input type="text" value="<s:property  value="D19" />" id="D19_<s:property  value="%{#rowstatus.index}" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH number3" onfocus="this.select();
                                                    sumColumn('<s:property  value="MA"/>');" readonly="true"/>
                                 </td>
 
@@ -681,13 +749,18 @@
                                                    sumColumn('<s:property  value="MA"/>');" readonly="true"/>
                                 </td>
                                 <td align = "right" class="TD_TEN_KH">
-                                    <input type="text" value="<s:property  value="D17" />" id="D17_<s:property  value="%{#rowstatus.index}" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" class="TEN_KH number3" onfocus="this.select();
-                                                   sumColumn('<s:property  value="MA"/>');" readonly="true"/>
+                                    <input type="text" id="D17_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="D17" />" 
+                                           name="D175" class="TEN_KH number3" onfocus="this.select()" readonly="true"/>
+
                                 </td>
                                 <td align = "right" class="TD_TEN_KH">
                                     <input type="text" value="<s:property  value="D18" />" id="D18_<s:property  value="%{#rowstatus.index}" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number3" onfocus="this.select();
+                                                   sumColumn('<s:property  value="MA"/>');" readonly="true"/>
+                                </td>
+                                <td align = "right" class="TD_TEN_KH">
+                                    <input type="text" value="<s:property  value="D19" />" id="D19_<s:property  value="%{#rowstatus.index}" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH number3" onfocus="this.select();
                                                    sumColumn('<s:property  value="MA"/>');" readonly="true"/>
                                 </td>
                             </s:if>
@@ -721,17 +794,16 @@
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" class="TEN_KH number3" onfocus="this.select();
                                                    sumColumn('<s:property  value="MA"/>');" readonly="true"/>
                                 </td>
-                                 <td align = "right" class="TD_TEN_KH">
-                                    <input type="text" value="<s:property  value="D17" />" id="D17_<s:property  value="%{#rowstatus.index}" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" class="TEN_KH number3" onfocus="this.select();
-                                                   sumColumn('<s:property  value="MA"/>');" readonly="true"/>
-                                </td>
-                                 <td align = "right" class="TD_TEN_KH">
+                                <td align = "right" class="TD_TEN_KH">
                                     <input type="text" value="<s:property  value="D18" />" id="D18_<s:property  value="%{#rowstatus.index}" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number3" onfocus="this.select();
                                                    sumColumn('<s:property  value="MA"/>');" readonly="true"/>
                                 </td>
-
+                                <td align = "right" class="TD_TEN_KH">
+                                    <input type="text" value="<s:property  value="D19" />" id="D19_<s:property  value="%{#rowstatus.index}" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH number3" onfocus="this.select();
+                                                   sumColumn('<s:property  value="MA"/>');" readonly="true"/>
+                                </td>
 
                             </s:else>
                         </s:else>
