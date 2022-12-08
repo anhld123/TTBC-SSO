@@ -19,6 +19,7 @@
         
         <action name="LoadParaBcqt" class="vbsp.ims.bcqt.action.ActionBcqtMain"  method="loadPataBcqt">
             <result name="success">/BCQT/para-bcqt-main.jsp</result>
+            <result name="BCQT_LAIAM">/BCQT/para_laiton_am.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>  
         
@@ -74,6 +75,15 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>
         <!--cac mau cua tungnv-->
+        <action name="BCQT_LAIAM" class="vbsp.ims.bcqt.action.BCQT_LAIAM"  method="load">
+            <result name="success">/BCQT/table_laiton_am.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>   
+        <action name="SAVE_BCQT_LAIAM" class="vbsp.ims.bcqt.action.BCQT_LAIAM"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
         <action name="BCQT_PL01" class="vbsp.ims.bcqt.action.BCQT_PL01"  method="load">
             <result name="success">/BCQT/table_bcqt_pl01.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
@@ -81,6 +91,15 @@
         <action name="SAVE_BCQT_PL01" class="vbsp.ims.bcqt.action.BCQT_PL01"  method="save">
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="BCQT_PL01A" class="vbsp.ims.bcqt.action.BCQT_PL01A"  method="load">
+                <result name="success">/BCQT/table_bcqt_pl01a.jsp</result>
+                <result name="error">/BCQT/success.jsp</result>        
+        </action>    
+        <action name="SAVE_BCQT_PL01" class="vbsp.ims.bcqt.action.BCQT_PL01A"  method="save">
+                <result name="success">/BCQT/success.jsp</result>
+                <result name="error">/BCQT/success.jsp</result>        
         </action>
         
         <action name="BCQT_M12A" class="vbsp.ims.bcqt.action.BCQT_M12A"  method="load">
