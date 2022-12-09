@@ -213,13 +213,13 @@
                         <tr height="22">  
                         <td  align="right" class="TD_TEN_KH">    
                             <input type="text" value="<s:property  value="TT_HIENTHI" />" 
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TEN_KH" onfocus="this.select()"    readonly="readonly" />                                  
-                            <input type="hidden" value="<s:property  value="MA" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/>        
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()"    readonly="readonly" />                                  
+                            <input type="hidden" value="<s:property  value="D5" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" value="<s:property  value="MA"/>"/>        
                         </td>
                         <td  align="right" class="TD_TEN_KH">    
-                        <input type="text" value="<s:property  value="TEN" />" 
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" class="TEN_KH" onfocus="this.select()"    readonly="readonly" />                                  
+                        <input type="text" value="<s:property  value="D2" />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="TEN_KH" onfocus="this.select()"    readonly="readonly" />                                  
                         </td>
                         <td  align="right" class="TD_DONVITINH">    
                         <input type="text" value="<s:property  value="D1" />" 
@@ -232,12 +232,23 @@
                                    onblur="autoEvaluate()"
                                    readonly="readonly"/>
                         </td>
-                        <td align = "right" class="TD_NGUYENGIA">
-                            <input type="text" value="<s:property  value="D5" />" 
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D5 number2 TEN_KH" onfocus="this.select()"
-                                   onblur="autoEvaluate()"
-                                   readonly="readonly"/>
-                        </td>
+                       <td align = "right" class="TD_NGUYENGIA">
+                                    <input type="hidden" id="TMP_D5_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="D5" />" 
+                                           name="d55" class="TEN_KH" onfocus="this.select()"/>
+                                    <s:select 
+                                        id="D5_%{#rowstatus.index}"
+                                        name="lstDulieuNt[%{#rowstatus.index}].D5"
+                                        list="lstAllBcqt" 
+                                        listKey="sKey"
+                                        listValue="sDesc"           
+                                        headerKey="-1"
+                                        headerValue="-- Chọn --" 
+                                        cssStyle="font-weight: bold;vertical-align: middle;width: 30px;"
+                                        onBeforeTopics="myBeforeHandler" 
+                                        onCompleteTopics="myCompleteTopics" cssClass="TEN_KH"
+                                        >                    
+                                    </s:select>
+                                </td>
                         <td align = "right" class="TD_NGUYENGIA">
                             <input type="text" value="<s:property  value="D6" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D6 number2 TEN_KH" onfocus="this.select()"
@@ -283,7 +294,7 @@
                             <s:property  value="TT_HIENTHI" /> 
                         </td>
                         <td align="left" class="TD_TEN_KH">
-                            <s:property  value="TEN" /> 
+                            <s:property  value="D2" /> 
                         </td>
                         <td align="center" class="TD_DONVITINH">
                             <s:property  value="D1" /> 
@@ -293,14 +304,26 @@
                             <input type="text" value="<s:property  value="D4" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="D4 number2 TEN_KH" onfocus="this.select()"
                                    onblur="if(this.value == '') { this.value=0}; autoEvaluate()"/>
-                            <input type="hidden" value="<s:property  value="MA" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/>        
+                            <input type="hidden" value="<s:property  value="D5" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" value="<s:property  value="MA"/>"/>        
                         </td>
                         <td align = "right" class="TD_NGUYENGIA">
-                            <input type="text" value="<s:property  value="D5" />" 
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D5 number2 TEN_KH" onfocus="this.select()"
-                                   onblur="if(this.value == '') { this.value=0}; autoEvaluate()"/>
-                        </td>
+                                    <input type="hidden" id="TMP_D5_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="D5" />" 
+                                           name="d55" class="TEN_KH" onfocus="this.select()"/>
+                                    <s:select 
+                                        id="D5_%{#rowstatus.index}"
+                                        name="lstDulieuNt[%{#rowstatus.index}].D5"
+                                        list="lstAllBcqt" 
+                                        listKey="sKey"
+                                        listValue="sDesc"           
+                                        headerKey="-1"
+                                        headerValue="-- Chọn --" 
+                                        cssStyle="font-weight: bold;vertical-align: middle;width: 30px;"
+                                        onBeforeTopics="myBeforeHandler" 
+                                        onCompleteTopics="myCompleteTopics" cssClass="TEN_KH"
+                                        >                    
+                                    </s:select>
+                                </td>
                         <td align = "right" class="TD_NGUYENGIA">
                             <input type="text" value="<s:property  value="D6" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D6 number2 TEN_KH" onfocus="this.select()"
