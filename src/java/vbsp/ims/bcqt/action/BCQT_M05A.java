@@ -34,15 +34,15 @@ implements BcqtFunction{
             //khoi tao cho treeview cac pos
             lstAllBcqt = daoMain.getDmKhac(conn, "56");
 //            lstDulieuNt = daoMain.getDataBCQT_NT(conn, khoa_bcqt, hmParameter.get("ngay_bc").toString(),UserName, Grade,poscd);
-            lstDulieuNt = daoMain.getDataBCQT_05(conn, khoa_bcqt, hmParameter.get("ngay_bc").toString(),UserName, Grade,poscd);
+            lstDulieuNt = daoMain.getDataBCQT_05A(conn, khoa_bcqt, hmParameter.get("ngay_bc").toString(),UserName, Grade,poscd);
             if (conn != null) {
                 conn.close();
             }
-            System.err.println("Goi bao cao quyet toan ms_05 khoa_bcqt=" + khoa_bcqt);
+            System.err.println("Goi bao cao quyet toan BCQT_M05A khoa_bcqt=" + khoa_bcqt);
 
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> BCQT_M05: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> BCQT_M05: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> BCQT_M05A: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> BCQT_M05A: " + e.getMessage());
         }
         return SUCCESS;
     }
@@ -66,8 +66,8 @@ implements BcqtFunction{
             }
 
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> SAVE_BCQT_M05: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> SAVE_BCQT_M05: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> SAVE_BCQT_M05A: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> SAVE_BCQT_M05A: " + e.getMessage());
         }
         addActionMessage("Bạn đã lưu dữ liệu thành công");
         return SUCCESS;

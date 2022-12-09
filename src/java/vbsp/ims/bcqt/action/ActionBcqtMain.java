@@ -28,10 +28,12 @@ import vbsp.ims.bcqt.dao.TmDao;
 import vbsp.ims.bcqt.model.ModelViewSend;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
+import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.define.Define;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
+import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.syn.ProcessReportSyn;
@@ -65,6 +67,11 @@ public class ActionBcqtMain extends ActionSupport {
     protected List<ListValue> lstChuongtrinh = new ArrayList<ListValue>();
     protected List<ListValue> lstMaxa = new ArrayList<ListValue>();
     protected List<ListValue> lstNguonvon = new ArrayList<ListValue>();
+    protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
+   
+
+    protected PosMainModel posMainModel;
+    protected String pos_cd_username;
     
     
 
@@ -598,6 +605,32 @@ public class ActionBcqtMain extends ActionSupport {
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
 
+    public PosMainModel getPosMainModel() {
+        return posMainModel;
+    }
+
+    public void setPosMainModel(PosMainModel posMainModel) {
+        this.posMainModel = posMainModel;
+    }
+    
+
+    public DaoListPosFromUser getListKTNBDA() {
+        return listKTNBDA;
+    }
+
+    public void setListKTNBDA(DaoListPosFromUser listKTNBDA) {
+        this.listKTNBDA = listKTNBDA;
+    }
+
+    public String getPos_cd_username() {
+        return pos_cd_username;
+    }
+
+    public void setPos_cd_username(String pos_cd_username) {
+        this.pos_cd_username = pos_cd_username;
+    }
+
+    
     public List<ListValue> getLstChuongtrinh() {
         return lstChuongtrinh;
     }

@@ -97,7 +97,7 @@
                 <result name="success">/BCQT/table_bcqt_pl01a.jsp</result>
                 <result name="error">/BCQT/success.jsp</result>        
         </action>    
-        <action name="SAVE_BCQT_PL01" class="vbsp.ims.bcqt.action.BCQT_PL01A"  method="save">
+        <action name="SAVE_BCQT_PL01A" class="vbsp.ims.bcqt.action.BCQT_PL01A"  method="save">
                 <result name="success">/BCQT/success.jsp</result>
                 <result name="error">/BCQT/success.jsp</result>        
         </action>
@@ -187,7 +187,7 @@
         </action>
         
         <action name="BCQT_M05B" class="vbsp.ims.bcqt.action.BCQT_M05B"  method="load">
-            <result name="success">/BCQT/table_bcqt_ms05.jsp</result>
+            <result name="success">/BCQT/table_bcqt_ms05b.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>
         
