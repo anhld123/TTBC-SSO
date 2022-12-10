@@ -75,11 +75,11 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>
         <!--cac mau cua tungnv-->
-        <action name="BCQT_LAIAM" class="vbsp.ims.bcqt.action.BCQT_LAIAM"  method="load">
+        <action name="BCQT_LAITONAM" class="vbsp.ims.bcqt.action.BCQT_LAITONAM"  method="load">
             <result name="success">/BCQT/table_laiton_am.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>   
-        <action name="SAVE_BCQT_LAIAM" class="vbsp.ims.bcqt.action.BCQT_LAIAM"  method="save">
+        <action name="SAVE_BCQT_LAITONAM" class="vbsp.ims.bcqt.action.BCQT_LAITONAM"  method="save">
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>

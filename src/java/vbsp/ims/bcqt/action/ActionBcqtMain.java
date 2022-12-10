@@ -274,11 +274,11 @@ public class ActionBcqtMain extends ActionSupport {
             if (conn != null) {
                 conn.close();
             }
-            if(khoa_bcqt.equals("BCQT_LAIAM") && Grade.equals("1"))
+            if(khoa_bcqt.equals("BCQT_LAITONAM") && Grade.equals("1"))
             {
                 DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();                
-                setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CHUONGTRINH", Grade));                
-                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));                
+                setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CT_LAIAM", Grade));                
+                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA_LAIAM", Grade));                
                 setLstNguonvon(daoMain11.getDanhMuc(UserName, "NGUONVON", Grade));                
                 return "BCQT_LAIAM";
             }
