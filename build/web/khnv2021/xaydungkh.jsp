@@ -129,11 +129,7 @@
             <div>
                 <%--<s:url id="reloadDataSubCommune" action="reloadSubCommune" includeParams="post"></s:url>--%>
 
-                <span class="clss-lable" id="cboDonvi" name="cboDonvi">Mẫu báo cáo:</span>
-                <s:select list="lstMaBC" theme="simple"
-                          name="maBc" id="maBc"
-                          listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
-                &nbsp;
+                
                 <span class="clss-lable">Kế hoạch năm:</span>
                 <s:select list="lstNamBC" theme="simple"
                           name="namBc" id="namBc"
@@ -178,7 +174,12 @@
                     &nbsp;
                     &nbsp;
                     <!--<input type="button" id="cmdTai" name="cmdTai" value="Tải dữ liệu" class="cmd">-->
-                <s:url id="idLoadDataKhnv" action="loadDataKhnv.action"></s:url>                                      
+            <span class="clss-lable" id="cboDonvi" name="cboDonvi">Mẫu báo cáo:</span>
+                <s:select list="lstMaBC" theme="simple"
+                          name="maBc" id="maBc"
+                          listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
+                &nbsp;    
+            <s:url id="idLoadDataKhnv" action="loadDataKhnv.action"></s:url>                                      
                 <sj:submit id="idloadDataKhnvtmp" name="nameSend" href="%{idLoadDataKhnv}" value="Xem dữ liệu" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>

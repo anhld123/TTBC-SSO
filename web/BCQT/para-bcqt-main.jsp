@@ -163,8 +163,8 @@
 //                        alert('Bạn phải chọn phòng giao dịch cần gửi số liệu !');
                         return;
                     }
-                    
-                    
+
+
                 }
 
                 $("#loadData")[0].click();
@@ -182,17 +182,16 @@
                     return;
                 }
                 var poscd = getposfromtreecheck();
-                if (poscd == null ||  poscd == "")
+                if (poscd == null || poscd == "")
                 {
-                    
-                }
-                else
+
+                } else
                 {
                     $('#message_suc_err').html("<h2 style='color: red'>Bạn không được tích chọn PGD khi lưu dữ liệu cho chi nhánh !</h2>");
                     bsubmit = false;
                     return;
                 }
-                
+
                 if (validateRequiredFields())
                     $("#" + khoa)[0].click();
 //                alert(khoa);
@@ -212,12 +211,12 @@
                 $("#loadingImageDiv_data").show();
             });
             $.subscribe("completediv_ss", function (event, data) {
-                
-                
+
+
                 var khoa_bcqt = $("#khoa_bcqt").val();
-                if (khoa_bcqt=='KHOANTC001')
-                     $("#loadData")[0].click();
-                
+                if (khoa_bcqt == 'KHOANTC001')
+                    $("#loadData")[0].click();
+
                 $("#loadingImageDiv_data").hide();
             });
             $.subscribe("beforediv_send", function (event, data) {
@@ -266,7 +265,7 @@
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
                 var khoa_bcqt = $("#khoa").val();
-                if (khoa_bcqt != 'BCQT_M26A' && khoa_bcqt != 'BCQT_M26B'&& khoa_bcqt != 'KHOANTC001')
+                if (khoa_bcqt != 'BCQT_M26A' && khoa_bcqt != 'BCQT_M26B' && khoa_bcqt != 'KHOANTC001')
                 {
                     if (!bsubmit)
                     {
@@ -286,6 +285,26 @@
                 $("#idSend")[0].click();
                 bsubmit = false;
             }
+
+            function ResetTemp()
+            {
+                $('#message_suc_err').empty();
+                $('#divExportReport').empty();
+                if (!bsubmit)
+                {
+//                    alert('Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !'); idSendLock
+                    $('#divExportReport').html("<h2 style='color: red'>Bạn phải tải dữ liệu để xem mới reset được !</h2>");
+                    return;
+                }
+
+                var r = confirm("Chương trình sẽ xóa dữ liệu PGD đã nhập. Bạn có chắc chắn muốn reset để cho PGD làm lại ? OK : Đồng ý, Cancel : Hủy bỏ");
+                if (r != true) {
+                    return;
+                }
+                $("#idResettmpTemp")[0].click();
+                bsubmit = false;
+            }
+            ;
 
             function onSentLockData()
             {
@@ -418,7 +437,7 @@
                                                    onBeforeTopics="beforediv_send"
                                                    onCompleteTopics="completediv_send" cssStyle="display:none"/>
                                         <input type="button" id="idSendLocktmp" name="nameidSendLocktmp"  onclick="onSentLockData()" value="Xác nhận số liệu"/>
-                                        
+
                                         <s:if test="isDisplayTM.equalsIgnoreCase('Y')">
                                             <s:label value="Chọn loại để gửi:" cssStyle="color: #029c44;" />
                                             <s:select id="idtype_bcqt" name="type_bcqt" list="#{'NT':'Nhập tay','TM':'Thuyết minh'}"
@@ -427,10 +446,10 @@
                                         <s:else>
                                             <input type="hidden" id="idtype_bcqt" name="type_bcqt" value="NT"/>
                                         </s:else>
-                                            
+
                                     </s:elseif>
                                     <s:else>
-                                        
+
                                         <s:if test="isDisplayTM.equalsIgnoreCase('Y')">
                                             <s:label value="Chọn loại để gửi:" cssStyle="color: #029c44;" />
                                             <s:select id="idtype_bcqt" name="type_bcqt" list="#{'NT':'Nhập tay','TM':'Thuyết minh'}"
@@ -465,6 +484,13 @@
                                     <s:if test="isDisplayTM.equalsIgnoreCase('Y')">
                                         <input type="button" id="idTMtmp" name="nameTMtmp"  onclick="onTMData()" value="Thuyết minh"/>      
                                     </s:if>
+                                    <s:if test="Grade.equalsIgnoreCase('2')">
+                                        <s:url id="idResetTemp" action="Reset_Data_BCQT.action"></s:url>                                      
+                                        <sj:submit id="idResettmpTemp" name="nameSendTemp" href="%{idResetTemp}" value="Mẫu danh sách NLĐ" targets="divExportReport"
+                                                   onBeforeTopics="beforediv_send"
+                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                        <input type="button" id="idReLoadtmpTemp" name="nameidReLoadtmpTemp"  onclick="ResetTemp()" style="color: red" title="Xóa dữ liệu đã nhập, nhập lại từ đầu." value="Reset DL" />
+                                    </s:if>    
                                 </td>
                                 <td>
                                     <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >

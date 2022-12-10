@@ -8,7 +8,6 @@ package vbsp.ims.nghiquyet11cp;
 import vbsp.ims.nhaptaycn.action.*;
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
-import com.opensymphony.xwork2.inject.util.Strings;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -19,16 +18,13 @@ import java.math.BigInteger;
 import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import javax.servlet.ServletContext;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -51,13 +47,8 @@ import vbsp.ims.fileutil.FileUtil;
 import vbsp.ims.khnv2021.ReportTemplate;
 import vbsp.ims.khnv2021.dao.XDKHDao2021;
 import vbsp.ims.log.CoreLogger;
-import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
 import vbsp.ims.restapi.DuLieuNTRow;
-import vbsp.ims.restapi.IntDeductionModel;
 import vbsp.ims.restapi.DuLieuNTService;
-import vbsp.ims.restapi.LockSendModel;
-import vbsp.ims.restapi.NQ11cpModel;
-import vbsp.ims.restapi.UpdateLockModel;
 
 import vbsp.ims.util.DateUtil;
 import vbsp.ims.zip.FileZip;
@@ -123,6 +114,8 @@ public class NQ11CP_04KH extends ActionNghiquyet11cpMain
             if (!getParaSession()) {
                 return ERROR;
             }
+//             String s = getPreviousMonthDate( new Date());
+//             System.out.println("vbsp.ims.nghiquyet11cp.NQ11CP_04KH.load()---"+ s);
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
@@ -149,12 +142,22 @@ public class NQ11CP_04KH extends ActionNghiquyet11cpMain
                 SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
                 String dateStr = sdf.format(date1);
                 lstDataM = service.getData("GIAO_KHTDNQ11", main_pos_username, "M", dateStr);
+
                 if (lstDataM.size() == 0 || lstDataM == null) {
-                    addActionError("Trung ương chưa giao kế hoạch tháng này.");
-                    return ERROR;
+                    lstDataM = service.getData("GIAO_KHTDNQ11", main_pos_username, "M", getPreviousMonthDate(date1));
+//                    if (lstDataM.size() == 0 || lstDataM == null) {
+//                        addActionError("Trung ương chưa giao kế hoạch tháng này.");
+//                        return ERROR;
+//                    }
                 }
-                b1 = new BigInteger(lstDataM.get(0).getD2());
-                b2 = new BigInteger(lstDataM.get(0).getD4());
+                if (lstDataM.size() == 0 || lstDataM == null )
+                {
+                }
+                else
+                {
+                    b1 = new BigInteger(lstDataM.get(0).getD2());
+                    b2 = new BigInteger(lstDataM.get(0).getD4());
+                }
                 setVieclam_total(String.format("%,d", b1));
                 setNoxh_total(String.format("%,d", b2));
                 ArrayList<DuLieuNTRow> lstDataS = new ArrayList<>();
@@ -235,6 +238,11 @@ public class NQ11CP_04KH extends ActionNghiquyet11cpMain
 
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
             HashMap hmParameter = getParameter();
+            if (daoMain.checkDateInput(khoa_nghiquyet11cp, hmParameter.get("ngay_bc").toString()) == 1) {
+                addActionError("Đã quá thời gian. Đề nghị nhập sang tháng sau.");
+                return ERROR;
+            }
+
             if (Grade.equals("3")) {
                 if (!daoMain.saveNQ11CP_KH04(khoa_nghiquyet11cp, UserName, Grade, hmParameter.get("ngay_bc").toString(), lstDulieuNt, poscd, hmParameter.get("nghiepvu").toString())) {
                     addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
@@ -255,13 +263,21 @@ public class NQ11CP_04KH extends ActionNghiquyet11cpMain
                 pos_cd_username = posMainModel.getPosCd();
                 ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
                 ArrayList<DuLieuNTRow> lstDataM = new ArrayList<>();
+
+                lstDataM = service.getData("GIAO_KHTDNQ11", pos_cd_username, "M", strDate);
                 
-                lstDataM = service.getData("GIAO_KHTDNQ11", pos_cd_username, "M", strDate);                
+                if (lstDataM.size() == 0 || lstDataM == null) {
+                    lstDataM = service.getData("GIAO_KHTDNQ11", main_pos_username, "M", getPreviousMonthDate(date1));
+//                    if (lstDataM.size() == 0 || lstDataM == null) {
+//                        addActionError("Trung ương chưa giao kế hoạch tháng này.");
+//                        return ERROR;
+//                    }
+                }
                 BigInteger gqvl = new BigInteger(lstDataM.get(0).getD2());
                 BigInteger noxh = new BigInteger(lstDataM.get(0).getD4());
                 BigInteger b1 = new BigInteger("0");
-                BigInteger b2 = new BigInteger("0");                
-                
+                BigInteger b2 = new BigInteger("0");
+
                 for (QT_DULIEU_NT tmp : lstDulieuNt) {
                     DuLieuNTRow tempadd = new DuLieuNTRow();
                     tempadd.setKey(tmp.getKHOA());
@@ -269,25 +285,22 @@ public class NQ11CP_04KH extends ActionNghiquyet11cpMain
                     tempadd.setPosCode(tmp.getMAPGD());
                     tempadd.setD2(tmp.getD2());
                     tempadd.setD4(tmp.getD4());
-                    
-                    
+
                     b1 = b1.add(new BigInteger(tmp.getD2()));
                     b2 = b2.add(new BigInteger(tmp.getD4()));
-                    lstUpdateDate.add(tempadd);                    
+                    lstUpdateDate.add(tempadd);
                 }
-                if(b1.compareTo(gqvl) ==1)
-                {
-                    addActionError("Ban không được giao vượt số trung ương (gqvl) " + String.format("%,d", b1) + " > " + String.format("%,d", gqvl));
-                    return ERROR;
-                }
-                if(b1.compareTo(gqvl) ==1)
-                {
-                    addActionError("Ban không được giao vượt số trung ương (noxh)" + String.format("%,d", b2) + " > " + String.format("%,d", noxh));
-                    return ERROR;
-                }
+//                if (b1.compareTo(gqvl) == 1) {
+//                    addActionError("Ban không được giao vượt số trung ương (gqvl) " + String.format("%,d", b1) + " > " + String.format("%,d", gqvl));
+//                    return ERROR;
+//                }
+//                if (b1.compareTo(gqvl) == 1) {
+//                    addActionError("Ban không được giao vượt số trung ương (noxh)" + String.format("%,d", b2) + " > " + String.format("%,d", noxh));
+//                    return ERROR;
+//                }
                 int status = service.updateData("GIAO_KHTDNQ11", pos_cd_username, "S", strDate, UserName, "system", lstUpdateDate);
                 if (status == 200) {
-                    if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_04KEHOACH(UserName, pos_cd_username, strDate1, lstDulieuNt,hmParameter.get("nghiepvu").toString())) {
+                    if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_04KEHOACH(UserName, pos_cd_username, strDate1, lstDulieuNt, hmParameter.get("nghiepvu").toString())) {
                         addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                         return ERROR;
                     }
@@ -557,8 +570,21 @@ public class NQ11CP_04KH extends ActionNghiquyet11cpMain
         return lstExcelKhnv;
     }
 
+    private static String getPreviousMonthDate(Date date) {
+        final SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.add(Calendar.DATE, -1);
+
+        Date preMonthDate = cal.getTime();
+        return format.format(preMonthDate);
+    }
+
     public void main(String[] args) {
-        saveUploadKH04();
+        String s = getPreviousMonthDate(new Date());
+//        saveUploadKH04();
 //        DuLieuNTService service = new DuLieuNTService();
 //        Date timeServer = service.getTimeServer();
 
