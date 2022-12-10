@@ -468,7 +468,7 @@
                                 </td>
                                 <td >Nguồn vốn:</td>
                                 <td  >                                               
-                                    <s:select  style="width: 229px;"  list="lstNguonvon" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
+                                    <s:select  style="width: 229px;"  list="lstNguonvon" id="nguonvon" name="nguonvon" listKey="sKey" listValue="sDesc"
                                                ></s:select>  &nbsp;&nbsp;&nbsp;
                                 </td>   
                             </tr>  
@@ -501,7 +501,7 @@
                     </div>
                 </div>
 
-                <s:if test="khoa_bcqt.equalsIgnoreCase('BCQT_LAIAM')">
+                <s:if test="khoa_bcqt.equalsIgnoreCase('BCQT_LAITONAM')">
                     <div id="containParm_full" align="center">
                         <div id="divExportReport"></div>
                         <div align="right"  id="divExportReportLink"></div>
@@ -533,7 +533,7 @@
         </div>
         <script>
         $(document).ready(function () {            
-            document.getElementById('ngay_bc_DATE').value = "30/06/2022";
+            document.getElementById('ngay_bc_DATE').value = "20/12/2022";
         })
         </script>
     </div>

@@ -96,8 +96,6 @@
                                 <td align = "right" class="TD_TEN_KH"><input type="text" value="0" id="D14_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D14" class="TEN_KH number3" onfocus="this.select();sumColumn(' + code + ');" readonly="true"/></td>\n\
                                 <td align = "right" class="TD_TEN_KH"><input type="text" value="0" id="D15_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D15" class="TEN_KH number3" onfocus="this.select();sumColumn(' + code + ');" readonly="true"/></td>\n\
                                 <td align = "right" class="TD_TEN_KH"><input type="text" value="0" id="D16_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D16" class="TEN_KH number3" onfocus="this.select();sumColumn(' + code + ');" readonly="true"/></td>\n\
-                                    \n\<td align = "right" class="TD_TEN_KH"><input type="text" value="0" id="D17_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D17" class="TEN_KH number3" onfocus="this.select();sumColumn(' + code + ');" readonly="true"/></td>\n\
-\n\<td align = "right" class="TD_TEN_KH"><input type="text" value="0" id="D18_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D18" class="TEN_KH number3" onfocus="this.select();sumColumn(' + code + ');" readonly="true"/></td>\n\
                                 <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="TEN_KH"/></td>\n\
                                 </tr>';
                 $($('table#tablepl01 tr')[index]).after(newTr);
@@ -395,9 +393,7 @@
                     <th rowspan="2" style="width: 30px;" class="TD_TEN_KH">Tháng</th>
                     <th colspan="10">Lương cán bộ làm CMNV</th>
                     <th colspan="4">Tiền công, phụ cấp bảo vệ, lao công, tạp vụ</th>
-                    <th rowspan="2" style="width: 30px;" class="TD_TEN_KH">Tổng tiền lương tiền công kế hoạch</th>
-                    <th rowspan="2" style="width: 30px;" class="TD_TEN_KH">Tổng tiền lương CB làm CMNV (V1KH + V2KH) tính theo mức lương cơ sở quy đổi</th>
-                    <th rowspan="2" style="width: 30px;" class="TD_TEN_KH">Quỹ tiền lương V</th>
+                    <th rowspan="2" style="width: 30px;" class="TD_TEN_KH">Tổng quỹ tiền lương làm cơ sở xác định quyết toán khoán tài chính (V)</th>
                         <s:if test="Grade.equalsIgnoreCase('1')">
                         <th rowspan="2" style="width: 30px;" class="TD_TEN_KH">Thêm/Xóa</th>
                         </s:if>
@@ -437,8 +433,6 @@
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(14)</th>
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(15)=(12)x(13)+(14)</th>
                     <th style="width: 30px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(16)=(11)+(15)</th>
-                    <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(17)</th>
-                    <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(18)</th>
                         <s:if test="Grade.equalsIgnoreCase('1')">
                         <th style="width: 30px; font: italic; font-size: xx-small;" class="TD_TEN_KH"></th>
                         </s:if>
@@ -541,17 +535,6 @@
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" class="TEN_KH number3" onfocus="this.select();
                                                    sumColumn('<s:property  value="MA"/>');" readonly="true"/>
                                 </td>
-                                <td align = "right" class="TD_TEN_KH">
-                                    <input type="text" value="<s:property  value="D17" />" id="D17_<s:property  value="%{#rowstatus.index}" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" class="TEN_KH number3" onfocus="this.select();
-                                                   sumColumn('<s:property  value="MA"/>');" />
-                                </td>
-                                
-                                <td align = "right" class="TD_TEN_KH">
-                                    <input type="text" value="<s:property  value="D18" />" id="D18_<s:property  value="%{#rowstatus.index}" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number3" onfocus="this.select();
-                                                   sumColumn('<s:property  value="MA"/>');" />
-                                </td>
                             </s:if>
                             <s:else>
                                 <td><input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
@@ -581,16 +564,6 @@
                                 <td align = "right" class="TD_TEN_KH">
                                     <input type="text" value="<s:property  value="D16" />" id="D16_<s:property  value="%{#rowstatus.index}" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" class="TEN_KH number3" onfocus="this.select();
-                                                   sumColumn('<s:property  value="MA"/>');" readonly="true"/>
-                                </td>
-                                <td align = "right" class="TD_TEN_KH">
-                                    <input type="text" value="<s:property  value="D17" />" id="D17_<s:property  value="%{#rowstatus.index}" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" class="TEN_KH number3" onfocus="this.select();
-                                                   sumColumn('<s:property  value="MA"/>');" readonly="true"/>
-                                </td>
-                                <td align = "right" class="TD_TEN_KH">
-                                    <input type="text" value="<s:property  value="D18" />" id="D18_<s:property  value="%{#rowstatus.index}" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number3" onfocus="this.select();
                                                    sumColumn('<s:property  value="MA"/>');" readonly="true"/>
                                 </td>
 
@@ -680,16 +653,6 @@
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" class="TEN_KH number3" onfocus="this.select();
                                                    sumColumn('<s:property  value="MA"/>');" readonly="true"/>
                                 </td>
-                                <td align = "right" class="TD_TEN_KH">
-                                    <input type="text" value="<s:property  value="D17" />" id="D17_<s:property  value="%{#rowstatus.index}" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" class="TEN_KH number3" onfocus="this.select();
-                                                   sumColumn('<s:property  value="MA"/>');" readonly="true"/>
-                                </td>
-                                <td align = "right" class="TD_TEN_KH">
-                                    <input type="text" value="<s:property  value="D18" />" id="D18_<s:property  value="%{#rowstatus.index}" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number3" onfocus="this.select();
-                                                   sumColumn('<s:property  value="MA"/>');" readonly="true"/>
-                                </td>
                             </s:if>
                             <s:else>
                                 <td><input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
@@ -719,16 +682,6 @@
                                 <td align = "right" class="TD_TEN_KH">
                                     <input type="text" value="<s:property  value="D16" />" id="D16_<s:property  value="%{#rowstatus.index}" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" class="TEN_KH number3" onfocus="this.select();
-                                                   sumColumn('<s:property  value="MA"/>');" readonly="true"/>
-                                </td>
-                                 <td align = "right" class="TD_TEN_KH">
-                                    <input type="text" value="<s:property  value="D17" />" id="D17_<s:property  value="%{#rowstatus.index}" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" class="TEN_KH number3" onfocus="this.select();
-                                                   sumColumn('<s:property  value="MA"/>');" readonly="true"/>
-                                </td>
-                                 <td align = "right" class="TD_TEN_KH">
-                                    <input type="text" value="<s:property  value="D18" />" id="D18_<s:property  value="%{#rowstatus.index}" />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number3" onfocus="this.select();
                                                    sumColumn('<s:property  value="MA"/>');" readonly="true"/>
                                 </td>
 

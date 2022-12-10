@@ -198,6 +198,7 @@
                                 D6 = D6 + getValue('D6_' + i);
                                 D7 = D7 + getValue('D7_' + i);
                                 D8 = D8 + getValue('D8_' + i);
+                                D17 = D17 + getValue('D17_' + i);
                                 //neu ky tu cuoi cung cua ma la '1' Vi du voi ma 
                                 //'100001,100030... thi se chi lam voi ma khac '1' o cuoi
                                 if (matmp.substr(matmp.length - 2, matmp.length) != '01')
@@ -210,6 +211,15 @@
                                     D13 = getValue('D13_' + i) * 1.000;
                                     //Do khi làm tròn không lấy được 3 ký tự sau dấu chấm nên phải làm cách này
                                     D15 = D15 + Math.round(getValue('D12_' + i) * getValue('D13_' + i) * 1000) / 1000;
+                                    
+//                                     D18 = D18 + Math.round(parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) ) * parseFloat(getValue('D17_' + i))
+//                                            + parseFloat(getValue('D7_' + i))
+//                                            + parseFloat(getValue('D8_' + i))
+//                                            + parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) )  * parseFloat(getValue('D17_' + i)) *0.8
+//                                            );
+                                    console.log( i+ '-- 1--------- D2=' + getValue('D2_' + i) +  ' --------- D3=' + getValue('D3_' + i) +  ' --------- D7=' + getValue('D7_' + i)
+                                            +  ' --------- D8=' + getValue('D8_' + i)+  ' --------- D17=' + getValue('D17_' + i)+  ' --------- D5=' + getValue('D5_' + i))
+                                     setValue('D18_' + pos, Math.round((D18) * 1000) / 1000);
                                     //D15 = D14 + (Math.round(D12 * D13) * 1000 / 1000);
                                     //console.log(' --------- D12=' + D12 + ' D13=' + D13 + ' D14=' + D14 + ' D15=' + D15+' aaa='+parseFloat((Math.round(D12 * D13) * 1000) / 1000));
                                     //setValue('D13_' + i,Math.round((getValue('D10_' + i) * getValue('D11_' + i)+getValue('D12_' + i)) * 1000) / 1000);
@@ -233,6 +243,7 @@
                                     D14 = 0.0;
 
                                     D14 = Math.round(getValue('D14_' + i) * 1000) / 1000;
+                                    
 
                                     D11 = Math.round((getValue('D9_' + i) + getValue('D10_' + i)) * 1000) / 1000;
                                     setValue('D11_' + pos, parseFloat(D11));
@@ -244,12 +255,19 @@
                                     setValue('D15_' + pos, Math.round((D15) * 1000) / 1000);
 
                                     D16 = D16 + Math.round((getValue('D11_' + i) + getValue('D15_' + i)) * 1000) / 1000;
-                                    D18 = D18 + Math.round(parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) ) 
-                                            + parseFloat(getValue('D7_' + i))
-                                            + parseFloat(getValue('D8_' + i))
-                                            + parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) ) *0.8
-                                            );
-//                                     console.log('D12=' + D12 + ' D13=' + D13 + ' D14=' + D14 + ' D15=' + D15);
+                                    
+                                    D3 = Math.round(getValue('D3_' + i) * 1000) ;
+                                    D4 = Math.round(getValue('D4_' + i) * 1000) ;
+                                    D7 = Math.round(getValue('D17_' + i) * 1000) ;
+                                    D7 = Math.round(getValue('D7_' + i) * 1000) ;
+                                    D8 = Math.round(getValue('D8_' + i) * 1000) ;
+                                    D18 = D18 + Math.round(parseFloat((D3 +D4) ) * parseFloat(D17)
+                                            + parseFloat(D7)
+                                            + parseFloat(D8)
+                                            + parseFloat((D3 + D4) )  * parseFloat(D17) *0.8
+                                            )/1000;
+//                                    console.log( i+ '-- 2--------- D2=' + getValue('D2_' + i) +  ' --------- D3=' + getValue('D3_' + i) +  ' --------- D7=' + getValue('D7_' + i)
+//                                            +  ' --------- D8=' + getValue('D8_' + i)+  ' --------- D17=' + getValue('D17_' + i)+  ' --------- D5=' + getValue('D5_' + i))
                                      setValue('D18_' + pos, Math.round((D18) * 1000) / 1000);
                                     D19 = D19 + Math.round((getValue('D18_' + i) + getValue('D15_' + i)) * 1000) / 1000;
 
@@ -264,11 +282,16 @@
                                     setValue('D15_' + pos, Math.round((D15) * 1000) / 1000);
                                     //D15 = getValue('D15_' + pos)
                                     setValue('D16_' + pos, Math.round((D11 + D15) * 1000) / 1000);
-                                    D18 = D18 + Math.round(parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) * getValue('D17_' + i)) 
-                                            + parseFloat(getValue('D7_' + i))
-                                            + parseFloat(getValue('D8_' + i))
-                                            + parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) * getValue('D17_' + i)) *0.8
-                                            )/ 1000;
+//                                    
+//                                     D18 = D18 + Math.round(parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) ) * parseFloat(getValue('D17_' + i))
+//                                            + parseFloat(getValue('D7_' + i))
+//                                            + parseFloat(getValue('D8_' + i))
+//                                            + parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) )  * parseFloat(getValue('D17_' + i)) *0.8
+//                                            );
+                                    console.log( i+ '-- 3--------- D2=' + getValue('D2_' + i) +  ' --------- D3=' + getValue('D3_' + i) +  ' --------- D7=' + getValue('D7_' + i)
+                                            +  ' --------- D8=' + getValue('D8_' + i)+  ' --------- D17=' + getValue('D17_' + i)+  ' --------- D5=' + getValue('D5_' + i))
+                                     setValue('D18_' + pos, Math.round((D18) * 1000) / 1000);
+
                                     setValue('D19_' + pos, Math.round((D18 + D15) * 1000) / 1000);
                                 }
                             }
@@ -293,11 +316,11 @@
                                 D15 = Math.round(D15*1000 + getValue('D15_' + i)*1000)/1000;
 
                                 D16 = Math.round(D11*1000 + D15*1000)/1000;
-//                                D18 = D18 + Math.round(parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) * getValue('D17_' + i)) 
+//                                D18 = D18 + Math.round(parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) ) * parseFloat(getValue('D17_' + i))
 //                                            + parseFloat(getValue('D7_' + i))
 //                                            + parseFloat(getValue('D8_' + i))
-//                                            + parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) * getValue('D17_' + i)) *0.8
-//                                            )/ 1000;
+//                                            + parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) ) * parseFloat(getValue('D17_' + i)) *0.8
+//                                            );
                                 D19 = Math.round(D18*1000 + D15*1000)/1000;
                                 if (matmp.substr(matmp.length - 2, matmp.length) == '01')
                                 {
@@ -579,7 +602,7 @@
                                     <input type="hidden" id="TMP_D517_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="D17" />" 
                                            name="d5517" class="TEN_KH number3" onfocus="this.select()"/>
                                     <s:select 
-                                        id="D5_%{#rowstatus.index}"
+                                        id="D17_%{#rowstatus.index}"
                                         name="lstDulieuNt[%{#rowstatus.index}].D17"
                                         list="lstAllBcqt" 
                                         listKey="sKey"
@@ -638,7 +661,7 @@
                                     <input type="hidden" id="TMP_D517_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="D17" />" 
                                            name="d5517" class="TEN_KH number3" onfocus="this.select()"/>
                                     <s:select 
-                                        id="D5_%{#rowstatus.index}"
+                                        id="D17_%{#rowstatus.index}"
                                         name="lstDulieuNt[%{#rowstatus.index}].D17"
                                         list="lstAllBcqt" 
                                         listKey="sKey"
