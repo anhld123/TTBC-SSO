@@ -59,6 +59,7 @@
                 //                $('input.number3').number(false, 2);
                 $('.number3').removeClass();
                 //                sleep(1000);
+
                 var index = parseInt(indx); //ko hieu so vao vong for lai mat index nen phai luu lai o day
                 var table = document.getElementById("tablepl01");
                 var rowCount = table.rows.length - 3; //Dem so dong cua bang
@@ -78,6 +79,7 @@
                 if (flag > 1)
                     index++;
                 var code = (ma + indx).toString();
+                alert('code=' + code + 'rowCount=' + rowCount );
                 //                alert('Tong so dong ' + rowCount);
                 var newTr = '<tr>\n\
                                 <td><input type="hidden" id="id_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].MA" value="' + code + '"/></td>\n\
@@ -167,7 +169,7 @@
             }
             function sumColumn(mainput_tmp)
             {
-
+//                alert('vao');
                 var mainput = $.trim(mainput_tmp.toString());
                 try {
 //                    alert('\'' + mainput+ '\'');
@@ -208,7 +210,7 @@
                                     //D12 = (getValue('D12_' + i) * 1000) / 1000;
                                     D12 = D12 + getValue('D12_' + i);
 
-                                    D13 = getValue('D13_' + i) * 1.000;
+                                    D13 = getValue('D13_' + i) * 1.000; 
                                     //Do khi làm tròn không lấy được 3 ký tự sau dấu chấm nên phải làm cách này
                                     D15 = D15 + Math.round(getValue('D12_' + i) * getValue('D13_' + i) * 1000) / 1000;
                                     
@@ -258,17 +260,30 @@
                                     
                                     D3 = Math.round(getValue('D3_' + i) * 1000) ;
                                     D4 = Math.round(getValue('D4_' + i) * 1000) ;
-                                    D7 = Math.round(getValue('D17_' + i) * 1000) ;
+                                    D17 = getValue('D17_' + i) ;
                                     D7 = Math.round(getValue('D7_' + i) * 1000) ;
                                     D8 = Math.round(getValue('D8_' + i) * 1000) ;
-                                    D18 = D18 + Math.round(parseFloat((D3 +D4) ) * parseFloat(D17)
-                                            + parseFloat(D7)
-                                            + parseFloat(D8)
-                                            + parseFloat((D3 + D4) )  * parseFloat(D17) *0.8
-                                            )/1000;
-//                                    console.log( i+ '-- 2--------- D2=' + getValue('D2_' + i) +  ' --------- D3=' + getValue('D3_' + i) +  ' --------- D7=' + getValue('D7_' + i)
-//                                            +  ' --------- D8=' + getValue('D8_' + i)+  ' --------- D17=' + getValue('D17_' + i)+  ' --------- D5=' + getValue('D5_' + i))
-                                     setValue('D18_' + pos, Math.round((D18) * 1000) / 1000);
+                                    D18 = 0.0;
+                                    
+                                    var iD34 = parseFloat(D3 +D4 );
+                                    var iD17 = parseFloat(D17 );
+                                    var iD7 = parseFloat(D7 );
+                                    var iD8 = parseFloat(D8 );
+                                    var iD18 = iD34*iD17*1.8 + iD7 + iD8;
+                                    
+                                    console.log('aaaa'+ i + '-' + iD34 + '-' +iD17 +'-' + iD7 + '-' +iD8 +'-' + iD18);
+                                    
+                                    D18 = D18 + Math.round(iD18)/1000;
+                                    
+//                                    D18 = D18 + Math.round(parseFloat((D3 +D4) ) * parseFloat(D17)
+//                                            + parseFloat(D7)
+//                                            + parseFloat(D8)
+//                                            + parseFloat((D3 + D4) )  * parseFloat(D17) *0.8
+//                                            )/1000;
+                                    console.log( i+ '-- 2--------- D2=' + getValue('D2_' + i) +  ' --------- D3=' + getValue('D3_' + i) +  ' --------- D7=' + getValue('D7_' + i)
+                                            +  ' --------- D8=' + getValue('D8_' + i)+  ' --------- D17=' + getValue('D17_' + i)+  ' --------- D5=' + getValue('D5_' + i));
+                                    
+                                    setValue('D18_' + pos, Math.round((D18) * 1000) / 1000);
                                     D19 = D19 + Math.round((getValue('D18_' + i) + getValue('D15_' + i)) * 1000) / 1000;
 
                                 }
@@ -321,7 +336,7 @@
 //                                            + parseFloat(getValue('D8_' + i))
 //                                            + parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) ) * parseFloat(getValue('D17_' + i)) *0.8
 //                                            );
-                                D19 = Math.round(D18*1000 + D15*1000)/1000;
+//                                D19 = Math.round(D18*1000 + D15*1000)/1000;
                                 if (matmp.substr(matmp.length - 2, matmp.length) == '01')
                                 {
                                     D2 = 0.0;
