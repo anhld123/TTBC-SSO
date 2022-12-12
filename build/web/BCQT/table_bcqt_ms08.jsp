@@ -102,7 +102,8 @@
                     <th rowspan="3" class="TD_DONVITINH">Đơn vị tính</th>
                     <th colspan="2"  class="TD_DONVITINH">Số liệu trên sổ theo dõi</th>
                     <th colspan="2" >Số liệu thực tế kiểm kê</th>
-                    <th colspan="4">Chênh lệch giữa sổ theo dõi và kiểm kê</th>           
+                    <th colspan="4">Chênh lệch giữa sổ theo dõi và kiểm kê</th> 
+                    <th rowspan="3"  class="TD_THUTU">Mã nhóm CCDC</th>
                 </tr>
                 <tr>                                  
                     <th rowspan="2"  >Số lượng</th>
@@ -130,6 +131,7 @@
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_NGUYENGIA">9=7-5</th>
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_NGUYENGIA">10=4-6</th>
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_NGUYENGIA">11=5-7</th>
+                    <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_NGUYENGIA">12</th>
                     <!--<th style="width: 30px; font: italic; font-size: xx-small;" class="TD_TEN_KH"></th>-->
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
@@ -264,6 +266,10 @@
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" class="D11 number2 TEN_KH" onfocus="this.select()"
                                    onblur="autoEvaluate()"
                                    readonly="readonly"/>
+                        </td>
+                         <td align = "center" class="TD_CHITIEU">
+                            <input type="text" value="<s:property  value="D14" />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14" class="TEN_KH" readonly="readonly" style="border: 0px; text-align: center;"/>
                         </td> 
                     </tr>
                     </s:if>
