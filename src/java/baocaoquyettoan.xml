@@ -19,6 +19,7 @@
         
         <action name="LoadParaBcqt" class="vbsp.ims.bcqt.action.ActionBcqtMain"  method="loadPataBcqt">
             <result name="success">/BCQT/para-bcqt-main.jsp</result>
+            <result name="BCQT_LAIAM">/BCQT/para_laiton_am.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>  
         
@@ -57,6 +58,12 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action> 
         
+        <!--reset so lieu quyet toan-->
+        <action name="Reset_Data_BCQT" class="vbsp.ims.bcqt.action.ActionBcqtMain"  method="resetData">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
         <!--gui so lieu quyet toan-->
         <action name="sendBCQT" class="vbsp.ims.bcqt.action.ActionBcqtMain"  method="sendBCQT">
             <result name="success">/BCQT/success.jsp</result>
@@ -68,6 +75,15 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>
         <!--cac mau cua tungnv-->
+        <action name="BCQT_LAITONAM" class="vbsp.ims.bcqt.action.BCQT_LAITONAM"  method="load">
+            <result name="success">/BCQT/table_laiton_am.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>   
+        <action name="SAVE_BCQT_LAITONAM" class="vbsp.ims.bcqt.action.BCQT_LAITONAM"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
         <action name="BCQT_PL01" class="vbsp.ims.bcqt.action.BCQT_PL01"  method="load">
             <result name="success">/BCQT/table_bcqt_pl01.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
@@ -75,6 +91,15 @@
         <action name="SAVE_BCQT_PL01" class="vbsp.ims.bcqt.action.BCQT_PL01"  method="save">
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="BCQT_PL01A" class="vbsp.ims.bcqt.action.BCQT_PL01A"  method="load">
+                <result name="success">/BCQT/table_bcqt_pl01a.jsp</result>
+                <result name="error">/BCQT/success.jsp</result>        
+        </action>    
+        <action name="SAVE_BCQT_PL01A" class="vbsp.ims.bcqt.action.BCQT_PL01A"  method="save">
+                <result name="success">/BCQT/success.jsp</result>
+                <result name="error">/BCQT/success.jsp</result>        
         </action>
         
         <action name="BCQT_M12A" class="vbsp.ims.bcqt.action.BCQT_M12A"  method="load">
@@ -150,6 +175,27 @@
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>
+        
+        <action name="BCQT_M05A" class="vbsp.ims.bcqt.action.BCQT_M05A"  method="load">
+            <result name="success">/BCQT/table_bcqt_ms05a.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="SAVE_BCQT_M05A" class="vbsp.ims.bcqt.action.BCQT_M05A"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="BCQT_M05B" class="vbsp.ims.bcqt.action.BCQT_M05B"  method="load">
+            <result name="success">/BCQT/table_bcqt_ms05b.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="SAVE_BCQT_M05B" class="vbsp.ims.bcqt.action.BCQT_M05B"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
         
         <action name="BCQT_M05PL" class="vbsp.ims.bcqt.action.BCQT_M05PL"  method="load">
             <result name="success">/BCQT/table_bcqt_ms05pl.jsp</result>

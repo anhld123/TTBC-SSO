@@ -28,10 +28,13 @@ import vbsp.ims.bcqt.dao.TmDao;
 import vbsp.ims.bcqt.model.ModelViewSend;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
+import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.define.Define;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
+import vbsp.ims.model.ktnb.PosMainModel;
+import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlBcqtSync;
@@ -60,6 +63,17 @@ public class ActionBcqtMain extends ActionSupport {
     protected String type_bcqt;
     protected List<ModelViewSend> lstViewSend = new ArrayList<>();
     private Map<String, String> dmChtrinh = new LinkedHashMap<String, String>();
+    
+    protected List<ListValue> lstChuongtrinh = new ArrayList<ListValue>();
+    protected List<ListValue> lstMaxa = new ArrayList<ListValue>();
+    protected List<ListValue> lstNguonvon = new ArrayList<ListValue>();
+    protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
+   
+
+    protected PosMainModel posMainModel;
+    protected String pos_cd_username;
+    
+    
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Xu ly cho action">
@@ -259,6 +273,14 @@ public class ActionBcqtMain extends ActionSupport {
             isDisplayTM = tmDao.getCO_TM(khoa_bcqt);
             if (conn != null) {
                 conn.close();
+            }
+            if(khoa_bcqt.equals("BCQT_LAITONAM") && Grade.equals("1"))
+            {
+                DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();                
+                setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CT_LAIAM", Grade));                
+                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA_LAIAM", Grade));                
+                setLstNguonvon(daoMain11.getDanhMuc(UserName, "NGUONVON", Grade));                
+                return "BCQT_LAIAM";
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> loadPataBcqt: " + e.getMessage());
@@ -515,6 +537,42 @@ public class ActionBcqtMain extends ActionSupport {
         return SUCCESS;
     }
 //</editor-fold>
+    
+    public String resetData() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            //Kiem tra xem cac pgd da du du lieu chua neu du moi cho xac nhan so lieu
+
+            HashMap hmParameter = getParameter();
+            List<String> lstPos = (List<String>) hmParameter.get("poscd");
+            if(lstPos.size()>1 || lstPos.size() ==0)
+            {
+                addActionError("Bạn chỉ được reset dữ liệu cho 1 phòng giao dịch");
+                return ERROR;
+            }
+            
+            DaoBcqtMain daoMain = DaoBcqtMain.newInstance();
+//            String s= hmParameter.get("ngay_bc").toString();
+//            System.out.println("Ngaybc="+s);
+            
+//            String pos_cd_check = daoMain.ResetData(type_bcqt, hmParameter.get("khoa_bcqt").toString(), UserName, hmParameter.get("ngay_bc").toString(),"");
+            
+            if (!daoMain.ResetData(type_bcqt, hmParameter.get("khoa_bcqt").toString(), UserName, hmParameter.get("ngay_bc").toString(),lstPos.get(0))) {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                return ERROR;
+            }
+
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> SAVE_BCQT_M12A: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> SAVE_BCQT_M12A: " + e.getMessage());
+            addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+            return ERROR;
+        }
+        addActionMessage("Bạn đã reset dữ liệu thành công");
+        return SUCCESS;
+    }
 
     public String loadDMChtrinh() {
         try {
@@ -546,6 +604,58 @@ public class ActionBcqtMain extends ActionSupport {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
+
+    public PosMainModel getPosMainModel() {
+        return posMainModel;
+    }
+
+    public void setPosMainModel(PosMainModel posMainModel) {
+        this.posMainModel = posMainModel;
+    }
+    
+
+    public DaoListPosFromUser getListKTNBDA() {
+        return listKTNBDA;
+    }
+
+    public void setListKTNBDA(DaoListPosFromUser listKTNBDA) {
+        this.listKTNBDA = listKTNBDA;
+    }
+
+    public String getPos_cd_username() {
+        return pos_cd_username;
+    }
+
+    public void setPos_cd_username(String pos_cd_username) {
+        this.pos_cd_username = pos_cd_username;
+    }
+
+    
+    public List<ListValue> getLstChuongtrinh() {
+        return lstChuongtrinh;
+    }
+
+    public void setLstChuongtrinh(List<ListValue> lstChuongtrinh) {
+        this.lstChuongtrinh = lstChuongtrinh;
+    }
+
+    public List<ListValue> getLstMaxa() {
+        return lstMaxa;
+    }
+
+    public void setLstMaxa(List<ListValue> lstMaxa) {
+        this.lstMaxa = lstMaxa;
+    }
+
+    public List<ListValue> getLstNguonvon() {
+        return lstNguonvon;
+    }
+
+    public void setLstNguonvon(List<ListValue> lstNguonvon) {
+        this.lstNguonvon = lstNguonvon;
+    }
+    
+    
 
     public String getMsgError() {
         return msgError;
