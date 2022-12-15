@@ -4614,4 +4614,35 @@ public class DaoBcqtMain {
         }
         return true;
     }
+    
+    public boolean saveBcqtLaitonAm(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_BCQT.SP_SAVE_LAITONAM(?, ?, ?, ?)}");            
+            cs.setString(1, username);
+            cs.setString(2, mapgd);
+            cs.setString(3, ngaybc);
+            cs.setArray(4, array_to_pass);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham saveBcqtLaitonAm " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveBcqtLaitonAm -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
 }

@@ -68,6 +68,7 @@ public class ActionBcqtMain extends ActionSupport {
     protected List<ListValue> lstMaxa = new ArrayList<ListValue>();
     protected List<ListValue> lstNguonvon = new ArrayList<ListValue>();
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
+    protected List<ListValue> lstMato = new ArrayList<ListValue>();
    
 
     protected PosMainModel posMainModel;
@@ -274,12 +275,22 @@ public class ActionBcqtMain extends ActionSupport {
             if (conn != null) {
                 conn.close();
             }
-            if(khoa_bcqt.equals("BCQT_LAITONAM") && Grade.equals("1"))
+            if(khoa_bcqt.equals("BCQT_LAITONAM")  && Grade.equals("1"))
             {
                 DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();                
                 setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CT_LAIAM", Grade));                
                 setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA_LAIAM", Grade));                
-                setLstNguonvon(daoMain11.getDanhMuc(UserName, "NGUONVON", Grade));                
+                setLstNguonvon(daoMain11.getDanhMuc(UserName, "NGUONVON", Grade));         
+                 setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
+                return "BCQT_LAIAM";
+            }
+            else if (khoa_bcqt.equals("BCQT_HOAHONG") && Grade.equals("1"))
+            {
+                DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();                
+                setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CT_HOAHONG", Grade));                
+                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));                
+                setLstNguonvon(daoMain11.getDanhMuc(UserName, "NGUONVON", Grade));         
+                 setLstMato(daoMain11.getDanhMuc(UserName, "MATO_HOAHONG", Grade));
                 return "BCQT_LAIAM";
             }
         } catch (Exception e) {
@@ -793,5 +804,14 @@ public class ActionBcqtMain extends ActionSupport {
         this.lstViewSend = lstViewSend;
     }
 
+     public List<ListValue> getLstMato() {
+        return lstMato;
+    }
+
+    public void setLstMato(List<ListValue> lstMato) {
+        this.lstMato = lstMato;
+    }
 //</editor-fold>
+
+   
 }

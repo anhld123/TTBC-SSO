@@ -29,6 +29,7 @@ import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.define.Define;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
+import vbsp.ims.restapi.CommissionMasterModel;
 import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.IntDeductionModel;
 import vbsp.ims.restapi.DuLieuNTService;
@@ -42,7 +43,7 @@ import vbsp.ims.util.DateUtil;
  *
  * @author Trung
  */
-public class BCQT_LAITONAM extends ActionBcqtMain
+public class BCQT_HOAHONG extends ActionBcqtMain
         implements NhaptaycnFunction {
 
     DuLieuNTService service;
@@ -76,85 +77,75 @@ public class BCQT_LAITONAM extends ActionBcqtMain
                 String conditions = "";
                 String sSoku = "AAA";
                 
-                conditions = (hmParameter.get("maxa").toString().equals("000000") ? "" : "D38=" + hmParameter.get("maxa").toString() + "|")
-                        + (hmParameter.get("chuongtrinh").toString().equals("00") ? "" : "D10=" + hmParameter.get("chuongtrinh").toString() + "|")
-                        + (hmParameter.get("nguonvon").toString().equals("-1") ? "" : "D5=" + hmParameter.get("nguonvon").toString() + "|");
-                
+//                conditions = (hmParameter.get("maxa").toString().equals("000000") ? "" : "D38=" + hmParameter.get("maxa").toString() + "|")
+//                        + (hmParameter.get("chuongtrinh").toString().equals("00") ? "" : "D10=" + hmParameter.get("chuongtrinh").toString() + "|")
+//                        + (hmParameter.get("nguonvon").toString().equals("-1") ? "" : "D5=" + hmParameter.get("nguonvon").toString() + "|");
+//                
                 
                 
                 System.out.println(pos_cd_username + dateStr+conditions);
-                ArrayList<DuLieuNTRow> lstData = service.getDataNQ11CP_02SK("BCQT_LAITONAM", pos_cd_username, "S", dateStr, conditions);
+//                ArrayList<CommissionMasterModel> lstData = service.getDataCommission("BCQT_LAITONAM", "000401", "S", dateStr, conditions);
+                ArrayList<CommissionMasterModel> lstData = service.getDataCommission(pos_cd_username,  dateStr, "1","","250101","0209852");
                 System.out.println(lstData.size());
                 if (lstData.size() > 499) {
                     addActionError("Dữ liệu quá lớn. Vui lòng chọn từng xã để xác nhận.");;
                     return ERROR;
                 }
                 int iStt = 1;
-                for (DuLieuNTRow item : lstData) {
+                for (CommissionMasterModel item : lstData) {
                     QT_DULIEU_NT row = new QT_DULIEU_NT();
-                    row.setKHOA(item.getKey());
+                     System.out.println(item.getCustomerName());
                     row.setTHUTU(iStt);
                     iStt++;
-                    row.setTT_HIENTHI(item.getOrderDescription());
-                    row.setMA(item.getCode());
-                    row.setTEN(item.getName());
-
+                    
                     Date reportDate = DateUtil.toDate(item.getReportDate());
                     row.setNGAYBC(reportDate);
                     //row.setNAMBC(item.getReportYear());
                     row.setMAPGD(item.getPosCode());
-                    row.setCO_TONGHOP(item.getPosFlag());
-                    row.setMACN(item.getBranchCode());
-                    row.setNGUOI_NHAP(item.getMakerId());
-                    //row.setNGAY_NHAP(item.getMakerDate());
-                    Date makerDate = DateUtil.toDate(item.getMakerDate());
-                    row.setNGAY_NHAP(makerDate);
-                    row.setNGUOI_DUYET(item.getAuthoriseId());
-                    //row.setNGAY_DUYET(item.getAuthoriseDate());
-                    Date authoriseDate = DateUtil.toDate(item.getAuthoriseDate());
-                    row.setNGAY_DUYET(authoriseDate);
-                    row.setD1(item.getD1());
-                    row.setD2(item.getD2());
-                    row.setD3(item.getD3());
-                    row.setD4(item.getD4());
-                    row.setD5(item.getD5());
-                    row.setD6(item.getD6());
-                    row.setD7(item.getD7());
-                    row.setD8(item.getD8());
-                    row.setD9(item.getD9());
-                    row.setD10(item.getD10());
-                    row.setD11(item.getD11());
-                    row.setD12(item.getD12());
-                    row.setD13(item.getD13());
-                    row.setD14(item.getD14());
-                    row.setD15(item.getD15());
-                    row.setD16(item.getD16());
-                    row.setD17(item.getD17());
-                    row.setD18(item.getD18());
-                    row.setD19(item.getD19());
-                    row.setD20(item.getD20());
-                    row.setD21(item.getD21());
-                    row.setD22(item.getD22());
-                    row.setD23(item.getD23());
-                    row.setD24(item.getD24());
-                    row.setD25(item.getD25());
-                    row.setD26(item.getD26());
-                    row.setD27(item.getD27());
-                    row.setD28(item.getD28());
-                    row.setD29(item.getD29());
-                    
-                    row.setD30(item.getD30());
-                    row.setD31(item.getD31());
-                    row.setD32(item.getD32());
-                    row.setD33(item.getD33());
-                    row.setD34(item.getD34());
-                    row.setD35(item.getD35());
-                    row.setD36(item.getD36());
-                    row.setD37(item.getD37());
-                    row.setD38(item.getD38());
-                    row.setNHAPTAY(item.getManualFlag());
-                    row.setFONTFORMAT(item.getFontFormat());
-                    row.setKIEUIN(item.getStyle());
+                    row.setMACN(item.getMainPos());
+
+                    row.setD1(item.getGroupLeaderName());
+                    row.setD2(item.getGroupLeaderCif());
+                    row.setD3(item.getCustomerName());
+                    row.setD4(item.getCustomerId());
+                    row.setD5(item.getLoanId());
+                    row.setD6(String. valueOf(item.getPrinTotal()));
+//                    row.setD7(item.getD7());
+//                    row.setD8(item.getD8());
+//                    row.setD9(item.getD9());
+//                    row.setD10(item.getD10());
+//                    row.setD11(item.getD11());
+//                    row.setD12(item.getD12());
+//                    row.setD13(item.getD13());
+//                    row.setD14(item.getD14());
+//                    row.setD15(item.getD15());
+//                    row.setD16(item.getD16());
+//                    row.setD17(item.getD17());
+//                    row.setD18(item.getD18());
+//                    row.setD19(item.getD19());
+//                    row.setD20(item.getD20());
+//                    row.setD21(item.getD21());
+//                    row.setD22(item.getD22());
+//                    row.setD23(item.getD23());
+//                    row.setD24(item.getD24());
+//                    row.setD25(item.getD25());
+//                    row.setD26(item.getD26());
+//                    row.setD27(item.getD27());
+//                    row.setD28(item.getD28());
+//                    row.setD29(item.getD29());
+//                    
+//                    row.setD30(item.getD30());
+//                    row.setD31(item.getD31());
+//                    row.setD32(item.getD32());
+//                    row.setD33(item.getD33());
+//                    row.setD34(item.getD34());
+//                    row.setD35(item.getD35());
+//                    row.setD36(item.getD36());
+//                    row.setD37(item.getD37());
+//                    row.setD38(item.getD38());
+//                    row.setNHAPTAY(item.getManualFlag());
+//                    row.setFONTFORMAT(item.getFontFormat());
+//                    row.setKIEUIN(item.getStyle());
                     lstDulieuNt.add(row);
                 }
 

@@ -854,6 +854,29 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
+    
+    public ArrayList<CommissionMasterModel> getDataCommission(String posCode , String reportDate, String capitalSource, String program, String communeId, String groupId) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("subsidy-add-commision-data")                
+                .queryParam("posCode", posCode)                
+                .queryParam("reportDate", reportDate)
+                .queryParam("capitalSource", capitalSource)
+                .queryParam("program", program)
+                .queryParam("communeId", communeId)
+                .queryParam("groupId", groupId);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            CommissionResp dulieuNTResp = response.readEntity(CommissionResp.class);
+            ArrayList<CommissionMasterModel> listOfRow = dulieuNTResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
 
     public static void main(String[] args) {
         DuLieuNTService service = new DuLieuNTService();
