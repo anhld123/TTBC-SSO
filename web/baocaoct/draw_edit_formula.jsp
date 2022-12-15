@@ -181,8 +181,8 @@
                     </s:if>
                 </div> 
                 <!--<div style="width: 100%;height:200px;overflow: scroll;">-->
-                <div style="height:200px; width: 1024px;overflow: scroll;margin: 0 auto">
-                    <table align="center" border="1" cellpadding="0" cellspacing="0" style="width: 80%;">
+                <div style="height:300px; width: 88%;overflow: scroll;margin: 0 auto">
+                    <table align="center" border="1" cellpadding="0" cellspacing="0" style="width: 90%;">
                         <% DaoRptFormula daoFormula = new DaoRptFormula();
                             FormulaRptAction rptAction = new FormulaRptAction();
 
