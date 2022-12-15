@@ -79,7 +79,7 @@
                 if (flag > 1)
                     index++;
                 var code = (ma + indx).toString();
-                alert('code=' + code + 'rowCount=' + rowCount );
+//                alert('code=' + code + 'rowCount=' + rowCount );
                 //                alert('Tong so dong ' + rowCount);
                 var newTr = '<tr>\n\
                                 <td><input type="hidden" id="id_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].MA" value="' + code + '"/></td>\n\
@@ -167,6 +167,18 @@
 //                    alert(e);
                 }
             }
+            
+            function round3(num, decimalPlaces = 0) {
+                if (num < 0)
+                    return -round(-num, decimalPlaces);
+                var p = Math.pow(10, decimalPlaces);
+                var n = num * p;
+                var f = n - Math.floor(n);
+                var e = Number.EPSILON * n;
+                // Determine whether this fraction is a midpoint value.
+                return (f >= .5 - e) ? Math.ceil(n) / p : Math.floor(n) / p;
+            }
+
             function sumColumn(mainput_tmp)
             {
 //                alert('vao');
@@ -176,12 +188,14 @@
                     var table = document.getElementById("tablepl01");
                     var rowcount = table.rows.length;
                     rowcount = rowcount > max_row ? rowcount : max_row;
-                    var D2 = 0, D3 = 0.000, D4 = 0.000, D5 = 0.000, D6 = 0.000, D7 = 0.000, D8 = 0.000,
-                            D9 = 0.000, D10 = 0.000, D11 = 0.000, D12 = 0.000, D13 = 0.000, D14 = 0.000, D15 = 0.000, D16 = 0.000,
+                    var D2 = 0, D3 = 0.000, D4 = 0.000, D5 = 0.000, D6 = 0.000, D6_1 = 0.000, D7 = 0.000, D8 = 0.000,
+                            D9 = 0.000, D9_1 = 0.000, D10 = 0.000, D10_1 = 0.000, D11 = 0.000, D11_1 = 0.000, D12 = 0.000, D13 = 0.000, D14 = 0.000, D15 = 0.000, D15_1 = 0.000, D16 = 0.000,
                              D17= 0.000,
                             D18 = 0.000, D19 = 0.000;;
                     var pos = -1;
                      console.log('rowcount=' + rowcount);
+                     
+                     var index=1;
                     for (var i = 0; i < rowcount; i++)
                     {
                         var matmp = getMabyNumber(i); //Lấy ra mã
@@ -235,11 +249,17 @@
                                     pos = i;
                                     D12 = 0.0;
                                     D13 = 0.0;
-                                    D6 = Math.round(parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) * getValue('D5_' + i)) * 1000) / 1000;
+                                    D6 = round3(parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) * getValue('D5_' + i)),3);
+//                                   console.log('not round=' + round3(parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) * getValue('D5_' + i)),3));   
+//                                console.log( i+ 'D6='+D6 + 'D3=' + getValue('D3_' + i) + 'D4=' + getValue('D4_' + i) + 'D5=' + getValue('D5_' + i));
+                                    
+                                    D6_1 = round3(parseFloat((getValue('D3_' + i) + getValue('D4_' + i)) * getValue('D17_' + i)),3);
                                     setValue('D6_' + i, parseFloat(D6));
                                     D10=Math.round(D6*0.8*1000)/1000;
+                                    D10_1=Math.round(D6_1*0.8*1000)/1000;
                                     setValue('D10_' + i, parseFloat(D10));
                                     D9 = Math.round((D6 + getValue('D7_' + i) + getValue('D8_' + i)) * 1000) / 1000;
+                                    D9_1 = Math.round((D6_1 + getValue('D7_' + i) + getValue('D8_' + i)) * 1000) / 1000;
 //                                alert('mainput='+mainput+' -> matmp='+matmp+' -> D2='+getValue('D2_' + i)+' -> D3='+getValue('D3_' + i)+' -> D5='+getValue('D5_' + i)+' -> D6='+getValue('D6_' + i));
                                     setValue('D9_' + pos, parseFloat(D9));
                                     D14 = 0.0;
@@ -248,43 +268,47 @@
                                     
 
                                     D11 = Math.round((getValue('D9_' + i) + getValue('D10_' + i)) * 1000) / 1000;
+                                    D11_1 = Math.round((D9_1 + D10_1) * 1000) / 1000;
                                     setValue('D11_' + pos, parseFloat(D11));
 
                                     D15 = D14 + Math.round(getValue('D12_' + i) * getValue('D13_' + i) * 1000) / 1000;
+                                    D15_1 = D15;
 
-//                                    console.log('D12=' + D12 + ' D13=' + D13 + ' D14=' + D14 + ' D15=' + D15);
+                                    console.log('======================> D15_' + pos +' D12=' + getValue('D12_' + i)+ ' D13=' + getValue('D13_' + i) + ' D14=' + D14 + ' D15=' + D15);
                                     //setValue('D15_' + pos, parseFloat(D15));
                                     setValue('D15_' + pos, Math.round((D15) * 1000) / 1000);
 
                                     D16 = D16 + Math.round((getValue('D11_' + i) + getValue('D15_' + i)) * 1000) / 1000;
+                                     console.log( 'D11_1+ ='+ D11_1+ '--D15_1='+D15_1 + '--D6_1='+D6_1 + '--D9_1='+D9_1 + '--D10_1='+D10_1) 
+                                    D18 = D18 + (D11_1 * 1000) / 1000;
                                     
-                                    D3 = Math.round(getValue('D3_' + i) * 1000) ;
-                                    D4 = Math.round(getValue('D4_' + i) * 1000) ;
-                                    D17 = getValue('D17_' + i) ;
-                                    D7 = Math.round(getValue('D7_' + i) * 1000) ;
-                                    D8 = Math.round(getValue('D8_' + i) * 1000) ;
-                                    D18 = 0.0;
-                                    
-                                    var iD34 = parseFloat(D3 +D4 );
-                                    var iD17 = parseFloat(D17 );
-                                    var iD7 = parseFloat(D7 );
-                                    var iD8 = parseFloat(D8 );
-                                    var iD18 = iD34*iD17*1.8 + iD7 + iD8;
-                                    
-                                    console.log('aaaa'+ i + '-' + iD34 + '-' +iD17 +'-' + iD7 + '-' +iD8 +'-' + iD18);
-                                    
-                                    D18 = D18 + Math.round(iD18)/1000;
-                                    
-//                                    D18 = D18 + Math.round(parseFloat((D3 +D4) ) * parseFloat(D17)
-//                                            + parseFloat(D7)
-//                                            + parseFloat(D8)
-//                                            + parseFloat((D3 + D4) )  * parseFloat(D17) *0.8
-//                                            )/1000;
-                                    console.log( i+ '-- 2--------- D2=' + getValue('D2_' + i) +  ' --------- D3=' + getValue('D3_' + i) +  ' --------- D7=' + getValue('D7_' + i)
-                                            +  ' --------- D8=' + getValue('D8_' + i)+  ' --------- D17=' + getValue('D17_' + i)+  ' --------- D5=' + getValue('D5_' + i));
+//                                    D3 = Math.round(getValue('D3_' + i) * 1000) ;
+//                                    D4 = Math.round(getValue('D4_' + i) * 1000) ;
+//                                    D17 = getValue('D17_' + i) ;
+//                                    D7 = Math.round(getValue('D7_' + i) * 1000) ;
+//                                    D8 = Math.round(getValue('D8_' + i) * 1000) ;
+//                                    D18 = 0.0;
+//                                    
+//                                    var iD34 = parseFloat(D3 +D4 );
+//                                    var iD17 = parseFloat(D17 );
+//                                    var iD7 = parseFloat(D7 );
+//                                    var iD8 = parseFloat(D8 );
+//                                    var iD18 = iD34*iD17*1.8 + iD7 + iD8;
+//                                    
+//                                    console.log('aaaa'+ i + '-' + iD34 + '-' +iD17 +'-' + iD7 + '-' +iD8 +'-' + 'iD18='+ iD18);
+//                                    
+//                                    D18 = D18 + Math.round(iD18)/1000;
+//                                    
+////                                    D18 = D18 + Math.round(parseFloat((D3 +D4) ) * parseFloat(D17)
+////                                            + parseFloat(D7)
+////                                            + parseFloat(D8)
+////                                            + parseFloat((D3 + D4) )  * parseFloat(D17) *0.8
+////                                            )/1000;
+//                                    console.log( i+ '-- 2--------- D2=' + getValue('D2_' + i) +  ' --------- D3=' + getValue('D3_' + i) +  ' --------- D7=' + getValue('D7_' + i)
+//                                            +  ' --------- D8=' + getValue('D8_' + i)+  ' --------- D17=' + getValue('D17_' + i)+  ' --------- D5=' + getValue('D5_' + i));
                                     
                                     setValue('D18_' + pos, Math.round((D18) * 1000) / 1000);
-                                    D19 = D19 + Math.round((getValue('D18_' + i) + getValue('D15_' + i)) * 1000) / 1000;
+                                    D19 = D19 + (getValue('D18_' + i) + getValue('D15_' + i));
 
                                 }
 
@@ -580,7 +604,7 @@
                                 <td align = "right" class="TD_TEN_KH">
                                     <input type="text" value="<s:property  value="D10" />" id="D10_<s:property  value="%{#rowstatus.index}" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="TEN_KH number3" onfocus="this.select();
-                                                   sumColumn('<s:property  value="MA"/>');"/>
+                                                   sumColumn('<s:property  value="MA"/>');" readonly="true"/>
 
                                 </td>
                                 <td align = "right" class="TD_TEN_KH">
