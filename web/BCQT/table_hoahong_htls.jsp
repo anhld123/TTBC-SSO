@@ -20,6 +20,7 @@
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
         <script>
+             var max_row = 0;
             $(document).ready(function () {
                 $('input.number').css({"text-align": "right"});
                 $('input.number2').css({"text-align": "right"});
@@ -30,11 +31,11 @@
 //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 2);
                 $(".TD_STT").css({"width": "20px"});
-                $(".TD_TRANGTHAI").css({"width": "50px"});
-                $(".TD_TOTIEN").css({"width": "90px"});
+                $(".TD_TRANGTHAI").css({"width": "40px"});
+                $(".TD_TOTIEN").css({"width": "70px"});
                 $(".TD_NGAY").css({"width": "55px"});
                 $(".TD_TENKH").css({"width": "130px"});
-                $(".TD_SOKU").css({"width": "90px"});
+                $(".TD_SOKU").css({"width": "100px"});
                 $(".TD_GL").css({"width": "60px"});
                 $(".TD_NGAY").css({"width": "40px"});
                 $(".TD_CHITIEU").css({"width": "300px"});
@@ -47,7 +48,44 @@
             $('.TEN_KH').blur(function () {
                 $(this).closest('tr').removeClass('highlight_row');
             });
+            $("#allCheck_dat").change(function () {
+                $(".checkboxdat").prop('checked', $(this).prop("checked"));
+            });
         </script>
+        
+         <script>
+             function Chitiet() {
+                 
+             }
+            function initTable()
+            {
+                var table = document.getElementById("tablehoahong");
+                var rowcount = table.rows.length;
+                rowcount = rowcount > max_row ? rowcount : max_row;
+                for (var i = 0; i < rowcount; i++)
+                {
+                    //cho combox 1
+                    var matmp1 = getMabyNumber1(i);//                       
+                    if (matmp1 == 1)
+                    {
+                        $('input:checkbox[id=idhh' + i + ']').attr('checked', true);
+                    }
+                }
+            }
+            
+            function getMabyNumber1(idx)
+            {
+                var ma = '';
+                try {
+                    var ma_id = 'id9_' + idx;
+                    ma = document.getElementById(ma_id).value;
+                } catch (e)
+                {
+                    ma = '999999';
+                }
+                return ma;
+            }
+            </script>
         
     </head>
     <body>
@@ -56,36 +94,29 @@
                 <input type="hidden" id="<s:property  value="sKey" />" 
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
             </s:iterator>
-            <div id="divTitle">
-                THÔNG TIN HẠCH TOÁN HOA HỒNG BỔ SUNG MÓN VAY HTLS
-            </div>
-            <s:hidden name="khoa_bcqt"/>
-            <div id="divDonvitinh">
-                Đơn vị tính: Đồng
-            </div>
+            <s:if test="Grade.equalsIgnoreCase('2')">
+                <div id="divTitle">
+                    XÁC NHẬN SỐ LIỆU HẠCH TOÁN HOA HỒNG BỔ SUNG MÓN VAY HTLS
+                    <div id="luu_thanhcong_del"></div>
+                </div>
+                <s:hidden name="khoa_bcqt"/>
+
                 <div style="overflow: scroll;overflow-x: scroll;height:450px; width: 99%">
-                    <table border="1" class="editDelete" id="tablems05" align="center">
+                    <table border="1" class="editDelete" id="tablehoahong" align="center">
                         <tr>      
-                            <th rowspan="2" class="TD_STT">STT</th>                           
-                            <th rowspan="2" class="TD_TENKH">Tổ TK&VV</th>  
-                            <th rowspan="2" class="TD_TENKH">Tên</th>  
-                            <th rowspan="2" class="TD_SOKU">Mã khoản vay</th>    
-                            <th rowspan="2"  class="TD_TOTIEN">Dư nợ</th>
-                            <th rowspan="2" class="TD_TRANGTHAI">Lãi suất khoản vay (%/năm)</th> 
-                            <th rowspan="2"  class="TD_TOTIEN">Số tiền HTLS trong kỳ</th>   
-                            <th rowspan="2"  class="TD_TOTIEN">Tỷ lệ chi hoa hồng (%/tháng)</th>                               
-                            <th rowspan="2"  class="TD_TOTIEN">Số tiền chi hoa hồng bổ sung</th>   
-                            <th rowspan="2"  class="TD_SOKU">Mã nhà đầu tư</th>  
-                            <th colspan="3" class="TD_TOTIEN">Phân bổ theo cấp</th>  
-                            <th rowspan="2" class="TD_TRANGTHAI"></th>  
-                            
-                            <th rowspan="2" class="TD_TRANGTHAI">Xác nhận</th>                            
-                        </tr>   
-                        <tr>
-                             <th class="TD_TOTIEN">Tổ</th>  
-                             <th class="TD_TOTIEN">Huyện</th>  
-                             <th class="TD_TOTIEN">Tỉnh</th>  
-                        </tr>
+                            <th rowspan="1" class="TD_STT">STT</th>                           
+                            <th rowspan="1" class="TD_SOKU">Mã PGD</th>  
+                            <th rowspan="1" class="TD_TENKH">Tên PGD</th>   
+                             <th rowspan="1"  class="TD_TOTIEN">Số món vay</th>
+                            <th rowspan="1"  class="TD_TOTIEN">Dư nợ</th>
+                            <th rowspan="1" class="TD_TOTIEN">Tổng số tiền hoa hồng</th> 
+                            <th rowspan="1"  class="TD_TOTIEN">Số tiền hoa hồng tổ TK&VV</th>   
+                            <th rowspan="1"  class="TD_TOTIEN">Số tiền hoa hồng cho cấp huyện</th>
+                            <th rowspan="1" class="TD_TOTIEN">Số tiền hoa hồng cho cấp tỉnh</th> 
+                            <!--<th rowspan="1"  class="TD_TOTIEN">Lãi âm do khoanh nợ sai</th>-->   
+                             <th rowspan="1"  class="TD_TOTIEN">Chốt/ Mở chốt</th>   
+
+                        </tr>         
 
                         <tr style="font-style: italic;">
                             <td style="text-align: center">(1)</td>                            
@@ -95,115 +126,273 @@
                             <td style="text-align: center">(5)</td>
                             <td style="text-align: center">(6)</td>
                             <td style="text-align: center">(7)</td>
-                            <td style="text-align: center">(8)</td>
-                            <td style="text-align: center">(9)</td>
+                             <td style="text-align: center">(8)</td>
+                            <td style="text-align: center">(9</td>
                             <td style="text-align: center">(10)</td>
-                            <td style="text-align: center">(11)</td>                                                        
-                            <td style="text-align: center">(12)</td>    
-                            <td style="text-align: center">(13)</td>   
-
-                            <td style="text-align: center">(14)</td>
-                            <td style="text-align: center">(15)</td>
-                            <!--<td style="text-align: center">(16)</td>-->
-<!--                            <td style="text-align: center">(17)</td>                                                        
-                            <td style="text-align: center">(18)</td>                                   
-                            <td style="text-align: center">(19)</td>  -->
 
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
 
                             <tr height="22">  
-                                <td  align="right" class="TD_TEN_KH">    
-                                    <input type="text" value="<s:property  value="THUTU" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" class="D0 TEN_KH" onfocus="this.select()"    readonly="readonly" />                                  
-                                      <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/>
-                                      <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD" value="<s:property  value="MAPGD"/>"/>
-                                      <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN" value="<s:property  value="MACN"/>"/>
+                                <td align = "right" class="TD_STT" >
+                                    <input type="text"   value="<s:property  value="THUTU" />" style="background: #C0C0C0 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" class="D0 TEN_KH " onfocus="this.select();"
+                                           readonly="true"/>                                        
+                                </td>  
+
+
+                                <td align = "right" class="TD_NGAY" >
+                                    <input type="text"   value="<s:property  value="MAPGD" />" style="background: #C0C0C0 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD" class="D0 TEN_KH " onfocus="this.select();" 
+                                           readonly="true"/> 
+                                    
+                                    <input type="hidden" value="<s:property  value="D25" />"  id="id9_<s:property  value="%{#rowstatus.index}" />" 
+                                        value="<s:property  value="D25"/>"/>
+                                     <input type="hidden" value="<s:property  value="MACN" />" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN" value="<s:property  value="MACN"/>" />
                                 </td>
-                                <td  align="right" class="TD_TEN_KH">    
-                                    <input type="text" value="<s:property  value="D1" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH" onfocus="this.select()"    readonly="readonly" />                                  
+                                <td align = "right" class="TD_TENKH" >
+                                    <input type="text"   value="<s:property  value="TEN" />" style="background: #C0C0C0 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" class=" TEN_KH " onfocus="this.select();"
+                                           readonly="true"/>
                                 </td>
-                                <td  align="right" class="TD_TENKH">    
-                                    <input type="text" value="<s:property  value="D3" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" lass="TEN_KH" onfocus="this.select()"    readonly="readonly" />                                  
+                                <td align = "right" class="TD_NGAY" >
+                                    <input type="text"   value="<s:property  value="D1" />" style="background: #C0C0C0 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="number TEN_KH " onfocus="this.select();"
+                                           readonly="true"/>
                                 </td>
 
-                                <td align = "right" class="TD_SOKU">
-                                    <input type="text" value="<s:property  value="D5" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 TEN_KH" onfocus="this.select()"
-                                           readonly="readonly"/>
+                                <td align = "right" class="TD_NGAY" >
+                                    <input type="text"   value="<s:property  value="D2" />" style="background: #C0C0C0 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number TEN_KH" onfocus="this.select();" 
+                                           readonly="true"/>
                                 </td>
-                                <td align = "right" class="TD_TOTIEN">
-                                    <input type="text" value="<s:property  value="D11" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" class="D0  TEN_KH" onfocus="this.select()"                                           
-                                           readonly="readonly"/>
-                                </td>
-                                <td align = "right" class="TD_TRANGTHAI">
-                                    <input type="text" value="<s:property  value="D12" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="D0  TEN_KH" onfocus="this.select()"
-                                           
-                                           readonly="readonly"/>
-                                </td>
-                                <td align = "right" class="TD_TOTIEN">
-                                    <input type="text" value="<s:property  value="D14" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14" class="D7 number TEN_KH" onfocus="this.select()"
-                                           
-                                           readonly="readonly"/>
+                                <td align = "right" class="TD_NGAY" >
+                                    <input type="text"   value="<s:property  value="D3" />" style="background: #C0C0C0 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number TEN_KH" onfocus="this.select();" 
+                                           readonly="true"/>
                                 </td>
                                 
-                                <td align = "right" class="TD_TOTIEN">
-                                    <input type="text" value="<s:property  value="D18" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="D0"  />
-                                    
+                                <td align = "right" class="TD_NGAY" >
+                                    <input type="text"   value="<s:property  value="D4" />" style="background: #C0C0C0 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="number TEN_KH " onfocus="this.select();"
+                                           readonly="true"/>
                                 </td>
-                                <td align = "right" class="TD_TOTIEN">
-                                    <input type="text" value="<s:property  value="D15" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" class="D0"/>
+
+                                <td align = "right" class="TD_NGAY" >
+                                    <input type="text"   value="<s:property  value="D5" />" style="background: #C0C0C0 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="number TEN_KH" onfocus="this.select();" 
+                                           readonly="true"/>
+                                </td>
+                                <td align = "right" class="TD_NGAY" >
+                                    <input type="text"   value="<s:property  value="D6" />" style="background: #C0C0C0 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="number TEN_KH" onfocus="this.select();" 
+                                           readonly="true"/>
+                                </td>
+                               
+                                 <td  align="center" class="TD_CHECKBOX">    
+                                    <input type="checkbox" id ="idhh<s:property  value="%{#rowstatus.index}" />"  class="checkboxdat TEN_KH D0" 
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25" value="<s:property  value="D25"/>"                                            
+                                           />
                                 </td> 
-                                <td align = "right" class="TD_SOKU">
-                                    <input type="text" value="<s:property  value="D37" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D37" class="D0"  readonly="readonly"/>
-                                </td>                                                             
-                                
-                                <td align = "right" class="TD_TOTIEN">
-                                    <input type="text" value="<s:property  value="D21" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D21" class="D11 number TEN_KH" onfocus="this.select()"                                           
-                                           readonly="readonly"/>
-                                </td>
-                                <td align = "right" class="TD_TOTIEN">
-                                    <input type="text" value="<s:property  value="D22" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D22" class="D11 number TEN_KH" onfocus="this.select()"
-                                            readonly="readonly"/>
-                                </td>
-                                <td align = "right" class="TD_TOTIEN">
-                                    <input type="text" value="<s:property  value="D29" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29" class="D11 number TEN_KH" onfocus="this.select()"
-                                           readonly="readonly"/>
-                                </td>
-                                 <td align = "right" class="TD_TRANGTHAI">
-                                    link
-                                </td>
-                                <td align = "right" class="TD_TRANGTHAI">
-                                    <input type="checkbox" id ='idchk<s:property  value="%{#rowstatus.index}" />' class="checkboxdat TEN_KH" 
-                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D33" value="<s:property  value="D33"/>"                                            
-                                               />
-                                </td>
+                               
                             </tr>
 
 
                         </s:iterator>
                     </table>
-            </div>
+                </div>
+            </s:if>
+            <s:else>
+                
+                <div id="divTitle">
+                    THÔNG TIN HẠCH TOÁN HOA HỒNG BỔ SUNG MÓN VAY HTLS
+                </div>
+                <s:hidden name="khoa_bcqt"/>
+                <div id="divDonvitinh">
+                    Đơn vị tính: Đồng
+                </div>
+                    <div style="overflow: scroll;overflow-x: scroll;height:450px; width: 99%">
+                        <table border="1" class="editDelete" id="tablehoahong" align="center">
+                            <tr>      
+                                <th rowspan="2" class="TD_STT">STT</th>                           
+                                <th rowspan="2" class="TD_TENKH">Tổ TK&VV</th>  
+                                <th rowspan="2" class="TD_TENKH">Tên</th>  
+                                <th rowspan="2" class="TD_SOKU">Mã khoản vay</th>    
+                                <th rowspan="2"  class="TD_TOTIEN">Dư nợ</th>
+                                <th rowspan="2" class="TD_TRANGTHAI">Lãi suất khoản vay (%/năm)</th> 
+                                <th rowspan="2"  class="TD_TOTIEN">Số tiền HTLS trong kỳ</th>   
+                                <th rowspan="2"  class="TD_TOTIEN">Tỷ lệ chi hoa hồng (%/tháng)</th>                               
+                                <th rowspan="2"  class="TD_TOTIEN">Số tiền chi hoa hồng bổ sung</th>   
+                                <th rowspan="2"  class="TD_SOKU">Mã nhà đầu tư</th>  
+                                <th colspan="3" class="TD_TOTIEN">Phân bổ theo cấp</th>  
+                                <th rowspan="2" class="TD_TRANGTHAI"></th>  
+
+                                <th rowspan="2" class="TD_TRANGTHAI">Xác nhận</th>                            
+                            </tr>   
+                            <tr>
+                                 <th class="TD_TOTIEN">Tổ</th>  
+                                 <th class="TD_TOTIEN">Huyện</th>  
+                                 <th class="TD_TOTIEN">Tỉnh</th>  
+                            </tr>
+
+                            <tr style="font-style: italic;">
+                                <td style="text-align: center">(1)</td>                            
+                                <td style="text-align: center">(2)</td>
+                                <td style="text-align: center">(3)</td>
+                                <td style="text-align: center">(4)</td>
+                                <td style="text-align: center">(5)</td>
+                                <td style="text-align: center">(6)</td>
+                                <td style="text-align: center">(7)</td>
+                                <td style="text-align: center">(8)</td>
+                                <td style="text-align: center">(9)</td>
+                                <td style="text-align: center">(10)</td>
+                                <td style="text-align: center">(11)</td>                                                        
+                                <td style="text-align: center">(12)</td>    
+                                <td style="text-align: center">(13)</td>   
+
+                                <td style="text-align: center">(14)</td>
+                                <td style="text-align: center">(15)</td>
+                                <!--<td style="text-align: center">(16)</td>-->
+    <!--                            <td style="text-align: center">(17)</td>                                                        
+                                <td style="text-align: center">(18)</td>                                   
+                                <td style="text-align: center">(19)</td>  -->
+
+                            </tr>
+                            <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
+
+                                <tr height="22">  
+                                    <td  align="right" class="TD_STT">    
+                                        <input type="text" value="<s:property  value="THUTU" />" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" class="D0 TEN_KH" onfocus="this.select()"    readonly="readonly" />                                  
+                                          <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/>
+                                          <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD" value="<s:property  value="MAPGD"/>"/>
+                                          <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN" value="<s:property  value="MACN"/>"/>
+                                    </td>
+                                    <td  align="right" class="TD_TEN_KH">    
+                                        <input type="text" value="<s:property  value="D1" />" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH" onfocus="this.select()"    readonly="readonly" />                                  
+                                    </td>
+                                    <td  align="right" class="TD_TENKH">    
+                                        <input type="text" value="<s:property  value="D3" />" title="<s:property  value="D3" />"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" lass="TEN_KH" onfocus="this.select()"    readonly="readonly" />                                  
+                                    </td>
+
+                                    <td align = "right" class="TD_SOKU">
+                                        <input type="text" value="<s:property  value="D5" />" title="<s:property  value="D5" />"
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 TEN_KH" onfocus="this.select()"
+                                               readonly="readonly"/>
+                                    </td>
+                                    <td align = "right" class="TD_TOTIEN">
+                                        <input type="text" value="<s:property  value="D6" />" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class=" number TEN_KH" onfocus="this.select()"                                           
+                                               readonly="readonly"/>
+                                    </td>
+                                    <td align = "right" class="TD_TRANGTHAI">
+                                        <input type="text" value="<s:property  value="D7" />" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="D0 number2  TEN_KH" onfocus="this.select()"
+
+                                               readonly="readonly"/>
+                                    </td>
+                                    <td align = "right" class="TD_TOTIEN">
+                                        <input type="text" value="<s:property  value="D8" />" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="D7 number TEN_KH" onfocus="this.select()"
+
+                                               readonly="readonly"/>
+                                    </td>
+
+                                    <td align = "right" class="TD_TOTIEN">
+                                        <input type="text" value="<s:property  value="D9" />" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="D0"  
+                                               <s:if test="MA.equalsIgnoreCase('2')">readonly="readonly"</s:if>
+                                               <s:else>
+                                                   onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D9<s:property  value="%{#rowstatus.index}" />', 'kK')"
+                                               </s:else>
+                                               />
+
+                                    </td>
+                                    
+                                    <td align = "right" class="TD_TOTIEN">
+                                        <input type="text" value="<s:property  value="D10" />" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="number"
+                                              <s:if test="MA.equalsIgnoreCase('2')">readonly="readonly"</s:if>
+                                               <s:else>
+                                                   onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D10<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')"
+                                               </s:else>
+                                               />
+                                    </td> 
+                                    <td align = "right" class="TD_SOKU">
+                                        <input type="text" value="<s:property  value="D11" />" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" class="D0"  readonly="readonly"/>
+                                    </td>                                                             
+
+                                    <td align = "right" class="TD_TOTIEN">
+                                        <input type="text" value="<s:property  value="D12" />" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="D11 number TEN_KH" onfocus="this.select()"                                           
+                                               readonly="readonly"/>
+                                    </td>
+                                    <td align = "right" class="TD_TOTIEN">
+                                        <input type="text" value="<s:property  value="D13" />" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" class="D11 number TEN_KH" onfocus="this.select()"
+                                                readonly="readonly"/>
+                                    </td>
+                                    <td align = "right" class="TD_TOTIEN">
+                                        <input type="text" value="<s:property  value="D14" />" 
+                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14" class="D11 number TEN_KH" onfocus="this.select()"
+                                               readonly="readonly"/>
+                                    </td>
+                                     <td align = "right" class="TD_TRANGTHAI">
+                                        <s:if test="MA.equalsIgnoreCase('2')">
+                                            <a href="Chitiet()" class="SOKU linkKh">
+                                                Chi tiết
+                                            </a>
+                                        </s:if>
+                                    </td>
+                                     <s:if test="MA.equalsIgnoreCase('2')">
+                                         <td>
+                                             </td>
+                                     </s:if>
+                                     <s:else>
+                                          <td align = "right" class="TD_TRANGTHAI">
+                                            <input type="checkbox" id ='idchk<s:property  value="%{#rowstatus.index}" />' class="checkboxdat TEN_KH" 
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D33" value="<s:property  value="D33"/>"                                            
+                                                       />
+                                        </td>
+                                     </s:else>
+                                   
+                                </tr>
+
+
+                            </s:iterator>
+                        </table>
+                </div>
+                </s:else>
             <sj:submit id="%{khoa_bcqt}_save" name="%{khoa_bcqt}_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
                        onCompleteTopics="completediv_ss" cssStyle="display: none"/>
         </s:form>
         <div id="luu_thanhcong"></div>
         <script>
-//            initTable();
+            initTable();
+            function CheckUpdate(idchk, iddata, status) {
+                if (status === "ChangeVal") {
+                    var val = $('#' + iddata).val();
+                    var valbk = $('#' + iddata + 'BK').val();
+                    if (val === valbk) {
+                        $('#' + idchk).attr('checked', true);
+                    } else {
+                        $('#' + idchk).attr('checked', true);
+                    }
+                } else {
+                    if ($('#' + idchk).prop('checked')) {
+                        $('#' + idchk).prop('checked', false);
+                    } else {
+                        $('#' + idchk).prop('checked', true);
+                    }
+                }
+            }
         </script>
     </body>
 </html>

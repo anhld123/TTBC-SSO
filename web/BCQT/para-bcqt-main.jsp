@@ -157,7 +157,7 @@
                     }
                     var poscd = getposfromtreecheck();
 //                alert(poscd);
-                    if ((poscd == null || poscd == '') && (khoa_bcqt != 'KHOANTC001' && khoa_bcqt != 'BCQT_26A' && khoa_bcqt != 'BCQT_26B' && khoa_bcqt != 'BCQT_LAITONAM' ))
+                    if ((poscd == null || poscd == '') && (khoa_bcqt != 'KHOANTC001' && khoa_bcqt != 'BCQT_26A' && khoa_bcqt != 'BCQT_26B' && khoa_bcqt != 'BCQT_LAITONAM' && khoa_bcqt != 'BCQT_HOAHONG' ))
                     {
                         $('#message_suc_err').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần xem số liệu ! </h2>");
 //                        alert('Bạn phải chọn phòng giao dịch cần gửi số liệu !');
@@ -182,7 +182,7 @@
                     return;
                 }
 //                alert(khoa);
-                if (khoa != 'BCQT_LAITONAM_save')
+                if (khoa != 'BCQT_LAITONAM_save' && khoa != 'BCQT_HOAHONG_save')
                 {
                     var poscd = getposfromtreecheck();
                     if (poscd == null || poscd == "")
@@ -519,7 +519,7 @@
                         </table>
                     </div>
                 </div>
-                <s:if test="!Grade.equalsIgnoreCase('1') && !khoa_bcqt.equalsIgnoreCase('BCQT_LAITONAM')">
+                <s:if test="!Grade.equalsIgnoreCase('1') && !khoa_bcqt.equalsIgnoreCase('BCQT_LAITONAM')&& !khoa_bcqt.equalsIgnoreCase('BCQT_HOAHONG')">
                     <div id="containTree">
                         <sjt:tree
                             name="poscd"
@@ -537,7 +537,7 @@
                     </div>
                 </s:if>
             </s:form>
-            <s:if test="Grade.equalsIgnoreCase('1')|| (Grade.equalsIgnoreCase('2') && khoa_bcqt.equalsIgnoreCase('BCQT_LAITONAM'))">
+            <s:if test="Grade.equalsIgnoreCase('1')|| (Grade.equalsIgnoreCase('2') && (khoa_bcqt.equalsIgnoreCase('BCQT_LAITONAM') || khoa_bcqt.equalsIgnoreCase('BCQT_HOAHONG')))">
                 <div id="containParm_full" align="center">
                 </s:if>
                 <s:else>
