@@ -36,6 +36,7 @@ import vbsp.ims.model.ModelTreeNode;
 import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
+import vbsp.ims.restapi.CommissionDetailModel;
 import vbsp.ims.restapi.CommissionMasterModel;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlBcqtSync;
@@ -56,7 +57,13 @@ public class ActionBcqtMain extends ActionSupport {
     protected String khoa_bcqt;
     protected TreeNode nodes_pos = new TreeNode();
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
-    ArrayList<CommissionMasterModel> lstDulieuHoahong = new ArrayList<>();
+    protected ArrayList<CommissionMasterModel> lstDulieuHoahong = new ArrayList<>();
+    
+    protected CommissionMasterModel hoahongMaster = new CommissionMasterModel();
+    
+    
+    protected ArrayList<CommissionDetailModel> lstHHDetail = new ArrayList<>();
+    
     
     protected List<ListValue> lstParameters = new ArrayList<>();
     protected List<String> poscd = new ArrayList<String>();
@@ -619,14 +626,22 @@ public class ActionBcqtMain extends ActionSupport {
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
 
-    public ArrayList<CommissionMasterModel> getLstDulieuHoahong() {
-        return lstDulieuHoahong;
+    public CommissionMasterModel getHoahongMaster() {
+        return hoahongMaster;
     }
 
-    public void setLstDulieuHoahong(ArrayList<CommissionMasterModel> lstDulieuHoahong) {
-        this.lstDulieuHoahong = lstDulieuHoahong;
+    public void setHoahongMaster(CommissionMasterModel hoahongMaster) {
+        this.hoahongMaster = hoahongMaster;
     }
-    
+
+    public ArrayList<CommissionDetailModel> getLstHHDetail() {
+        return lstHHDetail;
+    }
+
+    public void setLstHHDetail(ArrayList<CommissionDetailModel> lstHHDetail) {
+        this.lstHHDetail = lstHHDetail;
+    }
+
     
 
     public PosMainModel getPosMainModel() {
@@ -677,6 +692,14 @@ public class ActionBcqtMain extends ActionSupport {
 
     public void setLstNguonvon(List<ListValue> lstNguonvon) {
         this.lstNguonvon = lstNguonvon;
+    }
+
+    public ArrayList<CommissionMasterModel> getLstDulieuHoahong() {
+        return lstDulieuHoahong;
+    }
+
+    public void setLstDulieuHoahong(ArrayList<CommissionMasterModel> lstDulieuHoahong) {
+        this.lstDulieuHoahong = lstDulieuHoahong;
     }
     
     

@@ -11,6 +11,7 @@ import vbsp.ims.nghiquyet11cp.*;
 import vbsp.ims.nhaptaycn.action.*;
 import java.io.File;
 import java.math.BigInteger;
+import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.Format;
@@ -48,6 +49,7 @@ public class BCQT_HOAHONG extends ActionBcqtMain
         implements NhaptaycnFunction {
 
     DuLieuNTService service;
+    static ArrayList<CommissionMasterModel> _lstHH = new ArrayList<>();
     
     @Override
     public String load() {
@@ -89,13 +91,21 @@ public class BCQT_HOAHONG extends ActionBcqtMain
 //                System.out.println("mato--" + hmParameter.get("mato").toString());
                 
 //                ArrayList<CommissionMasterModel> lstData = service.getDataCommission("BCQT_LAITONAM", "000401", "S", dateStr, conditions);
-                 lstDulieuHoahong = service.getDataCommission(pos_cd_username, dateStr, 
-                        hmParameter.get("nguonvon").toString().equals("-1") ? "" : hmParameter.get("nguonvon").toString(),
-                        hmParameter.get("chuongtrinh").toString(), 
-                        hmParameter.get("maxa").toString().equals("000000") ? "" : hmParameter.get("maxa").toString(), 
-                        hmParameter.get("mato").toString().equals("000000_0000000") ? "" : hmParameter.get("mato").toString());
+//                 lstDulieuHoahong = service.getDataCommission(pos_cd_username, dateStr, 
+//                        hmParameter.get("nguonvon").toString().equals("-1") ? "" : hmParameter.get("nguonvon").toString(),
+//                        hmParameter.get("chuongtrinh").toString(), 
+//                        hmParameter.get("maxa").toString().equals("000000") ? "" : hmParameter.get("maxa").toString(), 
+//                        hmParameter.get("mato").toString().equals("000000_0000000") ? "" : hmParameter.get("mato").toString());
+                 
+                  lstDulieuHoahong = service.getDataCommission(pos_cd_username, "20221231", 
+                        "2",
+                        "", 
+                       "250101", 
+                        "0145973");
+                  
+                  _lstHH = lstDulieuHoahong;
                 
-                System.out.println("So luong" + lstDulieuNt.size());
+                System.out.println("So luong" + lstDulieuHoahong.size());
                 if (lstDulieuNt.size() > 499) {
                     addActionError("Dữ liệu quá lớn. Vui lòng chọn từng xã để xác nhận.");;
                     return ERROR;
@@ -205,7 +215,7 @@ public class BCQT_HOAHONG extends ActionBcqtMain
                     
                     row.setD25(item.getStatus());
 //                    row.setD7(df.format(item.getDeductionIntTotal()));                   
-//                    lstDulieuNt.add(row);
+                    lstDulieuNt.add(row);
                 }
                 return SUCCESS;
             }
@@ -218,6 +228,66 @@ public class BCQT_HOAHONG extends ActionBcqtMain
         return SUCCESS;
 
     }
+    
+    public String loadChitietHoahong() {
+        System.out.println("Vao loadChitietHoahong");
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            HashMap hmParameter = getParameter();
+            System.out.println("22 ==" + _lstHH.size());
+            System.out.println("111 ==" + _lstHH.size());
+            hoahongMaster = _lstHH.get(0);
+            lstHHDetail = _lstHH.get(0).getBenCommissionDetails();
+            
+            
+            System.out.println("su----" + lstHHDetail.size());
+
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> loadChitietHoahong: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> loadChitietHoahong: " + e.getMessage());
+            return ERROR;
+        }
+        return SUCCESS;
+    }
+    
+    public String saveHoahongDetail() {
+        System.err.println("saveHoahongDetail");
+        try {
+//            if (!getParaSession()) {
+//                return ERROR;
+//            }
+//            if (lstDulieuNt50 == null || lstDulieuNt50.size() == 0) {
+//                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
+//                return ERROR;
+//            }
+//
+//            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+//            HashMap hmParameter = getParameter();
+//            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(hmParameter.get("ngay_bc").toString());
+//            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+//            String dateStr = sdf.format(date1);
+//
+//            if (daoMain.checkSave_Send("QD23_003", Grade, dateStr, "SAVE", UserName, poscd) == 0) {
+//                addActionError("Bạn chỉ được lưu số liệu ngày hiện tại. Vui lòng chọn ngày hiện tại!");
+//                return ERROR;
+//            }
+//            if (!daoMain.saveQD23_001_Dieuchinh("QD23_003", UserName, "", hmParameter.get("ngay_bc").toString(), Grade, lstDulieuNt50, hmParameter.get("thangbc").toString())) {
+//                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+//                return ERROR;
+//            }
+
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> saveDieuchinhKH: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> saveDieuchinhKH: " + e.getMessage());
+            addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+            return ERROR;
+        }
+        addActionMessage("Bạn đã lưu dữ liệu thành công");
+        return SUCCESS;
+    }
+    
 
     @Override
     public String save() {

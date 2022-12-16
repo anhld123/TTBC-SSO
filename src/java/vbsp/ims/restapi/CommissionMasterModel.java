@@ -29,7 +29,7 @@ public class CommissionMasterModel {
     private String customerId;
     private String customerName;
     private String loanId;
-    private double prinTotal;
+    private String prinTotal;
     private double normalAmt;
     private double overdueAmt;
     private double freezeAmt;
@@ -107,9 +107,6 @@ public class CommissionMasterModel {
         return loanId;
     }
 
-    public double getPrinTotal() {
-        return prinTotal;
-    }
 
     public double getNormalAmt() {
         return normalAmt;
@@ -272,9 +269,6 @@ public class CommissionMasterModel {
         this.loanId = loanId;
     }
 
-    public void setPrinTotal(double prinTotal) {
-        this.prinTotal = prinTotal;
-    }
 
     public void setNormalAmt(double normalAmt) {
         this.normalAmt = normalAmt;
@@ -406,6 +400,14 @@ public class CommissionMasterModel {
 
     public void setGroupLeaderName(String groupLeaderName) {
         this.groupLeaderName = groupLeaderName;
+    }
+
+    public String getPrinTotal() {
+        return prinTotal;
+    }
+
+    public void setPrinTotal(String prinTotal) {
+        this.prinTotal = prinTotal;
     }
 
 }
