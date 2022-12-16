@@ -202,6 +202,32 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
+    
+    public ArrayList<CheckSendModel> getDataLockHoahongBs(String posCode, String flagReport, String reportDate) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("commission-add-send-status-data")
+                //                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", flagReport)
+                .queryParam("reportDate", reportDate);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            try {
+                CheckSendResp dulieuNTResp = response.readEntity(CheckSendResp.class);
+                ArrayList<CheckSendModel> listOfRow = dulieuNTResp.result;
+                return listOfRow;
+            } catch (Exception e) {
+                System.err.println("loi: " + e.getMessage());
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
 
     public ArrayList<InvestorModel> getDataNDT2021(String posCode, String reportDate) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();

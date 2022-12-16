@@ -296,7 +296,7 @@ public class BCQT_LAITONAM extends ActionBcqtMain
 
                 ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
                 for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                    System.out.println("luu =" + tmp.getD25() + "--" + tmp.getMAPGD());
+                    
                     UpdateLockModel tempadd = new UpdateLockModel();
                     if (tmp.getD25() == null) {
                         tempadd.setPosCode(tmp.getMAPGD());
@@ -304,10 +304,12 @@ public class BCQT_LAITONAM extends ActionBcqtMain
 //                        lstUpdateDateLock.add(tempadd);
                         int status = service.updateLockManual("BCQT_LAITONAM", tmp.getMAPGD(), "S", strDate, "0",UserName,lstUpdateDateLock);
                     } else {
+                        System.out.println("luu =" + tmp.getD25() + "--" + tmp.getMAPGD() + "--" + strDate + "-"+ UserName);
                         tempadd.setPosCode(tmp.getMAPGD());
                         tempadd.setStatus("1");
 //                        lstUpdateDateLock.add(tempadd);
                         int status = service.updateLockManual("BCQT_LAITONAM", tmp.getMAPGD(), "S", strDate, "1",UserName,lstUpdateDateLock);
+//                        System.out.println("status =" + status);
                     }
                 }
                 

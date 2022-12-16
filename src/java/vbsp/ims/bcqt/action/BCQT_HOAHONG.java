@@ -6,9 +6,9 @@
 package vbsp.ims.bcqt.action;
 
 import static com.opensymphony.xwork2.Action.ERROR;
+import static com.opensymphony.xwork2.Action.SUCCESS;
 import vbsp.ims.nghiquyet11cp.*;
 import vbsp.ims.nhaptaycn.action.*;
-import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.io.File;
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -29,6 +29,7 @@ import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.define.Define;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
+import vbsp.ims.restapi.CheckSendModel;
 import vbsp.ims.restapi.CommissionMasterModel;
 import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.IntDeductionModel;
@@ -49,13 +50,13 @@ public class BCQT_HOAHONG extends ActionBcqtMain
     DuLieuNTService service;
 
     @Override
-     public String load() {
+    public String load() {
         try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
             if (Grade.equals("1")) {
 
-                if (!getParaSession()) {
-                    return ERROR;
-                }
                 HashMap hmParameter = getParameter();
                 Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -76,31 +77,40 @@ public class BCQT_HOAHONG extends ActionBcqtMain
                 }
                 String conditions = "";
                 String sSoku = "AAA";
-                
+
 //                conditions = (hmParameter.get("maxa").toString().equals("000000") ? "" : "D38=" + hmParameter.get("maxa").toString() + "|")
 //                        + (hmParameter.get("chuongtrinh").toString().equals("00") ? "" : "D10=" + hmParameter.get("chuongtrinh").toString() + "|")
 //                        + (hmParameter.get("nguonvon").toString().equals("-1") ? "" : "D5=" + hmParameter.get("nguonvon").toString() + "|");
 //                
+//                System.out.println("nguonvon--" + hmParameter.get("nguonvon").toString());
+//                System.out.println("chuongtrinh--" + hmParameter.get("chuongtrinh").toString());
+//                System.out.println("maxa--" + hmParameter.get("maxa").toString());
+////                System.out.println("1--" + hmParameter.get("nguonvon").toString());
+//                System.out.println("mato--" + hmParameter.get("mato").toString());
                 
-                
-                System.out.println(pos_cd_username + dateStr+conditions);
 //                ArrayList<CommissionMasterModel> lstData = service.getDataCommission("BCQT_LAITONAM", "000401", "S", dateStr, conditions);
-                ArrayList<CommissionMasterModel> lstData = service.getDataCommission(pos_cd_username,  dateStr, "1","","250101","0209852");
-                System.out.println(lstData.size());
+                ArrayList<CommissionMasterModel> lstData = service.getDataCommission(pos_cd_username, dateStr, 
+                        hmParameter.get("nguonvon").toString().equals("-1") ? "" : hmParameter.get("nguonvon").toString(),
+                        hmParameter.get("chuongtrinh").toString(), 
+                        hmParameter.get("maxa").toString().equals("000000") ? "" : hmParameter.get("maxa").toString(), 
+                        hmParameter.get("mato").toString().equals("000000_0000000") ? "" : hmParameter.get("mato").toString());
+                
+                System.out.println("So luong" + lstData.size());
                 if (lstData.size() > 499) {
                     addActionError("Dữ liệu quá lớn. Vui lòng chọn từng xã để xác nhận.");;
                     return ERROR;
                 }
                 int iStt = 1;
+                DecimalFormat df = new DecimalFormat("#.##");
                 for (CommissionMasterModel item : lstData) {
                     QT_DULIEU_NT row = new QT_DULIEU_NT();
-                     System.out.println(item.getCustomerName());
+                    System.out.println(item.getCustomerName());
                     row.setTHUTU(iStt);
                     iStt++;
-                    
+
                     Date reportDate = DateUtil.toDate(item.getReportDate());
                     row.setNGAYBC(reportDate);
-                    //row.setNAMBC(item.getReportYear());
+                    row.setMA(item.getCapitalSourceCode());
                     row.setMAPGD(item.getPosCode());
                     row.setMACN(item.getMainPos());
 
@@ -109,9 +119,15 @@ public class BCQT_HOAHONG extends ActionBcqtMain
                     row.setD3(item.getCustomerName());
                     row.setD4(item.getCustomerId());
                     row.setD5(item.getLoanId());
-                    row.setD6(String. valueOf(item.getPrinTotal()));
-//                    row.setD7(item.getD7());
-//                    row.setD8(item.getD8());
+                    row.setD6(df.format(item.getPrinTotal()));
+                    row.setD7(df.format(item.getInterestRate()));
+                    row.setD8(df.format(item.getSubsidyTotalAmount()));
+                    row.setD9(df.format(item.getCommisionRate()));
+                    row.setD10(df.format(item.getCommisionTotalAmount()));
+                    row.setD11(item.getInvestorCode());
+                    row.setD12(df.format(item.getCommisionGroupAmount()));
+                    row.setD13(df.format(item.getCommisionDistrictAmount()));
+                    row.setD14(df.format(item.getCommisionProvinceAmount()));
 //                    row.setD9(item.getD9());
 //                    row.setD10(item.getD10());
 //                    row.setD11(item.getD11());
@@ -151,9 +167,6 @@ public class BCQT_HOAHONG extends ActionBcqtMain
 
                 return SUCCESS;
             } else if (Grade.equals("2")) {
-                if (!getParaSession()) {
-                    return ERROR;
-                }
                 HashMap hmParameter = getParameter();
                 Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -162,16 +175,18 @@ public class BCQT_HOAHONG extends ActionBcqtMain
                 posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                 pos_cd_username = posMainModel.getPosCd();
                 service = new DuLieuNTService();
-                ArrayList<LockSendModel> lstData = service.getDataLockSendNQ11CP(pos_cd_username, "M", dateStr);
-                int i = 0;
+                System.out.println("vao cap 2" + pos_cd_username + dateStr);
 
+                ArrayList<CheckSendModel> lstData = service.getDataLockHoahongBs(pos_cd_username, "M", dateStr);
+                int i = 0;
+                 System.out.println("vao cap 2" + lstData.size());
                 DecimalFormat df = new DecimalFormat("#.##");
                 //String formatted = df.format(2.00023);
 
-                for (LockSendModel item : lstData) {
+                for (CheckSendModel item : lstData) {
                     i++;
                     QT_DULIEU_NT row = new QT_DULIEU_NT();
-                    row.setKHOA("CN11CP_002");
+                    row.setKHOA("HTLS_HOAHONG_BS");
                     row.setTHUTU(i);
                     Date reportDate = DateUtil.toDate(item.getReportDate());
                     row.setNGAYBC(reportDate);
@@ -180,18 +195,19 @@ public class BCQT_HOAHONG extends ActionBcqtMain
 //                row.setCO_TONGHOP(item.getPosFlag());
                     row.setMACN(item.getMainPos());
                     row.setTEN(item.getPosName());
-                    row.setD1(df.format(item.getLoanTotal()));
-                    row.setD2(df.format(item.getPrinTotal()));
-                    row.setD3(df.format(item.getIntTotal()));
-                    row.setD4(df.format(item.getDeductionIntTotal()));
-                    row.setD5(df.format(item.getDeductionLoanTotal()));
-                    row.setD6(df.format(item.getNoDeductionLoanTotal()));
-                    row.setD7(df.format(item.getNoDeductionIntTotal()));
+                    row.setD1(df.format(item.getD1()));
+                    row.setD2(df.format(item.getD2()));
+                    row.setD3(df.format(item.getD3()));
+                    row.setD4(df.format(item.getD4()));
+                    row.setD5(df.format(item.getD5()));
+                    row.setD6(df.format(item.getD6()));
+//                    row.setD7(df.format(item.getD3()));
+                    
                     row.setD25(item.getStatus());
 //                    row.setD7(df.format(item.getDeductionIntTotal()));                   
                     lstDulieuNt.add(row);
                 }
-                return "cap2_chot";
+                return SUCCESS;
             }
 
         } catch (Exception e) {
@@ -203,7 +219,6 @@ public class BCQT_HOAHONG extends ActionBcqtMain
 
     }
 
-   
     @Override
     public String save() {
         try {
@@ -244,36 +259,70 @@ public class BCQT_HOAHONG extends ActionBcqtMain
 //                         DecimalFormat df = new DecimalFormat("#.##");
                 ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
                 for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                        DuLieuNTRow tempadd = new DuLieuNTRow();
-                        tempadd.setBranchCode(tmp.getMACN());
-                        tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setCode(tmp.getMA());
-                        tempadd.setD15(tmp.getD15());
-                        tempadd.setD19(tmp.getD19());
-                        tempadd.setD37(tmp.getD37());
-                        tempadd.setD30(tmp.getD30());
-                        tempadd.setD31(tmp.getD32());
-                        tempadd.setD32(tmp.getD32());
-                        
-                        tempadd.setD33(tmp.getD33());
-                        tempadd.setD34(tmp.getD34());
-                        tempadd.setD35(tmp.getD35());
-                        lstUpdateDate.add(tempadd);
-                        lstLocalDataUpdate.add(tmp);                    
+                    DuLieuNTRow tempadd = new DuLieuNTRow();
+                    tempadd.setBranchCode(tmp.getMACN());
+                    tempadd.setPosCode(tmp.getMAPGD());
+                    tempadd.setCode(tmp.getMA());
+                    tempadd.setD15(tmp.getD15());
+                    tempadd.setD19(tmp.getD19());
+                    tempadd.setD37(tmp.getD37());
+                    tempadd.setD30(tmp.getD30());
+                    tempadd.setD31(tmp.getD32());
+                    tempadd.setD32(tmp.getD32());
+
+                    tempadd.setD33(tmp.getD33());
+                    tempadd.setD34(tmp.getD34());
+                    tempadd.setD35(tmp.getD35());
+                    lstUpdateDate.add(tempadd);
+                    lstLocalDataUpdate.add(tmp);
                 }
                 int status = service.updateData("BCQT_LAITONAM", pos_cd_username, "S", strDate, UserName, UserName, lstUpdateDate);
                 if (status == 200) {
-                    System.out.println("vbsp.ims.nghiquyet11cp.BCQT_LAITONAM.save()");                    
-                    if (!DaoBcqtMain.newInstance().saveBcqtLaitonAm("BCQT_LAITONAM",UserName, pos_cd_username, strDate1, lstLocalDataUpdate)) {
+                    System.out.println("vbsp.ims.nghiquyet11cp.BCQT_LAITONAM.save()");
+                    if (!DaoBcqtMain.newInstance().saveBcqtLaitonAm("BCQT_LAITONAM", UserName, pos_cd_username, strDate1, lstLocalDataUpdate)) {
                         addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                         return ERROR;
                     }
                 }
             }
+            else if (Grade.equals("2")) {
+                System.out.println("Cấp 2 chốt sl");                
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
+                String dateStr = sdf.format(date1);
+                ArrayList<LockSendModel> lstData = service.getDataLockManual("HTLS_HOAHONG_BS",pos_cd_username, "M", dateStr);
+                for (LockSendModel item : lstData) {
+                    if (item.getStatus().equals("2")) {
+                        addActionError("Trung ương đã chốt số liệu. Vui lòng liên hệ cấp trên");
+                        return ERROR;
+                    }
+                }
+
+                ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
+                for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                    System.out.println("luu =" + tmp.getD25() + "--" + tmp.getMAPGD());
+                    UpdateLockModel tempadd = new UpdateLockModel();
+                    if (tmp.getD25() == null) {
+                         System.out.println("vao 0");
+                        tempadd.setPosCode(tmp.getMAPGD());
+                        tempadd.setStatus("0");
+//                        lstUpdateDateLock.add(tempadd);
+                        int status = service.updateLockManual("HTLS_HOAHONG_BS", tmp.getMAPGD(), "S", strDate, "0",UserName,lstUpdateDateLock);
+                    } else {
+                        System.out.println("vao 1");
+                        tempadd.setPosCode(tmp.getMAPGD());
+                        tempadd.setStatus("1");
+//                        lstUpdateDateLock.add(tempadd);
+                        int status = service.updateLockManual("HTLS_HOAHONG_BS", tmp.getMAPGD(), "S", strDate, "1",UserName,lstUpdateDateLock);
+                    }
+                }
+                
+                        System.out.println("Kết thúc");
+            }
 
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> NQ11CP_02SK: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> NQ11CP_02SK: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> BCQT_HOAHONG: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> BCQT_HOAHONG: " + e.getMessage());
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
             return ERROR;
         }
