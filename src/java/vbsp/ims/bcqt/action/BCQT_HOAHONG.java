@@ -48,7 +48,7 @@ public class BCQT_HOAHONG extends ActionBcqtMain
         implements NhaptaycnFunction {
 
     DuLieuNTService service;
-
+    
     @Override
     public String load() {
         try {
@@ -89,81 +89,81 @@ public class BCQT_HOAHONG extends ActionBcqtMain
 //                System.out.println("mato--" + hmParameter.get("mato").toString());
                 
 //                ArrayList<CommissionMasterModel> lstData = service.getDataCommission("BCQT_LAITONAM", "000401", "S", dateStr, conditions);
-                ArrayList<CommissionMasterModel> lstData = service.getDataCommission(pos_cd_username, dateStr, 
+                 lstDulieuHoahong = service.getDataCommission(pos_cd_username, dateStr, 
                         hmParameter.get("nguonvon").toString().equals("-1") ? "" : hmParameter.get("nguonvon").toString(),
                         hmParameter.get("chuongtrinh").toString(), 
                         hmParameter.get("maxa").toString().equals("000000") ? "" : hmParameter.get("maxa").toString(), 
                         hmParameter.get("mato").toString().equals("000000_0000000") ? "" : hmParameter.get("mato").toString());
                 
-                System.out.println("So luong" + lstData.size());
-                if (lstData.size() > 499) {
+                System.out.println("So luong" + lstDulieuNt.size());
+                if (lstDulieuNt.size() > 499) {
                     addActionError("Dữ liệu quá lớn. Vui lòng chọn từng xã để xác nhận.");;
                     return ERROR;
                 }
-                int iStt = 1;
-                DecimalFormat df = new DecimalFormat("#.##");
-                for (CommissionMasterModel item : lstData) {
-                    QT_DULIEU_NT row = new QT_DULIEU_NT();
-                    System.out.println(item.getCustomerName());
-                    row.setTHUTU(iStt);
-                    iStt++;
-
-                    Date reportDate = DateUtil.toDate(item.getReportDate());
-                    row.setNGAYBC(reportDate);
-                    row.setMA(item.getCapitalSourceCode());
-                    row.setMAPGD(item.getPosCode());
-                    row.setMACN(item.getMainPos());
-
-                    row.setD1(item.getGroupLeaderName());
-                    row.setD2(item.getGroupLeaderCif());
-                    row.setD3(item.getCustomerName());
-                    row.setD4(item.getCustomerId());
-                    row.setD5(item.getLoanId());
-                    row.setD6(df.format(item.getPrinTotal()));
-                    row.setD7(df.format(item.getInterestRate()));
-                    row.setD8(df.format(item.getSubsidyTotalAmount()));
-                    row.setD9(df.format(item.getCommisionRate()));
-                    row.setD10(df.format(item.getCommisionTotalAmount()));
-                    row.setD11(item.getInvestorCode());
-                    row.setD12(df.format(item.getCommisionGroupAmount()));
-                    row.setD13(df.format(item.getCommisionDistrictAmount()));
-                    row.setD14(df.format(item.getCommisionProvinceAmount()));
-//                    row.setD9(item.getD9());
-//                    row.setD10(item.getD10());
-//                    row.setD11(item.getD11());
-//                    row.setD12(item.getD12());
-//                    row.setD13(item.getD13());
-//                    row.setD14(item.getD14());
-//                    row.setD15(item.getD15());
-//                    row.setD16(item.getD16());
-//                    row.setD17(item.getD17());
-//                    row.setD18(item.getD18());
-//                    row.setD19(item.getD19());
-//                    row.setD20(item.getD20());
-//                    row.setD21(item.getD21());
-//                    row.setD22(item.getD22());
-//                    row.setD23(item.getD23());
-//                    row.setD24(item.getD24());
-//                    row.setD25(item.getD25());
-//                    row.setD26(item.getD26());
-//                    row.setD27(item.getD27());
-//                    row.setD28(item.getD28());
-//                    row.setD29(item.getD29());
-//                    
-//                    row.setD30(item.getD30());
-//                    row.setD31(item.getD31());
-//                    row.setD32(item.getD32());
-//                    row.setD33(item.getD33());
-//                    row.setD34(item.getD34());
-//                    row.setD35(item.getD35());
-//                    row.setD36(item.getD36());
-//                    row.setD37(item.getD37());
-//                    row.setD38(item.getD38());
-//                    row.setNHAPTAY(item.getManualFlag());
-//                    row.setFONTFORMAT(item.getFontFormat());
-//                    row.setKIEUIN(item.getStyle());
-                    lstDulieuNt.add(row);
-                }
+//                int iStt = 1;
+//                DecimalFormat df = new DecimalFormat("#.##");
+//                for (CommissionMasterModel item : lstData) {
+//                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+//                    System.out.println(item.getCustomerName());
+//                    row.setTHUTU(iStt);
+//                    iStt++;
+//
+//                    Date reportDate = DateUtil.toDate(item.getReportDate());
+//                    row.setNGAYBC(reportDate);
+//                    row.setMA(item.getCapitalSourceCode());
+//                    row.setMAPGD(item.getPosCode());
+//                    row.setMACN(item.getMainPos());
+//
+//                    row.setD1(item.getGroupLeaderName());
+//                    row.setD2(item.getGroupLeaderCif());
+//                    row.setD3(item.getCustomerName());
+//                    row.setD4(item.getCustomerId());
+//                    row.setD5(item.getLoanId());
+//                    row.setD6(df.format(item.getPrinTotal()));
+//                    row.setD7(df.format(item.getInterestRate()));
+//                    row.setD8(df.format(item.getSubsidyTotalAmount()));
+//                    row.setD9(df.format(item.getCommisionRate()));
+//                    row.setD10(df.format(item.getCommisionTotalAmount()));
+//                    row.setD11(item.getInvestorCode());
+//                    row.setD12(df.format(item.getCommisionGroupAmount()));
+//                    row.setD13(df.format(item.getCommisionDistrictAmount()));
+//                    row.setD14(df.format(item.getCommisionProvinceAmount()));
+////                    row.setD9(item.getD9());
+////                    row.setD10(item.getD10());
+////                    row.setD11(item.getD11());
+////                    row.setD12(item.getD12());
+////                    row.setD13(item.getD13());
+////                    row.setD14(item.getD14());
+////                    row.setD15(item.getD15());
+////                    row.setD16(item.getD16());
+////                    row.setD17(item.getD17());
+////                    row.setD18(item.getD18());
+////                    row.setD19(item.getD19());
+////                    row.setD20(item.getD20());
+////                    row.setD21(item.getD21());
+////                    row.setD22(item.getD22());
+////                    row.setD23(item.getD23());
+////                    row.setD24(item.getD24());
+////                    row.setD25(item.getD25());
+////                    row.setD26(item.getD26());
+////                    row.setD27(item.getD27());
+////                    row.setD28(item.getD28());
+////                    row.setD29(item.getD29());
+////                    
+////                    row.setD30(item.getD30());
+////                    row.setD31(item.getD31());
+////                    row.setD32(item.getD32());
+////                    row.setD33(item.getD33());
+////                    row.setD34(item.getD34());
+////                    row.setD35(item.getD35());
+////                    row.setD36(item.getD36());
+////                    row.setD37(item.getD37());
+////                    row.setD38(item.getD38());
+////                    row.setNHAPTAY(item.getManualFlag());
+////                    row.setFONTFORMAT(item.getFontFormat());
+////                    row.setKIEUIN(item.getStyle());
+//                    lstDulieuNt.add(row);
+//                }
 
                 return SUCCESS;
             } else if (Grade.equals("2")) {
@@ -205,7 +205,7 @@ public class BCQT_HOAHONG extends ActionBcqtMain
                     
                     row.setD25(item.getStatus());
 //                    row.setD7(df.format(item.getDeductionIntTotal()));                   
-                    lstDulieuNt.add(row);
+//                    lstDulieuNt.add(row);
                 }
                 return SUCCESS;
             }
@@ -258,24 +258,24 @@ public class BCQT_HOAHONG extends ActionBcqtMain
 
 //                         DecimalFormat df = new DecimalFormat("#.##");
                 ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
-                for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                    DuLieuNTRow tempadd = new DuLieuNTRow();
-                    tempadd.setBranchCode(tmp.getMACN());
-                    tempadd.setPosCode(tmp.getMAPGD());
-                    tempadd.setCode(tmp.getMA());
-                    tempadd.setD15(tmp.getD15());
-                    tempadd.setD19(tmp.getD19());
-                    tempadd.setD37(tmp.getD37());
-                    tempadd.setD30(tmp.getD30());
-                    tempadd.setD31(tmp.getD32());
-                    tempadd.setD32(tmp.getD32());
-
-                    tempadd.setD33(tmp.getD33());
-                    tempadd.setD34(tmp.getD34());
-                    tempadd.setD35(tmp.getD35());
-                    lstUpdateDate.add(tempadd);
-                    lstLocalDataUpdate.add(tmp);
-                }
+//                for (QT_DULIEU_NT tmp : lstDulieuNt) {
+//                    DuLieuNTRow tempadd = new DuLieuNTRow();
+//                    tempadd.setBranchCode(tmp.getMACN());
+//                    tempadd.setPosCode(tmp.getMAPGD());
+//                    tempadd.setCode(tmp.getMA());
+//                    tempadd.setD15(tmp.getD15());
+//                    tempadd.setD19(tmp.getD19());
+//                    tempadd.setD37(tmp.getD37());
+//                    tempadd.setD30(tmp.getD30());
+//                    tempadd.setD31(tmp.getD32());
+//                    tempadd.setD32(tmp.getD32());
+//
+//                    tempadd.setD33(tmp.getD33());
+//                    tempadd.setD34(tmp.getD34());
+//                    tempadd.setD35(tmp.getD35());
+//                    lstUpdateDate.add(tempadd);
+//                    lstLocalDataUpdate.add(tmp);
+//                }
                 int status = service.updateData("BCQT_LAITONAM", pos_cd_username, "S", strDate, UserName, UserName, lstUpdateDate);
                 if (status == 200) {
                     System.out.println("vbsp.ims.nghiquyet11cp.BCQT_LAITONAM.save()");
@@ -299,23 +299,23 @@ public class BCQT_HOAHONG extends ActionBcqtMain
                 }
 
                 ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
-                for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                    System.out.println("luu =" + tmp.getD25() + "--" + tmp.getMAPGD());
-                    UpdateLockModel tempadd = new UpdateLockModel();
-                    if (tmp.getD25() == null) {
-                         System.out.println("vao 0");
-                        tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setStatus("0");
-//                        lstUpdateDateLock.add(tempadd);
-                        int status = service.updateLockManual("HTLS_HOAHONG_BS", tmp.getMAPGD(), "S", strDate, "0",UserName,lstUpdateDateLock);
-                    } else {
-                        System.out.println("vao 1");
-                        tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setStatus("1");
-//                        lstUpdateDateLock.add(tempadd);
-                        int status = service.updateLockManual("HTLS_HOAHONG_BS", tmp.getMAPGD(), "S", strDate, "1",UserName,lstUpdateDateLock);
-                    }
-                }
+//                for (QT_DULIEU_NT tmp : lstDulieuNt) {
+//                    System.out.println("luu =" + tmp.getD25() + "--" + tmp.getMAPGD());
+//                    UpdateLockModel tempadd = new UpdateLockModel();
+//                    if (tmp.getD25() == null) {
+//                         System.out.println("vao 0");
+//                        tempadd.setPosCode(tmp.getMAPGD());
+//                        tempadd.setStatus("0");
+////                        lstUpdateDateLock.add(tempadd);
+//                        int status = service.updateLockManual("HTLS_HOAHONG_BS", tmp.getMAPGD(), "S", strDate, "0",UserName,lstUpdateDateLock);
+//                    } else {
+//                        System.out.println("vao 1");
+//                        tempadd.setPosCode(tmp.getMAPGD());
+//                        tempadd.setStatus("1");
+////                        lstUpdateDateLock.add(tempadd);
+//                        int status = service.updateLockManual("HTLS_HOAHONG_BS", tmp.getMAPGD(), "S", strDate, "1",UserName,lstUpdateDateLock);
+//                    }
+//                }
                 
                         System.out.println("Kết thúc");
             }

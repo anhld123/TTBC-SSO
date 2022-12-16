@@ -36,6 +36,7 @@ import vbsp.ims.model.ModelTreeNode;
 import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
+import vbsp.ims.restapi.CommissionMasterModel;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlBcqtSync;
 
@@ -55,6 +56,8 @@ public class ActionBcqtMain extends ActionSupport {
     protected String khoa_bcqt;
     protected TreeNode nodes_pos = new TreeNode();
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
+    ArrayList<CommissionMasterModel> lstDulieuHoahong = new ArrayList<>();
+    
     protected List<ListValue> lstParameters = new ArrayList<>();
     protected List<String> poscd = new ArrayList<String>();
     private List<ListValue> lstCBChuongtrinh = new ArrayList<ListValue>();
@@ -615,6 +618,16 @@ public class ActionBcqtMain extends ActionSupport {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
+
+    public ArrayList<CommissionMasterModel> getLstDulieuHoahong() {
+        return lstDulieuHoahong;
+    }
+
+    public void setLstDulieuHoahong(ArrayList<CommissionMasterModel> lstDulieuHoahong) {
+        this.lstDulieuHoahong = lstDulieuHoahong;
+    }
+    
+    
 
     public PosMainModel getPosMainModel() {
         return posMainModel;
