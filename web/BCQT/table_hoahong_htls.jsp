@@ -314,23 +314,27 @@
                                     <s:if test="capitalSourceCode.equalsIgnoreCase('2')">
                                         <td align = "right" class="TD_TRANGTHAI">
                                             <input type="text" value="<s:property  value="commisionRate" />" 
-                                                   name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].commisionRate" class="number2 TEN_KH"  readonly="readonly"/>
+                                                   name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].commisionRate" class="number2 TEN_KH"  readonly="readonly"                                                   
+                                                   />
                                         </td> 
 
                                         <td align = "right" class="TD_TOTIEN">
                                             <input type="text" value="<s:property  value="commisionTotalAmount" />" 
-                                                   name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].commisionTotalAmount" class="number TEN_KH"  readonly="readonly"/>
+                                                   name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].commisionTotalAmount" class="number TEN_KH"  readonly="readonly"                                                   
+                                                   />
                                         </td> 
                                     </s:if>
                                     <s:else>
                                         <td align = "right" class="TD_TRANGTHAI">
                                             <input type="text" value="<s:property  value="commisionRate" />" 
-                                                   name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].commisionRate" class="number3 TEN_KH" />
+                                                   name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].commisionRate" class="number3 TEN_KH" 
+                                                   onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'commisionTotalAmount<s:property  value="%{#rowstatus.index}" />', 'nono','')"/>
                                         </td> 
 
                                         <td align = "right" class="TD_TOTIEN">
-                                            <input type="text" value="<s:property  value="commisionTotalAmount" />" 
-                                                   name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].commisionTotalAmount" class="number TEN_KH" />
+                                            <input type="text" value="<s:property  value="commisionTotalAmount" />" id="commisionTotalAmount<s:property  value="%{#rowstatus.index}" />"
+                                                   name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].commisionTotalAmount" class="number TEN_KH" 
+                                                   onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'commisionTotalAmount<s:property  value="%{#rowstatus.index}" />', 'ChangeVal', 'commisionGroupAmount<s:property  value="%{#rowstatus.index}" />')"/>
                                         </td> 
                                     </s:else>
                                     
@@ -342,7 +346,7 @@
                                    
                                     
                                     <td align = "right" class="TD_TOTIEN">
-                                        <input type="text" value="<s:property  value="commisionGroupAmount" />" 
+                                        <input type="text" value="<s:property  value="commisionGroupAmount" />" id="commisionGroupAmount<s:property  value="%{#rowstatus.index}" />"
                                                name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].commisionGroupAmount" class="number TEN_KH"  readonly="readonly"/>
                                     </td> 
                                     
@@ -370,10 +374,15 @@
                                      <s:else>
                                           <td align = "right" class="TD_TRANGTHAI">
                                             <input type="checkbox" id ='idchk<s:property  value="%{#rowstatus.index}" />' class="checkboxdat TEN_KH" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D33" value="<s:property  value="D33"/>"                                            
+                                                       name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].D33" value="<s:property  value="D33"/>"                                            
                                                        />
                                         </td>
                                      </s:else>
+                                        
+<!--                                        <td align = "right" class="TD_TOTIEN">
+                                        <input type="text" value="<s:property  value="capitalSourceCode" />" 
+                                               name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].capitalSourceCode" class="number TEN_KH"  readonly="readonly"/>
+                                    </td> -->
                                     
                                 </tr>
 
@@ -388,7 +397,8 @@
         <div id="luu_thanhcong"></div>
         <script>
             initTable();
-            function CheckUpdate(idchk, iddata, status) {
+            function CheckUpdate(idchk, iddata, status, idSet) {
+//                alert ('idchk=' + idchk + 'iddata='+ iddata+ 'status=' + status)
                 if (status === "ChangeVal") {
                     var val = $('#' + iddata).val();
                     var valbk = $('#' + iddata + 'BK').val();
@@ -397,6 +407,7 @@
                     } else {
                         $('#' + idchk).attr('checked', true);
                     }
+                    $('#' + idSet).val($('#' + iddata).val());
                 } else {
                     if ($('#' + idchk).prop('checked')) {
                         $('#' + idchk).prop('checked', false);

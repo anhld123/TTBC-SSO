@@ -104,7 +104,7 @@
                 <input type="hidden" id="<s:property  value="sKey" />" 
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
             </s:iterator>
-
+                 <%--<s:hidden name="ngay_bc" id="ngay_bc"/>--%>
 
             <div id="idTitle">
                 THÔNG TIN CHI TIẾT HẠCH TOÁN HOA HỒNG BỔ SUNG MÓN VAY HTLS

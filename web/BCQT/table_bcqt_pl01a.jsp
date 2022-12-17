@@ -379,7 +379,7 @@
                                     D16 = 0.0;
                                     D15 = 0.0;
                                      D17 = 0.0;
-//                                      D18 = 0.0;
+                                      D18 = 0.0;
                                        D19 = 0.0;
                                     pos = i;
                                 }
@@ -403,7 +403,7 @@
                             setValue('D16_' + pos, Math.round((D16) * 1000) / 1000);
                             
                             setValue('D17_' + pos, Math.round((D17) * 1000) / 1000)
-//                            setValue('D18_' + pos, Math.round((D18) * 1000) / 1000)
+                            setValue('D18_' + pos, Math.round((D18) * 1000) / 1000)
                             setValue('D19_' + pos, Math.round((D19) * 1000) / 1000)
 //                            console.log(D7);
                         }
