@@ -66,8 +66,19 @@ public class CommissionMasterModel {
     
     
     ArrayList< CommissionDetailModel> benCommissionDetails = new ArrayList<>();
+    
+    private String D33;
 
     // Getter Methods 
+
+    public String getD33() {
+        return D33;
+    }
+
+    public void setD33(String D33) {
+        this.D33 = D33;
+    }
+    
 
     public ArrayList<CommissionDetailModel> getBenCommissionDetails() {
         return benCommissionDetails;
