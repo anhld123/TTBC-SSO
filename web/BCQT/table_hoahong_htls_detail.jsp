@@ -56,7 +56,7 @@
                 $(".TD_MAKH").css({"width": "70px"});
                 $(".TD_NGAY").css({"width": "55px"});
                 $(".TD_TENKH").css({"width": "130px"});
-                $(".TD_SOKU").css({"width": "120px"});
+                $(".TD_SOKU").css({"width": "70px"});
                 $(".TD_SOTIEN").css({"width": "90px"});
                 $(".TD_CHITIEU").css({"width": "250px"});
                 $(".TEN_KH").css({"width": "100%"});
@@ -139,35 +139,40 @@
                     <tr height="22">  
                         <td align = "right" class="TD_SOKU">
                             <input type="text" value="<s:property  value="investorCode" />" 
-                                   name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].investorCode" class="D0"  readonly="readonly"/>
+                                   name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].investorCode" class="D0"  readonly="readonly"/>
+                            
+                            <input type="hidden" value="<s:property  value="posCode" />"
+                                             name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].posCode"/> 
+                                         <input type="hidden" value="<s:property  value="mainPos" />"
+                                             name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].mainPos" /> 
                         </td>  
                         <td align = "right" class="TD_SOKU">
                             <input type="text" value="<s:property  value="investorCode" />" 
-                                   name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].investorCode" class="D0"  readonly="readonly"/>
+                                   name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].investorCode" class="TEN_KH"  readonly="readonly"/>
                         </td>  
                         <td align = "right" class="TD_SOKU">
                             <input type="text" value="<s:property  value="loanId" />" 
-                                   name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].loanId" class="D0"  readonly="readonly"/>
+                                   name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].loanId" class="D0"  readonly="readonly"/>
                         </td>  
                         <td align = "right" class="TD_SOKU">
                             <input type="text" value="<s:property  value="commisionRate" />" 
-                                   name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].commisionRate" class="number"  />
+                                   name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].commisionRate" class="number"  />
                         </td>  
                         <td align = "right" class="TD_SOKU">
                             <input type="text" value="<s:property  value="commisionTotalAmount" />" 
-                                   name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].commisionTotalAmount" class="number"  />
+                                   name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].commisionTotalAmount" class="number"  />
                         </td>  
                         <td align = "right" class="TD_SOKU">
                             <input type="text" value="<s:property  value="commisionGroupAmount" />" 
-                                   name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].commisionGroupAmount" class="number"  />
+                                   name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].commisionGroupAmount" class="number"  />
                         </td>  
                         <td align = "right" class="TD_SOKU">
                             <input type="text" value="<s:property  value="commisionDistrictAmount" />" 
-                                   name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].commisionDistrictAmount" class="number" />
+                                   name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].commisionDistrictAmount" class="number" />
                         </td>  
                         <td align = "right" class="TD_SOKU">
                             <input type="text" value="<s:property  value="commisionDistrictAmount" />" 
-                                   name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].commisionDistrictAmount" class="number"  />
+                                   name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].commisionDistrictAmount" class="number"  />
                         </td>  
 
 
@@ -181,12 +186,12 @@
             <table border="1" class="editDelete" id="tablehoahong" align="center">
                 <tr>      
                     <!--<th rowspan="2" class="TD_STT">STT</th>-->                           
-                    <th rowspan="1" class="TD_TENKH">Cấp</th>  
+                    <th rowspan="1" class="TD_STT">Cấp</th>  
                     <th rowspan="1" class="TD_TENKH">Đối tượng chi</th>  
                     <th rowspan="1" class="TD_SOKU">Tỷ lệ hưởng (%)</th>    
-                    <th rowspan="1"  class="TD_TOTIEN">Số tiền hưởng</th>
-                    <th rowspan="1" class="TD_TRANGTHAI">Tài khoản nợ</th> 
-                    <th rowspan="1"  class="TD_TOTIEN">Tài khoản có</th>   
+                    <th rowspan="1"  class="TD_SOKU">Số tiền hưởng</th>
+                    <th rowspan="1" class="TD_SOKU">Tài khoản nợ</th> 
+                    <th rowspan="1"  class="TD_SOKU">Tài khoản có</th>   
 
                 </tr>   
 
@@ -194,13 +199,13 @@
                 <s:iterator value="#attr.lstHHDetail" var="modelView" status="rowstatus">
 
                     <tr height="22">  
-                        <td align = "right" class="TD_SOKU">
+                        <td align = "right" class="TD_STT">
                             <input type="text" value="<s:property  value="levelFlag" />" 
                                    name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].levelFlag" class="D0"  readonly="readonly"/>
                         </td>  
-                        <td align = "right" class="TD_SOKU">
-                            <input type="text" value="<s:property  value="benefitName" />" 
-                                   name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].benefitName" class="D0"  readonly="readonly"/>
+                        <td align = "right" class="TD_TENKH">
+                            <input type="text" value="<s:property  value="benefitName" />"  title="<s:property  value="benefitName" />"
+                                   name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].benefitName" class="TEN_KH"  readonly="readonly"/>
                         </td>  
                         <td align = "right" class="TD_SOKU">
                             <input type="text" value="<s:property  value="benefitRate" />" 
@@ -210,16 +215,16 @@
                             <input type="text" value="<s:property  value="benefitAmount" />" 
                                    name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].benefitAmount" class="number"  />
                         </td>  
-                        <td align = "right" class="TD_SOKU">
-                            <input type="text" value="<s:property  value="creditAccount" />" 
-                                   name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].creditAccount" class="D0"  />
-                        </td>  
+                         
                         <td align = "right" class="TD_SOKU">
                             <input type="text" value="<s:property  value="debitAccount" />" 
                                    name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].debitAccount" class="D0" />
                         </td>  
 
-
+                        <td align = "right" class="TD_SOKU">
+                            <input type="text" value="<s:property  value="creditAccount" />" 
+                                   name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].creditAccount" class="D0"  />
+                        </td> 
                     </tr>
 
 

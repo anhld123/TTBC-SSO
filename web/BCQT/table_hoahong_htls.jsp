@@ -286,6 +286,11 @@
                                     <td align = "right" class="TD_TENKH">
                                         <input type="text" value="<s:property  value="groupLeaderName" />" 
                                                name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].groupLeaderName" class="TEN_KH"  readonly="readonly"/>
+                                         <input type="hidden" value="<s:property  value="posCode" />"
+                                             name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].posCode" /> 
+                                         <input type="hidden" value="<s:property  value="mainPos" />"
+                                             name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].mainPos"/> 
+                                         
                                     </td>  
                                     
                                     <td align = "right" class="TD_TENKH">
