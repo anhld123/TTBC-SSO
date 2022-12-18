@@ -330,8 +330,8 @@
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" class="D0 datepicker" placeholder="dd/MM/yyyy"/>
                                 </td>
                                 <td align = "right" class="TD_TOTIEN">
-                                    <input type="text" value="<s:property  value="D28" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28" class="D9  TEN_KH" onfocus="this.select()"/>
+                                    <input type="text" value="<s:property  value="D16" />" 
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" class="D9  TEN_KH" onfocus="this.select()"/>
                                 </td>
                                 <td align = "right" class="TD_TOTIEN">
                                     <input type="text" value="<s:property  value="D29" />" 
