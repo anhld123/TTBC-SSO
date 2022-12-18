@@ -41,6 +41,7 @@ public class UpdateCommBenModel {
  private String updateDate;
  private double benefitRateAdjust;
  private double benefitAmountAdjust;
+ private String benKey;
 
 
  // Getter Methods 
@@ -206,4 +207,14 @@ public class UpdateCommBenModel {
  public void setBenefitAmountAdjust(double benefitAmountAdjust) {
   this.benefitAmountAdjust = benefitAmountAdjust;
  }
+
+    public String getBenKey() {
+        return benKey;
+    }
+
+    public void setBenKey(String benKey) {
+        this.benKey = benKey;
+    }
+ 
+ 
 }

@@ -39,6 +39,7 @@ public class CommissionDetailModel {
     private String updateDate;
     private double benefitRateAdjust;
     private double benefitAmountAdjust;
+    private String benKey;
 
     // Getter Methods 
     public String getMainPos() {
@@ -201,4 +202,14 @@ public class CommissionDetailModel {
     public void setBenefitAmountAdjust(double benefitAmountAdjust) {
         this.benefitAmountAdjust = benefitAmountAdjust;
     }
+
+    public String getBenKey() {
+        return benKey;
+    }
+
+    public void setBenKey(String benKey) {
+        this.benKey = benKey;
+    }
+    
+    
 }

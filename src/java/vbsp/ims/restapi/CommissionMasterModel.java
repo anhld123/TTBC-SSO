@@ -45,6 +45,7 @@ public class CommissionMasterModel {
     private double commisionRate;
     private double commisionTotalAmount;
     private String investorCode;
+    private String investorName;
     private double districtBenRate;
     private double provinceBenRate;
     private double commisionGroupAmount;
@@ -421,4 +422,13 @@ public class CommissionMasterModel {
         this.prinTotal = prinTotal;
     }
 
+    public String getInvestorName() {
+        return investorName;
+    }
+
+    public void setInvestorName(String investorName) {
+        this.investorName = investorName;
+    }
+
+    
 }
