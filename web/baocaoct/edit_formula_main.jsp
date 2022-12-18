@@ -237,9 +237,9 @@
                                       cssClass="cbonguon" value="%{defaultUntilData}">                     
                             </s:select>
                         </td>
-                        <td style="height: 10px;">
+<!--                        <td style="height: 10px;">
 
-                        </td>
+                        </td>-->
                         <td rowspan="5" colspan="3" style="width: 25%;border: 1px solid; border-color: #018c3b;"  valign="top">
                             <div align="left" id="showandhidden_main" style="visibility: hidden;"> 
                                 <s:checkbox id ="allCheck" name="allCheck" onclick="selectallMe()" value="false"/>
@@ -279,13 +279,13 @@
                                       cssClass="cbonguon" value="%{defaultReportTimes}">                    
                             </s:select>
                         </td>
-                        <td style="height: 10px;">
+<!--                        <td style="height: 10px;">
 
-                        </td>
+                        </td>-->
 
                     </tr>
                     <tr>
-                        <td colspan="3" style="height: 10px;">
+                        <td colspan="2" style="height: 10px;">
                             <s:label value="Tiêu đề báo cáo:" id="labelrpt_title"/>
                             <s:textfield name="title_name"  size="100" id="title_name"/>
                         </td>
@@ -301,9 +301,9 @@
                             <s:label value="Số cột: "/>
                             <s:textfield name="number_column" id="number_column" />
                         </td>
-                        <td>
+<!--                        <td>
 
-                        </td>
+                        </td>-->
 
                     </tr>
                     <tr>
@@ -325,9 +325,9 @@
                             <s:checkboxlist list="lstGrade" value="defaultGrade" listKey="sKey" listValue="sDesc"
                                             name="rptGrade"></s:checkboxlist>   
                             </td>    
-                            <td>
+<!--                            <td>
 
-                            </td>
+                            </td>-->
 
                         </tr>
                     </table>

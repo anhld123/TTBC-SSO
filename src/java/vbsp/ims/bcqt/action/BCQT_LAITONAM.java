@@ -5,9 +5,9 @@
  */
 package vbsp.ims.bcqt.action;
 
+import static com.opensymphony.xwork2.Action.ERROR;
 import vbsp.ims.nghiquyet11cp.*;
 import vbsp.ims.nhaptaycn.action.*;
-import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.io.File;
 import java.math.BigInteger;
@@ -23,11 +23,13 @@ import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletContext;
 import org.apache.struts2.ServletActionContext;
+import vbsp.ims.bcqt.dao.DaoBcqtMain;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.define.Define;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
+import vbsp.ims.restapi.CheckSendModel;
 import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.IntDeductionModel;
 import vbsp.ims.restapi.DuLieuNTService;
@@ -49,11 +51,12 @@ public class BCQT_LAITONAM extends ActionBcqtMain
     @Override
      public String load() {
         try {
-            if (Grade.equals("1")) {
-
-                if (!getParaSession()) {
+             if (!getParaSession()) {
                     return ERROR;
                 }
+            System.out.println("LAITONAM =" + Grade);
+            if (Grade.equals("1")) {
+               
                 HashMap hmParameter = getParameter();
                 Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -131,26 +134,26 @@ public class BCQT_LAITONAM extends ActionBcqtMain
                     row.setD17(item.getD17());
                     row.setD18(item.getD18());
                     row.setD19(item.getD19());
-                    row.setD20(item.getD20());
+//                    row.setD20(item.getD20());
                     row.setD21(item.getD21());
                     row.setD22(item.getD22());
-                    row.setD23(item.getD23());
-                    row.setD24(item.getD24());
-                    row.setD25(item.getD25());
-                    row.setD26(item.getD26());
+                    row.setD23(item.getD37());
+//                    row.setD23(item.getD23());
+//                    row.setD24(item.getD24());
+//                    row.setD25(item.getD25());
+//                    row.setD26(item.getD26());
                     row.setD27(item.getD27());
-                    row.setD28(item.getD28());
-                    row.setD29(item.getD29());
+//                    row.setD28(item.getD28());
+                    row.setD24(item.getD29());                    
+                    row.setD25(item.getD30());
+                    row.setD26(item.getD31());
+                    row.setD20(item.getD32());
+                    row.setD28(item.getD33());
+                    row.setD29(item.getD34());
+//                    row.setD35(item.getD35());
+//                    row.setD36(item.getD36());
                     
-                    row.setD30(item.getD30());
-                    row.setD31(item.getD31());
-                    row.setD32(item.getD32());
-                    row.setD33(item.getD33());
-                    row.setD34(item.getD34());
-                    row.setD35(item.getD35());
-                    row.setD36(item.getD36());
-                    row.setD37(item.getD37());
-                    row.setD38(item.getD38());
+//                    row.setD38(item.getD38());
                     row.setNHAPTAY(item.getManualFlag());
                     row.setFONTFORMAT(item.getFontFormat());
                     row.setKIEUIN(item.getStyle());
@@ -159,9 +162,8 @@ public class BCQT_LAITONAM extends ActionBcqtMain
 
                 return SUCCESS;
             } else if (Grade.equals("2")) {
-                if (!getParaSession()) {
-                    return ERROR;
-                }
+                
+
                 HashMap hmParameter = getParameter();
                 Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -170,16 +172,18 @@ public class BCQT_LAITONAM extends ActionBcqtMain
                 posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                 pos_cd_username = posMainModel.getPosCd();
                 service = new DuLieuNTService();
-                ArrayList<LockSendModel> lstData = service.getDataLockSendNQ11CP(pos_cd_username, "M", dateStr);
-                int i = 0;
+                System.out.println("vao cap 2" + pos_cd_username + dateStr);
 
+                ArrayList<CheckSendModel> lstData = service.getDataLockLaitonAm(pos_cd_username, "M", dateStr);
+                int i = 0;
+                 System.out.println("vao cap 2" + lstData.size());
                 DecimalFormat df = new DecimalFormat("#.##");
                 //String formatted = df.format(2.00023);
 
-                for (LockSendModel item : lstData) {
+                for (CheckSendModel item : lstData) {
                     i++;
                     QT_DULIEU_NT row = new QT_DULIEU_NT();
-                    row.setKHOA("CN11CP_002");
+                    row.setKHOA("BCQT_LAITONAM");
                     row.setTHUTU(i);
                     Date reportDate = DateUtil.toDate(item.getReportDate());
                     row.setNGAYBC(reportDate);
@@ -188,18 +192,14 @@ public class BCQT_LAITONAM extends ActionBcqtMain
 //                row.setCO_TONGHOP(item.getPosFlag());
                     row.setMACN(item.getMainPos());
                     row.setTEN(item.getPosName());
-                    row.setD1(df.format(item.getLoanTotal()));
-                    row.setD2(df.format(item.getPrinTotal()));
-                    row.setD3(df.format(item.getIntTotal()));
-                    row.setD4(df.format(item.getDeductionIntTotal()));
-                    row.setD5(df.format(item.getDeductionLoanTotal()));
-                    row.setD6(df.format(item.getNoDeductionLoanTotal()));
-                    row.setD7(df.format(item.getNoDeductionIntTotal()));
+                    row.setD1(df.format(item.getD1()));
+                    row.setD2(df.format(item.getD2()));
+                    row.setD3(df.format(item.getD3()));
                     row.setD25(item.getStatus());
 //                    row.setD7(df.format(item.getDeductionIntTotal()));                   
                     lstDulieuNt.add(row);
                 }
-                return "cap2_chot";
+                return SUCCESS;
             }
 
         } catch (Exception e) {
@@ -218,6 +218,7 @@ public class BCQT_LAITONAM extends ActionBcqtMain
             if (!getParaSession()) {
                 return ERROR;
             }
+            System.out.println("lưu 2 =" + lstDulieuNt.size());
             if (lstDulieuNt == null || lstDulieuNt.size() == 0) {
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
                 return ERROR;
@@ -255,24 +256,64 @@ public class BCQT_LAITONAM extends ActionBcqtMain
                         DuLieuNTRow tempadd = new DuLieuNTRow();
                         tempadd.setBranchCode(tmp.getMACN());
                         tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setCode(tmp.getD3());
-                        tempadd.setD3(tmp.getD3());
+                        tempadd.setCode(tmp.getMA());
                         tempadd.setD15(tmp.getD15());
-                        tempadd.setD16(tmp.getD16());
-                        tempadd.setD17(tmp.getD17());
-                        tempadd.setD18(tmp.getD18());
                         tempadd.setD19(tmp.getD19());
+                        tempadd.setD37(tmp.getD23());
+                        
+                        tempadd.setD29(tmp.getD24());
+                        tempadd.setD30(tmp.getD25());
+                        tempadd.setD31(tmp.getD26());
+                        tempadd.setD32(tmp.getD20());
+                        
+                        tempadd.setD33(tmp.getD28());
+                        tempadd.setD34(tmp.getD29());
+//                        tempadd.setD35(tmp.getD2());
                         lstUpdateDate.add(tempadd);
                         lstLocalDataUpdate.add(tmp);                    
                 }
                 int status = service.updateData("BCQT_LAITONAM", pos_cd_username, "S", strDate, UserName, UserName, lstUpdateDate);
                 if (status == 200) {
-                    System.out.println("vbsp.ims.nghiquyet11cp.NQ11CP_02SK.save()");
-                    if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_02SK(UserName, pos_cd_username, strDate1, lstLocalDataUpdate)) {
+                    System.out.println("vbsp.ims.nghiquyet11cp.BCQT_LAITONAM.save()");                    
+                    if (!DaoBcqtMain.newInstance().saveBcqtLaitonAm("BCQT_LAITONAM",UserName, pos_cd_username, strDate1, lstLocalDataUpdate)) {
                         addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                         return ERROR;
                     }
                 }
+            }
+            else if (Grade.equals("2")) {
+                System.out.println("Cấp 2 chốt sl");                
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
+                String dateStr = sdf.format(date1);
+                ArrayList<LockSendModel> lstData = service.getDataLockManual("BCQT_LAITONAM",pos_cd_username, "M", dateStr);
+                for (LockSendModel item : lstData) {
+                    if (item.getStatus().equals("2")) {
+                        addActionError("Trung ương đã chốt số liệu. Vui lòng liên hệ cấp trên");
+                        return ERROR;
+                    }
+                }
+
+                ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
+                for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                    
+                    UpdateLockModel tempadd = new UpdateLockModel();
+                    if (tmp.getD25() == null) {
+                        tempadd.setPosCode(tmp.getMAPGD());
+                        tempadd.setStatus("0");
+//                        lstUpdateDateLock.add(tempadd);
+                        int status = service.updateLockManual("BCQT_LAITONAM", tmp.getMAPGD(), "S", strDate, "0",UserName,lstUpdateDateLock);
+                    } else {
+                        System.out.println("luu =" + tmp.getD25() + "--" + tmp.getMAPGD() + "--" + strDate + "-"+ UserName);
+                        tempadd.setPosCode(tmp.getMAPGD());
+                        tempadd.setStatus("1");
+//                        lstUpdateDateLock.add(tempadd);
+                        int status = service.updateLockManual("BCQT_LAITONAM", tmp.getMAPGD(), "S", strDate, "1",UserName,lstUpdateDateLock);
+//                        System.out.println("status =" + status);
+                    }
+                }
+                
+                        
             }
 
         } catch (Exception e) {

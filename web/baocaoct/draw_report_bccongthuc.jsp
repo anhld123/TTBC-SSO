@@ -214,7 +214,7 @@
                         <h4 style='color: blue'>Đơn vị tính: Triệu đồng</h4>
                     </s:if>
                 </div>
-                <div style="height:200px; width: 1024px;overflow: scroll;margin: 0 auto">
+                <div style="height:300px; width: 88%;overflow: scroll;margin: 0 auto">
                     <table align="center" border="1" cellpadding="0" cellspacing="0">
                         <s:iterator value="lstRowTable" var="objRow">  
                             <tr>

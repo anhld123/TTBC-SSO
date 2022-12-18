@@ -463,7 +463,7 @@
                                 </td>
                                
                                 
-                                    <s:if test="khoa_bcqt.equalsIgnoreCase('BCQT_HOAHONG')">
+                                    <s:if test="khoa_bcqt.equalsIgnoreCase('HOAHONG')">
                                         <td >Mã xã:</td>
                                         <td>
                                             <s:select  style="width: 229px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"

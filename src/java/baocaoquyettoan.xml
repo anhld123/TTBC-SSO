@@ -75,8 +75,30 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>
         <!--cac mau cua tungnv-->
+        <action name="saveHoahongDetail" class="vbsp.ims.bcqt.action.BCQT_HOAHONG"  method="saveHoahongDetail">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>
+        </action>
+        
+        <action name="loadChitietHoahong" class="vbsp.ims.bcqt.action.BCQT_HOAHONG" method="loadChitietHoahong">
+            <result name="success">/BCQT/table_hoahong_htls_detail.jsp</result>               
+            <result name="error">  
+                /chamdiem_canhan/success.jsp
+            </result>  
+        </action>
+        
+        <action name="BCQT_HOAHONG" class="vbsp.ims.bcqt.action.BCQT_HOAHONG"  method="load">
+            <result name="success">/BCQT/table_hoahong_htls.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>   
+        <action name="SAVE_BCQT_HOAHONG" class="vbsp.ims.bcqt.action.BCQT_HOAHONG"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
         <action name="BCQT_LAITONAM" class="vbsp.ims.bcqt.action.BCQT_LAITONAM"  method="load">
             <result name="success">/BCQT/table_laiton_am.jsp</result>
+            <result name="cap2_chot">/BCQT/table_laiton_am_cnchot.jsp</result> 
             <result name="error">/BCQT/success.jsp</result>        
         </action>   
         <action name="SAVE_BCQT_LAITONAM" class="vbsp.ims.bcqt.action.BCQT_LAITONAM"  method="save">

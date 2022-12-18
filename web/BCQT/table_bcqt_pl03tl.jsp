@@ -326,12 +326,6 @@
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="D12 number2 TEN_KH" onfocus="this.select()"
                                        onblur="autoEvaluate()" readonly="readonly"/>
                             </td>
-
-<!--                            <td align = "right" class="TD_NGUYENGIA">
-                                <input type="text" value="<s:property  value="D13" />" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 number2 TEN_KH" onfocus="this.select()"
-                                       onblur="autoEvaluate()" readonly="readonly"/>
-                            </td>-->
                         </tr> 
                     </s:if>     
                                        

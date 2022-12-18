@@ -148,7 +148,7 @@
                 <tr height="22">
                     <th rowspan="2"  class="TD_NGUYENGIA">Ngày</th>
                     <th colspan="13" >SỐ DƯ TỒN NGÂN NGUỒN VỐN ỦY THÁC ĐỊA PHƯƠNG 
-                        <br>(Dư Có GL 9243) - (Dư Nợ GL 9161 + GL 9162 + GL 9163 + GL 919x6 + GL 919x7 + GL 919x8)</th>           
+                        <br>(Dư Có GL 9243+924211+924212) - (Dư Nợ GL 9161 + GL 9162 + GL 9163 + GL 919x6 + GL 919x7 + GL 919x8)</th>           
                 </tr>
                 <tr height="22">                                  
                     <th TD_NGUYENGIA>Tháng 1</th>
@@ -326,12 +326,6 @@
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="D12 number2 TEN_KH" onfocus="this.select()"
                                        onblur="autoEvaluate()" readonly="readonly"/>
                             </td>
-
-<!--                            <td align = "right" class="TD_NGUYENGIA">
-                                <input type="text" value="<s:property  value="D13" />" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 number2 TEN_KH" onfocus="this.select()"
-                                       onblur="autoEvaluate()" readonly="readonly"/>
-                            </td>-->
                         </tr> 
                     </s:if>     
                                        

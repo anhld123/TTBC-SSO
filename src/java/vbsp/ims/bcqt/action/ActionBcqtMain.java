@@ -36,6 +36,8 @@ import vbsp.ims.model.ModelTreeNode;
 import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
+import vbsp.ims.restapi.CommissionDetailModel;
+import vbsp.ims.restapi.CommissionMasterModel;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlBcqtSync;
 
@@ -55,6 +57,15 @@ public class ActionBcqtMain extends ActionSupport {
     protected String khoa_bcqt;
     protected TreeNode nodes_pos = new TreeNode();
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
+    protected ArrayList<CommissionMasterModel> lstDulieuHoahong = new ArrayList<>();
+    
+//    protected CommissionMasterModel hoahongMaster = new CommissionMasterModel();
+    
+    protected ArrayList<CommissionMasterModel> hoahongMaster = new ArrayList<>();
+    
+    protected ArrayList<CommissionDetailModel> lstHHDetail = new ArrayList<>();
+    
+    
     protected List<ListValue> lstParameters = new ArrayList<>();
     protected List<String> poscd = new ArrayList<String>();
     private List<ListValue> lstCBChuongtrinh = new ArrayList<ListValue>();
@@ -68,6 +79,7 @@ public class ActionBcqtMain extends ActionSupport {
     protected List<ListValue> lstMaxa = new ArrayList<ListValue>();
     protected List<ListValue> lstNguonvon = new ArrayList<ListValue>();
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
+    protected List<ListValue> lstMato = new ArrayList<ListValue>();
    
 
     protected PosMainModel posMainModel;
@@ -274,12 +286,22 @@ public class ActionBcqtMain extends ActionSupport {
             if (conn != null) {
                 conn.close();
             }
-            if(khoa_bcqt.equals("BCQT_LAITONAM") && Grade.equals("1"))
+            if(khoa_bcqt.equals("BCQT_LAITONAM")  && Grade.equals("1"))
             {
                 DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();                
                 setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CT_LAIAM", Grade));                
                 setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA_LAIAM", Grade));                
-                setLstNguonvon(daoMain11.getDanhMuc(UserName, "NGUONVON", Grade));                
+                setLstNguonvon(daoMain11.getDanhMuc(UserName, "NGUONVON", Grade));         
+                 setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
+                return "BCQT_LAIAM";
+            }
+            else if (khoa_bcqt.equals("BCQT_HOAHONG") && Grade.equals("1"))
+            {
+                DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();                
+                setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CT_HOAHONG", Grade));                
+                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));                
+                setLstNguonvon(daoMain11.getDanhMuc(UserName, "NGUONVON_HOAHONG", Grade));         
+                 setLstMato(daoMain11.getDanhMuc(UserName, "MATO_HOAHONG", Grade));
                 return "BCQT_LAIAM";
             }
         } catch (Exception e) {
@@ -605,6 +627,26 @@ public class ActionBcqtMain extends ActionSupport {
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
 
+    public ArrayList<CommissionMasterModel> getHoahongMaster() {
+        return hoahongMaster;
+    }
+
+    public void setHoahongMaster(ArrayList<CommissionMasterModel> hoahongMaster) {
+        this.hoahongMaster = hoahongMaster;
+    }
+
+
+
+    public ArrayList<CommissionDetailModel> getLstHHDetail() {
+        return lstHHDetail;
+    }
+
+    public void setLstHHDetail(ArrayList<CommissionDetailModel> lstHHDetail) {
+        this.lstHHDetail = lstHHDetail;
+    }
+
+    
+
     public PosMainModel getPosMainModel() {
         return posMainModel;
     }
@@ -653,6 +695,14 @@ public class ActionBcqtMain extends ActionSupport {
 
     public void setLstNguonvon(List<ListValue> lstNguonvon) {
         this.lstNguonvon = lstNguonvon;
+    }
+
+    public ArrayList<CommissionMasterModel> getLstDulieuHoahong() {
+        return lstDulieuHoahong;
+    }
+
+    public void setLstDulieuHoahong(ArrayList<CommissionMasterModel> lstDulieuHoahong) {
+        this.lstDulieuHoahong = lstDulieuHoahong;
     }
     
     
@@ -793,5 +843,14 @@ public class ActionBcqtMain extends ActionSupport {
         this.lstViewSend = lstViewSend;
     }
 
+     public List<ListValue> getLstMato() {
+        return lstMato;
+    }
+
+    public void setLstMato(List<ListValue> lstMato) {
+        this.lstMato = lstMato;
+    }
 //</editor-fold>
+
+   
 }
