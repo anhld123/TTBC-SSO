@@ -38,6 +38,7 @@ import vbsp.ims.restapi.IntDeductionModel;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.restapi.NQ11cpModel;
+import vbsp.ims.restapi.UpdateCommBenModel;
 import vbsp.ims.restapi.UpdateCommissionModel;
 import vbsp.ims.restapi.UpdateLockModel;
 
@@ -238,7 +239,7 @@ public class BCQT_HOAHONG extends ActionBcqtMain
             HashMap hmParameter = getParameter();
             System.out.println("22 ==" + _lstHH.size());
             System.out.println("111 ==" + _lstHH.size());
-            hoahongMaster = _lstHH.get(0);
+            hoahongMaster.add(_lstHH.get(0));
             lstHHDetail = _lstHH.get(0).getBenCommissionDetails();
 
             System.out.println("su----" + lstHHDetail.size());
@@ -275,7 +276,7 @@ public class BCQT_HOAHONG extends ActionBcqtMain
             String strDate1 = dateFormat1.format(date1);
 
             service = new DuLieuNTService();
-         
+
             if (Grade.equals("1")) {
                 ArrayList<LockSendModel> lstDataLock = service.getDataLockSendNQ11CP(hmParameter.get("mapgd").toString(), "S", strDate);
                 ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
@@ -289,41 +290,72 @@ public class BCQT_HOAHONG extends ActionBcqtMain
 
 //                         DecimalFormat df = new DecimalFormat("#.##");
                 ArrayList<UpdateCommissionModel> lstUpdateMaster = new ArrayList<>();
-                ArrayList<UpdateCommissionModel> lstUpdateDetai = new ArrayList<>();
+                ArrayList<UpdateCommBenModel> lstUpdateDetai = new ArrayList<>();
                 ArrayList<QT_DULIEU_NT> lstDulieuMaster = new ArrayList<>();
                 ArrayList<QT_DULIEU_NT> lstDulieuDetail = new ArrayList<>();
                 //Lấy dữ liệu detail lưu xuống
                 for (CommissionDetailModel tmp : lstHHDetail) {
-                        UpdateCommissionModel tempadd = new UpdateCommissionModel();
-                        QT_DULIEU_NT tempDulieu = new QT_DULIEU_NT();
-                        tempadd.setMainPos(tmp.getMainPos());
-                        tempadd.setPosCode(tmp.getPosCode());
-                        tempadd.setLoanId(tmp.getLoanId());
-//                        tempadd.setCommisionRate(tmp.getCommisionRate());                        
-//                        tempadd.setCommisionTotalAmount(tmp.getCommisionTotalAmount());
-//                        tempadd.setCommisionGroupAmount(tmp.getCommisionGroupAmount());                       
-                        lstUpdateMaster.add(tempadd);
-                        
-                        tempDulieu.setMACN(tmp.getMainPos());
-                        tempDulieu.setMAPGD(tmp.getPosCode());
-                        tempDulieu.setMA(tmp.getLoanId());
-//                        tempDulieu.setD1( String.valueOf(tmp.getCommisionRate()));
-//                        tempDulieu.setD2( String.valueOf(tmp.getCommisionTotalAmount()));
-//                        tempDulieu.setD3( String.valueOf(tmp.getCommisionGroupAmount()));
-                        lstDulieuMaster.add(tempDulieu);
-                        System.out.println("CommissionMasterModel = " + lstUpdateMaster.size() + "lstDulieu=" + lstDulieuMaster.size());
+                    UpdateCommBenModel tempComModel = new UpdateCommBenModel();
                     
+
+                    QT_DULIEU_NT tempDulieuDetail = new QT_DULIEU_NT();
+                    System.out.println("tmp.getMainPos() = " + tmp.getMainPos());
+                    tempDulieuDetail.setMACN(hoahongMaster.get(0).getMainPos());
+                    tempDulieuDetail.setMAPGD(hoahongMaster.get(0).getPosCode());
+                    tempDulieuDetail.setMA(hoahongMaster.get(0).getLoanId());
+                    tempDulieuDetail.setD1(String.valueOf(tmp.getBenefitRate()));
+                    tempDulieuDetail.setD2(String.valueOf(tmp.getBenefitAmount()));
+                    tempDulieuDetail.setD3(tmp.getDebitAccount());
+                    tempDulieuDetail.setD4(tmp.getCreditAccount());                    
+                    lstDulieuDetail.add(tempDulieuDetail);
+                    
+                    tempComModel.setMainPos(hoahongMaster.get(0).getMainPos());
+                    tempComModel.setPosCode(hoahongMaster.get(0).getPosCode());
+                    tempComModel.setLoanId(hoahongMaster.get(0).getLoanId());
+                    tempComModel.setBenefitRateAdjust(tmp.getBenefitRate());
+                    tempComModel.setBenefitAmountAdjust(tmp.getBenefitAmount());
+                    tempComModel.setDebitAccount(tmp.getDebitAccount());
+                    tempComModel.setCreditAccount(tmp.getCreditAccount());                    
+                    lstUpdateDetai.add(tempComModel);
+
                 }
+                QT_DULIEU_NT tempDulieuMaster = new QT_DULIEU_NT();
+//                Thông tin dữ liệu master
+                System.out.println("hoahongMaster.getMainPos() = " + hoahongMaster.get(0).getMainPos());
+                tempDulieuMaster.setMACN(hoahongMaster.get(0).getMainPos());
+                tempDulieuMaster.setMAPGD(hoahongMaster.get(0).getPosCode());
+                tempDulieuMaster.setMA(hoahongMaster.get(0).getLoanId());
+                tempDulieuMaster.setD1(String.valueOf(hoahongMaster.get(0).getCommisionRate()));
+                tempDulieuMaster.setD2(String.valueOf(hoahongMaster.get(0).getCommisionTotalAmount()));
+                tempDulieuMaster.setD3(String.valueOf(hoahongMaster.get(0).getCommisionGroupAmount()));
+                tempDulieuMaster.setD4(String.valueOf(hoahongMaster.get(0).getCommisionDistrictAmount()));
+                tempDulieuMaster.setD5(String.valueOf(hoahongMaster.get(0).getCommisionProvinceAmount()));
+                lstDulieuMaster.add(tempDulieuMaster);
+                
+                UpdateCommissionModel tempCommMaster = new UpdateCommissionModel();
+                tempCommMaster.setMainPos(hoahongMaster.get(0).getMainPos());
+                tempCommMaster.setPosCode(hoahongMaster.get(0).getPosCode());
+                tempCommMaster.setLoanId(hoahongMaster.get(0).getLoanId());
+                tempCommMaster.setCommisionRateAdjust(hoahongMaster.get(0).getCommisionRate());
+                tempCommMaster.setCommisionTotalAmountAdjust(hoahongMaster.get(0).getCommisionTotalAmount());
+                tempCommMaster.setCommisionGroupAmountAdjust(hoahongMaster.get(0).getCommisionGroupAmount());
+                tempCommMaster.setCommisionDistrictAmountAdjust(hoahongMaster.get(0).getCommisionDistrictAmount());
+                tempCommMaster.setCommisionProvinceAmountAdjust(hoahongMaster.get(0).getCommisionProvinceAmount());
+                lstUpdateMaster.add(tempCommMaster);
+                
+                System.out.println("lstUpdateMaster = " + lstUpdateMaster.size() + "lstDulieu=" + lstDulieuMaster.size());
+
                 int status = service.updateHoahongMaster(pos_cd_username, "20221231", UserName, lstUpdateMaster);
-                int status1 = service.updateHoahongDetail(pos_cd_username, "20221231", UserName, lstUpdateMaster);
-                if (status == 200) {
-                    System.out.println("saveBcqtHoahongMaster");
-                    if (!DaoBcqtMain.newInstance().saveBcqtHoahongMaster("", UserName, pos_cd_username, strDate1, lstDulieuMaster)  ||
-                            !DaoBcqtMain.newInstance().saveBcqtHoahongDetail("", UserName, pos_cd_username, strDate1, lstDulieuMaster)) {
-                        addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
-                        return ERROR;
-                    }
-                }
+//                int status1 = service.updateHoahongDetail(pos_cd_username, "20221231", UserName, lstUpdateDetai);
+                System.out.println("status=" + status + " --status1 = " + status);
+//                if (status == 200 && status1 == 200) {
+//                    System.out.println("saveBcqtHoahongMaster");
+//                    if (!DaoBcqtMain.newInstance().saveBcqtHoahongMasterDiaphuong("", UserName, pos_cd_username, strDate1, lstDulieuMaster)
+//                            || !DaoBcqtMain.newInstance().saveBcqtHoahongDetail("", UserName, pos_cd_username, strDate1, lstDulieuMaster)) {
+//                        addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+//                        return ERROR;
+//                    }
+//                }
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> saveHoahongDetail: " + e.getMessage());
@@ -375,36 +407,38 @@ public class BCQT_HOAHONG extends ActionBcqtMain
 //                         DecimalFormat df = new DecimalFormat("#.##");
                 ArrayList<UpdateCommissionModel> lstLocalDataUpdate = new ArrayList<>();
                 ArrayList<QT_DULIEU_NT> lstDulieu = new ArrayList<>();
-                
+
                 for (CommissionMasterModel tmp : lstDulieuHoahong) {
                     if (tmp.getD33() != null) {
+                        System.out.println("getMainPos="+ tmp.getMainPos() + "-soluong = " + lstDulieuHoahong.size());
                         UpdateCommissionModel tempadd = new UpdateCommissionModel();
                         QT_DULIEU_NT tempDulieu = new QT_DULIEU_NT();
                         tempadd.setMainPos(tmp.getMainPos());
                         tempadd.setPosCode(tmp.getPosCode());
                         tempadd.setLoanId(tmp.getLoanId());
-                        tempadd.setCommisionRate(tmp.getCommisionRate());                        
-                        tempadd.setCommisionTotalAmount(tmp.getCommisionTotalAmount());
-                        tempadd.setCommisionGroupAmount(tmp.getCommisionGroupAmount());                       
+                        tempadd.setCommisionRateAdjust(tmp.getCommisionRate());
+                        tempadd.setCommisionTotalAmountAdjust(tmp.getCommisionTotalAmount());
+                        tempadd.setCommisionGroupAmountAdjust(tmp.getCommisionGroupAmount());
                         lstLocalDataUpdate.add(tempadd);
-                        
+
                         tempDulieu.setMACN(tmp.getMainPos());
                         tempDulieu.setMAPGD(tmp.getPosCode());
                         tempDulieu.setMA(tmp.getLoanId());
-                        tempDulieu.setD1( String.valueOf(tmp.getCommisionRate()));
-                        tempDulieu.setD2( String.valueOf(tmp.getCommisionTotalAmount()));
-                        tempDulieu.setD3( String.valueOf(tmp.getCommisionGroupAmount()));
+                        tempDulieu.setD1(String.valueOf(tmp.getCommisionRate()));
+                        tempDulieu.setD2(String.valueOf(tmp.getCommisionTotalAmount()));
+                        tempDulieu.setD3(String.valueOf(tmp.getCommisionGroupAmount()));
                         lstDulieu.add(tempDulieu);
                         System.out.println("CommissionMasterModel = " + lstLocalDataUpdate.size() + "lstDulieu=" + lstDulieu.size());
                     }
                 }
                 int status = service.updateHoahongMaster(pos_cd_username, "20221231", UserName, lstLocalDataUpdate);
+                System.out.println("status="+ status);
                 if (status == 200) {
                     System.out.println("saveBcqtHoahongMaster");
-                    if (!DaoBcqtMain.newInstance().saveBcqtHoahongMaster("", UserName, pos_cd_username, strDate1, lstDulieu)) {
-                        addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
-                        return ERROR;
-                    }
+//                    if (!DaoBcqtMain.newInstance().saveBcqtHoahongMaster("", UserName, pos_cd_username, strDate1, lstDulieu)) {
+//                        addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+//                        return ERROR;
+//                    }
                 }
             } else if (Grade.equals("2")) {
                 System.out.println("Cấp 2 chốt sl");

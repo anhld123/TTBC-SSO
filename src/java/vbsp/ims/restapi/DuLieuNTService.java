@@ -565,7 +565,7 @@ public class DuLieuNTService extends ReportService {
         return response.getStatus();
     }
     
-    public int updateHoahongDetail(String posCode, String reportDate, String makerId, ArrayList<UpdateCommissionModel> data) {
+    public int updateHoahongDetail(String posCode, String reportDate, String makerId, ArrayList<UpdateCommBenModel> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("subsidy-ben-commision-update")

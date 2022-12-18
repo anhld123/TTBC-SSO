@@ -59,8 +59,9 @@ public class ActionBcqtMain extends ActionSupport {
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
     protected ArrayList<CommissionMasterModel> lstDulieuHoahong = new ArrayList<>();
     
-    protected CommissionMasterModel hoahongMaster = new CommissionMasterModel();
+//    protected CommissionMasterModel hoahongMaster = new CommissionMasterModel();
     
+    protected ArrayList<CommissionMasterModel> hoahongMaster = new ArrayList<>();
     
     protected ArrayList<CommissionDetailModel> lstHHDetail = new ArrayList<>();
     
@@ -626,13 +627,15 @@ public class ActionBcqtMain extends ActionSupport {
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
 
-    public CommissionMasterModel getHoahongMaster() {
+    public ArrayList<CommissionMasterModel> getHoahongMaster() {
         return hoahongMaster;
     }
 
-    public void setHoahongMaster(CommissionMasterModel hoahongMaster) {
+    public void setHoahongMaster(ArrayList<CommissionMasterModel> hoahongMaster) {
         this.hoahongMaster = hoahongMaster;
     }
+
+
 
     public ArrayList<CommissionDetailModel> getLstHHDetail() {
         return lstHHDetail;
