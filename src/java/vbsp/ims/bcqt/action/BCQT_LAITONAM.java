@@ -130,7 +130,7 @@ public class BCQT_LAITONAM extends ActionBcqtMain
                     row.setD13(item.getD13());
                     row.setD14(item.getD14());
                     row.setD15(item.getD15());
-                    row.setD16(item.getD16());
+//                    row.setD16(item.getD16());
                     row.setD17(item.getD17());
                     row.setD18(item.getD18());
                     row.setD19(item.getD19());
@@ -143,12 +143,12 @@ public class BCQT_LAITONAM extends ActionBcqtMain
 //                    row.setD25(item.getD25());
 //                    row.setD26(item.getD26());
                     row.setD27(item.getD27());
-//                    row.setD28(item.getD28());
+                    row.setD28(item.getD28());
                     row.setD24(item.getD29());                    
                     row.setD25(item.getD30());
                     row.setD26(item.getD31());
                     row.setD20(item.getD32());
-                    row.setD28(item.getD33());
+                    row.setD16(item.getD33());
                     row.setD29(item.getD34());
 //                    row.setD35(item.getD35());
 //                    row.setD36(item.getD36());
@@ -251,7 +251,7 @@ public class BCQT_LAITONAM extends ActionBcqtMain
                 }
 
 //                         DecimalFormat df = new DecimalFormat("#.##");
-                ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
+//                ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
                 for (QT_DULIEU_NT tmp : lstDulieuNt) {
                         DuLieuNTRow tempadd = new DuLieuNTRow();
                         tempadd.setBranchCode(tmp.getMACN());
@@ -266,16 +266,16 @@ public class BCQT_LAITONAM extends ActionBcqtMain
                         tempadd.setD31(tmp.getD26());
                         tempadd.setD32(tmp.getD20());
                         
-                        tempadd.setD33(tmp.getD28());
+                        tempadd.setD33(tmp.getD16());
                         tempadd.setD34(tmp.getD29());
 //                        tempadd.setD35(tmp.getD2());
                         lstUpdateDate.add(tempadd);
-                        lstLocalDataUpdate.add(tmp);                    
+//                        lstLocalDataUpdate.add(tmp);                    
                 }
                 int status = service.updateData("BCQT_LAITONAM", pos_cd_username, "S", strDate, UserName, UserName, lstUpdateDate);
                 if (status == 200) {
                     System.out.println("vbsp.ims.nghiquyet11cp.BCQT_LAITONAM.save()");                    
-                    if (!DaoBcqtMain.newInstance().saveBcqtLaitonAm("BCQT_LAITONAM",UserName, pos_cd_username, strDate1, lstLocalDataUpdate)) {
+                    if (!DaoBcqtMain.newInstance().saveBcqtLaitonAm("BCQT_LAITONAM",UserName, pos_cd_username, strDate1, lstDulieuNt)) {
                         addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                         return ERROR;
                     }

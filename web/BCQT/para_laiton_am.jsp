@@ -560,7 +560,7 @@
         </div>
         <script>
         $(document).ready(function () {            
-            document.getElementById('ngay_bc_DATE').value = "20/12/2022";
+            document.getElementById('ngay_bc_DATE').value = "31/12/2022";
         })
         </script>
     </div>

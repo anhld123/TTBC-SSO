@@ -39,8 +39,10 @@
              
              
         </style>
-        <script src="js/jquery.number.js"></script>        
+         <script src="js/jquery.number.js"></script>        
         <script type="text/javascript" src="BCQT/javascript/jquery-ui.min.js"></script>
+        
+        
         <script>
             var max_row = 0;
             $(document).ready(function () {
@@ -77,29 +79,17 @@
                 return true;
             }
             
-             function autoEvaluate() {
-
-                var arrCot = [".D13", ".D22", ".D23"]; //Luu cac cot cua du lieu can tinh toan
-                for (var i = 0; i < 50; i++) {
-                    //8=2+4-6
-                    $(".D23").eq(i).val(parseFloat($(".D13").eq(i).val()) - parseFloat($(".D22").eq(i).val()));
-
-                }
-                //                              
-            }
-            
-//            function autoPlus(idx) {
-//                $('.number').number(true, 0);
-//               $('.number2').number(true, 2);
-//           }
-//           autoPlus(11);
+           
 
         </script>
         <!--<link href="css/css/style.css" rel="stylesheet" type="text/css"/>-->
         <!--<link href="css/css/style.css" rel="stylesheet" type="text/css"/>-->
         <link rel="stylesheet" type="text/css"  href="css/bcqt.css" />
+        
+        <!--<link href="css/jquery.multiselect.css" rel="stylesheet"/>-->
+        
     </head>
-        <s:form id="frmHoahongDetail" action="frmHoahongDetail" theme="simple">  
+    <s:form id="frmHoahongDetail" name="frmHoahongDetail" theme="simple">  
             <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
                 <input type="hidden" id="<s:property  value="sKey" />" 
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
@@ -147,8 +137,8 @@
                                              name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].mainPos" /> 
                         </td>  
                         <td align = "right" class="TD_SOKU">
-                            <input type="text" value="<s:property  value="investorCode" />" 
-                                   name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].investorCode" class="TEN_KH"  readonly="readonly"/>
+                            <input type="text" value="<s:property  value="investorName" />" 
+                                   name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].investorName" class="TEN_KH"  readonly="readonly"/>
                         </td>  
                         <td align = "right" class="TD_SOKU">
                             <input type="text" value="<s:property  value="loanId" />" 
@@ -171,8 +161,8 @@
                                    name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].commisionDistrictAmount" class="number" />
                         </td>  
                         <td align = "right" class="TD_SOKU">
-                            <input type="text" value="<s:property  value="commisionDistrictAmount" />" 
-                                   name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].commisionDistrictAmount" class="number"  />
+                            <input type="text" value="<s:property  value="commisionProvinceAmount" />" 
+                                   name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].commisionProvinceAmount" class="number"  />
                         </td>  
 
 
@@ -183,7 +173,7 @@
             </table>
 
             </br>
-            <table border="1" class="editDelete" id="tablehoahong" align="center">
+            <table border="1" class="editDelete" id="tablehoahong1" align="center">
                 <tr>      
                     <!--<th rowspan="2" class="TD_STT">STT</th>-->                           
                     <th rowspan="1" class="TD_STT">Cấp</th>  
@@ -202,6 +192,9 @@
                         <td align = "right" class="TD_STT">
                             <input type="text" value="<s:property  value="levelFlag" />" 
                                    name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].levelFlag" class="D0"  readonly="readonly"/>
+                            <input type="hidden" value="<s:property  value="benKey" />"
+                                             name="lstHHDetail[<s:property  value="%{#rowstatus.index}" />].benKey" /> 
+                            
                         </td>  
                         <td align = "right" class="TD_TENKH">
                             <input type="text" value="<s:property  value="benefitName" />"  title="<s:property  value="benefitName" />"
@@ -250,7 +243,7 @@
                         <div id="button_div" <s:property value="disabled" /> >
                             <s:url id="edit_url" action="saveHoahongDetail" escapeAmp="false"
                                    var="update_url">
-                                <s:param name="proc">update</s:param>  
+<!--                                <s:param name="proc">update</s:param>  -->
                             </s:url>                        
                             <sj:a id="update_button_id"  href="%{#update_url}" 
                                   targets="luu_thanhcong"
