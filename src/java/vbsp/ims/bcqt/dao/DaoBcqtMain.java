@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
+import vbsp.ims.bcqt.model.CommisionFP;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.bcqt.model.QT_MS11A;
 import vbsp.ims.bcqt.model.QT_MS11B;
@@ -4737,5 +4738,54 @@ public class DaoBcqtMain {
             }
         }
         return true;
+    }
+    
+    public List<CommisionFP> GetCommissionFP(String posCode, String reportDate) 
+    {
+        List<CommisionFP> lstFPTrans = new ArrayList<>();
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            String strStoreproce = "{call VBSP_IMS_BCQT.SP_LOAD_DATA_HOAHONG_BOSUNG_FP (?, ?, ?)}";
+            ResultSet reset = null;
+            try {
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.setString(1, posCode);
+                calstatement.setString(2, reportDate);
+                calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.execute();
+                reset = (ResultSet) calstatement.getObject(3);
+                while (reset.next()) {
+                    String _posCode = reset.getString(1);
+                    String _refNo = reset.getString(2);
+                    String _valueDate = reset.getString(3);
+                    String _accountNo = reset.getString(4);
+                    String _accountPos = reset.getString(5);
+                    String _flag = reset.getString(6);
+                    int _amount = reset.getInt(7);
+                    String _remark = reset.getString(8);
+                    CommisionFP _trans = new CommisionFP(_posCode, _refNo, _valueDate, _accountNo,
+                    _accountPos, _flag, _amount, _remark);
+                    lstFPTrans.add(_trans);
+                }
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " getLov -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("VBSP_IMS_BCQT.SP_LOAD_DATA_HOAHONG_BOSUNG_FP " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " VBSP_IMS_BCQT.SP_LOAD_DATA_HOAHONG_BOSUNG_FP -> " + e.getMessage());
+        }
+        return lstFPTrans;
     }
 }
