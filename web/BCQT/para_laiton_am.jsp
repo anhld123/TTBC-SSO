@@ -246,6 +246,20 @@
                     onLoadData();
                 }
             }
+            
+            function onSentData()
+            {
+                $('#message_suc_err').empty();
+                $('#divExportReport').empty();
+                var khoa_ktgs = $("#khoa_bcqt").val();
+
+                var poscd = getposfromtreecheck();
+//                alert(khoa_ktgs);
+
+                $("#idDownFile")[0].click();
+                bsubmit = false;
+            }
+            ;
 
             function onSaveDataHTLai()
             {
@@ -511,6 +525,15 @@
                                         <!--<td><input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="CN hạch toán GL"/> </td>-->
                                         
                                     </s:if>
+                                        
+                                   <s:if test="Grade.equalsIgnoreCase('1') && khoa_bcqt.equalsIgnoreCase('BCQT_HOAHONG')">
+                                         &nbsp;&nbsp;&nbsp;  
+                                       <s:url id="idHHTaiFile" action="downladFileHH.action"></s:url>                                      
+                                        <sj:submit id="idDownFile" name="nameTaiFile" href="%{idHHTaiFile}" value="Tải file về" targets="divExportReport"
+                                                   onBeforeTopics="beforediv_send"
+                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                        <input type="button" id="idSendtmp" name="nameiddowntmp"  onclick="onSentData()" value="Tải file về"/>                                           
+                                    </s:if>      
                                     
                                     
                                 </td>
