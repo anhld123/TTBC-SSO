@@ -97,7 +97,7 @@ public class BCQT_HOAHONG extends ActionBcqtMain
                 _lstHH = lstDulieuHoahong;
 
                 System.out.println("So luong" + lstDulieuHoahong.size());
-                if (lstDulieuNt.size() > 99) {
+                if (lstDulieuHoahong.size() > 99) {
                     addActionError("Dữ liệu quá lớn. Vui lòng chọn từng xã, tổ để xác nhận.");;
                     return ERROR;
                 }
