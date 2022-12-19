@@ -420,5 +420,11 @@ public class BCQT_HOAHONG extends ActionBcqtMain
                 "Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
     }
+    
+    
+    public String downladFileHH() {
+        System.err.println("downfile");
+        return SUCCESS;
+    }
 
 }

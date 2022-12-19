@@ -75,6 +75,11 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>
         <!--cac mau cua tungnv-->
+        <action name="downladFileHH" class="vbsp.ims.bcqt.action.BCQT_HOAHONG"  method="downladFileHH">
+            <result name="success">/BCQT/table_hoahong_htls.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action> 
+        
         <action name="saveHoahongDetail" class="vbsp.ims.bcqt.action.BCQT_HOAHONG"  method="saveHoahongDetail">
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>
