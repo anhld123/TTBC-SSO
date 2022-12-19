@@ -76,8 +76,13 @@
         </action>
         <!--cac mau cua tungnv-->
         <action name="downladFileHH" class="vbsp.ims.bcqt.action.BCQT_HOAHONG"  method="downladFileHH">
-            <result name="success">/BCQT/table_hoahong_htls.jsp</result>
-            <result name="error">/BCQT/success.jsp</result>        
+<!--            <result name="success" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">fileInputStream</param>
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>
+                <param name="bufferSize">4096</param>
+            </result>      -->
+            <result name="success">/viewfilebc.jsp</result>
         </action> 
         
         <action name="saveHoahongDetail" class="vbsp.ims.bcqt.action.BCQT_HOAHONG"  method="saveHoahongDetail">

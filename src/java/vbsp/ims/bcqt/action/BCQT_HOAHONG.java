@@ -7,52 +7,54 @@ package vbsp.ims.bcqt.action;
 
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
-import vbsp.ims.nghiquyet11cp.*;
 import vbsp.ims.nhaptaycn.action.*;
 import java.io.File;
-import java.math.BigInteger;
-import java.sql.Connection;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import javax.servlet.ServletContext;
-import org.apache.struts2.ServletActionContext;
+import javax.servlet.http.HttpServletRequest;
 import vbsp.ims.bcqt.dao.DaoBcqtMain;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
-import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.define.Define;
 import vbsp.ims.log.CoreLogger;
-import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
 import vbsp.ims.restapi.CheckSendModel;
 import vbsp.ims.restapi.CommissionDetailModel;
 import vbsp.ims.restapi.CommissionMasterModel;
 import vbsp.ims.restapi.DuLieuNTRow;
-import vbsp.ims.restapi.IntDeductionModel;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.LockSendModel;
-import vbsp.ims.restapi.NQ11cpModel;
 import vbsp.ims.restapi.UpdateCommBenModel;
 import vbsp.ims.restapi.UpdateCommissionModel;
 import vbsp.ims.restapi.UpdateLockModel;
-
+import org.apache.struts2.interceptor.ServletRequestAware;
 import vbsp.ims.util.DateUtil;
+import vbsp.ims.log.CoreLogger;
+import vbsp.ims.zip.FileZip;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Trung
  */
 public class BCQT_HOAHONG extends ActionBcqtMain
-        implements NhaptaycnFunction {
+        implements NhaptaycnFunction, ServletRequestAware {
 
+    private HttpServletRequest servletRequest;
     DuLieuNTService service;
     static ArrayList<CommissionMasterModel> _lstHH = new ArrayList<>();
+    
+    private InputStream fileInputStream;
+    private String fileName;
+    private long contentLength;
+    
+    private String filereport;
+    private String fileNamelocal;
 
     @Override
     public String load() {
@@ -424,7 +426,114 @@ public class BCQT_HOAHONG extends ActionBcqtMain
     
     public String downladFileHH() {
         System.err.println("downfile");
-        return SUCCESS;
+        
+        if (!getParaSession()) {
+            return ERROR;
+        }
+        
+        try {
+            HashMap hmParameter = getParameter();
+            String _sReportDate = hmParameter.get("ngay_bc").toString();
+
+            Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(_sReportDate);
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            String _strDate = dateFormat.format(date1);
+
+            DateFormat dateFormat1 = new SimpleDateFormat("dd-MMM-yyyy");
+            String _strDate1 = dateFormat1.format(date1);
+
+            String _strPathSave = !servletRequest.getRealPath("/").endsWith("/")
+                                 ?servletRequest.getRealPath("/")+"/"+ Define.M_REPORT_TXT
+                                 :servletRequest.getRealPath("/")+ Define.M_REPORT_TXT;
+
+            File _checkPath = new File(_strPathSave);
+
+            if (!_checkPath.exists()) {
+                System.out.println("Tao thu muc: " + _strPathSave);
+                _checkPath.mkdirs();
+            }
+
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd_username = posMainModel.getPosCd();            
+            String _posCode = pos_cd_username;
+            
+            // Xuat file KHA
+            String _fileName1 = "Subsidy_Commission_KHA_" + _posCode + _strDate + ".txt";
+            String _filePath1 = _strPathSave +  _fileName1;            
+            // Xuat file KHB
+            String _fileName2 = "Subsidy_Commission_KHB_" + _posCode + _strDate + ".txt";
+            String _filePath2 = _strPathSave +  _fileName2;            
+            
+            
+            FPFileExport _fileExport = new FPFileExport();
+            _fileExport.export(_posCode, _strDate1, "1", _filePath1);
+            _fileExport.export(_posCode, _strDate1, "2", _filePath2);
+            
+            ArrayList<String> _fullPathList = new ArrayList<>();
+            String _strTimeFile = Long.toString(System.currentTimeMillis());
+            String _zipFile = "FileNen_HTLS_" + _strTimeFile + ".zip", _zipPath = "";
+            
+            _fullPathList.add(_filePath1);
+            _fullPathList.add(_filePath2);
+            
+            _zipPath = _strPathSave + _zipFile;
+            
+            try {
+                FileZip.ZipFileFromArray(_fullPathList, _zipPath);               
+            } catch (Exception ex) {
+                Logger.getLogger(BCQT_HOAHONG.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+//            File _fileToDownload = new File(_filePath);         
+//            fileInputStream = new FileInputStream(_fileToDownload);
+//            fileName = _fileToDownload.getName();
+//            contentLength = _fileToDownload.length();
+            
+            filereport = _zipFile;      
+            fileNamelocal = _zipPath;
+
+            return SUCCESS;
+        }catch(Exception e)
+        {
+            return ERROR;
+        }                
     }
 
+    @Override
+    public void setServletRequest(HttpServletRequest servletRequest) {
+        this.servletRequest = servletRequest;
+    }
+
+    public InputStream getFileInputStream() {
+        return fileInputStream;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public long getContentLength() {
+        return contentLength;
+    }
+
+    public String getFilereport() {
+        return filereport;
+    }
+
+    public void setFilereport(String filereport) {
+        this.filereport = filereport;
+    }
+
+    public String getFileNamelocal() {
+        return fileNamelocal;
+    }
+
+    public void setFileNamelocal(String fileNamelocal) {
+        this.fileNamelocal = fileNamelocal;
+    }
+    
+    
+    
+    
 }

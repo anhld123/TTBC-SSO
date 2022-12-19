@@ -24,10 +24,10 @@ public class FPFileExport {
     
     DaoBcqtMain dao;
     
-    public void export(String posCode, String reportDate, String fileName)
+    public void export(String posCode, String reportDate, String capitalSource, String fileName)
     {
         dao = new DaoBcqtMain();       
-        List<CommisionFP> _lstFPTrans = dao.GetCommissionFP(posCode,reportDate);
+        List<CommisionFP> _lstFPTrans = dao.GetCommissionFP(posCode,reportDate,capitalSource);
         String _seperator = "~";
         try {                        
             Writer outfile = null;            
@@ -42,7 +42,7 @@ public class FPFileExport {
                         + _lstFPTrans.get(i).getAccountPos() + _seperator
                         + _lstFPTrans.get(i).getFlag() + _seperator
                         + _lstFPTrans.get(i).getAmount() + _seperator
-                        + _lstFPTrans.get(i).getRemark() + "~VND~";
+                        + _lstFPTrans.get(i).getRemark() + "~VND~" + "\n" ;
                 outfile.append(_line);
             }                           
             outfile.flush();

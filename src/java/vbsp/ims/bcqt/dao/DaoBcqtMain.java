@@ -4740,22 +4740,23 @@ public class DaoBcqtMain {
         return true;
     }
     
-    public List<CommisionFP> GetCommissionFP(String posCode, String reportDate) 
+    public List<CommisionFP> GetCommissionFP(String posCode, String reportDate, String capitalSource) 
     {
         List<CommisionFP> lstFPTrans = new ArrayList<>();
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
-            String strStoreproce = "{call VBSP_IMS_BCQT.SP_LOAD_DATA_HOAHONG_BOSUNG_FP (?, ?, ?)}";
+            String strStoreproce = "{call VBSP_IMS_BCQT.SP_LOAD_DATA_HOAHONG_BOSUNG_FP (?, ?, ?, ?)}";
             ResultSet reset = null;
             try {
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
                 calstatement.setString(1, posCode);
                 calstatement.setString(2, reportDate);
-                calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(3, capitalSource);
+                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.CURSOR);
                 calstatement.execute();
-                reset = (ResultSet) calstatement.getObject(3);
+                reset = (ResultSet) calstatement.getObject(4);
                 while (reset.next()) {
                     String _posCode = reset.getString(1);
                     String _refNo = reset.getString(2);
