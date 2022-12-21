@@ -199,9 +199,9 @@
                            onCompleteTopics="completediv_send" class="cmd"/>
 
 
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                <sj:a class="cmd" href="#" onclick="callDirectLink('khvn_open_upload_qt_kh?');" cssClass="metroButtonStyle">
-                    <b> <u>Upload Excel</u>  </b> </sj:a>                        
+<!--                &nbsp;&nbsp;|&nbsp;&nbsp;-->
+                <sj:submit class="cmd" href="#" onclick="callDirectLink('khvn_open_upload_qt_kh?');" cssClass="metroButtonStyle" value="Upload Excel">
+                    </sj:submit>                        
                 </div>
                 <hr/>
             </div>
