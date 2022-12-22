@@ -251,8 +251,8 @@
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN" value="<s:property  value="MACN"/>"/>
                                 </td>
                                 <td  align="right" class="TD_TEN_KH">    
-                                    <input type="text" value="<s:property  value="D2" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="TEN_KH" onfocus="this.select()"    readonly="readonly" />                                  
+                                    <input type="text" value="<s:property  value="D8" />" 
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH" onfocus="this.select()"    readonly="readonly" />                                  
                                 </td>
                                 <td  align="right" class="TD_GL">    
                                     <input type="text" value="<s:property  value="D7" />" 
