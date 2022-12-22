@@ -79,7 +79,7 @@ public class BCQT_LAITONAM extends ActionBcqtMain
                 String sSoku = "AAA";
                 
                 conditions = (hmParameter.get("maxa").toString().equals("000000") ? "" : "D38=" + hmParameter.get("maxa").toString() + "|")
-                        + (hmParameter.get("chuongtrinh").toString().equals("00") ? "" : "D10=" + hmParameter.get("chuongtrinh").toString() + "|")
+                        + (hmParameter.get("chuongtrinh").toString().equals("00") ? "" : "D25=" + hmParameter.get("chuongtrinh").toString() + "|")
                         + (hmParameter.get("nguonvon").toString().equals("-1") ? "" : "D5=" + hmParameter.get("nguonvon").toString() + "|");
                 
                 

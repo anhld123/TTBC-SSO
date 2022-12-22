@@ -299,7 +299,7 @@ public class ActionBcqtMain extends ActionSupport {
             {
                 DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();                
                 setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CT_HOAHONG", Grade));                
-                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));                
+                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA_HOAHONG", Grade));                
                 setLstNguonvon(daoMain11.getDanhMuc(UserName, "NGUONVON_HOAHONG", Grade));         
                  setLstMato(daoMain11.getDanhMuc(UserName, "MATO_HOAHONG", Grade));
                 return "BCQT_LAIAM";
