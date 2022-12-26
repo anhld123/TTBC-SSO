@@ -123,8 +123,10 @@
                     $(this).closest('tr').removeClass('highlight_row');
                 });
                 $('input.number').css({"text-align": "right"});
-                $('input.number3').css({"text-align": "right"});
-                $('.number3').number(true, 3);
+                $('input.number2').css({"text-align": "right"});
+                
+                $('.number').number(true, 0);
+                $('.number2').number(true, 2);
             }
         </script>
     </head>
