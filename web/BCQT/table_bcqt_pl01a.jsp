@@ -73,7 +73,7 @@
                 for (var i = 0; i < rowCount; i++)
                 {
                     //                    alert(getMabyNumber(i));
-                    if (getMabyNumber(i) == ma)
+                    if (getMabyNumber(i) === ma)
                         flag++;
                 }
                 if (flag > 1)
