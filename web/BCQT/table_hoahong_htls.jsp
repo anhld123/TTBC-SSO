@@ -365,7 +365,7 @@
                                                name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].commisionProvinceAmount" class="number TEN_KH"  readonly="readonly"/>
                                     </td> 
                                     <td align = "right" class="TD_TRANGTHAI">
-                                        <s:if test="capitalSourceCode.equalsIgnoreCase('2')">
+                                        <s:if test="!investorCode.equalsIgnoreCase('')">
                                             <a href="javascript:hienthichitiet('<s:property  value="posCode" />','<s:property value="loanId"/>')" class="D0 SOKU linkKh">
                                                 Chi tiết&nbsp;&nbsp;
                                             </a>
