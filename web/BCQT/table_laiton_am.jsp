@@ -152,13 +152,13 @@
                                 </td>
 
                                 <td align = "right" class="TD_NGAY" >
-                                    <input type="text"   value="<s:property  value="D3" />" style="background: #C0C0C0 !important;"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="number TEN_KH" onfocus="this.select();" 
+                                    <input type="text"   value="<s:property  value="D2" />" style="background: #C0C0C0 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number TEN_KH" onfocus="this.select();" 
                                            readonly="true"/>
                                 </td>
                                 <td align = "right" class="TD_NGAY" >
                                     <input type="text"   value="<s:property  value="D3" />" style="background: #C0C0C0 !important;"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number TEN_KH" onfocus="this.select();" 
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="number TEN_KH" onfocus="this.select();" 
                                            readonly="true"/>
                                 </td>
 

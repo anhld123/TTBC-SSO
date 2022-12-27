@@ -319,7 +319,7 @@
                                     <s:if test="capitalSourceCode.equalsIgnoreCase('2')">
                                         <td align = "right" class="TD_TRANGTHAI">
                                             <input type="text" value="<s:property  value="commisionRate" />" 
-                                                   name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].commisionRate" class="number2 TEN_KH"  readonly="readonly"                                                   
+                                                   name="lstDulieuHoahong[<s:property  value="%{#rowstatus.index}" />].commisionRate" class="number3 TEN_KH"  readonly="readonly"                                                   
                                                    />
                                         </td> 
 

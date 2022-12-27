@@ -48,12 +48,14 @@
             $(document).ready(function () {
                 $('input.number').css({"text-align": "right"});
                 $('input.number2').css({"text-align": "right"});
+                $('input.number3').css({"text-align": "right"});
                 $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
 //                $(".datepicker_month").datepicker({dateFormat: 'mm/yy'});
                 $('.D0').css({"text-align": "center"});
                 $('.number').number(true, 0);
 //            //Cac truong bang so --> se co so truong = 0
-//                $('.number2').number(true, 2);
+                $('.number2').number(true, 2);
+                $('.number3').number(true, 3);
                 $(".TD_STT").css({"width": "30px"});
                 $(".TD_MAKH").css({"width": "70px"});
                 $(".TD_NGAY").css({"width": "55px"});
@@ -146,7 +148,7 @@
                         </td>  
                         <td align = "right" class="TD_SOKU">
                             <input type="text" value="<s:property  value="commisionRate" />" 
-                                   name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].commisionRate" class="number"  />
+                                   name="hoahongMaster[<s:property  value="%{#rowstatus.index}" />].commisionRate" class="number3"  />
                         </td>  
                         <td align = "right" class="TD_SOKU">
                             <input type="text" value="<s:property  value="commisionTotalAmount" />" 
