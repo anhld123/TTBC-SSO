@@ -89,7 +89,7 @@ public class BCQT_HOAHONG extends ActionBcqtMain
                         hmParameter.get("nguonvon").toString().equals("-1") ? "" : hmParameter.get("nguonvon").toString(),
                         hmParameter.get("chuongtrinh").toString(), 
                         hmParameter.get("maxa").toString().equals("000000") ? "" : hmParameter.get("maxa").toString(), 
-                        hmParameter.get("mato").toString().equals("000000_0000000") ? "" : hmParameter.get("mato").toString());
+                        hmParameter.get("mato").toString().equals("000000_0000000") ? "" : hmParameter.get("mato").toString().split("_")[1]);
 //                lstDulieuHoahong = service.getDataCommission(pos_cd_username, "20221231",
 //                        "2",
 //                        "",
@@ -98,7 +98,8 @@ public class BCQT_HOAHONG extends ActionBcqtMain
 
                 _lstHH = lstDulieuHoahong;
 
-                System.out.println("So luong" + lstDulieuHoahong.size());
+                System.out.println("So luong" + pos_cd_username + "--" + pos_cd_username + dateStr + "-" + hmParameter.get("nguonvon").toString()+
+                        "-" + hmParameter.get("chuongtrinh").toString() + "-" + hmParameter.get("maxa").toString() + "-" + hmParameter.get("mato").toString().split("_")[1]);
                 if (lstDulieuHoahong.size() > 99) {
                     addActionError("Dữ liệu quá lớn. Vui lòng chọn từng xã, tổ để xác nhận.");;
                     return ERROR;
@@ -496,6 +497,7 @@ public class BCQT_HOAHONG extends ActionBcqtMain
             return SUCCESS;
         }catch(Exception e)
         {
+            Logger.getLogger(e.getMessage());
             return ERROR;
         }                
     }
