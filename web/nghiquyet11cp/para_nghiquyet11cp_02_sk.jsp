@@ -452,7 +452,7 @@
                             <tr style="height: 30px;">
                                 <td>Ngày BC</td>
                                 <td>
-                                    <sj:datepicker name="ngay_bc_DATE" value="%{'28/02/2022'}"  id="ngay_bc_DATE"
+                                    <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2022'}"  id="ngay_bc_DATE"
                                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
                                 </td>
                                 <td>Chương trình:</td>

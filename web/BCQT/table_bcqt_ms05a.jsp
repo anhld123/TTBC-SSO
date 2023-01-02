@@ -28,7 +28,7 @@
                 //Cac truong bang so --> se co so truong = 0
                 $('.number').number(true, 0);
 //            //Cac truong bang so --> se co so truong = 0
-                $('.number2').number(true, 0);
+                $('.number2').number(true, 2);
                 $(".TD_TEN_KH").css({"width": "130px"});
                 $(".TD_DONVITINH").css({"width": "50px"});
                 $(".TD_SOLUONG").css({"width": "50px"});
@@ -125,19 +125,19 @@
                                 </td>
                                 <td align = "right" class="TD_DONVITINH">
                                     <input type="text" value="<s:property  value="D4" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="D6 number2 TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()" readonly="readonly"/>
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="D6 number TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()" readonly="readonly"/>
                                 </td>
                                 <td align = "right" class="TD_NGUYENGIA">
                                     <input type="text" value="<s:property  value="D5" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D7 number2 TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()" readonly="readonly"/>
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D7 number TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()" readonly="readonly"/>
                                 </td>
                                 <td align = "right" class="TD_NGUYENGIA">
                                     <input type="text" value="<s:property  value="D6" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D8 number2 TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()" readonly="readonly"/>
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D8 number TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()" readonly="readonly"/>
                                 </td>
                                 <td align = "right" class="TD_NGUYENGIA">
                                     <input type="text" value="<s:property  value="D7" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="D9 number2 TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()" readonly="readonly"/>
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="D9 number TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()" readonly="readonly"/>
                                 </td>
                                 
                         </s:if>
@@ -157,19 +157,19 @@
                                 </td>
                                 <td align = "right" class="TD_NGUYENGIA">
                                     <input type="text" value="<s:property  value="D4" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="D6 number2 TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()"  <s:if test="Grade.equalsIgnoreCase('2')">readonly="readonly"</s:if>/>
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="D6 number TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()"  <s:if test="Grade.equalsIgnoreCase('2')">readonly="readonly"</s:if>/>
                                 </td>
                                 <td align = "right" class="TD_NGUYENGIA">
                                     <input type="text" value="<s:property  value="D5" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D7 number2 TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()"  <s:if test="Grade.equalsIgnoreCase('2')">readonly="readonly"</s:if>/>
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D7 number TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()"  <s:if test="Grade.equalsIgnoreCase('2')">readonly="readonly"</s:if>/>
                                 </td>
                                 <td align = "right" class="TD_NGUYENGIA">
                                     <input type="text" value="<s:property  value="D6" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D8 number2 TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()"  <s:if test="Grade.equalsIgnoreCase('2')">readonly="readonly"</s:if>/>
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D8 number TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()"  <s:if test="Grade.equalsIgnoreCase('2')">readonly="readonly"</s:if>/>
                                 </td>
                                 <td align = "right" class="TD_NGUYENGIA">
                                     <input type="text" value="<s:property  value="D7" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="D9 number2 TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()"  <s:if test="Grade.equalsIgnoreCase('2')">readonly="readonly"</s:if>/>
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="D9 number TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()"  <s:if test="Grade.equalsIgnoreCase('2')">readonly="readonly"</s:if>/>
                                 </td>
                                 
                         </s:else>

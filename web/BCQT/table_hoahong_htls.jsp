@@ -132,8 +132,8 @@
                             <th rowspan="1"  class="TD_TOTIEN">Dư nợ</th>
                             <th rowspan="1" class="TD_TOTIEN">Tổng số tiền hoa hồng</th> 
                             <th rowspan="1"  class="TD_TOTIEN">Số tiền hoa hồng tổ TK&VV</th>   
-                            <th rowspan="1"  class="TD_TOTIEN">Số tiền hoa hồng cho cấp huyện</th>
-                            <th rowspan="1" class="TD_TOTIEN">Số tiền hoa hồng cho cấp tỉnh</th> 
+                            <th rowspan="1"  class="TD_TOTIEN">Phí phân bổ cho cấp huyện</th> 
+                            <th rowspan="1" class="TD_TOTIEN">Phí phân bổ cho cấp tỉnh</th> 
                             <!--<th rowspan="1"  class="TD_TOTIEN">Lãi âm do khoanh nợ sai</th>-->   
                              <th rowspan="1"  class="TD_TOTIEN">Chốt/ Mở chốt</th>   
 
