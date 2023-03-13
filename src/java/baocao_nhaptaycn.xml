@@ -13,6 +13,7 @@
             <result name="success">/nhaptay-cn/para-nhaptaycn-main.jsp</result>
             <result name="htls2021">/nhaptay-cn/para-nhaptaycn-main-htls2021.jsp</result>
             <result name="PHIUT_001">/nhaptay-cn/para-nhaptaycn-main_phiut.jsp</result>
+            <result name="LEAVELOCAL">/Leavelocal/index.jsp</result>
             <result name="CHART_001">/nhaptay-cn/para-nhaptaycn-main_chart.jsp</result>
             <result name="KSNB_02">/nhaptay-cn/para-nhaptaycn-main_ktnb02.jsp</result>
             <result name="error">/nhaptay-cn/success.jsp</result>        

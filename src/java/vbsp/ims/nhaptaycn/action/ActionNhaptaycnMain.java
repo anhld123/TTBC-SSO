@@ -739,6 +739,10 @@ public class ActionNhaptaycnMain extends ActionSupport {
 //                setLstGiaiNgan(daoMain.getCanBo(UserName, "TIDE595"));
                 setLstNhadautu(daoMain.getCanBo(UserName, "NHADT"));
             }
+            
+            if (this.khoa_nhaptaycn.equals("LEAVELOCAL")) {
+                return "LEAVELOCAL";
+            }
 
             lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn, UserName, Grade);
             

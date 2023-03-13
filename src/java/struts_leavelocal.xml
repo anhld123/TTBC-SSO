@@ -1,0 +1,31 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- Author: Home -->
+ 
+<struts>
+    <package name="glkhtd" extends="struts-default,json-default">
+        <action name="leavelocal" class="vbsp.ims.leavelocal.LeaveTheLocal">
+            <result name="success">/Leavelocal/index.jsp</result>
+        </action>  
+        <action name="getLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="getLeaveLocal">
+            <result name="success">/Leavelocal/viewdata.jsp</result>
+        </action> 
+        <action name="PopupThanhvien" class="vbsp.ims.leavelocal.LeaveTheLocal" method="PopupThanhvien">
+            <result name="success">/Leavelocal/popupthanhvien.jsp</result>
+        </action>  
+        <action name="saveLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="saveLeaveLocal">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action>  
+        <action name="addRemoveTV" class="vbsp.ims.leavelocal.LeaveTheLocal" method="addRemoveTV">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action>  
+    </package>
+</struts>

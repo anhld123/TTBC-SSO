@@ -404,5 +404,5 @@
     <include file="struts-ketqua-ktdc.xml"/>   
     <include file ="huydongtk.xml"></include> 
     <include file="struts_nghiquyet11cp.xml"/>    
-     
+    <include file="struts_leavelocal.xml"/>       
 </struts>
