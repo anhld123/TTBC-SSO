@@ -47,7 +47,11 @@
             </tr>
         </s:iterator>
         <tr>
-            <th colspan="5" style="text-align: right;"><input type="button" value="Lưu" name="cmdLuu" id="cmdLuu"/></th>
+            <th colspan="5" style="text-align: right;">
+                <s:if test="Grade.equalsIgnoreCase('1')">
+                    <input type="button" value="Lưu" name="cmdLuu" id="cmdLuu"/>
+                </s:if>
+            </th>
         </tr>
     </table>
 </form>
