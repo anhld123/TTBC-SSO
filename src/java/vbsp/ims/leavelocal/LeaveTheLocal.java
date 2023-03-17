@@ -30,15 +30,15 @@ public class LeaveTheLocal extends ActionSupport
     private String txtNgayBc;
     private String txtNghiepVu;
     private String txtMakh;
-    private final String sGrade;
-    private final String sUser;
+    private String sGrade;
+    private String sUser;
     private String vsbpMakh;
     private String vsbpNgayBC;
     private InputStream pageResult;
     
     public LeaveTheLocal() {
-        this.sGrade = (String) ActionContext.getContext().getSession().get("reportGrade");
-        this.sUser = (String) ActionContext.getContext().getSession().get("username");
+        sGrade = (String) ActionContext.getContext().getSession().get("reportGrade");
+        sUser = (String) ActionContext.getContext().getSession().get("username");
     }
     
     public String execute() throws Exception {
@@ -303,6 +303,22 @@ public class LeaveTheLocal extends ActionSupport
 
     public void setLstCN(List<PosClass> lstCN) {
         this.lstCN = lstCN;
+    }
+
+    public String getsGrade() {
+        return sGrade;
+    }
+
+    public void setsGrade(String sGrade) {
+        this.sGrade = sGrade;
+    }
+
+    public String getsUser() {
+        return sUser;
+    }
+
+    public void setsUser(String sUser) {
+        this.sUser = sUser;
     }
 
    

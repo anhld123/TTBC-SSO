@@ -174,10 +174,10 @@
                 <td class="cssTdD48 colHiden"><input type="number" min="0" oninput="this.value = Math.abs(this.value)" value="<s:property value='D48'/>" name="ModelList[<s:property  value='%{#status.index}' />].D48" class="cssItem cssD48" /></td>
                 <td class="cssTdD49 colHiden"><input type="number" min="0" oninput="this.value = Math.abs(this.value)" value="<s:property value='D49'/>" name="ModelList[<s:property  value='%{#status.index}' />].D49" class="cssItem cssD49" /></td>
                 <td class="cssTdD50 colHiden"><input type="number" min="0" oninput="this.value = Math.abs(this.value)" value="<s:property value='D50'/>" name="ModelList[<s:property  value='%{#status.index}' />].D50" class="cssItem cssD50" /></td>
-                <td class="cssTdKHOA colHiden"><input type="number" min="0" oninput="this.value = Math.abs(this.value)" value="<s:property value='KHOA'/>" name="ModelList[<s:property  value='%{#status.index}' />].KHOA" class="cssItem cssKHOA"    /></td>
-                <td class="cssTdMAPGD colHiden"><input type="number" min="0" oninput="this.value = Math.abs(this.value)" value="<s:property value='MAPGD'/>" name="ModelList[<s:property  value='%{#status.index}' />].MAPGD" class="cssItem cssMAPGD"    /></td>
-                <td class="cssTdMACN colHiden"><input type="number" min="0" oninput="this.value = Math.abs(this.value)" value="<s:property value='MACN'/>" name="ModelList[<s:property  value='%{#status.index}' />].MACN" class="cssItem cssMACN"    /></td>
-                <td class="cssTdMA colHiden"><input type="number" min="0" oninput="this.value = Math.abs(this.value)" value="<s:property value='MA'/>" name="ModelList[<s:property  value='%{#status.index}' />].MA" class="cssItem cssMA"    /></td>
+                <td class="cssTdKHOA colHiden"><input type="text" value="<s:property value='KHOA'/>" name="ModelList[<s:property  value='%{#status.index}' />].KHOA" class="cssItem cssKHOA"    /></td>
+                <td class="cssTdMAPGD colHiden"><input type="text" value="<s:property value='MAPGD'/>" name="ModelList[<s:property  value='%{#status.index}' />].MAPGD" class="cssItem cssMAPGD"    /></td>
+                <td class="cssTdMACN colHiden"><input type="text" value="<s:property value='MACN'/>" name="ModelList[<s:property  value='%{#status.index}' />].MACN" class="cssItem cssMACN"    /></td>
+                <td class="cssTdMA colHiden"><input type="text" value="<s:property value='MA'/>" name="ModelList[<s:property  value='%{#status.index}' />].MA" class="cssItem cssMA"    /></td>
             </tr>
         </s:iterator>
     </tbody>

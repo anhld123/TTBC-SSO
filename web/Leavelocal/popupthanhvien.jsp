@@ -26,6 +26,7 @@
             <th>Quan hệ</th>
             <th>Ngày sinh</th>
             <th>CCCD/CMT</th>
+            <th>Số điện thoại</th>
         </tr>
         <s:iterator value="lstData" status="idxRows">
             <tr class="tr_clone">
@@ -44,13 +45,14 @@
                 <td>
                     <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D14" value="<s:property value='D14'/>">                           
                 </td>
+                <td>
+                    <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D28" value="<s:property value='D28'/>">                           
+                </td>
             </tr>
         </s:iterator>
         <tr>
-            <th colspan="5" style="text-align: right;">
-                <s:if test="Grade.equalsIgnoreCase('1')">
-                    <input type="button" value="Lưu" name="cmdLuu" id="cmdLuu"/>
-                </s:if>
+            <th colspan="6" style="text-align: right;">
+                <input type="button" value="Lưu dữ liệu" name="cmdLuu" id="cmdLuu"/>
             </th>
         </tr>
     </table>

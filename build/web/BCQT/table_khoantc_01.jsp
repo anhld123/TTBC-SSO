@@ -68,11 +68,11 @@
                         parseFloat($(arrCot[i]).eq(6).val()));
             }
             // Các khoản thu ngoại bảng khác
-            for (i = 0; i < arrCot.length; i++) {
-                //A20013	CT0016	Các khoản thu ngoại bảng khác
-                $(arrCot[i]).eq(12).val(parseFloat($(arrCot[i]).eq(13).val()) +
-                        parseFloat($(arrCot[i]).eq(14).val()));
-            }
+//            for (i = 0; i < arrCot.length; i++) {
+//                //A20013	CT0016	Các khoản thu ngoại bảng khác
+//                $(arrCot[i]).eq(12).val(parseFloat($(arrCot[i]).eq(13).val()) +
+//                        parseFloat($(arrCot[i]).eq(14).val()));
+//            }
 
             // Tinh cho dong A2001
             for (i = 0; i < arrCot.length; i++) {
@@ -89,15 +89,14 @@
 
             // Tinh cho dong A2002
             for (i = 0; i < arrCot.length; i++) {
-                //2.2 Các khoản phải trừ
-                $(arrCot[i]).eq(15).val(parseFloat($(arrCot[i]).eq(16).val()) + parseFloat($(arrCot[i]).eq(17).val()) + parseFloat($(arrCot[i]).eq(18).val()) +
-                        parseFloat($(arrCot[i]).eq(19).val()));
+                //2.2. Các khoản phải trừ:
+                $(arrCot[i]).eq(13).val(parseFloat($(arrCot[i]).eq(14).val()) + parseFloat($(arrCot[i]).eq(15).val()) + parseFloat($(arrCot[i]).eq(16).val()) );
             }
             // Tinh cho dong A2
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Các T/c Chính trị xã hội"
                 $(arrCot[i]).eq(7).val(parseFloat($(arrCot[i]).eq(8).val()) -
-                        parseFloat($(arrCot[i]).eq(15).val()));
+                        parseFloat($(arrCot[i]).eq(13).val()));
             }
 
             // A -  TỔNG THU
@@ -107,32 +106,31 @@
                         parseFloat($(arrCot[i]).eq(7).val()));
             }
 
-            // Tinh cho dong  B1 21=22+23+24+26+27+28+29
+            // Tinh cho dong  B1 1. Các khoản chi nội bảng  21=22+23+24+26+27+28+29
             for (i = 0; i < arrCot.length; i++) {
-                $(arrCot[i]).eq(21).val(parseFloat($(arrCot[i]).eq(22).val()) +
-                        parseFloat($(arrCot[i]).eq(23).val()) + parseFloat($(arrCot[i]).eq(24).val()) + parseFloat($(arrCot[i]).eq(25).val()) +
-                        parseFloat($(arrCot[i]).eq(26).val()) + parseFloat($(arrCot[i]).eq(27).val()) +
-                        parseFloat($(arrCot[i]).eq(28).val()) + parseFloat($(arrCot[i]).eq(29).val()));
+                $(arrCot[i]).eq(18).val(parseFloat($(arrCot[i]).eq(19).val()) +
+                        parseFloat($(arrCot[i]).eq(20).val()) + parseFloat($(arrCot[i]).eq(21).val()) + parseFloat($(arrCot[i]).eq(22).val()) +
+                        parseFloat($(arrCot[i]).eq(23).val()) + parseFloat($(arrCot[i]).eq(24).val()) +
+                        parseFloat($(arrCot[i]).eq(25).val()));
             }
 
-            // Tinh cho dong B20011  32=33+34+35+36+37  
+            // Tinh cho dong B20011 2.1. Các khoản cộng thêm
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Các T/c Chính trị xã hội"
-                $(arrCot[i]).eq(31).valparseFloat($(arrCot[i]).eq(32).val() + parseFloat($(arrCot[i]).eq(33).val()) + parseFloat($(arrCot[i]).eq(34).val()) +
-                        parseFloat($(arrCot[i]).eq(35).val()))
+                $(arrCot[i]).eq(27).valparseFloat($(arrCot[i]).eq(28).val() + parseFloat($(arrCot[i]).eq(29).val()) + parseFloat($(arrCot[i]).eq(30).val()))
             }
 
-            // Tinh cho dong B20012  38=39+40  
+            // Tinh cho dong B20012 2.2. Các khoản được loại trừ
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Các T/c Chính trị xã hội"
-                $(arrCot[i]).eq(36).val(parseFloat($(arrCot[i]).eq(37).val()) + parseFloat($(arrCot[i]).eq(38).val()) +
-                        parseFloat($(arrCot[i]).eq(39).val()) + parseFloat($(arrCot[i]).eq(40).val()))
+                $(arrCot[i]).eq(31).val(parseFloat($(arrCot[i]).eq(32).val()) + parseFloat($(arrCot[i]).eq(33).val()) +
+                        parseFloat($(arrCot[i]).eq(34).val()) + parseFloat($(arrCot[i]).eq(35).val()))
             }
 
-            // Tinh cho dong B2001  31=32+38+41  
+            // Tinh cho dong B2001  Các khoản chi ngoại bảng
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Các T/c Chính trị xã hội"
-                $(arrCot[i]).eq(30).val(parseFloat($(arrCot[i]).eq(31).val()) - parseFloat($(arrCot[i]).eq(36).val()))
+                $(arrCot[i]).eq(26).val(parseFloat($(arrCot[i]).eq(27).val()) - parseFloat($(arrCot[i]).eq(31).val()))
             }
 
             // Tinh cho dong B2002  42=43+44+45  
@@ -148,29 +146,28 @@
 //                $(arrCot[i]).eq(30).val(parseFloat($(arrCot[i]).eq(31).val()) + parseFloat($(arrCot[i]).eq(42).val()))
 //            }
 
-            // Tinh cho dong B  20=21+30 
+            // Tinh cho dong B  TỔNG CHI 
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Các T/c Chính trị xã hội"
-                $(arrCot[i]).eq(20).val(parseFloat($(arrCot[i]).eq(21).val()) + parseFloat($(arrCot[i]).eq(30).val()))
+                $(arrCot[i]).eq(18).val(parseFloat($(arrCot[i]).eq(18).val()) + parseFloat($(arrCot[i]).eq(26).val()))
             }
 
             // Tinh cho dong C  46=0-20
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Các T/c Chính trị xã hội"
-                $(arrCot[i]).eq(41).val(parseFloat($(arrCot[i]).eq(0).val()) - parseFloat($(arrCot[i]).eq(20).val()))
+                $(arrCot[i]).eq(36).val(parseFloat($(arrCot[i]).eq(0).val()) - parseFloat($(arrCot[i]).eq(17).val()))
             }
 
             // Tinh cho dong E  48=49+50
-            for (i = 0; i < arrCot.length; i++) {
-                //Tinh tong cho dong "Các T/c Chính trị xã hội"
-                $(arrCot[i]).eq(42).val(parseFloat($(arrCot[i]).eq(53).val()) + parseFloat($(arrCot[i]).eq(54).val()))
+            for (i = 0; i < arrCot.length; i++) {                
+                $(arrCot[i]).eq(37).val(parseFloat($(arrCot[i]).eq(47).val()) + parseFloat($(arrCot[i]).eq(48).val()))
             }
 
             // Tinh cho dong H  52=53+54+55+56
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Các T/c Chính trị xã hội"
-                $(arrCot[i]).eq(50).val(parseFloat($(arrCot[i]).eq(51).val()) + parseFloat($(arrCot[i]).eq(52).val()) +
-                        parseFloat($(arrCot[i]).eq(53).val()) + parseFloat($(arrCot[i]).eq(54).val()))
+                $(arrCot[i]).eq(44).val(parseFloat($(arrCot[i]).eq(45).val()) + parseFloat($(arrCot[i]).eq(46).val()) +
+                        parseFloat($(arrCot[i]).eq(47).val()) + parseFloat($(arrCot[i]).eq(48).val()))
             }
 
         }

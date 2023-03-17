@@ -56,28 +56,28 @@
                     $(arrCot[i]).eq(2).val( parseFloat($(arrCot[i]).eq(3).val()) + 
                             parseFloat($(arrCot[i]).eq(4).val()) + parseFloat($(arrCot[i]).eq(5).val()) + 
                              parseFloat($(arrCot[i]).eq(6).val()) + 
-                            parseFloat($(arrCot[i]).eq(7).val()));
+                            parseFloat($(arrCot[i]).eq(7).val()) + parseFloat($(arrCot[i]).eq(8).val()));
                 }
                 // Tinh cho dong A300
                 for (i = 0; i < arrCot.length; i++) { 
                     //Tinh tong cho dong "Các T/c Chính trị xã hội"
-                    $(arrCot[i]).eq(8).val( parseFloat($(arrCot[i]).eq(9).val()) + 
-                            parseFloat($(arrCot[i]).eq(10).val()) + parseFloat($(arrCot[i]).eq(11).val()) + 
-                             parseFloat($(arrCot[i]).eq(12).val()));
+                    $(arrCot[i]).eq(9).val( parseFloat($(arrCot[i]).eq(10).val()) + 
+                            parseFloat($(arrCot[i]).eq(11).val()) + parseFloat($(arrCot[i]).eq(12).val()) + 
+                             parseFloat($(arrCot[i]).eq(13).val()) + parseFloat($(arrCot[i]).eq(14).val()));
                 }
                 // Tinh cho dong B200
                 for (i = 0; i < arrCot.length; i++) { 
                     //Tinh tong cho dong "Các T/c Chính trị xã hội"
-                    $(arrCot[i]).eq(16).val( parseFloat($(arrCot[i]).eq(17).val()) + 
-                            parseFloat($(arrCot[i]).eq(18).val()) + parseFloat($(arrCot[i]).eq(19).val()) + 
-                             parseFloat($(arrCot[i]).eq(20).val()));
+                    $(arrCot[i]).eq(18).val( parseFloat($(arrCot[i]).eq(19).val()) + 
+                            parseFloat($(arrCot[i]).eq(20).val()) + parseFloat($(arrCot[i]).eq(21).val()) + 
+                             parseFloat($(arrCot[i]).eq(22).val()));
                 }
                 // Tinh cho dong B300
                 for (i = 0; i < arrCot.length; i++) { 
                     //Tinh tong cho dong "Các T/c Chính trị xã hội"
-                    $(arrCot[i]).eq(21).val( parseFloat($(arrCot[i]).eq(22).val()) + 
-                            parseFloat($(arrCot[i]).eq(23).val()) + parseFloat($(arrCot[i]).eq(24).val()) + 
-                             parseFloat($(arrCot[i]).eq(25).val()));
+                    $(arrCot[i]).eq(23).val( parseFloat($(arrCot[i]).eq(24).val()) + 
+                            parseFloat($(arrCot[i]).eq(25).val()) + parseFloat($(arrCot[i]).eq(26).val()) + 
+                             parseFloat($(arrCot[i]).eq(27).val()));
                 }
                   
                 // Tinh cho dong C000
@@ -85,15 +85,15 @@
                     //Tinh tong cho dong "Các T/c Chính trị xã hội"
 //                    $(arrCot[i]).eq(27).val( parseFloat($(arrCot[i]).eq(28).val()) + 
 //                            parseFloat($(arrCot[i]).eq(29).val()) );
-                    $(arrCot[i]).eq(13).val( parseFloat($(arrCot[i]).eq(1).val()) + 
-                            parseFloat($(arrCot[i]).eq(2).val()) - parseFloat($(arrCot[i]).eq(8).val()))
-                    $(arrCot[i]).eq(26).val( parseFloat($(arrCot[i]).eq(15).val()) + 
-                            parseFloat($(arrCot[i]).eq(16).val()) - parseFloat($(arrCot[i]).eq(21).val()))
+                    $(arrCot[i]).eq(15).val( parseFloat($(arrCot[i]).eq(1).val()) + 
+                            parseFloat($(arrCot[i]).eq(2).val()) - parseFloat($(arrCot[i]).eq(9).val()))
+                    $(arrCot[i]).eq(28).val( parseFloat($(arrCot[i]).eq(17).val()) + 
+                            parseFloat($(arrCot[i]).eq(18).val()) - parseFloat($(arrCot[i]).eq(23).val()))
                     
-                    $(arrCot[i]).eq(28).val( parseFloat($(arrCot[i]).eq(1).val()) + 
-                             - parseFloat($(arrCot[i]).eq(15).val()))
-                     $(arrCot[i]).eq(29).val( parseFloat($(arrCot[i]).eq(13).val()) + 
-                             - parseFloat($(arrCot[i]).eq(26).val()))
+                    $(arrCot[i]).eq(30).val( parseFloat($(arrCot[i]).eq(1).val()) + 
+                             - parseFloat($(arrCot[i]).eq(17).val()))
+                     $(arrCot[i]).eq(31).val( parseFloat($(arrCot[i]).eq(15).val()) + 
+                             - parseFloat($(arrCot[i]).eq(28).val()))
                 }
                 
             }

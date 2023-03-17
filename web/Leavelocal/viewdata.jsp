@@ -52,19 +52,44 @@
         display: None;
     }
 </style>
+<script>
+    $(function () {
+        $(".cssDate").datepicker({dateFormat: 'dd/mm/yy', showOn: "button",
+            buttonImage: "img/icon-ui_datepicker.png",
+            buttonImageOnly: true,
+            buttonText: "icono",
+            dateFormat: 'dd/mm/yy',
+            showButtonPanel: true,
+            changeMonth: true,
+            changeYear: true,
+            showOn: "both"});
+    });
+    $('.autoHeight').each(function () {
+        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+    }).on('input', function () {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+    function funcThanhVien(maKH) {
+        var w = 850, h = 600;
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 2);
+        window.open("/IMS_REPORTS/PopupThanhvien.action?vsbpMakh=" + maKH + "&vsbpNgayBC=" + $("#txtNgaybc").val() + "&vbsprandom=" + Math.random(), "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+    }
+</script>
 </head>
 <body>
     <div style="overflow:scroll; width: 198vh; height: 60vh;">
         <table id="customers" style="z-index: 1;">
             <thead>
                 <tr>
-                    <td class="hdtitle">Mã chi nhánh</td>
+                    <td class="hdtitle" style="display: none;">Mã chi nhánh</td>
                     <td class="hdtitle">Tên chi nhánh</td>
-                    <td class="hdtitle">Mã PGD</td>
+                    <td class="hdtitle" style="display: none;">Mã PGD</td>
                     <td class="hdtitle">Tên PGD</td>
                     <td class="hdtitle">Tên xã</td>
-                    <td class="hdtitle">Mã Hội đoàn thể</td>
-                    <td class="hdtitle">Tên hội đoàn thể</td>
+                    <td class="hdtitle" style="display: none;">Mã Hội đoàn thể</td>
+                    <td class="hdtitle" style="display: none;">Tên hội đoàn thể</td>
                     <td class="hdtitle">Tên tổ trưởng</td>
                     <td class="hdtitle">Mã KH</td>
                     <td class="hdtitle">Tên KH vay vốn</td>
@@ -90,7 +115,7 @@
             <tbody>
                 <s:iterator value="lstData" status="idxRows">
                     <tr class="tr_clone">
-                        <td class="txtBody">
+                        <td class="txtBody" style="display: none;">
                             <s:property value="D3"/>
                             <input type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].D3" value="<s:property value='D3'/>">
                             <input type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].D4" value="<s:property value='D4'/>">
@@ -120,14 +145,14 @@
                             <input type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].D37" value="<s:property value='D37'/>">
                             <input type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].D38" value="<s:property value='D38'/>">
                             <input type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].D39" value="<s:property value='D39'/>">
-                            
+
                         </td>
                         <td class="txtBody"><s:property value="D4"/></td>
-                        <td class="txtBody"><s:property value="D5"/></td>
+                        <td class="txtBody" style="display: none;"><s:property value="D5"/></td>
                         <td class="txtBody"><s:property value="D6"/></td>
                         <td class="txtBody"><s:property value="D8"/></td>
-                        <td class="txtBody"><s:property value="D26"/></td>
-                        <td class="txtBody"><s:property value="D27"/></td>
+                        <td class="txtBody" style="display: none;"><s:property value="D26"/></td>
+                        <td class="txtBody" style="display: none;"><s:property value="D27"/></td>
                         <td class="txtBody"><s:property value="D10"/></td>
                         <td class="txtBody"><s:property value="D11"/></td>
                         <td class="txtBody">
@@ -141,7 +166,12 @@
                         <td class="txtBody"><s:property value="D29"/></td>
                         <td class="txtBody"><s:property value="D14"/></td>
                         <td class="txtBody">
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D28" value="<s:property value='D28'/>" class="cssDate txtPublic  <s:property value="D20"/>">
+                            <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
+                                <s:property value="D28"/>
+                            </s:if>
+                            <s:else>
+                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D28" value="<s:property value='D28'/>" class="txtPublic">
+                            </s:else>
                         </td>
                         <td class="txtBody">
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
@@ -159,23 +189,22 @@
                         <td class="txtBody"  style="display: none;"><s:property value="D20"/></td>
                         <td class="txtBody"><input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D21" value="<s:property value='D21'/>" class="cssDate txtPublic  <s:property value="D20"/>"></td>
                         <td class="txtBody">
-                            <select class="txtPublic <s:property value="D20"/>" onchange="fncChangeVal(<s:property  value='%{#idxRows.index}' />, 'change')" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData<s:property  value='%{#idxRows.index}' />">
-                                <option value="00" <s:if test="D22.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>00: Hộ vay bỏ đi khỏi nơi cư trú hiện tại đã Tất toán, Xóa nợ, Bàn giao, Trở về địa phương</option>
+                            <select class="txtPublic <s:property value="D20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData<s:property  value='%{#idxRows.index}' />">
                                 <option value="01" <s:if test="D22.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Hộ vay bỏ đi khỏi nơi cư trú có thông tin địa chỉ cụ thể</option>
                                 <option value="02" <s:if test="D22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Hộ vay bỏ đi khỏi nơi cư trú có thông tin địa chỉ không cụ thể &nbsp;</option>
                                 <option value="03" <s:if test="D22.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Hộ vay bỏ đi khỏi nơi cư trú không có thông tin địa chỉ</option>
-                            </select>
-                        </td>
+                                </select>
+                            </td>
                             <td class="txtBody">
                                     <select class="txtPublic <s:property value="D20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D25" id="lstSubData<s:property  value='%{#idxRows.index}' />">
-                                <option hidden value="00" <s:if test="D25.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>></option>
+                                <option value="00" <s:if test="D25.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>>00: Không xác định</option>
                                 <option value="01" <s:if test="D25.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Tất toán nợ</option>
                                 <option value="02" <s:if test="D25.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Xoá nợ</option>
                                 <option value="03" <s:if test="D25.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Bàn giao</option>
                                 <option value="04" <s:if test="D25.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>04: Trở về địa phương &nbsp;</option>
                                 </select></td>
                             <td class="txtBody">
-                            <textarea name="lstData[<s:property  value='%{#idxRows.index}' />].D23" class="autoHeight <s:property value="D20"/>"><s:property value='D23'/></textarea>
+                                    <textarea name="lstData[<s:property  value='%{#idxRows.index}' />].D23" class="autoHeight <s:property value="D20"/>"><s:property value='D23'/></textarea>
                         </td>
                         <td>
                             <select class="txtPublic <s:property value="D20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D30" id="lstData<s:property  value='%{#idxRows.index}' />">
@@ -198,48 +227,3 @@
             </tbody>
         </table>
     </div>
-    <script>
-        $(function () {
-            $(".cssDate").datepicker({dateFormat: 'dd/mm/yy', showOn: "button",
-                buttonImage: "img/icon-ui_datepicker.png",
-                buttonImageOnly: true,
-                buttonText: "icono",
-                dateFormat: 'dd/mm/yy',
-                showButtonPanel: true,
-                changeMonth: true,
-                changeYear: true,
-                showOn: "both"});
-        });
-        $('.autoHeight').each(function () {
-            this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
-        }).on('input', function () {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
-
-        function fncChangeVal(val, action) {
-            var index;
-            if (action === 'load') {
-                index = val - 1;
-            } else {
-                index = val;
-            }
-            var x = document.getElementById('lstData' + index).value;
-            if (x !== '00') {
-                $('#lstSubData' + index).prop('disabled', 'disabled');
-                $('#lstSubData' + index).val("00");
-            } else {
-                $('#lstSubData' + index).removeAttr('disabled');
-                if (action !== 'load') {
-                    $('#lstSubData' + index).val("01");
-                }
-            }
-        }
-
-        function funcThanhVien(maKH) {
-            var w = 800, h = 600;
-            var left = (screen.width / 2) - (w / 2);
-            var top = (screen.height / 2) - (h / 2);
-            window.open("/IMS_REPORTS/PopupThanhvien.action?vsbpMakh=" + maKH + "&vsbpNgayBC=" + $("#txtNgaybc").val() + "&vbsprandom=" + Math.random(), "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
-        }
-    </script>

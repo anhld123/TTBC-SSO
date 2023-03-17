@@ -56,7 +56,7 @@ public class ktnbpakn extends ActionSupport {
     public String saveDataByTem() throws Exception {
         code = new PankService().saveDataByTem(txtNgaybc, sUser, sGrade, txtMaBc, ModelList);
         pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-        ApiDataByTem();
+       // ApiDataByTem();
         return "SaveData";
     }
 
