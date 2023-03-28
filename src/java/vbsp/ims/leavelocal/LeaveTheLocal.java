@@ -20,6 +20,7 @@ import java.io.InputStream;
 import vbsp.ims.action.ktktnb.DULIEU_NT_TQ;
 import java.util.List;
 import com.opensymphony.xwork2.ActionSupport;
+import vbsp.ims.action.ktktnb.PankService;
 import vbsp.ims.eps.epsModel;
 import vbsp.ims.khnv2021.PosClass;
 
@@ -191,6 +192,7 @@ public class LeaveTheLocal extends ActionSupport
                 if (calstatement != null) {
                     calstatement.close();
                 }
+                
             }
             catch (SQLException e) {
                 System.err.print(e.getMessage());
@@ -202,6 +204,7 @@ public class LeaveTheLocal extends ActionSupport
             CoreLogger.error(this.getClass().getName() + " saveData -> " + e2.getMessage());
         }
         this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        //ApiDataByTem
         return "success";
     }
     
@@ -240,7 +243,7 @@ public class LeaveTheLocal extends ActionSupport
         this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return "success";
     }
-    
+
     public List<DULIEU_NT_TQ> getLstData() {
         return this.lstData;
     }

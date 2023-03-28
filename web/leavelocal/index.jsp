@@ -105,6 +105,17 @@
 
             //Tìm dữ liệu
             $("#idSave").click(function () {
+                let maxIdx = document.getElementById("customers").rows.length;
+                for (let i = 0; i <= (maxIdx-2); i++) {
+                    let valCheck = document.getElementById("lstData" + i.toString()).value;
+                    if (valCheck=="01" || valCheck=="02"){
+                        let valNote = document.getElementById("lstData[" + i.toString() + "].D23").value;
+                        if(valNote == ""){
+                            alert("Bạn cần nhập nôi dung trường thông tin và đơn vị chuyển đến");
+                            return false;
+                        }
+                    };
+                }
                 let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
                 if (aCheck) {
                     var url, sdata;
