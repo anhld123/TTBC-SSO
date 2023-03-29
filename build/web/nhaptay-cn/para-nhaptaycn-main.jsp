@@ -775,6 +775,7 @@
                               (Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('NHAPTAYCN_03'))
                               ||(Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('LSTP_001'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('BDP_001'))
+                              ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('LEAVELOCAL'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('SMS_001'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('HANOI_001'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('HANOI_002'))
