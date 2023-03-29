@@ -208,8 +208,14 @@
                         </td>
                         <td>
                             <select class="txtPublic <s:property value="D20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D30" id="lstData<s:property  value='%{#idxRows.index}' />">
-                                <s:iterator value="lstCN" status="ideRows">
-                                    <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                <option value="000000"></option>
+                                <s:iterator value="lstCN" status="ideRows" var="language">
+                                    <s:if test="%{#language.PosCode == D30}">
+                                        <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
+                                    </s:if>
+                                    <s:else>
+                                        <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                    </s:else>
                                 </s:iterator>
                             </select>
                         </td>
