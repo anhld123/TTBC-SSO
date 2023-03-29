@@ -287,7 +287,7 @@ public class LeaveTheLocal extends ActionSupport {
                 value.setPosFlag(tmp.getString(9));
                 value.setBranchCode(tmp.getString(10));
                 value.setMakerId(tmp.getString(11));
-                value.setMakerId(tmp.getString(12));
+                value.setMakerDate(tmp.getString(12));
 //                    value.setD1(tmp.getString(14));
                 value.setD1(tmp.getString(15));
                 value.setD2(tmp.getString(16));
