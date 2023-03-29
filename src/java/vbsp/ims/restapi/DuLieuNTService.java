@@ -559,7 +559,7 @@ public class DuLieuNTService extends ReportService {
         try {
             json = mapper.writeValueAsString(data);
 //            System.out.println("key = " + key + " posCode = " + posCode + " posFlag = " + posFlag + " reportDate = " + reportDate + " makerId = " + makerId + authoriseId);   
-            System.out.println("ResultingJSONstring = " + json);            
+//            System.out.println("ResultingJSONstring = " + json);            
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
