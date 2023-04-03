@@ -85,7 +85,7 @@ public class DES {
             e.printStackTrace();
         }
         try {
-            System.out.println("Decode:" + crypt.decrypt("GsRaa8l+BQm/EENrJAMenA=="));
+            System.out.println("Decode:" + crypt.decrypt("6fcmn1XpGpQ="));
 
 //            System.out.println("Decode:" + crypt.decrypt("fbRzRyP4mi4="));
 

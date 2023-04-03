@@ -201,10 +201,10 @@ public class LeaveTheLocal extends ActionSupport {
                     calstatement.close();
                 }
 
-                int iResult = getDataSendTW();
-                if (iResult != 0) {
-                    return "unsuccess";
-                }
+//                int iResult = getDataSendTW();
+//                if (iResult != 0) {
+//                    return "unsuccess";
+//                }
 
             } catch (SQLException e) {
                 System.err.print(e.getMessage());
