@@ -62,14 +62,15 @@ public class LeaveTheLocal extends ActionSupport {
         final Connection con = db.getConnect();
         final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
         try {
-            final CallableStatement st = con.prepareCall("{call BODI_KHOIDP.GETDANHSACHKH(?,?,?,?,?)}");
+            final CallableStatement st = con.prepareCall("{call BODI_KHOIDP.GETDANHSACHKH(?,?,?,?,?,?)}");
             st.setString(1, this.txtNghiepVu);
-            st.setString(2, sReportdt);
-            st.setString(3, this.txtMakh);
-            st.setString(4, this.sUser);
-            st.registerOutParameter(5, -10);
+            st.setString(2, sGrade);
+            st.setString(3, sReportdt);
+            st.setString(4, this.txtMakh);
+            st.setString(5, this.sUser);
+            st.registerOutParameter(6, -10);
             st.execute();
-            final ResultSet rs = (ResultSet) st.getObject(5);
+            final ResultSet rs = (ResultSet) st.getObject(6);
             while (rs.next()) {
                 final DULIEU_NT_TQ obj = DULIEU_NT_TQ.newInstance();
                 obj.setD3(rs.getString("KU_MACN"));

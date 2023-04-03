@@ -196,12 +196,12 @@
                                 </select>
                             </td>
                             <td class="txtBody">
-                                    <select class="txtPublic <s:property value="D20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D25" id="lstSubData<s:property  value='%{#idxRows.index}' />">
-                                <option value="00" <s:if test="D25.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>>00: Bỏ nơi cư trú</option>
-                                <option value="01" <s:if test="D25.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Tất toán nợ</option>
-                                <option value="02" <s:if test="D25.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Xoá nợ</option>
-                                <option value="03" <s:if test="D25.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Bàn giao</option>
-                                <option value="04" <s:if test="D25.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>04: Trở về địa phương &nbsp;</option>
+                                 <select class="txtPublic <s:property value="D20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D25" id="lstSubData<s:property  value='%{#idxRows.index}' />">
+                                    <option value="00" <s:if test="D25.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>>00: Bỏ nơi cư trú</option>
+                                    <option value="01" <s:if test="D25.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Tất toán nợ</option>
+                                    <option value="02" <s:if test="D25.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Xoá nợ</option>
+                                    <option value="03" <s:if test="D25.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Bàn giao</option>
+                                    <option value="04" <s:if test="D25.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>04: Trở về địa phương &nbsp;</option>
                                 </select></td>
                             <td class="txtBody">
                                     <textarea id="lstData[<s:property  value='%{#idxRows.index}' />].D23" name="lstData[<s:property  value='%{#idxRows.index}' />].D23" class="autoHeight <s:property value="D20"/>"><s:property value='D23'/></textarea>
@@ -220,7 +220,9 @@
                             </select>
                         </td>
                         <td>
-                            <textarea name="lstData[<s:property  value='%{#idxRows.index}' />].D31" class="autoHeight <s:property value="D20"/>"><s:property value='D31'/></textarea>
+                             <s:if test = "!D20.equalsIgnoreCase('ThanhVien')"> 
+                                <textarea name="lstData[<s:property  value='%{#idxRows.index}' />].D31" class="autoHeight <s:property value="D20"/>"><s:property value='D31'/></textarea>
+                             </s:if>
                         </td>
                         <td class="txtBody">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" value="<s:property value='D24'/>" class="txtPublic <s:property value="D20"/>">
