@@ -85,10 +85,10 @@ public class LeaveTheLocal extends ActionSupport {
                 obj.setD13(rs.getString("NGAYSINH"));
                 obj.setD14(rs.getString("CMTKH"));
                 obj.setD15(rs.getString("LOAIDT"));
-                obj.setD16(rs.getString("D16"));
+                obj.setD16(rs.getString("D16")); // Số điện thoại
                 obj.setD17(rs.getString("D17"));
-                obj.setD18(rs.getString("D17"));
-                obj.setD19(rs.getString("D18"));
+                obj.setD18(rs.getString("D18"));
+                obj.setD19(rs.getString("D19"));
                 obj.setD20(rs.getString("D20"));
                 obj.setD21(rs.getString("THOIDIEM"));
                 obj.setD22(rs.getString("MANHOM"));

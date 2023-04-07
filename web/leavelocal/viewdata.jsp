@@ -165,9 +165,7 @@
                             </s:else>
                         </td>
                         <td class="txtBody">
-                            <s:if test="!D14.equalsIgnoreCase('01/01/1900')">
-                                <s:property value="D13"/>
-                            </s:if>
+                            <s:property value="D13"/>
                         </td>
                         <td class="txtBody"><s:property value="D14"/></td>
                         <td class="txtBody">
@@ -222,9 +220,6 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" value="<s:property value='D24'/>" class="txtPublic <s:property value="D20"/>">
                         </td>
                     </tr>
-                <script>
-                    fncChangeVal(<s:property value="%{#idxRows.count}" />, 'load');
-                </script>
             </s:iterator>
             </tbody>
         </table>

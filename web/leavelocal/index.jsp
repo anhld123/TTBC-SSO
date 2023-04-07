@@ -30,7 +30,7 @@
                     <legend><b>Tìm kiếm dữ liệu</b></legend>
                     <div>
                         Ngày báo cáo<span style="color: red;">*</span>: <input type="text" name="txtNgayBc" id="txtNgaybc" readonly="readonly"/>
-                        Mã khách hàng: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã khách hàng" value="1004000732">
+                        Mã khách hàng: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã khách hàng" value="">
                         <span style="color: red;">Thêm thành viên: Chọn tên khách hàng</span>
                     </div>
                     <div>
@@ -55,8 +55,8 @@
                     buttonText: "icono",
                     changeMonth: true,
                     changeYear: true,
-                    showOn: "both"}).val('31/10/2022');
-                    //showOn: "both"}).val(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toLocaleDateString("zh-HK", {year: 'numeric', month: '2-digit', day: '2-digit'}));
+                   // showOn: "both"}).val('31/10/2022');
+                    showOn: "both"}).val(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toLocaleDateString("zh-HK", {year: 'numeric', month: '2-digit', day: '2-digit'}));
             });
 
             //Tải dữ liệu
@@ -65,7 +65,7 @@
                 $("#txtNghiepVu").val("TRACUU");
                 url = "getLeaveLocal.action";
                 sdata = jQuery("#frmdata").serialize();
-                $("#loadingImage").css('display', 'block');
+                $("#viewData").html('<img src="img/loading.gif"/>');
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -73,14 +73,13 @@
                     success: function (data) {
                         $("#viewData").html(data);
                     },
-                    error: function (request) {
+                    error: function () {
                         alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
                     }
                 });
             });
 
           
-
             //Lưu dữ liệu
             $("#idSave").click(function () {
 
