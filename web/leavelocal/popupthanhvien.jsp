@@ -37,16 +37,16 @@
                     <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D12" value="<s:property value='D12'/>">
                 </td>
                 <td>
-                    <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D13" value="<s:property value='D13'/>">                           
+                    <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D15" value="<s:property value='D15'/>">                           
                 </td>
                 <td>
-                    <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D29" value="<s:property value='D29'/>">                           
+                    <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D13" value="<s:property value='D13'/>">                           
                 </td>
                 <td>
                     <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D14" value="<s:property value='D14'/>">                           
                 </td>
                 <td>
-                    <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D28" value="<s:property value='D28'/>">                           
+                    <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>">                           
                 </td>
             </tr>
         </s:iterator>
@@ -72,6 +72,7 @@
                 success: function (data) {
                     if (data === "200") {
                         alert("Thành công: Lưu dữ liệu.");
+                        window.opener.document.getElementById('idSearch').click();
                     } else {
                         alert("Lỗi: Lưu dữ liệu.");
                     }

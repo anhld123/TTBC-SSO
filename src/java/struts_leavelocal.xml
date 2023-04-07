@@ -21,6 +21,12 @@
                 <param name="inputName">pageResult</param>
             </result>
         </action>  
+        <action name="sendLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="sendLeaveLocal">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action> 
         <action name="addRemoveTV" class="vbsp.ims.leavelocal.LeaveTheLocal" method="addRemoveTV">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>

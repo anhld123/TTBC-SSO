@@ -21,7 +21,6 @@ import vbsp.ims.action.ktktnb.DULIEU_NT_TQ;
 import java.util.List;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.Date;
-import vbsp.ims.action.ktktnb.PankService;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.eps.epsModel;
 import vbsp.ims.khnv2021.PosClass;
@@ -62,37 +61,37 @@ public class LeaveTheLocal extends ActionSupport {
         final Connection con = db.getConnect();
         final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
         try {
-            final CallableStatement st = con.prepareCall("{call BODI_KHOIDP.GETDANHSACHKH(?,?,?,?,?,?)}");
-            st.setString(1, this.txtNghiepVu);
-            st.setString(2, sGrade);
-            st.setString(3, sReportdt);
-            st.setString(4, this.txtMakh);
-            st.setString(5, this.sUser);
-            st.registerOutParameter(6, -10);
+            final CallableStatement st = con.prepareCall("{call BODI_KHOIDP.GETDANHSACHKH(?,?,?,?,?)}");
+            st.setString(1, sGrade);
+            st.setString(2, sReportdt);
+            st.setString(3, txtMakh);
+            st.setString(4, sUser);
+            st.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
             st.execute();
-            final ResultSet rs = (ResultSet) st.getObject(6);
+            final ResultSet rs = (ResultSet) st.getObject(5);
             while (rs.next()) {
                 final DULIEU_NT_TQ obj = DULIEU_NT_TQ.newInstance();
-                obj.setD3(rs.getString("KU_MACN"));
+                obj.setTHUTU(rs.getInt("THUTU"));
+                obj.setD3(rs.getString("MACN"));
                 obj.setD4(rs.getString("TENCN"));
-                obj.setD5(rs.getString("KU_MAPGD"));
+                obj.setD5(rs.getString("MAPGD"));
                 obj.setD6(rs.getString("TENPGD"));
-                obj.setD7(rs.getString("KU_MADP"));
+                obj.setD7(rs.getString("MADP"));
                 obj.setD8(rs.getString("TENXA"));
-                obj.setD9(rs.getString("KU_MATO"));
+                obj.setD9(rs.getString("MATO"));
                 obj.setD10(rs.getString("TENTO"));
-                obj.setD11(rs.getString("KU_MAKH"));
+                obj.setD11(rs.getString("MAKH"));
                 obj.setD12(rs.getString("TENKH"));
-                obj.setD13(rs.getString("TENVC"));
-                obj.setD14(rs.getString("CMT"));
-                obj.setD15(rs.getString("KU_SOKU"));
-                obj.setD16(rs.getString("NGAYVAY"));
-                obj.setD17(rs.getString("NGAYDH"));
-                obj.setD18(rs.getString("DUNO"));
-                obj.setD19(rs.getString("NOLAI"));
-                obj.setD20(rs.getString("SODUTG"));
+                obj.setD13(rs.getString("NGAYSINH"));
+                obj.setD14(rs.getString("CMTKH"));
+                obj.setD15(rs.getString("LOAIDT"));
+                obj.setD16(rs.getString("D16"));
+                obj.setD17(rs.getString("D17"));
+                obj.setD18(rs.getString("D17"));
+                obj.setD19(rs.getString("D18"));
+                obj.setD20(rs.getString("D20"));
                 obj.setD21(rs.getString("THOIDIEM"));
-                obj.setD22(rs.getString("MAMON"));
+                obj.setD22(rs.getString("MANHOM"));
                 obj.setD23(rs.getString("THONGTIN"));
                 obj.setD24(rs.getString("BAOHIEM"));
                 obj.setD25(rs.getString("MAQL"));
@@ -126,33 +125,34 @@ public class LeaveTheLocal extends ActionSupport {
         final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.vsbpNgayBC));
         try {
             final CallableStatement st = con.prepareCall("{call BODI_KHOIDP.LISTTHANHVIEN(?,?,?)}");
-            st.setString(1, this.vsbpMakh);
-            st.setString(2, sReportdt);
-            st.registerOutParameter(3, -10);
+            st.setString(1, vsbpMakh);
+            st.setString(2, sUser);
+            st.registerOutParameter(3, oracle.jdbc.OracleTypes.CURSOR);
             st.execute();
             final ResultSet rs = (ResultSet) st.getObject(3);
             while (rs.next()) {
                 final DULIEU_NT_TQ obj = DULIEU_NT_TQ.newInstance();
-                obj.setD3(rs.getString("KU_MACN"));
+                obj.setTHUTU(rs.getInt("THUTU"));
+                obj.setD3(rs.getString("MACN"));
                 obj.setD4(rs.getString("TENCN"));
-                obj.setD5(rs.getString("KU_MAPGD"));
+                obj.setD5(rs.getString("MAPGD"));
                 obj.setD6(rs.getString("TENPGD"));
-                obj.setD7(rs.getString("KU_MADP"));
+                obj.setD7(rs.getString("MADP"));
                 obj.setD8(rs.getString("TENXA"));
-                obj.setD9(rs.getString("KU_MATO"));
+                obj.setD9(rs.getString("MATO"));
                 obj.setD10(rs.getString("TENTO"));
-                obj.setD11(rs.getString("KU_MAKH"));
+                obj.setD11(rs.getString("MAKH"));
                 obj.setD12(rs.getString("TENKH"));
-                obj.setD13(rs.getString("TENVC"));
-                obj.setD14(rs.getString("CMT"));
-                obj.setD15(rs.getString("KU_SOKU"));
-                obj.setD16(rs.getString("NGAYVAY"));
-                obj.setD17(rs.getString("NGAYDH"));
-                obj.setD18(rs.getString("DUNO"));
-                obj.setD19(rs.getString("NOLAI"));
-                obj.setD20(rs.getString("SODUTG"));
+                obj.setD13(rs.getString("NGAYSINH"));
+                obj.setD14(rs.getString("CMTKH"));
+                obj.setD15(rs.getString("LOAIDT"));
+                obj.setD16(rs.getString("D16")); //Số điện thoại
+                obj.setD17(rs.getString("D17"));
+                obj.setD18(rs.getString("D17"));
+                obj.setD19(rs.getString("D18"));
+                obj.setD20(rs.getString("D20"));
                 obj.setD21(rs.getString("THOIDIEM"));
-                obj.setD22(rs.getString("MAMON"));
+                obj.setD22(rs.getString("MANHOM"));
                 obj.setD23(rs.getString("THONGTIN"));
                 obj.setD24(rs.getString("BAOHIEM"));
                 obj.setD25(rs.getString("MAQL"));
@@ -187,24 +187,20 @@ public class LeaveTheLocal extends ActionSupport {
             final ArrayDescriptor des = ArrayDescriptor.createDescriptor("TAB_DULIEU_NT_TQ", con);
             final ARRAY array_to_pass = new ARRAY(des, con, (Object) array);
             CallableStatement calstatement = null;
-            final String strStoreproce = "{call BODI_KHOIDP.INSERT_DANHSACHKH(?,?,?,?,?)}";
+            final String strStoreproce = "{call BODI_KHOIDP.INSERT_DANHSACHKH(?,?,?,?)}";
             try {
-                calstatement = con.prepareCall(strStoreproce, 1003, 1007);
-                calstatement.setString(1, this.txtNgayBc);
-                calstatement.setString(2, this.txtMakh);
-                calstatement.setString(3, this.sUser);
-                calstatement.setArray(4, (Array) array_to_pass);
-                calstatement.registerOutParameter(5, 12);
+                calstatement = con.prepareCall(strStoreproce);
+                calstatement.setString(1, txtNgayBc);
+                calstatement.setString(2, sUser);
+                calstatement.setArray(3, (Array) array_to_pass);
+                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.NCHAR);
                 calstatement.execute();
-                code = calstatement.getString(5);
+                code = calstatement.getString(4);
                 if (calstatement != null) {
                     calstatement.close();
                 }
 
-//                int iResult = getDataSendTW();
-//                if (iResult != 0) {
-//                    return "unsuccess";
-//                }
+                System.out.println("Save Leaver Local => " + code);
 
             } catch (SQLException e) {
                 System.err.print(e.getMessage());
@@ -216,7 +212,21 @@ public class LeaveTheLocal extends ActionSupport {
         }
         this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
 
-        //ApiDataByTem
+        return "success";
+    }
+
+    public String sendLeaveLocal() throws Exception {
+        //Lưu dữ liệu trước khi gửi
+        saveLeaveLocal();
+        //Gửi số liệu
+        String code ="";
+        int iResult = getDataSendTW();
+        if (iResult != 0) {
+            code = "404";
+        }else{
+            code = "200";
+        }
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return "success";
     }
 
@@ -243,10 +253,8 @@ public class LeaveTheLocal extends ActionSupport {
                     calstatement.close();
                 }
 
-                int iResult = getDataSendTW();
-                if (iResult != 0) {
-                    return "unsuccess";
-                }
+                System.out.println("LeaverLocal => " + code);
+
             } catch (SQLException e) {
                 System.err.print(e.getMessage());
                 CoreLogger.error(this.getClass().getName() + "saveData -> " + e.getMessage());
@@ -289,7 +297,6 @@ public class LeaveTheLocal extends ActionSupport {
                 value.setBranchCode(tmp.getString(10));
                 value.setMakerId(tmp.getString(11));
                 value.setMakerDate(tmp.getString(12));
-//                    value.setD1(tmp.getString(14));
                 value.setD1(tmp.getString(15));
                 value.setD2(tmp.getString(16));
                 value.setD3(tmp.getString(17));
@@ -333,7 +340,6 @@ public class LeaveTheLocal extends ActionSupport {
             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             String dateStr = sdf.format(date1);
-//            System.out.println("sizi--------------" + lstUpdateDate.size());
             service = new DuLieuNTService();
             int status = service.updateDataX("BO_DI_KHOI_DP", pos_cd_username, "S", dateStr, sUser, sUser, lstUpdateDate);
             if (status != 200) {
