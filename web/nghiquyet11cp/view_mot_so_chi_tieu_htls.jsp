@@ -70,9 +70,8 @@
             <s:else>
                 <s:iterator value="lstData" status="idxRows">
                     <tr>
-                        <td style="padding-left: 10px;"><s:property value='TEN'/></td>
+                        <td style="padding: 10px;"><s:property value='TEN'/></td>
                         <td style="padding: 8px;"><s:property value='D1'/></td>
-                        </td>
                     </tr>
                 </s:iterator>
             </s:else>
