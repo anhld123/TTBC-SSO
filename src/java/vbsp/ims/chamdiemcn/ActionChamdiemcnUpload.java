@@ -530,6 +530,8 @@ public class ActionChamdiemcnUpload extends ActionSupport {
             return "DT_KHNV_HST";
         else if (khoa_cdtt.equals("TM_QATCT"))
             return "TM_QATCT";
+        else if (khoa_cdtt.equals("PHUTRACHXA_PGD"))
+            return "PHUTRACHXA_PGD";
         else
             return SUCCESS;
     }

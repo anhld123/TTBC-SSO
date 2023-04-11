@@ -17,6 +17,7 @@
         
         <action name="CDTT_CN08TH" class="vbsp.ims.chamdiemcn.CDTT_CN08TH"  method="load">
             <result name="success">/chamdiem_canhan/table_cdtt_cn08th.jsp</result>
+            <result name="success_extra">/chamdiem_canhan/table_cdtt_cn08th_extra.jsp</result>
             <result name="LANHDAO_DUYET">/chamdiem_canhan/table_cdtt_cn08th_duyet.jsp</result>
             <result name="LANHDAO_DUYET_ERROR">/chamdiem_canhan/table_cdtt_ld_chuaduyet.jsp</result>
             <result name="error">/chamdiem_canhan/success.jsp</result>        
@@ -133,6 +134,7 @@
             <result name="KT_CHUNGTU_KT">/chamdiem_canhan/cdtt-result-upload-file-KT_CHUNGTU_KT.jsp</result>
             <result name="DT_KHNV_HST">/chamdiem_canhan/cdtt-result-upload-file-DT_KHNV_HST.jsp</result>
             <result name="TM_QATCT">/chamdiem_canhan/cdtt-result-upload-file-TM_QATCT.jsp</result>
+            <result name="PHUTRACHXA_PGD">/chamdiem_canhan/cdtt-result-upload-file-PHUTRACHXA_PGD.jsp</result>
             <!--<result name="success">/chamdiem_tapthe/success.jsp</result>-->
             <result name="error">/chamdiem_tapthe/success.jsp</result>     
         </action>
