@@ -228,20 +228,32 @@
                     }
                     diemct_CN0102 = Math.round((giatri / 30) * 10 * 100) / 100;
                     var khoa_main = document.getElementById('khoa').value;
-//                     console.log('khoa_main='+khoa_main );
+//                    console.log('tinhkhac=' + tinhkhac);
 
                     if (tinhkhac === 'TINHKHAC')
                     {
 //                        document.getElementById('D10_CN010102').value = giatri;
                     } else
                     {
+                        console.log('trungbinh=' + trungbinh);
                         if (trungbinh != 'TB_PGD_KS_CB')
                         {
+//                            console.log('D_khoa_nhiemvu=' + D_khoa_nhiemvu);
+//                            if (D_khoa_nhiemvu === 'PGD_TD_TTD')
+//                            {
+                                var riengD5 = document.getElementById('D5_CN010102').value;
+                                var riengD1 = document.getElementById('D1_CN010102').value;
+//                                console.log('riengD5=' + riengD5 + "riengD1=" +riengD1+ "---"+riengD5*5*10/100);
+                                document.getElementById('D10_CN010102').value = riengD1 - riengD5*5*10/100 < 0 ? 0:riengD1 - riengD5*5*10/100
 
-                            document.getElementById(subid + '_CN010102').value = diemct_CN0102;
-                            document.getElementById('D5_CN010102').value = Math.round((giatri / 30) * 100 * 100) / 100;
+//                            } else
+//                            {
+//                                document.getElementById(subid + '_CN010102').value = diemct_CN0102;
+//                                document.getElementById('D5_CN010102').value = Math.round((giatri / 30) * 100 * 100) / 100;
+//                            }
                         } else
                         {
+
                             id_mact_diem = subid + '_CN010101';
                             var giatri = getvalue(id_mact_diem);
                             diemct_CN0102 = Math.round((giatri / 30) * 10 * 100) / 100;
@@ -635,7 +647,7 @@
                         </td>
                         <s:if test="NHAPTAY.equalsIgnoreCase('N')">                        
                             <td align = "left" class="TD_CHITIEU">
-                                <input type="text" id="D3_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="TEN" />"
+                                <input type="text" id="D3_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="TEN" />" title="<s:property  value="D32" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" class="TEN_KH <s:property value='D19'/>"
                                        readonly="true"/>
                             </td>
@@ -654,7 +666,12 @@
                             </td>
                             <td align = "right" class="TD_SOLUONG">
                                 <input type="text" value="<s:property  value="D5" />" id="D5_<s:property  value="MA" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number2 <s:property value='D19'/>" readonly="true"/>
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
+                                       <s:if test="D29.equalsIgnoreCase('Y')"> onblur="if (this.value == '') {
+                                                   this.value = 0};
+                                               evaluateSum_row('<s:property value='MA'/>', '<s:property value='D29'/>');
+                                               evaluateSum_col('CHAMDIEMTT_001', 'D10');"  </s:if>
+                                      class="TEN_KH number2 <s:property value='D19'/>" readonly="true"/>
                             </td>
 
                             <td align = "right" class="TD_SOLUONG">
@@ -722,7 +739,7 @@
                         <s:if test="NHAPTAY.equalsIgnoreCase('Y')">                         
 
                             <td align = "left" class="TD_CHITIEU">
-                                <input type="text" id="TEN_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="TEN" />"
+                                <input type="text" id="TEN_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="TEN" />" title="<s:property  value="D32" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" class="TEN_KH <s:property value='D19'/>"
                                        readonly="readonly" />
                             </td>

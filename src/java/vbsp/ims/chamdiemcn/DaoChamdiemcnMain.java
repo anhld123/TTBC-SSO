@@ -650,6 +650,8 @@ public class DaoChamdiemcnMain {
                     value.setD30(reset.getString(44));
                     value.setNHAPTAY(reset.getString(45));
                     value.setFONTFORMAT(reset.getString(46));
+                    value.setD31(reset.getString(47));
+                    value.setD32(reset.getString(48));
 
                     lstBcqt_NT.add(value);
                 }
@@ -1934,7 +1936,64 @@ public class DaoChamdiemcnMain {
                     
                     bSuccess = true;
 
-                    break;   
+                    break; 
+                
+                case "PHUTRACHXA_PGD":  //Cán bộ phụ trách PGD
+                    sInsert = "insert into dulieu_cdcn_imp(KHOA,STT, maxa, TENXA, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13 , ngaybc, "
+                            + " NGUOITAO, file_name)\n"
+                            + "values(?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    conn.setAutoCommit(false);
+                    insert = conn.prepareStatement(sInsert);
+                    Delete = "delete from dulieu_cdcn_imp where ngaybc=? and d13=? and khoa = ?";
+                    statementDelete = conn.prepareCall(Delete);
+                    statementDelete.setDate(1, new java.sql.Date(ngaybc.getTime()));
+                    statementDelete.setString(2, poscd);
+                    statementDelete.setString(3, mabc);
+
+                    statementDelete.execute();
+                    for (int i = 0; i < lstExcel.size(); i++) {
+                        ModelExcelFile value = lstExcel.get(i);
+//                        insert.setString(1, fileName);
+//                        insert.setDate(2, new java.sql.Date(ngaybc.getTime()));
+                        insert.setString(1, value.getC1());
+//                        insert.setString(4, poscd);
+                        insert.setString(2, value.getC2());
+                        insert.setString(3, value.getC3());
+                        insert.setString(4, value.getN1());
+                        insert.setString(5, value.getN2());
+                        insert.setString(6, value.getN3());
+                        insert.setString(7, value.getN4());
+                        insert.setString(8, value.getN5());
+                        insert.setString(9, value.getN6());
+                        
+                        insert.setString(10, value.getN7());
+                        insert.setString(11, value.getN8());
+                        insert.setString(12, value.getN9());
+                        insert.setString(13, value.getN10());
+                        insert.setString(14, value.getN11());
+                        insert.setString(15, value.getN12());
+                        insert.setString(16, value.getN13());
+                        
+                        insert.setString(17, poscd);
+                        insert.setDate(18, new java.sql.Date(ngaybc.getTime()));
+                        insert.setString(19,username);    
+                        insert.setString(20, fileName);
+                        insert.execute();
+                    }
+                    Update = "update dulieu_cdcn_imp set maxa = replace(to_char(to_number(replace(maxa,'.0','')),'000000'),' ',''), D1 = replace(D1,'.0',''), D3 = replace(D3,'.0',''), D5 = replace(D5,'.0',''), D7 = replace(D7,'.0',''), "
+                            + "D9 = replace(D9,'.0',''), D11 = replace(D11,'.0','') where ngaybc=? and D13=? and khoa=?";
+                    statementUpdate = conn.prepareCall(Update);
+                    statementUpdate.setDate(1, new java.sql.Date(ngaybc.getTime()));
+                    statementUpdate.setString(2, poscd);
+                    statementUpdate.setString(3, mabc);
+                    statementUpdate.execute();
+                    
+                    conn.commit();
+                    conn.setAutoCommit(true);                                        
+                    
+                    bSuccess = true;
+
+                    break;       
                     
                 case "TM_QATCT":  //Vượt quỹ an toàn chi trả
                     sInsert = "insert into dulieu_cdcn_imp(KHOA, STT, MAPGD, TENPGD, D1, D2, D3,ngaybc, "

@@ -86,6 +86,9 @@ public class ActionChamdiemcnMain extends ActionSupport {
     protected List<ListValue> lstParameters = new ArrayList<>();
     private List<ListValue> lstCBTindung = new ArrayList<ListValue>();
     private List<ListValue> lstCBKetoan = new ArrayList<ListValue>();
+    private List<ListValue> lstXeploaiABC = new ArrayList<ListValue>();
+    private List<ListValue> lstXeploai = new ArrayList<ListValue>();
+    private List<ListValue> lstXeploaiHTNV = new ArrayList<ListValue>();
     protected List<String> poscd = new ArrayList<String>();
     protected String isDisplayTM = "N";
     protected String type_bcqt;
@@ -190,6 +193,24 @@ public class ActionChamdiemcnMain extends ActionSupport {
     public void setRULEUSER(String RULEUSER) {
         this.RULEUSER = RULEUSER;
     }
+
+    public List<ListValue> getLstXeploaiABC() {
+        return lstXeploaiABC;
+    }
+
+    public void setLstXeploaiABC(List<ListValue> lstXeploaiABC) {
+        this.lstXeploaiABC = lstXeploaiABC;
+    }
+
+    public List<ListValue> getLstXeploai() {
+        return lstXeploai;
+    }
+
+    public void setLstXeploai(List<ListValue> lstXeploai) {
+        this.lstXeploai = lstXeploai;
+    }
+    
+    
     protected String TT_DUYET;
 
     private List<ListValue> lstPhongBan = new ArrayList<ListValue>();
@@ -275,6 +296,15 @@ public class ActionChamdiemcnMain extends ActionSupport {
         this.lstAllCdtt = lstAllCdtt;
     }
 
+    public List<ListValue> getLstXeploaiHTNV() {
+        return lstXeploaiHTNV;
+    }
+
+    public void setLstXeploaiHTNV(List<ListValue> lstXeploaiHTNV) {
+        this.lstXeploaiHTNV = lstXeploaiHTNV;
+    }
+
+    
     protected String MACT;
 
     public String getMACT() {
