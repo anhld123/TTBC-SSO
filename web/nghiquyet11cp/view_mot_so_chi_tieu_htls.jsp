@@ -57,14 +57,26 @@
             </tr>
         </thead>
         <tbody>
-            <s:iterator value="lstData" status="idxRows">
-                <tr>
-                    <td style="display:none;"><input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].KHOA" value="<s:property value='KHOA'/>"></td>
-                    <td style="padding-left: 10px;"><s:property value='TEN'/></td>
-                    <td><input style="width: 100%; background-color: transparent;" type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D1" value="<s:property value='D1'/>"></td>
-                    </td>
-                </tr>
-            </s:iterator>
+            <s:if test="Grade.equalsIgnoreCase('1')">
+                <s:iterator value="lstData" status="idxRows">
+                    <tr>
+                        <td style="display:none;"><input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].KHOA" value="<s:property value='KHOA'/>"></td>
+                        <td style="padding-left: 10px;"><s:property value='TEN'/></td>
+                        <td><input style="width: 100%; background-color: transparent;" type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D1" value="<s:property value='D1'/>"></td>
+                        </td>
+                    </tr>
+                </s:iterator>
+            </s:if>
+            <s:else>
+                <s:iterator value="lstData" status="idxRows">
+                    <tr>
+                        <td style="padding-left: 10px;"><s:property value='TEN'/></td>
+                        <td style="padding: 8px;"><s:property value='D1'/></td>
+                        </td>
+                    </tr>
+                </s:iterator>
+            </s:else>
+
         </tbody>
     </table>
 </div>
