@@ -35,6 +35,7 @@ public class LeaveTheLocal extends ActionSupport {
     private String txtNgayBc;
     private String txtNghiepVu;
     private String txtMakh;
+    private String txtsMadv;
     private String sGrade;
     private String sUser;
     private String vsbpMakh;
@@ -61,14 +62,15 @@ public class LeaveTheLocal extends ActionSupport {
         final Connection con = db.getConnect();
         final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
         try {
-            final CallableStatement st = con.prepareCall("{call BODI_KHOIDP.GETDANHSACHKH(?,?,?,?,?)}");
+            final CallableStatement st = con.prepareCall("{call BODI_KHOIDP.GETDANHSACHKH(?,?,?,?,?,?)}");
             st.setString(1, sGrade);
             st.setString(2, sReportdt);
             st.setString(3, txtMakh);
             st.setString(4, sUser);
-            st.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
+            st.setString(5, txtsMadv);
+            st.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
             st.execute();
-            final ResultSet rs = (ResultSet) st.getObject(5);
+            final ResultSet rs = (ResultSet) st.getObject(6);
             while (rs.next()) {
                 final DULIEU_NT_TQ obj = DULIEU_NT_TQ.newInstance();
                 obj.setTHUTU(rs.getInt("THUTU"));
@@ -114,7 +116,7 @@ public class LeaveTheLocal extends ActionSupport {
         } catch (SQLException ex) {
             Logger.getLogger(LeaveTheLocal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        lstCN = dao.getChiNhanh("3", "000000");
+        lstCN = dao.getDonvi("LEAVELOCAL", "");
         return "success";
     }
 
@@ -307,7 +309,6 @@ public class LeaveTheLocal extends ActionSupport {
                 value.setD8(tmp.getString(22));
                 value.setD9(tmp.getString(23));
                 value.setD10(tmp.getString(24));
-
                 value.setD11(tmp.getString(25));
                 value.setD12(tmp.getString(26));
                 value.setD13(tmp.getString(27));
@@ -350,7 +351,6 @@ public class LeaveTheLocal extends ActionSupport {
             Logger.getLogger(LeaveTheLocal.class.getName()).log(Level.SEVERE, "Lỗi hàm gửi tw", ex);
             return 2;
         }
-//        lstCN = dao.getChiNhanh("3", "000000");
         return 0;
     }
 
@@ -434,4 +434,13 @@ public class LeaveTheLocal extends ActionSupport {
         this.sUser = sUser;
     }
 
+    public String getTxtsMadv() {
+        return txtsMadv;
+    }
+
+    public void setTxtsMadv(String txtsMadv) {
+        this.txtsMadv = txtsMadv;
+    }
+
+   
 }

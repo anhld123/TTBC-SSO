@@ -60,8 +60,8 @@ public class epsAction extends ActionSupport {
         capbc = (String) session.get("reportGrade");
         tendn = (String) session.get("username");
         epsModel dao =  new epsModel();
-        lstPos = dao.getPGD(capbc, tendn);
-        lstCN = dao.getChiNhanh(capbc, tendn);
+        lstPos = dao.getDonvi(capbc, tendn);
+        lstCN = dao.getDonvi(capbc, tendn);
         lstStatus = dao.getSearchStatusList();
         return SUCCESS;
     }
@@ -70,7 +70,7 @@ public class epsAction extends ActionSupport {
         //Lấy danh sách đơn vị theo cấp báo cáo
         session = ActionContext.getContext().getSession();
         capbc = (String) session.get("reportGrade");
-        lstPGD = new epsModel().getCNToPGD(capbc, matinh);
+        lstPGD = (Map<String, String>) new epsModel().getDonvi(capbc, tendn);
         return SUCCESS;
     }
 

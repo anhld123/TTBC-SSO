@@ -27,6 +27,8 @@ import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.chamdiemcn.ModelExcelFile;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
+import vbsp.ims.eps.epsModel;
+import vbsp.ims.khnv2021.PosClass;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
@@ -50,6 +52,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     public List<ModelExcelFile> lstExcel = new ArrayList<>();
     private String fileNameNew;
     public String message;
+    private List<PosClass> lstDonvi;
 
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
@@ -422,6 +425,11 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
             else if (khoa_nghiquyet11cp.equals("NQ11_DCKH_CNTW")) {
                 return "nq11_dieuchinhkehoach_htls";
             }
+            else if (khoa_nghiquyet11cp.equals("NQ11_CTHTLS")) {
+                epsModel dao = new epsModel();
+                lstDonvi = dao.getDonvi(Grade, UserName);
+                return "screen_mot_so_chi_tieu_htls";
+            }
             else{
                 return "";
             }
@@ -707,6 +715,14 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
         this.lstMaPGD = lstMaPGD;
     }
     //</editor-fold>
+
+    public List<PosClass> getLstDonvi() {
+        return lstDonvi;
+    }
+
+    public void setLstDonvi(List<PosClass> lstDonvi) {
+        this.lstDonvi = lstDonvi;
+    }
 
     
 

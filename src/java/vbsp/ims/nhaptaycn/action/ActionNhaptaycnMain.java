@@ -32,17 +32,16 @@ import vbsp.ims.bcqt.model.QT_DULIEU_NT.saveDulieuNT_Phi;
 import vbsp.ims.chamdiemcn.ModelExcelFile;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.DaoDcptNo;
-import vbsp.ims.dao.DaoRptQuery;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.define.Define;
+import vbsp.ims.eps.epsModel;
+import vbsp.ims.khnv2021.PosClass;
 import vbsp.ims.ktgs.dao.DaoKtgsMain;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
 import vbsp.ims.model.Pagination;
 import vbsp.ims.model.ktnb.PosMainModel;
-import vbsp.ims.query.ImsFillParaMeter;
-import vbsp.ims.query.ImsPlSqlQuery;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.sbv.daoSbv;
@@ -73,6 +72,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected String pos_cd_username;
 
     protected int lockStatus;
+    private List<PosClass> lstDonvi;
 
     public List<ListValue> getLstBDD() {
         return lstBDD;
@@ -738,18 +738,16 @@ public class ActionNhaptaycnMain extends ActionSupport {
             }
 
             if (this.khoa_nhaptaycn.equals("LEAVELOCAL")) {
-                 System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
+                System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
+                //Lấy danh sách Pos theo User đăng nhập
+                epsModel dao = new epsModel();
+                lstDonvi = dao.getDonvi(Grade, UserName);
                 return "LEAVELOCAL";
             }
-
-            lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn, UserName, Grade);
 
             if (conn != null) {
                 conn.close();
             }
-//            if (khoa_nhaptaycn.equals("HTLS2021")) {
-//                return "htls2021";
-//            }
 
             lockStatus = 0;
 
@@ -1582,6 +1580,14 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     public void setLstNhadautu(List<ListValue> lstNhadautu) {
         this.lstNhadautu = lstNhadautu;
+    }
+
+    public List<PosClass> getLstDonvi() {
+        return lstDonvi;
+    }
+
+    public void setLstDonvi(List<PosClass> lstDonvi) {
+        this.lstDonvi = lstDonvi;
     }
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">

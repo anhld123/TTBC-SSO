@@ -133,7 +133,6 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D13" value="<s:property value='D13'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D14" value="<s:property value='D14'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D15" value="<s:property value='D15'/>">
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D17" value="<s:property value='D17'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D18" value="<s:property value='D18'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D19" value="<s:property value='D19'/>">
@@ -170,10 +169,10 @@
                         <td class="txtBody"><s:property value="D14"/></td>
                         <td class="txtBody">
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
-                                <s:property value="D28"/>
+                                <s:property value="D16"/>
                             </s:if>
                             <s:else>
-                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D28" value="<s:property value='D28'/>" class="txtPublic">
+                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" class="txtPublic">
                             </s:else>
                         </td>
                         <td class="txtBody">

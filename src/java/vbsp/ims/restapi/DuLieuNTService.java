@@ -559,7 +559,7 @@ public class DuLieuNTService extends ReportService {
         try {
             json = mapper.writeValueAsString(data);
 //            System.out.println("key = " + key + " posCode = " + posCode + " posFlag = " + posFlag + " reportDate = " + reportDate + " makerId = " + makerId + authoriseId);   
-//            System.out.println("ResultingJSONstring = " + json);            
+            System.out.println("ResultingJSONstring = " + json);            
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -649,7 +649,7 @@ public class DuLieuNTService extends ReportService {
 
         return response.getStatus();
     }
-
+   
 //    Kiểm tra trạng thái khóa nhập tay
     public ArrayList<LockSendModel> getDataLockManual(String key, String posCode, String flagReport, String reportDate) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();

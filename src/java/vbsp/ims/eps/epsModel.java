@@ -11,9 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import oracle.jdbc.OracleTypes;
@@ -29,50 +27,8 @@ public class epsModel {
     public epsModel() {
     }
     
-    public List<PosClass> getChiNhanh(String capbc, String tendn) {
-        List<PosClass> lst = new ArrayList<>();
-        DaoConnect db = new DaoConnect();
-        Connection con = db.getConnect();
-        try {
-            //Thực hiện lấy các biến cần truy cập
-            CallableStatement st = con.prepareCall("{call PROC_GET_CHINHANH(?,?,?)}");
-            st.setString(1, capbc);
-            st.setString(2, "000000");
-            st.registerOutParameter(3, OracleTypes.CURSOR);
-            st.execute();
-            ResultSet rs = (ResultSet) st.getObject(3);
-            while (rs.next()) {
-                PosClass obj = new PosClass();
-                lst.add(new PosClass(rs.getString("MAPGD"), rs.getString("TENDV")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(epsAction.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return lst;
-    }
-    
-    public Map<String, String> getCNToPGD(String capbc, String tendn) {
-        Map<String, String> lstPGD = new HashMap<String, String>();
-        DaoConnect db = new DaoConnect();
-        Connection con = db.getConnect();
-        try {
-            //Thực hiện lấy các biến cần truy cập
-            CallableStatement st = con.prepareCall("{call PROC_GET_CHINHANH(?,?,?)}");
-            st.setString(1, capbc);
-            st.setString(2, tendn);
-            st.registerOutParameter(3, OracleTypes.CURSOR);
-            st.execute();
-            ResultSet rs = (ResultSet) st.getObject(3);
-            while (rs.next()) {
-               lstPGD.put(rs.getString("MAPGD"), rs.getString("TENDV"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(epsAction.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return lstPGD;
-    }
-    
-    public List<PosClass> getPGD(String capbc, String tendn) {
+    //Hàm lấy danh sách đơn vị theo cấp báo cáo và Tên đăng nhập
+    public List<PosClass> getDonvi(String capbc, String tendn) {
         List<PosClass> lst = new ArrayList<>();
         DaoConnect db = new DaoConnect();
         Connection con = db.getConnect();
@@ -86,7 +42,7 @@ public class epsModel {
             ResultSet rs = (ResultSet) st.getObject(3);
             while (rs.next()) {
                 PosClass obj = new PosClass();
-                lst.add(new PosClass(rs.getString("MAPGD"), rs.getString("TENDV")));
+                lst.add(new PosClass(rs.getString("MADV"), rs.getString("TENDV")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(epsAction.class.getName()).log(Level.SEVERE, null, ex);

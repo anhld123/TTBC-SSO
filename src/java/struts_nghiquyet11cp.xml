@@ -13,6 +13,7 @@
             <result name="nghiquyet11cp_01">/nghiquyet11cp/para_nghiquyet11cp.jsp</result>
             <!--<result name="nghiquyet11cp_01_kh">/nghiquyet11cp/para_nghiquyet11cp_01_kh.jsp</result>-->
             <result name="nghiquyet11cp_04_kh">/nghiquyet11cp/para_nghiquyet11cp_04_kh.jsp</result>
+            <result name="screen_mot_so_chi_tieu_htls">/nghiquyet11cp/screen_mot_so_chi_tieu_htls.jsp</result>
             <result name="nghiquyet11cp_02_sk">/nghiquyet11cp/para_nghiquyet11cp_02_sk.jsp</result>
             <result name="nghiquyet11cp_01_dkkh">/nghiquyet11cp/para_nghiquyet11cp_01_dkkh.jsp</result>
             <result name="nghiquyet11cp_gkh">/nghiquyet11cp/para_nghiquyet11cp_gkh.jsp</result>
@@ -214,7 +215,24 @@
             </result>                                   
         </action>
         
-        
+        <!--Một số chỉ tiêu HTLS-->
+        <action name="get_mscthtls" class="vbsp.ims.nghiquyet11cp.MSCTHTLS"  method="get_mscthtls">
+             <result name="success">/nghiquyet11cp/view_mot_so_chi_tieu_htls.jsp</result>                                       
+        </action>
+        <action name="save_mscthtls" class="vbsp.ims.nghiquyet11cp.MSCTHTLS"  method="save_mscthtls">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>                                   
+        </action>
+        <action name="Send_mscthtls" class="vbsp.ims.nghiquyet11cp.MSCTHTLS"  method="Send_mscthtls">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>                                   
+        </action>
     </package>
     
 </struts>
+
+
