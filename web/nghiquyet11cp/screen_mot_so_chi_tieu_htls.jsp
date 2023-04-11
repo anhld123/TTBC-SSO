@@ -87,6 +87,7 @@
                     var url, sdata;
                     url = "save_mscthtls.action";
                     sdata = jQuery("#frmdata").serialize();
+                    $("#viewData").html('<img src="img/loading.gif"/>');
                     $.ajax({
                         type: "POST",
                         url: url,
@@ -113,6 +114,7 @@
                     var url, sdata;
                     url = "Send_mscthtls.action";
                     sdata = jQuery("#frmdata").serialize();
+                    $("#viewData").html('<img src="img/loading.gif"/>');
                     $.ajax({
                         type: "POST",
                         url: url,
@@ -127,21 +129,6 @@
                         },
                         error: function (request) {
                             alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
-                        }
-                    });
-                }
-            });
-
-            $('#treeList :checkbox').change(function () {
-                $(this).siblings('ul').find(':checkbox').prop('checked', this.checked);
-                if (this.checked) {
-                    $(this).parentsUntil('#treeList', 'ul').siblings(':checkbox').prop('checked', true);
-                } else {
-                    $(this).parentsUntil('#treeList', 'ul').each(function () {
-                        var $this = $(this);
-                        var childSelected = $this.find(':checkbox:checked').length;
-                        if (!childSelected) {
-                            $this.prev(':checkbox').prop('checked', false);
                         }
                     });
                 }
