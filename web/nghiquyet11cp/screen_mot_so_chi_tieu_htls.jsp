@@ -4,8 +4,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="js/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="js/3.6.0/jquery-ui.css">
+        <script src="js/3.6.0/jquery.min.js"></script>
         <script src="js/3.6.0/jquery-ui.js"></script>
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
@@ -65,12 +65,16 @@
                 url = "get_mscthtls.action";
                 sdata = jQuery("#frmdata").serialize();
                 $("#viewData").html('<img src="img/loading.gif"/>');
+                btnDisabled(1);
                 $.ajax({
                     type: "POST",
                     url: url,
                     data: sdata,
                     success: function (data) {
                         $("#viewData").html(data);
+                    },
+                    complete: function () {
+                        btnDisabled(0);
                     },
                     error: function (request) {
                         alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
@@ -81,13 +85,13 @@
 
             //Lưu dữ liệu
             $("#idSave").click(function () {
-
                 let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
                 if (aCheck) {
                     var url, sdata;
                     url = "save_mscthtls.action";
                     sdata = jQuery("#frmdata").serialize();
                     $("#viewData").html('<img src="img/loading.gif"/>');
+                    btnDisabled(1);
                     $.ajax({
                         type: "POST",
                         url: url,
@@ -99,6 +103,9 @@
                             } else {
                                 alert("Lỗi: Lưu dữ liệu.");
                             }
+                        },
+                        complete: function () {
+                            btnDisabled(0);
                         },
                         error: function (request) {
                             alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
@@ -115,6 +122,7 @@
                     url = "Send_mscthtls.action";
                     sdata = jQuery("#frmdata").serialize();
                     $("#viewData").html('<img src="img/loading.gif"/>');
+                    btnDisabled(1);
                     $.ajax({
                         type: "POST",
                         url: url,
@@ -127,12 +135,28 @@
                                 alert("Lỗi: Gửi dữ liệu.");
                             }
                         },
+                        complete: function () {
+                            btnDisabled(0);
+                        },
                         error: function (request) {
                             alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
                         }
                     });
                 }
             });
+
+            function btnDisabled(status) {
+                if (status == 1) {
+                    $("#idSearch").prop('disabled', true);
+                    $("#idSend").prop('disabled', true);
+                    $("#idSave").prop('disabled', true);
+                } else {
+                    $("#idSearch").prop('disabled', false);
+                    $("#idSend").prop('disabled', false);
+                    $("#idSave").prop('disabled', false);
+                }
+                ;
+            }
         </script>
     </body>
 </html>

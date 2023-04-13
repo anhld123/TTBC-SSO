@@ -70,12 +70,16 @@
                 url = "getLeaveLocal.action";
                 sdata = jQuery("#frmdata").serialize();
                 $("#viewData").html('<img src="img/loading.gif"/>');
+                btnDisabled(1);
                 $.ajax({
                     type: "POST",
                     url: url,
                     data: sdata,
                     success: function (data) {
                         $("#viewData").html(data);
+                    },
+                    complete: function () {
+                        btnDisabled(0);
                     },
                     error: function (request) {
                         console.log(request);
@@ -94,6 +98,7 @@
                     url = "saveLeaveLocal.action";
                     sdata = jQuery("#frmdata").serialize();
                     $("#viewData").html('<img src="img/loading.gif"/>');
+                    btnDisabled(1);
                     $.ajax({
                         type: "POST",
                         url: url,
@@ -105,6 +110,9 @@
                             } else {
                                 alert("Lỗi: Lưu dữ liệu.");
                             }
+                        },
+                        complete: function () {
+                            btnDisabled(0);
                         },
                         error: function (request) {
                             alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
@@ -121,6 +129,7 @@
                     url = "sendLeaveLocal.action";
                     sdata = jQuery("#frmdata").serialize();
                     $("#viewData").html('<img src="img/loading.gif"/>');
+                    btnDisabled(1);
                     $.ajax({
                         type: "POST",
                         url: url,
@@ -128,10 +137,13 @@
                         success: function (data) {
                             if (data === "200") {
                                 alert("Thành công: Gửi dữ liệu.");
-                                $("#idSearch").trigger("click");
+                                $("#viewData").html('<h2 style="color:red;">Gửi dữ liệu thành công!</h2>');
                             } else {
                                 alert("Lỗi: Gửi dữ liệu.");
                             }
+                        },
+                        complete: function () {
+                            btnDisabled(0);
                         },
                         error: function (request) {
                             alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
@@ -139,6 +151,19 @@
                     });
                 }
             });
+
+            function btnDisabled(status) {
+                if (status == 1) {
+                    $("#idSearch").prop('disabled', true);
+                    $("#idSend").prop('disabled', true);
+                    $("#idSave").prop('disabled', true);
+                } else {
+                    $("#idSearch").prop('disabled', false);
+                    $("#idSend").prop('disabled', false);
+                    $("#idSave").prop('disabled', false);
+                }
+                ;
+            }
         </script>
     </body>
 </html>

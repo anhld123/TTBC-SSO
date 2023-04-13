@@ -48,6 +48,10 @@
         display: None;
     }
 </style>
+<script>
+    $('.number').number(true, 0);
+    $('.number2').number(true, 2);
+</script>
 <div style="overflow:scroll; width: 100%; justify-content: center; display: flex;">
     <table id="subTable" style="z-index: 1; width: 99%;">
         <thead>
@@ -57,25 +61,14 @@
             </tr>
         </thead>
         <tbody>
-            <s:if test="Grade.equalsIgnoreCase('1')">
-                <s:iterator value="lstData" status="idxRows">
-                    <tr>
-                        <td style="display:none;"><input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].KHOA" value="<s:property value='KHOA'/>"></td>
-                        <td style="padding-left: 10px;"><s:property value='TEN'/></td>
-                        <td><input style="width: 100%; background-color: transparent;" type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D1" value="<s:property value='D1'/>"></td>
-                        </td>
-                    </tr>
-                </s:iterator>
-            </s:if>
-            <s:else>
-                <s:iterator value="lstData" status="idxRows">
-                    <tr>
-                        <td style="padding: 10px;"><s:property value='TEN'/></td>
-                        <td style="padding: 8px;"><s:property value='D1'/></td>
-                    </tr>
-                </s:iterator>
-            </s:else>
-
+            <s:iterator value="lstData" status="idxRows">
+                <tr>
+                    <td style="display:none;"><input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].KHOA" value="<s:property value='KHOA'/>"></td>
+                    <td style="padding-left: 10px;"><s:property value='TEN'/></td>
+                    <td><input style="width: 100%; background-color: transparent;" type="text" class="number2" name="lstData[<s:property  value='%{#idxRows.index}' />].D1" value="<s:property value='D1'/>"></td>
+                    </td>
+                </tr>
+            </s:iterator>
         </tbody>
     </table>
 </div>
