@@ -681,6 +681,8 @@ public class ActionNhaptaycnMain extends ActionSupport {
             //khoi tao cho treeview cac pos
             List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_nhaptaycn);
 
+            lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn, UserName, Grade);
+            
             if (khoa_nhaptaycn.equals("HSSV_001")) {
                 setTreeNodeGrade3(lstModelTree);
 //                if (Grade.equals("3")) {
@@ -744,7 +746,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 lstDonvi = dao.getDonvi(Grade, UserName);
                 return "LEAVELOCAL";
             }
-
+            
             if (conn != null) {
                 conn.close();
             }

@@ -95,6 +95,7 @@
         <table id="subTable" style="z-index: 1;">
             <thead>
                 <tr>
+                    <th class="hdtitle">STT</th>
                     <th class="hdtitle">Tên chi nhánh</th>
                     <th class="hdtitle">Tên PGD</th>
                     <th class="hdtitle">Tên xã</th>
@@ -150,6 +151,7 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D39" value="<s:property value='D39'/>">
 
                         </td>
+                        <td class="txtBody"><s:property  value='%{#idxRows.index + 1}' /></td>
                         <td class="txtBody"><div class="<s:property value="D20"/>"><s:property value="D4"/></div></td>
                         <td class="txtBody"><div class="<s:property value="D20"/>"><s:property value="D6"/></div></td>
                         <td class="txtBody"><div class="<s:property value="D20"/>"><s:property value="D8"/></div></td>

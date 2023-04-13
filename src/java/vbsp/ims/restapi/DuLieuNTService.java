@@ -557,9 +557,7 @@ public class DuLieuNTService extends ReportService {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(Include.NON_NULL);
         try {
-            json = mapper.writeValueAsString(data);
-//            System.out.println("key = " + key + " posCode = " + posCode + " posFlag = " + posFlag + " reportDate = " + reportDate + " makerId = " + makerId + authoriseId);   
-            System.out.println("ResultingJSONstring = " + json);            
+            json = mapper.writeValueAsString(data);          
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -567,7 +565,7 @@ public class DuLieuNTService extends ReportService {
         //json = "[{\"key\": \"COVID_03\",\"code\": \"1004003452\", \"reportDate\": \"2021-06-30T00:00:00.000Z\",\"posCode\": \"000401\",\"posFlag\": \"S\",\"makerId\": \"trungnt\",\"makerDate\": \"2021-10-28T07:51:49.872Z\",\"d50\": \"1\",\"style\": 0}]";
         //json ="[{\"key\":\"COVID_03\",\"orderValue\":\"0\",\"code\":\"1004003452\",\"reportDate\":\"2021-06-30T00:00:00\",\"reportYear\":2021,\"posCode\":\"000401\",\"posFlag\":\"S\",\"branchCode\":\"000401\",\"makerId\":\"trungnt\",\"makerDate\":\"2021-10-29T15:04:56\",\"d1\":\"1004003452\",\"d50\":\"1\",\"manualFlag\":\"Y\",\"style\":0}]";
         Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
-
+        System.out.println("Response code API: " + response.getStatus());  
         return response.getStatus();
     }
     

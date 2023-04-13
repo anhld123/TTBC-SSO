@@ -276,7 +276,6 @@ public class LeaveTheLocal extends ActionSupport {
         final Connection con = db.getConnect();
         ArrayList<DuLieuNTRowX> lstUpdateDate = new ArrayList<>();
         final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
-        System.out.println("Đến 2");
         try {
             final CallableStatement st = con.prepareCall("{call BODI_KHOIDP.GET_DATA_SEND_TW(?,?)}");
             st.setString(1, this.sUser);
@@ -335,7 +334,6 @@ public class LeaveTheLocal extends ActionSupport {
                 value.setFontFormat(tmp.getString(46));
                 lstUpdateDate.add(value);
             }
-            System.out.println("Đến 1");
             posMainModel = listKTNBDA.get_pos_main_pos(sUser, sGrade);
             pos_cd_username = posMainModel.getPosCd();
             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc);
