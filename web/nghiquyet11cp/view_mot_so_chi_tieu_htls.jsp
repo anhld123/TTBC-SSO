@@ -65,7 +65,7 @@
                 <tr>
                     <td style="display:none;"><input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].KHOA" value="<s:property value='KHOA'/>"></td>
                     <td style="padding-left: 10px;"><s:property value='TEN'/></td>
-                    <td><input style="width: 100%; background-color: transparent;" type="text" class="number2" name="lstData[<s:property  value='%{#idxRows.index}' />].D1" value="<s:property value='D1'/>"></td>
+                    <td><input style="width: 100%; background-color: transparent;" type="number" min="0" step="any" class="number2" name="lstData[<s:property  value='%{#idxRows.index}' />].D1" value="<s:property value='D1'/>"></td>
                     </td>
                 </tr>
             </s:iterator>
