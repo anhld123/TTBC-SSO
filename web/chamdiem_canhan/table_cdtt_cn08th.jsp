@@ -71,8 +71,16 @@
                     }
                     if (ma_d29 === 'Y')
                     {
-                        d10 = getValue('D1_' + ma) * getValue('D5_' + ma) / 100;
-                        document.getElementById('D10_' + ma).value = d10;
+                        var D28 = getValue('D28_' + ma);
+                        if (D28 === 'LOI50')
+                        {
+                            d10 = getValue('D1_' + ma) -  getValue('D5_' + ma)*50/100*getValue('D1_' + ma);
+                            document.getElementById('D10_' + ma).value = d10 < 0 ? 0: d10;
+                        } else
+                        {
+                            d10 = getValue('D1_' + ma) * getValue('D5_' + ma) / 100;
+                            document.getElementById('D10_' + ma).value = d10;
+                        }
                     }
                 } catch (e) {
                     swal('Lỗi', 'ERROR evaluateSum_row ' + e.toString());
@@ -239,18 +247,19 @@
                         if (trungbinh != 'TB_PGD_KS_CB')
                         {
 //                            console.log('D_khoa_nhiemvu=' + D_khoa_nhiemvu);
-//                            if (D_khoa_nhiemvu === 'PGD_TD_TTD')
-//                            {
-                                var riengD5 = document.getElementById('D5_CN010102').value;
-                                var riengD1 = document.getElementById('D1_CN010102').value;
+                             var D28_CN010102 = document.getElementById('D28_CN010102').value;
+                            if (D28_CN010102 === 'CN010102_NEW')
+                            {
+                            var riengD5 = document.getElementById('D5_CN010102').value;
+                            var riengD1 = document.getElementById('D1_CN010102').value;
 //                                console.log('riengD5=' + riengD5 + "riengD1=" +riengD1+ "---"+riengD5*5*10/100);
-                                document.getElementById('D10_CN010102').value = riengD1 - riengD5*5*10/100 < 0 ? 0:riengD1 - riengD5*5*10/100
+                            document.getElementById('D10_CN010102').value = riengD1 - riengD5 * 5 * 10 / 100 < 0 ? 0 : riengD1 - riengD5 * 5 * 10 / 100
 
-//                            } else
-//                            {
-//                                document.getElementById(subid + '_CN010102').value = diemct_CN0102;
-//                                document.getElementById('D5_CN010102').value = Math.round((giatri / 30) * 100 * 100) / 100;
-//                            }
+                            } else
+                            {
+                                document.getElementById(subid + '_CN010102').value = diemct_CN0102;
+                                document.getElementById('D5_CN010102').value = Math.round((giatri / 30) * 100 * 100) / 100;
+                            }
                         } else
                         {
 
@@ -668,10 +677,12 @@
                                 <input type="text" value="<s:property  value="D5" />" id="D5_<s:property  value="MA" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
                                        <s:if test="D29.equalsIgnoreCase('Y')"> onblur="if (this.value == '') {
-                                                   this.value = 0};
+                                                   this.value = 0
+                                               }
+                                               ;
                                                evaluateSum_row('<s:property value='MA'/>', '<s:property value='D29'/>');
                                                evaluateSum_col('CHAMDIEMTT_001', 'D10');"  </s:if>
-                                      class="TEN_KH number2 <s:property value='D19'/>" readonly="true"/>
+                                       class="TEN_KH number2 <s:property value='D19'/>" readonly="true"/>
                             </td>
 
                             <td align = "right" class="TD_SOLUONG">
