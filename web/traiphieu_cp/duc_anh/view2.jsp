@@ -192,8 +192,8 @@
 
     <body>
         <div id="menuBcttv" align="center">
-            <s:form id="loadAllTraiphieuCp" action="LoadParaTraiphieuCp" theme="simple">
-                <s:url id="reloadData" action="loadAllTraiphieuCp" includeParams="post"></s:url>
+            <s:form id="loadAllDucAnh" action="LoadParaDucAnh" theme="simple">
+                <s:url id="reloadData" action="loadAllDucAnh" includeParams="post"></s:url>
                     <table >
                         <tr>
                             <td>

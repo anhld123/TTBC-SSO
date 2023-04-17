@@ -75,6 +75,7 @@ public class DUCANH01 extends Actionducanh
     
     @Override
     public String load() {
+        System.err.println("vao day");
         try {
             if (!getParaSession()) {
                 return ERROR;
