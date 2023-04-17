@@ -255,7 +255,7 @@
 //                    return;
 //                }
                 var khoa = $("#khoa_traiphieucp").val() + "_save";
-                alert(khoa);
+//                alert(khoa);
                 if (!bsubmit)
                 {
 //                    alert('Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !');
@@ -481,34 +481,38 @@
                             <tr style="height: 30px;">
                                 <td>Ngày BC</td>
                                 <td>
-                                    <sj:datepicker name="ngay_bc_DATE" value="%{'31/07/2021'}"  id="ngay_bc_DATE"
+                                    <sj:datepicker name="ngay_bc_DATE" value="%{'28/02/2023'}"  id="ngay_bc_DATE"
                                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
                                 </td>
                                 <td></td>
                                 <td>
-                                    <p class="normal_font">Sản phẩm:</p>
+                                    <p class="normal_font">Chức vụ:</p>
                                 </td>
                                 <td>
                                     <select style="width: 100px;" name="sanpham" id="sanpham">
                                         <option value="0">  Tất cả  </option>
-                                        <option value="491">491</option>
-                                        <option value="493">493</option>                                        
+                                        <option value="1410">Giám đốc</option>
+                                        <option value="1411">Phó Giám đốc</option> 
+                                        <option value="1410">Trưởng phòng</option>
+                                        <option value="1411">Phó Trưởng phòng</option>    
+                                        <option value="1410">Nhân viên</option>                                         
                                     </select>
                                 </td>
                                 <td></td>
                                 <td>
-                                    <p class="normal_font">Kỳ hạn:</p>
+                                  <p class="normal_font">Phòng ban:</p>
                                 </td>
                                 <td>
                                     <select  style="width: 100px;" name="kyhan" id="kyhan">
                                         <option value="0">  Tất cả  </option>
-                                        <option value="M60">60 - tháng</option>
-                                        <option value="M120">120 - tháng</option>
-                                        <option value="M180">180 - tháng</option>
-                                        <option value="Y3">3 - năm</option>
-                                        <option value="Y5">5 - năm</option>
-                                        <option value="Y10">10 - năm</option>
-                                        <option value="Y15">15 - năm</option>
+                                        <option value="1514">Ban Giám đốc</option>
+                                        <option value="1526">P. Tổng hợp</option>
+                                        <option value="1534">P. Kế toán</option>
+                                        <option value="1561">P.Phần mềm</option>
+                                        <option value="1562">P.Hệ thống</option>
+                                        <option value="1563">P.Vận hành</option>
+                                        <option value="1564">P.Hạ tầng</option>
+                                        <option value="1565">P.An ninh</option>            
                                     </select>
                                 </td> 
                                 <td >                                        

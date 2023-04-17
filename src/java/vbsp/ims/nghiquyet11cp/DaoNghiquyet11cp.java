@@ -484,26 +484,7 @@ public class DaoNghiquyet11cp {
                     value.setD11(reset.getString(25));
                     value.setD12(reset.getString(26));
                     value.setD13(reset.getString(27));
-                    value.setD14(reset.getString(28));
-                    value.setD15(reset.getString(29));
-                    value.setD16(reset.getString(30));
-                    value.setD17(reset.getString(31));
-
-                    value.setD18(reset.getString(32));
-                    value.setD19(reset.getString(33));
-                    value.setD20(reset.getString(34));
-                    value.setD21(reset.getString(35));
-                    value.setD22(reset.getString(36));
-                    value.setD23(reset.getString(37));
-                    value.setD24(reset.getString(38));
-                    value.setD25(reset.getString(39));
-                    value.setD26(reset.getString(40));
-                    value.setD27(reset.getString(41));
-                    value.setD28(reset.getString(42));
-                    value.setD29(reset.getString(43));
-                    value.setD30(reset.getString(44));
-                    value.setNHAPTAY(reset.getString(45));
-                    value.setFONTFORMAT(reset.getString(46));
+                    
 
                     lstBcqt_NT.add(value);
                 }
@@ -1137,6 +1118,131 @@ public class DaoNghiquyet11cp {
         return _retVal;
     }
     
+     public boolean saveDUCANH_001(String khoa, String username, String capbc, String ngaybc, List<QT_DULIEU_NT> lstData, List<String> lstArrPoscd, String nghiepvu) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+
+        ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("POS_CD", connection);
+
+        String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
+
+        ARRAY oracle_arrayPos = new ARRAY(des_ma, connection, arrayPoscd);
+
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_SAVE_DUCANH_001(?, ?, ?, ?, ? ,?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, username);
+            cs.setString(3, capbc);
+            cs.setString(4, ngaybc);
+            cs.setArray(5, array_to_pass);            
+            cs.setArray(6, oracle_arrayPos);            
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham saveNQ11CP_KH04 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveNQ11CP_KH04 -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
+    public List<QT_DULIEU_NT> getData_DUCANH_001(Connection conn, String sKhoa, String sNgaybc, String sUser,
+            String sGrade, List<String> lstArrPoscd, String sanphan, String kyhan) {
+        List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
+        try {
+            ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
+            String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
+            ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
+//            DaoConnect daoconnect = new DaoConnect();
+//            Connection conn = null;
+//            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call VBSP_IMS_NGHIQUYET11CP.SP_GET_DATA_DUCANH_001(?,?,?,?,?,?,?,?, ?, ?)}";
+            ResultSet reset = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(8, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(1, sKhoa);
+                calstatement.setString(2, sUser);
+                calstatement.setString(3, sGrade);
+                calstatement.setString(4, sNgaybc);
+                calstatement.setArray(5, oracle_arrayPoscd);
+                calstatement.setString(9, sanphan);
+                calstatement.setString(10, kyhan);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+                int pn_err_cd = calstatement.getInt(6);
+                //thu hien lay mo ta loi
+                String strEdd_txt = calstatement.getString(7);
+                //Lay cursor ra resultset
+                reset = (ResultSet) calstatement.getObject(8);
+                while (reset.next()) {
+
+                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+                    value.setKHOA(reset.getString(1));
+                    value.setTHUTU(reset.getInt(2));
+                    value.setTT_HIENTHI(reset.getString(3));
+                    value.setMA(reset.getString(4));
+                    value.setTEN(reset.getString(5));
+                    value.setNGAYBC(reset.getDate(6));
+                    value.setNAMBC(reset.getInt(7));
+                    value.setMAPGD(reset.getString(8));
+                    value.setMACN(reset.getString(10));
+//                    value.setD1(reset.getString(14));
+                    value.setD1(reset.getString(15));
+                    value.setD2(reset.getString(16));
+                    value.setD3(reset.getString(17));
+                    value.setD4(reset.getString(18));
+                    value.setD5(reset.getString(19));
+                    value.setD6(reset.getString(20));
+                    value.setD7(reset.getString(21));
+                    value.setD8(reset.getString(22));
+                    value.setD9(reset.getString(23));
+                    value.setD10(reset.getString(24));
+                    value.setD11(reset.getString(25));
+                    value.setD12(reset.getString(26));
+                    value.setD13(reset.getString(27));
+                    
+
+                    lstBcqt_NT.add(value);
+                }
+
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+//                if (conn != null) {
+//                    conn.close();
+//                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getDataKH04 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+        }
+        return lstBcqt_NT;
+    }
     public static void main(String[] args) throws Exception {
         String s = "30-APR-2022";
         Date date_ngay_bc = new SimpleDateFormat("dd-MMM-yyyy").parse(s);
