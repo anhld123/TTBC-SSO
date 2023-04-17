@@ -135,70 +135,81 @@ public class NQ11CP_04KH extends ActionNghiquyet11cpMain
                 }
                 return "success_c3";
             } else {
-                ArrayList<DuLieuNTRow> lstDataM = new ArrayList<>();
-                service = new DuLieuNTService();
-                Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
-                String dateStr = sdf.format(date1);
-                lstDataM = service.getData("GIAO_KHTDNQ11", main_pos_username, "M", dateStr);
+                if (hmParameter.get("nghiepvu").toString().equals("4")) {  //TH xem luy ke tai PGD
+                    lstDulieuNt = daoMain.getDataKH04(conn, "NQ11CP_04KH", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("nghiepvu").toString());
+                    for (QT_DULIEU_NT dulieu : lstDulieuNt) {
+                        b1 = b1.add(new BigInteger(dulieu.getD2()));
+                        b2 = b2.add(new BigInteger(dulieu.getD4()));
+                    }
+                    setVieclam_total(String.format("%,d", b1));
+                    setNoxh_total(String.format("%,d", b2));
+                    if (conn != null) {
+                        conn.close();
+                    }
+                    return "success_c3";
+                } else {
+                    ArrayList<DuLieuNTRow> lstDataM = new ArrayList<>();
+                    service = new DuLieuNTService();
+                    Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                    SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
+                    String dateStr = sdf.format(date1);
+                    lstDataM = service.getData("GIAO_KHTDNQ11", main_pos_username, "M", dateStr);
 
-                if (lstDataM.size() == 0 || lstDataM == null) {
-                    lstDataM = service.getData("GIAO_KHTDNQ11", main_pos_username, "M", getPreviousMonthDate(date1));
+                    if (lstDataM.size() == 0 || lstDataM == null) {
+                        lstDataM = service.getData("GIAO_KHTDNQ11", main_pos_username, "M", getPreviousMonthDate(date1));
 //                    if (lstDataM.size() == 0 || lstDataM == null) {
 //                        addActionError("Trung ương chưa giao kế hoạch tháng này.");
 //                        return ERROR;
 //                    }
-                }
-                if (lstDataM.size() == 0 || lstDataM == null )
-                {
-                }
-                else
-                {
-                    b1 = new BigInteger(lstDataM.get(0).getD2());
-                    b2 = new BigInteger(lstDataM.get(0).getD4());
-                }
-                setVieclam_total(String.format("%,d", b1));
-                setNoxh_total(String.format("%,d", b2));
-                ArrayList<DuLieuNTRow> lstDataS = new ArrayList<>();
-                lstDataS = service.getData_condition("GIAO_KHTDNQ11", main_pos_username, "S", dateStr, "D15=" + hmParameter.get("nghiepvu").toString() + "|");
-                int i = 1;
-                for (DuLieuNTRow item : lstDataS) {
-                    try {
-                        QT_DULIEU_NT row = new QT_DULIEU_NT();
-                        row.setKHOA(Define.NV_QT);
-                        row.setTHUTU(i);
-                        row.setTT_HIENTHI(String.valueOf(i));
-                        row.setMA(item.getCode());
-                        row.setTEN(item.getName());
-
-                        Date reportDate = DateUtil.toDate(item.getReportDate());
-                        row.setNGAYBC(reportDate);
-                        row.setMAPGD(item.getPosCode());
-                        row.setMACN(item.getBranchCode());
-
-                        row.setD1(item.getD1());
-                        row.setD2(item.getD2());
-                        row.setD3(item.getD3());
-                        row.setD4(item.getD4());
-                        row.setD5(item.getD5());
-                        row.setD6(item.getD6());
-                        row.setD7(item.getD7());
-                        row.setD8(item.getD8());
-                        row.setD9(item.getD9());
-                        row.setD10(item.getD10());
-                        row.setD19(item.getD19());
-                        lstDulieuNt.add(row);
-                        i++;
-                    } catch (Exception e) {
-                        CoreLogger.error(this.getClass().getName() + " Exception -> NQ11CP_04KH: " + e.getMessage());
-                        System.err.println(this.getClass().getName() + " Exception -> NQ11CP_04KH: " + e.getMessage());
                     }
+                    if (lstDataM.size() == 0 || lstDataM == null) {
+                    } else {
+                        b1 = new BigInteger(lstDataM.get(0).getD2());
+                        b2 = new BigInteger(lstDataM.get(0).getD4());
+                    }
+                    setVieclam_total(String.format("%,d", b1));
+                    setNoxh_total(String.format("%,d", b2));
+                    ArrayList<DuLieuNTRow> lstDataS = new ArrayList<>();
+                    lstDataS = service.getData_condition("GIAO_KHTDNQ11", main_pos_username, "S", dateStr, "D15=" + hmParameter.get("nghiepvu").toString() + "|");
+                    int i = 1;
+                    for (DuLieuNTRow item : lstDataS) {
+                        try {
+                            QT_DULIEU_NT row = new QT_DULIEU_NT();
+                            row.setKHOA(Define.NV_QT);
+                            row.setTHUTU(i);
+                            row.setTT_HIENTHI(String.valueOf(i));
+                            row.setMA(item.getCode());
+                            row.setTEN(item.getName());
+
+                            Date reportDate = DateUtil.toDate(item.getReportDate());
+                            row.setNGAYBC(reportDate);
+                            row.setMAPGD(item.getPosCode());
+                            row.setMACN(item.getBranchCode());
+
+                            row.setD1(item.getD1());
+                            row.setD2(item.getD2());
+                            row.setD3(item.getD3());
+                            row.setD4(item.getD4());
+                            row.setD5(item.getD5());
+                            row.setD6(item.getD6());
+                            row.setD7(item.getD7());
+                            row.setD8(item.getD8());
+                            row.setD9(item.getD9());
+                            row.setD10(item.getD10());
+                            row.setD19(item.getD19());
+                            lstDulieuNt.add(row);
+                            i++;
+                        } catch (Exception e) {
+                            CoreLogger.error(this.getClass().getName() + " Exception -> NQ11CP_04KH: " + e.getMessage());
+                            System.err.println(this.getClass().getName() + " Exception -> NQ11CP_04KH: " + e.getMessage());
+                        }
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+                    return "success_c2";
                 }
-                if (conn != null) {
-                    conn.close();
-                }
-                return "success_c2";
             }
 
         } catch (Exception e) {
@@ -265,7 +276,7 @@ public class NQ11CP_04KH extends ActionNghiquyet11cpMain
                 ArrayList<DuLieuNTRow> lstDataM = new ArrayList<>();
 
                 lstDataM = service.getData("GIAO_KHTDNQ11", pos_cd_username, "M", strDate);
-                
+
                 if (lstDataM.size() == 0 || lstDataM == null) {
                     lstDataM = service.getData("GIAO_KHTDNQ11", main_pos_username, "M", getPreviousMonthDate(date1));
 //                    if (lstDataM.size() == 0 || lstDataM == null) {
