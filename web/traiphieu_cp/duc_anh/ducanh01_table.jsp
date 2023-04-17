@@ -186,10 +186,9 @@
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nghiquyet11cp"/>
-            <!--            <div class="cls-over">
-                            <div id="scrolling_table_1"  style="width: 98%; max-height:45vh">-->       
-            <!--<div class="cls-over">-->
+
             <div id="scrolling_table_1"   class="editDelete" style="width: 98%; max-height:60vh">
+                
                 <table id="tblTable">
                     <tr >                                                                                  
                         <th rowspan="1" class="STT1">STT</th>   
@@ -203,7 +202,8 @@
                         <th colspan="1" class="STT7">CMT/CCCD</th>  
                         <th colspan="1" class="STT9">Nơi cấp</th>   
                         <th colspan="1" class="STT4">Ngày cấp</th>   
-                        <th colspan="1" class="STT7">SĐT</th>    
+                        <th colspan="1" class="STT7">SĐT</th> 
+                        <th colspan="1" class="STT5">Thêm/ Xóa</th> 
                     </tr>       
                     <tr style="font-style: italic;">
                         <td style="text-align: center"></td> 
@@ -218,6 +218,7 @@
                         <td style="text-align: center">(9)</td>
                         <td style="text-align: center">(10)</td>
                         <td style="text-align: center">(11)</td>
+                        <td style="text-align: center">(12)</td>
                     </tr>
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                         <tr>  
@@ -236,19 +237,19 @@
                                 <input type="text"   value="<s:property  value="D1" />" style="background: #E7DCDA !important;"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
                                        class=" TEN_KH D0" 
-                                       onfocus="this.select();" readonly="true"/> 
+                                       onfocus="this.select();"/> 
                             </td>
                             <td align = "right" class="STT6" >
-                                <input type="text"   value="<s:property  value="D2" />" style="background: #E7DCDA !important;" title="<s:property  value="D2" />"
+                                <input type="text"   value="<s:property  value="D2" />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" 
                                        class=" TEN_KH  " 
-                                       onfocus="this.select();" readonly="true"/> 
+                                       onfocus="this.select();" /> 
                             </td>
                             <td align = "right" class="STT4" >
-                                <input type="text"   value="<s:property  value="D3" />"  style="background: #E7DCDA !important;"
+                                <input type="text"   value="<s:property  value="D3" />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" 
                                        class=" TEN_KH D0" 
-                                       onfocus="this.select();" readonly="true"/> 
+                                       onfocus="this.select();"/> 
                             </td>
                             <td align = "right" class="STT5" >
                                 <input type="text"   value="<s:property  value="D5" />"
@@ -300,11 +301,16 @@
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" 
                                        class=" TEN_KH D0" 
                                        onfocus="this.select();"/> 
-                            </td>
+                            </td>       
+                                <td align = "center" class="STT5">
+                                    <input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex, 'idRow_process_<s:property  value="%{#rowstatus.index}" />')
+                                           " class=" TEN_KH D0" style="width: 60px;"/>
+                                </td>
+                      
 
                         </tr>                                                                                                                                                                                   
                     </s:iterator>
-                 <!--     <tr>
+                   <tr>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -317,8 +323,9 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td align = "center" class="STT5" ><input type="button" value="Thêm" onclick="addRow(this.parentNode.parentNode.rowIndex)" class=" TEN_KH D0" style="width: 60px;"/></td>
-                </tr> -->
+                    <td align = "center" class="STT5" ><input type="button" value="Thêm" 
+                        onclick="addRow(this.parentNode.parentNode.rowIndex)" class=" TEN_KH D0" style="width: 60px;"/></td>
+                </tr> 
                 </table>        
             </div>
             <!--</div>-->

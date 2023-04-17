@@ -175,6 +175,7 @@
                         <th style="width: 50px;" class="TD_SOKU" rowspan="2">Cấp xâm tiêu, chiếm dụng</th>
                         <th style="width: 70px;" class="TD_SOKU" colspan="2">Sao kê</th>
                         <th style="width: 70px;" class="TD_SOKU" colspan="2">Cân đối</th>
+                        
                     </tr>
                     <tr>          
                         <th style="width: 50px;" >Tiền gốc</th>
