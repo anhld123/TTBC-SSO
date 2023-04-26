@@ -182,7 +182,7 @@
             </br>
             <div id="divTitle">
                 DỰ KIẾN GIAO CHỈ TIÊU KẾ HOẠCH TÍN DỤNG MỘT SỐ CHƯƠNG TRÌNH CHO VAY THEO NGHỊ QUYẾT 11/NQ-CP
-                </br><font color="red">(Trung ương giao: Cho vay hỗ trợ tạo việc làm - <s:property  value="vieclam_total"/> &nbsp;&nbsp; Cho vay Nhà ở xã hội - <s:property  value="noxh_total"/>)</font> 
+                </br><font color="red">(Trung ương giao: Cho vay hỗ trợ tạo việc làm: <s:property  value="vieclam_total"/> &nbsp;&nbsp; Cho vay Nhà ở xã hội: <s:property  value="noxh_total"/>)</font> 
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nghiquyet11cp"/>

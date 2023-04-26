@@ -501,6 +501,7 @@
                                         <option value="1">Điều chỉnh lần 1</option>
                                         <option value="2">Điều chỉnh lần 2</option>
                                         <option value="3">Điều chỉnh lần 3</option>
+                                        <option value="5">Điều chỉnh lần 5</option>
                                         <option value="4">Lũy kế</option>
                                     </select>
                                 </td> 
