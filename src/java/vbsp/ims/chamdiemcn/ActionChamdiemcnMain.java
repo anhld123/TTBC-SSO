@@ -98,6 +98,16 @@ public class ActionChamdiemcnMain extends ActionSupport {
     private String ngay_bc;
     protected String tt_cdtt;
     protected String nhomnv;
+    protected String nhomnv_duyet;
+
+    public String getNhomnv_duyet() {
+        return nhomnv_duyet;
+    }
+
+    public void setNhomnv_duyet(String nhomnv_duyet) {
+        this.nhomnv_duyet = nhomnv_duyet;
+    }
+    
 
     public String getNhomnv() {
         return nhomnv;

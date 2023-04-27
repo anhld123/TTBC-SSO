@@ -137,6 +137,45 @@
                 $(this).closest('tr').removeClass('highlight_row');
             });
 
+            function evaluateSum_row_diemtru(ma, ma_d29) {
+                try {
+
+                    var d12 = 0;
+                    var d11 = document.getElementById('D11_' + ma).value;
+                    d11 = d11.replace(',', '');
+                    
+                    if (parseFloat(d11) < 0)
+                    {
+                        swal('Lỗi', 'Bạn không được nhập điểm lớn hơn 100 hoặc nhỏ hơn 0', 'warning');
+                        document.getElementById('D11_' + ma).style.background = '#ff0000';
+                        document.getElementById('D11_' + ma).value = 0;
+                        return;
+                    }
+                    console.log('vap=------' + ma_d29  )
+                    if (ma_d29 === 'N')
+                    {
+                        var D28 = getValue('D28_' + ma);
+                        if (D28 === 'LOI01')
+                        {
+                            d9 = document.getElementById('D11_' + ma).value;
+                            document.getElementById('D12_' + ma).value = d11 < 0 ? 0 : d11;
+                        } else
+                        {
+                        }
+                        var D1_CN0102 = document.getElementById('D1_CN0102').value;
+                        var D12_CN0102 = document.getElementById('D12_CN0102').value;
+                        if (parseFloat(D12_CN0102) > parseFloat(D1_CN0102))
+                        {
+                            document.getElementById('D11_' + ma).value = 0;
+                            document.getElementById('D11_' + ma).focus();
+                            document.getElementById('D11_' + ma).style.backgroundColor = "#DE76DF";
+
+                        }
+                    }
+                } catch (e) {
+                    swal('Lỗi', 'ERROR evaluateSum_row ' + e.toString());
+                }
+            }
 
             function evaluateSum_col_tru(table_id, subid, ma) {
             try {
@@ -376,7 +415,7 @@
                             </td>
                             
                             <td align = "right" class="TD_SOLUONG">
-                                <input type="text" value="<s:property  value="D1" />" id="D1_<s:property  value="%{#rowstatus.index}" />"
+                                <input type="text" value="<s:property  value="D1" />" id="D1_<s:property  value="MA" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="TEN_KH number" readonly="true"/>
                             </td>
                             
@@ -407,8 +446,8 @@
                             </td>-->
                             
                             <td align = "right" class="TD_SOLUONG">
-                                <input type="text" value="<s:property  value="D6" />" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH number" readonly="true"/>
+                                <input type="text" value="<s:property  value="D11" />"  id="D11_<s:property  value="MA" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH number" readonly="true"/>
                             </td>
 
                             <td align = "right" class="TD_SOLUONG">
@@ -483,8 +522,16 @@
                             </td>
                             
                             <td align = "right" class="TD_SOLUONG">
-                                <input type="text" value="<s:property  value="D6" />" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH number" />
+                                <input type="text" value="<s:property  value="D11" />"  id="D11_<s:property  value="MA" />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH number" 
+                                       onblur="if (this.value == '') {
+                                                   this.value = 0
+                                               }
+                                               ;
+                                               evaluateSum_row_diemtru('<s:property value='MA'/>', '<s:property value='D29'/>');
+                                               evaluateSum_col_tru('CHAMDIEMTT_001', 'D12', 'D12_<s:property  value="MA" />');" 
+                                               <s:if test="D29.equalsIgnoreCase('Y')"> readonly="readonly" </s:if>   
+                                       />
                             </td>
                                 <td align = "right" class="TD_SOLUONG">
                                     <input type="text" value="<s:property  value="D12" />" id="D12_<s:property  value="MA" />"
@@ -505,6 +552,7 @@
                         <td class="hideColumn"><input type="text" value="<s:property value='D3'/>" name="KH_CONGTHUC" class="KH_CONGTHUC"/></td>
                         <td class="hideColumn"><input type="text" value="<s:property value='D15'/>" name="KH_CAPHT" class="KH_CAPHT"/></td>
                         <td class="hideColumn"><input type="text" value="<s:property value='MA'/>" name="MA_CT" class="MA_CT" onfocus="this.select()" readonly="readonly"/></td>
+                        <td class="hideColumn"><input type="hidden" id="D28_<s:property  value="MA" />" value="<s:property  value="D28" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28" class="D28_DIEM"/></td>
                     </tr>        
                 </s:iterator>
             </table>                                                                                

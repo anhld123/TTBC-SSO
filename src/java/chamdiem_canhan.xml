@@ -19,6 +19,7 @@
             <result name="success">/chamdiem_canhan/table_cdtt_cn08th.jsp</result>
             <result name="success_extra">/chamdiem_canhan/table_cdtt_cn08th_extra.jsp</result>
             <result name="LANHDAO_DUYET">/chamdiem_canhan/table_cdtt_cn08th_duyet.jsp</result>
+            <result name="LANHDAO_DUYET_EXTRA">/chamdiem_canhan/table_cdtt_cn08th_duyet_extra.jsp</result>
             <result name="LANHDAO_DUYET_ERROR">/chamdiem_canhan/table_cdtt_ld_chuaduyet.jsp</result>
             <result name="error">/chamdiem_canhan/success.jsp</result>        
         </action>  

@@ -80,7 +80,17 @@ public class CDTT_CN08TH extends ActionChamdiemcnMain implements CdttFunction {
                 if (conn != null) {
                     conn.close();
                 }
-                return "LANHDAO_DUYET";
+                setNhomnv_duyet(daoMain.getNhomNVByUser_Duyet(UserName, Grade,hmParameter.get("tt_cdtt").toString()));
+                System.out.println("Nhom nghiep vu = " + nhomnv_duyet);
+                if (nhomnv_duyet.equals("PGD_TD_PGD11") || nhomnv_duyet.equals("PGD_TD_PGD12"))
+                {
+                    setLstXeploaiABC(daoMain.getLOV(UserName,"XEPLOAI_ABC",Grade,""));
+                    setLstXeploai(daoMain.getLOV(UserName,"XEPLOAI",Grade,""));
+                    setLstXeploaiHTNV(daoMain.getLOV(UserName,"XEPLOAI_HTNV",Grade,""));
+                    return "LANHDAO_DUYET_EXTRA";
+                }
+                else
+                    return "LANHDAO_DUYET";
             }
 
 //            if (!RULEUSER.equals("9") || (RULEUSER.equals("9") && poscd.size() == 0)) {

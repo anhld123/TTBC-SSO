@@ -22,7 +22,7 @@
         <script>
             function hienthichitiet(ma, stt, khoa_cdtt) {
                 try
-                {                    
+                {
                     //swal(pos_string);
                     var ht1 = screen.availHeight - 300;
                     var wt1 = 950;
@@ -42,10 +42,11 @@
             function evaluateSum_row(ma, ma_d29) {
                 try {
                     var d10 = 0;
+                    var d12 = 0;
                     var d11 = document.getElementById('D11_' + ma).value;
                     d11 = d11.replace(',', '');
 
-                    if (parseFloat(d11) > 100)
+                    if (parseFloat(d11) > 100 || parseFloat(d11) < 0 )
                     {
                         swal('Lỗi', 'Bạn không được nhập điểm lớn hơn 100 hoặc nhỏ hơn 0', 'warning');
                         document.getElementById('D11_' + ma).style.background = '#ff0000';
@@ -55,8 +56,17 @@
 
                     if (ma_d29 === 'Y')
                     {
-                        d10 = getValue('D1_' + ma) * getValue('D11_' + ma) / 100;
-                        document.getElementById('D12_' + ma).value = d10;
+                        var D28 = getValue('D28_' + ma);
+                        if (D28 === 'LOI50')
+                        {
+                            document.getElementById('D5_' + ma).value = Math.round(d5)
+                            d12 = getValue('D1_' + ma) - getValue('D11_' + ma) * 50 / 100 * getValue('D1_' + ma);
+                            document.getElementById('D12_' + ma).value = d12 < 0 ? 0 : d12;
+                        } else
+                        {
+                            d10 = getValue('D1_' + ma) * getValue('D11_' + ma) / 100;
+                            document.getElementById('D12_' + ma).value = d10;
+                        }
                     }
                 } catch (e) {
                     swal('Lỗi', 'ERROR evaluateSum_row ' + e.toString());
@@ -147,7 +157,7 @@
 
                                 var valNew = catcongthuc(congthuc);
                                 var tongcong = tongcongthuc_08TH(valNew, subid, congthuc);
-                               
+
 
                                 if (D28_khoa === 'DIEM_HT_CV')
                                 {
@@ -155,29 +165,34 @@
                                     tongcong = tongcongthuc_08TH(valNew, subid, congthuc);
                                     resetvalue(subid, ma_ct);
                                     console.log(tongcong);
-                                    laydiemHoanthanh(subid,ma_ct,tongcong);
-                                }                                 
+                                    laydiemHoanthanh(subid, ma_ct, tongcong);
+                                } 
+                                else if (D28_khoa === 'DIEM_HT_CV_NEW')
+                                {
+                                    tongcong = tongcongthuc_08TH(valNew, subid, congthuc);
+                                    resetvalue(subid, ma_ct);
+//                                    console.log('DIEM_HT_CV=' + tongcong);
+//                                    console.log('valNew=' + valNew + ' subid=' + subid + ' congthuc=' + congthuc + ' ma_ct=' + ma_ct);
+                                    var D1_CN010103 = document.getElementById('D1_CN010103').value
+                                    laydiemHoanthanh(subid, ma_ct, tongcong + parseFloat(D1_CN010103));
+                                } 
                                 else if (D28_khoa === 'TINHKHAC')
                                 {
                                     tinhkhac = "TINHKHAC";
                                     document.getElementById(subid + '_' + ma_ct).value = tongcong;
-                                }
-                                else if (D28_khoa === 'TRUNGBINH')
+                                } else if (D28_khoa === 'TRUNGBINH')
                                 {
                                     trungbinh = "TRUNGBINH";
                                     document.getElementById(subid + '_' + ma_ct).value = tongcong;
-                                } 
-                                else if (D28_khoa === 'PGD_TD_TTDX')
+                                } else if (D28_khoa === 'PGD_TD_TTDX')
                                 {
                                     trungbinh = "PGD_TD_TTDX";
                                     document.getElementById(subid + '_' + ma_ct).value = tongcong;
-                                } 
-                                else if (D28_khoa === 'TONGCONG')
+                                } else if (D28_khoa === 'TONGCONG')
                                 {
                                     document.getElementById(subid + '_' + ma_ct).value = (tongcong * parseFloat(heso_k)).toFixed(2)
                                     document.getElementById('D13_' + ma_ct).value = tongcong.toFixed(2) + ' (Điểm với k = 1.0)'
-                                }
-                                else if (D28_khoa === 'XEPLOAI')
+                                } else if (D28_khoa === 'XEPLOAI')
                                 {
                                     resetvalue(subid, ma_ct);
 //                                   
@@ -237,48 +252,61 @@
                     var diemct_CN0102 = 0, id_mact_diem = subid + '_CN010101';
                     var giatri = getvalue(id_mact_diem);
                     diemct_CN0102 = Math.round((giatri / 30) * 10 * 100) / 100;
-                     var khoa_main = document.getElementById('khoa').value;
-                     console.log('khoa_main='+khoa_main );
-                    
+                    var khoa_main = document.getElementById('khoa').value;
+                    console.log('khoa_main=' + khoa_main);
+
                     if (tinhkhac === 'TINHKHAC')
                     {
 //                        document.getElementById('D10_CN010102').value = giatri;
-                    }
-                    else
+                    } else
                     {
-                        document.getElementById(subid + '_CN010102').value = diemct_CN0102;
-                        document.getElementById('D11_CN010102').value = Math.round((giatri / 30) * 100 * 100) / 100;
+                        var D28_CN010102 = document.getElementById('D28_CN010102').value;
+                        if (D28_CN010102 === 'CN010102_NEW')
+                        {
+                            console.log('')
+                            var riengD11 = document.getElementById('D11_CN010102').value;
+                            if (riengD11 < 0)
+                            {
+                                document.getElementById('D11_CN010102').value = 0;
+                                riengD11 = document.getElementById('D11_CN010102').value;
+                            }
+                            document.getElementById('D11_CN010102').value = Math.round(riengD11)
+                            var riengD1 = document.getElementById('D1_CN010102').value;
+                            document.getElementById('D12_CN010102').value = riengD1 - riengD11 * 5 * 10 / 100 < 0 ? 0 : riengD1 - riengD11 * 5 * 10 / 100
+
+                        } else
+                        {
+                            document.getElementById(subid + '_CN010102').value = diemct_CN0102;
+                            document.getElementById('D11_CN010102').value = Math.round((giatri / 30) * 100 * 100) / 100;
+                        }
                     }
-                    
+
                     if (trungbinh === 'TRUNGBINH')
                     {
                         console.log('Vao!!');
-                        var CN01 = document.getElementById(subid + '_CN0101010501' ).value;
-                        var CN02 = document.getElementById(subid + '_CN0101010502' ).value;
-                        var CN03 = document.getElementById(subid + '_CN0101010503' ).value;
+                        var CN01 = document.getElementById(subid + '_CN0101010501').value;
+                        var CN02 = document.getElementById(subid + '_CN0101010502').value;
+                        var CN03 = document.getElementById(subid + '_CN0101010503').value;
 //                        console.log('CN01='+CN01+'=--CN02'+CN02+'--CN03='+CN03);
-                        if(parseFloat(CN01) >0 && parseFloat(CN02) >0 && parseFloat(CN03) >0)
-                        {                            
-                            document.getElementById(subid + '_CN01010105' ).value = (parseFloat(CN01) + parseFloat(CN02) + parseFloat(CN03))/3;
-                        }
-                        else if((parseFloat(CN01) >0 && parseFloat(CN02) >0 && parseFloat(CN03) === 0)
-                                || (parseFloat(CN01) >0 && parseFloat(CN02) ===0 && parseFloat(CN03) >0)
-                                || (parseFloat(CN01) ===0 && parseFloat(CN02) >0 && parseFloat(CN03) > 0))
-                        {                            
-                            document.getElementById(subid + '_CN01010105' ).value = (parseFloat(CN01) + parseFloat(CN02) + parseFloat(CN03))/2;
-                        }
-                        else
-                        {                            
-                            document.getElementById(subid + '_CN01010105' ).value = (parseFloat(CN01) + parseFloat(CN02) + parseFloat(CN03));
+                        if (parseFloat(CN01) > 0 && parseFloat(CN02) > 0 && parseFloat(CN03) > 0)
+                        {
+                            document.getElementById(subid + '_CN01010105').value = (parseFloat(CN01) + parseFloat(CN02) + parseFloat(CN03)) / 3;
+                        } else if ((parseFloat(CN01) > 0 && parseFloat(CN02) > 0 && parseFloat(CN03) === 0)
+                                || (parseFloat(CN01) > 0 && parseFloat(CN02) === 0 && parseFloat(CN03) > 0)
+                                || (parseFloat(CN01) === 0 && parseFloat(CN02) > 0 && parseFloat(CN03) > 0))
+                        {
+                            document.getElementById(subid + '_CN01010105').value = (parseFloat(CN01) + parseFloat(CN02) + parseFloat(CN03)) / 2;
+                        } else
+                        {
+                            document.getElementById(subid + '_CN01010105').value = (parseFloat(CN01) + parseFloat(CN02) + parseFloat(CN03));
                         }
 
-                    }
-                    else if (trungbinh === 'PGD_TD_TTDX')
+                    } else if (trungbinh === 'PGD_TD_TTDX')
                     {
                         console.log('Vao!!');
-                        var CN01 = document.getElementById(subid + '_CN01010101' ).value;
-                        var CN02 = document.getElementById(subid + '_CN01010102' ).value;
-                        document.getElementById(subid + '_CN010101' ).value = (parseFloat(CN01) + parseFloat(CN02))/2;
+                        var CN01 = document.getElementById(subid + '_CN01010101').value;
+                        var CN02 = document.getElementById(subid + '_CN01010102').value;
+                        document.getElementById(subid + '_CN010101').value = (parseFloat(CN01) + parseFloat(CN02)) / 2;
 
                     }
                     $('.number2').number(true, 2);
@@ -288,11 +316,11 @@
                 }
 
             }
-            
+
             function laydiemHoanthanh(subid, ma_ct, tongcong)
             {
                 var diem_max = getvalue('D1_' + ma_ct);
-                console.log('12diem_max='+diem_max+' '+subid + '_' + ma_ct + '_' + tongcong);
+                console.log('12diem_max=' + diem_max + ' ' + subid + '_' + ma_ct + '_' + tongcong);
                 if (diem_max == 30)
                 {
                     if (tongcong >= 61 && tongcong <= 70)
@@ -491,30 +519,30 @@
                     {
                         if (document.getElementById("D13_HTXS").value === '')
                             document.getElementById("D13_HTXS").value = 'HTXS: ';
-                            document.getElementById("D13_HTT").value = '';
-                            document.getElementById("D13_HT").value = '';
-                            document.getElementById("D13_KHT").value = '';
+                        document.getElementById("D13_HTT").value = '';
+                        document.getElementById("D13_HT").value = '';
+                        document.getElementById("D13_KHT").value = '';
                     } else if (ma === 'HTT')
                     {
                         if (document.getElementById("D13_HTT").value === '')
                             document.getElementById("D13_HTT").value = 'HTT: ';
-                            document.getElementById("D13_HTXS").value = '';
-                            document.getElementById("D13_HT").value = '';
-                            document.getElementById("D13_KHT").value = '';
+                        document.getElementById("D13_HTXS").value = '';
+                        document.getElementById("D13_HT").value = '';
+                        document.getElementById("D13_KHT").value = '';
                     } else if (ma === 'HT')
                     {
                         if (document.getElementById("D13_HT").value === '')
                             document.getElementById("D13_HT").value = 'HT: ';
-                            document.getElementById("D13_HTXS").value = '';
-                            document.getElementById("D13_HTT").value = '';
-                            document.getElementById("D13_KHT").value = '';
+                        document.getElementById("D13_HTXS").value = '';
+                        document.getElementById("D13_HTT").value = '';
+                        document.getElementById("D13_KHT").value = '';
                     } else
                     {
                         if (document.getElementById("D13_KHT").value === '')
                             document.getElementById("D13_KHT").value = 'KHT: ';
-                            document.getElementById("D13_HTXS").value = '';
-                            document.getElementById("D13_HTT").value = '';
-                            document.getElementById("D13_HT").value = '';
+                        document.getElementById("D13_HTXS").value = '';
+                        document.getElementById("D13_HTT").value = '';
+                        document.getElementById("D13_HT").value = '';
                     }
 
                 } catch (e)
@@ -767,7 +795,7 @@
                                                        this.value = 0
                                                    }
                                                    ;
-                                                   isInputMark('D1_<s:property value='MA'/>', 'D12_<s:property value='MA'/>','D12_<s:property value='D28'/>');
+                                                   isInputMark('D1_<s:property value='MA'/>', 'D12_<s:property value='MA'/>', 'D12_<s:property value='D28'/>');
                                                    evaluateSum_col('CHAMDIEMTT_001', 'D12');"
                                            <s:if test="D29.equalsIgnoreCase('Y') || D18.equalsIgnoreCase('HTXS')
                                                  || D18.equalsIgnoreCase('HTT')

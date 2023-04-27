@@ -260,6 +260,7 @@ public class NQ11CP_04KH extends ActionNghiquyet11cpMain
                     return ERROR;
                 }
             } else if (Grade.equals("2")) {
+                
                 String sngaybc = hmParameter.get("ngay_bc").toString();
                 Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(sngaybc);
 
@@ -274,6 +275,12 @@ public class NQ11CP_04KH extends ActionNghiquyet11cpMain
                 pos_cd_username = posMainModel.getPosCd();
                 ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
                 ArrayList<DuLieuNTRow> lstDataM = new ArrayList<>();
+                
+                if(hmParameter.get("nghiepvu").toString().equals("4"))
+                {
+                    addActionError("Bạn ko được lưu số liệu lũy kế");
+                        return ERROR;
+                }
 
                 lstDataM = service.getData("GIAO_KHTDNQ11", pos_cd_username, "M", strDate);
 

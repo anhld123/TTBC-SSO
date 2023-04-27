@@ -1166,6 +1166,45 @@ public class DaoChamdiemcnMain {
         }
         return _retVal;
     }
+    
+    public String getNhomNVByUser_Duyet(String UserName, String CapBC, String maCB) throws SQLException {
+        String _retVal = "";
+        Connection conn = new DaoConnect().getConnect();
+        CallableStatement calstatement = null;
+        ResultSet reset = null;
+        //Khoi tao procedure cung voi tham so truyen vao la dau ?
+        String strStoreproce = "{ ? = call VBSP_IMS_CHAMDIEMCN.F_GET_NHOMNV_DUYET(?, ?, ? ) }";
+
+        try {
+            //Khoi tao goi Store
+            calstatement = conn.prepareCall(strStoreproce,
+                    ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.VARCHAR);
+            calstatement.setString(2, CapBC);
+            calstatement.setString(3, UserName);
+            calstatement.setString(4, maCB);
+            //Thuc hien execute lay du lieu
+            calstatement.execute();
+            //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+            _retVal = calstatement.getString(1);
+
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " checkUser -> " + e.getMessage());
+            throw new SQLException(e);
+        } finally {
+            if (reset != null) {
+                reset.close();
+            }
+            if (calstatement != null) {
+                calstatement.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return _retVal;
+    }
 
     public List<QT_DULIEU_NT> getDataPL01(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd, int iStart, int iEnd, String sTeler, String sotk) {
