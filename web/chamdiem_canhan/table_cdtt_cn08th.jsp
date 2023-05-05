@@ -121,16 +121,16 @@
                    var D28_CN010102 = document.getElementById('D28_CN010102').value;
                     if (D28_CN010102 === 'CN010102_NEW')
                     {
-                        console.log('')
-                        var riengD11 = document.getElementById('D11_CN010102').value;
-                        if (riengD11 < 0)
+                        console.log('------------day');
+                        var riengD5 = document.getElementById('D5_CN010102').value;
+                        if (riengD5 < 0)
                         {
                             document.getElementById('D11_CN010102').value = 0;
-                            riengD11 = document.getElementById('D11_CN010102').value;
+                            riengD5 = document.getElementById('D5_CN010102').value;
                         }
-                        document.getElementById('D11_CN010102').value = Math.round(riengD11)
+                        document.getElementById('D5_CN010102').value = Math.round(riengD5)
                         var riengD1 = document.getElementById('D1_CN010102').value;
-                        document.getElementById('D12_CN010102').value = riengD1 - riengD11 * 5 * 10 / 100 < 0 ? 0 : riengD1 - riengD11 * 5 * 10 / 100
+                        document.getElementById('D10_CN010102').value = riengD1 - riengD5 * 5 * 10 / 100 < 0 ? 0 : riengD1 - riengD5 * 5 * 10 / 100
 
                     }
                     //duyệt cấp cộng tổng hợp
@@ -285,7 +285,7 @@
                         console.log('trungbinh=' + trungbinh);
                         if (trungbinh != 'TB_PGD_KS_CB')
                         {
-//                            console.log('D_khoa_nhiemvu=' + D_khoa_nhiemvu);
+                            console.log('D_khoa_nhiemvu=' + D_khoa_nhiemvu);
                             var D28_CN010102 = document.getElementById('D28_CN010102').value;
                             if (D28_CN010102 === 'CN010102_NEW')
                             {

@@ -129,6 +129,21 @@
                     var arrCapht = [6.0, 5.0, 4.0, 3.0, 2.0, 1.0]; //Luu cac cot cua du lieu can tinh toan
 
                     var rowCount = $("#" + table_id + " td").closest("tr").length;
+                    var D28_CN010102 = document.getElementById('D28_CN010102').value;
+                    if (D28_CN010102 === 'CN010102_NEW')
+                    {
+                        console.log('')
+                        var riengD11 = document.getElementById('D11_CN010102').value;
+                        if (riengD11 < 0)
+                        {
+                            document.getElementById('D11_CN010102').value = 0;
+                            riengD11 = document.getElementById('D11_CN010102').value;
+                        }
+                        document.getElementById('D11_CN010102').value = Math.round(riengD11)
+                        var riengD1 = document.getElementById('D1_CN010102').value;
+                        document.getElementById('D12_CN010102').value = riengD1 - riengD11 * 5 * 10 / 100 < 0 ? 0 : riengD1 - riengD11 * 5 * 10 / 100
+
+                    }
 //                    document.getElementById('D10_CN02').value = 20;
                     //duyệt cấp cộng tổng hợp
                     for (k = 0; k < arrCapht.length; k++)
