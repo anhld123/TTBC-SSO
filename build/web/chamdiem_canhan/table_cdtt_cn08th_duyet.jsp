@@ -59,10 +59,17 @@
                         var D28 = getValue('D28_' + ma);
                         if (D28 === 'LOI50')
                         {
-                            document.getElementById('D5_' + ma).value = Math.round(d5)
+                            document.getElementById('D11_' + ma).value = Math.round(d11)
                             d12 = getValue('D1_' + ma) - getValue('D11_' + ma) * 50 / 100 * getValue('D1_' + ma);
-                            document.getElementById('D12_' + ma).value = d12 < 0 ? 0 : d12;
-                        } else
+                            document.getElementById('D12_' + ma).value = d12 < 0 ? 0 : d12;                          
+                        }
+                         else  if (D28 === 'LOI02')
+                        {                    
+                            document.getElementById('D11_' + ma).value = d11 > 5 ? 5 : d11;
+                            d12 = getValue('D1_' + ma) - (getValue('D11_' + ma) * 2);
+                            document.getElementById('D12_' + ma).value = d12;       
+                         }
+                         else
                         {
                             d10 = getValue('D1_' + ma) * getValue('D11_' + ma) / 100;
                             document.getElementById('D12_' + ma).value = d10;
