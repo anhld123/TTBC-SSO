@@ -62,7 +62,14 @@
                             document.getElementById('D5_' + ma).value = Math.round(d5)
                             d12 = getValue('D1_' + ma) - getValue('D11_' + ma) * 50 / 100 * getValue('D1_' + ma);
                             document.getElementById('D12_' + ma).value = d12 < 0 ? 0 : d12;
-                        } else
+                        }
+                        else if (D28 === 'LOI20')
+                        {
+                            document.getElementById('D5_' + ma).value = Math.round(d5)
+                            d12 = getValue('D1_' + ma) - getValue('D11_' + ma) * 20 / 100 * getValue('D1_' + ma);
+                            document.getElementById('D12_' + ma).value = d12 < 0 ? 0 : d12;
+                        }
+                        else
                         {
                             d10 = getValue('D1_' + ma) * getValue('D11_' + ma) / 100;
                             document.getElementById('D12_' + ma).value = d10;
