@@ -139,7 +139,7 @@
 
             function evaluateSum_row_diemtru(ma, ma_d29) {
                 try {
-
+            console.log('vap=----2--' + ma_d29  )
                     var d10 = 0;
                     var d9 = document.getElementById('D9_' + ma).value;
                     d9 = d9.replace(',', '');
@@ -151,10 +151,11 @@
                         document.getElementById('D9_' + ma).value = 0;
                         return;
                     }
-//                    console.log('vap=------' + ma_d29  )
+                    console.log('vap=------' + ma_d29  )
                     if (ma_d29 === 'N')
                     {
                         var D28 = getValue('D28_' + ma);
+                        console.log('vap=------' + ma_d29  )
                         if (D28 === 'LOI01')
                         {
                             d9 = document.getElementById('D9_' + ma).value;
@@ -444,8 +445,8 @@
                             </td>
 
                             <td align = "right" class="TD_GHICHU">
-                                <input type="text" value="<s:property  value="D11" />" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH " readonly="true"/>
+                                <input type="text" value="<s:property  value="D6" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH " readonly="true"/>
                             </td>
                         </s:if>
 
@@ -526,8 +527,8 @@
 
                                 </td>  
                                 <td align = "right" class="TD_SOLUONG">
-                                    <input type="text" value="<s:property  value="D11" />" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH"/>
+                                    <input type="text" value="<s:property  value="D6" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH"/>
                             </td>  
                         </s:if>                   
                         <td class="hideColumn"><input type="text" value="<s:property value='D3'/>" name="KH_CONGTHUC" class="KH_CONGTHUC"/></td>
