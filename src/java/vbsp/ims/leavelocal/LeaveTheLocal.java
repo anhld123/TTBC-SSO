@@ -32,13 +32,17 @@ public class LeaveTheLocal extends ActionSupport {
 
     private List<DULIEU_NT_TQ> lstData;
     private List<PosClass> lstCN;
+    private List<PosClass> lstPGD;
     private String txtNgayBc;
+    private String txtFromDate;
+    private String txtToDate;
     private String txtNghiepVu;
     private String txtMakh;
     private String txtsMadv;
     private String sGrade;
     private String sUser;
     private String vsbpMakh;
+    private String vsbpTenKh;
     private String vsbpNgayBC;
     private InputStream pageResult;
     private DuLieuNTService service;
@@ -57,20 +61,24 @@ public class LeaveTheLocal extends ActionSupport {
 
     public String getLeaveLocal() throws Exception {
         epsModel dao = new epsModel();
-        this.lstData = new ArrayList<DULIEU_NT_TQ>();
+        this.lstData = new ArrayList<>();
         final DaoConnect db = new DaoConnect();
         final Connection con = db.getConnect();
         final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
+        final String sFromDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtFromDate));
+        final String sToDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtToDate));
         try {
-            final CallableStatement st = con.prepareCall("{call BODI_KHOIDP.GETDANHSACHKH(?,?,?,?,?,?)}");
+            final CallableStatement st = con.prepareCall("{call BODI_KHOIDP.GETDANHSACHKH(?,?,?,?,?,?,?,?)}");
             st.setString(1, sGrade);
             st.setString(2, sReportdt);
             st.setString(3, txtMakh);
             st.setString(4, sUser);
             st.setString(5, txtsMadv);
-            st.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
+            st.setString(6, sFromDate);
+            st.setString(7, sToDate);
+            st.registerOutParameter(8, oracle.jdbc.OracleTypes.CURSOR);
             st.execute();
-            final ResultSet rs = (ResultSet) st.getObject(6);
+            final ResultSet rs = (ResultSet) st.getObject(8);
             while (rs.next()) {
                 final DULIEU_NT_TQ obj = DULIEU_NT_TQ.newInstance();
                 obj.setTHUTU(rs.getInt("THUTU"));
@@ -116,12 +124,13 @@ public class LeaveTheLocal extends ActionSupport {
         } catch (SQLException ex) {
             Logger.getLogger(LeaveTheLocal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        lstCN = dao.getDonvi("LEAVELOCAL", "");
+        lstCN = dao.getDonvi("ALL_MAIN_POS", "");
+        lstPGD = dao.getDonvi("ALL_POS", "");
         return "success";
     }
 
-    public String PopupThanhvien() throws Exception {
-        this.lstData = new ArrayList<DULIEU_NT_TQ>();
+    public String popupThanhvien() throws Exception {
+        this.lstData = new ArrayList<>();
         final DaoConnect db = new DaoConnect();
         final Connection con = db.getConnect();
         final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.vsbpNgayBC));
@@ -181,11 +190,32 @@ public class LeaveTheLocal extends ActionSupport {
     }
 
     public String saveLeaveLocal() {
+        
+        List<DULIEU_NT_TQ> lstSelectedData = new ArrayList<>();        
+        // Lay ra danh sach ma khach hang duoc chon
+        List<String> lstSelectedCustomer = new ArrayList<>();
+        
+        for(int i = 0 ; i < this.lstData.size(); i++)
+        {
+            if (this.lstData.get(i).getNHAPTAY() != null && this.lstData.get(i).getNHAPTAY().equals("1")) {
+                //lstSelectedData.add(this.lstData.get(i));
+                if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11()))
+                    lstSelectedCustomer.add(this.lstData.get(i).getD11());
+            }
+        }
+        
+        for(int i = 0 ; i < this.lstData.size(); i++)
+        {
+            if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {                
+                lstSelectedData.add(this.lstData.get(i));
+            }
+        }
+        
         final DaoConnect db = new DaoConnect();
         final Connection con = db.getConnect();
         String code = "";
         try {
-            final Object[] array = this.lstData.toArray();
+            final Object[] array = lstSelectedData.toArray();
             final ArrayDescriptor des = ArrayDescriptor.createDescriptor("TAB_DULIEU_NT_TQ", con);
             final ARRAY array_to_pass = new ARRAY(des, con, (Object) array);
             CallableStatement calstatement = null;
@@ -219,9 +249,9 @@ public class LeaveTheLocal extends ActionSupport {
 
     public String sendLeaveLocal() throws Exception {
         //Lưu dữ liệu trước khi gửi
-        saveLeaveLocal();
+        //saveLeaveLocal();
         //Gửi số liệu
-        String code ="";
+        String code = "";
         int iResult = getDataSendTW();
         if (iResult != 0) {
             code = "404";
@@ -271,18 +301,35 @@ public class LeaveTheLocal extends ActionSupport {
 
     public int getDataSendTW() throws Exception {
         epsModel dao = new epsModel();
-        this.lstData = new ArrayList<DULIEU_NT_TQ>();
+        //this.lstData 
+        List<DULIEU_NT_TQ> lstSelectedData = new ArrayList<>();        
+        for(int i = 0 ; i < this.lstData.size(); i++)
+        {
+            if (this.lstData.get(i).getNHAPTAY() != null && this.lstData.get(i).getNHAPTAY().equals("1")) {
+                lstSelectedData.add(this.lstData.get(i));
+            }
+        }        
         final DaoConnect db = new DaoConnect();
         final Connection con = db.getConnect();
-        ArrayList<DuLieuNTRowX> lstUpdateDate = new ArrayList<>();
+        ArrayList<DuLieuNTRowX> lstUpdateData = new ArrayList<>();
         final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
+        final String sFromDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtFromDate));
+        final String sToDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtToDate));
         try {
-            final CallableStatement st = con.prepareCall("{call BODI_KHOIDP.GET_DATA_SEND_TW(?,?)}");
+            final CallableStatement st = con.prepareCall("{call BODI_KHOIDP.GET_DATA_SEND_TW(?,?,?,?,?)}");
+            
+            final Object[] array = lstSelectedData.toArray();
+            final ArrayDescriptor des = ArrayDescriptor.createDescriptor("TAB_DULIEU_NT_TQ", con);
+            final ARRAY array_to_pass = new ARRAY(des, con, (Object) array);
+            
             st.setString(1, this.sUser);
-            st.registerOutParameter(2, -10);
+            st.setString(2, sFromDate);
+            st.setString(3, sToDate);
+            st.setArray(4,(Array) array_to_pass);
+            st.registerOutParameter(5, -10);
             st.execute();
-            final ResultSet tmp = (ResultSet) st.getObject(2);
-            SimpleDateFormat CvDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            final ResultSet tmp = (ResultSet) st.getObject(5);
+            //SimpleDateFormat vDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
             while (tmp.next()) {
                 DuLieuNTRowX value = new DuLieuNTRowX();
@@ -332,7 +379,7 @@ public class LeaveTheLocal extends ActionSupport {
                 value.setD50(tmp.getString("D50"));
                 value.setManualFlag(tmp.getString("NHAPTAY"));
                 value.setFontFormat(tmp.getString("FONTFORMAT"));
-                lstUpdateDate.add(value);
+                lstUpdateData.add(value);
             }
             posMainModel = listKTNBDA.get_pos_main_pos(sUser, sGrade);
             pos_cd_username = posMainModel.getPosCd();
@@ -340,7 +387,7 @@ public class LeaveTheLocal extends ActionSupport {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             String dateStr = sdf.format(date1);
             service = new DuLieuNTService();
-            int status = service.updateDataX("BO_DI_KHOI_DP", pos_cd_username, "S", dateStr, sUser, sUser, lstUpdateDate);
+            int status = service.updateCustomerLeftHome("BO_DI_KHOI_DP", pos_cd_username, "S", dateStr, sUser, sUser, lstUpdateData);
             if (status != 200) {
                 CoreLogger.error(this.getClass().getName() + "Loi gui api len tw");
                 return 1;
@@ -352,6 +399,67 @@ public class LeaveTheLocal extends ActionSupport {
         return 0;
     }
 
+    public String deleteLeaveLocal() {
+        
+        List<DULIEU_NT_TQ> lstSelectedData = new ArrayList<>();        
+        // Lay ra danh sach ma khach hang duoc chon
+        List<String> lstSelectedCustomer = new ArrayList<>();
+        
+        for(int i = 0 ; i < this.lstData.size(); i++)
+        {
+            if (this.lstData.get(i).getNHAPTAY() != null && this.lstData.get(i).getNHAPTAY().equals("1")) {
+                //lstSelectedData.add(this.lstData.get(i));
+                if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11()))
+                    lstSelectedCustomer.add(this.lstData.get(i).getD11());
+            }
+        }
+        
+        for(int i = 0 ; i < this.lstData.size(); i++)
+        {
+            if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {                
+                // Chuyen trang thai sang dong
+                this.lstData.get(i).setD50("C");
+                lstSelectedData.add(this.lstData.get(i));
+            }
+        }
+        
+        final DaoConnect db = new DaoConnect();
+        final Connection con = db.getConnect();
+        String code = "";
+        try {
+            final Object[] array = lstSelectedData.toArray();
+            final ArrayDescriptor des = ArrayDescriptor.createDescriptor("TAB_DULIEU_NT_TQ", con);
+            final ARRAY array_to_pass = new ARRAY(des, con, (Object) array);
+            CallableStatement calstatement = null;
+            final String strStoreproce = "{call BODI_KHOIDP.DELETE_DANHSACHKH(?,?,?,?)}";
+            try {
+                calstatement = con.prepareCall(strStoreproce);
+                calstatement.setString(1, txtNgayBc);
+                calstatement.setString(2, sUser);
+                calstatement.setArray(3, (Array) array_to_pass);
+                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.NCHAR);
+                calstatement.execute();
+                code = calstatement.getString(4);
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+
+                System.out.println("Save Leaver Local => " + code);
+
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + "saveData -> " + e.getMessage());
+            }
+        } catch (Exception e2) {
+            System.err.println("Loi trong ham saveData " + e2.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveData -> " + e2.getMessage());
+        }
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+
+        return "success";
+    }
+    
+    
     public List<DULIEU_NT_TQ> getLstData() {
         return this.lstData;
     }
@@ -440,5 +548,39 @@ public class LeaveTheLocal extends ActionSupport {
         this.txtsMadv = txtsMadv;
     }
 
-   
+    public String getTxtFromDate() {
+        return txtFromDate;
+    }
+
+    public void setTxtFromDate(String txtFromDate) {
+        this.txtFromDate = txtFromDate;
+    }
+
+    public String getTxtToDate() {
+        return txtToDate;
+    }
+
+    public void setTxtToDate(String txtToDate) {
+        this.txtToDate = txtToDate;
+    }      
+
+    public String getVsbpTenKh() {
+        return vsbpTenKh;
+    }
+
+    public void setVsbpTenKh(String vsbpTenKh) {
+        this.vsbpTenKh = vsbpTenKh;
+    }
+
+    public List<PosClass> getLstPGD() {
+        return lstPGD;
+    }
+
+    public void setLstPGD(List<PosClass> lstPGD) {
+        this.lstPGD = lstPGD;
+    }
+    
+    
+    
+    
 }

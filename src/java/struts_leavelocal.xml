@@ -12,10 +12,16 @@
         <action name="getLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="getLeaveLocal">
             <result name="success">/leavelocal/viewdata.jsp</result>
         </action> 
-        <action name="PopupThanhvien" class="vbsp.ims.leavelocal.LeaveTheLocal" method="PopupThanhvien">
+        <action name="PopupThanhvien" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupThanhvien">
             <result name="success">/leavelocal/popupthanhvien.jsp</result>
         </action>  
         <action name="saveLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="saveLeaveLocal">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action>
+        <action name="deleteLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="deleteLeaveLocal">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
