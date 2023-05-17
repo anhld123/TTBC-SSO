@@ -12,7 +12,10 @@
         <action name="getLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="getLeaveLocal">
             <result name="success">/leavelocal/viewdata.jsp</result>
         </action> 
-        <action name="PopupThanhvien" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupThanhvien">
+        <action name="fetchUploadExcelLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="fetchExcelUploadData">
+            <result name="success">/leavelocal/viewdata.jsp</result>
+        </action> 
+        <action name="popupThanhvien" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupThanhvien">
             <result name="success">/leavelocal/popupthanhvien.jsp</result>
         </action>  
         <action name="saveLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="saveLeaveLocal">
@@ -21,7 +24,7 @@
                 <param name="inputName">pageResult</param>
             </result>
         </action>
-        <action name="deleteLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="deleteLeaveLocal">
+        <action name="suggestDeteleLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="suggestDeteleCustomer">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
@@ -33,11 +36,18 @@
                 <param name="inputName">pageResult</param>
             </result>
         </action> 
-        <action name="addRemoveTV" class="vbsp.ims.leavelocal.LeaveTheLocal" method="addRemoveTV">
+        <action name="updateClhMember" class="vbsp.ims.leavelocal.LeaveTheLocal" method="updateMember">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
             </result>
         </action>  
+        
+        <action name="clearClhMember" class="vbsp.ims.leavelocal.LeaveTheLocal" method="clearMember">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action> 
     </package>
 </struts>

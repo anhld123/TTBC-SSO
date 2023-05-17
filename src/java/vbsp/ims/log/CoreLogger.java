@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.apache.log4j.Logger;
 
-public class  CoreLogger
+public class CoreLogger
 {
   public static Logger mLog = Logger.getLogger(CoreLogger.class.getName());
   public static String getCurrentTimeStamp() {
