@@ -68,6 +68,16 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
+    
+    private String gradeAuthor1;
+
+    public String getGradeAuthor1() {
+        return gradeAuthor1;
+    }
+
+    public void setGradeAuthor1(String gradeAuthor1) {
+        this.gradeAuthor1 = gradeAuthor1;
+    }
 
     protected String pos_cd_username;
 
@@ -744,6 +754,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 //Lấy danh sách Pos theo User đăng nhập
                 epsModel dao = new epsModel();
                 lstDonvi = dao.getDonvi(Grade, UserName);
+                setGradeAuthor1("2");
                 return "LEAVELOCAL";
             }
             

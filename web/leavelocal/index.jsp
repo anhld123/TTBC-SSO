@@ -39,29 +39,72 @@
                 <fieldset style="display: flex; align-content: space-between;justify-content: space-between;">
                     <!--align-content: space-between;justify-content: space-between;-->
                     <legend><b>Tìm kiếm dữ liệu</b></legend>
-                    <div>
-                        Đơn vị:
-                        <select name="txtsMadv" id="txtsMadv">
-                            <s:iterator value="lstDonvi">
-                                <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
-                            </s:iterator>
-                        </select>                        
-                        Mã khách hàng: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã khách hàng" value="">                        
-                        Ngày nhập: từ <input type="text" name="txtFromDate" id="txtFromDate" readonly="readonly"/>
-                        đến <input type="text" name="txtToDate" id="txtToDate" readonly="readonly"/>
-                        <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>
-                    </div>
-                    <div>
-                        <input type="button" id="idSearch" value="Tìm kiếm" style="height: 25px; padding: 0px 20px 0px 20px;">
-                        <s:if test="Grade.equalsIgnoreCase('1')">
-                            <input type="button" id="idSave" value="Lưu số liệu" style="height: 25px;padding: 0px 20px 0px 20px;" disabled="true">                            
-                            <input type="button" id="idDelete" value="Đề nghị xóa" style="color: red;height: 25px;padding: 0px 20px 0px 20px;" disabled="true">
+                    <!--Check cấp phê duyệt tại PGD-->
+                    <s:if test="gradeAuthor1.equalsIgnoreCase('2')">
+                        <div>
+                            Đơn vị:
+                            <select name="txtsMadv" id="txtsMadv">
+                                <s:iterator value="lstDonvi">
+                                    <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                </s:iterator>
+                            </select>                        
+                            Mã khách hàng: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã khách hàng" value="">                        
+                            Ngày nhập: từ <input type="text" name="txtFromDate" id="txtFromDate" readonly="readonly"/>
+                            đến <input type="text" name="txtToDate" id="txtToDate" readonly="readonly"/>
+                            <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>
+                            <s:if test="gradeAuthor1.equalsIgnoreCase('2')">
+                                Loại phê quyệt
+                                <s:select  style="width: 220px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc"></s:select>
+                                    <s:select  
+                                        id="mato_data"
+                                        list="lstMato" 
+                                        listKey="sKey"
+                                        listValue="sDesc"
+                                        headerKey="-1"
+                                        headerValue="--- Chọn ---"                                        
+                                        cssStyle="display:none;">
+                                    </s:select>
+                            </s:if>
+                        </div>
+                        <div>
+                            <input type="button" id="idSearch" value="Tìm kiếm" style="height: 25px; padding: 0px 20px 0px 20px;">
+                            <s:if test="Grade.equalsIgnoreCase('1')">
+                                <input type="button" id="idSave" value="Phê duyệt" style="height: 25px;padding: 0px 20px 0px 20px;">
+<!--                                <input type="button" id="idSave" value="Lưu số liệu" style="height: 25px;padding: 0px 20px 0px 20px;" disabled="true">                            
+                                <input type="button" id="idDelete" value="Đề nghị xóa" style="color: red;height: 25px;padding: 0px 20px 0px 20px;" disabled="true">
 
-                            <input type="button" id="idUpload" value="Upload excel" onclick="callDirectLink('khvn_open_upload_qt_kh?');" style="height: 25px;padding: 0px 20px 0px 20px;">
-                            <input type="button" id="idFetch" value="Tải dữ liệu upload" style="height: 25px;padding: 0px 20px 0px 20px;">
-                            <input type="button" id="idSend" value="Gửi số liệu" style="height: 25px;padding: 0px 20px 0px 20px;" disabled="true">
-                        </s:if>
-                    </div>
+                                <input type="button" id="idUpload" value="Upload excel" onclick="callDirectLink('khvn_open_upload_qt_kh?');" style="height: 25px;padding: 0px 20px 0px 20px;">
+                                <input type="button" id="idFetch" value="Tải dữ liệu upload" style="height: 25px;padding: 0px 20px 0px 20px;">
+                                <input type="button" id="idSend" value="Gửi số liệu" style="height: 25px;padding: 0px 20px 0px 20px;" disabled="true">-->
+                            </s:if>
+                        </div>
+                    </s:if>
+                    <s:else>
+                        <div>
+                            Đơn vị:
+                            <select name="txtsMadv" id="txtsMadv">
+                                <s:iterator value="lstDonvi">
+                                    <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                </s:iterator>
+                            </select>                        
+                            Mã khách hàng: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã khách hàng" value="">                        
+                            Ngày nhập: từ <input type="text" name="txtFromDate" id="txtFromDate" readonly="readonly"/>
+                            đến <input type="text" name="txtToDate" id="txtToDate" readonly="readonly"/>
+                            <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>
+                        </div>
+                        <div>
+                            <input type="button" id="idSearch" value="Tìm kiếm" style="height: 25px; padding: 0px 20px 0px 20px;">
+                            <s:if test="Grade.equalsIgnoreCase('1')">
+                                <input type="button" id="idSave" value="Lưu số liệu" style="height: 25px;padding: 0px 20px 0px 20px;" disabled="true">                            
+                                <input type="button" id="idDelete" value="Đề nghị xóa" style="color: red;height: 25px;padding: 0px 20px 0px 20px;" disabled="true">
+
+                                <input type="button" id="idUpload" value="Upload excel" onclick="callDirectLink('khvn_open_upload_qt_kh?');" style="height: 25px;padding: 0px 20px 0px 20px;">
+                                <input type="button" id="idFetch" value="Tải dữ liệu upload" style="height: 25px;padding: 0px 20px 0px 20px;">
+                                <input type="button" id="idSend" value="Gửi số liệu" style="height: 25px;padding: 0px 20px 0px 20px;" disabled="true">
+                            </s:if>
+                        </div>
+                    </s:else>
+
                 </fieldset>
 
                 <div>
@@ -160,7 +203,7 @@
                     success: function (data) {
                         $("#viewData").html(data);
                         $("#idSend").prop('disabled', false);
-                        
+
                         $("#idSave").prop('disabled', true);
                         $("#idDelete").prop('disabled', true);
                     },
