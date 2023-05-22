@@ -18,6 +18,11 @@
         <action name="popupThanhvien" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupThanhvien">
             <result name="success">/leavelocal/popupthanhvien.jsp</result>
         </action>  
+        <action name="popupXuLyNo" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupXuLyNo">
+            <result name="success">/leavelocal/popupxulyno.jsp</result>
+        </action>
+       
+        
         <action name="saveLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="saveLeaveLocal">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>
@@ -36,12 +41,19 @@
                 <param name="inputName">pageResult</param>
             </result>
         </action> 
-        <action name="updateClhMember" class="vbsp.ims.leavelocal.LeaveTheLocal" method="updateMember">
+        <action name="debtHandling" class="vbsp.ims.leavelocal.LeaveTheLocal" method="debtHandling">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
             </result>
         </action>  
+        
+        <action name="updateClhMember" class="vbsp.ims.leavelocal.LeaveTheLocal" method="updateMember">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action>
         
         <action name="clearClhMember" class="vbsp.ims.leavelocal.LeaveTheLocal" method="clearMember">
             <result name="success" type="stream">
