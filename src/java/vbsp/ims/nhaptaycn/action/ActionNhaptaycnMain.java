@@ -37,6 +37,7 @@ import vbsp.ims.define.Define;
 import vbsp.ims.eps.epsModel;
 import vbsp.ims.khnv2021.PosClass;
 import vbsp.ims.ktgs.dao.DaoKtgsMain;
+import vbsp.ims.leavelocal.LeaveHomeDao;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
@@ -754,7 +755,9 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 //Lấy danh sách Pos theo User đăng nhập
                 epsModel dao = new epsModel();
                 lstDonvi = dao.getDonvi(Grade, UserName);
-                setGradeAuthor1("2");
+                //User thuộc nhóm 39 có quyền phê duyệt
+                int iRol = new LeaveHomeDao().checkRuleUser(UserName, Grade);
+                setGradeAuthor1(String.valueOf(iRol));
                 return "LEAVELOCAL";
             }
             

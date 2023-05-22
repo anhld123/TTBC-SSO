@@ -36,6 +36,7 @@
         <div style="margin: 5px;">
             <h3>DANH SÁCH HỘ VAY CHUYỂN KHỎI ĐỊA BÀN</h3>
             <s:form name="frmdata" id="frmdata" theme="simple">
+                <input type="hidden" name="gradeAuthor1" id="gradeAuthor1" value="<s:property value='gradeAuthor1'/>">
                 <fieldset style="display: flex; align-content: space-between;justify-content: space-between;">
                     <!--align-content: space-between;justify-content: space-between;-->
                     <legend><b>Tìm kiếm dữ liệu</b></legend>
@@ -53,17 +54,13 @@
                             đến <input type="text" name="txtToDate" id="txtToDate" readonly="readonly"/>
                             <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>
                             <s:if test="gradeAuthor1.equalsIgnoreCase('2')">
-                                Loại phê quyệt
-                                <s:select  style="width: 220px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc"></s:select>
-                                    <s:select  
-                                        id="mato_data"
-                                        list="lstMato" 
-                                        listKey="sKey"
-                                        listValue="sDesc"
-                                        headerKey="-1"
-                                        headerValue="--- Chọn ---"                                        
-                                        cssStyle="display:none;">
-                                    </s:select>
+                                Loại phê duyệt:
+                                            
+                                                <select name="typeAuth" id="typeAuth">                                                    
+                                                    <option value="1">Xư lý nợ</option>                                                    
+                                                    <option value="3">Xóa</option>        
+                                                </select>
+                                             
                             </s:if>
                         </div>
                         <div>
