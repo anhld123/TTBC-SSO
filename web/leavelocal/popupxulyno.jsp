@@ -29,7 +29,7 @@
                 document.getElementById('paymentDiv').style.display = 'none';
         }
 
-
+       
 
     </script>
     <style>
@@ -45,8 +45,9 @@
     </style>
 
     <body>
-        <form id="frmAddThanhVien">        
-            <input type="hidden" name="XuLyNo" id="XuLyNo" value="<s:property value='XuLyNo'/>">
+        <form id="frmXuLyNo">        
+            <input type="hidden" name="XuLyNo" id="XuLyNo" value="<s:property value='XuLyNo'/>">            
+            <input type="hidden" name="startPayment" id="startPayment" value="<s:property value='startPayment'/>">
             <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>
             <input type="hidden" name="txtFromDate" id="txtFromDate" readonly="readonly" value="31/12/2022"/>
             <input type="hidden" name="txtToDate" id="txtToDate" readonly="readonly" value="31/12/2050"/>
@@ -59,78 +60,22 @@
             <table id="tblChung">
                 <tr style="text-align: center;">
                     <th colspan="6" style="text-align: center; color: #07B200;">Khách hàng: <s:property value='vsbpTenKh'/> (<s:property value='vsbpMakh'/>)</th>
-                </tr>
-                <tr>
-                    <th>
-                        Tình hình xử lý nợ</th>
-                    <th>
-                        <s:url id="reloadbc" action="load_tt_trano.action">
-
-                        </s:url>
-                        <s:select  list="lstXuLyNo" name="lstXuLyNo_LIST" listKey="sKey" listValue="sDesc" id="XuLyNolov"  onchange="loadbc(this)"></s:select>
-                        </th>
-                    </tr>
-                </table>
+                </tr>                
+            </table>
+            <div style="height:10px"></div>    
+                <div>
+                    Tình hình xử lý nợ: <s:select  list="lstXuLyNo" name="lstXuLyNo_LIST" listKey="sKey" listValue="sDesc" id="XuLyNolov"  onchange="loadbc(this)"></s:select>
+                </div>
+                <div style="height:10px"></div>  
                 <div id="paymentDiv">
-                    <table id="tblThanhVien">
-                        <tr>                            
-                            <th>Mã món vay</th>
-                            <th>Chương trình</th>
-                            <th>Mã tổ</th>
-                            <th>Tên tổ trưởng</th>                            
-                            <th>Gốc</th>
-                            <th>Lãi</th>
-                        </tr>
-                    <s:iterator value="lstData" status="idxRows">
-                        <tr class="tr_clone">
-
-<!--                            <td class="txtBody" style="display: none;">                                                                                    
-                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d3" value="<s:property value='d3'/>">
-                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d4" value="<s:property value='d4'/>">
-                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d5" value="<s:property value='d5'/>">
-                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d6" value="<s:property value='d6'/>">
-                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d11" value="<s:property value='d11'/>">                            
-                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d50" value="<s:property value='d50'/>">
-                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d20" value="<s:property value='d20'/>">
-                            </td>-->
-
-                            <td class="txtBody">
-                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d12" value="<s:property value='d2'/>">
-                            </td>
-                            <td>
-                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d15" value="<s:property value='d5'/>">                           
-                            </td>
-                            <td>
-                                <input type="text" class="cssDate" name="lstData[<s:property  value='%{#idxRows.index}' />].d13" value="<s:property value='d3'/>">                           
-                            </td>
-                            
-                            <td>
-                                <input type="text" style="text-align: right;" name="lstData[<s:property  value='%{#idxRows.index}' />].d16" value="<s:property value='d16'/>">                           
-                            </td>
-                            <td>
-                                <input type="text" style="text-align: right;" name="lstData[<s:property  value='%{#idxRows.index}' />].d16" value="<s:property value='d16'/>">                           
-                            </td>
-                            <td>
-                                <input type="text" style="text-align: right;" name="lstData[<s:property  value='%{#idxRows.index}' />].d16" value="<s:property value='d16'/>">                           
-                            </td>
-
-
-                            <!--                            <td align = "center" class="TD_TEN_KH">
-                            <s:if test="#idxRows.index == 0">
-                                <input type="button" value="Thêm" onclick="addRow(this.parentNode.parentNode.rowIndex, '<s:property  value="key"/>', '<s:property  value="d3"/>', '<s:property  value="d4"/>', '<s:property  value="d5"/>', '<s:property  value="d6"/>', '<s:property  value="d11"/>')" class="TEN_KH"/>
-                            </s:if>
-                            <s:else>
-                                <input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="TEN_KH"/>
-                            </s:else> 
-                        </td>-->
-                        </tr>
-                    </s:iterator>
-
-                </table>
+                    Ngày bắt đầu trả nợ
+                    <input type="date"  name="startPaymentDate" id="startPaymentDate"  >  
+                </div>
+            <div style="height:20px"></div>    
+            
+            <div style="text-align: center;">
+                <input type="button" value="Lưu dữ liệu" name="cmdLuu" id="cmdLuu"/>
             </div>
-            <!--<p id="lblTotal" style="color: #ff3333;">Tổng số:</p>-->
-            <!--<input type="button" value="Xóa toàn bộ" name="cmdClear" id="cmdClear"/>-->
-            <input type="button" value="Lưu dữ liệu" name="cmdLuu" id="cmdLuu"/>
             <div id="divExportReport"></div>
         </form>
 
@@ -140,60 +85,21 @@
         document.getElementById('paymentDiv').style.display = 'none';
 //        document.getElementById('XuLyNolov').style.display = 'none';
         document.getElementById('XuLyNolov').value = document.getElementById('XuLyNo').value;
-
-        function deleteRow(indx) {
-            var table = document.getElementById("tblThanhVien");
-            var rowCount = table.rows.length - 3; //Dem so dong cua bang
-            if (max_row < rowCount)
-            {
-                max_row = rowCount;
-            }
-            max_row--;
-            table.deleteRow(indx);
-            $("#lblTotal").text("Tổng số thành viên: " + (table.rows.length - 3));
-        }
-
-        function addRow(indx, ma, d3, d4, d5, d6, d11) {
-            var index = parseInt(indx); //ko hieu so vao vong for lai mat index nen phai luu lai o day
-            var table = document.getElementById("tblThanhVien");
-            var rowCount = table.rows.length - 3; //Dem so dong cua bang
-            if (max_row < rowCount)
-            {
-                max_row = rowCount;
-            } else
-            {
-                max_row++;
-                rowCount = max_row;
-            }
-            var newTr = '<tr class="tr_clone">\n\ \n\
-                            <td class="txtBody" style="display: none;">\n\
-                            <input type="text" name="lstData[' + max_row + '].d3" value="' + d3 + '">\n\
-                            <input type="text" name="lstData[' + max_row + '].d4" value="' + d4 + '">\n\
-                            <input type="text" name="lstData[' + max_row + '].d5" value="' + d5 + '">\n\
-                            <input type="text" name="lstData[' + max_row + '].d6" value="' + d6 + '">\n\
-                            <input type="text" name="lstData[' + max_row + '].d11" value="' + d11 + '">\n\
-                            <input type="text" name="lstData[' + max_row + '].d50" value="1">\n\
-                            <input type="text" name="lstData[' + max_row + '].d20" value="ThanhVien">\n\
-                            </td>\n\
-                            <td class="txtBody"><input type="text" name="lstData[' + max_row + '].d12" ></td>\n\
-                            <td class="txtBody"><input type="text" name="lstData[' + max_row + '].d15" ></td>\n\
-                            <td class="txtBody"><input type="text" class="cssDate" name="lstData[' + max_row + '].d13" ></td>\n\
-                            <td class="txtBody"><input type="text" style="text-align: right;" name="lstData[' + max_row + '].d14" ></td>\n\
-                            <td class="txtBody"><input type="text" style="text-align: right;" name="lstData[' + max_row + '].d16" ></td>\n\
-                            <td align = "center" class="TD_TEN_KH"><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="TEN_KH"/></td>\n\
-                        </tr>';
-            $($('table#tblThanhVien tr')[table.rows.length - 2]).after(newTr);
-            $("#lblTotal").text("Tổng số thành viên: " + (table.rows.length - 3));
-            setCssStyle();
-        }
-
+        var sDate =document.getElementById('startPayment').value;
+        alert(sDate);
+        var s = sDate.substring(6,10) + '-'+ sDate.substring(3,5)+ '-'+ sDate.substring(0,2);
+         alert(s);
+        document.getElementById('startPaymentDate').value = '2023-09-11';
+        
+        
+        
         //Tìm dữ liệu
         $("#cmdLuu").click(function () {
             let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
             if (aCheck) {
                 var url, sdata;
                 url = "debtHandling.action";
-                sdata = jQuery("#frmAddThanhVien").serialize();
+                sdata = jQuery("#frmXuLyNo").serialize();
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -214,36 +120,8 @@
             }
         });
 
-        $("#cmdClear").click(function () {
-            let aCheck = confirm("Bạn chắc chắn muốn xóa toàn bộ thành viên ?");
-            if (aCheck) {
-                var url, sdata;
-                url = "clearClhMember.action";
-                sdata = jQuery("#frmAddThanhVien").serialize();
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: sdata,
-                    success: function (data) {
-                        if (data === "200") {
-                            alert("Thành công: Xóa dữ liệu.");
-                            window.opener.document.getElementById('idSearch').click();
-                            window.close();
-                        } else {
-                            alert("Lỗi: Xóa dữ liệu.");
-                        }
-                    },
-                    error: function (request) {
-                        alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
-                    }
-                });
-            }
-        });
-
-        $(function () {
-            var table = document.getElementById("tblThanhVien");
-            $("#lblTotal").text("Tổng số thành viên: " + (table.rows.length - 3));
-        });
+        
+       
 
 
         $(function () {
