@@ -183,9 +183,9 @@
                                     resetvalue(subid, ma_ct);
 //                                    console.log('DIEM_HT_CV=' + tongcong);
 //                                    console.log('valNew=' + valNew + ' subid=' + subid + ' congthuc=' + congthuc + ' ma_ct=' + ma_ct);
-                                    var D1_CN010103 = document.getElementById('D1_CN010103').value
-                                    console.log('D1_CN010103=' + D1_CN010103 + '---tongcong=' + tongcong);
-                                    laydiemHoanthanh(subid, ma_ct, tongcong + parseFloat(D1_CN010103));
+                                    var D1_CN0102 = document.getElementById('D1_CN0102').value
+                                    console.log('D1_CN0102=' + D1_CN0102 + '---tongcong=' + tongcong);
+                                    laydiemHoanthanh_new(subid, ma_ct, tongcong + parseFloat(D1_CN0102));
                                 } else if (D28_khoa === 'TINHKHAC')
                                 {
                                     tinhkhac = "TINHKHAC";
@@ -430,6 +430,58 @@
                         document.getElementById(subid + '_' + ma_ct + '03').value = 10;
                     }
                     if (tongcong < 61)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 5;
+                        document.getElementById(subid + '_' + ma_ct + '04').value = 5;
+                    }
+                }
+            }
+            
+            function laydiemHoanthanh_new(subid, ma_ct, tongcong)
+            {
+                console.log('tongcong----------= laydiemHoanthanh_new' + tongcong);
+                var diem_max = getvalue('D1_' + ma_ct);
+                console.log('111diem_max=' + diem_max + ' ' + subid + '_' + ma_ct + '_' + tongcong);
+                if (diem_max == 30)
+                {
+                    if (tongcong >= 61 && tongcong <= 70)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 30;
+                        document.getElementById(subid + '_' + ma_ct + '01').value = 30;
+                    }
+                    if (tongcong >= 56 && tongcong < 61)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 25;
+                        document.getElementById(subid + '_' + ma_ct + '02').value = 25;
+                    }
+                    if (tongcong >= 51 && tongcong < 56)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 20;
+                        document.getElementById(subid + '_' + ma_ct + '03').value = 20;
+                    }
+                    if (tongcong < 51)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 15;
+                        document.getElementById(subid + '_' + ma_ct + '04').value = 15;
+                    }
+                } else
+                {
+                    if (tongcong >= 55 && tongcong <= 60)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 20;
+                        document.getElementById(subid + '_' + ma_ct + '01').value = 20;
+                    }
+                    if (tongcong >= 50 && tongcong < 55)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 15;
+                        document.getElementById(subid + '_' + ma_ct + '02').value = 15;
+                    }
+                    if (tongcong >= 45 && tongcong < 50)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 10;
+                        document.getElementById(subid + '_' + ma_ct + '03').value = 10;
+                    }
+                    if (tongcong < 45)
                     {
                         document.getElementById(subid + '_' + ma_ct).value = 5;
                         document.getElementById(subid + '_' + ma_ct + '04').value = 5;

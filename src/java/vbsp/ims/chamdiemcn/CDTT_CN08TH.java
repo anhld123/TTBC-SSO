@@ -64,7 +64,7 @@ public class CDTT_CN08TH extends ActionChamdiemcnMain implements CdttFunction {
                 if (conn != null) {
                     conn.close();
                 }
-                if (nhomnv.equals("PGD_TD_PGD11") || nhomnv.equals("PGD_TD_PGD12"))
+                if (nhomnv.equals("PGD_TD_PGD11") || nhomnv.equals("PGD_TD_PGD12") || nhomnv.equals("CN_PGD"))
                 {
                     setLstXeploaiABC(daoMain.getLOV(UserName,"XEPLOAI_ABC",Grade,""));
                     setLstXeploai(daoMain.getLOV(UserName,"XEPLOAI",Grade,""));

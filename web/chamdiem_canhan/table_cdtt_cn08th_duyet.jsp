@@ -69,6 +69,12 @@
                             d12 = getValue('D1_' + ma) - getValue('D11_' + ma) * 20 / 100 * getValue('D1_' + ma);
                             document.getElementById('D12_' + ma).value = d12 < 0 ? 0 : d12;
                         }
+                        else if (D28 === 'LOI02')
+                        {
+                            document.getElementById('D11_' + ma).value = d11 > 5 ? 5 : d11;
+                            d12 = getValue('D1_' + ma) - (getValue('D11_' + ma) * 2);
+                            document.getElementById('D12_' + ma).value = d12;
+                        }
                         else
                         {
                             d10 = getValue('D1_' + ma) * getValue('D11_' + ma) / 100;
@@ -111,6 +117,7 @@
                 $(".TD_NOIDUNG06A").css({"width": "35%"});
                 $(".hideColumn").hide();
                 $(".TEN_KH").css({"width": "100%"});
+                 evaluateSum_col('CHAMDIEMTT_001', 'D12');
             });
             $('.TEN_KH').focus(function () {
                 $(this).closest('tr').addClass('highlight_row');
@@ -195,8 +202,8 @@
                                     resetvalue(subid, ma_ct);
 //                                    console.log('DIEM_HT_CV=' + tongcong);
 //                                    console.log('valNew=' + valNew + ' subid=' + subid + ' congthuc=' + congthuc + ' ma_ct=' + ma_ct);
-                                    var D1_CN010103 = document.getElementById('D1_CN010103').value
-                                    laydiemHoanthanh(subid, ma_ct, tongcong + parseFloat(D1_CN010103));
+                                    var D1_CN0102 = document.getElementById('D1_CN0102').value
+                                    laydiemHoanthanh_new(subid, ma_ct, tongcong + parseFloat(D1_CN0102));
                                 } 
                                 else if (D28_khoa === 'TINHKHAC')
                                 {
@@ -383,6 +390,58 @@
                         document.getElementById(subid + '_' + ma_ct + '03').value = 10;
                     }
                     if (tongcong < 61)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 5;
+                        document.getElementById(subid + '_' + ma_ct + '04').value = 5;
+                    }
+                }
+            }
+            
+            function laydiemHoanthanh_new(subid, ma_ct, tongcong)
+            {
+                console.log('tongcong----------= laydiemHoanthanh_new' + tongcong);
+                var diem_max = getvalue('D1_' + ma_ct);
+                console.log('111diem_max=' + diem_max + ' ' + subid + '_' + ma_ct + '_' + tongcong);
+                if (diem_max == 30)
+                {
+                    if (tongcong >= 61 && tongcong <= 70)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 30;
+                        document.getElementById(subid + '_' + ma_ct + '01').value = 30;
+                    }
+                    if (tongcong >= 56 && tongcong < 61)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 25;
+                        document.getElementById(subid + '_' + ma_ct + '02').value = 25;
+                    }
+                    if (tongcong >= 51 && tongcong < 56)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 20;
+                        document.getElementById(subid + '_' + ma_ct + '03').value = 20;
+                    }
+                    if (tongcong < 51)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 15;
+                        document.getElementById(subid + '_' + ma_ct + '04').value = 15;
+                    }
+                } else
+                {
+                    if (tongcong >= 55 && tongcong <= 60)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 20;
+                        document.getElementById(subid + '_' + ma_ct + '01').value = 20;
+                    }
+                    if (tongcong >= 50 && tongcong < 55)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 15;
+                        document.getElementById(subid + '_' + ma_ct + '02').value = 15;
+                    }
+                    if (tongcong >= 45 && tongcong < 50)
+                    {
+                        document.getElementById(subid + '_' + ma_ct).value = 10;
+                        document.getElementById(subid + '_' + ma_ct + '03').value = 10;
+                    }
+                    if (tongcong < 45)
                     {
                         document.getElementById(subid + '_' + ma_ct).value = 5;
                         document.getElementById(subid + '_' + ma_ct + '04').value = 5;
