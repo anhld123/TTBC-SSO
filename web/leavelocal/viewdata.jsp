@@ -102,7 +102,7 @@
         var left = (screen.width / 2) - (w / 2);
         var top = (screen.height / 2) - (h / 2);
         var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent( tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val() 
-                + "&XuLyNo=" + XuLyNo + "&startPayment=" + startPayment +"&vbsprandom=" + Math.random();
+                + "&XuLyNo=" + XuLyNo + startPayment +"&vbsprandom=" + Math.random();
         var url = "/IMS_REPORTS/popupXuLyNo.action?"+urlParam;
         popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
     }

@@ -28,6 +28,7 @@
             else
                 document.getElementById('paymentDiv').style.display = 'none';
         }
+        
 
        
 
@@ -69,7 +70,7 @@
                 <div style="height:10px"></div>  
                 <div id="paymentDiv">
                     Ngày bắt đầu trả nợ
-                    <input type="date"  name="startPaymentDate" id="startPaymentDate"  >  
+                    <input type="date"  name="startPaymentDate" id="startPaymentDate" >  
                 </div>
             <div style="height:20px"></div>    
             
@@ -84,12 +85,30 @@
     <script>
         document.getElementById('paymentDiv').style.display = 'none';
 //        document.getElementById('XuLyNolov').style.display = 'none';
-        document.getElementById('XuLyNolov').value = document.getElementById('XuLyNo').value;
-        var sDate =document.getElementById('startPayment').value;
-        alert(sDate);
-        var s = sDate.substring(6,10) + '-'+ sDate.substring(3,5)+ '-'+ sDate.substring(0,2);
-         alert(s);
-        document.getElementById('startPaymentDate').value = '2023-09-11';
+//        document.getElementById('XuLyNolov').value = document.getElementById('XuLyNo').value;
+        
+        
+        
+        var xuly = document.getElementById('XuLyNo').value;
+        if (xuly.substring(0,1) == 2)
+        {
+            document.getElementById('paymentDiv').style.display = '';
+        }
+        
+        if(xuly.length > 1)
+        {
+            
+            document.getElementById('XuLyNolov').value = xuly.substring(0,1);
+            var date = xuly.substring(2,11)
+            var s = xuly.substring(7,11) + '-'+ xuly.substring(4,6)+ '-'+ xuly.substring(1,3);
+//            alert(s);
+            document.getElementById('startPaymentDate').value = s
+        }
+        else
+        {
+            document.getElementById('XuLyNolov').value = xuly
+            
+        }
         
         
         
