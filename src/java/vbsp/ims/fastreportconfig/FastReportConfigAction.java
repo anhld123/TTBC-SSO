@@ -56,6 +56,8 @@ public class FastReportConfigAction extends ActionSupport
     public String build_group_combo() {
         group_modules.add(new ListValue("QRY", "Query"));
         group_modules.add(new ListValue("EXCEL", "Excel"));
+        group_modules.add(new ListValue("KTGS", "KTGS"));
+        group_modules.add(new ListValue("BRANCH", "BRANCH"));
 
         group_apply_regions.add(new ListValue("LOCAL", "Chi nhánh"));
         group_apply_regions.add(new ListValue("GLOBAL", "Toàn quốc"));
