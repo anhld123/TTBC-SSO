@@ -12,11 +12,15 @@
         <action name="getLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="getLeaveLocal">
             <result name="success">/leavelocal/viewdata.jsp</result>
         </action> 
-        <action name="fetchUploadExcelLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="fetchExcelUploadData">
+        <action name="getLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="getLeaveLocal">
             <result name="success">/leavelocal/viewdata.jsp</result>
+            <result name="success_author">/leavelocal/viewdata_author.jsp</result>
         </action> 
         <action name="popupThanhvien" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupThanhvien">
-            <result name="success">/leavelocal/popupthanhvien.jsp</result>
+            <result name="success">/leavelocal/popupthanhvien.jsp</result>      
+        </action>  
+        <action name="popupThanhvien_author" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupThanhvien">
+            <result name="success">/leavelocal/popupthanhvien_author.jsp</result>      
         </action>  
         <action name="popupXuLyNo" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupXuLyNo">
             <result name="success">/leavelocal/popupxulyno.jsp</result>

@@ -52,30 +52,17 @@
                             Mã khách hàng: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã khách hàng" value="">                        
                             Ngày nhập: từ <input type="text" name="txtFromDate" id="txtFromDate" readonly="readonly"/>
                             đến <input type="text" name="txtToDate" id="txtToDate" readonly="readonly"/>
-                            <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>
-                            <s:if test="gradeAuthor1.equalsIgnoreCase('2')">
-                                Loại phê duyệt:
-                                            
-                                                <select name="typeAuth" id="typeAuth">                                                    
-                                                    <option value="1">Xư lý nợ</option>                                                    
-                                                    <option value="3">Xóa</option>        
-                                                </select>
-                                             
-                            </s:if>
+                            <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>                          
+                            Loại phê duyệt: <select style="width: 100px;" name="typeAuth" id="typeAuth">                                                    
+                                                    <option value="1" >Xử lý nợ</option>                                                    
+                                                    <option value="3">Xóa</option>   </select>                                         
                         </div>
                         <div>
                             <input type="button" id="idSearch" value="Tìm kiếm" style="height: 25px; padding: 0px 20px 0px 20px;">
-                            <s:if test="Grade.equalsIgnoreCase('1')">
-                                <input type="button" id="idSave" value="Phê duyệt" style="height: 25px;padding: 0px 20px 0px 20px;">
-<!--                                <input type="button" id="idSave" value="Lưu số liệu" style="height: 25px;padding: 0px 20px 0px 20px;" disabled="true">                            
-                                <input type="button" id="idDelete" value="Đề nghị xóa" style="color: red;height: 25px;padding: 0px 20px 0px 20px;" disabled="true">
-
-                                <input type="button" id="idUpload" value="Upload excel" onclick="callDirectLink('khvn_open_upload_qt_kh?');" style="height: 25px;padding: 0px 20px 0px 20px;">
-                                <input type="button" id="idFetch" value="Tải dữ liệu upload" style="height: 25px;padding: 0px 20px 0px 20px;">
-                                <input type="button" id="idSend" value="Gửi số liệu" style="height: 25px;padding: 0px 20px 0px 20px;" disabled="true">-->
-                            </s:if>
+                            <!--<input type="button" id="idPheduyet" value="Phê duyệt" style="height: 25px;padding: 0px 20px 0px 20px;" >-->
+                            <input type="button" id="idSave" value="Phê duyệt" style="height: 25px;padding: 0px 20px 0px 20px;" >
                         </div>
-                    </s:if>
+                     </s:if>
                     <s:else>
                         <div>
                             Đơn vị:
@@ -101,17 +88,55 @@
                             </s:if>
                         </div>
                     </s:else>
-
                 </fieldset>
-
                 <div>
                     <div id="viewData" ></div>
                 </div>
-
-
             </s:form>
         </div>
         <script>
+            function changValSeclect() {
+                if($("#typeAuth").val()==1){
+                    $("#idPheduyet").val("Phê duyệt").prop('disabled', true);                               
+                }else {
+                    $("#idPheduyet").val("Phê duyệt").prop('disabled', false).click(function () {
+                let checkedCount = countCheckedItem();
+                if (checkedCount === 0 || checkedCount > 1) {
+                    alert('Bạn chưa chọn bản ghi để xóa hoặc mỗi lần bạn chỉ được phép xóa tối đa 1 bản ghi!');
+                } else {
+                    let aCheck = confirm("Bạn chắc chắn muốn xóa dữ liệu ?");
+                    if (aCheck) {
+                        var url, sdata;
+                        url = "suggestDeteleLocal.action";
+                        sdata = jQuery("#frmdata").serialize();
+                        $("#viewData").html('<img src="img/loading.gif"/>');
+                        btnDisabled(1);
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: sdata,
+                            success: function (data) {
+                                if (data === "200") {
+                                    alert("Thành công: Xóa dữ liệu.");
+                                    $("#idSearch").trigger("click");
+                                } else {
+                                    alert("Lỗi: Xóa dữ liệu.");
+                                }
+                            },
+                            complete: function () {
+                                btnDisabled(0);
+                            },
+                            error: function (request) {
+                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                            }
+                        });
+                    }
+                }
+
+            }); 
+                }
+            }
+            changValSeclect();
             $(function () {
                 $("#txtFromDate").datepicker(
                         {
@@ -141,22 +166,6 @@
                             changeYear: true
                         }).val('31/12/2050');
             });
-
-//            $(function () {                
-//                $("#txtNgayBc").datepicker(
-//                {
-//                    dateFormat: 'dd/mm/yy', 
-//                    showOn: "button",
-//                    buttonImage: "img/icon-ui_datepicker.png",
-//                    buttonImageOnly: true,
-//                   // dateFormat: 'dd/mm/yy',
-//                    showButtonPanel: true,
-//                    buttonText: "icono",
-//                    changeMonth: true,
-//                    changeYear: true                    
-//                }).val('31/12/2050');
-//            });
-
             //Tải dữ liệu
             $("#idSearch").click(function () {
                 var url, sdata;
@@ -287,8 +296,8 @@
                 }
 
             });
-
-
+                    
+            
             $("#idDelete").click(function () {
                 let checkedCount = countCheckedItem();
                 if (checkedCount === 0 || checkedCount > 1) {

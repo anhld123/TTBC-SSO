@@ -59,21 +59,26 @@ public class LeaveHomeService {
                 System.err.println("lstReturn = " + lstReturn.size());
                 if (typeAuth.equals("1")) {
                     for (DuLieuNTRow item : lstReturn) {
-                        if (item.getD20().equals("HOVAY") && (item.getD36() == null? "0":item.getD36()).equals("1")) {
+                        if (item.getD20().equals("HOVAY") && (item.getD36() == null ? "0" : item.getD36()).equals("1")) {
                             lstTmp.add(item);
                         }
                     }
-                }
-                else 
-                {
-                    for (DuLieuNTRow item : lstReturn) {
-                        System.err.println("lstReturn D12  = " + item.getD12() +  item.getD50());
-                        if (item.getD20().equals("HOVAY") && (item.getD50() == null? "0":item.getD50()).equals("3")) {
-                            lstTmp.add(item);
+                } else {
+                    if (customerCode == null || customerCode.isEmpty()) {
+                        lstReturn = _service.getDelete("BO_DI_KHOI_DP", posCode, "S", "", _fromDate, _toDate);
+                    } else {
+                        lstReturn = _service.getDelete("BO_DI_KHOI_DP", posCode, "S", customerCode, _fromDate, _toDate);
+                    }
+                    System.err.println("lstReturn = " + lstReturn.size());
+                    if (typeAuth.equals("3")) {
+                        for (DuLieuNTRow item : lstReturn) {
+                            System.err.println("lstReturn D12  = " + item.getD12() + item.getD50());
+                            if (item.getD20().equals("HOVAY") && (item.getD50() == null ? "0" : item.getD50()).equals("3")) {
+                                lstTmp.add(item);
+                            }
                         }
                     }
                 }
-
                 return lstTmp;
             } catch (Exception e) {
                 return null;
@@ -267,6 +272,36 @@ public class LeaveHomeService {
                 return _service.clearClhMembers("BO_DI_KHOI_DP", posCode, "S", _reportDate, makerId, authoriseId, customerCode);
 
             }
+            //Kiểm tra xem check nào được chọn
+            //Lấy giá trị từ mảng 
+        } catch (Exception e) {
+            return 0;
+        }
+        return 0;
+    }
+
+    public int clearCustomersLeave(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
+        try {
+            //Kiểm tra xem check nào được chọn
+            String mKey = "", mcheck = "", mposCode = "", mposFlag = "";
+            List<DuLieuNTRowX> _lstNormalizeData = new ArrayList<>();
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
+            DuLieuNTService ser = new DuLieuNTService();
+            for (int i = 0; i < data.size(); i++) {
+                mcheck = data.get(i).getManualFlag();
+                if (mcheck.equalsIgnoreCase("1")) {
+                    mposCode = data.get(i).getPosCode();
+                    mKey = data.get(i).getD11();
+                    mposFlag = "S";
+
+                    int APICheck = ser.DeleteCustomers("BO_DI_KHOI_DP", mposCode, "S", _reportDate, "", "", _lstNormalizeData);
+                    System.out.println("API trả về lỗi  <> 200 = " + APICheck);
+                    if (sourceFlag.equals("0")) {
+                    } else {
+                        return ser.DeleteCustomers("BO_DI_KHOI_DP", mposCode, "S", _reportDate, "", "", _lstNormalizeData);
+                    }
+                }
+            } 
         } catch (Exception e) {
             return 0;
         }
