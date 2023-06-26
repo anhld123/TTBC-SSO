@@ -16,6 +16,7 @@
             <result name="LEAVELOCAL">/leavelocal/index.jsp</result>
             <result name="CHART_001">/nhaptay-cn/para-nhaptaycn-main_chart.jsp</result>
             <result name="KSNB_02">/nhaptay-cn/para-nhaptaycn-main_ktnb02.jsp</result>
+             <!--<result name="GQVL_01">/GQVL2023/index.jsp</result>-->
             <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>  
         

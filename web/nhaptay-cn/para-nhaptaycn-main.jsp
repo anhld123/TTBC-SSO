@@ -193,9 +193,17 @@
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
                 $('#divExportReportLink').empty();
+                 var ngay_bc = $("#ngay_bc_DATE").val();
                 var khoa_nhaptaycn = $("#khoa_nhaptaycn").val();
+                var lv_day = (ngay_bc.substr(0, 2));
+                var lv_month = (ngay_bc.substr(3, 2));
 //                alert(khoa_nhaptaycn);
-
+                if (khoa_nhaptaycn == 'GQVL_01' && (lv_day + lv_month != '3006' && lv_day + lv_month != '3112'))
+                {
+                    alert("Chọn định kỳ 30 tháng 6 hoặc 31 tháng 12 để tải dữ liệu!");
+                 
+                   return;
+                    }               
                 $("#loadData")[0].click();
                 bsubmit = true;
 //                return true;
@@ -797,6 +805,7 @@
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_007'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_008'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('HTLS2021'))
+                              ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('GQVL_01'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('NDT2021'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))"
                               >
@@ -856,90 +865,90 @@
 
                                 </s:form>
                             </div>
-<!--                            <script>
-                                $.subscribe('changeTopic', function (event, data) {
-                                    //alert('Date : '+event.originalEvent.dateText);
-                                    var strDate = event.originalEvent.dateText;
-                                    var year = strDate.substr(6, 4);
-                                    var month = strDate.substr(3, 2);
-                                    var day = strDate.substr(0, 2);
-                                    var iDate = year + "" + addZeroToLead(month) + "" + addZeroToLead(day);
-                                    //alert(iDate);
-                                    $("#ReportDate").val(iDate);
-                                    getLockStatus();
-                                    $("#loadDatatmp").click();
-                                });
-
-
-                                // TrungNT88 sua
-                                function getLockStatus() {
-                                    var key = $("#khoa").val();
-                                    var reportDate = $("#ReportDate").val();
-                                    var grade = $("#Grade").val();
-                                    var userName = $("#UserName").val();
-                                    $.ajax({
-                                        type: "GET",
-                                        url: "GetLockStatus?" + "Key=" + key + "&ReportDate=" + reportDate + "&ReportGrade=" + grade + "&UserName=" + userName,
-                                        success: function (res) {
-                                            var status = res.lockStatus;
-                                            //alert(status);
-                                            if (status === 0) {
-                                                //alert(status);
-                                                $('#idsaveDatatmp').prop('disabled', false);
-                                                $('#idSendtmp').prop('disabled', false);
-
-                                            } else {
-                                                //alert(status);
-                                                $('#idsaveDatatmp').prop('disabled', true);
-                                                $('#idSendtmp').prop('disabled', true);
-                                            }
-                                        },
-                                        error: function (res) {
-                                            alert("No values found..!!");
-                                        }
-                                    });
-
-                                }
-                                function addZeroToLead(value) {
-                                    var strVal = value.toString();
-                                    if (strVal.length < 2) {
-                                        return "0" + value;
-                                    } else {
-                                        return strVal;
-                                    }
-                                }
-                                $(document).ready(function () {
-                                    var date = new Date();
-                                    var month = date.getMonth();
-                                    var year = date.getFullYear(); //nam
-                                    var day = getDaysOfMonth(month, year)
-                                    var daynow = day + "/" + month + "/" + year;
-                                    //
-                                    var today = new Date();
-                                    var dd = today.getDate();
-                                    var mm = today.getMonth() + 1;
-                                    var yyyy = today.getFullYear();
-                                    if (dd < 10) {
-                                        dd = '0' + dd;
-                                    }
-                                    if (mm < 10) {
-                                        mm = '0' + mm;
-                                    }
-                                    var today = dd + '/' + mm + '/' + yyyy;
-                                    if (document.getElementById('khoa_nhaptaycn').value == 'QD23_001' || document.getElementById('khoa_nhaptaycn').value == 'QD23_007') {
-                                        document.getElementById('ngay_bc_DATE').value = today;
-                                    } else {
-                                        document.getElementById('ngay_bc_DATE').value = daynow;//daynow;
-                                    }
-                                    var iDate = year + "" + addZeroToLead(month) + "" + addZeroToLead(day);
-                                    //Gan quy mac dinh
-                                    //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
-                                    $("#ReportDate").val(iDate);
-                                    getLockStatus();
-//                                    $("#loadDatatmp").click();
-                                });
-
-                            </script>-->
+                            <!--                            <script>
+                                                            $.subscribe('changeTopic', function (event, data) {
+                                                                //alert('Date : '+event.originalEvent.dateText);
+                                                                var strDate = event.originalEvent.dateText;
+                                                                var year = strDate.substr(6, 4);
+                                                                var month = strDate.substr(3, 2);
+                                                                var day = strDate.substr(0, 2);
+                                                                var iDate = year + "" + addZeroToLead(month) + "" + addZeroToLead(day);
+                                                                //alert(iDate);
+                                                                $("#ReportDate").val(iDate);
+                                                                getLockStatus();
+                                                                $("#loadDatatmp").click();
+                                                            });
+                            
+                            
+                                                            // TrungNT88 sua
+                                                            function getLockStatus() {
+                                                                var key = $("#khoa").val();
+                                                                var reportDate = $("#ReportDate").val();
+                                                                var grade = $("#Grade").val();
+                                                                var userName = $("#UserName").val();
+                                                                $.ajax({
+                                                                    type: "GET",
+                                                                    url: "GetLockStatus?" + "Key=" + key + "&ReportDate=" + reportDate + "&ReportGrade=" + grade + "&UserName=" + userName,
+                                                                    success: function (res) {
+                                                                        var status = res.lockStatus;
+                                                                        //alert(status);
+                                                                        if (status === 0) {
+                                                                            //alert(status);
+                                                                            $('#idsaveDatatmp').prop('disabled', false);
+                                                                            $('#idSendtmp').prop('disabled', false);
+                            
+                                                                        } else {
+                                                                            //alert(status);
+                                                                            $('#idsaveDatatmp').prop('disabled', true);
+                                                                            $('#idSendtmp').prop('disabled', true);
+                                                                        }
+                                                                    },
+                                                                    error: function (res) {
+                                                                        alert("No values found..!!");
+                                                                    }
+                                                                });
+                            
+                                                            }
+                                                            function addZeroToLead(value) {
+                                                                var strVal = value.toString();
+                                                                if (strVal.length < 2) {
+                                                                    return "0" + value;
+                                                                } else {
+                                                                    return strVal;
+                                                                }
+                                                            }
+                                                            $(document).ready(function () {
+                                                                var date = new Date();
+                                                                var month = date.getMonth();
+                                                                var year = date.getFullYear(); //nam
+                                                                var day = getDaysOfMonth(month, year)
+                                                                var daynow = day + "/" + month + "/" + year;
+                                                                //
+                                                                var today = new Date();
+                                                                var dd = today.getDate();
+                                                                var mm = today.getMonth() + 1;
+                                                                var yyyy = today.getFullYear();
+                                                                if (dd < 10) {
+                                                                    dd = '0' + dd;
+                                                                }
+                                                                if (mm < 10) {
+                                                                    mm = '0' + mm;
+                                                                }
+                                                                var today = dd + '/' + mm + '/' + yyyy;
+                                                                if (document.getElementById('khoa_nhaptaycn').value == 'QD23_001' || document.getElementById('khoa_nhaptaycn').value == 'QD23_007') {
+                                                                    document.getElementById('ngay_bc_DATE').value = today;
+                                                                } else {
+                                                                    document.getElementById('ngay_bc_DATE').value = daynow;//daynow;
+                                                                }
+                                                                var iDate = year + "" + addZeroToLead(month) + "" + addZeroToLead(day);
+                                                                //Gan quy mac dinh
+                                                                //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
+                                                                $("#ReportDate").val(iDate);
+                                                                getLockStatus();
+                            //                                    $("#loadDatatmp").click();
+                                                            });
+                            
+                                                        </script>-->
                         </div>
                         </body>
                         </html>

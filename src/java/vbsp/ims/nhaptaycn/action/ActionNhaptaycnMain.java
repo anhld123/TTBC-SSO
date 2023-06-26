@@ -764,6 +764,19 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 return "LEAVELOCAL";
             }
             
+//            if (this.khoa_nhaptaycn.equals("GQVL_01")) {
+//                System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
+//                //Lấy danh sách Pos theo User đăng nhập
+//                epsModel dao = new epsModel();
+//                System.err.println("iRol= 1" );
+//                lstDonvi = dao.getDonvi(Grade, UserName);
+//                System.err.println("iRol= 2" );
+//                //User thuộc nhóm 39 có quyền phê duyệt
+//                int iRol = new LeaveHomeDao().checkRuleUser(UserName, Grade);
+//                System.err.println("iRol= " + String.valueOf(iRol) );
+//                setGradeAuthor1(String.valueOf(iRol));
+//                return "GQVL_01";
+//            }
             if (conn != null) {
                 conn.close();
             }

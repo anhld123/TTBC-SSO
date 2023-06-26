@@ -1114,7 +1114,35 @@ public class DuLieuNTService extends ReportService {
         System.out.println("Response code API: " + response.getStatus());
         return response.getStatus();
     }
+    
+  public int getGQVL2023(String key, String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
+            List<DuLieuNTRowX> data) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("update-manual-data")
+                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", posFlag)
+                .queryParam("reportDate", reportDate)
+                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
 
+        String json = "";
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(Include.NON_NULL);
+        try {
+            json = mapper.writeValueAsString(data);
+              System.out.println("ResultingJSONstring = " + json);  
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
+        System.out.println("Response code API: " + response.getStatus());
+        return response.getStatus();
+    }
+  
     public ArrayList<DuLieuNTRow> getClhMembers(String key, String posCode, String posFlag, String customerCode) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
