@@ -309,7 +309,7 @@
                             <input type="text" value="<s:property  value="D15" />"  class="<s:property value='FONTFORMAT'/> TEN_KH" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" readonly/>
                         </td>
-                        <s:if test="MA.equalsIgnoreCase('CT9999') && Grade.equalsIgnoreCase('1')">
+                        <s:if test="(MA.equalsIgnoreCase('CT9999') || MA.equalsIgnoreCase('CT9998')) && Grade.equalsIgnoreCase('1')">
                             <td align = "right" class= "<s:property value='FONTFORMAT'/> TD_SOTIEN">
                                 <input type="text" style="color: red" value="<s:property  value="TEN" />"  class="<s:property value='FONTFORMAT'/> TEN_KH" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" readonly/>
