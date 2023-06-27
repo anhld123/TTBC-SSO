@@ -148,10 +148,10 @@
                 }
                 
                 // Tinh cho dong D  
-                for (i = 0; i < arrCot.length; i++) { 
-                    //Tinh tong cho dong "Quỹ tiền lương V1"
-                    $(arrCot[i]).eq(37).val( parseFloat($(arrCot[i]).eq(56).val()) + parseFloat($(arrCot[i]).eq(57).val()));
-                }
+//                for (i = 0; i < arrCot.length; i++) { 
+//                    //Tinh tong cho dong "Quỹ tiền lương V1"
+//                    $(arrCot[i]).eq(37).val( parseFloat($(arrCot[i]).eq(56).val()) + parseFloat($(arrCot[i]).eq(57).val()));
+//                }
                 
                 // Tinh cho dong F  
                 for (i = 0; i < arrCot.length; i++) { 

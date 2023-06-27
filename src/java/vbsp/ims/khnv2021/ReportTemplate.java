@@ -12,6 +12,7 @@ package vbsp.ims.khnv2021;
 public class ReportTemplate {
     public static String MAU_01A = "KHNV01A";
     public static String MAU_01B = "KHNV01B";
+    public static String MAU_01B_3N = "KHNV01B_3N";
     public static String MAU_01 = "KHNV01";
     public static String MAU_02 = "KHNV02";
     

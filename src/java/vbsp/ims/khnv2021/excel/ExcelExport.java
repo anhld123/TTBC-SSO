@@ -387,6 +387,228 @@ public class ExcelExport {
             return null;
         }
     }
+    
+    public FileExportInfo xuatExcelMau01B_3N(String posCode, List<POSModel> lstCommune, String reportDate, String namBc, String dotBc, String savedDirPath) {        String filePath = "", fileName = "";
+        List<String> lstOfTextFile = new ArrayList<>();
+        List<DownloadFileInfor> filesList = new ArrayList<>();
+        List<String> zipFileList = new ArrayList<>();
+        lstOfTextFile.clear();
+        filesList.clear();
+        zipFileList.clear();
+        ArrayList<String> fullPathList = new ArrayList<>();
+        String strTimeFile = Long.toString(System.currentTimeMillis());
+        String zipFile = "FileNen_KHNV01_3N_" + strTimeFile + ".zip", zipPath = "";
+        try {
+            for (POSModel commune : lstCommune) {
+                if (commune.getId().equals("000000")) {
+                    continue;
+                }             
+                //xu ly cho export file ra PDF hoac la Excel
+                Date dReportDate = new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate);
+                String strCurrDate = new SimpleDateFormat("ddMMyyyy").format(dReportDate);                
+                String strPathSave = savedDirPath;
+                //Ham nay lay ra ten file bao cao can tao, ten file jasper report
+                String strFileSave = ReportTemplate.MAU_01B_3N + "_" + posCode + "_"  + commune.getId()
+                        + "_" + strCurrDate;
+
+                strPathSave += Define.M_REPORT_XLS;
+                strFileSave += ".XLSX";
+                filePath = strFileSave;
+
+                String templateFile = savedDirPath + Define.M_EXCEL_TEMP + "/KHNV/KHNV_DK01B_3N.xlsx";
+                fileName = strPathSave + strFileSave;
+                File source = new File(templateFile);
+                File dest = new File(fileName);
+
+                FileUtil.copyFile(source, dest);
+                
+                XDKHDao2021 daoXdkh = new XDKHDao2021();
+                List<POSModel> subCommuneList = daoXdkh.getSubCommuneList(posCode, commune.getId());
+                
+                // Style
+                XSSFCellStyle orderStyle;
+                // Get data
+                if (subCommuneList.size() > 0) {
+
+                    // Fill data              
+                    XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new java.io.FileInputStream(fileName));                    
+                    XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
+                  
+                    XSSFRow titleRow = sheet.getRow(3);
+                    if (titleRow == null) 
+                    {
+                        titleRow = sheet.createRow(3);
+                    }
+                    
+                    XSSFCell titleCell = titleRow.getCell(1, Row.CREATE_NULL_AS_BLANK);
+                    fillTitle(titleCell, "NHU CẦU VỐN TÍN DỤNG CHÍNH SÁCH NĂM " + namBc);
+                    
+                    XSSFRow subTitleRow = sheet.getRow(4);
+                    if (subTitleRow == null) 
+                    {
+                        subTitleRow = sheet.createRow(4);
+                    }
+                    
+                    XSSFCell subTitleCell = subTitleRow.getCell(1, Row.CREATE_NULL_AS_BLANK);
+                    fillTitle(subTitleCell, "XÃ/PHƯỜNG/THỊ TRẤN: " + commune.getDesc().toUpperCase());
+                    
+                    XSSFRow codeRow = sheet.getRow(10);
+                    if (codeRow == null) 
+                    {
+                        codeRow = sheet.createRow(10);
+                    }
+                    
+                    XSSFRow yearRow = sheet.getRow(11);
+                    if (yearRow == null) 
+                    {
+                        yearRow = sheet.createRow(11);
+                    }
+                    
+                    XSSFRow nameRow = sheet.getRow(7);
+                    if (nameRow == null) 
+                    {
+                        nameRow = sheet.createRow(7);
+                    }
+                    
+                    int col = 0;
+                    
+                    DaoMau01A daoMau01A = new DaoMau01A();
+                    
+                    XSSFCellStyle numberStyle;
+                    XSSFDataFormat format = xssfWorkbook.createDataFormat();
+                    System.out.println("So thon trong xa = " + subCommuneList.size());
+                    for (int i = 0; i < subCommuneList.size(); i++) {
+                                 
+                        if (subCommuneList.get(i).getId().equals("000000")) 
+                        {
+                            continue;
+                        }      
+                                                
+                        List<Mau01AModel> lstData = daoMau01A.getExportData3Year(posCode, commune.getId(), subCommuneList.get(i).getId(), reportDate);
+                                                
+                        XSSFCell codeCell = codeRow.getCell(col+4, Row.CREATE_NULL_AS_BLANK);
+                        orderStyle = codeCell.getCellStyle();
+                        orderStyle.setAlignment(HorizontalAlignment.LEFT);
+                        orderStyle.setLocked(true);                        
+                        codeCell.setCellValue(subCommuneList.get(i).getId());
+                        
+                        XSSFCell nameCell = nameRow.getCell(col+4, Row.CREATE_NULL_AS_BLANK);
+                        orderStyle = nameCell.getCellStyle();
+                        orderStyle.setAlignment(HorizontalAlignment.LEFT);
+                        orderStyle.setLocked(true);                        
+                        nameCell.setCellValue(subCommuneList.get(i).getDesc());
+                        
+                        XSSFCell yearCell4 = yearRow.getCell(col+4, Row.CREATE_NULL_AS_BLANK);
+                        orderStyle = yearCell4.getCellStyle();
+                        orderStyle.setAlignment(HorizontalAlignment.LEFT);
+                        orderStyle.setLocked(true);                        
+                        yearCell4.setCellValue(Integer.parseInt(namBc)-2);
+                        
+                        XSSFCell yearCell5 = yearRow.getCell(col+5, Row.CREATE_NULL_AS_BLANK);
+                        orderStyle = yearCell5.getCellStyle();
+                        orderStyle.setAlignment(HorizontalAlignment.LEFT);
+                        orderStyle.setLocked(true);                        
+                        yearCell5.setCellValue(Integer.parseInt(namBc)-1);
+                                 
+                        XSSFCell yearCell6 = yearRow.getCell(col+6, Row.CREATE_NULL_AS_BLANK);
+                        orderStyle = yearCell6.getCellStyle();
+                        orderStyle.setAlignment(HorizontalAlignment.LEFT);
+                        orderStyle.setLocked(true);                        
+                        yearCell6.setCellValue(Integer.parseInt(namBc));
+                        
+                        for(int j = 12; j < 107; j++)
+                        {
+                            XSSFRow dataRow = sheet.getRow(j);
+                            XSSFCell dataCodeCell = dataRow.getCell(0, Row.CREATE_NULL_AS_BLANK);
+                            XSSFCell dataPrinCell4 = dataRow.getCell(col+4, Row.CREATE_NULL_AS_BLANK);
+                            XSSFCell dataPrinCell5 = dataRow.getCell(col+5, Row.CREATE_NULL_AS_BLANK);
+                            XSSFCell dataPrinCell6 = dataRow.getCell(col+6, Row.CREATE_NULL_AS_BLANK);
+                            String code = dataCodeCell.getStringCellValue();
+                            for(int k = 0; k < lstData.size(); k++)
+                            {
+                                if (lstData.get(k).code.equals(code))
+                                {
+                                    numberStyle = dataPrinCell4.getCellStyle();
+                                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                                    numberStyle.setAlignment(HorizontalAlignment.RIGHT);
+                                    //numberStyle.setFont(font);
+                                    numberStyle.setLocked(false);
+                                    dataPrinCell4.setCellStyle(numberStyle);
+                                    dataPrinCell4.setCellValue(lstData.get(k).d4);
+                                    
+                                    numberStyle = dataPrinCell5.getCellStyle();
+                                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                                    numberStyle.setAlignment(HorizontalAlignment.RIGHT);
+                                    //numberStyle.setFont(font);
+                                    numberStyle.setLocked(false);
+                                    dataPrinCell5.setCellStyle(numberStyle);
+                                    dataPrinCell5.setCellValue(lstData.get(k).d5);
+                                    
+                                    numberStyle = dataPrinCell6.getCellStyle();
+                                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                                    numberStyle.setAlignment(HorizontalAlignment.RIGHT);
+                                    //numberStyle.setFont(font);
+                                    numberStyle.setLocked(false);
+                                    dataPrinCell6.setCellStyle(numberStyle);
+                                    dataPrinCell6.setCellValue(lstData.get(k).d6);
+                                    break;
+                                }
+                            }
+                        }
+                                                
+                        col = col+3;
+                        
+                    }
+
+                    //final FormulaEvaluator evaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
+                    
+                    for(int l = 3; l < 201; l++)
+                    {
+                        sheet.autoSizeColumn(l);
+                    }                    
+                                               
+                    FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
+                    formulaEvaluator.evaluateAll();
+                    
+                    for(int l = 3; l < 201; l++)
+                    {
+                        sheet.autoSizeColumn(l);
+                    }
+
+                    sheet.protectSheet("1234567890");
+                    java.io.FileOutputStream out = new java.io.FileOutputStream(fileName);
+                    xssfWorkbook.write(out);
+                    out.close();
+                }
+
+                lstOfTextFile.add(fileName);
+                FileInfo file = new FileInfo(new File(fileName));
+                filesList.add(new DownloadFileInfor(file.getName(), fileName,
+                        DefineFun.round_up((double) file.getSize() / 1000) + " KB"));
+                fullPathList.add(file.getAbsolutePath());
+                zipPath = Define.M_ROOT + Define.M_REPORT_XLS + zipFile;
+            }
+
+            if (fullPathList.size() > 1) {
+                try {
+                    FileZip.ZipFileFromArray(fullPathList, zipPath);
+                    zipFileList.add(zipFile);
+                    zipFileList.add(zipPath);
+                } catch (Exception ex) {
+                    Logger.getLogger(ExportText2SbvManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                filePath = zipFile;
+                fileName = zipPath;
+            }
+
+            System.gc();
+            return new FileExportInfo(fileName, filePath);
+        } catch (Exception ex) {
+            CoreLogger.error(this.getClass().getName() + " get_data_xaydungkh " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " loi getDataXayDungKhDetail " + ex.getMessage());
+            return null;
+        }
+    }
 
     private void fillTitle(XSSFCell cell, String value) {
         XSSFCellStyle titleStyle;

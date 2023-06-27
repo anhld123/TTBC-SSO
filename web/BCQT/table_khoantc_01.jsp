@@ -149,7 +149,7 @@
             // Tinh cho dong B  TỔNG CHI 
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Các T/c Chính trị xã hội"
-                $(arrCot[i]).eq(18).val(parseFloat($(arrCot[i]).eq(18).val()) + parseFloat($(arrCot[i]).eq(26).val()))
+                $(arrCot[i]).eq(17).val(parseFloat($(arrCot[i]).eq(18).val()) + parseFloat($(arrCot[i]).eq(26).val()))
             }
 
             // Tinh cho dong C  46=0-20
@@ -163,9 +163,9 @@
                 $(arrCot[i]).eq(39).val(parseFloat($(arrCot[i]).eq(49).val()) + parseFloat($(arrCot[i]).eq(50).val()))
             }
 
-            // Tinh cho dong H  52=53+54+55+56
+            // Tinh cho dong H  
             for (i = 0; i < arrCot.length; i++) {
-                //Tinh tong cho dong "Các T/c Chính trị xã hội"
+                //Tinh tong cho dong "LAO ĐỘNG VÀ QUỸ LƯƠNG THỰC HIỆN"
                 $(arrCot[i]).eq(46).val(parseFloat($(arrCot[i]).eq(47).val()) + parseFloat($(arrCot[i]).eq(48).val()) +
                         parseFloat($(arrCot[i]).eq(49).val()) + parseFloat($(arrCot[i]).eq(50).val()))
             }
