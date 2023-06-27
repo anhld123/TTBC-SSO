@@ -24,8 +24,7 @@ import vbsp.ims.report.fast.ListValue;
  * @author ITCVBSP56
  */
 public class epsModel {
-    public epsModel() {
-    }
+    public epsModel() {}
     
     //Hàm lấy danh sách đơn vị theo cấp báo cáo và Tên đăng nhập
     public List<PosClass> getDonvi(String capbc, String tendn) {

@@ -15,23 +15,16 @@ import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import java.io.Console;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
-import vbsp.ims.dao.DaoDCPLNO;
-import vbsp.ims.dao.DaoDcptNo;
 import vbsp.ims.define.Define;
-import vbsp.ims.khnv2021.dao.XDKHDao2021;
 import vbsp.ims.model.DcplnModel;
-import vbsp.ims.model.PLNO_DULIEU;
 
 /**
  *
@@ -39,7 +32,27 @@ import vbsp.ims.model.PLNO_DULIEU;
  */
 public class DuLieuNTService extends ReportService {
 
-    // <editor-fold defaultstate="collapsed" desc="Khác">
+    // <editor-fold defaultstate="collapsed" desc="Main">
+    
+    public ArrayList<ListOfValue> getListOfValue(String key, String code) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("list-value")
+                .queryParam("key", key)
+                .queryParam("code", code);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            ListOfValueResp dulieuNTResp = response.readEntity(ListOfValueResp.class);
+            ArrayList<ListOfValue> listOfRow = dulieuNTResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+    
     public ArrayList<CommisionFeeModel> getCommisionFeeData(String posCode, String reportDate, String flagType) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -737,6 +750,34 @@ public class DuLieuNTService extends ReportService {
         return response.getStatus();
     }
 
+    public int deleteManualData(String key, String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
+            List<DuLieuNTRowX> data) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("delete-manual-data")
+                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", posFlag)
+                .queryParam("reportDate", reportDate)
+                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
+
+        String json = "";
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(Include.NON_NULL);
+        try {
+            json = mapper.writeValueAsString(data);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
+        System.out.println("Response code API: " + response.getStatus());
+        return response.getStatus();
+    }
+    
     static String sendDataNV_QTByApi(List<QT_DULIEU_NT> lstDulieuNt, String file) {
         ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
         SimpleDateFormat sdf;
@@ -1239,8 +1280,12 @@ public class DuLieuNTService extends ReportService {
         Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
         System.out.println("Response code API: " + response.getStatus());
         return response.getStatus();
+    }       
+    
+    public int clearCustomerLeave(String bo_di_khoi_dp, String posCode, String s, String _reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String string) {
+        throw new UnsupportedOperationException("Not supported yet.");
+//To change body of generated methods, choose Tools | Templates.
     }
-
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Ví dụ">
     public static void main(String[] args) {
@@ -1295,8 +1340,5 @@ public class DuLieuNTService extends ReportService {
     }
 
     //</editor-fold>
-    public int clearCustomerLeave(String bo_di_khoi_dp, String posCode, String s, String _reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String string) {
-        throw new UnsupportedOperationException("Not supported yet.");
-//To change body of generated methods, choose Tools | Templates.
-    }
+    
 }
