@@ -32,6 +32,7 @@ public class Service_GQVL2023 {
             try {
                 final String _fromDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(fromDate));
                 {
+                    
                     return _service.getData("GQVL_2023", posCode, "S", _fromDate);
                 }
             } catch (Exception e) {

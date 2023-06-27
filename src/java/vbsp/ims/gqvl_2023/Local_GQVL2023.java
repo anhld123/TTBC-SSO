@@ -54,70 +54,75 @@ public class Local_GQVL2023 extends ActionNhaptaycnMain
             }
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();
-            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
 
 //            lstDulieuNt = daoMain.getDataSms01(conn, "SMS_001",  hmParameter.get("ngay_bc").toString(),UserName, Grade,poscd,hmParameter.get("soku").toString(),hmParameter.get("tenkh").toString());
             _leaveHomeService = new Service_GQVL2023();
 //            final String sFromDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.Grade));
             this.lstData = _leaveHomeService.getCustomers(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), "1");
-            int iStt = 1;
-            for (DuLieuNTRow item : lstData) {
-                QT_DULIEU_NT row = new QT_DULIEU_NT();
-                row.setKHOA(item.getKey());
-                row.setTHUTU(iStt);
-                iStt++;
-                row.setTT_HIENTHI(item.getOrderDescription());
-                row.setMA(item.getCode());
-                row.setTEN(item.getName());
+            if (lstData.size() == 0 || lstData == null) {
+                lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2023",  hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
+            } else {
 
-                Date reportDate = DateUtil.toDate(item.getReportDate());
-                row.setNGAYBC(reportDate);
-                row.setNAMBC(item.getReportYear());
-                row.setMAPGD(item.getPosCode());
-                row.setCO_TONGHOP(item.getPosFlag());
-                row.setMACN(item.getBranchCode());
-                row.setNGUOI_NHAP(item.getMakerId());
+                int iStt = 1;
+                for (DuLieuNTRow item : lstData) {
+                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+                    row.setKHOA(item.getKey());
+                    row.setTHUTU(iStt);
+                    iStt++;
+                    row.setTT_HIENTHI(item.getOrderDescription());
+                    row.setMA(item.getCode());
+                    row.setTEN(item.getName());
+
+                    Date reportDate = DateUtil.toDate(item.getReportDate());
+                    row.setNGAYBC(reportDate);
+                    row.setNAMBC(item.getReportYear());
+                    row.setMAPGD(item.getPosCode());
+                    row.setCO_TONGHOP(item.getPosFlag());
+                    row.setMACN(item.getBranchCode());
+                    row.setNGUOI_NHAP(item.getMakerId());
 //                row.setNGAY_NHAP(item.getMakerDate());
-                Date makerDate = DateUtil.toDate(item.getMakerDate());
-                row.setNGAY_NHAP(makerDate);
-                row.setNGUOI_DUYET(item.getAuthoriseId());
+                    Date makerDate = DateUtil.toDate(item.getMakerDate());
+                    row.setNGAY_NHAP(makerDate);
+                    row.setNGUOI_DUYET(item.getAuthoriseId());
 //                row.setNGAY_DUYET(item.getAuthoriseDate());
-                Date authoriseDate = DateUtil.toDate(item.getAuthoriseDate());
-                row.setNGAY_DUYET(authoriseDate);
-                row.setD1(item.getD1());
-                row.setD2(item.getD2());
-                row.setD3(item.getD3());
-                row.setD4(item.getD4());
-                row.setD5(item.getD5());
-                row.setD6(item.getD6());
-                row.setD7(item.getD7());
-                row.setD8(item.getD8());
-                row.setD9(item.getD9());
-                row.setD10(item.getD10());
-                row.setD11(item.getD11());
-                row.setD12(item.getD12());
-                row.setD13(item.getD13());
-                row.setD14(item.getD14());
-                row.setD15(item.getD15());
-                row.setD16(item.getD16());
-                row.setD17(item.getD17());
-                row.setD18(item.getD18());
-                row.setD19(item.getD19());
-                row.setD20(item.getD20());
-                row.setD21(item.getD21());
-                row.setD22(item.getD22());
-                row.setD23(item.getD23());
-                row.setD24(item.getD24());
-                row.setD25(item.getD25());
-                row.setD26(item.getD26());
-                row.setD27(item.getD27());
-                row.setD28(item.getD28());
-                row.setD29(item.getD29());
-                row.setD30(item.getD30());
-                row.setNHAPTAY(item.getManualFlag());
-                row.setFONTFORMAT(item.getFontFormat());
-                row.setKIEUIN(item.getStyle());
-                lstDulieuNt.add(row);
+                    Date authoriseDate = DateUtil.toDate(item.getAuthoriseDate());
+                    row.setNGAY_DUYET(authoriseDate);
+                    row.setD1(item.getD1());
+                    row.setD2(item.getD2());
+                    row.setD3(item.getD3());
+                    row.setD4(item.getD4());
+                    row.setD5(item.getD5());
+                    row.setD6(item.getD6());
+                    row.setD7(item.getD7());
+                    row.setD8(item.getD8());
+                    row.setD9(item.getD9());
+                    row.setD10(item.getD10());
+                    row.setD11(item.getD11());
+                    row.setD12(item.getD12());
+                    row.setD13(item.getD13());
+                    row.setD14(item.getD14());
+                    row.setD15(item.getD15());
+                    row.setD16(item.getD16());
+                    row.setD17(item.getD17());
+                    row.setD18(item.getD18());
+                    row.setD19(item.getD19());
+                    row.setD20(item.getD20());
+                    row.setD21(item.getD21());
+                    row.setD22(item.getD22());
+                    row.setD23(item.getD23());
+                    row.setD24(item.getD24());
+                    row.setD25(item.getD25());
+                    row.setD26(item.getD26());
+                    row.setD27(item.getD27());
+                    row.setD28(item.getD28());
+                    row.setD29(item.getD29());
+                    row.setD30(item.getD30());
+                    row.setNHAPTAY(item.getManualFlag());
+                    row.setFONTFORMAT(item.getFontFormat());
+                    row.setKIEUIN(item.getStyle());
+                    lstDulieuNt.add(row);
+                }
             }
 
             if (conn != null) {
@@ -143,14 +148,14 @@ public class Local_GQVL2023 extends ActionNhaptaycnMain
                 return ERROR;
             }
             ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
-            DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
             HashMap hmParameter = getParameter();
 
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
-          
+
                 DuLieuNTRow tempadd = new DuLieuNTRow();
-                
+
                 tempadd.setKey("GQVL_2023");
                 tempadd.setOrderValue("");
                 tempadd.setOrderDescription("");
@@ -199,7 +204,7 @@ public class Local_GQVL2023 extends ActionNhaptaycnMain
             _leaveHomeService = new Service_GQVL2023();
             int status = _leaveHomeService.saveCustomers(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
             if (status == 200) {
-                if (!daoMain.saveSms02("SMS_001", UserName, "", "", lstDulieuNt, "", lstDat)) {
+                if (!daoMain.saveGQVL2023("GQVL_2023", UserName, Grade,hmParameter.get("ngay_bc").toString(), lstDulieuNt, poscd)) {
                     addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                     return ERROR;
                 }
