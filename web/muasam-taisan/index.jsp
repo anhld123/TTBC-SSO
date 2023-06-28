@@ -38,65 +38,76 @@
                 <input type="hidden" name="gradeAuthor1" id="gradeAuthor1" value="<s:property value='gradeAuthor1'/>">
                 <fieldset style="display: flex; align-content: space-between;justify-content: space-between;">                    
                     <legend><b>Tìm kiếm dữ liệu</b></legend>
-                    
-                        <div>
-                            Đơn vị:
-                            <select name="txtMapgd" id="txtMapgd">
-                                <s:iterator value="lstDonvi">
-                                    <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
-                                </s:iterator>
-                            </select>                        
-                            
-                            Ngày báo cáo: <input type="text" name="txtNgayBc" id="txtNgayBc" readonly="readonly"/>
-                            
-                            
-                        </div>
-                        <div>
-                            <input type="button" id="idSearch" value="Tải dữ liệu" style="height: 25px; padding: 0px 20px 0px 20px;">                            
+
+                    <div>
+                        Đơn vị:
+                        <select name="txtMapgd" id="txtMapgd">
+                            <s:iterator value="lstDonvi">
+                                <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                            </s:iterator>
+                        </select>                        
+
+                        Ngày báo cáo: <input type="text" name="txtNgayBc" id="txtNgayBc" readonly="readonly"/>
+
+
+                    </div>
+                    <div>
+                        <input type="button" id="idSearch" value="Tải dữ liệu" style="height: 25px; padding: 0px 20px 0px 20px;">                            
+                        
+                        <s:if test="Grade.equalsIgnoreCase('2')"> 
                             <input type="button" id="idSave" value="Lưu dữ liệu" style="height: 25px;padding: 0px 20px 0px 20px;" >
                             <input type="button" id="idDelete" value="Xóa dữ liệu" style="height: 25px;padding: 0px 20px 0px 20px;" >
-                        </div>
-                                     
+                        </s:if>
+                        
+                    </div>
+
                 </fieldset>
                 <div>
                     <div id="viewData" ></div>
                 </div>
             </s:form>
         </div>
-        <script>            
-            
+        <script>
+
             function getLastDateOfYear() {
 
                 //const date = new Date();
                 const _lastDayOfYear = new Date(new Date().getFullYear(), 11, 31);
 
                 const yyyy = _lastDayOfYear.getFullYear();
-                const mm = String(_lastDayOfYear.getMonth() + 1).padStart(2,'0');
-                const dd = String(_lastDayOfYear.getDate()).padStart(2,'0');
+                const mm = String(_lastDayOfYear.getMonth() + 1).padStart(2, '0');
+                const dd = String(_lastDayOfYear.getDate()).padStart(2, '0');
 
                 return dd + "/" + mm + "/" + yyyy;
             }
-            
-            $(function () {                
-                var _lastDayOfYear = getLastDateOfYear();                
+
+            $(function () {
+                var _lastDayOfYear = getLastDateOfYear();
                 $("#txtNgayBc").datepicker(
-                {
-                    dateFormat: 'dd/mm/yy',
-                    showOn: "button",
-                    buttonImage: "img/icon-ui_datepicker.png",
-                    buttonImageOnly: true,
-                    // dateFormat: 'dd/mm/yy',
-                    showButtonPanel: true,
-                    buttonText: "icono",
-                    changeMonth: true,
-                    changeYear: true,
-                    defaultDate: new Date(new Date().getFullYear(), 11, 31)
-                }).val(_lastDayOfYear);
-                });
-            
+                        {
+                            dateFormat: 'dd/mm/yy',
+                            showOn: "button",
+                            buttonImage: "img/icon-ui_datepicker.png",
+                            buttonImageOnly: true,
+                            // dateFormat: 'dd/mm/yy',
+                            showButtonPanel: true,
+                            buttonText: "icono",
+                            changeMonth: true,
+                            changeYear: true,
+                            defaultDate: new Date(new Date().getFullYear(), 11, 31)
+                        }).val(_lastDayOfYear).on("change", function () {
+                            $("#idSearch").trigger('click');
+                    var _title = $("#report_title");
+                    if (_title !== null) {
+                        var _year = 1900 + $("#txtNgayBc").datepicker('getDate').getYear();
+                        $("#report_title").text("TSCĐ đề nghị trang bị năm " + _year);
+                    }
+                });                
+            });
+
             //Tải dữ liệu
             $("#idSearch").click(function () {
-                var url, sdata;                
+                var url, sdata;
                 url = "KTTC_MUASAM_01_LoadData.action";
                 sdata = jQuery("#frmdata").serialize();
                 $("#viewData").html('<img src="img/loading.gif"/>');
@@ -106,8 +117,8 @@
                     url: url,
                     data: sdata,
                     success: function (data) {
-                        $("#viewData").html(data);                        
-                        $("#idSave").prop('disabled', false);                        
+                        $("#viewData").html(data);
+                        $("#idSave").prop('disabled', false);
                     },
                     complete: function () {
                         btnDisabled(0);
@@ -148,7 +159,7 @@
                         }
                     });
                 }
-            });           
+            });
 
             function countCheckedItem() {
                 let counter = 0;
@@ -201,7 +212,7 @@
                 var targetWin = window.open(pageURL, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
                 return targetWin;
             }
-           
+
             function btnDisabled(status) {
                 if (status === 1) {
                     $("#idSearch").prop('disabled', true);

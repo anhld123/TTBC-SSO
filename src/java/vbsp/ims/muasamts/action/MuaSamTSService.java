@@ -66,15 +66,30 @@ public class MuaSamTSService {
         }
     }
 
-    public List<PosClass> getDonvi(String flag, String userName) {
+    /* type = 0: Lay danh muc 
+    type = 1: Lay danh muc pos theo mainPos truyen vao
+    */
+    public List<PosClass> getDonvi(String flag, String userName, String mainPos, int type) {
         epsModel dao = new epsModel();
-        if (flag.equals("AS")) {
-            return dao.getDonvi("ALL_POS", "");
-        } else if (flag.equals("AM")) {
-            return dao.getDonvi("ALL_MAIN_POS", "");
+        if (type == 0) {
+            
+            if (flag.equals("AS")) {
+                return dao.getDonvi("ALL_POS", "");
+            } else if (flag.equals("AM")) {
+                return dao.getDonvi("ALL_MAIN_POS", "");
+            } else {
+                return dao.getDonvi(flag, userName);
+            }
         } else {
-            return dao.getDonvi(flag, userName);
-        }
+            List<PosClass> _result = new ArrayList<>();
+            List<PosClass> _lstPos = dao.getDonvi("ALL_POS", "");
+            for(int i = 0; i < _lstPos.size(); i++) {
+                if (_lstPos.get(i).getPosCode().substring(0,4).equals(mainPos.substring(0,4))) {
+                    _result.add(_lstPos.get(i));
+                }
+            }
+            return _result;
+        }        
     }
 
     public List<ListOfValue> getAssetGroupList() {

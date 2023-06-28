@@ -32,7 +32,7 @@ public class KTTC_MUASAMTS_001 extends ActionMuasamtsMain
     private List<ListOfValue> lstAssetGroup;
     private String txtNgayBc;
     private String txtMapgd;
-    private String userId;
+    private String userId;    
     
     private String posFlag;
     private InputStream pageResult;
@@ -110,9 +110,7 @@ public class KTTC_MUASAMTS_001 extends ActionMuasamtsMain
     public void setPosFlag(String posFlag) {
         this.posFlag = posFlag;
     }
-    
-    
-                    
+                            
     MuaSamTSService _mstsService;
     
     @Override
@@ -136,7 +134,11 @@ public class KTTC_MUASAMTS_001 extends ActionMuasamtsMain
                 _item.setCode(txtMapgd +"_" +0);
                 lstData.add(_item);
             }
-            lstPGD = _mstsService.getDonvi("2", UserName);
+            if (Grade.equals("3")) {
+                lstPGD = _mstsService.getDonvi("2", UserName, txtMapgd , 1);
+            } else {
+                lstPGD = _mstsService.getDonvi("2", UserName, "" , 0);
+            }            
             userId = UserName;
             lstAssetGroup = _mstsService.getAssetGroupList();
         } catch (Exception e) {

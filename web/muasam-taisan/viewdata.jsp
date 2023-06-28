@@ -71,7 +71,7 @@
                     <th class="hdtitle" rowspan="2">Tổng số lượng hiện có</th>
                     <th class="hdtitle" rowspan="2">Tổng giá trị còn lại</th>
                     <th class="hdtitle" rowspan="2">Hiện trạng tài sản</th>
-                    <th class="hdtitle" colspan="7">TSCĐ đề nghị trang bị năm 2023</th>                    
+                    <th class="hdtitle" colspan="7" id="report_title">TSCĐ đề nghị trang bị năm 2023</th>                    
                     <th class="hdtitle" rowspan="2">Thuyết minh</th>       
 
                 </tr>
@@ -275,6 +275,12 @@
         $('input.number2').css({"text-align": "right"});
         $('.number').number(true, 0);
         $('.number2').number(true, 2);
+        
+        var _title = $("#report_title");
+        if (_title !== null) {
+            var _year = 1900 + $("#txtNgayBc").datepicker('getDate').getYear();
+            $("#report_title").text("TSCĐ đề nghị trang bị năm " + _year);
+        }
     });
     $('.TEN_KH').focus(function () {
         $(this).closest('tr').addClass('highlight_row');
