@@ -168,8 +168,8 @@
                         </td>
                         <td class="txtBody">
                             <select name="lstData[<s:property  value='%{#idxRows.index}' />].D1" id="lstData_D1<s:property  value='%{#idxRows.index}' />">                                
-                                <s:iterator value="lstPGD" status="posRows" var="language">                                    
-                                    <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>                                    
+                                <s:iterator value="lstPGD" status="posRows" var="posItem">                                    
+                                    <option value="<s:property value="PosCode"/>" <s:if test="d1.equalsIgnoreCase(#posItem.PosCode)"> selected="true" </s:if>><s:property value="PosName"/></option>                                    
                                 </s:iterator>                                
                             </select>
                         </td>

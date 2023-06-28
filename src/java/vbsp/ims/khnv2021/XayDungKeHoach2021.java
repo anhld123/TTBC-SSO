@@ -278,6 +278,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
 
     public String ExpExcelKhnv01B() {
         try {
+            System.out.println("vào ham ExpExcelKhnv01B");
             getInfo();
             request = ServletActionContext.getRequest();
             String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
@@ -301,6 +302,42 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
                 lstCommune.addAll(lstCommuneFull);
             }
             FileExportInfo fileInfo = excelExport.xuatExcelMau01B(pos_cd_username, lstCommune, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
+            fileNamelocal = fileInfo.fileName;
+            filereport = fileInfo.filePath;
+            return SUCCESS;
+        } catch (Exception ex) {
+            CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv01b " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " Loi ExpExcelKhnv01b " + ex.getMessage());
+            return ERROR;
+        }
+    }
+    
+    public String ExpExcelKhnv01B_3N() {
+        try {
+            System.out.println("vào ham ExpExcelKhnv01B_3N");
+            getInfo();
+            request = ServletActionContext.getRequest();
+            String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
+            ExcelExport excelExport = new ExcelExport();
+            List<POSModel> lstCommune = new ArrayList<>();            
+            List<POSModel> lstCommuneFull = new ArrayList<>();
+            lstCommuneFull = daoXdkh.getCommuneListAll(pos_cd_username);
+            if (!commune_cd.equals("000000")) 
+            {
+                for(POSModel item : lstCommuneFull)
+                {
+                    if (item.getId().equals(commune_cd))
+                    {
+                        lstCommune.add(item);
+                        break;
+                    }
+                }                
+            } 
+            else 
+            {                
+                lstCommune.addAll(lstCommuneFull);
+            }
+            FileExportInfo fileInfo = excelExport.xuatExcelMau01B_3N(pos_cd_username, lstCommune, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
             fileNamelocal = fileInfo.fileName;
             filereport = fileInfo.filePath;
             return SUCCESS;

@@ -205,8 +205,12 @@
             function btnDisabled(status) {
                 if (status === 1) {
                     $("#idSearch").prop('disabled', true);
+                    $("#idSave").prop('disabled', true);
+                    $("#idDelete").prop('disabled', true);
                 } else {
                     $("#idSearch").prop('disabled', false);
+                    $("#idSave").prop('disabled', false);
+                    $("#idDelete").prop('disabled', false);
                 }
             }
         </script>

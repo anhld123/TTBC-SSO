@@ -21,45 +21,51 @@ import vbsp.ims.restapi.ListOfValue;
  * @author HP
  */
 public class MuaSamTSService {
-    
+
     DuLieuNTService _service = new DuLieuNTService();
-    
-    public List<DuLieuNTRow> getAssetsPlanList(String posCode, String posFlag, String reportDate) {                
+
+    public List<DuLieuNTRow> getAssetsPlanList(String posCode, String posFlag, String reportDate) {
         try {
-            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));                        
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
             List<DuLieuNTRow> _lstData = _service.getData("KTTC_MUASAM_TS_001", posCode, "M", _reportDate);
             return _lstData;
         } catch (Exception e) {
             return null;
-        }               
-    }        
-    
+        }
+    }
+
     public int saveData(String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
-            List<DuLieuNTRow> data) {
+            List<DuLieuNTRow> data, String sourceFlag) {        
         try {
-            Date _reportDate = new SimpleDateFormat("dd/MM/yyyy").parse(reportDate);
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            Date _curDate = new Date();     
-            ArrayList<DuLieuNTRow> _data = new ArrayList<>();
-            for(int i = 0; i < data.size(); i++) {
-                DuLieuNTRow _newItem = data.get(i);
-                _newItem.setName(_newItem.getD1());
-                _newItem.setReportYear(_reportDate.getYear()+1900);
-                _newItem.setBranchCode(posCode);
-                _newItem.setMakerId(makerId);
-                //_newItem.setMakerDate(formatter.format(_curDate));
-                _newItem.setAuthoriseId(makerId);
-                //_newItem.setAuthoriseDate(formatter.format(_curDate));
-                _data.add(_newItem);
+            final String _oracleReportDateStr = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(reportDate));
+            if (sourceFlag.equals("0")) {
+              MuaSamTSDao _muaSamTSDao = new MuaSamTSDao();
+              int _recordCnt = _muaSamTSDao.saveData(posCode, posFlag, _oracleReportDateStr, makerId, authoriseId, data);
+              return _recordCnt > 0 ? 200 : 0;
+            } else {
+                Date _reportDate = new SimpleDateFormat("dd/MM/yyyy").parse(reportDate);
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                Date _curDate = new Date();
+                ArrayList<DuLieuNTRow> _data = new ArrayList<>();
+                for (int i = 0; i < data.size(); i++) {
+                    DuLieuNTRow _newItem = data.get(i);
+                    _newItem.setName(_newItem.getD1());
+                    _newItem.setReportYear(_reportDate.getYear() + 1900);
+                    _newItem.setBranchCode(posCode);
+                    _newItem.setMakerId(makerId);
+                    //_newItem.setMakerDate(formatter.format(_curDate));
+                    _newItem.setAuthoriseId(makerId);
+                    //_newItem.setAuthoriseDate(formatter.format(_curDate));
+                    _data.add(_newItem);
+                }
+                final String _reportDateStr = new SimpleDateFormat("yyyyMMdd").format(_reportDate);
+                return _service.updateData("KTTC_MUASAM_TS_001", posCode, "M", _reportDateStr, makerId, authoriseId, _data);
             }
-            final String _reportDateStr = new SimpleDateFormat("yyyyMMdd").format(_reportDate);                        
-            return _service.updateData("KTTC_MUASAM_TS_001", posCode, "M", _reportDateStr, makerId, authoriseId, _data);
-        }catch(Exception e) {
+        } catch (Exception e) {
             return 0;
         }
-        
     }
-    
+
     public List<PosClass> getDonvi(String flag, String userName) {
         epsModel dao = new epsModel();
         if (flag.equals("AS")) {
@@ -70,16 +76,19 @@ public class MuaSamTSService {
             return dao.getDonvi(flag, userName);
         }
     }
-    
+
     public List<ListOfValue> getAssetGroupList() {
         return _service.getListOfValue("107", "");
     }
-        
+
     public int deleteData(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
         try {
+            final String _oracleReportDateStr = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(reportDate));
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd/MM/yyyy").parse(reportDate));
             if (sourceFlag.equals("0")) {
-
+                MuaSamTSDao _muaSamTSDao = new MuaSamTSDao();
+              int _recordCnt = _muaSamTSDao.deleteData(posCode, posFlag, _oracleReportDateStr, makerId, authoriseId, data);
+              return _recordCnt > 0 ? 200 : 0;
             } else {
                 List<DuLieuNTRowX> _lstNormalizeData = new ArrayList<>();
                 for (int i = 0; i < data.size(); i++) {
@@ -106,37 +115,14 @@ public class MuaSamTSService {
                     _normalizeItem.setD11(data.get(i).getD11());
                     _normalizeItem.setD12(data.get(i).getD12());
                     _normalizeItem.setD13(data.get(i).getD13());
-                    _normalizeItem.setD14(data.get(i).getD14());
-                    _normalizeItem.setD15(data.get(i).getD15());
-                    _normalizeItem.setD16(data.get(i).getD16());
-                    _normalizeItem.setD17(data.get(i).getD17());
-                    _normalizeItem.setD18(data.get(i).getD18());
-                    _normalizeItem.setD19(data.get(i).getD19());
-                    _normalizeItem.setD20(data.get(i).getD20());
-                    _normalizeItem.setD21(data.get(i).getD21());
-                    _normalizeItem.setD22(data.get(i).getD22());
-                    _normalizeItem.setD23(data.get(i).getD23());
-                    _normalizeItem.setD24(data.get(i).getD24());
-                    _normalizeItem.setD25(data.get(i).getD25());
-                    _normalizeItem.setD26(data.get(i).getD26());
-                    _normalizeItem.setD27(data.get(i).getD27());
-                    _normalizeItem.setD28(data.get(i).getD28());
-                    _normalizeItem.setD29(data.get(i).getD29());
-                    _normalizeItem.setD30(data.get(i).getD30());
-                    _normalizeItem.setD31(data.get(i).getD31());
-                    _normalizeItem.setD32(data.get(i).getD32());
-                    _normalizeItem.setD33(data.get(i).getD33());
-                    _normalizeItem.setD34(data.get(i).getD34());
-                    _normalizeItem.setD50(data.get(i).getD50());
-
+                    _normalizeItem.setD14(data.get(i).getD14());                    
+                    
                     _lstNormalizeData.add(_normalizeItem);
                 }
                 return _service.deleteManualData("KTTC_MUASAM_TS_001", posCode, "M", _reportDate, makerId, authoriseId, _lstNormalizeData);
-
             }
         } catch (Exception e) {
             return 0;
-        }
-        return 0;
+        }        
     }
 }

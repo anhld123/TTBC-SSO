@@ -229,7 +229,14 @@
 <!--                <sj:a class="cmd" href="#" onclick="callDirectLink('khvn_open_upload?');" cssClass="metroButtonStyle">
                     <b> <u>Upload Excel</u>  </b> 
                 </sj:a>                        -->
-<input type="button" class="cmd" onclick="callDirectLink('khvn_open_upload?');" value="Upload Excel">
+                <input type="button" class="cmd" onclick="callDirectLink('khvn_open_upload?');" value="Upload Excel">
+                
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <s:url id="idExpEcelKhnv01B_3N" action="khnv/dk/ExpExcelKhnv01B_3N.action"></s:url>                                      
+                <sj:submit id="idExpEcelKhnvtmp01new_3N" name="nameSendnew_3N" href="%{idExpEcelKhnv01B_3N}" value="Xuất xls mẫu 01 (3 năm)" targets="divKhDetail"
+                           onBeforeTopics="beforediv_send"
+                           onCompleteTopics="completediv_send" class="cmd"/>
+                
                 </div>
                 <hr/>
             </div>

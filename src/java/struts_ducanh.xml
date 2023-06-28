@@ -22,7 +22,17 @@
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>     
-                      
+        
+      <action name="GQVL_01" class="vbsp.ims.gqvl_2023.Local_GQVL2023"  method="load">
+            <result name="success">/GQVL2023/viewdata_author.jsp</result>                                 
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action> 
+        
+       <action name="SAVE_GQVL_01" class="vbsp.ims.gqvl_2023.Local_GQVL2023"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>                                  
+                                                                      
     </package>
     
 </struts>

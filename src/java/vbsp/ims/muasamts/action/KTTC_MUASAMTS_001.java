@@ -154,12 +154,16 @@ public class KTTC_MUASAMTS_001 extends ActionMuasamtsMain
                 return ERROR;
             }     
             _mstsService = new MuaSamTSService();
-            int _status = _mstsService.saveData(txtMapgd, "M", txtNgayBc, UserName, UserName, lstData);
-            String code = String.valueOf("200");
+            int _status = _mstsService.saveData(txtMapgd, "M", txtNgayBc, UserName, UserName, lstData, "1");
+            if (_status == 200) {
+                // save local data
+                _mstsService.saveData(txtMapgd, "M", txtNgayBc, UserName, UserName, lstData, "0");
+            }
+            String code = String.valueOf(_status);
             pageResult  = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> MUASAMTS_001: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> MUASAMTS_001: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> save: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> save: " + e.getMessage());
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
             return ERROR;
         }        
@@ -169,6 +173,10 @@ public class KTTC_MUASAMTS_001 extends ActionMuasamtsMain
     
     public String delete() {        
         try {
+            if (!getParaSession()) {
+                return ERROR;
+            }   
+            
             List<DuLieuNTRow> lstSelectedData = new ArrayList<>();            
             // Lay ra danh sach ma khach hang duoc chon
             List<String> lstSelectedId = new ArrayList<>();
@@ -188,9 +196,14 @@ public class KTTC_MUASAMTS_001 extends ActionMuasamtsMain
 
             String code = "";
             _mstsService = new MuaSamTSService();
-            int _status = _mstsService.deleteData(txtMapgd, "M", this.txtNgayBc, UserName, UserName, lstSelectedData, "1");
+            int _status = _mstsService.deleteData(txtMapgd, "M", this.txtNgayBc, UserName, UserName, lstSelectedData, "1");            
             
-            code = String.valueOf("200");
+            if (_status == 200) {
+                // save local data
+                _mstsService.deleteData(txtMapgd, "M", txtNgayBc, UserName, UserName, lstSelectedData, "0");
+            }
+            
+            code = String.valueOf(_status);
             this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {
             System.err.println("Loi trong ham delete " + e.getMessage());
