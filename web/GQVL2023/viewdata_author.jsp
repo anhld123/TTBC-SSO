@@ -226,7 +226,8 @@
                     </tr>
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                                                    
                         <tr> 
-                            <td class="txtBody"><s:property value="d1"/></td>
+      
+                           <td class="txtBody"><s:property value="TEN"/></td>
                             <td class="txtBody">
                                 <input type="text"   value="<s:property  value="D3" />" style="text-align: right"
                                        class="number txtBody"
@@ -316,11 +317,23 @@
                             <td  class="txtBody" >
                                 <input type="text"   value="<s:property  value="D16" />" style="text-align: right"
                                        class="number txtBody"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D17" />" style="text-align: right"
+                                       class="number txtBody"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" 
                                        onfocus="this.select();" /> 
                             </td>
                             <td  class="txtBody" >
                                 <input type="text"   value="<s:property  value="D18" />" style="text-align: right"
+                                       class="number txtBody"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D19" />" style="text-align: right"
                                        class="number txtBody"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" 
                                        onfocus="this.select();" /> 
@@ -334,18 +347,6 @@
                             <td  class="txtBody" >
                                 <input type="text"   value="<s:property  value="D21" />" style="text-align: right"
                                        class="number txtBody"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D22" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D20" />" style="text-align: right"
-                                       class="number txtBody"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td align = "right" class="txtBody" >
-                                <input type="text"   value="<s:property  value="D21" />" style="text-align: right"
-                                       class="number txtBody"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D21" 
                                        onfocus="this.select();" /> 
                             </td>
@@ -355,6 +356,7 @@
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D22" 
                                        onfocus="this.select();" /> 
                             </td>
+                           
                             <td  class="txtBody" >
                                 <input type="text"   value="<s:property  value="D23" />" style="text-align: right"
                                        class="number txtBody"

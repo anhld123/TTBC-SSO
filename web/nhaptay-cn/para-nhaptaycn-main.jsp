@@ -653,7 +653,8 @@
                                             <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                                         </td>
 
-                                        <s:if test="(khoa_nhaptaycn.equalsIgnoreCase('QD23_007') || khoa_nhaptaycn.equalsIgnoreCase('QD23_008')) && Grade.equalsIgnoreCase('2')">                                        
+                                        <s:if test="(khoa_nhaptaycn.equalsIgnoreCase('QD23_007') || khoa_nhaptaycn.equalsIgnoreCase('QD23_008')) && Grade.equalsIgnoreCase('2')
+                                                    || (!Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('GQVL_01'))">                                        
                                         </s:if>
                                         <s:else>
                                             <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021') && Grade.equalsIgnoreCase('1')">
@@ -706,8 +707,9 @@
                                                            onCompleteTopics="completediv_send" cssStyle="display:none"/>
 
                                                 <s:if test="(Grade.equalsIgnoreCase('2') && khoa_nhaptaycn.equalsIgnoreCase('HTLS2021'))">
-
-                                                </s:if>            
+                                                </s:if> 
+                                                <s:if test="(!Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('GQVL_01'))">
+                                                </s:if>
                                                 <s:else>
                                                     <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu"/>
                                                 </s:else>
