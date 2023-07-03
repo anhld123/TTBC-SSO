@@ -279,15 +279,17 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
     public String ExpExcelKhnv01B() {
         try {
             System.out.println("vào ham ExpExcelKhnv01B");
-            getInfo();
+            getInfo();            
             request = ServletActionContext.getRequest();
-            String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
+            String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");            
             ExcelExport excelExport = new ExcelExport();
             List<POSModel> lstCommune = new ArrayList<>();            
-            List<POSModel> lstCommuneFull = new ArrayList<>();
+            List<POSModel> lstCommuneFull = new ArrayList<>();            
             lstCommuneFull = daoXdkh.getCommuneListAll(pos_cd_username);
+            System.out.println("So thon trong xa = " + lstCommuneFull.size());
             if (!commune_cd.equals("000000")) 
             {
+                System.out.println("vao 1 " );
                 for(POSModel item : lstCommuneFull)
                 {
                     if (item.getId().equals(commune_cd))
@@ -298,9 +300,11 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
                 }                
             } 
             else 
-            {                
+            {               
+                System.out.println("vao 2 " );
                 lstCommune.addAll(lstCommuneFull);
             }
+            System.out.println("den day " );
             FileExportInfo fileInfo = excelExport.xuatExcelMau01B(pos_cd_username, lstCommune, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
             fileNamelocal = fileInfo.fileName;
             filereport = fileInfo.filePath;
@@ -316,12 +320,15 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
         try {
             System.out.println("vào ham ExpExcelKhnv01B_3N");
             getInfo();
+            System.out.println("So thon trong xa = " + pos_cd_username);
             request = ServletActionContext.getRequest();
             String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
+            System.out.println("So thon trong xa = " + savedDir);
             ExcelExport excelExport = new ExcelExport();
             List<POSModel> lstCommune = new ArrayList<>();            
             List<POSModel> lstCommuneFull = new ArrayList<>();
             lstCommuneFull = daoXdkh.getCommuneListAll(pos_cd_username);
+            System.out.println("So thon trong xa = " + lstCommuneFull.size());
             if (!commune_cd.equals("000000")) 
             {
                 for(POSModel item : lstCommuneFull)
@@ -337,13 +344,17 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             {                
                 lstCommune.addAll(lstCommuneFull);
             }
+            System.out.println("So thon trong xa 111 = " + lstCommune.size());
             FileExportInfo fileInfo = excelExport.xuatExcelMau01B_3N(pos_cd_username, lstCommune, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
+            System.out.println("vao day 31 = ");
             fileNamelocal = fileInfo.fileName;
             filereport = fileInfo.filePath;
+            System.out.println("vao day 32 = " + fileNamelocal);
+            System.out.println("vao day 33 = " + filereport);
             return SUCCESS;
         } catch (Exception ex) {
-            CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv01b " + ex.getMessage());
-            System.err.println(this.getClass().getName() + " Loi ExpExcelKhnv01b " + ex.getMessage());
+            CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv01B_3N " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " Loi ExpExcelKhnv01B_3N " + ex.getMessage());
             return ERROR;
         }
     }
