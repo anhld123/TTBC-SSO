@@ -65,9 +65,8 @@
                         <input type="checkbox" id ="select-all"/>
                     </th>  
                     <th rowspan="2">Chỉnh sửa</th>
-                    <th class="hdtitle" rowspan="2">PGD</th>
-
-                    <th class="hdtitle" rowspan="2">Tên tài sản cần bổ sung thay thế</th>
+                    <th class="hdtitle" rowspan="2">PGD</th>                        
+                    <th class="hdtitle" colspan="2">Tài sản cần bổ sung thay thế</th>
                     <th class="hdtitle" rowspan="2">Tổng số lượng hiện có</th>
                     <th class="hdtitle" rowspan="2">Tổng giá trị còn lại</th>
                     <th class="hdtitle" rowspan="2">Hiện trạng tài sản</th>
@@ -76,6 +75,8 @@
 
                 </tr>
                 <tr>                      
+                    <th class="hdtitle">Mã tài sản</th>
+                    <th class="hdtitle">Tên tài sản</th>
                     <th class="hdtitle">Mã nhóm TSCĐ</th>
                     <th class="hdtitle">Mục đích, nơi sử dụng</th>
                     <th class="hdtitle">Quy cách, cấu hình kỹ thuật</th>
@@ -103,6 +104,9 @@
                                     <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>                                    
                                 </s:iterator>                                
                             </select>
+                        </td>
+                        <td class="txtBody">
+                            <input type="text" name="lstData[max_row].d15" value="" class="TEN_KH">
                         </td>
                         <td class="txtBody">
                             <input type="text" name="lstData[max_row].d3" value="" class="TEN_KH">
@@ -172,6 +176,9 @@
                                     <option value="<s:property value="PosCode"/>" <s:if test="d1.equalsIgnoreCase(#posItem.PosCode)"> selected="true" </s:if>><s:property value="PosName"/></option>                                    
                                 </s:iterator>                                
                             </select>
+                        </td>
+                        <td class="txtBody">
+                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d15" value="<s:property value='d15'/>" class="TEN_KH">
                         </td>
                         <td class="txtBody">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d3" value="<s:property value='d3'/>" class="TEN_KH">
