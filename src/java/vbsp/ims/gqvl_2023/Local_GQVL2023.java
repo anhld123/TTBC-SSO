@@ -59,35 +59,31 @@ public class Local_GQVL2023 extends ActionNhaptaycnMain
 //            lstDulieuNt = daoMain.getDataSms01(conn, "SMS_001",  hmParameter.get("ngay_bc").toString(),UserName, Grade,poscd,hmParameter.get("soku").toString(),hmParameter.get("tenkh").toString());
             _leaveHomeService = new Service_GQVL2023();
 //            final String sFromDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.Grade));
-             if (Grade.equals("3")) {
+            if (Grade.equals("3")) {
                 if (poscd.size() > 1) {
                     addActionError("Bạn chỉ được xem 1 chi nhánh");
                     return ERROR;
+                } else if (poscd.size() == 0) {
+                    lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2023", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
+                } else {
+                    lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2023", hmParameter.get("ngay_bc").toString(), UserName, "4", poscd);
                 }
-                if (poscd.size() == 0) {
-                   lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2023", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
-            } else {
-                   lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2023", hmParameter.get("ngay_bc").toString(), UserName, "4", poscd);
-             }
-            }
-             
-            if (Grade.equals("2")) {
+            } else if (Grade.equals("2")) {
                 if (poscd.size() > 1) {
                     addActionError("Bạn chỉ được xem 1 phòng giao dịch");
                     return ERROR;
-                }
-                if (poscd.size() == 0) {
-                   lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2023", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
-            } else {
+                } else if (poscd.size() == 0) {
+                    lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2023", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
+                } else {
                     this.lstData = _leaveHomeService.getCustomers(poscd.get(0), "S", hmParameter.get("ngay_bc").toString(), "1");
                 }
-            } else {
+            } else if (Grade.equals("1")){
                 this.lstData = _leaveHomeService.getCustomers(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), "1");
             }
-            if (lstData.size() == 0 || lstData == null) {
+            if ((lstData.size() == 0 || lstData == null) && Grade.equals("1" )) {
+
                 lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2023", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
             } else {
-
                 int iStt = 1;
                 for (DuLieuNTRow item : lstData) {
                     QT_DULIEU_NT row = new QT_DULIEU_NT();

@@ -152,7 +152,12 @@
                 <table id="subTable" style="z-index: 1;">
                     <tr>                                            
                         <!--<th rowspan="2" class="hdtitle">STT</th>-->
-                        <th rowspan="2" class="hdtitle">Tên PGD</th>
+                        <s:if test="!Grade.equalsIgnoreCase('3')">
+                         <th rowspan="2" class="hdtitle">Tên PGD</th>    
+                        </s:if>
+                       <s:if test="Grade.equalsIgnoreCase('3')">
+                         <th rowspan="2" class="hdtitle">Tên chi nhánh</th>    
+                        </s:if>
                         <th rowspan="2" class="hdtitle">Tổng chỉ tiêu kế hoạch dư nợ Quỹ QGVL</th>
                         <th rowspan="2" class="hdtitle">Tổng dư nợ Quỹ QGVL</th>
                         <th rowspan="2" class="hdtitle">Tổng số lãi thu được</th>
@@ -228,6 +233,7 @@
                         <tr> 
       
                            <td class="txtBody"><s:property value="TEN"/></td>
+                           <s:if test="Grade.equalsIgnoreCase('1')">
                             <td class="txtBody">
                                 <input type="text"   value="<s:property  value="D3" />" style="text-align: right"
                                        class="number txtBody"
@@ -241,7 +247,6 @@
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN" value="<s:property  value="MACN"/>"/>
 
                             </td>
-
                             <td class="txtBody" >
                                 <input type="text"   value="<s:property  value="D4" />" style="text-align: right"
                                        class="number txtBody"
@@ -404,7 +409,186 @@
                                        class="number txtBody"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" 
                                        onfocus="this.select();" /> 
-                            </td>                                
+                            </td>  
+                          </s:if>
+                            <s:if test="!Grade.equalsIgnoreCase('1')">
+                            <td class="txtBody">
+                                <input type="text"   value="<s:property  value="D3" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" 
+                                       onfocus="this.select();" /> 
+                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/>
+                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD" value="<s:property  value="MAPGD"/>"/>
+                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN" value="<s:property  value="MACN"/>"/>
+
+                            </td>
+                            <td class="txtBody" >
+                                <input type="text"   value="<s:property  value="D4" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D5" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D6" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D7" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D8" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D9" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D10" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D11" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D12" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D13" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D14" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D15" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D16" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D17" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D18" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D19" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D20" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D21" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D21" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D22" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D22" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                           
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D23" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D23" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D24" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D25" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D26" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D27" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D28" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D29" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29" 
+                                       onfocus="this.select();" /> 
+                            </td>
+                            <td  class="txtBody" >
+                                <input type="text"   value="<s:property  value="D30" />" style="text-align: right"
+                                       class="number txtBody" readonly="true"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" 
+                                       onfocus="this.select();" /> 
+                            </td>  
+                          </s:if>
                         </tr>                                                                                                       
                     </s:iterator>
 
