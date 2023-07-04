@@ -33,7 +33,7 @@ public class Service_GQVL2023 {
                 final String _fromDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(fromDate));
                 {
                     
-                    return _service.getData("GQVL_2023", posCode, "S", _fromDate);
+                    return _service.getData("GQVL_2023", posCode, posFlag, _fromDate);
                 }
             } catch (Exception e) {
                 return null;
@@ -107,7 +107,7 @@ public class Service_GQVL2023 {
 
                     _lstNormalizeData.add(_normalizeItem);
                 }
-                return _service.getGQVL2023("GQVL_2023", posCode, "S", _reportDate, makerId, authoriseId, _lstNormalizeData);
+                return _service.getGQVL2023("GQVL_2023", posCode, posFlag, _reportDate, makerId, authoriseId, _lstNormalizeData);
 
             }
         } catch (Exception e) {

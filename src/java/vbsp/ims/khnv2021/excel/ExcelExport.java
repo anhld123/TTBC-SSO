@@ -398,6 +398,7 @@ public class ExcelExport {
         ArrayList<String> fullPathList = new ArrayList<>();
         String strTimeFile = Long.toString(System.currentTimeMillis());
         String zipFile = "FileNen_KHNV01_3N_" + strTimeFile + ".zip", zipPath = "";
+        System.out.println("xuatExcelMau01B_3N ---1");
         try {
             for (POSModel commune : lstCommune) {
                 if (commune.getId().equals("000000")) {
@@ -410,7 +411,7 @@ public class ExcelExport {
                 //Ham nay lay ra ten file bao cao can tao, ten file jasper report
                 String strFileSave = ReportTemplate.MAU_01B_3N + "_" + posCode + "_"  + commune.getId()
                         + "_" + strCurrDate;
-
+                System.out.println("xuatExcelMau01B_3N ---2");
                 strPathSave += Define.M_REPORT_XLS;
                 strFileSave += ".XLSX";
                 filePath = strFileSave;
@@ -419,12 +420,12 @@ public class ExcelExport {
                 fileName = strPathSave + strFileSave;
                 File source = new File(templateFile);
                 File dest = new File(fileName);
-
+                System.out.println("xuatExcelMau01B_3N ---3");
                 FileUtil.copyFile(source, dest);
                 
                 XDKHDao2021 daoXdkh = new XDKHDao2021();
                 List<POSModel> subCommuneList = daoXdkh.getSubCommuneList(posCode, commune.getId());
-                
+                System.out.println("xuatExcelMau01B_3N ---4");
                 // Style
                 XSSFCellStyle orderStyle;
                 // Get data
@@ -476,7 +477,7 @@ public class ExcelExport {
                     
                     XSSFCellStyle numberStyle;
                     XSSFDataFormat format = xssfWorkbook.createDataFormat();
-                    System.out.println("So thon trong xa = " + subCommuneList.size());
+                    System.out.println("So thon trong xa xuatExcelMau01B_3N = " + subCommuneList.size());
                     for (int i = 0; i < subCommuneList.size(); i++) {
                                  
                         if (subCommuneList.get(i).getId().equals("000000")) 

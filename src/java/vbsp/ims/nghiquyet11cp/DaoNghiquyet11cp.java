@@ -1197,8 +1197,8 @@ public class DaoNghiquyet11cp {
                     value.setMAPGD(reset.getString(8));
                     value.setMACN(reset.getString(10));
 //                    value.setD1(reset.getString(14));
-                    value.setD1(reset.getString(20));
-                    value.setD2(reset.getString(20));
+                    value.setD1(reset.getString(14));
+                    value.setD2(reset.getString(15));
                     value.setD3(reset.getString(17));
                     value.setD4(reset.getString(18));
                     value.setD5(reset.getString(19));
