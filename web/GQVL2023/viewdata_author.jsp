@@ -234,7 +234,7 @@
       
                            <td class="txtBody" >
                                 <input type="text"   value="<s:property  value="TEN" />" style="text-align: right"
-                                       class="D0 txtBody"
+                                       class="D0 txtBody" readonly="true"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" 
                                        onfocus="this.select();" /> 
                             </td>
