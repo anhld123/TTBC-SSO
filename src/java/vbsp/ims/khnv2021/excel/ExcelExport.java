@@ -487,71 +487,71 @@ public class ExcelExport {
                                                 
                         List<Mau01AModel> lstData = daoMau01A.getExportData3Year(posCode, commune.getId(), subCommuneList.get(i).getId(), reportDate);
                                                 
-                        XSSFCell codeCell = codeRow.getCell(col+4, Row.CREATE_NULL_AS_BLANK);
+                        XSSFCell codeCell = codeRow.getCell(col+6, Row.CREATE_NULL_AS_BLANK);
                         orderStyle = codeCell.getCellStyle();
                         orderStyle.setAlignment(HorizontalAlignment.LEFT);
                         orderStyle.setLocked(true);                        
                         codeCell.setCellValue(subCommuneList.get(i).getId());
                         
-                        XSSFCell nameCell = nameRow.getCell(col+4, Row.CREATE_NULL_AS_BLANK);
+                        XSSFCell nameCell = nameRow.getCell(col+6, Row.CREATE_NULL_AS_BLANK);
                         orderStyle = nameCell.getCellStyle();
                         orderStyle.setAlignment(HorizontalAlignment.LEFT);
                         orderStyle.setLocked(true);                        
                         nameCell.setCellValue(subCommuneList.get(i).getDesc());
                         
-                        XSSFCell yearCell4 = yearRow.getCell(col+4, Row.CREATE_NULL_AS_BLANK);
-                        orderStyle = yearCell4.getCellStyle();
-                        orderStyle.setAlignment(HorizontalAlignment.LEFT);
-                        orderStyle.setLocked(true);                        
-                        yearCell4.setCellValue(Integer.parseInt(namBc)-2);
-                        
-                        XSSFCell yearCell5 = yearRow.getCell(col+5, Row.CREATE_NULL_AS_BLANK);
-                        orderStyle = yearCell5.getCellStyle();
-                        orderStyle.setAlignment(HorizontalAlignment.LEFT);
-                        orderStyle.setLocked(true);                        
-                        yearCell5.setCellValue(Integer.parseInt(namBc)-1);
-                                 
                         XSSFCell yearCell6 = yearRow.getCell(col+6, Row.CREATE_NULL_AS_BLANK);
                         orderStyle = yearCell6.getCellStyle();
                         orderStyle.setAlignment(HorizontalAlignment.LEFT);
                         orderStyle.setLocked(true);                        
-                        yearCell6.setCellValue(Integer.parseInt(namBc));
+                        yearCell6.setCellValue(Integer.parseInt(namBc)-2);
+                        
+                        XSSFCell yearCell7 = yearRow.getCell(col+7, Row.CREATE_NULL_AS_BLANK);
+                        orderStyle = yearCell7.getCellStyle();
+                        orderStyle.setAlignment(HorizontalAlignment.LEFT);
+                        orderStyle.setLocked(true);                        
+                        yearCell7.setCellValue(Integer.parseInt(namBc)-1);
+                                 
+                        XSSFCell yearCell8 = yearRow.getCell(col+8, Row.CREATE_NULL_AS_BLANK);
+                        orderStyle = yearCell8.getCellStyle();
+                        orderStyle.setAlignment(HorizontalAlignment.LEFT);
+                        orderStyle.setLocked(true);                        
+                        yearCell8.setCellValue(Integer.parseInt(namBc));
                         
                         for(int j = 12; j < 107; j++)
                         {
                             XSSFRow dataRow = sheet.getRow(j);
                             XSSFCell dataCodeCell = dataRow.getCell(0, Row.CREATE_NULL_AS_BLANK);
-                            XSSFCell dataPrinCell4 = dataRow.getCell(col+4, Row.CREATE_NULL_AS_BLANK);
-                            XSSFCell dataPrinCell5 = dataRow.getCell(col+5, Row.CREATE_NULL_AS_BLANK);
                             XSSFCell dataPrinCell6 = dataRow.getCell(col+6, Row.CREATE_NULL_AS_BLANK);
+                            XSSFCell dataPrinCell7 = dataRow.getCell(col+7, Row.CREATE_NULL_AS_BLANK);
+                            XSSFCell dataPrinCell8 = dataRow.getCell(col+8, Row.CREATE_NULL_AS_BLANK);
                             String code = dataCodeCell.getStringCellValue();
                             for(int k = 0; k < lstData.size(); k++)
                             {
                                 if (lstData.get(k).code.equals(code))
                                 {
-                                    numberStyle = dataPrinCell4.getCellStyle();
-                                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
-                                    numberStyle.setAlignment(HorizontalAlignment.RIGHT);
-                                    //numberStyle.setFont(font);
-                                    numberStyle.setLocked(false);
-                                    dataPrinCell4.setCellStyle(numberStyle);
-                                    dataPrinCell4.setCellValue(lstData.get(k).d4);
-                                    
-                                    numberStyle = dataPrinCell5.getCellStyle();
-                                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
-                                    numberStyle.setAlignment(HorizontalAlignment.RIGHT);
-                                    //numberStyle.setFont(font);
-                                    numberStyle.setLocked(false);
-                                    dataPrinCell5.setCellStyle(numberStyle);
-                                    dataPrinCell5.setCellValue(lstData.get(k).d5);
-                                    
                                     numberStyle = dataPrinCell6.getCellStyle();
                                     numberStyle.setDataFormat(format.getFormat("#,##0.00"));
                                     numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                                     //numberStyle.setFont(font);
                                     numberStyle.setLocked(false);
                                     dataPrinCell6.setCellStyle(numberStyle);
-                                    dataPrinCell6.setCellValue(lstData.get(k).d6);
+                                    dataPrinCell6.setCellValue(lstData.get(k).d4);
+                                    
+                                    numberStyle = dataPrinCell7.getCellStyle();
+                                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                                    numberStyle.setAlignment(HorizontalAlignment.RIGHT);
+                                    //numberStyle.setFont(font);
+                                    numberStyle.setLocked(false);
+                                    dataPrinCell7.setCellStyle(numberStyle);
+                                    dataPrinCell7.setCellValue(lstData.get(k).d5);
+                                    
+                                    numberStyle = dataPrinCell8.getCellStyle();
+                                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                                    numberStyle.setAlignment(HorizontalAlignment.RIGHT);
+                                    //numberStyle.setFont(font);
+                                    numberStyle.setLocked(false);
+                                    dataPrinCell8.setCellStyle(numberStyle);
+                                    dataPrinCell8.setCellValue(lstData.get(k).d6);
                                     break;
                                 }
                             }
@@ -576,7 +576,7 @@ public class ExcelExport {
                         sheet.autoSizeColumn(l);
                     }
 
-                    sheet.protectSheet("1234567890");
+//                    sheet.protectSheet("1234567890");
                     java.io.FileOutputStream out = new java.io.FileOutputStream(fileName);
                     xssfWorkbook.write(out);
                     out.close();
