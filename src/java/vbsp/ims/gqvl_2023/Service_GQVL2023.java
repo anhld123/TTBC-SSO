@@ -32,7 +32,6 @@ public class Service_GQVL2023 {
             try {
                 final String _fromDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(fromDate));
                 {
-                    
                     return _service.getData("GQVL_2023", posCode, posFlag, _fromDate);
                 }
             } catch (Exception e) {
@@ -51,8 +50,6 @@ public class Service_GQVL2023 {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
             Date date = new Date();
             String dateFormat = formatter.format(date);
-            
-            
             if (sourceFlag.equals("0")) {
 
             } else {
@@ -63,7 +60,7 @@ public class Service_GQVL2023 {
                     _normalizeItem.setKey("GQVL_2023");
                     _normalizeItem.setOrderValue(i + 1);
                     _normalizeItem.setOrderDescription(String.format("%d", i + 1));
-                    _normalizeItem.setName("");
+                    _normalizeItem.setName(data.get(i).getName());
                     _normalizeItem.setAuthoriseId(data.get(i).getAuthoriseId());
                     _normalizeItem.setMakerId(data.get(i).getMakerId());
                     _normalizeItem.setReportYear(2023);

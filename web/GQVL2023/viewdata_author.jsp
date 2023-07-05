@@ -232,7 +232,12 @@
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                                                    
                         <tr> 
       
-                           <td class="txtBody"><s:property value="TEN"/></td>
+                           <td class="txtBody" >
+                                <input type="text"   value="<s:property  value="TEN" />" style="text-align: right"
+                                       class="D0 txtBody"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" 
+                                       onfocus="this.select();" /> 
+                            </td>
                            <s:if test="Grade.equalsIgnoreCase('1')">
                             <td class="txtBody">
                                 <input type="text"   value="<s:property  value="D3" />" style="text-align: right"

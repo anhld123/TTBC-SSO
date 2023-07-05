@@ -183,7 +183,7 @@ public class Local_GQVL2023 extends ActionNhaptaycnMain
                 tempadd.setMakerId(UserName);
                 tempadd.setAuthoriseId(UserName);
                 tempadd.setReportDate(totalDataView);
-                tempadd.setName("");
+                tempadd.setName(tmp.getTEN());
                 tempadd.setReportYear(2023);
                 tempadd.setPosCode(tmp.getMAPGD());
                 tempadd.setPosFlag("S");
