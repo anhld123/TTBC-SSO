@@ -165,7 +165,7 @@
                         <th colspan="3" class="hdtitle">UBND</th>
                         <th colspan="3" class="hdtitle">Hội Phụ nữ</th>
                         <th colspan="3" class="hdtitle">Hội Nông dân</th>
-                        <th colspan="3" class="hdtitle">Hội Cứu chiến binh</th>
+                        <th colspan="3" class="hdtitle">Hội Cựu chiến binh</th>
                         <th colspan="3" class="hdtitle">Đoàn thanh niên</th>
                         <th colspan="3" class="hdtitle">Liên minh Hợp tác xã</th>
                         <th colspan="3" class="hdtitle">Tổng Liên đoàn lao động</th>
