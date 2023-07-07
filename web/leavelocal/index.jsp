@@ -29,6 +29,13 @@
                 min-width: 100%;
             }
 
+            #txtFromDate {
+                width: 80px;
+            }
+            
+            #txtToDate {
+                width: 80px;
+            }
 
         </style>
     </head>
@@ -81,6 +88,7 @@
                             <s:if test="Grade.equalsIgnoreCase('1')">
                                 <input type="button" id="idSave" value="Lưu số liệu" style="height: 25px;padding: 0px 20px 0px 20px;" disabled="true">                            
                                 <input type="button" id="idDelete" value="Đề nghị xóa" style="color: red;height: 25px;padding: 0px 20px 0px 20px;" disabled="true">
+                                
 
                                 <input type="button" id="idUpload" value="Upload excel" onclick="callDirectLink('khvn_open_upload_qt_kh?');" style="height: 25px;padding: 0px 20px 0px 20px;">
                                 <input type="button" id="idFetch" value="Tải dữ liệu upload" style="height: 25px;padding: 0px 20px 0px 20px;">

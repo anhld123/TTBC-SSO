@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <style>
     #subTable {
         font-size: 16px;
@@ -72,40 +73,82 @@
         this.style.height = (this.scrollHeight) + 'px';
     });
     
-    function funcThanhVien(maPgd, maKH, tenKH) {
-//        var url, sdata;
-//        url = "saveLeaveLocal.action";
-//        sdata = jQuery("#frmdata").serialize();
-//        $.ajax({
-//            type: "POST",
-//            url: url,
-//            data: sdata,
-//            success: function (data) {
-//                if (data !== "200") {
-//                    alert("Lỗi: Thực hiện lưu dữ liệu.");
-//                }
-//            },
-//            error: function (request) {
-//                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
-//            }
-//        });
+    function funcThanhVien(maPgd, maKH, tenKH, flag) {
         var w = 1200, h = 600;
         var left = (screen.width / 2) - (w / 2);
         var top = (screen.height / 2) - (h / 2);
         var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent( tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val() +"&vbsprandom=" + Math.random();
         var url = "/IMS_REPORTS/popupThanhvien.action?"+urlParam;
-        popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+        
+        const keyParams = ["flag"];
+        const valueParams = [flag];
+        //popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+        
+        windowOpenInPost(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no",
+        keyParams,
+        valueParams
+        );
     }
     
-        function funcXuLyNo(maPgd, maKH, tenKH, XuLyNo, startPayment) {
+    function funcXuLyNo(maPgd, maKH, tenKH, XuLyNo, startPayment, flag) {
         var w = 500, h = 300;
         var left = (screen.width / 2) - (w / 2);
         var top = (screen.height / 2) - (h / 2);
         var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent( tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val() 
                 + "&XuLyNo=" + XuLyNo + startPayment +"&vbsprandom=" + Math.random();
         var url = "/IMS_REPORTS/popupXuLyNo.action?"+urlParam;
-        popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+        const keyParams = ["flag"];
+        const valueParams = [flag];
+        //popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+         windowOpenInPost(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no",
+        keyParams,
+        valueParams
+        );
     }
+    
+    function funcFeedback(maPgd, maKH, tenKH, feeback, flag) {
+        var w = 800, h = 500;
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 2);
+        var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent( tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val() +"&vbsprandom=" + Math.random();
+        var url = "/IMS_REPORTS/popupFeedback.action?"+urlParam;
+        //popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+        const keyParams = ["currentFeedback", "flag"];
+        const valueParams = [feeback, flag];
+        windowOpenInPost(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no",
+        keyParams,
+        valueParams
+        );
+    }
+            
+    function windowOpenInPost(actionUrl,windowName, windowFeatures, keyParams, valueParams) 
+    {
+        var mapForm = document.createElement("form");
+        var milliseconds = new Date().getTime();
+        windowName = windowName+milliseconds;
+        mapForm.target = windowName;
+        mapForm.method = "POST";
+        mapForm.action = actionUrl;
+        if (keyParams && valueParams && (keyParams.length == valueParams.length)){
+            for (var i = 0; i < keyParams.length; i++){
+            var mapInput = document.createElement("input");
+                mapInput.type = "hidden";
+                mapInput.name = keyParams[i];
+                mapInput.value = valueParams[i];
+                mapForm.appendChild(mapInput);
+
+            }
+            document.body.appendChild(mapForm);
+        }
+
+
+        map = window.open('', windowName, windowFeatures);
+    if (map) {
+        mapForm.submit();
+    } else {
+        alert('You must allow popups for this map to work.');
+    }}       
+            
     
     function onSelectChange(index) {
         
@@ -151,6 +194,7 @@
 </script>
 </head>
 <body>
+    <input type="hidden" id="UserPos" value="<s:property value="pos_cd_username"/>"/>
     <div style="overflow:scroll; width: 99vw;">     
         <div style="display: none;">
             <select id="lstPGD_Temp">
@@ -242,8 +286,13 @@
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                                 
                             </s:if>
-                            <s:else>                                
-                                <input type="checkbox" class="myCheckBox" name="lstData[<s:property  value='%{#idxRows.index}' />].manualFlag" value="0" onclick="$(this).val(this.checked ? 1 : 0)">
+                            <s:else>       
+                                <s:if test = "!posCode.equalsIgnoreCase(#pos_cd_username)"> 
+                                    
+                                </s:if>
+                                <s:else>
+                                    <input type="checkbox" class="myCheckBox" name="lstData[<s:property  value='%{#idxRows.index}' />].manualFlag" value="0" onclick="$(this).val(this.checked ? 1 : 0)">
+                                </s:else>                                                                
                                 <% customerCount += 1; %>
                             </s:else>
                             
@@ -266,7 +315,13 @@
                                 <s:property value="D11"/>
                             </s:if>
                             <s:else>
-                                <a href="javascript:funcXuLyNo('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="d35"/>', '<s:property value="d37"/>')"><s:property value="d11"/></a>
+                                <s:if test = '%{posCode.equals(pos_cd_username)}'> 
+                                    <a href="javascript:funcXuLyNo('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="d35"/>', '<s:property value="d37"/>', 1)"><s:property value="d11"/></a>
+                                </s:if>
+                                <s:else> 
+                                    <a href="javascript:funcXuLyNo('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="d35"/>', '<s:property value="d37"/>', 0)"><s:property value="d11"/></a>
+                                </s:else>
+                                
                             </s:else>
                         </td>
                         <td class="txtBody">
@@ -274,7 +329,13 @@
                                 <s:property value="D12"/>
                             </s:if>
                             <s:else>
-                                <a href="javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>')"><s:property value="d12"/></a>
+                                <s:if test = '%{posCode.equals(pos_cd_username)}'> 
+                                    <a href="javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', 1)"><s:property value="d12"/></a>
+                                </s:if>
+                                <s:else> 
+                                    <a href="javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', 0)"><s:property value="d12"/></a>
+                                </s:else> 
+                                
                             </s:else>
                         </td>
                         <td class="txtBody">
@@ -341,9 +402,16 @@
                                 <option value="999999">Nước ngoài</option>
                             </select>
                         </td>
-                        <td>
+                        <td style="text-align: center;">
                             <s:if test = "!d20.equalsIgnoreCase('ThanhVien')"> 
-                                <textarea name="lstData[<s:property  value='%{#idxRows.index}' />].d31" class="autoHeight <s:property value="d20"/>"><s:property value='d31'/></textarea>
+                                <s:if test = '%{posCode.equals(pos_cd_username)}'> 
+                                    <textarea disabled="true" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" class="autoHeight <s:property value="d20"/>"><s:property value='d31'/></textarea>
+                                    <a href="javascript:funcFeedback('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>','<s:property value="d31"/>', 0)"><u>chi tiết</u></a>  
+                                </s:if>
+                                <s:else> 
+                                    <textarea disabled="true" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" class="autoHeight <s:property value="d20"/>"><s:property value='d31'/></textarea>
+                                    <a href="javascript:funcFeedback('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>','<s:property value="d31"/>', 1)"><u>thay đổi</u></a>  
+                                </s:else>                                
                             </s:if>
                         </td>
                         <td class="txtBody">

@@ -1310,6 +1310,27 @@ public class DuLieuNTService extends ReportService {
         return response.getStatus();
     }       
     
+    
+    public int clhUpdateFeedback(String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
+            String customerCode, String feedback) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("clh-feedback-update")                
+                .queryParam("key", "BO_DI_KHOI_DP")
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", posFlag)
+                .queryParam("reportDate", reportDate)
+                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId)
+                .queryParam("customerCode", customerCode)
+                .queryParam("feedback", feedback);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        return response.getStatus();
+    }
+    
     public int clearCustomerLeave(String bo_di_khoi_dp, String posCode, String s, String _reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String string) {
         throw new UnsupportedOperationException("Not supported yet.");
 //To change body of generated methods, choose Tools | Templates.

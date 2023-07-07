@@ -25,7 +25,15 @@
         <action name="popupXuLyNo" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupXuLyNo">
             <result name="success">/leavelocal/popupxulyno.jsp</result>
         </action>
-       
+        <action name="popupFeedback" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupFeedback">
+            <result name="success">/leavelocal/popupfeedback.jsp</result>      
+        </action>  
+        <action name="clhUpdateFeedback" class="vbsp.ims.leavelocal.LeaveTheLocal" method="updateFeedback">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action>  
         
         <action name="saveLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="saveLeaveLocal">
             <result name="success" type="stream">

@@ -400,4 +400,10 @@ public class LeaveHomeService {
             return null;
         }
     }
+        
+    public int updateFeedback(String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
+            String customerCode, String feedback){
+        DuLieuNTService _services = new DuLieuNTService();
+        return _services.clhUpdateFeedback(posCode, posFlag, reportDate, makerId, authoriseId, customerCode, feedback); 
+    }
 }

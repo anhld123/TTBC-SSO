@@ -50,7 +50,44 @@ public class LeaveTheLocal extends ActionSupport {
     private String typeAuth;
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     private List<ListValue> lstXuLyNo = new ArrayList<ListValue>();
+    private String feedback;
+    private String currentFeedback;
+    private int flag;
 
+    public String getFeedback() {
+        return feedback;
+    }
+    
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }            
+
+    public String getPos_cd_username() {
+        return pos_cd_username;
+    }
+
+    public String getCurrentFeedback() {
+        return currentFeedback;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }   
+
+    public void setCurrentFeedback(String currentFeedback) {
+        this.currentFeedback = currentFeedback;
+    }
+
+    public void setPos_cd_username(String pos_cd_username) {
+        this.pos_cd_username = pos_cd_username;
+    }
+
+    
+    
     public String getStartPaymentDate() {
         return startPaymentDate;
     }
@@ -117,6 +154,9 @@ public class LeaveTheLocal extends ActionSupport {
             this.lstData = _leaveHomeService.getCustomers(txtsMadv, "S", txtMakh, sFromDate, sToDate, "1", _openFlag, gradeAuthor1, typeAuth);
             lstCN = _leaveHomeService.getDonvi("M");
             lstPGD = _leaveHomeService.getDonvi("S");
+            
+            posMainModel = listKTNBDA.get_pos_main_pos(sUser, sGrade);
+            pos_cd_username = posMainModel.getPosCd();
         } catch (Exception e) {
             System.err.println("Loi trong ham saveData " + e.getMessage());
             CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
@@ -135,6 +175,37 @@ public class LeaveTheLocal extends ActionSupport {
         } catch (Exception e) {
             System.err.println("Loi trong ham saveData " + e.getMessage());
             CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
+        }
+        return "success";
+    }
+    
+    public String popupFeedback() throws Exception {
+        try {
+            
+        } catch (Exception e) {
+            System.err.println("Loi trong ham popupFeedback " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " popupFeedback -> " + e.getMessage());
+        }
+        return "success";
+    }
+    
+    public String updateFeedback() throws Exception {
+        try {
+            _leaveHomeService = new LeaveHomeService();
+            int _recordCnt = _leaveHomeService.updateFeedback(
+                    vsbpMaPgd,
+                    "S",
+                    "20231231",
+                    sUser,
+                    sUser,
+                    vsbpMakh,
+                    feedback                    
+            );
+            String code = String.valueOf(_recordCnt);
+            this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        } catch (Exception e) {
+            System.err.println("Loi trong ham updateFeedback " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " updateFeedback -> " + e.getMessage());
         }
         return "success";
     }
