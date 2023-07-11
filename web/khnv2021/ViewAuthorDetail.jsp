@@ -220,7 +220,7 @@
         //II SỬ DỤNG VỐN
         //B DƯ NỢ NGUỒN VỐN ĐỊA PHƯƠNG(XD00050)
         let indiArr = ["XD00048","XD00049","XD00050","XD00051","XD00052","XD00054","XD00056","XD00057","XD00058","XD00059","XD00060","XD00061","XD00063","XD00064","XD00065","XD00069","XD00074","XD00075","XD00076","XD00078","XD00079"];
-        sumUpByList(indiArr, 56);
+        sumUpByList(indiArr, 55);
                         
         //II SỬ DỤNG VỐN(XD00109) = A + B + C
         document.getElementById("lstData[9].D13").value = parseInt(document.getElementById("lstData[10].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[56].D13").value.replaceAll(',', '')) + parseInt(document.getElementById("lstData[83].D13").value.replaceAll(',', ''));
