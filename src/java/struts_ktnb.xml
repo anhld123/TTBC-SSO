@@ -65,6 +65,22 @@
             <result name="error">/ktktnb/unsuccess.jsp</result>
         </action>
         
+         <action name="get_data_ktnb_bieu02" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="get_data_ktnb_bieu02">
+            <result name="success">/ktktnb/ktnb_bieu02.jsp</result>
+        </action>
+        <action name="save_data_ktnb_bieu02" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="save_data_ktnb_bieu02">
+            <result name="success">/ktktnb/success.jsp</result>
+            <result name="error">/ktktnb/unsuccess.jsp</result>
+        </action>
+        
+        <action name="get_data_ktnb_bieu03" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="get_data_ktnb_bieu03">
+            <result name="success">/ktktnb/ktnb_bieu03.jsp</result>
+        </action>
+        <action name="save_data_ktnb_bieu03" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="save_data_ktnb_bieu03">
+            <result name="success">/ktktnb/success.jsp</result>
+            <result name="error">/ktktnb/unsuccess.jsp</result>
+        </action>
+        
         <action name="get_data_ktnb01_auth" class="vbsp.ims.action.ktktnb.Ktnb01ActionSupport" method="get_data_ktnb01_auth">
             <result name="success">/ktktnb/ktnb01Auth.jsp</result>
         </action>
