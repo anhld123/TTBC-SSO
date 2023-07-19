@@ -286,7 +286,9 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 number" onfocus="this.select()"
                                                    onblur="if (this.value == '');" readonly="true" style="background: #E7DCDA !important;"/>
                                             <input type="hidden" value="<s:property  value="THUTU" />"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>  
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/> 
+                                            <input type="hidden" value="<s:property  value="MA" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/> 
                                             <input type="hidden" value="<s:property  value="NHAPTAY" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/> 
                                         </td>

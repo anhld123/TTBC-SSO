@@ -252,7 +252,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             reportGrade = request.getSession().getAttribute("reportGrade").toString(); 
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            if(!daoMain.saveKTNB_bieu02("KTNB_BIEU02", userName, "",quyBc, namBc, lstDulieuNt))
+            if(!daoMain.saveKTNB_bieu02("02_PCTN", userName, "",quyBc, namBc, lstDulieuNt))
                 {                
                     return "error";
                 }
@@ -271,7 +271,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             reportGrade = request.getSession().getAttribute("reportGrade").toString(); 
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            if(!daoMain.saveKTNB_bieu03("KTNB_BIEU03", userName, "",quyBc, namBc, lstDulieuNt))
+            if(!daoMain.saveKTNB_bieu03("03_PCTN", userName, "",quyBc, namBc, lstDulieuNt))
                 {                
                     return "error";
                 }
