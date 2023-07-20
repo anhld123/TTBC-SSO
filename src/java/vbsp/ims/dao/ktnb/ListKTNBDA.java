@@ -56,7 +56,7 @@ public class ListKTNBDA {
             DaoConnect db = new DaoConnect();
             Connection conn = db.getConnect();
             String MSQL = "SELECT DM_MABC,DM_TENVT,DM_MOTA,DM_CAPBC,APPLY_FLG,DM_KYBC,DM_LINKBC FROM DMBC_CT WHERE DM_NHOMBC='NHOMBC0023' AND APPLY_FLG='Y' AND DM_LINKBC IS NOT NULL "
-                    + "and dm_mabc not in  ('BC00230017','BC00230018','BC00230019','BC00230020','BC00230041','BC00230042','BC00230043','BC00230044','BC00230045','BC00230046','BC00230047','BC00230073','BC00230074') order by DM_MABC";
+                    + "and dm_mabc not in  ('BC00230017','BC00230018','BC00230019','BC00230020','BC00230041','BC00230042','BC00230043','BC00230044','BC00230045','BC00230046','BC00230047','BC00230073','BC00230074','BC00230075','BC00230076') order by DM_MABC";
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery(MSQL);
             while (rs.next()) {

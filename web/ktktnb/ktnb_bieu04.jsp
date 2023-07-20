@@ -7,7 +7,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Biểu số 03</title>
+        <title>Biểu số 04</title>
         <sx:head/>
         <sj:head/>
         <script src="js/jquery.number.js"></script>
@@ -43,6 +43,7 @@
             .tblmain tr td{
                 font-weight: bold;
                 color: #018c3b;
+                word-wrap: break-word;
             }
 
             input{
@@ -92,18 +93,20 @@
                 $('.number').number(true, 0);
 //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 2);
-                $(".SOKU").css({"width": "97%"});
-                $(".TD_CHECKBOX").css({"width": "39px"});
+                $(".SOKU").css({"width": "99%%"});
+                $(".SOKU1").css({"width": "50px"});
+                $(".TD_CHECKBOX").css({"width": "38px"});
                 $(".TD_SOKU").css({"width": "80px"});
-                $(".TD_TENKH123").css({"width": "110px"});
+                $(".TD_TENKH123").css({"width": "150px"});
                 $(".TD_TENTS").css({"width": "190px"});
                 $(".TD_SOTK").css({"width": "105px"});
                 $(".TD_MAKH").css({"width": "60px"});
                 $(".TD_THOIGIAN").css({"width": "auto"});
-                $(".TD_MAPGD").css({"width": "45px"});
+                $(".TD_MAPGD").css({"width": "99%"});
                 $(".TD_BUTTON1").css({"width": "40px"});
                 $(".TD_SOTIEN").css({"width": "100px"});
                 $(".TEN_KH").css({"width": "50%"});
+                $(".TEN_KH1").css({"width": "30%"});
             });
             $('.TEN_KH').focus(function () {
                 $(this).closest('tr').addClass('highlight_row');
@@ -221,26 +224,76 @@
                                 <td ><input type="text" value="" id="D2" name="lstDulieuNt[' + rowCount + '].D2" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" id="D4" name="lstDulieuNt[' + rowCount + '].D4" class="SOKU" onfocus="this.select();"/></td>\n\
-\n\                             <td ><input type="text" value="" id="D5" name="lstDulieuNt[' + rowCount + '].D5" class="SOKU" onfocus="this.select();"/></td>\n\
-\n\                             <td ><input type="text" value="" id="D6" name="lstDulieuNt[' + rowCount + '].D6" class="SOKU" onfocus="this.select();"/></td>\n\
+                                <td ><input type="text" value="" id="D5" name="lstDulieuNt[' + rowCount + '].D5" class="SOKU" onfocus="this.select();"/></td>\n\
+                                <td ><input type="text" value="" id="D6" name="lstDulieuNt[' + rowCount + '].D6" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" id="D10" name="lstDulieuNt[' + rowCount + '].D10" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 SOKU"/></td>\n\
                                 </tr>';
                 $($('table#tableKtnb tr')[index]).before(newTr);
+            }
+            
+            function evaluateSum_row() {
+                try {
+                    var d10 = 0;
+                    var d5 = document.getElementById('D5_' + ma).value;
+                    d5 = d5.replace(',', '');
+
+
+                    if (parseFloat(d3) > 100 || parseFloat(d3) < 0)
+                    {
+                        swal('Lỗi', 'Bạn không được nhập điểm lớn hơn 100 hoặc nhỏ hơn 0', 'warning');
+                        document.getElementById('D3_' + ma).style.background = '#ff0000';
+                        document.getElementById('D3_' + ma).value = 0;
+                        return;
+                    }
+                    if (ma_d29 === 'Y')
+                    {
+//                        if (parseFloat(d5) > 100)
+//                        {
+//                            swal('Lỗi', 'Bạn không được nhập điểm lớn hơn 100 hoặc nhỏ hơn 0', 'warning');
+//                            document.getElementById('D5_' + ma).style.background = '#ff0000';
+//                            document.getElementById('D5_' + ma).value = 0;
+//                            return;
+//                        }
+                        var D28 = getValue('D28_' + ma);
+                        if (D28 === 'LOI50')
+                        {
+                            document.getElementById('D5_' + ma).value = Math.round(d5)
+                            d10 = getValue('D1_' + ma) - getValue('D5_' + ma) * 50 / 100 * getValue('D1_' + ma);
+                            document.getElementById('D10_' + ma).value = d10 < 0 ? 0 : d10;
+                        } else if (D28 === 'LOI20')
+                        {
+                            document.getElementById('D5_' + ma).value = Math.round(d5)
+                            d10 = getValue('D1_' + ma) - getValue('D5_' + ma) * 20 / 100 * getValue('D1_' + ma);
+                            document.getElementById('D10_' + ma).value = d10 < 0 ? 0 : d10;
+                        } else if (D28 === 'LOI02')
+                        {
+                            document.getElementById('D5_' + ma).value = d5 > 5 ? 5 : d5;
+                            d10 = getValue('D1_' + ma) - (getValue('D5_' + ma) * 2);
+                            document.getElementById('D10_' + ma).value = d10;
+                        } else
+                        {
+                            d10 = getValue('D1_' + ma) * getValue('D5_' + ma) / 100;
+                            document.getElementById('D10_' + ma).value = d10;
+                        }
+                    }
+                } catch (e) {
+                    swal('Lỗi', 'ERROR evaluateSum_row ' + e.toString());
+                }
             }
         </script>
 
     </head>
     <body>
         <div style="margin: 7px 7px 7px 7px;">
-            <s:form name="frmdataKtnb06A" id="frmdataKtnb06A" action="save_data_ktnb_bieu03.action" theme="simple">
+            <s:form name="frmdataKtnb06A" id="frmdataKtnb06A" action="save_data_ktnb_bieu04.action" theme="simple">
                 <table border="0" cellspacing="0" cellpading="0" height="100%" class="tblmain" >
                     <tr>
-                        <td colspan="3" style="font-size: 14px;">Biểu số 03: Kết quả phát hiện, khắc phục các văn bản còn sơ hở, dễ bị lợi dụng để tham nhũng<hr></td>                    
+                        <td colspan="3" style="font-size: 14px;">Biểu số 04:Thống kê số liệu chủ yếu về công tác phòng, chống tham nhũng của ngân hàng chính sách xã hội<hr></td>                    
                     </tr>
                     <tr>
                         <td width="70%" >
-                             <b>Phòng giao dịch: </b><input class="TD_THOIGIAN" type="text" name="posCD" id="posCD" value="<s:property value="pos_cd_username"/>" readonly="readonly"/>
+                            <b>Phòng giao dịch: </b><input class="TD_THOIGIAN" type="text" name="posCD" id="posCD" value="<s:property value="pos_cd_username"/>" readonly="readonly"/>
                             <b>Chi nhánh: </b><input class="TD_THOIGIAN" type="text" name="maCn" id="maCn" value="<s:property value="main_pos_username"/>" readonly="readonly"/>
                             <b>Quý báo cáo: </b><input type="text" name="quyBc" id="quyBc" value="<s:property value="quyBc"/>" readonly="readonly"/>
                             <b>Năm báo cáo: </b><input type="text" name="namBc" id="namBc" value="<s:property value="namBc"/>" readonly="readonly"/>
@@ -260,105 +313,117 @@
                             <hr>
                             <table border="1px" id="tableKtnb">
                                 <tr class="tbhead">
-                                    <th rowspan="2"class="TD_BUTTON1">STT</th>
-                                    <th rowspan="2">Tên, số, ngày, tháng, năm</th>
-                                    <th rowspan="2">Cơ quan ban hành văn bản</th>
-                                    <th rowspan="2">Nội dung sơ hở, dễ bị lợi dụng để tham nhũng</th>
-                                    <th colspan="3">Kết quả khắc phục</th>
-                                    <th rowspan="2">Ghi chú</th>
-                                    <th rowspan="2">Trạng thái</th>
+                                    <th class="TD_BUTTON1">MS</th>
+                                    <th class="TD_THOIGIAN">Nội dung</th>
+                                    <th class="TD_TENKH123">Đơn vị tính</th>
+                                    <th class="SOKU1">Kết quả</th>
+                                    <th class="SOKU">Ghi chú</th>
+                                </tr>
 
-                                </tr>
-                                <tr class="tbhead">
-                                    <th>Đã được khắc phục theo thẩm quyền</th>
-                                    <th>Chưa khắc phục xong</th>
-                                    <th>Nguyên nhân của việc chưa khắc phục xong</th>
-                                </tr>
                                 <tr class="tbhead">
                                     <th>(1)</th>
                                     <th>(2)</th>
                                     <th>(3)</th>
                                     <th>(4)</th>
                                     <th>(5)</th>
-                                    <th>(6)</th>
-                                    <th>(7)</th>
-                                    <th>(8)</th>
-                                    <th>(9)</th>
-
                                 </tr>
 
                                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                                     <tr height="cscontent">    
+                                    <s:if test="D7.equalsIgnoreCase('Y')">                                     
 
                                         <td>
                                             <input type="text" value="<s:property  value="TT_HIENTHI" />" 
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 number" onfocus="this.select()"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TD_MAPGD" onfocus="this.select()"
                                                    onblur="if (this.value == '')
-                                                               ;" readonly="true" style="background: #E7DCDA !important;"/>
+                                                               ;" readonly="true" style="background: #E7DCDA !important; font-weight: bold; "/>
                                             <input type="hidden" value="<s:property  value="THUTU" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>  
                                             <input type="hidden" value="<s:property  value="NHAPTAY" />"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/> 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/>
+                                             <input type="hidden" value="<s:property  value="D7" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" value="<s:property  value="D7"/>"/>  
+                                            <input type="hidden" value="<s:property  value="D8" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/>
                                         </td>
                                         <td>
-                                            <input type="text" value="<s:property  value="D1" />" 
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="SOKU" onfocus="this.select()"
-                                                   onblur="if (this.value == '')
-                                                               ;"/>
+                                            <input type="text"   value="<s:property  value="D1" />"  style="background: #E7DCDA !important;  font-weight: bold;" readonly="true"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
+                                                   class="TD_MAPGD Bold"
+                                                   onfocus="this.select();" /> 
                                         </td>                                  
                                         <td>
-                                            <input type="text" value="<s:property  value="D2" />" 
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="SOKU" onfocus="this.select()"
-                                                   onblur="if (this.value == '')
-                                                               ;"/>
+                                            <input type="text" value="<s:property  value="D2" />" style="background: #E7DCDA !important;"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="D0 TD_MAPGD" onfocus="this.select()"
+                                                   onblur="if (this.value == '');" readonly="true"/>
                                         </td>                                  
                                         <td>
-                                            <input type="text" value="<s:property  value="D3" />" 
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="SOKU" onfocus="this.select()"
+                                            <input type="text" value="<s:property  value="D3" />" style="background: #E7DCDA !important;" readonly="true"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="D0 SOKU number" onfocus="this.select()"
                                                    onblur="if (this.value == '')
                                                                ;"/>
                                         </td>                                                                                                
 
                                         <td>
-                                            <input type="text" value="<s:property  value="D4" />" 
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="SOKU" onfocus="this.select()"
-                                                   onblur="if (this.value == '')
-                                                               ;"/>
-                                        </td>
-                                        <td>
-                                            <input type="text" value="<s:property  value="D5" />" 
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="SOKU" onfocus="this.select()"
-                                                   onblur="if (this.value == '')
-                                                               ;"/>
-                                        </td>
-                                        <td>
-                                            <input type="text" value="<s:property  value="D6" />" 
+                                            <input type="text" value="<s:property  value="D6" />" style="background: #E7DCDA !important;" readonly="true"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="SOKU" onfocus="this.select()"
                                                    onblur="if (this.value == '')
                                                                ;"/>
                                         </td>
+ 
+                                    </tr>
+                                    </s:if>
+                                     <s:if test="D7.equalsIgnoreCase('N')">                                     
+
+                                        <td>
+                                            <input type="text" value="<s:property  value="TT_HIENTHI" />" 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TD_MAPGD" onfocus="this.select()"
+                                                   onblur="if (this.value == '')
+                                                               ;" readonly="true"/>
+                                            <input type="hidden" value="<s:property  value="THUTU" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>  
+                                            <input type="hidden" value="<s:property  value="NHAPTAY" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/>
+                                            <input type="hidden" value="<s:property  value="D7" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" value="<s:property  value="D7"/>"/>  
+                                            <input type="hidden" value="<s:property  value="D8" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/>
+                                        </td>
+                                        <td>
+                                            <input type="text"   value="<s:property  value="D1" />"  readonly="true"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
+                                                   class="TD_MAPGD"
+                                                   onfocus="this.select();" /> 
+                                        </td>                                  
+                                        <td>
+                                            <input type="text" value="<s:property  value="D2" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="D0 TD_MAPGD" onfocus="this.select()"
+                                                   onblur="if (this.value == '');" readonly="true"/>
+                                        </td> 
+                                        <s:if test="D8.equalsIgnoreCase('Y')">     
+                                        <td>
+                                            <input type="text" value="<s:property  value="D3" />" style="background: #df8505 !important;" 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="D0 SOKU number" onfocus="this.select()"
+                                                   onblur="if (this.value == '') ;"/>
+                                             </s:if>
+                                            <s:if test="D8.equalsIgnoreCase('N')">     
+                                        <td>
+                                            <input type="text" value="<s:property  value="D3" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="D0 SOKU number" onfocus="this.select()"
+                                                   onblur="if (this.value == '') (this.value == 0) ;"/>
+                                             </s:if>
+                                        </td>                                                                                                
+                              
                                         <td>
                                             <input type="text" value="<s:property  value="D10" />" 
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
-                                                   onblur="if (this.value == '')
-                                                               ;"
-                                                   />
-                                        </td>  
-                                        <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="SOKU"/></td>
+                                                   onblur="if (this.value == '');"/>
+                                        </td>
+ 
                                     </tr>
-
+                                    </s:if>
                                 </s:iterator>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><input type="button" value="Thêm" onclick="addRow(this.parentNode.parentNode.rowIndex)" class="D0 SOKU"/></td>
-                                </tr>    
+
                             </table>
                     </tr>
                 </table>

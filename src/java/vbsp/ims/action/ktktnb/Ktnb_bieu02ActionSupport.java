@@ -24,6 +24,7 @@ import vbsp.ims.bcqt.model.ModelViewSend;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.BuildPosTreeDao;
 import vbsp.ims.dao.DaoConnect;
+import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.dao.ktnb.DaoKTNBMain;
 import vbsp.ims.dao.ktnb.DaoKtnb06;
 import vbsp.ims.dao.ktnb.ListKTNBDA;
@@ -42,15 +43,36 @@ import vbsp.ims.xml.XmlBcqtSync;
  * @author Haha
  */
 public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRequestAware {
+
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
-    protected List<String> poscd = new ArrayList<String>();  
-            
-     
+    protected List<String> poscd = new ArrayList<String>();
+    protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
+    protected PosMainModel posMainModel;
+
+    protected String pos_cd_username;
+
+    public String getPos_cd_username() {
+        return pos_cd_username;
+    }
+
+    public void setPos_cd_username(String pos_cd_username) {
+        this.pos_cd_username = pos_cd_username;
+    }
+
+    public String getMain_pos_username() {
+        return main_pos_username;
+    }
+
+    public void setMain_pos_username(String main_pos_username) {
+        this.main_pos_username = main_pos_username;
+    }
+    protected String main_pos_username;
     //Cac truong chua thong tin bo xung luu du lieu
     private String userId;
     private String quyBc;
     private String namBc;
     private String maCn;
+    private String posCD;
     protected List<ModelViewSend> lstViewSend = new ArrayList<>();
 
     public List<ModelViewSend> getLstViewSend() {
@@ -60,7 +82,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
     public void setLstViewSend(List<ModelViewSend> lstViewSend) {
         this.lstViewSend = lstViewSend;
     }
-    
+
     protected List<ListValue> lstParameters = new ArrayList<>();
 
     public List<ListValue> getLstParameters() {
@@ -79,7 +101,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
     public void setMessage(String Message) {
         this.Message = Message;
     }
-    
+
     private TreeNode nodes;
     private String reportGrade;
 
@@ -106,7 +128,6 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
 //    public void setReportGrade(int reportGrade) {
 //        this.reportGrade = reportGrade;
 //    }
-
     public String getUserName() {
         return userName;
     }
@@ -133,158 +154,232 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
     private String userName;
     private String selectedPos;
     private TreeNode searchNodes;
-    
+
     private HttpServletRequest request = null;
-    
+
     public Ktnb_bieu02ActionSupport() {
     }
-    
+
     public String execute() throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    public String get_data_ktnb_bieu02(){
+
+    public String get_data_ktnb_bieu02() {
         try {
             userName = request.getSession().getAttribute("username").toString();
-            reportGrade = request.getSession().getAttribute("reportGrade").toString(); 
+            reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
+            pos_cd_username = posMainModel.getPosCd();
+            main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc,userName, Integer.parseInt(reportGrade) ,poscd);
+            lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
             return "error";
         }
-        
+
         return "success";
     }
-    
-     public String get_data_ktnb_bieu03(){
+
+    public String get_data_ktnb_bieu03() {
         try {
             userName = request.getSession().getAttribute("username").toString();
-            reportGrade = request.getSession().getAttribute("reportGrade").toString(); 
+            reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
+            pos_cd_username = posMainModel.getPosCd();
+            main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc,userName, Integer.parseInt(reportGrade) ,poscd);
+            lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
             return "error";
         }
-        
+
         return "success";
     }
-    
-    public String ResetDataInput(){
-        getInfo();
-//        ktnb06ModelList = daoKtnb06.get_ktnb06_default(posCD, Integer.parseInt(namBc), Integer.parseInt(quyBc));
+
+    public String get_data_ktnb_bieu04() {
+        try {
+            userName = request.getSession().getAttribute("username").toString();
+            reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
+            pos_cd_username = posMainModel.getPosCd();
+            main_pos_username = posMainModel.getMainPosCd();
+            Connection conn = new DaoConnect().getConnect();
+            DaoKTNBMain daoMain = new DaoKTNBMain();
+            lstDulieuNt = daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
+            return "error";
+        }
+
         return "success";
     }
-    
+
+    public String get_data_ktnb_bieu05() {
+        try {
+            userName = request.getSession().getAttribute("username").toString();
+            reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
+            pos_cd_username = posMainModel.getPosCd();
+            main_pos_username = posMainModel.getMainPosCd();
+            Connection conn = new DaoConnect().getConnect();
+            DaoKTNBMain daoMain = new DaoKTNBMain();
+            lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
+            return "error";
+        }
+
+        return "success";
+    }
+
+//    public String ResetDataInput(){
+//        getInfo();
+////        ktnb06ModelList = daoKtnb06.get_ktnb06_default(posCD, Integer.parseInt(namBc), Integer.parseInt(quyBc));
+//        return "success";
+//    }
 //    public String get_data_ktnb06A_auth() throws SQLException{
 //        getInfo();
 ////        ktnb01ModelList = daoKtnb01.get_ktnb01(posCD, Integer.parseInt(namBc), Integer.parseInt(quyBc));
 //        return "success";
 //    }
-    
     private List<String> getListOfPos() {
         List<String> posString = new ArrayList<String>();
         userName = request.getSession().getAttribute("username").toString();
-        reportGrade = request.getSession().getAttribute("reportGrade").toString();        
-            String pos_cd;
-            ArrayList<String> pos_stack = new ArrayList<>();
-            ArrayList<String> listOfId
-                    = (ArrayList<String>) DefineFun.string2Array(selectedPos, ",", 1);
-            boolean isAdded;
-            if (listOfId.size() > 0) {
-                for (String id : listOfId) {
-                    isAdded = false;
-                    pos_cd = DefineFun.searchInTreeView(id, this.searchNodes);
-                    for (String added_pos : pos_stack) {
-                        if (added_pos.equals(pos_cd)) {
-                            isAdded = true;
-                            break;
-                        }
-                    }
-                    if (!isAdded && pos_cd != null && !posString.contains(pos_cd)) {
-                        posString.add(pos_cd);
+        reportGrade = request.getSession().getAttribute("reportGrade").toString();
+        String pos_cd;
+        ArrayList<String> pos_stack = new ArrayList<>();
+        ArrayList<String> listOfId
+                = (ArrayList<String>) DefineFun.string2Array(selectedPos, ",", 1);
+        boolean isAdded;
+        if (listOfId.size() > 0) {
+            for (String id : listOfId) {
+                isAdded = false;
+                pos_cd = DefineFun.searchInTreeView(id, this.searchNodes);
+                for (String added_pos : pos_stack) {
+                    if (added_pos.equals(pos_cd)) {
+                        isAdded = true;
+                        break;
                     }
                 }
+                if (!isAdded && pos_cd != null && !posString.contains(pos_cd)) {
+                    posString.add(pos_cd);
+                }
             }
-        
+        }
+
         System.err.println(posString);
         return posString;
     }
-    
-   public String view() throws SQLException{
-       try
-       {
-           System.err.println(" da vao action");
+
+    public String view() throws SQLException {
+        try {
+            System.err.println(" da vao action");
             if (this.searchNodes == null) {
                 System.err.print("searchNodes is null");
                 try {
                     reportGrade = request.getSession().getAttribute("reportGrade").toString();
                     userName = request.getSession().getAttribute("username").toString();
-                    BuildPosTreeDao buildPosTreeDao = new BuildPosTreeDao(Integer.parseInt(reportGrade) , userName);
+                    BuildPosTreeDao buildPosTreeDao = new BuildPosTreeDao(Integer.parseInt(reportGrade), userName);
                     buildPosTreeDao.build();
                     this.searchNodes = buildPosTreeDao.getNodes();
                 } catch (SQLException ex) {
                 }
-            }        
+            }
             getInfo();
             List<String> lstPos = getListOfPos();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc,userName, Integer.parseInt(reportGrade) ,lstPos);
+            lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), lstPos);
             return "success";
-       } catch (Exception e)
-       {
-           CoreLogger.error(this.getClass().getName() + " Exception -> GetDataAuth06A: " + e.getMessage());
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> GetDataAuth06A: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> GetDataAuth06A: " + e.getMessage());
             return "error";
-       }
-        
+        }
+
     }
-   
-   public String save_data_ktnb_bieu02() throws SQLException{ 
-       try {
+
+    public String save_data_ktnb_bieu02() throws SQLException {
+        try {
             userName = request.getSession().getAttribute("username").toString();
-            reportGrade = request.getSession().getAttribute("reportGrade").toString(); 
+            reportGrade = request.getSession().getAttribute("reportGrade").toString();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            if(!daoMain.saveKTNB_bieu02("02_PCTN", userName, "",quyBc, namBc, lstDulieuNt))
-                {                
-                    return "error";
-                }
-       } catch (Exception e) {
-           CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
+            if (!daoMain.saveKTNB_bieu02("02_PCTN", userName, "", quyBc, namBc, lstDulieuNt)) {
+                return "error";
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
             return "error";
-       }
-        
-       return "success";        
+        }
+
+        return "success";
     }
-   
-    public String save_data_ktnb_bieu03() throws SQLException{ 
-       try {
+
+    public String save_data_ktnb_bieu03() throws SQLException {
+        try {
             userName = request.getSession().getAttribute("username").toString();
-            reportGrade = request.getSession().getAttribute("reportGrade").toString(); 
+            reportGrade = request.getSession().getAttribute("reportGrade").toString();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            if(!daoMain.saveKTNB_bieu03("03_PCTN", userName, "",quyBc, namBc, lstDulieuNt))
-                {                
-                    return "error";
-                }
-       } catch (Exception e) {
-           CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
+            if (!daoMain.saveKTNB_bieu03("03_PCTN", userName, "", quyBc, namBc, lstDulieuNt)) {
+                return "error";
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
             return "error";
-       }
-        
-       return "success";        
+        }
+
+        return "success";
     }
-    
-   protected boolean getParaSession() {
+
+    public String save_data_ktnb_bieu04() throws SQLException {
+        try {
+            userName = request.getSession().getAttribute("username").toString();
+            reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            Connection conn = new DaoConnect().getConnect();
+            DaoKTNBMain daoMain = new DaoKTNBMain();
+            if (!daoMain.saveKTNB_bieu04("04_PCTN", userName, "", quyBc, namBc, lstDulieuNt)) {
+                return "error";
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
+            return "error";
+        }
+
+        return "success";
+    }
+
+    public String save_data_ktnb_bieu05() throws SQLException {
+        try {
+            userName = request.getSession().getAttribute("username").toString();
+            reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            Connection conn = new DaoConnect().getConnect();
+            DaoKTNBMain daoMain = new DaoKTNBMain();
+            if (!daoMain.saveKTNB_bieu05("05_PCTN", userName, "", quyBc, namBc, lstDulieuNt)) {
+                return "error";
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
+            return "error";
+        }
+
+        return "success";
+    }
+
+    protected boolean getParaSession() {
         Map session = ActionContext.getContext().getSession();
 
         if (session == null || session.size() == 0 || session.isEmpty()) {
@@ -309,9 +404,8 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
         }
         return true;
     }
-      
-   
-   public String Auth() throws SQLException{        
+
+    public String Auth() throws SQLException {
         System.err.println("Gui KTNB06A");
         try {
             if (!getParaSession()) {
@@ -319,17 +413,17 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             }
 //            HashMap hmParameter = getParameter();
             if (this.searchNodes == null) {
-            System.err.print("searchNodes is null");
-            try {
-                reportGrade = request.getSession().getAttribute("reportGrade").toString();
-                userName = request.getSession().getAttribute("username").toString();
-                BuildPosTreeDao buildPosTreeDao = new BuildPosTreeDao(Integer.parseInt(reportGrade) , userName);
-                buildPosTreeDao.build();
-                this.searchNodes = buildPosTreeDao.getNodes();
+                System.err.print("searchNodes is null");
+                try {
+                    reportGrade = request.getSession().getAttribute("reportGrade").toString();
+                    userName = request.getSession().getAttribute("username").toString();
+                    BuildPosTreeDao buildPosTreeDao = new BuildPosTreeDao(Integer.parseInt(reportGrade), userName);
+                    buildPosTreeDao.build();
+                    this.searchNodes = buildPosTreeDao.getNodes();
                 } catch (SQLException ex) {
                 }
             }
-            
+
             List<String> lstPos = getListOfPos();
             DaoKTNBMain daosync = DaoKTNBMain.newInstance();
             Map<String, Integer> mapStatusSend = new HashMap();
@@ -348,15 +442,16 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
                 List<String> lstData = new ArrayList<>();
                 boolean bStatus_file = false;
                 String ngay_bc = "";
-                if (quyBc.equals("1"))
-                    ngay_bc = "31-MAR-" + namBc; 
-                else if(quyBc.equals("2"))
-                    ngay_bc = "30-JUN-" + namBc; 
-                else if(quyBc.equals("3"))
+                if (quyBc.equals("1")) {
+                    ngay_bc = "31-MAR-" + namBc;
+                } else if (quyBc.equals("2")) {
+                    ngay_bc = "30-JUN-" + namBc;
+                } else if (quyBc.equals("3")) {
                     ngay_bc = "30-SEP-" + namBc;
-                else if(quyBc.equals("4"))
+                } else if (quyBc.equals("4")) {
                     ngay_bc = "30-NOV-" + namBc;
-                
+                }
+
                 lstData = daosync.getDataSendKTNB06A("NT", "KTNB06A",
                         mapgd, ngay_bc);
                 if (lstData == null || lstData.size() == 0) {
@@ -420,9 +515,9 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
 //        addActionMessage("Bạn gửi dữ liệu về trung ương thành công !");
 
         return SUCCESS;
-    }      
-    
-   protected HashMap<String, Object> getParameter() throws Exception {
+    }
+
+    protected HashMap<String, Object> getParameter() throws Exception {
         HashMap<String, Object> paramHashMap = new HashMap<>();
         Map<String, String[]> prameters = ServletActionContext.getRequest().getParameterMap();
         for (String parameter : prameters.keySet()) {
@@ -453,8 +548,8 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
         }
         return paramHashMap;
     }
-   
-   private List<String> convertStringtoList(String[] value) {
+
+    private List<String> convertStringtoList(String[] value) {
         List<String> lst = new ArrayList<>();
         try {
             for (int i = 0; i < value.length; i++) {
@@ -468,8 +563,8 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
         }
         return lst;
     }
-   
-   private List<ModelViewSend> getViewStatusSendKTNB06A(List<String> lstPos, Map<String, Integer> mapStatus) {
+
+    private List<ModelViewSend> getViewStatusSendKTNB06A(List<String> lstPos, Map<String, Integer> mapStatus) {
         addActionMessage("Danh sách các PGD gửi dữ liệu và tình trạng dữ liệu");
         List<ModelViewSend> lstStatus = new ArrayList();
         try {
@@ -518,11 +613,11 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
         return lstStatus;
     }
 
-    public void getInfo(){
-         //Lay username
+    public void getInfo() {
+        //Lay username
         HttpSession session = request.getSession();
         userId = session.getAttribute("username").toString();
-        
+
         //Lay thong tin ma phogn giao dich, ma chi nhanh
 //        PosMainModel posMainModel;
 //        posMainModel = listKTNBDA.get_pos_main_pos(userId);
@@ -531,55 +626,60 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
     }
 
     @Override
-     public void setServletRequest(HttpServletRequest hsr) {
+    public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;
     }
 
-     //<editor-fold defaultstate="collapsed" desc="Getter Setter">     
-          
-     
-     public String getUserId() {
-         return userId;
-     }
-     
-     public void setUserId(String userId) {
-         this.userId = userId;
-     }
-        
-     
-     public String getQuyBc() {
-         return quyBc;
-     }
-     
-     public void setQuyBc(String quyBc) {
-         this.quyBc = quyBc;
-     }
-     
-     public String getNamBc() {
-         return namBc;
-     }
-     
-     public void setNamBc(String namBc) {
-         this.namBc = namBc;
-     }
-     
-     public String getMaCn() {
-         return maCn;
-     }
-     
-     public void setMaCn(String maCn) {
-         this.maCn = maCn;
-     }
-     
-     public HttpServletRequest getRequest() {
-         return request;
-     }
-     
-     public void setRequest(HttpServletRequest request) {
-         this.request = request;
-     }
-         
-     public List<String> getPoscd() {
+    //<editor-fold defaultstate="collapsed" desc="Getter Setter">     
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getQuyBc() {
+        return quyBc;
+    }
+
+    public void setQuyBc(String quyBc) {
+        this.quyBc = quyBc;
+    }
+
+    public String getNamBc() {
+        return namBc;
+    }
+
+    public void setNamBc(String namBc) {
+        this.namBc = namBc;
+    }
+
+    public String getMaCn() {
+        return maCn;
+    }
+
+    public void setMaCn(String maCn) {
+        this.maCn = maCn;
+    }
+
+    public HttpServletRequest getRequest() {
+        return request;
+    }
+
+    public void setRequest(HttpServletRequest request) {
+        this.request = request;
+    }
+
+    public String getPosCD() {
+        return posCD;
+    }
+
+    public void setPosCD(String posCD) {
+        this.posCD = posCD;
+    }
+
+    public List<String> getPoscd() {
         return poscd;
     }
 
@@ -596,6 +696,4 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
     }
 //</editor-fold>
 
-
-    
 }
