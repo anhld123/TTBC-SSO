@@ -565,7 +565,7 @@
             
             var daynow = day + "/" + month + "/" + year;
             
-            document.getElementById("ngay_bc_DATE").value = daynow;
+            document.getElementById("ngay_bc_DATE").value = '28/02/2023' //daynow;
             //Gan quy mac dinh
 //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
             

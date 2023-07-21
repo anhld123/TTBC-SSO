@@ -2,4 +2,7 @@
 <endpoints version="2.0" xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime">
   <endpoint implementation="vbsp.ims.web.services.ims_services" name="ims_services" url-pattern="/ims_services"/>
   <endpoint implementation="vbsp.ims.web.services.ims_services" name="ims_services" url-pattern="/ims_services"/>
+  <endpoint implementation="vbsp.ims.web.services.ims_services" name="ims_services" url-pattern="/ims_services"/>
+  <endpoint implementation="vbsp.ims.web.services.ims_services" name="ims_services" url-pattern="/ims_services"/>
+  <endpoint implementation="vbsp.ims.web.services.ims_services" name="ims_services" url-pattern="/ims_services"/>
 </endpoints>

@@ -148,10 +148,10 @@
                 }
                 
                 // Tinh cho dong D  
-                for (i = 0; i < arrCot.length; i++) { 
-                    //Tinh tong cho dong "Quỹ tiền lương V1"
-                    $(arrCot[i]).eq(37).val( parseFloat($(arrCot[i]).eq(56).val()) + parseFloat($(arrCot[i]).eq(57).val()));
-                }
+//                for (i = 0; i < arrCot.length; i++) { 
+//                    //Tinh tong cho dong "Quỹ tiền lương V1"
+//                    $(arrCot[i]).eq(37).val( parseFloat($(arrCot[i]).eq(56).val()) + parseFloat($(arrCot[i]).eq(57).val()));
+//                }
                 
                 // Tinh cho dong F  
                 for (i = 0; i < arrCot.length; i++) { 
@@ -309,7 +309,7 @@
                             <input type="text" value="<s:property  value="D15" />"  class="<s:property value='FONTFORMAT'/> TEN_KH" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" readonly/>
                         </td>
-                        <s:if test="MA.equalsIgnoreCase('CT9999') && Grade.equalsIgnoreCase('1')">
+                        <s:if test="(MA.equalsIgnoreCase('CT9999') || MA.equalsIgnoreCase('CT9998')) && Grade.equalsIgnoreCase('1')">
                             <td align = "right" class= "<s:property value='FONTFORMAT'/> TD_SOTIEN">
                                 <input type="text" style="color: red" value="<s:property  value="TEN" />"  class="<s:property value='FONTFORMAT'/> TEN_KH" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" readonly/>

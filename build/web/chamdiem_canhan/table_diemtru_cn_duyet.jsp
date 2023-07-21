@@ -542,7 +542,7 @@
                                                ;
                                                isInputMark('D1_<s:property value='MA'/>', 'D12_<s:property value='MA'/>');
                                                evaluateSum_col_tru('CHAMDIEMTT_001', 'D12','D12_<s:property  value="MA" />');" 
-                                       <s:if test="D29.equalsIgnoreCase('N')"> readonly="readonly" </s:if>   />
+                                       <s:if test="D29.equalsIgnoreCase('Y')"> readonly="readonly" </s:if>   />
                                 </td>  
                               <td align = "right" class="TD_SOLUONG">
                                 <input type="text" value="<s:property  value="D13" />" 

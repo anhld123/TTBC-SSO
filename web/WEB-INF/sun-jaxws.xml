@@ -4,4 +4,5 @@
   <endpoint implementation="vbsp.ims.web.services.ims_services" name="ims_services" url-pattern="/ims_services"/>
   <endpoint implementation="vbsp.ims.web.services.ims_services" name="ims_services" url-pattern="/ims_services"/>
   <endpoint implementation="vbsp.ims.web.services.ims_services" name="ims_services" url-pattern="/ims_services"/>
+  <endpoint implementation="vbsp.ims.web.services.ims_services" name="ims_services" url-pattern="/ims_services"/>
 </endpoints>

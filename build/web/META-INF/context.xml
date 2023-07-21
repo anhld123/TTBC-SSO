@@ -23,7 +23,8 @@
                    driverClassName="oracle.jdbc.OracleDriver" 
                    url="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=10.0.19.12)(PORT=1521))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=VBSPBKA)))" 
     />
-    <Resource name="jdbc/intellect_27" 
+    
+    <Resource name="jdbc/intellect_test" 
                    auth="Container" 
                    type="javax.sql.DataSource" 
                    maxActive="20" 
@@ -32,8 +33,19 @@
                    username="intellect"
                    password="intellect" 
                    driverClassName="oracle.jdbc.OracleDriver" 
-                   url="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=10.27.0.56)(PORT=1521))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=IMSREPORT)))" 
-    />		
+                   url="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=10.63.8.63)(PORT=1521))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=VBSPIMS)))" 
+    />
+<!--    <Resource name="jdbc/intellect" 
+                   auth="Container" 
+                   type="javax.sql.DataSource" 
+                   maxActive="20" 
+                   maxIdle="10" 
+                   maxWait="10000" 
+                   username="intellect"
+                   password="intellect" 
+                   driverClassName="oracle.jdbc.OracleDriver" 
+                   url="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=10.10.0.56)(PORT=1521))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=IMSREPORT)))" 
+    />		-->
     <Resource name="jdbc/smsbanking" 
               auth="Container" 
               type="javax.sql.DataSource" 
