@@ -287,11 +287,11 @@
                                 
                             </s:if>
                             <s:else>       
-                                <s:if test = "!posCode.equalsIgnoreCase(#pos_cd_username)"> 
-                                    
+                                <s:if test = '%{posCode.equals(pos_cd_username)}'> 
+                                    <input type="checkbox" class="myCheckBox" name="lstData[<s:property  value='%{#idxRows.index}' />].manualFlag" value="0" onclick="$(this).val(this.checked ? 1 : 0)">
                                 </s:if>
                                 <s:else>
-                                    <input type="checkbox" class="myCheckBox" name="lstData[<s:property  value='%{#idxRows.index}' />].manualFlag" value="0" onclick="$(this).val(this.checked ? 1 : 0)">
+                                    
                                 </s:else>                                                                
                                 <% customerCount += 1; %>
                             </s:else>
@@ -405,11 +405,11 @@
                         <td style="text-align: center;">
                             <s:if test = "!d20.equalsIgnoreCase('ThanhVien')"> 
                                 <s:if test = '%{posCode.equals(pos_cd_username)}'> 
-                                    <textarea disabled="true" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" class="autoHeight <s:property value="d20"/>"><s:property value='d31'/></textarea>
+                                    <textarea readonly="true" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" class="autoHeight <s:property value="d20"/>"><s:property value='d31'/></textarea>
                                     <a href="javascript:funcFeedback('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>','<s:property value="d31"/>', 0)"><u>chi tiết</u></a>  
                                 </s:if>
                                 <s:else> 
-                                    <textarea disabled="true" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" class="autoHeight <s:property value="d20"/>"><s:property value='d31'/></textarea>
+                                    <textarea readonly="true" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" class="autoHeight <s:property value="d20"/>"><s:property value='d31'/></textarea>
                                     <a href="javascript:funcFeedback('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>','<s:property value="d31"/>', 1)"><u>thay đổi</u></a>  
                                 </s:else>                                
                             </s:if>

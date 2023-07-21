@@ -77,8 +77,7 @@ public class DaoKtnb01 {
                     obj.setKT_CAPHT(reset.getDouble("KT_CAPHT"));
                     obj.setKT_STT(reset.getDouble("KT_STT"));
                     obj.setNG_CAPNHAT(reset.getString("NG_CAPNHAT"));
-  
-
+                    
                     //Them vao list
                     dataList.add(obj);
                 }
