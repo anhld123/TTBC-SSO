@@ -55,7 +55,7 @@
                 <table border="0" cellspacing="0" cellpading="0" height="100%" width="100%">
                     <tr>
                         <td>
-                            <b>Quý báo cáo111:</b>
+                            <b>Quý báo cáo:</b>
                             <select name="cboquybc" id="cboquybc">
                                 <option value="1">Quý I</option>
                                 <option value="2">Quý II</option>
