@@ -235,6 +235,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb_bieu04: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb_bieu04: " + e.getMessage());
+            addActionMessage("Lỗi tải dữ liệu.");
             return "error";
         }
 
@@ -259,6 +260,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb_bieu05: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb_bieu05: " + e.getMessage());
+            addActionMessage("Lỗi tải dữ liệu.");
             return "error";
         }
 
@@ -377,6 +379,12 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
+            lstDulieuNt = daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            if(lstDulieuNt.get(0).getD50().equals("3") || lstDulieuNt.get(0).getD50().equals("4"))
+            {
+                addActionMessage("Cấp trên đã duyệt, bạn không thể sửa dữ liệu");
+                return "error";
+            }
             if (!daoMain.saveKTNB_bieu04("04_PCTN", userName, "", quyBc, namBc, lstDulieuNt)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";

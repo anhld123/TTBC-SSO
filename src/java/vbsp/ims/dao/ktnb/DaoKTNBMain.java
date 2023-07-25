@@ -1168,8 +1168,9 @@ public class DaoKTNBMain {
                     value.setD16(reset.getString(30));
                     value.setD17(reset.getString(31));
                     value.setD18(reset.getString(32));
-                    value.setNHAPTAY(reset.getString(45));
-                    value.setFONTFORMAT(reset.getString(46));
+                    value.setD50(reset.getString(64));
+                    value.setNHAPTAY(reset.getString(65));
+                    value.setFONTFORMAT(reset.getString(66));
 
                     lstBcqt_NT.add(value);
                 }
