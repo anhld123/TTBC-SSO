@@ -35,7 +35,9 @@ import vbsp.ims.model.ktnb.Ktnb01Model;
 import vbsp.ims.model.ktnb.Ktnb06Model;
 import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.report.fast.ListValue;
+import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.syn.ProcessReportSyn;
+import vbsp.ims.util.DateUtil;
 import vbsp.ims.xml.XmlBcqtSync;
 
 /**
@@ -74,6 +76,8 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
     private String maCn;
     private String posCD;
     protected List<ModelViewSend> lstViewSend = new ArrayList<>();
+
+    Service_KTKSNB _service;
 
     public List<ModelViewSend> getLstViewSend() {
         return lstViewSend;
@@ -173,6 +177,11 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
+            _service = new Service_KTKSNB();
+            lstDulieuNt = _service.getDataKTKSNB("02_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+            if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
+                lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            }
             lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
@@ -192,6 +201,11 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
+            _service = new Service_KTKSNB();
+            lstDulieuNt = _service.getDataKTKSNB("03_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+            if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
+                lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            }
             lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
@@ -211,10 +225,16 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            lstDulieuNt = daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+
+            System.out.println("reportGrade = " + getReportDate(quyBc, namBc) + " pos_cd_username = " + pos_cd_username);
+            _service = new Service_KTKSNB();
+            lstDulieuNt = _service.getDataKTKSNB("04_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+            if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
+                lstDulieuNt = daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            }
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb_bieu04: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb_bieu04: " + e.getMessage());
             return "error";
         }
 
@@ -230,10 +250,15 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
+            _service = new Service_KTKSNB();
+            lstDulieuNt = _service.getDataKTKSNB("05_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+            if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
+                lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            }
             lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb_bieu05: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb_bieu05: " + e.getMessage());
             return "error";
         }
 
@@ -347,14 +372,34 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
         try {
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
+            pos_cd_username = posMainModel.getPosCd();
+            main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             if (!daoMain.saveKTNB_bieu04("04_PCTN", userName, "", quyBc, namBc, lstDulieuNt)) {
+                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
+            lstDulieuNt = daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            List<DuLieuNTRow> lstData = new ArrayList<>();
+            lstData = mapList(lstDulieuNt, "04_PCTN", userName, getReportDate(quyBc, namBc));
+            if(lstData.size() == 0 || lstData == null)
+            {
+                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
+                return "error";
+            }
+            _service = new Service_KTKSNB();
+            if(_service.saveDataKTKSNB("04_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0)
+            {
+                addActionMessage("Cập nhật Api lên Tw không thành công");
+                 return "error";
+            }
+
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb_bieu04: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb_bieu04: " + e.getMessage());
+            addActionMessage("Cập nhật không thành công");
             return "error";
         }
 
@@ -623,6 +668,79 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
 //        posMainModel = listKTNBDA.get_pos_main_pos(userId);
 //        posCD = posMainModel.getPosCd();
 //        maCn = posMainModel.getMainPosCd();
+    }
+
+    private String getReportDate(String sQuyBC, String sNamBC) {
+        String ngay_bc = "";
+        if (sQuyBC.equals("1")) {
+            ngay_bc = "31-MAR-" + sNamBC;
+        } else if (sQuyBC.equals("2")) {
+            ngay_bc = "30-JUN-" + sNamBC;
+        } else if (sQuyBC.equals("3")) {
+            ngay_bc = "30-SEP-" + sNamBC;
+        } else if (sQuyBC.equals("4")) {
+            ngay_bc = "30-NOV-" + sNamBC;
+        }
+        return ngay_bc;
+    }
+
+    private List<DuLieuNTRow> mapList(List<QT_DULIEU_NT> lst, String key, String UserName, String sNgaybc) {
+        try {
+            SimpleDateFormat CvDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            List<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
+            for (QT_DULIEU_NT tmp : lstDulieuNt) {
+
+                DuLieuNTRow tempadd = new DuLieuNTRow();
+
+                tempadd.setKey(tmp.getKHOA());
+                tempadd.setOrderValue("");
+                tempadd.setOrderDescription("");
+                tempadd.setCode(tmp.getMA());
+                tempadd.setMakerId(UserName);
+                tempadd.setAuthoriseId(UserName);
+                tempadd.setReportDate(CvDate.format(new SimpleDateFormat("dd-MMM-yyyy").parse(sNgaybc)));
+                tempadd.setName(tmp.getTEN());
+                tempadd.setReportYear(2023);
+                tempadd.setPosCode(tmp.getMAPGD());
+                tempadd.setPosFlag("S");
+                tempadd.setBranchCode(tmp.getMACN());
+                tempadd.setD2(tmp.getD3());
+                tempadd.setD3(tmp.getD3());
+                tempadd.setD4(tmp.getD4());
+                tempadd.setD5(tmp.getD5());
+                tempadd.setD6(tmp.getD6());
+                tempadd.setD7(tmp.getD7());
+                tempadd.setD8(tmp.getD8());
+                tempadd.setD9(tmp.getD9());
+                tempadd.setD10(tmp.getD10());
+                tempadd.setD11(tmp.getD11());
+                tempadd.setD12(tmp.getD12());
+                tempadd.setD13(tmp.getD13());
+                tempadd.setD14(tmp.getD14());
+                tempadd.setD15(tmp.getD15());
+                tempadd.setD16(tmp.getD16());
+                tempadd.setD17(tmp.getD17());
+                tempadd.setD18(tmp.getD18());
+                tempadd.setD19(tmp.getD19());
+                tempadd.setD20(tmp.getD20());
+                tempadd.setD21(tmp.getD21());
+                tempadd.setD22(tmp.getD22());
+                tempadd.setD23(tmp.getD23());
+                tempadd.setD24(tmp.getD24());
+                tempadd.setD25(tmp.getD25());
+                tempadd.setD26(tmp.getD26());
+                tempadd.setD27(tmp.getD27());
+                tempadd.setD28(tmp.getD28());
+                tempadd.setD29(tmp.getD29());
+                tempadd.setD30(tmp.getD30());
+                lstUpdateDate.add(tempadd);
+
+            }
+            return lstUpdateDate;
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
     @Override
