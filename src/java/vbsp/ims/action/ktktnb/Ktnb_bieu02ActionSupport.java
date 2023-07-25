@@ -704,6 +704,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
                 tempadd.setPosCode(tmp.getMAPGD());
                 tempadd.setPosFlag("S");
                 tempadd.setBranchCode(tmp.getMACN());
+                tempadd.setD1(tmp.getD1());
                 tempadd.setD2(tmp.getD3());
                 tempadd.setD3(tmp.getD3());
                 tempadd.setD4(tmp.getD4());

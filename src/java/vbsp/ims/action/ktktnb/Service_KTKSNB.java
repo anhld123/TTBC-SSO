@@ -89,6 +89,7 @@ public class Service_KTKSNB {
                     row.setD28(item.getD28());
                     row.setD29(item.getD29());
                     row.setD30(item.getD30());
+                    row.setD50(item.getD50());
                     row.setNHAPTAY(item.getManualFlag());
                     row.setFONTFORMAT(item.getFontFormat());
                     row.setKIEUIN(item.getStyle());
@@ -159,6 +160,7 @@ public class Service_KTKSNB {
                 _normalizeItem.setD28(data.get(i).getD28());
                 _normalizeItem.setD29(data.get(i).getD29());
                 _normalizeItem.setD30(data.get(i).getD30());
+                _normalizeItem.setD50(data.get(i).getD50());
 
                 _lstNormalizeData.add(_normalizeItem);
             }
