@@ -1509,7 +1509,7 @@ public class DaoKTNBMain {
         return true;
     }
      
-    public boolean saveKTNB_bieu06(String khoa, String username, String mapgd, String sQuy, String sNam, List<QT_DULIEU_NT> lstData) throws SQLException {
+       public boolean saveKTNB_bieu06(String khoa, String username, String mapgd, String sQuy, String sNam, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();

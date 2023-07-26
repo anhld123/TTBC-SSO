@@ -7,7 +7,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Biểu số 02</title>
+        <title>Biểu số 06</title>
         <sx:head/>
         <sj:head/>
         <script src="js/jquery.number.js"></script>
@@ -93,17 +93,19 @@
 //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 2);
                 $(".SOKU").css({"width": "97%"});
-                $(".TD_CHECKBOX").css({"width": "39px"});
+                $(".SOKU1").css({"width": "50px"});
+                $(".TD_CHECKBOX").css({"width": "38px"});
                 $(".TD_SOKU").css({"width": "80px"});
                 $(".TD_TENKH123").css({"width": "110px"});
                 $(".TD_TENTS").css({"width": "190px"});
                 $(".TD_SOTK").css({"width": "105px"});
                 $(".TD_MAKH").css({"width": "60px"});
                 $(".TD_THOIGIAN").css({"width": "auto"});
-                $(".TD_MAPGD").css({"width": "45px"});
+                $(".TD_MAPGD").css({"width": "99%"});
                 $(".TD_BUTTON1").css({"width": "40px"});
                 $(".TD_SOTIEN").css({"width": "100px"});
                 $(".TEN_KH").css({"width": "50%"});
+                $(".TEN_KH1").css({"width": "30%"});
             });
             $('.TEN_KH').focus(function () {
                 $(this).closest('tr').addClass('highlight_row');
@@ -203,7 +205,7 @@
 //                alert('max_row='+max_row+' rowCount='+rowCount);
                 table.deleteRow(indx);
             }
-            function addRow(indx, ma) {
+            function addRow(indx) {
 //                sleep(1000);
                 var index = parseInt(indx); //ko hieu so vao vong for lai mat index nen phai luu lai o day
                 var table = document.getElementById("tableKtnb");
@@ -215,14 +217,13 @@
                     max_row++;
                     rowCount = max_row;
                 }
-                var code = (ma + rowCount).toString();
                 var newTr = '<tr>\n\
                                 <td ><input type="text" value="" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="D0 number" onfocus="this.select();" /></td>\n\
-                                <td ><input type="text" value="" id="D1" name="lstDulieuNt[' + rowCount + '].D1" class="TD_TENTS" onfocus="this.select();"/><input type="hidden" id="id_' + rowCount + '" name="lstDulieuNt[' + rowCount + '].MA" value="' + code + '"/></td>\n\</td>\n\
+                                <td ><input type="text" value="" id="D1" name="lstDulieuNt[' + rowCount + '].D1" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" id="D2" name="lstDulieuNt[' + rowCount + '].D2" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" id="D4" name="lstDulieuNt[' + rowCount + '].D4" class="SOKU" onfocus="this.select();"/></td>\n\
-                                <td ><input type="text" value="" id="D10" name="lstDulieuNt[' + rowCount + '].D10" class="SOKU" onfocus="this.select();"/></td>\n\
+\n\                           <td ><input type="text" value="" id="D10" name="lstDulieuNt[' + rowCount + '].D10" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 SOKU"/></td>\n\
                                 </tr>';
                 $($('table#tableKtnb tr')[index]).before(newTr);
@@ -232,10 +233,10 @@
     </head>
     <body>
         <div style="margin: 7px 7px 7px 7px;">
-            <s:form name="frmdataKtnb06A" id="frmdataKtnb06A" action="save_data_ktnb_bieu02.action" theme="simple">
+            <s:form name="frmdataKtnb06A" id="frmdataKtnb06A" action="save_data_ktnb_bieu06.action" theme="simple">
                 <table border="0" cellspacing="0" cellpading="0" height="100%" class="tblmain" >
                     <tr>
-                        <td colspan="3" style="font-size: 14px;">Biểu số 06: DANH SÁCH CÁC VĂN BẢN ĐÃ BAN HÀNH VỀ PCTN,TC&TP PHÁT SINH TRONG KỲ<hr></td>                    
+                        <td colspan="3" style="font-size: 14px;">Biểu số 06:DANH SÁCH CÁC VĂN BẢN ĐÃ BAN HÀNH VỀ PCTN,TC&TP PHÁT SINH TRONG KỲ<hr></td>                    
                     </tr>
                     <tr>
                         <td width="70%" >
@@ -259,15 +260,15 @@
                             <hr>
                             <table border="1px" id="tableKtnb">
                                 <tr class="tbhead">
-                                    <th class="TD_BUTTON1">STT</th>
-                                    <th>Tên vụ</th>
-                                    <th>Tên cơ quan, tổ chức, đơn vị xảy ra sự việc</th>
-                                    <th>Cơ quan thụ lý, giải quyết vụ việc</th>
-                                    <th>Tóm tắt nội dung vụ việc</th>
+                                    <th class="TD_BUTTON1">TT</th>
+                                    <th class="TEN_KH1">Loại văn bản</th>
+                                    <th class="TD_TENTS">Số, ký hiệu Văn bản</th>
+                                    <th class="SOKU1">Ngày tháng Văn bản</th>
+                                    <th class="TEN_KH1">Nơi nhận</th>
                                     <th>Ghi chú</th>
                                     <th>Trạng thái</th>
-
                                 </tr>
+
                                 <tr class="tbhead">
                                     <th>(1)</th>
                                     <th>(2)</th>
@@ -276,7 +277,6 @@
                                     <th>(5)</th>
                                     <th>(6)</th>
                                     <th>(7)</th>
-
                                 </tr>
 
                                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
@@ -284,22 +284,35 @@
 
                                         <td>
                                             <input type="text" value="<s:property  value="TT_HIENTHI" />" 
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 number" onfocus="this.select()"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TD_MAPGD" onfocus="this.select()"
                                                    onblur="if (this.value == '')
                                                                ;" readonly="true" style="background: #E7DCDA !important;"/>
                                             <input type="hidden" value="<s:property  value="THUTU" />"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/> 
-                                            <input type="hidden" value="<s:property  value="MA" />"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/> 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>  
                                             <input type="hidden" value="<s:property  value="NHAPTAY" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/> 
+                                            <input type="hidden" value="<s:property  value="D9" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/> 
+                                            <input type="hidden" value="<s:property  value="D8" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/> 
+
                                         </td>
-                                        <td>
-                                            <input type="text" value="<s:property  value="D1" />" 
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="TD_TENTS" onfocus="this.select()"
-                                                   onblur="if (this.value == '')
-                                                               ;"/>
-                                        </td>                                  
+                                        <s:if test="D9.equalsIgnoreCase('Y')">
+                                            <td>
+                                                <input type="text"   value="<s:property  value="D1" />"  style="background: #E7DCDA !important;"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
+                                                       class="TD_MAPGD"
+                                                       onfocus="this.select();" readonly="true"/> 
+                                            </td> 
+                                        </s:if>
+                                        <s:if test="!D9.equalsIgnoreCase('Y')">
+                                            <td>
+                                                <input type="text"   value="<s:property  value="D1" />" 
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
+                                                       class="TD_MAPGD"
+                                                       onfocus="this.select();"/> 
+                                            </td>  
+                                        </s:if>
                                         <td>
                                             <input type="text" value="<s:property  value="D2" />" 
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="SOKU" onfocus="this.select()"
@@ -307,8 +320,8 @@
                                                                ;"/>
                                         </td>                                  
                                         <td>
-                                            <input type="text" value="<s:property  value="D3" />" 
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="SOKU" onfocus="this.select()"
+                                            <input type="date" value="<s:property  value="D3" />" 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="D0 SOKU" onfocus="this.select()"
                                                    onblur="if (this.value == '')
                                                                ;"/>
                                         </td>                                                                                                
@@ -324,16 +337,14 @@
                                             <input type="text" value="<s:property  value="D10" />" 
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
                                                    onblur="if (this.value == '')
-                                                               ;"
-                                                   />
-                                        </td>  
-                                        <s:if test="MA.indexOf('CT005') > 0">
-                                            <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="SOKU"/></td>
+                                                               ;"/>
+                                        </td>
+                                        <s:if test="D9.equalsIgnoreCase('Y')">
+                                            <td  readonly="true" style="background: #E7DCDA !important;"></td>
                                         </s:if>
-                                        <s:else>
-                                                <td></td>
-                                        </s:else>
-
+                                        <s:if test="!D9.equalsIgnoreCase('Y')">
+                                            <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="SOKU"/></td>    
+                                            </s:if> 
                                     </tr>
 
                                 </s:iterator>
@@ -344,8 +355,8 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td><input type="button" value="Thêm" onclick="addRow(this.parentNode.parentNode.rowIndex,'CT005')" class="D0 SOKU"/></td>
-                                </tr>    
+                                    <td><input type="button" value="Thêm" onclick="addRow(this.parentNode.parentNode.rowIndex)" class="D0 SOKU"/></td>
+                                </tr> 
                             </table>
                     </tr>
                 </table>
