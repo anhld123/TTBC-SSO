@@ -107,11 +107,14 @@ public class Service_KTKSNB {
 
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
             final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00.000").format(new SimpleDateFormat("yyyyMMdd").parse(_reportDate));
-
+            final String _reportDate2 = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("yyyy").parse(reportDate));
+           
+            int year = Integer.valueOf(_reportDate.substring(0,4));
+            
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
             Date date = new Date();
             String dateFormat = formatter.format(date);
-
+            
             List<DuLieuNTRowX> _lstNormalizeData = new ArrayList<>();
             for (int i = 0; i < data.size(); i++) {
                 DuLieuNTRowX _normalizeItem = new DuLieuNTRowX();
@@ -122,7 +125,7 @@ public class Service_KTKSNB {
                 _normalizeItem.setName(data.get(i).getName());
                 _normalizeItem.setAuthoriseId(data.get(i).getAuthoriseId());
                 _normalizeItem.setMakerId(data.get(i).getMakerId());
-                _normalizeItem.setReportYear(2023);
+                _normalizeItem.setReportYear(year);
                 _normalizeItem.setReportDate(_reportDate1);
                 _normalizeItem.setAuthoriseDate(dateFormat);
                 _normalizeItem.setMakerDate(dateFormat);

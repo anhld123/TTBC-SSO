@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import vbsp.ims.dao.*;
 import java.util.Date;
+import org.apache.taglibs.standard.lang.jpath.expression.SubstringFunction;
 
 /**
  *
@@ -46,7 +47,9 @@ public class Service_GQVL2023 {
 
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
             final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00.000").format(new SimpleDateFormat("yyyyMMdd").parse(_reportDate));
-
+            
+           int year = Integer.valueOf(_reportDate.substring(0,4));
+            
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
             Date date = new Date();
             String dateFormat = formatter.format(date);
@@ -63,7 +66,7 @@ public class Service_GQVL2023 {
                     _normalizeItem.setName(data.get(i).getName());
                     _normalizeItem.setAuthoriseId(data.get(i).getAuthoriseId());
                     _normalizeItem.setMakerId(data.get(i).getMakerId());
-                    _normalizeItem.setReportYear(2023);
+                    _normalizeItem.setReportYear(year);
                     _normalizeItem.setReportDate(_reportDate1);
                     _normalizeItem.setAuthoriseDate(dateFormat);
                     _normalizeItem.setMakerDate(dateFormat);
