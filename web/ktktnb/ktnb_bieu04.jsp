@@ -221,7 +221,7 @@
             <s:form name="frmdataKtnb06A" id="frmdataKtnb06A" action="save_data_ktnb_bieu04.action" theme="simple">
                 <table border="0" cellspacing="0" cellpading="0" height="100%" class="tblmain" >
                     <tr>
-                        <td colspan="3" style="font-size: 14px;">Biểu số 04:Thống kê số liệu chủ yếu về công tác phòng, chống tham nhũng của ngân hàng chính sách xã hội<hr></td>                    
+                        <td colspan="3" style="font-size: 14px;">Biểu số 04:Thống kê số liệu chủ yếu về công tác phòng, chống tham nhũng của ngân hàng chính sách xã hội <font color="red"> (TT duyệt: <s:property value="statusAuthor"/>)</font><hr>   </td>                    
                     </tr>
                     <tr>
                         <td width="70%" >

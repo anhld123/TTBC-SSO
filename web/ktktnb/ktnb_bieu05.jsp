@@ -238,7 +238,7 @@
             <s:form name="frmdataKtnb06A" id="frmdataKtnb06A" action="save_data_ktnb_bieu05.action" theme="simple">
                 <table border="0" cellspacing="0" cellpading="0" height="100%" class="tblmain" >
                     <tr>
-                        <td colspan="3" style="font-size: 14px;">Biểu số 05:Danh sách các cuộc thanh tra, kiểm toán, kiểm tra, giám sát của các cơ quan chức năng, ngoại ngành phát sinh trong kỳ<hr></td>                    
+                        <td colspan="3" style="font-size: 14px;">Biểu số 05:Danh sách các cuộc thanh tra, kiểm toán, kiểm tra, giám sát của các cơ quan chức năng, ngoại ngành phát sinh trong kỳ <font color="red"> (TT duyệt: <s:property value="statusAuthor"/>)</font><hr></td>                    
                     </tr>
                     <tr>
                         <td width="70%" >

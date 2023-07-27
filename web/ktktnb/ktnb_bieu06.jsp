@@ -236,7 +236,7 @@
             <s:form name="frmdataKtnb06A" id="frmdataKtnb06A" action="save_data_ktnb_bieu06.action" theme="simple">
                 <table border="0" cellspacing="0" cellpading="0" height="100%" class="tblmain" >
                     <tr>
-                        <td colspan="3" style="font-size: 14px;">Biểu số 06:DANH SÁCH CÁC VĂN BẢN ĐÃ BAN HÀNH VỀ PCTN,TC&TP PHÁT SINH TRONG KỲ<hr></td>                    
+                        <td colspan="3" style="font-size: 14px;">Biểu số 06:DANH SÁCH CÁC VĂN BẢN ĐÃ BAN HÀNH VỀ PCTN,TC&TP PHÁT SINH TRONG KỲ <font color="red"> (TT duyệt: <s:property value="statusAuthor"/>)</font><hr></td>                    
                     </tr>
                     <tr>
                         <td width="70%" >
