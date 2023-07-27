@@ -204,15 +204,14 @@
                 return result;
             }
 
-            function evaluateSum(input) {
-
-                var arrCot = [".D5"]; //Luu cac cot cua du lieu can tinh toan
-                for (i = 0; i < arrCot.length; i++) {
-                    $(arrCot[i]).eq(51).val(parseInt($(arrCot[i]).eq(52).val()) + parseInt($(arrCot[i]).eq(53).val()));
+            function findTotal() {
+                var arr = document.getElementsByClassName('amount');
+                var tot = 0;
+                for (var i = 0; i < arr.length; i++) {
+                    if (parseFloat(arr[i].value))
+                        tot += parseFloat(arr[i].value);
                 }
-
-                $(input).css({"border": "1px"});
-
+                document.getElementById('totalordercost').value = tot;
             }
         </script>
 
@@ -279,7 +278,7 @@
                                                 <input type="hidden" value="<s:property  value="D8" />"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/>
                                                 <input type="hidden" value="<s:property  value="D9" />"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D9"/>"/>
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/>
                                             </td>
                                             <td>
                                                 <input type="text"   value="<s:property  value="D1" />"  style="background: #E7DCDA !important;  font-weight: bold;" readonly="true"
@@ -301,8 +300,8 @@
                                             </td>                                                                                                
 
                                             <td>
-                                                <input type="text" value="<s:property  value="D6" />" style="background: #E7DCDA !important;" readonly="true"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="SOKU" onfocus="this.select()"
+                                                <input type="text" value="<s:property  value="D10" />" style="background: #E7DCDA !important;" readonly="true"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
                                                        onblur="if (this.value == '')
                                                                    ;"/>
                                             </td>
@@ -325,7 +324,9 @@
                                             <input type="hidden" value="<s:property  value="D8" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/>
                                             <input type="hidden" value="<s:property  value="D9" />"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D8"/>"/>
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/>
+                                            <input type="hidden" value="<s:property  value="TEN" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" value="<s:property  value="TEN"/>"/>
 
                                         </td>
                                         <td>
@@ -347,21 +348,51 @@
                                                        "/> 
                                             </td>
                                         </s:if>
-                                        <s:if test="D8.equalsIgnoreCase('N') && D9.equalsIgnoreCase('N')">     
-                                            <td>
-                                                <input type="text" value="<s:property  value="D5" />" id="TT_<s:property  value="D5" />"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU number" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ; evaluateSum(this)"/>
+                                        <s:if test="D8.equalsIgnoreCase('N') && D9.equalsIgnoreCase('N')"> 
+                                            <s:if test="TEN.equalsIgnoreCase('TEN53')"> 
+                                                <td>
+                                                    <input type="text" value="<s:property  value="D5" />" 
+                                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5"
+                                                           class="D0 SOKU number amount" onfocus="this.select()"
+                                                           onblur="if(this.value == '') { this.value=0}; findTotal(this)"/>
+                                                </td>
                                             </s:if>
-                                            <s:if test="D8.equalsIgnoreCase('N') && D9.equalsIgnoreCase('Y')">     
+                                            <s:if test="TEN.equalsIgnoreCase('TEN54')"> 
+                                                <td>
+                                                    <input type="text" value="<s:property  value="D5" />"  
+                                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5"
+                                                           class="D0 SOKU number amount" onfocus="this.select()"
+                                                           onblur="if(this.value == '') { this.value=0}; findTotal(this)"/>
+                                                </td>
+                                            </s:if>
+                                            <s:if test="TEN.equalsIgnoreCase('TEN52')"> 
+                                                <td>
+                                                    <input type="text" value="<s:property  value="D5" />" id="totalordercost"
+                                                           style="background: #E7DCDA !important;" readonly="true"
+                                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5"
+                                                           class="D0 SOKU number " onfocus="this.select()"
+                                                           onblur="if (this.value == '')
+                                                                       ;"/>
+                                                </td>
+                                            </s:if>
+                                            <s:if test="!TEN.equalsIgnoreCase('TEN54') &&!TEN.equalsIgnoreCase('TEN53')&& !TEN.equalsIgnoreCase('TEN52')"> 
+                                                <td>
+                                                    <input type="text" value="<s:property  value="D5" />" id="TT_<s:property  value="THUTU" />"
+                                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU number" onfocus="this.select()"
+                                                           onblur="if (this.value == '')
+                                                                       ;"/>
+                                                </td>
+                                            </s:if>
+                                        </s:if>
+                                        <s:if test="D8.equalsIgnoreCase('N') && D9.equalsIgnoreCase('Y')">     
                                             <td>
                                                 <input type="text" value="<s:property  value="D5" />"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU" onfocus="this.select()"
                                                        onblur="if (this.value == 0)
                                                                    ;"/>
-                                            </s:if>
-                                        </td>                                                                                                
+                                            </td>  
+                                        </s:if>
+
                                         <s:if test="D8.equalsIgnoreCase('Y')">
                                             <td>
                                                 <input type="text" value="<s:property  value="D10" />" placeholder="Trường bắt buộc phải nhập/ không cho nhập số 0" readonly="true"

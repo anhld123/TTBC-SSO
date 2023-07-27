@@ -350,7 +350,8 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
     }
 
     public String save_data_ktnb_bieu02() throws SQLException {
-        try {
+         try {
+            List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
@@ -358,20 +359,49 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
+            _service = new Service_KTKSNB();
+             lstDL  = _service.getDataKTKSNB("02_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+                    //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            System.out.println("------1");
+            if (lstDL.size() == 0 || lstDL == null) {
+                System.out.println("------2");
+            } else {
+                System.out.println("------3");
+                if (lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4")) {
+                    addActionMessage("Cấp trên đã duyệt, bạn không thể sửa dữ liệu");
+                    return "error";
+                }
+            }
+            System.out.println("------4");
             if (!daoMain.saveKTNB_bieu02("02_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
+                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
             lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            System.out.println("------5");
+            if (lstDulieuNt.size() == 0 || lstDulieuNt == null) {
+                addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");
+                return "error";
+            } 
             List<DuLieuNTRow> lstData = new ArrayList<>();
-            lstData = mapList(lstDulieuNt, "02_PCTN", userName, getReportDate(quyBc, namBc));
+            System.out.println("------6");
+            try {
+                lstData = mapList(lstDulieuNt, "02_PCTN", userName, getReportDate(quyBc, namBc));
+            } catch (Exception e) {
+                addActionMessage("Map dữ liệu lỗi DuLieuNTRow <> QT_DULIEU_NT.");
+                return "error";
+            }
+            System.out.println("------7");
             _service = new Service_KTKSNB();
             if (_service.saveDataKTKSNB("02_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
             }
+
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb_bieu04: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb_bieu04: " + e.getMessage());
+            addActionMessage("Cập nhật không thành công");
             return "error";
         }
 
@@ -380,6 +410,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
 
     public String save_data_ktnb_bieu03() throws SQLException {
         try {
+            List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
@@ -387,21 +418,49 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
+            _service = new Service_KTKSNB();
+             lstDL  = _service.getDataKTKSNB("03_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+                    //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            System.out.println("------1");
+            if (lstDL.size() == 0 || lstDL == null) {
+                System.out.println("------2");
+            } else {
+                System.out.println("------3");
+                if (lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4")) {
+                    addActionMessage("Cấp trên đã duyệt, bạn không thể sửa dữ liệu");
+                    return "error";
+                }
+            }
+            System.out.println("------4");
             if (!daoMain.saveKTNB_bieu03("03_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
-                addActionMessage("Lưu không thành công");
+                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
             lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            System.out.println("------5");
+            if (lstDulieuNt.size() == 0 || lstDulieuNt == null) {
+                addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");
+                return "error";
+            } 
             List<DuLieuNTRow> lstData = new ArrayList<>();
-            lstData = mapList(lstDulieuNt, "03_PCTN", userName, getReportDate(quyBc, namBc));
-            _service = new Service_KTKSNB();
-            if (_service.saveDataKTKSNB("03_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
-                addActionMessage("Gọi API không thành công");
+            System.out.println("------6");
+            try {
+                lstData = mapList(lstDulieuNt, "03_PCTN", userName, getReportDate(quyBc, namBc));
+            } catch (Exception e) {
+                addActionMessage("Map dữ liệu lỗi DuLieuNTRow <> QT_DULIEU_NT.");
                 return "error";
             }
+            System.out.println("------7");
+            _service = new Service_KTKSNB();
+            if (_service.saveDataKTKSNB("03_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
+                addActionMessage("Cập nhật Api lên Tw không thành công");
+                return "error";
+            }
+
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb_bieu04: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb_bieu04: " + e.getMessage());
+            addActionMessage("Cập nhật không thành công");
             return "error";
         }
 
@@ -469,6 +528,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
 
     public String save_data_ktnb_bieu05() throws SQLException {
         try {
+            List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
@@ -476,21 +536,49 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
+            _service = new Service_KTKSNB();
+             lstDL  = _service.getDataKTKSNB("05_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+                    //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            System.out.println("------1");
+            if (lstDL.size() == 0 || lstDL == null) {
+                System.out.println("------2");
+            } else {
+                System.out.println("------3");
+                if (lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4")) {
+                    addActionMessage("Cấp trên đã duyệt, bạn không thể sửa dữ liệu");
+                    return "error";
+                }
+            }
+            System.out.println("------4");
             if (!daoMain.saveKTNB_bieu05("05_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
-                addActionMessage("Lưu không thành công");
+                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
             lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            System.out.println("------5");
+            if (lstDulieuNt.size() == 0 || lstDulieuNt == null) {
+                addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");
+                return "error";
+            } 
             List<DuLieuNTRow> lstData = new ArrayList<>();
-            lstData = mapList(lstDulieuNt, "05_PCTN", userName, getReportDate(quyBc, namBc));
-            _service = new Service_KTKSNB();
-            if (_service.saveDataKTKSNB("05_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
-                addActionMessage("Gọi API không thành công");
+            System.out.println("------6");
+            try {
+                lstData = mapList(lstDulieuNt, "05_PCTN", userName, getReportDate(quyBc, namBc));
+            } catch (Exception e) {
+                addActionMessage("Map dữ liệu lỗi DuLieuNTRow <> QT_DULIEU_NT.");
                 return "error";
             }
+            System.out.println("------7");
+            _service = new Service_KTKSNB();
+            if (_service.saveDataKTKSNB("05_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
+                addActionMessage("Cập nhật Api lên Tw không thành công");
+                return "error";
+            }
+
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb_bieu04: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb_bieu04: " + e.getMessage());
+            addActionMessage("Cập nhật không thành công");
             return "error";
         }
 
@@ -498,7 +586,8 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
     }
 
     public String save_data_ktnb_bieu06() throws SQLException {
-        try {
+       try {
+            List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
@@ -506,21 +595,49 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            if (!daoMain.saveKTNB_bieu06("06_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
-                addActionMessage("Lưu không thành công");
+            _service = new Service_KTKSNB();
+             lstDL  = _service.getDataKTKSNB("06_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+                    //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            System.out.println("------1");
+            if (lstDL.size() == 0 || lstDL == null) {
+                System.out.println("------2");
+            } else {
+                System.out.println("------3");
+                if (lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4")) {
+                    addActionMessage("Cấp trên đã duyệt, bạn không thể sửa dữ liệu");
+                    return "error";
+                }
+            }
+            System.out.println("------4");
+            if (!daoMain.saveKTNB_bieu06("03_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
+                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
-            lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            lstDulieuNt = daoMain.getDataKtnb_bieu06(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            System.out.println("------5");
+            if (lstDulieuNt.size() == 0 || lstDulieuNt == null) {
+                addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");
+                return "error";
+            } 
             List<DuLieuNTRow> lstData = new ArrayList<>();
-            lstData = mapList(lstDulieuNt, "06_PCTN", userName, getReportDate(quyBc, namBc));
+            System.out.println("------6");
+            try {
+                lstData = mapList(lstDulieuNt, "06_PCTN", userName, getReportDate(quyBc, namBc));
+            } catch (Exception e) {
+                addActionMessage("Map dữ liệu lỗi DuLieuNTRow <> QT_DULIEU_NT.");
+                return "error";
+            }
+            System.out.println("------7");
             _service = new Service_KTKSNB();
             if (_service.saveDataKTKSNB("06_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
-                addActionMessage("Gọi API không thành công");
+                addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
             }
+
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb06A: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb_bieu04: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb_bieu04: " + e.getMessage());
+            addActionMessage("Cập nhật không thành công");
             return "error";
         }
 
@@ -816,7 +933,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
                 tempadd.setPosFlag("S");
                 tempadd.setBranchCode(tmp.getMACN());
                 tempadd.setD1(tmp.getD1());
-                tempadd.setD2(tmp.getD3());
+                tempadd.setD2(tmp.getD2());
                 tempadd.setD3(tmp.getD3());
                 tempadd.setD4(tmp.getD4());
                 tempadd.setD5(tmp.getD5());
