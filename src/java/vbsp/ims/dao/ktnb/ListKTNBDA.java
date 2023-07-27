@@ -24,13 +24,15 @@ import vbsp.ims.model.ktnb.PosMainModel;
 public class ListKTNBDA {
     // Khai báo hàm danh sách các báo cáo KTNB
 
-    public List<ListKTNB> ListDMKTNB() throws SQLException {
+    public List<ListKTNB> ListDMKTNB(String capBc) throws SQLException {
         String CapBC = "01";
         List<ListKTNB> list = new ArrayList<>();
         try {
             DaoConnect db = new DaoConnect();
             Connection conn = db.getConnect();
-            String MSQL = "SELECT DM_MABC,DM_TENVT,DM_MOTA,DM_CAPBC,APPLY_FLG,DM_KYBC,DM_LINKBC FROM DMBC_CT WHERE DM_NHOMBC='NHOMBC0023' AND APPLY_FLG='Y' AND DM_LINKBC IS NOT NULL order by DM_MABC";
+            String MSQL = "SELECT DM_MABC,DM_TENVT,DM_MOTA,DM_CAPBC,APPLY_FLG,DM_KYBC,DM_LINKBC FROM DMBC_CT WHERE DM_NHOMBC='NHOMBC0023' AND APPLY_FLG='Y' "
+                    + "and instr(DM_CAPBC,'" + capBc +"') > 0 AND DM_LINKBC IS NOT NULL order by DM_MABC";
+//            System.out.println("MSQL="+ MSQL);
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery(MSQL);
             while (rs.next()) {

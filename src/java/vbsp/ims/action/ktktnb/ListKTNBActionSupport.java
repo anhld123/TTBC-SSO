@@ -1,8 +1,11 @@
 package vbsp.ims.action.ktktnb;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import vbsp.ims.model.ktnb.ListKTNB;
 import vbsp.ims.dao.ktnb.ListKTNBDA;
 
@@ -11,11 +14,25 @@ public class ListKTNBActionSupport extends ActionSupport {
     private List<String> lstYearReport;
     private String defaultYearReport;
     
+     private HttpServletRequest request = null;
+      private String reportGrade;
+
+    public String getReportGrade() {
+        return reportGrade;
+    }
+
+    public void setReportGrade(String reportGrade) {
+        this.reportGrade = reportGrade;
+    }
+     
     public ListKTNBActionSupport() {
     }
     
     public String execute() throws Exception {
-        DSKTNB = new ListKTNBDA().ListDMKTNB();
+        Map session = ActionContext.getContext().getSession();
+        setReportGrade(session.get("reportGrade").toString());
+//        System.out.println("reportGrade = " + reportGrade);
+        DSKTNB = new ListKTNBDA().ListDMKTNB(reportGrade);
         lstYearReport = new ListKTNBDA().getYearReport();
         return SUCCESS;
     }
