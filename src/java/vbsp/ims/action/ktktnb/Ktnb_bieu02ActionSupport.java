@@ -388,7 +388,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             if (!daoMain.saveKTNB_bieu03("03_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
-                addActionMessage("Lưu thành công");
+                addActionMessage("Lưu không thành công");
                 return "error";
             }
             lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
@@ -462,7 +462,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             if (!daoMain.saveKTNB_bieu05("05_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
-                addActionMessage("Lưu thành công");
+                addActionMessage("Lưu không thành công");
                 return "error";
             }
             lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
@@ -492,7 +492,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             if (!daoMain.saveKTNB_bieu06("06_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
-                addActionMessage("Lưu thành công");
+                addActionMessage("Lưu không thành công");
                 return "error";
             }
             lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);

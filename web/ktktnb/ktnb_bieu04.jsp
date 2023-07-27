@@ -344,7 +344,7 @@
                                             <td>
                                                 <input type="text" value="<s:property  value="D5" />" style="background: #df8505 !important;" 
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU number2" onfocus="this.select();
-                                                       "/>
+                                                       "/> 
                                             </td>
                                         </s:if>
                                         <s:if test="D8.equalsIgnoreCase('N') && D9.equalsIgnoreCase('N')">     
