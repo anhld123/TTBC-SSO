@@ -1355,6 +1355,8 @@ public class DaoKTNBMain {
                     value.setNHAPTAY(reset.getString(65));
                     value.setFONTFORMAT(reset.getString(66));
 
+                    
+
                     lstBcqt_NT.add(value);
                 }
 

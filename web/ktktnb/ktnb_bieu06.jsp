@@ -290,11 +290,13 @@
                                             <input type="hidden" value="<s:property  value="THUTU" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>  
                                             <input type="hidden" value="<s:property  value="NHAPTAY" />"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/> 
-                                            <input type="hidden" value="<s:property  value="D9" />"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/> 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/>
+                                            <input type="hidden" value="<s:property  value="D7" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" value="<s:property  value="D7"/>"/>  
                                             <input type="hidden" value="<s:property  value="D8" />"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/> 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/>
+                                            <input type="hidden" value="<s:property  value="D9" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/>
 
                                         </td>
                                         <s:if test="D9.equalsIgnoreCase('Y')">

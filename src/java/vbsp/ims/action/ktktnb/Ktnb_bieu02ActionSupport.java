@@ -693,7 +693,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu06("03_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
+            if (!daoMain.saveKTNB_bieu06("06_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
