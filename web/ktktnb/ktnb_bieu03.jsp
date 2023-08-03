@@ -91,7 +91,7 @@
                 $('.D0').css({"text-align": "center"});
                 $('.number').number(true, 0);
 //            //Cac truong bang so --> se co so truong = 0
-                $('.number2').number(true, 2);
+                $('.number2').number(true, 0);
                 $(".SOKU").css({"width": "97%"});
                 $(".TD_CHECKBOX").css({"width": "39px"});
                 $(".TD_SOKU").css({"width": "80px"});
@@ -104,6 +104,7 @@
                 $(".TD_BUTTON1").css({"width": "40px"});
                 $(".TD_SOTIEN").css({"width": "100px"});
                 $(".TEN_KH").css({"width": "50%"});
+                $(".SOKU1").css({"width": "90%"});
             });
             $('.TEN_KH').focus(function () {
                 $(this).closest('tr').addClass('highlight_row');
@@ -186,6 +187,17 @@
 
             function validateRequiredFields() {
                 var result = true; //Luu ket qua kiem tra kieu so co dung khong             
+//                var table = document.getElementById("tableKtnb");
+//                var rowCount = table.rows.length - 5;
+//                max_row = rowCount;
+                $(".number2").each(function (index) {
+                    //Kiem tra xem co nhap kieu so khong
+                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) == 0 ) {
+                        result = false;
+                        alert('Thứ tự khác 0 và không được để trống')
+                        return false;
+                    }
+                });
 
                 if (result == false) {
                     //Neu nguoi dung khong nhap dung kieu du lieu
@@ -216,7 +228,7 @@
                     rowCount = max_row;
                 }
                 var newTr = '<tr>\n\
-                                <td ><input type="text" value="" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="D0 number" onfocus="this.select();" /></td>\n\
+                                <td ><input type="text" value="" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="SOKU1 D0 number2" onfocus="this.select();" /></td>\n\
                                 <td ><input type="text" value="" id="D1" name="lstDulieuNt[' + rowCount + '].D1" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" id="D2" name="lstDulieuNt[' + rowCount + '].D2" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="SOKU" onfocus="this.select();"/></td>\n\
@@ -228,8 +240,11 @@
                                 </tr>';
                 $($('table#tableKtnb tr')[index]).before(newTr);
                 $('input.number').css({"text-align": "right"});
+                $('input.number2').css({"text-align": "right"});
                 $(".SOKU").css({"width": "97%"});
                 $('.number').number(true, 0);
+                $(".SOKU1").css({"width": "90%"});
+                $('.number2').number(true, 0);
             }
         </script>
 
@@ -295,7 +310,7 @@
                                         <s:if test="D9.equalsIgnoreCase('1') || D9.equalsIgnoreCase('2')">
                                             <td>
                                                 <input type="text" value="<s:property  value="TT_HIENTHI" />" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 number" onfocus="this.select()"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="SOKU1 D0 number2" onfocus="this.select()"
                                                        onblur="if (this.value == '')
                                                                    ;" readonly="true" style="background: #E7DCDA !important;"/>
                                                 <input type="hidden" value="<s:property  value="THUTU" />"
@@ -304,7 +319,7 @@
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/> 
                                                 <input type="hidden" value="<s:property  value="D30" />"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" value="<s:property  value="D30"/>"/> 
-                                                 <input type="hidden" value="<s:property  value="D9" />"
+                                                <input type="hidden" value="<s:property  value="D9" />"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/> 
 
                                             </td>
@@ -354,10 +369,10 @@
                                             </td>  
                                             <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="SOKU"/></td>
                                             </s:if> 
-                                            <s:if test="D9.equalsIgnoreCase('3') || D.equalsIgnoreCase('4')">
+                                            <s:if test="D9.equalsIgnoreCase('3') || D9.equalsIgnoreCase('4')">
                                             <td>
                                                 <input type="text" value="<s:property  value="TT_HIENTHI" />" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 number" onfocus="this.select()"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="SOKU1 D0 number2" onfocus="this.select()"
                                                        onblur="if (this.value == '')
                                                                    ;" readonly="true" style="background: #E7DCDA !important;"/>
                                                 <input type="hidden" value="<s:property  value="THUTU" />"
@@ -366,7 +381,7 @@
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/> 
                                                 <input type="hidden" value="<s:property  value="D30" />"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" value="<s:property  value="D30"/>"/> 
-                                                  <input type="hidden" value="<s:property  value="D9" />"
+                                                <input type="hidden" value="<s:property  value="D9" />"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/> 
                                             </td>
                                             <td>
