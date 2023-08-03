@@ -348,9 +348,9 @@
                                                        onblur="if (this.value == '')
                                                                    ;"
                                                        />
-                                            </td> 
+                                            </td>  
                                             <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="SOKU"/></td>
-                                            </s:if>
+                                            </s:if> 
                                             <s:if test="D9.equalsIgnoreCase('3') || D.equalsIgnoreCase('4')">
                                             <td>
                                                 <input type="text" value="<s:property  value="TT_HIENTHI" />" 

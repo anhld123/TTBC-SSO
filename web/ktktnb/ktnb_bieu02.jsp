@@ -8,7 +8,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Biểu số 02</title>
-        <sx:head/>
+        <sx:head/> 
         <sj:head/>
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
