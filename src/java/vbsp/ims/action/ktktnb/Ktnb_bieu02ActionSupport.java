@@ -340,6 +340,11 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
         try {
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            if (reportGrade.equals("1")) {
+                addActionMessage("Mẫu này không thực hiện tại cấp PGD");
+                return "error";
+            }
+            
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
@@ -438,6 +443,10 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            if (!reportGrade.equals("1")) {
+                addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
+                return "error";
+            }
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
@@ -497,6 +506,10 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
+             if (!reportGrade.equals("1")) {
+                addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
+                return "error";
+            }
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
@@ -556,6 +569,10 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
+             if (!reportGrade.equals("1")) {
+                addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
+                return "error";
+            }
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
@@ -615,6 +632,10 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
+             if (!reportGrade.equals("1")) {
+                addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
+                return "error";
+            }
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
@@ -674,6 +695,10 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            if (reportGrade.equals("1")) {
+                addActionMessage("Mẫu này không thực hiện tại cấp PGD");
+                return "error";
+            }
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
