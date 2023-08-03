@@ -173,9 +173,9 @@
                 }
             }
 
-        function tai_lai_trang(){
-            location.reload();
-        }
+            function tai_lai_trang() {
+                location.reload();
+            }
 
             function sleep(milliSeconds) {
                 var startTime = new Date().getTime(); // get the current time
@@ -186,7 +186,7 @@
 
             function validateRequiredFields() {
                 var result = true; //Luu ket qua kiem tra kieu so co dung khong             
-                   
+
                 if (result == false) {
                     //Neu nguoi dung khong nhap dung kieu du lieu
                     //Dua ra canh bao
@@ -195,7 +195,7 @@
 
                 return result;
             }
-              function deleteRow(indx) {
+            function deleteRow(indx) {
                 var table = document.getElementById("tableKtnb");
                 var rowCount = table.rows.length - 1; //Dem so dong cua bang
                 if (max_row < rowCount)
@@ -203,7 +203,7 @@
 //                alert('max_row='+max_row+' rowCount='+rowCount);
                 table.deleteRow(indx);
             }
-                   function addRow(indx) {
+            function addRow(indx) {
 //                sleep(1000);
                 var index = parseInt(indx); //ko hieu so vao vong for lai mat index nen phai luu lai o day
                 var table = document.getElementById("tableKtnb");
@@ -225,6 +225,9 @@
                                 <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 SOKU"/></td>\n\
                                 </tr>';
                 $($('table#tableKtnb tr')[index]).before(newTr);
+                $('input.number').css({"text-align": "right"});
+                $(".SOKU").css({"width": "97%"});
+                $('.number').number(true, 0);
             }
         </script>
 
@@ -238,11 +241,11 @@
                     </tr>
                     <tr>
                         <td width="70%" >
-                             <b>Phòng giao dịch: </b><input class="TD_THOIGIAN" type="text" name="posCD" id="posCD" value="<s:property value="pos_cd_username"/>" readonly="readonly"/>
+                            <b>Phòng giao dịch: </b><input class="TD_THOIGIAN" type="text" name="posCD" id="posCD" value="<s:property value="pos_cd_username"/>" readonly="readonly"/>
                             <b>Chi nhánh: </b><input class="TD_THOIGIAN" type="text" name="maCn" id="maCn" value="<s:property value="main_pos_username"/>" readonly="readonly"/>
                             <b>Quý báo cáo: </b><input type="text" name="quyBc" id="quyBc" value="<s:property value="quyBc"/>" readonly="readonly"/>
                             <b>Năm báo cáo: </b><input type="text" name="namBc" id="namBc" value="<s:property value="namBc"/>" readonly="readonly"/>
-                           <b>Người dùng: </b><input class="TD_THOIGIAN" type="text" name="userName" id="userName" value="<s:property value="userName"/>" readonly="readonly"/>
+                            <b>Người dùng: </b><input class="TD_THOIGIAN" type="text" name="userName" id="userName" value="<s:property value="userName"/>" readonly="readonly"/>
                         </td>
                         <td align="right">     
                             <div id="result" style="color: red">                            
@@ -284,7 +287,8 @@
                                         <td>
                                             <input type="text" value="<s:property  value="TT_HIENTHI" />" 
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 number" onfocus="this.select()"
-                                                   onblur="if (this.value == '');" readonly="true" style="background: #E7DCDA !important;"/>
+                                                   onblur="if (this.value == '')
+                                                               ;" readonly="true" style="background: #E7DCDA !important;"/>
                                             <input type="hidden" value="<s:property  value="THUTU" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/> 
                                             <input type="hidden" value="<s:property  value="MA" />"
@@ -301,24 +305,28 @@
                                         <td>
                                             <input type="text" value="<s:property  value="D2" />" 
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="SOKU" onfocus="this.select()"
-                                                   onblur="if (this.value == '');"/>
+                                                   onblur="if (this.value == '')
+                                                               ;"/>
                                         </td>                                  
                                         <td>
                                             <input type="text" value="<s:property  value="D3" />" 
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="SOKU" onfocus="this.select()"
-                                                   onblur="if (this.value == '');"/>
+                                                   onblur="if (this.value == '')
+                                                               ;"/>
                                         </td>                                                                                                
 
                                         <td>
                                             <input type="text" value="<s:property  value="D4" />" 
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="SOKU" onfocus="this.select()"
-                                                   onblur="if (this.value == '');"/>
+                                                   onblur="if (this.value == '')
+                                                               ;"/>
                                         </td>
 
                                         <td>
                                             <input type="text" value="<s:property  value="D10" />" 
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
-                                                   onblur="if (this.value == '');"
+                                                   onblur="if (this.value == '')
+                                                               ;"
                                                    />
                                         </td>  
                                         <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="SOKU"/></td>
