@@ -225,6 +225,9 @@
                                 <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 SOKU"/></td>\n\
                                 </tr>';
                 $($('table#tableKtnb tr')[index]).before(newTr);
+                $('input.number').css({"text-align": "right"});
+                $(".SOKU").css({"width": "97%"});
+                $('.number').number(true, 0);
             }
         </script>
 
