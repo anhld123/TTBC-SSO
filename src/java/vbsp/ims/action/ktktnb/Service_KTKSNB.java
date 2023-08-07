@@ -131,7 +131,7 @@ public class Service_KTKSNB {
                 _normalizeItem.setMakerDate(dateFormat);
                 _normalizeItem.setCode(data.get(i).getCode());
                 _normalizeItem.setPosCode(data.get(i).getPosCode());
-                _normalizeItem.setPosFlag("S");
+                _normalizeItem.setPosFlag(data.get(i).getPosFlag());
                 _normalizeItem.setBranchCode(data.get(i).getBranchCode());
                 _normalizeItem.setD1(data.get(i).getD1());
                 _normalizeItem.setD2(data.get(i).getD2());
@@ -164,6 +164,7 @@ public class Service_KTKSNB {
                 _normalizeItem.setD29(data.get(i).getD29());
                 _normalizeItem.setD30(data.get(i).getD30());
                 _normalizeItem.setD50(data.get(i).getD50());
+                _normalizeItem.setStyle(data.get(i).getStyle());
 
                 _lstNormalizeData.add(_normalizeItem);
             }

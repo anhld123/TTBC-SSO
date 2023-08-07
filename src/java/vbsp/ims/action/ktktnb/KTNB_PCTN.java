@@ -44,7 +44,7 @@ import vbsp.ims.xml.XmlBcqtSync;
  *
  * @author Haha
  */
-public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRequestAware {
+public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
 
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
     protected List<String> poscd = new ArrayList<String>();
@@ -170,7 +170,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
 
     private HttpServletRequest request = null;
 
-    public Ktnb_bieu02ActionSupport() {
+    public KTNB_PCTN() {
     }
 
     public String execute() throws Exception {
@@ -210,7 +210,7 @@ public String get_data_ktnb_bieu01() {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDulieuNt = _service.getDataKTKSNB("02_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+            lstDulieuNt = _service.getDataKTKSNB("02_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
@@ -249,7 +249,7 @@ public String get_data_ktnb_bieu01() {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDulieuNt = _service.getDataKTKSNB("03_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+            lstDulieuNt = _service.getDataKTKSNB("03_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
@@ -290,7 +290,7 @@ public String get_data_ktnb_bieu01() {
 
             System.out.println("reportGrade = " + getReportDate(quyBc, namBc) + " pos_cd_username = " + pos_cd_username);
             _service = new Service_KTKSNB();
-            lstDulieuNt = _service.getDataKTKSNB("04_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+            lstDulieuNt = _service.getDataKTKSNB("04_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
@@ -329,7 +329,7 @@ public String get_data_ktnb_bieu01() {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDulieuNt = _service.getDataKTKSNB("05_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+            lstDulieuNt = _service.getDataKTKSNB("05_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
@@ -374,7 +374,7 @@ public String get_data_ktnb_bieu01() {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDulieuNt = _service.getDataKTKSNB("06_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+            lstDulieuNt = _service.getDataKTKSNB("06_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu06(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
@@ -512,7 +512,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDL = _service.getDataKTKSNB("02_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+            lstDL = _service.getDataKTKSNB("02_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
             //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------1");
             if (lstDL.size() == 0 || lstDL == null) {
@@ -545,7 +545,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             }
             System.out.println("------7");
             _service = new Service_KTKSNB();
-            if (_service.saveDataKTKSNB("02_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
+            if (_service.saveDataKTKSNB("02_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
             }
@@ -575,7 +575,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDL = _service.getDataKTKSNB("03_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+            lstDL = _service.getDataKTKSNB("03_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
             //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------1");
             if (lstDL.size() == 0 || lstDL == null) {
@@ -608,7 +608,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             }
             System.out.println("------7");
             _service = new Service_KTKSNB();
-            if (_service.saveDataKTKSNB("03_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
+            if (_service.saveDataKTKSNB("03_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
             }
@@ -638,7 +638,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDL = _service.getDataKTKSNB("04_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+            lstDL = _service.getDataKTKSNB("04_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
             //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------1");
             if (lstDL.size() == 0 || lstDL == null) {
@@ -662,7 +662,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 return "error";
             }
             List<DuLieuNTRow> lstData = new ArrayList<>();
-            System.out.println("------6");
+            System.out.println("------6=" + lstDulieuNt.get(0).getKIEUIN());
             try {
                 lstData = mapList(lstDulieuNt, "04_PCTN", userName, getReportDate(quyBc, namBc));
             } catch (Exception e) {
@@ -671,7 +671,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             }
             System.out.println("------7");
             _service = new Service_KTKSNB();
-            if (_service.saveDataKTKSNB("04_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
+            if (_service.saveDataKTKSNB("04_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
             }
@@ -701,7 +701,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDL = _service.getDataKTKSNB("05_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+            lstDL = _service.getDataKTKSNB("05_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
             //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------1");
             if (lstDL.size() == 0 || lstDL == null) {
@@ -734,7 +734,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             }
             System.out.println("------7");
             _service = new Service_KTKSNB();
-            if (_service.saveDataKTKSNB("05_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
+            if (_service.saveDataKTKSNB("05_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
             }
@@ -764,7 +764,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDL = _service.getDataKTKSNB("06_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+            lstDL = _service.getDataKTKSNB("06_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
             //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------1");
             if (lstDL.size() == 0 || lstDL == null) {
@@ -797,7 +797,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             }
             System.out.println("------7");
             _service = new Service_KTKSNB();
-            if (_service.saveDataKTKSNB("06_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
+            if (_service.saveDataKTKSNB("06_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
             }
@@ -1067,7 +1067,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
         } else if (sQuyBC.equals("3")) {
             ngay_bc = "30-SEP-" + sNamBC;
         } else if (sQuyBC.equals("4")) {
-            ngay_bc = "30-NOV-" + sNamBC;
+            ngay_bc = "31-DEC-" + sNamBC;
         }
         return ngay_bc;
     }
@@ -1085,6 +1085,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 if (tmp == null) {
                     continue;
                 }
+                System.out.println("kieu in = " + tmp.getKIEUIN());
 
                 DuLieuNTRow tempadd = new DuLieuNTRow();
 
@@ -1098,7 +1099,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 tempadd.setName(tmp.getTEN());
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(tmp.getMAPGD());
-                tempadd.setPosFlag("S");
+                tempadd.setPosFlag(tmp.getCO_TONGHOP());
                 tempadd.setBranchCode(tmp.getMACN());
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(tmp.getD2());
@@ -1130,6 +1131,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 tempadd.setD28(tmp.getD28());
                 tempadd.setD29(tmp.getD29());
                 tempadd.setD30(tmp.getD30());
+                tempadd.setStyle(tmp.getKIEUIN());
                 lstUpdateDate.add(tempadd);
 
             }

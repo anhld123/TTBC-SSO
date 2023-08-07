@@ -304,6 +304,9 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/> 
                                             <input type="hidden" value="<s:property  value="NHAPTAY" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/> 
+                                             <input type="hidden" value="<s:property  value="CO_TONGHOP" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP" value="<s:property  value="CO_TONGHOP"/>"/> 
+                                      
                                         </td>
                                         <td>
                                             <input type="text" value="<s:property  value="D1" />" 
