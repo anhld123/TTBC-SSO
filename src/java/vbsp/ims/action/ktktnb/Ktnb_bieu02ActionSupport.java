@@ -176,7 +176,30 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
     public String execute() throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+public String get_data_ktnb_bieu01() {
+        try {
+            userName = request.getSession().getAttribute("username").toString();
+            reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
+            pos_cd_username = posMainModel.getPosCd();
+            main_pos_username = posMainModel.getMainPosCd();
+            Connection conn = new DaoConnect().getConnect();
+            DaoKTNBMain daoMain = new DaoKTNBMain();
 
+            System.out.println("reportGrade = " + getReportDate(quyBc, namBc) + " pos_cd_username = " + pos_cd_username);
+            _service = new Service_KTKSNB();
+            lstDulieuNt = _service.getDataKTKSNB("01_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
+            if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
+                lstDulieuNt = daoMain.getDataKtnb_bieu01(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb_bieu01: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb_bieu01: " + e.getMessage());
+            return "error";
+        }
+
+        return "success";
+    }
     public String get_data_ktnb_bieu02() {
         try {
             userName = request.getSession().getAttribute("username").toString();
@@ -437,7 +460,43 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
         }
 
     }
+public String save_data_ktnb_bieu01() throws SQLException {
+        try {
+            userName = request.getSession().getAttribute("username").toString();
+            reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
+            pos_cd_username = posMainModel.getPosCd();
+            main_pos_username = posMainModel.getMainPosCd();
+            Connection conn = new DaoConnect().getConnect();
+            DaoKTNBMain daoMain = new DaoKTNBMain();
+            if (!daoMain.saveKTNB_bieu01("01_PCTN", userName, "", quyBc, namBc, lstDulieuNt)) {
+                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
+                return "error";
+            }
+            lstDulieuNt = daoMain.getDataKtnb_bieu01(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            List<DuLieuNTRow> lstData = new ArrayList<>();
+            lstData = mapList(lstDulieuNt, "01_PCTN", userName, getReportDate(quyBc, namBc));
+            if(lstData.size() == 0 || lstData == null)
+            {
+                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
+                return "error";
+            }
+            _service = new Service_KTKSNB();
+            if(_service.saveDataKTKSNB("01_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0)
+            {
+                addActionMessage("Cập nhật Api lên Tw không thành công");
+                 return "error";
+            }
 
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb_bieu01: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb_bieu01: " + e.getMessage());
+            addActionMessage("Cập nhật không thành công");
+            return "error";
+        }
+
+        return "success";
+    }
     public String save_data_ktnb_bieu02() throws SQLException {
         try {
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
