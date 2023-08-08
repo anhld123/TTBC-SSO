@@ -176,7 +176,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
     public String execute() throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     public String get_data_ktnb_bieu01() {
         try {
             userName = request.getSession().getAttribute("username").toString();
@@ -201,6 +201,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
 
         return "success";
     }
+
     public String get_data_ktnb_bieu02() {
         try {
             userName = request.getSession().getAttribute("username").toString();
@@ -219,11 +220,13 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             String sStatus;
             try {
                 sStatus = lstDulieuNt.get(0).getD50();
-                if (sStatus == null) sStatus ="0";
+                if (sStatus == null) {
+                    sStatus = "0";
+                }
             } catch (Exception e) {
                 sStatus = "0";
             }
-            
+
             if (sStatus.equals("3")) {
                 setStatusAuthor("Tỉnh đã duyệt");
             } else if (sStatus.equals("4")) {
@@ -258,11 +261,13 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             String sStatus;
             try {
                 sStatus = lstDulieuNt.get(0).getD50();
-                if (sStatus == null) sStatus ="0";
+                if (sStatus == null) {
+                    sStatus = "0";
+                }
             } catch (Exception e) {
                 sStatus = "0";
             }
-            
+
             if (sStatus.equals("3")) {
                 setStatusAuthor("Tỉnh đã duyệt");
             } else if (sStatus.equals("4")) {
@@ -298,11 +303,13 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             String sStatus;
             try {
                 sStatus = lstDulieuNt.get(0).getD50();
-                if (sStatus == null) sStatus ="0";
+                if (sStatus == null) {
+                    sStatus = "0";
+                }
             } catch (Exception e) {
                 sStatus = "0";
             }
-            
+
             if (sStatus.equals("3")) {
                 setStatusAuthor("Tỉnh đã duyệt");
             } else if (sStatus.equals("4")) {
@@ -337,11 +344,13 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             String sStatus;
             try {
                 sStatus = lstDulieuNt.get(0).getD50();
-                if (sStatus == null) sStatus ="0";
+                if (sStatus == null) {
+                    sStatus = "0";
+                }
             } catch (Exception e) {
                 sStatus = "0";
             }
-            
+
             if (sStatus.equals("3")) {
                 setStatusAuthor("Tỉnh đã duyệt");
             } else if (sStatus.equals("4")) {
@@ -368,7 +377,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
                 addActionMessage("Mẫu này không thực hiện tại cấp PGD");
                 return "error";
             }
-            
+
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
@@ -382,11 +391,13 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             String sStatus;
             try {
                 sStatus = lstDulieuNt.get(0).getD50();
-                if (sStatus == null) sStatus ="0";
+                if (sStatus == null) {
+                    sStatus = "0";
+                }
             } catch (Exception e) {
                 sStatus = "0";
             }
-            
+
             if (sStatus.equals("3")) {
                 setStatusAuthor("Tỉnh đã duyệt");
             } else if (sStatus.equals("4")) {
@@ -461,7 +472,8 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
         }
 
     }
-public String save_data_ktnb_bieu01() throws SQLException {
+
+    public String save_data_ktnb_bieu01() throws SQLException {
         try {
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
@@ -477,16 +489,14 @@ public String save_data_ktnb_bieu01() throws SQLException {
             lstDulieuNt = daoMain.getDataKtnb_bieu01(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             List<DuLieuNTRow> lstData = new ArrayList<>();
             lstData = mapList(lstDulieuNt, "01_PCTN", userName, getReportDate(quyBc, namBc));
-            if(lstData.size() == 0 || lstData == null)
-            {
+            if (lstData.size() == 0 || lstData == null) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
             _service = new PCTNService();
-            if(_service.saveDataKTKSNB("01_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0)
-            {
+            if (_service.saveDataKTKSNB("01_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
-                 return "error";
+                return "error";
             }
 
         } catch (Exception e) {
@@ -498,6 +508,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
 
         return "success";
     }
+
     public String save_data_ktnb_bieu02() throws SQLException {
         try {
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
@@ -526,7 +537,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu02("02_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
+            if (!daoMain.saveKTNB_bieu02("02_PCTN", userName, pos_cd_username, quyBc, namBc, Integer.parseInt(reportGrade), lstDulieuNt)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
@@ -566,7 +577,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
-             if (!reportGrade.equals("1")) {
+            if (!reportGrade.equals("1")) {
                 addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
                 return "error";
             }
@@ -589,7 +600,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu03("03_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
+            if (!daoMain.saveKTNB_bieu03("03_PCTN", userName, pos_cd_username, quyBc, namBc, Integer.parseInt(reportGrade), lstDulieuNt)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
@@ -629,7 +640,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
-             if (!reportGrade.equals("1")) {
+            if (!reportGrade.equals("1")) {
                 addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
                 return "error";
             }
@@ -652,7 +663,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu04("04_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
+            if (!daoMain.saveKTNB_bieu04("04_PCTN", userName, pos_cd_username, quyBc, namBc, Integer.parseInt(reportGrade), lstDulieuNt)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
@@ -692,7 +703,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
-             if (!reportGrade.equals("1")) {
+            if (!reportGrade.equals("1")) {
                 addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
                 return "error";
             }
@@ -715,7 +726,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu05("05_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
+            if (!daoMain.saveKTNB_bieu05("05_PCTN", userName, pos_cd_username, quyBc, namBc, Integer.parseInt(reportGrade), lstDulieuNt)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
@@ -778,7 +789,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu06("06_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
+            if (!daoMain.saveKTNB_bieu06("06_PCTN", userName, pos_cd_username, quyBc, namBc, Integer.parseInt(reportGrade), lstDulieuNt)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
