@@ -27,8 +27,8 @@
                 outputFrm.elements['title'].value = inputFrm.elements['title'].value;
                 outputFrm.elements['query'].value = inputFrm.elements['query'].value;
         }
-         $("#loadparaview").trigger('click');
-    }
+        $("#loadparaview").trigger('click');
+    };
     </script>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -36,10 +36,10 @@
     </head>
     <body>
         <strong><h2>Trang view báo cáo!</h2></strong>
-        <s:form id="paraviewquery" name="paraviewquery" action="LoadParaviewdata">
+        <s:form id="paraviewquery" name="nameaddquery" action="LoadParaviewdata.action">
             <s:hidden name="query"/>
             <s:hidden name="title"/>
-            <sj:submit id="loadparaview" name="loadparaview" targets="divExportReportQueryView"></sj:submit>
+            <sj:submit id="loadparaview" name="paraviewquery" targets="divExportReportQueryView"></sj:submit>
         </s:form>
         <div id="containParm">
             <div id="divExportReportQueryView"></div>

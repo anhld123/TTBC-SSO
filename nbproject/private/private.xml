@@ -3,21 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/dao/DaoProcessRisk.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/khnv2021/dao/DaoMau01A.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/action/ktktnb/ListKTNBActionSupport.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/dao/DaoConnect.java</file>
+            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/dao/ktnb/ListKTNBDA.java</file>
+            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/action/ktktnb/PCTNAuthActionSupport.java</file>
+            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/ktgs/action/ActionKtgsMain.java</file>
             <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/struts_ktnb.xml</file>
             <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/action/ktktnb/Ktnb01ActionSupport.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/action/ktktnb/Ktnb06ActionSupport.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/action/RiskAction.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/dao/ktnb/ListKTNBDA.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/dao/IMSRptDao.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/web/ktktnb/ktnb06.jsp</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/action/BalanceSheetAction.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/dao/ktnb/DaoKtnb01.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/action/ktktnb/Ktnb06A.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/dao/ktnb/DaoKtnb06.java</file>
+            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/action/ktktnb/ListKTNBAuthActionSupport.java</file>
+            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/action/ktktnb/Ktnb02ActionSupport.java</file>
         </group>
     </open-files>
 </project-private>

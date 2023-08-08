@@ -312,7 +312,7 @@
                                                 <input type="text" value="<s:property  value="TT_HIENTHI" />" 
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="SOKU1 D0 number2" onfocus="this.select()"
                                                        onblur="if (this.value == '')
-                                                                   ;" readonly="true" style="background: #E7DCDA !important;"/>
+                                                                   ;"/>
                                                 <input type="hidden" value="<s:property  value="THUTU" />"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>  
                                                 <input type="hidden" value="<s:property  value="NHAPTAY" />"

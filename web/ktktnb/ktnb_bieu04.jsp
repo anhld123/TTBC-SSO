@@ -349,15 +349,8 @@
                                             </td>
                                         </s:if>
                                         <s:if test="D8.equalsIgnoreCase('N') && D9.equalsIgnoreCase('N')"> 
-                                            <s:if test="TEN.equalsIgnoreCase('TEN53')"> 
-                                                <td>
-                                                    <input type="text" value="<s:property  value="D5" />" 
-                                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5"
-                                                           class="D0 SOKU number amount" onfocus="this.select()"
-                                                           onblur="if(this.value == '') { this.value=0}; findTotal(this)"/>
-                                                </td>
-                                            </s:if>
-                                            <s:if test="TEN.equalsIgnoreCase('TEN54')"> 
+                                           
+                                            <s:if test="THUTU.toString().equalsIgnoreCase('54') ||THUTU.toString().equalsIgnoreCase('53')"> 
                                                 <td>
                                                     <input type="text" value="<s:property  value="D5" />"  
                                                             name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5"
@@ -365,7 +358,7 @@
                                                            onblur="if(this.value == '') { this.value=0}; findTotal(this)"/>
                                                 </td>
                                             </s:if>
-                                            <s:if test="TEN.equalsIgnoreCase('TEN52')"> 
+                                            <s:if test="THUTU.toString().equalsIgnoreCase('52')"> 
                                                 <td>
                                                     <input type="text" value="<s:property  value="D5" />" id="totalordercost"
                                                            style="background: #E7DCDA !important;" readonly="true"
@@ -375,7 +368,7 @@
                                                                        ;"/>
                                                 </td>
                                             </s:if>
-                                            <s:if test="!TEN.equalsIgnoreCase('TEN54') &&!TEN.equalsIgnoreCase('TEN53')&& !TEN.equalsIgnoreCase('TEN52')"> 
+                                            <s:if test="!THUTU.toString().equalsIgnoreCase('54') &&!THUTU.toString().equalsIgnoreCase('53')&& !THUTU.toString().equalsIgnoreCase('52')"> 
                                                 <td>
                                                     <input type="text" value="<s:property  value="D5" />" id="TT_<s:property  value="THUTU" />"
                                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU number" onfocus="this.select()"
