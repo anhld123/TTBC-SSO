@@ -189,9 +189,9 @@
                 var result = true; //Luu ket qua kiem tra kieu so co dung khong             
                 $(".number").each(function (index) {
                     //Kiem tra xem co nhap kieu so khong
-                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) == 0) {
+                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) == 0 || parseFloat($(this).val()) > 0) {
                         result = false;
-                        alert('Thứ tự khác 0 và không được để trống')
+                        alert('Thứ tự lớn hơn 0 và không được để trống')
                         return false;
                     }
                 });

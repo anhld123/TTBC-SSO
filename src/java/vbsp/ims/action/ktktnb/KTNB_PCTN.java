@@ -28,7 +28,6 @@ import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.dao.ktnb.DaoKTNBMain;
 import vbsp.ims.dao.ktnb.DaoKtnb06;
 import vbsp.ims.dao.ktnb.ListKTNBDA;
-import vbsp.ims.define.Constant;
 import vbsp.ims.define.Define;
 import vbsp.ims.define.DefineFun;
 import vbsp.ims.log.CoreLogger;
@@ -190,7 +189,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
 
             System.out.println("reportGrade = " + getReportDate(quyBc, namBc) + " pos_cd_username = " + pos_cd_username);
             _service = new Service_KTKSNB();
-            lstDulieuNt = _service.getDataKTKSNB("01_PCTN", pos_cd_username, Define.SUB_POS_FLAG, getReportDate(quyBc, namBc), "", "");
+            lstDulieuNt = _service.getDataKTKSNB("01_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu01(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
@@ -209,12 +208,12 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
             
             String Grade;
-            if (reportGrade.equalsIgnoreCase(Define.SUB_POS_GRADE)) {
-                Grade = Define.SUB_POS_FLAG;
+            if (reportGrade.equalsIgnoreCase("1")) {
+                Grade = "S";
             } else if (reportGrade.equalsIgnoreCase("2")) {
-                Grade = Define.MAIN_POS_FLAG;
+                Grade = "M";
             } else {
-                Grade = Define.HEAD_POS_FLAG;
+                Grade = "H";
             }
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
             pos_cd_username = posMainModel.getPosCd();
@@ -236,12 +235,12 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 sStatus = "0";
             }
 
-            if (sStatus.equals(Constant.KTNB_STATUS._MAIN_POS_AUTH)) {
+            if (sStatus.equals("3")) {
                 setStatusAuthor("Tỉnh đã duyệt");
-            } else if (sStatus.equals(Constant.KTNB_STATUS._HEAD_POS_AUTH)) {
+            } else if (sStatus.equals("4")) {
                 setStatusAuthor("Tw đã duyệt");
-            } else if (sStatus.equals(Constant.KTNB_STATUS._SUB_POS_MAKER) || sStatus.equals(Constant.KTNB_STATUS._SUB_POS_AUTH)) {
-                setStatusAuthor("PGD đã nhập");
+            } else if (sStatus.equals("1") || sStatus.equals("2")) {
+                setStatusAuthor("Huyện đã nhập");
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
@@ -262,7 +261,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDulieuNt = _service.getDataKTKSNB("03_PCTN", pos_cd_username, reportGrade == Define.SUB_POS_GRADE ? Define.SUB_POS_FLAG : reportGrade == "2" ? Define.MAIN_POS_FLAG : Define.HEAD_POS_FLAG, getReportDate(quyBc, namBc), "", "");
+            lstDulieuNt = _service.getDataKTKSNB("03_PCTN", pos_cd_username, reportGrade == "1" ? "S" : reportGrade == "2" ? "M" : "H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
@@ -277,12 +276,12 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 sStatus = "0";
             }
 
-            if (sStatus.equals(Constant.KTNB_STATUS._MAIN_POS_AUTH)) {
+            if (sStatus.equals("3")) {
                 setStatusAuthor("Tỉnh đã duyệt");
-            } else if (sStatus.equals(Constant.KTNB_STATUS._HEAD_POS_AUTH)) {
+            } else if (sStatus.equals("4")) {
                 setStatusAuthor("Tw đã duyệt");
-            } else if (sStatus.equals(Constant.KTNB_STATUS._SUB_POS_MAKER) || sStatus.equals(Constant.KTNB_STATUS._SUB_POS_AUTH)) {
-                setStatusAuthor("PGD đã nhập");
+            } else if (sStatus.equals("1") || sStatus.equals("2")) {
+                setStatusAuthor("Huyện đã nhập");
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
@@ -305,7 +304,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
 
             System.out.println("reportGrade = " + getReportDate(quyBc, namBc) + " pos_cd_username = " + pos_cd_username);
             _service = new Service_KTKSNB();
-            lstDulieuNt = _service.getDataKTKSNB("04_PCTN", pos_cd_username, reportGrade == Define.SUB_POS_GRADE ? Define.SUB_POS_FLAG : reportGrade == "2" ? Define.MAIN_POS_FLAG : Define.HEAD_POS_FLAG, getReportDate(quyBc, namBc), "", "");
+            lstDulieuNt = _service.getDataKTKSNB("04_PCTN", pos_cd_username, reportGrade == "1" ? "S" : reportGrade == "2" ? "M" : "H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
@@ -319,12 +318,12 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 sStatus = "0";
             }
 
-            if (sStatus.equals(Constant.KTNB_STATUS._MAIN_POS_AUTH)) {
+            if (sStatus.equals("3")) {
                 setStatusAuthor("Tỉnh đã duyệt");
-            } else if (sStatus.equals(Constant.KTNB_STATUS._HEAD_POS_AUTH)) {
+            } else if (sStatus.equals("4")) {
                 setStatusAuthor("Tw đã duyệt");
-            } else if (sStatus.equals(Constant.KTNB_STATUS._SUB_POS_MAKER) || sStatus.equals(Constant.KTNB_STATUS._SUB_POS_AUTH)) {
-                setStatusAuthor("PGD đã nhập");
+            } else if (sStatus.equals("1") || sStatus.equals("2")) {
+                setStatusAuthor("Huyện đã nhập");
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb_bieu04: " + e.getMessage());
@@ -346,7 +345,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDulieuNt = _service.getDataKTKSNB("05_PCTN", pos_cd_username, reportGrade == Define.SUB_POS_GRADE ? Define.SUB_POS_FLAG : reportGrade == "2" ? Define.MAIN_POS_FLAG : Define.HEAD_POS_FLAG, getReportDate(quyBc, namBc), "", "");
+            lstDulieuNt = _service.getDataKTKSNB("05_PCTN", pos_cd_username, reportGrade == "1" ? "S" : reportGrade == "2" ? "M" : "H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
@@ -360,12 +359,12 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 sStatus = "0";
             }
 
-            if (sStatus.equals(Constant.KTNB_STATUS._MAIN_POS_AUTH)) {
+            if (sStatus.equals("3")) {
                 setStatusAuthor("Tỉnh đã duyệt");
-            } else if (sStatus.equals(Constant.KTNB_STATUS._HEAD_POS_AUTH)) {
+            } else if (sStatus.equals("4")) {
                 setStatusAuthor("Tw đã duyệt");
-            } else if (sStatus.equals(Constant.KTNB_STATUS._SUB_POS_MAKER) || sStatus.equals(Constant.KTNB_STATUS._SUB_POS_AUTH)) {
-                setStatusAuthor("PGD đã nhập");
+            } else if (sStatus.equals("1") || sStatus.equals("2")) {
+                setStatusAuthor("Huyện đã nhập");
             }
 //            lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
         } catch (Exception e) {
@@ -382,7 +381,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
         try {
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
-            if (reportGrade.equals(Define.SUB_POS_GRADE)) {
+            if (reportGrade.equals("1")) {
                 addActionMessage("Mẫu này không thực hiện tại cấp PGD");
                 return "error";
             }
@@ -393,7 +392,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDulieuNt = _service.getDataKTKSNB("06_PCTN", pos_cd_username, reportGrade == Define.SUB_POS_GRADE ? Define.SUB_POS_FLAG : reportGrade == "2" ? Define.MAIN_POS_FLAG : Define.HEAD_POS_FLAG, getReportDate(quyBc, namBc), "", "");
+            lstDulieuNt = _service.getDataKTKSNB("06_PCTN", pos_cd_username, reportGrade == "1" ? "S" : reportGrade == "2" ? "M" : "H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu06(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
@@ -407,12 +406,12 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 sStatus = "0";
             }
 
-            if (sStatus.equals(Constant.KTNB_STATUS._MAIN_POS_AUTH)) {
+            if (sStatus.equals("3")) {
                 setStatusAuthor("Tỉnh đã duyệt");
-            } else if (sStatus.equals(Constant.KTNB_STATUS._HEAD_POS_AUTH)) {
+            } else if (sStatus.equals("4")) {
                 setStatusAuthor("Tw đã duyệt");
-            } else if (sStatus.equals(Constant.KTNB_STATUS._SUB_POS_MAKER) || sStatus.equals(Constant.KTNB_STATUS._SUB_POS_AUTH)) {
-                setStatusAuthor("PGD đã nhập");
+            } else if (sStatus.equals("1") || sStatus.equals("2")) {
+                setStatusAuthor("Huyện đã nhập");
             }
 //            lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
         } catch (Exception e) {
@@ -503,7 +502,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 return "error";
             }
             _service = new Service_KTKSNB();
-            if (_service.saveDataKTKSNB("01_PCTN", pos_cd_username, Define.SUB_POS_FLAG, getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
+            if (_service.saveDataKTKSNB("01_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
             }
@@ -524,12 +523,12 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
             String Grade;
-            if (reportGrade.equalsIgnoreCase(Define.SUB_POS_GRADE)) {
-                Grade = Define.SUB_POS_FLAG;
+            if (reportGrade.equalsIgnoreCase("1")) {
+                Grade = "S";
             } else if (reportGrade.equalsIgnoreCase("2")) {
-                Grade = Define.MAIN_POS_FLAG;
+                Grade = "M";
             } else {
-                Grade = Define.HEAD_POS_FLAG;
+                Grade = "H";
             }
 //            if (!reportGrade.equals("1")) {
 //                addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
@@ -594,12 +593,12 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
             String Grade;
-            if (reportGrade.equalsIgnoreCase(Define.SUB_POS_GRADE)) {
-                Grade = Define.SUB_POS_FLAG;
+            if (reportGrade.equalsIgnoreCase("1")) {
+                Grade = "S";
             } else if (reportGrade.equalsIgnoreCase("2")) {
-                Grade = Define.MAIN_POS_FLAG;
+                Grade = "M";
             } else {
-                Grade = Define.HEAD_POS_FLAG;
+                Grade = "H";
             }
 //            if (!reportGrade.equals("1")) {
 //                addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
@@ -664,12 +663,12 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
             String Grade;
-            if (reportGrade.equalsIgnoreCase(Define.SUB_POS_GRADE)) {
-                Grade = Define.SUB_POS_FLAG;
+            if (reportGrade.equalsIgnoreCase("1")) {
+                Grade = "S";
             } else if (reportGrade.equalsIgnoreCase("2")) {
-                Grade = Define.MAIN_POS_FLAG;
+                Grade = "M";
             } else {
-                Grade = Define.HEAD_POS_FLAG;
+                Grade = "H";
             }
 //            if (!reportGrade.equals("1")) {
 //                addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
@@ -734,14 +733,14 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
             String Grade;
-            if (reportGrade.equalsIgnoreCase(Define.SUB_POS_GRADE)) {
-                Grade = Define.SUB_POS_FLAG;
+            if (reportGrade.equalsIgnoreCase("1")) {
+                Grade = "S";
             } else if (reportGrade.equalsIgnoreCase("2")) {
-                Grade = Define.MAIN_POS_FLAG;
+                Grade = "M";
             } else {
-                Grade = Define.HEAD_POS_FLAG;
+                Grade = "H";
             }
-            if (reportGrade.equals(Define.SUB_POS_GRADE)) {
+            if (reportGrade.equals("1")) {
                 addActionMessage("Mẫu này không thực hiện tại cấp PGD");
                 return "error";
             }
@@ -804,14 +803,14 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
             String Grade;
-            if (reportGrade.equalsIgnoreCase(Define.SUB_POS_GRADE)) {
-                Grade = Define.SUB_POS_FLAG;
+            if (reportGrade.equalsIgnoreCase("1")) {
+                Grade = "S";
             } else if (reportGrade.equalsIgnoreCase("2")) {
-                Grade = Define.MAIN_POS_FLAG;
+                Grade = "M";
             } else {
-                Grade = Define.HEAD_POS_FLAG;
+                Grade = "H";
             }
-            if (reportGrade.equals(Define.SUB_POS_GRADE)) {
+            if (reportGrade.equals("1")) {
                 addActionMessage("Mẫu này không thực hiện tại cấp PGD");
                 return "error";
             }
@@ -1134,12 +1133,12 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
 
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
             String Grade;
-            if (reportGrade.equalsIgnoreCase(Define.SUB_POS_GRADE)) {
-                Grade = Define.SUB_POS_FLAG;
+            if (reportGrade.equalsIgnoreCase("1")) {
+                Grade = "S";
             } else if (reportGrade.equalsIgnoreCase("2")) {
-                Grade = Define.MAIN_POS_FLAG;
+                Grade = "M";
             } else {
-                Grade = Define.HEAD_POS_FLAG;
+                Grade = "H";
             }
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(sNgaybc));
 
