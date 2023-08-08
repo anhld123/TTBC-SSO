@@ -527,7 +527,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             lstDL = _service.getDataKTKSNB("02_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
             //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------1");
-            if (lstDL.size() == 0 || lstDL == null) {
+            if (lstDL == null || lstDL.isEmpty()) {
                 System.out.println("------2");
             } else {
                 System.out.println("------3");
