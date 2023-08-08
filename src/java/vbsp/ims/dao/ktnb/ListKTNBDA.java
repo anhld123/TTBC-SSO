@@ -30,17 +30,9 @@ public class ListKTNBDA {
         try {
             DaoConnect db = new DaoConnect();
             Connection conn = db.getConnect();
-            String MSQL;
-            if(capBc.equals("1"))
-            {
-                MSQL = "SELECT DM_MABC,DM_TENVT,DM_MOTA,DM_CAPBC,APPLY_FLG,DM_KYBC,DM_LINKBC FROM DMBC_CT WHERE DM_NHOMBC='NHOMBC0023' AND APPLY_FLG='Y' "
+            String MSQL = "SELECT DM_MABC,DM_TENVT,DM_MOTA,DM_CAPBC,APPLY_FLG,DM_KYBC,DM_LINKBC FROM DMBC_CT WHERE DM_NHOMBC='NHOMBC0023' AND APPLY_FLG='Y' "
                     + "and instr(DM_CAPBC,'" + capBc +"') > 0 AND DM_LINKBC IS NOT NULL order by DM_MABC";
-            }
-            else
-            {
-                 MSQL = "SELECT DM_MABC,DM_TENVT,DM_MOTA,DM_CAPBC,APPLY_FLG,DM_KYBC,DM_LINKBC FROM DMBC_CT WHERE DM_NHOMBC='NHOMBC0023' AND APPLY_FLG='Y' "
-                    + "and instr(DM_CAPBC,'" + capBc +"') > 0 and dm_mabc not in ('BC00230073','BC00230074','BC00230075','BC00230076','BC00230077') AND DM_LINKBC IS NOT NULL order by DM_MABC";
-            }
+            
                     
 //            System.out.println("MSQL="+ MSQL);
             Statement stm = conn.createStatement();

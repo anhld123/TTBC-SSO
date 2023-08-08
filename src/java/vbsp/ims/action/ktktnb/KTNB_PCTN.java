@@ -176,7 +176,8 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
     public String execute() throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-public String get_data_ktnb_bieu01() {
+
+    public String get_data_ktnb_bieu01() {
         try {
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
@@ -200,29 +201,40 @@ public String get_data_ktnb_bieu01() {
 
         return "success";
     }
+
     public String get_data_ktnb_bieu02() {
         try {
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            
+            String Grade;
+            if (reportGrade.equalsIgnoreCase("1")) {
+                Grade = "S";
+            } else if (reportGrade.equalsIgnoreCase("2")) {
+                Grade = "M";
+            } else {
+                Grade = "H";
+            }
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDulieuNt = _service.getDataKTKSNB("02_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
+            lstDulieuNt = _service.getDataKTKSNB("02_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
-//            lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             String sStatus;
             try {
                 sStatus = lstDulieuNt.get(0).getD50();
-                if (sStatus == null) sStatus ="0";
+                if (sStatus == null) {
+                    sStatus = "0";
+                }
             } catch (Exception e) {
                 sStatus = "0";
             }
-            
+
             if (sStatus.equals("3")) {
                 setStatusAuthor("Tỉnh đã duyệt");
             } else if (sStatus.equals("4")) {
@@ -249,7 +261,7 @@ public String get_data_ktnb_bieu01() {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDulieuNt = _service.getDataKTKSNB("03_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
+            lstDulieuNt = _service.getDataKTKSNB("03_PCTN", pos_cd_username, reportGrade == "1" ? "S" : reportGrade == "2" ? "M" : "H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
@@ -257,11 +269,13 @@ public String get_data_ktnb_bieu01() {
             String sStatus;
             try {
                 sStatus = lstDulieuNt.get(0).getD50();
-                if (sStatus == null) sStatus ="0";
+                if (sStatus == null) {
+                    sStatus = "0";
+                }
             } catch (Exception e) {
                 sStatus = "0";
             }
-            
+
             if (sStatus.equals("3")) {
                 setStatusAuthor("Tỉnh đã duyệt");
             } else if (sStatus.equals("4")) {
@@ -290,18 +304,20 @@ public String get_data_ktnb_bieu01() {
 
             System.out.println("reportGrade = " + getReportDate(quyBc, namBc) + " pos_cd_username = " + pos_cd_username);
             _service = new Service_KTKSNB();
-            lstDulieuNt = _service.getDataKTKSNB("04_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
+            lstDulieuNt = _service.getDataKTKSNB("04_PCTN", pos_cd_username, reportGrade == "1" ? "S" : reportGrade == "2" ? "M" : "H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
             String sStatus;
             try {
                 sStatus = lstDulieuNt.get(0).getD50();
-                if (sStatus == null) sStatus ="0";
+                if (sStatus == null) {
+                    sStatus = "0";
+                }
             } catch (Exception e) {
                 sStatus = "0";
             }
-            
+
             if (sStatus.equals("3")) {
                 setStatusAuthor("Tỉnh đã duyệt");
             } else if (sStatus.equals("4")) {
@@ -329,18 +345,20 @@ public String get_data_ktnb_bieu01() {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDulieuNt = _service.getDataKTKSNB("05_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
+            lstDulieuNt = _service.getDataKTKSNB("05_PCTN", pos_cd_username, reportGrade == "1" ? "S" : reportGrade == "2" ? "M" : "H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
             String sStatus;
             try {
                 sStatus = lstDulieuNt.get(0).getD50();
-                if (sStatus == null) sStatus ="0";
+                if (sStatus == null) {
+                    sStatus = "0";
+                }
             } catch (Exception e) {
                 sStatus = "0";
             }
-            
+
             if (sStatus.equals("3")) {
                 setStatusAuthor("Tỉnh đã duyệt");
             } else if (sStatus.equals("4")) {
@@ -367,25 +385,27 @@ public String get_data_ktnb_bieu01() {
                 addActionMessage("Mẫu này không thực hiện tại cấp PGD");
                 return "error";
             }
-            
+
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDulieuNt = _service.getDataKTKSNB("06_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
+            lstDulieuNt = _service.getDataKTKSNB("06_PCTN", pos_cd_username, reportGrade == "1" ? "S" : reportGrade == "2" ? "M" : "H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu06(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
             String sStatus;
             try {
                 sStatus = lstDulieuNt.get(0).getD50();
-                if (sStatus == null) sStatus ="0";
+                if (sStatus == null) {
+                    sStatus = "0";
+                }
             } catch (Exception e) {
                 sStatus = "0";
             }
-            
+
             if (sStatus.equals("3")) {
                 setStatusAuthor("Tỉnh đã duyệt");
             } else if (sStatus.equals("4")) {
@@ -460,7 +480,8 @@ public String get_data_ktnb_bieu01() {
         }
 
     }
-public String save_data_ktnb_bieu01() throws SQLException {
+
+    public String save_data_ktnb_bieu01() throws SQLException {
         try {
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
@@ -476,16 +497,14 @@ public String save_data_ktnb_bieu01() throws SQLException {
             lstDulieuNt = daoMain.getDataKtnb_bieu01(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             List<DuLieuNTRow> lstData = new ArrayList<>();
             lstData = mapList(lstDulieuNt, "01_PCTN", userName, getReportDate(quyBc, namBc));
-            if(lstData.size() == 0 || lstData == null)
-            {
+            if (lstData.size() == 0 || lstData == null) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
             _service = new Service_KTKSNB();
-            if(_service.saveDataKTKSNB("01_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0)
-            {
+            if (_service.saveDataKTKSNB("01_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
-                 return "error";
+                return "error";
             }
 
         } catch (Exception e) {
@@ -497,23 +516,31 @@ public String save_data_ktnb_bieu01() throws SQLException {
 
         return "success";
     }
+
     public String save_data_ktnb_bieu02() throws SQLException {
         try {
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
-            if (!reportGrade.equals("1")) {
-                addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
-                return "error";
+            String Grade;
+            if (reportGrade.equalsIgnoreCase("1")) {
+                Grade = "S";
+            } else if (reportGrade.equalsIgnoreCase("2")) {
+                Grade = "M";
+            } else {
+                Grade = "H";
             }
+//            if (!reportGrade.equals("1")) {
+//                addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
+//                return "error";
+//            }
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDL = _service.getDataKTKSNB("02_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
-            //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            lstDL = _service.getDataKTKSNB("02_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), "", "");
             System.out.println("------1");
             if (lstDL.size() == 0 || lstDL == null) {
                 System.out.println("------2");
@@ -525,7 +552,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu02("02_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
+            if (!daoMain.saveKTNB_bieu02("02_PCTN", userName, pos_cd_username, quyBc, namBc,Integer.parseInt(reportGrade), lstDulieuNt)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
@@ -545,7 +572,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             }
             System.out.println("------7");
             _service = new Service_KTKSNB();
-            if (_service.saveDataKTKSNB("02_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
+            if (_service.saveDataKTKSNB("02_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
             }
@@ -565,18 +592,25 @@ public String save_data_ktnb_bieu01() throws SQLException {
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
-             if (!reportGrade.equals("1")) {
-                addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
-                return "error";
+            String Grade;
+            if (reportGrade.equalsIgnoreCase("1")) {
+                Grade = "S";
+            } else if (reportGrade.equalsIgnoreCase("2")) {
+                Grade = "M";
+            } else {
+                Grade = "H";
             }
+//            if (!reportGrade.equals("1")) {
+//                addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
+//                return "error";
+//            }
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDL = _service.getDataKTKSNB("03_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
-            //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            lstDL = _service.getDataKTKSNB("03_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), "", "");
             System.out.println("------1");
             if (lstDL.size() == 0 || lstDL == null) {
                 System.out.println("------2");
@@ -588,7 +622,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu03("03_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
+            if (!daoMain.saveKTNB_bieu03("03_PCTN", userName, pos_cd_username, quyBc, namBc,Integer.parseInt(reportGrade), lstDulieuNt)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
@@ -608,7 +642,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             }
             System.out.println("------7");
             _service = new Service_KTKSNB();
-            if (_service.saveDataKTKSNB("03_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
+            if (_service.saveDataKTKSNB("03_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
             }
@@ -622,24 +656,31 @@ public String save_data_ktnb_bieu01() throws SQLException {
 
         return "success";
     }
-
+    
     public String save_data_ktnb_bieu04() throws SQLException {
         try {
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
-             if (!reportGrade.equals("1")) {
-                addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
-                return "error";
+            String Grade;
+            if (reportGrade.equalsIgnoreCase("1")) {
+                Grade = "S";
+            } else if (reportGrade.equalsIgnoreCase("2")) {
+                Grade = "M";
+            } else {
+                Grade = "H";
             }
+//            if (!reportGrade.equals("1")) {
+//                addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
+//                return "error";
+//            }
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDL = _service.getDataKTKSNB("04_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
-            //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            lstDL = _service.getDataKTKSNB("04_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), "", "");
             System.out.println("------1");
             if (lstDL.size() == 0 || lstDL == null) {
                 System.out.println("------2");
@@ -651,7 +692,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu04("04_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
+            if (!daoMain.saveKTNB_bieu04("04_PCTN", userName, pos_cd_username, quyBc, namBc,Integer.parseInt(reportGrade), lstDulieuNt)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
@@ -662,7 +703,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 return "error";
             }
             List<DuLieuNTRow> lstData = new ArrayList<>();
-            System.out.println("------6=" + lstDulieuNt.get(0).getKIEUIN());
+            System.out.println("------6");
             try {
                 lstData = mapList(lstDulieuNt, "04_PCTN", userName, getReportDate(quyBc, namBc));
             } catch (Exception e) {
@@ -671,7 +712,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             }
             System.out.println("------7");
             _service = new Service_KTKSNB();
-            if (_service.saveDataKTKSNB("04_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
+            if (_service.saveDataKTKSNB("04_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
             }
@@ -691,8 +732,16 @@ public String save_data_ktnb_bieu01() throws SQLException {
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
-             if (!reportGrade.equals("1")) {
-                addActionMessage("Vui lòng vào cấp PGD để nhập số liệu");
+            String Grade;
+            if (reportGrade.equalsIgnoreCase("1")) {
+                Grade = "S";
+            } else if (reportGrade.equalsIgnoreCase("2")) {
+                Grade = "M";
+            } else {
+                Grade = "H";
+            }
+            if (reportGrade.equals("1")) {
+                addActionMessage("Mẫu này không thực hiện tại cấp PGD");
                 return "error";
             }
             posMainModel = listKTNBDA.get_pos_main_pos(userName, reportGrade);
@@ -701,8 +750,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDL = _service.getDataKTKSNB("05_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
-            //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            lstDL = _service.getDataKTKSNB("05_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), "", "");
             System.out.println("------1");
             if (lstDL.size() == 0 || lstDL == null) {
                 System.out.println("------2");
@@ -714,7 +762,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu05("05_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
+            if (!daoMain.saveKTNB_bieu05("05_PCTN", userName, pos_cd_username, quyBc, namBc,Integer.parseInt(reportGrade), lstDulieuNt)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
@@ -734,7 +782,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             }
             System.out.println("------7");
             _service = new Service_KTKSNB();
-            if (_service.saveDataKTKSNB("05_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
+            if (_service.saveDataKTKSNB("05_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
             }
@@ -754,6 +802,14 @@ public String save_data_ktnb_bieu01() throws SQLException {
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            String Grade;
+            if (reportGrade.equalsIgnoreCase("1")) {
+                Grade = "S";
+            } else if (reportGrade.equalsIgnoreCase("2")) {
+                Grade = "M";
+            } else {
+                Grade = "H";
+            }
             if (reportGrade.equals("1")) {
                 addActionMessage("Mẫu này không thực hiện tại cấp PGD");
                 return "error";
@@ -764,20 +820,19 @@ public String save_data_ktnb_bieu01() throws SQLException {
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
             _service = new Service_KTKSNB();
-            lstDL = _service.getDataKTKSNB("06_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), "", "");
-            //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            lstDL = _service.getDataKTKSNB("06_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), "", "");
             System.out.println("------1");
             if (lstDL.size() == 0 || lstDL == null) {
                 System.out.println("------2");
             } else {
                 System.out.println("------3");
-                if (lstDL.get(0).getD50().equals("4")) {
+                if (lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4")) {
                     addActionMessage("Cấp trên đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu06("06_PCTN", userName, pos_cd_username, quyBc, namBc, lstDulieuNt)) {
+            if (!daoMain.saveKTNB_bieu06("06_PCTN", userName, pos_cd_username, quyBc, namBc,Integer.parseInt(reportGrade), lstDulieuNt)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
@@ -797,7 +852,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             }
             System.out.println("------7");
             _service = new Service_KTKSNB();
-            if (_service.saveDataKTKSNB("06_PCTN", pos_cd_username, reportGrade == "1"?"S":reportGrade == "2"?"M":"H", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
+            if (_service.saveDataKTKSNB("06_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
             }
@@ -1076,6 +1131,15 @@ public String save_data_ktnb_bieu01() throws SQLException {
         try {
             SimpleDateFormat CvDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
+            reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            String Grade;
+            if (reportGrade.equalsIgnoreCase("1")) {
+                Grade = "S";
+            } else if (reportGrade.equalsIgnoreCase("2")) {
+                Grade = "M";
+            } else {
+                Grade = "H";
+            }
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(sNgaybc));
 
             int year = Integer.valueOf(_reportDate.substring(0, 4));
@@ -1099,7 +1163,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 tempadd.setName(tmp.getTEN());
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(tmp.getMAPGD());
-                tempadd.setPosFlag(tmp.getCO_TONGHOP());
+                tempadd.setPosFlag(Grade);
                 tempadd.setBranchCode(tmp.getMACN());
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(tmp.getD2());
