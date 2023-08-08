@@ -44,7 +44,7 @@ import vbsp.ims.xml.XmlBcqtSync;
  *
  * @author Haha
  */
-public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRequestAware {
+public class PCTNReportActionSupport extends ActionSupport implements ServletRequestAware {
 
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
     protected List<String> poscd = new ArrayList<String>();
@@ -86,7 +86,7 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
         this.statusAuthor = statusAuthor;
     }
 
-    Service_KTKSNB _service;
+    PCTNService _service;
 
     public List<ModelViewSend> getLstViewSend() {
         return lstViewSend;
@@ -170,13 +170,14 @@ public class Ktnb_bieu02ActionSupport extends ActionSupport implements ServletRe
 
     private HttpServletRequest request = null;
 
-    public Ktnb_bieu02ActionSupport() {
+    public PCTNReportActionSupport() {
     }
 
     public String execute() throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-public String get_data_ktnb_bieu01() {
+    
+    public String get_data_ktnb_bieu01() {
         try {
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
@@ -187,9 +188,9 @@ public String get_data_ktnb_bieu01() {
             DaoKTNBMain daoMain = new DaoKTNBMain();
 
             System.out.println("reportGrade = " + getReportDate(quyBc, namBc) + " pos_cd_username = " + pos_cd_username);
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             lstDulieuNt = _service.getDataKTKSNB("01_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
-            if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
+            if ((lstDulieuNt.isEmpty() || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu01(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             }
         } catch (Exception e) {
@@ -209,7 +210,7 @@ public String get_data_ktnb_bieu01() {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             lstDulieuNt = _service.getDataKTKSNB("02_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
@@ -248,7 +249,7 @@ public String get_data_ktnb_bieu01() {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             lstDulieuNt = _service.getDataKTKSNB("03_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
@@ -289,7 +290,7 @@ public String get_data_ktnb_bieu01() {
             DaoKTNBMain daoMain = new DaoKTNBMain();
 
             System.out.println("reportGrade = " + getReportDate(quyBc, namBc) + " pos_cd_username = " + pos_cd_username);
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             lstDulieuNt = _service.getDataKTKSNB("04_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
@@ -328,7 +329,7 @@ public String get_data_ktnb_bieu01() {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             lstDulieuNt = _service.getDataKTKSNB("05_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
@@ -373,7 +374,7 @@ public String get_data_ktnb_bieu01() {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             lstDulieuNt = _service.getDataKTKSNB("06_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu06(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
@@ -481,7 +482,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             if(_service.saveDataKTKSNB("01_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0)
             {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
@@ -511,7 +512,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             lstDL = _service.getDataKTKSNB("02_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
             //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------1");
@@ -544,7 +545,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 return "error";
             }
             System.out.println("------7");
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             if (_service.saveDataKTKSNB("02_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
@@ -574,7 +575,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             lstDL = _service.getDataKTKSNB("03_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
             //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------1");
@@ -607,7 +608,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 return "error";
             }
             System.out.println("------7");
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             if (_service.saveDataKTKSNB("03_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
@@ -637,7 +638,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             lstDL = _service.getDataKTKSNB("04_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
             //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------1");
@@ -670,7 +671,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 return "error";
             }
             System.out.println("------7");
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             if (_service.saveDataKTKSNB("04_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
@@ -700,7 +701,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             lstDL = _service.getDataKTKSNB("05_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
             //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------1");
@@ -733,7 +734,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 return "error";
             }
             System.out.println("------7");
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             if (_service.saveDataKTKSNB("05_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
@@ -763,7 +764,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             lstDL = _service.getDataKTKSNB("06_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
             //daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------1");
@@ -796,7 +797,7 @@ public String save_data_ktnb_bieu01() throws SQLException {
                 return "error";
             }
             System.out.println("------7");
-            _service = new Service_KTKSNB();
+            _service = new PCTNService();
             if (_service.saveDataKTKSNB("06_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";

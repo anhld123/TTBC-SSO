@@ -420,6 +420,8 @@ public String sendLeaveLocal() throws Exception {
             this.lstData = _leaveHomeService.getUploadExcelData(this.sUser, txtsMadv, sReportdt, txtMakh, sFromDate, sToDate, "1");
             lstCN = _leaveHomeService.getDonvi("M");
             lstPGD = _leaveHomeService.getDonvi("S");
+            posMainModel = listKTNBDA.get_pos_main_pos(sUser, sGrade);
+            pos_cd_username = posMainModel.getPosCd();
         } catch (Exception e) {
             System.err.println("Loi trong ham fetchExcelUploadData " + e.getMessage());
             CoreLogger.error(this.getClass().getName() + " fetchExcelUploadData -> " + e.getMessage());

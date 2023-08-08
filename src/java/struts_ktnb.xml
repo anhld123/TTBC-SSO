@@ -64,54 +64,54 @@
             <result name="success">/ktktnb/success.jsp</result>
             <result name="error">/ktktnb/unsuccess.jsp</result>
         </action>
-         <action name="get_data_ktnb_bieu01" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="get_data_ktnb_bieu01">
+         <action name="get_data_ktnb_bieu01" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="get_data_ktnb_bieu01">
             <result name="success">/ktktnb/ktnb_bieu01.jsp</result>
         </action>
-        <action name="save_data_ktnb_bieu01" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="save_data_ktnb_bieu01">
+        <action name="save_data_ktnb_bieu01" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="save_data_ktnb_bieu01">
             <result name="success">/ktktnb/success.jsp</result>
             <result name="error">/ktktnb/unsuccess.jsp</result>
         </action>
-         <action name="get_data_ktnb_bieu02" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="get_data_ktnb_bieu02">
+         <action name="get_data_ktnb_bieu02" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="get_data_ktnb_bieu02">
             <result name="success">/ktktnb/ktnb_bieu02.jsp</result>
         </action>
-        <action name="save_data_ktnb_bieu02" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="save_data_ktnb_bieu02">
+        <action name="save_data_ktnb_bieu02" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="save_data_ktnb_bieu02">
             <result name="success">/ktktnb/success.jsp</result>
             <result name="error">/ktktnb/unsuccess-new.jsp</result>
         </action>
         
-        <action name="get_data_ktnb_bieu03" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="get_data_ktnb_bieu03">
+        <action name="get_data_ktnb_bieu03" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="get_data_ktnb_bieu03">
             <result name="success">/ktktnb/ktnb_bieu03.jsp</result>
         </action>
-        <action name="save_data_ktnb_bieu03" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="save_data_ktnb_bieu03">
+        <action name="save_data_ktnb_bieu03" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="save_data_ktnb_bieu03">
             <result name="success">/ktktnb/success.jsp</result>
             <result name="error">/ktktnb/unsuccess-new.jsp</result>
         </action>
         
-        <action name="get_data_ktnb_bieu04" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="get_data_ktnb_bieu04">
+        <action name="get_data_ktnb_bieu04" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="get_data_ktnb_bieu04">
             <result name="success">/ktktnb/ktnb_bieu04.jsp</result>
             <result name="error">/ktktnb/unsuccess-new.jsp</result>
         </action>
-        <action name="save_data_ktnb_bieu04" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="save_data_ktnb_bieu04">
+        <action name="save_data_ktnb_bieu04" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="save_data_ktnb_bieu04">
             <result name="success">/ktktnb/success.jsp</result>
             <result name="error">/ktktnb/unsuccess-new.jsp</result>
             <!--<result name="error">/BCQT/success.jsp</result>-->       
         </action>
         
-         <action name="get_data_ktnb_bieu05" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="get_data_ktnb_bieu05">
+         <action name="get_data_ktnb_bieu05" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="get_data_ktnb_bieu05">
             <result name="success">/ktktnb/ktnb_bieu05.jsp</result>
             <result name="error">/ktktnb/unsuccess-new.jsp</result>
         </action>
-        <action name="save_data_ktnb_bieu05" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="save_data_ktnb_bieu05">
+        <action name="save_data_ktnb_bieu05" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="save_data_ktnb_bieu05">
             <result name="success">/ktktnb/success.jsp</result>
             <result name="error">/ktktnb/unsuccess-new.jsp</result>
             <!--<result name="error">/ktktnb/unsuccess.jsp</result>-->
         </action>
         
-         <action name="get_data_ktnb_bieu06" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="get_data_ktnb_bieu06">
+         <action name="get_data_ktnb_bieu06" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="get_data_ktnb_bieu06">
             <result name="success">/ktktnb/ktnb_bieu06.jsp</result>
             <result name="error">/ktktnb/unsuccess-new.jsp</result>
         </action>
-        <action name="save_data_ktnb_bieu06" class="vbsp.ims.action.ktktnb.Ktnb_bieu02ActionSupport" method="save_data_ktnb_bieu06">
+        <action name="save_data_ktnb_bieu06" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="save_data_ktnb_bieu06">
             <result name="success">/ktktnb/success.jsp</result>
             <result name="error">/ktktnb/unsuccess-new.jsp</result>
             <!--<result name="error">/ktktnb/unsuccess.jsp</result>-->
@@ -161,8 +161,7 @@
             <result name="success">/ktktnb/ktnb03Auth.jsp</result>
         </action>              
         
-        <action  name="KTNB03_viewAction" class="vbsp.ims.action.ktktnb.Ktnb03ActionSupport"
-                 method="view">
+        <action  name="KTNB03_viewAction" class="vbsp.ims.action.ktktnb.Ktnb03ActionSupport" method="view">
             <result name="success">/ktktnb/ktnb03Auth-View.jsp</result> 
             <result name="error-pos">/ktktnb/error-pos.jsp</result> 
         </action> 
@@ -522,5 +521,33 @@
         <action name="get_data_ktnb30" class="vbsp.ims.dao.ktnb.M01BDDActionSupport" method="M01_Redirec">
             <result name="success">/ktktnb/VNP01-01BDD.jsp</result>
         </action>-->
+        
+        <!--        Chức năng phê duyệt cho báo cáo Phòng chống tham nhũng PCTN-->
+    
+        <action name="get_data_ktnb_bieu01_auth" class="vbsp.ims.action.ktktnb.PCTNAuthActionSupport" method="loadAuthData">
+            <result name="success">/ktktnb/pctn-auth-main.jsp</result>
+        </action>
+        
+        <action name="get_data_ktnb_bieu02_auth" class="vbsp.ims.action.ktktnb.PCTNAuthActionSupport" method="loadAuthData">
+            <result name="success">/ktktnb/pctn-auth-main.jsp</result>
+        </action>
+        
+        <action name="get_data_ktnb_bieu03_auth" class="vbsp.ims.action.ktktnb.PCTNAuthActionSupport" method="loadAuthData">
+            <result name="success">/ktktnb/pctn-auth-main.jsp</result>
+        </action>
+        
+        <action name="get_data_ktnb_bieu04_auth" class="vbsp.ims.action.ktktnb.PCTNAuthActionSupport" method="loadAuthData">
+            <result name="success">/ktktnb/pctn-auth-main.jsp</result>
+        </action>
+        
+        
+        <action  name="PCTN_auth_view_data" class="vbsp.ims.action.ktktnb.PCTNAuthActionSupport" method="loadDetailData">
+            <result name="BC00230073">/ktktnb/ktnb_bieu01_auth.jsp</result>
+            <result name="BC00230074">/ktktnb/ktnb_bieu02.jsp</result>
+            <result name="BC00230075">/ktktnb/ktnb_bieu03.jsp</result>
+            <result name="BC00230076">/ktktnb/ktnb_bieu04.jsp</result> 
+            <result name="error">/ktktnb/error-pos.jsp</result> 
+        </action>
+        
     </package>
 </struts>

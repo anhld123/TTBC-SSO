@@ -12,6 +12,9 @@
         <action name="getLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="getLeaveLocal">
             <result name="success">/leavelocal/viewdata.jsp</result>
         </action> 
+        <action name="fetchUploadExcelLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="fetchExcelUploadData">
+            <result name="success">/leavelocal/viewdata.jsp</result>
+        </action> 
         <action name="getLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="getLeaveLocal">
             <result name="success">/leavelocal/viewdata.jsp</result>
             <result name="success_author">/leavelocal/viewdata_author.jsp</result>
