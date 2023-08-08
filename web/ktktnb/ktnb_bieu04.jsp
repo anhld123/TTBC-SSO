@@ -191,7 +191,7 @@
 
                 $(".number2").each(function (index) {
                     //Kiem tra xem co nhap kieu so khong
-                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) === 0) {
+                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) === 0 || parseFloat($(this).val()) > 0) {
                         result = false;
                         alert('Trường nhập bắt buộc khác 0')
                         return false;
