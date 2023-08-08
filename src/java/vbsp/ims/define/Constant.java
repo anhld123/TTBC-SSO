@@ -73,4 +73,13 @@ public class Constant {
         public static String _VVC_CHUYENTIEN = "VVC_CHUYENTIEN";
         public static String _VVC_CITAD = "VVC_CITAD";
     }
+    
+    public static class KTNB_STATUS {
+        public static String _SUB_POS_MAKER = "1";
+        public static String _SUB_POS_AUTH = "2";
+        public static String _MAIN_POS_MAKER = "3";
+        public static String _MAIN_POS_AUTH = "3";
+        public static String _HEAD_POS_MAKER = "4";
+        public static String _HEAD_POS_AUTH = "4";
+    }
 }
