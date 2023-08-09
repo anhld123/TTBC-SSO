@@ -556,7 +556,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             List<DuLieuNTRow> lstData = new ArrayList<>();
             System.out.println("------6");
             try {
-                lstData = mapList(lstDulieuNt, "04_PCTN", userName, getReportDate(quyBc, namBc));
+                lstData = mapList(lstDulieuNt, "01_PCTN", userName, getReportDate(quyBc, namBc));
             } catch (Exception e) {
                 addActionMessage("Map dữ liệu lỗi DuLieuNTRow <> QT_DULIEU_NT.");
                 return "error";
