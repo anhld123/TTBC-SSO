@@ -189,7 +189,7 @@
                 var result = true; //Luu ket qua kiem tra kieu so co dung khong             
                 $(".number").each(function (index) {
                     //Kiem tra xem co nhap kieu so khong
-                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) == 0 || parseFloat($(this).val()) > 0) {
+                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) == 0) {
                         result = false;
                         alert('Thứ tự lớn hơn 0 và không được để trống')
                         return false;
@@ -302,8 +302,8 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/> 
                                             <input type="hidden" value="<s:property  value="MA" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/> 
-                                            <input type="hidden" value="<s:property  value="NHAPTAY" />"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/> 
+                                            <input type="hidden" value="<s:property  value="FONTFORMAT" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].FONTFORMAT" value="<s:property  value="FONTFORMAT"/>"/> 
                                              <input type="hidden" value="<s:property  value="CO_TONGHOP" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP" value="<s:property  value="CO_TONGHOP"/>"/> 
                                       

@@ -192,7 +192,7 @@
 //                max_row = rowCount;
                 $(".number2").each(function (index) {
                     //Kiem tra xem co nhap kieu so khong
-                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) == 0 || parseFloat($(this).val()) > 0) {
+                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) == 0) {
                         result = false;
                         alert('Thứ tự lớn hơn 0 và không được để trống')
                         return false;
@@ -306,131 +306,67 @@
                                 </tr>
 
                                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
-                                    <tr height="cscontent">    
-                                        <s:if test="D9.equalsIgnoreCase('1') || D9.equalsIgnoreCase('2')">
-                                            <td>
-                                                <input type="text" value="<s:property  value="TT_HIENTHI" />" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="SOKU1 D0 number2" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;"/>
-                                                <input type="hidden" value="<s:property  value="THUTU" />"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>  
-                                                <input type="hidden" value="<s:property  value="NHAPTAY" />"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/> 
-                                                <input type="hidden" value="<s:property  value="D30" />"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" value="<s:property  value="D30"/>"/> 
-                                                <input type="hidden" value="<s:property  value="D9" />"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/> 
+                                    <tr height="cscontent"> 
+                                        <td>
+                                            <input type="text" value="<s:property  value="TT_HIENTHI" />" 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="SOKU1 D0 number2" onfocus="this.select()"
+                                                   onblur="if (this.value == '')
+                                                               ;"/>
+                                            <input type="hidden" value="<s:property  value="THUTU" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/> 
+                                            <input type="hidden" value="<s:property  value="MA" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/> 
+                                            <input type="hidden" value="<s:property  value="FONTFORMAT" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].FONTFORMAT" value="<s:property  value="FONTFORMAT"/>"/> 
+                                            <input type="hidden" value="<s:property  value="CO_TONGHOP" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP" value="<s:property  value="CO_TONGHOP"/>"/> 
 
-                                            </td>
-                                            <td>
-                                                <input type="text" value="<s:property  value="D1" />" readonly="true"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="SOKU" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;"/>
-                                            </td>                                  
-                                            <td>
-                                                <input type="text" value="<s:property  value="D2" />" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="SOKU" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;"/>
-                                            </td>                                  
-                                            <td>
-                                                <input type="text" value="<s:property  value="D3" />" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="SOKU" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;"/>
-                                            </td>                                                                                                
+                                        </td>
+                                        <td>
+                                            <input type="text" value="<s:property  value="D1" />" readonly="true"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="SOKU" onfocus="this.select()"
+                                                   onblur="if (this.value == '')
+                                                               ;"/>
+                                        </td>                                  
+                                        <td>
+                                            <input type="text" value="<s:property  value="D2" />" 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="SOKU" onfocus="this.select()"
+                                                   onblur="if (this.value == '')
+                                                               ;"/>
+                                        </td>                                  
+                                        <td>
+                                            <input type="text" value="<s:property  value="D3" />" 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="SOKU" onfocus="this.select()"
+                                                   onblur="if (this.value == '')
+                                                               ;"/>
+                                        </td>                                                                                                
 
-                                            <td>
-                                                <input type="text" value="<s:property  value="D4" />" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="SOKU" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;"/>
-                                            </td>
-                                            <td>
-                                                <input type="text" value="<s:property  value="D5" />" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="SOKU" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;"/>
-                                            </td>
-                                            <td>
-                                                <input type="text" value="<s:property  value="D6" />" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="SOKU" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;"/>
-                                            </td>
-                                            <td>
-                                                <input type="text" value="<s:property  value="D10" />" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;"
-                                                       />
-                                            </td>  
-                                            <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="SOKU"/></td>
-                                            </s:if> 
-                                            <s:if test="D9.equalsIgnoreCase('3') || D9.equalsIgnoreCase('4')">
-                                            <td>
-                                                <input type="text" value="<s:property  value="TT_HIENTHI" />" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="SOKU1 D0 number2" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;" readonly="true" style="background: #E7DCDA !important;"/>
-                                                <input type="hidden" value="<s:property  value="THUTU" />"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>  
-                                                <input type="hidden" value="<s:property  value="NHAPTAY" />"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/> 
-                                                <input type="hidden" value="<s:property  value="D30" />"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" value="<s:property  value="D30"/>"/> 
-                                                <input type="hidden" value="<s:property  value="D9" />"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/> 
-                                            </td>
-                                            <td>
-                                                <input type="text" value="<s:property  value="D1" />" readonly="true"  style="background: #E7DCDA !important;"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="SOKU" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;"/>
-                                            </td>                                  
-                                            <td>
-                                                <input type="text" value="<s:property  value="D2" />"  readonly="true"  style="background: #E7DCDA !important;"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="SOKU" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;"/>
-                                            </td>                                  
-                                            <td>
-                                                <input type="text" value="<s:property  value="D3" />"  readonly="true"  style="background: #E7DCDA !important;"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="SOKU" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;"/>
-                                            </td>                                                                                                
-
-                                            <td>
-                                                <input type="text" value="<s:property  value="D4" />"  readonly="true"  style="background: #E7DCDA !important;"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="SOKU" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;"/>
-                                            </td>
-                                            <td>
-                                                <input type="text" value="<s:property  value="D5" />"  readonly="true"  style="background: #E7DCDA !important;"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="SOKU" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;"/>
-                                            </td>
-                                            <td>
-                                                <input type="text" value="<s:property  value="D6" />"  readonly="true"  style="background: #E7DCDA !important;"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="SOKU" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;"/>
-                                            </td>
-                                            <td>
-                                                <input type="text" value="<s:property  value="D10" />" placeholder="Đã gửi"  style="background: #E7DCDA !important;"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;"
-                                                       />
-                                            </td> 
-                                            <td  style="background: #E7DCDA !important;"></td>
-                                        </s:if>
-
+                                        <td>
+                                            <input type="text" value="<s:property  value="D4" />" 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="SOKU" onfocus="this.select()"
+                                                   onblur="if (this.value == '')
+                                                               ;"/>
+                                        </td>
+                                        <td>
+                                            <input type="text" value="<s:property  value="D5" />" 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="SOKU" onfocus="this.select()"
+                                                   onblur="if (this.value == '')
+                                                               ;"/>
+                                        </td>
+                                        <td>
+                                            <input type="text" value="<s:property  value="D6" />" 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="SOKU" onfocus="this.select()"
+                                                   onblur="if (this.value == '')
+                                                               ;"/>
+                                        </td>
+                                        <td>
+                                            <input type="text" value="<s:property  value="D10" />" 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
+                                                   onblur="if (this.value == '')
+                                                               ;"
+                                                   />
+                                        </td>  
+                                        <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="SOKU"/></td>                                  
                                     </tr>
 
                                 </s:iterator>

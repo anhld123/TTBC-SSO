@@ -1400,8 +1400,8 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posCode", posCode)
                 .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
-//                .queryParam("condition", condition)
-//                .queryParam("defaultListFlag", defaultListFlag)
+                .queryParam("condition", condition)
+                .queryParam("defaultListFlag", defaultListFlag)
                 ;
 
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);

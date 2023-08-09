@@ -297,7 +297,9 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/>
                                             <input type="hidden" value="<s:property  value="D9" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/>
-
+                                             <input type="hidden" value="<s:property  value="CO_TONGHOP" />"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP" value="<s:property  value="CO_TONGHOP"/>"/> 
+                                               
                                         </td>
                                         <s:if test="D9.equalsIgnoreCase('Y')">
                                             <td>
