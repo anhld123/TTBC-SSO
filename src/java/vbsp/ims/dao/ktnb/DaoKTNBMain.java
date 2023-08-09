@@ -1478,7 +1478,7 @@ public class DaoKTNBMain {
         return lstBcqt_NT;
     }
 
-    public boolean saveKTNB_bieu01(String khoa, String username, String mapgd, String sQuy, String sNam, List<QT_DULIEU_NT> lstData) throws SQLException {
+    public boolean saveKTNB_bieu01(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -1493,7 +1493,8 @@ public class DaoKTNBMain {
             cs.setString(3, mapgd);
             cs.setString(4, sQuy);
             cs.setString(5, sNam);
-            cs.setArray(6, array_to_pass);
+            cs.setInt(6, sGrade);
+            cs.setArray(7, array_to_pass);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();

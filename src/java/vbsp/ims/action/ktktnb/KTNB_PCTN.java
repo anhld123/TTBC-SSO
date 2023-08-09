@@ -490,7 +490,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            if (!daoMain.saveKTNB_bieu01("01_PCTN", userName, "", quyBc, namBc, lstDulieuNt)) {
+            if (!daoMain.saveKTNB_bieu01("01_PCTN", userName, "", quyBc, namBc, Integer.parseInt(reportGrade), lstDulieuNt)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
