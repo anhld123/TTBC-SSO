@@ -188,6 +188,17 @@
 
             function validateRequiredFields() {
                 var result = true; //Luu ket qua kiem tra kieu so co dung khong             
+//                var table = document.getElementById("tableKtnb");
+//                var rowCount = table.rows.length - 5;
+//                max_row = rowCount;
+                $(".number2").each(function (index) {
+                    //Kiem tra xem co nhap kieu so khong
+                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) == 0) {
+                        result = false;
+                        alert('Thứ tự lớn hơn 0 và không được để trống')
+                        return false;
+                    }
+                });
 
                 if (result == false) {
                     //Neu nguoi dung khong nhap dung kieu du lieu
@@ -218,15 +229,16 @@
                     rowCount = max_row;
                 }
                 var newTr = '<tr>\n\
-                                <td ><input type="text" value="" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="D0 number" onfocus="this.select();" /></td>\n\
+                                <td ><input type="text" value="" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="D0 number2" onfocus="this.select();" /></td>\n\
                                 <td ><input type="text" value="" id="D1" name="lstDulieuNt[' + rowCount + '].D1" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" id="D2" name="lstDulieuNt[' + rowCount + '].D2" class="SOKU" onfocus="this.select();"/></td>\n\
-                                <td ><input type="text" value="" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="SOKU" onfocus="this.select();"/></td>\n\
+                                <td ><input type="date" value="" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" id="D4" name="lstDulieuNt[' + rowCount + '].D4" class="SOKU" onfocus="this.select();"/></td>\n\
 \n\                           <td ><input type="text" value="" id="D10" name="lstDulieuNt[' + rowCount + '].D10" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 SOKU"/></td>\n\
                                 </tr>';
                 $($('table#tableKtnb tr')[index]).before(newTr);
+                $('.number2').number(true, 0);
             }
         </script>
 
@@ -283,10 +295,18 @@
                                     <tr height="cscontent">    
 
                                         <td>
+                                            <s:if test="D9.equalsIgnoreCase('Y')">
                                             <input type="text" value="<s:property  value="TT_HIENTHI" />" 
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TD_MAPGD" onfocus="this.select()"
                                                    onblur="if (this.value == '')
                                                                ;" readonly="true" style="background: #E7DCDA !important;"/>
+                                                    </s:if>
+                                            <s:if test="!D9.equalsIgnoreCase('Y')">
+                                            <input type="text" value="<s:property  value="TT_HIENTHI" />" 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TD_MAPGD" onfocus="this.select()"
+                                                   onblur="if (this.value == '')
+                                                               ;"/>
+                                                    </s:if>
                                             <input type="hidden" value="<s:property  value="THUTU" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>  
                                             <input type="hidden" value="<s:property  value="NHAPTAY" />"
