@@ -373,7 +373,7 @@
                                         </s:if>
                                         <s:if test="D8.equalsIgnoreCase('N') && D9.equalsIgnoreCase('Y')">     
                                             <td>
-                                                <input type="text" value="<s:property  value="D10" />" placeholder="Không nhập/mặc định là số 0" readonly="true"
+                                                <input type="text" value="<s:property  value="D10" />" placeholder="Không nhập" readonly="true"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
                                                        onblur="if (this.value == '')
                                                                    ;"/>

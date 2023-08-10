@@ -1487,7 +1487,7 @@ public class DaoKTNBMain {
         ARRAY array_to_pass = new ARRAY(des, connection, array);
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU01(?, ?, ?, ?,?, ?)}");
+            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU01(?, ?, ?, ?, ?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
