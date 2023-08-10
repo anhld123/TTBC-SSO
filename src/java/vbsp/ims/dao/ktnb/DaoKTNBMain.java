@@ -1048,7 +1048,7 @@ public class DaoKTNBMain {
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
                     
-                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
                     value.setTT_HIENTHI(reset.getString(3));
@@ -1058,7 +1058,6 @@ public class DaoKTNBMain {
                     value.setNAMBC(reset.getInt(7));
                     value.setMAPGD(reset.getString(8));
                     value.setMACN(reset.getString(10));
-//                    value.setD1(reset.getString(14));
                     value.setCO_TONGHOP(reset.getString(33));
                     value.setD1(reset.getString(15));
                     value.setD2(reset.getString(16));
@@ -1078,8 +1077,10 @@ public class DaoKTNBMain {
                     value.setD16(reset.getString(30));
                     value.setD17(reset.getString(31));
                     value.setD18(reset.getString(32));
-                    value.setNHAPTAY(reset.getString(45));
-                    value.setFONTFORMAT(reset.getString(46));
+                    value.setD50(reset.getString(64));
+                    value.setNHAPTAY(reset.getString(65));
+                    value.setFONTFORMAT(reset.getString(66));
+                    value.setKIEUIN(reset.getInt(67));
                     
                     lstBcqt_NT.add(value);
                 }
@@ -1140,7 +1141,7 @@ public class DaoKTNBMain {
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
                     
-                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
                     value.setTT_HIENTHI(reset.getString(3));
@@ -1151,7 +1152,6 @@ public class DaoKTNBMain {
                     value.setMAPGD(reset.getString(8));
                     value.setMACN(reset.getString(10));
                     value.setCO_TONGHOP(reset.getString(33));
-//                    value.setD1(reset.getString(14));
                     value.setD1(reset.getString(15));
                     value.setD2(reset.getString(16));
                     value.setD3(reset.getString(17));
@@ -1170,8 +1170,10 @@ public class DaoKTNBMain {
                     value.setD16(reset.getString(30));
                     value.setD17(reset.getString(31));
                     value.setD18(reset.getString(32));
-                    value.setNHAPTAY(reset.getString(45));
-                    value.setFONTFORMAT(reset.getString(46));
+                    value.setD50(reset.getString(64));
+                    value.setNHAPTAY(reset.getString(65));
+                    value.setFONTFORMAT(reset.getString(66));
+                    value.setKIEUIN(reset.getInt(67));
                     
                     lstBcqt_NT.add(value);
                 }
@@ -1326,7 +1328,7 @@ public class DaoKTNBMain {
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
                     
-                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
                     value.setTT_HIENTHI(reset.getString(3));
@@ -1337,7 +1339,6 @@ public class DaoKTNBMain {
                     value.setMAPGD(reset.getString(8));
                     value.setMACN(reset.getString(10));
                     value.setCO_TONGHOP(reset.getString(33));
-//                    value.setD1(reset.getString(14));
                     value.setD1(reset.getString(15));
                     value.setD2(reset.getString(16));
                     value.setD3(reset.getString(17));
@@ -1356,8 +1357,10 @@ public class DaoKTNBMain {
                     value.setD16(reset.getString(30));
                     value.setD17(reset.getString(31));
                     value.setD18(reset.getString(32));
-                    value.setNHAPTAY(reset.getString(45));
-                    value.setFONTFORMAT(reset.getString(46));
+                    value.setD50(reset.getString(64));
+                    value.setNHAPTAY(reset.getString(65));
+                    value.setFONTFORMAT(reset.getString(66));
+                    value.setKIEUIN(reset.getInt(67));
                     
                     lstBcqt_NT.add(value);
                 }
@@ -1418,7 +1421,7 @@ public class DaoKTNBMain {
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
                     
-                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
                     value.setTT_HIENTHI(reset.getString(3));
@@ -1429,7 +1432,6 @@ public class DaoKTNBMain {
                     value.setMAPGD(reset.getString(8));
                     value.setMACN(reset.getString(10));
                     value.setCO_TONGHOP(reset.getString(33));
-//                    value.setD1(reset.getString(14));
                     value.setD1(reset.getString(15));
                     value.setD2(reset.getString(16));
                     value.setD3(reset.getString(17));
@@ -1451,6 +1453,7 @@ public class DaoKTNBMain {
                     value.setD50(reset.getString(64));
                     value.setNHAPTAY(reset.getString(65));
                     value.setFONTFORMAT(reset.getString(66));
+                    value.setKIEUIN(reset.getInt(67));
                     
                     lstBcqt_NT.add(value);
                 }
@@ -1475,7 +1478,7 @@ public class DaoKTNBMain {
         return lstBcqt_NT;
     }
 
-    public boolean saveKTNB_bieu01(String khoa, String username, String mapgd, String sQuy, String sNam, List<QT_DULIEU_NT> lstData) throws SQLException {
+    public boolean saveKTNB_bieu01(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -1490,7 +1493,8 @@ public class DaoKTNBMain {
             cs.setString(3, mapgd);
             cs.setString(4, sQuy);
             cs.setString(5, sNam);
-            cs.setArray(6, array_to_pass);
+            cs.setInt(6, sGrade);
+            cs.setArray(7, array_to_pass);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1745,6 +1749,7 @@ public class DaoKTNBMain {
                     value.setD18(reset.getString(32));
                     value.setNHAPTAY(reset.getString(45));
                     value.setFONTFORMAT(reset.getString(46));
+                    value.setKIEUIN(reset.getInt(67));
                     
                     lstBcqt_NT.add(value);
                 }

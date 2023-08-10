@@ -191,7 +191,7 @@
 
                 $(".number2").each(function (index) {
                     //Kiem tra xem co nhap kieu so khong
-                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) === 0 || parseFloat($(this).val()) > 0) {
+                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) === 0) {
                         result = false;
                         alert('Trường nhập bắt buộc khác 0')
                         return false;
@@ -270,9 +270,13 @@
                                                        onblur="if (this.value == '')
                                                                    ;" readonly="true" style="background: #E7DCDA !important; font-weight: bold; "/>
                                                 <input type="hidden" value="<s:property  value="THUTU" />"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>  
-                                                <input type="hidden" value="<s:property  value="NHAPTAY" />"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/>
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/> 
+                                                <input type="hidden" value="<s:property  value="MA" />"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/> 
+                                                <input type="hidden" value="<s:property  value="FONTFORMAT" />"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].FONTFORMAT" value="<s:property  value="FONTFORMAT"/>"/> 
+                                                <input type="hidden" value="<s:property  value="CO_TONGHOP" />"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP" value="<s:property  value="CO_TONGHOP"/>"/> 
                                                 <input type="hidden" value="<s:property  value="D7" />"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" value="<s:property  value="D7"/>"/>  
                                                 <input type="hidden" value="<s:property  value="D8" />"
@@ -327,6 +331,8 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/>
                                             <input type="hidden" value="<s:property  value="TEN" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" value="<s:property  value="TEN"/>"/>
+                                            <input type="hidden" value="<s:property  value="CO_TONGHOP" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP" value="<s:property  value="CO_TONGHOP"/>"/> 
 
                                         </td>
                                         <td>
@@ -349,20 +355,24 @@
                                             </td>
                                         </s:if>
                                         <s:if test="D8.equalsIgnoreCase('N') && D9.equalsIgnoreCase('N')"> 
-                                           
+
                                             <s:if test="THUTU.toString().equalsIgnoreCase('54') ||THUTU.toString().equalsIgnoreCase('53')"> 
                                                 <td>
                                                     <input type="text" value="<s:property  value="D5" />"  
-                                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5"
+                                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5"
                                                            class="D0 SOKU number amount" onfocus="this.select()"
-                                                           onblur="if(this.value == '') { this.value=0}; findTotal(this)"/>
+                                                           onblur="if (this.value == '') {
+                                                                       this.value = 0
+                                                                   }
+                                                                   ;
+                                                                   findTotal(this)"/>
                                                 </td>
                                             </s:if>
                                             <s:if test="THUTU.toString().equalsIgnoreCase('52')"> 
                                                 <td>
                                                     <input type="text" value="<s:property  value="D5" />" id="totalordercost"
                                                            style="background: #E7DCDA !important;" readonly="true"
-                                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5"
+                                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5"
                                                            class="D0 SOKU number " onfocus="this.select()"
                                                            onblur="if (this.value == '')
                                                                        ;"/>

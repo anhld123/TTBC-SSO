@@ -81,36 +81,36 @@
             #posCD, #quyBc, #namBc, #maCn, #userId{
                 width: 70px;
             }
+
+            /*            input[type="date"]::-webkit-datetime-edit, input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-clear-button {
+                            color: #fff;
+                            position: relative;
+                          }
             
-/*            input[type="date"]::-webkit-datetime-edit, input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-clear-button {
-                color: #fff;
-                position: relative;
-              }
-
-              input[type="date"]::-webkit-datetime-edit-year-field{
-                position: absolute !important;
-                border-left:1px solid #8c8c8c;
-                padding: 2px;
-                color:#000;
-                left: 56px;
-              }
-
-              input[type="date"]::-webkit-datetime-edit-month-field{
-                position: absolute !important;
-                border-left:1px solid #8c8c8c;
-                padding: 2px;
-                color:#000;
-                left: 26px;
-              }
-
-
-              input[type="date"]::-webkit-datetime-edit-day-field{
-                position: absolute !important;
-                color:#000;
-                padding: 2px;
-                left: 4px;
-
-              }*/
+                          input[type="date"]::-webkit-datetime-edit-year-field{
+                            position: absolute !important;
+                            border-left:1px solid #8c8c8c;
+                            padding: 2px;
+                            color:#000;
+                            left: 56px;
+                          }
+            
+                          input[type="date"]::-webkit-datetime-edit-month-field{
+                            position: absolute !important;
+                            border-left:1px solid #8c8c8c;
+                            padding: 2px;
+                            color:#000;
+                            left: 26px;
+                          }
+            
+            
+                          input[type="date"]::-webkit-datetime-edit-day-field{
+                            position: absolute !important;
+                            color:#000;
+                            padding: 2px;
+                            left: 4px;
+            
+                          }*/
 
         </style>
 
@@ -323,6 +323,9 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>  
                                             <input type="hidden" value="<s:property  value="NHAPTAY" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/> 
+                                            <input type="hidden" value="<s:property  value="CO_TONGHOP" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP" value="<s:property  value="CO_TONGHOP"/>"/> 
+
                                         </td>
                                         <td>
                                             <input type="text"   value="<s:property  value="D1" />"  style="background: #E7DCDA !important;"

@@ -64,7 +64,7 @@ public class CDTT_CN08TH extends ActionChamdiemcnMain implements CdttFunction {
                 if (conn != null) {
                     conn.close();
                 }
-                if (nhomnv.equals("PGD_TD_PGD11") || nhomnv.equals("PGD_TD_PGD12") || nhomnv.equals("CN_PGD"))
+                if (nhomnv.equals("PGD_TD_PGD11") || nhomnv.equals("PGD_TD_PGD12") || nhomnv.equals("CN_PGD") || nhomnv.equals("GD_CN_27"))
                 {
                     setLstXeploaiABC(daoMain.getLOV(UserName,"XEPLOAI_ABC",Grade,""));
                     setLstXeploai(daoMain.getLOV(UserName,"XEPLOAI",Grade,""));
@@ -82,7 +82,7 @@ public class CDTT_CN08TH extends ActionChamdiemcnMain implements CdttFunction {
                 }
                 setNhomnv_duyet(daoMain.getNhomNVByUser_Duyet(UserName, Grade,hmParameter.get("tt_cdtt").toString()));
                 System.out.println("Nhom nghiep vu = " + nhomnv_duyet);
-                if (nhomnv_duyet.equals("PGD_TD_PGD11") || nhomnv_duyet.equals("PGD_TD_PGD12"))
+                if (nhomnv_duyet.equals("PGD_TD_PGD11") || nhomnv_duyet.equals("PGD_TD_PGD12") || nhomnv.equals("GD_CN_27") || nhomnv.equals("CN_PGD") )
                 {
                     setLstXeploaiABC(daoMain.getLOV(UserName,"XEPLOAI_ABC",Grade,""));
                     setLstXeploai(daoMain.getLOV(UserName,"XEPLOAI",Grade,""));
