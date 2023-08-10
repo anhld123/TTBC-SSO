@@ -122,15 +122,15 @@
 
     <SCRIPT language="javascript">
         $(document).ready(function () {
-            $("#ideditDelFormula").click(function () {
+            $("#btnViewDetail").click(function () {
                 $('#resultDiv').text('');
-                document.getElementById("ideditDelFormulaSend").disabled = false;
+                document.getElementById("btnSaveData").disabled = false;
 //                alert('view');
             });
 
-            $("#ideditDelFormulaSend").click(function () {
+            $("#btnSaveData").click(function () {
 //                $('#resultDiv').text('');
-                document.getElementById("ideditDelFormulaSend").disabled = true;
+                document.getElementById("btnSaveData").disabled = true;
 //                alert('send');
                 return true;
             });
@@ -154,9 +154,9 @@
 
 
         function clk_glkhtd() {
-            $("#ideditDelFormulaSend").click(function () {
-                sleep(1000);
-            });
+//            $("#btnSaveData").click(function () {
+//                sleep(1000);
+//            });
             var lstPos = "";
             $('#treeView').jstree("get_checked", null, true).each(
                     function () {
@@ -247,21 +247,27 @@
                     <td align="right">  
 
                         <s:url id="viewUrl" action="PCTN_auth_view_data.action" />
-                        <sj:submit id="btnViewDetail" targets="contentDiv"                                 
+                        <sj:submit id="btnViewDetail" 
+                                   targets="contentDiv"                                 
                                    onclick="clk_glkhtd();"
                                    button="true"
                                    onBeforeTopics="before-next"
                                    onCompleteTopics="after-next"
-                                   href="%{viewUrl}" indicator="loadingImage" 
+                                   href="%{viewUrl}" 
+                                   indicator="loadingImage" 
                                    cssClass="metroButtonStyle" value="Xem"></sj:submit>
 
                         </td>
                         <td  align="right">     
-                        <s:url id="viewUrlSend" action="KTNB03_viewActionAuth" />
-                        <sj:submit id="ideditDelFormulaSend" 
-                                   targets="resultDiv"  
+                        <s:url id="saveUrl" action="PCTN_auth_save_data.action" />
+                        <sj:submit id="btnSaveData"          
+                                   targets="contentDiv"  
                                    onclick="clk_glkhtd();"
-                                   href="%{viewUrlSend}" indicator="loadingImage" 
+                                   button="true"
+                                   href="%{saveUrl}" 
+                                   onBeforeTopics="before-next"
+                                   onCompleteTopics="after-next"
+                                   indicator="loadingImage" 
                                    cssClass="metroButtonStyle" value="Duyệt, gửi BC"></sj:submit>                 
                         </td>
 
