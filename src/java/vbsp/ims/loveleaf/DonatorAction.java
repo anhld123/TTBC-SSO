@@ -33,6 +33,7 @@ public class DonatorAction extends ActionSupport
             = new ArrayList<>();
 
     private String tran_dt;
+    private String from_dt;
     private String username;
     private String permit;
     private String gendata_FLG;
@@ -50,18 +51,19 @@ public class DonatorAction extends ActionSupport
 
     @Override
     public String execute() {        
-        username = request.getSession().getAttribute(
-                "username").toString();
+        username = request.getSession().getAttribute("username").toString();
         permit = getParameterValue("permit");
         LoveLeafDao loveleafDao = new LoveLeafDao();
         System.err.println("DonatorAction~" + period + gendata_FLG+tran_dt);        
-        if (gendata_FLG== null || gendata_FLG.isEmpty())
+        if (gendata_FLG== null || gendata_FLG.isEmpty()){
             gendata_FLG = "N";
+        }
         if (tran_dt != null && !tran_dt.isEmpty()) {            
             donateTransaction = loveleafDao.list_donate_trans(
                     program,
                     DefineFun.convert2OracleDateFormat(tran_dt),
                     period,
+                    DefineFun.convert2OracleDateFormat(from_dt),
                     gendata_FLG
             );
         }
@@ -79,7 +81,7 @@ public class DonatorAction extends ActionSupport
     public String buildProgramCombo() {
         //EOMTaskHelpDao eomTaskDao = new EOMTaskHelpDao();
         //periods = eomTaskDao.list_all_period("LOVELEAF");
-        programs = new ArrayList<ListValue> ();
+        programs = new ArrayList<> ();
         programs.add(new ListValue(Define.LOVE_LEAF_PROGRAM, "Cặp lá yêu thương"));
         programs.add(new ListValue(Define.VVC_PROGRAM, "Nối vòng tay thương"));
         return SUCCESS;
@@ -186,6 +188,14 @@ public class DonatorAction extends ActionSupport
 
     public void setPrograms(List<ListValue> programs) {
         this.programs = programs;
+    }
+
+    public String getFrom_dt() {
+        return from_dt;
+    }
+
+    public void setFrom_dt(String from_dt) {
+        this.from_dt = from_dt;
     }
 
     

@@ -37,10 +37,11 @@ public class LoveLeafDao {
             String program,
             String pv_tran_dt,
             String period,
+            String pv_from_dt,
             String gendata_FLG) {
         ArrayList<DonateTransaction> donateTrans = new ArrayList<>();
         String strStoreproce
-                = "{call app_loveleaf_proj.get_donator_transaction(?, ?, ? , ? , ? , ? , ?)}";
+                = "{call app_loveleaf_proj.get_donator_transaction(?, ?, ?, ? , ? , ? , ? , ?)}";
         try {
 //            if (conn == null) {
             daoConnect = new DaoConnect();
@@ -52,12 +53,13 @@ public class LoveLeafDao {
                 calstatement.setString(1, program);
                 calstatement.setString(2, pv_tran_dt);
                 calstatement.setString(3, period);
-                calstatement.setString(4, gendata_FLG);
-                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
-                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.VARCHAR);
-                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(4, pv_from_dt);
+                calstatement.setString(5, gendata_FLG);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(8, oracle.jdbc.OracleTypes.CURSOR);
                 calstatement.execute();
-                rs = (ResultSet) calstatement.getObject(7);
+                rs = (ResultSet) calstatement.getObject(8);
                 String lv_ref_no;
                 String lv_donator_id;
                 String lv_donate_dt;
