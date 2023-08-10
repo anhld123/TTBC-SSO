@@ -72,10 +72,10 @@
             width: 95%;
         }
 
-        input[type="text"]
+/*        input[type="text"]
         {
             width: 95%;
-        }
+        }*/
 
         input[type="button"]
         {
@@ -238,6 +238,7 @@
                         <b>Chi nhánh: </b><input type="text" name="maCn" id="maCn" value="<s:property value="maCn"/>" readonly="readonly"/>
                         <b>Quý báo cáo: </b><input type="text" name="quyBc" id="quyBc" value="<s:property value="quyBc"/>" readonly="readonly"/>
                         <b>Năm báo cáo: </b><input type="text" name="namBc" id="namBc" value="<s:property value="namBc"/>" readonly="readonly"/>
+                        <b>Ngày báo cáo: </b><input type="text" width="200px;" name="ngayBC" id="ngayBC" value="<s:property value="ngayBC"/>" readonly="readonly"/>
                         <b>Người dùng: </b><input type="text" name="userId" id="userId" value="<s:property value="userId"/>" readonly="readonly"/>
                     </td>
                     <td width = "15%">

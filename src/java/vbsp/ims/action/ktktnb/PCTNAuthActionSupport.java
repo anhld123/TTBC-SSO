@@ -57,6 +57,7 @@ public class PCTNAuthActionSupport extends ActionSupport implements ServletReque
 
     private String maBC;
     private ListKTNB reportInfor;
+    
 
     public TreeNode getSearchNodes() {
         return searchNodes;
@@ -90,6 +91,7 @@ public class PCTNAuthActionSupport extends ActionSupport implements ServletReque
     private String namBc;
     private String maCn;
     private String message;
+    private String ngayBC;
 
     private HttpServletRequest request = null;
 
@@ -115,7 +117,7 @@ public class PCTNAuthActionSupport extends ActionSupport implements ServletReque
             posMainModel = listKTNBDA.get_pos_main_pos(userName);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
-            String _reportDate = getReportDate(quyBc, namBc);
+            String _reportDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));//getReportDate(quyBc, namBc);
 
             List<String> lstPosCode = new ArrayList();
             PCTNService _service = new PCTNService();
@@ -311,6 +313,17 @@ public class PCTNAuthActionSupport extends ActionSupport implements ServletReque
 
     //<editor-fold defaultstate="collapsed" desc="Getter Setter">
 
+    public String getNgayBC() {
+        return ngayBC;
+    }
+
+    public void setNgayBC(String ngayBC) {
+        this.ngayBC = ngayBC;
+    }
+
+    
+    
+    
     public String getErrorMessage() {
         return errorMessage;
     }
