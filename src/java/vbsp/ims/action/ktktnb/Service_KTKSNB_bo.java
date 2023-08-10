@@ -23,7 +23,7 @@ import vbsp.ims.util.DateUtil;
  *
  * @author HP
  */
-public class Service_KTKSNB {
+public class Service_KTKSNB_bo {
 
     DuLieuNTService _service = new DuLieuNTService();
 

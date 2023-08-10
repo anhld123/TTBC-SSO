@@ -44,7 +44,7 @@ import vbsp.ims.xml.XmlBcqtSync;
  *
  * @author Haha
  */
-public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
+public class KTNB_PCTN_bo extends ActionSupport implements ServletRequestAware {
 
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
     protected List<String> poscd = new ArrayList<String>();
@@ -86,7 +86,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
         this.statusAuthor = statusAuthor;
     }
 
-    Service_KTKSNB _service;
+    Service_KTKSNB_bo _service;
 
     public List<ModelViewSend> getLstViewSend() {
         return lstViewSend;
@@ -170,7 +170,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
 
     private HttpServletRequest request = null;
 
-    public KTNB_PCTN() {
+    public KTNB_PCTN_bo() {
     }
 
     public String execute() throws Exception {
@@ -188,7 +188,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             DaoKTNBMain daoMain = new DaoKTNBMain();
 
             System.out.println("reportGrade = " + getReportDate(quyBc, namBc) + " pos_cd_username = " + pos_cd_username);
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             lstDulieuNt = _service.getDataKTKSNB("01_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu01(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
@@ -220,7 +220,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             lstDulieuNt = _service.getDataKTKSNB("02_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
@@ -260,7 +260,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             lstDulieuNt = _service.getDataKTKSNB("03_PCTN", pos_cd_username, reportGrade == "1" ? "S" : reportGrade == "2" ? "M" : "H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
@@ -303,7 +303,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             DaoKTNBMain daoMain = new DaoKTNBMain();
 
             System.out.println("reportGrade = " + getReportDate(quyBc, namBc) + " pos_cd_username = " + pos_cd_username);
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             lstDulieuNt = _service.getDataKTKSNB("04_PCTN", pos_cd_username, reportGrade == "1" ? "S" : reportGrade == "2" ? "M" : "H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
@@ -344,7 +344,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             lstDulieuNt = _service.getDataKTKSNB("05_PCTN", pos_cd_username, reportGrade == "1" ? "S" : reportGrade == "2" ? "M" : "H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
@@ -391,7 +391,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             lstDulieuNt = _service.getDataKTKSNB("06_PCTN", pos_cd_username, reportGrade == "1" ? "S" : reportGrade == "2" ? "M" : "H", getReportDate(quyBc, namBc), "", "");
             if ((lstDulieuNt.size() == 0 || lstDulieuNt == null)) {
                 lstDulieuNt = daoMain.getDataKtnb_bieu06(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
@@ -490,10 +490,10 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            if (!daoMain.saveKTNB_bieu01("01_PCTN", userName, "", quyBc, namBc, Integer.parseInt(reportGrade), lstDulieuNt)) {
-                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
-                return "error";
-            }
+//            if (!daoMain.saveKTNB_bieu01("01_PCTN", userName, "", quyBc, namBc, Integer.parseInt(reportGrade), lstDulieuNt)) {
+//                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
+//                return "error";
+//            }
             lstDulieuNt = daoMain.getDataKtnb_bieu01(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             List<DuLieuNTRow> lstData = new ArrayList<>();
             lstData = mapList(lstDulieuNt, "01_PCTN", userName, getReportDate(quyBc, namBc));
@@ -501,7 +501,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             if (_service.saveDataKTKSNB("01_PCTN", pos_cd_username, "S", getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
@@ -539,7 +539,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             lstDL = _service.getDataKTKSNB("02_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), "", "");
             System.out.println("------1");
             if (lstDL.size() == 0 || lstDL == null) {
@@ -552,10 +552,10 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu02("02_PCTN", userName, pos_cd_username, quyBc, namBc,Integer.parseInt(reportGrade), lstDulieuNt)) {
-                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
-                return "error";
-            }
+//            if (!daoMain.saveKTNB_bieu02("02_PCTN", userName, pos_cd_username, quyBc, namBc,Integer.parseInt(reportGrade), lstDulieuNt)) {
+//                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
+//                return "error";
+//            }
             lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------5");
             if (lstDulieuNt.size() == 0 || lstDulieuNt == null) {
@@ -571,7 +571,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 return "error";
             }
             System.out.println("------7");
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             if (_service.saveDataKTKSNB("02_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
@@ -609,7 +609,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             lstDL = _service.getDataKTKSNB("03_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), "", "");
             System.out.println("------1");
             if (lstDL.size() == 0 || lstDL == null) {
@@ -622,10 +622,10 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu03("03_PCTN", userName, pos_cd_username, quyBc, namBc,Integer.parseInt(reportGrade), lstDulieuNt)) {
-                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
-                return "error";
-            }
+//            if (!daoMain.saveKTNB_bieu03("03_PCTN", userName, pos_cd_username, quyBc, namBc,Integer.parseInt(reportGrade), lstDulieuNt)) {
+//                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
+//                return "error";
+//            }
             lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------5");
             if (lstDulieuNt.size() == 0 || lstDulieuNt == null) {
@@ -641,7 +641,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 return "error";
             }
             System.out.println("------7");
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             if (_service.saveDataKTKSNB("03_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
@@ -679,7 +679,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             lstDL = _service.getDataKTKSNB("04_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), "", "");
             System.out.println("------1");
             if (lstDL.size() == 0 || lstDL == null) {
@@ -692,10 +692,10 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu04("04_PCTN", userName, pos_cd_username, quyBc, namBc,Integer.parseInt(reportGrade), lstDulieuNt)) {
-                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
-                return "error";
-            }
+//            if (!daoMain.saveKTNB_bieu04("04_PCTN", userName, pos_cd_username, quyBc, namBc,Integer.parseInt(reportGrade), lstDulieuNt)) {
+//                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
+//                return "error";
+//            }
             lstDulieuNt = daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------5");
             if (lstDulieuNt.size() == 0 || lstDulieuNt == null) {
@@ -711,7 +711,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 return "error";
             }
             System.out.println("------7");
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             if (_service.saveDataKTKSNB("04_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
@@ -749,7 +749,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             lstDL = _service.getDataKTKSNB("05_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), "", "");
             System.out.println("------1");
             if (lstDL.size() == 0 || lstDL == null) {
@@ -762,10 +762,10 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu05("05_PCTN", userName, pos_cd_username, quyBc, namBc,Integer.parseInt(reportGrade), lstDulieuNt)) {
-                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
-                return "error";
-            }
+//            if (!daoMain.saveKTNB_bieu05("05_PCTN", userName, pos_cd_username, quyBc, namBc,Integer.parseInt(reportGrade), lstDulieuNt)) {
+//                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
+//                return "error";
+//            }
             lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------5");
             if (lstDulieuNt.size() == 0 || lstDulieuNt == null) {
@@ -781,7 +781,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 return "error";
             }
             System.out.println("------7");
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             if (_service.saveDataKTKSNB("05_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";
@@ -819,7 +819,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
             main_pos_username = posMainModel.getMainPosCd();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             lstDL = _service.getDataKTKSNB("06_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), "", "");
             System.out.println("------1");
             if (lstDL.size() == 0 || lstDL == null) {
@@ -832,10 +832,10 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 }
             }
             System.out.println("------4");
-            if (!daoMain.saveKTNB_bieu06("06_PCTN", userName, pos_cd_username, quyBc, namBc,Integer.parseInt(reportGrade), lstDulieuNt)) {
-                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
-                return "error";
-            }
+//            if (!daoMain.saveKTNB_bieu06("06_PCTN", userName, pos_cd_username, quyBc, namBc,Integer.parseInt(reportGrade), lstDulieuNt)) {
+//                addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
+//                return "error";
+//            }
             lstDulieuNt = daoMain.getDataKtnb_bieu06(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
             System.out.println("------5");
             if (lstDulieuNt.size() == 0 || lstDulieuNt == null) {
@@ -851,7 +851,7 @@ public class KTNB_PCTN extends ActionSupport implements ServletRequestAware {
                 return "error";
             }
             System.out.println("------7");
-            _service = new Service_KTKSNB();
+            _service = new Service_KTKSNB_bo();
             if (_service.saveDataKTKSNB("06_PCTN", pos_cd_username, Grade, getReportDate(quyBc, namBc), userId, userId, lstData) == 0) {
                 addActionMessage("Cập nhật Api lên Tw không thành công");
                 return "error";

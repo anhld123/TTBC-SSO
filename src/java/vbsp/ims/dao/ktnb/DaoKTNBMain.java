@@ -1478,7 +1478,7 @@ public class DaoKTNBMain {
         return lstBcqt_NT;
     }
 
-    public boolean saveKTNB_bieu01(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData) throws SQLException {
+    public boolean saveKTNB_bieu01(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData, String sNgaybc) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -1487,7 +1487,7 @@ public class DaoKTNBMain {
         ARRAY array_to_pass = new ARRAY(des, connection, array);
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU01(?, ?, ?, ?, ?, ?, ?)}");
+            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU01(?, ?, ?, ?, ?, ?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
@@ -1495,6 +1495,7 @@ public class DaoKTNBMain {
             cs.setString(5, sNam);
             cs.setInt(6, sGrade);
             cs.setArray(7, array_to_pass);
+             cs.setString(8, sNgaybc);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1512,7 +1513,7 @@ public class DaoKTNBMain {
         return true;
     }
 
-    public boolean saveKTNB_bieu02(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData) throws SQLException {
+    public boolean saveKTNB_bieu02(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData, String sNgaybc) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -1521,7 +1522,7 @@ public class DaoKTNBMain {
         ARRAY array_to_pass = new ARRAY(des, connection, array);
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU02(?, ?, ?, ?,?,?, ?)}");
+            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU02(?, ?, ?, ?,?,?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
@@ -1529,6 +1530,7 @@ public class DaoKTNBMain {
             cs.setString(5, sNam);
             cs.setInt(6, sGrade);
             cs.setArray(7, array_to_pass);
+            cs.setString(8, sNgaybc);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1546,7 +1548,7 @@ public class DaoKTNBMain {
         return true;
     }
     
-    public boolean saveKTNB_bieu03(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData) throws SQLException {
+    public boolean saveKTNB_bieu03(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData, String sNgaybc) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -1555,7 +1557,7 @@ public class DaoKTNBMain {
         ARRAY array_to_pass = new ARRAY(des, connection, array);
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU03(?, ?, ?, ?,?,?, ?)}");
+            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU03(?, ?, ?, ?,?,?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
@@ -1563,6 +1565,7 @@ public class DaoKTNBMain {
             cs.setString(5, sNam);
             cs.setInt(6, sGrade);
             cs.setArray(7, array_to_pass);
+            cs.setString(8, sNgaybc);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1580,7 +1583,7 @@ public class DaoKTNBMain {
         return true;
     }
 
-    public boolean saveKTNB_bieu04(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData) throws SQLException {
+    public boolean saveKTNB_bieu04(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData, String sNgaybc) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -1589,7 +1592,7 @@ public class DaoKTNBMain {
         ARRAY array_to_pass = new ARRAY(des, connection, array);
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU04(?, ?, ?, ?,?,?, ?)}");
+            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU04(?, ?, ?, ?,?,?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
@@ -1597,6 +1600,7 @@ public class DaoKTNBMain {
             cs.setString(5, sNam);
             cs.setInt(6, sGrade);
             cs.setArray(7, array_to_pass);
+            cs.setString(8, sNgaybc);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1614,7 +1618,7 @@ public class DaoKTNBMain {
         return true;
     }
     
-    public boolean saveKTNB_bieu05(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData) throws SQLException {
+    public boolean saveKTNB_bieu05(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData, String sNgaybc) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -1623,7 +1627,7 @@ public class DaoKTNBMain {
         ARRAY array_to_pass = new ARRAY(des, connection, array);
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU05(?, ?, ?, ?,?,?, ?)}");
+            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU05(?, ?, ?, ?,?,?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
@@ -1631,6 +1635,7 @@ public class DaoKTNBMain {
             cs.setString(5, sNam);
             cs.setInt(6, sGrade);
             cs.setArray(7, array_to_pass);
+            cs.setString(8, sNgaybc);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1648,7 +1653,7 @@ public class DaoKTNBMain {
         return true;
     }
     
-    public boolean saveKTNB_bieu06(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData) throws SQLException {
+    public boolean saveKTNB_bieu06(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData, String sNgaybc) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -1657,7 +1662,7 @@ public class DaoKTNBMain {
         ARRAY array_to_pass = new ARRAY(des, connection, array);
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU06(?, ?, ?, ?,?,?, ?)}");
+            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU06(?, ?, ?, ?,?,?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
@@ -1665,6 +1670,7 @@ public class DaoKTNBMain {
             cs.setString(5, sNam);
             cs.setInt(6, sGrade);
             cs.setArray(7, array_to_pass);
+            cs.setString(8, sNgaybc);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
