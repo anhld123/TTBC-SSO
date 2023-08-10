@@ -50,7 +50,6 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
     protected List<String> poscd = new ArrayList<String>();
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
-
     protected String pos_cd_username;
 
     public String getPos_cd_username() {

@@ -20,4 +20,247 @@
         <th>(4)</th>
         <th>(5)</th>
     </tr>
+
+    <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
+        <tr height="cscontent">    
+            <s:if test="D7.equalsIgnoreCase('Y')">                                     
+
+                <td>
+                    <input type="text" value="<s:property  value="TT_HIENTHI" />" 
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TD_MAPGD" onfocus="this.select()"
+                           onblur="if (this.value == '')
+                                       ;" readonly="true" style="background: #E7DCDA !important; font-weight: bold; text-align:left ;"/>
+                    <input type="hidden" value="<s:property  value="THUTU" />"
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>  
+                    <input type="hidden" value="<s:property  value="NHAPTAY" />"
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/>
+                    <input type="hidden" value="<s:property  value="D7" />"
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" value="<s:property  value="D7"/>"/>  
+                    <input type="hidden" value="<s:property  value="D8" />"
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/>
+                    <input type="hidden" value="<s:property  value="D9" />"
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>">
+                </td>
+                <td>
+                    <input type="text"   value="<s:property  value="D1" />"  style="background: #E7DCDA !important;  font-weight: bold;" readonly="true"
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
+                           class="TD_MAPGD Bold"
+                           onfocus="this.select();" /> 
+                </td>                                  
+                <td>
+                    <input type="text" value="<s:property  value="D2" />" style="background: #E7DCDA !important;"
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="D0 TD_MAPGD" onfocus="this.select()"
+                           onblur="if (this.value == '')
+                                       ;" readonly="true"/>
+                </td>                                  
+                <td>
+                    <input type="text" value="<s:property  value="D5" />" style="background: #E7DCDA !important;" readonly="true"
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU number" onfocus="this.select()"
+                           onblur="if (this.value == '')
+                                       ;"/>
+                </td>                                                                                                
+
+                <td>
+                    <input type="text" value="<s:property  value="D6" />" style="background: #E7DCDA !important;" readonly="true"
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="SOKU" onfocus="this.select()"
+                           onblur="if (this.value == '')
+                                       ;"/>
+                </td>
+
+            </tr>
+        </s:if>
+        <s:if test="D7.equalsIgnoreCase('N')">                                     
+
+            <td>
+                <input type="text" value="<s:property  value="TT_HIENTHI" />" 
+                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TD_MAPGD" onfocus="this.select()"
+                       onblur="if (this.value == '')
+                                   ;" readonly="true"/>
+                <input type="hidden" value="<s:property  value="THUTU" />"
+                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>  
+                <input type="hidden" value="<s:property  value="NHAPTAY" />"
+                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/>
+                <input type="hidden" value="<s:property  value="D7" />"
+                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" value="<s:property  value="D7"/>"/>  
+                <input type="hidden" value="<s:property  value="D8" />"
+                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/>
+                <input type="hidden" value="<s:property  value="D9" />"
+                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D8"/>"/>
+
+            </td>
+            <td>
+                <input type="text"   value="<s:property  value="D1" />"  readonly="true"
+                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
+                       class="TD_MAPGD"
+                       onfocus="this.select();" /> 
+            </td>                                  
+            <td>
+                <input type="text" value="<s:property  value="D2" />" 
+                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="D0 TD_MAPGD" onfocus="this.select()"
+                       onblur="if (this.value == '')
+                                   ;" readonly="true"/>
+            </td> 
+            <s:if test="D8.equalsIgnoreCase('Y') && D9.equalsIgnoreCase('N')">     
+                <td>
+                    <input type="text" value="<s:property  value="D5" />" style="background: #df8505 !important;" 
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU number2" onfocus="this.select();
+                           "/>
+                </td>
+            </s:if>
+            <s:if test="D8.equalsIgnoreCase('N') && D9.equalsIgnoreCase('N')">     
+                <td>
+                    <input type="text" value="<s:property  value="D5" />" id="TT_<s:property  value="D5" />"
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU number" onfocus="this.select()"
+                           onblur="if (this.value == '')
+                                       ;
+                                   evaluateSum(this)"/>
+                </s:if>
+                <s:if test="D8.equalsIgnoreCase('N') && D9.equalsIgnoreCase('Y')">     
+                <td>
+                    <input type="text" value="<s:property  value="D5" />"
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU" onfocus="this.select()"
+                           onblur="if (this.value == 0)
+                                       ;" readonly="true"/> <%--D5 class="D0 SOKU" onblur="if (this.value == 0)--%>
+                </s:if>
+
+            </td>                                                                                                
+            <s:if test="D8.equalsIgnoreCase('Y')"> 
+                <td>
+                    <input type="text" value="<s:property  value="D10" />" placeholder="Trường bắt buộc phải nhập/ không cho nhập số 0" readonly="true"
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
+                           onblur="if (this.value == '')
+                                       ;"/>
+                </td>
+            </s:if>
+            <s:if test="D8.equalsIgnoreCase('N') && D9.equalsIgnoreCase('Y')">     
+                <td>
+                    <input type="text" value="<s:property  value="D10" />" placeholder="Không nhập/mặc định là số 0" readonly="true"
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
+                           onblur="if (this.value == '')
+                                       ;"/>
+                </td>
+            </s:if>
+            <s:if test="D8.equalsIgnoreCase('N') && D9.equalsIgnoreCase('N')">
+                <td>
+                    <input type="text" value="<s:property  value="D10" />"
+                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
+                           onblur="if (this.value == '')
+                                       ;"/>
+                </td>
+            </s:if>
+        </tr>
+    </s:if>
+</s:iterator>
 </table>
+
+
+<script>
+    var max_row = 0;
+    $(document).ready(function () {
+        $('input.number').css({"text-align": "right"});
+        $('input.number2').css({"text-align": "right"});
+        $('.D0').css({"text-align": "center"});
+        $('.number').number(true, 0);
+        $('.number2').number(true, 0);
+        $(".SOKU").css({"width": "99%%"});
+        $(".SOKU1").css({"width": "50px"});
+        $(".TD_CHECKBOX").css({"width": "38px"});
+        $(".TD_SOKU").css({"width": "80px"});
+        $(".TD_TENKH123").css({"width": "150px"});
+        $(".TD_TENTS").css({"width": "190px"});
+        $(".TD_SOTK").css({"width": "105px"});
+        $(".TD_MAKH").css({"width": "60px"});
+        $(".TD_THOIGIAN").css({"width": "auto"});
+        $(".TD_MAPGD").css({"width": "99%"});
+        $(".TD_BUTTON1").css({"width": "40px"});
+        $(".TD_SOTIEN").css({"width": "100px"});
+        $(".TEN_KH").css({"width": "50%"});
+        $(".TEN_KH1").css({"width": "30%"});
+    });
+    $('.TEN_KH').focus(function () {
+        $(this).closest('tr').addClass('highlight_row');
+    });
+    $('.TEN_KH').blur(function () {
+        $(this).closest('tr').removeClass('highlight_row');
+    });
+
+    $(document).ready(function () {
+        $("#update").click(function () {
+            document.getElementById("update").disabled = true;
+            sleep(1000);
+            document.getElementById("update").disabled = false;
+        });
+        $(".KT_STT_HT").css({"width": "35px"});
+        $(".KT_DT").css({"width": "240px"});
+        $('.hideColumn').hide();
+        $('.number').number(true, 0);
+        $('.number2').number(true, 0);
+    });
+    function doClick(id, e)
+    {
+        var key;
+        if (window.event)
+            key = window.event.keyCode;     //IE
+        else
+            key = e.which;     //firefox
+
+        if (key == 13)
+        {
+            //Get the button the user wants to have clicked
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }
+    function fnResetVal() {
+
+    }
+    //Check xem du lieu da ok chua
+    //Neu ok roi thi goi su kien submit du lieu
+    function fnCheckThenSubmit() {
+        $("#update").click(function () {
+            sleep(1000);
+        });
+        if (validateRequiredFields()) {
+            $("#update").trigger('click');
+        }
+    }
+
+    function tai_lai_trang() {
+        location.reload();
+    }
+
+    function sleep(milliSeconds) {
+        var startTime = new Date().getTime(); // get the current time
+        while (new Date().getTime() < startTime + milliSeconds)
+            ; // hog cpu
+    }
+
+    function validateRequiredFields() {
+        var result = true; //Luu ket qua kiem tra kieu so co dung khong
+
+        $(".number2").each(function (index) {
+            //Kiem tra xem co nhap kieu so khong
+            if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) === 0) {
+                result = false;
+                alert('Trường nhập bắt buộc khác 0')
+                return false;
+            }
+        });
+
+        if (result == false) {
+            $("#result").html('<span style="font-weight: bold; color">Thông báo:</span>  Bạn chưa nhập đầy đủ dữ liệu!');
+        }
+        return result;
+    }
+
+    function evaluateSum(input) {
+
+        var arrCot = [".D5"]; //Luu cac cot cua du lieu can tinh toan
+        for (i = 0; i < arrCot.length; i++) {
+            $(arrCot[i]).eq(51).val(parseInt($(arrCot[i]).eq(52).val()) + parseInt($(arrCot[i]).eq(53).val()));
+        }
+
+        $(input).css({"border": "1px"});
+
+    }
+</script>

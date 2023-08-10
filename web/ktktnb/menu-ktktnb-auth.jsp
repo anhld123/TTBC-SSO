@@ -11,18 +11,23 @@
     <script>
         function Callbaocao(fullname, maBC) {
             var thamso = "?quyBc=" + document.getElementById("cboquybc").value + "&namBc=" + document.getElementById("cbonam").value+ "&maBC=" + maBC;
+            
             var ht = screen.availHeight;
             var wt = screen.availWidth;
+            
             var resize = window.open(fullname + thamso, "IMS_REPORTS", "height=" + ht + ",width=" + wt + ",left=0,top=0,directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+            
             if (navigator.userAgent.indexOf('Chrome') !== -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Chrome') + 7).split(' ')[0]) >= 15) {
                 resize.moveTo(0,0);
                 resize.resizeBy(wt, ht);
-                resize.focus();
+                
             } else {
                 resize.moveTo(0,0);
                 resize.resizeTo(wt, ht);
-                resize.focus();
+                
             }            
+            
+            resize.focus();
         }
     </script>
     <style type="text/css">

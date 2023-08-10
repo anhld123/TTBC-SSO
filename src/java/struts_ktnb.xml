@@ -543,10 +543,15 @@
         
         <action  name="PCTN_auth_view_data" class="vbsp.ims.action.ktktnb.PCTNAuthActionSupport" method="loadDetailData">
             <result name="BC00230073">/ktktnb/ktnb_bieu01_auth.jsp</result>
-            <result name="BC00230074">/ktktnb/ktnb_bieu02.jsp</result>
-            <result name="BC00230075">/ktktnb/ktnb_bieu03.jsp</result>
-            <result name="BC00230076">/ktktnb/ktnb_bieu04.jsp</result> 
-            <result name="error">/ktktnb/error-pos.jsp</result> 
+            <result name="BC00230074">/ktktnb/ktnb_bieu02_auth.jsp</result>
+            <result name="BC00230075">/ktktnb/ktnb_bieu03_auth.jsp</result>
+            <result name="BC00230076">/ktktnb/ktnb_bieu04_auth.jsp</result> 
+            <result name="error">/ktktnb/error-message.jsp</result> 
+        </action>
+        
+        <action  name="PCTN_auth_save_data" class="vbsp.ims.action.ktktnb.PCTNAuthActionSupport" method="authorize">
+            <result name="success">/ktktnb/success.jsp</result>            
+            <result name="error">/ktktnb/error-message.jsp</result> 
         </action>
         
     </package>

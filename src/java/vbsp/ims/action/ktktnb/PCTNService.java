@@ -18,10 +18,16 @@ import vbsp.ims.dao.*;
 import java.util.Date;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.util.DateUtil;
+import vbsp.ims.dao.DaoConnect;
+import vbsp.ims.dao.ktnb.DaoKTNBMain;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.ParseException;
+import vbsp.ims.dao.ktnb.DaoKTKSNBAuth;
 
 /**
  *
- * @author HP
+ * @author Trung Nguyen
  */
 public class PCTNService {
 
@@ -30,10 +36,10 @@ public class PCTNService {
     public List<QT_DULIEU_NT> getDataKTKSNB(String khoa, String posCode, String posFlag, String repportDate, String condition, String defaultListFlag) {
 
         try {
-            List<QT_DULIEU_NT> dulieuNt = new ArrayList<>();
+            List<QT_DULIEU_NT> dulieuNt = new ArrayList();
             final String _rpDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(repportDate));
             {
-                List<DuLieuNTRow> lstData = new ArrayList<>();
+                List<DuLieuNTRow> lstData = new ArrayList();
                 lstData = _service.getDataKTKSNB(khoa, posCode, posFlag, _rpDate, condition, defaultListFlag);
                 int iStt = 1;
                 for (DuLieuNTRow item : lstData) {
@@ -108,13 +114,13 @@ public class PCTNService {
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
             final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00.000").format(new SimpleDateFormat("yyyyMMdd").parse(_reportDate));
             final String _reportDate2 = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("yyyy").parse(reportDate));
-           
-            int year = Integer.valueOf(_reportDate.substring(0,4));
-            
+
+            int year = Integer.valueOf(_reportDate.substring(0, 4));
+
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
             Date date = new Date();
             String dateFormat = formatter.format(date);
-            
+
             List<DuLieuNTRowX> _lstNormalizeData = new ArrayList<>();
             for (int i = 0; i < data.size(); i++) {
                 DuLieuNTRowX _normalizeItem = new DuLieuNTRowX();
@@ -172,6 +178,81 @@ public class PCTNService {
 
         } catch (Exception e) {
             return 0;
-        }        
+        }
+    }
+
+    /*
+    Load du lieu cho man hinh view phe duyet
+     */
+    public List<QT_DULIEU_NT> getDataViewForAuth(String reportCode, String reportDate, String posCode, String posFlag, String quyBc, String namBc, String userName, int reportGrade, List<String> lstPosCode) {
+
+        List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
+//        Connection conn = new DaoConnect().getConnect();
+//        DaoKTNBMain daoMain = new DaoKTNBMain();
+
+        System.out.println("reportCode =" + reportCode +" reportDate = " + reportDate + " pos_cd_username = " + posCode);
+        String _key = getKeyByReportCode(reportCode);
+        lstDulieuNt = getDataKTKSNB(_key, lstPosCode.get(0), posFlag, reportDate, "", "");
+//        switch (reportCode) {
+//            case "BC00230073":                
+//                lstDulieuNt = getDataKTKSNB("01_PCTN", lstPosCode.get(0), posFlag, reportDate, "", "");
+////                if ( lstDulieuNt == null || lstDulieuNt.isEmpty()) {
+////                    lstDulieuNt = daoMain.getDataKtnb_bieu01(conn, quyBc, namBc, userName, reportGrade, lstPosCode);
+////                }
+//                break;
+//            case "BC00230074":
+//                lstDulieuNt = getDataKTKSNB("02_PCTN", lstPosCode.get(0), posFlag, reportDate, "", "");
+//                break;
+//            case "BC00230075":
+//                lstDulieuNt = getDataKTKSNB("03_PCTN", lstPosCode.get(0), posFlag, reportDate, "", "");
+//                break;
+//            case "BC00230076":
+//                lstDulieuNt = getDataKTKSNB("04_PCTN", lstPosCode.get(0), posFlag, reportDate, "", "");
+//                break;
+//        }
+        return lstDulieuNt;
+    }
+    
+    public GenericResult saveData(String reportCode, String reportDate, String posCode, String posFlag, String quyBc, String namBc, String userName, int reportGrade, List<String> lstPosCode)
+    throws ParseException {                        
+        String _key = getKeyByReportCode(reportCode);
+        String _dataFlag;
+        if (reportGrade == 3) {
+            _dataFlag = "4";
+        } else {
+            _dataFlag = "3";
+        }
+//        GenericResult _result;
+//        for(int i = 0; i < lstPosCode.size(); i++){
+//            _result = _service.authorizeKTKSNB(_key, posCode, posFlag, reportDate, userName, _dataFlag);
+//        }
+        final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
+        GenericResult _result = _service.authorizeKTKSNB(_key, lstPosCode.get(0), posFlag, _reportDate, userName, _dataFlag);
+        
+        if (_result.isIsSuccess()){
+            DaoKTKSNBAuth daoAuth = new DaoKTKSNBAuth();
+            boolean _updateStatus = daoAuth.saveAuth(_key, reportDate, lstPosCode.get(0), posFlag, quyBc, namBc, userName, _dataFlag) ;
+        }
+        
+        return _result;
+    }
+    
+    String getKeyByReportCode(String reportCode) {
+        String _key = "";
+        switch (reportCode) {
+            case "BC00230073":  
+                _key = "01_PCTN";
+                break;
+            case "BC00230074":
+                _key = "02_PCTN";
+                break;
+            case "BC00230075":
+                _key = "03_PCTN";
+                break;
+            case "BC00230076":
+                _key = "04_PCTN";
+                break;
+        }
+        return _key;
     }
 }

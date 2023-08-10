@@ -8,6 +8,7 @@ package vbsp.ims.restapi;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -1442,5 +1443,41 @@ public class DuLieuNTService extends ReportService {
         Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
         System.out.println("Response code API: " + response.getStatus());
         return response.getStatus();
+    }
+    
+    
+    
+    public GenericResult authorizeKTKSNB(String key, String posCode, String posFlag, String reportDate, String authoriseId,
+            String dataFlag) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("ktksnb-send-status-update")
+                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", posFlag)
+                .queryParam("reportDate", reportDate)
+                .queryParam("dataFlag", dataFlag)
+                .queryParam("updateId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
+        String json = "";
+        //ObjectMapper mapper = new ObjectMapper();
+        //mapper.setSerializationInclusion(Include.NON_NULL);
+//        try {
+//            json = mapper.writeValueAsString(data);
+//              System.out.println("ResultingJSONstring = " + json);  
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+        Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
+        System.out.println("Response code API: " + response.getStatus());
+        //String _body = response.readEntity(String.class);
+        if (response.getStatus() == 200) {
+            String _bodyResp = response.readEntity(String.class);            
+            Gson g = new Gson();  
+            GenericResult _result = g.fromJson(_bodyResp, GenericResult.class) ;            
+            return _result;
+        } else {
+            return new GenericResult(false, response.getStatus(), "Lỗi gọi api", "");
+        }                
     }
 }
