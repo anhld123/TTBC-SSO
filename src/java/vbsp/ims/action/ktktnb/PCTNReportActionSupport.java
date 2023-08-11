@@ -516,7 +516,8 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             List<String> lstPos = getListOfPos();
             Connection conn = new DaoConnect().getConnect();
             DaoKTNBMain daoMain = new DaoKTNBMain();
-            lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), lstPos);
+            String _reportDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));
+            lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), lstPos,_reportDate);
             return "success";
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> GetDataAuth06A: " + e.getMessage());
@@ -566,7 +567,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
-            lstDulieuNt = daoMain.getDataKtnb_bieu01(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            lstDulieuNt = daoMain.getDataKtnb_bieu01(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd,_reportDate);
 
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");
@@ -638,7 +639,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
-            lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd,_reportDate);
 
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");
@@ -710,7 +711,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
-            lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd,_reportDate);
 
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");
@@ -782,7 +783,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
-            lstDulieuNt = daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            lstDulieuNt = daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd,_reportDate);
 
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");
@@ -849,7 +850,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
-            lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd,_reportDate);
 
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");
@@ -916,7 +917,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
-            lstDulieuNt = daoMain.getDataKtnb_bieu06(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd);
+            lstDulieuNt = daoMain.getDataKtnb_bieu06(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd,_reportDate);
 
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");
