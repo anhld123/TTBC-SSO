@@ -66,13 +66,15 @@
         </action>-->
          <action name="get_data_ktnb_bieu01" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="get_data_ktnb_bieu01">
             <result name="success">/ktktnb/ktnb_bieu01.jsp</result>
+            <result name="error">/ktktnb/unsuccess-new.jsp</result>
         </action>
         <action name="save_data_ktnb_bieu01" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="save_data_ktnb_bieu01">
             <result name="success">/ktktnb/success.jsp</result>
-            <result name="error">/ktktnb/unsuccess.jsp</result>
+            <result name="error">/ktktnb/unsuccess-new.jsp</result>
         </action>
          <action name="get_data_ktnb_bieu02" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="get_data_ktnb_bieu02">
             <result name="success">/ktktnb/ktnb_bieu02.jsp</result>
+            <result name="error">/ktktnb/unsuccess-new.jsp</result>
         </action>
         <action name="save_data_ktnb_bieu02" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="save_data_ktnb_bieu02">
             <result name="success">/ktktnb/success.jsp</result>
@@ -81,6 +83,7 @@
         
         <action name="get_data_ktnb_bieu03" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="get_data_ktnb_bieu03">
             <result name="success">/ktktnb/ktnb_bieu03.jsp</result>
+            <result name="error">/ktktnb/unsuccess-new.jsp</result>
         </action>
         <action name="save_data_ktnb_bieu03" class="vbsp.ims.action.ktktnb.PCTNReportActionSupport" method="save_data_ktnb_bieu03">
             <result name="success">/ktktnb/success.jsp</result>
