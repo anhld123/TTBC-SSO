@@ -818,7 +818,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
 
             } else {
 
-                if (lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4")) {
+                if ( lstDL.get(0).getD50().equals("4")) {
                     addActionMessage("Cấp trên đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
                 }
@@ -885,7 +885,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
 
             } else {
 
-                if (lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4")) {
+                if (lstDL.get(0).getD50().equals("4")) {
                     addActionMessage("Cấp trên đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
                 }
