@@ -1053,7 +1053,15 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(sNgaybc));
 
             int year = Integer.valueOf(_reportDate.substring(0, 4));
-
+            reportGrade = request.getSession().getAttribute("reportGrade").toString();
+            String Grade;
+            if (reportGrade.equalsIgnoreCase("1")) {
+                Grade = "S";
+            } else if (reportGrade.equalsIgnoreCase("2")) {
+                Grade = "M";
+            } else {
+                Grade = "H";
+            }
             List<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lst) {
                 if (tmp == null) {
@@ -1072,7 +1080,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
                 tempadd.setName(tmp.getTEN());
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(tmp.getMAPGD());
-                tempadd.setPosFlag("S");
+                tempadd.setPosFlag(Grade);
                 tempadd.setBranchCode(tmp.getMACN());
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(tmp.getD2());
