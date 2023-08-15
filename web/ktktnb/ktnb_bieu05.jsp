@@ -205,6 +205,7 @@
                 if (validateRequiredFields()) {
                     $("#update").trigger('click');
                 }
+                 location.reload();
             }
 
             function tai_lai_trang() {
@@ -287,7 +288,7 @@
                             </div>
                             <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>
                             <sj:submit targets="result" value="Cập nhật" name="update" id="update"  cssStyle="display: none;"/>
-                            <input type="button" onclick="tai_lai_trang()" style="width:122px;height:25px;color: red;" value ="Reset"/>    
+                            <!--<input type="button" onclick="tai_lai_trang()" style="width:122px;height:25px;color: red;" value ="Reset"/>-->    
                         </td>                 
 
                     </tr>

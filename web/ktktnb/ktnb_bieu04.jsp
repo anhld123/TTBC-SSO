@@ -95,6 +95,7 @@
                 $('.number2').number(true, 0);
                 $(".SOKU").css({"width": "99%%"});
                 $(".SOKU1").css({"width": "50px"});
+                $(".SOKU2").css({"width": "98%"});
                 $(".TD_CHECKBOX").css({"width": "38px"});
                 $(".TD_SOKU").css({"width": "80px"});
                 $(".TD_TENKH123").css({"width": "150px"});
@@ -175,6 +176,7 @@
                 if (validateRequiredFields()) {
                     $("#update").trigger('click');
                 }
+                location.reload();
             }
 
             function tai_lai_trang() {
@@ -239,7 +241,7 @@
                             </div>
                             <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>
                             <sj:submit targets="result" value="Cập nhật" name="update" id="update"  cssStyle="display: none;"/>
-                            <input type="button" onclick="tai_lai_trang()" style="width:122px;height:25px;color: red;" value ="Reset"/>    
+                            <!--<input type="button" onclick="tai_lai_trang()" style="width:122px;height:25px;color: red;" value ="Reset"/>-->    
                         </td>                 
 
                     </tr>
@@ -301,14 +303,14 @@
                                             </td>                                  
                                             <td>
                                                 <input type="text" value="<s:property  value="D5" />" style="background: #E7DCDA !important;" readonly="true"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU number" onfocus="this.select()"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU2 number" onfocus="this.select()"
                                                        onblur="if (this.value == '')
                                                                    ;"/>
                                             </td>                                                                                                
 
                                             <td>
                                                 <input type="text" value="<s:property  value="D10" />" style="background: #E7DCDA !important;" readonly="true"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU2" onfocus="this.select()"
                                                        onblur="if (this.value == '')
                                                                    ;"/>
                                             </td>
@@ -401,7 +403,7 @@
 
                                         <s:if test="D8.equalsIgnoreCase('Y')">
                                             <td>
-                                                <input type="text" value="<s:property  value="D10" />" placeholder="Trường bắt buộc phải nhập/ không cho nhập số 0" readonly="true"
+                                                <input type="text" value="<s:property  value="D10" />" placeholder="Lưu ý nhập" readonly="true"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
                                                        onblur="if (this.value == '')
                                                                    ;"/>

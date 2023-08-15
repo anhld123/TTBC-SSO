@@ -12,6 +12,10 @@
         <sj:head/>
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
+        <script src="js/JavaScriptUtil.js"></script>
+        <script src="js/InputMask.js"></script>
+        <script src="js/Parsers.js"></script>
+        <script src="js/Checkdate.js"></script>
 
         <style type="text/css">
             *{
@@ -93,6 +97,7 @@
 //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 2);
                 $(".SOKU").css({"width": "97%"});
+                $(".SOKU2").css({"width": "98%"});
                 $(".SOKU1").css({"width": "90%"});
                 $(".TD_CHECKBOX").css({"width": "39px"});
                 $(".TD_SOKU").css({"width": "80px"});
@@ -173,6 +178,7 @@
                 if (validateRequiredFields()) {
                     $("#update").trigger('click');
                 }
+                location.reload();
             }
 
             function tai_lai_trang() {
@@ -188,14 +194,14 @@
 
             function validateRequiredFields() {
                 var result = true; //Luu ket qua kiem tra kieu so co dung khong             
-                $(".number").each(function (index) {
-                    //Kiem tra xem co nhap kieu so khong
-                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) == 0) {
-                        result = false;
-                        alert('Thứ tự lớn hơn 0 và không được để trống')
-                        return false;
-                    }
-                });
+//                $(".number").each(function (index) {
+//                    //Kiem tra xem co nhap kieu so khong
+//                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) == 0) {
+//                        result = false;
+//                        alert('Thứ tự lớn hơn 0 và không được để trống')
+//                        return false;
+//                    }
+//                });
                 if (result == false) {
                     //Neu nguoi dung khong nhap dung kieu du lieu
                     //Dua ra canh bao
@@ -206,7 +212,7 @@
             }
             function deleteRow(indx) {
                 var table = document.getElementById("tableKtnb");
-                var rowCount = table.rows.length - 1; //Dem so dong cua bang
+                var rowCount = table.rows.length - 2; //Dem so dong cua bang
                 if (max_row < rowCount)
                     max_row = rowCount;
 //                alert('max_row='+max_row+' rowCount='+rowCount);
@@ -216,7 +222,7 @@
 //                sleep(1000);
                 var index = parseInt(indx); //ko hieu so vao vong for lai mat index nen phai luu lai o day
                 var table = document.getElementById("tableKtnb");
-                var rowCount = table.rows.length - 1; //Dem so dong cua bang
+                var rowCount = table.rows.length - 2; //Dem so dong cua bang
                 if (max_row < rowCount)
                     max_row = rowCount;
                 else
@@ -225,20 +231,44 @@
                     rowCount = max_row;
                 }
                 var newTr = '<tr>\n\
-                                <td ><input type="text" value="" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="D0 number SOKU1" onfocus="this.select();" /></td>\n\
-                                <td ><input type="text" value="" id="D1" name="lstDulieuNt[' + rowCount + '].D1" class="SOKU" onfocus="this.select();"/></td>\n\
-                                <td ><input type="text" value="" id="D2" name="lstDulieuNt[' + rowCount + '].D2" class="SOKU" onfocus="this.select();"/></td>\n\
-                                <td ><input type="text" value="" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="SOKU" onfocus="this.select();"/></td>\n\
-                                <td ><input type="text" value="" id="D4" name="lstDulieuNt[' + rowCount + '].D4" class="SOKU" onfocus="this.select();"/></td>\n\
-                                <td ><input type="text" value="" id="D10" name="lstDulieuNt[' + rowCount + '].D10" class="SOKU" onfocus="this.select();"/></td>\n\
+                                <td ><input type="text" value="' + max_row + '" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" style="background: #E7DCDA !important;" class="D0 number SOKU1" onfocus="this.select();" /></td>\n\
+                                <td ><input type="text" placeholder="<s:property value="pos_cd_username"/>" value="" id="TEN" name="lstDulieuNt[' + rowCount + '].TEN" readonly="true" style="background: #E7DCDA !important;" class="SOKU2" onfocus="this.select();"/></td>\n\
+                                <td ><input type="text" placeholder = "Không phát sinh" value="" id="D2" name="lstDulieuNt[' + rowCount + '].D2" class="SOKU" onfocus="this.select();"/></td>\n\
+                                <td ><input type="text" placeholder = "Không phát sinh" value="" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="SOKU" onfocus="this.select();"/></td>\n\
+                                <td ><input type="text" placeholder = "Không phát sinh" value="" id="D4" name="lstDulieuNt[' + rowCount + '].D4" class="SOKU" onfocus="this.select();"/></td>\n\
+                                <td ><input type="text" placeholder = "Không phát sinh" value="" id="D10" name="lstDulieuNt[' + rowCount + '].D10" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 SOKU"/></td>\n\
                                 </tr>';
                 $($('table#tableKtnb tr')[index]).before(newTr);
                 $('input.number').css({"text-align": "right"});
                 $(".SOKU").css({"width": "97%"});
+                $(".SOKU2").css({"width": "98%"});
                 $('.number').number(true, 0);
                 $(".SOKU1").css({"width": "90%"});
             }
+
+            $.subscribe("beforediv_para", function (event, data) {
+                $("#loadingImageDiv_para").show();
+            });
+            $.subscribe("completediv_para", function (event, data) {
+                $("#loadingImageDiv_para").hide();
+            });
+
+            function onReloadPara()
+            {
+                $('#result').empty();
+                $("#update")[0].click();
+            }
+            $.subscribe('beforediv1', function (event, data) {
+                var allDate = $(".hasDatepicker").map(function () {
+                    return $(this).attr("name");
+                }).get();
+
+                //2. Them input mask
+                for (var i = 0; i < allDate.length; i++) {
+                    new DateMask("dd/MM/yyyy", allDate[i].toString());
+                }
+            });
         </script>
 
     </head>
@@ -253,18 +283,21 @@
                         <td width="70%" >
                             <b>Phòng giao dịch: </b><input class="TD_TENKH1234" type="text" name="posCD" id="posCD" value="<s:property value="pos_cd_username"/>" readonly="readonly"/>
                             <b>Chi nhánh: </b><input class="TD_TENKH1234" type="text" name="maCn" id="maCn" value="<s:property value="main_pos_username"/>" readonly="readonly"/>
-                            <b>Quý báo cáo: </b><input class="TD_TENKH1234" type="text" name="quyBc" id="quyBc" value="<s:property value="quyBc"/>" readonly="readonly"/>
+                            <!--<b>Quý báo cáo: </b><input class="TD_TENKH1234" type="text" name="quyBc" id="quyBc" value="<s:property value="quyBc"/>" readonly="readonly"/>-->
                             <b>Năm báo cáo: </b><input class="TD_TENKH1234" type="text" name="namBc" id="namBc" value="<s:property value="namBc"/>" readonly="readonly"/>
                             <b>Người dùng: </b><input class="TD_TENKH1234" type="text" name="userName" id="userName" value="<s:property value="userName"/>" readonly="readonly"/>
                             <b>Ngày báo cáo: </b><input type="text" class="TD_TENKH1234" name="ngayBC" id="ngayBC" value="<s:property value="ngayBC"/>" readonly="readonly"/>
-
                         </td>
                         <td align="right">     
                             <div id="result" style="color: red">                            
                             </div>
-                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>
-                            <sj:submit targets="result" value="Cập nhật" name="update" id="update"  cssStyle="display: none;"/>
-                            <input type="button" onclick="tai_lai_trang()" style="width:122px;height:25px;color: red;" value ="Reset"/>    
+                            <div id="loadingImageDiv_para"  style="display: none;">
+                                <img id="loadingImage" src='img/loading.gif' border='0' >
+                            </div>
+                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()"
+                                   style="width:122px;height:25px;color: red; font-weight: bold ;"/>
+                            <sj:submit id="update" name="update"  targets="result" onBeforeTopics="beforediv_para"
+                                       onCompleteTopics="completediv_para" cssStyle="display: none"/>
                         </td>                 
 
                     </tr>
@@ -297,7 +330,7 @@
                                     <tr height="cscontent">    
 
                                         <td>
-                                            <input type="text" value="<s:property  value="TT_HIENTHI" />" 
+                                            <input type="text" value="<s:property  value="TT_HIENTHI" />" readonly="true" style="background: #E7DCDA !important;" 
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 number SOKU1" onfocus="this.select()"
                                                    onblur="if (this.value == '')
                                                                ;" />
@@ -311,40 +344,47 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP" value="<s:property  value="CO_TONGHOP"/>"/> 
 
                                         </td>
-                                        <td>
-                                            <input type="text" value="<s:property  value="D1" />" 
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="SOKU" onfocus="this.select()"
+                                        <td>               
+<!--                                           <input type="text" value="<s:property  value="TEN" />" readonly="true" style="background: #E7DCDA !important;"           
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" class="TEN SOKU2" onfocus="this.select()"
                                                    onblur="if (this.value == '')
-                                                               ;"/>
+                                                               ;" > -->
+                                                   <input type="text" class="TEN SOKU2" readonly="true" style="background: #E7DCDA !important;"  name="lstDulieuNt[<s:property  value='%{#idxRows.index}' />].TEN" value="<s:property value='TEN'/>">
                                         </td>                                  
                                         <td>
-                                            <input type="text" value="<s:property  value="D2" />" 
+                                            <input type="text" value="<s:property  value="D2" />"  placeholder = "Không phát sinh"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="SOKU" onfocus="this.select()"
                                                    onblur="if (this.value == '')
                                                                ;"/>
                                         </td>                                  
                                         <td>
-                                            <input type="text" value="<s:property  value="D3" />" 
+                                            <input type="text" value="<s:property  value="D3" />" placeholder = "Không phát sinh"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="SOKU" onfocus="this.select()"
                                                    onblur="if (this.value == '')
                                                                ;"/>
                                         </td>                                                                                                
 
                                         <td>
-                                            <input type="text" value="<s:property  value="D4" />" 
+                                            <input type="text" value="<s:property  value="D4" />" placeholder = "Không phát sinh"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="SOKU" onfocus="this.select()"
                                                    onblur="if (this.value == '')
                                                                ;"/>
                                         </td>
 
                                         <td>
-                                            <input type="text" value="<s:property  value="D10" />" 
+                                            <input type="text" value="<s:property  value="D10" />" placeholder = "Không phát sinh"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
                                                    onblur="if (this.value == '')
                                                                ;"
                                                    />
-                                        </td>  
-                                        <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="SOKU"/></td>
+                                        </td>
+                                        <s:if test="THUTU.toString().equalsIgnoreCase('1')"> 
+                                            <td style="background: #E7DCDA !important;"></td>
+                                        </s:if>
+                                        <s:if test="!THUTU.toString().equalsIgnoreCase('1')"> 
+                                            <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="SOKU"/></td>
+
+                                        </s:if>
                                     </tr>
 
                                 </s:iterator>
@@ -362,6 +402,8 @@
                 </table>
 
             </s:form>
+        </div>
+        <div id="containBcttv">
         </div>
     </body>
 </html>
