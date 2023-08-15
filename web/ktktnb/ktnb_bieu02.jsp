@@ -172,6 +172,7 @@
             //Check xem du lieu da ok chua
             //Neu ok roi thi goi su kien submit du lieu
             function fnCheckThenSubmit() {
+                document.getElementById('loadingImageDiv_para').style.display = "block";
                 $("#update").click(function () {
                     sleep(1000);
                 });

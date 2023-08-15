@@ -168,6 +168,7 @@
             //Check xem du lieu da ok chua
             //Neu ok roi thi goi su kien submit du lieu
             function fnCheckThenSubmit() {
+                document.getElementById('loadingImageDiv_para').style.display = "block";
                 $("#update").click(function () {
                     sleep(1000);
                 });
@@ -231,8 +232,8 @@
                     rowCount = max_row;
                 }
                 var newTr = '<tr>\n\
-                                <td ><input type="text" value="' + max_row + '" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="SOKU1 D0 number2" onfocus="this.select();" /></td>\n\
-                                <td ><input type="text" value="" placeholder="<s:property value="pos_cd_username"/>" id="TEN" name="lstDulieuNt[' + rowCount + '].TEN" class="SOKU" onfocus="this.select();"/></td>\n\
+                                <td ><input type="text" value="' + max_row + '" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" readonly="true" style="background: #E7DCDA !important;" class="SOKU1 D0 number2" onfocus="this.select();" /></td>\n\
+                                <td ><input type="text" value="" placeholder="<s:property value="pos_cd_username"/>" id="TEN" name="lstDulieuNt[' + rowCount + '].TEN" readonly="true" style="background: #E7DCDA !important;" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" placeholder = "Không phát sinh" id="D2" name="lstDulieuNt[' + rowCount + '].D2" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" placeholder = "Không phát sinh" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" placeholder = "Không phát sinh" id="D4" name="lstDulieuNt[' + rowCount + '].D4" class="SOKU" onfocus="this.select();"/></td>\n\
