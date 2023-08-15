@@ -809,7 +809,8 @@
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('HTLS2021'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('GQVL_01'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('NDT2021'))
-                              ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))"
+                              ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))||
+                              (khoa_nhaptaycn.equalsIgnoreCase('HTLS_2023') && Grade.equalsIgnoreCase('2'))"                              
                               >
                             <div id="containParm_full" align="center">
                                 <div id="divExportReport"></div>
@@ -825,8 +826,8 @@
                                         <div id="containTreeQD23_3">
                                         </s:else>
 
-                                    </s:if>
-                                    <s:else>
+                            </s:if>                             
+                            <s:else>
                                         <div id="containTree">
                                         </s:else>
 
@@ -951,6 +952,15 @@
                                                             });
                             
                                                         </script>-->
+                            <script>
+
+            document.getElementById('ngay_bc_DATE').value = '31/12/2023';
+            //Gan quy mac dinh
+//            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
+            
+            
+            
+        </script>
                         </div>
                         </body>
                         </html>
