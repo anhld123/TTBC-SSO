@@ -175,7 +175,7 @@
                 if (validateRequiredFields()) {
                     $("#update").trigger('click');
                 }
-                location.reload();
+                window.location.reload();
             }
 
             function tai_lai_trang() {
@@ -232,7 +232,7 @@
                     rowCount = max_row;
                 }
                 var newTr = '<tr>\n\
-                                <td ><input type="text" value="' + max_row + '" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" readonly="true" style="background: #E7DCDA !important;" class="SOKU1 D0 number2" onfocus="this.select();" /></td>\n\
+                                <td ><input type="text" value="' + max_row + '" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="SOKU1 D0 number2" onfocus="this.select();" /></td>\n\
                                 <td ><input type="text" value="" placeholder="<s:property value="pos_cd_username"/>" id="TEN" name="lstDulieuNt[' + rowCount + '].TEN" readonly="true" style="background: #E7DCDA !important;" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" placeholder = "Không phát sinh" id="D2" name="lstDulieuNt[' + rowCount + '].D2" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" placeholder = "Không phát sinh" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="SOKU" onfocus="this.select();"/></td>\n\
@@ -250,6 +250,28 @@
                 $(".SOKU1").css({"width": "90%"});
                 $('.number2').number(true, 0);
             }
+             $.subscribe("beforediv_para", function (event, data) {
+                $("#loadingImageDiv_para").show();
+            });
+            $.subscribe("completediv_para", function (event, data) {
+                $("#loadingImageDiv_para").hide();
+            });
+
+            function onReloadPara()
+            {
+                $('#result').empty();
+                $("#update")[0].click();
+            }
+            $.subscribe('beforediv1', function (event, data) {
+                var allDate = $(".hasDatepicker").map(function () {
+                    return $(this).attr("name");
+                }).get();
+
+                //2. Them input mask
+                for (var i = 0; i < allDate.length; i++) {
+                    new DateMask("dd/MM/yyyy", allDate[i].toString());
+                }
+            });
         </script>
 
     </head>
@@ -317,7 +339,7 @@
                                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                                     <tr height="cscontent"> 
                                         <td>
-                                            <input type="text" value="<s:property  value="TT_HIENTHI" />" readonly="true" style="background: #E7DCDA !important;"
+                                            <input type="text" value="<s:property  value="TT_HIENTHI" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="SOKU1 D0 number2" onfocus="this.select()"
                                                    onblur="if (this.value == '')
                                                                ;"/>

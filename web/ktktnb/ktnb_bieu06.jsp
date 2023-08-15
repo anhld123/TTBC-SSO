@@ -175,7 +175,7 @@
                 if (validateRequiredFields()) {
                     $("#update").trigger('click');
                 }
-                 location.reload();
+//                 location.reload();
             }
 
             function tai_lai_trang() {
@@ -243,6 +243,28 @@
                 $($('table#tableKtnb tr')[index]).before(newTr);
                 $('.number2').number(true, 0);
             }
+             $.subscribe("beforediv_para", function (event, data) {
+                $("#loadingImageDiv_para").show();
+            });
+            $.subscribe("completediv_para", function (event, data) {
+                $("#loadingImageDiv_para").hide();
+            });
+
+            function onReloadPara()
+            {
+                $('#result').empty();
+                $("#update")[0].click();
+            }
+            $.subscribe('beforediv1', function (event, data) {
+                var allDate = $(".hasDatepicker").map(function () {
+                    return $(this).attr("name");
+                }).get();
+
+                //2. Them input mask
+                for (var i = 0; i < allDate.length; i++) {
+                    new DateMask("dd/MM/yyyy", allDate[i].toString());
+                }
+            });
         </script>
 
     </head>
@@ -257,7 +279,7 @@
                         <td width="70%" >
                             <b>Phòng giao dịch: </b><input class="TD_TENKH1234" type="text" name="posCD" id="posCD" value="<s:property value="pos_cd_username"/>" readonly="readonly"/>
                             <b>Chi nhánh: </b><input class="TD_TENKH1234" type="text" name="maCn" id="maCn" value="<s:property value="main_pos_username"/>" readonly="readonly"/>
-                            <b>Quý báo cáo: </b><input class="TD_TENKH1234" type="text" name="quyBc" id="quyBc" value="<s:property value="quyBc"/>" readonly="readonly"/>
+                            <!--<b>Quý báo cáo: </b><input class="TD_TENKH1234" type="text" name="quyBc" id="quyBc" value="<s:property value="quyBc"/>" readonly="readonly"/>-->
                             <b>Năm báo cáo: </b><input class="TD_TENKH1234" type="text" name="namBc" id="namBc" value="<s:property value="namBc"/>" readonly="readonly"/>
                             <b>Người dùng: </b><input class="TD_TENKH1234" type="text" name="userName" id="userName" value="<s:property value="userName"/>" readonly="readonly"/>
                             <b>Ngày báo cáo: </b><input type="text" class="TD_TENKH1234" name="ngayBC" id="ngayBC" value="<s:property value="ngayBC"/>" readonly="readonly"/>
@@ -266,10 +288,14 @@
                         <td align="right">     
                             <div id="result" style="color: red">                            
                             </div>
-                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>
-                            <sj:submit targets="result" value="Cập nhật" name="update" id="update"  cssStyle="display: none;"/>
-                            <!--<input type="button" onclick="tai_lai_trang()" style="width:122px;height:25px;color: red;" value ="Reset"/>-->    
-                        </td>                 
+                            <div id="loadingImageDiv_para"  style="display: none;">
+                                <img id="loadingImage" src='img/loading.gif' border='0' >
+                            </div>
+                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()"
+                                   style="width:122px;height:25px;color: red; font-weight: bold ;"/>
+                            <sj:submit id="update" name="update"  targets="result" onBeforeTopics="beforediv_para"
+                                       onCompleteTopics="completediv_para" cssStyle="display: none"/>
+                        </td>                   
 
                     </tr>
                     <tr>

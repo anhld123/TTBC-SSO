@@ -167,6 +167,8 @@
                 }
             }
             function fnResetVal() {
+                $(".TEN").val('0');
+                $(".KT_SLH").val('0');
 
             }
             //Check xem du lieu da ok chua
@@ -179,7 +181,7 @@
                 if (validateRequiredFields()) {
                     $("#update").trigger('click');
                 }
-                location.reload();
+                window.location.reload();
             }
 
             function tai_lai_trang() {
@@ -232,7 +234,7 @@
                     rowCount = max_row;
                 }
                 var newTr = '<tr>\n\
-                                <td ><input type="text" value="' + max_row + '" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" style="background: #E7DCDA !important;" class="D0 number SOKU1" onfocus="this.select();" /></td>\n\
+                                <td ><input type="text" value="' + max_row + '" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="D0 number SOKU1" onfocus="this.select();" /></td>\n\
                                 <td ><input type="text" placeholder="<s:property value="pos_cd_username"/>" value="" id="TEN" name="lstDulieuNt[' + rowCount + '].TEN" readonly="true" style="background: #E7DCDA !important;" class="SOKU2" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" placeholder = "Không phát sinh" value="" id="D2" name="lstDulieuNt[' + rowCount + '].D2" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" placeholder = "Không phát sinh" value="" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="SOKU" onfocus="this.select();"/></td>\n\
@@ -331,7 +333,7 @@
                                     <tr height="cscontent">    
 
                                         <td>
-                                            <input type="text" value="<s:property  value="TT_HIENTHI" />" readonly="true" style="background: #E7DCDA !important;" 
+                                            <input type="text" value="<s:property  value="TT_HIENTHI" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 number SOKU1" onfocus="this.select()"
                                                    onblur="if (this.value == '')
                                                                ;" />
@@ -350,7 +352,7 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" class="TEN SOKU2" onfocus="this.select()"
                                                    onblur="if (this.value == '')
                                                                ;" > -->
-                                                   <input type="text" class="TEN SOKU2" readonly="true" style="background: #E7DCDA !important;"  name="lstDulieuNt[<s:property  value='%{#idxRows.index}' />].TEN" value="<s:property value='TEN'/>">
+                                            <input type="text" class="TEN SOKU2" readonly="true" style="background: #E7DCDA !important;"  name="lstDulieuNt[<s:property  value='%{#idxRows.index}' />].TEN" value="<s:property value='TEN'/>">
                                         </td>                                  
                                         <td>
                                             <input type="text" value="<s:property  value="D2" />"  placeholder = "Không phát sinh"
