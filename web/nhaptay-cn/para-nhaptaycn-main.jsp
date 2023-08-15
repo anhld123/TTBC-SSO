@@ -810,7 +810,8 @@
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('GQVL_01'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('NDT2021'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))||
-                              (khoa_nhaptaycn.equalsIgnoreCase('HTLS_2023') && Grade.equalsIgnoreCase('2'))"                              
+                              (khoa_nhaptaycn.equalsIgnoreCase('HTLS_2023') && Grade.equalsIgnoreCase('2')) ||
+                              (khoa_nhaptaycn.equalsIgnoreCase('HTLS_2023') && Grade.equalsIgnoreCase('3'))"                              
                               >
                             <div id="containParm_full" align="center">
                                 <div id="divExportReport"></div>

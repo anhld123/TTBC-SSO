@@ -61,11 +61,11 @@ public class HTLS_2023 extends ActionNhaptaycnMain
             Connection conn = new DaoConnect().getConnect();
             _leaveHomeService = new Service_GQVL2023();
             if (Grade.equals("3")) {
+                this.lstData = _leaveHomeService.getCustomers(pos_cd_username, "H", hmParameter.get("ngay_bc").toString(), "1", "KS_HTLS_CN");
             } else if (Grade.equals("2")) {
                 this.lstData = _leaveHomeService.getCustomers(pos_cd_username, "M", hmParameter.get("ngay_bc").toString(), "1", "KS_HTLS_CN");
             }
-            if (lstData == null || lstData.size() ==0)
-            {
+            if (lstData == null || lstData.size() == 0) {
                 addActionError("Số liệu chưa được tạo tại Tw. Vui lòng liên hệ với TT CNTT");;
                 return ERROR;
             }
@@ -136,7 +136,7 @@ public class HTLS_2023 extends ActionNhaptaycnMain
 
         } catch (Exception e) {
             addActionError("Đã có lỗi. Vui lòng liên hệ với quản trị");;
-                return ERROR;
+            return ERROR;
         }
         return SUCCESS;
     }
@@ -155,34 +155,40 @@ public class HTLS_2023 extends ActionNhaptaycnMain
             ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
             HashMap hmParameter = getParameter();
+            if (Grade.equals("3")) {
+                if (!daoMain.saveHTLS2023("KS_HTLS_CN", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstDulieuNt, poscd)) {
+                        addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                        return ERROR;
+                    }
+            } else {
 
-            ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
-            for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
+                for (QT_DULIEU_NT tmp : lstDulieuNt) {
 
-                DuLieuNTRow tempadd = new DuLieuNTRow();
+                    DuLieuNTRow tempadd = new DuLieuNTRow();
 
-                tempadd.setKey("KS_HTLS_CN");
+                    tempadd.setKey("KS_HTLS_CN");
 //                tempadd.setOrderValue("");
 //                tempadd.setOrderDescription("");
-                tempadd.setCode(tmp.getMA());
-                tempadd.setMakerId(UserName);
-                tempadd.setAuthoriseId(UserName);
-                tempadd.setReportDate(totalDataView);
+                    tempadd.setCode(tmp.getMA());
+                    tempadd.setMakerId(UserName);
+                    tempadd.setAuthoriseId(UserName);
+                    tempadd.setReportDate(totalDataView);
 //                tempadd.setName(tmp.getTEN());
-                tempadd.setReportYear(2023);
-                tempadd.setPosCode(tmp.getMAPGD());
-                tempadd.setPosFlag("M");
-                tempadd.setBranchCode(tmp.getMACN());
+                    tempadd.setReportYear(2023);
+                    tempadd.setPosCode(tmp.getMAPGD());
+                    tempadd.setPosFlag("M");
+                    tempadd.setBranchCode(tmp.getMACN());
 //                tempadd.setD2(tmp.getMAPGD());
 //                tempadd.setD3(tmp.getD3());
 //                tempadd.setD4(tmp.getD4());
 //                tempadd.setD5(tmp.getD5());
 //                tempadd.setD6(tmp.getD6());
 //                tempadd.setD7(tmp.getD7());
-                tempadd.setD8(tmp.getD8());
+                    tempadd.setD8(tmp.getD8());
 //                tempadd.setD9(tmp.getD9());
 //                tempadd.setD10(tmp.getD10());
-                tempadd.setD11(tmp.getD11());
+                    tempadd.setD11(tmp.getD11());
 //                tempadd.setD12(tmp.getD12());
 //                tempadd.setD13(tmp.getD13());
 //                tempadd.setD14(tmp.getD14());
@@ -201,17 +207,18 @@ public class HTLS_2023 extends ActionNhaptaycnMain
 //                tempadd.setD27(tmp.getD27());
 //                tempadd.setD28(tmp.getD28());
 //                tempadd.setD29(tmp.getD29());
-                tempadd.setD50("2");
-                lstUpdateDate.add(tempadd);
-                lstLocalDataUpdate.add(tmp);
+                    tempadd.setD50("2");
+                    lstUpdateDate.add(tempadd);
+                    lstLocalDataUpdate.add(tmp);
 
-            }
-            _leaveHomeService = new Service_GQVL2023();
-            int status = _leaveHomeService.saveHTLS2023(pos_cd_username, "M", hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
-            if (status == 200) {
-                if (!daoMain.saveGQVL2023("KS_HTLS_CN", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstDulieuNt, poscd)) {
-                    addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
-                    return ERROR;
+                }
+                _leaveHomeService = new Service_GQVL2023();
+                int status = _leaveHomeService.saveHTLS2023(pos_cd_username, "M", hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
+                if (status == 200) {
+                    if (!daoMain.saveHTLS2023("KS_HTLS_CN", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstDulieuNt, poscd)) {
+                        addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                        return ERROR;
+                    }
                 }
             }
 

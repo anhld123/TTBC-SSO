@@ -143,6 +143,14 @@
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD" value="<s:property  value="MAPGD"/>"/>
                                 <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN" value="<s:property  value="MACN"/>"/>
+                                <s:if test="Grade.equalsIgnoreCase('2')">
+                                    <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" value="3"/>
+                                </s:if>
+                                <s:elseif test="Grade.equalsIgnoreCase('3')">
+                                    <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" value="4"/>
+                                </s:elseif>
                             </td>
                             <td align="left" class="TD_POS">
                                 <input type="text" value="<s:property  value="MA" />" 
