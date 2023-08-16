@@ -52,7 +52,7 @@
                 var arrCot = [".D8", ".D11"]; //Luu cac cot cua du lieu can tinh toan
 //                alert($(".number").size());
                 var totalD8 = 0;
-                 var totalD11 = 0;
+                var totalD11 = 0;
                 for (var i = 0; i < 33; i++) {
                     let element;
                     element = document.getElementById("D8" + i);
@@ -66,9 +66,9 @@
                 document.getElementById("totalD11").value = totalD11;
                 $('.number').number(true, 0);
             }
-                ;
-                
-               
+            ;
+
+
         </script>
     </head>
     <body>
@@ -84,28 +84,28 @@
             <div>
                 <table id="kkk">
                     <tr>
-                         <th style="width: 130px; font: italic; font-size: xx-small;" >Số liệu Trung ương</th>
-                         <th style="width: 60px; font: italic; font-size: xx-small;" >
-                              <input type="text" value="<s:property  value="totalD8Tw"/>" name="totalD8Tw" id="totalD8Tw" style="width: 100px" class="number" readonly="readonly"></th>                  
-                         <th style="width: 60px; font: italic; font-size: xx-small;">
-                             <input type="text" value="<s:property  value="totalD11Tw"/>" name="totalD11Tw" id="totalD11Tw" style="width: 100px" class="number" readonly="readonly"></th>                                
-                         </th>
+                        <th style="width: 130px; font: italic; font-size: xx-small;" >Số liệu Trung ương</th>
+                        <th style="width: 60px; font: italic; font-size: xx-small;" >
+                            <input type="text" value="<s:property  value="totalD8Tw"/>" name="totalD8Tw" id="totalD8Tw" style="width: 100px" class="number" readonly="readonly"></th>                  
+                        <th style="width: 60px; font: italic; font-size: xx-small;">
+                            <input type="text" value="<s:property  value="totalD11Tw"/>" name="totalD11Tw" id="totalD11Tw" style="width: 100px" class="number" readonly="readonly"></th>                                
+                        </th>
                     </tr>
                     <tr>
-                         <th style="width: 130px; font: italic; font-size: xx-small;" >Số liệu nhập tại CN</th>
-                         <th style="width: 60px; font: italic; font-size: xx-small;" >
-                             <input type="text" value="" name="totalD8" id="totalD8" style="width: 100px" class="number" readonly="readonly">
-                         </th>                  
-                         <th style="width: 60px; font: italic; font-size: xx-small;">
-                             <input type="text" value="" name="totalD11" id="totalD11" style="width: 100px" class="number" readonly="readonly">
-                         </th>
+                        <th style="width: 130px; font: italic; font-size: xx-small;" >Số liệu nhập tại CN</th>
+                        <th style="width: 60px; font: italic; font-size: xx-small;" >
+                            <input type="text" value="" name="totalD8" id="totalD8" style="width: 100px" class="number" readonly="readonly">
+                        </th>                  
+                        <th style="width: 60px; font: italic; font-size: xx-small;">
+                            <input type="text" value="" name="totalD11" id="totalD11" style="width: 100px" class="number" readonly="readonly">
+                        </th>
                     </tr>
-                  </table>
+                </table>
 <!--                <font color="red">Số liệu Trung ương: (Cột 8: <s:property  value="totalD8"/> &nbsp;&nbsp; Cột 11: <s:property  value="totalD11"/>)</font> 
-                </br>Số liệu nhập tại CN: (Cột 8:<input type="text" value="" name="totalD8" id="totalD8" style="width: 100px" class="number"> &nbsp;&nbsp; Cột 11:<input type="text" value="" name="totalD11" id="totalD11" style="width: 100px" class="number">)-->
+              </br>Số liệu nhập tại CN: (Cột 8:<input type="text" value="" name="totalD8" id="totalD8" style="width: 100px" class="number"> &nbsp;&nbsp; Cột 11:<input type="text" value="" name="totalD11" id="totalD11" style="width: 100px" class="number">)-->
             </div>    
-            
-             
+
+
             <div id="divDonvitinh">
                 Đơn vị tính: Đồng
             </div>
@@ -202,7 +202,11 @@
                         <td align = "right" class="TD_DONVITINH">
                             <input type="text" value="<s:property  value="D8" />"  id="D8<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="D8 number TEN_KH" onfocus="this.select()"
-                                   onblur="if(this.value == '') { this.value=0}; autoEvaluate()"/>
+                                   onblur="if (this.value == '') {
+                                               this.value = 0
+                                           }
+                                           ;
+                                           autoEvaluate()"/>
                         </td>
                         <td align = "right" class="TD_DONVITINH">
                             <input type="text" value="<s:property  value="D9" />" 
@@ -217,13 +221,27 @@
                         <td align = "right" class="TD_DONVITINH">
                             <input type="text" value="<s:property  value="D11" />"  id="D11<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" class="D11 number TEN_KH" onfocus="this.select()"
-                                   onblur="if(this.value == '') { this.value=0}; autoEvaluate()"/>
+                                   onblur="if (this.value == '') {
+                                               this.value = 0
+                                           }
+                                           ;
+                                           autoEvaluate()"/>
                         </td>
-                        <td align = "right" class="TD_DONVITINH">
-                            <input type="text" value="<s:property  value="D12" />" 
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="D12 number TEN_KH" onfocus="this.select()"                                       
-                                   readonly="readonly"/>
-                        </td>
+                        <s:if test="D12 < 0">
+                            <td align = "right" class="TD_DONVITINH">
+                                <input type="text" value="<s:property  value="D12" />" style="color: red"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="D12 number TEN_KH" onfocus="this.select()"                                       
+                                       readonly="readonly"/>
+                            </td>
+                        </s:if>
+                        <s:else>
+                            <td align = "right" class="TD_DONVITINH">
+                                <input type="text" value="<s:property  value="D12" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="D12 number TEN_KH" onfocus="this.select()"                                       
+                                       readonly="readonly"/>
+                            </td>
+                        </s:else>
+
                         <td align = "right" class="TD_DONVITINH">
                             <input type="text" value="<s:property  value="D13" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 number TEN_KH" onfocus="this.select()"                                       
@@ -239,7 +257,7 @@
         </s:form>
         <div id="luu_thanhcong"></div>
         <script>
-                initTable();
+            initTable();
         </script>
     </body>
 </html>
