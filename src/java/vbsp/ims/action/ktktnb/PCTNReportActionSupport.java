@@ -666,7 +666,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             addActionMessage("Cập nhật không thành công");
             return "error";
         }
-
+        addActionMessage("Cập nhật thành công");
         return "success";
     }
 
@@ -738,7 +738,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             addActionMessage("Cập nhật không thành công");
             return "error";
         }
-
+        addActionMessage("Cập nhật thành công");
         return "success";
     }
 
@@ -810,7 +810,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             addActionMessage("Cập nhật không thành công");
             return "error";
         }
-
+        addActionMessage("Cập nhật thành công");
         return "success";
     }
 
@@ -877,7 +877,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             addActionMessage("Cập nhật không thành công");
             return "error";
         }
-
+        addActionMessage("Cập nhật thành công");
         return "success";
     }
 
@@ -944,7 +944,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             addActionMessage("Cập nhật không thành công");
             return "error";
         }
-
+        addActionMessage("Cập nhật thành công");
         return "success";
     }
 

@@ -175,7 +175,7 @@
                 if (validateRequiredFields()) {
                     $("#update").trigger('click');
                 }
-                window.location.reload();
+//                window.location.reload();
             }
 
             function tai_lai_trang() {
@@ -250,7 +250,7 @@
                 $(".SOKU1").css({"width": "90%"});
                 $('.number2').number(true, 0);
             }
-             $.subscribe("beforediv_para", function (event, data) {
+            $.subscribe("beforediv_para", function (event, data) {
                 $("#loadingImageDiv_para").show();
             });
             $.subscribe("completediv_para", function (event, data) {
@@ -353,13 +353,9 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP" value="<s:property  value="CO_TONGHOP"/>"/> 
 
                                         </td>
-                                        <td>               
-<!--                                            <input type="text" value="<s:property  value="TEN" />" readonly="true" style="background: #E7DCDA !important;"           
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" class="TEN SOKU" onfocus="this.select()"
-                                                   onblur="if (this.value == '')
-                                                               ;"/>-->
-                                           <input type="text" readonly="true" class="TEN SOKU2" style="background: #E7DCDA !important;"  name="lstDulieuNt[<s:property  value='%{#idxRows.index}' />].TEN" value="<s:property value='TEN'/>">
-
+                                        <td>                                 
+                                            <input type="text" readonly="true" class="TEN SOKU2" 
+                                                   style="background: #E7DCDA !important;" value="<s:property value='TEN'/>">
                                         </td>                          
                                         <td>
                                             <input type="text" value="<s:property  value="D2" />"  placeholder = "Không phát sinh"

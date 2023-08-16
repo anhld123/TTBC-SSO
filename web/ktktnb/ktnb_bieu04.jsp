@@ -170,7 +170,7 @@
             //Check xem du lieu da ok chua
             //Neu ok roi thi goi su kien submit du lieu
             function fnCheckThenSubmit() {
-                document.getElementById('loadingImageDiv_para').style.display = "block";
+//                document.getElementById('loadingImageDiv_para').style.display = "block";
                 $("#update").click(function () {
                     sleep(000);
                 });
@@ -216,29 +216,7 @@
                         tot += parseFloat(arr[i].value);
                 }
                 document.getElementById('totalordercost').value = tot;
-            }
-             $.subscribe("beforediv_para", function (event, data) {
-                $("#loadingImageDiv_para").show();
-            });
-            $.subscribe("completediv_para", function (event, data) {
-                $("#loadingImageDiv_para").hide();
-            });
-
-            function onReloadPara()
-            {
-                $('#result').empty();
-                $("#update")[0].click();
-            }
-            $.subscribe('beforediv1', function (event, data) {
-                var allDate = $(".hasDatepicker").map(function () {
-                    return $(this).attr("name");
-                }).get();
-
-                //2. Them input mask
-                for (var i = 0; i < allDate.length; i++) {
-                    new DateMask("dd/MM/yyyy", allDate[i].toString());
-                }
-            });
+            }         
         </script>
 
     </head>
@@ -262,13 +240,9 @@
                         <td align="right">     
                             <div id="result" style="color: red">
                             </div>
-                           <div id="loadingImageDiv_para"  style="display: none;">
-                                <img id="loadingImage" src='img/loading.gif' border='0' >
-                            </div>
-                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()"
-                                   style="width:122px;height:25px;color: red; font-weight: bold ;"/>
-                            <sj:submit id="update" name="update"  targets="result" onBeforeTopics="beforediv_para"
-                                       onCompleteTopics="completediv_para" cssStyle="display: none"/>
+                           <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>
+                            <sj:submit targets="result" value="Cập nhật" name="update" id="update"  cssStyle="display: none;"/>
+                           
                         </td>   
                     </tr>
                     <tr>

@@ -181,7 +181,8 @@
                 if (validateRequiredFields()) {
                     $("#update").trigger('click');
                 }
-                window.location.reload();
+//                alert ();
+//                window.location.reload();
             }
 
             function tai_lai_trang() {
