@@ -9,9 +9,11 @@ import static com.opensymphony.xwork2.Action.ERROR;
 import vbsp.ims.nhaptaycn.action.*;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.io.File;
+import java.math.BigInteger;
 import vbsp.ims.nhaptaycn.action.*;
 import vbsp.ims.nhaptaycn.action.*;
 import java.sql.Connection;
+import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +22,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.servlet.ServletContext;
 import org.apache.struts2.ServletActionContext;
 import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
@@ -44,6 +48,27 @@ public class HTLS_2023 extends ActionNhaptaycnMain
 
     Service_GQVL2023 _leaveHomeService;
     private List<DuLieuNTRow> lstData;
+    private List<DuLieuNTRow> lstDataTw;
+    
+    private String  totalD8;
+    private String  totalD11;
+
+    public String getTotalD8() {
+        return totalD8;
+    }
+
+    public void setTotalD8(String totalD8) {
+        this.totalD8 = totalD8;
+    }
+
+    public String getTotalD11() {
+        return totalD11;
+    }
+
+    public void setTotalD11(String totalD11) {
+        this.totalD11 = totalD11;
+    }
+    
 
     @Override
     public String load() {
@@ -54,16 +79,37 @@ public class HTLS_2023 extends ActionNhaptaycnMain
             }
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
-//            main_pos_username = posMainModel.getMainPosCd();
+            BigInteger b1 = new BigInteger("0");
+            BigInteger b2 = new BigInteger("0");
+            DecimalFormat df = new DecimalFormat("#.##");
 
             HashMap hmParameter = getParameter();
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
             Connection conn = new DaoConnect().getConnect();
             _leaveHomeService = new Service_GQVL2023();
+//            setNgay_bc(hmParameter.get("ngay_bc").toString());
+            DuLieuNTRow tmp = new DuLieuNTRow();
             if (Grade.equals("3")) {
                 this.lstData = _leaveHomeService.getCustomers(pos_cd_username, "H", hmParameter.get("ngay_bc").toString(), "1", "KS_HTLS_CN");
             } else if (Grade.equals("2")) {
                 this.lstData = _leaveHomeService.getCustomers(pos_cd_username, "M", hmParameter.get("ngay_bc").toString(), "1", "KS_HTLS_CN");
+                this.lstDataTw = _leaveHomeService.getCustomers("000100", "H", hmParameter.get("ngay_bc").toString(), "1", "KS_HTLS_CN");
+                if(this.lstDataTw == null || this.lstDataTw.size() == 0)
+                {
+                    addActionError("TW chưa cập nhật số liệu của đơn vị. Vui lòng liên hệ với TT CNTT");;
+                    return ERROR;
+                }
+                tmp = findUsingEnhancedForLoop(pos_cd_username, lstDataTw);
+                if(tmp == null)
+                {
+                    addActionError("TW chưa cập nhật số liệu của đơn vị. Vui lòng liên hệ với TT CNTT");;
+                    return ERROR;
+                }
+                else
+                {
+                    setTotalD8(String.format("%,d", new BigInteger(tmp.getD8() == null ? "0" : tmp.getD8())));
+                    setTotalD11(String.format("%,d", new BigInteger(tmp.getD11() == null ? "0" : tmp.getD11())));
+                }                                 
             }
             if (lstData == null || lstData.size() == 0) {
                 addActionError("Số liệu chưa được tạo tại Tw. Vui lòng liên hệ với TT CNTT");;
@@ -140,6 +186,17 @@ public class HTLS_2023 extends ActionNhaptaycnMain
         }
         return SUCCESS;
     }
+    
+    public DuLieuNTRow findUsingEnhancedForLoop(
+        String key, List<DuLieuNTRow> list) {
+
+          for (DuLieuNTRow row : list) {
+              if (row.getCode().equals(key)) {
+                  return row;
+              }
+          }
+          return null;
+}
 
     @Override
     public String save() {
@@ -153,6 +210,7 @@ public class HTLS_2023 extends ActionNhaptaycnMain
                 return ERROR;
             }
             ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
+            _leaveHomeService = new Service_GQVL2023();
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
             HashMap hmParameter = getParameter();
             if (Grade.equals("3")) {
@@ -161,8 +219,29 @@ public class HTLS_2023 extends ActionNhaptaycnMain
                         return ERROR;
                     }
             } else {
+                
 
                 ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
+                this.lstDataTw = _leaveHomeService.getCustomers("000100", "H", hmParameter.get("ngay_bc").toString(), "1", "KS_HTLS_CN");
+                DuLieuNTRow tmpTw = new DuLieuNTRow();
+                tmpTw = findUsingEnhancedForLoop(pos_cd_username, lstDataTw);
+                BigInteger d8CN = new BigInteger("0");
+                BigInteger d11CN = new BigInteger("0");
+                for (QT_DULIEU_NT dulieu : lstDulieuNt) {
+                    d8CN = d8CN.add(new BigInteger(dulieu.getD8() == null ? "0" : dulieu.getD8()));
+                    d11CN = d11CN.add(new BigInteger(dulieu.getD11() == null ? "0" : dulieu.getD11()));
+                }
+                if(d8CN.compareTo(new BigInteger(tmpTw.getD8())) !=0)
+                {
+                    addActionError("Số liệu cột D8 giữa TW và đơn vị nhập đang khác nhau. Vui lòng kiểm tra lại");
+                        return ERROR;
+                }
+                if(d11CN.compareTo(new BigInteger(tmpTw.getD11())) !=0)
+                {
+                    addActionError("Số liệu cột D11 giữa TW và đơn vị nhập đang khác nhau. Vui lòng kiểm tra lại");
+                        return ERROR;
+                }
+                
                 for (QT_DULIEU_NT tmp : lstDulieuNt) {
 
                     DuLieuNTRow tempadd = new DuLieuNTRow();
@@ -212,7 +291,8 @@ public class HTLS_2023 extends ActionNhaptaycnMain
                     lstLocalDataUpdate.add(tmp);
 
                 }
-                _leaveHomeService = new Service_GQVL2023();
+                
+                
                 int status = _leaveHomeService.saveHTLS2023(pos_cd_username, "M", hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
                 if (status == 200) {
                     if (!daoMain.saveHTLS2023("KS_HTLS_CN", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstDulieuNt, poscd)) {

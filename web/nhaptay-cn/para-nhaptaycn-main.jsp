@@ -699,7 +699,7 @@
                                             </s:else>
                                             <!--                                        &nbsp;&nbsp;&nbsp;-->
 
-                                            <s:if test="(Grade.equalsIgnoreCase('2') && !khoa_nhaptaycn.equalsIgnoreCase('SMS_001')) 
+                                            <s:if test="(Grade.equalsIgnoreCase('2') && !khoa_nhaptaycn.equalsIgnoreCase('SMS_001') && !khoa_nhaptaycn.equalsIgnoreCase('HTLS_2023')) 
                                                   || (Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('QD23_004'))">                                       
                                                 <s:url id="idSendData" action="sendPhiUT.action"></s:url>                                      
                                                 <sj:submit id="idSend" name="nameSend" href="%{idSendData}" value="Gửi dữ liệu" targets="divExportReport"
