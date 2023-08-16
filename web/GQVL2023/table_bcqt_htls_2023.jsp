@@ -79,11 +79,30 @@
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
             </s:iterator>
             <div id="divTitle">
-                MẪU THEO DÕI THỰC HIỆN HỖ TRỢ LÃI SUẤT CÁC ĐƠN VỊ                
+                THEO DÕI THỰC HIỆN HỖ TRỢ LÃI SUẤT CÁC ĐƠN VỊ                
             </div>
             <div>
-                <font color="red">Số liệu Trung ương: (Cột 8: <s:property  value="totalD8"/> &nbsp;&nbsp; Cột 11: <s:property  value="totalD11"/>)</font> 
-                </br>Số liệu nhập tại CN: (Cột 8:<input type="text" value="" name="totalD8" id="totalD8" style="width: 100px" class="number"> &nbsp;&nbsp; Cột 11:<input type="text" value="" name="totalD11" id="totalD11" style="width: 150px" class="number">)
+                <table id="kkk">
+                    <tr>
+                         <th style="width: 130px; font: italic; font-size: xx-small;" >Số liệu Trung ương</th>
+                         <th style="width: 60px; font: italic; font-size: xx-small;" >
+                              <input type="text" value="<s:property  value="totalD8Tw"/>" name="totalD8Tw" id="totalD8Tw" style="width: 100px" class="number" readonly="readonly"></th>                  
+                         <th style="width: 60px; font: italic; font-size: xx-small;">
+                             <input type="text" value="<s:property  value="totalD11Tw"/>" name="totalD11Tw" id="totalD11Tw" style="width: 100px" class="number" readonly="readonly"></th>                                
+                         </th>
+                    </tr>
+                    <tr>
+                         <th style="width: 130px; font: italic; font-size: xx-small;" >Số liệu nhập tại CN</th>
+                         <th style="width: 60px; font: italic; font-size: xx-small;" >
+                             <input type="text" value="" name="totalD8" id="totalD8" style="width: 100px" class="number" readonly="readonly">
+                         </th>                  
+                         <th style="width: 60px; font: italic; font-size: xx-small;">
+                             <input type="text" value="" name="totalD11" id="totalD11" style="width: 100px" class="number" readonly="readonly">
+                         </th>
+                    </tr>
+                  </table>
+<!--                <font color="red">Số liệu Trung ương: (Cột 8: <s:property  value="totalD8"/> &nbsp;&nbsp; Cột 11: <s:property  value="totalD11"/>)</font> 
+                </br>Số liệu nhập tại CN: (Cột 8:<input type="text" value="" name="totalD8" id="totalD8" style="width: 100px" class="number"> &nbsp;&nbsp; Cột 11:<input type="text" value="" name="totalD11" id="totalD11" style="width: 100px" class="number">)-->
             </div>    
             
              

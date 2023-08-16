@@ -50,24 +50,25 @@ public class HTLS_2023 extends ActionNhaptaycnMain
     private List<DuLieuNTRow> lstData;
     private List<DuLieuNTRow> lstDataTw;
     
-    private String  totalD8;
-    private String  totalD11;
+    private String  totalD8Tw;
+    private String  totalD11Tw;
 
-    public String getTotalD8() {
-        return totalD8;
+    public String getTotalD8Tw() {
+        return totalD8Tw;
     }
 
-    public void setTotalD8(String totalD8) {
-        this.totalD8 = totalD8;
+    public void setTotalD8Tw(String totalD8Tw) {
+        this.totalD8Tw = totalD8Tw;
     }
 
-    public String getTotalD11() {
-        return totalD11;
+    public String getTotalD11Tw() {
+        return totalD11Tw;
     }
 
-    public void setTotalD11(String totalD11) {
-        this.totalD11 = totalD11;
+    public void setTotalD11Tw(String totalD11Tw) {
+        this.totalD11Tw = totalD11Tw;
     }
+
     
 
     @Override
@@ -107,8 +108,8 @@ public class HTLS_2023 extends ActionNhaptaycnMain
                 }
                 else
                 {
-                    setTotalD8(String.format("%,d", new BigInteger(tmp.getD8() == null ? "0" : tmp.getD8())));
-                    setTotalD11(String.format("%,d", new BigInteger(tmp.getD11() == null ? "0" : tmp.getD11())));
+                    setTotalD8Tw(String.format("%,d", new BigInteger(tmp.getD8() == null ? "0" : tmp.getD8())));
+                    setTotalD11Tw(String.format("%,d", new BigInteger(tmp.getD11() == null ? "0" : tmp.getD11())));
                 }                                 
             }
             if (lstData == null || lstData.size() == 0) {
