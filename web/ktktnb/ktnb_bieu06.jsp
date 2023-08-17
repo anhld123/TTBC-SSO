@@ -167,15 +167,14 @@
             }
             //Check xem du lieu da ok chua
             //Neu ok roi thi goi su kien submit du lieu
-            function fnCheckThenSubmit() 
-//            document.getElementById('loadingImageDiv_para').style.display = "block";
+            function fnCheckThenSubmit() {
                 $("#update").click(function () {
                     sleep(1000);
                 });
                 if (validateRequiredFields()) {
                     $("#update").trigger('click');
                 }
-//                 location.reload();
+                 location.reload();
             }
 
             function tai_lai_trang() {
@@ -229,42 +228,23 @@
                 else
                 {
                     max_row++;
-                    rowCount = max_row;
+                    rowCount = max_row ;
+                    rownew = rowCount - 9;
                 }
                 var newTr = '<tr>\n\
-                                <td ><input type="text" value="" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="D0 number2" onfocus="this.select();" /></td>\n\
+                                <td ><input type="text" value="' + rownew + '" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="D0 number2" onfocus="this.select();" /></td>\n\
                                 <td ><input type="text" value="" id="D1" name="lstDulieuNt[' + rowCount + '].D1" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" id="D2" name="lstDulieuNt[' + rowCount + '].D2" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="date" value="" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" id="D4" name="lstDulieuNt[' + rowCount + '].D4" class="SOKU" onfocus="this.select();"/></td>\n\
 \n\                           <td ><input type="text" value="" id="D10" name="lstDulieuNt[' + rowCount + '].D10" class="SOKU" onfocus="this.select();"/></td>\n\
-                                <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 SOKU"/></td>\n\
+                                <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 SOKU2"/></td>\n\
                                 </tr>';
                 $($('table#tableKtnb tr')[index]).before(newTr);
                 $('.number2').number(true, 0);
+                $('input.number2').css({"text-align": "right"});
+                 $(".SOKU2").css({"width": "100%"});
             }
-             $.subscribe("beforediv_para", function (event, data) {
-                $("#loadingImageDiv_para").show();
-            });
-            $.subscribe("completediv_para", function (event, data) {
-                $("#loadingImageDiv_para").hide();
-            });
-
-            function onReloadPara()
-            {
-                $('#result').empty();
-                $("#update")[0].click();
-            }
-            $.subscribe('beforediv1', function (event, data) {
-                var allDate = $(".hasDatepicker").map(function () {
-                    return $(this).attr("name");
-                }).get();
-
-                //2. Them input mask
-                for (var i = 0; i < allDate.length; i++) {
-                    new DateMask("dd/MM/yyyy", allDate[i].toString());
-                }
-            });
         </script>
 
     </head>
@@ -288,14 +268,10 @@
                         <td align="right">     
                             <div id="result" style="color: red">                            
                             </div>
-                            <div id="loadingImageDiv_para"  style="display: none;">
-                                <img id="loadingImage" src='img/loading.gif' border='0' >
-                            </div>
-                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()"
-                                   style="width:122px;height:25px;color: red; font-weight: bold ;"/>
-                            <sj:submit id="update" name="update"  targets="result" onBeforeTopics="beforediv_para"
-                                       onCompleteTopics="completediv_para" cssStyle="display: none"/>
-                        </td>                   
+                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>
+                            <sj:submit targets="result" value="Cập nhật" name="update" id="update"  cssStyle="display: none;"/>
+                            <!--<input type="button" onclick="tai_lai_trang()" style="width:122px;height:25px;color: red;" value ="Reset"/>-->    
+                        </td>                 
 
                     </tr>
                     <tr>

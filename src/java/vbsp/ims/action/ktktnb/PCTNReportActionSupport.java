@@ -624,11 +624,11 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
 
             } else {
 
-                if (lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4") && lstDL.get(0).getCO_TONGHOP().equals("S")) {
+                if ((lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4")) && reportGrade.equalsIgnoreCase("1")) {
                     addActionMessage("Cấp Tỉnh đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
                 }
-                else if (lstDL.get(0).getD50().equals("4") && lstDL.get(0).getCO_TONGHOP().equals("M"))
+                else if (reportGrade.equalsIgnoreCase("2")&& lstDL.get(0).getD50().equals("4"))
                 {
                     addActionMessage("Cấp TW đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
@@ -696,11 +696,11 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
 
             } else {
 
-                if (lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4") && lstDL.get(0).getCO_TONGHOP().equals("S")) {
+                 if ((lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4")) && reportGrade.equalsIgnoreCase("1")) {
                     addActionMessage("Cấp Tỉnh đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
                 }
-                else if (lstDL.get(0).getD50().equals("4") && lstDL.get(0).getCO_TONGHOP().equals("M"))
+                else if (reportGrade.equalsIgnoreCase("2")&& lstDL.get(0).getD50().equals("4"))
                 {
                     addActionMessage("Cấp TW đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
@@ -768,11 +768,11 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
 
             } else {
 
-                if (lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4") && lstDL.get(0).getCO_TONGHOP().equals("S")) {
+                if ((lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4")) && reportGrade.equalsIgnoreCase("1")) {
                     addActionMessage("Cấp Tỉnh đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
                 }
-                else if (lstDL.get(0).getD50().equals("4") && lstDL.get(0).getCO_TONGHOP().equals("M"))
+                else if (reportGrade.equalsIgnoreCase("2")&& lstDL.get(0).getD50().equals("4"))
                 {
                     addActionMessage("Cấp TW đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";

@@ -354,7 +354,7 @@
 
                                         </td>
                                         <td>                                 
-                                            <input type="text" readonly="true" class="TEN SOKU2" 
+                                            <input type="text" readonly="true" class="TENKH SOKU2" 
                                                    style="background: #E7DCDA !important;" value="<s:property value='TEN'/>">
                                         </td>                          
                                         <td>

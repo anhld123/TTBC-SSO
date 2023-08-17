@@ -353,7 +353,8 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" class="TEN SOKU2" onfocus="this.select()"
                                                    onblur="if (this.value == '')
                                                                ;" > -->
-                                            <input type="text" class="TEN SOKU2" readonly="true" style="background: #E7DCDA !important;"  name="lstDulieuNt[<s:property  value='%{#idxRows.index}' />].TEN" value="<s:property value='TEN'/>">
+                                            <input type="text" class="TENKH SOKU2" readonly="true" style="background: #E7DCDA !important;"  
+                                                   name="lstDulieuNt[<s:property  value='%{#idxRows.index}' />].TEN" value="<s:property value='TEN'/>">
                                         </td>                                  
                                         <td>
                                             <input type="text" value="<s:property  value="D2" />"  placeholder = "Không phát sinh"
