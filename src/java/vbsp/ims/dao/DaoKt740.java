@@ -87,6 +87,7 @@ public class DaoKt740 {
 
         return bSuccess;
     }
+
     public void exportExcelQueryPlSql(Map parameters, String strSave_id, String strFileName) throws Exception {
         if (strSave_id == null || strSave_id.length() < 1) {
             return;
@@ -149,6 +150,7 @@ public class DaoKt740 {
             System.gc();
         }
     }
+
     public List<ListValue> loadDescPara() {
         List<ListValue> lstDescPara = new ArrayList<ListValue>();
 
@@ -314,7 +316,6 @@ public class DaoKt740 {
         if (strSaveId == null || strSaveId.isEmpty()) {
             return null;
         }
-
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -346,7 +347,7 @@ public class DaoKt740 {
                     hmQuery.put("SRQ_QUERY", reset.getString("SRQ_QUERY"));
                     hmQuery.put("STRF_TITLE_NAME", reset.getString("STRF_TITLE_NAME"));
                     hmQuery.put("GRADE_REPORT", reset.getString("GRADE_REPORT"));
-                     hmQuery.put("GROUP_ID", reset.getString("GROUP_ID").toString());
+                    hmQuery.put("GROUP_ID", reset.getString("GROUP_ID").toString());
 //                     hmQuery.put("SRQ_QUERY",reset.getBlob("SRQ_QUERY").toString());   
                 }
 
@@ -370,7 +371,7 @@ public class DaoKt740 {
         return hmQuery;
     }
 
-    public List<ListValue> getLoadAllQuery(String sUserid, String sGroup_id,String sGrade) {
+    public List<ListValue> getLoadAllQuery(String sUserid, String sGroup_id, String sGrade) {
         List<ListValue> lstQuery = new ArrayList<ListValue>();
 
         try {
@@ -386,7 +387,7 @@ public class DaoKt740 {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
                 //Tham so thu nhat truyen vao la co lay theo pos hay main pos   
-                 calstatement.setString(1, sUserid);
+                calstatement.setString(1, sUserid);
                 calstatement.setString(2, sGroup_id);
                 calstatement.setString(3, sGrade);
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.NUMBER);
@@ -648,7 +649,6 @@ public class DaoKt740 {
 
     //CuongBM: 21-Apr-14
     //Desc: Chuyen du lieu combo ra Array de xu ly
-
     private List<Combo> fillResultSetComboToArray(ResultSet rs_combo) throws SQLException {
 
         ArrayList<Combo> combo_list = new ArrayList<Combo>();
@@ -748,21 +748,20 @@ public class DaoKt740 {
             int pn_err_cd = calstatement.getInt(3);
 //            //thu hien lay mo ta loi
             String strEdd_txt = calstatement.getString(4);
-            
+
             Clob clob = calstatement.getClob(1);
             //Lay cursor ra resultset
             //Get du lieu tra ra tham so thu 1
-            if(clob!=null)
-            {
-                strQuery = clob.getSubString(1, (int)clob.length());
+            if (clob != null) {
+                strQuery = clob.getSubString(1, (int) clob.length());
                 clob.free();
-                
+
             }
 //            System.err.println(calstatement.getString(1));
             if (calstatement != null) {
                 calstatement.close();
             }
-            
+
 //            if (connect != null) {
 //                connect.close();
 //            }
@@ -773,7 +772,7 @@ public class DaoKt740 {
         return strQuery;
 
     }
-     //Ham nay get data khi export du lieu. voi list la hashmap.
+    //Ham nay get data khi export du lieu. voi list la hashmap.
     //List nay chi chua 2 phan tu. phan tu 0 la kieu du lieu cua cot, 
     //phan tu thu 2 la du lieu cua cot.
 
@@ -786,110 +785,109 @@ public class DaoKt740 {
         DaoConnect daoConnect = new DaoConnect();
         Connection connect = null;
         try {
-           connect = daoConnect.getConnect();
-             //connect=daoConnect.getConnect("10.63.8.59", "vbsprepo", 1521, "intellect", "intellect321#");
+            connect = daoConnect.getConnect();
+            //connect=daoConnect.getConnect("10.63.8.59", "vbsprepo", 1521, "intellect", "intellect321#");
             if (connect == null) {
                 System.err.println("Khong the ket noi voi csdl ham exportExcelQuery");
                 CoreLogger.error(this.getClass().getName() + " Khong the ket noi voi csdl ham exportExcelQuery ");
                 return false;
             }
-           
+
             //Lay ra title cho bao cao
             String strTitle = getTitleQuery(sSave_id, connect);
             //Lay ra truy van cho bao cao
             String strQuery = getQuery(sSave_id, connect);
 
-            
-
             //Lay ra danh sach pos
             List<ListValue> lstPostCd = getPosGeneralReport(connect, sPos_cd, sPos_Flag);
 
-            
-            Integer nValue=0;
-            Integer nCountData=0;
+            Integer nValue = 0;
+            Integer nCountData = 0;
             //Hashmap luu tru du lieu
             HashMap<Integer, List<Object>> hmData = new HashMap<Integer, List<Object>>();
             //Hashmap luu tru lieu du lieu
             HashMap<Integer, List<Object>> hmMetaTable = new HashMap<Integer, List<Object>>();
-            
-             //Hashmap luu tru ten cot du lieu
+
+            //Hashmap luu tru ten cot du lieu
             HashMap<Integer, List<Object>> hmNameCol = new HashMap<Integer, List<Object>>();
-            
+
             for (ListValue valuePos : lstPostCd) {
-                Map<String, String> mapParaInTmp = new HashMap<String, String>();
-                //Dua tham so truyen vao
-                mapParaInTmp.putAll(mapinPara);
-                mapParaInTmp.put(stringPara_Poscd, valuePos.getsKey());
-                String sQueryTmp = strQuery;
-                //replare tham so cho gia tri trong truy van
-                for (String key : mapParaInTmp.keySet()) {
-                    String value = mapParaInTmp.get(key).trim();
-                    sQueryTmp = sQueryTmp.replaceAll(key, value);
-                    //System.err.println("Value "+value+" Key "+key);
+                try {
+                    Map<String, String> mapParaInTmp = new HashMap<String, String>();
+                    //Dua tham so truyen vao
+                    mapParaInTmp.putAll(mapinPara);
+                    mapParaInTmp.put(stringPara_Poscd, valuePos.getsKey());
+                    String sQueryTmp = strQuery;
+                    //replare tham so cho gia tri trong truy van
+                    for (String key : mapParaInTmp.keySet()) {
+                        String value = mapParaInTmp.get(key).trim();
+                        sQueryTmp = sQueryTmp.replaceAll(key, value);
+                        //System.err.println("Value "+value+" Key "+key);
+                    }
+
+                    Statement stm = null;
+                    stm = connect.createStatement();
+                    if (stm == null) {
+                        System.err.println("Khong tao duoc createStatement ham exportExcelQuery");
+                        CoreLogger.error(this.getClass().getName() + " Khong tao duoc createStatement ham exportExcelQuery ");
+                        return false;
+                    }
+
+                    ResultSet reset = null;
+                    reset = stm.executeQuery(sQueryTmp);
+                    //System.err.println(strQuery);
+                    if (stm == null) {
+                        System.err.println("Khong tao duoc executeQuery ham exportExcelQuery");
+                        CoreLogger.error(this.getClass().getName() + " Khong tao duoc executeQuery ham exportExcelQuery ");
+                        return false;
+                    }
+                    ResultSetMetaData resetMetaData = reset.getMetaData();
+                    int nCountCol = resetMetaData.getColumnCount();
+                    if (nValue == 0) {
+
+                        List<Object> lsMetaData = new ArrayList<Object>();
+                        List<Object> lstColName = new ArrayList<Object>();
+                        for (int i = 1; i <= nCountCol; i++) {
+                            lsMetaData.add(resetMetaData.getColumnTypeName(i));
+                            lstColName.add(resetMetaData.getColumnName(i));
+                        }
+
+                        hmMetaTable.put(9999, lsMetaData);
+                        hmNameCol.put(9999, lstColName);
+                    }
+
+                    while (reset.next()) {
+                        List<Object> lstData = new ArrayList<Object>();
+                        for (int i = 1; i <= nCountCol; i++) {
+                            Object sValue = reset.getString(i);
+                            if (sValue == null) {
+                                lstData.add("");
+                            } else {
+                                lstData.add(reset.getString(i));
+                            }
+                        }
+                        hmData.put(nCountData, lstData);
+                        nCountData++;
+                    }
+
+                    if (reset != null) {
+                        reset.close();
+                    }
+                    if (stm != null) {
+                        stm.close();
+                    }
+                    nValue++;
+                } catch (Exception e) {
+                    System.err.println("Loi trong ham getDataExp " + valuePos.getsKey() + "~" + e.getMessage());
+                    CoreLogger.error(this.getClass().getName() + " getDataExp -> " + valuePos.getsKey() + "~" + e.getMessage());
                 }
 
-                Statement stm = null;
-                stm = connect.createStatement();
-                if (stm == null) {
-                    System.err.println("Khong tao duoc createStatement ham exportExcelQuery");
-                    CoreLogger.error(this.getClass().getName() + " Khong tao duoc createStatement ham exportExcelQuery ");
-                    return false;
-                }
-                
-                ResultSet reset = null;
-                reset = stm.executeQuery(sQueryTmp);
-                //System.err.println(strQuery);
-                if (stm == null) {
-                    System.err.println("Khong tao duoc executeQuery ham exportExcelQuery");
-                    CoreLogger.error(this.getClass().getName() + " Khong tao duoc executeQuery ham exportExcelQuery ");
-                    return false;
-                }
-                ResultSetMetaData resetMetaData=reset.getMetaData();
-                int nCountCol=resetMetaData.getColumnCount();
-                if(nValue==0)
-                {
-                    
-                    List<Object> lsMetaData=new ArrayList<Object>();
-                    List<Object> lstColName= new ArrayList<Object>();
-                    for(int i =1;i<=nCountCol;i++)
-                    {
-                        lsMetaData.add(resetMetaData.getColumnTypeName(i));
-                        lstColName.add(resetMetaData.getColumnName(i));
-                    }
-                    
-                    hmMetaTable.put(9999, lsMetaData);
-                    hmNameCol.put(9999, lstColName);
-                }
-                
-                
-                while(reset.next())
-                {
-                    List<Object> lstData= new ArrayList<Object>();
-                    for(int i=1;i<=nCountCol;i++)
-                    {
-                        Object sValue=reset.getString(i);
-                        if(sValue==null)
-                            lstData.add("");
-                        else
-                            lstData.add(reset.getString(i));
-                    }
-                    hmData.put(nCountData, lstData);
-                    nCountData++;
-                }
-
-                if (reset != null) {
-                    reset.close();
-                }
-                if (stm != null) {
-                    stm.close();
-                }
-                nValue++;
             }
-             lstDataExp.add(hmNameCol);
-             lstDataExp.add(hmMetaTable);
-             lstDataExp.add(hmData);
+            lstDataExp.add(hmNameCol);
+            lstDataExp.add(hmMetaTable);
+            lstDataExp.add(hmData);
             //Lay ra column va desc cho column du lieu trong bao cao
-          
+
             ExportExcelFile exportExcel = new ExportExcelFile();
             exportExcel.ExportFileExcelQueryFromList(lstDataExp, strTitle, strFileName);
             if (connect != null) {
@@ -982,7 +980,7 @@ public class DaoKt740 {
 //        try {
         connect = daoConnect.getConnect();
 
-            //Lay ra column va desc cho column du lieu trong bao cao
+        //Lay ra column va desc cho column du lieu trong bao cao
         //replare tham so cho gia tri trong truy van
         Set<String> keys = mapinPara.keySet();
         for (String key : keys) {
@@ -1025,7 +1023,7 @@ public class DaoKt740 {
                 String strDataType = resetMetaData.getColumnTypeName(i + 1);
                 String strValue = reset.getString(i + 1);
                 if (strDataType.equals("DATE")) {
-                        //dd/MM/yyyy 
+                    //dd/MM/yyyy 
                     //SimpleDateFormat datetemp = new SimpleDateFormat("yyyy-MM-dd");
                     if (strValue == null || strValue.isEmpty()) {
                         strTableData = strTableData + "<td>" + strValue + "</td>";
@@ -1063,6 +1061,7 @@ public class DaoKt740 {
 //        }
         return lstTableData;
     }
+
     public String getUserCreateReport(String sSave_id) {
         String sUserName = "";
         try {
@@ -1107,6 +1106,7 @@ public class DaoKt740 {
         }
         return sUserName;
     }
+
     public List<ListValue> getGroupQuery(String UserName) {
         List<ListValue> lstQuery = new ArrayList<ListValue>();
 

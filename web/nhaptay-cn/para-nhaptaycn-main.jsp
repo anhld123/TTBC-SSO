@@ -741,6 +741,11 @@
                                                 <input type="button" id="idReLoadtmpTemp" name="nameidReLoadtmpTemp"  onclick="ExpEcelTemp()" value="Mẫu danh sách NLĐ" />
 
                                             </s:if>      
+                                                
+                                            <s:if test="Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('HTLS_2023')">  
+                                                <sj:submit class="cmd" href="#" onclick="callDirectLink('khvn_open_upload_qt_kh?');" value="Upload Excel"> </sj:submit>   
+                                            </s:if>   
+                                                
                                         </td>
 
 
@@ -960,8 +965,31 @@
 //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
             
             
-            
+        
+    function callDirectLink(link) {
+            var ht = screen.availHeight / 5 + 35;
+            var wt = screen.availWidth / 5 + 20;
+
+            var resize = window.open(link
+                    + "random=" + Math.random(),
+                    "IMS_REPORTS_FRM2", "height=" + ht + ",width=" + wt
+                    + ",left=0,top=0,directories=no,status=no,menubar=no,\n\
+        personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+
+            if (navigator.userAgent.indexOf('Chrome') !== -1
+                    && parseFloat(
+                            navigator.userAgent.substring(
+                                    navigator.userAgent.indexOf('Chrome') + 7
+                                    ).split(' ')[0]) >= 15) {
+                resize.resizeBy(wt, ht);
+            } else {
+                resize.resizeTo(wt, ht);
+            }
+            resize.moveTo(wt, ht);
+            resize.focus();
+        }
         </script>
+        
                         </div>
                         </body>
                         </html>
