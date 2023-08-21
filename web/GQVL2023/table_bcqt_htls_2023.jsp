@@ -24,8 +24,8 @@
                 $('.number').number(true, 0);
 //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 0);
-                $(".TD_POS").css({"width": "40px"});
-                $(".TD_DONVITINH").css({"width": "60px"});
+                $(".TD_POS").css({"width": "50px"});
+                $(".TD_DONVITINH").css({"width": "90px"});
                 $(".TD_THUTU").css({"width": "15px"});
                 $(".TD_SOLUONG").css({"width": "50px"});
                 $(".TD_NGUYENGIA").css({"width": "80px"});
@@ -100,19 +100,19 @@
                 <table id="kkk">
                     <tr>
                         <th style="width: 130px; font: italic; font-size: xx-small;" >Số liệu Trung ương</th>
-                        <th style="width: 60px; font: italic; font-size: xx-small;" >
-                            <input type="text" value="<s:property  value="totalD8Tw"/>" name="totalD8Tw" id="totalD8Tw" style="width: 100px" class="number" readonly="readonly"></th>                  
-                        <th style="width: 60px; font: italic; font-size: xx-small;">
-                            <input type="text" value="<s:property  value="totalD11Tw"/>" name="totalD11Tw" id="totalD11Tw" style="width: 100px" class="number" readonly="readonly"></th>                                
+                        <th style="width: 150px; font: italic; font-size: xx-small;" >
+                            <input type="text" value="<s:property  value="totalD8Tw"/>" name="totalD8Tw" id="totalD8Tw" style="width: 140px" class="number" readonly="readonly"></th>                  
+                        <th style="width: 150px; font: italic; font-size: xx-small;">
+                            <input type="text" value="<s:property  value="totalD11Tw"/>" name="totalD11Tw" id="totalD11Tw" style="width: 140px" class="number" readonly="readonly"></th>                                
                         </th>
                     </tr>
                     <tr>
                         <th style="width: 130px; font: italic; font-size: xx-small;" >Số liệu nhập tại CN</th>
-                        <th style="width: 60px; font: italic; font-size: xx-small;" >
-                            <input type="text" value="" name="totalD8" id="totalD8" style="width: 100px" class="number" readonly="readonly">
+                        <th style="width: 150px; font: italic; font-size: xx-small;" >
+                            <input type="text" value="" name="totalD8" id="totalD8" style="width: 140px" class="number" readonly="readonly">
                         </th>                  
-                        <th style="width: 60px; font: italic; font-size: xx-small;">
-                            <input type="text" value="" name="totalD11" id="totalD11" style="width: 100px" class="number" readonly="readonly">
+                        <th style="width: 150px; font: italic; font-size: xx-small;">
+                            <input type="text" value="" name="totalD11" id="totalD11" style="width: 140px" class="number" readonly="readonly">
                         </th>
                     </tr>
                 </table>
@@ -127,8 +127,14 @@
             <table border="1" class="editDelete" id="tablems08" align="center">
                 <tr>
                     <th rowspan="1"  class="TD_THUTU">STT</th>
+                    <s:if test="Grade.equalsIgnoreCase('2')">                                     
                     <th rowspan="1"  class="TD_POS">Mã PGD</th>
                     <th rowspan="1"  class="TD_CHITIEU">Tên PGD</th>
+                    </s:if>
+                    <s:if test="Grade.equalsIgnoreCase('3')">                                     
+                    <th rowspan="1"  class="TD_POS">Mã CN</th>
+                    <th rowspan="1"  class="TD_CHITIEU">Tên chi nhánh</th>
+                    </s:if>
                     <th rowspan="1"  class="TD_DONVITINH">Số tiền HTLS ngày trước liền kề trên cân đối</th>
                     <th colspan="1"  class="TD_DONVITINH">Số tiền HTLS cùng ngày tháng trước trên cân đối</th>
                     <th colspan="1"  class="TD_DONVITINH">Số tiền HTLS ngày báo cáo trên cân đối</th>
@@ -145,7 +151,7 @@
                     <th></th>
                     <th style="width: 30px; font: italic; font-size: xx-small;" class="TD_POS">1</th>
                     <th style="width: 30px; font: italic; font-size: xx-small;" class="TD_CHITIEU">2</th>
-                    <th style="width: 20px; font: italic; font-size: xx-small;" class="TD_DONVITINH">3</th>
+                    <th style="width: 30px; font: italic; font-size: xx-small;" class="TD_DONVITINH">3</th>
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_DONVITINH">4</th>
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_DONVITINH">5</th>
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_DONVITINH">6</th>
@@ -155,7 +161,7 @@
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_DONVITINH">10 = 8+9</th>
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_DONVITINH">11</th>
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_DONVITINH">12 = 11-10-6</th>
-                    <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_DONVITINH">13 = 12/(5+7)</th>
+                    <th style="font: italic; font-size: xx-small;" class="TD_POS">13 = 12/(5+7)</th>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
 
@@ -264,9 +270,9 @@
                             </td>
                         </s:else>
 
-                        <td align = "right" class="TD_DONVITINH">
+                        <td align = "right" class="TD_POS">
                             <input type="text" value="<s:property  value="D13" />" 
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 number TEN_KH" onfocus="this.select()"                                       
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" class="TD_POS number TEN_KH" onfocus="this.select()"                                       
                                    onkeyup="calc(this);"  onchange="calc(this);"
                                    readonly="readonly"/>
                         </td>

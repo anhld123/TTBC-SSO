@@ -381,7 +381,7 @@
                             return false;
                         }
                         //Neu la kieu so --> Kiem tra xem kieu nhap co < 9999999999
-                        if (parseFloat(value) > 999999999999) {
+                        if (parseFloat(value) > 99999999999999) {
                             result = false;
                             //Dua ra canh bao
                             $("#message_suc_err").html('<span style="color:red"><h2><span style="font-weight: bold; color">Thông báo:</span>  Giá trị bạn nhập vượt quá giới hạn!</h2></span>');
