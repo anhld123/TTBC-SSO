@@ -128,6 +128,7 @@
                 $(".TD_CHECKBOX").css({"width": "38px"});
                 $(".TD_SOKU").css({"width": "80px"});
                 $(".TD_TENKH123").css({"width": "110px"});
+                $(".TD_TENKH1234").css({"width": "70px"});
                 $(".TD_TENTS").css({"width": "190px"});
                 $(".TD_SOTK").css({"width": "105px"});
                 $(".TD_MAKH").css({"width": "60px"});
@@ -198,12 +199,14 @@
             //Check xem du lieu da ok chua
             //Neu ok roi thi goi su kien submit du lieu
             function fnCheckThenSubmit() {
+//                document.getElementById('loadingImageDiv_para').style.display = "block";
                 $("#update").click(function () {
                     sleep(1000);
                 });
                 if (validateRequiredFields()) {
                     $("#update").trigger('click');
                 }
+//                 location.reload();
             }
 
             function tai_lai_trang() {
@@ -261,6 +264,28 @@
                                 </tr>';
                 $($('table#tableKtnb tr')[index]).before(newTr);
             }
+             $.subscribe("beforediv_para", function (event, data) {
+                $("#loadingImageDiv_para").show();
+            });
+            $.subscribe("completediv_para", function (event, data) {
+                $("#loadingImageDiv_para").hide();
+            });
+
+            function onReloadPara()
+            {
+                $('#result').empty();
+                $("#update")[0].click();
+            }
+            $.subscribe('beforediv1', function (event, data) {
+                var allDate = $(".hasDatepicker").map(function () {
+                    return $(this).attr("name");
+                }).get();
+
+                //2. Them input mask
+                for (var i = 0; i < allDate.length; i++) {
+                    new DateMask("dd/MM/yyyy", allDate[i].toString());
+                }
+            });
         </script>
 
     </head>
@@ -273,18 +298,24 @@
                     </tr>
                     <tr>
                         <td width="70%" >
-                            <b>Phòng giao dịch: </b><input class="TD_THOIGIAN" type="text" name="posCD" id="posCD" value="<s:property value="pos_cd_username"/>" readonly="readonly"/>
-                            <b>Chi nhánh: </b><input class="TD_THOIGIAN" type="text" name="maCn" id="maCn" value="<s:property value="main_pos_username"/>" readonly="readonly"/>
-                            <b>Quý báo cáo: </b><input type="text" name="quyBc" id="quyBc" value="<s:property value="quyBc"/>" readonly="readonly"/>
-                            <b>Năm báo cáo: </b><input type="text" name="namBc" id="namBc" value="<s:property value="namBc"/>" readonly="readonly"/>
-                            <b>Người dùng: </b><input class="TD_THOIGIAN" type="text" name="userName" id="userName" value="<s:property value="userName"/>" readonly="readonly"/>
+                            <b>Phòng giao dịch: </b><input class="TD_TENKH1234" type="text" name="posCD" id="posCD" value="<s:property value="pos_cd_username"/>" readonly="readonly"/>
+                            <b>Chi nhánh: </b><input class="TD_TENKH1234" type="text" name="maCn" id="maCn" value="<s:property value="main_pos_username"/>" readonly="readonly"/>
+                            <!--<b>Quý báo cáo: </b><input class="TD_TENKH1234" type="text" name="quyBc" id="quyBc" value="<s:property value="quyBc"/>" readonly="readonly"/>-->
+                            <b>Năm báo cáo: </b><input class="TD_TENKH1234" type="text" name="namBc" id="namBc" value="<s:property value="namBc"/>" readonly="readonly"/>
+                            <b>Người dùng: </b><input class="TD_TENKH1234" type="text" name="userName" id="userName" value="<s:property value="userName"/>" readonly="readonly"/>
+                            <b>Ngày báo cáo: </b><input type="text" class="TD_TENKH1234" name="ngayBC" id="ngayBC" value="<s:property value="ngayBC"/>" readonly="readonly"/>
+
                         </td>
                         <td align="right">     
                             <div id="result" style="color: red">                            
                             </div>
-                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>
-                            <sj:submit targets="result" value="Cập nhật" name="update" id="update"  cssStyle="display: none;"/>
-                            <input type="button" onclick="tai_lai_trang()" style="width:122px;height:25px;color: red;" value ="Reset"/>    
+                           <div id="loadingImageDiv_para"  style="display: none;">
+                                <img id="loadingImage" src='img/loading.gif' border='0' >
+                            </div>
+                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()"
+                                   style="width:122px;height:25px;color: red; font-weight: bold ;"/>
+                            <sj:submit id="update" name="update"  targets="result" onBeforeTopics="beforediv_para"
+                                       onCompleteTopics="completediv_para" cssStyle="display: none"/>
                         </td>                 
 
                     </tr>

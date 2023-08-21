@@ -41,11 +41,11 @@ import vbsp.ims.report.fast.ListValue;
  * @author LION
  */
 public class DaoKTNBMain {
-    
+
     public static DaoKTNBMain newInstance() {
         return new DaoKTNBMain();
     }
-    
+
     public List<ListValue> getAllBcqt() {
         List<ListValue> lstAllBcqt = new ArrayList<ListValue>();
         try {
@@ -56,7 +56,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_IMS_BCQT.SP_LOAD_ALL_BCQT(?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -78,7 +78,7 @@ public class DaoKTNBMain {
 
                     lstAllBcqt.add(new ListValue(key, des));
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -98,7 +98,7 @@ public class DaoKTNBMain {
         }
         return lstAllBcqt;
     }
-    
+
     public List<ListValue> getAllBcqt_SUB() {
         List<ListValue> lstAllBcqt = new ArrayList<ListValue>();
         try {
@@ -109,7 +109,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_IMS_BCQT.SP_LOAD_ALL_BCQT_SUB(?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -131,7 +131,7 @@ public class DaoKTNBMain {
 
                     lstAllBcqt.add(new ListValue(key, des));
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -151,7 +151,7 @@ public class DaoKTNBMain {
         }
         return lstAllBcqt;
     }
-    
+
     public List<ModelTreeNode> getDataPosTreeNode(Connection conn, String strUserName, String sGrade) {
         List<ModelTreeNode> lstPo = new ArrayList<ModelTreeNode>();
         try {
@@ -162,7 +162,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_IMS_BCQT.SP_LOAD_POS_TREE_BCQT(?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -185,7 +185,7 @@ public class DaoKTNBMain {
                     lstPo.add(new ModelTreeNode(reset.getString("PARENT_CD"), reset.getString("PARENT_DESC"),
                             reset.getString("CHILD_CD"), reset.getString("CHILD_DESC")));
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -205,10 +205,10 @@ public class DaoKTNBMain {
         }
         return lstPo;
     }
-    
+
     public List<ReportParam> getReportParmams(Connection conn, String sKhoa) {
         ArrayList<ReportParam> report_param_list = new ArrayList<>();
-        
+
         try {
 //            DaoConnect daoconnect = new DaoConnect();
 //            Connection conn ;
@@ -218,7 +218,7 @@ public class DaoKTNBMain {
             String strStoreproce = "{call VBSP_IMS_BCQT.SP_LOAD_PARA_BCQT(?, ?, ?, ?, ?)}";
             ResultSet rscur_params;
             ResultSet rs_combo;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce,
@@ -238,10 +238,10 @@ public class DaoKTNBMain {
 
                 //Do toan bo du lieu tu Resultset vao array list
                 List<Combo> combo_list_all = fillResultSetComboToArray(rs_combo);
-                
+
                 while (rscur_params.next()) {
                     ReportParam rp = new ReportParam();
-                    
+
                     rp.setType(rscur_params.getString("LOAITSO"));
                     rp.setFieldName(rscur_params.getString("THAMSO"));
                     rp.setLabel(rscur_params.getString("MOTA"));
@@ -283,16 +283,16 @@ public class DaoKTNBMain {
 
     //Desc: Chuyen du lieu combo ra Array de xu ly
     private List<Combo> fillResultSetComboToArray(ResultSet rs_combo) throws SQLException {
-        
+
         ArrayList<Combo> combo_list = new ArrayList<Combo>();
         try {
             while (rs_combo.next()) {
                 Combo cb = new Combo();
-                
+
                 cb.setKey(rs_combo.getString("PARA_KEY"));
                 cb.setValue(rs_combo.getString("PARA_DESC"));
                 cb.setFieldName(rs_combo.getString("PARA_FIELD_NAME"));
-                
+
                 combo_list.add(cb);
             }
         } catch (Exception e) {
@@ -300,7 +300,7 @@ public class DaoKTNBMain {
         }
         return combo_list;
     }
-    
+
     public List<ListValue> getDmKhac(Connection conn, String Khoa) {
         List<ListValue> lstAllBcqt = new ArrayList<ListValue>();
         try {
@@ -311,7 +311,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_IMS_BCQT.SP_GET_DMKHAC(?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -334,7 +334,7 @@ public class DaoKTNBMain {
 
                     lstAllBcqt.add(new ListValue(key, key));
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -354,7 +354,7 @@ public class DaoKTNBMain {
         }
         return lstAllBcqt;
     }
-    
+
     public List<QT_DULIEU_NT> getDataPL01TL(Connection conn, String Khoa, String ngaybc, List<String> lstMapgd, String grade, String UserName) {
         List<QT_DULIEU_NT> lstBcqtPl01 = new ArrayList<QT_DULIEU_NT>();
         try {
@@ -388,7 +388,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     String Ma = reset.getString(2);
                     value.setKHOA(reset.getString(1));
@@ -415,7 +415,7 @@ public class DaoKTNBMain {
                     value.setTHUTU(reset.getInt(21));
                     lstBcqtPl01.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -435,7 +435,7 @@ public class DaoKTNBMain {
         }
         return lstBcqtPl01;
     }
-    
+
     public List<QT_MS12A> getDataMS12A(Connection conn, String Khoa, String ngaybc, List<String> lstMapgd,
             String grade, String UserName, int start, int end) throws SQLException {
         List<QT_MS12A> lstBcqtMs12A = new ArrayList<QT_MS12A>();
@@ -492,7 +492,7 @@ public class DaoKTNBMain {
                 value.setROWID(reset.getString(20));
                 lstBcqtMs12A.add(value);
             }
-            
+
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " getDataMS12A -> " + e.getMessage());
@@ -510,7 +510,7 @@ public class DaoKTNBMain {
 //        }
         return lstBcqtMs12A;
     }
-    
+
     public int getTotalRowMS12A(Connection conn, String Khoa, String ngaybc, List<String> lstMapgd,
             String grade, String UserName) throws SQLException {
         int totalrow = 0;
@@ -535,7 +535,7 @@ public class DaoKTNBMain {
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
             totalrow = calstatement.getInt(1);
-            
+
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " getDataMS12A -> " + e.getMessage());
@@ -549,7 +549,7 @@ public class DaoKTNBMain {
         }
         return totalrow;
     }
-    
+
     public int getTotalRowMS13SK(Connection conn, String Khoa, String ngaybc, List<String> lstMapgd,
             String grade, String UserName, String so_ku) throws SQLException {
         int totalrow = 0;
@@ -575,7 +575,7 @@ public class DaoKTNBMain {
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
             totalrow = calstatement.getInt(1);
-            
+
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " getTotalRowMS13SK -> " + e.getMessage());
@@ -589,7 +589,7 @@ public class DaoKTNBMain {
         }
         return totalrow;
     }
-    
+
     public List<QT_MS13SK> getDataMS13SK(Connection conn, String Khoa, String ngaybc, List<String> lstMapgd,
             String grade, String UserName, int start, int end, String so_ku) throws SQLException {
         List<QT_MS13SK> lstBcqtMs13SK = new ArrayList<QT_MS13SK>();
@@ -646,7 +646,7 @@ public class DaoKTNBMain {
                 value.setROWID(reset.getString(19));
                 lstBcqtMs13SK.add(value);
             }
-            
+
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " getDataMS13SK -> " + e.getMessage());
@@ -664,7 +664,7 @@ public class DaoKTNBMain {
 //        }
         return lstBcqtMs13SK;
     }
-    
+
     public List<QT_MS12C> getDataMS12C(String Khoa, String ngaybc, List<String> lstMapgd,
             String grade, String UserName) throws SQLException {
         List<QT_MS12C> lstBcqtMs12C = new ArrayList<QT_MS12C>();
@@ -718,7 +718,7 @@ public class DaoKTNBMain {
                 value.setCHTRINH(reset.getString(16));
                 lstBcqtMs12C.add(value);
             }
-            
+
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " getDataMS12C -> " + e.getMessage());
@@ -739,7 +739,7 @@ public class DaoKTNBMain {
 //        }
         return lstBcqtMs12C;
     }
-    
+
     public List<QT_DULIEU_NT> getDataBCQT_NT(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -754,7 +754,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_IMS_BCQT.SP_GET_DATA_BCQT_NT(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -775,7 +775,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
@@ -806,10 +806,10 @@ public class DaoKTNBMain {
                     value.setD17(reset.getString(31));
                     value.setNHAPTAY(reset.getString(45));
                     value.setFONTFORMAT(reset.getString(46));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -829,7 +829,7 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataKtnb06A(Connection conn, String sQuy, String sNam,
             String sUser, int sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -844,7 +844,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_RPT_KTKTNB.p_get_ktnb06a(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -865,7 +865,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
@@ -897,10 +897,10 @@ public class DaoKTNBMain {
                     value.setD18(reset.getString(32));
                     value.setNHAPTAY(reset.getString(45));
                     value.setFONTFORMAT(reset.getString(46));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -922,7 +922,7 @@ public class DaoKTNBMain {
     }
 
     public List<QT_DULIEU_NT> getDataKtnb_bieu01(Connection conn, String sQuy, String sNam,
-            String sUser, int sGrade, List<String> lstArrPoscd) {
+            String sUser, int sGrade, List<String> lstArrPoscd, String sNgaybc) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
@@ -933,9 +933,9 @@ public class DaoKTNBMain {
 //            conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_RPT_KTKTNB.P_GET_KTNB_BIEU01(?,?,?,?,?,?,?,?)}";
+            String strStoreproce = "{call VBSP_RPT_KTKTNB.P_GET_KTNB_BIEU01(?,?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -947,6 +947,7 @@ public class DaoKTNBMain {
                 calstatement.setString(3, sQuy);
                 calstatement.setInt(4, sGrade);
                 calstatement.setArray(5, oracle_arrayPoscd);
+                calstatement.setString(9, sNgaybc);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -956,7 +957,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
@@ -988,10 +989,10 @@ public class DaoKTNBMain {
                     value.setD18(reset.getString(32));
                     value.setNHAPTAY(reset.getString(45));
                     value.setFONTFORMAT(reset.getString(46));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -1011,9 +1012,9 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataKtnb_bieu02(Connection conn, String sQuy, String sNam,
-            String sUser, int sGrade, List<String> lstArrPoscd) {
+            String sUser, int sGrade, List<String> lstArrPoscd, String sNgaybc) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
@@ -1024,9 +1025,9 @@ public class DaoKTNBMain {
 //            conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_RPT_KTKTNB.P_GET_KTNB_BIEU02(?,?,?,?,?,?,?,?)}";
+            String strStoreproce = "{call VBSP_RPT_KTKTNB.P_GET_KTNB_BIEU02(?,?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -1038,6 +1039,7 @@ public class DaoKTNBMain {
                 calstatement.setString(3, sQuy);
                 calstatement.setInt(4, sGrade);
                 calstatement.setArray(5, oracle_arrayPoscd);
+                calstatement.setString(9, sNgaybc);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -1047,8 +1049,8 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
-                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+
+                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
                     value.setTT_HIENTHI(reset.getString(3));
@@ -1081,10 +1083,10 @@ public class DaoKTNBMain {
                     value.setNHAPTAY(reset.getString(65));
                     value.setFONTFORMAT(reset.getString(66));
                     value.setKIEUIN(reset.getInt(67));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -1104,9 +1106,9 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataKtnb_bieu03(Connection conn, String sQuy, String sNam,
-            String sUser, int sGrade, List<String> lstArrPoscd) {
+            String sUser, int sGrade, List<String> lstArrPoscd, String sNgaybc) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
@@ -1117,9 +1119,9 @@ public class DaoKTNBMain {
 //            conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_RPT_KTKTNB.P_GET_KTNB_BIEU03(?,?,?,?,?,?,?,?)}";
+            String strStoreproce = "{call VBSP_RPT_KTKTNB.P_GET_KTNB_BIEU03(?,?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -1131,6 +1133,7 @@ public class DaoKTNBMain {
                 calstatement.setString(3, sQuy);
                 calstatement.setInt(4, sGrade);
                 calstatement.setArray(5, oracle_arrayPoscd);
+                calstatement.setString(9, sNgaybc);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -1140,8 +1143,8 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
-                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+
+                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
                     value.setTT_HIENTHI(reset.getString(3));
@@ -1174,10 +1177,10 @@ public class DaoKTNBMain {
                     value.setNHAPTAY(reset.getString(65));
                     value.setFONTFORMAT(reset.getString(66));
                     value.setKIEUIN(reset.getInt(67));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -1197,9 +1200,9 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataKtnb_bieu04(Connection conn, String sQuy, String sNam,
-            String sUser, int sGrade, List<String> lstArrPoscd) {
+            String sUser, int sGrade, List<String> lstArrPoscd, String sNgaybc) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
@@ -1210,9 +1213,9 @@ public class DaoKTNBMain {
 //            conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_RPT_KTKTNB.P_GET_KTNB_BIEU04(?,?,?,?,?,?,?,?)}";
+            String strStoreproce = "{call VBSP_RPT_KTKTNB.P_GET_KTNB_BIEU04(?,?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -1224,6 +1227,7 @@ public class DaoKTNBMain {
                 calstatement.setString(3, sQuy);
                 calstatement.setInt(4, sGrade);
                 calstatement.setArray(5, oracle_arrayPoscd);
+                calstatement.setString(9, sNgaybc);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -1233,7 +1237,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
@@ -1268,10 +1272,10 @@ public class DaoKTNBMain {
                     value.setNHAPTAY(reset.getString(65));
                     value.setFONTFORMAT(reset.getString(66));
                     value.setKIEUIN(reset.getInt(67));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -1291,9 +1295,9 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataKtnb_bieu05(Connection conn, String sQuy, String sNam,
-            String sUser, int sGrade, List<String> lstArrPoscd) {
+            String sUser, int sGrade, List<String> lstArrPoscd, String sNgaybc) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
@@ -1304,9 +1308,9 @@ public class DaoKTNBMain {
 //            conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_RPT_KTKTNB.P_GET_KTNB_BIEU05(?,?,?,?,?,?,?,?)}";
+            String strStoreproce = "{call VBSP_RPT_KTKTNB.P_GET_KTNB_BIEU05(?,?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -1318,6 +1322,7 @@ public class DaoKTNBMain {
                 calstatement.setString(3, sQuy);
                 calstatement.setInt(4, sGrade);
                 calstatement.setArray(5, oracle_arrayPoscd);
+                calstatement.setString(9, sNgaybc);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -1327,8 +1332,8 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
-                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+
+                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
                     value.setTT_HIENTHI(reset.getString(3));
@@ -1361,10 +1366,10 @@ public class DaoKTNBMain {
                     value.setNHAPTAY(reset.getString(65));
                     value.setFONTFORMAT(reset.getString(66));
                     value.setKIEUIN(reset.getInt(67));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -1384,9 +1389,9 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataKtnb_bieu06(Connection conn, String sQuy, String sNam,
-            String sUser, int sGrade, List<String> lstArrPoscd) {
+            String sUser, int sGrade, List<String> lstArrPoscd, String sNgaybc) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
@@ -1397,9 +1402,9 @@ public class DaoKTNBMain {
 //            conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_RPT_KTKTNB.P_GET_KTNB_BIEU06(?,?,?,?,?,?,?,?)}";
+            String strStoreproce = "{call VBSP_RPT_KTKTNB.P_GET_KTNB_BIEU06(?,?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -1411,6 +1416,7 @@ public class DaoKTNBMain {
                 calstatement.setString(3, sQuy);
                 calstatement.setInt(4, sGrade);
                 calstatement.setArray(5, oracle_arrayPoscd);
+                calstatement.setString(9, sNgaybc);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -1420,8 +1426,8 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
-                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+
+                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
                     value.setTT_HIENTHI(reset.getString(3));
@@ -1454,10 +1460,10 @@ public class DaoKTNBMain {
                     value.setNHAPTAY(reset.getString(65));
                     value.setFONTFORMAT(reset.getString(66));
                     value.setKIEUIN(reset.getInt(67));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -1478,7 +1484,7 @@ public class DaoKTNBMain {
         return lstBcqt_NT;
     }
 
-    public boolean saveKTNB_bieu01(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData) throws SQLException {
+    public boolean saveKTNB_bieu01(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData, String sNgaybc) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -1487,7 +1493,7 @@ public class DaoKTNBMain {
         ARRAY array_to_pass = new ARRAY(des, connection, array);
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU01(?, ?, ?, ?, ?, ?, ?)}");
+            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU01(?, ?, ?, ?, ?, ?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
@@ -1495,6 +1501,7 @@ public class DaoKTNBMain {
             cs.setString(5, sNam);
             cs.setInt(6, sGrade);
             cs.setArray(7, array_to_pass);
+            cs.setString(8, sNgaybc);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1512,7 +1519,7 @@ public class DaoKTNBMain {
         return true;
     }
 
-    public boolean saveKTNB_bieu02(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData) throws SQLException {
+    public boolean saveKTNB_bieu02(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData, String sNgaybc) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -1521,7 +1528,7 @@ public class DaoKTNBMain {
         ARRAY array_to_pass = new ARRAY(des, connection, array);
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU02(?, ?, ?, ?,?,?, ?)}");
+            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU02(?, ?, ?, ?,?,?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
@@ -1529,40 +1536,7 @@ public class DaoKTNBMain {
             cs.setString(5, sNam);
             cs.setInt(6, sGrade);
             cs.setArray(7, array_to_pass);
-            cs.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.err.println("Loi trong ham saveKTNB06A " + e.getMessage());
-            CoreLogger.error(this.getClass().getName() + " saveKTNB06A -> " + e.getMessage());
-            return false;
-        } finally {
-            if (cs != null) {
-                cs.close();
-            }
-            if (connection != null) {
-                connection.close();
-            }
-        }
-        return true;
-    }
-    
-    public boolean saveKTNB_bieu03(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData) throws SQLException {
-        Connection connection = new DaoConnect().getConnect();
-//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
-        Object array[] = lstData.toArray();
-        ArrayDescriptor des = ArrayDescriptor
-                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
-        ARRAY array_to_pass = new ARRAY(des, connection, array);
-        CallableStatement cs = null;
-        try {
-            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU03(?, ?, ?, ?,?,?, ?)}");
-            cs.setString(1, khoa);
-            cs.setString(2, username);
-            cs.setString(3, mapgd);
-            cs.setString(4, sQuy);
-            cs.setString(5, sNam);
-            cs.setInt(6, sGrade);
-            cs.setArray(7, array_to_pass);
+            cs.setString(8, sNgaybc);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1580,7 +1554,7 @@ public class DaoKTNBMain {
         return true;
     }
 
-    public boolean saveKTNB_bieu04(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData) throws SQLException {
+    public boolean saveKTNB_bieu03(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData, String sNgaybc) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -1589,7 +1563,7 @@ public class DaoKTNBMain {
         ARRAY array_to_pass = new ARRAY(des, connection, array);
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU04(?, ?, ?, ?,?,?, ?)}");
+            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU03(?, ?, ?, ?,?,?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
@@ -1597,6 +1571,7 @@ public class DaoKTNBMain {
             cs.setString(5, sNam);
             cs.setInt(6, sGrade);
             cs.setArray(7, array_to_pass);
+            cs.setString(8, sNgaybc);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1613,8 +1588,8 @@ public class DaoKTNBMain {
         }
         return true;
     }
-    
-    public boolean saveKTNB_bieu05(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData) throws SQLException {
+
+    public boolean saveKTNB_bieu04(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData, String sNgaybc) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -1623,7 +1598,7 @@ public class DaoKTNBMain {
         ARRAY array_to_pass = new ARRAY(des, connection, array);
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU05(?, ?, ?, ?,?,?, ?)}");
+            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU04(?, ?, ?, ?,?,?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
@@ -1631,6 +1606,7 @@ public class DaoKTNBMain {
             cs.setString(5, sNam);
             cs.setInt(6, sGrade);
             cs.setArray(7, array_to_pass);
+            cs.setString(8, sNgaybc);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1647,8 +1623,8 @@ public class DaoKTNBMain {
         }
         return true;
     }
-    
-    public boolean saveKTNB_bieu06(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData) throws SQLException {
+
+    public boolean saveKTNB_bieu05(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData, String sNgaybc) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -1657,7 +1633,7 @@ public class DaoKTNBMain {
         ARRAY array_to_pass = new ARRAY(des, connection, array);
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU06(?, ?, ?, ?,?,?, ?)}");
+            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU05(?, ?, ?, ?,?,?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, mapgd);
@@ -1665,6 +1641,7 @@ public class DaoKTNBMain {
             cs.setString(5, sNam);
             cs.setInt(6, sGrade);
             cs.setArray(7, array_to_pass);
+            cs.setString(8, sNgaybc);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1681,7 +1658,42 @@ public class DaoKTNBMain {
         }
         return true;
     }
-    
+
+    public boolean saveKTNB_bieu06(String khoa, String username, String mapgd, String sQuy, String sNam, int sGrade, List<QT_DULIEU_NT> lstData, String sNgaybc) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_SAVE_KTNB_BIEU06(?, ?, ?, ?,?,?, ?, ?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, username);
+            cs.setString(3, mapgd);
+            cs.setString(4, sQuy);
+            cs.setString(5, sNam);
+            cs.setInt(6, sGrade);
+            cs.setArray(7, array_to_pass);
+            cs.setString(8, sNgaybc);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham saveKTNB06A " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveKTNB06A -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
+
     public List<QT_DULIEU_NT> getDataKtnb06B(Connection conn, String sQuy, String sNam,
             String sUser, int sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -1696,7 +1708,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_RPT_KTKTNB.p_get_ktnb06b(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -1717,7 +1729,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
@@ -1750,10 +1762,10 @@ public class DaoKTNBMain {
                     value.setNHAPTAY(reset.getString(45));
                     value.setFONTFORMAT(reset.getString(46));
                     value.setKIEUIN(reset.getInt(67));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -1773,7 +1785,7 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataBCQT_25(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -1788,7 +1800,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_IMS_BCQT.SP_GET_DATA_BCQT_M25(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -1809,7 +1821,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
@@ -1840,10 +1852,10 @@ public class DaoKTNBMain {
                     value.setD17(reset.getString(31));
                     value.setNHAPTAY(reset.getString(45));
                     value.setFONTFORMAT(reset.getString(46));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -1863,7 +1875,7 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataBCQT_08(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -1878,7 +1890,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_IMS_BCQT.SP_GET_DATA_BCQT_M08(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -1899,7 +1911,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
@@ -1930,10 +1942,10 @@ public class DaoKTNBMain {
                     value.setD17(reset.getString(31));
                     value.setNHAPTAY(reset.getString(45));
                     value.setFONTFORMAT(reset.getString(46));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -1953,7 +1965,7 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataBCQT_M09(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -1968,7 +1980,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_IMS_BCQT.SP_GET_DATA_BCQT_M09(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -1989,7 +2001,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
@@ -2020,10 +2032,10 @@ public class DaoKTNBMain {
                     value.setD17(reset.getString(31));
                     value.setNHAPTAY(reset.getString(45));
                     value.setFONTFORMAT(reset.getString(46));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -2043,7 +2055,7 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataBCQT_NT06AB(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -2058,7 +2070,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_IMS_BCQT.SP_GET_DATA_BCQT_NT06AB(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -2079,7 +2091,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
@@ -2110,10 +2122,10 @@ public class DaoKTNBMain {
                     value.setD17(reset.getString(31));
                     value.setNHAPTAY(reset.getString(45));
                     value.setFONTFORMAT(reset.getString(46));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -2133,7 +2145,7 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataBCQT_MS04(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -2148,7 +2160,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_IMS_BCQT.SP_LOAD_DATA_MS04(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -2170,7 +2182,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
 //                    value.setTHUTU(reset.getInt(2));
@@ -2195,10 +2207,10 @@ public class DaoKTNBMain {
                     value.setD11(reset.getString(17));
                     value.setD12(reset.getString(18));
                     value.setD13(reset.getString(19));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -2218,7 +2230,7 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataBCQT_MS10A(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -2233,7 +2245,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call SP_LOAD_DATA_MS10A(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -2255,7 +2267,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
 //                    value.setTHUTU(reset.getInt(2));
@@ -2280,10 +2292,10 @@ public class DaoKTNBMain {
                     value.setD11(reset.getString(17));
                     value.setD12(reset.getString(18));
                     value.setD13(reset.getString(19));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -2303,7 +2315,7 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public boolean saveBcqtM04(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2337,7 +2349,7 @@ public class DaoKTNBMain {
         }
         return bSuccess;
     }
-    
+
     public boolean saveBcqtM10A(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2371,7 +2383,7 @@ public class DaoKTNBMain {
         }
         return bSuccess;
     }
-    
+
     public boolean saveBcqtM10B(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2405,7 +2417,7 @@ public class DaoKTNBMain {
         }
         return bSuccess;
     }
-    
+
     public boolean saveBcqtM03(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2437,7 +2449,7 @@ public class DaoKTNBMain {
         }
         return true;
     }
-    
+
     public boolean saveKTNB06A(String khoa, String username, String mapgd, String sQuy, String sNam, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2470,7 +2482,7 @@ public class DaoKTNBMain {
         }
         return true;
     }
-    
+
     public boolean saveKTNB06B(String khoa, String username, String mapgd, String sQuy, String sNam, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2503,7 +2515,7 @@ public class DaoKTNBMain {
         }
         return true;
     }
-    
+
     public boolean saveBcqtM06A(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2535,7 +2547,7 @@ public class DaoKTNBMain {
         }
         return true;
     }
-    
+
     public boolean saveBcqtM06B(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2567,7 +2579,7 @@ public class DaoKTNBMain {
         }
         return true;
     }
-    
+
     public boolean saveBcqtM07(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2599,7 +2611,7 @@ public class DaoKTNBMain {
         }
         return true;
     }
-    
+
     public boolean saveBcqtM05PL(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2631,7 +2643,7 @@ public class DaoKTNBMain {
         }
         return true;
     }
-    
+
     public boolean saveBcqtM06A1(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2663,7 +2675,7 @@ public class DaoKTNBMain {
         }
         return true;
     }
-    
+
     public boolean saveBcqtM08(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2695,7 +2707,7 @@ public class DaoKTNBMain {
         }
         return true;
     }
-    
+
     public boolean saveBcqtM09(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2727,7 +2739,7 @@ public class DaoKTNBMain {
         }
         return true;
     }
-    
+
     public boolean saveBcqtPl01(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2761,7 +2773,7 @@ public class DaoKTNBMain {
         }
         return bSuccess;
     }
-    
+
     public List<QT_MS12A> getDataMS12A(String Khoa, String ngaybc, List<String> lstMapgd,
             String grade, String UserName) throws SQLException {
         List<QT_MS12A> lstBcqtMs12A = new ArrayList<QT_MS12A>();
@@ -2816,7 +2828,7 @@ public class DaoKTNBMain {
                 value.setNGAYTAO(reset.getDate(17));
                 lstBcqtMs12A.add(value);
             }
-            
+
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " getDataMS12A -> " + e.getMessage());
@@ -2837,7 +2849,7 @@ public class DaoKTNBMain {
 //        }
         return lstBcqtMs12A;
     }
-    
+
     public boolean saveBcqt12C(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2871,7 +2883,7 @@ public class DaoKTNBMain {
         }
         return bSuccess;
     }
-    
+
     public boolean saveBcqt12A(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2905,7 +2917,7 @@ public class DaoKTNBMain {
         }
         return bSuccess;
     }
-    
+
     public boolean saveBcqt13SK(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2939,7 +2951,7 @@ public class DaoKTNBMain {
         }
         return bSuccess;
     }
-    
+
     public List<QT_DULIEU_NT> getData_M06A1(Connection conn, String Khoa, String ngaybc, List<String> lstMapgd, String grade, String UserName) {
         List<QT_DULIEU_NT> lstBcqtPl01 = new ArrayList<QT_DULIEU_NT>();
         try {
@@ -2973,7 +2985,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     String Ma = reset.getString(2);
                     value.setKHOA(reset.getString(1));
@@ -2997,10 +3009,10 @@ public class DaoKTNBMain {
                     value.setD12(reset.getString(18));
                     value.setD13(reset.getString(19));
                     value.setNHAPTAY(reset.getString(20));
-                    
+
                     lstBcqtPl01.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -3020,7 +3032,7 @@ public class DaoKTNBMain {
         }
         return lstBcqtPl01;
     }
-    
+
     public List<QT_DULIEU_NT> getData_M06A2(Connection conn, String Khoa, String ngaybc, List<String> lstMapgd, String grade, String UserName) {
         List<QT_DULIEU_NT> lstBcqtPl01 = new ArrayList<QT_DULIEU_NT>();
         try {
@@ -3054,7 +3066,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     String Ma = reset.getString(2);
                     value.setKHOA(reset.getString(1));
@@ -3078,10 +3090,10 @@ public class DaoKTNBMain {
                     value.setD12(reset.getString(18));
                     value.setD13(reset.getString(19));
                     value.setNHAPTAY(reset.getString(20));
-                    
+
                     lstBcqtPl01.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -3101,7 +3113,7 @@ public class DaoKTNBMain {
         }
         return lstBcqtPl01;
     }
-    
+
     public List<QT_DULIEU_NT> getData_M07(Connection conn, String Khoa, String ngaybc, List<String> lstMapgd, String grade, String UserName) {
         List<QT_DULIEU_NT> lstBcqtPl01 = new ArrayList<QT_DULIEU_NT>();
         try {
@@ -3135,7 +3147,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     String Ma = reset.getString(2);
                     value.setKHOA(reset.getString(1));
@@ -3159,10 +3171,10 @@ public class DaoKTNBMain {
                     value.setD12(reset.getString(18));
                     value.setD13(reset.getString(19));
                     value.setNHAPTAY(reset.getString(20));
-                    
+
                     lstBcqtPl01.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -3197,7 +3209,7 @@ public class DaoKTNBMain {
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
             String[] arrayPoscd = mapgd.toArray(new String[0]);
             ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY,
@@ -3219,7 +3231,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     // PHAN CHUNG
                     value.setKHOA(reset.getString("KHOA"));
@@ -3245,7 +3257,7 @@ public class DaoKTNBMain {
                     value.setCO_CONGCAP(reset.getString("CO_CONGCAP"));
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -3265,7 +3277,7 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataM20(Connection conn, String Khoa, String ngaybc, List<String> mapgd,
             String grade, String UserName) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<>();
@@ -3279,7 +3291,7 @@ public class DaoKTNBMain {
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
             String[] arrayPoscd = mapgd.toArray(new String[0]);
             ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY,
@@ -3301,7 +3313,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     // PHAN CHUNG
                     value.setKHOA(reset.getString("KHOA"));
@@ -3329,7 +3341,7 @@ public class DaoKTNBMain {
                     value.setCO_CONGCAP(reset.getString("CO_CONGCAP"));
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -3349,7 +3361,7 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataM21(Connection conn, String Khoa, String ngaybc, List<String> mapgd,
             String grade, String UserName) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<>();
@@ -3363,7 +3375,7 @@ public class DaoKTNBMain {
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
             String[] arrayPoscd = mapgd.toArray(new String[0]);
             ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY,
@@ -3385,7 +3397,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     // PHAN CHUNG
                     value.setKHOA(reset.getString("KHOA"));
@@ -3409,7 +3421,7 @@ public class DaoKTNBMain {
                     value.setCO_CONGCAP(reset.getString("CO_CONGCAP"));
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -3429,7 +3441,7 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataM22(Connection conn, String Khoa, String ngaybc, List<String> mapgd,
             String grade, String UserName) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<>();
@@ -3443,7 +3455,7 @@ public class DaoKTNBMain {
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
             String[] arrayPoscd = mapgd.toArray(new String[0]);
             ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY,
@@ -3465,7 +3477,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     // PHAN CHUNG
                     value.setKHOA(reset.getString("KHOA"));
@@ -3497,7 +3509,7 @@ public class DaoKTNBMain {
                     value.setCO_CONGCAP(reset.getString("CO_CONGCAP"));
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -3531,7 +3543,7 @@ public class DaoKTNBMain {
         ArrayDescriptor pos_cd_arr = ArrayDescriptor.createDescriptor("POS_CD", connection);
         String[] arrayPoscd = mapgd.toArray(new String[0]);
         ARRAY oracle_arrayPoscd = new ARRAY(pos_cd_arr, connection, arrayPoscd);
-        
+
         CallableStatement cs = null;
         boolean bSuccess = false;
         try {
@@ -3570,7 +3582,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_IMS_BCQT.SP_GET_QT01(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
                 String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
@@ -3636,7 +3648,7 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public double getValueTQSSMS01(String Khoa, String NgayBC, List<String> lstMaPGD, String Grade, String UserName) throws SQLException {
         double _retVal = 0;
         Connection conn = new DaoConnect().getConnect();
@@ -3661,8 +3673,8 @@ public class DaoKTNBMain {
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
             String xx = calstatement.getString(1);
-            System.err.println("test" + xx);            
-            _retVal = Double.parseDouble(xx);            
+            System.err.println("test" + xx);
+            _retVal = Double.parseDouble(xx);
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " getDataMS01 -> " + e.getMessage());
@@ -3680,7 +3692,7 @@ public class DaoKTNBMain {
         }
         return _retVal;
     }
-    
+
     public int checkUser(String UserName) throws SQLException {
         int _retVal = 0;
         Connection conn = new DaoConnect().getConnect();
@@ -3688,18 +3700,18 @@ public class DaoKTNBMain {
         ResultSet reset = null;
         //Khoi tao procedure cung voi tham so truyen vao la dau ?
         String strStoreproce = "{ ? = call VBSP_IMS_BCQT.F_CHECK_USER(?) }";
-        
+
         try {
             //Khoi tao goi Store
             calstatement = conn.prepareCall(strStoreproce,
                     ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-            calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);            
+            calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
             calstatement.setString(2, UserName);
             //Thuc hien execute lay du lieu
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
             _retVal = calstatement.getInt(1);
-            
+
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " checkUser -> " + e.getMessage());
@@ -3751,7 +3763,7 @@ public class DaoKTNBMain {
         }
         return bSuccess;
     }
-    
+
     public List<String> getDataSendKTNB06A(String type, String khoa, String mapgd, String ngay_bc) throws SQLException {
         List<String> lstData = new ArrayList<>();
         DaoConnect daoconnect = new DaoConnect();
@@ -3781,10 +3793,10 @@ public class DaoKTNBMain {
             //Lay cursor ra resultset
             reset = (ResultSet) calstatement.getObject(7);
             while (reset.next()) {
-                
+
                 lstData.add(reset.getString(1));
             }
-            
+
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " getDataSendBcqt -> " + e.getMessage());
@@ -3802,7 +3814,7 @@ public class DaoKTNBMain {
         }
         return lstData;
     }
-    
+
     public List<String> getDataSendKTNB06B(String type, String khoa, String mapgd, String ngay_bc) throws SQLException {
         List<String> lstData = new ArrayList<>();
         DaoConnect daoconnect = new DaoConnect();
@@ -3832,10 +3844,10 @@ public class DaoKTNBMain {
             //Lay cursor ra resultset
             reset = (ResultSet) calstatement.getObject(7);
             while (reset.next()) {
-                
+
                 lstData.add(reset.getString(1));
             }
-            
+
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " getDataSendBcqt -> " + e.getMessage());
@@ -3853,7 +3865,7 @@ public class DaoKTNBMain {
         }
         return lstData;
     }
-    
+
     public Map<String, String> getPosByName(List<String> lstMaPGD) throws SQLException {
         Map<String, String> mapData = new HashMap<String, String>();
         DaoConnect daoconnect = new DaoConnect();
@@ -3883,7 +3895,7 @@ public class DaoKTNBMain {
                     mapData.put(mapgd, tenpgd);
                 }
             }
-            
+
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " getPosByName -> " + e.getMessage());
@@ -3901,7 +3913,7 @@ public class DaoKTNBMain {
         }
         return mapData;
     }
-    
+
     public String isCheckPosSend(String type, String Khoa, String UserName, String ngaybc) throws SQLException {
         String pos_cd = "";
         CallableStatement calstatement = null;
@@ -3924,7 +3936,7 @@ public class DaoKTNBMain {
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
             pos_cd = calstatement.getString(1);
-            
+
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " isCheckPosSend -> " + e.getMessage());
@@ -3945,15 +3957,15 @@ public class DaoKTNBMain {
     //--------------------------------------------------------------------------
 
     public static void main(String[] args) throws Exception {
-        
+
         List<String> pos = new ArrayList();
-        
+
         pos.add("001002");
         pos.add("001005");
         pos.add("001003");
         pos.add("001002");
         pos.add("001004");
-        
+
         DaoKTNBMain.newInstance().getPosByName(pos);
         Connection conn = new DaoConnect().getConnect();
         new DaoKTNBMain().getReportParmams(conn, "BCQT_M03");
@@ -3961,7 +3973,7 @@ public class DaoKTNBMain {
             conn.close();
         }
     }
-    
+
     public List<QT_DULIEU_NT> getDataTCTD_B05(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -3976,7 +3988,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_IMS_BCQT.SP_GET_DATA_TCTD_B05(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -3997,7 +4009,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
@@ -4028,10 +4040,10 @@ public class DaoKTNBMain {
                     value.setD17(reset.getString(31));
                     value.setNHAPTAY(reset.getString(45));
                     value.setFONTFORMAT(reset.getString(46));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -4051,7 +4063,7 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataTCTD_B06(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -4066,7 +4078,7 @@ public class DaoKTNBMain {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_IMS_BCQT.SP_GET_DATA_TCTD_B06(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -4087,7 +4099,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setKHOA(reset.getString(1));
                     value.setTHUTU(reset.getInt(2));
@@ -4118,10 +4130,10 @@ public class DaoKTNBMain {
                     value.setD17(reset.getString(31));
                     value.setNHAPTAY(reset.getString(45));
                     value.setFONTFORMAT(reset.getString(46));
-                    
+
                     lstBcqt_NT.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -4141,7 +4153,7 @@ public class DaoKTNBMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getData_M05PL(Connection conn, String Khoa, String ngaybc, List<String> lstMapgd, String grade, String UserName) {
         List<QT_DULIEU_NT> lstBcqtPl01 = new ArrayList<QT_DULIEU_NT>();
         try {
@@ -4175,7 +4187,7 @@ public class DaoKTNBMain {
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
-                    
+
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     String Ma = reset.getString(2);
                     value.setKHOA(reset.getString(1));
@@ -4197,10 +4209,10 @@ public class DaoKTNBMain {
                     value.setD10(reset.getString(17));
                     value.setD11(reset.getString(18));
                     value.setNHAPTAY(reset.getString(19));
-                    
+
                     lstBcqtPl01.add(value);
                 }
-                
+
                 if (reset != null) {
                     reset.close();
                 }
@@ -4220,7 +4232,7 @@ public class DaoKTNBMain {
         }
         return lstBcqtPl01;
     }
-    
+
     public boolean putXmlFileKtnb(String fileXml, String khoa, String type_bcqt, String mapgd, String ngay_bc,
             String grade, String username, String ngay_gui, String tt_khoa) throws SQLException {
         boolean bSuccess = false;
@@ -4244,12 +4256,12 @@ public class DaoKTNBMain {
             BigDecimal value = new BigDecimal(xmlFile.length());
             DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
-            
+
             Document document = documentBuilder.parse(xmlFile);
             conn = daoconnect.getConnect();
-            
+
             xml = XMLType.createXML(conn, document);
-            
+
             sqlStatement = (OraclePreparedStatement) conn.prepareStatement(qry);
             sqlStatement.setString(1, khoa);
             sqlStatement.setString(2, type_bcqt);
@@ -4264,14 +4276,14 @@ public class DaoKTNBMain {
             sqlStatement.setObject(10, xml);
             sqlStatement.setString(11, tt_khoa);
             sqlStatement.execute();
-            
+
             bSuccess = true;
         } catch (Exception e) {
             System.err.println("Loi trong ham putXmlFilektnb06ab " + e.getMessage());
             CoreLogger.error(this.getClass().getName() + " putXmlFilektnb06ab -> " + e.getMessage());
             bSuccess = false;
         } finally {
-            
+
             if (sqlStatement != null) {
                 sqlStatement.close();
             }

@@ -26,14 +26,16 @@ public class Service_GQVL2023 {
 
     DuLieuNTService _service = new DuLieuNTService();
 
-    public List<DuLieuNTRow> getCustomers(String posCode, String posFlag, String fromDate, String sourceFlag) {
+    public List<DuLieuNTRow> getCustomers(String posCode, String posFlag, String fromDate, String sourceFlag, String key) {
+        
         if (sourceFlag.equals("0")) {
 
         } else {
             try {
                 final String _fromDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(fromDate));
                 {
-                    return _service.getData("GQVL_2023", posCode, posFlag, _fromDate);
+//                    System.out.println("posCode=" + posCode + "posFlag="+ posFlag + "_fromDate=" +_fromDate + "sourceFlag="+ sourceFlag+ "key="+ key);
+                    return _service.getData(key, posCode, posFlag, _fromDate);
                 }
             } catch (Exception e) {
                 return null;
@@ -108,6 +110,80 @@ public class Service_GQVL2023 {
                     _lstNormalizeData.add(_normalizeItem);
                 }
                 return _service.getGQVL2023("GQVL_2023", posCode, posFlag, _reportDate, makerId, authoriseId, _lstNormalizeData);
+
+            }
+        } catch (Exception e) {
+            return 0;
+        }
+        return 0;
+    }
+    
+    public int saveHTLS2023(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
+        try {
+
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
+            final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00.000").format(new SimpleDateFormat("yyyyMMdd").parse(_reportDate));
+            
+           int year = Integer.valueOf(_reportDate.substring(0,4));
+            
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+            Date date = new Date();
+            String dateFormat = formatter.format(date);
+            if (sourceFlag.equals("0")) {
+
+            } else {
+                List<DuLieuNTRowX> _lstNormalizeData = new ArrayList<>();
+                for (int i = 0; i < data.size(); i++) {
+                    DuLieuNTRowX _normalizeItem = new DuLieuNTRowX();
+
+                    _normalizeItem.setKey("KS_HTLS_CN");
+                    _normalizeItem.setOrderValue(i + 1);
+                    _normalizeItem.setOrderDescription(String.format("%d", i + 1));
+                    _normalizeItem.setName(data.get(i).getName());
+                    _normalizeItem.setAuthoriseId(data.get(i).getAuthoriseId());
+                    _normalizeItem.setMakerId(data.get(i).getMakerId());
+                    _normalizeItem.setReportYear(year);
+                    _normalizeItem.setReportDate(_reportDate1);
+                    _normalizeItem.setAuthoriseDate(dateFormat);
+                    _normalizeItem.setMakerDate(dateFormat);
+                    _normalizeItem.setCode(data.get(i).getCode());
+                    _normalizeItem.setPosCode(data.get(i).getPosCode());
+                    _normalizeItem.setPosFlag("M");
+                    _normalizeItem.setBranchCode(data.get(i).getBranchCode());
+//                    _normalizeItem.setD1(data.get(i).getD1());
+//                    _normalizeItem.setD2(data.get(i).getD2());
+//                    _normalizeItem.setD3(data.get(i).getD3());
+//                    _normalizeItem.setD4(data.get(i).getD4());
+//                    _normalizeItem.setD5(data.get(i).getD5());
+//                    _normalizeItem.setD6(data.get(i).getD6());
+//                    _normalizeItem.setD7(data.get(i).getD7());
+                    _normalizeItem.setD8(data.get(i).getD8());
+//                    _normalizeItem.setD9(data.get(i).getD9());
+//                    _normalizeItem.setD10(data.get(i).getD10());
+                    _normalizeItem.setD11(data.get(i).getD11());
+//                    _normalizeItem.setD12(data.get(i).getD12());
+//                    _normalizeItem.setD13(data.get(i).getD13());
+//                    _normalizeItem.setD14(data.get(i).getD14());
+//                    _normalizeItem.setD15(data.get(i).getD15());
+//                    _normalizeItem.setD16(data.get(i).getD16());
+//                    _normalizeItem.setD17(data.get(i).getD17());
+//                    _normalizeItem.setD18(data.get(i).getD18());
+//                    _normalizeItem.setD19(data.get(i).getD19());
+//                    _normalizeItem.setD20(data.get(i).getD20());
+//                    _normalizeItem.setD21(data.get(i).getD21());
+//                    _normalizeItem.setD22(data.get(i).getD22());
+//                    _normalizeItem.setD23(data.get(i).getD23());
+//                    _normalizeItem.setD24(data.get(i).getD24());
+//                    _normalizeItem.setD25(data.get(i).getD25());
+//                    _normalizeItem.setD26(data.get(i).getD26());
+//                    _normalizeItem.setD27(data.get(i).getD27());
+//                    _normalizeItem.setD28(data.get(i).getD28());
+//                    _normalizeItem.setD29(data.get(i).getD29());
+                    _normalizeItem.setD50(data.get(i).getD50());
+
+                    _lstNormalizeData.add(_normalizeItem);
+                }
+                return _service.getGQVL2023("KS_HTLS_CN", posCode, posFlag, _reportDate, makerId, authoriseId, _lstNormalizeData);
 
             }
         } catch (Exception e) {

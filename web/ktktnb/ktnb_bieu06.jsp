@@ -97,6 +97,7 @@
                 $(".TD_CHECKBOX").css({"width": "38px"});
                 $(".TD_SOKU").css({"width": "80px"});
                 $(".TD_TENKH123").css({"width": "110px"});
+                 $(".TD_TENKH1234").css({"width": "70px"});
                 $(".TD_TENTS").css({"width": "190px"});
                 $(".TD_SOTK").css({"width": "105px"});
                 $(".TD_MAKH").css({"width": "60px"});
@@ -173,6 +174,7 @@
                 if (validateRequiredFields()) {
                     $("#update").trigger('click');
                 }
+                 location.reload();
             }
 
             function tai_lai_trang() {
@@ -226,19 +228,22 @@
                 else
                 {
                     max_row++;
-                    rowCount = max_row;
+                    rowCount = max_row ;
+                    rownew = rowCount - 9;
                 }
                 var newTr = '<tr>\n\
-                                <td ><input type="text" value="" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="D0 number2" onfocus="this.select();" /></td>\n\
+                                <td ><input type="text" value="' + rownew + '" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="D0 number2" onfocus="this.select();" /></td>\n\
                                 <td ><input type="text" value="" id="D1" name="lstDulieuNt[' + rowCount + '].D1" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" id="D2" name="lstDulieuNt[' + rowCount + '].D2" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="date" value="" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="" id="D4" name="lstDulieuNt[' + rowCount + '].D4" class="SOKU" onfocus="this.select();"/></td>\n\
 \n\                           <td ><input type="text" value="" id="D10" name="lstDulieuNt[' + rowCount + '].D10" class="SOKU" onfocus="this.select();"/></td>\n\
-                                <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 SOKU"/></td>\n\
+                                <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 SOKU2"/></td>\n\
                                 </tr>';
                 $($('table#tableKtnb tr')[index]).before(newTr);
                 $('.number2').number(true, 0);
+                $('input.number2').css({"text-align": "right"});
+                 $(".SOKU2").css({"width": "100%"});
             }
         </script>
 
@@ -252,18 +257,20 @@
                     </tr>
                     <tr>
                         <td width="70%" >
-                            <b>Phòng giao dịch: </b><input class="TD_THOIGIAN" type="text" name="posCD" id="posCD" value="<s:property value="pos_cd_username"/>" readonly="readonly"/>
-                            <b>Chi nhánh: </b><input class="TD_THOIGIAN" type="text" name="maCn" id="maCn" value="<s:property value="main_pos_username"/>" readonly="readonly"/>
-                            <b>Quý báo cáo: </b><input type="text" name="quyBc" id="quyBc" value="<s:property value="quyBc"/>" readonly="readonly"/>
-                            <b>Năm báo cáo: </b><input type="text" name="namBc" id="namBc" value="<s:property value="namBc"/>" readonly="readonly"/>
-                            <b>Người dùng: </b><input class="TD_THOIGIAN" type="text" name="userName" id="userName" value="<s:property value="userName"/>" readonly="readonly"/>
+                            <b>Phòng giao dịch: </b><input class="TD_TENKH1234" type="text" name="posCD" id="posCD" value="<s:property value="pos_cd_username"/>" readonly="readonly"/>
+                            <b>Chi nhánh: </b><input class="TD_TENKH1234" type="text" name="maCn" id="maCn" value="<s:property value="main_pos_username"/>" readonly="readonly"/>
+                            <!--<b>Quý báo cáo: </b><input class="TD_TENKH1234" type="text" name="quyBc" id="quyBc" value="<s:property value="quyBc"/>" readonly="readonly"/>-->
+                            <b>Năm báo cáo: </b><input class="TD_TENKH1234" type="text" name="namBc" id="namBc" value="<s:property value="namBc"/>" readonly="readonly"/>
+                            <b>Người dùng: </b><input class="TD_TENKH1234" type="text" name="userName" id="userName" value="<s:property value="userName"/>" readonly="readonly"/>
+                            <b>Ngày báo cáo: </b><input type="text" class="TD_TENKH1234" name="ngayBC" id="ngayBC" value="<s:property value="ngayBC"/>" readonly="readonly"/>
+
                         </td>
                         <td align="right">     
                             <div id="result" style="color: red">                            
                             </div>
                             <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>
                             <sj:submit targets="result" value="Cập nhật" name="update" id="update"  cssStyle="display: none;"/>
-                            <input type="button" onclick="tai_lai_trang()" style="width:122px;height:25px;color: red;" value ="Reset"/>    
+                            <!--<input type="button" onclick="tai_lai_trang()" style="width:122px;height:25px;color: red;" value ="Reset"/>-->    
                         </td>                 
 
                     </tr>

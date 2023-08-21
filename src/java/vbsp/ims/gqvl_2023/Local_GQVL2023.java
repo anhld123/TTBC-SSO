@@ -75,10 +75,10 @@ public class Local_GQVL2023 extends ActionNhaptaycnMain
                 } else if (poscd.size() == 0) {
                     lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2023", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
                 } else {
-                    this.lstData = _leaveHomeService.getCustomers(poscd.get(0), "S", hmParameter.get("ngay_bc").toString(), "1");
+                    this.lstData = _leaveHomeService.getCustomers(poscd.get(0), "S", hmParameter.get("ngay_bc").toString(), "1", "GQVL_2023");
                 }
             } else if (Grade.equals("1")){
-                this.lstData = _leaveHomeService.getCustomers(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), "1");
+                this.lstData = _leaveHomeService.getCustomers(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), "1", "GQVL_2023");
             }
             if ((lstData.size() == 0 || lstData == null) && Grade.equals("1" )) {
 

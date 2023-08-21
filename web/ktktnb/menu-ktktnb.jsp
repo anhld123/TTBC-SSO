@@ -7,13 +7,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Danh mục Kểm tra kiểm toán nội bộ</title>
         <sj:head/>
+        <script src="js/3.6.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="js/3.6.0/jquery-ui.css">
+        <script src="js/3.6.0/jquery-ui.js"></script>
     </head>
     <script>
         $('.textlink').click(function(){
             alert( $('.textlink').index(this) );
         });
         function Callbaocao(fullname,linktext) {
-            var thamso = "?quyBc=" + document.getElementById("cboquybc").value + "&namBc=" + document.getElementById("cbonam").value+ "&textlink=" + linktext + "&action=" + fullname;
+            var thamso = "?quyBc=" + document.getElementById("cboquybc").value + "&namBc=" + document.getElementById("cbonam").value + "&ngayBC=" + $('#dpkReportDate').val() + "&textlink=" + linktext + "&action=" + fullname ;
+//            var thamso = "?quyBc=" + document.getElementById("cboquybc").value + "&namBc=" + document.getElementById("cbonam").value + "&maBC=" + maBC + "&ngayBC=" + $('#dpkReportDate').val();
             var ht = screen.availHeight;
             var wt = screen.availWidth;
             var resize = window.open(fullname + thamso+"&vbsprandom="+Math.random(), "IMS_REPORTS", "height=" + ht + ",width=" + wt + ",left=0,top=0,directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
@@ -71,6 +75,10 @@
                                 </s:iterator>   
                                 
                             </select>
+                            
+                            &nbsp;&nbsp;
+                            <b>Ngày báo cáo (áp dụng mẫu biểu PCTN):</b>                            
+                            <input type="text" name="dpkReportDate" id="dpkReportDate" readonly="readonly"/>
                         </td>
                     </tr>
                     <tr>
@@ -97,15 +105,58 @@
         </form>
 
         <script>
+            $(function () {
+                $("#dpkReportDate").datepicker(
+                        {
+                            dateFormat: 'dd/mm/yy',
+                            showOn: "button",
+                            buttonImage: "img/icon-ui_datepicker.png",
+                            buttonImageOnly: true,
+                            // dateFormat: 'dd/mm/yy',
+                            showButtonPanel: true,
+                            buttonText: "icono",
+                            changeMonth: true,
+                            changeYear: true
+                        });
+            });
+            
+            
+             $(document).ready(function () {
+                var date = new Date();
+                //var year = date.getFullYear(); //nam
+                var quarter = Math.floor(date.getMonth() / 3) + 1; //quy
+                //Gan quy mac dinh
+                $("#cboquybc").val(quarter);
+                $('#dpkReportDate').datepicker('setDate', getLastDayOfQuarter(new Date()));
+            });
+            
+            function getLastDayOfQuarter(date) {
+                var year = date.getFullYear();
+                var quarterEndings = [[3, 31], [6, 30], [9, 30], [12, 31]];
+
+                var toDateObj = function (dates) {
+                    return new Date(year, dates[0] - 1, dates[1]);
+                };
+
+                var isBeforeEndDate = function (endDate) {
+                    return endDate >= date;
+                };
+
+                date.setHours(0, 0, 0, 0);
+
+                return quarterEndings
+                        .map(toDateObj)
+                        .filter(isBeforeEndDate)[0];
+            }
             //CuongBM: 05Oct14
             //Desc: Xu truong hop dat gia tri mac dich cho combox Quy (Quater), la quy hien tai
             //      Cac bao cao Quy phai co id la PARA_QUY           
-            var date = new Date();
-            var year = date.getFullYear(); //nam
-            var quarter = Math.floor(date.getMonth() / 3) + 1; //quy
-
-            //Gan quy mac dinh
-            $("#cboquybc").val(quarter);
+//            var date = new Date();
+//            var year = date.getFullYear(); //nam
+//            var quarter = Math.floor(date.getMonth() / 3) + 1; //quy
+//
+//            //Gan quy mac dinh
+//            $("#cboquybc").val(quarter);
         </script>
     </body>
 </html>
