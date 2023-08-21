@@ -68,18 +68,18 @@
             }
             ;
 
-            function calc(id) {
+             function calc(id) {
                 var row = id.parentNode.parentNode;
                 var CT_D5 = row.cells[5].getElementsByTagName('input')[0].value;
                 var CT_D6 = row.cells[6].getElementsByTagName('input')[0].value;
                 var CT_D7 = row.cells[7].getElementsByTagName('input')[0].value;
                 var CT_D8 = row.cells[8].getElementsByTagName('input')[0].value;
-                var CT_D9 = row.cells[9].getElementsByTagName('input')[0].value; 
+                var CT_D9 = row.cells[9].getElementsByTagName('input')[0].value;
                 var CT_D11 = row.cells[11].getElementsByTagName('input')[0].value;
 //                console.log(quant +' - '+price +' parseFloat(quant)='+parseFloat(quant.replace(/,/g, '')));
                 res = parseFloat(CT_D8.replace(/,/g, '')) + parseFloat(CT_D9.replace(/,/g, '')); // tính D10
                 res1 = parseFloat(CT_D11.replace(/,/g, '')) - res - parseFloat(CT_D6.replace(/,/g, '')); // tính D12
-                res2 = res1/(parseFloat(CT_D5.replace(/,/g, '')) + parseFloat(CT_D7.replace(/,/g, ''))); // tính D13
+                res2 = res1 / (parseFloat(CT_D5.replace(/,/g, '')) + parseFloat(CT_D7.replace(/,/g, ''))); // tính D13
                 row.cells[10].getElementsByTagName('input')[0].value = res;
                 row.cells[12].getElementsByTagName('input')[0].value = res1;
                 row.cells[13].getElementsByTagName('input')[0].value = res2;
@@ -198,55 +198,77 @@
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="D4 number TEN_KH" onfocus="this.select()"                                       
                                    readonly="readonly"/>
                         </td>
-                        <td align = "right" class="TD_DONVITINH"> 
-                            <input type="text" value="<s:property  value="D5" />" readonly="true"
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D5 number TEN_KH" onkeyup="calc(this);"  onchange="calc(this);"                                       
+                        <td align = "right" class="TD_DONVITINH">
+                            <input type="text" value="<s:property  value="D5" />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D5 number TEN_KH" onfocus="this.select()"                                       
+                                   readonly="readonly" onkeyup="calc(this);"  onchange="calc(this);"/>
+                        </td>
+                        <td align = "right" class="TD_DONVITINH">
+                            <input type="text" value="<s:property  value="D6" />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D6 number TEN_KH" onfocus="this.select()"                                       
+                                   readonly="readonly" onkeyup="calc(this);"  onchange="calc(this);"
                                    />
                         </td>
                         <td align = "right" class="TD_DONVITINH">
-                            <input type="text" value="<s:property  value="D6" />" readonly="true"
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D6 number TEN_KH" onkeyup="calc(this);"  onchange="calc(this);"                                       
-                                   
-                                   />
-                        </td>
-                        <td align = "right" class="TD_DONVITINH">
-                            <input type="text" value="<s:property  value="D7" />" readonly="true"
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="D7 number TEN_KH" onkeyup="calc(this);"  onchange="calc(this);"                                    
-                                  />
+                            <input type="text" value="<s:property  value="D7" />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="D7 number TEN_KH" onfocus="this.select()" 
+                                   onkeyup="calc(this);"  onchange="calc(this);"
+                                   readonly="readonly"/>
                         </td>
                         <td align = "right" class="TD_DONVITINH">
                             <input type="text" value="<s:property  value="D8" />"  id="D8<s:property  value="%{#rowstatus.index}" />"
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="D8 number TEN_KH" onkeyup="calc(this);"  onchange="calc(this);"/>
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="D8 number TEN_KH" onfocus="this.select()"
+                                   onkeyup="calc(this);"  onchange="calc(this);"
+                                   onblur="if (this.value == '') {
+                                               this.value = 0
+                                           }
+                                           ;
+                                           autoEvaluate()"/>
                         </td>
                         <td align = "right" class="TD_DONVITINH">
-                            <input type="text" value="<s:property  value="D9" />" readonly="true"
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="D9 number TEN_KH" onkeyup="calc(this);"  onchange="calc(this);"/>
+                            <input type="text" value="<s:property  value="D9" />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="D9 number TEN_KH" onfocus="this.select()" 
+                                   onkeyup="calc(this);"  onchange="calc(this);"
+                                   readonly="readonly"/>
                         </td>
                         <td align = "right" class="TD_DONVITINH">
-                            <input type="text" value="<s:property  value="D10" />" readonly="true"
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="D10 number TEN_KH" onkeyup="calc(this);"  onchange="calc(this);"/>
+                            <input type="text" value="<s:property  value="D10" />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="D10 number TEN_KH" onfocus="this.select()"
+                                   onkeyup="calc(this);"  onchange="calc(this);"
+                                   readonly="readonly"/>
                         </td>       
                         <td align = "right" class="TD_DONVITINH">
                             <input type="text" value="<s:property  value="D11" />"  id="D11<s:property  value="%{#rowstatus.index}" />"
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" class="D11 number TEN_KH" onkeyup="calc(this);"  onchange="calc(this);"/>
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" class="D11 number TEN_KH" onfocus="this.select()"
+                                   onkeyup="calc(this);"  onchange="calc(this);"
+                                   onblur="if (this.value == '') {
+                                               this.value = 0
+                                           }
+                                           ;
+                                           autoEvaluate()"/>
                         </td>
                         <s:if test="D12 < 0">
                             <td align = "right" class="TD_DONVITINH">
-                                <input type="text" value="<s:property  value="D12" />" style="color: red" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="D12 number TEN_KH" onkeyup="calc(this);"  onchange="calc(this);"/>
+                                <input type="text" value="<s:property  value="D12" />" style="color: red"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="D12 number TEN_KH" onfocus="this.select()"                                       
+                                       onkeyup="calc(this);"  onchange="calc(this);"
+                                       readonly="readonly"/>
                             </td>
                         </s:if>
                         <s:else>
                             <td align = "right" class="TD_DONVITINH">
                                 <input type="text" value="<s:property  value="D12" />" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="D12 number TEN_KH" onkeyup="calc(this);"  onchange="calc(this);"/>
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="D12 number TEN_KH" onfocus="this.select()"                                       
+                                       onkeyup="calc(this);"  onchange="calc(this);"
+                                       readonly="readonly"/>
                             </td>
                         </s:else>
 
                         <td align = "right" class="TD_DONVITINH">
-                            <input type="text" value="<s:property  value="D13" />" readonly="readonly"
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 number TEN_KH" onkeyup="calc(this);"  onchange="calc(this);"                                       
-                                   />
+                            <input type="text" value="<s:property  value="D13" />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" class="D13 number TEN_KH" onfocus="this.select()"                                       
+                                   onkeyup="calc(this);"  onchange="calc(this);"
+                                   readonly="readonly"/>
                         </td>
                     </tr>
 
