@@ -24,13 +24,15 @@
                 $('.number').number(true, 0);
 //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 0);
-                $(".TD_POS").css({"width": "50px"});
-                $(".TD_DONVITINH").css({"width": "90px"});
+                $(".TD_POS").css({"width": "90px"});
+                $(".TD_DONVITINH").css({"width": "160px"});
+                $(".TD_DONVITINH1").css({"width": "auto"});
+                $(".TD_DONVITINH1").css({"width": "150px"});
                 $(".TD_THUTU").css({"width": "15px"});
                 $(".TD_SOLUONG").css({"width": "50px"});
                 $(".TD_NGUYENGIA").css({"width": "80px"});
                 $(".TD_THUTU").css({"width": "30px"});
-                $(".TD_CHITIEU").css({"width": "130px"});
+                $(".TD_CHITIEU").css({"width": "220px"});
                 $(".TEN_KH").css({"width": "100%"});
             });
             $('.TEN_KH').focus(function () {
@@ -49,26 +51,55 @@
 
             function autoEvaluate() {
 //                alert('vao doClick');
-                var arrCot = [".D8", ".D11"]; //Luu cac cot cua du lieu can tinh toan
+                var arrCot = [".D3", ".D4", ".D5", ".D6", ".D7", ".D8", ".D9", ".D10", ".D11", ".D12", ".D13"]; //Luu cac cot cua du lieu can tinh toan
 //                alert($(".number").size());
                 var totalD8 = 0;
+                var totalD3 = 0;
+                var totalD4 = 0;
+                var totalD5 = 0;
+                var totalD6 = 0;
+                var totalD7 = 0;
+                var totalD9 = 0;
+                var totalD10 = 0;
                 var totalD11 = 0;
+                var totalD12 = 0;
+                var totalD13 = 0;
                 for (var i = 0; i < 33; i++) {
                     let element;
                     element = document.getElementById("D8" + i);
                     if (element !== null) {
                         totalD8 = totalD8 + parseInt(document.getElementById("D8" + i).value.replaceAll(',', ''));
+                        totalD3 = totalD3 + parseInt(document.getElementById("D3" + i).value.replaceAll(',', ''));
+                        totalD4 = totalD4 + parseInt(document.getElementById("D4" + i).value.replaceAll(',', ''));
+                        totalD5 = totalD5 + parseInt(document.getElementById("D5" + i).value.replaceAll(',', ''));
+                        totalD6 = totalD6 + parseInt(document.getElementById("D6" + i).value.replaceAll(',', ''));
+                        totalD7 = totalD7 + parseInt(document.getElementById("D7" + i).value.replaceAll(',', ''));
+                        totalD9 = totalD9 + parseInt(document.getElementById("D9" + i).value.replaceAll(',', ''));
+                        totalD10 = totalD10 + parseInt(document.getElementById("D10" + i).value.replaceAll(',', ''));
                         totalD11 = totalD11 + parseInt(document.getElementById("D11" + i).value.replaceAll(',', ''));
+                        totalD12 = totalD12 + parseInt(document.getElementById("D12" + i).value.replaceAll(',', ''));
+                        totalD13 = totalD13 + parseInt(document.getElementById("D13" + i).value.replaceAll(',', ''));
                     }
                 }
 //                totalD8
+                document.getElementById("totalD3").value = totalD3;
+                document.getElementById("totalD4").value = totalD4;
+                document.getElementById("totalD5").value = totalD5;
+                document.getElementById("totalD6").value = totalD6;
+                document.getElementById("totalD7").value = totalD7;
                 document.getElementById("totalD8").value = totalD8;
+                document.getElementById("totalD81").value = totalD8;
+                document.getElementById("totalD9").value = totalD9;
+                document.getElementById("totalD10").value = totalD10;
                 document.getElementById("totalD11").value = totalD11;
+                document.getElementById("totalD111").value = totalD11;
+                document.getElementById("totalD12").value = totalD12;
+                document.getElementById("totalD13").value = totalD13;
                 $('.number').number(true, 0);
             }
             ;
 
-             function calc(id) {
+            function calc(id) {
                 var row = id.parentNode.parentNode;
                 var CT_D5 = row.cells[5].getElementsByTagName('input')[0].value;
                 var CT_D6 = row.cells[6].getElementsByTagName('input')[0].value;
@@ -84,6 +115,7 @@
                 row.cells[12].getElementsByTagName('input')[0].value = res1;
                 row.cells[13].getElementsByTagName('input')[0].value = res2;
             }
+
         </script>
     </head>
     <body>
@@ -116,36 +148,33 @@
                         </th>
                     </tr>
                 </table>
-<!--                <font color="red">Số liệu Trung ương: (Cột 8: <s:property  value="totalD8"/> &nbsp;&nbsp; Cột 11: <s:property  value="totalD11"/>)</font> 
-              </br>Số liệu nhập tại CN: (Cột 8:<input type="text" value="" name="totalD8" id="totalD8" style="width: 100px" class="number"> &nbsp;&nbsp; Cột 11:<input type="text" value="" name="totalD11" id="totalD11" style="width: 100px" class="number">)-->
             </div>    
-
-
             <div id="divDonvitinh">
                 Đơn vị tính: Đồng
             </div>
-            <table border="1" class="editDelete" id="tablems08" align="center">
+                        <table border="1" class="editDelete" id="tablems08" align="center" style="overflow: scroll;  width: 105%;" 
+                               >
                 <tr>
                     <th rowspan="1"  class="TD_THUTU">STT</th>
-                    <s:if test="Grade.equalsIgnoreCase('2')">                                     
-                    <th rowspan="1"  class="TD_POS">Mã PGD</th>
-                    <th rowspan="1"  class="TD_CHITIEU">Tên PGD</th>
-                    </s:if>
-                    <s:if test="Grade.equalsIgnoreCase('3')">                                     
-                    <th rowspan="1"  class="TD_POS">Mã CN</th>
-                    <th rowspan="1"  class="TD_CHITIEU">Tên chi nhánh</th>
-                    </s:if>
+                        <s:if test="Grade.equalsIgnoreCase('2')">                                     
+                        <th rowspan="1"  class="TD_POS">Mã PGD</th>
+                        <th rowspan="1"  class="TD_CHITIEU">Tên PGD</th>
+                        </s:if>
+                        <s:if test="Grade.equalsIgnoreCase('3')">                                     
+                        <th rowspan="1"  class="TD_POS">Mã CN</th>
+                        <th rowspan="1"  class="TD_CHITIEU">Tên chi nhánh</th>
+                        </s:if>
                     <th rowspan="1"  class="TD_DONVITINH">Số tiền HTLS ngày trước liền kề trên cân đối</th>
                     <th colspan="1"  class="TD_DONVITINH">Số tiền HTLS cùng ngày tháng trước trên cân đối</th>
                     <th colspan="1"  class="TD_DONVITINH">Số tiền HTLS ngày báo cáo trên cân đối</th>
                     <th colspan="1"  class="TD_DONVITINH">Tổng số tiền HTLS cho các khoản chưa đến ngày dự thu còn phải chi trả đến ngày tạo số liệu_theo hồ sơ khế ước</th> 
                     <th rowspan="1"  class="TD_DONVITINH">Số tiền HTLS bình quân 1 ngày cho các khoản chưa đến ngày dự thu còn phải chi trả đến ngày tạo số liệu_theo hồ sơ khế ước</th>
                     <th colspan="1"  class="TD_DONVITINH">Số tiền HTLS bình quân 1 ngày cho các khoản chưa đến ngày dự thu còn phải chi trả đến ngày tạo số liệu_theo hồ sơ khế ước</th>
-                    <th colspan="1"  class="TD_DONVITINH">Số tiền HTLS năm 2022 tạm quyết toán, TW đã chuyển về cho Chi nhánh</th>
+                    <th colspan="1"  class="TD_DONVITINH2">Số tiền HTLS năm 2022 tạm quyết toán, TW đã chuyển về cho Chi nhánh</th>
                     <th colspan="1"  class="TD_DONVITINH">Lũy Kế số tiền đã thực hiện HTLS từ ngày 01/01/2022 đến ngày báo cáo</th> 
                     <th rowspan="1"  class="TD_DONVITINH">Số tiền HTLS năm 2022 + 2023 được giao theo kế hoạch</th>
                     <th rowspan="1"  class="TD_DONVITINH">Số tiền HTLS Thừa/thiếu</th>
-                    <th rowspan="1"  class="TD_DONVITINH">Dự kiến số ngày còn được HTLS</th>                    
+                    <th rowspan="1"  class="TD_POS">Dự kiến số ngày còn được HTLS</th>                    
                 </tr>                
                 <tr>  
                     <th></th>
@@ -163,6 +192,7 @@
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_DONVITINH">12 = 11-10-6</th>
                     <th style="font: italic; font-size: xx-small;" class="TD_POS">13 = 12/(5+7)</th>
                 </tr>
+                
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
 
                     <tr height="22">                              
@@ -195,31 +225,55 @@
                         </td>
 
                         <td align = "right" class="TD_DONVITINH">
-                            <input type="text" value="<s:property  value="D3" />" 
+                            <input type="text" value="<s:property  value="D3" />"  id="D3<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="D3 number TEN_KH" onfocus="this.select()"                                       
-                                   readonly="readonly"/>                                   
+                                   readonly="readonly"
+                                   onblur="if (this.value == '') {
+                                               this.value = 0
+                                           }
+                                           ;
+                                           autoEvaluate()"/>                                   
                         </td>
                         <td align = "right" class="TD_DONVITINH">
-                            <input type="text" value="<s:property  value="D4" />" 
+                            <input type="text" value="<s:property  value="D4" />" id="D4<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="D4 number TEN_KH" onfocus="this.select()"                                       
-                                   readonly="readonly"/>
+                                   readonly="readonly"
+                                   onblur="if (this.value == '') {
+                                               this.value = 0
+                                           }
+                                           ;
+                                           autoEvaluate()"/>
                         </td>
                         <td align = "right" class="TD_DONVITINH">
-                            <input type="text" value="<s:property  value="D5" />" 
+                            <input type="text" value="<s:property  value="D5" />" id="D5<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D5 number TEN_KH" onfocus="this.select()"                                       
-                                   readonly="readonly" onkeyup="calc(this);"  onchange="calc(this);"/>
+                                   readonly="readonly" onkeyup="calc(this);"  onchange="calc(this);"
+                                   onblur="if (this.value == '') {
+                                               this.value = 0
+                                           }
+                                           ;
+                                           autoEvaluate()"/>
                         </td>
                         <td align = "right" class="TD_DONVITINH">
-                            <input type="text" value="<s:property  value="D6" />" 
+                            <input type="text" value="<s:property  value="D6" />" id="D6<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D6 number TEN_KH" onfocus="this.select()"                                       
-                                   readonly="readonly" onkeyup="calc(this);"  onchange="calc(this);"
+                                   readonly="readonly" onkeyup="calc(this);"  onchange="calc(this);" onblur="if (this.value == '') {
+                                               this.value = 0
+                                           }
+                                           ;
+                                           autoEvaluate()"
                                    />
                         </td>
                         <td align = "right" class="TD_DONVITINH">
-                            <input type="text" value="<s:property  value="D7" />" 
+                            <input type="text" value="<s:property  value="D7" />" id="D7<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="D7 number TEN_KH" onfocus="this.select()" 
                                    onkeyup="calc(this);"  onchange="calc(this);"
-                                   readonly="readonly"/>
+                                   readonly="readonly"
+                                   onblur="if (this.value == '') {
+                                               this.value = 0
+                                           }
+                                           ;
+                                           autoEvaluate()"/>
                         </td>
                         <td align = "right" class="TD_DONVITINH">
                             <input type="text" value="<s:property  value="D8" />"  id="D8<s:property  value="%{#rowstatus.index}" />"
@@ -232,16 +286,21 @@
                                            autoEvaluate()"/>
                         </td>
                         <td align = "right" class="TD_DONVITINH">
-                            <input type="text" value="<s:property  value="D9" />" 
+                            <input type="text" value="<s:property  value="D9" />" id="D9<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="D9 number TEN_KH" onfocus="this.select()" 
                                    onkeyup="calc(this);"  onchange="calc(this);"
                                    readonly="readonly"/>
                         </td>
                         <td align = "right" class="TD_DONVITINH">
-                            <input type="text" value="<s:property  value="D10" />" 
+                            <input type="text" value="<s:property  value="D10" />" id="D10<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="D10 number TEN_KH" onfocus="this.select()"
                                    onkeyup="calc(this);"  onchange="calc(this);"
-                                   readonly="readonly"/>
+                                   readonly="readonly"
+                                   onblur="if (this.value == '') {
+                                               this.value = 0
+                                           }
+                                           ;
+                                           autoEvaluate()"/>
                         </td>       
                         <td align = "right" class="TD_DONVITINH">
                             <input type="text" value="<s:property  value="D11" />"  id="D11<s:property  value="%{#rowstatus.index}" />"
@@ -254,32 +313,75 @@
                                            autoEvaluate()"/>
                         </td>
                         <s:if test="D12 < 0">
-                            <td align = "right" class="TD_DONVITINH">
-                                <input type="text" value="<s:property  value="D12" />" style="color: red"
+                            <td align = "right" class="TD_DONVITINH">  
+                                <input type="text" value="<s:property  value="D12" />" style="color: red" id="D12<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="D12 number TEN_KH" onfocus="this.select()"                                       
                                        onkeyup="calc(this);"  onchange="calc(this);"
-                                       readonly="readonly"/>
+                                       readonly="readonly"
+                                       onblur="if (this.value == '') {
+                                                   this.value = 0
+                                               }
+                                               ;
+                                               autoEvaluate()"/>
                             </td>
                         </s:if>
                         <s:else>
-                            <td align = "right" class="TD_DONVITINH">
-                                <input type="text" value="<s:property  value="D12" />" 
+                            <td align = "right" class="TD_DONVITINH"> 
+                                <input type="text" value="<s:property  value="D12" />"  id="D12<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="D12 number TEN_KH" onfocus="this.select()"                                       
                                        onkeyup="calc(this);"  onchange="calc(this);"
-                                       readonly="readonly"/>
+                                       readonly="readonly"
+                                       onblur="if (this.value == '') {
+                                                   this.value = 0
+                                               }
+                                               ;
+                                               autoEvaluate()"/>
                             </td>
                         </s:else>
 
-                        <td align = "right" class="TD_POS">
-                            <input type="text" value="<s:property  value="D13" />" 
+                        <td align = "right" class="TD_POS"> 
+                            <input type="text" value="<s:property  value="D13" />" id="D13<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" class="TD_POS number TEN_KH" onfocus="this.select()"                                       
                                    onkeyup="calc(this);"  onchange="calc(this);"
-                                   readonly="readonly"/>
+                                   readonly="readonly"
+                                   onblur="if (this.value == '') {
+                                               this.value = 0
+                                           }
+                                           ;
+                                           autoEvaluate()"/>
                         </td>
                     </tr>
 
 
                 </s:iterator>
+                    <tr height="22">  
+                    <th></th>
+                    <th></th>
+                    <th class="TD_DONVITINH">TỔNG CỘNG</th> 
+                    <th> <input type="text" value="" name="totalD3" id="totalD3" class="number" readonly="readonly" style="background: #E7DCDA !important;"/>
+                    </th>
+                    <th><input type="text" value="" name="totalD4" id="totalD4" class="number" readonly="readonly" style="background: #E7DCDA !important;"/>
+                    </th>
+                    <th><input type="text" value="" name="totalD5" id="totalD5" class="number" readonly="readonly" style="background: #E7DCDA !important;"/>
+                    </th>
+                    <th><input type="text" value="" name="totalD6" id="totalD6" class="number" readonly="readonly" style="background: #E7DCDA !important;"/>
+                    </th>
+                    <th><input type="text" value="" name="totalD7" id="totalD7" class="number" readonly="readonly" style="background: #E7DCDA !important;"/>
+                    </th>
+                    <th> <input type="text" value="" name="totalD8" id="totalD81" class="number" readonly="readonly" style="background: #E7DCDA !important;"/>
+                    </th>
+                    <th><input type="text" value="" name="totalD9" id="totalD9" class="number" readonly="readonly" style="background: #E7DCDA !important;"/>
+                    </th>
+                    <th><input type="text" value="" name="totalD10" id="totalD10" class="number" readonly="readonly" style="background: #E7DCDA !important;"/>
+                    </th>
+                    <th><input type="text" value="" name="totalD11" id="totalD111" class="number" readonly="readonly" style="background: #E7DCDA !important;"/>
+                    </th>
+                    <th><input type="text" value="" name="totalD12" id="totalD12" class="number" readonly="readonly" style="background: #E7DCDA !important;"/>
+                    </th>
+                    <th><input type="text" value="" name="totalD13" id="totalD13" class="number" readonly="readonly" style="background: #E7DCDA !important;"/>
+                    </th>
+
+                </tr>
             </table>
             <sj:submit id="%{khoa_nhaptaycn}_save" name="%{khoa_nhaptaycn}_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
                        onCompleteTopics="completediv_ss" cssStyle="display: none"/>
