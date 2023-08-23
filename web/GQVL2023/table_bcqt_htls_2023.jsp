@@ -64,7 +64,7 @@
                 var totalD11 = 0;
                 var totalD12 = 0;
                 var totalD13 = 0;
-                for (var i = 0; i < 33; i++) {
+                for (var i = 0; i < 100; i++) {
                     let element;
                     element = document.getElementById("D8" + i);
                     if (element !== null) {
