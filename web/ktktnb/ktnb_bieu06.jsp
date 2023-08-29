@@ -174,7 +174,7 @@
                 if (validateRequiredFields()) {
                     $("#update").trigger('click');
                 }
-                 location.reload();
+//                 location.reload();
             }
 
             function tai_lai_trang() {
@@ -242,7 +242,7 @@
                                 </tr>';
                 $($('table#tableKtnb tr')[index]).before(newTr);
                 $('.number2').number(true, 0);
-                $('input.number2').css({"text-align": "right"});
+                $('input.number2').css({"text-align": "center"});
                  $(".SOKU2").css({"width": "100%"});
             }
         </script>
@@ -278,7 +278,7 @@
                     <tr>
                         <td colspan="2">
                             <hr>
-                            <table border="1px" id="tableKtnb">
+                            <table border="1" id="tableKtnb">
                                 <tr class="tbhead">
                                     <th class="TD_BUTTON1">TT</th>
                                     <th class="TEN_KH1">Loại văn bản</th>

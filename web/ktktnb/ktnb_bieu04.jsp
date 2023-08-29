@@ -316,7 +316,6 @@
                                                                    ;"/>
                                             </td>
 
-                                        </tr>
                                     </s:if>
                                     <s:if test="D7.equalsIgnoreCase('N')">                                     
 

@@ -989,6 +989,7 @@ public class DaoKTNBMain {
                     value.setD18(reset.getString(32));
                     value.setNHAPTAY(reset.getString(45));
                     value.setFONTFORMAT(reset.getString(46));
+                    value.setKIEUIN(reset.getInt(67));
 
                     lstBcqt_NT.add(value);
                 }

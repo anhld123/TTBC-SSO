@@ -390,7 +390,7 @@
                                         <td>
                                             <input type="text" value="<s:property  value="D10" />"  placeholder = "Không phát sinh"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
-                                                   onfocus="this.select()" onblur="if(this.value == '') { this.value= 'Không phát sinh'};"/>
+                                                   onfocus="this.select()" onblur="if(this.value == '') { this.value= ''};"/>
                                         </td>  
                                         <s:if test="THUTU.toString().equalsIgnoreCase('1')"> 
                                             <td style="background: #E7DCDA !important;"></td>
