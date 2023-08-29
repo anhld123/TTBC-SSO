@@ -97,7 +97,7 @@
                 $(".SOKU1").css({"width": "50px"});
                 $(".TD_CHECKBOX").css({"width": "38px"});
                 $(".TD_SOKU").css({"width": "80px"});
-                $(".TD_TENKH123").css({"width": "150px"});
+                $(".TD_TENKH123").css({"width": "110px"});
                 $(".TD_TENKH1234").css({"width": "70px"});
                 $(".TD_TENTS").css({"width": "190px"});
                 $(".TD_SOTK").css({"width": "105px"});
@@ -190,14 +190,14 @@
             function validateRequiredFields() {
                 var result = true; //Luu ket qua kiem tra kieu so co dung khong
 
-                $(".number2").each(function (index) {
-                    //Kiem tra xem co nhap kieu so khong
-                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) === 0) {
-                        result = false;
-                        alert('Trường nhập bắt buộc khác 0')
-                        return false;
-                    }
-                });
+//                $(".number2").each(function (index) {
+//                    //Kiem tra xem co nhap kieu so khong
+//                    if (isNaN(parseFloat($(this).val())) || parseFloat($(this).val()) === 0) {
+//                        result = false;
+//                        alert('Trường nhập bắt buộc khác 0')
+//                        return false;
+//                    }
+//                });
 
                 if (result == false) {
                     $("#result").html('<span style="font-weight: bold; color">Thông báo:</span>  Bạn chưa nhập đầy đủ dữ liệu!');
@@ -229,18 +229,19 @@
                         <td width="70%" >
                             <b>Phòng giao dịch: </b><input class="TD_TENKH1234" type="text" name="posCD" id="posCD" value="<s:property value="pos_cd_username"/>" readonly="readonly"/>
                             <b>Chi nhánh: </b><input class="TD_TENKH1234" type="text" name="maCn" id="maCn" value="<s:property value="main_pos_username"/>" readonly="readonly"/>
-                            <b>Quý báo cáo: </b><input class="TD_TENKH1234" type="text" name="quyBc" id="quyBc" value="<s:property value="quyBc"/>" readonly="readonly"/>
-                            <b>Năm báo cáo: </b><input class="TD_TENKH1234" type="text" name="namBc" id="namBc" value="<s:property value="namBc"/>" readonly="readonly"/>
+                            <!--<b>Quý báo cáo: </b><input class="TD_TENKH1234" type="text" name="quyBc" id="quyBc" value="<s:property value="quyBc"/>" readonly="readonly"/>-->
+                            <b>Tháng báo cáo: </b><input class="TD_TENKH1234" type="text" name="month" id="month" value="<s:property value="month"/>" readonly="readonly"/>
                             <b>Người dùng: </b><input class="TD_TENKH1234" type="text" name="userName" id="userName" value="<s:property value="userName"/>" readonly="readonly"/>
-                            <b>Ngày báo cáo: </b><input type="text" class="TD_TENKH1234" name="ngayBC" id="ngayBC" value="<s:property value="ngayBC"/>" readonly="readonly"/>
-
+                            <b>Ngày báo cáo: </b><input type="text" class="TD_TENKH123" name="ngayBC" id="ngayBC" value="<s:property value="ngayBC"/>" readonly="readonly"/>
+                            <b>Ngày thực hiện: </b><input type="text" class="TD_TENKH123" name="ngayTT" id="ngayTT" value="<s:property value="ngayTT"/>" readonly="readonly"/>
+                    
                         </td>
                         <td align="right">     
                             <div id="result" style="color: red">                            
                             </div>
                             <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>
                             <sj:submit targets="result" value="Cập nhật" name="update" id="update"  cssStyle="display: none;"/>
-                            <input type="button" onclick="tai_lai_trang()" style="width:122px;height:25px;color: red;" value ="Reset"/>    
+<!--                            <input type="button" onclick="tai_lai_trang()" style="width:122px;height:25px;color: red;" value ="Reset"/>    -->
                         </td>                 
 
                     </tr>
@@ -266,7 +267,7 @@
 
                                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                                     <tr height="cscontent">    
-                                        <s:if test="D7.equalsIgnoreCase('Y')">                                     
+                                        <s:if test="D7.equalsIgnoreCase('N')">                                     
 
                                             <td>
                                                 <input type="text" value="<s:property  value="TT_HIENTHI" />" 
@@ -285,8 +286,8 @@
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>">
                                             </td>
                                             <td>
-                                                <input type="text"   value="<s:property  value="D1" />"  style="background: #E7DCDA !important;  font-weight: bold;" readonly="true"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
+                                                <input type="text"   value="<s:property  value="TEN" />"  style="background: #E7DCDA !important;  font-weight: bold;" readonly="true"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" 
                                                        class="TD_MAPGD Bold"
                                                        onfocus="this.select();" /> 
                                             </td>                                  
@@ -312,7 +313,7 @@
 
                                         </tr>
                                     </s:if>
-                                    <s:if test="D7.equalsIgnoreCase('N')">                                     
+                                    <s:if test="D7.equalsIgnoreCase('Y')">                                     
 
                                         <td>
                                             <input type="text" value="<s:property  value="TT_HIENTHI" />" 
@@ -331,9 +332,9 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D8"/>"/>
 
                                         </td>
-                                        <td>
-                                            <input type="text"   value="<s:property  value="D1" />"  readonly="true"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
+                                        <td >
+                                            <input type="text"   value="<s:property  value="TEN" />"  readonly="true"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" 
                                                    class="TD_MAPGD"
                                                    onfocus="this.select();" /> 
                                         </td>                                  
@@ -354,9 +355,7 @@
                                             <td>
                                                 <input type="text" value="<s:property  value="D5" />" id="TT_<s:property  value="D5" />"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU number" onfocus="this.select()"
-                                                       onblur="if (this.value == '')
-                                                                   ;
-                                                               evaluateSum(this)"/>
+                                                       onfocus="this.select()" onblur="if(this.value == '') { this.value= 0};"/>
                                             </s:if>
                                             <s:if test="D8.equalsIgnoreCase('N') && D9.equalsIgnoreCase('Y')">     
                                             <td>
@@ -369,7 +368,7 @@
                                         </td>                                                                                                
                                         <s:if test="D8.equalsIgnoreCase('Y')"> 
                                             <td>
-                                                <input type="text" value="<s:property  value="D10" />" placeholder="Trường bắt buộc phải nhập/ không cho nhập số 0" readonly="true"
+                                                <input type="text" value="<s:property  value="D10" />" placeholder="Lưu ý nhập" readonly="true"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
                                                        onblur="if (this.value == '')
                                                                    ;"/>
@@ -377,7 +376,7 @@
                                         </s:if>
                                         <s:if test="D8.equalsIgnoreCase('N') && D9.equalsIgnoreCase('Y')">     
                                             <td>
-                                                <input type="text" value="<s:property  value="D10" />" placeholder="Không nhập" readonly="true"
+                                                <input type="text" value="<s:property  value="D10" />" placeholder="Không nhập nếu không phát sinh" readonly="true"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
                                                        onblur="if (this.value == '')
                                                                    ;"/>

@@ -51,6 +51,8 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
     protected String pos_cd_username;
+    private String month;
+    private Date ngayTT;
 
     public String getPos_cd_username() {
         return pos_cd_username;
@@ -142,13 +144,22 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
         this.nodes = nodes;
     }
 
-//    public int getReportGrade() {
-//        return reportGrade;
-//    }
-//
-//    public void setReportGrade(int reportGrade) {
-//        this.reportGrade = reportGrade;
-//    }
+    public Date getNgayTT() {
+        return ngayTT;
+    }
+
+    public void setNgayTT(Date ngayTT) {
+        this.ngayTT = ngayTT;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -202,6 +213,8 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             main_pos_username = posMainModel.getMainPosCd();
             _service = new PCTNService();
             String _reportDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));
+            month = new SimpleDateFormat("MM").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));
+            ngayTT = new Date();
             lstDulieuNt = _service.getDataKTKSNB("01_PCTN", pos_cd_username, Grade, _reportDate, "", "0");
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 lstDulieuNt = _service.getDataKTKSNB("01_PCTN", pos_cd_username, Grade, _reportDate, "", "1");
@@ -249,7 +262,12 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             main_pos_username = posMainModel.getMainPosCd();
             _service = new PCTNService();
             String _reportDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));
+            month = new SimpleDateFormat("MM").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));
+            ngayTT = new Date();
             lstDulieuNt = _service.getDataKTKSNB("02_PCTN", pos_cd_username, Grade, _reportDate, "", "0");
+            if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
+                lstDulieuNt = _service.getDataKTKSNB("02_PCTN", pos_cd_username, Grade, _reportDate, "", "1");
+            }
             String sStatus;
             try {
                 sStatus = lstDulieuNt.get(0).getD50();
@@ -293,7 +311,12 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             main_pos_username = posMainModel.getMainPosCd();
             _service = new PCTNService();
             String _reportDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));
+            month = new SimpleDateFormat("MM").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));
+            ngayTT = new Date();
             lstDulieuNt = _service.getDataKTKSNB("03_PCTN", pos_cd_username, Grade, _reportDate, "", "0");
+            if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
+                lstDulieuNt = _service.getDataKTKSNB("03_PCTN", pos_cd_username, Grade, _reportDate, "", "1");
+            }
             String sStatus;
             try {
                 sStatus = lstDulieuNt.get(0).getD50();
@@ -337,6 +360,8 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             main_pos_username = posMainModel.getMainPosCd();
             _service = new PCTNService();
             String _reportDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));
+            month = new SimpleDateFormat("MM").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));
+            ngayTT = new Date();
             lstDulieuNt = _service.getDataKTKSNB("04_PCTN", pos_cd_username, Grade, _reportDate, "", "0");
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 lstDulieuNt = _service.getDataKTKSNB("04_PCTN", pos_cd_username, Grade, _reportDate, "", "1");
@@ -388,6 +413,8 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             main_pos_username = posMainModel.getMainPosCd();
             _service = new PCTNService();
             String _reportDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));
+            month = new SimpleDateFormat("MM").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));
+            ngayTT = new Date();
             lstDulieuNt = _service.getDataKTKSNB("05_PCTN", pos_cd_username, Grade, _reportDate, "", "0");
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 lstDulieuNt = _service.getDataKTKSNB("05_PCTN", pos_cd_username, Grade, _reportDate, "", "1");
@@ -439,6 +466,8 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             main_pos_username = posMainModel.getMainPosCd();
             _service = new PCTNService();
             String _reportDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));
+            month = new SimpleDateFormat("MM").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));
+            ngayTT = new Date();
             lstDulieuNt = _service.getDataKTKSNB("06_PCTN", pos_cd_username, Grade, _reportDate, "", "0");
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 lstDulieuNt = _service.getDataKTKSNB("06_PCTN", pos_cd_username, Grade, _reportDate, "", "1");
@@ -498,35 +527,6 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
         return posString;
     }
 
-    public String view() throws SQLException {
-        try {
-            System.err.println(" da vao action");
-            if (this.searchNodes == null) {
-                System.err.print("searchNodes is null");
-                try {
-                    reportGrade = request.getSession().getAttribute("reportGrade").toString();
-                    userName = request.getSession().getAttribute("username").toString();
-                    BuildPosTreeDao buildPosTreeDao = new BuildPosTreeDao(Integer.parseInt(reportGrade), userName);
-                    buildPosTreeDao.build();
-                    this.searchNodes = buildPosTreeDao.getNodes();
-                } catch (SQLException ex) {
-                }
-            }
-            getInfo();
-            List<String> lstPos = getListOfPos();
-            Connection conn = new DaoConnect().getConnect();
-            DaoKTNBMain daoMain = new DaoKTNBMain();
-            String _reportDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));
-            lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), lstPos,_reportDate);
-            return "success";
-        } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> GetDataAuth06A: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> GetDataAuth06A: " + e.getMessage());
-            return "error";
-        }
-
-    }
-
     public String save_data_ktnb_bieu01() throws SQLException {
         try {
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
@@ -555,9 +555,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
                 if (lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4") && lstDL.get(0).getCO_TONGHOP().equals("S")) {
                     addActionMessage("Cấp Tỉnh đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
-                }
-                else if (lstDL.get(0).getD50().equals("4") && lstDL.get(0).getCO_TONGHOP().equals("M"))
-                {
+                } else if (lstDL.get(0).getD50().equals("4") && lstDL.get(0).getCO_TONGHOP().equals("M")) {
                     addActionMessage("Cấp TW đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
                 }
@@ -567,7 +565,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
-            lstDulieuNt = daoMain.getDataKtnb_bieu01(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd,_reportDate);
+            lstDulieuNt = daoMain.getDataKtnb_bieu01(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd, _reportDate);
 
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");
@@ -594,7 +592,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             addActionMessage("Cập nhật không thành công");
             return "error";
         }
-
+        addActionMessage("Cập nhật thành công");
         return "success";
     }
 
@@ -627,19 +625,17 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
                 if ((lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4")) && reportGrade.equalsIgnoreCase("1")) {
                     addActionMessage("Cấp Tỉnh đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
-                }
-                else if (reportGrade.equalsIgnoreCase("2")&& lstDL.get(0).getD50().equals("4"))
-                {
+                } else if (reportGrade.equalsIgnoreCase("2") && lstDL.get(0).getD50().equals("4")) {
                     addActionMessage("Cấp TW đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
                 }
             }
 
-            if (!daoMain.saveKTNB_bieu02("02_PCTN", userName, pos_cd_username, "", "", Integer.parseInt(reportGrade), lstDulieuNt,_reportDate)) {
+            if (!daoMain.saveKTNB_bieu02("02_PCTN", userName, pos_cd_username, "", "", Integer.parseInt(reportGrade), lstDulieuNt, _reportDate)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
-            lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd,_reportDate);
+            lstDulieuNt = daoMain.getDataKtnb_bieu02(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd, _reportDate);
 
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");
@@ -696,22 +692,20 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
 
             } else {
 
-                 if ((lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4")) && reportGrade.equalsIgnoreCase("1")) {
+                if ((lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4")) && reportGrade.equalsIgnoreCase("1")) {
                     addActionMessage("Cấp Tỉnh đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
-                }
-                else if (reportGrade.equalsIgnoreCase("2")&& lstDL.get(0).getD50().equals("4"))
-                {
+                } else if (reportGrade.equalsIgnoreCase("2") && lstDL.get(0).getD50().equals("4")) {
                     addActionMessage("Cấp TW đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
                 }
             }
 
-            if (!daoMain.saveKTNB_bieu03("03_PCTN", userName, pos_cd_username, "", "", Integer.parseInt(reportGrade), lstDulieuNt,_reportDate)) {
+            if (!daoMain.saveKTNB_bieu03("03_PCTN", userName, pos_cd_username, "", "", Integer.parseInt(reportGrade), lstDulieuNt, _reportDate)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
-            lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd,_reportDate);
+            lstDulieuNt = daoMain.getDataKtnb_bieu03(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd, _reportDate);
 
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");
@@ -771,19 +765,17 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
                 if ((lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4")) && reportGrade.equalsIgnoreCase("1")) {
                     addActionMessage("Cấp Tỉnh đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
-                }
-                else if (reportGrade.equalsIgnoreCase("2")&& lstDL.get(0).getD50().equals("4"))
-                {
+                } else if (reportGrade.equalsIgnoreCase("2") && lstDL.get(0).getD50().equals("4")) {
                     addActionMessage("Cấp TW đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
                 }
             }
 
-            if (!daoMain.saveKTNB_bieu04("04_PCTN", userName, pos_cd_username, "", "", Integer.parseInt(reportGrade), lstDulieuNt,_reportDate)) {
+            if (!daoMain.saveKTNB_bieu04("04_PCTN", userName, pos_cd_username, "", "", Integer.parseInt(reportGrade), lstDulieuNt, _reportDate)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
-            lstDulieuNt = daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd,_reportDate);
+            lstDulieuNt = daoMain.getDataKtnb_bieu04(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd, _reportDate);
 
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");
@@ -840,17 +832,17 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
 
             } else {
 
-                if ( lstDL.get(0).getD50().equals("4")) {
+                if (lstDL.get(0).getD50().equals("4")) {
                     addActionMessage("Cấp trên đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
                 }
             }
 
-            if (!daoMain.saveKTNB_bieu05("05_PCTN", userName, pos_cd_username, "", "", Integer.parseInt(reportGrade), lstDulieuNt,_reportDate)) {
+            if (!daoMain.saveKTNB_bieu05("05_PCTN", userName, pos_cd_username, "", "", Integer.parseInt(reportGrade), lstDulieuNt, _reportDate)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
-            lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd,_reportDate);
+            lstDulieuNt = daoMain.getDataKtnb_bieu05(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd, _reportDate);
 
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");
@@ -913,11 +905,11 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
                 }
             }
 
-            if (!daoMain.saveKTNB_bieu06("06_PCTN", userName, pos_cd_username, "", "", Integer.parseInt(reportGrade), lstDulieuNt,_reportDate)) {
+            if (!daoMain.saveKTNB_bieu06("06_PCTN", userName, pos_cd_username, "", "", Integer.parseInt(reportGrade), lstDulieuNt, _reportDate)) {
                 addActionMessage("Lưu dữ liệu nội bộ chưa thành công.");
                 return "error";
             }
-            lstDulieuNt = daoMain.getDataKtnb_bieu06(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd,_reportDate);
+            lstDulieuNt = daoMain.getDataKtnb_bieu06(conn, quyBc, namBc, userName, Integer.parseInt(reportGrade), poscd, _reportDate);
 
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 addActionMessage("Không có dữ liệu tại chi nhánh ((ko gửi api).");

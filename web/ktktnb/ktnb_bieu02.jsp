@@ -236,7 +236,7 @@
                 }
                 var newTr = '<tr>\n\
                                 <td ><input type="text" value="' + max_row + '" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="D0 number SOKU1" onfocus="this.select();" /></td>\n\
-                                <td ><input type="text" placeholder="<s:property value="pos_cd_username"/>" value="" id="TEN" name="lstDulieuNt[' + rowCount + '].TEN" readonly="true" style="background: #E7DCDA !important;" class="SOKU2" onfocus="this.select();"/></td>\n\
+                                <td ><input type="text" placeholder="Không phát sinh" value="" id="D1" name="lstDulieuNt[' + rowCount + '].D1" class="SOKU2" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" placeholder = "Không phát sinh" value="" id="D2" name="lstDulieuNt[' + rowCount + '].D2" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" placeholder = "Không phát sinh" value="" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" placeholder = "Không phát sinh" value="" id="D4" name="lstDulieuNt[' + rowCount + '].D4" class="SOKU" onfocus="this.select();"/></td>\n\
@@ -288,9 +288,11 @@
                             <b>Phòng giao dịch: </b><input class="TD_TENKH1234" type="text" name="posCD" id="posCD" value="<s:property value="pos_cd_username"/>" readonly="readonly"/>
                             <b>Chi nhánh: </b><input class="TD_TENKH1234" type="text" name="maCn" id="maCn" value="<s:property value="main_pos_username"/>" readonly="readonly"/>
                             <!--<b>Quý báo cáo: </b><input class="TD_TENKH1234" type="text" name="quyBc" id="quyBc" value="<s:property value="quyBc"/>" readonly="readonly"/>-->
-                            <b>Năm báo cáo: </b><input class="TD_TENKH1234" type="text" name="namBc" id="namBc" value="<s:property value="namBc"/>" readonly="readonly"/>
+                            <b>Tháng báo cáo: </b><input class="TD_TENKH1234" type="text" name="month" id="month" value="<s:property value="month"/>" readonly="readonly"/>
                             <b>Người dùng: </b><input class="TD_TENKH1234" type="text" name="userName" id="userName" value="<s:property value="userName"/>" readonly="readonly"/>
-                            <b>Ngày báo cáo: </b><input type="text" class="TD_TENKH1234" name="ngayBC" id="ngayBC" value="<s:property value="ngayBC"/>" readonly="readonly"/>
+                            <b>Ngày báo cáo: </b><input type="text" class="TD_TENKH123" name="ngayBC" id="ngayBC" value="<s:property value="ngayBC"/>" readonly="readonly"/>
+                            <b>Ngày thực hiện: </b><input type="text" class="TD_TENKH123" name="ngayTT" id="ngayTT" value="<s:property value="ngayTT"/>" readonly="readonly"/>
+                    
                         </td>
                         <td align="right">     
                             <div id="result" style="color: red">                            
@@ -346,42 +348,35 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].FONTFORMAT" value="<s:property  value="FONTFORMAT"/>"/> 
                                             <input type="hidden" value="<s:property  value="CO_TONGHOP" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP" value="<s:property  value="CO_TONGHOP"/>"/> 
-
+                                            <input type="hidden" value="<s:property  value="TEN" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" value="<s:property  value="TEN"/>"/> 
                                         </td>
                                         <td>               
-<!--                                           <input type="text" value="<s:property  value="TEN" />" readonly="true" style="background: #E7DCDA !important;"           
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" class="TEN SOKU2" onfocus="this.select()"
-                                                   onblur="if (this.value == '')
-                                                               ;" > -->
-                                            <input type="text" class="TENKH SOKU2" readonly="true" style="background: #E7DCDA !important;"  
-                                                   name="lstDulieuNt[<s:property  value='%{#idxRows.index}' />].TEN" value="<s:property value='TEN'/>">
+                                               <input type="text" value="<s:property  value="D1" />"  placeholder = "Không phát sinh"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="SOKU" onfocus="this.select()"
+                                                   onfocus="this.select()" onblur="if(this.value == '') { this.value= 'Không phát sinh'};"/>
                                         </td>                                  
                                         <td>
                                             <input type="text" value="<s:property  value="D2" />"  placeholder = "Không phát sinh"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="SOKU" onfocus="this.select()"
-                                                   onblur="if (this.value == '')
-                                                               ;"/>
+                                                   onfocus="this.select()" onblur="if(this.value == '') { this.value= 'Không phát sinh'};"/>
                                         </td>                                  
                                         <td>
                                             <input type="text" value="<s:property  value="D3" />" placeholder = "Không phát sinh"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="SOKU" onfocus="this.select()"
-                                                   onblur="if (this.value == '')
-                                                               ;"/>
+                                                   onfocus="this.select()" onblur="if(this.value == '') { this.value= 'Không phát sinh'};"/>
                                         </td>                                                                                                
 
                                         <td>
                                             <input type="text" value="<s:property  value="D4" />" placeholder = "Không phát sinh"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="SOKU" onfocus="this.select()"
-                                                   onblur="if (this.value == '')
-                                                               ;"/>
+                                                   onfocus="this.select()" onblur="if(this.value == '') { this.value= 'Không phát sinh'};"/>
                                         </td>
 
                                         <td>
                                             <input type="text" value="<s:property  value="D10" />" placeholder = "Không phát sinh"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="SOKU" onfocus="this.select()"
-                                                   onblur="if (this.value == '')
-                                                               ;"
-                                                   />
+                                                   onfocus="this.select()" onblur="if(this.value == '') { this.value= 'Không phát sinh'};"/>
                                         </td>
                                         <s:if test="THUTU.toString().equalsIgnoreCase('1')"> 
                                             <td style="background: #E7DCDA !important;"></td>
