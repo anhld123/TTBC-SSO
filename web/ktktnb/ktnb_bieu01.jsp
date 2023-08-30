@@ -229,8 +229,21 @@
                         <td align="right">     
                             <div id="result" style="color: red">                            
                             </div>
-                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>
-                            <sj:submit targets="result" value="Cập nhật" name="update" id="update"  cssStyle="display: none;"/>
+<!--                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>-->
+                            <sj:submit targets="result" value="Lưu dữ liệu" name="update" id="update"  style="width:122px;height:25px;color: blue;"
+                                       onBeforeTopics="beforeSubmit"
+                                       onCompleteTopics="finishSubmit"
+                                       />
+                            <script>
+                                $.subscribe("beforeSubmit", function (event, data) {
+                                    $("#update").prop('disabled', true);
+                                    $("#update").prop('color', 'red');
+                                });
+                                $.subscribe("finishSubmit", function (event, data) {
+                                    $("#update").prop('disabled', false);
+                                    $("#update").prop('color', 'blue');
+                                });
+                            </script>
                         </td>                
                     </tr>
                     <tr>
