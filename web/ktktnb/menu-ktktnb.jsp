@@ -116,7 +116,9 @@
                             showButtonPanel: true,
                             buttonText: "icono",
                             changeMonth: true,
-                            changeYear: true
+                            changeYear: true,
+                            minDate : '-2M + 28D',
+                            maxDate : '+1M -28D'
                         });
             });
             
@@ -127,15 +129,16 @@
                 var quarter = Math.floor(date.getMonth() / 3) + 1; //quy
                 //Gan quy mac dinh
                 $("#cboquybc").val(quarter);
-                $('#dpkReportDate').datepicker('setDate', getLastDayOfQuarter(new Date()));
+                $('#dpkReportDate').datepicker('setDate', new Date());
+                
             });
             
             function getLastDayOfQuarter(date) {
                 var year = date.getFullYear();
-                var quarterEndings = [[3, 31], [6, 30], [9, 30], [12, 31]];
+                var quarterEndings = [[1, 31],[2, 28],[3, 31],[4, 30], [5, 31] [6, 30],[7, 31],[8, 31], [9, 30],[10, 31],[11, 30], [12, 31]];
 
                 var toDateObj = function (dates) {
-                    return new Date(year, dates[0] - 1, dates[1]);
+                    return new Date(year, dates[0] -1, dates[1]);
                 };
 
                 var isBeforeEndDate = function (endDate) {

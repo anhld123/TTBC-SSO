@@ -170,7 +170,6 @@
             function fnCheckThenSubmit() {
                 document.getElementById('loadingImageDiv_para').style.display = "block";
                 $("#update").click(function () {
-                    sleep(1000);
                 });
                 if (validateRequiredFields()) {
                     $("#update").trigger('click');
@@ -299,11 +298,11 @@
                             <div id="loadingImageDiv_para"  style="display: none;">
                                 <img id="loadingImage" src='img/loading.gif' border='0' >
                             </div>
-                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()"
-                                   style="width:122px;height:25px;color: red; font-weight: bold ;"/>
+                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="this.disabled = true; fnCheckThenSubmit()"
+                                   style="width:122px;height:25px;color: blue; font-weight: bold ;"/>
                             <sj:submit id="update" name="update"  targets="result" onBeforeTopics="beforediv_para"
                                        onCompleteTopics="completediv_para" cssStyle="display: none"/>
-                        </td>   
+                        </td>      
                     </tr>
                     <tr>
                         <td colspan="2">

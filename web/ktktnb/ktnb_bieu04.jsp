@@ -170,9 +170,8 @@
             //Check xem du lieu da ok chua
             //Neu ok roi thi goi su kien submit du lieu
             function fnCheckThenSubmit() {
-//                document.getElementById('loadingImageDiv_para').style.display = "block";
+                document.getElementById('loadingImageDiv_para').style.display = "block";
                 $("#update").click(function () {
-                    sleep(000);
                 });
                 if (validateRequiredFields()) {
                     $("#update").trigger('click');
@@ -238,13 +237,17 @@
                             <b>Ngày thực hiện: </b><input type="text" class="TD_TENKH123" name="ngayTT" id="ngayTT" value="<s:property value="ngayTT"/>" readonly="readonly"/>
 
                         </td>
-                        <td align="right">     
-                            <div id="result" style="color: red">
+                      <td align="right">     
+                            <div id="result" style="color: red">                            
                             </div>
-                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>
-                            <sj:submit targets="result" value="Cập nhật" name="update" id="update"  cssStyle="display: none;"/>
-
-                        </td>   
+                            <div id="loadingImageDiv_para"  style="display: none;">
+                                <img id="loadingImage" src='img/loading.gif' border='0' >
+                            </div>
+                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="this.disabled = true; fnCheckThenSubmit()"
+                                   style="width:122px;height:25px;color: blue; font-weight: bold ;"/>
+                            <sj:submit id="update" name="update"  targets="result" onBeforeTopics="beforediv_para"
+                                       onCompleteTopics="completediv_para" cssStyle="display: none"/>
+                        </td>      
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -289,6 +292,9 @@
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/>
                                                 <input type="hidden" value="<s:property  value="D9" />"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/>
+                                               <input type="hidden" value="<s:property  value="TEN" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" value="<s:property  value="TEN"/>"/> 
+
                                             </td>
                                             <td>
                                                 <input type="text"   value="<s:property  value="D1" />"  style="background: #E7DCDA !important;  font-weight: bold;" readonly="true"
@@ -336,9 +342,7 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/>
                                             <input type="hidden" value="<s:property  value="TEN" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" value="<s:property  value="TEN"/>"/>
-                                            <input type="hidden" value="<s:property  value="CO_TONGHOP" />"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP" value="<s:property  value="CO_TONGHOP"/>"/> 
-
+                                           
                                         </td>
                                         <td>
                                             <input type="text"   value="<s:property  value="D1" />"  readonly="true"
