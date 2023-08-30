@@ -1396,15 +1396,30 @@ public class DuLieuNTService extends ReportService {
     public ArrayList<DuLieuNTRow> getDataKTKSNB(String key, String posCode, String posFlag, String reportDate, String condition, String defaultListFlag) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
-        WebTarget target = client.target(getBaseURI()).path("ktksnb-list-data")
+        
+        if (defaultListFlag.isEmpty()) {
+            defaultListFlag = "0";
+        }
+        
+        WebTarget target;
+        
+        if (condition.isEmpty()) {
+            target = client.target(getBaseURI()).path("ktksnb-list-data")
+                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", posFlag)
+                .queryParam("reportDate", reportDate)
+                .queryParam("defaultListFlag", defaultListFlag);
+        } else {
+            target = client.target(getBaseURI()).path("ktksnb-list-data")
                 .queryParam("key", key)
                 .queryParam("posCode", posCode)
                 .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
                 .queryParam("condition", condition)
-                .queryParam("defaultListFlag", defaultListFlag)
-                ;
-
+                .queryParam("defaultListFlag", defaultListFlag);
+        }
+                
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();
 

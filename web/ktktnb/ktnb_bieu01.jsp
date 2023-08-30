@@ -216,7 +216,7 @@
                         <td colspan="3" style="font-size: 14px;">Biểu số 01: Tổng hợp kết quả về công tác phòng, chống tham nhũng<hr></td>                    
                     </tr>
                     <tr>
-                        <td width="70%" >
+                        <td width="80%" >
                             <b>Phòng giao dịch: </b><input class="TD_TENKH1234" type="text" name="posCD" id="posCD" value="<s:property value="pos_cd_username"/>" readonly="readonly"/>
                             <b>Chi nhánh: </b><input class="TD_TENKH1234" type="text" name="maCn" id="maCn" value="<s:property value="main_pos_username"/>" readonly="readonly"/>
                             <!--<b>Quý báo cáo: </b><input class="TD_TENKH1234" type="text" name="quyBc" id="quyBc" value="<s:property value="quyBc"/>" readonly="readonly"/>-->
