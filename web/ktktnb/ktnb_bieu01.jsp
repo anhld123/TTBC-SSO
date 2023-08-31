@@ -139,7 +139,7 @@
                 $('.number').number(true, 0);
 
                 //Cac truong bang so --> se co so truong = 0
-                $('.number2').number(true, 0);
+                $('.number2').number(true, 2);
             });
 
             //Xu ly tinh tong cho tung dong
@@ -321,8 +321,8 @@
                                         <s:if test="D8.equalsIgnoreCase('Y')">
                                             <s:if test="THUTU.toString().equalsIgnoreCase('39')">
                                                 <td>
-                                                    <input type="text" value="<s:property  value="D5" />" style="background: #df8505 !important;" step="0.01"
-                                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU" onfocus="this.select();
+                                                    <input type="text" value="<s:property  value="D5" />" style="background: #df8505 !important;" 
+                                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU number2" onfocus="this.select();
                                                            "/>
                                                 </td>
                                             </s:if>
