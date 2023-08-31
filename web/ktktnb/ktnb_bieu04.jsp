@@ -296,12 +296,9 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" value="<s:property  value="TEN"/>"/> 
 
                                             </td>
-                                            <td>
-                                                <input type="text"   value="<s:property  value="D1" />"  style="background: #E7DCDA !important;  font-weight: bold;" readonly="true"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
-                                                       class="TD_MAPGD Bold"
-                                                       onfocus="this.select();" /> 
-                                            </td>                                  
+                                   
+                                                 <td style="width: 50%; color: black ; padding-left: 2px; background: #E7DCDA !important;  font-weight: bold;" readonly="true"><s:property value="D1"/></td>                                                            
+                                                                           
                                             <td>
                                                 <input type="text" value="<s:property  value="D2" />" style="background: #E7DCDA !important;"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="D0 TD_MAPGD" onfocus="this.select()"
@@ -341,15 +338,10 @@
                                             <input type="hidden" value="<s:property  value="D9" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/>
                                             <input type="hidden" value="<s:property  value="TEN" />"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" value="<s:property  value="TEN"/>"/>
-                                           
-                                        </td>
-                                        <td>
-                                            <input type="text"   value="<s:property  value="D1" />"  readonly="true"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
-                                                   class="TD_MAPGD"
-                                                   onfocus="this.select();" /> 
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" value="<s:property  value="TEN"/>"/>                                         
                                         </td>                                  
+                                          <td style="width: 50%; color: black ; padding-left: 2px; font-weight: normal;" readonly="true"><s:property value="D1"/></td>                         
+                                                               
                                         <td>
                                             <input type="text" value="<s:property  value="D2" />" 
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="D0 TD_MAPGD" onfocus="this.select()"
