@@ -42,7 +42,9 @@ public class ExportFileAction
             throws Exception {        
         String tran_dt = getParameterValue("export_dt");
         String period = getParameterValue("period");
+        String fromDate = getParameterValue("from_dt");
         String gendata_FLG = getParameterValue("gendata_FLG");
+        
         ExcelFileWriter writer = new ExcelFileWriter();
         String file_path = Define.M_ROOT + Define.M_REPORT_XLS + "DANHSACHNHAHT_"
                 + DefineFun.convertStrDateFormat(tran_dt, "dd/MM/yyyy", "dd_MM_yyyy")
@@ -50,6 +52,7 @@ public class ExportFileAction
         writer.export_donator(file_path, 
                 DefineFun.convert2OracleDateFormat(tran_dt)  ,
                 period,
+                DefineFun.convert2OracleDateFormat(fromDate), 
                 gendata_FLG
                 );        
         File fileToDownload = new File(file_path);         

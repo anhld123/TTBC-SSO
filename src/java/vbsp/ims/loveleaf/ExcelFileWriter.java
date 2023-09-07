@@ -20,11 +20,12 @@ public class ExcelFileWriter {
             String pv_file_name,
             String pv_tran_dt,
             String period,
+            String pv_from_dt,
             String generate_FLG
     ){
         String lv_file_path =  pv_file_name;
         LoveLeafDao loveLeafDao = new LoveLeafDao();
-        loveLeafDao.export_donator_to_excel(pv_tran_dt, lv_file_path,period,generate_FLG);                         
+        loveLeafDao.export_donator_to_excel(pv_tran_dt, lv_file_path, period, pv_from_dt, generate_FLG);                         
     }
     
     public void export_uploadfile(

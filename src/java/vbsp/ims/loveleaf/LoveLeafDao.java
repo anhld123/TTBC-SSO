@@ -469,12 +469,14 @@ calstatement.setString(1, pv_program);
         }
     }
 
-    public void export_donator_to_excel(String pv_tran_dt,
+    public void export_donator_to_excel(
+            String pv_tran_dt,
             String pv_file_path,
             String period,
+            String pv_from_dt,
             String generate_FLG) {
         String strStoreproce
-                = "{call app_loveleaf_proj.get_donator_to_excel(?, ?, ?, ? , ?)}";
+                = "{call app_loveleaf_proj.get_donator_to_excel(?, ?, ?, ?, ? , ?)}";
         try {
 //            if (conn == null) {
             daoConnect = new DaoConnect();
@@ -485,11 +487,12 @@ calstatement.setString(1, pv_program);
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
                 calstatement.setString(1, pv_tran_dt);
                 calstatement.setString(2, period);
-                calstatement.setString(3, generate_FLG);
-                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
-                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(3, pv_from_dt);
+                calstatement.setString(4, generate_FLG);
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
                 calstatement.execute();
-                rs = (ResultSet) calstatement.getObject(5);
+                rs = (ResultSet) calstatement.getObject(6);
 
                 ExportExcelFile export = new ExportExcelFile();
                 if (period.equals("D")) {
