@@ -12,39 +12,10 @@
         <action name="getLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="getLeaveLocal">
             <result name="success">/leavelocal/viewdata.jsp</result>
         </action> 
-        <action name="fetchUploadExcelLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="fetchExcelUploadData">
-            <result name="success">/leavelocal/viewdata.jsp</result>
-        </action> 
-        <action name="getLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="getLeaveLocal">
-            <result name="success">/leavelocal/viewdata.jsp</result>
-            <result name="success_author">/leavelocal/viewdata_author.jsp</result>
-        </action> 
-        <action name="popupThanhvien" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupThanhvien">
-            <result name="success">/leavelocal/popupthanhvien.jsp</result>      
+        <action name="PopupThanhvien" class="vbsp.ims.leavelocal.LeaveTheLocal" method="PopupThanhvien">
+            <result name="success">/leavelocal/popupthanhvien.jsp</result>
         </action>  
-        <action name="popupThanhvien_author" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupThanhvien">
-            <result name="success">/leavelocal/popupthanhvien_author.jsp</result>      
-        </action>  
-        <action name="popupXuLyNo" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupXuLyNo">
-            <result name="success">/leavelocal/popupxulyno.jsp</result>
-        </action>
-        <action name="popupFeedback" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupFeedback">
-            <result name="success">/leavelocal/popupfeedback.jsp</result>      
-        </action>  
-        <action name="clhUpdateFeedback" class="vbsp.ims.leavelocal.LeaveTheLocal" method="updateFeedback">
-            <result name="success" type="stream">
-                <param name="contentType">text/html</param>
-                <param name="inputName">pageResult</param>
-            </result>
-        </action>  
-        
         <action name="saveLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="saveLeaveLocal">
-            <result name="success" type="stream">
-                <param name="contentType">text/html</param>
-                <param name="inputName">pageResult</param>
-            </result>
-        </action>
-        <action name="suggestDeteleLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="suggestDeteleCustomer">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
@@ -56,25 +27,11 @@
                 <param name="inputName">pageResult</param>
             </result>
         </action> 
-        <action name="debtHandling" class="vbsp.ims.leavelocal.LeaveTheLocal" method="debtHandling">
+        <action name="addRemoveTV" class="vbsp.ims.leavelocal.LeaveTheLocal" method="addRemoveTV">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
             </result>
         </action>  
-        
-        <action name="updateClhMember" class="vbsp.ims.leavelocal.LeaveTheLocal" method="updateMember">
-            <result name="success" type="stream">
-                <param name="contentType">text/html</param>
-                <param name="inputName">pageResult</param>
-            </result>
-        </action>
-        
-        <action name="clearClhMember" class="vbsp.ims.leavelocal.LeaveTheLocal" method="clearMember">
-            <result name="success" type="stream">
-                <param name="contentType">text/html</param>
-                <param name="inputName">pageResult</param>
-            </result>
-        </action> 
     </package>
 </struts>

@@ -139,7 +139,7 @@
                 $('.number').number(true, 0);
 
                 //Cac truong bang so --> se co so truong = 0
-                $('.number2').number(true, 0);
+                $('.number2').number(true, 2);
             });
 
             //Xu ly tinh tong cho tung dong
@@ -169,8 +169,8 @@
             //Check xem du lieu da ok chua
             //Neu ok roi thi goi su kien submit du lieu
             function fnCheckThenSubmit() {
+                document.getElementById('loadingImageDiv_para').style.display = "block";
                 $("#update").click(function () {
-                    sleep(1000);
                 });
                 if (validateRequiredFields()) {
                     $("#update").trigger('click');
@@ -226,10 +226,10 @@
                             <b>Ngày thực hiện: </b><input type="text" class="TD_TENKH123" name="ngayTT" id="ngayTT" value="<s:property value="ngayTT"/>" readonly="readonly"/>
 
                         </td>
-                        <td align="right">     
+<!--                        <td align="right">     
                             <div id="result" style="color: red">                            
                             </div>
-<!--                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>-->
+                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>
                             <sj:submit targets="result" value="Lưu dữ liệu" name="update" id="update"  style="width:122px;height:25px;color: blue;"
                                        onBeforeTopics="beforeSubmit"
                                        onCompleteTopics="finishSubmit"
@@ -244,7 +244,18 @@
                                     $("#update").prop('color', 'blue');
                                 });
                             </script>
-                        </td>                
+                        </td>                -->
+                            <td align="right">     
+                            <div id="result" style="color: red">                            
+                            </div>
+                            <div id="loadingImageDiv_para"  style="display: none;">
+                                <img id="loadingImage" src='img/loading.gif' border='0' >
+                            </div>
+                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="this.disabled = true; fnCheckThenSubmit()"
+                                   style="width:122px;height:25px;color: blue; font-weight: bold ;"/>
+                            <sj:submit id="update" name="update"  targets="result" onBeforeTopics="beforediv_para"
+                                       onCompleteTopics="completediv_para" cssStyle="display: none"/>
+                        </td>       
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -293,6 +304,9 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/>
                                             <input type="hidden" value="<s:property  value="D9" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>">
+                                             <input type="hidden" value="<s:property  value="D2" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" value="<s:property  value="D2"/>">
+                                       
                                         </td>
                                         <s:if test="D7.equalsIgnoreCase('N')"> 
                                             <td style="width: 50%; color: black ; padding-left: 2px; background: #E7DCDA !important;  font-weight: bold;" readonly="true"><s:property value="D1"/></td>                         
@@ -307,8 +321,8 @@
                                         <s:if test="D8.equalsIgnoreCase('Y')">
                                             <s:if test="THUTU.toString().equalsIgnoreCase('39')">
                                                 <td>
-                                                    <input type="text" value="<s:property  value="D5" />" style="background: #df8505 !important;" step="0.01"
-                                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU" onfocus="this.select();
+                                                    <input type="text" value="<s:property  value="D5" />" style="background: #df8505 !important;" 
+                                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D0 SOKU number2" onfocus="this.select();
                                                            "/>
                                                 </td>
                                             </s:if>

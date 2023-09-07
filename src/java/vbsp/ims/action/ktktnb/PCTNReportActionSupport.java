@@ -239,6 +239,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb04: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb04: " + e.getMessage());
+            addActionMessage("Lỗi tải báo cáo thất bại!");
             return "error";
         }
 
@@ -288,9 +289,10 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb02: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb02: " + e.getMessage());
+            addActionMessage("Lỗi tải báo cáo thất bại!");
             return "error";
         }
-
+        
         return "success";
     }
 
@@ -337,6 +339,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb003: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb03: " + e.getMessage());
+            addActionMessage("Lỗi tải báo cáo thất bại!");
             return "error";
         }
 
@@ -386,6 +389,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb04: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb04: " + e.getMessage());
+            addActionMessage("Lỗi tải báo cáo thất bại!");
             return "error";
         }
 
@@ -439,6 +443,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb05: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb05: " + e.getMessage());
+            addActionMessage("Lỗi tải báo cáo thất bại!");
             return "error";
         }
 
@@ -492,6 +497,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb06A: " + e.getMessage());
+            addActionMessage("Lỗi tải báo cáo thất bại!");
             return "error";
         }
 
