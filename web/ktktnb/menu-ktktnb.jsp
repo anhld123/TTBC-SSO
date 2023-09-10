@@ -108,60 +108,59 @@
             $(function () {
                 var date = new Date();
                 var maxDate = "-" + date.getDate() + "D" + "+1M";
-                var minDate = "-3M " + "-" + (date.getDate() - 1) 
-                + "D";
-                var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth()+1, 0);
-               
-                if (lastDayOfMonth.getDate() - date.getDate() <10)
+                var minDate = "-3M " + "-" + (date.getDate() - 1)
+                        + "D";
+                var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+                if (lastDayOfMonth.getDate() - date.getDate() < 10)
                 {
-                $("#dpkReportDate").datepicker(
-                        {
-                            dateFormat: 'dd/mm/yy',
-                            showOn: "button",
-                            buttonImage: "img/icon-ui_datepicker.png",
-                            buttonImageOnly: true,
-                            // dateFormat: 'dd/mm/yy',
-                            showButtonPanel: true,
-                            buttonText: "icono",
-                            changeMonth: true,
-                            changeYear: true,
-                            minDate: minDate,
-                            maxDate: maxDate,
-                            beforeShowDay: function (date) {
-                                if ((date.getDate() == 31 && (date.getMonth() == 0 || date.getMonth() == 02 || date.getMonth() == 04 || date.getMonth() == 06 || date.getMonth() == 07 || date.getMonth() == 09 || date.getMonth() == 11) || (date.getDate() == 28 && date.getMonth() == 01)) || (date.getDate() == 30 && (date.getMonth() == 03 || date.getMonth() == 05 || date.getMonth() == 08 || date.getMonth() == 10)))
-                                {
-                                    return [true, ''];
+                    $("#dpkReportDate").datepicker(
+                            {
+                                dateFormat: 'dd/mm/yy',
+                                showOn: "button",
+                                buttonImage: "img/icon-ui_datepicker.png",
+                                buttonImageOnly: true,
+                                // dateFormat: 'dd/mm/yy',
+                                showButtonPanel: true,
+                                buttonText: "icono",
+                                changeMonth: true,
+                                changeYear: true,
+                                minDate: minDate,
+                                maxDate: maxDate,
+                                beforeShowDay: function (date) {
+                                    if ((date.getDate() == 31 && (date.getMonth() == 0 || date.getMonth() == 02 || date.getMonth() == 04 || date.getMonth() == 06 || date.getMonth() == 07 || date.getMonth() == 09 || date.getMonth() == 11) || (date.getDate() == 28 && date.getMonth() == 01)) || (date.getDate() == 30 && (date.getMonth() == 03 || date.getMonth() == 05 || date.getMonth() == 08 || date.getMonth() == 10)))
+                                    {
+                                        return [true, ''];
+                                    }
+                                    return [false, ''];
                                 }
-                                return [false, ''];
-                            }
-                        });
-                        }
-                        if (lastDayOfMonth.getDate() - date.getDate() >= 10)
+                            });
+                }
+                if (lastDayOfMonth.getDate() - date.getDate() >= 10)
                 {
-                $("#dpkReportDate").datepicker(
-                        {
-                            dateFormat: 'dd/mm/yy',
-                            showOn: "button",
-                            buttonImage: "img/icon-ui_datepicker.png",
-                            buttonImageOnly: true,
-                            // dateFormat: 'dd/mm/yy',
-                            showButtonPanel: true,
-                            buttonText: "icono",
-                            changeMonth: true,
-                            changeYear: true,
-                            minDate: lastDayOfMonth.getDate() - date.getDate(),
-                            maxDate: lastDayOfMonth.getDate() - date.getDate(),
-                            beforeShowDay: function (date) {
-                                if ((date.getDate() == 31 && (date.getMonth() == 0 || date.getMonth() == 02 || date.getMonth() == 04 || date.getMonth() == 06 || date.getMonth() == 07 || date.getMonth() == 09 || date.getMonth() == 11) || (date.getDate() == 28 && date.getMonth() == 01)) || (date.getDate() == 30 && (date.getMonth() == 03 || date.getMonth() == 05 || date.getMonth() == 08 || date.getMonth() == 10)))
-                                {
-                                    return [true, ''];
+                    $("#dpkReportDate").datepicker(
+                            {
+                                dateFormat: 'dd/mm/yy',
+                                showOn: "button",
+                                buttonImage: "img/icon-ui_datepicker.png",
+                                buttonImageOnly: true,
+                                // dateFormat: 'dd/mm/yy',
+                                showButtonPanel: true,
+                                buttonText: "icono",
+                                changeYear: true,
+                                changeMonth: false,
+                                stepMonths: 0,
+                                beforeShowDay: function (date) {
+                                    if ((date.getDate() == 31 && (date.getMonth() == 0 || date.getMonth() == 02 || date.getMonth() == 04 || date.getMonth() == 06 || date.getMonth() == 07 || date.getMonth() == 09 || date.getMonth() == 11) || (date.getDate() == 28 && date.getMonth() == 01)) || (date.getDate() == 30 && (date.getMonth() == 03 || date.getMonth() == 05 || date.getMonth() == 08 || date.getMonth() == 10)))
+                                    {
+                                        return [true, ''];
+                                    }
+                                    return [false, ''];
                                 }
-                                return [false, ''];
-                            }
-                        });
-                        }
+                            });
+                }
             });
-     
+
             //CuongBM: 05Oct14
             //Desc: Xu truong hop dat gia tri mac dich cho combox Quy (Quater), la quy hien tai
             //      Cac bao cao Quy phai co id la PARA_QUY           
