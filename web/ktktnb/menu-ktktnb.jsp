@@ -136,7 +136,7 @@
                             }
                         });
                         }
-                        if (lastDayOfMonth.getDate() - date.getDate() > 10)
+                        if (lastDayOfMonth.getDate() - date.getDate() >= 10)
                 {
                 $("#dpkReportDate").datepicker(
                         {
@@ -149,8 +149,8 @@
                             buttonText: "icono",
                             changeMonth: true,
                             changeYear: true,
-                            minDate: '-1',
-                            maxDate: '+1',
+                            minDate: lastDayOfMonth.getDate() - date.getDate(),
+                            maxDate: lastDayOfMonth.getDate() - date.getDate(),
                             beforeShowDay: function (date) {
                                 if ((date.getDate() == 31 && (date.getMonth() == 0 || date.getMonth() == 02 || date.getMonth() == 04 || date.getMonth() == 06 || date.getMonth() == 07 || date.getMonth() == 09 || date.getMonth() == 11) || (date.getDate() == 28 && date.getMonth() == 01)) || (date.getDate() == 30 && (date.getMonth() == 03 || date.getMonth() == 05 || date.getMonth() == 08 || date.getMonth() == 10)))
                                 {
