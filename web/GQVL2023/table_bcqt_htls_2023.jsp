@@ -169,8 +169,8 @@
                     <th colspan="1"  class="TD_DONVITINH">Số tiền HTLS ngày báo cáo trên cân đối</th>
                     <th colspan="1"  class="TD_DONVITINH">Tổng số tiền HTLS cho các khoản chưa đến ngày dự thu còn phải chi trả đến ngày tạo số liệu_theo hồ sơ khế ước</th> 
                     <th rowspan="1"  class="TD_DONVITINH">Số tiền HTLS bình quân 1 ngày cho các khoản chưa đến ngày dự thu còn phải chi trả đến ngày tạo số liệu_theo hồ sơ khế ước</th>
-                    <th colspan="1"  class="TD_DONVITINH">Số tiền HTLS bình quân 1 ngày cho các khoản chưa đến ngày dự thu còn phải chi trả đến ngày tạo số liệu_theo hồ sơ khế ước</th>
-                    <th colspan="1"  class="TD_DONVITINH2">Số tiền HTLS năm 2022 tạm quyết toán, TW đã chuyển về cho Chi nhánh</th>
+                    <th colspan="1"  class="TD_DONVITINH">Số tiền HTLS năm 2022 tạm quyết toán, TW đã chuyển về cho Chi nhánh</th>
+                    <th colspan="1"  class="TD_DONVITINH2">Lũy kế số tiền HTLS trên cân đối đến ngày báo cáo_GL 9753237040</th>
                     <th colspan="1"  class="TD_DONVITINH">Lũy Kế số tiền đã thực hiện HTLS từ ngày 01/01/2022 đến ngày báo cáo</th> 
                     <th rowspan="1"  class="TD_DONVITINH">Số tiền HTLS năm 2022 + 2023 được giao theo kế hoạch</th>
                     <th rowspan="1"  class="TD_DONVITINH">Số tiền HTLS Thừa/thiếu</th>
