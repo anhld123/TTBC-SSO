@@ -100,21 +100,35 @@
             ;
 
             function calc(id) {
-                var row = id.parentNode.parentNode;
-                var CT_D5 = row.cells[5].getElementsByTagName('input')[0].value;
-                var CT_D6 = row.cells[6].getElementsByTagName('input')[0].value;
-                var CT_D7 = row.cells[7].getElementsByTagName('input')[0].value;
-                var CT_D8 = row.cells[8].getElementsByTagName('input')[0].value;
-                var CT_D9 = row.cells[9].getElementsByTagName('input')[0].value;
-                var CT_D11 = row.cells[11].getElementsByTagName('input')[0].value;
-//                console.log(quant +' - '+price +' parseFloat(quant)='+parseFloat(quant.replace(/,/g, '')));
-                res = parseFloat(CT_D8.replace(/,/g, '')) + parseFloat(CT_D9.replace(/,/g, '')); // tính D10
-                res1 = parseFloat(CT_D11.replace(/,/g, '')) - res - parseFloat(CT_D6.replace(/,/g, '')); // tính D12
-                res2 = res1 / (parseFloat(CT_D5.replace(/,/g, '')) + parseFloat(CT_D7.replace(/,/g, ''))); // tính D13
-                row.cells[10].getElementsByTagName('input')[0].value = res;
-                row.cells[12].getElementsByTagName('input')[0].value = res1;
-                row.cells[13].getElementsByTagName('input')[0].value = res2;
+//                var rows = document.getElementsByTagName('tr');
+                for (var i = 0; i < 66; i++) {
+//                    var row = rows[i];
+                    var CT_D5 = parseInt(document.getElementById("D5" + i).value.replaceAll(',', ''));
+                    var CT_D6 = parseInt(document.getElementById("D6" + i).value.replaceAll(',', ''));
+                    var CT_D7 = parseInt(document.getElementById("D7" + i).value.replaceAll(',', ''));
+                    var CT_D8 = parseInt(document.getElementById("D8" + i).value.replaceAll(',', ''));
+                    var CT_D9 = parseInt(document.getElementById("D9" + i).value.replaceAll(',', ''));
+                    var CT_D11 = parseInt(document.getElementById("D11" + i).value.replaceAll(',', ''));
+                    
+                    console.log("aaa " + CT_D5+1);
+//                    var CT_D6 = row.cells[6].getElementsByTagName('input')[0].value;
+//                    var CT_D7 = row.cells[7].getElementsByTagName('input')[0].value;
+//                    var CT_D8 = row.cells[8].getElementsByTagName('input')[0].value;
+//                    var CT_D9 = row.cells[9].getElementsByTagName('input')[0].value;
+//                    var CT_D11 = row.cells[11].getElementsByTagName('input')[0].value;
+//                    var res = parseFloat(CT_D8.replace(/,/g, '')) + parseFloat(CT_D9.replace(/,/g, '')); // tính D10
+//                    var res1 = parseFloat(CT_D11.replace(/,/g, '')) - res - parseFloat(CT_D6.replace(/,/g, '')); // tính D12
+//                    var res2 = res1 / (parseFloat(CT_D5.replace(/,/g, '')) + parseFloat(CT_D7.replace(/,/g, ''))); // tính D13
+//                    row.cells[10].getElementsByTagName('input')[0].value = res;
+//                    row.cells[12].getElementsByTagName('input')[0].value = res1;
+//                    row.cells[13].getElementsByTagName('input')[0].value = res2;
+                      document.getElementById("D10" + i).value = CT_D8 + CT_D9;
+                      document.getElementById("D12" + i).value = CT_D11 - document.getElementById("D10" + i).value -CT_D6;
+                      document.getElementById("D13" + i).value = document.getElementById("D12" + i).value / (CT_D5 + CT_D7);
+                      
+                }
             }
+
 
         </script>
     </head>
@@ -152,8 +166,8 @@
             <div id="divDonvitinh">
                 Đơn vị tính: Đồng
             </div>
-                        <table border="1" class="editDelete" id="tablems08" align="center" style="overflow: scroll;  width: 105%;" 
-                               >
+            <table border="1" class="editDelete" id="tablems08" align="center" style="overflow: scroll;  width: 105%;" 
+                   >
                 <tr>
                     <th rowspan="1"  class="TD_THUTU">STT</th>
                         <s:if test="Grade.equalsIgnoreCase('2')">                                     
@@ -192,7 +206,7 @@
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_DONVITINH">12 = 11-10-6</th>
                     <th style="font: italic; font-size: xx-small;" class="TD_POS">13 = 12/(5+7)</th>
                 </tr>
-                
+
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
 
                     <tr height="22">                              
@@ -354,7 +368,7 @@
 
 
                 </s:iterator>
-                    <tr height="22">  
+                <tr height="22">  
                     <th></th>
                     <th></th>
                     <th class="TD_DONVITINH">TỔNG CỘNG</th> 
