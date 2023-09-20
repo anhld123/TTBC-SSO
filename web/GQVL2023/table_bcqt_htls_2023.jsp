@@ -109,8 +109,7 @@
                     var CT_D8 = parseInt(document.getElementById("D8" + i).value.replaceAll(',', ''));
                     var CT_D9 = parseInt(document.getElementById("D9" + i).value.replaceAll(',', ''));
                     var CT_D11 = parseInt(document.getElementById("D11" + i).value.replaceAll(',', ''));
-                    
-                    console.log("aaa " + CT_D5+1);
+ 
 //                    var CT_D6 = row.cells[6].getElementsByTagName('input')[0].value;
 //                    var CT_D7 = row.cells[7].getElementsByTagName('input')[0].value;
 //                    var CT_D8 = row.cells[8].getElementsByTagName('input')[0].value;
@@ -314,7 +313,7 @@
                                                this.value = 0
                                            }
                                            ;
-                                           autoEvaluate()"/>
+                                           autoEvaluate();calc();"/>
                         </td>       
                         <td align = "right" class="TD_DONVITINH">
                             <input type="text" value="<s:property  value="D11" />"  id="D11<s:property  value="%{#rowstatus.index}" />"
@@ -336,7 +335,7 @@
                                                    this.value = 0
                                                }
                                                ;
-                                               autoEvaluate()"/>
+                                               autoEvaluate();calc();"/>
                             </td>
                         </s:if>
                         <s:else>
@@ -349,7 +348,7 @@
                                                    this.value = 0
                                                }
                                                ;
-                                               autoEvaluate()"/>
+                                               autoEvaluate();calc();"/>
                             </td>
                         </s:else>
 
@@ -362,7 +361,7 @@
                                                this.value = 0
                                            }
                                            ;
-                                           autoEvaluate()"/>
+                                           autoEvaluate();calc();"/>
                         </td>
                     </tr>
 
