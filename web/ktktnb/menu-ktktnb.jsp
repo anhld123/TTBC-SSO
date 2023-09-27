@@ -147,7 +147,7 @@
                                 // dateFormat: 'dd/mm/yy',
                                 showButtonPanel: true,
                                 buttonText: "icono",
-                                changeYear: true,
+                                changeYear: false,
                                 changeMonth: false,
                                 stepMonths: 0,
                                 beforeShowDay: function (date) {
