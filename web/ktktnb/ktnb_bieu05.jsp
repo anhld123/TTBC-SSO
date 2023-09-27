@@ -238,12 +238,12 @@
                                 <td ><input type="date" value="" id="D4" name="lstDulieuNt[' + rowCount + '].D4" class="SOKU" onfocus="this.select();"/></td>\n\
 \n\                            <td ><input type="text" value="" id="D5" name="lstDulieuNt[' + rowCount + '].D5" class="SOKU" onfocus="this.select();"/></td>\n\
                             <td ><input type="text" value="" id="D6" name="lstDulieuNt[' + rowCount + '].D6" class="SOKU" onfocus="this.select();"/></td>\n\
-                                <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 SOKU2"/></td>\n\
+                                <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="SOKU2"/></td>\n\
                                 </tr>';
                 $($('table#tableKtnb tr')[index]).before(newTr);
                 $('.number2').number(true, 0);
                 $('input.number2').css({"text-align": "center"});
-                $(".SOKU2").css({"width": "100%"});
+                $(".SOKU2").css({"width": "97%"});
             }
         </script>
 
@@ -380,16 +380,18 @@
                                         </td>
                                         <td>
                                             <input type="text" value="<s:property  value="D6" />" 
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="SOKU" onfocus="this.select()"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="TD_SOTIEN" onfocus="this.select()"
                                                    onblur="if (this.value == '')
                                                                ;"/>
                                         </td>
-                                        <s:if test="D9.equalsIgnoreCase('Y')">
+                                         <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="SOKU D0"/></td>    
+                                           
+<!--                                        <s:if test="D9.equalsIgnoreCase('Y')">
                                             <td  readonly="true" style="background: #E7DCDA !important;"></td>
                                         </s:if>
                                         <s:if test="!D9.equalsIgnoreCase('Y')">
                                             <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="SOKU"/></td>    
-                                            </s:if> 
+                                            </s:if> -->
                                     </tr>
 
                                 </s:iterator>
