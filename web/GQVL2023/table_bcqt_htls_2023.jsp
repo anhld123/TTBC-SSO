@@ -101,7 +101,7 @@
 
             function calc(id) {
 //                var rows = document.getElementsByTagName('tr');
-                for (var i = 0; i < 66; i++) {
+                for (var i = 0; i < 100; i++) {
 //                    var row = rows[i];
                     var CT_D5 = parseInt(document.getElementById("D5" + i).value.replaceAll(',', ''));
                     var CT_D6 = parseInt(document.getElementById("D6" + i).value.replaceAll(',', ''));
@@ -364,7 +364,6 @@
                                            autoEvaluate();calc();"/>
                         </td>
                     </tr>
-
 
                 </s:iterator>
                 <tr height="22">  
