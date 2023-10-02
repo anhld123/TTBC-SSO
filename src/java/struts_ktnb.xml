@@ -324,6 +324,14 @@
             <result name="error-click">/ktktnb/error-click.jsp</result>  
         </action> 
         
+        <action name="get_data_ktnb01" class="vbsp.ims.action.ktktnb.Ktnb01ActionSupport" method="get_data_ktnb01">
+                <result name="success">/ktktnb/ktnb01.jsp</result>
+        </action>
+        <action name="save_data_ktnb01" class="vbsp.ims.action.ktktnb.Ktnb01ActionSupport" method="save_data_ktnb01">
+                <result name="success">/ktktnb/success.jsp</result>		
+                <result name="error">/ktktnb/unsuccess.jsp</result>
+        </action>
+
         <action name="get_data_ktnb02" class="vbsp.ims.action.ktktnb.Ktnb02ActionSupport" method="get_data_ktnb02">
             <result name="success">/ktktnb/ktnb02.jsp</result>
         </action>
