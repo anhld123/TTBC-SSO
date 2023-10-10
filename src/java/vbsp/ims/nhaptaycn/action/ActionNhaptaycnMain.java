@@ -753,6 +753,8 @@ public class ActionNhaptaycnMain extends ActionSupport {
             if (this.khoa_nhaptaycn.equals("LEAVELOCAL")) {
                 epsModel dao = new epsModel();
                 lstDonvi = dao.getDonvi(Grade, UserName);
+                int iRol = new LeaveHomeDao().checkRuleUser(UserName, Grade);
+                setGradeAuthor1(String.valueOf(iRol));
                 return "LEAVELOCAL";
 
 //                return "LEAVELOCAL";

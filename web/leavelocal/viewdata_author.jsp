@@ -169,8 +169,7 @@
                     <th class="hdtitle">Thông tin (100-200 ký tự)</th>
                     <th class="hdtitle">Chi nhánh hộ vay chuyển đến</th>
                     <th class="hdtitle">PGD hộ vay chuyển đến</th>
-                    <th class="hdtitle">Phản hồi của chi nhánh hộ vay chuyển đến </t>
-                    <th class="hdtitle">Bảo hiểm</th>
+                    <th class="hdtitle">Phản hồi của chi nhánh hộ vay chuyển đến </th>
                     <th class="hdtitle">Đề nghị hỗ trợ</th>
                     <th class="hdtitle">Kết quả thu hồi nợ</th>
                     <th class="hdtitle">Tình trạng xử lý nợ</th>
@@ -307,8 +306,7 @@
                                 <option value="999999">Nước ngoài</option>
                             </select>
                         </td>
-                        <td class="txtBody"><s:property value="d31"/></td>
-                        <td class="txtBody"><s:property value="d24"/></td>
+                        <td class="txtBody"><s:property value="d31"/></td>                   
                         <td class="txtBody">
                             <select onmousedown="return false"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData<s:property  value='%{#idxRows.index}' />" >
                                 <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>Không đề nghị hỗ trợ</option>
