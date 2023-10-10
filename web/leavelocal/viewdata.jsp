@@ -50,20 +50,20 @@
 </style>
 <script>
     var popWindow;
-    
+
     $(function () {
         $(".cssDate").datepicker(
-        {
-            dateFormat: 'dd/mm/yy', showOn: "button",
-            buttonImage: "img/icon-ui_datepicker.png",
-            buttonImageOnly: true,
-            buttonText: "icono",
-            //dateFormat: 'dd/mm/yy',
-            showButtonPanel: true,
-            changeMonth: true,
-            changeYear: true,
-            //showOn: "both"
-        });
+                {
+                    dateFormat: 'dd/mm/yy', showOn: "button",
+                    buttonImage: "img/icon-ui_datepicker.png",
+                    buttonImageOnly: true,
+                    buttonText: "icono",
+                    //dateFormat: 'dd/mm/yy',
+                    showButtonPanel: true,
+                    changeMonth: true,
+                    changeYear: true,
+                    //showOn: "both"
+                });
     });
     $('.autoHeight').each(function () {
         this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
@@ -71,7 +71,7 @@
         this.style.height = 'auto';
         this.style.height = (this.scrollHeight) + 'px';
     });
-    
+
     function funcThanhVien(maPgd, maKH, tenKH) {
 //        var url, sdata;
 //        url = "saveLeaveLocal.action";
@@ -92,44 +92,53 @@
         var w = 1200, h = 600;
         var left = (screen.width / 2) - (w / 2);
         var top = (screen.height / 2) - (h / 2);
-        var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent( tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val() +"&vbsprandom=" + Math.random();
-        var url = "/IMS_REPORTS/popupThanhvien.action?"+urlParam;
+        var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent(tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val() + "&vbsprandom=" + Math.random();
+        var url = "/IMS_REPORTS/popupThanhvien.action?" + urlParam;
         popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
     }
-    
-        function funcXuLyNo(maPgd, maKH, tenKH, XuLyNo, startPayment) {
+
+    function funcXuLyNo(maPgd, maKH, tenKH, XuLyNo, startPayment) {
         var w = 500, h = 300;
         var left = (screen.width / 2) - (w / 2);
         var top = (screen.height / 2) - (h / 2);
-        var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent( tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val() 
-                + "&XuLyNo=" + XuLyNo + startPayment +"&vbsprandom=" + Math.random();
-        var url = "/IMS_REPORTS/popupXuLyNo.action?"+urlParam;
+        var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent(tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val()
+                + "&XuLyNo=" + XuLyNo + startPayment + "&vbsprandom=" + Math.random();
+        var url = "/IMS_REPORTS/popupXuLyNo.action?" + urlParam;
         popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
     }
-    
+
     function onSelectChange(index) {
         
-        let selectedValue = $('#lstData_D30'+index).find(":selected").val();
-        let province = selectedValue.substring(0,4);
         
-        $('#lstData_D32'+index +' option').each(function() {
+
+        let selectedValue = $('#lstData_D30' + index).find(":selected").val();
+        
+        //y tuong nhap thong tin bo sung
+        if(selectedValue =='000701')
+            document.getElementById('cust_sub').style.display = '';
+        else
+            document.getElementById('cust_sub').style.display = 'none';
+        
+        let province = selectedValue.substring(0, 4);
+
+        $('#lstData_D32' + index + ' option').each(function () {
             //if (!$(this).val().startsWith('0006') ) {
-                $(this).remove();
+            $(this).remove();
             //}
         });
-        
-        $('#lstPGD_Temp option').each(function() {
-            if ($(this).val().startsWith(province) ) {
+
+        $('#lstPGD_Temp option').each(function () {
+            if ($(this).val().startsWith(province)) {
                 //alert($(this).text() );
-                $('#lstData_D32'+index).append($('<option>',
-                {
-                   value: $(this).val(),
-                   text : $(this).text() 
-               }));
+                $('#lstData_D32' + index).append($('<option>',
+                        {
+                            value: $(this).val(),
+                            text: $(this).text()
+                        }));
             }
         });
-        
-        
+
+
         //alert('#lstData_D32'+index);
 //        let select = document.querySelector('#lstData_D32'+index);
 //        //alert(select.options.length);
@@ -147,19 +156,19 @@
 //            }
 //        }
     }
-        
+
 </script>
 </head>
 <body>
     <div style="overflow:scroll; width: 99vw;">     
         <div style="display: none;">
             <select id="lstPGD_Temp">
-                                <option value="000000">Không xác định</option>
-                                <s:iterator value="lstPGD" status="ideRows" var="language">                                    
-                                    <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>                                    
-                                </s:iterator>
-                                <option value="999999">Nước ngoài</option>
-                            </select>
+                <option value="000000">Không xác định</option>
+                <s:iterator value="lstPGD" status="ideRows" var="language">                                    
+                    <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>                                    
+                </s:iterator>
+                <option value="999999">Nước ngoài</option>
+            </select>
         </div>
         <table id="subTable" style="z-index: 1;">
             <thead>
@@ -240,20 +249,20 @@
                         </td>
                         <td class="txtBody">
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
-                                
+
                             </s:if>
                             <s:else>                                
                                 <input type="checkbox" class="myCheckBox" name="lstData[<s:property  value='%{#idxRows.index}' />].manualFlag" value="0" onclick="$(this).val(this.checked ? 1 : 0)">
-                                <% customerCount += 1; %>
+                                <% customerCount += 1;%>
                             </s:else>
-                            
+
                         </td>                                            
                         <td class="txtBody">                            
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')">                                 
                             </s:if>
                             <s:else>                                                                
-                                <%= customerCount %>
-                                
+                                <%= customerCount%>
+
                             </s:else>                            
                         </td>
                         <td class="txtBody"><div class="<s:property value="d20"/>"><s:property value="d4"/></div></td>
@@ -301,7 +310,7 @@
                                 </select>
                             </td>
                             <td class="txtBody">
-                                <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d25" id="lstSubData<s:property  value='%{#idxRows.index}' />">
+                                    <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d25" id="lstSubData<s:property  value='%{#idxRows.index}' />">
                                 <option value="00" <s:if test="d25.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>>00: Khách hàng bỏ đi</option>
                                 <option value="01" <s:if test="d25.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Tất toán nợ</option>
                                 <option value="02" <s:if test="d25.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Xoá nợ</option>
@@ -339,18 +348,18 @@
                             </select>
                         </td>
                         <td class="txtBody">
-                                <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData<s:property  value='%{#idxRows.index}' />">
+                            <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData<s:property  value='%{#idxRows.index}' />">
                                 <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không đề nghị hỗ trợ</option>
                                 <option value="1" <s:if test="d33.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Đề nghị hỗ trợ</option>
-                      
+
                                 </select></td>
-                                <td class="txtBody">
-                                <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d34" id="lstSubData<s:property  value='%{#idxRows.index}' />">
+                            <td class="txtBody">
+                                    <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d34" id="lstSubData<s:property  value='%{#idxRows.index}' />">
                                 <option value="0" <s:if test="d34.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không thu hồi được nợ</option>
                                 <option value="1" <s:if test="d34.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Thu hồi được nợ</option>
                                 </select></td>
-                                <td class="txtBody">
-                            <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData<s:property  value='%{#idxRows.index}' />">
+                            <td class="txtBody">
+                                    <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData<s:property  value='%{#idxRows.index}' />">
                                 <option value="01" <s:if test="d24.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Cam kết</option>
                                 <option value="02" <s:if test="d24.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không liên hệ được</option>
                                 <option value="03" <s:if test="d24.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Liên hệ được nhưng không cam kết</option>
@@ -358,31 +367,90 @@
                                 </select>
                             </td>
                             <td class="txtBody">
-                                <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData<s:property  value='%{#idxRows.index}' />">
+                                    <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData<s:property  value='%{#idxRows.index}' />">
                                 <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
                                 <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
                                 </select></td>
-                    </tr>
-            </s:iterator>
+                        </tr>
+                </s:iterator>
             </tbody>
         </table>
+        </br>
+        <s:if test="showFlag1.equalsIgnoreCase('0')">   
+            <%--<s:property value="showFlag1"/>--%>
+            <div id="cust_sub">
+                <table id="subTable" style="z-index: 1;">
+                    <tr>
+
+                        <th class="hdtitle">STT</th>
+                        <th class="hdtitle">Tên chi nhánh</th>
+                        <th class="hdtitle">Tên PGD</th>
+                        <th class="hdtitle">Tên xã</th>
+                        <th class="hdtitle">Tên tổ trưởng</th>
+                        <th class="hdtitle">Mã KH (tình hình xử lý nợ)</th>
+                        <th class="hdtitle">Tên KH vay vốn</th>
+                        <th class="hdtitle">Năm sinh</th>
+                        <th class="hdtitle">CMT/CCCD</th>
+                        <th class="hdtitle">Số điện thoại</th>
+
+                    </tr>
+
+                    <s:iterator value="lstData" status="idxRows">
+                        <tr class="tr_clone">
+                            <td class="txtBody">
+                                <select onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />">
+                                    <option value="000000">Không xác định</option>
+                                    <s:iterator value="lstCN" status="ideRows" var="language">
+                                        <s:if test="%{#language.PosCode == d30}">
+                                            <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
+                                        </s:if>
+                                        <s:else>
+                                            <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                        </s:else>
+                                    </s:iterator>
+                                    <option value="999999">Nước ngoài</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />">
+                                    <option value="000000">Không xác định</option>
+                                    <s:iterator value="lstPGD" status="ideRows" var="language">
+                                        <s:if test="%{#language.PosCode == d32}">
+                                            <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
+                                        </s:if>
+                                        <s:else>
+                                            <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                        </s:else>
+                                    </s:iterator>
+                                    <option value="999999">Nước ngoài</option>
+                                </select>
+                            </td>
+
+                        </tr>
+                    </s:iterator>
+                </table>         
+                </br>     
+            </div>
+        </s:if>
+        </br>     
+
     </div>
 </body>
 <script>
     $(function () {
-       $('#select-all').click(function(event) {   
-            if(this.checked) {
+        $('#select-all').click(function (event) {
+            if (this.checked) {
                 // Iterate each checkbox
-                $('.myCheckBox').each(function() {
-                    this.checked = true; 
+                $('.myCheckBox').each(function () {
+                    this.checked = true;
                     this.value = '1';
                 });
             } else {
-                $('.myCheckBox').each(function() {
-                    this.checked = false;                       
+                $('.myCheckBox').each(function () {
+                    this.checked = false;
                     this.value = '0';
                 });
             }
-        }); 
+        });
     });
 </script>

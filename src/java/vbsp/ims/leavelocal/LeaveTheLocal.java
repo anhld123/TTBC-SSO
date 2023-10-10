@@ -47,10 +47,20 @@ public class LeaveTheLocal extends ActionSupport {
     protected PosMainModel posMainModel;
     protected String pos_cd_username;
     private String gradeAuthor1;
+    private String showFlag1;
     private String typeAuth;
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     private List<ListValue> lstXuLyNo = new ArrayList<ListValue>();
 
+    public String getShowFlag1() {
+        return showFlag1;
+    }
+
+    public void setShowFlag1(String showFlag1) {
+        this.showFlag1 = showFlag1;
+    }
+
+    
     public String getStartPaymentDate() {
         return startPaymentDate;
     }
@@ -115,6 +125,9 @@ public class LeaveTheLocal extends ActionSupport {
             }
             System.out.println("cap phe duyet = " + gradeAuthor1);
             this.lstData = _leaveHomeService.getCustomers(txtsMadv, "S", txtMakh, sFromDate, sToDate, "1", _openFlag, gradeAuthor1, typeAuth);
+            if(!lstData.isEmpty() && lstData.size() ==1)
+                setShowFlag1("1");
+            else setShowFlag1("0");
             lstCN = _leaveHomeService.getDonvi("M");
             lstPGD = _leaveHomeService.getDonvi("S");
         } catch (Exception e) {
