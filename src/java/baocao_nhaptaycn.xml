@@ -600,7 +600,22 @@
         <action name="GetLockStatus" class="vbsp.ims.nhaptaycn.action.ActionNhaptaycnMain" method="checkLockStatus">
             <result name="success" type="json"></result>
         </action>
-                        
+        
+        <!--Chi nhánh Hà Nội-->
+        <action name="HN04SaveFile" class="vbsp.ims.nhaptaycn.action.HANOI_004" >
+            <result name="success" type="stream">
+              <param name="contentType">application/octet-stream</param>
+              <param name="inputName">fileInputStream</param>
+              <param name="contentDisposition">attachment;filename="GQVLHN04.xlsx"</param>
+              <param name="bufferSize">1024</param>
+            </result>
+       </action>
+        <action name="HN04UploadFile" class="vbsp.ims.nhaptaycn.action.HANOI_004" method="HN04UploadFile">
+	    <result name="success">/nhaptay-cn/success.jsp</result>
+            <result name="error">/nhaptay-cn/success.jsp</result> 
+	</action>
+        <!--Kết thúc CN06-->     
+            
     </package>
     
 </struts>

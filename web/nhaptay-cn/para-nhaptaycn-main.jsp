@@ -784,7 +784,33 @@
                                 </table>    
                             </div>
                         </div>
+<!--Bắt đầu HANOI_004-->
+                        <div>
+                            <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HANOI_004')"> 
+                                <style>
+                                    #navParam{
+                                        display: none;
+                                    }
+                                </style>
+                                <br>
+                                <table>
+                                    <tr>
+                                        <td>Ngày báo cáo
+                                            <input type="text" id="dtNgayBC" name="dtNgayBC">
+                                            Mã xã
+                                            <input type="text" id="strMaxa" name="strMaxa" value="">
+                                            <input type="button" id="DownloadFile" name="DownloadFile" value="Tải File"/>&nbsp;&nbsp;
+                                            Chọn file Excel:
+                                            <input type = "file" name = "Mfile" id="Mfile" />
+                                            <input type="button" id="UpLoadFile" name="UpLoadFile" value="Upload File"/>
+                                            <a href="#" id="DownLF" style="display: none;"></a>
 
+                                        </td>
+                                    </tr>    
+                                </table>
+                            </s:if> 
+                        </div>
+                        <!--Kểt thúc đầu HANOI_004 (Nhớ đoạn dưới còn 1 đoạn HANOI_004)-->
                         <s:if test="(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('NTMOI_001')) ||
                               (Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('USER_001'))||
                               (Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('NHAPTAYCN_03'))
@@ -795,6 +821,7 @@
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('HANOI_001'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('HANOI_002'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('HANOI_003'))
+                              ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('HANOI_004'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('CN25_KTNB'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('KYQUY_04'))
                               ||(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('KYQUY_05'))
@@ -991,5 +1018,64 @@
         </script>
         
                         </div>
+                                         <!--Bắt đầu HANOI_004-->                
+                        <script>
+                            $(function () {
+                                $("#dtNgayBC").datepicker({dateFormat: 'dd/mm/yy', showOn: "button",
+                                    buttonImage: "img/icon-ui_datepicker.png",
+                                    buttonImageOnly: true,
+                                    dateFormat: 'dd/mm/yy',
+                                    showButtonPanel: true,
+                                    buttonText: "icono",
+                                    changeMonth: true,
+                                    changeYear: true,
+                                    // showOn: "both"}).val('31/10/2022');
+                                    showOn: "both"}).val(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toLocaleDateString("zh-HK", {year: 'numeric', month: '2-digit', day: '2-digit'}));
+                            });
+                            $("#UpLoadFile").click(function () {
+                                $('#Mfile').prop('disabled', true);
+                                $('#UpLoadFile').prop('disabled', true);
+                                $('#DownloadFile').prop('disabled', true);
+                                $('#dtNgayBC').prop('disabled', true);
+                                $('#strMaxa').prop('disabled', true);
+                                var fd = new FormData();
+                                var files = $('#Mfile')[0].files[0];
+                                fd.append('Mfile', files);
+                                $.ajax({
+                                    url: 'HN04UploadFile.action',
+                                    type: 'POST',
+                                    data: fd,
+                                    contentType: false,
+                                    processData: false,
+                                    success: function (response) {
+                                        if (response != 0) {
+                                            alert('Thành công');
+                                            $('#Mfile').prop('disabled', false);
+                                            $('#UpLoadFile').prop('disabled', false);
+                                            $('#DownloadFile').prop('disabled', false);
+                                            $('#dtNgayBC').prop('disabled', false);
+                                            $('#strMaxa').prop('disabled', false);
+                                        } else {
+                                            alert('File đưa lên server thất bại');
+                                            $('#Mfile').prop('disabled', false);
+                                            $('#UpLoadFile').prop('disabled', false);
+                                            $('#DownloadFile').prop('disabled', false);
+                                            $('#dtNgayBC').prop('disabled', false);
+                                            $('#strMaxa').prop('disabled', false);
+                                        }
+                                    }
+                                });
+                            });
+
+
+                            $("#DownloadFile").click(function () {
+                                var sDate, sMax;
+                                sDate = $('#dtNgayBC').val();
+                                sMax = $('#strMaxa').val();
+                                $("#DownLF").attr("href", "HN04SaveFile.action?dtNgayBC=" + sDate + "&strMaxa=" + sMax);
+                                location.href = $('#DownLF').attr('href');
+                            });
+                        </script>
+                        <!--Kết thúc HANOI_004-->
                         </body>
                         </html>
