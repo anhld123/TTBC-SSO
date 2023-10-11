@@ -172,15 +172,15 @@
                     <th class="hdtitle">Thời điểm đi</th>
                     <th class="hdtitle">Mã nhóm</th>
                     <th class="hdtitle">Mã quản lý</th>
-                    <th class="hdtitle">Thông tin (100-200 ký tự)</th>
+                    <th class="hdtitle">Thông tin <br>(100-200 ký tự)</th>
                     <th class="hdtitle">Chi nhánh <br>hộ vay chuyển đến</th>
                     <th class="hdtitle">PGD hộ vay chuyển đến</th>
                     <th class="hdtitle">Đề nghị hỗ trợ</th>
                     <th class="hdtitle">Kết quả hỗ trợ</th>
                     <th class="hdtitle">Tổ chức CT-XH rà soát</th>
-                    <th class="hdtitle">Đề nghị <br>cung cấp thông tin</th>
+                    <th class="hdtitle">Đề nghị<br>cung cấp<br>thông tin</th>
                     <th class="hdtitle">Thông tin hỗ trợ</th>
-                    <th class="hdtitle">Ngày cập nhật thông tin</th>
+                    <th class="hdtitle">Ngày cập nhật<br>thông tin</th>
                 </tr>
             </thead>
             <tbody>
@@ -275,7 +275,7 @@
                                 <s:property value="D16"/>
                             </s:if>
                             <s:else>
-                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" class="txtPublic">
+                                <input style="text-align: center" type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" class="txtPublic">
                             </s:else>
                         </td>
                         <td class="txtBody">
