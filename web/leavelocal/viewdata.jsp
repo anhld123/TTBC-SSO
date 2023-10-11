@@ -12,7 +12,7 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         border-spacing: 0;
-        width: 100%;
+        width: 200%;
     }
     #subTable th{
         background-color: #028e07;
@@ -89,7 +89,7 @@
 //                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
 //            }
 //        });
-        var w = 1200, h = 600;
+        var w = 900, h = 600;
         var left = (screen.width / 2) - (w / 2);
         var top = (screen.height / 2) - (h / 2);
         var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent(tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val() + "&vbsprandom=" + Math.random();
@@ -108,17 +108,17 @@
     }
 
     function onSelectChange(index) {
-        
-        
+
+
 
         let selectedValue = $('#lstData_D30' + index).find(":selected").val();
-        
+
         //y tuong nhap thong tin bo sung
-        if(selectedValue =='000701')
+        if (selectedValue == '000701')
             document.getElementById('cust_sub').style.display = '';
         else
             document.getElementById('cust_sub').style.display = 'none';
-        
+
         let province = selectedValue.substring(0, 4);
 
         $('#lstData_D32' + index + ' option').each(function () {
@@ -137,24 +137,6 @@
                         }));
             }
         });
-
-
-        //alert('#lstData_D32'+index);
-//        let select = document.querySelector('#lstData_D32'+index);
-//        //alert(select.options.length);
-//        for (let i = 0; i < select.options.length; i++) {
-//            let optionValue = select.options[i].value;            
-//            if (optionValue.startsWith('0006'))
-//            {
-//                //alert(optionValue);                
-//            }else {
-//                //select.remove(i);
-//                //$('#lstData_D32'+index + " option[value='"+optionValue+"']").remove(); 
-//                var objectName = 'lstData_D320 option[value="' + optionValue.trim()+ '"]';
-//                //alert(objectName);
-//                $("#"+objectName).remove(); 
-//            }
-//        }
     }
 
 </script>
@@ -181,7 +163,7 @@
                     <th class="hdtitle">Tên PGD</th>
                     <th class="hdtitle">Tên xã</th>
                     <th class="hdtitle">Tên tổ trưởng</th>
-                    <th class="hdtitle">Mã KH (tình hình xử lý nợ)</th>
+                    <th class="hdtitle">Mã KH <br>(Tình hình xử lý nợ)</th>
                     <th class="hdtitle">Tên KH vay vốn</th>
                     <th class="hdtitle">Năm sinh</th>
                     <th class="hdtitle">CMT/CCCD</th>
@@ -191,12 +173,14 @@
                     <th class="hdtitle">Mã nhóm</th>
                     <th class="hdtitle">Mã quản lý</th>
                     <th class="hdtitle">Thông tin (100-200 ký tự)</th>
-                    <th class="hdtitle">Chi nhánh hộ vay chuyển đến</th>
+                    <th class="hdtitle">Chi nhánh <br>hộ vay chuyển đến</th>
                     <th class="hdtitle">PGD hộ vay chuyển đến</th>
                     <th class="hdtitle">Đề nghị hỗ trợ</th>
-                    <th class="hdtitle">Kết quả thu hồi nợ</th>
+                    <th class="hdtitle">Kết quả hỗ trợ</th>
                     <th class="hdtitle">Tổ chức CT-XH rà soát</th>
-                    <th class="hdtitle">Đề nghị cung cấp thông tin</th>
+                    <th class="hdtitle">Đề nghị <br>cung cấp thông tin</th>
+                    <th class="hdtitle">Thông tin hỗ trợ</th>
+                    <th class="hdtitle">Ngày cập nhật thông tin</th>
                 </tr>
             </thead>
             <tbody>
@@ -236,10 +220,7 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d17" value="<s:property value='d17'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d18" value="<s:property value='d18'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d19" value="<s:property value='d19'/>">
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d20" value="<s:property value='d20'/>">
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d26" value="<s:property value='d26'/>">
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" value="<s:property value='d27'/>">
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d29" value="<s:property value='d29'/>">                            
+                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d20" value="<s:property value='d20'/>">  
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d35" value="<s:property value='d35'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d36" value="<s:property value='d36'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d37" value="<s:property value='d37'/>">
@@ -269,7 +250,6 @@
                         <td class="txtBody"><div class="<s:property value="d20"/>"><s:property value="d6"/></div></td>
                         <td class="txtBody"><div class="<s:property value="d20"/>"><s:property value="d8"/></div></td>
                         <td class="txtBody"><div class="<s:property value="d20"/>"><s:property value="d10"/></div></td>
-                        <!--<td class="txtBody"><div class="<s:property value="d20"/>"><s:property value="d11"/></div></td>-->
                         <td class="txtBody">
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                                 <s:property value="D11"/>
@@ -292,35 +272,34 @@
                         <td class="txtBody"><s:property value="d14"/></td>
                         <td class="txtBody">
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
-                                <s:property value="d16"/>
+                                <s:property value="D16"/>
                             </s:if>
                             <s:else>
-                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d16" value="<s:property value='d16'/>" class="txtPublic">
+                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" class="txtPublic">
                             </s:else>
                         </td>
                         <td class="txtBody">
                             <s:property value="d15"/>
                         </td>
-                        <td class="txtBody"><input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d21" value="<s:property value='d21'/>" class="cssDate txtPublic  <s:property value="d20"/>"></td>
+                        <td class="txtBody"><input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d21" value="<s:property value='d21'/>" class="datepick <s:property value="d20"/>"></td>
                         <td class="txtBody">
-                            <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData<s:property  value='%{#idxRows.index}' />">
-                                <option value="01" <s:if test="d22.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Hộ vay bỏ đi khỏi nơi cư trú có thông tin địa chỉ cụ thể</option>
-                                <option value="02" <s:if test="d22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Hộ vay bỏ đi khỏi nơi cư trú có thông tin địa chỉ không cụ thể &nbsp;</option>
-                                <option value="03" <s:if test="d22.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Hộ vay bỏ đi khỏi nơi cư trú không có thông tin địa chỉ</option>
+                            <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData<s:property  value='%{#idxRows.index}' />">
+                                <option value="01" <s:if test="d22.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Có thông tin địa chỉ cụ thể</option>
+                                <option value="02" <s:if test="d22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không có thông tin địa chỉ cụ thể</option>
                                 </select>
                             </td>
                             <td class="txtBody">
-                                    <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d25" id="lstSubData<s:property  value='%{#idxRows.index}' />">
+                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d25" id="lstSubData<s:property  value='%{#idxRows.index}' />">
                                 <option value="00" <s:if test="d25.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>>00: Khách hàng bỏ đi</option>
                                 <option value="01" <s:if test="d25.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Tất toán nợ</option>
                                 <option value="02" <s:if test="d25.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Xoá nợ</option>
                                 <option value="03" <s:if test="d25.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Trở về địa phương</option>
                                 </select></td>
                             <td class="txtBody">
-                                    <textarea id="lstData[<s:property  value='%{#idxRows.index}' />].D23" name="lstData[<s:property  value='%{#idxRows.index}' />].d23" class="autoHeight <s:property value="d20"/>"><s:property value='d23'/></textarea>
+                                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D23" name="lstData[<s:property  value='%{#idxRows.index}' />].d23" class="autoHeight <s:property value="d20"/>"><s:property value='d23'/></textarea>
                         </td>
                         <td class="txtBody">
-                            <select onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />">
+                            <select onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />">
                                 <option value="000000">Không xác định</option>
                                 <s:iterator value="lstCN" status="ideRows" var="language">
                                     <s:if test="%{#language.PosCode == d30}">
@@ -330,11 +309,11 @@
                                         <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
                                     </s:else>
                                 </s:iterator>
-                                <option value="999999">Nước ngoài</option>
+                                <option value="999999">00 - Nước ngoài</option>
                             </select>
                         </td>
                         <td>
-                            <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />">
+                            <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />">
                                 <option value="000000">Không xác định</option>
                                 <s:iterator value="lstPGD" status="ideRows" var="language">
                                     <s:if test="%{#language.PosCode == d32}">
@@ -344,22 +323,27 @@
                                         <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
                                     </s:else>
                                 </s:iterator>
-                                <option value="999999">Nước ngoài</option>
+                                <option value="999999">00 - Nước ngoài</option>
                             </select>
                         </td>
                         <td class="txtBody">
-                            <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData<s:property  value='%{#idxRows.index}' />">
+                            <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData<s:property  value='%{#idxRows.index}' />">
                                 <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không đề nghị hỗ trợ</option>
                                 <option value="1" <s:if test="d33.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Đề nghị hỗ trợ</option>
 
                                 </select></td>
                             <td class="txtBody">
-                                    <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d34" id="lstSubData<s:property  value='%{#idxRows.index}' />">
-                                <option value="0" <s:if test="d34.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không thu hồi được nợ</option>
-                                <option value="1" <s:if test="d34.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Thu hồi được nợ</option>
+                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d34" id="lstSubData<s:property  value='%{#idxRows.index}' />">
+                                <option value="0" <s:if test="d34.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>00: Chưa rà soát</option>
+                                <option value="1" <s:if test="d34.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>01: Khách hàng cam kết thực hiện nghĩa vụ trả nợ</option>
+                                <option value="2" <s:if test="d34.equalsIgnoreCase('2')"> selected </s:if> <s:else></s:else>>02: Khách hàng thuộc đối tượng xử lý nợ bị rủi ro</option>
+                                <option value="3" <s:if test="d34.equalsIgnoreCase('3')"> selected </s:if> <s:else></s:else>>03: Khách hàng chây ỳ</option>
+                                <option value="4" <s:if test="d34.equalsIgnoreCase('4')"> selected </s:if> <s:else></s:else>>04: Không liên hệ được với khách hàng</option>
+                                <option value="5" <s:if test="d34.equalsIgnoreCase('5')"> selected </s:if> <s:else></s:else>>05: Khách hàng cam kết thực hiện nghĩa vụ trả nợ</option>
+
                                 </select></td>
                             <td class="txtBody">
-                                    <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData<s:property  value='%{#idxRows.index}' />">
+                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData<s:property  value='%{#idxRows.index}' />">
                                 <option value="01" <s:if test="d24.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Cam kết</option>
                                 <option value="02" <s:if test="d24.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không liên hệ được</option>
                                 <option value="03" <s:if test="d24.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Liên hệ được nhưng không cam kết</option>
@@ -367,11 +351,17 @@
                                 </select>
                             </td>
                             <td class="txtBody">
-                                    <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData<s:property  value='%{#idxRows.index}' />">
+                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData<s:property  value='%{#idxRows.index}' />">
                                 <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
                                 <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
                                 </select></td>
-                        </tr>
+                            <td class="txtBody">
+                                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D27" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>"><s:property value='d27'/></textarea>
+                        </td>
+                        <td class="txtBody"><input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d26" value="<s:property value='d26'/>" class="datepick <s:property value="d20"/>">
+                            <input type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d29" value="1" class="datepick <s:property value="d20"/>"></td>
+
+                    </tr>
                 </s:iterator>
             </tbody>
         </table>
@@ -396,37 +386,7 @@
                     </tr>
 
                     <s:iterator value="lstData" status="idxRows">
-                        <tr class="tr_clone">
-                            <td class="txtBody">
-                                <select onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />">
-                                    <option value="000000">Không xác định</option>
-                                    <s:iterator value="lstCN" status="ideRows" var="language">
-                                        <s:if test="%{#language.PosCode == d30}">
-                                            <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
-                                        </s:if>
-                                        <s:else>
-                                            <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
-                                        </s:else>
-                                    </s:iterator>
-                                    <option value="999999">Nước ngoài</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="txtPublic <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />">
-                                    <option value="000000">Không xác định</option>
-                                    <s:iterator value="lstPGD" status="ideRows" var="language">
-                                        <s:if test="%{#language.PosCode == d32}">
-                                            <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
-                                        </s:if>
-                                        <s:else>
-                                            <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
-                                        </s:else>
-                                    </s:iterator>
-                                    <option value="999999">Nước ngoài</option>
-                                </select>
-                            </td>
-
-                        </tr>
+                        
                     </s:iterator>
                 </table>         
                 </br>     

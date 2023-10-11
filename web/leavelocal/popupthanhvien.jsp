@@ -79,12 +79,8 @@
         <tr style="text-align: center;">            
             <th colspan="6" style="text-align: center;">
                 <p id="lblTotal" style="color: #ff3333;">Tổng số:</p>
-                
-                <s:if test="flag == 1">
-                    <input type="button" value="Xóa toàn bộ" name="cmdClear" id="cmdClear"/>
+                <input type="button" value="Xóa toàn bộ" name="cmdClear" id="cmdClear"/>
                 <input type="button" value="Lưu dữ liệu" name="cmdLuu" id="cmdLuu"/>
-                </s:if>
-                
             </th>
         </tr>
     </table>

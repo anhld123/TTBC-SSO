@@ -12,7 +12,7 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         border-spacing: 0;
-        width: 100%;
+        width: 175%;
     }
     #subTable th{
         background-color: #028e07;
@@ -74,7 +74,7 @@
     });
 
     function funcThanhVien(maPgd, maKH, tenKH) {
-        var w = 725, h = 400;
+        var w = 800, h = 400;
         var left = (screen.width / 2) - (w / 2);
         var top = (screen.height / 2) - (h / 2);
         var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent(tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val() + "&vbsprandom=" + Math.random();
@@ -174,6 +174,8 @@
                     <th class="hdtitle">Kết quả thu hồi nợ</th>
                     <th class="hdtitle">Tình trạng xử lý nợ</th>
                     <th class="hdtitle">Ngày bắt đầu trả nợ</th>
+                    <th class="hdtitle">Tổ chức CT-XH rà soát</th>
+                    <th class="hdtitle">Đề nghị cung cấp thông tin</th>
                 </tr>
             </thead>
             <tbody>
@@ -328,6 +330,19 @@
 
                                 </select></td>
                                 <td class="txtBody"><s:property value="d37"/></td>
+                           <td class="txtBody">
+                            <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData<s:property  value='%{#idxRows.index}' />">
+                                <option value="01" <s:if test="d24.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Cam kết</option>
+                                <option value="02" <s:if test="d24.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không liên hệ được</option>
+                                <option value="03" <s:if test="d24.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Liên hệ được nhưng không cam kết</option>
+                                <option value="04" <s:if test="d24.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>04: Liên hệ được nhưng không nhận nợ</option>
+                                </select>
+                            </td>
+                            <td onmousedown="return false" class="txtBody">
+                                <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData<s:property  value='%{#idxRows.index}' />">
+                                <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
+                                <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
+                                </select></td>
                     </tr>
                 </s:iterator>
             </tbody>
