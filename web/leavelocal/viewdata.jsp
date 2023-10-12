@@ -136,12 +136,30 @@
             document.getElementById("lstData38" + index).disabled = false;
             document.getElementById("lstData39" + index).disabled = false;
             document.getElementById("lstData40" + index).disabled = false;
+            
+            var var2, vartxt, selected;
+            $("#lstData_D30" + index).children().remove().end();
+            //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
+            $("#lstData_D30_tmp" + index +" > option").each(function () {
+                $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+            });
+            $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
+                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+            }));
         }
         else
         {
             document.getElementById("lstData38" + index).disabled = true;
             document.getElementById("lstData39" + index).disabled = true;
             document.getElementById("lstData40" + index).disabled = true;
+            
+            $("#lstData_D30" + index).children().remove().end();
+            $("#lstData_D30" + index).prepend("<option value='000000' selected> Không xác định </option>");
+            $("#lstData_D30" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
+            
+            $("#lstData_D32" + index).children().remove().end();
+            $("#lstData_D32" + index).prepend("<option value='000000' selected> Không xác định </option>");
+            $("#lstData_D32" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
         }
     }
 
@@ -379,15 +397,15 @@ function onSelectChange_dnht1(value, index) {
                             <td class="txtBody">
                                     <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D23" name="lstData[<s:property  value='%{#idxRows.index}' />].d23" class="autoHeight <s:property value="d20"/>"><s:property value='d23'/></textarea>
                         </td>
-                        <td class="txtBody">
+                        <td class="txtBody" >
                             <select onchange="onSelectChange_dnht(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" 
                                     name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />">
                                 <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không đề nghị hỗ trợ</option>
                                 <option value="1" <s:if test="d33.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Đề nghị hỗ trợ</option>
 
                             </select></td>
-                            <td class="txtBody">
-                                    <select onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />">
+                         <td class="txtBody">
+                                <select onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />">
                                 <option value="000000">Không xác định</option>
                                 <option value="999999">00 - Nước ngoài</option>
                                 <s:iterator value="lstCN" status="ideRows" var="language">
@@ -399,6 +417,19 @@ function onSelectChange_dnht1(value, index) {
                                     </s:else>
                                 </s:iterator>
                             </select>
+                              <!--Ẩn-->   
+                             <select class="THANHVIEN" name="lstData[<s:property  value='%{#idxRows.index}' />].d30_tmp" id="lstData_D30_tmp<s:property  value='%{#idxRows.index}' />"  cssStyle="display:none;">
+                                <option value="000000">Không xác định</option>
+                                <option value="999999">00 - Nước ngoài</option>
+                                <s:iterator value="lstCN" status="ideRows" var="language">
+                                    <s:if test="%{#language.PosCode == d30}">
+                                        <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
+                                    </s:if>
+                                    <s:else>
+                                        <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                    </s:else>
+                                </s:iterator>
+                            </select>   
                         </td>
                         <td>
                             <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />">
