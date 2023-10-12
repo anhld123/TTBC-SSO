@@ -141,11 +141,29 @@
             $("#lstData_D30" + index).children().remove().end();
             //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
             $("#lstData_D30_tmp" + index +" > option").each(function () {
-                $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+                var tmp = $(this).val();
+                if(tmp != '000000' && tmp != '999999')
+//                alert(tmp);
+                    $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
             });
             $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
                     return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
             }));
+            
+            //combobox huyen
+            $("#lstData_D32" + index).children().remove().end();
+            //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
+            $("#lstData_D32_tmp" + index +" > option").each(function () {
+                var tmp = $(this).val();
+                if(tmp != '000000' && tmp != '999999')
+//                alert(tmp);
+                    $("#lstData_D32" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+            });
+            $("#lstData_D32" + index).html($("#lstData_D32" + index + " option").sort(function (a, b) {
+                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+            }));
+            
+            onSelectChange(index);
         }
         else
         {
@@ -442,9 +460,21 @@ function onSelectChange_dnht1(value, index) {
                                     <s:else>
                                         <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
                                     </s:else>
-                                </s:iterator>
-                                
+                                </s:iterator>                                
                             </select>
+                                
+                            <select class="THANHVIEN" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32_tmp<s:property  value='%{#idxRows.index}' />"  cssStyle="display:none;">
+                                <option value="000000">Không xác định</option>
+                                <option value="999999">00 - Nước ngoài</option>
+                                <s:iterator value="lstPGD" status="ideRows" var="language">
+                                    <s:if test="%{#language.PosCode == d32}">
+                                        <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
+                                    </s:if>
+                                    <s:else>
+                                        <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                    </s:else>
+                                </s:iterator>                                
+                            </select>    
                         </td>
 
                         <td class="txtBody">
