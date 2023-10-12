@@ -73,12 +73,10 @@
                     <input type="date"  name="startPaymentDate" id="startPaymentDate" >  
                 </div>
             <div style="height:20px"></div>    
-                    <s:if test="flag == 1">
-                        <div style="text-align: center;">
+            
+            <div style="text-align: center;">
                 <input type="button" value="Lưu dữ liệu" name="cmdLuu" id="cmdLuu"/>
             </div>
-                    </s:if>
-            
             <div id="divExportReport"></div>
         </form>
 

@@ -113,24 +113,6 @@
                         }));
             }
         });
-
-
-        //alert('#lstData_D32'+index);
-//        let select = document.querySelector('#lstData_D32'+index);
-//        //alert(select.options.length);
-//        for (let i = 0; i < select.options.length; i++) {
-//            let optionValue = select.options[i].value;            
-//            if (optionValue.startsWith('0006'))
-//            {
-//                //alert(optionValue);                
-//            }else {
-//                //select.remove(i);
-//                //$('#lstData_D32'+index + " option[value='"+optionValue+"']").remove(); 
-//                var objectName = 'lstData_D320 option[value="' + optionValue.trim()+ '"]';
-//                //alert(objectName);
-//                $("#"+objectName).remove(); 
-//            }
-//        }
     }
 
 </script>
@@ -157,7 +139,7 @@
                     <th class="hdtitle">Tên PGD</th>
                     <th class="hdtitle">Tên xã</th>
                     <th class="hdtitle">Tên tổ trưởng</th>
-                    <th class="hdtitle">Mã KH (tình hình xử lý nợ)</th>
+                    <th class="hdtitle">Mã KH</th>
                     <th class="hdtitle">Tên khách hàng vay vốn</th>
                     <th class="hdtitle">Năm sinh</th>
                     <th class="hdtitle">CMT/CCCD</th>
@@ -263,14 +245,14 @@
                         <td class="txtBody"><s:property value="d15"/></td>
                         <td class="txtBody"><s:property value="d21"/></td>
                         <td class="txtBody">
-                            <select onmousedown="return false"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData<s:property  value='%{#idxRows.index}' />">
+                            <select onmousedown="return false"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData_D22<s:property  value='%{#idxRows.index}' />">
                                 <option value="01" <s:if test="d22.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>Hộ vay bỏ đi khỏi nơi cư trú có thông tin địa chỉ cụ thể</option>
                                 <option value="02" <s:if test="d22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>Hộ vay bỏ đi khỏi nơi cư trú có thông tin địa chỉ không cụ thể &nbsp;</option>
                                 <option value="03" <s:if test="d22.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>Hộ vay bỏ đi khỏi nơi cư trú không có thông tin địa chỉ</option>
                                 </select>
                             </td>
                             <td class="txtBody" >
-                                    <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d25" id="lstSubData<s:property  value='%{#idxRows.index}' />">
+                                    <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d25" id="lstSubData_D25<s:property  value='%{#idxRows.index}' />">
                                 <option value="00" <s:if test="d25.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>>Bỏ nơi cư trú</option>
                                 <option value="01" <s:if test="d25.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>Tất toán nợ</option>
                                 <option value="02" <s:if test="d25.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>Xoá nợ</option>
@@ -310,18 +292,18 @@
                         </td>
                         <td class="txtBody"><s:property value="d31"/></td>                   
                         <td class="txtBody">
-                            <select onmousedown="return false"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData<s:property  value='%{#idxRows.index}' />" >
+                            <select onmousedown="return false"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />" >
                                 <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>Không đề nghị hỗ trợ</option>
                                 <option value="1" <s:if test="d33.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>Đề nghị hỗ trợ</option>
 
                                 </select></td>
                             <td class="txtBody">
-                                    <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d34" id="lstSubData<s:property  value='%{#idxRows.index}' />">
+                                    <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d34" id="lstSubData_D34<s:property  value='%{#idxRows.index}' />">
                                 <option value="0" <s:if test="d34.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>Không thu hồi được nợ</option>
                                 <option value="1" <s:if test="d34.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>Thu hồi được nợ</option>
                                 </select></td>
                             <td class="txtBody">
-                                    <select onmousedown="return false"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d35" id="lstSubData<s:property  value='%{#idxRows.index}' />" >
+                                    <select onmousedown="return false"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d35" id="lstSubData_D35<s:property  value='%{#idxRows.index}' />" >
                                 <option value="1" <s:if test="d35.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>Hộ vay cam kết trả nợ</option>
                                 <option value="2" <s:if test="d35.equalsIgnoreCase('2')"> selected </s:if> <s:else></s:else>>Đã trả nợ</option>
                                 <option value="3" <s:if test="d35.equalsIgnoreCase('3')"> selected </s:if> <s:else></s:else>>Bàn giao nợ</option>
@@ -330,8 +312,8 @@
 
                                 </select></td>
                                 <td class="txtBody"><s:property value="d37"/></td>
-                           <td class="txtBody">
-                            <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData<s:property  value='%{#idxRows.index}' />">
+                        <td class="txtBody">
+                            <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData_D24<s:property  value='%{#idxRows.index}' />">
                                 <option value="01" <s:if test="d24.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Cam kết</option>
                                 <option value="02" <s:if test="d24.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không liên hệ được</option>
                                 <option value="03" <s:if test="d24.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Liên hệ được nhưng không cam kết</option>
@@ -339,11 +321,11 @@
                                 </select>
                             </td>
                             <td onmousedown="return false" class="txtBody">
-                                <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData<s:property  value='%{#idxRows.index}' />">
+                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData_D31<s:property  value='%{#idxRows.index}' />">
                                 <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
                                 <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
                                 </select></td>
-                    </tr>
+                        </tr>
                 </s:iterator>
             </tbody>
         </table>

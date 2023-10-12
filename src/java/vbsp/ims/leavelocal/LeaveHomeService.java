@@ -148,6 +148,9 @@ public class LeaveHomeService {
                     _normalizeItem.setD35(data.get(i).getD35());
                     _normalizeItem.setD36(data.get(i).getD36());
                     _normalizeItem.setD37(data.get(i).getD37());
+                    _normalizeItem.setD38(data.get(i).getD38());
+                    _normalizeItem.setD39(data.get(i).getD39());
+                    _normalizeItem.setD40(data.get(i).getD40());
                     _normalizeItem.setD50(data.get(i).getD50());
 
                     _lstNormalizeData.add(_normalizeItem);
