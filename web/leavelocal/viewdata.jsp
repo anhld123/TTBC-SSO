@@ -146,23 +146,29 @@
         var table = document.getElementById("subTable");
         var rowcount = table.rows.length;
         rowcount = rowcount > max_row ? rowcount : max_row;
+//        alert('row=' + rowcount)
         for (var i = 0; i < rowcount; i++)
         {
-            var value = $('#lstSubData33' + i).find(":selected").val();
-            if (value == '1')
-            {
-                document.getElementById("lstData38" + i).disabled = false;
-                document.getElementById("lstData39" + i).disabled = false;
-                document.getElementById("lstData40" + i).disabled = false;
+            try {
+                var value = $('#lstSubData_D33' + i).find(":selected").val();
+//                alert (value +  '---'+ i)
+                if (value == '1')
+                {
+                    document.getElementById("lstData38" + i).disabled = false;
+                    document.getElementById("lstData39" + i).disabled = false;
+                    document.getElementById("lstData40" + i).disabled = false;
+                }
+                else
+                {
+    //            alert('vao')
+                    document.getElementById("lstData38" + i).disabled = true;
+                    document.getElementById("lstData39" + i).disabled = true;
+                    document.getElementById("lstData40" + i).disabled = true;
+                }
             }
-            else
-            {
-//            alert('vao')
-                document.getElementById("lstData38" + i).disabled = true;
-                document.getElementById("lstData39" + i).disabled = true;
-                document.getElementById("lstData40" + i).disabled = true;
-            }
-
+             catch(e) {
+                
+              }   
 
         }
     }
@@ -333,11 +339,12 @@
                                     <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D23" name="lstData[<s:property  value='%{#idxRows.index}' />].d23" class="autoHeight <s:property value="d20"/>"><s:property value='d23'/></textarea>
                         </td>
                         <td class="txtBody">
-                            <select onchange="onSelectChange_dnht(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />">
+                            <select onchange="onSelectChange_dnht(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" 
+                                    name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />">
                                 <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không đề nghị hỗ trợ</option>
                                 <option value="1" <s:if test="d33.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Đề nghị hỗ trợ</option>
 
-                                </select></td>
+                            </select></td>
                             <td class="txtBody">
                                     <select onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />">
                                 <option value="000000">Không xác định</option>
@@ -372,7 +379,7 @@
                                 <s:property value="D38"/>
                             </s:if>
                             <s:else>
-                                <input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d38" value="<s:property value='d38'/>" id="lstData38<s:property  value='%{#idxRows.index}' />" class="txtPublic" disabled>
+                                <input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d38" value="<s:property value='d38'/>" id="lstData38<s:property  value='%{#idxRows.index}' />" class="txtPublic" >
                             </s:else>
                         </td>
 
@@ -381,7 +388,7 @@
                                 <s:property value="D39"/>
                             </s:if>
                             <s:else>
-                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d39" value="<s:property value='d39'/>" id="lstData39<s:property  value='%{#idxRows.index}' />" class="txtPublic" disabled>
+                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d39" value="<s:property value='d39'/>" id="lstData39<s:property  value='%{#idxRows.index}' />" class="txtPublic" >
                             </s:else>
                         </td>	
                         <td class="txtBody">
@@ -389,7 +396,7 @@
                                 <s:property value="D40"/>
                             </s:if>
                             <s:else>
-                                <input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d40" value="<s:property value='d40'/>" id="lstData40<s:property  value='%{#idxRows.index}' />" class="txtPublic" disabled>
+                                <input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d40" value="<s:property value='d40'/>" id="lstData40<s:property  value='%{#idxRows.index}' />" class="txtPublic" >
                             </s:else>
                         </td>	
 
