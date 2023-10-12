@@ -54,7 +54,7 @@
     $(document).ready(function () {
         initTable();
     });
-    
+
     $(document).ready(function () {
         initTable1();
     });
@@ -136,45 +136,44 @@
             document.getElementById("lstData38" + index).disabled = false;
             document.getElementById("lstData39" + index).disabled = false;
             document.getElementById("lstData40" + index).disabled = false;
-            
+
             var var2, vartxt, selected;
             $("#lstData_D30" + index).children().remove().end();
             //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-            $("#lstData_D30_tmp" + index +" > option").each(function () {
+            $("#lstData_D30_tmp" + index + " > option").each(function () {
                 var tmp = $(this).val();
-                if(tmp != '000000' && tmp != '999999')
+                if (tmp != '000000' && tmp != '999999')
 //                alert(tmp);
                     $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
             });
             $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
-                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+                return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
             }));
-            
+
             //combobox huyen
             $("#lstData_D32" + index).children().remove().end();
             //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-            $("#lstData_D32_tmp" + index +" > option").each(function () {
+            $("#lstData_D32_tmp" + index + " > option").each(function () {
                 var tmp = $(this).val();
-                if(tmp != '000000' && tmp != '999999')
+                if (tmp != '000000' && tmp != '999999')
 //                alert(tmp);
                     $("#lstData_D32" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
             });
             $("#lstData_D32" + index).html($("#lstData_D32" + index + " option").sort(function (a, b) {
-                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+                return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
             }));
-            
+
             onSelectChange(index);
-        }
-        else
+        } else
         {
             document.getElementById("lstData38" + index).disabled = true;
             document.getElementById("lstData39" + index).disabled = true;
             document.getElementById("lstData40" + index).disabled = true;
-            
+
             $("#lstData_D30" + index).children().remove().end();
             $("#lstData_D30" + index).prepend("<option value='000000' selected> Không xác định </option>");
             $("#lstData_D30" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
-            
+
             $("#lstData_D32" + index).children().remove().end();
             $("#lstData_D32" + index).prepend("<option value='000000' selected> Không xác định </option>");
             $("#lstData_D32" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
@@ -197,28 +196,25 @@
                     document.getElementById("lstData38" + i).disabled = false;
                     document.getElementById("lstData39" + i).disabled = false;
                     document.getElementById("lstData40" + i).disabled = false;
-                }
-                else
+                } else
                 {
-    //            alert('vao')
+                    //            alert('vao')
                     document.getElementById("lstData38" + i).disabled = true;
                     document.getElementById("lstData39" + i).disabled = true;
                     document.getElementById("lstData40" + i).disabled = true;
                 }
+            } catch (e) {
+
             }
-             catch(e) {
-                
-              }   
 
         }
     }
 
-function onSelectChange_dnht1(value, index) {
+    function onSelectChange_dnht1(value, index) {
         if (value == '5')
         {
             document.getElementById("lstData41" + index).disabled = false;
-        }
-        else
+        } else
         {
             document.getElementById("lstData41" + index).disabled = true;
         }
@@ -230,24 +226,27 @@ function onSelectChange_dnht1(value, index) {
         var rowcount = table.rows.length;
         rowcount = rowcount > max_row ? rowcount : max_row;
 //        alert('row=' + rowcount)
-        for (var i = 0; i < rowcount; i++)
-        {
-            try {
-                var value = $('#lstSubData34' + i).find(":selected").val();
-//                alert (value +  '---'+ i)
-                if (value == '5')
-                {
-                    document.getElementById("lstData41" + i).disabled = false;
-                }
-                else
-                {
-                    document.getElementById("lstData41" + i).disabled = true;
-                }
-            }
-             catch(e) {
-                
-              }   
 
+        var flagPos = document.getElementById('flagPos').value
+        if (flagPos != '1')
+        {
+            for (var i = 0; i < rowcount; i++)
+            {
+                try {
+                    var value = $('#lstSubData34' + i).find(":selected").val();
+//                alert (value +  '---'+ i)
+                    if (value == '5')
+                    {
+                        document.getElementById("lstData41" + i).disabled = false;
+                    } else
+                    {
+                        document.getElementById("lstData41" + i).disabled = true;
+                    }
+                } catch (e) {
+
+                }
+
+            }
         }
     }
 </script>
@@ -263,6 +262,8 @@ function onSelectChange_dnht1(value, index) {
                 <option value="999999">Nước ngoài</option>
             </select>
         </div>
+
+        <input type="hidden" name="flagPos" id="flagPos" value="<s:property value='flagPos'/>">
         <table id="subTable" style="z-index: 1;">
             <thead>
                 <tr>
@@ -421,9 +422,9 @@ function onSelectChange_dnht1(value, index) {
                                 <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không đề nghị hỗ trợ</option>
                                 <option value="1" <s:if test="d33.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Đề nghị hỗ trợ</option>
 
-                            </select></td>
-                         <td class="txtBody">
-                                <select onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />">
+                                </select></td>
+                            <td class="txtBody">
+                                    <select onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />">
                                 <option value="000000">Không xác định</option>
                                 <option value="999999">00 - Nước ngoài</option>
                                 <s:iterator value="lstCN" status="ideRows" var="language">
@@ -435,8 +436,8 @@ function onSelectChange_dnht1(value, index) {
                                     </s:else>
                                 </s:iterator>
                             </select>
-                              <!--Ẩn-->   
-                             <select class="THANHVIEN" name="lstData[<s:property  value='%{#idxRows.index}' />].d30_tmp" id="lstData_D30_tmp<s:property  value='%{#idxRows.index}' />"  cssStyle="display:none;">
+                            <!--Ẩn-->   
+                            <select class="THANHVIEN" name="lstData[<s:property  value='%{#idxRows.index}' />].d30_tmp" id="lstData_D30_tmp<s:property  value='%{#idxRows.index}' />"  cssStyle="display:none;">
                                 <option value="000000">Không xác định</option>
                                 <option value="999999">00 - Nước ngoài</option>
                                 <s:iterator value="lstCN" status="ideRows" var="language">
@@ -462,7 +463,7 @@ function onSelectChange_dnht1(value, index) {
                                     </s:else>
                                 </s:iterator>                                
                             </select>
-                                
+
                             <select class="THANHVIEN" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32_tmp<s:property  value='%{#idxRows.index}' />"  cssStyle="display:none;">
                                 <option value="000000">Không xác định</option>
                                 <option value="999999">00 - Nước ngoài</option>
@@ -503,8 +504,8 @@ function onSelectChange_dnht1(value, index) {
                             </s:else>
                         </td>	
                         <td class="txtBody">
-                            <select onchange="onSelectChange_dnht1(this.value, <s:property  value='%{#idxRows.index}'/>)"
-                                class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d34" id="lstSubData34<s:property  value='%{#idxRows.index}' />">
+                            <select onchange="onSelectChange_dnht1(this.value, <s:property  value='%{#idxRows.index}'/>)" <s:if test="flagPos.equalsIgnoreCase('1')"> disabled </s:if>
+                                    class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d34" id="lstSubData34<s:property  value='%{#idxRows.index}' />">
                                 <option value="0" <s:if test="d34.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>00: Chưa rà soát</option>
                                 <option value="1" <s:if test="d34.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>01: Khách hàng cam kết thực hiện nghĩa vụ trả nợ</option>
                                 <option value="2" <s:if test="d34.equalsIgnoreCase('2')"> selected </s:if> <s:else></s:else>>02: Khách hàng thuộc đối tượng xử lý nợ bị rủi ro</option>
@@ -512,16 +513,16 @@ function onSelectChange_dnht1(value, index) {
                                 <option value="4" <s:if test="d34.equalsIgnoreCase('4')"> selected </s:if> <s:else></s:else>>04: Không liên hệ được với khách hàng</option>
                                 <option value="5" <s:if test="d34.equalsIgnoreCase('5')"> selected </s:if> <s:else></s:else>>05: Khách hàng cam kết thực hiện nghĩa vụ trả nợ</option>
                                 </select></td>
-                        <td class="txtBody">
+                            <td class="txtBody">
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                                 <s:property value="D41"/>
                             </s:if>
                             <s:else>
-                               <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData41<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d41" class="autoHeight <s:property value="d20"/>"><s:property value='d41'/></textarea>
-                          </s:else>
+                                <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData41<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d41" class="autoHeight <s:property value="d20"/>" <s:if test="flagPos.equalsIgnoreCase('1')"> disabled </s:if>><s:property value='d41'/></textarea>
+                            </s:else>
                         </td>
-                            <td class="txtBody">
-                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData24<s:property  value='%{#idxRows.index}' />">
+                        <td class="txtBody">
+                            <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData24<s:property  value='%{#idxRows.index}' />">
                                 <option value="01" <s:if test="d24.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Cam kết</option>
                                 <option value="02" <s:if test="d24.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không liên hệ được</option>
                                 <option value="03" <s:if test="d24.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Liên hệ được nhưng không cam kết</option>
@@ -534,15 +535,18 @@ function onSelectChange_dnht1(value, index) {
                                 <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
                                 </select></td>
                             <td class="txtBody">
-                                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D27" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>"><s:property value='d27'/></textarea>
-                        </td>
-                        <td><input style="width: 85px" type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d26" value="<s:property value='d26'/>" class="datepick <s:property value="d20"/>">
+                                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D27" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="flagPos.equalsIgnoreCase('1')"> disabled </s:if>><s:property value='d27'/> </textarea>
+                            </td>
+                            <td><input style="width: 85px" type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d26" value="<s:property value='d26'/>" <s:if test="flagPos.equalsIgnoreCase('1')"> disabled </s:if> class="datepick <s:property value="d20"/>">
                             <input style="width: 85px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d29" value="1" class="datepick <s:property value="d20"/>"></td>
 
                     </tr>
                 </s:iterator>
             </tbody>
         </table>
+        </br> 
+        User thuộc pos :  "<s:property value='flagPos'/>
+        </br>
     </div>
 </body>
 <script>
