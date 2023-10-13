@@ -155,7 +155,7 @@ public class LeaveHomeService {
                         
                         _normalizeItem.setD50(data.get(i).getD50());
                     }
-                    else
+                    else  //POS được đề nghị hỗ trợ
                     {
                         _normalizeItem.setD26(data.get(i).getD26());
                         _normalizeItem.setD27(data.get(i).getD27());

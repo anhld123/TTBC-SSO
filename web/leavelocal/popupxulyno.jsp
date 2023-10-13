@@ -75,7 +75,9 @@
             <div style="height:20px"></div>    
             
             <div style="text-align: center;">
-                <input type="button" value="Lưu dữ liệu" name="cmdLuu" id="cmdLuu"/>
+                <s:if test="flagPos.equalsIgnoreCase('1')"> 
+                    <input type="button" value="Lưu dữ liệu" name="cmdLuu" id="cmdLuu"/>
+                 </s:if>
             </div>
             <div id="divExportReport"></div>
         </form>

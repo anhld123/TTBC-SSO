@@ -79,21 +79,29 @@
         this.style.height = (this.scrollHeight) + 'px';
     });
 
-    function funcThanhVien(maPgd, maKH, tenKH) {
+    function funcThanhVien(maPgd, maKH, tenKH, flagPos) {
         var w = 900, h = 600;
         var left = (screen.width / 2) - (w / 2);
         var top = (screen.height / 2) - (h / 2);
         var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent(tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val() + "&vbsprandom=" + Math.random();
-        var url = "/IMS_REPORTS/popupThanhvien.action?" + urlParam;
+        var url;
+        if(flagPos == '0')
+        {
+             url = "/IMS_REPORTS/popupThanhvien_author.action?" + urlParam;
+        }
+        else
+        {
+             url = "/IMS_REPORTS/popupThanhvien.action?" + urlParam;
+        }
         popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
     }
 
-    function funcXuLyNo(maPgd, maKH, tenKH, XuLyNo, startPayment) {
+    function funcXuLyNo(maPgd, maKH, tenKH, XuLyNo, startPayment, flagPos) {
         var w = 500, h = 300;
         var left = (screen.width / 2) - (w / 2);
         var top = (screen.height / 2) - (h / 2);
         var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent(tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val()
-                + "&XuLyNo=" + XuLyNo + startPayment + "&vbsprandom=" + Math.random();
+                + "&XuLyNo=" + XuLyNo + startPayment  + "&flagPos=" + flagPos + "&vbsprandom=" + Math.random();
         var url = "/IMS_REPORTS/popupXuLyNo.action?" + urlParam;
         popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
     }
@@ -373,12 +381,12 @@
                                 <s:property value="D11"/>
                             </s:if>
                             <s:else>
-                                <s:if test="flagPos.equalsIgnoreCase('1')"> 
-                                    <a href="javascript:funcXuLyNo('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="d35"/>', '<s:property value="d37"/>')"><s:property value="d11"/></a>
-                                </s:if>
-                                <s:else>
-                                    <a href="javascript:funcXuLyNo('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="d35"/>', '<s:property value="d37"/>')"><s:property value="d11"/></a>
-                                </s:else>
+                                <%--<s:if test="flagPos.equalsIgnoreCase('1')">--%> 
+                                    <a href="javascript:funcXuLyNo('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="d35"/>', '<s:property value="d37"/>','<s:property value="flagPos"/>')"><s:property value="d11"/></a>
+                                <%--</s:if>--%>
+                                <%--<s:else>--%>
+                                    <!--<a href="javascript:funcXuLyNo('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="d35"/>', '<s:property value="d37"/>')"><s:property value="d11"/></a>-->
+                                <%--</s:else>--%>
                             </s:else>
                         </td>
                         <td class="txtBody">
@@ -386,7 +394,7 @@
                                 <s:property value="D12"/>
                             </s:if>
                             <s:else>
-                                <a href="javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>')"><s:property value="d12"/></a>
+                                <a href="javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="flagPos"/>')"><s:property value="d12"/></a>
                             </s:else>
                         </td>
                         <td class="txtBody">
@@ -551,7 +559,7 @@
             </tbody>
         </table>
         </br> 
-        User thuộc pos :  "<s:property value='flagPos'/>
+        
         </br>
     </div>
 </body>
