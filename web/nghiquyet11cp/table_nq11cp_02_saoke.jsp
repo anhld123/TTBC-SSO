@@ -98,23 +98,30 @@
                 <div id="scrolling_table_1"  style="width: 98%; max-height:45vh">
                     <table id="tblTable">
                         <tr>      
-                            <th rowspan="1" class="TD_STT">STT</th>                           
+                            <th rowspan="2" class="TD_STT">STT</th>                           
                             <!--<th rowspan="2" class="TD_TOTIEN">CIF</th>-->  
-                            <th rowspan="1" class="TD_TENKH">Tên KH</th>  
-                            <th rowspan="1" class="TD_MAKH">Mã khách hàng</th> 
-                            <th rowspan="1" class="TD_SOKU">Mã khoản vay</th>    
-                            <th rowspan="1"  class="TD_MAKH">Tên chương trình cho vay</th>
-                            <th rowspan="1" class="TD_MAKH">Lãi suất cho vay</th> 
-                            <th rowspan="1"  class="TD_MAKH">Dư nợ hỗ trợ lãi suất lũy kế</th>   
-                            <th rowspan="1"  class="TD_MAKH">Lũy kế số tiền đã hỗ trợ lãi suất </th>   
+                            <th rowspan="2" class="TD_TENKH">Tên KH</th>  
+                            <th rowspan="2" class="TD_MAKH">Mã khách hàng</th> 
+                            <th rowspan="2" class="TD_SOKU">Mã khoản vay</th>    
+                            <th rowspan="2"  class="TD_MAKH">Tên chương trình cho vay</th>
+                            <th rowspan="2" class="TD_MAKH">Lãi suất cho vay</th> 
+                            <th rowspan="2"  class="TD_MAKH">Dư nợ hỗ trợ lãi suất lũy kế</th>   
+                            <th rowspan="2"  class="TD_MAKH">Lũy kế số tiền đã hỗ trợ lãi suất </th>   
+                            <th colspan="3"  class="TD_MAKH">Thông tin điều chỉnh HTLS</th>   
+                            <th colspan="5"  class="TD_MAKH">Thông tin thu hồi HTLS</th>   
+                             <th rowspan="2"  class="TD_NGAY">Cập nhật</th> 
+                        </tr>  
+                        <tr>
+                            <th rowspan="1"  class="TD_MAKH">Số tiền HTLS trong quý</th> 
+                            <th rowspan="1"  class="TD_MAKH">Số tiền điều chỉnh (có thể dương hoặc âm)</th>   
+                            <th rowspan="1"  class="TD_MAKH">Số tiền sau điều chỉnh</th>  
+                            
                             <th rowspan="1"  class="TD_MAKH">Số tiền hỗ trợ lãi suất phải thu hồi</th> 
                             <th rowspan="1"  class="TD_MAKH">Số tiền hỗ trợ lãi suất đã thu hồi</th>   
                             <th rowspan="1"  class="TD_MAKH">Số tiền hỗ trợ lãi suất còn phải thu hồi</th>  
-                            <th rowspan="1" class="TD_TOTIEN">Bút toán thu hồi</th>  
-                                                        
+                            <th rowspan="1" class="TD_TOTIEN">Bút toán thu hồi</th>                                                          
                             <th rowspan="1"  class="TD_TENKH">Lý do thu hồi</th>  
-                             <th rowspan="1"  class="TD_NGAY">Cập nhật</th> 
-                        </tr>         
+                        </tr>
                         
                         <tr style="font-style: italic;">
                             <td style="text-align: center">(1)</td>                            
@@ -131,6 +138,9 @@
                             <td style="text-align: center">(12)</td>    
                             <td style="text-align: center">(13)</td>    
                             <td style="text-align: center">(14)</td>    
+                            <td style="text-align: center">(15)</td>   
+                            <td style="text-align: center">(16)</td>   
+                            <td style="text-align: center">(17)</td>   
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                             <tr>                               
@@ -182,13 +192,37 @@
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="TEN_KH number" onfocus="this.select();" 
                                            readonly="true"/>
                                 </td>
-                                 <td align = "right" class="TD_TOTIEN" >
+                                <!--Thông tin điều chỉnh HTLS-->
+                               <td align = "right" class="TD_TOTIEN" >
+                                                <input type="text"   value="<s:property  value="D21" />"  style="background: #C0C0C0 !important;"
+                                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D21" class="TEN_KH number" onfocus="fncSetVal('D21',<s:property  value="%{#rowstatus.index}" />)"                                                                   
+                                                                   id  ='D21<s:property  value="%{#rowstatus.index}" />' readonly="true"
+                                                />
+                                </td>
+                                
+                                <td align = "right" class="TD_TOTIEN" >
+                                                <input type="text"   value="<s:property  value="D22" />"  
+                                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D22" class="TEN_KH number"
+                                                                   onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D22<s:property  value="%{#rowstatus.index}" />', 'ChangeVal') ; fncSetVal('D16',<s:property  value="%{#rowstatus.index}" />)" 
+                                                                   id  ='D22<s:property  value="%{#rowstatus.index}" />'
+                                                />
+                                </td>     
+                                
+                                <td align = "right" class="TD_TOTIEN" >
+                                                <input type="text"   value="<s:property  value="D23" />"  style="background: #C0C0C0 !important;"
+                                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D23" class="TEN_KH number" onfocus="fncSetVal('D23',<s:property  value="%{#rowstatus.index}" />)"                                                                   
+                                                                   id  ='D23<s:property  value="%{#rowstatus.index}" />' readonly="true"
+                                                />
+                                </td>
+                                
+                                <!--Thông tin thu hồi HTLS-->
+                                <td align = "right" class="TD_TOTIEN" >
                                                 <input type="text"   value="<s:property  value="D15" />"  
                                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" class="TEN_KH number"
                                                                    onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D15<s:property  value="%{#rowstatus.index}" />', 'ChangeVal') ; fncSetVal('D16',<s:property  value="%{#rowstatus.index}" />)" 
                                                                    id  ='D15<s:property  value="%{#rowstatus.index}" />'
                                                 />
-                                </td>                           
+                                </td>    
                                 
                                  <td align = "right" class="TD_TOTIEN" >
                                                 <input type="text"   value="<s:property  value="D16" />"  
@@ -253,12 +287,22 @@
             }
             
             function fncSetVal(obj,index){
-                 var D15=0,D16=0,D17=0;
+                 var D15=0,D16=0,D17=0, D21=0, D22=0, D23=0;
+                 
+                 D21 = $('#D21' + index).val();
+                 if (D21 == null || D21 =='')
+                 {
+                     D21 =0;
+                 }
+                 D22 = $('#D22' + index).val();
+                 $('#D23' + index).val(0);
+                 D23 = parseFloat(D21)+parseFloat(D22);
+                 $('#D23' + index).val(D23);
+                 
                  D15 = $('#D15' + index).val();
                  D16 = $('#D16' + index).val();
-//                 D17 = $('#D17' + index).val();
-////                 $('#D28' + index).val(0);
                  $('#D17' + index).val(0);
+                 
 //                 $('#D20' + index).val(0);
                  D17 = parseFloat(D15)-parseFloat(D16);
                  if(parseFloat(D17) <0)

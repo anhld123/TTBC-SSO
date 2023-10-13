@@ -248,7 +248,6 @@ public class NQ11CP_02SK extends ActionNhaptaycnMain
                 for (QT_DULIEU_NT tmp : lstDulieuNt) {
                     if (tmp.getD33() != null) {
                         DuLieuNTRow tempadd = new DuLieuNTRow();
-
                         tempadd.setBranchCode(tmp.getMACN());
                         tempadd.setPosCode(tmp.getMAPGD());
                         tempadd.setCode(tmp.getD3());
@@ -258,6 +257,9 @@ public class NQ11CP_02SK extends ActionNhaptaycnMain
                         tempadd.setD17(tmp.getD17());
                         tempadd.setD18(tmp.getD18());
                         tempadd.setD19(tmp.getD19());
+                        tempadd.setD21(tmp.getD21());
+                        tempadd.setD22(tmp.getD22());
+                        tempadd.setD23(tmp.getD23());
                         lstUpdateDate.add(tempadd);
                         lstLocalDataUpdate.add(tmp);
                     }

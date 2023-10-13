@@ -88,7 +88,7 @@ public class LeaveHomeService {
         return null;
     }
 
-    public int saveCustomers(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
+    public int saveCustomers(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag, String posFlag1) {
         try {
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
             if (sourceFlag.equals("0")) {
@@ -111,49 +111,58 @@ public class LeaveHomeService {
                     _normalizeItem.setPosCode(data.get(i).getD5());
                     _normalizeItem.setPosFlag("S");
                     _normalizeItem.setBranchCode(data.get(i).getD3());
-                    _normalizeItem.setD1(data.get(i).getD1());
-                    _normalizeItem.setD2(data.get(i).getD2());
-                    _normalizeItem.setD3(data.get(i).getD3());
-                    _normalizeItem.setD4(data.get(i).getD4());
-                    _normalizeItem.setD5(data.get(i).getD5());
-                    _normalizeItem.setD6(data.get(i).getD6());
-                    _normalizeItem.setD7(data.get(i).getD7());
-                    _normalizeItem.setD8(data.get(i).getD8());
-                    _normalizeItem.setD9(data.get(i).getD9());
-                    _normalizeItem.setD10(data.get(i).getD10());
-                    _normalizeItem.setD11(data.get(i).getD11());
-                    _normalizeItem.setD12(data.get(i).getD12());
-                    _normalizeItem.setD13(data.get(i).getD13());
-                    _normalizeItem.setD14(data.get(i).getD14());
-                    _normalizeItem.setD15(data.get(i).getD15());
-                    _normalizeItem.setD16(data.get(i).getD16());
-                    _normalizeItem.setD17(data.get(i).getD17());
-                    _normalizeItem.setD18(data.get(i).getD18());
-                    _normalizeItem.setD19(data.get(i).getD19());
-                    _normalizeItem.setD20(data.get(i).getD20());
-                    _normalizeItem.setD21(data.get(i).getD21());
-                    _normalizeItem.setD22(data.get(i).getD22());
-                    _normalizeItem.setD23(data.get(i).getD23());
-                    _normalizeItem.setD24(data.get(i).getD24());
-                    _normalizeItem.setD25(data.get(i).getD25());
-                    _normalizeItem.setD26(data.get(i).getD26());
-                    _normalizeItem.setD27(data.get(i).getD27());
-                    _normalizeItem.setD28(data.get(i).getD28());
-                    _normalizeItem.setD29(data.get(i).getD29());
-                    _normalizeItem.setD30(data.get(i).getD30());
-                    _normalizeItem.setD31(data.get(i).getD31());
-                    _normalizeItem.setD32(data.get(i).getD32());
-                    _normalizeItem.setD33(data.get(i).getD33());
-                    _normalizeItem.setD34(data.get(i).getD34());
-                    _normalizeItem.setD35(data.get(i).getD35());
-                    _normalizeItem.setD36(data.get(i).getD36());
-                    _normalizeItem.setD37(data.get(i).getD37());
-                    _normalizeItem.setD38(data.get(i).getD38());
-                    _normalizeItem.setD39(data.get(i).getD39());
-                    _normalizeItem.setD40(data.get(i).getD40());
-                    _normalizeItem.setD41(data.get(i).getD41());
-                    _normalizeItem.setD50(data.get(i).getD50());
-
+                    //Đơn vị cho vay và đơn vị được đề nghị hỗ trợ
+                    if (posFlag1.equals("1")) {
+                        _normalizeItem.setD1(data.get(i).getD1());
+                        _normalizeItem.setD2(data.get(i).getD2());
+                        _normalizeItem.setD3(data.get(i).getD3());
+                        _normalizeItem.setD4(data.get(i).getD4());
+                        _normalizeItem.setD5(data.get(i).getD5());
+                        _normalizeItem.setD6(data.get(i).getD6());
+                        _normalizeItem.setD7(data.get(i).getD7());
+                        _normalizeItem.setD8(data.get(i).getD8());
+                        _normalizeItem.setD9(data.get(i).getD9());
+                        _normalizeItem.setD10(data.get(i).getD10());
+                        _normalizeItem.setD11(data.get(i).getD11());
+                        _normalizeItem.setD12(data.get(i).getD12());
+                        _normalizeItem.setD13(data.get(i).getD13());
+                        _normalizeItem.setD14(data.get(i).getD14());
+                        _normalizeItem.setD15(data.get(i).getD15());
+                        _normalizeItem.setD16(data.get(i).getD16());
+                        _normalizeItem.setD17(data.get(i).getD17());
+                        _normalizeItem.setD18(data.get(i).getD18());
+                        _normalizeItem.setD19(data.get(i).getD19());
+                        _normalizeItem.setD20(data.get(i).getD20());
+                        _normalizeItem.setD21(data.get(i).getD21());
+                        _normalizeItem.setD22(data.get(i).getD22());
+                        _normalizeItem.setD23(data.get(i).getD23());
+                        _normalizeItem.setD24(data.get(i).getD24());
+                        _normalizeItem.setD25(data.get(i).getD25());
+                        
+                        _normalizeItem.setD28(data.get(i).getD28());
+                        _normalizeItem.setD29(data.get(i).getD29());
+                        _normalizeItem.setD30(data.get(i).getD30());
+                        _normalizeItem.setD31(data.get(i).getD31());
+                        _normalizeItem.setD32(data.get(i).getD32());
+                        _normalizeItem.setD33(data.get(i).getD33());
+                        
+                        _normalizeItem.setD35(data.get(i).getD35());
+                        _normalizeItem.setD36(data.get(i).getD36());
+                        _normalizeItem.setD37(data.get(i).getD37());
+                        _normalizeItem.setD38(data.get(i).getD38());
+                        _normalizeItem.setD39(data.get(i).getD39());
+                        _normalizeItem.setD40(data.get(i).getD40());
+                        
+                        _normalizeItem.setD50(data.get(i).getD50());
+                    }
+                    else
+                    {
+                        _normalizeItem.setD26(data.get(i).getD26());
+                        _normalizeItem.setD27(data.get(i).getD27());
+                        _normalizeItem.setD34(data.get(i).getD34());
+                        _normalizeItem.setD41(data.get(i).getD41());
+                        _normalizeItem.setD50(data.get(i).getD50());
+                    }
                     _lstNormalizeData.add(_normalizeItem);
                 }
                 return _service.updateClhCustomers("BO_DI_KHOI_DP", posCode, "S", _reportDate, makerId, authoriseId, _lstNormalizeData);
@@ -167,7 +176,7 @@ public class LeaveHomeService {
 
     public int sendCustomers(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data) {
         try {
-            int _result = saveCustomers(posCode, posFlag, reportDate, makerId, authoriseId, data, "1");
+            int _result = saveCustomers(posCode, posFlag, reportDate, makerId, authoriseId, data, "1", posFlag);
             if (_result == 200) {
                 LeaveHomeDao _leaveHomeDao = new LeaveHomeDao();
                 int _status = _leaveHomeDao.updateUploadExcelDataStatus(posCode, posFlag, reportDate, makerId, authoriseId, data, "2");
@@ -305,7 +314,7 @@ public class LeaveHomeService {
                         return ser.DeleteCustomers("BO_DI_KHOI_DP", mposCode, "S", _reportDate, "", "", _lstNormalizeData);
                     }
                 }
-            } 
+            }
         } catch (Exception e) {
             return 0;
         }
