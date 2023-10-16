@@ -303,7 +303,7 @@
                 if (checkedCount === 0 || checkedCount > 1) {
                     alert('Bạn chưa chọn bản ghi để xóa hoặc mỗi lần bạn chỉ được phép xóa tối đa 1 bản ghi!');
                 } else {
-                    let aCheck = confirm("Bạn chắc chắn muốn xóa dữ liệu ?");
+                    let aCheck = confirm("Bạn chắc chắn muốn đề nghị xóa dữ liệu ?");
                     if (aCheck) {
                         var url, sdata;
                         url = "suggestDeteleLocal.action";
@@ -316,10 +316,10 @@
                             data: sdata,
                             success: function (data) {
                                 if (data === "200") {
-                                    alert("Thành công: Xóa dữ liệu.");
+                                    alert("Thành công: Đề nghị xóa dữ liệu.");
                                     $("#idSearch").trigger("click");
                                 } else {
-                                    alert("Lỗi: Xóa dữ liệu.");
+                                    alert("Lỗi: Đề nghị xóa dữ liệu.");
                                 }
                             },
                             complete: function () {

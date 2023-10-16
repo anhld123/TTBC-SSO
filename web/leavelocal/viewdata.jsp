@@ -111,13 +111,6 @@
 
 
         let selectedValue = $('#lstData_D30' + index).find(":selected").val();
-
-        //y tuong nhap thong tin bo sung
-//        if (selectedValue == '000701')
-//            document.getElementById('cust_sub').style.display = '';
-//        else
-//            document.getElementById('cust_sub').style.display = 'none';
-
         let province = selectedValue.substring(0, 4);
 
         $('#lstData_D32' + index + ' option').each(function () {
@@ -412,7 +405,7 @@
                         <td class="txtBody">
                             <s:property value="d15"/>
                         </td>
-                        <td class="txtBody"><input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d21" value="<s:property value='d21'/>" class="datepick <s:property value="d20"/>" style="width: 85px" <s:if test="flagPos.equalsIgnoreCase('0')"> disabled </s:if> ></td>
+                        <td class="txtBody"><input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d21" value="<s:property value='d21'/>" class="datepick <s:property value="d20"/>" style="width: 95px" <s:if test="flagPos.equalsIgnoreCase('0')"> disabled </s:if> ></td>
                         <td class="txtBody">
                             <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData_D22<s:property  value='%{#idxRows.index}' />" <s:if test="flagPos.equalsIgnoreCase('0')"> disabled </s:if> >
                                 <option value="01" <s:if test="d22.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Có thông tin địa chỉ cụ thể</option>
@@ -496,7 +489,7 @@
                                 <s:property value="D38"/>
                             </s:if>
                             <s:else>
-                                <input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d38" value="<s:property value='d38'/>" id="lstData38<s:property  value='%{#idxRows.index}' />" style="width: 85px">
+                                <input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d38" value="<s:property value='d38'/>" id="lstData38<s:property  value='%{#idxRows.index}' />" style="width: 95px">
                             </s:else>
                         </td>
 
@@ -513,7 +506,7 @@
                                 <s:property value="D40"/>
                             </s:if>
                             <s:else>
-                                <input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d40" value="<s:property value='d40'/>" id="lstData40<s:property  value='%{#idxRows.index}' />" style="width: 85px">
+                                <input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d40" value="<s:property value='d40'/>" id="lstData40<s:property  value='%{#idxRows.index}' />" style="width: 95px">
                             </s:else>
                         </td>	
                         <td class="txtBody">
@@ -550,8 +543,8 @@
                             <td class="txtBody">
                                     <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D27" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="flagPos.equalsIgnoreCase('1')"> disabled </s:if>><s:property value='d27'/> </textarea>
                             </td>
-                            <td><input style="width: 85px" type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d26" value="<s:property value='d26'/>" <s:if test="flagPos.equalsIgnoreCase('1')"> disabled </s:if> class="datepick <s:property value="d20"/>">
-                                <input style="width: 85px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d29" value="1" class="datepick <s:property value="d20"/>">
+                            <td><input style="width: 95px" type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d26" value="<s:property value='d26'/>" <s:if test="flagPos.equalsIgnoreCase('1')"> disabled </s:if> class="datepick <s:property value="d20"/>">
+                                <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d29" value="1" class="datepick <s:property value="d20"/>">
                             </td>
 
                     </tr>

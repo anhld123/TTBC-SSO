@@ -169,22 +169,7 @@ public class LeaveTheLocal extends ActionSupport {
     public String popupXuLyNo() throws Exception {
         try {
             _leaveHomeService = new LeaveHomeService();
-//            ListValue l0 = new ListValue("0", "--Chọn--");
-//            ListValue l1 = new ListValue("1", "Hộ vay cam kết trả nợ");
-//            ListValue l2 = new ListValue("2", "Đã trả nợ");
-//            ListValue l3 = new ListValue("3", "Bàn giao nợ");
-//            ListValue l4 = new ListValue("4", "Xem xét xử lý nợ rủi ro");
-//            ListValue l5 = new ListValue("5", "Hộ vay chưa hợp tác, tiếp tục đôn đốc");
-//            List<ListValue> lst = new ArrayList<>();
-//            lst.add(l0);
-//           lst.add(l1);
-//           lst.add(l2);
-//           lst.add(l3);
-//           lst.add(l4);
-//           lst.add(l5);
-//                    setLstXuLyNo(lst);
-            setLstXuLyNo(new DaoNghiquyet11cp().getDanhMuc("SYSTEM", "XULYNO", "1"));
-//            this.lstData = _leaveHomeService.getMembers(vsbpMaPgd, "S", vsbpMakh, "1") ;             
+            setLstXuLyNo(new DaoNghiquyet11cp().getDanhMuc("SYSTEM", "XULYNO", "1"));           
             this.lstData = homeDao.getDataDebtHandling("BO_DI_KHOI_DP_DH", vsbpMaPgd, "", "1", vsbpMakh);
         } catch (Exception e) {
             System.err.println("Loi trong ham saveData " + e.getMessage());
@@ -265,40 +250,7 @@ public class LeaveTheLocal extends ActionSupport {
                 }
                 return "success";
             } else {
-//phe duyet xoa   
-// gọi api xóa nhưng ko thành công
-//                try {
-//                    List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
-//                    // Lay ra danh sach ma khach hang duoc chon
-//                    List<String> lstSelectedCustomer = new ArrayList<>();
-//
-//                    for (int i = 0; i < this.lstData.size(); i++) {
-//                        if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
-//                            if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-//                                lstSelectedCustomer.add(this.lstData.get(i).getD11());
-//                            }
-//                        }
-//                    }
-//
-//                    for (int i = 0; i < this.lstData.size(); i++) {
-//                        if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-//                            lstSelectedData.add(this.lstData.get(i));
-//                        }
-//                    }
-//
-//                    String code = "";
-//                    _leaveHomeService = new LeaveHomeService();
-//                    final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
-//                    int _status = _leaveHomeService.clearCustomersLeave(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
-//                    System.err.println("_status=" + _status);
-//                    code = String.valueOf(_status);
-//                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-//                } catch (Exception e) {
-//                    System.err.println("Loi trong ham clearCustomersLeave " + e.getMessage());
-//                    CoreLogger.error(this.getClass().getName() + " clearCustomersLeave -> " + e.getMessage());
-//                }
-
-// chuyển trạng thái D50 =9 để làm trạng thái xóa
+                // chuyển trạng thái D50 =9 để làm trạng thái xóa
                 try {
                     List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
                     // Lay ra danh sach ma khach hang duoc chon
@@ -466,7 +418,6 @@ public class LeaveTheLocal extends ActionSupport {
             List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
             // Lay ra danh sach ma khach hang duoc chon
             List<String> lstSelectedCustomer = new ArrayList<>();
-
             for (int i = 0; i < this.lstData.size(); i++) {
                 if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
                     if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {

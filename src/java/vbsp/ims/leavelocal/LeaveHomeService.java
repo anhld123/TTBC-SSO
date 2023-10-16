@@ -138,24 +138,23 @@ public class LeaveHomeService {
                         _normalizeItem.setD23(data.get(i).getD23());
                         _normalizeItem.setD24(data.get(i).getD24());
                         _normalizeItem.setD25(data.get(i).getD25());
-                        
+
                         _normalizeItem.setD28(data.get(i).getD28());
                         _normalizeItem.setD29(data.get(i).getD29());
                         _normalizeItem.setD30(data.get(i).getD30());
                         _normalizeItem.setD31(data.get(i).getD31());
                         _normalizeItem.setD32(data.get(i).getD32());
                         _normalizeItem.setD33(data.get(i).getD33());
-                        
+
                         _normalizeItem.setD35(data.get(i).getD35());
                         _normalizeItem.setD36(data.get(i).getD36());
                         _normalizeItem.setD37(data.get(i).getD37());
                         _normalizeItem.setD38(data.get(i).getD38());
                         _normalizeItem.setD39(data.get(i).getD39());
                         _normalizeItem.setD40(data.get(i).getD40());
-                        
+
                         _normalizeItem.setD50(data.get(i).getD50());
-                    }
-                    else  //POS được đề nghị hỗ trợ
+                    } else //POS được đề nghị hỗ trợ
                     {
                         _normalizeItem.setD26(data.get(i).getD26());
                         _normalizeItem.setD27(data.get(i).getD27());
@@ -378,6 +377,12 @@ public class LeaveHomeService {
                     _normalizeItem.setD32(data.get(i).getD32());
                     _normalizeItem.setD33(data.get(i).getD33());
                     _normalizeItem.setD34(data.get(i).getD34());
+                    _normalizeItem.setD35(data.get(i).getD35());
+                    _normalizeItem.setD36(data.get(i).getD36());
+                    _normalizeItem.setD37(data.get(i).getD37());
+                    _normalizeItem.setD38(data.get(i).getD38());
+                    _normalizeItem.setD39(data.get(i).getD39());
+                    _normalizeItem.setD40(data.get(i).getD40());
                     _normalizeItem.setD50(data.get(i).getD50());
 
                     _lstNormalizeData.add(_normalizeItem);
