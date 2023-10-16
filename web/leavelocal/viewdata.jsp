@@ -382,7 +382,12 @@
                                 <s:property value="D11"/>
                             </s:if>
                             <s:else>
-                                <a href="javascript:funcXuLyNo('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="d35"/>', '<s:property value="d37"/>','<s:property value="D42"/>')"><s:property value="d11"/></a>
+                                <s:if test="D50.equalsIgnoreCase('1')">
+                                    <a href="javascript:funcXuLyNo('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="d35"/>', '<s:property value="d37"/>','<s:property value="D42"/>')"><s:property value="d11"/></a>
+                                </s:if> 
+                                <s:else>
+                                    <s:property value="D11"/>
+                                </s:else>
                             </s:else>
                         </td>
                         <td class="txtBody">
@@ -390,7 +395,13 @@
                                 <s:property value="D12"/>
                             </s:if>
                             <s:else>
-                                <a href="javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>')"><s:property value="d12"/></a>
+                                <s:if test="D50.equalsIgnoreCase('1')">
+                                    <a href="javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>')"><s:property value="d12"/></a>
+                                </s:if> 
+                                <s:else>
+                                    <s:property value="D12"/>
+                                </s:else>
+                                
                             </s:else>
                         </td>
                         <td class="txtBody">
