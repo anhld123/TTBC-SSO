@@ -413,38 +413,38 @@
                                 <s:property value="D16"/>
                             </s:if>
                             <s:else>
-                                <input style="text-align: center" type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" class="txtPublic" <s:if test="D42.equalsIgnoreCase('0')"> disabled </s:if> >
+                                <input style="text-align: center" type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" class="txtPublic" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                             </s:else>
                         </td>
                         <td class="txtBody">
                             <s:property value="d15"/>
                         </td>
-                        <td class="txtBody"><input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d21" value="<s:property value='d21'/>" class="datepick <s:property value="d20"/>" style="width: 95px" <s:if test="D42.equalsIgnoreCase('0')"> disabled </s:if> ></td>
+                        <td class="txtBody"><input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d21" value="<s:property value='d21'/>" class="datepick <s:property value="d20"/>" style="width: 95px" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> ></td>
                             <td class="txtBody">
-                                <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData_D22<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0')"> disabled </s:if> >
+                                <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData_D22<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                 <option value="01" <s:if test="d22.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Có thông tin địa chỉ cụ thể</option>
                                 <option value="02" <s:if test="d22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không có thông tin địa chỉ cụ thể</option>
                                 </select>
                             </td>
                             <td class="txtBody">
-                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d25" id="lstSubData_D25<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0')"> disabled </s:if> >
+                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d25" id="lstSubData_D25<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                 <option value="00" <s:if test="d25.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>>00: Khách hàng bỏ đi</option>
                                 <option value="01" <s:if test="d25.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Tất toán nợ</option>
                                 <option value="02" <s:if test="d25.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Xoá nợ</option>
                                 <option value="03" <s:if test="d25.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Trở về địa phương</option>
                                 </select></td>
                             <td class="txtBody">
-                                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D23" name="lstData[<s:property  value='%{#idxRows.index}' />].d23" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('0')"> disabled </s:if> ><s:property value='d23'/></textarea>
+                                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D23" name="lstData[<s:property  value='%{#idxRows.index}' />].d23" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> ><s:property value='d23'/></textarea>
                             </td>
                             <td class="txtBody" >
                                 <select onchange="onSelectChange_dnht(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" 
-                                    name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0')"> disabled </s:if> >
+                                    name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                 <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không đề nghị hỗ trợ</option>
                                 <option value="1" <s:if test="d33.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Đề nghị hỗ trợ</option>
 
                                 </select></td>
                             <td class="txtBody">
-                                    <select onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0')"> disabled </s:if> >
+                                    <select onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                     <option value="000000">Không xác định</option>
                                     <option value="999999">00 - Nước ngoài</option>
                                 <s:iterator value="lstCN" status="ideRows" var="language">
@@ -471,7 +471,7 @@
                             </select>   
                         </td>
                         <td>
-                            <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0')"> disabled </s:if> >
+                            <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                     <option value="000000">Không xác định</option>
                                     <option value="999999">00 - Nước ngoài</option>
                                 <s:iterator value="lstPGD" status="ideRows" var="language">
@@ -538,11 +538,11 @@
                                 <s:property value="D41"/>
                             </s:if>
                             <s:else>
-                                <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData41<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d41" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1')"> disabled </s:if>><s:property value='d41'/></textarea>
+                                <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData41<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d41" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if>><s:property value='d41'/></textarea>
                             </s:else>
                         </td>
                         <td class="txtBody">
-                            <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData24<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0')"> disabled </s:if> > 
+                            <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData24<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> > 
                                 <option value="01" <s:if test="d24.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Cam kết</option>
                                 <option value="02" <s:if test="d24.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không liên hệ được</option>
                                 <option value="03" <s:if test="d24.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Liên hệ được nhưng không cam kết</option>
@@ -550,12 +550,12 @@
                                 </select>
                             </td>
                             <td class="txtBody">
-                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData31<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0')"> disabled </s:if>> 
+                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData31<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if>> 
                                 <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
                                 <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
                                 </select></td>
                             <td class="txtBody">
-                                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D27" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1')"> disabled </s:if>><s:property value='d27'/> </textarea>
+                                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D27" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if>><s:property value='d27'/> </textarea>
                             </td>
                             <td><input style="width: 95px" type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d26" value="<s:property value='d26'/>" <s:if test="D42.equalsIgnoreCase('1')"> disabled </s:if> class="datepick <s:property value="d20"/>">
                             <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d29" value="1" class="datepick <s:property value="d20"/>">
