@@ -238,7 +238,7 @@ public class LeaveTheLocal extends ActionSupport {
                         }
                     }
                     for (DuLieuNTRow item : lstSelectedData) {
-                        item.setD36("2");
+                        item.setD50("2");
                     }
 
                     String code = "";

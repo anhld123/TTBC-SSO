@@ -151,7 +151,7 @@
                     <th class="hdtitle">Thông tin (100-200 ký tự)</th>
                     <th class="hdtitle">Chi nhánh hộ vay chuyển đến</th>
                     <th class="hdtitle">PGD hộ vay chuyển đến</th>
-                    <th class="hdtitle">Phản hồi của chi nhánh hộ vay chuyển đến </th>
+                    <th class="hdtitle">Đề nghị cung cấp thông tin</th>
                     <th class="hdtitle">Đề nghị hỗ trợ</th>
                     <th class="hdtitle">Kết quả thu hồi nợ</th>
                     <th class="hdtitle">Tình trạng xử lý nợ</th>
@@ -212,7 +212,7 @@
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
 
                             </s:if>
-                            <s:else>                                
+                            <s:else> 
                                 <input type="checkbox" class="myCheckBox" name="lstData[<s:property  value='%{#idxRows.index}' />].manualFlag" value="0" onclick="$(this).val(this.checked ? 1 : 0)">
                                 <% customerCount += 1;%>
                             </s:else>
@@ -236,7 +236,12 @@
                                 <s:property value="D12"/>
                             </s:if>
                             <s:else>
+                                <s:if test="D50.toString().equalsIgnoreCase('1')">
                                 <a href="javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>')"><s:property value="d12"/></a>
+                                </s:if>
+                                <s:else>
+                        <td class="txtBody"><s:property value="d12"/></td>            
+                                </s:else>
                             </s:else>
                         </td>
                         <td class="txtBody"><s:property value="d13"/></td>
@@ -290,7 +295,11 @@
                                 <option value="999999">Nước ngoài</option>
                             </select>
                         </td>
-                        <td class="txtBody"><s:property value="d31"/></td>                   
+                        <td class="txtBody">
+                                    <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData31<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if>> 
+                                <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
+                                <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
+                                </select></td>                  
                         <td class="txtBody">
                             <select onmousedown="return false"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />" >
                                 <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>Không đề nghị hỗ trợ</option>
