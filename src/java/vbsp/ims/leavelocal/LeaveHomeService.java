@@ -88,7 +88,7 @@ public class LeaveHomeService {
         return null;
     }
 
-    public int saveCustomers(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag, String posFlag1) {
+    public int saveCustomers(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
         try {
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
             if (sourceFlag.equals("0")) {
@@ -112,7 +112,7 @@ public class LeaveHomeService {
                     _normalizeItem.setPosFlag("S");
                     _normalizeItem.setBranchCode(data.get(i).getD3());
                     //Đơn vị cho vay và đơn vị được đề nghị hỗ trợ
-                    if (posFlag1.equals("1")) {
+//                    if (posFlag1.equals("1")) {
                         _normalizeItem.setD1(data.get(i).getD1());
                         _normalizeItem.setD2(data.get(i).getD2());
                         _normalizeItem.setD3(data.get(i).getD3());
@@ -154,14 +154,14 @@ public class LeaveHomeService {
                         _normalizeItem.setD40(data.get(i).getD40());
 
                         _normalizeItem.setD50(data.get(i).getD50());
-                    } else //POS được đề nghị hỗ trợ
-                    {
+//                    } else //POS được đề nghị hỗ trợ
+//                    {
                         _normalizeItem.setD26(data.get(i).getD26());
                         _normalizeItem.setD27(data.get(i).getD27());
                         _normalizeItem.setD34(data.get(i).getD34());
                         _normalizeItem.setD41(data.get(i).getD41());
-                        _normalizeItem.setD50(data.get(i).getD50());
-                    }
+//                        _normalizeItem.setD50(data.get(i).getD50());
+//                    }
                     _lstNormalizeData.add(_normalizeItem);
                 }
                 return _service.updateClhCustomers("BO_DI_KHOI_DP", posCode, "S", _reportDate, makerId, authoriseId, _lstNormalizeData);
@@ -175,7 +175,7 @@ public class LeaveHomeService {
 
     public int sendCustomers(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data) {
         try {
-            int _result = saveCustomers(posCode, posFlag, reportDate, makerId, authoriseId, data, "1", posFlag);
+            int _result = saveCustomers(posCode, posFlag, reportDate, makerId, authoriseId, data, "1");
             if (_result == 200) {
                 LeaveHomeDao _leaveHomeDao = new LeaveHomeDao();
                 int _status = _leaveHomeDao.updateUploadExcelDataStatus(posCode, posFlag, reportDate, makerId, authoriseId, data, "2");

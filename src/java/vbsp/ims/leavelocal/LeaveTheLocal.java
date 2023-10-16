@@ -132,16 +132,20 @@ public class LeaveTheLocal extends ActionSupport {
                 _openFlag = "1";
             }
             System.out.println("cap phe duyet = " + gradeAuthor1);
-            this.lstData = _leaveHomeService.getCustomers(txtsMadv, "S", txtMakh, sFromDate, sToDate, "1", _openFlag, gradeAuthor1, typeAuth);
-            
+            List<DuLieuNTRow> lstData_tmp = new ArrayList<DuLieuNTRow>();
+            lstData = new ArrayList<DuLieuNTRow>();
+            lstData_tmp = _leaveHomeService.getCustomers(txtsMadv, "S", txtMakh, sFromDate, sToDate, "1", _openFlag, gradeAuthor1, typeAuth);
             //Kiểm tra user thuộc pos cho vay hay không
-            if (!lstData.isEmpty() && lstData.size() > 0) {
-                if(txtsMadv.substring(2, 4).equals(lstData.get(0).getPosCode().substring(2, 4)))
-                    setFlagPos("1");
-                else  setFlagPos("0");
-            } else {
-                setFlagPos("0");
-            }
+            if (!lstData_tmp.isEmpty() && lstData_tmp.size() > 0) {
+                for (DuLieuNTRow item : lstData_tmp) {
+                    if (txtsMadv.substring(2, 4).equals(item.getPosCode().substring(2, 4))) {
+                        item.setD42("1");
+                    } else {
+                        item.setD42("0");
+                    }
+                    lstData.add(item);
+                }
+            }                                       
             lstCN = _leaveHomeService.getDonvi("M");
             lstPGD = _leaveHomeService.getDonvi("S");
         } catch (Exception e) {
@@ -169,7 +173,7 @@ public class LeaveTheLocal extends ActionSupport {
     public String popupXuLyNo() throws Exception {
         try {
             _leaveHomeService = new LeaveHomeService();
-            setLstXuLyNo(new DaoNghiquyet11cp().getDanhMuc("SYSTEM", "XULYNO", "1"));           
+            setLstXuLyNo(new DaoNghiquyet11cp().getDanhMuc("SYSTEM", "XULYNO", "1"));
             this.lstData = homeDao.getDataDebtHandling("BO_DI_KHOI_DP_DH", vsbpMaPgd, "", "1", vsbpMakh);
         } catch (Exception e) {
             System.err.println("Loi trong ham saveData " + e.getMessage());
@@ -202,8 +206,8 @@ public class LeaveTheLocal extends ActionSupport {
                 String code = "";
                 _leaveHomeService = new LeaveHomeService();
                 final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
-                System.out.println("flagPos = " + flagPos);
-                int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1",flagPos );
+//                System.out.println("flagPos = " + flagPos);
+                int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
                 code = String.valueOf(_status);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
             } catch (Exception e) {
@@ -240,8 +244,8 @@ public class LeaveTheLocal extends ActionSupport {
                     String code = "";
                     _leaveHomeService = new LeaveHomeService();
                     final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
-                    System.out.println("flagPos = " + flagPos);
-                    int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1", flagPos);
+//                    System.out.println("flagPos = " + flagPos);
+                    int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
                     code = String.valueOf(_status);
                     this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
                 } catch (Exception e) {
@@ -276,7 +280,7 @@ public class LeaveTheLocal extends ActionSupport {
                     String code = "";
                     _leaveHomeService = new LeaveHomeService();
                     final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
-                    int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1", flagPos);
+                    int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
                     code = String.valueOf(_status);
                     this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
                 } catch (Exception e) {
@@ -370,23 +374,24 @@ public class LeaveTheLocal extends ActionSupport {
                     //Kiểm trả trường hợp Đã thu nợ nhưng ko chọn ngày bắt đầu trả nợ
                     if (XuLyNo.equals("2")) {
                         System.out.println("startPaymentDate = " + startPaymentDate);
+                        if (startPaymentDate.length() < 8) {
+                            return ERROR;
+                        } else {
+                            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            Date date = inputFormat.parse(startPaymentDate);
+                            String output = outputFormat.format(date);
+                            System.out.println("startPaymentDate==== = " + output);
+                            item.setD37(output);
+                        }
                     }
-                    if (startPaymentDate.length() < 8) {
-                        return ERROR;
-                    } else {
-                        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
-                        Date date = inputFormat.parse(startPaymentDate);
-                        String output = outputFormat.format(date);
-                        System.out.println("startPaymentDate==== = " + output);
-                        item.setD37(output);
-                    }
+
                     lstData_tmp.add(item);
                 }
             }
             final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.vsbpNgayBC));
             //Cập nhật thông tin khách hàng xử lý nợ 
-            int _status = _leaveHomeService.saveCustomers(vsbpMaPgd, "S", sReportdt, this.sUser, this.sUser, lstData_tmp, "1", flagPos);
+            int _status = _leaveHomeService.saveCustomers(vsbpMaPgd, "S", sReportdt, this.sUser, this.sUser, lstData_tmp, "1");
             System.err.println("xulyno = " + lstData.get(0).getD35() + lstData.get(0).getD36() + lstData.get(0).getCode() + "_status = " + _status);
             code = String.valueOf(_status);
         } catch (Exception e) {
