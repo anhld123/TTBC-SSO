@@ -151,7 +151,6 @@
                     <th class="hdtitle">Thông tin (100-200 ký tự)</th>
                     <th class="hdtitle">Chi nhánh hộ vay chuyển đến</th>
                     <th class="hdtitle">PGD hộ vay chuyển đến</th>
-                    <th class="hdtitle">Đề nghị cung cấp thông tin</th>
                     <th class="hdtitle">Đề nghị hỗ trợ</th>
                     <th class="hdtitle">Kết quả thu hồi nợ</th>
                     <th class="hdtitle">Tình trạng xử lý nợ</th>
@@ -201,7 +200,7 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d26" value="<s:property value='d26'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" value="<s:property value='d27'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d29" value="<s:property value='d29'/>">                            
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d35" value="<s:property value='d35'/>">
+                            <!--<input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d35" value="<s:property value='d35'/>">-->
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d36" value="<s:property value='d36'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d37" value="<s:property value='d37'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d38" value="<s:property value='d38'/>">
@@ -231,18 +230,23 @@
                         <td class="txtBody"><s:property value="d8"/></td>
                         <td class="txtBody"><s:property value="d10"/></td>
                         <td class="txtBody"><s:property value="d11"/></td>
-                        <td class="txtBody">
-                            <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
-                                <s:property value="D12"/>
-                            </s:if>
-                            <s:else>
-                                <s:if test="D50.toString().equalsIgnoreCase('1')">
-                                <a href="javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>')"><s:property value="d12"/></a>
+                        <s:if test="D50.toString().equalsIgnoreCase('1')">
+                            <td class="txtBody">
+                                <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
+                                    <s:property value="D12"/>
                                 </s:if>
                                 <s:else>
-                        <td class="txtBody"><s:property value="d12"/></td>            
+                                    <a href="javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>')"><s:property value="d12"/></a>
                                 </s:else>
+                            </s:if>
+                            <s:else>
+                                <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
+                                    <s:property value="D12"/>
+                                </s:if>
+                                <s:else>
+                                <td class="txtBody"><s:property value="d12"/></td>
                             </s:else>
+                        </s:else>
                         </td>
                         <td class="txtBody"><s:property value="d13"/></td>
                         <td class="txtBody"><s:property value="d14"/></td>
@@ -294,14 +298,9 @@
                                 </s:iterator>
                                 <option value="999999">Nước ngoài</option>
                             </select>
-                        </td>
-                        <td class="txtBody">
-                                    <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData31<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if>> 
-                                <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
-                                <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
-                                </select></td>                  
-                        <td class="txtBody">
-                            <select onmousedown="return false"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />" >
+                        </td>                
+                            <td class="txtBody">
+                                    <select onmousedown="return false"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />" >
                                 <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>Không đề nghị hỗ trợ</option>
                                 <option value="1" <s:if test="d33.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>Đề nghị hỗ trợ</option>
 
@@ -318,7 +317,6 @@
                                 <option value="3" <s:if test="d35.equalsIgnoreCase('3')"> selected </s:if> <s:else></s:else>>Bàn giao nợ</option>
                                 <option value="4" <s:if test="d35.equalsIgnoreCase('4')"> selected </s:if> <s:else></s:else>>Xem xét xử lý nợ rủi ro</option>
                                 <option value="5" <s:if test="d35.equalsIgnoreCase('5')"> selected </s:if> <s:else></s:else>>Hộ vay chưa hợp tác, tiếp tục đôn đốc</option>
-
                                 </select></td>
                                 <td class="txtBody"><s:property value="d37"/></td>
                         <td class="txtBody">
