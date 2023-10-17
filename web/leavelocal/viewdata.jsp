@@ -355,15 +355,22 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d37" value="<s:property value='d37'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d50" value="<s:property value='d50'/>">
                         </td>
-                        <td class="txtBody">
-                            <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
-
+                        <td class="txtBody" >
+                            <s:if test="D50.toString().equalsIgnoreCase('1')">
+                                <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
+                                </s:if>
+                                <s:else> 
+                                    <input type="checkbox" class="myCheckBox" name="lstData[<s:property  value='%{#idxRows.index}' />].manualFlag" value="0" onclick="$(this).val(this.checked ? 1 : 0)">
+                                    <% customerCount += 1;%>
+                                </s:else>
                             </s:if>
-                            <s:else>                                
-                                <input type="checkbox" class="myCheckBox" name="lstData[<s:property  value='%{#idxRows.index}' />].manualFlag" value="0" onclick="$(this).val(this.checked ? 1 : 0)">
-                                <% customerCount += 1;%>
+                            <s:else>
+                                 <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
+                                </s:if>
+                                <s:else> 
+                                    <% customerCount += 1;%>
+                                </s:else>
                             </s:else>
-
                         </td>                                            
                         <td class="txtBody">                            
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')">                                 
