@@ -1111,6 +1111,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
                 tempadd.setD28(tmp.getD28());
                 tempadd.setD29(tmp.getD29());
                 tempadd.setD30(tmp.getD30());
+                tempadd.setD50(tmp.getD50());
                 tempadd.setFontFormat(tmp.getFONTFORMAT());
                 tempadd.setStyle(tmp.getKIEUIN());
                 lstUpdateDate.add(tempadd);

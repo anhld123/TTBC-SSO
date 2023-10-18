@@ -349,6 +349,8 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP" value="<s:property  value="CO_TONGHOP"/>"/> 
                                             <input type="hidden" value="<s:property  value="TEN" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" value="<s:property  value="TEN"/>"/> 
+                                            <input type="hidden" value="<s:property  value="D50" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D50" value="<s:property  value="D50"/>"/> 
                                         </td>
                                         <td>               
                                                <input type="text" value="<s:property  value="D1" />"  placeholder = "Không phát sinh"

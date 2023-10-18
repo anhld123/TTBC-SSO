@@ -306,7 +306,8 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>">
                                              <input type="hidden" value="<s:property  value="D2" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" value="<s:property  value="D2"/>">
-                                       
+                                             <input type="hidden" value="<s:property  value="D50" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D50" value="<s:property  value="D50"/>"/>
                                         </td>
                                         <s:if test="D7.equalsIgnoreCase('N')"> 
                                             <td style="width: 50%; color: black ; padding-left: 2px; background: #E7DCDA !important;  font-weight: bold;" readonly="true"><s:property value="D1"/></td>                         
