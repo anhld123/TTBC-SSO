@@ -197,7 +197,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
     }
 
     public String get_data_ktnb_bieu01() {
-        try {
+            try {
             userName = request.getSession().getAttribute("username").toString();
             reportGrade = request.getSession().getAttribute("reportGrade").toString();
             String Grade;
@@ -237,14 +237,15 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
                 setStatusAuthor("Huyện đã nhập");
             }
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb04: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb04: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> get_data_ktnb02: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> get_data_ktnb02: " + e.getMessage());
             addActionMessage("Lỗi tải báo cáo thất bại!");
             return "error";
         }
-
+        
         return "success";
     }
+
 
     public String get_data_ktnb_bieu02() {
         try {
@@ -556,12 +557,13 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             lstDL = _service.getDataKTKSNB("01_PCTN", pos_cd_username, Grade, _reportDate, "", "0");
 
             if (lstDL == null || lstDL.isEmpty()) {
+
             } else {
 
-                if (lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4") && lstDL.get(0).getCO_TONGHOP().equals("S")) {
+                if ((lstDL.get(0).getD50().equals("3") || lstDL.get(0).getD50().equals("4")) && reportGrade.equalsIgnoreCase("1")) {
                     addActionMessage("Cấp Tỉnh đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
-                } else if (lstDL.get(0).getD50().equals("4") && lstDL.get(0).getCO_TONGHOP().equals("M")) {
+                } else if (reportGrade.equalsIgnoreCase("2") && lstDL.get(0).getD50().equals("4")) {
                     addActionMessage("Cấp TW đã duyệt, bạn không thể sửa dữ liệu");
                     return "error";
                 }
@@ -593,15 +595,14 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
             }
 
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb_bieu01: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb_bieu01: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> save_data_ktnb_bieu04: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> save_data_ktnb_bieu04: " + e.getMessage());
             addActionMessage("Cập nhật không thành công");
             return "error";
         }
         addActionMessage("Cập nhật thành công");
         return "success";
     }
-
     public String save_data_ktnb_bieu02() throws SQLException {
         try {
             List<QT_DULIEU_NT> lstDL = new ArrayList<>();
