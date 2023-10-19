@@ -336,6 +336,8 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP" value="<s:property  value="CO_TONGHOP"/>"/> 
                                             <input type="hidden" value="<s:property  value="D50" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D50" value="<s:property  value="D50"/>"/>
+                                            <input type="hidden" value="<s:property  value="MA" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/> 
 
                                         </td>
                                         <s:if test="D9.equalsIgnoreCase('Y')">
