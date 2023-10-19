@@ -213,8 +213,8 @@
             <s:form name="frmdataKtnb06A" id="frmdataKtnb06A" action="save_data_ktnb_bieu01.action" theme="simple">
                 <table border="0" cellspacing="0" cellpading="0" height="100%" class="tblmain" >
                     <tr>
-                        <td colspan="3" style="font-size: 14px;">Biểu số 01: Tổng hợp kết quả về công tác phòng, chống tham nhũng<hr></td>                    
-                    </tr>
+                        <td colspan="3" style="font-size: 14px;">Biểu số 01: Tổng hợp kết quả về công tác phòng, chống tham nhũng<font color="red"> (TT duyệt: <s:property value="statusAuthor"/>)</font><hr></td>                    
+                    </tr>   
                     <tr>
                         <td width="80%" >
                             <b>Phòng giao dịch: </b><input class="TD_TENKH1234" type="text" name="posCD" id="posCD" value="<s:property value="pos_cd_username"/>" readonly="readonly"/>
