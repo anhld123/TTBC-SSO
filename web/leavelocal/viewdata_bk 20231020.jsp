@@ -196,6 +196,7 @@
 //                alert (value +  '---'+ i)
                     if (value == '1')
                     {
+//                        alert (value +  '---'+ i)
                         document.getElementById("lstData38" + i).disabled = false;
                         document.getElementById("lstData39" + i).disabled = false;
                         document.getElementById("lstData40" + i).disabled = false;
@@ -284,7 +285,7 @@
                     <th rowspan="2" class="hdtitle">Tên PGD</th>
                     <th rowspan="2" class="hdtitle">Tên xã</th>
                     <th rowspan="2" class="hdtitle">Tên tổ trưởng</th>
-                    <th rowspan="2" class="hdtitle">Mã KH</th>
+                    <th rowspan="2" class="hdtitle">Mã KH <br>(Tình hình xử lý nợ)</th>
                     <th rowspan="2" class="hdtitle">Tên KH vay vốn</th>
                     <th rowspan="2" class="hdtitle">Năm sinh</th>
                     <th rowspan="2" class="hdtitle">CMT/CCCD</th>
@@ -292,24 +293,22 @@
                     <th rowspan="2" class="hdtitle">Loại đối tượng</th>
                     <th rowspan="2" class="hdtitle">Thời điểm đi</th>
                     <th rowspan="2" class="hdtitle">Mã nhóm</th>
-                    <th rowspan="2" class="hdtitle">Đề nghị<br>cung cấp<br>thông tin</th>
                     <th rowspan="2" class="hdtitle">Mã quản lý</th>
                     <th rowspan="2" class="hdtitle">Thông tin <br>(100-200 ký tự)</th>
-                    <th rowspan="2"class="hdtitle">Chi nhánh hộ vay <br>chuyển đến</th>
-                    <th rowspan="2" class="hdtitle">PGD hộ vay <br>chuyển đến</th>
-                    <th rowspan="2" class="hdtitle">Đề nghị hỗ trợ</th>
+                    <th colspan="6" class="hdtitle">Đề nghị hỗ trợ</th>
                     <th colspan="2" class="hdtitle">Kết quả hỗ trợ</th>
                     <th rowspan="2" class="hdtitle">Tổ chức CT-XH rà soát</th>
-                    
+                    <th rowspan="2" class="hdtitle">Đề nghị<br>cung cấp<br>thông tin</th>
                     <th rowspan="2" class="hdtitle">Thông tin hỗ trợ</th>
                     <th rowspan="2" class="hdtitle">Ngày cập nhật<br>thông tin</th>
                 </tr>
                 <tr>
-                    <!--<th class="hdtitle">Đề nghị hỗ trợ</th>-->
-                    
-<!--                    <th class="hdtitle">Ngày đề nghị</th>
+                    <th class="hdtitle">Đề nghị hỗ trợ</th>
+                    <th class="hdtitle">Chi nhánh hộ vay <br>chuyển đến</th>
+                    <th class="hdtitle">PGD hộ vay <br>chuyển đến</th>
+                    <th class="hdtitle">Ngày đề nghị</th>
                     <th class="hdtitle">Số văn bản đề nghị</th>
-                    <th class="hdtitle">Ngày hết hiệu lực <br>đề nghị</th>-->
+                    <th class="hdtitle">Ngày hết hiệu lực <br>đề nghị</th>
                     <th class="hdtitle">Kết quả hỗ trợ</th>
                     <th class="hdtitle">Kết quả hỗ trợ<br>(Trường hợp 5)</th>
                 </tr>
@@ -387,8 +386,17 @@
                         <td class="txtBody"><div class="<s:property value="d20"/>"><s:property value="d8"/></div></td>
                         <td class="txtBody"><div class="<s:property value="d20"/>"><s:property value="d10"/></div></td>
                         <td class="txtBody">
-                            <s:property value="D11"/>
-                            
+                            <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
+                                <s:property value="D11"/>
+                            </s:if>
+                            <s:else>
+                                <s:if test="D50.equalsIgnoreCase('1')">
+                                    <a href="javascript:funcXuLyNo('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="d35"/>', '<s:property value="d37"/>','<s:property value="D42"/>')"><s:property value="d11"/></a>
+                                </s:if> 
+                                <s:else>
+                                    <s:property value="D11"/>
+                                </s:else>
+                            </s:else>
                         </td>
                         <td class="txtBody">
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
@@ -427,12 +435,6 @@
                                 </select>
                             </td>
                             <td class="txtBody">
-                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData31<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if>> 
-                                <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
-                                <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
-                                </select></td>
-                                
-                            <td class="txtBody">
                                     <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d25" id="lstSubData_D25<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                 <option value="00" <s:if test="d25.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>>00: Khách hàng bỏ đi</option>
                                 <option value="01" <s:if test="d25.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Tất toán nợ</option>
@@ -442,6 +444,13 @@
                             <td class="txtBody">
                                     <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D23" name="lstData[<s:property  value='%{#idxRows.index}' />].d23" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> ><s:property value='d23'/></textarea>
                             </td>
+                            <td class="txtBody" >
+                                <select onchange="onSelectChange_dnht(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" 
+                                    name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
+                                <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không đề nghị hỗ trợ</option>
+                                <option value="1" <s:if test="d33.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Đề nghị hỗ trợ</option>
+
+                                </select></td>
                             <td class="txtBody">
                                     <select onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                     <option value="000000">Không xác định</option>
@@ -496,16 +505,8 @@
                                 </s:iterator>                                
                             </select>    
                         </td>
-                            <td class="txtBody" >
-                                <select onchange="onSelectChange_dnht(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" 
-                                    name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
-                                <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không đề nghị hỗ trợ</option>
-                                <option value="1" <s:if test="d33.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Đề nghị hỗ trợ</option>
 
-                                </select></td>
-                            
-
-<!--                        <td class="txtBody">
+                        <td class="txtBody">
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                                 <s:property value="D38"/>
                             </s:if>
@@ -529,7 +530,7 @@
                             <s:else>
                                 <input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d40" value="<s:property value='d40'/>" id="lstData40<s:property  value='%{#idxRows.index}' />" style="width: 95px">
                             </s:else>
-                        </td>	-->
+                        </td>	
                         <td class="txtBody">
                             <select onchange="onSelectChange_dnht1(this.value, <s:property  value='%{#idxRows.index}'/>)" <s:if test="D42.equalsIgnoreCase('1')"> disabled </s:if>
                                     class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d34" id="lstSubData34<s:property  value='%{#idxRows.index}' />">
@@ -557,7 +558,11 @@
                                 <option value="04" <s:if test="d24.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>04: Liên hệ được nhưng không nhận nợ</option>
                                 </select>
                             </td>
-                            
+                            <td class="txtBody">
+                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData31<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if>> 
+                                <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
+                                <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
+                                </select></td>
                             <td class="txtBody">
                                     <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D27" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if>><s:property value='d27'/> </textarea>
                             </td>
