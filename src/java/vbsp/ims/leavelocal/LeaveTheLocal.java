@@ -253,6 +253,43 @@ public class LeaveTheLocal extends ActionSupport {
                     CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
                 }
                 return "success";
+            }
+                else if (typeAuth.equals("4")) // đề nghị cung cấp thông tin
+            {
+                try {
+                    List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
+                    // Lay ra danh sach ma khach hang duoc chon
+                    List<String> lstSelectedCustomer = new ArrayList<>();
+
+                    for (int i = 0; i < this.lstData.size(); i++) {
+                        if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
+                            if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                                lstSelectedCustomer.add(this.lstData.get(i).getD11());
+                            }
+                        }
+                    }
+
+                    for (int i = 0; i < this.lstData.size(); i++) {
+                        if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                            lstSelectedData.add(this.lstData.get(i));
+                        }
+                    }
+                    for (DuLieuNTRow item : lstSelectedData) {
+                        item.setD50("2");
+                    }
+
+                    String code = "";
+                    _leaveHomeService = new LeaveHomeService();
+                    final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
+//                    System.out.println("flagPos = " + flagPos);
+                    int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
+                    code = String.valueOf(_status);
+                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                } catch (Exception e) {
+                    System.err.println("Loi trong ham saveData " + e.getMessage());
+                    CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
+                }
+                return "success";
             } else {
                 // chuyển trạng thái D50 =9 để làm trạng thái xóa
                 try {

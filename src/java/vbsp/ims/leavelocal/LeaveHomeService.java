@@ -63,7 +63,21 @@ public class LeaveHomeService {
                             lstTmp.add(item);
                         }
                     }
+                } 
+                else if (customerCode == null || customerCode.isEmpty()) {
+                    lstReturn = _service.getClhCustomers("BO_DI_KHOI_DP", posCode, "S", "", _fromDate, _toDate, openFlag);
                 } else {
+                    lstReturn = _service.getClhCustomers("BO_DI_KHOI_DP", posCode, "S", customerCode, _fromDate, _toDate, openFlag);
+                }
+                System.err.println("lstReturn = " + lstReturn.size());
+                if (typeAuth.equals("4")) {
+                    for (DuLieuNTRow item : lstReturn) {
+                        if (item.getD20().equals("HOVAY") && (item.getD50() == null ? "0" : item.getD50()).equals("4")) {
+                            lstTmp.add(item);
+                        }
+                    }
+                } 
+                else {
                     if (customerCode == null || customerCode.isEmpty()) {
                         lstReturn = _service.getDelete("BO_DI_KHOI_DP", posCode, "S", "", _fromDate, _toDate);
                     } else {
@@ -78,6 +92,7 @@ public class LeaveHomeService {
                             }
                         }
                     }
+                    
                 }
                 return lstTmp;
             } catch (Exception e) {
