@@ -137,9 +137,9 @@
     function onSelectChange_dnht(value, index) {
         if (value == '1')
         {
-            document.getElementById("lstData38" + index).disabled = false;
-            document.getElementById("lstData39" + index).disabled = false;
-            document.getElementById("lstData40" + index).disabled = false;
+//            document.getElementById("lstData38" + index).disabled = false;
+//            document.getElementById("lstData39" + index).disabled = false;
+//            document.getElementById("lstData40" + index).disabled = false;
 
             var var2, vartxt, selected;
             $("#lstData_D30" + index).children().remove().end();
@@ -170,9 +170,9 @@
             onSelectChange(index);
         } else
         {
-            document.getElementById("lstData38" + index).disabled = true;
-            document.getElementById("lstData39" + index).disabled = true;
-            document.getElementById("lstData40" + index).disabled = true;
+//            document.getElementById("lstData38" + index).disabled = true;
+//            document.getElementById("lstData39" + index).disabled = true;
+//            document.getElementById("lstData40" + index).disabled = true;
 
             $("#lstData_D30" + index).children().remove().end();
             $("#lstData_D30" + index).prepend("<option value='000000' selected> Không xác định </option>");
@@ -200,21 +200,21 @@
 //                alert (value +  '---'+ i)
                     if (value == '1')
                     {
-                        document.getElementById("lstData38" + i).disabled = false;
-                        document.getElementById("lstData39" + i).disabled = false;
-                        document.getElementById("lstData40" + i).disabled = false;
+//                        document.getElementById("lstData38" + i).disabled = false;
+//                        document.getElementById("lstData39" + i).disabled = false;
+//                        document.getElementById("lstData40" + i).disabled = false;
                     } else
                     {
                         //            alert('vao')
-                        document.getElementById("lstData38" + i).disabled = true;
-                        document.getElementById("lstData39" + i).disabled = true;
-                        document.getElementById("lstData40" + i).disabled = true;
+//                        document.getElementById("lstData38" + i).disabled = true;
+//                        document.getElementById("lstData39" + i).disabled = true;
+//                        document.getElementById("lstData40" + i).disabled = true;
                     }
                 }
                 {
-                    document.getElementById("lstData38" + i).disabled = true;
-                    document.getElementById("lstData39" + i).disabled = true;
-                    document.getElementById("lstData40" + i).disabled = true;
+//                    document.getElementById("lstData38" + i).disabled = true;
+//                    document.getElementById("lstData39" + i).disabled = true;
+//                    document.getElementById("lstData40" + i).disabled = true;
                 }
             } catch (e) {
 
@@ -485,7 +485,7 @@
                             <td class="txtBody">
                                     <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D23" name="lstData[<s:property  value='%{#idxRows.index}' />].d23" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> ><s:property value='d23'/></textarea>
                             </td>
-                            <td class="txtBody">
+                            <td>
                                 <select onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                     <option value="000000">Không xác định</option>
                                     <option value="999999">00 - Nước ngoài</option>
@@ -513,7 +513,7 @@
                             </select>   
                         </td>
                         <td>
-                            <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
+                            <select style="width: 200px"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                     <option value="000000">Không xác định</option>
                                     <option value="999999">00 - Nước ngoài</option>
                                 <s:iterator value="lstPGD" status="ideRows" var="language">
@@ -526,7 +526,7 @@
                                 </s:iterator>                                
                             </select>
 
-                            <select class="THANHVIEN" id="lstData_D32_tmp<s:property  value='%{#idxRows.index}' />"  cssStyle="display:none;">
+                                <select style="width: 200px" class="THANHVIEN" id="lstData_D32_tmp<s:property  value='%{#idxRows.index}' />"  cssStyle="display:none;">
                                 <option value="000000">Không xác định</option>
                                 <option value="999999">00 - Nước ngoài</option>
                                 <s:iterator value="lstPGD" status="ideRows" var="language">
@@ -544,10 +544,8 @@
                                     name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                 <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không đề nghị hỗ trợ</option>
                                 <option value="1" <s:if test="d33.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Đề nghị hỗ trợ</option>
-
-                                </select></td>
-
-
+                                </select>
+                        </td>
                             <!--                        <td class="txtBody">
                         <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                             <s:property value="D38"/>
