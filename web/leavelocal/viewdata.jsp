@@ -301,7 +301,7 @@
                     <th rowspan="2" class="hdtitle">Thông tin <br>(100-200 ký tự)</th>
                     <th rowspan="2"class="hdtitle">Chi nhánh hộ vay <br>chuyển đến</th>
                     <th rowspan="2" class="hdtitle">PGD hộ vay <br>chuyển đến</th>
-                    <th rowspan="2" class="hdtitle">Đề nghị hỗ trợ</th>
+                    <th rowspan="2" class="hdtitle" style="width: 200px" >Đề nghị hỗ trợ</th>
                     <th colspan="2" class="hdtitle">Kết quả hỗ trợ</th>
                     <th rowspan="2" class="hdtitle">Tổ chức CT-XH rà soát</th>
 
@@ -526,7 +526,7 @@
                                 </s:iterator>                                
                             </select>
 
-                                <select style="width: 200px" class="THANHVIEN" id="lstData_D32_tmp<s:property  value='%{#idxRows.index}' />"  cssStyle="display:none;">
+                            <select style="width: 200px" class="THANHVIEN" id="lstData_D32_tmp<s:property  value='%{#idxRows.index}' />"  cssStyle="display:none;">
                                 <option value="000000">Không xác định</option>
                                 <option value="999999">00 - Nước ngoài</option>
                                 <s:iterator value="lstPGD" status="ideRows" var="language">
@@ -540,39 +540,16 @@
                             </select>    
                         </td>
                         <td class="txtBody" >
-                            <select onchange="onSelectChange_dnht(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" 
+                            <select onchange="showHref(); onSelectChange_dnht(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" 
                                     name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                 <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không đề nghị hỗ trợ</option>
                                 <option value="1" <s:if test="d33.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Đề nghị hỗ trợ</option>
                                 </select>
-                        </td>
-                            <!--                        <td class="txtBody">
-                        <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
-                            <s:property value="D38"/>
-                        </s:if>
-                        <s:else>
-                            <input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d38" value="<s:property value='d38'/>" id="lstData38<s:property  value='%{#idxRows.index}' />" style="width: 95px" >
-                        </s:else>
-                    </td>
+                                <a id="myLink" href=""></a>
+                            </td>
 
-                    <td class="txtBody">
-                        <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
-                            <s:property value="D39"/>
-                        </s:if>
-                        <s:else>
-                            <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData39<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d39" class="autoHeight <s:property value="d20"/>"><s:property value='d39'/></textarea>
-                        </s:else>
-                    </td>	
-                    <td class="txtBody">
-                        <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
-                            <s:property value="D40"/>
-                        </s:if>
-                        <s:else>
-                            <input type="date" name="lstData[<s:property  value='%{#idxRows.index}' />].d40" value="<s:property value='d40'/>" id="lstData40<s:property  value='%{#idxRows.index}' />" style="width: 95px">
-                        </s:else>
-                    </td>	-->
-                        <td class="txtBody">
-                            <select onchange="onSelectChange_dnht1(this.value, <s:property  value='%{#idxRows.index}'/>)" <s:if test="D42.equalsIgnoreCase('1')"> disabled </s:if>
+                            <td class="txtBody">
+                                    <select onchange="onSelectChange_dnht1(this.value, <s:property  value='%{#idxRows.index}'/>)" <s:if test="D42.equalsIgnoreCase('1')"> disabled </s:if>
                                     class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d34" id="lstSubData34<s:property  value='%{#idxRows.index}' />">
                                 <option value="0" <s:if test="d34.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>00: Chưa rà soát</option>
                                 <option value="1" <s:if test="d34.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>01: Khách hàng cam kết thực hiện nghĩa vụ trả nợ</option>
@@ -641,4 +618,17 @@
             }
         });
     });
+
+     function showHref() {
+    var select = document.getElementById("lstSubData_D331");
+    var link = document.getElementById("myLink");
+    var value = $('#lstSubData_D33' + i).find(":selected").val();
+    alert('vao 1');
+    if (select.value !== "0") {
+        alert('vao 1' + select.value);
+      link.href = "javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>')";
+      link.textContent = "Chọn";
+    } else {
+    }
+  }
 </script>
