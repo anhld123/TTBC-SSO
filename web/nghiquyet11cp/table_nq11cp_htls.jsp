@@ -102,10 +102,10 @@
             </br>
             <div id="divTitle">
                 <s:if test="chotsl.equalsIgnoreCase('1')">                     
-                    XÁC NHẬN <font color="red">SỐ TIỀN</font> ĐƯỢC HTLS CHO VAY CÁC CHƯƠNG TRÌNH TÍN DỤNG CHÍNH SÁCH THEO NGHỊ QUYẾT 11/NQ-CP CỦA THỦ TƯỚNG CHÍNH PHỦ 
+                    XÁC NHẬN <font color="red">MÓN VAY/ SỐ TIỀN</font> ĐƯỢC HTLS CHO VAY CÁC CHƯƠNG TRÌNH TÍN DỤNG CHÍNH SÁCH THEO NGHỊ QUYẾT 11/NQ-CP CỦA THỦ TƯỚNG CHÍNH PHỦ 
                 </s:if>              
                 <s:else>
-                    XÁC NHẬN <font color="red">MÓN VAY</font> ĐƯỢC HTLS CHO VAY CÁC CHƯƠNG TRÌNH TÍN DỤNG CHÍNH SÁCH THEO NGHỊ QUYẾT 11/NQ-CP CỦA THỦ TƯỚNG CHÍNH PHỦ 
+                    XÁC NHẬN <font color="red">MÓN VAY/ SỐ TIỀN</font> ĐƯỢC HTLS CHO VAY CÁC CHƯƠNG TRÌNH TÍN DỤNG CHÍNH SÁCH THEO NGHỊ QUYẾT 11/NQ-CP CỦA THỦ TƯỚNG CHÍNH PHỦ 
                 </s:else>    
                 <div id="luu_thanhcong_del"></div>
             </div>
@@ -381,7 +381,7 @@
                                            readonly="true"/>
                                 </td>
                                 <!--Lai giam cac tháng-->
-                                <s:if test="chotsl.equalsIgnoreCase('0')">
+                                <s:if test="!chotsl.equalsIgnoreCase('0')">
                                 <!--<input type="hidden" value="<s:property  value="D18" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" value="<s:property  value="D18"/>"/>-->            
                                 <input type="hidden" value="<s:property  value="D19" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" value="<s:property  value="D19"/>"/>            
                                 <input type="hidden" value="<s:property  value="D20" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" value="<s:property  value="D20"/>"/>            
