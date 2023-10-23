@@ -503,7 +503,10 @@
                                                 <select name="giaingan" id="giaingan">
                                                     <option value="-1">--Tất cả--</option>
                                                     <!--<option value="1">Món vay tất toán</option>-->                                                    
-                                                    <option value="2">Giải ngân sau 31/5/2022</option>        
+                                                    <!--<option value="2">Giải ngân sau 31/5/2022</option>-->    
+                                                    <option value="3">Giải ngân đến 30/9/2023</option>  
+                                                    <option value="4">Giải ngân sau 30/9/2023</option>  
+                                                    <option value="5">Trả nợ sau 30/9/2023</option>  
                                                 </select>
                                             </td>         
 
@@ -578,7 +581,7 @@
         </div>
         <script>
         $(document).ready(function () {            
-            document.getElementById('ngay_bc_DATE').value = "30/06/2022";
+            document.getElementById('ngay_bc_DATE').value = "31/10/2023";
         })
         </script>
     </div>

@@ -108,6 +108,16 @@
         var url = "/IMS_REPORTS/popupXuLyNo.action?" + urlParam;
         popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
     }
+    
+    function funcDeNghiHT(maPgd, maKH, tenKH,  flagPos, ngayDNHT, vbDNHT) {
+        var w = 500, h = 300;
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 2);
+        var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent(tenKH) 
+                 + "&flagPos=" + flagPos + "&ngaydenghi=" + ngayDNHT + "&sovbdenghi=" + vbDNHT + "&vbsprandom=" + Math.random();
+        var url = "/IMS_REPORTS/popupDeNghiHT.action?" + urlParam;
+        popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+    }
 
     function onSelectChange(index) {
 
@@ -133,6 +143,8 @@
             }
         });
     }
+
+
 
     function onSelectChange_dnht(value, index) {
         if (value == '1')
@@ -166,8 +178,17 @@
             $("#lstData_D32" + index).html($("#lstData_D32" + index + " option").sort(function (a, b) {
                 return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
             }));
-
+            document.getElementById("lstDNHT_D33" + index).style.visibility="visible";
             onSelectChange(index);
+
+//            var w = 500, h = 300;
+//            var left = (screen.width / 2) - (w / 2);
+//            var top = (screen.height / 2) - (h / 2);
+//            var urlParam = "vsbpMaPgd=" + "maPgd" + "&vsbpMakh=" + "maKH" + "&vsbpTenKh=" + encodeURIComponent("tenKH") + "&vsbpNgayBC=" + $("#txtNgayBc").val()
+//                    + "&XuLyNo=" + "XuLyNo" + "startPayment" + "&flagPos=" + "flagPos" + "&vbsprandom=" + Math.random();
+//            var url = "/IMS_REPORTS/popupXuLyNo.action?" + urlParam;
+//            popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+
         } else
         {
 //            document.getElementById("lstData38" + index).disabled = true;
@@ -181,7 +202,30 @@
             $("#lstData_D32" + index).children().remove().end();
             $("#lstData_D32" + index).prepend("<option value='000000' selected> Không xác định </option>");
             $("#lstData_D32" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
+//            document.getElementById("lstDNHT_D33" + index).disabled = false;
+            document.getElementById("lstDNHT_D33" + index).style.visibility="hidden";
         }
+
+
+
+    }
+
+    function onSelectChange_dcct(value, index) {
+        try {
+            if (value == '01')
+            {
+//                alert('vap')
+//                document.getElementById("lstSubData31" + i).disabled = true;
+                document.getElementById('lstSubData31' + i).removeAttribute("disabled");
+//            $('#lstSubData31' + i).find(":selected").val() = '0';
+            } else
+//                document.getElementById("lstSubData31" + i).disabled = false;
+                    document.getElementById('lstSubData31' + i).setAttribute("disabled","disabled");
+        } catch (e) {
+
+        }
+
+
     }
 
     function initTable()
@@ -189,22 +233,27 @@
         var table = document.getElementById("subTable");
         var rowcount = table.rows.length;
         rowcount = rowcount > max_row ? rowcount : max_row;
-//        alert('row=' + rowcount)
+        alert('row=' + rowcount)
         for (var i = 0; i < rowcount; i++)
         {
             try {
-                var flagPos = document.getElementById('lstData42' + i).value
+                var flagPos = document.getElementById('lstData42' + i).value;
+//                 alert (flagPos +  '---'+ i)
                 if (flagPos = '1')
                 {
                     var value = $('#lstSubData_D33' + i).find(":selected").val();
-//                alert (value +  '---'+ i)
+                alert (value +  '---'+ i)
                     if (value == '1')
                     {
+                        document.getElementById("lstDNHT_D33" + i).style.visibility="visible";
+//                        document.getElementById("lstDNHT_D33"  index).style.visibility="hidden";
 //                        document.getElementById("lstData38" + i).disabled = false;
 //                        document.getElementById("lstData39" + i).disabled = false;
 //                        document.getElementById("lstData40" + i).disabled = false;
                     } else
                     {
+                        document.getElementById("lstDNHT_D33" + i).style.visibility="hidden";
+//                        document.getElementById("lstDNHT_D33" + index).style.visibility="visible";
                         //            alert('vao')
 //                        document.getElementById("lstData38" + i).disabled = true;
 //                        document.getElementById("lstData39" + i).disabled = true;
@@ -464,7 +513,7 @@
                             </s:else>
                         </td>
                         <td class="txtBody">
-                            <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData_D22<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
+                            <select onchange="onSelectChange_dcct(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData_D22<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                 <option value="01" <s:if test="d22.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Có thông tin địa chỉ cụ thể</option>
                                 <option value="02" <s:if test="d22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không có thông tin địa chỉ cụ thể</option>
                                 </select>
@@ -540,12 +589,21 @@
                             </select>    
                         </td>
                         <td class="txtBody" >
-                            <select onchange="showHref(); onSelectChange_dnht(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" 
+                            <select onchange="onSelectChange_dnht(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" 
                                     name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                 <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không đề nghị hỗ trợ</option>
                                 <option value="1" <s:if test="d33.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Đề nghị hỗ trợ</option>
                                 </select>
-                                <a id="myLink" href=""></a>
+                                <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
+                            </s:if>
+                                <s:else>
+                                    <a href="javascript:funcDeNghiHT('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>', '<s:property value="D38"/>', '<s:property value="D39"/>')"  
+                                   id="lstDNHT_D33<s:property  value='%{#idxRows.index}' />"
+                                   
+                                   >link</a>
+                                </s:else>
+                                
+                                
                             </td>
 
                             <td class="txtBody">
@@ -578,6 +636,8 @@
 
                             <td class="txtBody">
                                     <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D27" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if>><s:property value='d27'/> </textarea>
+                                    <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d42" id="lstData42<s:property  value='%{#idxRows.index}' />" 
+                                   value="<s:property  value="D42" />" >
                             </td>
                             <td>
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
@@ -619,16 +679,18 @@
         });
     });
 
-     function showHref() {
-    var select = document.getElementById("lstSubData_D331");
-    var link = document.getElementById("myLink");
-    var value = $('#lstSubData_D33' + i).find(":selected").val();
-    alert('vao 1');
-    if (select.value !== "0") {
-        alert('vao 1' + select.value);
-      link.href = "javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>')";
-      link.textContent = "Chọn";
-    } else {
-    }
-  }
+//    function showHref() {
+//        var select = document.getElementById("lstSubData_D331");
+//        var link = document.getElementById("myLink");
+//        var value = $('#lstSubData_D33' + i).find(":selected").val();
+//        alert('vao 1');
+//        if (value 1 == "1") {
+//            alert('vao 1' + select.value);
+//            link.href = "javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>')";
+//            link.textContent = "Chọn";
+//        } else {
+//        }
+//    }
+
+
 </script>

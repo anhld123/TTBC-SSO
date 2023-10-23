@@ -296,8 +296,13 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                         if ((phanloai.equals("-1") || phanloai.equals(item.getPaymentFlag()))
                                 && (sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode()))
                                 //                                && (sGiaingan.equals("-1") || sdf.parse(item.getDisbursalDate()).after(df1.parse("04/01/2022")))
-                                && (sGiaingan.equals("1") ? item.getLoanStatus().equals("C") : sGiaingan.equals("2")
-                                ? sdf.parse(item.getDisbursalDate()).after(df1.parse("06/01/2022")) : sdf.parse(item.getDisbursalDate()).after(df1.parse("06/01/1990")))) {
+                                && (sGiaingan.equals("1") ? item.getLoanStatus().equals("C") : 
+//                                sGiaingan.equals("2") ? sdf.parse(item.getDisbursalDate()).after(df1.parse("06/01/2022")) : sau ngay ngày 31/5/2022
+//                                sGiaingan.equals("3") ? sdf.parse(item.getDisbursalDate()).before(df1.parse("30/09/2023")) : 
+                                sGiaingan.equals("3") ? !sdf.parse(item.getDisbursalDate()).after(df1.parse("10/01/2023")) : 
+                                sGiaingan.equals("4") ? sdf.parse(item.getDisbursalDate()).after(df1.parse("10/01/2023")) : 
+                                sGiaingan.equals("5") ? sdf.parse(item.getLastPaymentDate()).after(df1.parse("10/01/2023")) : 
+                                sdf.parse(item.getDisbursalDate()).after(df1.parse("06/01/1990")))) {
                             i++;
                             dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
                             dn_quahan = dn_quahan + (long) item.getOverdueAmt();

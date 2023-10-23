@@ -245,7 +245,8 @@
                                 if (data === "200") {
                                     alert("Thành công: Lưu dữ liệu.");
                                     $("#idSearch").trigger("click");
-                                } else {
+                                }
+                                else {
                                     alert("Lỗi: Lưu dữ liệu.");
                                 }
                             },
@@ -282,7 +283,12 @@
                                 if (data === "200") {
                                     alert("Thành công: Gửi dữ liệu.");
                                     $("#viewData").html('<h2 style="color:red;">Gửi dữ liệu thành công!</h2>');
-                                } else {
+                                }
+//                                else if(data === "1") {
+//                                    alert("Khi chọn cột 13 là 01 bạn không được để trống thông tin cột 16, 17, 18.");
+////                                    $("#viewData").html('<h2 style="color:red;">Gửi dữ liệu thành công!</h2>');
+//                                }
+                                else {
                                     alert("Lỗi: Gửi dữ liệu.");
                                 }
                             },
