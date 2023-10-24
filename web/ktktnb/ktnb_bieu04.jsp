@@ -340,7 +340,11 @@
                                             <input type="hidden" value="<s:property  value="D9" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/>
                                             <input type="hidden" value="<s:property  value="TEN" />"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" value="<s:property  value="TEN"/>"/>                                         
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" value="<s:property  value="TEN"/>"/>
+                                             <input type="hidden" value="<s:property  value="MA" />"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/> 
+                                               <input type="hidden" value="<s:property  value="D50" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D50" value="<s:property  value="D50"/>"/>
                                         </td>                                  
                                           <td style="width: 50%; color: black ; padding-left: 2px; font-weight: normal;" readonly="true"><s:property value="D1"/></td>                         
                                                                
