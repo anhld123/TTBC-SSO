@@ -233,7 +233,7 @@ public class LeaveTheLocal extends ActionSupport {
                         DuLieuNTRow tmp = new DuLieuNTRow();
                         tmp = this.lstData.get(i);
                         //Lưu để phê duyệt đề nghị cung cấp thông tin
-                        if((tmp.getD50().equals("1") || tmp.getD50().equals("5") || tmp.getD50().equals("7")) || tmp.getD31().equals("1"))
+                        if((tmp.getD50().equals("1") || tmp.getD50().equals("5") || tmp.getD50().equals("7")) && tmp.getD31().equals("1"))
                             tmp.setD50("5");
                         lstSelectedData.add(tmp);
                     }
