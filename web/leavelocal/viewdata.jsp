@@ -357,13 +357,13 @@
                     <th rowspan="2" class="hdtitle">Tên PGD</th>
                     <th rowspan="2" class="hdtitle">Tên xã</th>
                     <th rowspan="2" class="hdtitle">Tên tổ trưởng</th>
-                    <th rowspan="2" class="hdtitle" style="width: 80px">Mã KH</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Mã KH</th>
                     <th rowspan="2" class="hdtitle">Tên KH vay vốn</th>
                     <th rowspan="2" class="hdtitle" style="width: 80px">Năm sinh</th>
-                    <th rowspan="2" class="hdtitle" style="width: 80px">CMT/CCCD</th>
-                    <th rowspan="2" class="hdtitle" style="width: 80px">Số điện thoại</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">CMT/CCCD</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Số điện thoại</th>
                     <th rowspan="2" class="hdtitle">Loại đối tượng</th>
-                    <th rowspan="2" class="hdtitle" style="width: 100px">Thời điểm đi</th>
+                    <th rowspan="2" class="hdtitle" style="width: 120px">Thời điểm đi</th>
                     <th rowspan="2" class="hdtitle">Mã nhóm</th>
                     <th rowspan="2" class="hdtitle">Đề nghị<br>cung cấp<br>thông tin</th>
                    
@@ -498,7 +498,7 @@
                                 <s:property value="D12"/>
                             </s:if>
                             <s:else>
-                                <s:if test="D50.equalsIgnoreCase('1')">
+                                <s:if test="!D50.equalsIgnoreCase('2')">
                                     <a href="javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>')"><s:property value="d12"/></a>
                                 </s:if> 
                                 <s:else>
@@ -526,7 +526,7 @@
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                             </s:if>
                             <s:else>
-                                <s:if test="D50.equalsIgnoreCase('1')">
+                                <s:if test="!D50.equalsIgnoreCase('2')">
                                     <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>" id="lstData_D21<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d21" value="<s:property value='d21'/>">                           
                                 </s:if>
                                 <s:else>
@@ -659,7 +659,7 @@
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                             </s:if>
                             <s:else>
-                                <s:if test="D50.equalsIgnoreCase('1')">
+                                <s:if test="!D50.equalsIgnoreCase('2')">
                                     <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>" id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" value="<s:property value='d26'/>">                           
                                 </s:if>
                                 <s:else>
