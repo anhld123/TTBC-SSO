@@ -66,7 +66,7 @@
             </table>
             <div style="height:10px"></div>    
                 <div>
-                    Ngày đề nghị:  &nbsp; <input style="text-align: left" type="text" name="ngaydenghi" id="ngaydenghi" value="<s:property value='ngaydenghi'/>" >
+                    Ngày đề nghị:  &nbsp; <input class="cssDate" readonly="readonly" style="text-align: left" type="text" name="ngaydenghi" id="ngaydenghi" value="<s:property value='ngaydenghi'/>" >
                 </div>
                 <div style="height:10px"></div>  
                 <div id="paymentDiv">
@@ -150,18 +150,18 @@
             setCssStyle();
         });
 
-//        function setCssStyle() {
-//            $(".cssDate").datepicker(
-//                    {
-//                        dateFormat: 'dd/mm/yy',
-//                        showOn: "button",
-//                        buttonImage: "img/icon-ui_datepicker.png",
-//                        buttonImageOnly: true,
-//                        // dateFormat: 'dd/mm/yy',
-//                        showButtonPanel: true,
-//                        buttonText: "icono",
-//                        changeMonth: true,
-//                        changeYear: true
-//                    });
-//        }
+        function setCssStyle() {
+            $(".cssDate").datepicker(
+                    {
+                        dateFormat: 'dd/mm/yy',
+                        showOn: "button",
+                        buttonImage: "img/icon-ui_datepicker.png",
+                        buttonImageOnly: true,
+                        // dateFormat: 'dd/mm/yy',
+                        showButtonPanel: true,
+                        buttonText: "icono",
+                        changeMonth: true,
+                        changeYear: true
+                    });
+        }
     </script>

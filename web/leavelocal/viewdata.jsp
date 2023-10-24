@@ -472,6 +472,7 @@
                                 <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                                 </s:if>
                                 <s:else> 
+                                    <a style="color: #0000FF" title="Món đã phê duyệt">&#10003;</a>
                                     <% customerCount += 1;%>
                                 </s:else>
                             </s:else>
