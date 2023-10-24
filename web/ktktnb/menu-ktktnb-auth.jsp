@@ -79,7 +79,7 @@
                                 </s:iterator>   
 
                             </select>
-
+  
                             &nbsp;&nbsp;
                             <b>Ngày báo cáo (áp dụng mẫu biểu PCTN):</b>                            
                             <input type="text" name="dpkReportDate" id="dpkReportDate" readonly="readonly"/>
