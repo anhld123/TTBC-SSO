@@ -132,7 +132,7 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                     row.setD5(df.format(item.getDeductionLoanTotal()));
                     row.setD6(df.format(item.getNoDeductionLoanTotal()));
                     row.setD7(df.format(item.getNoDeductionIntTotal()));
-                    row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("3") ? "1" : "0");
+                    row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");
 //                    row.setD7(df.format(item.getDeductionIntTotal()));                   
                     lstDulieuNt.add(row);
                 }
