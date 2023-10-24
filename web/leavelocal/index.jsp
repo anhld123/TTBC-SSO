@@ -54,9 +54,9 @@
                             đến: <input type="text" name="txtToDate" id="txtToDate" readonly="readonly"/>
                             <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>                          
                             Loại phê duyệt: <select style="width: auto;" name="typeAuth" id="typeAuth">                                                    
-                                <option value="1" >Xử lý nợ</option>                                                    
-                                <option value="3">Xóa</option>
-                                <option value="4">Danh sách đề nghị cung cấp thông tin</option></select>                                         
+                                <option value="3">Xóa</option>                                                    
+                                <option value="4">Đề nghị cung cấp thông tin</option>
+                                <option value="5">Đề nghị hỗ trợ</option></select>                                         
                         </div>
                         <div>
                             <input type="button" id="idSearch" value="Tìm kiếm" style="height: 25px; padding: 0px 20px 0px 20px;">

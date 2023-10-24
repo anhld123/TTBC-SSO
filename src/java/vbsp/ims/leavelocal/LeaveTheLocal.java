@@ -242,26 +242,53 @@ public class LeaveTheLocal extends ActionSupport {
                 String code = "";
                 _leaveHomeService = new LeaveHomeService();
                 final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
-//                System.out.println("flagPos = " + flagPos);
-//                int icheck = checkInput(lstSelectedData);
-//                if (icheck == 0) {
                     int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
                     code = String.valueOf(_status);
                     this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-//                }
-//                else
-//                {
-//                    code = String.valueOf(icheck);
-//                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-//                }
             } catch (Exception e) {
                 System.err.println("Loi trong ham saveData " + e.getMessage());
                 CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
             }
             return "success";
-        } else // Xu ly phe duyet
+        } else 
         {
-            if (typeAuth.equals("1")) // phe duyet cho xln
+            if (typeAuth.equals("4")) // đề nghị cung cấp tt 4 về D50 =6
+            {
+                try {
+                    List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
+                    // Lay ra danh sach ma khach hang duoc chon
+                    List<String> lstSelectedCustomer = new ArrayList<>();
+
+                    for (int i = 0; i < this.lstData.size(); i++) {
+                        if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
+                            if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                                lstSelectedCustomer.add(this.lstData.get(i).getD11());
+                            }
+                        }
+                    }
+                    for (int i = 0; i < this.lstData.size(); i++) {
+                        if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                            lstSelectedData.add(this.lstData.get(i));
+                        }
+                    }
+                    for (DuLieuNTRow item : lstSelectedData) {
+                        item.setD50("6");
+                    }
+
+                    String code = "";
+                    _leaveHomeService = new LeaveHomeService();
+                    final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
+//                    System.out.println("flagPos = " + flagPos);
+                    int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
+                    code = String.valueOf(_status);
+                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                } catch (Exception e) {
+                    System.err.println("Loi trong ham saveData " + e.getMessage());
+                    CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
+                }
+                return "success";
+            }
+            else if (typeAuth.equals("5")) // đề nghị hỗ trợ 5 về D50 =7
             {
                 try {
                     List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
@@ -282,7 +309,7 @@ public class LeaveTheLocal extends ActionSupport {
                         }
                     }
                     for (DuLieuNTRow item : lstSelectedData) {
-                        item.setD50("2");
+                        item.setD50("7");
                     }
 
                     String code = "";
@@ -297,43 +324,7 @@ public class LeaveTheLocal extends ActionSupport {
                     CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
                 }
                 return "success";
-            } else if (typeAuth.equals("4")) // đề nghị cung cấp thông tin
-            {
-                try {
-                    List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
-                    // Lay ra danh sach ma khach hang duoc chon
-                    List<String> lstSelectedCustomer = new ArrayList<>();
-
-                    for (int i = 0; i < this.lstData.size(); i++) {
-                        if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
-                            if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-                                lstSelectedCustomer.add(this.lstData.get(i).getD11());
-                            }
-                        }
-                    }
-
-                    for (int i = 0; i < this.lstData.size(); i++) {
-                        if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-                            lstSelectedData.add(this.lstData.get(i));
-                        }
-                    }
-                    for (DuLieuNTRow item : lstSelectedData) {
-                        item.setD50("2");
-                    }
-
-                    String code = "";
-                    _leaveHomeService = new LeaveHomeService();
-                    final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
-//                    System.out.println("flagPos = " + flagPos);
-                    int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
-                    code = String.valueOf(_status);
-                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                } catch (Exception e) {
-                    System.err.println("Loi trong ham saveData " + e.getMessage());
-                    CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
-                }
-                return "success";
-            } else {
+            }  else {
                 // chuyển trạng thái D50 =9 để làm trạng thái xóa
                 try {
                     List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
@@ -347,7 +338,6 @@ public class LeaveTheLocal extends ActionSupport {
                             }
                         }
                     }
-
                     for (int i = 0; i < this.lstData.size(); i++) {
                         if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
                             lstSelectedData.add(this.lstData.get(i));

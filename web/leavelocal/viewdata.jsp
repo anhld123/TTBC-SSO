@@ -460,7 +460,7 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d50" value="<s:property value='d50'/>">
                         </td>
                         <td class="txtBody" >
-                            <s:if test="D50.toString().equalsIgnoreCase('1')">
+                            <s:if test="!D50.toString().equalsIgnoreCase('2')">
                                 <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                                 </s:if>
                                 <s:else> 
