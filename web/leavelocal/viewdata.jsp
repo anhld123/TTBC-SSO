@@ -233,7 +233,7 @@
         var table = document.getElementById("subTable");
         var rowcount = table.rows.length;
         rowcount = rowcount > max_row ? rowcount : max_row;
-        alert('row=' + rowcount)
+//        alert('row=' + rowcount)
         for (var i = 0; i < rowcount; i++)
         {
             try {
@@ -242,7 +242,7 @@
                 if (flagPos = '1')
                 {
                     var value = $('#lstSubData_D33' + i).find(":selected").val();
-                alert (value +  '---'+ i)
+//                alert (value +  '---'+ i)
                     if (value == '1')
                     {
                         document.getElementById("lstDNHT_D33" + i).style.visibility="visible";

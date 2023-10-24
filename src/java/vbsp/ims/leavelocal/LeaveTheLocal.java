@@ -230,7 +230,12 @@ public class LeaveTheLocal extends ActionSupport {
 
                 for (int i = 0; i < this.lstData.size(); i++) {
                     if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-                        lstSelectedData.add(this.lstData.get(i));
+                        DuLieuNTRow tmp = new DuLieuNTRow();
+                        tmp = this.lstData.get(i);
+                        //Lưu để phê duyệt đề nghị cung cấp thông tin
+                        if((tmp.getD50().equals("1") || tmp.getD50().equals("5") || tmp.getD50().equals("7")) || tmp.getD31().equals("1"))
+                            tmp.setD50("5");
+                        lstSelectedData.add(tmp);
                     }
                 }
 
@@ -507,7 +512,7 @@ public class LeaveTheLocal extends ActionSupport {
 //                    item.setD36("1");
                      item.setD38(ngaydenghi);
                      item.setD39(sovbdenghi);
-                     item.setD50("3");
+                     item.setD50("5");    //Thông tin đề nghị hỗ trợ
 
                     lstData_tmp.add(item);
                 }
