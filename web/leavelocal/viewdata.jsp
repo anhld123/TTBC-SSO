@@ -227,6 +227,12 @@
                 document.getElementById("lstDataD23" + index).style.backgroundColor = "#C7C0BF";
 
                 onSelectChange(index);
+                
+                
+                //------------------------
+                $("#lstSubData_D33" + index).children().remove().end();
+                $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
+                $("#lstSubData_D33" + index).prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");
             } else
             {
                 document.getElementById("lstSubData31" + index).disabled = false;
@@ -239,6 +245,12 @@
                 $("#lstData_D32" + index).children().remove().end();
                 $("#lstData_D32" + index).prepend("<option value='000000' selected> Không xác định </option>");
                 $("#lstData_D32" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
+                
+                
+                //------------------------
+                $("#lstSubData_D33" + index).children().remove().end();
+                $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
+//                $("#mato").prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");
             }
 //                    $('#lstSubData31' + index).attr("disabled","disabled");
         } catch (e) {
@@ -669,12 +681,9 @@
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                             </s:if>
                             <s:else>
-                                <s:if test="!D50.equalsIgnoreCase('2')">
-                                    <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>" id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" value="<s:property value='d26'/>">                           
-                                </s:if>
-                                <s:else>
-                                    <input disabled style="width: 75px; text-align: center" type="text" readonly="readonly" class=" <s:property value="d20"/>"  id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" value="<s:property value='d26'/>">                                                
-                                </s:else>
+                                
+                                    <input  style="width: 75px; text-align: center" type="text" readonly="readonly" class=" <s:property value="d20"/>"  id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> value="<s:property value='d26'/>">                                                
+                                <%--</s:else>--%>
                             </s:else>
                         </td>
                         <td class="txtBody">

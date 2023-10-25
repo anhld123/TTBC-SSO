@@ -28,9 +28,9 @@
 //            else
 //                document.getElementById('paymentDiv').style.display = 'none';
 //        }
-        
 
-       
+
+
 
     </script>
     <style>
@@ -65,19 +65,19 @@
                 </tr>                
             </table>
             <div style="height:10px"></div>    
-                <div>
-                    Ngày đề nghị:  &nbsp; <input class="cssDate" readonly="readonly" style="text-align: left" type="text" name="ngaydenghi" id="ngaydenghi" value="<s:property value='ngaydenghi'/>" >
-                </div>
-                <div style="height:10px"></div>  
-                <div id="paymentDiv">
-                    Số VB đề nghị: <input style="text-align: left" type="text" name="sovbdenghi"  id="sovbdenghi" value="<s:property value='sovbdenghi'/>" >  
-                </div>
+            <div>
+                Ngày đề nghị:  &nbsp; <input class="cssDate" readonly="readonly" style="text-align: left" type="text" name="ngaydenghi" id="ngaydenghi" value="<s:property value='ngaydenghi'/>" >
+            </div>
+            <div style="height:10px"></div>  
+            <div id="paymentDiv">
+                Số VB đề nghị: <input style="text-align: left" type="text" name="sovbdenghi"  id="sovbdenghi" value="<s:property value='sovbdenghi'/>" >  
+            </div>
             <div style="height:20px"></div>    
-            
+
             <div style="text-align: center;">
                 <%--<s:if test="flagPos.equalsIgnoreCase('1')">--%> 
-                    <input type="button" value="Gửi phê duyệt" name="cmdLuu" id="cmdLuu"/>
-                 <%--</s:if>--%>
+                <input type="button" value="Gửi phê duyệt" name="cmdLuu" id="cmdLuu"/>
+                <%--</s:if>--%>
             </div>
             <div id="divExportReport"></div>
         </form>
@@ -88,9 +88,9 @@
 //        document.getElementById('paymentDiv').style.display = 'none';
 //        document.getElementById('XuLyNolov').style.display = 'none';
 //        document.getElementById('XuLyNolov').value = document.getElementById('XuLyNo').value;
-        
-        
-        
+
+
+
 //        var vbspNgayDNHT = document.getElementById('vbspNgayDNHT').value;
 //        document.getElementById('ngaydn').value = vbspNgayDNHT
 //        if (xuly.substring(0,1) == 2)
@@ -105,20 +105,27 @@
 //            var date = xuly.substring(2,11)
 //            var s = xuly.substring(7,11) + '-'+ xuly.substring(4,6)+ '-'+ xuly.substring(1,3);
 ////            alert(s);
-            
+
 //        }
 //        else
 //        {
 //            document.getElementById('XuLyNolov').value = xuly
 //            
 //        }
-        
-        
-        
+
+
+
         //Tìm dữ liệu
         $("#cmdLuu").click(function () {
             let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
             if (aCheck) {
+                var ngaydenghi = document.getElementById('ngaydenghi').value;
+                 var sovbdenghi = document.getElementById('sovbdenghi').value;
+                if(ngaydenghi.length < 10 || sovbdenghi.length < 5)
+                {
+                    alert('Vui lòng nhập đầy đủ thông tin trước khi gửi phê duyệt');
+                    return;
+                }
                 var url, sdata;
                 url = "saveDeNghiHT.action";
                 sdata = jQuery("#frmDeNghiHT").serialize();
@@ -142,8 +149,8 @@
             }
         });
 
-        
-       
+
+
 
 
         $(function () {

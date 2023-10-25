@@ -246,8 +246,13 @@
                                     alert("Thành công: Lưu dữ liệu.");
                                     $("#idSearch").trigger("click");
                                 }
+                                else if(data === "01") {
+                                    alert("Lỗi: Bạn chưa nhập thông tin cột 15");
+                                    $("#idSearch").trigger("click");
+                                }
                                 else {
                                     alert("Lỗi: Lưu dữ liệu.");
+                                    $("#idSearch").trigger("click");
                                 }
                             },
                             complete: function () {

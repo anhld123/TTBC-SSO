@@ -232,6 +232,16 @@ public class LeaveTheLocal extends ActionSupport {
                     if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
                         DuLieuNTRow tmp = new DuLieuNTRow();
                         tmp = this.lstData.get(i);
+                        
+                        String D22 =  tmp.getD22() == null ? "00" : tmp.getD22();
+                        if(D22.equals("01"))
+                        {
+                            if(tmp.getD23() == null || tmp.getD23().trim().length() < 5)
+                            {
+                                this.pageResult = new ByteArrayInputStream("01".getBytes(StandardCharsets.UTF_8));
+                                return "success";
+                            }
+                        }
                         //Lưu để phê duyệt đề nghị cung cấp thông tin
                         String check = "0";
                         try {
@@ -505,7 +515,7 @@ public class LeaveTheLocal extends ActionSupport {
             for (DuLieuNTRow item : lstData) {
                 if (item.getD20().equals("HOVAY")) {
 //                    item.setD35(XuLyNo);
-//                    item.setD36("1");
+                    item.setD33("1");
                      item.setD38(ngaydenghi);
                      item.setD39(sovbdenghi);
                      item.setD50("5");    //Thông tin đề nghị hỗ trợ
