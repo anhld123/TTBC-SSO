@@ -279,6 +279,16 @@
 //                        document.getElementById("lstData39" + i).disabled = true;
 //                        document.getElementById("lstData40" + i).disabled = true;
                     }
+                    var D22 = $('#lstData_D22' + i).find(":selected").val();
+                    if (D22 == '01')
+                    {
+                         document.getElementById("lstSubData31" + i).disabled = true;
+                    }
+                    else
+                    {
+                        document.getElementById("lstSubData31" + i).disabled = false;
+                    }
+                    
                 }
                 {
 //                    document.getElementById("lstData38" + i).disabled = true;
