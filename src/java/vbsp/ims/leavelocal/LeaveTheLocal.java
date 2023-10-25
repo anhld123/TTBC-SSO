@@ -234,14 +234,14 @@ public class LeaveTheLocal extends ActionSupport {
                         tmp = this.lstData.get(i);
                         
                         String D22 =  tmp.getD22() == null ? "00" : tmp.getD22();
-                        if(D22.equals("01"))
-                        {
-                            if(tmp.getD23() == null || tmp.getD23().trim().length() < 5)
-                            {
-                                this.pageResult = new ByteArrayInputStream("01".getBytes(StandardCharsets.UTF_8));
-                                return "success";
-                            }
-                        }
+//                        if(D22.equals("01"))
+//                        {
+//                            if(tmp.getD23() == null || tmp.getD23().trim().length() < 5)
+//                            {
+//                                this.pageResult = new ByteArrayInputStream("01".getBytes(StandardCharsets.UTF_8));
+//                                return "success";
+//                            }
+//                        }
                         //Lưu để phê duyệt đề nghị cung cấp thông tin
                         String check = "0";
                         try {

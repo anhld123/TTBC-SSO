@@ -232,6 +232,29 @@
                 } else {
                     let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
                     if (aCheck) {
+                        var table = document.getElementById("subTable");
+                        var rowcount = table.rows.length;
+                        for (var i = 0; i < rowcount; i++)
+                        {
+                            try {
+                                var D22 = $('#lstData_D22' + i).find(":selected").val();
+                                if (D22 == '01')
+                                {
+                                    var lstDataD23 = document.getElementById('lstDataD23' + i).value;
+                                    if (lstDataD23.length < 5)
+                                    {
+                                        alert('Vui lòng nhập thông tin cột 15.')
+                                        document.getElementById("lstDataD23" + i).style.backgroundColor = "#EEAFA6";
+                                        return;
+                                    }
+                                } else
+                                {
+
+                                }
+                            } catch (e) {
+
+                            }
+                        }
                         var url, sdata;
                         url = "saveLeaveLocal.action";
                         sdata = jQuery("#frmdata").serialize();
@@ -245,12 +268,10 @@
                                 if (data === "200") {
                                     alert("Thành công: Lưu dữ liệu.");
                                     $("#idSearch").trigger("click");
-                                }
-                                else if(data === "01") {
+                                } else if (data === "01") {
                                     alert("Lỗi: Bạn chưa nhập thông tin cột 15");
                                     $("#idSearch").trigger("click");
-                                }
-                                else {
+                                } else {
                                     alert("Lỗi: Lưu dữ liệu.");
                                     $("#idSearch").trigger("click");
                                 }
