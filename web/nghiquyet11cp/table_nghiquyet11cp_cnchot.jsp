@@ -215,7 +215,7 @@
                             <th rowspan="1"  class="TD_MAKH">Số tiền</th>   
                             <th rowspan="1"  class="TD_MAKH">Tổng lãi</th> 
                             <th rowspan="1"  class="TD_MAKH">Số món được HTLS</th>   
-                            <s:if test="chotsl.equalsIgnoreCase('0')">
+                            <s:if test="chotsl.equalsIgnoreCase('1')">
                             
                             </s:if>
                             <s:else>
@@ -223,7 +223,7 @@
                             </s:else>
                                                     
                             <th colspan="1"  class="TD_MAKH">Số món không được HTLS</th>    
-                            <s:if test="chotsl.equalsIgnoreCase('0')">
+                            <s:if test="chotsl.equalsIgnoreCase('1')">
                             
                             </s:if>
                             <s:else>
@@ -243,7 +243,7 @@
                             <td style="text-align: center">(5)</td>
                             <td style="text-align: center">(6)</td>
                             <td style="text-align: center">(7)</td>
-                            <s:if test="chotsl.equalsIgnoreCase('0')">
+                            <s:if test="chotsl.equalsIgnoreCase('1')">
                             
                             </s:if>
                             <s:else>
@@ -251,7 +251,7 @@
                             </s:else>
                             
                             <td style="text-align: center">(9)</td>
-                            <s:if test="chotsl.equalsIgnoreCase('0')">
+                            <s:if test="chotsl.equalsIgnoreCase('1')">
                             
                             </s:if>
                             <s:else>
@@ -309,7 +309,7 @@
                                            readonly="true"/>
                                 </td>
                                  
-                                <s:if test="chotsl.equalsIgnoreCase('0')">
+                                <s:if test="chotsl.equalsIgnoreCase('1')">
                             
                                 </s:if>
                                 <s:else>
@@ -329,7 +329,7 @@
                                 </td>
                                 
                               
-                                <s:if test="chotsl.equalsIgnoreCase('0')">
+                                <s:if test="chotsl.equalsIgnoreCase('1')">
                             
                                 </s:if>
                                 <s:else>
