@@ -17,6 +17,7 @@
             <result name="KTTC_MUASAM_01">/muasam-taisan/index.jsp</result>
             <result name="CHART_001">/nhaptay-cn/para-nhaptaycn-main_chart.jsp</result>
             <result name="KSNB_02">/nhaptay-cn/para-nhaptaycn-main_ktnb02.jsp</result>
+            <result name="return-cic">/nhaptay-cn/para_baocao_cic.jsp</result>
              <!--<result name="GQVL_01">/GQVL2023/index.jsp</result>-->
             <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>  
@@ -615,6 +616,17 @@
             <result name="error">/nhaptay-cn/success.jsp</result> 
 	</action>
         <!--Kết thúc CN06-->     
+        
+        
+        <action name="CIC_001" class="vbsp.ims.nhaptaycn.action.CIC_001"  method="load">
+            <result name="success">/nhaptay-cn/table_cic.jsp</result>     
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        
+         <action name="SAVE_CIC_001" class="vbsp.ims.nhaptaycn.action.CIC_001"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
             
     </package>
     
