@@ -73,7 +73,8 @@
                 <tr >      
                     <th rowspan="2" class="hdtitle">STT</th>   
                     <th rowspan="2" class="hdtitle">Mã khách hàng</th>  
-                    <th rowspan="2" class="hdtitle">Họ và tên khách hàng</th>    
+                    <th rowspan="2" class="hdtitle">Họ và tên khách hàng</th>  
+                    <th rowspan="2" class="hdtitle">Dữ liệu <br>đã cập nhật</th>  
                     <th colspan="3" class="hdtitle">Thông tin trên CMND</th>
                     <th colspan="3" class="hdtitle">Thông tin trên CCCD</th>
                     <th rowspan="2" class="hdtitle" style="width: 80px">Ngày tháng năm sinh</th>   
@@ -81,8 +82,8 @@
                     <th rowspan="2" class="hdtitle">Số dư tiền gửi</th>  
                     <th rowspan="2" class="hdtitle">Lãi tồn</th>              
                     <th colspan="5" class="hdtitle">Xác nhận sai sót</th> 
-                    <th rowspan="2" class="hdtitle">Đã hoàn thành <br>chỉnh sửa trên hệ thống</th>                              
-                    <th rowspan="2" class="hdtitle">Dữ liệu <br>đã đồng bộ từ Intellect</th>  
+                    <th rowspan="2" class="hdtitle">Đã hoàn thành <br>chỉnh sửa trên hệ thống Intellect</th>                              
+                    
                 </tr>         
                 <tr >
                     <th  class="hdtitle">Số CMTND</th>
@@ -123,9 +124,12 @@
             </tr>
             <tbody>
                 <%--<s:iterator value="lstData" status="idxRows">--%>
-            <td style="text-align: center">1</td> 
+            <td style="text-align: center; width: 100px">1</td> 
             <td><input value="111111111" disabled style="width: 100px"></td> 
             <td><input value="Nguyễn Văn Quyến" disabled style="width: 150px"></td> 
+            <td  align="center">    
+                <input type="checkbox" class="checkboxdat TD_MAKH" checked/>
+            </td>  
             <td><input value="4" disabled style="width: 100px"></td> 
             <td><input value="5" disabled style="width: 80px"></td> 
             <td><input value="6" disabled style="width: 120px"></td> 
@@ -154,9 +158,7 @@
             <td  align="center" >    
                 <input type="checkbox"  class="checkboxdat TD_MAKH"/>
             </td>  
-            <td  align="center">    
-                <input type="checkbox"  class="checkboxdat TD_MAKH"/>
-            </td>  
+            
             <%--</s:iterator>--%>
             </tbody>
         </table>
