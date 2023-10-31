@@ -64,10 +64,10 @@
 </script>
 </head>
 <body>
-    <div style="overflow:scroll; width: 99vw;">     
-        <div style="display: none;">
+    <div style="overflow:scroll; width: 99vw; padding: 5">     
+        <a style="color: gold; font-weight: 550; font-size: 20px">
             BẢNG RÀ SOÁT THÔNG TIN CHUNG CỦA KHÁCH HÀNG 
-        </div>
+        </a>
         <table id="subTable" style="z-index: 10;">
             <thead>
                 <tr >      
