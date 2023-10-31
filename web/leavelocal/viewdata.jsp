@@ -239,6 +239,7 @@
             {
                 document.getElementById("lstSubData31" + index).disabled = false;
                 document.getElementById("lstDataD23" + index).removeAttribute("style");
+                document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
 
                 $("#lstData_D30" + index).children().remove().end();
                 $("#lstData_D30" + index).prepend("<option value='000000' selected> Không xác định </option>");
