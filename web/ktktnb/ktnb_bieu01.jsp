@@ -226,26 +226,26 @@
                             <b>Ngày thực hiện: </b><input type="text" class="TD_TENKH123" name="ngayTT" id="ngayTT" value="<s:property value="ngayTT"/>" readonly="readonly"/>
 
                         </td>
-<!--                        <td align="right">     
-                            <div id="result" style="color: red">                            
-                            </div>
-                            <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>
-                            <sj:submit targets="result" value="Lưu dữ liệu" name="update" id="update"  style="width:122px;height:25px;color: blue;"
-                                       onBeforeTopics="beforeSubmit"
-                                       onCompleteTopics="finishSubmit"
-                                       />
-                            <script>
-                                $.subscribe("beforeSubmit", function (event, data) {
-                                    $("#update").prop('disabled', true);
-                                    $("#update").prop('color', 'red');
-                                });
-                                $.subscribe("finishSubmit", function (event, data) {
-                                    $("#update").prop('disabled', false);
-                                    $("#update").prop('color', 'blue');
-                                });
-                            </script>
-                        </td>                -->
-                            <td align="right">     
+                        <!--                        <td align="right">     
+                                                    <div id="result" style="color: red">                            
+                                                    </div>
+                                                    <input type="button" id="checkThenSubmit" value="Lưu dữ liệu" onclick="fnCheckThenSubmit()" style="width:122px;height:25px;color: red;"/>
+                        <sj:submit targets="result" value="Lưu dữ liệu" name="update" id="update"  style="width:122px;height:25px;color: blue;"
+                                   onBeforeTopics="beforeSubmit"
+                                   onCompleteTopics="finishSubmit"
+                                   />
+                        <script>
+                            $.subscribe("beforeSubmit", function (event, data) {
+                                $("#update").prop('disabled', true);
+                                $("#update").prop('color', 'red');
+                            });
+                            $.subscribe("finishSubmit", function (event, data) {
+                                $("#update").prop('disabled', false);
+                                $("#update").prop('color', 'blue');
+                            });
+                        </script>
+                    </td>                -->
+                        <td align="right">     
                             <div id="result" style="color: red">                            
                             </div>
                             <div id="loadingImageDiv_para"  style="display: none;">
@@ -281,14 +281,14 @@
                                     <tr height="cscontent">    
                                         <td>
                                             <s:if test="D7.equalsIgnoreCase('N')">  
-                                                <input type="text" value="<s:property  value="TT_HIENTHI" />" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TD_MAPGD" onfocus="this.select()"
+                                                <input type="text" value="<s:property  value="D6" />" 
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D0 TD_MAPGD" onfocus="this.select()"
                                                        onblur="if (this.value == '')
                                                                    ;" readonly="true" style="background: #E7DCDA !important; font-weight: bold; text-align:left ;"/>
                                             </s:if>
                                             <s:if test="D7.equalsIgnoreCase('Y')"> 
-                                                <input type="text" value="<s:property  value="TT_HIENTHI" />" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TD_MAPGD" onfocus="this.select()"
+                                                <input type="text" value="<s:property  value="D6" />" 
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D0 TD_MAPGD" onfocus="this.select()"
                                                        onblur="if (this.value == '')
                                                                    ;" readonly="true"/>
                                             </s:if>
@@ -300,15 +300,17 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/>
                                             <input type="hidden" value="<s:property  value="MA" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/> 
+                                            <input type="hidden" value="<s:property  value="TT_HIENTHI" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" value="<s:property  value="TT_HIENTHI"/>"/>
                                             <input type="hidden" value="<s:property  value="D7" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" value="<s:property  value="D7"/>"/>  
                                             <input type="hidden" value="<s:property  value="D8" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/>
                                             <input type="hidden" value="<s:property  value="D9" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>">
-                                             <input type="hidden" value="<s:property  value="D2" />"
+                                            <input type="hidden" value="<s:property  value="D2" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" value="<s:property  value="D2"/>">
-                                             <input type="hidden" value="<s:property  value="D50" />"
+                                            <input type="hidden" value="<s:property  value="D50" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D50" value="<s:property  value="D50"/>"/>
                                         </td>
                                         <s:if test="D7.equalsIgnoreCase('N')"> 
