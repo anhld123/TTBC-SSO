@@ -486,7 +486,7 @@
                                         
                                     </s:if>
                                     <s:else>
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/>
+                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu số liệu"/>
                                     </s:else>    
                                     
                                 </td>
