@@ -421,7 +421,9 @@
             function reLoadValue(val) {
                     var var2, vartxt, selected;
                     $("#mato").children().remove().end();
+                    
                     $("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
+                     $("#mato").prepend("<option value='000000_NOGROUP' " + selected + "> NOGROUP -> Trực tiếp</option>");
                     $("#mato_data > option").each(function () {
                         var2 = $(this).val().substr(0, 6);
                         if (val.trim() == var2.trim()) {

@@ -22,6 +22,28 @@
 
     #subTable tr:hover {background-color: #ddd;}
 
+    #subTableSum {
+        font-size: 16px;
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 99%;
+    }
+    #subTableSum th{
+        background-color: #F5AC9C;
+        color: #0e6647d;
+    }
+
+    #subTableSum th, #subTableSum td {
+        border: 1px solid gray;
+        height: 20px;
+        background-color: #F5AC9C;
+    }
+
+    #subTableSum tr:nth-child(even){background-color: #F5AC9C;}
+
+    #subTableSum tr:hover {background-color: #F5AC9C;}
+
 
     .txtPublic{
         width: 85px;
@@ -43,31 +65,75 @@
     }
 </style>
 <script>
-      var max_row = 0;
-            $(document).ready(function () {
-                $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
-                $(".datepicker_month").datepicker({dateFormat: 'mm/yy'});
-                $('.D0').css({"text-align": "center"});
-                $(".TD_STT").css({"width": "20px"});
-                $(".TD_MAKH").css({"width": "70px"});
-                $(".TD_TOTIEN").css({"width": "90px"});
-                $(".TD_NGAY").css({"width": "55px"});
-                $(".TD_TENKH").css({"width": "130px"});
-                $(".TD_SOKU").css({"width": "120px"});
-                $(".TD_NGAY").css({"width": "40px"});
-                $(".TD_CHITIEU").css({"width": "300px"});
-                $(".TEN_KH").css({"width": "100%"});
-            });
-  $("#allCheck_dat").change(function () {
-                $(".checkboxdat").prop('checked', $(this).prop("checked"));
-            });
+    var max_row = 0;
+    $(document).ready(function () {
+        $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
+        $(".datepicker_month").datepicker({dateFormat: 'mm/yy'});
+        $('.D0').css({"text-align": "center"});
+        $(".TD_STT").css({"width": "20px"});
+        $(".TD_MAKH").css({"width": "70px"});
+        $(".TD_TOTIEN").css({"width": "90px"});
+        $(".TD_NGAY").css({"width": "55px"});
+        $(".TD_TENKH").css({"width": "130px"});
+        $(".TD_SOKU").css({"width": "120px"});
+        $(".TD_NGAY").css({"width": "40px"});
+        $(".TD_CHITIEU").css({"width": "300px"});
+        $(".TEN_KH").css({"width": "100%"});
+    });
+    $("#allCheck_dat").change(function () {
+        $(".checkboxdat").prop('checked', $(this).prop("checked"));
+    });
 </script>
 </head>
 <body>
     <div style="overflow:scroll; width: 99vw; padding: 5">     
-        <a style="color: gold; font-weight: 550; font-size: 20px">
+        <a style="color: #003eff; font-weight: 550; font-size: 20px">
             BẢNG RÀ SOÁT THÔNG TIN CHUNG CỦA KHÁCH HÀNG 
         </a>
+        <table id="subTableSum" style="z-index: 10; width: 50%">
+            <!--<thead>-->
+
+            <tr style="height:32px;">
+                <th  class="hdtitle">Mã xã</th>
+                <th  class="hdtitle">Tên xã</th>
+                <!--                <th  class="hdtitle">Mã tổ</th>
+                                <th  class="hdtitle">Tên tổ trưởng</th>-->
+                <th  class="hdtitle">Số KH cần rà soát</th>
+                <th  class="hdtitle">Số KH đã xác nhận</th>
+                <!--<th  class="hdtitle">Sai họ và tên</th>-->
+
+            </tr>
+
+            <!--</thead>-->
+
+            <!--<tbody>-->
+            <tr>
+                <%--<s:iterator value="lstData" status="idxRows">--%>
+                <!--<td style="text-align: center">1</td>--> 
+                <td><input value="040101" disabled style="width: 120px"></td> 
+                <td><input value="Phạm Ngũ Lão" disabled style="width: 350px"></td> 
+                <!--                <td><input value="2342342" disabled style="width: 150px"></td> 
+                                <td><input value="Nguyễn Anh Đức" disabled style="width: 250px"></td> -->
+                <td><input value="623.424" disabled style="width: 150px; text-align: right"></td> 
+                <td><input value="733" disabled style="width: 150px; text-align: right"></td> 
+
+                <!--            <td><input value="8" disabled style="width: 80px"></td> 
+                            <td><input value="9" disabled style="width: 120px"></td> 
+                            <td><input value="10" disabled style="width: 80px"></td> 
+                            <td><input value="11" disabled style="width: 100px"></td> -->
+            </tr>
+            <!--            <tr>
+                            <td><input value="040101" disabled style="width: 120px"></td> 
+                            <td><input value="Phạm Ngũ Lão" disabled style="width: 250px"></td> 
+                            <td><input value="2342343" disabled style="width: 150px"></td> 
+                            <td><input value="Nguyễn Đức Anh" disabled style="width: 250px"></td> 
+                            <td><input value="23.424" disabled style="width: 120px; text-align: right"></td> 
+                            <td><input value="33" disabled style="width: 120px; text-align: right"></td> 
+                        </tr>-->
+
+            <!--</tbody>-->
+        </table>
+        </br>
         <table id="subTable" style="z-index: 10;">
             <thead>
                 <tr >      
@@ -83,7 +149,7 @@
                     <th rowspan="2" class="hdtitle">Lãi tồn</th>              
                     <th colspan="5" class="hdtitle">Xác nhận sai sót</th> 
                     <th rowspan="2" class="hdtitle">Đã hoàn thành <br>chỉnh sửa trên hệ thống Intellect</th>                              
-                    
+
                 </tr>         
                 <tr >
                     <th  class="hdtitle">Số CMTND</th>
@@ -125,24 +191,19 @@
             <tbody>
                 <%--<s:iterator value="lstData" status="idxRows">--%>
             <td style="text-align: center; width: 100px">1</td> 
-            <td><input value="111111111" disabled style="width: 100px"></td> 
+            <td><input value="983424252" disabled style="width: 100px"></td> 
             <td><input value="Nguyễn Văn Quyến" disabled style="width: 150px"></td> 
-            <td  align="center">    
-                <input type="checkbox" class="checkboxdat TD_MAKH" checked/>
-            </td>  
-            <td><input value="4" disabled style="width: 100px"></td> 
-            <td><input value="5" disabled style="width: 80px"></td> 
-            <td><input value="6" disabled style="width: 120px"></td> 
-            <td><input value="7" disabled style="width: 100px"></td> 
-            <td><input value="8" disabled style="width: 80px"></td> 
-            <td><input value="9" disabled style="width: 120px"></td> 
-            <td><input value="10" disabled style="width: 80px"></td> 
-            <td><input value="11" disabled style="width: 100px"></td> 
-            <td><input value="12" disabled style="width: 100px"></td> 
-            <td><input value="13" disabled style="width: 100px"></td> 
-            <td  align="center">    
-                <input type="checkbox"  class="checkboxdat TD_MAKH"/>
-            </td>  
+            <td><input value="Nguyễn Văn Từng#30924242/12/2/2000" disabled style="width: 300px"></td> 
+
+            <td><input value="3923424243234" disabled style="width: 120px"></td> 
+            <td><input value="12/12/2000" disabled style="width: 80px"></td> 
+            <td><input value="CA Thái Bình" disabled style="width: 120px"></td> 
+            <td><input value="392342342" disabled style="width: 100px"></td> 
+            <td><input value="12/2/2001" disabled style="width: 80px"></td> 
+            <td><input value="CA Ninh Bình" disabled style="width: 120px"></td> 
+            <td><input value="12/4/1980" disabled style="width: 80px"></td> 
+            <td><input value="10.000.000" disabled style="width: 100px; text-align: right"></td> 
+            <td><input value="2.230.000" disabled style="width: 100px; text-align: right"></td> 
             <td  align="center">    
                 <input type="checkbox"  class="checkboxdat TD_MAKH"/>
             </td>  
@@ -158,7 +219,13 @@
             <td  align="center" >    
                 <input type="checkbox"  class="checkboxdat TD_MAKH"/>
             </td>  
-            
+            <td  align="center" >    
+                <input type="checkbox"  class="checkboxdat TD_MAKH"/>
+            </td>  
+            <td  align="center" >    
+                <input type="checkbox"  class="checkboxdat TD_MAKH"/>
+            </td>  
+
             <%--</s:iterator>--%>
             </tbody>
         </table>
