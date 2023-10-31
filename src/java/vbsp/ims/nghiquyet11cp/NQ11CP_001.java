@@ -236,7 +236,7 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                         row.setD51(df.format(item.getIntSubsidyM07Amt()));
                         row.setD60(df.format(item.getIntSubsidyM08Amt()));
                         row.setD63(df.format(item.getIntSubsidyM09Amt()));
-                        row.setD66(df.format(item.getIntSubsidyM10Amt()));                                               
+                        row.setD66(df.format(item.getIntSubsidyM10Amt()));
                     }
 //                    row.setD37(df.format(item.getIntSubsidyM05Amt()));
 //                    row.setD38(df.format(item.getIntSubsidyM06Amt()));
@@ -254,7 +254,7 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                     row.setD52(df.format(item.getIntSubsidyAdjustM07Amt()));
                     row.setD61(df.format(item.getIntSubsidyAdjustM08Amt()));
                     row.setD64(df.format(item.getIntSubsidyAdjustM09Amt()));
-                    row.setD67(df.format(item.getIntSubsidyAdjustM10Amt()));                    
+                    row.setD67(df.format(item.getIntSubsidyAdjustM10Amt()));
 
                     row.setD24(item.getPaymentFlag().equals("0") ? "RPA" : "HT phải trả");
                     row.setD25(item.getIntConfirmFlag());
@@ -286,7 +286,6 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                     row.setD65(df.format(item.getIntTotalM09Amt()));
                     row.setD68(df.format(item.getIntTotalM10Amt()));
 
-
                     row.setD46(item.getCommuneId());
                     row.setD47(item.getRejectReason());
                     row.setD50(item.getCustomerName());
@@ -296,13 +295,13 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                         if ((phanloai.equals("-1") || phanloai.equals(item.getPaymentFlag()))
                                 && (sNhadt.equals("0000") || sNhadt.equals(item.getInvestorCode()))
                                 //                                && (sGiaingan.equals("-1") || sdf.parse(item.getDisbursalDate()).after(df1.parse("04/01/2022")))
-                                && (sGiaingan.equals("1") ? item.getLoanStatus().equals("C") : 
-//                                sGiaingan.equals("2") ? sdf.parse(item.getDisbursalDate()).after(df1.parse("06/01/2022")) : sau ngay ngày 31/5/2022
-//                                sGiaingan.equals("3") ? sdf.parse(item.getDisbursalDate()).before(df1.parse("30/09/2023")) : 
-                                sGiaingan.equals("3") ? !sdf.parse(item.getDisbursalDate()).after(df1.parse("10/01/2023")) : 
-                                sGiaingan.equals("4") ? sdf.parse(item.getDisbursalDate()).after(df1.parse("10/01/2023")) : 
-                                sGiaingan.equals("5") ? sdf.parse(item.getLastPaymentDate()).after(df1.parse("10/01/2023")) : 
-                                sdf.parse(item.getDisbursalDate()).after(df1.parse("06/01/1990")))) {
+                                && (sGiaingan.equals("1") ? item.getLoanStatus().equals("C")
+                                : //                                sGiaingan.equals("2") ? sdf.parse(item.getDisbursalDate()).after(df1.parse("06/01/2022")) : sau ngay ngày 31/5/2022
+                                //                                sGiaingan.equals("3") ? sdf.parse(item.getDisbursalDate()).before(df1.parse("30/09/2023")) : 
+                                sGiaingan.equals("3") ? !sdf.parse(item.getDisbursalDate()).after(df1.parse("10/01/2023"))
+                                : sGiaingan.equals("4") ? sdf.parse(item.getDisbursalDate()).after(df1.parse("10/01/2023"))
+                                : sGiaingan.equals("5") ? sdf.parse(item.getLastPaymentDate()).after(df1.parse("10/01/2023"))
+                                : sdf.parse(item.getDisbursalDate()).after(df1.parse("06/01/1990")))) {
                             i++;
                             dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
                             dn_quahan = dn_quahan + (long) item.getOverdueAmt();
@@ -567,11 +566,13 @@ public class NQ11CP_001 extends ActionNghiquyet11cpMain
                     UpdateLockModel tempadd = new UpdateLockModel();
                     if (tmp.getD25() == null) {
                         tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setStatus(chotsl.equals("0") ? "0" : "2");
+//                        tempadd.setStatus(chotsl.equals("0") ? "0" : "2");
+                        tempadd.setStatus("0");
                         lstUpdateDateLock.add(tempadd);
                     } else {
                         tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setStatus(chotsl.equals("0") ? "1" : "3");
+//                        tempadd.setStatus(chotsl.equals("0") ? "1" : "3");
+                        tempadd.setStatus("1");
                         lstUpdateDateLock.add(tempadd);
                     }
                 }
