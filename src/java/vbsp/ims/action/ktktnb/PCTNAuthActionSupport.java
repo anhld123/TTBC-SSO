@@ -168,7 +168,8 @@ public class PCTNAuthActionSupport extends ActionSupport implements ServletReque
             posMainModel = listKTNBDA.get_pos_main_pos(userName);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
-            String _reportDate = getReportDate(quyBc, namBc);
+             String _reportDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(ngayBC));
+//            String _reportDate = getReportDate(quyBc, namBc);
 
             List<String> lstPosCode = new ArrayList();
             PCTNService _service = new PCTNService();
