@@ -188,47 +188,19 @@
                 <th style="color: #000; font: italic; font-size: xx-small;">(19)</th>
                 <th style="color: #000; font: italic; font-size: xx-small;">(20)</th>  
             </tr>
-            <tbody>
-                <%--<s:iterator value="lstData" status="idxRows">--%>
-            <td style="text-align: center; width: 100px">1</td> 
-            <td><input value="983424252" disabled style="width: 100px"></td> 
-            <td><input value="Nguyễn Văn Nam" disabled style="width: 150px"></td> 
-            <td><input value="Nguyễn Văn Tèo#30924242/12/2/2000" disabled style="width: 300px"></td> 
-
-            <td><input value="3923424243234" disabled style="width: 120px"></td> 
-            <td><input value="12/12/2000" disabled style="width: 80px"></td> 
-            <td><input value="CA Thái Bình" disabled style="width: 120px"></td> 
-            <td><input value="392342342" disabled style="width: 100px"></td> 
-            <td><input value="12/2/2001" disabled style="width: 80px"></td> 
-            <td><input value="CA Ninh Bình" disabled style="width: 120px"></td> 
-            <td><input value="12/4/1980" disabled style="width: 80px"></td> 
-            <td><input value="10.000.000" disabled style="width: 100px; text-align: right"></td> 
-            <td><input value="2.230.000" disabled style="width: 100px; text-align: right"></td> 
-            <td  align="center">    
-                <input type="checkbox"  class="checkboxdat TD_MAKH"/>
-            </td>  
-            <td  align="center">    
-                <input type="checkbox"  class="checkboxdat TD_MAKH"/>
-            </td>  
-            <td  align="center">    
-                <input type="checkbox"  class="checkboxdat TD_MAKH"/>
-            </td>  
-            <td  align="center">    
-                <input type="checkbox"  class="checkboxdat TD_MAKH"/>
-            </td>  
-            <td  align="center" >    
-                <input type="checkbox"  class="checkboxdat TD_MAKH"/>
-            </td>  
-            <td  align="center" >    
-                <input type="checkbox"  class="checkboxdat TD_MAKH"/>
-            </td>  
-            <td  align="center" >    
-                <input type="checkbox"  class="checkboxdat TD_MAKH"/>
-            </td>  
-
-            <%--</s:iterator>--%>
-            </tbody>
+            <s:iterator value="#attr.custCIC" var="modelView" status="rowstatus">   
+                <tr>
+                    <td align ="center" class= "<s:property value='FONTFORMAT'/> TD_THUTU">
+                        <input type="text" style="text-align:center" value="<s:property  value="customerCode" />"  class="<s:property value='FONTFORMAT'/> TEN_KH" 
+                               name="custCIC[<s:property  value="%{#rowstatus.index}" />].customerCode" readonly/>
+                    </td>  
+                    <td align ="center" class= "<s:property value='FONTFORMAT'/> TD_THUTU">
+                        <input type="text" style="text-align:center" value="<s:property  value="customerName" />"  class="<s:property value='FONTFORMAT'/> TEN_KH" 
+                               name="custCIC[<s:property  value="%{#rowstatus.index}" />].customerName" readonly/>
+                    </td>
+                </tr>
+            </s:iterator>            
         </table>
-            </br>
+        </br>
     </div>
 </body>

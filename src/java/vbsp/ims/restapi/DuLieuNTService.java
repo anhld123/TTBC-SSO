@@ -989,6 +989,31 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
+    
+    public ArrayList<CustCicModel> getDataCustCIC(String posCode, String reportDate, String communeCode, String groupId, String customerCode) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("cic-customer-load-data")
+                //                .queryParam("key", key)
+                .queryParam("posCode", posCode)                
+//                .queryParam("communeCode", communeCode)
+                .queryParam("communeCode", communeCode.equals("000000") ? "" : communeCode)
+                .queryParam("groupId", groupId.equals("0000000") ? "" : groupId)
+                .queryParam("customerCode", customerCode)
+                .queryParam("reportDate", reportDate);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            CustCiResp dulieuNTResp = response.readEntity(CustCiResp.class);
+            ArrayList<CustCicModel> listOfRow = dulieuNTResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+
 
     public ArrayList<DuLieuNTRow> getDataNQ11CP_01KH(String posCode, String reportDate, String flag) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();

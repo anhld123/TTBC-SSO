@@ -34,6 +34,7 @@ import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
 import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.report.fast.ListValue;
+import vbsp.ims.restapi.CustCicModel;
 //import vbsp.ims.xml.XmlNhaptaycnSync;
 
 /**
@@ -188,6 +189,8 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     public String noxh_total;
 
     protected String totalDataView;
+    
+    protected List<CustCicModel> custCIC = new ArrayList<>();
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Xu ly cho action">
@@ -443,6 +446,16 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
 
+    public List<CustCicModel> getCustCIC() {
+        return custCIC;
+    }
+
+    public void setCustCIC(List<CustCicModel> custCIC) {
+        this.custCIC = custCIC;
+    }
+
+    
+    
     public String getVieclam_total() {
         return vieclam_total;
     }
