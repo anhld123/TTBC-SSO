@@ -619,7 +619,8 @@
         
         
         <action name="CIC_001" class="vbsp.ims.nhaptaycn.action.CIC_001"  method="load">
-            <result name="success">/nhaptay-cn/table_cic.jsp</result>     
+            <result name="success">/nhaptay-cn/table_cic.jsp</result>   
+            <result name="success_c2">/nhaptay-cn/table_cic_c2.jsp</result>   
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
         

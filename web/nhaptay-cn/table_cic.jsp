@@ -87,7 +87,7 @@
 </head>
 <body>
     <div style="overflow:scroll; width: 99vw; padding: 5">     
-        <a style="color: #003eff; font-weight: 550; font-size: 20px">
+        <a style="color: #003eff; font-weight: 550; font-size: 18px">
             BẢNG RÀ SOÁT THÔNG TIN CHUNG CỦA KHÁCH HÀNG 
         </a>
         <table id="subTableSum" style="z-index: 10; width: 50%">
@@ -192,8 +192,8 @@
                 <%--<s:iterator value="lstData" status="idxRows">--%>
             <td style="text-align: center; width: 100px">1</td> 
             <td><input value="983424252" disabled style="width: 100px"></td> 
-            <td><input value="Nguyễn Văn Quyến" disabled style="width: 150px"></td> 
-            <td><input value="Nguyễn Văn Từng#30924242/12/2/2000" disabled style="width: 300px"></td> 
+            <td><input value="Nguyễn Văn Nam" disabled style="width: 150px"></td> 
+            <td><input value="Nguyễn Văn Tèo#30924242/12/2/2000" disabled style="width: 300px"></td> 
 
             <td><input value="3923424243234" disabled style="width: 120px"></td> 
             <td><input value="12/12/2000" disabled style="width: 80px"></td> 
@@ -229,5 +229,6 @@
             <%--</s:iterator>--%>
             </tbody>
         </table>
+            </br>
     </div>
 </body>

@@ -136,7 +136,11 @@ public class CIC_001 extends ActionNghiquyet11cpMain
 //            System.err.println(this.getClass().getName() + " Exception -> NQ11CP: " + e.getMessage());
 //            return ERROR;
 //        }
-        return SUCCESS;
+        if (Grade.equals("1")) {
+            return SUCCESS;
+        }
+        else
+            return "success_c2";
 
     }
 
@@ -580,8 +584,6 @@ public class CIC_001 extends ActionNghiquyet11cpMain
         addActionMessage("Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
     }
-
-    
 
     public static void main(String[] args) throws ParseException {
         DuLieuNTService service = new DuLieuNTService();
