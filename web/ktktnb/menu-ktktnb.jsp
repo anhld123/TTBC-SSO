@@ -107,7 +107,7 @@
         <script>
             $(function () {
                 var date = new Date();
-                var maxDate = "-" + date.getDate() + "D" + "+1M" +"5D";
+                var maxDate = "-" + date.getDate() + "D" + "+1M";
                 var minDate = "-1M " + "-" + (date.getDate() - 1)
                         + "D";
                 var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
