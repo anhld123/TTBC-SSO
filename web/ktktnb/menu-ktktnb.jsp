@@ -108,11 +108,11 @@
             $(function () {
                 var date = new Date();
                 var maxDate = "-" + date.getDate() + "D" + "+1M" +"5D";
-                var minDate = "-0M " + "-" + (date.getDate() - 1)
+                var minDate = "-1M " + "-" + (date.getDate() - 1)
                         + "D";
                 var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-                if (lastDayOfMonth.getDate() - date.getDate() >= 10)
+                if (lastDayOfMonth.getDate() - date.getDate() >= 25)
                 {
                     $("#dpkReportDate").datepicker(
                             {
@@ -136,7 +136,7 @@
                                 }
                             });
                 }
-                if (lastDayOfMonth.getDate() - date.getDate() < 10)
+                if (lastDayOfMonth.getDate() - date.getDate() < 25)
                 {
                     $("#dpkReportDate").datepicker(
                             {
