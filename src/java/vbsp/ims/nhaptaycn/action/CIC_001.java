@@ -35,6 +35,7 @@ import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.DuLieuNTRowX;
 import vbsp.ims.restapi.IntDeductionModel;
 import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.LockSendCiCModel;
 import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.restapi.NQ11cpModel;
 import vbsp.ims.restapi.UpdateLockModel;
@@ -100,20 +101,20 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     return ERROR;
                 }
                 HashMap hmParameter = getParameter();
-                Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                String dateStr = sdf.format(date1);
+//                Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+//                String dateStr = sdf.format(date1);
 
                 posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                 pos_cd_username = posMainModel.getPosCd();
                 service = new DuLieuNTService();
-                ArrayList<LockSendModel> lstData = service.getDataLockSendNQ11CP(pos_cd_username, "M", dateStr);
+                ArrayList<LockSendCiCModel> lstData = service.getDataLockSendCic(pos_cd_username, "M", "20231231");
                 int i = 0;
 
                 DecimalFormat df = new DecimalFormat("#.##");
                 //String formatted = df.format(2.00023);
                 chotsl = "";
-                for (LockSendModel item : lstData) {
+                for (LockSendCiCModel item : lstData) {
                     if (item.getStatus().equals("0")) {
                         setChotsl("0");
                     }
@@ -128,13 +129,13 @@ public class CIC_001 extends ActionNghiquyet11cpMain
 //                row.setCO_TONGHOP(item.getPosFlag());
                     row.setMACN(item.getMainPos());
                     row.setTEN(item.getPosName());
-                    row.setD1(df.format(item.getLoanTotal()));
-                    row.setD2(df.format(item.getPrinTotal()));
-                    row.setD3(df.format(item.getIntTotal()));
-                    row.setD4(df.format(item.getDeductionIntTotal()));
-                    row.setD5(df.format(item.getDeductionLoanTotal()));
-                    row.setD6(df.format(item.getNoDeductionLoanTotal()));
-                    row.setD7(df.format(item.getNoDeductionIntTotal()));
+                    row.setD1(df.format(item.getCustomerTotal()));
+                    row.setD2(df.format(item.getCustomerNotReviewCount()));
+//                    row.setD3(df.format(item.getIntTotal()));
+//                    row.setD4(df.format(item.getDeductionIntTotal()));
+//                    row.setD5(df.format(item.getDeductionLoanTotal()));
+//                    row.setD6(df.format(item.getNoDeductionLoanTotal()));
+//                    row.setD7(df.format(item.getNoDeductionIntTotal()));
                     row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");
 //                    row.setD7(df.format(item.getDeductionIntTotal()));                   
                     lstDulieuNt.add(row);
@@ -154,26 +155,68 @@ public class CIC_001 extends ActionNghiquyet11cpMain
 
     public String save() {
         try {
+            if (!getParaSession()) {
+                    return ERROR;
+                }
+//                HashMap hmParameter = getParameter();
+                
             service = new DuLieuNTService();
-            HashMap hmParameter = getParameter();
-            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
-            pos_cd_username = posMainModel.getPosCd();
-            chotsl = "";
-            ArrayList<CustCicModel> custCIC_TMP = new ArrayList<>();
-            for (CustCicModel item : custCIC) {
-                CustCicModel tempadd = new CustCicModel();
-                tempadd.setPosCode(pos_cd_username);
-                tempadd.setCustomerCode(item.getCustomerCode());
-                tempadd.setCicCode(item.getCicCode());
-                tempadd.setWrongFullNameConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongFullNameConfirmFlag().equals("1") ? "1" : "0");
+                HashMap hmParameter = getParameter();
+                posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+                pos_cd_username = posMainModel.getPosCd();
+                chotsl = "";
+            if (Grade.equals("1")) {
+                
+                ArrayList<CustCicModel> custCIC_TMP = new ArrayList<>();
+                for (CustCicModel item : custCIC) {
+                    CustCicModel tempadd = new CustCicModel();
+                    tempadd.setPosCode(pos_cd_username);
+                    tempadd.setCustomerCode(item.getCustomerCode());
+                    tempadd.setCicCode(item.getCicCode());
+                    tempadd.setWrongFullNameConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongFullNameConfirmFlag().equals("1") ? "1" : "0");
 //                            tempadd.setWrongBirthdayConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongBirthdayConfirmFlag().equals("1") ? "1" : "0");
 //                            tempadd.setWrongIdNoConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongIdNoConfirmFlag().equals("1") ? "1" : "0");
 //                            tempadd.setWrongIssueDateConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongIssueDateConfirmFlag().equals("1") ? "1" : "0"); 
 //                            tempadd.setWrongIssuePlaceConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongIssuePlaceConfirmFlag().equals("1") ? "1" : "0");
 //                           
-                custCIC_TMP.add(item);
+                    custCIC_TMP.add(item);
+                }
+                int status = service.updateCIC(pos_cd_username, "20231231", UserName, "", custCIC_TMP);
+            } else if (Grade.equals("2")) {
+                try {
+                    chotsl = "";
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+//                SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
+//                String dateStr = sdf.format(date1);
+                    ArrayList<LockSendModel> lstData = service.getDataLockSendNQ11CP(pos_cd_username, "M", "20231231");
+                    for (LockSendModel item : lstData) {
+                        if (item.getStatus().equals("0")) {
+                            setChotsl("0");
+                        }
+                    }
+
+                    ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
+                    for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                        UpdateLockModel tempadd = new UpdateLockModel();
+                        String st = "0";
+                        if (tmp.getD25() == null) {
+                            st = "0";
+                        } else {
+                            st = "1";
+                        }
+                        int status = service.updateChotSL("CIC_CUSTOMER", tmp.getMAPGD(), "S", "20231231", st, UserName, null);
+                        if (status != 200) {
+                            addActionError("Bạn chưa chốt/ mở chốt được xin liên hệ với quản trị để khắc phục");
+                            return ERROR;
+                        }
+                    }
+                } catch (Exception e) {
+                    CoreLogger.error(this.getClass().getName() + " Exception -> CIC_001: " + e.getMessage());
+                    System.err.println(this.getClass().getName() + " Exception -> NQ11CP: " + e.getMessage());
+                    addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                    return ERROR;
+                }
             }
-            int status = service.updateCIC(pos_cd_username, "20231231", UserName, "", custCIC_TMP);
 
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
