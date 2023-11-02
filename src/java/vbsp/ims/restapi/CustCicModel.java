@@ -59,32 +59,9 @@ public class CustCicModel {
     private String savingBalanceString;
     private String remainIntAmountString;
 
-    public String getPrincipleBalanceString() {
-        return principleBalanceString;
-    }
-
-    public void setPrincipleBalanceString(String principleBalanceString) {
-        this.principleBalance = principleBalance;
-    }
-
-    public String getSavingBalanceString() {
-        return savingBalanceString;
-    }
-
-    public void setSavingBalanceString(String savingBalanceString) {
-        this.savingBalance = savingBalance;
-    }
-
-    public String getRemainIntAmountString() {
-        return remainIntAmountString;
-    }
-
-    public void setRemainIntAmountString(String remainIntAmountString) {
-        this.remainIntAmount = remainIntAmount;
-    }
-
     public BigInteger getPrincipleBalance() {
-        return principleBalance;
+//        return principleBalance;
+        return principleBalance == null ? new BigInteger("0") : principleBalance;
     }
 
     public void setPrincipleBalance(BigInteger principleBalance) {
@@ -92,7 +69,8 @@ public class CustCicModel {
     }
 
     public BigInteger getSavingBalance() {
-        return savingBalance;
+//        return savingBalance;
+        return savingBalance == null ? new BigInteger("0") : savingBalance;
     }
 
     public void setSavingBalance(BigInteger savingBalance) {
@@ -100,14 +78,39 @@ public class CustCicModel {
     }
 
     public BigInteger getRemainIntAmount() {
-        return remainIntAmount;
+        return remainIntAmount == null ? new BigInteger("0") : remainIntAmount;
+//        return remainIntAmount;
     }
 
     public void setRemainIntAmount(BigInteger remainIntAmount) {
         this.remainIntAmount = remainIntAmount;
     }
-    
-    
+
+    public String getPrincipleBalanceString() {
+        return principleBalanceString;
+    }
+
+    public void setPrincipleBalanceString(String principleBalanceString) {
+        this.principleBalanceString = principleBalanceString;
+    }
+
+    public String getSavingBalanceString() {
+        return savingBalanceString;
+    }
+
+    public void setSavingBalanceString(String savingBalanceString) {
+        this.savingBalanceString = savingBalanceString;
+    }
+
+    public String getRemainIntAmountString() {
+        return remainIntAmountString;
+    }
+
+    public void setRemainIntAmountString(String remainIntAmountString) {
+        this.remainIntAmountString = remainIntAmountString;
+    }
+
+   
     
     private String idExpiredDate;
     private String wrongFullNameConfirmFlag;
