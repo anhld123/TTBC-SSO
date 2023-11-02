@@ -5,10 +5,10 @@
  */
 package vbsp.ims.nhaptaycn.action;
 
-import vbsp.ims.nghiquyet11cp.*;
-import vbsp.ims.nhaptaycn.action.*;
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
+import vbsp.ims.nghiquyet11cp.*;
+import vbsp.ims.nhaptaycn.action.*;
 import java.io.File;
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -27,9 +27,12 @@ import org.apache.struts2.ServletActionContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.define.Define;
+import vbsp.ims.gqvl_2023.Service_GQVL2023;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
 import vbsp.ims.restapi.CustCicModel;
+import vbsp.ims.restapi.DuLieuNTRow;
+import vbsp.ims.restapi.DuLieuNTRowX;
 import vbsp.ims.restapi.IntDeductionModel;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.LockSendModel;
@@ -78,16 +81,15 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                 }
                 int i = 0;
                 DecimalFormat df = new DecimalFormat("#.##");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                DateFormat df1 = new SimpleDateFormat("MM/dd/yyyy");
+                DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
                 for (CustCicModel item : custCIC_TMP) {
                     i++;
-//                    CustCicModel cv= new CustCicModel();
-//                    double principleBalance = Double.parseDouble(df.format(item.getPrincipleBalance()));
-//                    String formattedPrincipleBalance = df.format(principleBalance);
-//                    item.setPrincipleBalance(Double.parseDouble(formattedPrincipleBalance));
-//                   
-//                    item.setRemainIntAmount(Double.parseDouble(df.format(item.getRemainIntAmount())));
-//                    item.setSavingBalance(Double.parseDouble(df.format(item.getSavingBalance())));
-                    item.setPrincipleBalanceString(df.format(item.getPrincipleBalance()));
+                    item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
+                    if (item.getIdExpiredDate() != null) {
+                        item.setIdExpiredDate(dateHienthi.format(sdf.parse(item.getIdExpiredDate())));
+                    }
                     custCIC.add(item);
                 }
 
@@ -150,170 +152,32 @@ public class CIC_001 extends ActionNghiquyet11cpMain
 
     }
 
-    @Override
     public String save() {
         try {
-            if (!getParaSession()) {
-                return ERROR;
-            }
-            if (lstDulieuNt == null || lstDulieuNt.size() == 0) {
-                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
-                return ERROR;
-            }
-
-            HashMap hmParameter = getParameter();
-            String sngaybc = hmParameter.get("ngay_bc").toString();
-            Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(sngaybc);
-
-//            Date date = Calendar.getInstance().getTime();  
-            DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-            String strDate = dateFormat.format(date1);
-
-            DateFormat dateFormat1 = new SimpleDateFormat("dd-MMM-yyyy");
-            String strDate1 = dateFormat1.format(date1);
-
             service = new DuLieuNTService();
+            HashMap hmParameter = getParameter();
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
-
-            if (Grade.equals("1")) {
-                ArrayList<LockSendModel> lstDataLock = service.getDataLockSendNQ11CP(pos_cd_username, "S", strDate);
-                ArrayList<NQ11cpModel> lstUpdateDate = new ArrayList<>();
-                if (lstDataLock.size() > 0) {
-                    //Lưu phần phân loại hạch toán
-                    if (lstDataLock.get(0).getStatus().equals("2")) {
-                        addActionError("Đơn vị đã chốt số liệu. Bạn không thể điều chỉnh.");;
-                        return ERROR;
-                    } //Lưu phần xác nhận lãi giảm
-                    else if (lstDataLock.get(0).getStatus().equals("3")) {
-                        addActionError("Vui lòng chọn nút cập nhật hạch toán với trường hợp cập nhật hạch toán vào casa hoặc bằng tiền mặt");;
-                        return ERROR;
-                    } else {
-                        try {
-                            setChotsl(lstDataLock.get(0).getStatus());
-                        } catch (Exception e) {
-                            setChotsl("0");
-                        }
-//                         DecimalFormat df = new DecimalFormat("#.##");
-                        for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                            if (tmp.getD33() != null) {
-
-                                NQ11cpModel tempadd = new NQ11cpModel();
-                                if (tmp.getD25() == null) {
-                                    tempadd.setMainPos(tmp.getMACN());
-                                    tempadd.setPosCode(tmp.getMAPGD());
-                                    tempadd.setLoanId(tmp.getD3());
-                                    tempadd.setIntSubsidyAdjustM01Amt(new BigInteger(tmp.getD18()));
-                                    tempadd.setIntSubsidyAdjustM02Amt(new BigInteger(tmp.getD19()));
-                                    tempadd.setIntSubsidyAdjustM03Amt(new BigInteger(tmp.getD20()));
-                                    tempadd.setIntSubsidyAdjustM04Amt(new BigInteger(tmp.getD55()));
-                                    tempadd.setIntSubsidyAdjustM05Amt(new BigInteger(tmp.getD37()));
-                                    tempadd.setIntSubsidyAdjustM06Amt(new BigInteger(tmp.getD38()));
-                                    tempadd.setIntSubsidyAdjustM07Amt(new BigInteger(tmp.getD51()));
-                                    tempadd.setIntSubsidyAdjustM08Amt(new BigInteger(tmp.getD60()));
-                                    tempadd.setIntSubsidyAdjustM09Amt(new BigInteger(tmp.getD63()));
-                                    tempadd.setIntSubsidyAdjustM10Amt(new BigInteger(tmp.getD66()));
-                                    if (chotsl.equals("1") || chotsl.equals("3")) {
-                                        tempadd.setIntConfirmFlag("1");
-                                    } else {
-                                        tempadd.setIntConfirmFlag("0");
-                                    }
-                                    tempadd.setRejectReason(tmp.getD47());
-                                    lstUpdateDate.add(tempadd);
-                                } else {
-                                    tempadd.setMainPos(tmp.getMACN());
-                                    tempadd.setPosCode(tmp.getMAPGD());
-                                    tempadd.setLoanId(tmp.getD3());
-                                    tempadd.setIntSubsidyAdjustM01Amt(new BigInteger(tmp.getD18()));
-                                    tempadd.setIntSubsidyAdjustM02Amt(new BigInteger(tmp.getD19()));
-                                    tempadd.setIntSubsidyAdjustM03Amt(new BigInteger(tmp.getD20()));
-                                    tempadd.setIntSubsidyAdjustM04Amt(new BigInteger(tmp.getD55()));
-                                    tempadd.setIntSubsidyAdjustM05Amt(new BigInteger(tmp.getD37()));
-                                    tempadd.setIntSubsidyAdjustM06Amt(new BigInteger(tmp.getD38()));
-                                    tempadd.setIntSubsidyAdjustM07Amt(new BigInteger(tmp.getD51()));
-                                    tempadd.setIntSubsidyAdjustM08Amt(new BigInteger(tmp.getD60()));
-                                    tempadd.setIntSubsidyAdjustM09Amt(new BigInteger(tmp.getD63()));
-                                    tempadd.setIntSubsidyAdjustM10Amt(new BigInteger(tmp.getD66()));
-
-                                    tempadd.setM01Status("1");
-                                    tempadd.setM02Status("1");
-                                    tempadd.setM03Status("1");
-                                    tempadd.setM04Status("1");
-                                    tempadd.setM05Status("1");
-                                    tempadd.setM06Status("1");
-                                    tempadd.setIntConfirmFlag("1");
-                                    tempadd.setRejectReason(tmp.getD47());
-                                    lstUpdateDate.add(tempadd);
-                                }
-                            }
-                        }
-                        int status = service.updateDataNQ11CP_001(pos_cd_username, strDate, UserName, lstUpdateDate);
-                        if (status == 200) {
-                            ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
-                            DecimalFormat df = new DecimalFormat("#.##");
-                            for (NQ11cpModel item : lstUpdateDate) {
-                                QT_DULIEU_NT updateRow = new QT_DULIEU_NT();
-                                updateRow.setD1(item.getLoanId());
-
-                                updateRow.setD2(df.format(item.getIntSubsidyAdjustM01Amt()));
-                                updateRow.setD3(df.format(item.getIntSubsidyAdjustM02Amt()));
-                                updateRow.setD4(df.format(item.getIntSubsidyAdjustM03Amt()));
-                                updateRow.setD10(df.format(item.getIntSubsidyAdjustM04Amt()));
-                                updateRow.setD11(df.format(item.getIntSubsidyAdjustM05Amt()));
-                                updateRow.setD12(df.format(item.getIntSubsidyAdjustM06Amt()));
-                                updateRow.setD13(df.format(item.getIntSubsidyAdjustM07Amt()));
-                                updateRow.setD14(df.format(item.getIntSubsidyAdjustM08Amt()));
-                                updateRow.setD15(df.format(item.getIntSubsidyAdjustM09Amt()));
-                                updateRow.setD16(df.format(item.getIntSubsidyAdjustM10Amt()));
-                                updateRow.setD5(item.getIntConfirmFlag().toString());
-                                updateRow.setD6(item.getRejectReason());
-
-                                lstLocalDataUpdate.add(updateRow);
-                            }
-                            if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_001(UserName, pos_cd_username, strDate1, lstLocalDataUpdate, "1")) {
-                                addActionError("Bạn chưa lưu số liệu tại đơn vị. Liên hệ với quản trị để khắc phục");
-                                return ERROR;
-                            }
-                        } else {
-                            addActionError("Lỗi cập nhật API trung ương. Liên hệ với quản trị để khắc phục");
-                            return ERROR;
-                        }
-                    }
-                }
-
-            } else if (Grade.equals("2")) {
-                chotsl = "";
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
-                String dateStr = sdf.format(date1);
-                ArrayList<LockSendModel> lstData = service.getDataLockSendNQ11CP(pos_cd_username, "M", dateStr);
-                for (LockSendModel item : lstData) {
-                    if (item.getStatus().equals("0")) {
-                        setChotsl("0");
-                    }
-                }
-
-                ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
-                for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                    UpdateLockModel tempadd = new UpdateLockModel();
-                    if (tmp.getD25() == null) {
-                        tempadd.setPosCode(tmp.getMAPGD());
-//                        tempadd.setStatus(chotsl.equals("0") ? "0" : "2");
-                        tempadd.setStatus("0");
-                        lstUpdateDateLock.add(tempadd);
-                    } else {
-                        tempadd.setPosCode(tmp.getMAPGD());
-//                        tempadd.setStatus(chotsl.equals("0") ? "1" : "3");
-                        tempadd.setStatus("1");
-                        lstUpdateDateLock.add(tempadd);
-                    }
-                }
-                int status = service.updateDataNQ11CP_ChotSL(pos_cd_username, strDate, UserName, lstUpdateDateLock);
+            chotsl = "";
+            ArrayList<CustCicModel> custCIC_TMP = new ArrayList<>();
+            for (CustCicModel item : custCIC) {
+                CustCicModel tempadd = new CustCicModel();
+                tempadd.setPosCode(pos_cd_username);
+                tempadd.setCustomerCode(item.getCustomerCode());
+                tempadd.setCicCode(item.getCicCode());
+                tempadd.setWrongFullNameConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongFullNameConfirmFlag().equals("1") ? "1" : "0");
+//                            tempadd.setWrongBirthdayConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongBirthdayConfirmFlag().equals("1") ? "1" : "0");
+//                            tempadd.setWrongIdNoConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongIdNoConfirmFlag().equals("1") ? "1" : "0");
+//                            tempadd.setWrongIssueDateConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongIssueDateConfirmFlag().equals("1") ? "1" : "0"); 
+//                            tempadd.setWrongIssuePlaceConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongIssuePlaceConfirmFlag().equals("1") ? "1" : "0");
+//                           
+                custCIC_TMP.add(item);
             }
+            int status = service.updateCIC(pos_cd_username, "20231231", UserName, "", custCIC_TMP);
 
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> CIC_001: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> NQ11CP: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
             return ERROR;
         }

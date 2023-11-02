@@ -55,10 +55,6 @@ public class CustCicModel {
     @XmlElement(defaultValue = "0")
     BigInteger remainIntAmount;
 
-    private String principleBalanceString;
-    private String savingBalanceString;
-    private String remainIntAmountString;
-
     public BigInteger getPrincipleBalance() {
 //        return principleBalance;
         return principleBalance == null ? new BigInteger("0") : principleBalance;
@@ -85,32 +81,6 @@ public class CustCicModel {
     public void setRemainIntAmount(BigInteger remainIntAmount) {
         this.remainIntAmount = remainIntAmount;
     }
-
-    public String getPrincipleBalanceString() {
-        return principleBalanceString;
-    }
-
-    public void setPrincipleBalanceString(String principleBalanceString) {
-        this.principleBalanceString = principleBalanceString;
-    }
-
-    public String getSavingBalanceString() {
-        return savingBalanceString;
-    }
-
-    public void setSavingBalanceString(String savingBalanceString) {
-        this.savingBalanceString = savingBalanceString;
-    }
-
-    public String getRemainIntAmountString() {
-        return remainIntAmountString;
-    }
-
-    public void setRemainIntAmountString(String remainIntAmountString) {
-        this.remainIntAmountString = remainIntAmountString;
-    }
-
-   
     
     private String idExpiredDate;
     private String wrongFullNameConfirmFlag;
