@@ -56,15 +56,9 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     return ERROR;
                 }
                 HashMap hmParameter = getParameter();
-//                Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
-//                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-//                SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
-//                String dateStr = sdf.format(date1);
                 posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                 pos_cd_username = posMainModel.getPosCd();
                 service = new DuLieuNTService();
-                //Kiểm tra xem đã chốt số liệu chưa
-//                String chotsl = "0";
                 ArrayList<LockSendModel> lstDataLock = service.getDataLockManual("CIC_01", pos_cd_username, "S", "20231231");
                 try {
                     setChotsl(lstDataLock.get(0).getStatus());
@@ -75,13 +69,30 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     addActionError("Vui lòng chọn xã để rà soát số liệu.");;
                     return ERROR;
                 }
-                custCIC = service.getDataCustCIC(pos_cd_username, "20231231",
+                List<CustCicModel> custCIC_TMP = new ArrayList<>();
+                custCIC_TMP = service.getDataCustCIC(pos_cd_username, "20231231",
                         hmParameter.get("maxa").toString(), hmParameter.get("mato").toString().split("_")[1], "");
-                if (custCIC.size() > 499) {
+                if (custCIC_TMP.size() > 499) {
                     addActionError("Dữ liệu quá lớn. Vui lòng chọn từng tổ để xác nhận.");;
                     return ERROR;
                 }
+                int i = 0;
+                DecimalFormat df = new DecimalFormat("#.##");
+                for (CustCicModel item : custCIC_TMP) {
+                    i++;
+//                    CustCicModel cv= new CustCicModel();
+//                    double principleBalance = Double.parseDouble(df.format(item.getPrincipleBalance()));
+//                    String formattedPrincipleBalance = df.format(principleBalance);
+//                    item.setPrincipleBalance(Double.parseDouble(formattedPrincipleBalance));
+//                   
+//                    item.setRemainIntAmount(Double.parseDouble(df.format(item.getRemainIntAmount())));
+//                    item.setSavingBalance(Double.parseDouble(df.format(item.getSavingBalance())));
+                    item.setPrincipleBalanceString(df.format(item.getPrincipleBalance()));
+                    custCIC.add(item);
+                }
+
                 return SUCCESS;
+
             } else if (Grade.equals("2")) {
                 if (!getParaSession()) {
                     return ERROR;

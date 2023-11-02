@@ -47,13 +47,68 @@ public class CustCicModel {
     private String groupCode;
     private String mobileNumber;
 
-    @XmlElement(defaultValue = "0")
-    private double principleBalance;
-    @XmlElement(defaultValue = "0")
-    private double savingBalance;
-    @XmlElement(defaultValue = "0")
-    private double remainIntAmount;
 
+    @XmlElement(defaultValue = "0")
+    BigInteger principleBalance;
+    @XmlElement(defaultValue = "0")
+    BigInteger savingBalance;
+    @XmlElement(defaultValue = "0")
+    BigInteger remainIntAmount;
+
+    private String principleBalanceString;
+    private String savingBalanceString;
+    private String remainIntAmountString;
+
+    public String getPrincipleBalanceString() {
+        return principleBalanceString;
+    }
+
+    public void setPrincipleBalanceString(String principleBalanceString) {
+        this.principleBalance = principleBalance;
+    }
+
+    public String getSavingBalanceString() {
+        return savingBalanceString;
+    }
+
+    public void setSavingBalanceString(String savingBalanceString) {
+        this.savingBalance = savingBalance;
+    }
+
+    public String getRemainIntAmountString() {
+        return remainIntAmountString;
+    }
+
+    public void setRemainIntAmountString(String remainIntAmountString) {
+        this.remainIntAmount = remainIntAmount;
+    }
+
+    public BigInteger getPrincipleBalance() {
+        return principleBalance;
+    }
+
+    public void setPrincipleBalance(BigInteger principleBalance) {
+        this.principleBalance = principleBalance;
+    }
+
+    public BigInteger getSavingBalance() {
+        return savingBalance;
+    }
+
+    public void setSavingBalance(BigInteger savingBalance) {
+        this.savingBalance = savingBalance;
+    }
+
+    public BigInteger getRemainIntAmount() {
+        return remainIntAmount;
+    }
+
+    public void setRemainIntAmount(BigInteger remainIntAmount) {
+        this.remainIntAmount = remainIntAmount;
+    }
+    
+    
+    
     private String idExpiredDate;
     private String wrongFullNameConfirmFlag;
     private String wrongIdNoConfirmFlag;
@@ -176,17 +231,7 @@ public class CustCicModel {
         return mobileNumber;
     }
 
-    public double getPrincipleBalance() {
-        return principleBalance;
-    }
-
-    public double getSavingBalance() {
-        return savingBalance;
-    }
-
-    public double getRemainIntAmount() {
-        return remainIntAmount;
-    }
+    
 
     public String getIdExpiredDate() {
         return idExpiredDate;
@@ -345,18 +390,7 @@ public class CustCicModel {
         this.mobileNumber = mobileNumber;
     }
 
-    public void setPrincipleBalance(double principleBalance) {
-        this.principleBalance = principleBalance;
-    }
-
-    public void setSavingBalance(double savingBalance) {
-        this.savingBalance = savingBalance;
-    }
-
-    public void setRemainIntAmount(double remainIntAmount) {
-        this.remainIntAmount = remainIntAmount;
-    }
-
+    
     public void setIdExpiredDate(String idExpiredDate) {
         this.idExpiredDate = idExpiredDate;
     }

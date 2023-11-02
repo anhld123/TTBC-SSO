@@ -80,6 +80,7 @@
         $(".TD_CHITIEU").css({"width": "300px"});
         $(".TEN_KH").css({"width": "100%"});
     });
+
     $("#allCheck_dat").change(function () {
         $(".checkboxdat").prop('checked', $(this).prop("checked"));
     });
@@ -117,21 +118,7 @@
                 <td><input value="623.424" disabled style="width: 150px; text-align: right"></td> 
                 <td><input value="733" disabled style="width: 150px; text-align: right"></td> 
 
-                <!--            <td><input value="8" disabled style="width: 80px"></td> 
-                            <td><input value="9" disabled style="width: 120px"></td> 
-                            <td><input value="10" disabled style="width: 80px"></td> 
-                            <td><input value="11" disabled style="width: 100px"></td> -->
-            </tr>
-            <!--            <tr>
-                            <td><input value="040101" disabled style="width: 120px"></td> 
-                            <td><input value="Phạm Ngũ Lão" disabled style="width: 250px"></td> 
-                            <td><input value="2342343" disabled style="width: 150px"></td> 
-                            <td><input value="Nguyễn Đức Anh" disabled style="width: 250px"></td> 
-                            <td><input value="23.424" disabled style="width: 120px; text-align: right"></td> 
-                            <td><input value="33" disabled style="width: 120px; text-align: right"></td> 
-                        </tr>-->
 
-            <!--</tbody>-->
         </table>
         </br>
         <table id="subTable" style="z-index: 10;">
@@ -144,7 +131,7 @@
                     <th colspan="3" class="hdtitle">Thông tin trên CMND</th>
                     <th colspan="3" class="hdtitle">Thông tin trên CCCD</th>
                     <th rowspan="2" class="hdtitle" style="width: 80px">Ngày tháng năm sinh</th>   
-                    <th rowspan="2" class="hdtitle">Dư nợ</th>   
+                    <th rowspan="2" class="hdtitle" style="width: 150px">Dư nợ</th>   
                     <th rowspan="2" class="hdtitle">Số dư tiền gửi</th>  
                     <th rowspan="2" class="hdtitle">Lãi tồn</th>              
                     <th colspan="5" class="hdtitle">Xác nhận sai sót</th> 
@@ -165,42 +152,86 @@
                     <th  class="hdtitle">Sai ngày tháng năm sinh</th>
                 </tr>
 
+                <tr class="txtBody">
+                    <th style="color: #000; font: italic; font-size: xx-small;">(1)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(2)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(3)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(4)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(5)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(6)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(7)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(8)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(9)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(10)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(11)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(12)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(13)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(14)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(15)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(16)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(17)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(18)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(19)</th>
+                    <th style="color: #000; font: italic; font-size: xx-small;">(20)</th>  
+                </tr>
             </thead>
-            <tr class="txtBody">
-                <th style="color: #000; font: italic; font-size: xx-small;">(1)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(2)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(3)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(4)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(5)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(6)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(7)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(8)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(9)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(10)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(11)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(12)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(13)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(14)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(15)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(16)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(17)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(18)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(19)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(20)</th>  
-            </tr>
             <s:iterator value="#attr.custCIC" var="modelView" status="rowstatus">   
                 <tr>
-                    <td align ="center" class= "<s:property value='FONTFORMAT'/> TD_THUTU">
-                        <input type="text" style="text-align:center" value="<s:property  value="customerCode" />"  class="<s:property value='FONTFORMAT'/> TEN_KH" 
-                               name="custCIC[<s:property  value="%{#rowstatus.index}" />].customerCode" readonly/>
-                    </td>  
-                    <td align ="center" class= "<s:property value='FONTFORMAT'/> TD_THUTU">
-                        <input type="text" style="text-align:center" value="<s:property  value="customerName" />"  class="<s:property value='FONTFORMAT'/> TEN_KH" 
-                               name="custCIC[<s:property  value="%{#rowstatus.index}" />].customerName" readonly/>
+                    <td style="text-align: center">
+                        <s:property value="%{#rowstatus.index + 1}" /> 
                     </td>
+                    <td style="text-align: center"><s:property value="customerCode" /></td>  
+                    <td style="text-align: center"><s:property value="customerName" /></td>
+                    <td style="text-align: center"><s:property value="coreBankingCustomerName"/><s:property value="coreBankingBirthday"/><s:property value="coreBankingIdNo"/><s:property value="coreBankingIssuePlace"/>
+                        <s:property value="coreBankingIssueDate"/></td>
+                    <!--số CMTND-->
+                    <td style="text-align: center"><s:property value="idNo"/></td>
+                    <td> </td>
+                    <td> </td>
+                    <!--số CCCD-->
+                    <td style="text-align: center"><s:property value="oldIdNo"/></td> 
+                    <td></td>
+                    <td> </td>
+                    <!--ngày sinh--> 
+                    <td><s:property value="birthDay"/></td>
+                    <!--dư nợ--> 
+                    <td><s:property value="PrincipleBalanceString"/></td>
+                    <!--dư tiền gửi--> 
+                    <td><s:property value="savingBalance"/></td>
+                    <!--lãi tồn--> 
+                    <td><s:property value="remainIntAmount"/></td>
+                    <!--sai họ tên-->
+                    <td align ="center" class= "<s:property value='FONTFORMAT'/> TD_THUTU">
+                        <input type="checkbox" style="text-align:center" value="<s:property  value="wrongFullNameConfirmFlag" />"  class="checkboxdat <s:property value='FONTFORMAT'/> TEN_KH" 
+                               name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongFullNameConfirmFlag" readonly/>
+                    </td>  
+                    <!--sai số cm-->
+                    <td align ="center" class= "<s:property value='FONTFORMAT'/> TD_THUTU">
+                        <input type="checkbox" style="text-align:center" value="<s:property  value="wrongIdNoConfirmFlag" />"  class="checkboxdat <s:property value='FONTFORMAT'/> TEN_KH" 
+                               name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongIdNoConfirmFlag" readonly/>
+                    </td>
+
+
+                    <td align ="center" class= "<s:property value='FONTFORMAT'/> TD_THUTU">
+                        <input type="checkbox" style="text-align:center" value="<s:property  value="wrongIssueDateConfirmFlag" />"  class="checkboxdat <s:property value='FONTFORMAT'/> TEN_KH" 
+                               name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongIssueDateConfirmFlag" readonly/>
+                    </td>
+
+                    <td align ="center" class= "<s:property value='FONTFORMAT'/> TD_THUTU">
+                        <input type="checkbox" style="text-align:center" value="<s:property  value="wrongIssuePlaceConfirmFlag" />"  class="checkboxdat <s:property value='FONTFORMAT'/> TEN_KH" 
+                               name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongIssuePlaceConfirmFlag" readonly/>
+                    </td>
+
+                    <td align ="center" class= "<s:property value='FONTFORMAT'/> TD_THUTU">
+                        <input type="checkbox" style="text-align:center" value="<s:property  value="wrongBirthdayConfirmFlag" />"  class="checkboxdat <s:property value='FONTFORMAT'/> TEN_KH" 
+                               name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongBirthdayConfirmFlag" readonly/>
+                    </td>
+
                 </tr>
             </s:iterator>            
         </table>
         </br>
     </div>
 </body>
+<script>
+</script>
