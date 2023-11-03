@@ -156,38 +156,76 @@ public class CIC_001 extends ActionNghiquyet11cpMain
     public String save() {
         try {
             if (!getParaSession()) {
-                    return ERROR;
-                }
-//                HashMap hmParameter = getParameter();
-                
-            service = new DuLieuNTService();
-                HashMap hmParameter = getParameter();
-                posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
-                pos_cd_username = posMainModel.getPosCd();
-                chotsl = "";
+                return ERROR;
+            }
+            HashMap hmParameter = getParameter();
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd_username = posMainModel.getPosCd();
+            SimpleDateFormat CvDate = new SimpleDateFormat("yyyyMMdd");
+            SimpleDateFormat LsDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            int i = 0;
             if (Grade.equals("1")) {
-                
+
                 ArrayList<CustCicModel> custCIC_TMP = new ArrayList<>();
                 for (CustCicModel item : custCIC) {
+                    i++;
                     CustCicModel tempadd = new CustCicModel();
-                    tempadd.setPosCode(pos_cd_username);
+                    tempadd.setMainPos(item.getMainPos());
+                    tempadd.setPosCode(item.getPosCode());
                     tempadd.setCustomerCode(item.getCustomerCode());
                     tempadd.setCicCode(item.getCicCode());
-                    tempadd.setWrongFullNameConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongFullNameConfirmFlag().equals("1") ? "1" : "0");
-//                            tempadd.setWrongBirthdayConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongBirthdayConfirmFlag().equals("1") ? "1" : "0");
-//                            tempadd.setWrongIdNoConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongIdNoConfirmFlag().equals("1") ? "1" : "0");
-//                            tempadd.setWrongIssueDateConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongIssueDateConfirmFlag().equals("1") ? "1" : "0"); 
-//                            tempadd.setWrongIssuePlaceConfirmFlag(chotsl.equals("0") ? item.getStatus() : item.getWrongIssuePlaceConfirmFlag().equals("1") ? "1" : "0");
-//                           
-                    custCIC_TMP.add(item);
+//                    tempadd.setCustomerName(item.getCustomerName());
+//                    tempadd.setIsValidCustomerName(item.getIsValidCustomerName());
+//                    tempadd.setBirthDay(item.getBirthDay());
+//                    tempadd.setBirthDay(LsDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(item.getBirthDay())));
+//                    tempadd.setIdNo(item.getIdNo());
+//                    tempadd.setNewIdNo(item.getNewIdNo());
+//                    tempadd.setIsValidNewIdNo(item.getIsValidNewIdNo());
+//                    tempadd.setOldIdNo(item.getOldIdNo());
+//                    tempadd.setIsValidOldIdNo(item.getIsValidOldIdNo());
+//                    tempadd.setC06OldIdNo(item.getC06OldIdNo());
+//                    tempadd.setC06NewIdNo(item.getC06NewIdNo());
+//                    tempadd.setCommuneCode(item.getCommuneCode());
+//                    tempadd.setCommuneName(item.getCommuneName());
+//                    tempadd.setSubCommuneCode(item.getSubCommuneCode());
+//                    tempadd.setSubCommuneName(item.getSubCommuneName());
+//                    tempadd.setStatus(item.getStatus());
+//                    tempadd.setType(item.getType());
+//                    tempadd.setCreatedBy(item.getCreatedBy());
+//                    tempadd.setCreatedDate(item.getCreatedDate());
+//                    tempadd.setUpdatedBy(item.getUpdatedBy());
+//                    tempadd.setUpdatedDate(item.getUpdatedDate());
+//                    tempadd.setIntellectUpdateFlag(item.getIntellectUpdateFlag());
+//                    tempadd.setGroupCode(item.getGroupCode());
+//                    tempadd.setMobileNumber(item.getMobileNumber());
+//                    tempadd.setPrincipleBalance(item.getPrincipleBalance());
+//                    tempadd.setSavingBalance(item.getSavingBalance());
+//                    tempadd.setRemainIntAmount(item.getRemainIntAmount());
+//                    tempadd.setIdExpiredDate(item.getIdExpiredDate());
+//                    tempadd.setIdExpiredDate(LsDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(item.getIdExpiredDate())));
+                    tempadd.setWrongFullNameConfirmFlag(item.getWrongFullNameConfirmFlag());
+                    tempadd.setWrongIdNoConfirmFlag(item.getWrongIdNoConfirmFlag());
+                    tempadd.setWrongIssueDateConfirmFlag(item.getWrongIssueDateConfirmFlag());
+                    tempadd.setWrongIssuePlaceConfirmFlag(item.getWrongIssuePlaceConfirmFlag());
+                    tempadd.setWrongBirthdayConfirmFlag(item.getWrongBirthdayConfirmFlag());
+//                    tempadd.setCustomerStatus(item.getCustomerStatus());
+//                    tempadd.setCoreBankingIdNo(item.getCoreBankingIdNo());
+//                    tempadd.setCoreBankingIssuePlace(item.getCoreBankingIssuePlace());
+//                    tempadd.setCoreBankingIssueDate(item.getCoreBankingIssueDate());
+//                    tempadd.setCoreBankingCustomerName(item.getCoreBankingCustomerName());
+//                    tempadd.setCoreBankingBirthday(item.getCoreBankingBirthday());
+
+                    custCIC_TMP.add(tempadd);
                 }
-                int status = service.updateCIC(pos_cd_username, "20231231", UserName, "", custCIC_TMP);
+                service = new DuLieuNTService();
+                int status = service.updateCIC(pos_cd_username, "20231231", UserName, UserName, custCIC_TMP);
+                if (status == 200) {
+                    addActionMessage("Thành công");
+                    return SUCCESS;
+                }
             } else if (Grade.equals("2")) {
                 try {
                     chotsl = "";
-//                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-//                SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
-//                String dateStr = sdf.format(date1);
                     ArrayList<LockSendModel> lstData = service.getDataLockSendNQ11CP(pos_cd_username, "M", "20231231");
                     for (LockSendModel item : lstData) {
                         if (item.getStatus().equals("0")) {
