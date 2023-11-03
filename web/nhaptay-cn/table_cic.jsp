@@ -135,6 +135,112 @@
         }
         return ma;
     }
+
+    function initTable()
+    {
+        var table = document.getElementById("subTable");
+        var rowcount = table.rows.length;
+        rowcount = rowcount > max_row ? rowcount : max_row;
+        for (var i = 0; i < rowcount; i++)
+        {
+            //cho combox 15
+            var matmp15 = getMabyNumber15(i);//                       
+            if (matmp15 == 1)
+            {
+                $('input:checkbox[id=idc15' + i + ']').attr('checked', true);
+            }
+            //cho combox 16
+            var matmp16 = getMabyNumber16(i);//                       
+            if (matmp16 == 1)
+            {
+                $('input:checkbox[id=idc16' + i + ']').attr('checked', true);
+            }
+            //cho combox 17
+            var matmp17 = getMabyNumber17(i);//                       
+            if (matmp17 == 1)
+            {
+                $('input:checkbox[id=idc17' + i + ']').attr('checked', true);
+            }
+            
+            //cho combox 18
+            var matmp18 = getMabyNumber18(i);//                       
+            if (matmp18 == 1)
+            {
+                $('input:checkbox[id=idc18' + i + ']').attr('checked', true);
+            }
+            
+            //cho combox 19
+            var matmp19 = getMabyNumber19(i);//                       
+            if (matmp19 == 1)
+            {
+                $('input:checkbox[id=idc19' + i + ']').attr('checked', true);
+            }
+        }
+    }
+
+    function getMabyNumber15(idx)
+    {
+        var ma = '';
+        try {
+            var ma_id = 'id15_' + idx;
+            ma = document.getElementById(ma_id).value;
+        } catch (e)
+        {
+            ma = '999999';
+        }
+        return ma;
+    }
+    function getMabyNumber16(idx)
+    {
+        var ma = '';
+        try {
+            var ma_id = 'id16_' + idx;
+            ma = document.getElementById(ma_id).value;
+        } catch (e)
+        {
+            ma = '999999';
+        }
+        return ma;
+    }
+    
+    function getMabyNumber17(idx)
+    {
+        var ma = '';
+        try {
+            var ma_id = 'id17_' + idx;
+            ma = document.getElementById(ma_id).value;
+        } catch (e)
+        {
+            ma = '999999';
+        }
+        return ma;
+    }
+    
+    function getMabyNumber18(idx)
+    {
+        var ma = '';
+        try {
+            var ma_id = 'id18_' + idx;
+            ma = document.getElementById(ma_id).value;
+        } catch (e)
+        {
+            ma = '999999';
+        }
+        return ma;
+    }
+    
+    function getMabyNumber19(idx)
+    {
+        var ma = '';
+        try {
+            var ma_id = 'id19_' + idx;
+            ma = document.getElementById(ma_id).value;
+        } catch (e)
+        {
+            ma = '999999';
+        }
+        return ma;
+    }
 </script>   
 </head>
 <body>
@@ -216,6 +322,17 @@
                             <s:property value="%{#rowstatus.index + 1}" /> 
                         </td>
                         <td class="TEN_KH D0"><s:property value="customerCode" />
+                            <input type="hidden" value="<s:property  value="wrongFullNameConfirmFlag" />"  id="id15_<s:property  value="%{#rowstatus.index}" />" 
+                                   value="<s:property  value="wrongFullNameConfirmFlag"/>"/>
+                            <input type="hidden" value="<s:property  value="wrongIdNoConfirmFlag" />"  id="id16_<s:property  value="%{#rowstatus.index}" />" 
+                                   value="<s:property  value="wrongIdNoConfirmFlag"/>"/>
+                            <input type="hidden" value="<s:property  value="wrongIssueDateConfirmFlag" />"  id="id17_<s:property  value="%{#rowstatus.index}" />" 
+                                   value="<s:property  value="wrongIssueDateConfirmFlag"/>"/>
+                            <input type="hidden" value="<s:property  value="wrongIssuePlaceConfirmFlag" />"  id="id18_<s:property  value="%{#rowstatus.index}" />" 
+                                   value="<s:property  value="wrongIssuePlaceConfirmFlag"/>"/>
+                             <input type="hidden" value="<s:property  value="wrongBirthdayConfirmFlag" />"  id="id19_<s:property  value="%{#rowstatus.index}" />" 
+                                   value="<s:property  value="wrongBirthdayConfirmFlag"/>"/>
+
                             <input type="hidden" value="<s:property  value="mainPos"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].mainPos" value="<s:property  value="mainPos"/>"/>
                             <input type="hidden" value="<s:property  value="posCode"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].posCode" value="<s:property  value="posCode"/>"/>
                             <input type="hidden" value="<s:property  value="customerCode"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].customerCode" value="<s:property  value="customerCode"/>"/>
@@ -253,63 +370,52 @@
                             <input type="hidden" value="<s:property  value="coreBankingIssueDate"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].coreBankingIssueDate" value="<s:property  value="coreBankingIssueDate"/>"/>
                             <input type="hidden" value="<s:property  value="coreBankingCustomerName"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].coreBankingCustomerName" value="<s:property  value="coreBankingCustomerName"/>"/>
                             <input type="hidden" value="<s:property  value="coreBankingBirthday"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].coreBankingBirthday" value="<s:property  value="coreBankingBirthday"/>"/>  </td>  
-                    <input type="hidden" value="<s:property  value="wrongFullNameConfirmFlag" />"  id="id9_<s:property  value="%{#rowstatus.index}" />" 
-                           value="<s:property  value="wrongFullNameConfirmFlag"/>"/>    
-                    <td class="TD_SOTIEN"><s:property value="customerName" /></td>
-                    <td class="D0"><s:property value="coreBankingCustomerName"/><s:property value="coreBankingBirthday"/><s:property value="coreBankingIdNo"/><s:property value="coreBankingIssuePlace"/>
-                        <s:property value="coreBankingIssueDate"/></td>
-                    <!--số CMTND-->
-                    <td><s:property value="idNo"/></td>
-                    <td  class="D0"><s:property value="IdExpiredDate"/></td>
-                    <td> </td>
-                    <!--số CCCD-->
-                    <td ><s:property value="oldIdNo"/></td> 
-                    <td></td>
-                    <td> </td>
-                    <!--ngày sinh--> 
-                    <td class="D0"><s:property value="birthDay"/></td>
-                    <!--dư nợ--> 
-                    <td class="number"><s:property value="PrincipleBalance"/></td>
-                    <!--dư tiền gửi--> 
-                    <td class="number"><s:property value="savingBalance"/></td>
-                    <!--lãi tồn--> 
-                    <td class="number"><s:property value="remainIntAmount"/></td>
-                    <!--sai họ tên-->
-                    <td>    
-                        <input type="text" style="text-align:center" value="<s:property  value="wrongFullNameConfirmFlag" />"  
-                               class="TD_SOTK D0" id="check1<s:property value="%{#rowstatus.index}"/>"
-                               name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongFullNameConfirmFlag" />                     
-                    </td> 
-                    <!--sai số cm-->
-                    <td>
-                        <input type="checkbox" style="text-align:center" value="<s:property  value="wrongIdNoConfirmFlag" />"  
-                               class="checkboxdat TD_SOTK D0" id="check2<s:property value="%{#rowstatus.index}"/>"
-                               name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongIdNoConfirmFlag" />
-                    </td>
 
-                    <td>
-                        <input type="checkbox" style="text-align:center" value="<s:property  value="wrongIssueDateConfirmFlag" />"  
-                               class="checkboxdat TD_SOTK D0" id="check3<s:property value="%{#rowstatus.index}"/>"
-                               name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongIssueDateConfirmFlag" />
-                    </td>
-
-                    <td>
-                        <input type="checkbox" style="text-align:center" value="<s:property  value="wrongIssuePlaceConfirmFlag" />" 
-                               class="checkboxdat TD_SOTK D0" id="check4<s:property value="%{#rowstatus.index}"/>"
-                               name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongIssuePlaceConfirmFlag" readonly/>
-                    </td>
-
-                    <td>
-                        <input type="checkbox" style="text-align:center" value="<s:property  value="wrongBirthdayConfirmFlag" />"  
-                               class="checkboxdat TD_SOTK D0" id="check5<s:property value="%{#rowstatus.index}"/>"
-                               name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongBirthdayConfirmFlag" readonly/>
-                    </td>
-
-                    <td class="TD_SOTIEN">
-                        <s:if test="status.toString().equalsIgnoreCase('0') || status.equalsIgnoreCase('0')"><a style="color: red">Chưa rà soát</a></s:if>
-                        <s:elseif test="status.toString().equalsIgnoreCase('1') || status.equalsIgnoreCase('1')"><a>Đã rà soát và cập nhật trên Intellect</a></s:elseif>
-                        <s:elseif test="status.toString().equalsIgnoreCase('2') || status.equalsIgnoreCase('2')"><a>Không làm rõ được</a></s:elseif>
+                        <td class="TD_SOTIEN"><s:property value="customerName" /></td>
+                        <td class="D0"><s:property value="coreBankingCustomerName"/><s:property value="coreBankingBirthday"/><s:property value="coreBankingIdNo"/><s:property value="coreBankingIssuePlace"/>
+                            <s:property value="coreBankingIssueDate"/></td>
+                        <!--số CMTND-->
+                        <td><s:property value="idNo"/></td>
+                        <td  class="D0"><s:property value="IdExpiredDate"/></td>
+                        <td> </td>
+                        <!--số CCCD-->
+                        <td ><s:property value="oldIdNo"/></td> 
+                        <td></td>
+                        <td> </td>
+                        <!--ngày sinh--> 
+                        <td class="D0"><s:property value="birthDay"/></td>
+                        <!--dư nợ--> 
+                        <td class="number"><s:property value="PrincipleBalance"/></td>
+                        <!--dư tiền gửi--> 
+                        <td class="number"><s:property value="savingBalance"/></td>
+                        <!--lãi tồn--> 
+                        <td class="number"><s:property value="remainIntAmount"/></td>
+                        <!--sai họ tên-->
+                        <td>    
+                            <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />"  class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
+                        </td> 
+                        <!--sai số cm-->
+                        <td>
+                            <input type="checkbox" id ="idc16<s:property  value="%{#rowstatus.index}" />"  class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c16" value="<s:property  value="cicCode" />"      
                         </td>
+
+                        <td>
+                            <input type="checkbox" id ="idc17<s:property  value="%{#rowstatus.index}" />"  class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c17" value="<s:property  value="cicCode" />"     
+                        </td>
+
+                        <td>
+                            <input type="checkbox" id ="idc18<s:property  value="%{#rowstatus.index}" />"  class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c18" value="<s:property  value="cicCode" />"      
+                        </td>
+
+                        <td>
+                            <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
+                        </td>
+
+                        <td class="TD_SOTIEN">
+                            <s:if test="status.toString().equalsIgnoreCase('0') || status.equalsIgnoreCase('0')"><a style="color: red">Chưa rà soát</a></s:if>
+                            <s:elseif test="status.toString().equalsIgnoreCase('1') || status.equalsIgnoreCase('1')"><a>Đã rà soát và cập nhật trên Intellect</a></s:elseif>
+                            <s:elseif test="status.toString().equalsIgnoreCase('2') || status.equalsIgnoreCase('2')"><a>Không làm rõ được</a></s:elseif>
+                            </td>
                         </tr>
                 </s:iterator>            
             </table>

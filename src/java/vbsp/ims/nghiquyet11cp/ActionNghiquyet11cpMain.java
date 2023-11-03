@@ -191,6 +191,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     protected String totalDataView;
     
     protected List<CustCicModel> custCIC = new ArrayList<>();
+    protected List<CustCicModel> lstCombox = new ArrayList<>();
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Xu ly cho action">
@@ -728,6 +729,16 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
         this.lstMaPGD = lstMaPGD;
     }
     //</editor-fold>
+
+    public List<CustCicModel> getLstCombox() {
+        return lstCombox;
+    }
+
+    public void setLstCombox(List<CustCicModel> lstCombox) {
+        this.lstCombox = lstCombox;
+    }
+
+    
 
     public List<PosClass> getLstDonvi() {
         return lstDonvi;

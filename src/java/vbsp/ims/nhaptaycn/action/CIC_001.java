@@ -203,11 +203,11 @@ public class CIC_001 extends ActionNghiquyet11cpMain
 //                    tempadd.setRemainIntAmount(item.getRemainIntAmount());
 //                    tempadd.setIdExpiredDate(item.getIdExpiredDate());
 //                    tempadd.setIdExpiredDate(LsDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(item.getIdExpiredDate())));
-                    tempadd.setWrongFullNameConfirmFlag(item.getWrongFullNameConfirmFlag());
-                    tempadd.setWrongIdNoConfirmFlag(item.getWrongIdNoConfirmFlag());
-                    tempadd.setWrongIssueDateConfirmFlag(item.getWrongIssueDateConfirmFlag());
-                    tempadd.setWrongIssuePlaceConfirmFlag(item.getWrongIssuePlaceConfirmFlag());
-                    tempadd.setWrongBirthdayConfirmFlag(item.getWrongBirthdayConfirmFlag());
+                    tempadd.setWrongFullNameConfirmFlag(checkItemInList15(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                    tempadd.setWrongIdNoConfirmFlag(checkItemInList16(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                    tempadd.setWrongIssueDateConfirmFlag(checkItemInList17(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                    tempadd.setWrongIssuePlaceConfirmFlag(checkItemInList18(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                    tempadd.setWrongBirthdayConfirmFlag(checkItemInList19(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
 //                    tempadd.setCustomerStatus(item.getCustomerStatus());
 //                    tempadd.setCoreBankingIdNo(item.getCoreBankingIdNo());
 //                    tempadd.setCoreBankingIssuePlace(item.getCoreBankingIssuePlace());
@@ -264,6 +264,66 @@ public class CIC_001 extends ActionNghiquyet11cpMain
         }
         addActionMessage("Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
+    }
+
+    static int checkItemInList15(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC15().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+
+    static int checkItemInList16(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC16().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+
+    static int checkItemInList17(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC17().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+
+    static int checkItemInList18(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC18().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+
+    static int checkItemInList19(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC19().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
     }
 
     public static void main(String[] args) throws ParseException {
