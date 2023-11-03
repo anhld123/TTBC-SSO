@@ -76,24 +76,25 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                 List<CustCicModel> custCIC_TMP = new ArrayList<>();
                 custCIC_TMP = service.getDataCustCIC(pos_cd_username, "20231231",
                         hmParameter.get("maxa").toString(), hmParameter.get("mato").toString().split("_")[1], "");
-                if (custCIC_TMP.size() > 499) {
-                    addActionError("Dữ liệu quá lớn. Vui lòng chọn từng tổ để xác nhận.");;
-                    return ERROR;
-                }
-                int i = 0;
                 DecimalFormat df = new DecimalFormat("#.##");
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                DateFormat df1 = new SimpleDateFormat("MM/dd/yyyy");
-                DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
-                for (CustCicModel item : custCIC_TMP) {
-                    i++;
-                    item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
-                    if (item.getIdExpiredDate() != null) {
-                        item.setIdExpiredDate(dateHienthi.format(sdf.parse(item.getIdExpiredDate())));
+                if (custCIC_TMP.size() > 499) {
+                    setMessageErr("Dữ liệu quá lớn. Vui lòng chọn từng tổ để xác nhận.");
+//                    addActionError("Dữ liệu quá lớn. Vui lòng chọn từng tổ để xác nhận.");;
+//                    return ERROR;
+                } else {
+                    int i = 0;               
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                    DateFormat df1 = new SimpleDateFormat("MM/dd/yyyy");
+                    DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
+                    for (CustCicModel item : custCIC_TMP) {
+                        i++;
+                        item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
+                        if (item.getIdExpiredDate() != null) {
+                            item.setIdExpiredDate(dateHienthi.format(sdf.parse(item.getIdExpiredDate())));
+                        }
+                        custCIC.add(item);
                     }
-                    custCIC.add(item);
                 }
-                
                 //Cho phần sum
                 ArrayList<LockSendCiCModel> lstData = service.getDataLockSendCic(pos_cd_username, "S", "20231231");
 
@@ -103,10 +104,10 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     if (item.getStatus().equals("0")) {
                         setChotsl("0");
                     }
-                    i++;
+//                    i++;
                     QT_DULIEU_NT row = new QT_DULIEU_NT();
                     row.setKHOA("CIC_01");
-                    row.setTHUTU(i);
+//                    row.setTHUTU(i);
                     Date reportDate = DateUtil.toDate(item.getReportDate());
                     row.setNGAYBC(reportDate);
                     row.setMAPGD(item.getPosCode());
@@ -114,7 +115,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     row.setTEN(item.getPosName());
                     row.setD1(df.format(item.getCustomerTotal()));
                     row.setD2(df.format(item.getCustomerNotReviewCount()));
-                    row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");              
+                    row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");
                     lstDulieuNt.add(row);
                 }
 
@@ -153,7 +154,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     row.setTEN(item.getPosName());
                     row.setD1(df.format(item.getCustomerTotal()));
                     row.setD2(df.format(item.getCustomerNotReviewCount()));
-                    row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");              
+                    row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");
                     lstDulieuNt.add(row);
                 }
                 return "success_c2";

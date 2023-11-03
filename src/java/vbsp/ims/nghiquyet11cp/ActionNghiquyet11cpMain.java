@@ -184,6 +184,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     private String macn;
     private String ngay_bc;
     public String chotsl;
+    public String messageErr;
     
     public String vieclam_total;
     public String noxh_total;
@@ -447,6 +448,15 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
 
+    public String getMessageErr() {
+        return messageErr;
+    }
+
+    public void setMessageErr(String messageErr) {
+        this.messageErr = messageErr;
+    }
+
+    
     public List<CustCicModel> getCustCIC() {
         return custCIC;
     }

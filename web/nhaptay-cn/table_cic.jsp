@@ -248,6 +248,7 @@
             <div style="overflow:scroll; width: 99vw; padding: 5">     
                 <a style="color: #003eff; font-weight: 550; font-size: 18px">
                     BẢNG RÀ SOÁT THÔNG TIN CHUNG CỦA KHÁCH HÀNG 
+                    <s:property value="messageErr"/>
                 </a>
                 <table id="subTableSum" style="z-index: 10; width: 50%">
                     <tr style="height:25px;">
