@@ -381,11 +381,11 @@
                             <td class="D0"><s:property value="coreBankingCustomerName"/><s:property value="coreBankingBirthday"/><s:property value="coreBankingIdNo"/><s:property value="coreBankingIssuePlace"/>
                                 <s:property value="coreBankingIssueDate"/></td>
                             <!--số CMTND-->
-                            <td><s:property value="idNo"/></td>
+                            <td><s:property value="oldIdNo"/></td>
                             <td  class="D0"><s:property value="IdExpiredDate"/></td>
                             <td> </td>
                             <!--số CCCD-->
-                            <td ><s:property value="oldIdNo"/></td> 
+                            <td ><s:property value="newIdNo"/></td> 
                             <td></td>
                             <td> </td>
                             <!--ngày sinh--> 
