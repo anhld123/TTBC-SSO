@@ -92,7 +92,7 @@
                 $(".TD_TENKH123").css({"width": "100px"});
                 $(".TD_TENTS").css({"width": "190px"});
                 $(".TD_SOTK").css({"width": "70px"});
-                $(".TD_MAKH").css({"width": "60px"});
+                $(".TD_MAKH").css({"width": "30px"});
                 $(".TD_THOIGIAN").css({"width": "55px"});
                 $(".TD_MAPGD").css({"width": "50px"});
                 $(".TD_BUTTON1").css({"width": "40px"});
@@ -248,7 +248,7 @@
             <div style="overflow:scroll; width: 99vw; padding: 5">     
                 <a style="color: #003eff; font-weight: 550; font-size: 18px">
                     BẢNG RÀ SOÁT THÔNG TIN CHUNG CỦA KHÁCH HÀNG 
-                    <s:property value="messageErr"/>
+                    <br> <font style="color: red"> <s:property value="messageErr"/> </font>
                 </a>
                 <table id="subTableSum" style="z-index: 10; width: 50%">
                     <tr style="height:25px;">
@@ -292,11 +292,11 @@
                             <th  class="hdtitle TD_MAPGD">Số CCCD</th>
                             <th  class="hdtitle TD_SOTK">Ngày cấp</th>
                             <th  class="hdtitle TD_TENKH123">Nơi cấp</th>
-                            <th  class="TD_SOTK">Sai họ và tên</th>
-                            <th  class="TD_SOTK">Sai số CMND/CCCD</th>
-                            <th  class="TD_SOTK">Sai ngày cấp CMND/CCCD</th>
-                            <th  class="TD_SOTK">Sai nơi cấp CMND/CCCD</th>
-                            <th  class="TD_SOTK">Sai ngày tháng năm sinh</th>
+                            <th  class="TD_MAKH">Sai họ và tên</th>
+                            <th  class="TD_MAKH">Sai số CMND/CCCD</th>
+                            <th  class="TD_MAKH">Sai ngày cấp CMND/CCCD</th>
+                            <th  class="TD_MAKH">Sai nơi cấp CMND/CCCD</th>
+                            <th  class="TD_MAKH">Sai ngày tháng năm sinh</th>
                         </tr>
 
                         <tr class="txtBody">
@@ -398,23 +398,23 @@
                             <td class="number"><s:property value="remainIntAmount"/></td>
                             <!--sai họ tên-->
                             <td>    
-                                <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />"  class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
+                                <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/>"  class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
                             </td> 
                             <!--sai số cm-->
                             <td>
-                                <input type="checkbox" id ="idc16<s:property  value="%{#rowstatus.index}" />"  class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c16" value="<s:property  value="cicCode" />"      
+                                <input type="checkbox" id ="idc16<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c16" value="<s:property  value="cicCode" />"      
                             </td>
 
                             <td>
-                                <input type="checkbox" id ="idc17<s:property  value="%{#rowstatus.index}" />"  class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c17" value="<s:property  value="cicCode" />"     
+                                <input type="checkbox" id ="idc17<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c17" value="<s:property  value="cicCode" />"     
                             </td>
 
                             <td>
-                                <input type="checkbox" id ="idc18<s:property  value="%{#rowstatus.index}" />"  class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c18" value="<s:property  value="cicCode" />"      
+                                <input type="checkbox" id ="idc18<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c18" value="<s:property  value="cicCode" />"      
                             </td>
 
                             <td>
-                                <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
+                                <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
                             </td>
 
                             <td class="TD_SOTIEN">
