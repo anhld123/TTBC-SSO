@@ -95,6 +95,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                          if (item.getCoreBankingBirthday() != null) {
                             item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
                         }
+                         item.setStatusString(String.valueOf(item.getStatus()));
                         custCIC.add(item);
                     }
                 }
@@ -209,7 +210,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
 //                    tempadd.setCommuneName(item.getCommuneName());
 //                    tempadd.setSubCommuneCode(item.getSubCommuneCode());
 //                    tempadd.setSubCommuneName(item.getSubCommuneName());
-                    tempadd.setStatus(item.getStatus());
+                    tempadd.setStatus(Integer.parseInt(item.getStatusString()));
 //                    tempadd.setType(item.getType());
 //                    tempadd.setCreatedBy(item.getCreatedBy());
 //                    tempadd.setCreatedDate(item.getCreatedDate());
@@ -228,7 +229,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     tempadd.setWrongIssueDateConfirmFlag(checkItemInList17(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
                     tempadd.setWrongIssuePlaceConfirmFlag(checkItemInList18(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
                     tempadd.setWrongBirthdayConfirmFlag(checkItemInList19(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
-                    tempadd.setStatus(item.getStatus());
+                    tempadd.setStatus(Integer.parseInt(item.getStatusString()));
 //                    tempadd.setCustomerStatus(item.getCustomerStatus());
 //                    tempadd.setCoreBankingIdNo(item.getCoreBankingIdNo());
 //                    tempadd.setCoreBankingIssuePlace(item.getCoreBankingIssuePlace());

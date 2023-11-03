@@ -38,6 +38,7 @@ public class CustCicModel {
     private String subCommuneCode;
     private String subCommuneName;
     private int status;
+    private String statusString;
     private int type;
     private String createdBy;
     private String createdDate;
@@ -100,6 +101,15 @@ public class CustCicModel {
     private String c17;
     private String c18;
     private String c19;
+
+    public String getStatusString() {
+        return statusString;
+    }
+
+    public void setStatusString(String statusString) {
+        this.statusString = statusString;
+    }
+    
 
     public String getC15() {
         return c15;
