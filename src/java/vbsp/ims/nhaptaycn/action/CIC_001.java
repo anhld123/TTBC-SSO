@@ -93,6 +93,30 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     }
                     custCIC.add(item);
                 }
+                
+                //Cho phần sum
+                ArrayList<LockSendCiCModel> lstData = service.getDataLockSendCic(pos_cd_username, "S", "20231231");
+
+                //String formatted = df.format(2.00023);
+                chotsl = "";
+                for (LockSendCiCModel item : lstData) {
+                    if (item.getStatus().equals("0")) {
+                        setChotsl("0");
+                    }
+                    i++;
+                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+                    row.setKHOA("CIC_01");
+                    row.setTHUTU(i);
+                    Date reportDate = DateUtil.toDate(item.getReportDate());
+                    row.setNGAYBC(reportDate);
+                    row.setMAPGD(item.getPosCode());
+                    row.setMACN(item.getMainPos());
+                    row.setTEN(item.getPosName());
+                    row.setD1(df.format(item.getCustomerTotal()));
+                    row.setD2(df.format(item.getCustomerNotReviewCount()));
+                    row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");              
+                    lstDulieuNt.add(row);
+                }
 
                 return SUCCESS;
 
@@ -120,24 +144,16 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     }
                     i++;
                     QT_DULIEU_NT row = new QT_DULIEU_NT();
-                    row.setKHOA("CN11CP_002");
+                    row.setKHOA("CIC_01");
                     row.setTHUTU(i);
                     Date reportDate = DateUtil.toDate(item.getReportDate());
                     row.setNGAYBC(reportDate);
-                    //row.setNAMBC(item.getReportYear());
                     row.setMAPGD(item.getPosCode());
-//                row.setCO_TONGHOP(item.getPosFlag());
                     row.setMACN(item.getMainPos());
                     row.setTEN(item.getPosName());
                     row.setD1(df.format(item.getCustomerTotal()));
                     row.setD2(df.format(item.getCustomerNotReviewCount()));
-//                    row.setD3(df.format(item.getIntTotal()));
-//                    row.setD4(df.format(item.getDeductionIntTotal()));
-//                    row.setD5(df.format(item.getDeductionLoanTotal()));
-//                    row.setD6(df.format(item.getNoDeductionLoanTotal()));
-//                    row.setD7(df.format(item.getNoDeductionIntTotal()));
-                    row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");
-//                    row.setD7(df.format(item.getDeductionIntTotal()));                   
+                    row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");              
                     lstDulieuNt.add(row);
                 }
                 return "success_c2";
