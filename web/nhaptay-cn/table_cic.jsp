@@ -6,6 +6,9 @@
 <%@taglib prefix="s" uri="/struts-tags" %>
 <%@taglib prefix="sj" uri="/struts-jquery-tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <link rel="stylesheet" type="text/css"  href="css/bcqt.css" />
 <!DOCTYPE html>
 <html>
@@ -242,7 +245,7 @@
                 return ma;
             }
         </script>   
-    <!--</head>-->
+        <!--</head>-->
     <body>
         <s:form id="id_sv_CIC_001" action="SAVE_CIC_001" theme="simple">
             <div style="overflow:scroll; width: 99vw; padding: 5">     
@@ -253,15 +256,15 @@
                 <table id="subTableSum" style="z-index: 10; width: 50%">
                     <tr style="height:25px;">
 
-                        <th rowspan="1" class="TD_MAKH">Mã PGD</th>  
-                        <th rowspan="1" class="TD_TENKH">Tên PGD</th>    
-                        <th rowspan="1"  class="TD_MAKH">Tổng số khách hàng cần rà soát</th>                             
-                        <th rowspan="1"  class="TD_MAKH">Số khách hàng chưa rà soát</th> 
+                        <th rowspan="1" style="width: 80px">Mã PGD</th>  
+                        <th rowspan="1" style="width: 190px">Tên PGD</th>    
+                        <th rowspan="1" style="width: 180px">Tổng số khách hàng cần rà soát</th>                             
+                        <th rowspan="1" style="width: 180px">Số khách hàng chưa rà soát</th> 
                     </tr>
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                         <tr>                               
                             <td class="" style="width: 80px"><s:property value="MAPGD"/></td>
-                           <td class="" style="width: 190px"><s:property value="TEN"/></td>
+                            <td class="" style="width: 190px"><s:property value="TEN"/></td>
                             <td class="number" style="width: 180px"><s:property value="D1"/></td>
 
                             <td class="number" style="width: 180px"><s:property value="D2"/></td>
@@ -286,10 +289,10 @@
                             <th rowspan="2" class="hdtitle TD_SOTIEN">Đã hoàn thành <br>chỉnh sửa trên hệ thống Intellect</th>                              
                         </tr>         
                         <tr >
-                            <th  class="hdtitle TD_MAPGD">Số CMTND</th>
+                            <th  class="hdtitle D0">Số CMTND</th>
                             <th  class="hdtitle TD_SOTK">Ngày cấp</th>
                             <th  class="hdtitle TD_TENKH123">Nơi cấp</th>
-                            <th  class="hdtitle TD_MAPGD">Số CCCD</th>
+                            <th  class="hdtitle D0">Số CCCD</th>
                             <th  class="hdtitle TD_SOTK">Ngày cấp</th>
                             <th  class="hdtitle TD_TENKH123">Nơi cấp</th>
                             <th  class="TD_MAKH">Sai họ và tên</th>
@@ -378,16 +381,29 @@
                                 <input type="hidden" value="<s:property  value="coreBankingBirthday"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].coreBankingBirthday" value="<s:property  value="coreBankingBirthday"/>"/>  </td>  
 
                             <td class="TD_SOTIEN"><s:property value="customerName" /></td>
-                            <td class="D0"><s:property value="coreBankingCustomerName"/><s:property value="coreBankingBirthday"/><s:property value="coreBankingIdNo"/><s:property value="coreBankingIssuePlace"/>
-                                <s:property value="coreBankingIssueDate"/></td>
+                            <td><s:property value="coreBankingCustomerName"/><span> </span> <s:property value="coreBankingBirthday"/>
+                                <span> </span><s:property value="coreBankingIdNo"/><span> </span>
+                                <s:property value="coreBankingIssuePlace"/><span> </span>
+                                <s:property value="coreBankingIssueDate"/>
                             <!--số CMTND-->
-                            <td><s:property value="oldIdNo"/></td>
-                            <td  class="D0"><s:property value="IdExpiredDate"/></td>
-                            <td> </td>
+                            <c:if test="${fn:length(coreBankingIdNo) < 10}">
+                                <td> <s:property value="coreBankingIdNo"/></td>
+                                <td> <s:property value="coreBankingIssueDate"/></td>
+                                <td> <s:property value="coreBankingIssuePlace"/></td>  
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </c:if>
+                            <c:if test="${fn:length(coreBankingIdNo) > 10}">  
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td> <s:property value="coreBankingIdNo"/></td>
+                                <td> <s:property value="coreBankingIssueDate"/></td>
+                                <td> <s:property value="coreBankingIssuePlace"/></td>   
+                            </c:if>
                             <!--số CCCD-->
-                            <td ><s:property value="newIdNo"/></td> 
-                            <td></td>
-                            <td> </td>
+
                             <!--ngày sinh--> 
                             <td class="D0"><s:property value="birthDay"/></td>
                             <!--dư nợ--> 
@@ -417,11 +433,17 @@
                                 <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
                             </td>
 
-                            <td class="TD_SOTIEN">
+                           <td class="TD_SOTIEN">
                                 <s:if test="status.toString().equalsIgnoreCase('0') || status.equalsIgnoreCase('0')"><a style="color: red">Chưa rà soát</a></s:if>
                                 <s:elseif test="status.toString().equalsIgnoreCase('1') || status.equalsIgnoreCase('1')"><a>Đã rà soát và cập nhật trên Intellect</a></s:elseif>
                                 <s:elseif test="status.toString().equalsIgnoreCase('2') || status.equalsIgnoreCase('2')"><a>Không làm rõ được</a></s:elseif>
-                                </td>
+                                </td> 
+<!--                            <td class="TD_SOTIEN">
+                                <select >
+                                <option value="0" <s:if test="status.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Chưa rà soát</option>
+                                <option value="1" <s:if test="status.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Đã rà soát và cập nhật trên Intellect</option>
+                                <option value="2" <s:if test="status.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>2: Không làm rõ được</option>
+                            </select></td>-->
                             </tr>
                     </s:iterator>            
                 </table>

@@ -89,8 +89,11 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     for (CustCicModel item : custCIC_TMP) {
                         i++;
                         item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
-                        if (item.getIdExpiredDate() != null) {
-                            item.setIdExpiredDate(dateHienthi.format(sdf.parse(item.getIdExpiredDate())));
+                        if (item.getCoreBankingIssueDate() != null) {
+                            item.setCoreBankingIssueDate(dateHienthi.format(sdf.parse(item.getCoreBankingIssueDate())));
+                        }
+                         if (item.getCoreBankingBirthday() != null) {
+                            item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
                         }
                         custCIC.add(item);
                     }
@@ -206,7 +209,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
 //                    tempadd.setCommuneName(item.getCommuneName());
 //                    tempadd.setSubCommuneCode(item.getSubCommuneCode());
 //                    tempadd.setSubCommuneName(item.getSubCommuneName());
-//                    tempadd.setStatus(item.getStatus());
+                    tempadd.setStatus(item.getStatus());
 //                    tempadd.setType(item.getType());
 //                    tempadd.setCreatedBy(item.getCreatedBy());
 //                    tempadd.setCreatedDate(item.getCreatedDate());
