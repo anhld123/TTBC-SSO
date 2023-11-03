@@ -385,8 +385,8 @@
                                 <span> </span><s:property value="coreBankingIdNo"/><span> </span>
                                 <s:property value="coreBankingIssuePlace"/><span> </span>
                                 <s:property value="coreBankingIssueDate"/>
-                            <!--số CMTND-->
-                            <c:if test="${fn:length(coreBankingIdNo) < 10}">
+                                <!--số CMTND-->
+                                <c:if test="${fn:length(coreBankingIdNo) < 10}">
                                 <td> <s:property value="coreBankingIdNo"/></td>
                                 <td> <s:property value="coreBankingIssueDate"/></td>
                                 <td> <s:property value="coreBankingIssuePlace"/></td>  
@@ -433,17 +433,19 @@
                                 <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
                             </td>
 
-                           <td class="TD_SOTIEN">
-                                <s:if test="status.toString().equalsIgnoreCase('0') || status.equalsIgnoreCase('0')"><a style="color: red">Chưa rà soát</a></s:if>
-                                <s:elseif test="status.toString().equalsIgnoreCase('1') || status.equalsIgnoreCase('1')"><a>Đã rà soát và cập nhật trên Intellect</a></s:elseif>
-                                <s:elseif test="status.toString().equalsIgnoreCase('2') || status.equalsIgnoreCase('2')"><a>Không làm rõ được</a></s:elseif>
-                                </td> 
-<!--                            <td class="TD_SOTIEN">
-                                <select >
-                                <option value="0" <s:if test="status.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Chưa rà soát</option>
-                                <option value="1" <s:if test="status.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Đã rà soát và cập nhật trên Intellect</option>
-                                <option value="2" <s:if test="status.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>2: Không làm rõ được</option>
-                            </select></td>-->
+                            <td class="txtBody">
+                                <select class=" <s:property value="d20"/>" name="custCIC[<s:property  value='%{#idxRows.index}' />].status" id="custCIC<s:property  value='%{#idxRows.index}' />" > 
+                                    <option value="0">0-Chưa rà soát</option>
+                                    <option value="1">1 - Đã RS và CN trên Intellect</option>
+                                    <option value="2">2 - Không làm rõ được</option>
+                                </select></td>
+
+                            <!--                            <td class="TD_SOTIEN">
+                                                            <select >
+                                                            <option value="0" <s:if test="status.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Chưa rà soát</option>
+                                                            <option value="1" <s:if test="status.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Đã rà soát và cập nhật trên Intellect</option>
+                                                            <option value="2" <s:if test="status.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>2: Không làm rõ được</option>
+                                                        </select></td>-->
                             </tr>
                     </s:iterator>            
                 </table>

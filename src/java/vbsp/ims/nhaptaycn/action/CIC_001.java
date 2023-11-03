@@ -228,6 +228,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     tempadd.setWrongIssueDateConfirmFlag(checkItemInList17(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
                     tempadd.setWrongIssuePlaceConfirmFlag(checkItemInList18(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
                     tempadd.setWrongBirthdayConfirmFlag(checkItemInList19(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                    tempadd.setStatus(item.getStatus());
 //                    tempadd.setCustomerStatus(item.getCustomerStatus());
 //                    tempadd.setCoreBankingIdNo(item.getCoreBankingIdNo());
 //                    tempadd.setCoreBankingIssuePlace(item.getCoreBankingIssuePlace());
