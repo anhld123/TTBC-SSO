@@ -417,7 +417,7 @@
 
                             <td class="TD_SOTIEN"><s:property value="customerName" /></td>
                             <td>
-                                <s:if test="!statusString.equalsIgnoreCase('1')"> 
+                                <s:if test="statusString.equalsIgnoreCase('0')"> 
                                     <font style="color: red">
                                     <s:property value="coreBankingCustomerName"/><span> </span> <s:property value="coreBankingBirthday"/>
                                     <span> </span><s:property value="coreBankingIdNo"/><span> </span>
