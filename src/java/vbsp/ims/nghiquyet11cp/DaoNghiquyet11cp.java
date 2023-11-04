@@ -662,6 +662,37 @@ public class DaoNghiquyet11cp {
         }
         return true;
     }
+    
+    public boolean saveCIC_Local(String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData)
+            throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_SAVE_CIC_LOCAL(?, ?, ?, ?)}");
+            cs.setString(1, username);
+            cs.setString(2, mapgd);
+            cs.setString(3, ngaybc);
+            cs.setArray(4, array_to_pass);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham saveCIC_Local " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveCIC_Local -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
 
     public boolean saveNQ11CP_04KEHOACH(String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData, String nghiepvu)
             throws SQLException {

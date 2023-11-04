@@ -55,7 +55,6 @@ public class CIC_001 extends ActionNghiquyet11cpMain
     public String load() {
         try {
             if (Grade.equals("1")) {
-//            System.err.println("QD23_001");
                 if (!getParaSession()) {
                     return ERROR;
                 }
@@ -63,7 +62,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                 posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                 pos_cd_username = posMainModel.getPosCd();
                 service = new DuLieuNTService();
-                ArrayList<LockSendModel> lstDataLock = service.getDataLockManual("CIC_01", pos_cd_username, "S", "20231231");
+                ArrayList<LockSendModel> lstDataLock = service.getDataLockManual("CIC_CUSTOMER", pos_cd_username, "S", "20231231");
                 try {
                     setChotsl(lstDataLock.get(0).getStatus());
                 } catch (Exception e) {
@@ -73,30 +72,34 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     addActionError("Vui lòng chọn xã để rà soát số liệu.");;
                     return ERROR;
                 }
-                List<CustCicModel> custCIC_TMP = new ArrayList<>();
-                custCIC_TMP = service.getDataCustCIC(pos_cd_username, "20231231",
-                        hmParameter.get("maxa").toString(), hmParameter.get("mato").toString().split("_")[1], "");
                 DecimalFormat df = new DecimalFormat("#.##");
-                if (custCIC_TMP.size() > 499) {
-                    setMessageErr("Dữ liệu quá lớn. Vui lòng chọn từng tổ để xác nhận.");
-//                    addActionError("Dữ liệu quá lớn. Vui lòng chọn từng tổ để xác nhận.");;
-//                    return ERROR;
+                //Xử lý cho trường hợp không có mã tổ
+                if (hmParameter.get("mato").toString().equals("000000_NOGROUP")) {
+
                 } else {
-                    int i = 0;               
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                    DateFormat df1 = new SimpleDateFormat("MM/dd/yyyy");
-                    DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
-                    for (CustCicModel item : custCIC_TMP) {
-                        i++;
-                        item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
-                        if (item.getCoreBankingIssueDate() != null) {
-                            item.setCoreBankingIssueDate(dateHienthi.format(sdf.parse(item.getCoreBankingIssueDate())));
+                    List<CustCicModel> custCIC_TMP = new ArrayList<>();
+                    custCIC_TMP = service.getDataCustCIC(pos_cd_username, "20231231",
+                            hmParameter.get("maxa").toString(), hmParameter.get("mato").toString().split("_")[1], "");
+                    
+                    if (custCIC_TMP.size() > 150) {
+                        setMessageErr("Dữ liệu quá lớn. Vui lòng chọn từng tổ để xác nhận.");
+                    } else {
+                        int i = 0;
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                        DateFormat df1 = new SimpleDateFormat("MM/dd/yyyy");
+                        DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
+                        for (CustCicModel item : custCIC_TMP) {
+                            i++;
+                            item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
+                            if (item.getCoreBankingIssueDate() != null) {
+                                item.setCoreBankingIssueDate(dateHienthi.format(sdf.parse(item.getCoreBankingIssueDate())));
+                            }
+                            if (item.getCoreBankingBirthday() != null) {
+                                item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
+                            }
+                            item.setStatusString(String.valueOf(item.getStatus()));
+                            custCIC.add(item);
                         }
-                         if (item.getCoreBankingBirthday() != null) {
-                            item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
-                        }
-                         item.setStatusString(String.valueOf(item.getStatus()));
-                        custCIC.add(item);
                     }
                 }
                 //Cho phần sum
@@ -108,10 +111,8 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     if (item.getStatus().equals("0")) {
                         setChotsl("0");
                     }
-//                    i++;
                     QT_DULIEU_NT row = new QT_DULIEU_NT();
-                    row.setKHOA("CIC_01");
-//                    row.setTHUTU(i);
+                    row.setKHOA("CIC_CUSTOMER");
                     Date reportDate = DateUtil.toDate(item.getReportDate());
                     row.setNGAYBC(reportDate);
                     row.setMAPGD(item.getPosCode());
@@ -122,9 +123,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");
                     lstDulieuNt.add(row);
                 }
-
                 return SUCCESS;
-
             } else if (Grade.equals("2")) {
                 if (!getParaSession()) {
                     return ERROR;
@@ -195,66 +194,51 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     tempadd.setPosCode(item.getPosCode());
                     tempadd.setCustomerCode(item.getCustomerCode());
                     tempadd.setCicCode(item.getCicCode());
-//                    tempadd.setCustomerName(item.getCustomerName());
-//                    tempadd.setIsValidCustomerName(item.getIsValidCustomerName());
-//                    tempadd.setBirthDay(item.getBirthDay());
-//                    tempadd.setBirthDay(LsDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(item.getBirthDay())));
-//                    tempadd.setIdNo(item.getIdNo());
-//                    tempadd.setNewIdNo(item.getNewIdNo());
-//                    tempadd.setIsValidNewIdNo(item.getIsValidNewIdNo());
-//                    tempadd.setOldIdNo(item.getOldIdNo());
-//                    tempadd.setIsValidOldIdNo(item.getIsValidOldIdNo());
-//                    tempadd.setC06OldIdNo(item.getC06OldIdNo());
-//                    tempadd.setC06NewIdNo(item.getC06NewIdNo());
-//                    tempadd.setCommuneCode(item.getCommuneCode());
-//                    tempadd.setCommuneName(item.getCommuneName());
-//                    tempadd.setSubCommuneCode(item.getSubCommuneCode());
-//                    tempadd.setSubCommuneName(item.getSubCommuneName());
                     tempadd.setStatus(Integer.parseInt(item.getStatusString()));
-//                    tempadd.setType(item.getType());
-//                    tempadd.setCreatedBy(item.getCreatedBy());
-//                    tempadd.setCreatedDate(item.getCreatedDate());
-//                    tempadd.setUpdatedBy(item.getUpdatedBy());
-//                    tempadd.setUpdatedDate(item.getUpdatedDate());
-//                    tempadd.setIntellectUpdateFlag(item.getIntellectUpdateFlag());
-//                    tempadd.setGroupCode(item.getGroupCode());
-//                    tempadd.setMobileNumber(item.getMobileNumber());
-//                    tempadd.setPrincipleBalance(item.getPrincipleBalance());
-//                    tempadd.setSavingBalance(item.getSavingBalance());
-//                    tempadd.setRemainIntAmount(item.getRemainIntAmount());
-//                    tempadd.setIdExpiredDate(item.getIdExpiredDate());
-//                    tempadd.setIdExpiredDate(LsDate.format(new SimpleDateFormat("dd/MM/yyyy").parse(item.getIdExpiredDate())));
                     tempadd.setWrongFullNameConfirmFlag(checkItemInList15(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
                     tempadd.setWrongIdNoConfirmFlag(checkItemInList16(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
                     tempadd.setWrongIssueDateConfirmFlag(checkItemInList17(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
                     tempadd.setWrongIssuePlaceConfirmFlag(checkItemInList18(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
                     tempadd.setWrongBirthdayConfirmFlag(checkItemInList19(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
                     tempadd.setStatus(Integer.parseInt(item.getStatusString()));
-//                    tempadd.setCustomerStatus(item.getCustomerStatus());
-//                    tempadd.setCoreBankingIdNo(item.getCoreBankingIdNo());
-//                    tempadd.setCoreBankingIssuePlace(item.getCoreBankingIssuePlace());
-//                    tempadd.setCoreBankingIssueDate(item.getCoreBankingIssueDate());
-//                    tempadd.setCoreBankingCustomerName(item.getCoreBankingCustomerName());
-//                    tempadd.setCoreBankingBirthday(item.getCoreBankingBirthday());
-
                     custCIC_TMP.add(tempadd);
                 }
                 service = new DuLieuNTService();
                 int status = service.updateCIC(pos_cd_username, "20231231", UserName, UserName, custCIC_TMP);
                 if (status == 200) {
-                    addActionMessage("Thành công");
-                    return SUCCESS;
+                    ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
+                    for (CustCicModel item : custCIC_TMP) {
+                        QT_DULIEU_NT updateRow = new QT_DULIEU_NT();
+
+                        updateRow.setD1(item.getCustomerCode());
+                        updateRow.setD2(item.getCicCode());
+
+                        updateRow.setD3(String.valueOf(item.getStatus()));
+                        updateRow.setD4(String.valueOf(item.getWrongFullNameConfirmFlag()));
+                        updateRow.setD5(String.valueOf(item.getWrongIdNoConfirmFlag()));
+                        updateRow.setD6(String.valueOf(item.getWrongIssueDateConfirmFlag()));
+                        updateRow.setD7(String.valueOf(item.getWrongIssuePlaceConfirmFlag()));
+                        updateRow.setD8(String.valueOf(item.getWrongBirthdayConfirmFlag()));
+                        lstLocalDataUpdate.add(updateRow);
+                    }
+                    if (!DaoNghiquyet11cp.newInstance().saveCIC_Local(UserName, pos_cd_username, "31-dec-2023", lstLocalDataUpdate)) {
+                        addActionError("Bạn chưa lưu được báo cáo tại chi nhánh, xin liên hệ với quản trị để khắc phục");
+                        return ERROR;
+                    }
+                } else {
+                    addActionError("Lỗi lưu trữ Api lên Tw, xin liên hệ với quản trị để khắc phục");
+                    return ERROR;
                 }
             } else if (Grade.equals("2")) {
                 try {
                     chotsl = "";
+                    service = new DuLieuNTService();
                     ArrayList<LockSendModel> lstData = service.getDataLockSendNQ11CP(pos_cd_username, "M", "20231231");
                     for (LockSendModel item : lstData) {
                         if (item.getStatus().equals("0")) {
                             setChotsl("0");
                         }
                     }
-
                     ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
                     for (QT_DULIEU_NT tmp : lstDulieuNt) {
                         UpdateLockModel tempadd = new UpdateLockModel();

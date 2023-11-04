@@ -76,6 +76,38 @@
                 top: 0;
                 z-index: 10;
             }
+
+            @-webkit-keyframes my {
+                0% { color: #F34621; } 
+                50% { color: #fff;  } 
+                100% { color: #F34621;  } 
+            }
+            @-moz-keyframes my { 
+                0% { color: #F34621;  } 
+                50% { color: #fff;  }
+                100% { color: #F34621;  } 
+            }
+            @-o-keyframes my { 
+                0% { color: #F34621; } 
+                50% { color: #fff; } 
+                100% { color: #F34621;  } 
+            }
+            @keyframes my { 
+                0% { color: #F34621;  } 
+                50% { color: #fff;  }
+                100% { color: #F34621;  } 
+            } 
+            .test123 {
+                /*background:#3d3d3d;*/
+                font-size:18px;
+                height:  15px;
+                font-weight:bold;
+                color: red;
+                -webkit-animation: my 700ms infinite;
+                -moz-animation: my 700ms infinite; 
+                -o-animation: my 700ms infinite; 
+                animation: my 700ms infinite;
+            }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="js/jquery.number.js"></script>
@@ -99,7 +131,7 @@
                 $(".TD_THOIGIAN").css({"width": "55px"});
                 $(".TD_MAPGD").css({"width": "50px"});
                 $(".TD_BUTTON1").css({"width": "40px"});
-                $(".TD_SOTIEN").css({"width": "auto"});
+                $(".TD_SOTIEN").css({"width": "100px"});
                 $(".TEN_KH").css({"width": "80px"});
                 $(".TD_THUTU").css({"width": "50px"});
             });
@@ -251,7 +283,10 @@
             <div style="overflow:scroll; width: 99vw; padding: 5">     
                 <a style="color: #003eff; font-weight: 550; font-size: 18px">
                     BẢNG RÀ SOÁT THÔNG TIN CHUNG CỦA KHÁCH HÀNG 
-                    <br> <font style="color: red"> <s:property value="messageErr"/> </font>
+                    <!--<font style="color: red"> <s:property value="messageErr"/> </font>-->
+                    </br> 
+                    <font style="red"  class="test123"> <s:property value="messageErr"/></font>
+                    <!--<br>-->
                 </a>
                 <table id="subTableSum" style="z-index: 10; width: 50%">
                     <tr style="height:25px;">
@@ -286,7 +321,7 @@
                             <th rowspan="2" class="hdtitle TD_SOKU">Số dư tiền gửi</th>  
                             <th rowspan="2" class="hdtitle TD_SOKU">Lãi tồn</th>              
                             <th colspan="5" class="D0">Xác nhận sai sót</th> 
-                            <th rowspan="2" class="hdtitle TD_SOTIEN">Đã hoàn thành <br>chỉnh sửa trên hệ thống Intellect</th>                              
+                            <th rowspan="2" class="hdtitle TEN_KH">Đã hoàn thành <br>chỉnh sửa trên <br>hệ thống Intellect</th>                              
                         </tr>         
                         <tr >
                             <th  class="hdtitle D0">Số CMTND</th>
@@ -381,12 +416,25 @@
                                 <input type="hidden" value="<s:property  value="coreBankingBirthday"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].coreBankingBirthday" value="<s:property  value="coreBankingBirthday"/>"/>  </td>  
 
                             <td class="TD_SOTIEN"><s:property value="customerName" /></td>
-                            <td><s:property value="coreBankingCustomerName"/><span> </span> <s:property value="coreBankingBirthday"/>
-                                <span> </span><s:property value="coreBankingIdNo"/><span> </span>
-                                <s:property value="coreBankingIssuePlace"/><span> </span>
-                                <s:property value="coreBankingIssueDate"/>
-                                <!--số CMTND-->
-                                <c:if test="${fn:length(coreBankingIdNo) < 10}">
+                            <td>
+                                <s:if test="!statusString.equalsIgnoreCase('1')"> 
+                                    <font style="color: red">
+                                    <s:property value="coreBankingCustomerName"/><span> </span> <s:property value="coreBankingBirthday"/>
+                                    <span> </span><s:property value="coreBankingIdNo"/><span> </span>
+                                    <s:property value="coreBankingIssuePlace"/><span> </span>
+                                    <s:property value="coreBankingIssueDate"/>
+                                    </font>
+                                </s:if>
+                                <s:else>
+                                    <s:property value="coreBankingCustomerName"/><span> </span> <s:property value="coreBankingBirthday"/>
+                                    <span> </span><s:property value="coreBankingIdNo"/><span> </span>
+                                    <s:property value="coreBankingIssuePlace"/><span> </span>
+                                    <s:property value="coreBankingIssueDate"/>
+                                </s:else>
+
+                            </td>    
+                            <!--số CMTND-->
+                            <c:if test="${fn:length(coreBankingIdNo) < 10}">
                                 <td> <s:property value="coreBankingIdNo"/></td>
                                 <td> <s:property value="coreBankingIssueDate"/></td>
                                 <td> <s:property value="coreBankingIssuePlace"/></td>  
@@ -413,36 +461,36 @@
                             <!--lãi tồn--> 
                             <td class="number"><s:property value="remainIntAmount"/></td>
                             <!--sai họ tên-->
-                            <td>    
-                                <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/>"  class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
+                            <td class="TD_MAKH">    
+                                <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
                             </td> 
                             <!--sai số cm-->
-                            <td>
-                                <input type="checkbox" id ="idc16<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c16" value="<s:property  value="cicCode" />"      
+                            <td class="TD_MAKH">
+                                <input type="checkbox" id ="idc16<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c16" value="<s:property  value="cicCode" />"      
                             </td>
 
-                            <td>
-                                <input type="checkbox" id ="idc17<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c17" value="<s:property  value="cicCode" />"     
+                            <td class="TD_MAKH">
+                                <input type="checkbox" id ="idc17<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c17" value="<s:property  value="cicCode" />"     
                             </td>
 
-                            <td>
-                                <input type="checkbox" id ="idc18<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c18" value="<s:property  value="cicCode" />"      
+                            <td class="TD_MAKH">
+                                <input type="checkbox" id ="idc18<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c18" value="<s:property  value="cicCode" />"      
                             </td>
 
-                            <td>
-                                <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
+                            <td class="TD_MAKH">
+                                <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
                             </td>
 
-                            <td>
+                            <td class="TEN_KH">
 
 
-                                <select style="width: 200px"  name="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString" id="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString">
+                                <select style="width: 100px"  name="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString" id="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString">
                                     <option value="0" <s:if test="statusString.equalsIgnoreCase('0')"> selected </s:if><s:else></s:else>>Chưa rà soát</option>
                                     <option value="1" <s:if test="statusString.equalsIgnoreCase('1')"> selected </s:if><s:else></s:else>>Đã RS và CN trên Intellect</option>
-                                    <option value="2" <s:if test="statusString.equalsIgnoreCase('1')"> selected </s:if><s:else></s:else>>Không làm rõ được</option>
-                                </select> 
-                            </td>
-                        </tr>
+                                    <option value="2" <s:if test="statusString.equalsIgnoreCase('2')"> selected </s:if><s:else></s:else>>Không làm rõ được</option>
+                                    </select> 
+                                </td>
+                            </tr>
                     </s:iterator>            
                 </table>
 

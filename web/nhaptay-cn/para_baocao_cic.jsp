@@ -217,7 +217,7 @@
 //                    $('#message_suc_err').html("<h2 style='color: red'>Bạn đã chốt số liệu, vui lòng chọn Cập nhật hạch toán GL !</h2>");
 //                    return;
 //                }
-                 
+
                 var khoa = $("#khoa_nhaptaycn").val() + "_save";
 //                alert(khoa);
                 if (!bsubmit)
@@ -417,31 +417,47 @@
 //                    $('#divExportReport').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần mở khóa !</h2>");
                 }
             }
-            
-            function reLoadValue(val) {
-                    var var2, vartxt, selected;
-                    $("#mato").children().remove().end();
-                    
-                    $("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-                     $("#mato").prepend("<option value='000000_NOGROUP' " + selected + "> NOGROUP -> Trực tiếp</option>");
-                    $("#mato_data > option").each(function () {
-                        var2 = $(this).val().substr(0, 6);
-                        if (val.trim() == var2.trim()) {
-                            $(this).val() == vartxt ? selected = " selected" : selected = "";
-                            $("#mato").prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-                        }
-                    });
-                    
-                    $("#mato").html($("#mato option").sort(function (a, b) {
-                        return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-                    }));
-                };
 
+            function reLoadValue(val) {
+                var var2, vartxt, selected;
+                $("#mato").children().remove().end();
+
+                $("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
+                $("#mato").prepend("<option value='000000_NOGROUP' " + selected + "> NOGROUP -> Trực tiếp</option>");
+                $("#mato_data > option").each(function () {
+                    var2 = $(this).val().substr(0, 6);
+                    if (val.trim() == var2.trim()) {
+                        $(this).val() == vartxt ? selected = " selected" : selected = "";
+                        $("#mato").prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+                    }
+                });
+
+                $("#mato").html($("#mato option").sort(function (a, b) {
+                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+                }));
+                document.getElementById("labelPageNumber").style.visibility = "hidden";
+                document.getElementById("pageNumber").style.visibility = "hidden";
+            }
+            ;
+
+            function reLoadValueMaTo(val) {
+                if (val == "000000_NOGROUP")
+                {
+                    document.getElementById("labelPageNumber").style.visibility = "visible";
+                    document.getElementById("pageNumber").style.visibility = "visible";
+                } else
+                {
+                    document.getElementById("labelPageNumber").style.visibility = "hidden";
+                    document.getElementById("pageNumber").style.visibility = "hidden";
+                }
+
+            }
+            ;
 
 
         </script>
     </head>
-<!--new java.util.Date()-->
+    <!--new java.util.Date()-->
     <body>
         <div id="container" >
             <s:form id="id_%{khoa_nhaptaycn}" name="name_%{khoa_nhaptaycn}" action="%{khoa_nhaptaycn}" theme="simple">
@@ -463,10 +479,10 @@
                                 <td  >                                               
                                     <s:select  style="width: 229px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
                                                onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td >Mã tổ:</td>
-                                <td>
-                                    <s:select  style="width: 220px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc"></s:select>
+                                    </td>
+                                    <td >Mã tổ:</td>
+                                    <td>
+                                    <s:select  style="width: 220px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
                                     <s:select  
                                         id="mato_data"
                                         list="lstMato" 
@@ -477,20 +493,28 @@
                                         cssStyle="display:none;">
                                     </s:select>
                                 </td>
+                                <td><label  id="labelPageNumber">Trang thứ</td>
+                                <td style="width: 40px;">
+                                    <input  type="number" min="1" max="50" width="40px;" value="1" id="pageNumber" name="pageNumber" placeholder="Trang thứ" title="Trang thứ">
+                                </td>
                                 <td colspan="2">                                        
                                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                                onBeforeTopics="beforediv_data"
                                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
                                     <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                                     <s:if test="Grade.equalsIgnoreCase('1')">
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt dữ liệu"/> 
-                                        <!--<td><input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="CN hạch toán GL"/> </td>-->
-                                        
+                                        <s:if test="chotCic.equalsIgnoreCase('1')">
+                                            <font style="color: red"> PGD đã được chốt số liệu
+                                        </s:if>
+                                        <s:else>
+                                            <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> 
+                                        </s:else>    
+
                                     </s:if>
                                     <s:else>
                                         <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/>
                                     </s:else>    
-                                    
+
                                 </td>
 
                                 <td  colspan="2">
@@ -503,10 +527,6 @@
                                     </div>
                                 </td>    
                             </tr>  
-<!--                            <tr>
-
-                                
-                            </tr>-->
                         </table>    
                     </div>
                 </div>
@@ -542,10 +562,12 @@
             </s:form>
         </div>
         <script>
-        $(document).ready(function () {            
-            document.getElementById('ngay_bc_DATE').value = "31/12/2023";
-        })
-        $('#ngay_bc_DATE').datepicker('disable');
+            $(document).ready(function () {
+                document.getElementById('ngay_bc_DATE').value = "31/12/2023";
+            })
+            $('#ngay_bc_DATE').datepicker('disable');
+            document.getElementById("labelPageNumber").style.visibility = "hidden";
+            document.getElementById("pageNumber").style.visibility = "hidden";
         </script>
     </div>
 </body>
