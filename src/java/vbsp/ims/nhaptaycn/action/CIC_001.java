@@ -31,6 +31,7 @@ import vbsp.ims.gqvl_2023.Service_GQVL2023;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
 import vbsp.ims.restapi.CustCicModel;
+import vbsp.ims.restapi.CustNoGroupResp;
 import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.DuLieuNTRowX;
 import vbsp.ims.restapi.IntDeductionModel;
@@ -75,7 +76,27 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                 DecimalFormat df = new DecimalFormat("#.##");
                 //Xử lý cho trường hợp không có mã tổ
                 if (hmParameter.get("mato").toString().equals("000000_NOGROUP")) {
-
+                    List<CustCicModel> custCIC_TMP = new ArrayList<>();
+                    CustNoGroupResp custNoGroupResp = service.getDataCustCIC_NoGroup(pos_cd_username, "20231231",
+                            hmParameter.get("maxa").toString(), 50, Integer.parseInt(hmParameter.get("pageNumber").toString()));
+                    custCIC_TMP = custNoGroupResp.getResult();
+                    setMessagePage("Tổng số " + String.valueOf(custNoGroupResp.getMeta().getLast_page()) + " trang" );
+                    int i = 0;
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                        DateFormat df1 = new SimpleDateFormat("MM/dd/yyyy");
+                        DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
+                        for (CustCicModel item : custCIC_TMP) {
+                            i++;
+                            item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
+                            if (item.getCoreBankingIssueDate() != null) {
+                                item.setCoreBankingIssueDate(dateHienthi.format(sdf.parse(item.getCoreBankingIssueDate())));
+                            }
+                            if (item.getCoreBankingBirthday() != null) {
+                                item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
+                            }
+                            item.setStatusString(String.valueOf(item.getStatus()));
+                            custCIC.add(item);
+                        }
                 } else {
                     List<CustCicModel> custCIC_TMP = new ArrayList<>();
                     custCIC_TMP = service.getDataCustCIC(pos_cd_username, "20231231",

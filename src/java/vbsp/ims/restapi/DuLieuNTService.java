@@ -1041,6 +1041,30 @@ public class DuLieuNTService extends ReportService {
         }
     }
     
+    public CustNoGroupResp getDataCustCIC_NoGroup(String posCode, String reportDate, String communeCode, int pageSize , int pageNo) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("cic-nogroup-load-data")
+                //                .queryParam("key", key)
+                .queryParam("posCode", posCode)                
+                .queryParam("communeCode", communeCode.equals("000000") ? "" : communeCode)
+//                .queryParam("groupId", groupId.equals("0000000") ? "" : groupId)
+                .queryParam("pageSize", pageSize)
+                .queryParam("pageNo", pageNo)
+                .queryParam("reportDate", reportDate);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            CustNoGroupResp dulieuNTResp = response.readEntity(CustNoGroupResp.class);
+//            ArrayList<CustCicModel> listOfRow = dulieuNTResp.result;
+            return dulieuNTResp;
+        } else {
+            return null;
+        }
+    }
+    
     public int updateCIC(String posCode, String reportDate,String updateBy, String authoriseBy,
             List<CustCicModel> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();

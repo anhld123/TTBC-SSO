@@ -18,7 +18,8 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public class CustCicModel {
-
+    
+    private int id;
     private String mainPos;
     private String posCode;
     private String customerCode;
@@ -101,6 +102,16 @@ public class CustCicModel {
     private String c17;
     private String c18;
     private String c19;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
 
     public String getStatusString() {
         return statusString;

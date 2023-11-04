@@ -282,7 +282,7 @@
         <s:form id="id_sv_CIC_001" action="SAVE_CIC_001" theme="simple">
             <div style="overflow:scroll; width: 99vw; padding: 5">     
                 <a style="color: #003eff; font-weight: 550; font-size: 18px">
-                    BẢNG RÀ SOÁT THÔNG TIN CHUNG CỦA KHÁCH HÀNG 
+                    BẢNG RÀ SOÁT THÔNG TIN CHUNG CỦA KHÁCH HÀNG  (<font style="color: red"> <s:property value="messagePage"/></font>)
                     <!--<font style="color: red"> <s:property value="messageErr"/> </font>-->
                     </br> 
                     <font style="red"  class="test123"> <s:property value="messageErr"/></font>

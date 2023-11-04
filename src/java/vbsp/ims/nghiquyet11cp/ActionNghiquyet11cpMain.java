@@ -185,6 +185,16 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     private String ngay_bc;
     public String chotsl;
     public String messageErr;
+    public String messagePage;
+
+    public String getMessagePage() {
+        return messagePage;
+    }
+
+    public void setMessagePage(String messagePage) {
+        this.messagePage = messagePage;
+    }
+    
     
     public String vieclam_total;
     public String noxh_total;
