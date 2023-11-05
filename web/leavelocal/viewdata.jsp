@@ -256,6 +256,7 @@
 //                $("#mato").prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");
                 //----------Đề nghị cung cấp thông tin
                 $("#lstSubData31" + index).children().remove().end();
+                $("#lstSubData31" + index).prepend("<option value='0' " + selected + "> 0: Không </option>");
                 $("#lstSubData31" + index).prepend("<option value='1' " + selected + "> 1: Có </option>");
             }
 //                    $('#lstSubData31' + index).attr("disabled","disabled");
@@ -318,6 +319,7 @@
 
                         //------------------------Đề nghị cung cấp thông tin
                         $("#lstSubData31" + i).children().remove().end();
+                        $("#lstSubData31" + i).prepend("<option value='0' " + selected + "> 0: Không </option>");
                         $("#lstSubData31" + i).prepend("<option value='1' " + selected + "> 1: Có </option>");
 
                     }

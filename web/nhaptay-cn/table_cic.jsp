@@ -413,12 +413,15 @@
                                 <input type="hidden" value="<s:property  value="coreBankingIssuePlace"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].coreBankingIssuePlace" value="<s:property  value="coreBankingIssuePlace"/>"/>
                                 <input type="hidden" value="<s:property  value="coreBankingIssueDate"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].coreBankingIssueDate" value="<s:property  value="coreBankingIssueDate"/>"/>
                                 <input type="hidden" value="<s:property  value="coreBankingCustomerName"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].coreBankingCustomerName" value="<s:property  value="coreBankingCustomerName"/>"/>
-                                <input type="hidden" value="<s:property  value="coreBankingBirthday"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].coreBankingBirthday" value="<s:property  value="coreBankingBirthday"/>"/>  </td>  
+                                <input type="hidden" value="<s:property  value="coreBankingBirthday"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].coreBankingBirthday" value="<s:property  value="coreBankingBirthday"/>"/>  
+                            </td>  
 
-                            <td class="TD_SOTIEN"><s:property value="customerName" /></td>
-                            <td>
+                            <td class="TD_SOTIEN">                                
+                                <s:property value="customerName" />
+                            </td>
+                                <td>
                                 <s:if test="statusString.equalsIgnoreCase('0')"> 
-                                    <font style="color: red">
+                                    <font style="color: #F77C61">
                                     <s:property value="coreBankingCustomerName"/><span> </span> <s:property value="coreBankingBirthday"/>
                                     <span> </span><s:property value="coreBankingIdNo"/><span> </span>
                                     <s:property value="coreBankingIssuePlace"/><span> </span>
