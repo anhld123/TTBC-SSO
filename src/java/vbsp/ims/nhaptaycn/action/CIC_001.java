@@ -80,8 +80,11 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     CustNoGroupResp custNoGroupResp = service.getDataCustCIC_NoGroup(pos_cd_username, "20231231",
                             hmParameter.get("maxa").toString(), 50, Integer.parseInt(hmParameter.get("pageNumber").toString()));
                     custCIC_TMP = custNoGroupResp.getResult();
-                    setMessagePage("Tổng số " + String.valueOf(custNoGroupResp.getMeta().getLast_page()) + " trang" );
-                    int i = 0;
+                    setMessagePage("(Trang  " + hmParameter.get("pageNumber").toString() + "/" + String.valueOf(custNoGroupResp.getMeta().getLast_page()) +")");
+                    if (custCIC_TMP.size() > 150) {
+                        setMessageErr("Dữ liệu quá lớn. Vui lòng chọn đúng trang để xác nhận.");
+                    } else {
+                        int i = 0;
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                         DateFormat df1 = new SimpleDateFormat("MM/dd/yyyy");
                         DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
@@ -97,11 +100,12 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                             item.setStatusString(String.valueOf(item.getStatus()));
                             custCIC.add(item);
                         }
+                    }
                 } else {
                     List<CustCicModel> custCIC_TMP = new ArrayList<>();
                     custCIC_TMP = service.getDataCustCIC(pos_cd_username, "20231231",
                             hmParameter.get("maxa").toString(), hmParameter.get("mato").toString().split("_")[1], "");
-                    
+
                     if (custCIC_TMP.size() > 150) {
                         setMessageErr("Dữ liệu quá lớn. Vui lòng chọn từng tổ để xác nhận.");
                     } else {

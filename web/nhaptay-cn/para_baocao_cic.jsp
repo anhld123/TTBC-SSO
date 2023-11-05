@@ -495,7 +495,7 @@
                                 </td>
                                 <td><label  id="labelPageNumber">Trang thứ</td>
                                 <td style="width: 40px;">
-                                    <input  type="number" min="1" max="50" width="40px;" value="1" id="pageNumber" name="pageNumber" placeholder="Trang thứ" title="Trang thứ">
+                                    <input  type="number" min="1" max="500" width="40px;" value="1" id="pageNumber" name="pageNumber" placeholder="Trang thứ" title="Trang thứ">
                                 </td>
                                 <td colspan="2">                                        
                                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
