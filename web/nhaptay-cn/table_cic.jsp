@@ -438,7 +438,7 @@
                             </td>    
                             <!--số CMTND-->
                             <c:if test="${fn:length(coreBankingIdNo) < 10}">
-                                <s:if test="isValidNewIdNo.toString().equalsIgnoreCase('1')">
+                                <s:if test="isValidOldIdNo.toString().equalsIgnoreCase('1')">
                                     <td style="font-weight: bold"> <s:property value="coreBankingIdNo"/></td>
                                     <td style="font-weight: bold"> <s:property value="coreBankingIssueDate"/></td>
                                     <td style="font-weight: bold"> <s:property value="coreBankingIssuePlace"/></td>  
