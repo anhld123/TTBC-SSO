@@ -19,7 +19,7 @@
                 font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
                 border-collapse: collapse;
                 border-spacing: 0;
-                width: 120%;
+                width: 99%;
             }
             #subTable th{
                 background-color: #ddd;
@@ -330,11 +330,11 @@
                             <th  class="hdtitle D0">Số CCCD</th>
                             <th  class="hdtitle TD_SOTK">Ngày cấp</th>
                             <th  class="hdtitle TD_TENKH123">Nơi cấp</th>
-                            <th  class="TD_MAKH">Sai họ và tên</th>
-                            <th  class="TD_MAKH">Sai số CMND/CCCD</th>
-                            <th  class="TD_MAKH">Sai ngày cấp CMND/CCCD</th>
-                            <th  class="TD_MAKH">Sai nơi cấp CMND/CCCD</th>
-                            <th  class="TD_MAKH">Sai ngày tháng năm sinh</th>
+                            <th  style="width: 50px">Họ và tên</th>
+                            <th  style="width: 50px">Số <br>CMND<br>/CCCD</th>
+                            <th  style="width: 50px">Ngày cấp <br>CMND<br>/CCCD</th>
+                            <th  style="width: 50px">Nơi cấp <br>CMND<br>/CCCD</th>
+                            <th  style="width: 50px">Ngày tháng <br>năm sinh</th>
                         </tr>
 
                         <tr class="txtBody">
@@ -419,7 +419,7 @@
                             <td class="TD_SOTIEN">                                
                                 <s:property value="customerName" />
                             </td>
-                                <td>
+                            <td>
                                 <s:if test="statusString.equalsIgnoreCase('0')"> 
                                     <font style="color: #F77C61">
                                     <s:property value="coreBankingCustomerName"/><span> </span> <s:property value="coreBankingBirthday"/>
@@ -438,9 +438,16 @@
                             </td>    
                             <!--số CMTND-->
                             <c:if test="${fn:length(coreBankingIdNo) < 10}">
-                                <td> <s:property value="coreBankingIdNo"/></td>
-                                <td> <s:property value="coreBankingIssueDate"/></td>
-                                <td> <s:property value="coreBankingIssuePlace"/></td>  
+                                <s:if test="isValidNewIdNo.toString().equalsIgnoreCase('1')">
+                                    <td style="font-weight: bold"> <s:property value="coreBankingIdNo"/></td>
+                                    <td style="font-weight: bold"> <s:property value="coreBankingIssueDate"/></td>
+                                    <td style="font-weight: bold"> <s:property value="coreBankingIssuePlace"/></td>  
+                                </s:if>
+                                <s:else>
+                                    <td> <s:property value="coreBankingIdNo"/></td>
+                                    <td> <s:property value="coreBankingIssueDate"/></td>
+                                    <td> <s:property value="coreBankingIssuePlace"/></td>  
+                                </s:else>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -449,9 +456,16 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td> <s:property value="coreBankingIdNo"/></td>
-                                <td> <s:property value="coreBankingIssueDate"/></td>
-                                <td> <s:property value="coreBankingIssuePlace"/></td>   
+                                <s:if test="isValidNewIdNo.toString().equalsIgnoreCase('1')">
+                                    <td style="font-weight: bold"> <s:property value="coreBankingIdNo"/></td>
+                                    <td style="font-weight: bold"> <s:property value="coreBankingIssueDate"/></td>
+                                    <td style="font-weight: bold"> <s:property value="coreBankingIssuePlace"/></td> 
+                                </s:if>
+                                <s:else>
+                                    <td> <s:property value="coreBankingIdNo"/></td>
+                                    <td> <s:property value="coreBankingIssueDate"/></td>
+                                    <td> <s:property value="coreBankingIssuePlace"/></td> 
+                                </s:else>
                             </c:if>
                             <!--số CCCD-->
 
@@ -464,24 +478,24 @@
                             <!--lãi tồn--> 
                             <td class="number"><s:property value="remainIntAmount"/></td>
                             <!--sai họ tên-->
-                            <td class="TD_MAKH">    
-                                <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
+                            <td class="D0">    
+                                <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
                             </td> 
                             <!--sai số cm-->
-                            <td class="TD_MAKH">
-                                <input type="checkbox" id ="idc16<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c16" value="<s:property  value="cicCode" />"      
+                            <td class="D0">
+                                <input type="checkbox" id ="idc16<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c16" value="<s:property  value="cicCode" />"      
                             </td>
 
-                            <td class="TD_MAKH">
-                                <input type="checkbox" id ="idc17<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c17" value="<s:property  value="cicCode" />"     
+                            <td class="D0">
+                                <input type="checkbox" id ="idc17<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c17" value="<s:property  value="cicCode" />"     
                             </td>
 
-                            <td class="TD_MAKH">
-                                <input type="checkbox" id ="idc18<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c18" value="<s:property  value="cicCode" />"      
+                            <td class="D0">
+                                <input type="checkbox" id ="idc18<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c18" value="<s:property  value="cicCode" />"      
                             </td>
 
-                            <td class="TD_MAKH">
-                                <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class=" TEN_KH D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
+                            <td class="D0">
+                                <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
                             </td>
 
                             <td class="TEN_KH" <s:if test="statusString.equalsIgnoreCase('0')"> style="background: #F9C6BB" </s:if> >
