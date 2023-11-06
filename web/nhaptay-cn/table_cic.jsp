@@ -321,7 +321,8 @@
                             <th rowspan="2" class="hdtitle TD_SOKU">Số dư tiền gửi</th>  
                             <th rowspan="2" class="hdtitle TD_SOKU">Lãi tồn</th>              
                             <th colspan="5" class="D0">Xác nhận sai sót</th> 
-                            <th rowspan="2" class="hdtitle TEN_KH">Đã hoàn thành <br>chỉnh sửa trên <br>hệ thống Intellect</th>                              
+                            <th rowspan="2" class="hdtitle TEN_KH">Đã hoàn thành <br>chỉnh sửa trên <br>hệ thống Intellect</th>    
+                             <th rowspan="2" class="hdtitle TEN_KH">Ghi chú</th>     
                         </tr>         
                         <tr >
                             <th  class="hdtitle D0">Số CMTND</th>
@@ -358,6 +359,7 @@
                             <th style="color: #000; font: italic; font-size: xx-small;">(18)</th>
                             <th style="color: #000; font: italic; font-size: xx-small;">(19)</th>
                             <th style="color: #000; font: italic; font-size: xx-small;">(20)</th>  
+                            <th style="color: #000; font: italic; font-size: xx-small;">(21)</th> 
                         </tr>
                     </thead>
                     <s:iterator value="#attr.custCIC" var="modelView" status="rowstatus">   
@@ -502,9 +504,12 @@
                                 <select style="width: 100px"  name="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString" id="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString">
                                     <option value="0" <s:if test="statusString.equalsIgnoreCase('0')"> selected </s:if><s:else></s:else>>Chưa rà soát</option>
                                     <option value="1" <s:if test="statusString.equalsIgnoreCase('1')"> selected </s:if><s:else></s:else>>Đã RS và CN trên Intellect</option>
-                                    <option value="2" <s:if test="statusString.equalsIgnoreCase('2')"> selected </s:if><s:else></s:else>>Không làm rõ được</option>
+                                    <option value="2" <s:if test="statusString.equalsIgnoreCase('2')"> selected </s:if><s:else></s:else>>Không thực hiện rà soát</option>
                                     </select> 
                                 </td>
+                                <td>
+                                        <textarea  placeholder="Nhập tối đa 200 ký tự"  name="lstData[<s:property  value='%{#idxRows.index}' />].statusString"  disabled> </textarea>
+                                </td>    
                             </tr>
                     </s:iterator>            
                 </table>
