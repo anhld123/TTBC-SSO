@@ -322,7 +322,7 @@
                             <th rowspan="2" class="hdtitle TD_SOKU">Lãi tồn</th>              
                             <th colspan="5" class="D0">Xác nhận sai sót</th> 
                             <th rowspan="2" class="hdtitle TEN_KH">Đã hoàn thành <br>chỉnh sửa trên <br>hệ thống Intellect</th>    
-                             <th rowspan="2" class="hdtitle TEN_KH">Ghi chú</th>     
+                            <th rowspan="2" class="hdtitle TEN_KH">Ghi chú</th>     
                         </tr>         
                         <tr >
                             <th  class="hdtitle D0">Số CMTND</th>
@@ -501,15 +501,17 @@
                             </td>
 
                             <td class="TEN_KH" <s:if test="statusString.equalsIgnoreCase('0')"> style="background: #F9C6BB" </s:if> >
-                                <select style="width: 100px"  name="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString" id="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString">
+                                <select onchange="onSelectChange_dnht1(this.value, <s:property  value='%{#rowstatus.index}'/>)"
+                                        style="width: 100px"  name="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString" id="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString">
                                     <option value="0" <s:if test="statusString.equalsIgnoreCase('0')"> selected </s:if><s:else></s:else>>Chưa rà soát</option>
                                     <option value="1" <s:if test="statusString.equalsIgnoreCase('1')"> selected </s:if><s:else></s:else>>Đã RS và CN trên Intellect</option>
-                                    <option value="2" <s:if test="statusString.equalsIgnoreCase('2')"> selected </s:if><s:else></s:else>>Không thực hiện rà soát</option>
+                                    <option value="2" <s:if test="statusString.equalsIgnoreCase('2')"> selected </s:if><s:else></s:else>>Không thực hiện chỉnh sửa</option>
                                     </select> 
                                 </td>
                                 <td>
-                                        <textarea  placeholder="Nhập tối đa 200 ký tự"  name="lstData[<s:property  value='%{#idxRows.index}' />].statusString"  disabled> </textarea>
-                                </td>    
+                                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData41<s:property  value='%{#rowstatus.index}' />" name="custCIC[<s:property  value='%{#rowstatus.index}' />].remark" <s:if test="statusString.equalsIgnoreCase('1') || statusString.equalsIgnoreCase('0')"> disabled </s:if>><s:property value='remark'/></textarea>
+                        
+                            </td>    
                             </tr>
                     </s:iterator>            
                 </table>
@@ -520,6 +522,44 @@
         </s:form>
     </body>
     <script>
+    
+        function onSelectChange_dnht1(value, index) {
+            if (value == '2')
+            {
+                document.getElementById("lstData41" + index).disabled = false;
+            } else
+            {
+                document.getElementById("lstData41" + index).disabled = true;
+            }
+        }
+
+        function initTable1()
+        {
+            var table = document.getElementById("subTable");
+            var rowcount = table.rows.length;
+            rowcount = rowcount > max_row ? rowcount : max_row;
+            for (var i = 0; i < rowcount; i++)
+            {
+
+                try {
+
+                    var value = $('#custCIC' + i).find(":selected").val();
+                    if (value == '2')
+                    {
+                        document.getElementById("lstData41" + i).disabled = false;
+                    } else
+                    {
+                        document.getElementById("lstData41" + i).disabled = true;
+                    }
+
+                } catch (e) {
+
+                }
+
+
+            }
+        }
+
         initTable();
     </script>
 </html>

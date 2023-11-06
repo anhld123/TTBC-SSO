@@ -48,7 +48,15 @@ public class CustCicModel {
     private int intellectUpdateFlag;
     private String groupCode;
     private String mobileNumber;
+    private String remark;
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     @XmlElement(defaultValue = "0")
     BigInteger principleBalance;

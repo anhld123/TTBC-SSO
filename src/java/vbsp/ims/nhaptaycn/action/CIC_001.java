@@ -226,6 +226,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     tempadd.setWrongIssuePlaceConfirmFlag(checkItemInList18(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
                     tempadd.setWrongBirthdayConfirmFlag(checkItemInList19(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
                     tempadd.setStatus(Integer.parseInt(item.getStatusString()));
+                    tempadd.setRemark(item.getRemark());
                     custCIC_TMP.add(tempadd);
                 }
                 service = new DuLieuNTService();
@@ -244,6 +245,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                         updateRow.setD6(String.valueOf(item.getWrongIssueDateConfirmFlag()));
                         updateRow.setD7(String.valueOf(item.getWrongIssuePlaceConfirmFlag()));
                         updateRow.setD8(String.valueOf(item.getWrongBirthdayConfirmFlag()));
+                        updateRow.setD9(item.getRemark());
                         lstLocalDataUpdate.add(updateRow);
                     }
                     if (!DaoNghiquyet11cp.newInstance().saveCIC_Local(UserName, pos_cd_username, "31-dec-2023", lstLocalDataUpdate)) {
