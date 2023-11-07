@@ -437,39 +437,68 @@
                                     <s:property value="coreBankingIssueDate"/>
                                 </s:else>
 
-                            </td>    
-                            <!--số CMTND-->
-                            <c:if test="${fn:length(coreBankingIdNo) < 10}">
-                                <s:if test="isValidOldIdNo.toString().equalsIgnoreCase('0')">
-                                    <td style="font-weight: bold"> <s:property value="coreBankingIdNo"/></td>
-                                    <td style="font-weight: bold"> <s:property value="coreBankingIssueDate"/></td>
-                                    <td style="font-weight: bold"> <s:property value="coreBankingIssuePlace"/></td>  
-                                </s:if>
-                                <s:else>
+                            </td> 
+                            <s:if test="isValidOldIdNo.toString().equalsIgnoreCase('0') && isValidNewIdNo.toString().equalsIgnoreCase('0')">
+                                <!--số CMTND-->
+                                <c:if test="${fn:length(coreBankingIdNo) < 10}">
                                     <td> <s:property value="coreBankingIdNo"/></td>
                                     <td> <s:property value="coreBankingIssueDate"/></td>
                                     <td> <s:property value="coreBankingIssuePlace"/></td>  
-                                </s:else>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </c:if>
-                            <c:if test="${fn:length(coreBankingIdNo) > 10}">  
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <s:if test="isValidNewIdNo.toString().equalsIgnoreCase('0')">
-                                    <td style="font-weight: bold"> <s:property value="coreBankingIdNo"/></td>
-                                    <td style="font-weight: bold"> <s:property value="coreBankingIssueDate"/></td>
-                                    <td style="font-weight: bold"> <s:property value="coreBankingIssuePlace"/></td> 
-                                </s:if>
-                                <s:else>
+                                    <td class="D0" title="Chưa có kết quả kiểm tra của C06, hiện lấy thông tin từ VBSP">&#8270;</td>
+                                    <td></td>
+                                    <td></td>
+                                </c:if>
+                                <c:if test="${fn:length(coreBankingIdNo) > 10}">  
+                                    <td class="D0" title="Chưa có kết quả kiểm tra của C06, hiện lấy thông tin từ VBSP">&#8270;</td>
+                                    <td></td>
+                                    <td></td>
                                     <td> <s:property value="coreBankingIdNo"/></td>
                                     <td> <s:property value="coreBankingIssueDate"/></td>
                                     <td> <s:property value="coreBankingIssuePlace"/></td> 
+                                </c:if>
+                                <!--số CCCD-->
+                            </s:if>
+                            <s:elseif test="isValidOldIdNo.toString().equalsIgnoreCase('0') || isValidNewIdNo.toString().equalsIgnoreCase('0')">
+                                <!--số CMTND-->
+                                <s:if test="isValidOldIdNo.toString().equalsIgnoreCase('0')">
+                                    <td style="font-weight: bold"> <s:property value="c06OldIdNo"/></td>
+                                    <s:if test="%{#c06OldIdNo.equals(#coreBankingIdNo)}">
+                                        <td style="font-weight: bold"> <s:property value="coreBankingIssueDate"/></td>
+                                        <td style="font-weight: bold"> <s:property value="coreBankingIssuePlace"/></td> 
+                                    </s:if>
+                                    <s:else>
+                                        <td></td>
+                                        <td></td>
+                                    </s:else>
+                                </s:if>
+                                <s:elseif test="isValidOldIdNo.toString().equalsIgnoreCase('1')">
+                                    <td> <s:property value="c06OldIdNo"/></td>
+                                    <td> <s:property value="coreBankingIssueDate"/></td>
+                                    <td> <s:property value="coreBankingIssuePlace"/></td>  
+                                </s:elseif>
+                                <s:else>
+                                    <td> <s:property value="coreBankingIdNo"/></td>
+                                    <td> <s:property value="coreBankingIssueDate"/></td>
+                                    <td> <s:property value="coreBankingIssuePlace"/></td>   
                                 </s:else>
-                            </c:if>
-                            <!--số CCCD-->
+                                <!--số CCCD-->
+                                <s:if test="isValidNewIdNo.toString().equalsIgnoreCase('0')">
+                                    <td style="font-weight: bold"> <s:property value="c06NewIdNo"/></td>
+                                    <s:if test="%{#c06NewIdNo.equals(#coreBankingIdNo)}">
+                                        <td style="font-weight: bold"> <s:property value="coreBankingIssueDate"/></td>
+                                        <td style="font-weight: bold"> <s:property value="coreBankingIssuePlace"/></td> 
+                                    </s:if>
+                                    <s:else>
+                                        <td></td>
+                                        <td></td>
+                                    </s:else>
+                                </s:if>
+                                <s:else>
+                                    <td> <s:property value="c06NewIdNo"/></td>
+                                    <td> <s:property value="coreBankingIssueDate"/></td>
+                                    <td> <s:property value="coreBankingIssuePlace"/></td>  
+                                </s:else>
+                            </s:elseif>
 
                             <!--ngày sinh--> 
                             <td class="D0"><s:property value="birthDay"/></td>
@@ -509,9 +538,9 @@
                                     </select> 
                                 </td>
                                 <td>
-                                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData41<s:property  value='%{#rowstatus.index}' />" name="custCIC[<s:property  value='%{#rowstatus.index}' />].remark" <s:if test="statusString.equalsIgnoreCase('1') || statusString.equalsIgnoreCase('0')"> disabled </s:if>><s:property value='remark'/></textarea>
-                        
-                            </td>    
+                                        <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData41<s:property  value='%{#rowstatus.index}' />" name="custCIC[<s:property  value='%{#rowstatus.index}' />].remark" <s:if test="statusString.equalsIgnoreCase('1') || statusString.equalsIgnoreCase('0')"> disabled </s:if>><s:property value='remark'/></textarea>
+
+                                </td>    
                             </tr>
                     </s:iterator>            
                 </table>
@@ -522,7 +551,7 @@
         </s:form>
     </body>
     <script>
-    
+
         function onSelectChange_dnht1(value, index) {
             if (value == '2')
             {
