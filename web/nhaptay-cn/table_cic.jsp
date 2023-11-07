@@ -438,6 +438,7 @@
                                 </s:else>
 
                             </td> 
+                            <!--trường hợp cả CCCD và CMND đều chưa được xác nhận-->
                             <s:if test="isValidOldIdNo.toString().equalsIgnoreCase('0') && isValidNewIdNo.toString().equalsIgnoreCase('0')">
                                 <!--số CMTND-->
                                 <c:if test="${fn:length(coreBankingIdNo) < 10}">
@@ -458,6 +459,7 @@
                                 </c:if>
                                 <!--số CCCD-->
                             </s:if>
+                                <!--trường hợp 1 trong 2 đã đc xác nhận--> 
                             <s:elseif test="isValidOldIdNo.toString().equalsIgnoreCase('0') || isValidNewIdNo.toString().equalsIgnoreCase('0')">
                                 <!--số CMTND-->
                                 <s:if test="isValidOldIdNo.toString().equalsIgnoreCase('0')">
