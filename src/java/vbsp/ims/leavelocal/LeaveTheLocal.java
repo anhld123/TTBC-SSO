@@ -268,8 +268,21 @@ public class LeaveTheLocal extends ActionSupport {
                             List<DuLieuNTRow> lstSelectedData_Hotro = new ArrayList<>();
                             String mapgd_tmp = item.getD32();
                             String nguoi_nhap = item.getMakerId();
-                            lstSelectedData_Hotro.add(item);
-                            _status = _leaveHomeService.saveCustomers(mapgd_tmp, "S", sReportdt, nguoi_nhap, nguoi_nhap, lstSelectedData_Hotro, "1");
+                            
+                            DuLieuNTRow tmp = new DuLieuNTRow();
+                            tmp.setKey(item.getKey());
+                            tmp.setPosCode(item.getPosCode());
+                            tmp.setPosFlag(item.getPosFlag());
+                            tmp.setReportDate(item.getReportDate());
+                            tmp.setCode(item.getCode());
+                            tmp.setBranchCode(item.getBranchCode());
+                             tmp.setD11(item.getD11());
+                            tmp.setD27(item.getD27());
+                            tmp.setOrderValue(item.getOrderValue());
+                            
+                            
+                            lstSelectedData_Hotro.add(tmp);
+                            _status = _leaveHomeService.saveCustomers_denghi(mapgd_tmp, "S", sReportdt, nguoi_nhap, nguoi_nhap, lstSelectedData_Hotro, "1");
                             if (_status != 200) {
                                 return "success";
                             }
