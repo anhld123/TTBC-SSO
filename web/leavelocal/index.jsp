@@ -249,7 +249,7 @@
                                     var lstDataD23 = document.getElementById('lstDataD23' + i).value;
                                     if (lstDataD23.length < 5)
                                     {
-                                        alert('Vui lòng nhập thông tin cột 15.')
+                                        alert('Vui lòng nhập thông tin cột 17.')
                                         document.getElementById("lstDataD23" + i).style.backgroundColor = "#EEAFA6";
                                         return;
                                     }

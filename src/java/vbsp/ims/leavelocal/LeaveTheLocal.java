@@ -266,7 +266,7 @@ public class LeaveTheLocal extends ActionSupport {
                     } else {
                         if (item.getD20().equals("HOVAY")) {
                             List<DuLieuNTRow> lstSelectedData_Hotro = new ArrayList<>();
-                            String mapgd_tmp = item.getD32();
+                            String mapgd_tmp = item.getPosCode();
                             String nguoi_nhap = item.getMakerId();
                             
                             DuLieuNTRow tmp = new DuLieuNTRow();
@@ -278,11 +278,13 @@ public class LeaveTheLocal extends ActionSupport {
                             tmp.setBranchCode(item.getBranchCode());
                              tmp.setD11(item.getD11());
                             tmp.setD27(item.getD27());
+                             tmp.setD34(item.getD34());
+                             tmp.setD41(item.getD41());
                             tmp.setOrderValue(item.getOrderValue());
                             
                             
                             lstSelectedData_Hotro.add(tmp);
-                            _status = _leaveHomeService.saveCustomers_denghi(mapgd_tmp, "S", sReportdt, nguoi_nhap, nguoi_nhap, lstSelectedData_Hotro, "1");
+                            _status = _leaveHomeService.saveCustomers_denghi(mapgd_tmp, "S", sReportdt, this.sUser, this.sUser, lstSelectedData_Hotro, "1");
                             if (_status != 200) {
                                 return "success";
                             }
