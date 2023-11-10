@@ -516,9 +516,6 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d18" value="<s:property value='d18'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d19" value="<s:property value='d19'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d20" value="<s:property value='d20'/>">  
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d35" value="<s:property value='d35'/>">
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d36" value="<s:property value='d36'/>">
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d37" value="<s:property value='d37'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d50" value="<s:property value='d50'/>">
                         </td>
                         <td class="txtBody" >
@@ -724,7 +721,7 @@
                                 <option value="02" <s:if test="d24.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không liên hệ được</option>
                                 <option value="03" <s:if test="d24.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Liên hệ được nhưng không cam kết</option>
                                 <option value="04" <s:if test="d24.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>04: Liên hệ được nhưng không nhận nợ</option>
-                                <option value="05" <s:if test="d24.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>0    5: không thực hiện cam kết</option>
+                                <option value="05" <s:if test="d24.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>05: không thực hiện cam kết</option>
                                 </select>
                             </td>
 
