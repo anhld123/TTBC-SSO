@@ -78,7 +78,13 @@
                             <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>
                         </div>
                         <div>
+                            <s:if test="Grade.equalsIgnoreCase('3')">
+                                <font style="color: red"> Bạn đã chốt số liệu lần cung cấp thông tin lần 0
+                            </s:if>
                             <input type="button" id="idSearch" value="Tìm kiếm" style="height: 25px; padding: 0px 20px 0px 20px;">
+                            <s:if test="Grade.equalsIgnoreCase('3')">
+                                 <input type="button" id="idSave" value="Chốt cung cấp TT" style="height: 25px;padding: 0px 20px 0px 20px;">   
+                            </s:if>
                             <s:if test="Grade.equalsIgnoreCase('1')">
                                 <input type="button" id="idSave" value="Lưu số liệu" style="height: 25px;padding: 0px 20px 0px 20px;" disabled="true">                            
                                 <input type="button" id="idDelete" value="Đề nghị xóa" style="color: red;height: 25px;padding: 0px 20px 0px 20px;" disabled="true">

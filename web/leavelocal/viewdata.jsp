@@ -517,6 +517,9 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d19" value="<s:property value='d19'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d20" value="<s:property value='d20'/>">  
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d50" value="<s:property value='d50'/>">
+                            <s:if test="D42.equalsIgnoreCase('0')"> 
+                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" value="<s:property value='d32'/>">
+                            </s:if>
                         </td>
                         <td class="txtBody" >
                             <s:if test="!D50.toString().equalsIgnoreCase('2')">
