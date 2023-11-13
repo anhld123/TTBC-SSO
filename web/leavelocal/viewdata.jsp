@@ -154,9 +154,8 @@
             if (value == '01')
             {
 //                $('#lstSubData31' + index).find(":selected").val() = '0'
-                document.getElementById("lstSubData31" + index).value = "0";
+//                document.getElementById("lstSubData31" + index).value = "0";
                 document.getElementById("lstSubData31" + index).disabled = true;
-                document.getElementById("lstData_D44" + i).disabled = true;
                 var var2, vartxt, selected;
                 $("#lstData_D30" + index).children().remove().end();
                 //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
@@ -191,7 +190,6 @@
             } else
             {
                 document.getElementById("lstSubData31" + index).disabled = false;
-                document.getElementById("lstData_D44" + i).disabled = false;
                 document.getElementById("lstDataD23" + index).removeAttribute("style");
                 document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
                 $("#lstData_D30" + index).children().remove().end();
@@ -253,9 +251,7 @@
                         $("#lstSubData_D33" + i).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
                         document.getElementById("lstDNHT_D33" + i).style.visibility = "hidden";
                         //------------------------Đề nghị cung cấp thông tin
-                        $("#lstSubData31" + i).children().remove().end();
-                        $("#lstSubData31" + i).prepend("<option value='0' " + selected + "> 0: Không </option>");
-                        $("#lstSubData31" + i).prepend("<option value='1' " + selected + "> 1: Có </option>");
+
                     }
                 }
             } catch (e) {
@@ -279,7 +275,6 @@
         {
             $("#lstSubData_D33" + index).children().remove().end();
             $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
-//                $("#lstSubData_D33" + index).prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");
             document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
         } else
         {
@@ -327,8 +322,6 @@
                 <option value="999999">Nước ngoài</option>
             </select>
         </div>
-
-
         <table id="subTable" style="z-index: 1">   
             <thead>
                 <tr>
@@ -352,56 +345,48 @@
                     <th rowspan="2" class="hdtitle" style="width: 100px">Ngày đề nghị <br>cung cấp<br>thông tin</th>
                     <th rowspan="2" class="hdtitle">Thông tin hỗ trợ</th>
                     <th rowspan="2" class="hdtitle" style="width: 100px">Ngày cập nhật<br>thông tin</th>
-
                     <th rowspan="2" class="hdtitle">Thông tin <br>(100-200 ký tự)</th>
                     <th rowspan="2"class="hdtitle">Chi nhánh hộ vay <br>chuyển đến</th>
                     <th rowspan="2" class="hdtitle">PGD hộ vay <br>chuyển đến</th>
                     <th rowspan="2" class="hdtitle" style="width: 200px" >Đề nghị hỗ trợ</th>
                     <th colspan="2" class="hdtitle">Kết quả hỗ trợ</th>
                     <th rowspan="2" class="hdtitle">Tổ chức CT-XH rà soát</th>
-
-
                     <th rowspan="2" class="hdtitle">Mã quản lý</th>
                 </tr>
                 <tr>
-                    <!--<th class="hdtitle">Đề nghị hỗ trợ</th>-->
-
-                    <!--                    <th class="hdtitle">Ngày đề nghị</th>
-                                        <th class="hdtitle">Số văn bản đề nghị</th>
-                                        <th class="hdtitle">Ngày hết hiệu lực <br>đề nghị</th>-->
                     <th class="hdtitle">Kết quả hỗ trợ</th>
                     <th class="hdtitle">Kết quả hỗ trợ<br>(Trường hợp 5)</th>
                 </tr>
 
             </thead>
             <tr class="txtBody">
-                <th style="color: #000; font: italic; font-size: xx-small;"></th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(1)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(2)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(3)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(4)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(5)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(6)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(7)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(8)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(9)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(10)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(11)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(12)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(13)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(14)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;"></th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(10)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(12)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(13)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(14)</th>
                 <!--<th style="color: #000; font: italic; font-size: xx-small;">()</th>-->
-                <th style="color: #000; font: italic; font-size: xx-small;">(15)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(16)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(17)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(18)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(19)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(20)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(21)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(22)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(23)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(24)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(25)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(15)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(16)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(17)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(18)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(19)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(20)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(21)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(22)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(23)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(24)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(25)</th>
             </tr>
             <tbody>
                 <% int customerCount = 0; %>
@@ -529,7 +514,8 @@
                                 </select>
                             </td>
                             <td class="txtBody">
-                                    <select onchange="onSelectChange_time(this.value, <s:property  value='%{#idxRows.index}'/>)" class="<s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" 
+                                    <select onchange="onSelectChange_time(this.value, <s:property  value='%{#idxRows.index}'/>)" class="<s:property value="d20"/>"
+                                    name="lstData[<s:property  value='%{#idxRows.index}' />].d31" 
                                     id="lstSubData31<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if>> 
                                 <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
                                 <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
@@ -552,19 +538,15 @@
                             <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d39" id="lstData39<s:property  value='%{#idxRows.index}' />" 
                                    value="<s:property  value="D39" />" >
                         </td>
-                        <td>
-                            <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
-                            </s:if>
-                            <s:else>
-                                <s:if test="D32.equalsIgnoreCase('000000') || D32.equalsIgnoreCase('99999') || D32.equalsIgnoreCase('')">
-                                    <s:property value="D26"/>
-                                    <%--</s:else>--%>
-                                </s:if>
-                                <s:else>
-                                    <input  style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>"  id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> value="<s:property value='d26'/>">                                                
-                                </s:else>   
-                            </s:else>
-                        </td>
+
+                        <s:if test="D32.equalsIgnoreCase('000000') || D32.equalsIgnoreCase('99999') || D32.equalsIgnoreCase('')">
+                            <td class="txtBody" style="background: #f2f2f2"><s:property value="D26"/> </td>
+                            <%--</s:else>--%>
+                        </s:if>
+                        <s:else>
+                            <td> <input  style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>"  id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> value="<s:property value='d26'/>">                                                
+                                </td>
+                        </s:else>   
 
                         <td class="txtBody">
                             <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstDataD23<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d23" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> ><s:property value='d23'/></textarea>
@@ -704,19 +686,20 @@
             }
         });
     });
+
     function onSelectChange_time(value, index) {
-    if (value === '1') {
-        document.getElementById("lstData_D44" + index).disabled = false;
-        var today = new Date();
-        var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0');
-        var yyyy = today.getFullYear();
-        var currentDate = dd + '/' + mm + '/' + yyyy;
-        document.getElementById("lstData_D44" + index).value = currentDate;
-    } else {
-        document.getElementById("lstData_D44" + index).disabled = true;
+        if (value == '1') {
+            document.getElementById("lstData_D44" + index).disabled = false;
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+            var currentDate = dd + '/' + mm + '/' + yyyy;
+            document.getElementById("lstData_D44" + index).value = currentDate;
+        } else {
+            document.getElementById("lstData_D44" + index).disabled = true;
+        }
     }
-}
 
     function initTable2()
     {
@@ -727,7 +710,8 @@
         {
             try {
                 var value = $('#lstSubData31' + i).find(":selected").val();
-                if (value === '1')
+                var value1 = $('#lstData_D22' + i).find(":selected").val();
+                if (value == '1' && value1 == '2')
                 {
                     document.getElementById("lstData_D44" + i).disabled = false;
                 } else
