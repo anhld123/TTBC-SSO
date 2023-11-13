@@ -24,7 +24,8 @@ public class LeaveHomeService {
     DuLieuNTService _service = new DuLieuNTService();
 
     //gradeAuthor = 1 tạo lập; 2 phê duyệt
-//    typeAuth = 1 phê duyệt cho xoa; 2 phê duyệt cho XLN
+    //typeAuth = 1 phê duyệt cho xoa; 2 phê duyệt cho XLN
+    //openFlag = 0 Gọi trong dữ liệu nhập tay; = 1 gọi trong hskh
     public List<DuLieuNTRow> getCustomers(String posCode, String posFlag, String customerCode, String fromDate, String toDate, String sourceFlag, String openFlag,
             String gradeAuthor, String typeAuth) {
         //gradeAuthor = 1 tạo lập; 2 phê duyệt
