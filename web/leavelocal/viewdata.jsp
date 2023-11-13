@@ -711,7 +711,7 @@
             try {
                 var value = $('#lstSubData31' + i).find(":selected").val();
                 var value1 = $('#lstData_D22' + i).find(":selected").val();
-                if (value == '1' && value1 == '2')
+                if (value == '1' && value1 == '02')
                 {
                     document.getElementById("lstData_D44" + i).disabled = false;
                 } else
