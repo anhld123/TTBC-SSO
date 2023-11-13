@@ -154,8 +154,10 @@
             if (value == '01')
             {
 //                $('#lstSubData31' + index).find(":selected").val() = '0'
-//                document.getElementById("lstSubData31" + index).value = "0";
+                document.getElementById("lstSubData31" + index).value = "0";
+                document.getElementById("lstData_D44" + index).value = "";
                 document.getElementById("lstSubData31" + index).disabled = true;
+                document.getElementById("lstData_D44" + index).disabled = true;
                 var var2, vartxt, selected;
                 $("#lstData_D30" + index).children().remove().end();
                 //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
@@ -202,11 +204,12 @@
                 $("#lstSubData_D33" + index).children().remove().end();
                 $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
                 //----------Đề nghị cung cấp thông tin
+
                 $("#lstSubData31" + index).children().remove().end();
                 $("#lstSubData31" + index).prepend("<option value='0' " + selected + "> 0: Không </option>");
                 $("#lstSubData31" + index).prepend("<option value='1' " + selected + "> 1: Có </option>");
+            
             }
-
         } catch (e) {
         }
     }
