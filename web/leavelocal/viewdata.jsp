@@ -12,7 +12,7 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         border-spacing: 0;
-        width: 200%;
+        width: 220%;
     }
     #subTable th{
         background-color: #ddd;
@@ -54,342 +54,264 @@
     $(document).ready(function () {
         initTable();
     });
-
     $(document).ready(function () {
         initTable1();
     });
     $(function () {
         setCssStyle();
     });
-
     function setCssStyle() {
-        $(".cssDate").datepicker(
-                {
-                    dateFormat: 'dd/mm/yy',
-                    showOn: "button",
-                    buttonImage: "img/icon-ui_datepicker.png",
-                    buttonImageOnly: true,
-                    // dateFormat: 'dd/mm/yy',
-                    showButtonPanel: true,
-                    buttonText: "icono",
-                    changeMonth: true,
-                    changeYear: true
-                });
-    }
-    $('.autoHeight').each(function () {
-        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
-    }).on('input', function () {
-        this.style.height = 'auto';
-        this.style.height = (this.scrollHeight) + 'px';
-    });
-
-    function funcThanhVien(maPgd, maKH, tenKH, flagPos) {
-        var w = 900, h = 600;
-        var left = (screen.width / 2) - (w / 2);
-        var top = (screen.height / 2) - (h / 2);
-        var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent(tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val() + "&vbsprandom=" + Math.random();
-        var url;
-        if (flagPos == '0')
-        {
-            url = "/IMS_REPORTS/popupThanhvien_author.action?" + urlParam;
-        } else
-        {
-            url = "/IMS_REPORTS/popupThanhvien.action?" + urlParam;
+    $(".cssDate").datepicker({
+        dateFormat: 'dd/mm/yy',
+        showOn: "button",
+        buttonImage: "img/icon-ui_datepicker.png",
+        buttonImageOnly: true,
+        showButtonPanel: true,
+        buttonText: "icono",
+        changeMonth: true,
+        changeYear: true,
+        beforeShow: function(input, inst) {
+            if ($(input).is(':disabled')) {
+                return false; // Ngăn chặn datepicker hiển thị nếu input bị disabled
+            }
         }
-        popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
-    }
+    });
+}
+    $('.autoHeight').each(function () {
+    this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+    }).on('input', function () {
+    this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+    });
+            function funcThanhVien(maPgd, maKH, tenKH, flagPos) {
+            var w = 900, h = 600;
+                    var left = (screen.width / 2) - (w / 2);
+                    var top = (screen.height / 2) - (h / 2);
+                    var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent(tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val() + "&vbsprandom=" + Math.random();
+                    var url;
+                    if (flagPos == '0')
+            {
+            url = "/IMS_REPORTS/popupThanhvien_author.action?" + urlParam;
+            } else
+            {
+            url = "/IMS_REPORTS/popupThanhvien.action?" + urlParam;
+            }
+            popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+            }
 
     function funcXuLyNo(maPgd, maKH, tenKH, XuLyNo, startPayment, flagPos) {
-        var w = 500, h = 300;
-        var left = (screen.width / 2) - (w / 2);
-        var top = (screen.height / 2) - (h / 2);
-        var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent(tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val()
-                + "&XuLyNo=" + XuLyNo + startPayment + "&flagPos=" + flagPos + "&vbsprandom=" + Math.random();
-        var url = "/IMS_REPORTS/popupXuLyNo.action?" + urlParam;
-        popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+    var w = 500, h = 300;
+            var left = (screen.width / 2) - (w / 2);
+            var top = (screen.height / 2) - (h / 2);
+            var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent(tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val()
+            + "&XuLyNo=" + XuLyNo + startPayment + "&flagPos=" + flagPos + "&vbsprandom=" + Math.random();
+            var url = "/IMS_REPORTS/popupXuLyNo.action?" + urlParam;
+            popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
     }
 
     function funcDeNghiHT(maPgd, maKH, tenKH, flagPos, ngayDNHT, vbDNHT) {
-        var w = 500, h = 300;
-        var left = (screen.width / 2) - (w / 2);
-        var top = (screen.height / 2) - (h / 2);
-        var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent(tenKH)
-                + "&flagPos=" + flagPos + "&ngaydenghi=" + ngayDNHT + "&sovbdenghi=" + vbDNHT + "&vbsprandom=" + Math.random();
-        var url = "/IMS_REPORTS/popupDeNghiHT.action?" + urlParam;
-        popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+    var w = 500, h = 300;
+            var left = (screen.width / 2) - (w / 2);
+            var top = (screen.height / 2) - (h / 2);
+            var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent(tenKH)
+            + "&flagPos=" + flagPos + "&ngaydenghi=" + ngayDNHT + "&sovbdenghi=" + vbDNHT + "&vbsprandom=" + Math.random();
+            var url = "/IMS_REPORTS/popupDeNghiHT.action?" + urlParam;
+            popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
     }
 
     function onSelectChange(index) {
-
-
-
-        let selectedValue = $('#lstData_D30' + index).find(":selected").val();
-        let province = selectedValue.substring(0, 4);
-
-        $('#lstData_D32' + index + ' option').each(function () {
-            //if (!$(this).val().startsWith('0006') ) {
-            $(this).remove();
+    let selectedValue = $('#lstData_D30' + index).find(":selected").val();
+            let province = selectedValue.substring(0, 4);
+            $('#lstData_D32' + index + ' option').each(function () {
+    //if (!$(this).val().startsWith('0006') ) {
+    $(this).remove();
             //}
-        });
-
-        $('#lstPGD_Temp option').each(function () {
-            if ($(this).val().startsWith(province)) {
-                //alert($(this).text() );
-                $('#lstData_D32' + index).append($('<option>',
-                        {
-                            value: $(this).val(),
-                            text: $(this).text()
-                        }));
-            }
-        });
+    });
+            $('#lstPGD_Temp option').each(function () {
+    if ($(this).val().startsWith(province)) {
+    //alert($(this).text() );
+    $('#lstData_D32' + index).append($('<option>',
+    {
+    value: $(this).val(),
+            text: $(this).text()
+    }));
+    }
+    });
     }
 
-
-
     function onSelectChange_dnht(value, index) {
-        if (value == '1')
-        {
-//            var var2, vartxt, selected;
-//            $("#lstData_D30" + index).children().remove().end();
-//            //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-//            $("#lstData_D30_tmp" + index + " > option").each(function () {
-//                var tmp = $(this).val();
-//                if (tmp != '000000' && tmp != '999999')
-//                    $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-//            });
-//            $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
-//                return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-//            }));
-//
-//            //combobox huyen
-//            $("#lstData_D32" + index).children().remove().end();
-//            //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-//            $("#lstData_D32_tmp" + index + " > option").each(function () {
-//                var tmp = $(this).val();
-//                if (tmp != '000000' && tmp != '999999')
-////                alert(tmp);
-//                    $("#lstData_D32" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-//            });
-//            $("#lstData_D32" + index).html($("#lstData_D32" + index + " option").sort(function (a, b) {
-//                return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-//            }));
-            document.getElementById("lstDNHT_D33" + index).style.visibility = "visible";
-//            onSelectChange(index);
-
-        } else
-        {
-//            $("#lstData_D30" + index).children().remove().end();
-//            $("#lstData_D30" + index).prepend("<option value='000000' selected> Không xác định </option>");
-//            $("#lstData_D30" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
-//
-//            $("#lstData_D32" + index).children().remove().end();
-//            $("#lstData_D32" + index).prepend("<option value='000000' selected> Không xác định </option>");
-//            $("#lstData_D32" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
-
-            document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
-        }
-
-
-
+    if (value == '1')
+    {
+    document.getElementById("lstDNHT_D33" + index).style.visibility = "visible";
+    } else
+    {
+    document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
+    }
     }
 
     function onSelectChange_dcct(value, index) {
-        try {
-            if (value == '01')
-            {
+    try {
+    if (value == '01')
+    {
 //                $('#lstSubData31' + index).find(":selected").val() = '0'
-                document.getElementById("lstSubData31" + index).value = "0";
-                document.getElementById("lstSubData31" + index).disabled = true;
-                var var2, vartxt, selected;
-                $("#lstData_D30" + index).children().remove().end();
-                //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-                $("#lstData_D30_tmp" + index + " > option").each(function () {
-                    var tmp = $(this).val();
-                    if (tmp != '000000' && tmp != '999999')
+    document.getElementById("lstSubData31" + index).value = "0";
+            document.getElementById("lstSubData31" + index).disabled = true;
+            document.getElementById("lstData_D44" + i).disabled = true;
+            var var2, vartxt, selected;
+            $("#lstData_D30" + index).children().remove().end();
+            //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
+            $("#lstData_D30_tmp" + index + " > option").each(function () {
+    var tmp = $(this).val();
+            if (tmp != '000000' && tmp != '999999')
 //                alert(tmp);
-                        $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-                });
-                $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
-                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-                }));
-
-                //combobox huyen
-                $("#lstData_D32" + index).children().remove().end();
-                //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-                $("#lstData_D32_tmp" + index + " > option").each(function () {
-                    var tmp = $(this).val();
-                    if (tmp != '000000' && tmp != '999999')
+            $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+    });
+            $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
+    return a.text == b.text ? 0 : a.text < b.text ? - 1 : 1;
+    }));
+            //combobox huyen
+            $("#lstData_D32" + index).children().remove().end();
+            //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
+            $("#lstData_D32_tmp" + index + " > option").each(function () {
+    var tmp = $(this).val();
+            if (tmp != '000000' && tmp != '999999')
 //                alert(tmp);
-                        $("#lstData_D32" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-                });
-                $("#lstData_D32" + index).html($("#lstData_D32" + index + " option").sort(function (a, b) {
-                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-                }));
+            $("#lstData_D32" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+    });
+            $("#lstData_D32" + index).html($("#lstData_D32" + index + " option").sort(function (a, b) {
+    return a.text == b.text ? 0 : a.text < b.text ? - 1 : 1;
+    }));
 //                document.getElementById("lstDNHT_D33" + index).style.visibility = "visible";
-                document.getElementById("lstDataD23" + index).style.backgroundColor = "#C7C0BF";
+            document.getElementById("lstDataD23" + index).style.backgroundColor = "#C7C0BF";
+            onSelectChange(index);
+            //------------------------
+            $("#lstSubData_D33" + index).children().remove().end();
+            $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
+            $("#lstSubData_D33" + index).prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");
+    } else
+    {
+    document.getElementById("lstSubData31" + index).disabled = false;
+            document.getElementById("lstData_D44" + i).disabled = false;
+            document.getElementById("lstDataD23" + index).removeAttribute("style");
+            document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
+            $("#lstData_D30" + index).children().remove().end();
+            $("#lstData_D30" + index).prepend("<option value='000000' selected> Không xác định </option>");
+            $("#lstData_D30" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
+            $("#lstData_D32" + index).children().remove().end();
+            $("#lstData_D32" + index).prepend("<option value='000000' selected> Không xác định </option>");
+            $("#lstData_D32" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
+            //------------------------
+            $("#lstSubData_D33" + index).children().remove().end();
+            $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
+            //----------Đề nghị cung cấp thông tin
+            $("#lstSubData31" + index).children().remove().end();
+            $("#lstSubData31" + index).prepend("<option value='0' " + selected + "> 0: Không </option>");
+            $("#lstSubData31" + index).prepend("<option value='1' " + selected + "> 1: Có </option>");
+    }
 
-                onSelectChange(index);
-
-
-                //------------------------
-                $("#lstSubData_D33" + index).children().remove().end();
-                $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
-                $("#lstSubData_D33" + index).prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");
-            } else
-            {
-                document.getElementById("lstSubData31" + index).disabled = false;
-                document.getElementById("lstDataD23" + index).removeAttribute("style");
-                document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
-
-                $("#lstData_D30" + index).children().remove().end();
-                $("#lstData_D30" + index).prepend("<option value='000000' selected> Không xác định </option>");
-                $("#lstData_D30" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
-
-                $("#lstData_D32" + index).children().remove().end();
-                $("#lstData_D32" + index).prepend("<option value='000000' selected> Không xác định </option>");
-                $("#lstData_D32" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
-
-
-                //------------------------
-                $("#lstSubData_D33" + index).children().remove().end();
-                $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
-//                $("#mato").prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");
-                //----------Đề nghị cung cấp thông tin
-                $("#lstSubData31" + index).children().remove().end();
-                $("#lstSubData31" + index).prepend("<option value='0' " + selected + "> 0: Không </option>");
-                $("#lstSubData31" + index).prepend("<option value='1' " + selected + "> 1: Có </option>");
-            }
-//                    $('#lstSubData31' + index).attr("disabled","disabled");
-        } catch (e) {
-
-        }
-
-
+    } catch (e) {
+    }
     }
 
     function initTable()
     {
-        var selected;
-        var table = document.getElementById("subTable");
-        var rowcount = table.rows.length;
-        rowcount = rowcount > max_row ? rowcount : max_row;
+    var selected;
+            var table = document.getElementById("subTable");
+            var rowcount = table.rows.length;
+            rowcount = rowcount > max_row ? rowcount : max_row;
 //        alert('row=' + rowcount)
-        for (var i = 0; i < rowcount; i++)
-        {
-            try {
-                var flagPos = document.getElementById('lstData42' + i).value;
+            for (var i = 0; i < rowcount; i++)
+    {
+    try {
+    var flagPos = document.getElementById('lstData42' + i).value;
 //                 alert (flagPos +  '---'+ i)
-                if (flagPos = '1')
-                {
-                    var value = $('#lstSubData_D33' + i).find(":selected").val();
+            if (flagPos = '1')
+    {
+    var value = $('#lstSubData_D33' + i).find(":selected").val();
 //                alert (value +  '---'+ i)
-                    if (value == '1')
-                    {
-                        document.getElementById("lstDNHT_D33" + i).style.visibility = "visible";
-                        var lstData39 = document.getElementById('lstData39' + i).value;
-                        if (lstData39.length < 3)
-                        {
-                            document.getElementById("lstDNHT_D33" + i).style.color = "red";
-                        }
-//                        document.getElementById("lstDNHT_D33"  index).style.visibility="hidden";
-//                        document.getElementById("lstData38" + i).disabled = false;
-//                        document.getElementById("lstData39" + i).disabled = false;
-//                        document.getElementById("lstData40" + i).disabled = false;
-                    } else
-                    {
-                        document.getElementById("lstDNHT_D33" + i).style.visibility = "hidden";
-//                        document.getElementById("lstDNHT_D33" + index).style.visibility="visible";
-                        //            alert('vao')
-//                        document.getElementById("lstData38" + i).disabled = true;
-//                        document.getElementById("lstData39" + i).disabled = true;
-//                        document.getElementById("lstData40" + i).disabled = true;
-                    }
-                    var D22 = $('#lstData_D22' + i).find(":selected").val();
-                    if (D22 == '01')
-                    {
-                        document.getElementById("lstSubData31" + i).disabled = true;
-                    } else
-                    {
-                        document.getElementById("lstSubData31" + i).disabled = false;
-                        //------------------------De nghị hỗ trợ
-                        $("#lstSubData_D33" + i).children().remove().end();
-                        $("#lstSubData_D33" + i).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
-//                        document.getElementById("lstDNHT_D33" + i).style.visibility = "visible";
-                        document.getElementById("lstDNHT_D33" + i).style.visibility = "hidden";
-
-                        //------------------------Đề nghị cung cấp thông tin
-                        $("#lstSubData31" + i).children().remove().end();
-                        $("#lstSubData31" + i).prepend("<option value='0' " + selected + "> 0: Không </option>");
-                        $("#lstSubData31" + i).prepend("<option value='1' " + selected + "> 1: Có </option>");
-
-                    }
-
-                }
-                {
-//                    document.getElementById("lstData38" + i).disabled = true;
-//                    document.getElementById("lstData39" + i).disabled = true;
-//                    document.getElementById("lstData40" + i).disabled = true;
-                }
-            } catch (e) {
-
-            }
-
-        }
+            if (value == '1')
+    {
+    document.getElementById("lstDNHT_D33" + i).style.visibility = "visible";
+            var lstData39 = document.getElementById('lstData39' + i).value;
+            if (lstData39.length < 3)
+    {
+    document.getElementById("lstDNHT_D33" + i).style.color = "red";
+    }
+    } else
+    {
+    document.getElementById("lstDNHT_D33" + i).style.visibility = "hidden";
+    }
+    var D22 = $('#lstData_D22' + i).find(":selected").val();
+            if (D22 == '01')
+    {
+    document.getElementById("lstSubData31" + i).disabled = true;
+    } else
+    {
+    document.getElementById("lstSubData31" + i).disabled = false;
+            //------------------------De nghị hỗ trợ
+            $("#lstSubData_D33" + i).children().remove().end();
+            $("#lstSubData_D33" + i).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
+            document.getElementById("lstDNHT_D33" + i).style.visibility = "hidden";
+            //------------------------Đề nghị cung cấp thông tin
+            $("#lstSubData31" + i).children().remove().end();
+            $("#lstSubData31" + i).prepend("<option value='0' " + selected + "> 0: Không </option>");
+            $("#lstSubData31" + i).prepend("<option value='1' " + selected + "> 1: Có </option>");
+    }
+    }
+    } catch (e) {
+    }
+    }
     }
 
     function onSelectChange_dnht1(value, index) {
-        if (value == '5')
-        {
-            document.getElementById("lstData41" + index).disabled = false;
-        } else
-        {
-            document.getElementById("lstData41" + index).disabled = true;
-        }
+    if (value == '5')
+    {
+    document.getElementById("lstData41" + index).disabled = false;
+    } else
+    {
+    document.getElementById("lstData41" + index).disabled = true;
+    }
     }
 
     function onSelectChange_tccc_rasoat(value, index) {
-        var selected;
-        if (value == '01')
-        {
-            $("#lstSubData_D33" + index).children().remove().end();
+    var selected;
+            if (value == '01')
+    {
+    $("#lstSubData_D33" + index).children().remove().end();
             $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
 //                $("#lstSubData_D33" + index).prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");
             document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
-        } else
-        {
-            $("#lstSubData_D33" + index).children().remove().end();
+    } else
+    {
+    $("#lstSubData_D33" + index).children().remove().end();
             $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
             $("#lstSubData_D33" + index).prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");
-        }
+    }
     }
 
     function initTable1()
     {
-        var table = document.getElementById("subTable");
-        var rowcount = table.rows.length;
-        rowcount = rowcount > max_row ? rowcount : max_row;
-        for (var i = 0; i < rowcount; i++)
-        {
-
-            try {
-                var flagPos = document.getElementById('lstData42' + i).value
-                if (flagPos != '1')
-                {
-                    var value = $('#lstSubData34' + i).find(":selected").val();
-                    if (value == '5')
-                    {
-                        document.getElementById("lstData41" + i).disabled = false;
-                    } else
-                    {
-                        document.getElementById("lstData41" + i).disabled = true;
-                    }
-                }
-            } catch (e) {
-
-            }
-
-
-        }
+    var table = document.getElementById("subTable");
+            var rowcount = table.rows.length;
+            rowcount = rowcount > max_row ? rowcount : max_row;
+            for (var i = 0; i < rowcount; i++)
+    {
+    try {
+    var flagPos = document.getElementById('lstData42' + i).value
+            if (flagPos != '1')
+    {
+    var value = $('#lstSubData34' + i).find(":selected").val();
+            if (value == '5')
+    {
+    document.getElementById("lstData41" + i).disabled = false;
+    } else
+    {
+    document.getElementById("lstData41" + i).disabled = true;
+    }
+    }
+    } catch (e) {
+    }
+    }
     }
 
 </script>
@@ -424,12 +346,12 @@
                     <th rowspan="2" class="hdtitle" style="width: 100px">CMT/CCCD</th>
                     <th rowspan="2" class="hdtitle" style="width: 100px">Số điện thoại</th>
                     <th rowspan="2" class="hdtitle">Loại đối tượng</th>
-                    <th rowspan="2" class="hdtitle" style="width: 120px">Thời điểm đi</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Thời điểm đi</th>
                     <th rowspan="2" class="hdtitle">Mã nhóm</th>
                     <th rowspan="2" class="hdtitle">Đề nghị<br>cung cấp<br>thông tin</th>
-                     <th rowspan="2" class="hdtitle">Ngày đề nghị <br>cung cấp<br>thông tin</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Ngày đề nghị <br>cung cấp<br>thông tin</th>
                     <th rowspan="2" class="hdtitle">Thông tin hỗ trợ</th>
-                    <th rowspan="2" class="hdtitle" style="width: 120px">Ngày cập nhật<br>thông tin</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Ngày cập nhật<br>thông tin</th>
 
                     <th rowspan="2" class="hdtitle">Thông tin <br>(100-200 ký tự)</th>
                     <th rowspan="2"class="hdtitle">Chi nhánh hộ vay <br>chuyển đến</th>
@@ -468,7 +390,7 @@
                 <th style="color: #000; font: italic; font-size: xx-small;">(12)</th>
                 <th style="color: #000; font: italic; font-size: xx-small;">(13)</th>
                 <th style="color: #000; font: italic; font-size: xx-small;">(14)</th>
-                 <th style="color: #000; font: italic; font-size: xx-small;">()</th>
+                <!--<th style="color: #000; font: italic; font-size: xx-small;">()</th>-->
                 <th style="color: #000; font: italic; font-size: xx-small;">(15)</th>
                 <th style="color: #000; font: italic; font-size: xx-small;">(16)</th>
                 <th style="color: #000; font: italic; font-size: xx-small;">(17)</th>
@@ -479,6 +401,7 @@
                 <th style="color: #000; font: italic; font-size: xx-small;">(22)</th>
                 <th style="color: #000; font: italic; font-size: xx-small;">(23)</th>
                 <th style="color: #000; font: italic; font-size: xx-small;">(24)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(25)</th>
             </tr>
             <tbody>
                 <% int customerCount = 0; %>
@@ -590,11 +513,12 @@
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                             </s:if>
                             <s:else>
-                                <s:if test="!D50.equalsIgnoreCase('2')">
-                                    <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>" id="lstData_D21<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d21" value="<s:property value='d21'/>">                           
+                                <s:if test="!D50.equalsIgnoreCase('2') ">
+                                    <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>" id="lstData_D21<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d21" value="<s:property value='d21'/>"
+                                           <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >                           
                                 </s:if>
                                 <s:else>
-                                    <input disabled style="width: 75px; text-align: center" type="text" readonly="readonly" class=" <s:property value="d20"/>"  id="lstData_D21<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d21" value="<s:property value='d21'/>">                                                
+                                <s:property value="d21"/>
                                 </s:else>
                             </s:else>
                         </td>
@@ -605,27 +529,24 @@
                                 </select>
                             </td>
                             <td class="txtBody">
-                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData31<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if>> 
+                                    <select onchange="onSelectChange_time(this.value, <s:property  value='%{#idxRows.index}'/>)" class="<s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" 
+                                    id="lstSubData31<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if>> 
                                 <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
                                 <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
                                 </select>
                             </td>
-                            
                             <td>
-                                <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
-                                </s:if>
-                                <s:else>
-                                    <s:if test="!D50.equalsIgnoreCase('2')">
-                                        <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>" id="lstData_D44<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d44" value="<s:property value='d44'/>">                           
-                                    </s:if>
-                                    <s:else>
-                                        <input disabled style="width: 75px; text-align: center" type="text" readonly="readonly" class=" <s:property value="d20"/>"  id="lstData_D44<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d44" value="<s:property value='d44'/>">                                                
-                                    </s:else>
-                                </s:else>
-                            </td>
-                        
-                            <td class="txtBody">
-                                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].d27" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if>><s:property value='d27'/> </textarea>
+                            <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
+                            </s:if>
+                            <s:else>
+                                <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>" 
+                                       id="lstData_D44<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d44" value="<s:property value='d44'/>">                           
+
+                            </s:else>
+                        </td>
+
+                        <td class="txtBody">
+                            <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].d27" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if>><s:property value='d27'/> </textarea>
                             <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d42" id="lstData42<s:property  value='%{#idxRows.index}' />" 
                                    value="<s:property  value="D42" />" >
                             <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d39" id="lstData39<s:property  value='%{#idxRows.index}' />" 
@@ -635,9 +556,13 @@
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                             </s:if>
                             <s:else>
-
-                                <input  style="width: 75px; text-align: center" type="text" readonly="readonly" class=" <s:property value="d20"/>"  id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> value="<s:property value='d26'/>">                                                
-                                <%--</s:else>--%>
+                                <s:if test="D32.equalsIgnoreCase('000000') || D32.equalsIgnoreCase('99999') || D32.equalsIgnoreCase('')">
+                                    <s:property value="D26"/>
+                                    <%--</s:else>--%>
+                                </s:if>
+                                <s:else>
+                                    <input  style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>"  id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> value="<s:property value='d26'/>">                                                
+                                </s:else>   
                             </s:else>
                         </td>
 
@@ -764,35 +689,51 @@
     </div>
 </body>
 <script>
-    $(function () {
-        $('#select-all').click(function (event) {
+            $(function () {
+            $('#select-all').click(function (event) {
             if (this.checked) {
-                // Iterate each checkbox
-                $('.myCheckBox').each(function () {
-                    this.checked = true;
+            // Iterate each checkbox
+            $('.myCheckBox').each(function () {
+            this.checked = true;
                     this.value = '1';
-                });
+            });
             } else {
-                $('.myCheckBox').each(function () {
-                    this.checked = false;
+            $('.myCheckBox').each(function () {
+            this.checked = false;
                     this.value = '0';
-                });
+            });
             }
-        });
-    });
+            });
+            });
+            function onSelectChange_time(value, index) {
+            if (value === '1')
+            {
+            document.getElementById("lstData_D44" + index).disabled = false;
+            } else
+            {
+            document.getElementById("lstData_D44" + index).disabled = true;
+            }
+            }
 
-//    function showHref() {
-//        var select = document.getElementById("lstSubData_D331");
-//        var link = document.getElementById("myLink");
-//        var value = $('#lstSubData_D33' + i).find(":selected").val();
-//        alert('vao 1');
-//        if (value 1 == "1") {
-//            alert('vao 1' + select.value);
-//            link.href = "javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>')";
-//            link.textContent = "Chọn";
-//        } else {
-//        }
-//    }
-
-
+    function initTable2()
+    {
+    var table = document.getElementById("subTable");
+            var rowcount = table.rows.length;
+            rowcount = rowcount > max_row ? rowcount : max_row;
+            for (var i = 0; i < rowcount; i++)
+    {
+    try {
+    var value = $('#lstSubData31' + i).find(":selected").val();
+            if (value === '1')
+    {
+    document.getElementById("lstData_D44" + i).disabled = false;
+    } else
+    {
+    document.getElementById("lstData_D44" + i).disabled = true;
+    }
+    } catch (e) {
+    }
+    }
+    }
+    initTable2();
 </script>

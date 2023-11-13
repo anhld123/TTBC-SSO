@@ -191,7 +191,7 @@ public class LeaveHomeService {
         }
         return 0;
     }
-    
+
     public int saveCustomers_denghi(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
         try {
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
@@ -203,7 +203,7 @@ public class LeaveHomeService {
                     DuLieuNTRowX _normalizeItem = new DuLieuNTRowX();
 
                     _normalizeItem.setKey("BO_DI_KHOI_DP");
-                    _normalizeItem.setOrderValue(Integer.parseInt(data.get(i).getOrderValue()) );
+                    _normalizeItem.setOrderValue(Integer.parseInt(data.get(i).getOrderValue()));
 
                     _normalizeItem.setCode(data.get(i).getCode());
 //                    _normalizeItem.setName("");
@@ -212,10 +212,10 @@ public class LeaveHomeService {
                     _normalizeItem.setBranchCode(data.get(i).getBranchCode());
                     _normalizeItem.setPosFlag("S");
                     _normalizeItem.setD11(data.get(i).getD11());
+                    _normalizeItem.setD26(data.get(i).getD26());
                     _normalizeItem.setD27(data.get(i).getD27());
                     _normalizeItem.setD34(data.get(i).getD34());
                     _normalizeItem.setD41(data.get(i).getD41());
-
 
                     _lstNormalizeData.add(_normalizeItem);
                 }
