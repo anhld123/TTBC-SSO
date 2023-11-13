@@ -705,15 +705,18 @@
         });
     });
     function onSelectChange_time(value, index) {
-        if (value === '1')
-        {
-            document.getElementById("lstData_D44" + index).disabled = false;
-            document.getElementById("lstData_D44" + index).value = '12/12/2023';
-        } else
-        {
-            document.getElementById("lstData_D44" + index).disabled = true;
-        }
+    if (value === '1') {
+        document.getElementById("lstData_D44" + index).disabled = false;
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+        var currentDate = dd + '/' + mm + '/' + yyyy;
+        document.getElementById("lstData_D44" + index).value = currentDate;
+    } else {
+        document.getElementById("lstData_D44" + index).disabled = true;
     }
+}
 
     function initTable2()
     {

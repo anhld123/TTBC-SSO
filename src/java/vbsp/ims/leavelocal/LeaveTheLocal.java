@@ -276,13 +276,13 @@ public class LeaveTheLocal extends ActionSupport {
                             tmp.setReportDate(item.getReportDate());
                             tmp.setCode(item.getCode());
                             tmp.setBranchCode(item.getBranchCode());
-                             tmp.setD11(item.getD11());
+                            tmp.setD11(item.getD11());
+                            tmp.setD26(item.getD26());
                             tmp.setD27(item.getD27());
-                             tmp.setD34(item.getD34());
-                             tmp.setD41(item.getD41());
+                            tmp.setD34(item.getD34());
+                            tmp.setD41(item.getD41());
                             tmp.setOrderValue(item.getOrderValue());
-                            
-                            
+
                             lstSelectedData_Hotro.add(tmp);
                             _status = _leaveHomeService.saveCustomers_denghi(mapgd_tmp, "S", sReportdt, this.sUser, this.sUser, lstSelectedData_Hotro, "1");
                             if (_status != 200) {
