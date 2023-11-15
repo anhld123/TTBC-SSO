@@ -72,7 +72,7 @@
                                     <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
                                 </s:iterator>
                             </select>                        
-                            Mã khách hàng: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã khách hàng" value="">                        
+                            Mã KH/ CMND/CCCD: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã KH/ CMND/CCCD" value="">                        
                             Từ ngày:  <input type="text" name="txtFromDate" id="txtFromDate" readonly="readonly" style="width: 80px"/>
                             đến: <input type="text" name="txtToDate" id="txtToDate" readonly="readonly" style="width: 80px">
                             <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>
@@ -83,7 +83,7 @@
                             </s:if>
                             <input type="button" id="idSearch" value="Tìm kiếm" style="height: 25px; padding: 0px 20px 0px 20px;">
                             <s:if test="Grade.equalsIgnoreCase('3')">
-                                 <input type="button" id="idSave" value="Chốt cung cấp TT" style="height: 25px;padding: 0px 20px 0px 20px;">   
+                                <input type="button" id="idSave" value="Chốt cung cấp TT" style="height: 25px;padding: 0px 20px 0px 20px;">   
                             </s:if>
                             <s:if test="Grade.equalsIgnoreCase('1')">
                                 <input type="button" id="idSave" value="Lưu số liệu" style="height: 25px;padding: 0px 20px 0px 20px;" disabled="true">                            
@@ -243,16 +243,35 @@
                         for (var i = 0; i < rowcount; i++)
                         {
                             try {
+                                var lstData_D21 = document.getElementById('lstData_D21' + i).value;
+                                if (lstData_D21.length < 5)
+                                {
+                                    alert('Vui lòng nhập thông tin cột 12.')
+                                    document.getElementById("lstData_D21" + i).style.backgroundColor = "#EEAFA6";
+                                    return;
+                                }
+                                
+                                //Bắt số đt
+                                var lstData_D16 = document.getElementById('lstData_D16' + i).value;
+                                if (lstData_D16.length !=10 && lstData_D16.length !=0)
+                                {
+                                    alert('Vui lòng nhập thông số điện thoại 10 số.')
+                                    document.getElementById("lstData_D16" + i).style.backgroundColor = "#EEAFA6";
+                                    return;
+                                }
+                                
                                 var D22 = $('#lstData_D22' + i).find(":selected").val();
                                 if (D22 == '01')
                                 {
                                     var lstDataD23 = document.getElementById('lstDataD23' + i).value;
                                     if (lstDataD23.length < 5)
                                     {
-                                        alert('Vui lòng nhập thông tin cột 17.')
+                                        alert('Vui lòng nhập thông tin cột 18.')
                                         document.getElementById("lstDataD23" + i).style.backgroundColor = "#EEAFA6";
                                         return;
                                     }
+
+
                                 } else
                                 {
 

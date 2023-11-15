@@ -208,7 +208,7 @@
                 $("#lstSubData31" + index).children().remove().end();
                 $("#lstSubData31" + index).prepend("<option value='0' " + selected + "> 0: Không </option>");
                 $("#lstSubData31" + index).prepend("<option value='1' " + selected + "> 1: Có </option>");
-            
+
             }
         } catch (e) {
         }
@@ -491,7 +491,7 @@
                                 <s:property value="D16"/>
                             </s:if>
                             <s:else>
-                                <input style="text-align: center" type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" class="txtPublic" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
+                                <input style="text-align: center" type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" id="lstData_D16<s:property  value='%{#idxRows.index}' />" class="txtPublic" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                             </s:else>
                         </td>
                         <td class="txtBody">
@@ -721,9 +721,32 @@
                 {
                     document.getElementById("lstData_D44" + i).disabled = true;
                 }
+
             } catch (e) {
             }
         }
+//        Cột 17
+//        for (var i = 0; i < rowcount; i++)
+//        {
+//            try {
+//                var lstData_D26 = document.getElementById("lstData_D26" + i).value;
+//
+//                if (lstData_D26.length == null || lstData_D26 == '')
+//                {
+//                    var today = new Date();
+//                    var dd = String(today.getDate()).padStart(2, '0');
+//                    var mm = String(today.getMonth() + 1).padStart(2, '0');
+//                    var yyyy = today.getFullYear();
+//                    var currentDate = dd + '/' + mm + '/' + yyyy;
+//                    document.getElementById("lstData_D26" + i).value = currentDate;
+//                } else
+//                {
+//
+//                }
+//
+//            } catch (e) {
+//            }
+//        }
     }
     initTable2();
 </script>
