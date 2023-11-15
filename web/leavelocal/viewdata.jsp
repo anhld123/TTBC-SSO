@@ -473,8 +473,13 @@
                                 <s:property value="D12"/>
                             </s:if>
                             <s:else>
-                                <s:if test="!D50.equalsIgnoreCase('2')">
-                                    <a href="javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>')"><s:property value="d12"/></a>
+                                <s:if test="!d50.equalsIgnoreCase('2')">
+                                    <s:if test="d45 == null">
+                                        <a href="javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>')"><s:property value="d12"/></a>
+                                    </s:if>
+                                    <s:else>
+                                         <s:property value="D12"/> 
+                                    </s:else>
                                 </s:if> 
                                 <s:else>
                                     <s:property value="D12"/>
