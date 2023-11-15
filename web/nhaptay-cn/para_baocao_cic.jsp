@@ -477,12 +477,12 @@
                                 </td>
                                 <td >&nbsp;&nbsp;&nbsp;Mã xã:</td>
                                 <td  >                                               
-                                    <s:select  style="width: 229px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
+                                    <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
                                                onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
                                     </td>
                                     <td >Mã tổ:</td>
                                     <td>
-                                    <s:select  style="width: 220px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
+                                    <s:select  style="width: 180px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
                                     <s:select  
                                         id="mato_data"
                                         list="lstMato" 
@@ -497,6 +497,13 @@
                                 <td style="width: 40px;">
                                     <input  type="number" min="1" max="500" width="40px;" value="1" id="pageNumber" name="pageNumber" placeholder="Trang thứ" title="Trang thứ">
                                 </td>
+                                <td >Rà soát/ Đối chiếu:</td>
+                                            <td>
+                                                <select name="rasoat_dc" id="rasoat_dc">
+                                                    <option value="1">Đối chiếu với HSVV</option>  
+                                                    <option value="2">Đối chiếu với KH</option>  
+                                                </select>
+                                            </td> 
                                 <td colspan="2">                                        
                                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                                onBeforeTopics="beforediv_data"

@@ -125,7 +125,7 @@
                 $(".TD_CHECKBOX").css({"width": "20px"});
                 $(".TD_SOKU").css({"width": "80px"});
                 $(".TD_TENKH123").css({"width": "100px"});
-                $(".TD_TENTS").css({"width": "130px"});
+                $(".TD_TENTS").css({"width": "190px"});
                 $(".TD_SOTK").css({"width": "70px"});
                 $(".TD_MAKH").css({"width": "30px"});
                 $(".TD_THOIGIAN").css({"width": "55px"});
@@ -133,7 +133,7 @@
                 $(".TD_BUTTON1").css({"width": "40px"});
                 $(".TD_SOTIEN").css({"width": "100px"});
                 $(".TEN_KH").css({"width": "80px"});
-                $(".TD_CHECK").css({"width": "60px"});
+                $(".TD_THUTU").css({"width": "50px"});
             });
             $('.TEN_KH').focus(function () {
                 $(this).closest('tr').addClass('highlight_row');
@@ -310,30 +310,32 @@
                 <table id="subTable" style="z-index: 10;">
                     <thead>
                         <tr >      
-                            <th rowspan="3" style="width: 30px">STT</th>   
-                            <th rowspan="3" class="TD_CHECK">Mã khách hàng</th>  
-                            <th colspan="5" class="TD_SOTIEN">Thông tin trên Intellect</th>  
-                            <th colspan="5" class="TD_TENTS">Kết quả đối chiếu thông tin trên Intellect với hồ sơ vay vốn</th>  
-                            <th rowspan="3" class="TD_CHECK" >Đã điều chỉnh trên Intellect</th>      
+                            <th rowspan="2" class="hdtitle ">STT</th>   
+                            <th rowspan="2" class="TEN_KH">Mã khách hàng</th>  
+                            <th rowspan="2" class="TD_SOTIEN">Họ và tên khách hàng</th>  
+                            <th rowspan="2" class="hdtitle TD_TENTS">Dữ liệu <br>đã cập nhật</th>  
+                            <th colspan="3" class="hdtitle TEN_KH">Thông tin trên CMND</th>
+                            <th colspan="3" class="hdtitle TEN_KH">Thông tin trên CCCD</th>
+                            <th rowspan="2" class="hdtitle" style="width: 80px">Ngày tháng năm sinh</th>   
+                            <th rowspan="2" class="hdtitle TD_SOKU">Dư nợ</th>   
+                            <th rowspan="2" class="hdtitle TD_SOKU">Số dư tiền gửi</th>  
+                            <th rowspan="2" class="hdtitle TD_SOKU">Lãi tồn</th>              
+                            <th colspan="5" class="D0">Xác nhận sai sót</th> 
+                            <th rowspan="2" class="hdtitle TEN_KH">Đã hoàn thành <br>chỉnh sửa trên <br>hệ thống Intellect</th>    
+                            <th rowspan="2" class="hdtitle TEN_KH">Ghi chú</th>     
                         </tr>         
                         <tr >
-                            <th rowspan="2" class="TD_TENTS">Họ tên</th>
-                            <th rowspan="2" class="TD_CHECK">Ngày, tháng, năm sinh</th>
-                            <th colspan="3" class="TD_CHECK">Thông tin CMND/CCCD</th>
-                            
-                            <th rowspan="2" class="TD_CHECK">Thông tin khớp đúng với hồ sơ</th>
-                            <th colspan="3" >Thông tin sai sót/chưa cập nhật</th>
-                            <th rowspan="2" class="TD_CHECK">Hồ sơ vay vốn thiếu thông tin</th>
-                            
-                        </tr>
-                        <tr >
-                            <th class="TD_CHECK">Số</th>
-                            <th class="TD_CHECK">Ngày cấp</th>
-                            <th class="TD_TENTS">Nơi cấp</th>
-                            
-                            <th class="TD_CHECK">Họ tên</th>
-                            <th class="TD_CHECK">CCCD</th>
-                            <th class="TD_CHECK">Ngày, tháng, năm sinh</th>
+                            <th  class="hdtitle D0">Số CMTND</th>
+                            <th  class="hdtitle TD_SOTK">Ngày cấp</th>
+                            <th  class="hdtitle TD_TENKH123">Nơi cấp</th>
+                            <th  class="hdtitle D0">Số CCCD</th>
+                            <th  class="hdtitle TD_SOTK">Ngày cấp</th>
+                            <th  class="hdtitle TD_TENKH123">Nơi cấp</th>
+                            <th  style="width: 50px">Họ và tên</th>
+                            <th  style="width: 50px">Số <br>CMND<br>/CCCD</th>
+                            <th  style="width: 50px">Ngày cấp <br>CMND<br>/CCCD</th>
+                            <th  style="width: 50px">Nơi cấp <br>CMND<br>/CCCD</th>
+                            <th  style="width: 50px">Ngày tháng <br>năm sinh</th>
                         </tr>
 
                         <tr class="txtBody">
@@ -350,8 +352,14 @@
                             <th style="color: #000; font: italic; font-size: xx-small;">(11)</th>
                             <th style="color: #000; font: italic; font-size: xx-small;">(12)</th>
                             <th style="color: #000; font: italic; font-size: xx-small;">(13)</th>
-                        
-                           
+                            <th style="color: #000; font: italic; font-size: xx-small;">(14)</th>
+                            <th style="color: #000; font: italic; font-size: xx-small;">(15)</th>
+                            <th style="color: #000; font: italic; font-size: xx-small;">(16)</th>
+                            <th style="color: #000; font: italic; font-size: xx-small;">(17)</th>
+                            <th style="color: #000; font: italic; font-size: xx-small;">(18)</th>
+                            <th style="color: #000; font: italic; font-size: xx-small;">(19)</th>
+                            <th style="color: #000; font: italic; font-size: xx-small;">(20)</th>  
+                            <th style="color: #000; font: italic; font-size: xx-small;">(21)</th> 
                         </tr>
                     </thead>
                     <s:iterator value="#attr.custCIC" var="modelView" status="rowstatus">   
@@ -359,7 +367,7 @@
                             <td class="D0">
                                 <s:property value="%{#rowstatus.index + 1}" /> 
                             </td>
-                            <td class=" D0"><s:property value="customerCode" />
+                            <td class="TEN_KH D0"><s:property value="customerCode" />
                                 <input type="hidden" value="<s:property  value="wrongFullNameConfirmFlag" />"  id="id15_<s:property  value="%{#rowstatus.index}" />" 
                                        value="<s:property  value="wrongFullNameConfirmFlag"/>"/>
                                 <input type="hidden" value="<s:property  value="wrongIdNoConfirmFlag" />"  id="id16_<s:property  value="%{#rowstatus.index}" />" 
@@ -410,26 +418,98 @@
                                 <input type="hidden" value="<s:property  value="coreBankingBirthday"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].coreBankingBirthday" value="<s:property  value="coreBankingBirthday"/>"/>  
                             </td>  
 
-                            <td >                                
-                                <s:property value="coreBankingCustomerName" />
+                            <td class="TD_SOTIEN">                                
+                                <s:property value="customerName" />
                             </td>
-                            <td class="D0">                                
-                                <s:property value="coreBankingBirthday" />
-                            </td>
-                            <td class="D0">                                
-                                <s:property value="coreBankingIdNo" />
-                            </td>
-                            <td class="D0">                                
-                                <s:property value="coreBankingIssueDate" />
-                            </td>
-                            <td >                                
-                                <s:property value="coreBankingIssuePlace" />
-                            </td>
-                            <!--sai họ tên-->
-                            <td class="D0">    
-                                <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
+                            <td>
+                                <s:if test="statusString.equalsIgnoreCase('0')"> 
+                                    <font style="color: #F77C61">
+                                    <s:property value="coreBankingCustomerName"/><span> </span> <s:property value="coreBankingBirthday"/>
+                                    <span> </span><s:property value="coreBankingIdNo"/><span> </span>
+                                    <s:property value="coreBankingIssuePlace"/><span> </span>
+                                    <s:property value="coreBankingIssueDate"/>
+                                    </font>
+                                </s:if>
+                                <s:else>
+                                    <s:property value="coreBankingCustomerName"/><span> </span> <s:property value="coreBankingBirthday"/>
+                                    <span> </span><s:property value="coreBankingIdNo"/><span> </span>
+                                    <s:property value="coreBankingIssuePlace"/><span> </span>
+                                    <s:property value="coreBankingIssueDate"/>
+                                </s:else>
+
                             </td> 
-                           
+                            <!--trường hợp cả CCCD và CMND đều chưa được xác nhận-->
+                            <s:if test="isValidOldIdNo.toString().equalsIgnoreCase('0') && isValidNewIdNo.toString().equalsIgnoreCase('0')">
+                                <!--số CMTND-->
+                                <c:if test="${fn:length(coreBankingIdNo) < 10}">
+                                    <td> <s:property value="coreBankingIdNo"/></td>
+                                    <td> <s:property value="coreBankingIssueDate"/></td>
+                                    <td> <s:property value="coreBankingIssuePlace"/></td>  
+                                    <td class="D0" title="Chưa có kết quả kiểm tra của C06, hiện lấy thông tin từ VBSP">&#8270;</td>
+                                    <td></td>
+                                    <td></td>
+                                </c:if>
+                                <c:if test="${fn:length(coreBankingIdNo) > 10}">  
+                                    <td class="D0" title="Chưa có kết quả kiểm tra của C06, hiện lấy thông tin từ VBSP">&#8270;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td> <s:property value="coreBankingIdNo"/></td>
+                                    <td> <s:property value="coreBankingIssueDate"/></td>
+                                    <td> <s:property value="coreBankingIssuePlace"/></td> 
+                                </c:if>
+                                <!--số CCCD-->
+                            </s:if>
+                                <!--trường hợp 1 trong 2 đã đc xác nhận--> 
+                            <s:elseif test="isValidOldIdNo.toString().equalsIgnoreCase('0') || isValidNewIdNo.toString().equalsIgnoreCase('0')">
+                                <!--số CMTND-->
+                                <s:if test="isValidOldIdNo.toString().equalsIgnoreCase('0')">
+                                    <td style="font-weight: bold"> <s:property value="c06OldIdNo"/></td>
+                                    <s:if test="%{#c06OldIdNo.equals(#coreBankingIdNo)}">
+                                        <td style="font-weight: bold"> <s:property value="coreBankingIssueDate"/></td>
+                                        <td style="font-weight: bold"> <s:property value="coreBankingIssuePlace"/></td> 
+                                    </s:if>
+                                    <s:else>
+                                        <td></td>
+                                        <td></td>
+                                    </s:else>
+                                </s:if>
+                                <s:elseif test="isValidOldIdNo.toString().equalsIgnoreCase('1')">
+                                    <td> <s:property value="c06OldIdNo"/></td>
+                                    <td> <s:property value="coreBankingIssueDate"/></td>
+                                    <td> <s:property value="coreBankingIssuePlace"/></td>  
+                                </s:elseif>
+                                <s:else>
+                                    <td> <s:property value="coreBankingIdNo"/></td>
+                                    <td> <s:property value="coreBankingIssueDate"/></td>
+                                    <td> <s:property value="coreBankingIssuePlace"/></td>   
+                                </s:else>
+                                <!--số CCCD-->
+                                <s:if test="isValidNewIdNo.toString().equalsIgnoreCase('0')">
+                                    <td style="font-weight: bold"> <s:property value="c06NewIdNo"/></td>
+                                    <s:if test="%{#c06NewIdNo.equals(#coreBankingIdNo)}">
+                                        <td style="font-weight: bold"> <s:property value="coreBankingIssueDate"/></td>
+                                        <td style="font-weight: bold"> <s:property value="coreBankingIssuePlace"/></td> 
+                                    </s:if>
+                                    <s:else>
+                                        <td></td>
+                                        <td></td>
+                                    </s:else>
+                                </s:if>
+                                <s:else>
+                                    <td> <s:property value="c06NewIdNo"/></td>
+                                    <td> <s:property value="coreBankingIssueDate"/></td>
+                                    <td> <s:property value="coreBankingIssuePlace"/></td>  
+                                </s:else>
+                            </s:elseif>
+
+                            <!--ngày sinh--> 
+                            <td class="D0"><s:property value="birthDay"/></td>
+                            <!--dư nợ--> 
+                            <td class="number"><s:property value="PrincipleBalance"/></td>
+                            <!--dư tiền gửi--> 
+                            <td class="number"><s:property value="savingBalance"/></td>
+                            <!--lãi tồn--> 
+                            <td class="number"><s:property value="remainIntAmount"/></td>
                             <!--sai họ tên-->
                             <td class="D0">    
                                 <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
@@ -451,15 +531,18 @@
                                 <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
                             </td>
 
-<!--                            <td class="TEN_KH" <s:if test="statusString.equalsIgnoreCase('0')"> style="background: #F9C6BB" </s:if> >
+                            <td class="TEN_KH" <s:if test="statusString.equalsIgnoreCase('0')"> style="background: #F9C6BB" </s:if> >
                                 <select onchange="onSelectChange_dnht1(this.value, <s:property  value='%{#rowstatus.index}'/>)"
                                         style="width: 100px"  name="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString" id="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString">
                                     <option value="0" <s:if test="statusString.equalsIgnoreCase('0')"> selected </s:if><s:else></s:else>>Chưa rà soát</option>
                                     <option value="1" <s:if test="statusString.equalsIgnoreCase('1')"> selected </s:if><s:else></s:else>>Đã RS và CN trên Intellect</option>
                                     <option value="2" <s:if test="statusString.equalsIgnoreCase('2')"> selected </s:if><s:else></s:else>>Không thực hiện chỉnh sửa</option>
                                     </select> 
-                                </td>-->
-                               
+                                </td>
+                                <td>
+                                        <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData41<s:property  value='%{#rowstatus.index}' />" name="custCIC[<s:property  value='%{#rowstatus.index}' />].remark" <s:if test="statusString.equalsIgnoreCase('1') || statusString.equalsIgnoreCase('0')"> disabled </s:if>><s:property value='remark'/></textarea>
+
+                                </td>    
                             </tr>
                     </s:iterator>            
                 </table>
