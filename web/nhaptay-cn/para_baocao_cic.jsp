@@ -500,8 +500,8 @@
                                 <td >Rà soát/ Đối chiếu:</td>
                                             <td>
                                                 <select name="rasoat_dc" id="rasoat_dc">
-                                                    <option value="1">Đối chiếu với HSVV</option>  
-                                                    <option value="2">Đối chiếu với KH</option>  
+                                                    <option value="1">01A/RS - Đối chiếu với HSVV</option>  
+                                                    <option value="2">03/RS - Đối chiếu với KH</option>  
                                                 </select>
                                             </td> 
                                 <td colspan="2">                                        

@@ -80,7 +80,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     CustNoGroupResp custNoGroupResp = service.getDataCustCIC_NoGroup(pos_cd_username, "20231231",
                             hmParameter.get("maxa").toString(), 50, Integer.parseInt(hmParameter.get("pageNumber").toString()));
                     custCIC_TMP = custNoGroupResp.getResult();
-                    setMessagePage("(Trang  " + hmParameter.get("pageNumber").toString() + "/" + String.valueOf(custNoGroupResp.getMeta().getLast_page()) +")");
+                    setMessagePage("(Trang  " + hmParameter.get("pageNumber").toString() + "/" + String.valueOf(custNoGroupResp.getMeta().getLast_page()) + ")");
                     if (custCIC_TMP.size() > 150) {
                         setMessageErr("Dữ liệu quá lớn. Vui lòng chọn đúng trang để xác nhận.");
                     } else {
@@ -89,16 +89,34 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                         DateFormat df1 = new SimpleDateFormat("MM/dd/yyyy");
                         DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
                         for (CustCicModel item : custCIC_TMP) {
-                            i++;
-                            item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
-                            if (item.getCoreBankingIssueDate() != null) {
-                                item.setCoreBankingIssueDate(dateHienthi.format(sdf.parse(item.getCoreBankingIssueDate())));
+                            if (rasoat_dc.equals("1")) {  //Rà soát với hồ sơ vay vốn
+                                i++;
+                                item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
+                                if (item.getCoreBankingIssueDate() != null) {
+                                    item.setCoreBankingIssueDate(dateHienthi.format(sdf.parse(item.getCoreBankingIssueDate())));
+                                }
+                                if (item.getCoreBankingBirthday() != null) {
+                                    item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
+                                }
+                                item.setStatusString(String.valueOf(item.getStatus()));
+                                custCIC.add(item);
+                            } else //Rà soát trực tiếp với khách hàng
+                            {
+                                if (item.getProfileCorrectConfirmFlag() == 1 || item.getWrongFullNameConfirmFlag() == 1 || item.getWrongIdNoConfirmFlag() == 1
+                                        || item.getWrongBirthdayConfirmFlag() == 1 || item.getProfileMissingConfirmFlag() == 1 || item.getStatus() == 1) {
+                                    i++;
+                                    item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
+                                    if (item.getCoreBankingIssueDate() != null) {
+                                        item.setCoreBankingIssueDate(dateHienthi.format(sdf.parse(item.getCoreBankingIssueDate())));
+                                    }
+                                    if (item.getCoreBankingBirthday() != null) {
+                                        item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
+                                    }
+                                    item.setStatusString(String.valueOf(item.getStatus()));
+                                    custCIC.add(item);
+                                }
+
                             }
-                            if (item.getCoreBankingBirthday() != null) {
-                                item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
-                            }
-                            item.setStatusString(String.valueOf(item.getStatus()));
-                            custCIC.add(item);
                         }
                     }
                 } else {
@@ -113,24 +131,44 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                         DateFormat df1 = new SimpleDateFormat("MM/dd/yyyy");
                         DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
+//                        setMessageErr("Số bản ghi tìm kiếm " + String.valueOf(custCIC_TMP.size()));
                         for (CustCicModel item : custCIC_TMP) {
-                            i++;
-                            item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
-                            if (item.getCoreBankingIssueDate() != null) {
-                                item.setCoreBankingIssueDate(dateHienthi.format(sdf.parse(item.getCoreBankingIssueDate())));
+                            if (rasoat_dc.equals("1")) {  //Rà soát với hồ sơ vay vốn
+                                i++;
+                                item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
+                                if (item.getCoreBankingIssueDate() != null) {
+                                    item.setCoreBankingIssueDate(dateHienthi.format(sdf.parse(item.getCoreBankingIssueDate())));
+                                }
+                                if (item.getCoreBankingBirthday() != null) {
+                                    item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
+                                }
+                                item.setStatusString(String.valueOf(item.getStatus()));
+                                custCIC.add(item);
+                            } else //Rà soát trực tiếp với khách hàng
+                            {
+                                if (item.getProfileCorrectConfirmFlag() == 1 || item.getWrongFullNameConfirmFlag() == 1 || item.getWrongIdNoConfirmFlag() == 1
+                                        || item.getWrongBirthdayConfirmFlag() == 1 || item.getProfileMissingConfirmFlag() == 1 || item.getStatus() == 1) {
+                                    i++;
+                                    item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
+                                    if (item.getCoreBankingIssueDate() != null) {
+                                        item.setCoreBankingIssueDate(dateHienthi.format(sdf.parse(item.getCoreBankingIssueDate())));
+                                    }
+                                    if (item.getCoreBankingBirthday() != null) {
+                                        item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
+                                    }
+                                    item.setStatusString(String.valueOf(item.getStatus()));
+                                    custCIC.add(item);
+                                }
                             }
-                            if (item.getCoreBankingBirthday() != null) {
-                                item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
-                            }
-                            item.setStatusString(String.valueOf(item.getStatus()));
-                            custCIC.add(item);
+
+                        }
+                        if (rasoat_dc.equals("2")) {
+                            setMessagePage("(" + String.valueOf(custCIC.size()) + "/" + String.valueOf(custCIC_TMP.size()) + " đã rà soát hồ sơ )");
                         }
                     }
                 }
                 //Cho phần sum
                 ArrayList<LockSendCiCModel> lstData = service.getDataLockSendCic(pos_cd_username, "S", "20231231");
-
-                //String formatted = df.format(2.00023);
                 chotsl = "";
                 for (LockSendCiCModel item : lstData) {
                     if (item.getStatus().equals("0")) {
@@ -210,24 +248,49 @@ public class CIC_001 extends ActionNghiquyet11cpMain
             SimpleDateFormat LsDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             int i = 0;
             if (Grade.equals("1")) {
-
                 ArrayList<CustCicModel> custCIC_TMP = new ArrayList<>();
-                for (CustCicModel item : custCIC) {
-                    i++;
-                    CustCicModel tempadd = new CustCicModel();
-                    tempadd.setMainPos(item.getMainPos());
-                    tempadd.setPosCode(item.getPosCode());
-                    tempadd.setCustomerCode(item.getCustomerCode());
-                    tempadd.setCicCode(item.getCicCode());
-                    tempadd.setStatus(Integer.parseInt(item.getStatusString()));
-                    tempadd.setWrongFullNameConfirmFlag(checkItemInList15(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
-                    tempadd.setWrongIdNoConfirmFlag(checkItemInList16(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
-                    tempadd.setWrongIssueDateConfirmFlag(checkItemInList17(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
-                    tempadd.setWrongIssuePlaceConfirmFlag(checkItemInList18(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
-                    tempadd.setWrongBirthdayConfirmFlag(checkItemInList19(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
-                    tempadd.setStatus(Integer.parseInt(item.getStatusString()));
-                    tempadd.setRemark(item.getRemark());
-                    custCIC_TMP.add(tempadd);
+                //Thông tin ra soát với hồ sơ vay vốn
+                if (rasoat_dc.equals("1")) {
+                    for (CustCicModel item : custCIC) {
+                        i++;
+                        CustCicModel tempadd = new CustCicModel();
+                        tempadd.setMainPos(item.getMainPos());
+                        tempadd.setPosCode(item.getPosCode());
+                        tempadd.setCustomerCode(item.getCustomerCode());
+                        tempadd.setCicCode(item.getCicCode());
+                        tempadd.setProfileCorrectConfirmFlag(checkItemInList14(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                        tempadd.setWrongFullNameConfirmFlag(checkItemInList15(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                        tempadd.setWrongIdNoConfirmFlag(checkItemInList16(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                        tempadd.setWrongBirthdayConfirmFlag(checkItemInList19(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                        tempadd.setProfileMissingConfirmFlag(checkItemInList20(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                        tempadd.setStatus(checkItemInList21(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                        custCIC_TMP.add(tempadd);
+                    }
+                } else //Thông tin ra soát trực tiếp với khách hàng
+                {
+                    for (CustCicModel item : custCIC) {
+                        i++;
+                        CustCicModel tempadd = new CustCicModel();
+                        tempadd.setMainPos(item.getMainPos());
+                        tempadd.setPosCode(item.getPosCode());
+                        tempadd.setCustomerCode(item.getCustomerCode());
+                        tempadd.setCicCode(item.getCicCode());
+
+                        tempadd.setProfileCorrectConfirmFlag(item.getProfileCorrectConfirmFlag());
+                        tempadd.setWrongFullNameConfirmFlag(item.getWrongFullNameConfirmFlag());
+                        tempadd.setWrongIdNoConfirmFlag(item.getWrongIdNoConfirmFlag());
+                        tempadd.setWrongBirthdayConfirmFlag(item.getWrongBirthdayConfirmFlag());
+                        tempadd.setProfileMissingConfirmFlag(item.getProfileMissingConfirmFlag());
+                        tempadd.setStatus(item.getStatus());
+
+                        tempadd.setCustomerWrongFullNameConfirmFlag(checkItemInList28(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                        tempadd.setCustomerWrongIdNoConfirmFlag(checkItemInList29(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                        tempadd.setCustomerWrongBirthdayConfirmFlag(checkItemInList30(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                        tempadd.setCustomerNotIdConfirmFlag(checkItemInList31(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                        tempadd.setCustomerReviewStatus(checkItemInList33(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+//                        tempadd.setStatus(checkItemInList21(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                        custCIC_TMP.add(tempadd);
+                    }
                 }
                 service = new DuLieuNTService();
                 int status = service.updateCIC(pos_cd_username, "20231231", UserName, UserName, custCIC_TMP);
@@ -292,11 +355,23 @@ public class CIC_001 extends ActionNghiquyet11cpMain
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
-            addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+            addActionError("Bạn chưa lưu được báo cáo <br> xin liên hệ với quản trị để khắc phục");
             return ERROR;
         }
         addActionMessage("Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
+    }
+
+    static int checkItemInList14(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC14().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
     }
 
     static int checkItemInList15(List<CustCicModel> lst, String cust) {
@@ -323,34 +398,94 @@ public class CIC_001 extends ActionNghiquyet11cpMain
         return 0;
     }
 
-    static int checkItemInList17(List<CustCicModel> lst, String cust) {
-        for (CustCicModel item : lst) {
-            try {
-                if (item.getC17().equals(cust)) {
-                    return 1;
-                }
-            } catch (Exception e) {
-            }
-        }
-        return 0;
-    }
-
-    static int checkItemInList18(List<CustCicModel> lst, String cust) {
-        for (CustCicModel item : lst) {
-            try {
-                if (item.getC18().equals(cust)) {
-                    return 1;
-                }
-            } catch (Exception e) {
-            }
-        }
-        return 0;
-    }
-
     static int checkItemInList19(List<CustCicModel> lst, String cust) {
         for (CustCicModel item : lst) {
             try {
                 if (item.getC19().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+
+    static int checkItemInList20(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC20().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+
+    static int checkItemInList21(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC21().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+
+    static int checkItemInList28(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC28().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+
+    static int checkItemInList29(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC29().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+
+    static int checkItemInList30(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC30().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+
+    static int checkItemInList31(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC31().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+
+    static int checkItemInList33(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC33().equals(cust)) {
                     return 1;
                 }
             } catch (Exception e) {
