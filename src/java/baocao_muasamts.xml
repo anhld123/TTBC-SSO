@@ -69,6 +69,9 @@
             <result name="success">/muasam-taisan/viewdata.jsp</result>
         </action> 
         
+        <action name="KTTC_QSDD_01_LoadData" class="vbsp.ims.muasamts.action.KTTC_QSDD_01" method="load">
+            <result name="success">/muasam-taisan/viewdata_dat.jsp</result>
+        </action> 
         
         <action name="KTTC_MUASAM_01_SaveData" class="vbsp.ims.muasamts.action.KTTC_MUASAMTS_001" method="save">
             <result name="success" type="stream">
@@ -77,7 +80,21 @@
             </result>
         </action>
         
+        <action name="KTTC_QSDD_01_SaveData" class="vbsp.ims.muasamts.action.KTTC_QSDD_01" method="save">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action>
+        
         <action name="KTTC_MUASAM_01_DeleteData" class="vbsp.ims.muasamts.action.KTTC_MUASAMTS_001" method="delete">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action>
+        
+        <action name="KTTC_QSDD_01_DeleteData" class="vbsp.ims.muasamts.action.KTTC_QSDD_01" method="delete">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
