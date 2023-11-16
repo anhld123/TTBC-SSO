@@ -80,7 +80,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     CustNoGroupResp custNoGroupResp = service.getDataCustCIC_NoGroup(pos_cd_username, "20231231",
                             hmParameter.get("maxa").toString(), 50, Integer.parseInt(hmParameter.get("pageNumber").toString()));
                     custCIC_TMP = custNoGroupResp.getResult();
-                    setMessagePage("(Trang  " + hmParameter.get("pageNumber").toString() + "/" + String.valueOf(custNoGroupResp.getMeta().getLast_page()) + ")");
+                    
                     if (custCIC_TMP.size() > 150) {
                         setMessageErr("Dữ liệu quá lớn. Vui lòng chọn đúng trang để xác nhận.");
                     } else {
@@ -118,6 +118,13 @@ public class CIC_001 extends ActionNghiquyet11cpMain
 
                             }
                         }
+                        String add = "";
+                         if (rasoat_dc.equals("2"))
+                         {
+                             add = ": Có " + String.valueOf(custCIC.size()) + "/" + String.valueOf(custCIC_TMP.size()) + " đã rà soát hồ sơ)";
+                         }
+                        
+                        setMessagePage("(Trang  " + hmParameter.get("pageNumber").toString() + "/" + String.valueOf(custNoGroupResp.getMeta().getLast_page()) + add  + ")" );
                     }
                 } else {
                     List<CustCicModel> custCIC_TMP = new ArrayList<>();
@@ -183,6 +190,8 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     row.setTEN(item.getPosName());
                     row.setD1(df.format(item.getCustomerTotal()));
                     row.setD2(df.format(item.getCustomerNotReviewCount()));
+//                    row.setD5(df.format(item.getCustomerTotal()));
+                    row.setD6(df.format(item.getCustomerNotReviewCount1()));
                     row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");
                     lstDulieuNt.add(row);
                 }

@@ -417,7 +417,8 @@
                         <th rowspan="1" style="width: 80px">Mã PGD</th>  
                         <th rowspan="1" style="width: 190px">Tên PGD</th>    
                         <th rowspan="1" style="width: 180px">Tổng số khách hàng cần rà soát</th>                             
-                        <th rowspan="1" style="width: 180px">Số khách hàng chưa rà soát</th> 
+                        <th rowspan="1" style="width: 180px">Số khách hàng chưa rà soát hồ sơ vay vốn</th> 
+                        <th rowspan="1" style="width: 180px">Số khách hàng chưa đối chiếu với khách hàng</th>
                     </tr>
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                         <tr>                               
@@ -426,6 +427,7 @@
                             <td class="number" style="width: 180px"><s:property value="D1"/></td>
 
                             <td class="number" style="width: 180px"><s:property value="D2"/></td>
+                            <td class="number" style="width: 180px"><s:property value="D6"/></td>
                         </tr>                                                                                                                                                                                   
                     </s:iterator>
                 </table>

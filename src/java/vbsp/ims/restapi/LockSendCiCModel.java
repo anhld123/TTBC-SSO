@@ -34,6 +34,36 @@ public class LockSendCiCModel {
     private BigInteger customerNotReviewCount;
     private BigInteger intTotal;
     private BigInteger intDeductionTotal;
+    
+    private BigInteger customerNotReviewCount1;
+    private BigInteger intTotal1;
+    private BigInteger intDeductionTotal1;
+
+    public BigInteger getCustomerNotReviewCount1() {
+        return customerNotReviewCount1;
+    }
+
+    public void setCustomerNotReviewCount1(BigInteger customerNotReviewCount1) {
+        this.customerNotReviewCount1 = customerNotReviewCount1;
+    }
+
+    public BigInteger getIntTotal1() {
+        return intTotal1;
+    }
+
+    public void setIntTotal1(BigInteger intTotal1) {
+        this.intTotal1 = intTotal1;
+    }
+
+    public BigInteger getIntDeductionTotal1() {
+        return intDeductionTotal1;
+    }
+
+    public void setIntDeductionTotal1(BigInteger intDeductionTotal1) {
+        this.intDeductionTotal1 = intDeductionTotal1;
+    }
+    
+    
 
     public String getReportKey() {
         return reportKey;
