@@ -478,7 +478,7 @@
                                         <a href="javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>')"><s:property value="d12"/></a>
                                     </s:if>
                                     <s:else>
-                                         <s:property value="D12"/> 
+                                        <s:property value="D12"/> 
                                     </s:else>
                                 </s:if> 
                                 <s:else>
@@ -515,12 +515,14 @@
                                 </s:else>
                             </s:else>
                         </td>
+                        <s:if test="D42.toString().equalsIgnoreCase('1') || D32.toString().equalsIgnoreCase('000000') || D32.toString().equalsIgnoreCase('99999') || D32.toString().equalsIgnoreCase('')">
                         <td class="txtBody">
                             <select onchange="onSelectChange_dcct(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData_D22<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >                                
                                 <option value="02" <s:if test="d22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không có thông tin địa chỉ cụ thể</option>
                                 <option value="01" <s:if test="d22.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Có thông tin địa chỉ cụ thể</option>
                                 </select>
                             </td>
+                            
                             <td class="txtBody">
                                     <select onchange="onSelectChange_time(this.value, <s:property  value='%{#idxRows.index}'/>)" class="<s:property value="d20"/>"
                                     name="lstData[<s:property  value='%{#idxRows.index}' />].d31" 
@@ -538,24 +540,34 @@
 
                             </s:else>
                         </td>
-
+                        </s:if>
+                          <s:else>
+                            <td class="txtBody" style="background: #f2f2f2">
+                                <s:if test="d22.equalsIgnoreCase('01')"><a>Có thông tin địa chỉ cụ thể</a></s:if>
+                                <s:elseif test="d22.equalsIgnoreCase('02')"><a>Không có thông tin địa chỉ cụ thể</a></s:elseif>
+                                </td>
+                                <td class="txtBody" style="background: #f2f2f2">
+                                <s:if test="d31.equalsIgnoreCase('0')"><a>Không</a></s:if>
+                                <s:elseif test="d31.equalsIgnoreCase('1')"><a>Có</a></s:elseif>
+                                </td>
+                                <td class="txtBody" style="background: #f2f2f2"><s:property value="d44"/></td>      
+                        </s:else>
                         <td class="txtBody">
-                            <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].d27" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if>><s:property value='d27'/> </textarea>
-                            <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d42" id="lstData42<s:property  value='%{#idxRows.index}' />" 
+                            <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstDataD27<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> ><s:property value='d27'/></textarea>
+                           <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d42" id="lstData42<s:property  value='%{#idxRows.index}' />" 
                                    value="<s:property  value="D42" />" >
                             <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d39" id="lstData39<s:property  value='%{#idxRows.index}' />" 
                                    value="<s:property  value="D39" />" >
                         </td>
 
-                        <s:if test="D32.equalsIgnoreCase('000000') || D32.equalsIgnoreCase('99999') || D32.equalsIgnoreCase('')">
-                            <td class="txtBody" style="background: #f2f2f2"><s:property value="D26"/> </td>
-                            <%--</s:else>--%>
-                        </s:if>
-                        <s:else>
-                            <td> <input  style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>"  id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> value="<s:property value='d26'/>">                                                
+                            <td>
+                            <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
+                            </s:if>
+                            <s:else>
+                                <input  style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>"  id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> value="<s:property value='d26'/>">                                                
+                            </s:else>
                                 </td>
-                        </s:else>   
-
+                      
                         <td class="txtBody">
                             <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstDataD23<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d23" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> ><s:property value='d23'/></textarea>
                             </td>
@@ -656,6 +668,8 @@
                                 <option value="02" <s:if test="d24.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không liên hệ được</option>
                                 <option value="03" <s:if test="d24.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Liên hệ được nhưng không cam kết</option>
                                 <option value="04" <s:if test="d24.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>04: Liên hệ được nhưng không nhận nợ</option>
+                                <option value="05" <s:if test="d24.equalsIgnoreCase('05')"> selected </s:if> <s:else></s:else>>05: Không thực hiện cam kết</option>
+
                                 </select>
                             </td>
 
@@ -672,9 +686,7 @@
                 </s:iterator>
             </tbody>
         </table>
-        </br> 
 
-        </br>
     </div>
 </body>
 <script>
@@ -726,32 +738,9 @@
                 {
                     document.getElementById("lstData_D44" + i).disabled = true;
                 }
-
             } catch (e) {
             }
         }
-//        Cột 17
-//        for (var i = 0; i < rowcount; i++)
-//        {
-//            try {
-//                var lstData_D26 = document.getElementById("lstData_D26" + i).value;
-//
-//                if (lstData_D26.length == null || lstData_D26 == '')
-//                {
-//                    var today = new Date();
-//                    var dd = String(today.getDate()).padStart(2, '0');
-//                    var mm = String(today.getMonth() + 1).padStart(2, '0');
-//                    var yyyy = today.getFullYear();
-//                    var currentDate = dd + '/' + mm + '/' + yyyy;
-//                    document.getElementById("lstData_D26" + i).value = currentDate;
-//                } else
-//                {
-//
-//                }
-//
-//            } catch (e) {
-//            }
-//        }
     }
     initTable2();
 </script>

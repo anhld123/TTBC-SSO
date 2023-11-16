@@ -229,7 +229,6 @@
                     }
                 });
             });
-
             //Lưu dữ liệu
             $("#idSave").click(function () {
                 let checkedCount = countCheckedItem();
@@ -240,78 +239,75 @@
                     if (aCheck) {
                         var table = document.getElementById("subTable");
                         var rowcount = table.rows.length;
-                        for (var i = 0; i < rowcount; i++)
-                        {
+                        var isValid = true; // Tạo biến để kiểm tra tính hợp lệ của dữ liệu
+
+                        for (var i = 0; i < rowcount; i++) {
                             try {
-                                var lstData_D21 = document.getElementById('lstData_D21' + i).value;
-                                if (lstData_D21.length < 5)
-                                {
-                                    alert('Vui lòng nhập thông tin cột 12.')
-                                    document.getElementById("lstData_D21" + i).style.backgroundColor = "#EEAFA6";
-                                    return;
+                                if (document.getElementById("lstData42" + i).value === '0' &&
+                                        document.getElementById("lstDataD27" + i).value === "") {
+                                    alert("Vui lòng nhập dữ liệu cho cột 16 trước khi lưu");
+                                    document.getElementById("lstDataD27" + i).style.backgroundColor = "#EEAFA6";
+                                    isValid = false;
+                                    break;
                                 }
-                                
+         
                                 //Bắt số đt
                                 var lstData_D16 = document.getElementById('lstData_D16' + i).value;
-                                if (lstData_D16.length !=10 && lstData_D16.length !=0)
+                                if (lstData_D16.length != 10 && lstData_D16.length != 0)
                                 {
                                     alert('Vui lòng nhập thông số điện thoại 10 số.')
                                     document.getElementById("lstData_D16" + i).style.backgroundColor = "#EEAFA6";
-                                    return;
+                                    isValid = false;
+                                    break;
                                 }
-                                
                                 var D22 = $('#lstData_D22' + i).find(":selected").val();
-                                if (D22 == '01')
-                                {
+                                if (D22 == '01') {
                                     var lstDataD23 = document.getElementById('lstDataD23' + i).value;
-                                    if (lstDataD23.length < 5)
-                                    {
-                                        alert('Vui lòng nhập thông tin cột 18.')
+                                    if (lstDataD23.length < 5) {
+                                        alert('Vui lòng nhập thông tin cột 18.');
                                         document.getElementById("lstDataD23" + i).style.backgroundColor = "#EEAFA6";
-                                        return;
+                                        isValid = false;
+                                        break;
                                     }
-
-
-                                } else
-                                {
-
                                 }
                             } catch (e) {
-
                             }
                         }
-                        var url, sdata;
-                        url = "saveLeaveLocal.action";
-                        sdata = jQuery("#frmdata").serialize();
-                        $("#viewData").html('<img src="img/loading.gif"/>');
-                        btnDisabled(1);
-                        $.ajax({
-                            type: "POST",
-                            url: url,
-                            data: sdata,
-                            success: function (data) {
-                                if (data === "200") {
-                                    alert("Thành công: Lưu dữ liệu.");
-                                    $("#idSearch").trigger("click");
-                                } else if (data === "01") {
-                                    alert("Lỗi: Bạn chưa nhập thông tin cột 15");
-                                    $("#idSearch").trigger("click");
-                                } else {
-                                    alert("Lỗi: Lưu dữ liệu.");
-                                    $("#idSearch").trigger("click");
+
+                        if (isValid) { // Nếu dữ liệu hợp lệ, tiến hành gửi request AJAX
+                            var url, sdata;
+                            url = "saveLeaveLocal.action";
+                            sdata = jQuery("#frmdata").serialize();
+                            $("#viewData").html('<img src="img/loading.gif"/>');
+                            btnDisabled(1);
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: sdata,
+                                success: function (data) {
+                                    if (data === "200") {
+                                        alert("Thành công: Lưu dữ liệu.");
+                                        $("#idSearch").trigger("click");
+                                    } else if (data === "01") {
+                                        alert("Lỗi: Bạn chưa nhập thông tin cột 15");
+                                        $("#idSearch").trigger("click");
+                                    } else {
+                                        alert("Lỗi: Lưu dữ liệu.");
+                                        $("#idSearch").trigger("click");
+                                    }
+                                },
+                                complete: function () {
+                                    btnDisabled(0);
+                                },
+                                error: function (request) {
+                                    alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
                                 }
-                            },
-                            complete: function () {
-                                btnDisabled(0);
-                            },
-                            error: function (request) {
-                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
-                            }
-                        });
+                            });
+                        }
                     }
                 }
-
             });
+
 
             //Gửi dữ liệu
             $("#idSend").click(function () {
