@@ -351,6 +351,7 @@
                             <s:elseif test="d24.equalsIgnoreCase('02')"><a>Không liên hệ được</a></s:elseif>
                             <s:elseif test="d24.equalsIgnoreCase('03')"><a>Liên hệ được nhưng không cam kết</a></s:elseif>
                             <s:elseif test="d24.equalsIgnoreCase('04')"><a>Liên hệ được nhưng không nhận nợ</a></s:elseif>
+                            <s:elseif test="d24.equalsIgnoreCase('05')"><a>Không thực hiện cam kết</a></s:elseif>
                             </td>
                         <td class="txtBody"><s:property value="d27"/></td> 
                         <td class="txtBody"><s:property value="d26"/></td>

@@ -184,6 +184,17 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     private String macn;
     private String ngay_bc;
     public String chotsl;
+    public String messageErr;
+    public String messagePage;
+
+    public String getMessagePage() {
+        return messagePage;
+    }
+
+    public void setMessagePage(String messagePage) {
+        this.messagePage = messagePage;
+    }
+    
     
     public String vieclam_total;
     public String noxh_total;
@@ -191,6 +202,7 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     protected String totalDataView;
     
     protected List<CustCicModel> custCIC = new ArrayList<>();
+    protected List<CustCicModel> lstCombox = new ArrayList<>();
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Xu ly cho action">
@@ -446,6 +458,15 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
 
+    public String getMessageErr() {
+        return messageErr;
+    }
+
+    public void setMessageErr(String messageErr) {
+        this.messageErr = messageErr;
+    }
+
+    
     public List<CustCicModel> getCustCIC() {
         return custCIC;
     }
@@ -728,6 +749,16 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
         this.lstMaPGD = lstMaPGD;
     }
     //</editor-fold>
+
+    public List<CustCicModel> getLstCombox() {
+        return lstCombox;
+    }
+
+    public void setLstCombox(List<CustCicModel> lstCombox) {
+        this.lstCombox = lstCombox;
+    }
+
+    
 
     public List<PosClass> getLstDonvi() {
         return lstDonvi;

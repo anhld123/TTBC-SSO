@@ -18,17 +18,18 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public class CustCicModel {
-
+    
+    private int id;
     private String mainPos;
     private String posCode;
     private String customerCode;
     private String cicCode;
     private String customerName;
-    private String isValidCustomerName;
+    private int isValidCustomerName;
     private String birthDay;
     private String idNo;
     private String newIdNo;
-    private String isValidNewIdNo;
+    private int isValidNewIdNo;
     private String oldIdNo;
     private String isValidOldIdNo;
     private String c06OldIdNo;
@@ -37,16 +38,25 @@ public class CustCicModel {
     private String communeName;
     private String subCommuneCode;
     private String subCommuneName;
-    private String status;
-    private String type;
+    private int status;
+    private String statusString;
+    private int type;
     private String createdBy;
     private String createdDate;
     private String updatedBy;
     private String updatedDate;
-    private String intellectUpdateFlag;
+    private int intellectUpdateFlag;
     private String groupCode;
     private String mobileNumber;
+    private String remark;
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     @XmlElement(defaultValue = "0")
     BigInteger principleBalance;
@@ -54,10 +64,6 @@ public class CustCicModel {
     BigInteger savingBalance;
     @XmlElement(defaultValue = "0")
     BigInteger remainIntAmount;
-
-    private String principleBalanceString;
-    private String savingBalanceString;
-    private String remainIntAmountString;
 
     public BigInteger getPrincipleBalance() {
 //        return principleBalance;
@@ -85,45 +91,86 @@ public class CustCicModel {
     public void setRemainIntAmount(BigInteger remainIntAmount) {
         this.remainIntAmount = remainIntAmount;
     }
-
-    public String getPrincipleBalanceString() {
-        return principleBalanceString;
-    }
-
-    public void setPrincipleBalanceString(String principleBalanceString) {
-        this.principleBalanceString = principleBalanceString;
-    }
-
-    public String getSavingBalanceString() {
-        return savingBalanceString;
-    }
-
-    public void setSavingBalanceString(String savingBalanceString) {
-        this.savingBalanceString = savingBalanceString;
-    }
-
-    public String getRemainIntAmountString() {
-        return remainIntAmountString;
-    }
-
-    public void setRemainIntAmountString(String remainIntAmountString) {
-        this.remainIntAmountString = remainIntAmountString;
-    }
-
-   
     
     private String idExpiredDate;
-    private String wrongFullNameConfirmFlag;
-    private String wrongIdNoConfirmFlag;
-    private String wrongIssueDateConfirmFlag;
-    private String wrongIssuePlaceConfirmFlag;
-    private String wrongBirthdayConfirmFlag;
-    private String customerStatus;
+    private int wrongFullNameConfirmFlag;
+    private int wrongIdNoConfirmFlag;
+    private int wrongIssueDateConfirmFlag;
+    private int wrongIssuePlaceConfirmFlag;
+    private int wrongBirthdayConfirmFlag;
+    private int customerStatus;
     private String coreBankingIdNo;
     private String coreBankingIssuePlace;
     private String coreBankingIssueDate;
     private String coreBankingCustomerName;
     private String coreBankingBirthday;
+    
+    private String c15;
+    private String c16;
+    private String c17;
+    private String c18;
+    private String c19;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
+
+    public String getStatusString() {
+        return statusString;
+    }
+
+    public void setStatusString(String statusString) {
+        this.statusString = statusString;
+    }
+    
+
+    public String getC15() {
+        return c15;
+    }
+
+    public void setC15(String c15) {
+        this.c15 = c15;
+    }
+
+    public String getC16() {
+        return c16;
+    }
+
+    public void setC16(String c16) {
+        this.c16 = c16;
+    }
+
+    public String getC17() {
+        return c17;
+    }
+
+    public void setC17(String c17) {
+        this.c17 = c17;
+    }
+
+    public String getC18() {
+        return c18;
+    }
+
+    public void setC18(String c18) {
+        this.c18 = c18;
+    }
+
+    public String getC19() {
+        return c19;
+    }
+
+    public void setC19(String c19) {
+        this.c19 = c19;
+    }
+    
+    
 
     // Getter Methods 
     public String getMainPos() {
@@ -146,10 +193,6 @@ public class CustCicModel {
         return customerName;
     }
 
-    public String getIsValidCustomerName() {
-        return isValidCustomerName;
-    }
-
     public String getBirthDay() {
         return birthDay;
     }
@@ -160,10 +203,6 @@ public class CustCicModel {
 
     public String getNewIdNo() {
         return newIdNo;
-    }
-
-    public String getIsValidNewIdNo() {
-        return isValidNewIdNo;
     }
 
     public String getOldIdNo() {
@@ -198,14 +237,6 @@ public class CustCicModel {
         return subCommuneName;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public String getType() {
-        return type;
-    }
-
     public String getCreatedBy() {
         return createdBy;
     }
@@ -222,10 +253,6 @@ public class CustCicModel {
         return updatedDate;
     }
 
-    public String getIntellectUpdateFlag() {
-        return intellectUpdateFlag;
-    }
-
     public String getGroupCode() {
         return groupCode;
     }
@@ -238,30 +265,6 @@ public class CustCicModel {
 
     public String getIdExpiredDate() {
         return idExpiredDate;
-    }
-
-    public String getWrongFullNameConfirmFlag() {
-        return wrongFullNameConfirmFlag;
-    }
-
-    public String getWrongIdNoConfirmFlag() {
-        return wrongIdNoConfirmFlag;
-    }
-
-    public String getWrongIssueDateConfirmFlag() {
-        return wrongIssueDateConfirmFlag;
-    }
-
-    public String getWrongIssuePlaceConfirmFlag() {
-        return wrongIssuePlaceConfirmFlag;
-    }
-
-    public String getWrongBirthdayConfirmFlag() {
-        return wrongBirthdayConfirmFlag;
-    }
-
-    public String getCustomerStatus() {
-        return customerStatus;
     }
 
     public String getCoreBankingIdNo() {
@@ -305,10 +308,6 @@ public class CustCicModel {
         this.customerName = customerName;
     }
 
-    public void setIsValidCustomerName(String isValidCustomerName) {
-        this.isValidCustomerName = isValidCustomerName;
-    }
-
     public void setBirthDay(String birthDay) {
         this.birthDay = birthDay;
     }
@@ -319,10 +318,6 @@ public class CustCicModel {
 
     public void setNewIdNo(String newIdNo) {
         this.newIdNo = newIdNo;
-    }
-
-    public void setIsValidNewIdNo(String isValidNewIdNo) {
-        this.isValidNewIdNo = isValidNewIdNo;
     }
 
     public void setOldIdNo(String oldIdNo) {
@@ -357,14 +352,6 @@ public class CustCicModel {
         this.subCommuneName = subCommuneName;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
@@ -381,10 +368,6 @@ public class CustCicModel {
         this.updatedDate = updatedDate;
     }
 
-    public void setIntellectUpdateFlag(String intellectUpdateFlag) {
-        this.intellectUpdateFlag = intellectUpdateFlag;
-    }
-
     public void setGroupCode(String groupCode) {
         this.groupCode = groupCode;
     }
@@ -398,32 +381,96 @@ public class CustCicModel {
         this.idExpiredDate = idExpiredDate;
     }
 
-    public void setWrongFullNameConfirmFlag(String wrongFullNameConfirmFlag) {
+    public void setCoreBankingIdNo(String coreBankingIdNo) {
+        this.coreBankingIdNo = coreBankingIdNo;
+    }
+
+    public int getIsValidCustomerName() {
+        return isValidCustomerName;
+    }
+
+    public void setIsValidCustomerName(int isValidCustomerName) {
+        this.isValidCustomerName = isValidCustomerName;
+    }
+
+    public int getIsValidNewIdNo() {
+        return isValidNewIdNo;
+    }
+
+    public void setIsValidNewIdNo(int isValidNewIdNo) {
+        this.isValidNewIdNo = isValidNewIdNo;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getIntellectUpdateFlag() {
+        return intellectUpdateFlag;
+    }
+
+    public void setIntellectUpdateFlag(int intellectUpdateFlag) {
+        this.intellectUpdateFlag = intellectUpdateFlag;
+    }
+
+    public int getWrongFullNameConfirmFlag() {
+        return wrongFullNameConfirmFlag;
+    }
+
+    public void setWrongFullNameConfirmFlag(int wrongFullNameConfirmFlag) {
         this.wrongFullNameConfirmFlag = wrongFullNameConfirmFlag;
     }
 
-    public void setWrongIdNoConfirmFlag(String wrongIdNoConfirmFlag) {
+    public int getWrongIdNoConfirmFlag() {
+        return wrongIdNoConfirmFlag;
+    }
+
+    public void setWrongIdNoConfirmFlag(int wrongIdNoConfirmFlag) {
         this.wrongIdNoConfirmFlag = wrongIdNoConfirmFlag;
     }
 
-    public void setWrongIssueDateConfirmFlag(String wrongIssueDateConfirmFlag) {
+    public int getWrongIssueDateConfirmFlag() {
+        return wrongIssueDateConfirmFlag;
+    }
+
+    public void setWrongIssueDateConfirmFlag(int wrongIssueDateConfirmFlag) {
         this.wrongIssueDateConfirmFlag = wrongIssueDateConfirmFlag;
     }
 
-    public void setWrongIssuePlaceConfirmFlag(String wrongIssuePlaceConfirmFlag) {
+    public int getWrongIssuePlaceConfirmFlag() {
+        return wrongIssuePlaceConfirmFlag;
+    }
+
+    public void setWrongIssuePlaceConfirmFlag(int wrongIssuePlaceConfirmFlag) {
         this.wrongIssuePlaceConfirmFlag = wrongIssuePlaceConfirmFlag;
     }
 
-    public void setWrongBirthdayConfirmFlag(String wrongBirthdayConfirmFlag) {
+    public int getWrongBirthdayConfirmFlag() {
+        return wrongBirthdayConfirmFlag;
+    }
+
+    public void setWrongBirthdayConfirmFlag(int wrongBirthdayConfirmFlag) {
         this.wrongBirthdayConfirmFlag = wrongBirthdayConfirmFlag;
     }
 
-    public void setCustomerStatus(String customerStatus) {
-        this.customerStatus = customerStatus;
+    public int getCustomerStatus() {
+        return customerStatus;
     }
 
-    public void setCoreBankingIdNo(String coreBankingIdNo) {
-        this.coreBankingIdNo = coreBankingIdNo;
+    public void setCustomerStatus(int customerStatus) {
+        this.customerStatus = customerStatus;
     }
 
     public void setCoreBankingIssuePlace(String coreBankingIssuePlace) {

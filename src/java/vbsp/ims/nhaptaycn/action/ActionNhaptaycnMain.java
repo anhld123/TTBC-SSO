@@ -46,6 +46,7 @@ import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.sbv.daoSbv;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlKtgsSync;
@@ -67,6 +68,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
     public List<ModelExcelFile> lstExcel = new ArrayList<>();
     private String fileNameNew;
     private List<ListValue> lstBDD = new ArrayList<ListValue>();
+    public String chotCic;
 
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
@@ -99,6 +101,15 @@ public class ActionNhaptaycnMain extends ActionSupport {
         return langiangan;
     }
 
+    public String getChotCic() {
+        return chotCic;
+    }
+
+    public void setChotCic(String chotCic) {
+        this.chotCic = chotCic;
+    }
+
+    
     public void setLangiangan(String langiangan) {
         this.langiangan = langiangan;
     }
@@ -857,6 +868,13 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 System.err.println("SDQ---3");
                 setLstNhadautu(daoMain11.getDanhMuc(UserName, "NHADT", Grade));
                 System.err.println("SDQ---5");
+                DuLieuNTService service1 = new DuLieuNTService();
+                ArrayList<LockSendModel> lstDataLock = service1.getDataLockManual("CIC_CUSTOMER", pos_cd_username, "S", "20231231");
+                try {
+                    setChotCic(lstDataLock.get(0).getStatus());
+                } catch (Exception e) {
+                    setChotCic("0");
+                }
                 return "return-cic";
             }
             

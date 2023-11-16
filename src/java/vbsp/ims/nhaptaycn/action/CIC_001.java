@@ -5,10 +5,10 @@
  */
 package vbsp.ims.nhaptaycn.action;
 
-import vbsp.ims.nghiquyet11cp.*;
-import vbsp.ims.nhaptaycn.action.*;
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
+import vbsp.ims.nghiquyet11cp.*;
+import vbsp.ims.nhaptaycn.action.*;
 import java.io.File;
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -27,11 +27,16 @@ import org.apache.struts2.ServletActionContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.define.Define;
+import vbsp.ims.gqvl_2023.Service_GQVL2023;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
 import vbsp.ims.restapi.CustCicModel;
+import vbsp.ims.restapi.CustNoGroupResp;
+import vbsp.ims.restapi.DuLieuNTRow;
+import vbsp.ims.restapi.DuLieuNTRowX;
 import vbsp.ims.restapi.IntDeductionModel;
 import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.LockSendCiCModel;
 import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.restapi.NQ11cpModel;
 import vbsp.ims.restapi.UpdateLockModel;
@@ -51,7 +56,6 @@ public class CIC_001 extends ActionNghiquyet11cpMain
     public String load() {
         try {
             if (Grade.equals("1")) {
-//            System.err.println("QD23_001");
                 if (!getParaSession()) {
                     return ERROR;
                 }
@@ -59,7 +63,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                 posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                 pos_cd_username = posMainModel.getPosCd();
                 service = new DuLieuNTService();
-                ArrayList<LockSendModel> lstDataLock = service.getDataLockManual("CIC_01", pos_cd_username, "S", "20231231");
+                ArrayList<LockSendModel> lstDataLock = service.getDataLockManual("CIC_CUSTOMER", pos_cd_username, "S", "20231231");
                 try {
                     setChotsl(lstDataLock.get(0).getStatus());
                 } catch (Exception e) {
@@ -69,72 +73,116 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     addActionError("Vui lòng chọn xã để rà soát số liệu.");;
                     return ERROR;
                 }
-                List<CustCicModel> custCIC_TMP = new ArrayList<>();
-                custCIC_TMP = service.getDataCustCIC(pos_cd_username, "20231231",
-                        hmParameter.get("maxa").toString(), hmParameter.get("mato").toString().split("_")[1], "");
-                if (custCIC_TMP.size() > 499) {
-                    addActionError("Dữ liệu quá lớn. Vui lòng chọn từng tổ để xác nhận.");;
-                    return ERROR;
-                }
-                int i = 0;
                 DecimalFormat df = new DecimalFormat("#.##");
-                for (CustCicModel item : custCIC_TMP) {
-                    i++;
-//                    CustCicModel cv= new CustCicModel();
-//                    double principleBalance = Double.parseDouble(df.format(item.getPrincipleBalance()));
-//                    String formattedPrincipleBalance = df.format(principleBalance);
-//                    item.setPrincipleBalance(Double.parseDouble(formattedPrincipleBalance));
-//                   
-//                    item.setRemainIntAmount(Double.parseDouble(df.format(item.getRemainIntAmount())));
-//                    item.setSavingBalance(Double.parseDouble(df.format(item.getSavingBalance())));
-                    item.setPrincipleBalanceString(df.format(item.getPrincipleBalance()));
-                    custCIC.add(item);
+                //Xử lý cho trường hợp không có mã tổ
+                if (hmParameter.get("mato").toString().equals("000000_NOGROUP")) {
+                    List<CustCicModel> custCIC_TMP = new ArrayList<>();
+                    CustNoGroupResp custNoGroupResp = service.getDataCustCIC_NoGroup(pos_cd_username, "20231231",
+                            hmParameter.get("maxa").toString(), 50, Integer.parseInt(hmParameter.get("pageNumber").toString()));
+                    custCIC_TMP = custNoGroupResp.getResult();
+                    setMessagePage("(Trang  " + hmParameter.get("pageNumber").toString() + "/" + String.valueOf(custNoGroupResp.getMeta().getLast_page()) +")");
+                    if (custCIC_TMP.size() > 150) {
+                        setMessageErr("Dữ liệu quá lớn. Vui lòng chọn đúng trang để xác nhận.");
+                    } else {
+                        int i = 0;
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                        DateFormat df1 = new SimpleDateFormat("MM/dd/yyyy");
+                        DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
+                        for (CustCicModel item : custCIC_TMP) {
+                            i++;
+                            item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
+                            if (item.getCoreBankingIssueDate() != null) {
+                                item.setCoreBankingIssueDate(dateHienthi.format(sdf.parse(item.getCoreBankingIssueDate())));
+                            }
+                            if (item.getCoreBankingBirthday() != null) {
+                                item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
+                            }
+                            item.setStatusString(String.valueOf(item.getStatus()));
+                            custCIC.add(item);
+                        }
+                    }
+                } else {
+                    List<CustCicModel> custCIC_TMP = new ArrayList<>();
+                    custCIC_TMP = service.getDataCustCIC(pos_cd_username, "20231231",
+                            hmParameter.get("maxa").toString(), hmParameter.get("mato").toString().split("_")[1], "");
+
+                    if (custCIC_TMP.size() > 150) {
+                        setMessageErr("Dữ liệu quá lớn. Vui lòng chọn từng tổ để xác nhận.");
+                    } else {
+                        int i = 0;
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                        DateFormat df1 = new SimpleDateFormat("MM/dd/yyyy");
+                        DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
+                        for (CustCicModel item : custCIC_TMP) {
+                            i++;
+                            item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
+                            if (item.getCoreBankingIssueDate() != null) {
+                                item.setCoreBankingIssueDate(dateHienthi.format(sdf.parse(item.getCoreBankingIssueDate())));
+                            }
+                            if (item.getCoreBankingBirthday() != null) {
+                                item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
+                            }
+                            item.setStatusString(String.valueOf(item.getStatus()));
+                            custCIC.add(item);
+                        }
+                    }
                 }
+                //Cho phần sum
+                ArrayList<LockSendCiCModel> lstData = service.getDataLockSendCic(pos_cd_username, "S", "20231231");
 
+                //String formatted = df.format(2.00023);
+                chotsl = "";
+                for (LockSendCiCModel item : lstData) {
+                    if (item.getStatus().equals("0")) {
+                        setChotsl("0");
+                    }
+                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+                    row.setKHOA("CIC_CUSTOMER");
+                    Date reportDate = DateUtil.toDate(item.getReportDate());
+                    row.setNGAYBC(reportDate);
+                    row.setMAPGD(item.getPosCode());
+                    row.setMACN(item.getMainPos());
+                    row.setTEN(item.getPosName());
+                    row.setD1(df.format(item.getCustomerTotal()));
+                    row.setD2(df.format(item.getCustomerNotReviewCount()));
+                    row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");
+                    lstDulieuNt.add(row);
+                }
                 return SUCCESS;
-
             } else if (Grade.equals("2")) {
                 if (!getParaSession()) {
                     return ERROR;
                 }
                 HashMap hmParameter = getParameter();
-                Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                String dateStr = sdf.format(date1);
+//                Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+//                String dateStr = sdf.format(date1);
 
                 posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                 pos_cd_username = posMainModel.getPosCd();
                 service = new DuLieuNTService();
-                ArrayList<LockSendModel> lstData = service.getDataLockSendNQ11CP(pos_cd_username, "M", dateStr);
+                ArrayList<LockSendCiCModel> lstData = service.getDataLockSendCic(pos_cd_username, "M", "20231231");
                 int i = 0;
 
                 DecimalFormat df = new DecimalFormat("#.##");
                 //String formatted = df.format(2.00023);
                 chotsl = "";
-                for (LockSendModel item : lstData) {
+                for (LockSendCiCModel item : lstData) {
                     if (item.getStatus().equals("0")) {
                         setChotsl("0");
                     }
                     i++;
                     QT_DULIEU_NT row = new QT_DULIEU_NT();
-                    row.setKHOA("CN11CP_002");
+                    row.setKHOA("CIC_01");
                     row.setTHUTU(i);
                     Date reportDate = DateUtil.toDate(item.getReportDate());
                     row.setNGAYBC(reportDate);
-                    //row.setNAMBC(item.getReportYear());
                     row.setMAPGD(item.getPosCode());
-//                row.setCO_TONGHOP(item.getPosFlag());
                     row.setMACN(item.getMainPos());
                     row.setTEN(item.getPosName());
-                    row.setD1(df.format(item.getLoanTotal()));
-                    row.setD2(df.format(item.getPrinTotal()));
-                    row.setD3(df.format(item.getIntTotal()));
-                    row.setD4(df.format(item.getDeductionIntTotal()));
-                    row.setD5(df.format(item.getDeductionLoanTotal()));
-                    row.setD6(df.format(item.getNoDeductionLoanTotal()));
-                    row.setD7(df.format(item.getNoDeductionIntTotal()));
+                    row.setD1(df.format(item.getCustomerTotal()));
+                    row.setD2(df.format(item.getCustomerNotReviewCount()));
                     row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");
-//                    row.setD7(df.format(item.getDeductionIntTotal()));                   
                     lstDulieuNt.add(row);
                 }
                 return "success_c2";
@@ -150,175 +198,165 @@ public class CIC_001 extends ActionNghiquyet11cpMain
 
     }
 
-    @Override
     public String save() {
         try {
             if (!getParaSession()) {
                 return ERROR;
             }
-            if (lstDulieuNt == null || lstDulieuNt.size() == 0) {
-                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
-                return ERROR;
-            }
-
             HashMap hmParameter = getParameter();
-            String sngaybc = hmParameter.get("ngay_bc").toString();
-            Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(sngaybc);
-
-//            Date date = Calendar.getInstance().getTime();  
-            DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-            String strDate = dateFormat.format(date1);
-
-            DateFormat dateFormat1 = new SimpleDateFormat("dd-MMM-yyyy");
-            String strDate1 = dateFormat1.format(date1);
-
-            service = new DuLieuNTService();
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
-
+            SimpleDateFormat CvDate = new SimpleDateFormat("yyyyMMdd");
+            SimpleDateFormat LsDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            int i = 0;
             if (Grade.equals("1")) {
-                ArrayList<LockSendModel> lstDataLock = service.getDataLockSendNQ11CP(pos_cd_username, "S", strDate);
-                ArrayList<NQ11cpModel> lstUpdateDate = new ArrayList<>();
-                if (lstDataLock.size() > 0) {
-                    //Lưu phần phân loại hạch toán
-                    if (lstDataLock.get(0).getStatus().equals("2")) {
-                        addActionError("Đơn vị đã chốt số liệu. Bạn không thể điều chỉnh.");;
+
+                ArrayList<CustCicModel> custCIC_TMP = new ArrayList<>();
+                for (CustCicModel item : custCIC) {
+                    i++;
+                    CustCicModel tempadd = new CustCicModel();
+                    tempadd.setMainPos(item.getMainPos());
+                    tempadd.setPosCode(item.getPosCode());
+                    tempadd.setCustomerCode(item.getCustomerCode());
+                    tempadd.setCicCode(item.getCicCode());
+                    tempadd.setStatus(Integer.parseInt(item.getStatusString()));
+                    tempadd.setWrongFullNameConfirmFlag(checkItemInList15(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                    tempadd.setWrongIdNoConfirmFlag(checkItemInList16(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                    tempadd.setWrongIssueDateConfirmFlag(checkItemInList17(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                    tempadd.setWrongIssuePlaceConfirmFlag(checkItemInList18(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                    tempadd.setWrongBirthdayConfirmFlag(checkItemInList19(lstCombox, item.getCicCode()) == 1 ? 1 : 0);
+                    tempadd.setStatus(Integer.parseInt(item.getStatusString()));
+                    tempadd.setRemark(item.getRemark());
+                    custCIC_TMP.add(tempadd);
+                }
+                service = new DuLieuNTService();
+                int status = service.updateCIC(pos_cd_username, "20231231", UserName, UserName, custCIC_TMP);
+                if (status == 200) {
+                    ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
+                    for (CustCicModel item : custCIC_TMP) {
+                        QT_DULIEU_NT updateRow = new QT_DULIEU_NT();
+
+                        updateRow.setD1(item.getCustomerCode());
+                        updateRow.setD2(item.getCicCode());
+
+                        updateRow.setD3(String.valueOf(item.getStatus()));
+                        updateRow.setD4(String.valueOf(item.getWrongFullNameConfirmFlag()));
+                        updateRow.setD5(String.valueOf(item.getWrongIdNoConfirmFlag()));
+                        updateRow.setD6(String.valueOf(item.getWrongIssueDateConfirmFlag()));
+                        updateRow.setD7(String.valueOf(item.getWrongIssuePlaceConfirmFlag()));
+                        updateRow.setD8(String.valueOf(item.getWrongBirthdayConfirmFlag()));
+                        updateRow.setD9(item.getRemark());
+                        lstLocalDataUpdate.add(updateRow);
+                    }
+                    if (!DaoNghiquyet11cp.newInstance().saveCIC_Local(UserName, pos_cd_username, "31-dec-2023", lstLocalDataUpdate)) {
+                        addActionError("Bạn chưa lưu được báo cáo tại chi nhánh, xin liên hệ với quản trị để khắc phục");
                         return ERROR;
-                    } //Lưu phần xác nhận lãi giảm
-                    else if (lstDataLock.get(0).getStatus().equals("3")) {
-                        addActionError("Vui lòng chọn nút cập nhật hạch toán với trường hợp cập nhật hạch toán vào casa hoặc bằng tiền mặt");;
-                        return ERROR;
-                    } else {
-                        try {
-                            setChotsl(lstDataLock.get(0).getStatus());
-                        } catch (Exception e) {
+                    }
+                } else {
+                    addActionError("Lỗi lưu trữ Api lên Tw, xin liên hệ với quản trị để khắc phục");
+                    return ERROR;
+                }
+            } else if (Grade.equals("2")) {
+                try {
+                    chotsl = "";
+                    service = new DuLieuNTService();
+                    ArrayList<LockSendModel> lstData = service.getDataLockSendNQ11CP(pos_cd_username, "M", "20231231");
+                    for (LockSendModel item : lstData) {
+                        if (item.getStatus().equals("0")) {
                             setChotsl("0");
                         }
-//                         DecimalFormat df = new DecimalFormat("#.##");
-                        for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                            if (tmp.getD33() != null) {
-
-                                NQ11cpModel tempadd = new NQ11cpModel();
-                                if (tmp.getD25() == null) {
-                                    tempadd.setMainPos(tmp.getMACN());
-                                    tempadd.setPosCode(tmp.getMAPGD());
-                                    tempadd.setLoanId(tmp.getD3());
-                                    tempadd.setIntSubsidyAdjustM01Amt(new BigInteger(tmp.getD18()));
-                                    tempadd.setIntSubsidyAdjustM02Amt(new BigInteger(tmp.getD19()));
-                                    tempadd.setIntSubsidyAdjustM03Amt(new BigInteger(tmp.getD20()));
-                                    tempadd.setIntSubsidyAdjustM04Amt(new BigInteger(tmp.getD55()));
-                                    tempadd.setIntSubsidyAdjustM05Amt(new BigInteger(tmp.getD37()));
-                                    tempadd.setIntSubsidyAdjustM06Amt(new BigInteger(tmp.getD38()));
-                                    tempadd.setIntSubsidyAdjustM07Amt(new BigInteger(tmp.getD51()));
-                                    tempadd.setIntSubsidyAdjustM08Amt(new BigInteger(tmp.getD60()));
-                                    tempadd.setIntSubsidyAdjustM09Amt(new BigInteger(tmp.getD63()));
-                                    tempadd.setIntSubsidyAdjustM10Amt(new BigInteger(tmp.getD66()));
-                                    if (chotsl.equals("1") || chotsl.equals("3")) {
-                                        tempadd.setIntConfirmFlag("1");
-                                    } else {
-                                        tempadd.setIntConfirmFlag("0");
-                                    }
-                                    tempadd.setRejectReason(tmp.getD47());
-                                    lstUpdateDate.add(tempadd);
-                                } else {
-                                    tempadd.setMainPos(tmp.getMACN());
-                                    tempadd.setPosCode(tmp.getMAPGD());
-                                    tempadd.setLoanId(tmp.getD3());
-                                    tempadd.setIntSubsidyAdjustM01Amt(new BigInteger(tmp.getD18()));
-                                    tempadd.setIntSubsidyAdjustM02Amt(new BigInteger(tmp.getD19()));
-                                    tempadd.setIntSubsidyAdjustM03Amt(new BigInteger(tmp.getD20()));
-                                    tempadd.setIntSubsidyAdjustM04Amt(new BigInteger(tmp.getD55()));
-                                    tempadd.setIntSubsidyAdjustM05Amt(new BigInteger(tmp.getD37()));
-                                    tempadd.setIntSubsidyAdjustM06Amt(new BigInteger(tmp.getD38()));
-                                    tempadd.setIntSubsidyAdjustM07Amt(new BigInteger(tmp.getD51()));
-                                    tempadd.setIntSubsidyAdjustM08Amt(new BigInteger(tmp.getD60()));
-                                    tempadd.setIntSubsidyAdjustM09Amt(new BigInteger(tmp.getD63()));
-                                    tempadd.setIntSubsidyAdjustM10Amt(new BigInteger(tmp.getD66()));
-
-                                    tempadd.setM01Status("1");
-                                    tempadd.setM02Status("1");
-                                    tempadd.setM03Status("1");
-                                    tempadd.setM04Status("1");
-                                    tempadd.setM05Status("1");
-                                    tempadd.setM06Status("1");
-                                    tempadd.setIntConfirmFlag("1");
-                                    tempadd.setRejectReason(tmp.getD47());
-                                    lstUpdateDate.add(tempadd);
-                                }
-                            }
-                        }
-                        int status = service.updateDataNQ11CP_001(pos_cd_username, strDate, UserName, lstUpdateDate);
-                        if (status == 200) {
-                            ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
-                            DecimalFormat df = new DecimalFormat("#.##");
-                            for (NQ11cpModel item : lstUpdateDate) {
-                                QT_DULIEU_NT updateRow = new QT_DULIEU_NT();
-                                updateRow.setD1(item.getLoanId());
-
-                                updateRow.setD2(df.format(item.getIntSubsidyAdjustM01Amt()));
-                                updateRow.setD3(df.format(item.getIntSubsidyAdjustM02Amt()));
-                                updateRow.setD4(df.format(item.getIntSubsidyAdjustM03Amt()));
-                                updateRow.setD10(df.format(item.getIntSubsidyAdjustM04Amt()));
-                                updateRow.setD11(df.format(item.getIntSubsidyAdjustM05Amt()));
-                                updateRow.setD12(df.format(item.getIntSubsidyAdjustM06Amt()));
-                                updateRow.setD13(df.format(item.getIntSubsidyAdjustM07Amt()));
-                                updateRow.setD14(df.format(item.getIntSubsidyAdjustM08Amt()));
-                                updateRow.setD15(df.format(item.getIntSubsidyAdjustM09Amt()));
-                                updateRow.setD16(df.format(item.getIntSubsidyAdjustM10Amt()));
-                                updateRow.setD5(item.getIntConfirmFlag().toString());
-                                updateRow.setD6(item.getRejectReason());
-
-                                lstLocalDataUpdate.add(updateRow);
-                            }
-                            if (!DaoNghiquyet11cp.newInstance().saveNQ11CP_001(UserName, pos_cd_username, strDate1, lstLocalDataUpdate, "1")) {
-                                addActionError("Bạn chưa lưu số liệu tại đơn vị. Liên hệ với quản trị để khắc phục");
-                                return ERROR;
-                            }
+                    }
+                    ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
+                    for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                        UpdateLockModel tempadd = new UpdateLockModel();
+                        String st = "0";
+                        if (tmp.getD25() == null) {
+                            st = "0";
                         } else {
-                            addActionError("Lỗi cập nhật API trung ương. Liên hệ với quản trị để khắc phục");
+                            st = "1";
+                        }
+                        int status = service.updateChotSL("CIC_CUSTOMER", tmp.getMAPGD(), "S", "20231231", st, UserName, null);
+                        if (status != 200) {
+                            addActionError("Bạn chưa chốt/ mở chốt được xin liên hệ với quản trị để khắc phục");
                             return ERROR;
                         }
                     }
+                } catch (Exception e) {
+                    CoreLogger.error(this.getClass().getName() + " Exception -> CIC_001: " + e.getMessage());
+                    System.err.println(this.getClass().getName() + " Exception -> NQ11CP: " + e.getMessage());
+                    addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                    return ERROR;
                 }
-
-            } else if (Grade.equals("2")) {
-                chotsl = "";
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
-                String dateStr = sdf.format(date1);
-                ArrayList<LockSendModel> lstData = service.getDataLockSendNQ11CP(pos_cd_username, "M", dateStr);
-                for (LockSendModel item : lstData) {
-                    if (item.getStatus().equals("0")) {
-                        setChotsl("0");
-                    }
-                }
-
-                ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
-                for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                    UpdateLockModel tempadd = new UpdateLockModel();
-                    if (tmp.getD25() == null) {
-                        tempadd.setPosCode(tmp.getMAPGD());
-//                        tempadd.setStatus(chotsl.equals("0") ? "0" : "2");
-                        tempadd.setStatus("0");
-                        lstUpdateDateLock.add(tempadd);
-                    } else {
-                        tempadd.setPosCode(tmp.getMAPGD());
-//                        tempadd.setStatus(chotsl.equals("0") ? "1" : "3");
-                        tempadd.setStatus("1");
-                        lstUpdateDateLock.add(tempadd);
-                    }
-                }
-                int status = service.updateDataNQ11CP_ChotSL(pos_cd_username, strDate, UserName, lstUpdateDateLock);
             }
 
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> CIC_001: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> NQ11CP: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
             return ERROR;
         }
         addActionMessage("Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
+    }
+
+    static int checkItemInList15(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC15().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+
+    static int checkItemInList16(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC16().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+
+    static int checkItemInList17(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC17().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+
+    static int checkItemInList18(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC18().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+
+    static int checkItemInList19(List<CustCicModel> lst, String cust) {
+        for (CustCicModel item : lst) {
+            try {
+                if (item.getC19().equals(cust)) {
+                    return 1;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return 0;
     }
 
     public static void main(String[] args) throws ParseException {

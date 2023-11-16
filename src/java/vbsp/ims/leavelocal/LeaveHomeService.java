@@ -24,7 +24,8 @@ public class LeaveHomeService {
     DuLieuNTService _service = new DuLieuNTService();
 
     //gradeAuthor = 1 tạo lập; 2 phê duyệt
-//    typeAuth = 1 phê duyệt cho xoa; 2 phê duyệt cho XLN
+    //typeAuth = 1 phê duyệt cho xoa; 2 phê duyệt cho XLN
+    //openFlag = 0 Gọi trong dữ liệu nhập tay; = 1 gọi trong hskh
     public List<DuLieuNTRow> getCustomers(String posCode, String posFlag, String customerCode, String fromDate, String toDate, String sourceFlag, String openFlag,
             String gradeAuthor, String typeAuth) {
         //gradeAuthor = 1 tạo lập; 2 phê duyệt
@@ -130,8 +131,6 @@ public class LeaveHomeService {
                     _normalizeItem.setPosCode(data.get(i).getD5());
                     _normalizeItem.setPosFlag("S");
                     _normalizeItem.setBranchCode(data.get(i).getD3());
-                    //Đơn vị cho vay và đơn vị được đề nghị hỗ trợ
-//                    if (posFlag1.equals("1")) {
                     _normalizeItem.setD1(data.get(i).getD1());
                     _normalizeItem.setD2(data.get(i).getD2());
                     _normalizeItem.setD3(data.get(i).getD3());
@@ -157,33 +156,71 @@ public class LeaveHomeService {
                     _normalizeItem.setD23(data.get(i).getD23());
                     _normalizeItem.setD24(data.get(i).getD24());
                     _normalizeItem.setD25(data.get(i).getD25());
-
+                    _normalizeItem.setD26(data.get(i).getD26());
+                    _normalizeItem.setD27(data.get(i).getD27());
                     _normalizeItem.setD28(data.get(i).getD28());
                     _normalizeItem.setD29(data.get(i).getD29());
                     _normalizeItem.setD30(data.get(i).getD30());
                     _normalizeItem.setD31(data.get(i).getD31());
                     _normalizeItem.setD32(data.get(i).getD32());
                     _normalizeItem.setD33(data.get(i).getD33());
-
+                    _normalizeItem.setD34(data.get(i).getD34());
                     _normalizeItem.setD35(data.get(i).getD35());
                     _normalizeItem.setD36(data.get(i).getD36());
                     _normalizeItem.setD37(data.get(i).getD37());
                     _normalizeItem.setD38(data.get(i).getD38());
                     _normalizeItem.setD39(data.get(i).getD39());
                     _normalizeItem.setD40(data.get(i).getD40());
-
+                    _normalizeItem.setD41(data.get(i).getD41());
+                    _normalizeItem.setD42(data.get(i).getD42());
+                    _normalizeItem.setD43(data.get(i).getD43());
+                    _normalizeItem.setD44(data.get(i).getD44());
+                    _normalizeItem.setD45(data.get(i).getD45());
+                    _normalizeItem.setD46(data.get(i).getD46());
+                    _normalizeItem.setD47(data.get(i).getD47());
+                    _normalizeItem.setD48(data.get(i).getD48());
+                    _normalizeItem.setD49(data.get(i).getD49());
                     _normalizeItem.setD50(data.get(i).getD50());
-//                    } else //POS được đề nghị hỗ trợ
-//                    {
+
+                    _lstNormalizeData.add(_normalizeItem);
+                }
+                return _service.updateClhCustomers("BO_DI_KHOI_DP", posCode, "S", _reportDate, makerId, authoriseId, _lstNormalizeData);
+
+            }
+        } catch (Exception e) {
+            return 0;
+        }
+        return 0;
+    }
+
+    public int saveCustomers_denghi(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
+        try {
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
+            if (sourceFlag.equals("0")) {
+
+            } else {
+                List<DuLieuNTRowX> _lstNormalizeData = new ArrayList<>();
+                for (int i = 0; i < data.size(); i++) {
+                    DuLieuNTRowX _normalizeItem = new DuLieuNTRowX();
+
+                    _normalizeItem.setKey("BO_DI_KHOI_DP");
+                    _normalizeItem.setOrderValue(Integer.parseInt(data.get(i).getOrderValue()));
+
+                    _normalizeItem.setCode(data.get(i).getCode());
+//                    _normalizeItem.setName("");
+                    _normalizeItem.setReportYear(2050);
+                    _normalizeItem.setPosCode(data.get(i).getPosCode());
+                    _normalizeItem.setBranchCode(data.get(i).getBranchCode());
+                    _normalizeItem.setPosFlag("S");
+                    _normalizeItem.setD11(data.get(i).getD11());
                     _normalizeItem.setD26(data.get(i).getD26());
                     _normalizeItem.setD27(data.get(i).getD27());
                     _normalizeItem.setD34(data.get(i).getD34());
                     _normalizeItem.setD41(data.get(i).getD41());
-//                        _normalizeItem.setD50(data.get(i).getD50());
-//                    }
+
                     _lstNormalizeData.add(_normalizeItem);
                 }
-                return _service.updateClhCustomers("BO_DI_KHOI_DP", posCode, "S", _reportDate, makerId, authoriseId, _lstNormalizeData);
+                return _service.updateClhCustomers_denghi("BO_DI_KHOI_DP", posCode, "S", _reportDate, makerId, authoriseId, _lstNormalizeData);
 
             }
         } catch (Exception e) {

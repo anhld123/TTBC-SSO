@@ -12,7 +12,7 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         border-spacing: 0;
-        width: 200%;
+        width: 220%;
     }
     #subTable th{
         background-color: #ddd;
@@ -54,27 +54,28 @@
     $(document).ready(function () {
         initTable();
     });
-
     $(document).ready(function () {
         initTable1();
     });
     $(function () {
         setCssStyle();
     });
-
     function setCssStyle() {
-        $(".cssDate").datepicker(
-                {
-                    dateFormat: 'dd/mm/yy',
-                    showOn: "button",
-                    buttonImage: "img/icon-ui_datepicker.png",
-                    buttonImageOnly: true,
-                    // dateFormat: 'dd/mm/yy',
-                    showButtonPanel: true,
-                    buttonText: "icono",
-                    changeMonth: true,
-                    changeYear: true
-                });
+        $(".cssDate").datepicker({
+            dateFormat: 'dd/mm/yy',
+            showOn: "button",
+            buttonImage: "img/icon-ui_datepicker.png",
+            buttonImageOnly: true,
+            showButtonPanel: true,
+            buttonText: "icono",
+            changeMonth: true,
+            changeYear: true,
+            beforeShow: function (input, inst) {
+                if ($(input).is(':disabled')) {
+                    return false; // Ngăn chặn datepicker hiển thị nếu input bị disabled
+                }
+            }
+        });
     }
     $('.autoHeight').each(function () {
         this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
@@ -82,7 +83,6 @@
         this.style.height = 'auto';
         this.style.height = (this.scrollHeight) + 'px';
     });
-
     function funcThanhVien(maPgd, maKH, tenKH, flagPos) {
         var w = 900, h = 600;
         var left = (screen.width / 2) - (w / 2);
@@ -120,18 +120,13 @@
     }
 
     function onSelectChange(index) {
-
-
-
         let selectedValue = $('#lstData_D30' + index).find(":selected").val();
         let province = selectedValue.substring(0, 4);
-
         $('#lstData_D32' + index + ' option').each(function () {
             //if (!$(this).val().startsWith('0006') ) {
             $(this).remove();
             //}
         });
-
         $('#lstPGD_Temp option').each(function () {
             if ($(this).val().startsWith(province)) {
                 //alert($(this).text() );
@@ -144,53 +139,14 @@
         });
     }
 
-
-
     function onSelectChange_dnht(value, index) {
         if (value == '1')
         {
-//            var var2, vartxt, selected;
-//            $("#lstData_D30" + index).children().remove().end();
-//            //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-//            $("#lstData_D30_tmp" + index + " > option").each(function () {
-//                var tmp = $(this).val();
-//                if (tmp != '000000' && tmp != '999999')
-//                    $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-//            });
-//            $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
-//                return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-//            }));
-//
-//            //combobox huyen
-//            $("#lstData_D32" + index).children().remove().end();
-//            //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-//            $("#lstData_D32_tmp" + index + " > option").each(function () {
-//                var tmp = $(this).val();
-//                if (tmp != '000000' && tmp != '999999')
-////                alert(tmp);
-//                    $("#lstData_D32" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-//            });
-//            $("#lstData_D32" + index).html($("#lstData_D32" + index + " option").sort(function (a, b) {
-//                return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-//            }));
             document.getElementById("lstDNHT_D33" + index).style.visibility = "visible";
-//            onSelectChange(index);
-
         } else
         {
-//            $("#lstData_D30" + index).children().remove().end();
-//            $("#lstData_D30" + index).prepend("<option value='000000' selected> Không xác định </option>");
-//            $("#lstData_D30" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
-//
-//            $("#lstData_D32" + index).children().remove().end();
-//            $("#lstData_D32" + index).prepend("<option value='000000' selected> Không xác định </option>");
-//            $("#lstData_D32" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
-
             document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
         }
-
-
-
     }
 
     function onSelectChange_dcct(value, index) {
@@ -199,7 +155,9 @@
             {
 //                $('#lstSubData31' + index).find(":selected").val() = '0'
                 document.getElementById("lstSubData31" + index).value = "0";
+                document.getElementById("lstData_D44" + index).value = "";
                 document.getElementById("lstSubData31" + index).disabled = true;
+                document.getElementById("lstData_D44" + index).disabled = true;
                 var var2, vartxt, selected;
                 $("#lstData_D30" + index).children().remove().end();
                 //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
@@ -212,7 +170,6 @@
                 $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
                     return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
                 }));
-
                 //combobox huyen
                 $("#lstData_D32" + index).children().remove().end();
                 //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
@@ -227,10 +184,7 @@
                 }));
 //                document.getElementById("lstDNHT_D33" + index).style.visibility = "visible";
                 document.getElementById("lstDataD23" + index).style.backgroundColor = "#C7C0BF";
-
                 onSelectChange(index);
-
-
                 //------------------------
                 $("#lstSubData_D33" + index).children().remove().end();
                 $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
@@ -240,30 +194,24 @@
                 document.getElementById("lstSubData31" + index).disabled = false;
                 document.getElementById("lstDataD23" + index).removeAttribute("style");
                 document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
-
                 $("#lstData_D30" + index).children().remove().end();
                 $("#lstData_D30" + index).prepend("<option value='000000' selected> Không xác định </option>");
                 $("#lstData_D30" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
-
                 $("#lstData_D32" + index).children().remove().end();
                 $("#lstData_D32" + index).prepend("<option value='000000' selected> Không xác định </option>");
                 $("#lstData_D32" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
-
-
                 //------------------------
                 $("#lstSubData_D33" + index).children().remove().end();
                 $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
-//                $("#mato").prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");
                 //----------Đề nghị cung cấp thông tin
+
                 $("#lstSubData31" + index).children().remove().end();
+                $("#lstSubData31" + index).prepend("<option value='0' " + selected + "> 0: Không </option>");
                 $("#lstSubData31" + index).prepend("<option value='1' " + selected + "> 1: Có </option>");
+
             }
-//                    $('#lstSubData31' + index).attr("disabled","disabled");
         } catch (e) {
-
         }
-
-
     }
 
     function initTable()
@@ -290,18 +238,9 @@
                         {
                             document.getElementById("lstDNHT_D33" + i).style.color = "red";
                         }
-//                        document.getElementById("lstDNHT_D33"  index).style.visibility="hidden";
-//                        document.getElementById("lstData38" + i).disabled = false;
-//                        document.getElementById("lstData39" + i).disabled = false;
-//                        document.getElementById("lstData40" + i).disabled = false;
                     } else
                     {
                         document.getElementById("lstDNHT_D33" + i).style.visibility = "hidden";
-//                        document.getElementById("lstDNHT_D33" + index).style.visibility="visible";
-                        //            alert('vao')
-//                        document.getElementById("lstData38" + i).disabled = true;
-//                        document.getElementById("lstData39" + i).disabled = true;
-//                        document.getElementById("lstData40" + i).disabled = true;
                     }
                     var D22 = $('#lstData_D22' + i).find(":selected").val();
                     if (D22 == '01')
@@ -313,25 +252,13 @@
                         //------------------------De nghị hỗ trợ
                         $("#lstSubData_D33" + i).children().remove().end();
                         $("#lstSubData_D33" + i).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
-//                        document.getElementById("lstDNHT_D33" + i).style.visibility = "visible";
                         document.getElementById("lstDNHT_D33" + i).style.visibility = "hidden";
-
                         //------------------------Đề nghị cung cấp thông tin
-                        $("#lstSubData31" + i).children().remove().end();
-                        $("#lstSubData31" + i).prepend("<option value='1' " + selected + "> 1: Có </option>");
 
                     }
-
-                }
-                {
-//                    document.getElementById("lstData38" + i).disabled = true;
-//                    document.getElementById("lstData39" + i).disabled = true;
-//                    document.getElementById("lstData40" + i).disabled = true;
                 }
             } catch (e) {
-
             }
-
         }
     }
 
@@ -351,7 +278,6 @@
         {
             $("#lstSubData_D33" + index).children().remove().end();
             $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
-//                $("#lstSubData_D33" + index).prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");
             document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
         } else
         {
@@ -368,7 +294,6 @@
         rowcount = rowcount > max_row ? rowcount : max_row;
         for (var i = 0; i < rowcount; i++)
         {
-
             try {
                 var flagPos = document.getElementById('lstData42' + i).value
                 if (flagPos != '1')
@@ -383,10 +308,7 @@
                     }
                 }
             } catch (e) {
-
             }
-
-
         }
     }
 
@@ -403,8 +325,6 @@
                 <option value="999999">Nước ngoài</option>
             </select>
         </div>
-
-
         <table id="subTable" style="z-index: 1">   
             <thead>
                 <tr>
@@ -422,59 +342,54 @@
                     <th rowspan="2" class="hdtitle" style="width: 100px">CMT/CCCD</th>
                     <th rowspan="2" class="hdtitle" style="width: 100px">Số điện thoại</th>
                     <th rowspan="2" class="hdtitle">Loại đối tượng</th>
-                    <th rowspan="2" class="hdtitle" style="width: 120px">Thời điểm đi</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Thời điểm đi</th>
                     <th rowspan="2" class="hdtitle">Mã nhóm</th>
                     <th rowspan="2" class="hdtitle">Đề nghị<br>cung cấp<br>thông tin</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Ngày đề nghị <br>cung cấp<br>thông tin</th>
                     <th rowspan="2" class="hdtitle">Thông tin hỗ trợ</th>
                     <th rowspan="2" class="hdtitle" style="width: 100px">Ngày cập nhật<br>thông tin</th>
-
                     <th rowspan="2" class="hdtitle">Thông tin <br>(100-200 ký tự)</th>
                     <th rowspan="2"class="hdtitle">Chi nhánh hộ vay <br>chuyển đến</th>
                     <th rowspan="2" class="hdtitle">PGD hộ vay <br>chuyển đến</th>
                     <th rowspan="2" class="hdtitle" style="width: 200px" >Đề nghị hỗ trợ</th>
                     <th colspan="2" class="hdtitle">Kết quả hỗ trợ</th>
                     <th rowspan="2" class="hdtitle">Tổ chức CT-XH rà soát</th>
-
-
                     <th rowspan="2" class="hdtitle">Mã quản lý</th>
                 </tr>
                 <tr>
-                    <!--<th class="hdtitle">Đề nghị hỗ trợ</th>-->
-
-                    <!--                    <th class="hdtitle">Ngày đề nghị</th>
-                                        <th class="hdtitle">Số văn bản đề nghị</th>
-                                        <th class="hdtitle">Ngày hết hiệu lực <br>đề nghị</th>-->
                     <th class="hdtitle">Kết quả hỗ trợ</th>
                     <th class="hdtitle">Kết quả hỗ trợ<br>(Trường hợp 5)</th>
                 </tr>
 
             </thead>
             <tr class="txtBody">
-                <th style="color: #000; font: italic; font-size: xx-small;"></th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(1)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(2)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(3)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(4)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(5)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(6)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(7)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(8)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(9)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(10)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(11)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(12)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(13)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(14)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(15)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(16)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(17)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(18)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(19)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(20)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(21)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(22)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(23)</th>
-                <th style="color: #000; font: italic; font-size: xx-small;">(24)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;"></th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(10)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(12)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(13)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(14)</th>
+                <!--<th style="color: #000; font: italic; font-size: xx-small;">()</th>-->
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(15)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(16)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(17)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(18)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(19)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(20)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(21)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(22)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(23)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(24)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(25)</th>
             </tr>
             <tbody>
                 <% int customerCount = 0; %>
@@ -486,7 +401,7 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].orderValue" value="<s:property value='orderValue'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].code" value="<s:property value='code'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].name" value="<s:property value='name'/>">
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].posCode" value="<s:property value='posCode'/>">
+                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].posCode" id='posCode<s:property  value='%{#idxRows.index}' />' value="<s:property value='posCode'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].posFlag" value="<s:property value='posFlag'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].branchCode" value="<s:property value='branchCode'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].reportDate" value="<s:property value='reportDate'/>">
@@ -514,10 +429,14 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d18" value="<s:property value='d18'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d19" value="<s:property value='d19'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d20" value="<s:property value='d20'/>">  
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d35" value="<s:property value='d35'/>">
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d36" value="<s:property value='d36'/>">
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d37" value="<s:property value='d37'/>">
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d50" value="<s:property value='d50'/>">
+                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d50" id="lstDataD50<s:property  value='%{#idxRows.index}' />" value="<s:property value='d50'/>">
+                            <input type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d42" id="lstData42<s:property  value='%{#idxRows.index}' />" 
+                                   value="<s:property  value="D42" />" >
+                            <input type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d39" id="lstData39<s:property  value='%{#idxRows.index}' />" 
+                                   value="<s:property  value="D39" />" >
+                            <s:if test="D42.equalsIgnoreCase('0')"> 
+                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" value="<s:property value='d32'/>">
+                            </s:if>
                         </td>
                         <td class="txtBody" >
                             <s:if test="!D50.toString().equalsIgnoreCase('2')">
@@ -586,39 +505,61 @@
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                             </s:if>
                             <s:else>
-                                <s:if test="!D50.equalsIgnoreCase('2')">
-                                    <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>" id="lstData_D21<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d21" value="<s:property value='d21'/>">                           
+                                <s:if test="!D50.equalsIgnoreCase('2') ">
+                                    <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>" id="lstData_D21<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d21" value="<s:property value='d21'/>"
+                                           <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >                           
                                 </s:if>
                                 <s:else>
-                                    <input disabled style="width: 75px; text-align: center" type="text" readonly="readonly" class=" <s:property value="d20"/>"  id="lstData_D21<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d21" value="<s:property value='d21'/>">                                                
+                                    <s:property value="d21"/>
                                 </s:else>
                             </s:else>
                         </td>
+                        <s:if test="D32.toString().equalsIgnoreCase('000000') || D32.toString().equalsIgnoreCase('99999') || D32.toString().equalsIgnoreCase('')">
+                            <td class="txtBody">
+                                <select onchange="onSelectChange_dcct(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData_D22<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >                                
+                                    <option value="02" <s:if test="d22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không có thông tin địa chỉ cụ thể</option>
+                                    <option value="01" <s:if test="d22.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Có thông tin địa chỉ cụ thể</option>
+                                    </select>
+                                </td>
+                                <td class="txtBody">
+                                        <select onchange="onSelectChange_time(this.value, <s:property  value='%{#idxRows.index}'/>)" class="<s:property value="d20"/>"
+                                        name="lstData[<s:property  value='%{#idxRows.index}' />].d31" 
+                                        id="lstSubData31<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if>> 
+                                    <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
+                                    <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
+                                    </select>
+                                </td>
+                                <td>
+                                <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
+                                </s:if>
+                                <s:else>
+                                    <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>" 
+                                           id="lstData_D44<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d44" value="<s:property value='d44'/>">                           
+
+                                </s:else>
+                            </td>   
+                        </s:if>
+                        <s:else>
+                            <td class="txtBody" style="background: #f2f2f2">
+                                <s:if test="d22.equalsIgnoreCase('01')"><a>Có thông tin địa chỉ cụ thể</a></s:if>
+                                <s:elseif test="d22.equalsIgnoreCase('02')"><a>Không có thông tin địa chỉ cụ thể</a></s:elseif>
+                                </td>
+                                <td class="txtBody" style="background: #f2f2f2">
+                                <s:if test="d31.equalsIgnoreCase('0')"><a>Không</a></s:if>
+                                <s:elseif test="d31.equalsIgnoreCase('1')"><a>Có</a></s:elseif>
+                                </td>
+                                <td class="txtBody" style="background: #f2f2f2"><s:property value="d44"/></td>      
+                        </s:else>
+
                         <td class="txtBody">
-                            <select onchange="onSelectChange_dcct(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData_D22<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >                                
-                                <option value="02" <s:if test="d22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không có thông tin địa chỉ cụ thể</option>
-                                <option value="01" <s:if test="d22.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Có thông tin địa chỉ cụ thể</option>
-                                </select>
-                            </td>
-                            <td class="txtBody">
-                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData31<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if>> 
-                                <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
-                                <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
-                                </select></td>
-                            <td class="txtBody">
-                                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].D27" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if>><s:property value='d27'/> </textarea>
-                            <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d42" id="lstData42<s:property  value='%{#idxRows.index}' />" 
-                                   value="<s:property  value="D42" />" >
-                            <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d39" id="lstData39<s:property  value='%{#idxRows.index}' />" 
-                                   value="<s:property  value="D39" />" >
-                        </td>
-                        <td>
+                           <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstDataD27<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> ><s:property value='d27'/></textarea>
+                             </td>
+
+                            <td>
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                             </s:if>
                             <s:else>
-
-                                <input  style="width: 75px; text-align: center" type="text" readonly="readonly" class=" <s:property value="d20"/>"  id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> value="<s:property value='d26'/>">                                                
-                                <%--</s:else>--%>
+                                <input  style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>"  id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> value="<s:property value='d26'/>">                                                
                             </s:else>
                         </td>
 
@@ -694,7 +635,6 @@
                                    >link</a>
                             </s:else>
 
-
                         </td>
 
                         <td class="txtBody">
@@ -705,7 +645,7 @@
                                 <option value="2" <s:if test="d34.equalsIgnoreCase('2')"> selected </s:if> <s:else></s:else>>02: Khách hàng thuộc đối tượng xử lý nợ bị rủi ro</option>
                                 <option value="3" <s:if test="d34.equalsIgnoreCase('3')"> selected </s:if> <s:else></s:else>>03: Khách hàng chây ỳ</option>
                                 <option value="4" <s:if test="d34.equalsIgnoreCase('4')"> selected </s:if> <s:else></s:else>>04: Không liên hệ được với khách hàng</option>
-                                <option value="5" <s:if test="d34.equalsIgnoreCase('5')"> selected </s:if> <s:else></s:else>>05: Khách hàng cam kết thực hiện nghĩa vụ trả nợ</option>
+                                <option value="5" <s:if test="d34.equalsIgnoreCase('5')"> selected </s:if> <s:else></s:else>>05: Khách hàng không nhận nợ</option>
                                 </select></td>
                             <td class="txtBody">
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
@@ -722,7 +662,8 @@
                                 <option value="02" <s:if test="d24.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không liên hệ được</option>
                                 <option value="03" <s:if test="d24.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Liên hệ được nhưng không cam kết</option>
                                 <option value="04" <s:if test="d24.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>04: Liên hệ được nhưng không nhận nợ</option>
-                                <option value="05" <s:if test="d24.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>0    5: không thực hiện cam kết</option>
+                                <option value="05" <s:if test="d24.equalsIgnoreCase('05')"> selected </s:if> <s:else></s:else>>05: Không thực hiện cam kết</option>
+
                                 </select>
                             </td>
 
@@ -741,7 +682,6 @@
         </table>
         </br> 
 
-        </br>
     </div>
 </body>
 <script>
@@ -762,18 +702,42 @@
         });
     });
 
-//    function showHref() {
-//        var select = document.getElementById("lstSubData_D331");
-//        var link = document.getElementById("myLink");
-//        var value = $('#lstSubData_D33' + i).find(":selected").val();
-//        alert('vao 1');
-//        if (value 1 == "1") {
-//            alert('vao 1' + select.value);
-//            link.href = "javascript:funcThanhVien('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>')";
-//            link.textContent = "Chọn";
-//        } else {
-//        }
-//    }
+   
 
+    function onSelectChange_time(value, index) {
+        if (value == '1') {
+            document.getElementById("lstData_D44" + index).disabled = false;
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+            var currentDate = dd + '/' + mm + '/' + yyyy;
+            document.getElementById("lstData_D44" + index).value = currentDate;
+        } else {
+            document.getElementById("lstData_D44" + index).disabled = true;
+        }
+    }
 
+    function initTable2()
+    {
+        var table = document.getElementById("subTable");
+        var rowcount = table.rows.length;
+        rowcount = rowcount > max_row ? rowcount : max_row;
+        for (var i = 0; i < rowcount; i++)
+        {
+            try {
+                var value = $('#lstSubData31' + i).find(":selected").val();
+                var value1 = $('#lstData_D22' + i).find(":selected").val();
+                if (value == '1' && value1 == '02')
+                {
+                    document.getElementById("lstData_D44" + i).disabled = false;
+                } else
+                {
+                    document.getElementById("lstData_D44" + i).disabled = true;
+                }
+            } catch (e) {
+            }
+        }
+    }
+    initTable2();
 </script>
