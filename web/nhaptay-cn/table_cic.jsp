@@ -630,8 +630,16 @@
                                     <input type="checkbox" id ="idc20<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c20" value="<s:property  value="cicCode" />"
                                 </td>
 
-                                <td class="D0">
+<!--                                <td class="D0">
                                     <input type="checkbox" id ="idc21<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c21" value="<s:property  value="cicCode" />"
+                                </td>-->
+                                <td class="TD_SOTIEN" <s:if test="statusString.equalsIgnoreCase('0')"> style="background: #F9C6BB" </s:if> >
+                                <select 
+                                        style="width: 100%"  name="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString" id="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString">
+                                    <option value="0" <s:if test="statusString.equalsIgnoreCase('0')"> selected </s:if><s:else></s:else>>Chưa rà soát</option>
+                                    <option value="1" <s:if test="statusString.equalsIgnoreCase('1')"> selected </s:if><s:else></s:else>>Đã điều chỉnh trên Intellect</option>
+                                    <option value="2" <s:if test="statusString.equalsIgnoreCase('2')"> selected </s:if><s:else></s:else>>Đóng CIF</option>
+                                    </select> 
                                 </td>
                             </s:if>
                             <!--Rà soát trực tiếp với khách hàng mẫu 03/RS-->
