@@ -208,7 +208,7 @@
                 $("#lstSubData31" + index).children().remove().end();
                 $("#lstSubData31" + index).prepend("<option value='0' " + selected + "> 0: Không </option>");
                 $("#lstSubData31" + index).prepend("<option value='1' " + selected + "> 1: Có </option>");
-            
+
             }
         } catch (e) {
         }
@@ -401,7 +401,7 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].orderValue" value="<s:property value='orderValue'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].code" value="<s:property value='code'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].name" value="<s:property value='name'/>">
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].posCode" value="<s:property value='posCode'/>">
+                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].posCode" id='posCode<s:property  value='%{#idxRows.index}' />' value="<s:property value='posCode'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].posFlag" value="<s:property value='posFlag'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].branchCode" value="<s:property value='branchCode'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].reportDate" value="<s:property value='reportDate'/>">
@@ -429,7 +429,11 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d18" value="<s:property value='d18'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d19" value="<s:property value='d19'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d20" value="<s:property value='d20'/>">  
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d50" value="<s:property value='d50'/>">
+                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d50" id="lstDataD50<s:property  value='%{#idxRows.index}' />" value="<s:property value='d50'/>">
+                            <input type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d42" id="lstData42<s:property  value='%{#idxRows.index}' />" 
+                                   value="<s:property  value="D42" />" >
+                            <input type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d39" id="lstData39<s:property  value='%{#idxRows.index}' />" 
+                                   value="<s:property  value="D39" />" >
                             <s:if test="D42.equalsIgnoreCase('0')"> 
                                 <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" value="<s:property value='d32'/>">
                             </s:if>
@@ -510,46 +514,54 @@
                                 </s:else>
                             </s:else>
                         </td>
-                        <td class="txtBody">
-                            <select onchange="onSelectChange_dcct(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData_D22<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >                                
-                                <option value="02" <s:if test="d22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không có thông tin địa chỉ cụ thể</option>
-                                <option value="01" <s:if test="d22.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Có thông tin địa chỉ cụ thể</option>
-                                </select>
-                            </td>
+                        <s:if test="D32.toString().equalsIgnoreCase('000000') || D32.toString().equalsIgnoreCase('99999') || D32.toString().equalsIgnoreCase('')">
                             <td class="txtBody">
-                                    <select onchange="onSelectChange_time(this.value, <s:property  value='%{#idxRows.index}'/>)" class="<s:property value="d20"/>"
-                                    name="lstData[<s:property  value='%{#idxRows.index}' />].d31" 
-                                    id="lstSubData31<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if>> 
-                                <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
-                                <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
-                                </select>
-                            </td>
+                                <select onchange="onSelectChange_dcct(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData_D22<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >                                
+                                    <option value="02" <s:if test="d22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không có thông tin địa chỉ cụ thể</option>
+                                    <option value="01" <s:if test="d22.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Có thông tin địa chỉ cụ thể</option>
+                                    </select>
+                                </td>
+                                <td class="txtBody">
+                                        <select onchange="onSelectChange_time(this.value, <s:property  value='%{#idxRows.index}'/>)" class="<s:property value="d20"/>"
+                                        name="lstData[<s:property  value='%{#idxRows.index}' />].d31" 
+                                        id="lstSubData31<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if>> 
+                                    <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
+                                    <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
+                                    </select>
+                                </td>
+                                <td>
+                                <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
+                                </s:if>
+                                <s:else>
+                                    <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>" 
+                                           id="lstData_D44<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d44" value="<s:property value='d44'/>">                           
+
+                                </s:else>
+                            </td>   
+                        </s:if>
+                        <s:else>
+                            <td class="txtBody" style="background: #f2f2f2">
+                                <s:if test="d22.equalsIgnoreCase('01')"><a>Có thông tin địa chỉ cụ thể</a></s:if>
+                                <s:elseif test="d22.equalsIgnoreCase('02')"><a>Không có thông tin địa chỉ cụ thể</a></s:elseif>
+                                </td>
+                                <td class="txtBody" style="background: #f2f2f2">
+                                <s:if test="d31.equalsIgnoreCase('0')"><a>Không</a></s:if>
+                                <s:elseif test="d31.equalsIgnoreCase('1')"><a>Có</a></s:elseif>
+                                </td>
+                                <td class="txtBody" style="background: #f2f2f2"><s:property value="d44"/></td>      
+                        </s:else>
+
+                        <td class="txtBody">
+                           <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstDataD27<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> ><s:property value='d27'/></textarea>
+                             </td>
+
                             <td>
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                             </s:if>
                             <s:else>
-                                <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>" 
-                                       id="lstData_D44<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d44" value="<s:property value='d44'/>">                           
-
+                                <input  style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>"  id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> value="<s:property value='d26'/>">                                                
                             </s:else>
                         </td>
-
-                        <td class="txtBody">
-                            <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData[<s:property  value='%{#idxRows.index}' />].d27" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if>><s:property value='d27'/> </textarea>
-                            <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d42" id="lstData42<s:property  value='%{#idxRows.index}' />" 
-                                   value="<s:property  value="D42" />" >
-                            <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d39" id="lstData39<s:property  value='%{#idxRows.index}' />" 
-                                   value="<s:property  value="D39" />" >
-                        </td>
-
-                        <s:if test="D32.equalsIgnoreCase('000000') || D32.equalsIgnoreCase('99999') || D32.equalsIgnoreCase('')">
-                            <td class="txtBody" style="background: #f2f2f2"><s:property value="D26"/> </td>
-                            <%--</s:else>--%>
-                        </s:if>
-                        <s:else>
-                            <td> <input  style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>"  id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> value="<s:property value='d26'/>">                                                
-                                </td>
-                        </s:else>   
 
                         <td class="txtBody">
                             <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstDataD23<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d23" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> ><s:property value='d23'/></textarea>
@@ -623,7 +635,6 @@
                                    >link</a>
                             </s:else>
 
-
                         </td>
 
                         <td class="txtBody">
@@ -651,6 +662,8 @@
                                 <option value="02" <s:if test="d24.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không liên hệ được</option>
                                 <option value="03" <s:if test="d24.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Liên hệ được nhưng không cam kết</option>
                                 <option value="04" <s:if test="d24.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>04: Liên hệ được nhưng không nhận nợ</option>
+                                <option value="05" <s:if test="d24.equalsIgnoreCase('05')"> selected </s:if> <s:else></s:else>>05: Không thực hiện cam kết</option>
+
                                 </select>
                             </td>
 
@@ -669,7 +682,6 @@
         </table>
         </br> 
 
-        </br>
     </div>
 </body>
 <script>
@@ -689,6 +701,8 @@
             }
         });
     });
+
+   
 
     function onSelectChange_time(value, index) {
         if (value == '1') {
