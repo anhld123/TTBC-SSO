@@ -203,21 +203,21 @@
                     {
                         $('input:checkbox[id=idc19' + i + ']').attr('checked', true);
                     }
-                    
+
                     //cho combox 20
                     var matmp20 = getMabyNumber20(i);//                       
                     if (matmp20 == 1)
                     {
                         $('input:checkbox[id=idc20' + i + ']').attr('checked', true);
                     }
-                    
+
                     //cho combox 21
                     var matmp21 = getMabyNumber21(i);//                       
                     if (matmp21 == 1)
                     {
                         $('input:checkbox[id=idc21' + i + ']').attr('checked', true);
                     }
-                    
+
                     //-------------------------------------------------------------------------------
                     //cho combox 28
                     var matmp28 = getMabyNumber28(i);//                       
@@ -321,7 +321,7 @@
                 }
                 return ma;
             }
-            
+
             function getMabyNumber21(idx)
             {
                 var ma = '';
@@ -334,7 +334,7 @@
                 }
                 return ma;
             }
-            
+
             function getMabyNumber28(idx)
             {
                 var ma = '';
@@ -407,10 +407,10 @@
                     <font style="red"  class="test123"> <s:property value="messageErr"/></font>
                     <!--<br>-->
                 </a>
-                    
-                    <input type="hidden"  id="rasoat_dc" name="rasoat_dc"
-                                       value="<s:property  value="rasoat_dc"/>"/>
-                     
+
+                <input type="hidden"  id="rasoat_dc" name="rasoat_dc"
+                       value="<s:property  value="rasoat_dc"/>"/>
+
                 <table id="subTableSum" style="z-index: 10; width: 50%">
                     <tr style="height:25px;">
 
@@ -539,7 +539,7 @@
                                 <input type="hidden" value="<s:property  value="mainPos"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].mainPos" value="<s:property  value="mainPos"/>"/>
                                 <input type="hidden" value="<s:property  value="posCode"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].posCode" value="<s:property  value="posCode"/>"/>
                                 <input type="hidden" value="<s:property  value="customerCode"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].customerCode" value="<s:property  value="customerCode"/>"/>
-                                <input type="hidden" value="<s:property  value="cicCode"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].cicCode" value="<s:property  value="cicCode"/>"/>
+                                <input type="hidden" value="<s:property  value="cicCode"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].cicCode" value="<s:property  value="cicCode"/>" id="kye1<s:property  value="%{#rowstatus.index}" />"/>
                                 <input type="hidden" value="<s:property  value="customerName"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].customerName" value="<s:property  value="customerName"/>"/>
                                 <input type="hidden" value="<s:property  value="isValidCustomerName"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].isValidCustomerName" value="<s:property  value="isValidCustomerName"/>"/>
                                 <input type="hidden" value="<s:property  value="birthDay"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].birthDay" value="<s:property  value="birthDay"/>"/>
@@ -611,7 +611,7 @@
                             <s:if test="rasoat_dc.equalsIgnoreCase('1')">  
                                 <!--sai với hồ sơ vv-->
                                 <td class="D0">    
-                                    <input type="checkbox" id ="idc14<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c14" value="<s:property  value="cicCode" />"             
+                                    <input type="checkbox" id ="idc14<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_dnht1 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c14" value="<s:property  value="cicCode" />"             
                                 </td> 
 
                                 <!--sai họ tên-->
@@ -640,16 +640,16 @@
                             <s:else>
                                 <!--ho tên-->
                                 <td class="D0">    
-                                    <input type="checkbox" id ="idc28<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c28" value="<s:property  value="cicCode" />"             
+                                    <input type="checkbox" id ="idc28<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_dnht2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c28" value="<s:property  value="cicCode" />"             
                                 </td> 
 
                                 <!--cccd-->
                                 <td class="D0">    
-                                    <input type="checkbox" id ="idc29<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c29" value="<s:property  value="cicCode" />"             
+                                    <input type="checkbox" id ="idc29<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_dnht2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c29" value="<s:property  value="cicCode" />"             
                                 </td> 
                                 <!--ngay thang nam sinh-->
                                 <td class="D0">
-                                    <input type="checkbox" id ="idc30<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c30" value="<s:property  value="cicCode" />"      
+                                    <input type="checkbox" id ="idc30<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_dnht2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c30" value="<s:property  value="cicCode" />"      
                                 </td>
 
                                 <!--CHưa làm cccd-->
@@ -679,12 +679,18 @@
     <script>
 
         function onSelectChange_dnht1(value, index) {
-            if (value == '2')
+            if (document.getElementById("id14_" + i).value !== '1')
             {
-                document.getElementById("lstData41" + index).disabled = false;
+                document.getElementById("idc15" + index).disabled = false;
+                document.getElementById("idc16" + index).disabled = false;
+                document.getElementById("idc19" + index).disabled = false;
+                document.getElementById("idc20" + index).disabled = false;
             } else
             {
-                document.getElementById("lstData41" + index).disabled = true;
+                document.getElementById("idc15" + index).disabled = true;
+                document.getElementById("idc16" + index).disabled = true;
+                document.getElementById("idc19" + index).disabled = true;
+                document.getElementById("idc20" + index).disabled = true;
             }
         }
 
@@ -698,23 +704,101 @@
 
                 try {
 
-                    var value = $('#custCIC' + i).find(":selected").val();
-                    if (value == '2')
+                    if (document.getElementById("id14_" + i).value !== '1')
                     {
-                        document.getElementById("lstData41" + i).disabled = false;
+                        document.getElementById("idc15" + i).disabled = false;
+                        document.getElementById("idc16" + i).disabled = false;
+                        document.getElementById("idc19" + i).disabled = false;
+                        document.getElementById("idc20" + i).disabled = false;
                     } else
                     {
-                        document.getElementById("lstData41" + i).disabled = true;
+                        document.getElementById("idc15" + i).disabled = true;
+                        document.getElementById("idc16" + i).disabled = true;
+                        document.getElementById("idc19" + i).disabled = true;
+                        document.getElementById("idc20" + i).disabled = true;
                     }
-
                 } catch (e) {
-
                 }
+            }
+        }
 
+        var checkboxes = document.querySelectorAll('.onSelectChange_dnht1');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('change', function () {
+                var currentRow = this.parentNode.parentNode;
+                var currentRowIndex = currentRow.rowIndex;
+
+                if (this.checked) {
+                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = true;
+                } else {
+                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = false;
+                }
+            });
+        }
+
+        function onSelectChange_dnht2(value, index) {
+            
+            if (document.getElementById("id28_" + i).value !== '1' 
+                && document.getElementById("id29_" + i).value !== '1' 
+                && document.getElementById("id30_" + i).value !== '1')
+            {
+                document.getElementById("idc31" + index).disabled = false;
+            } else
+            {
+                document.getElementById("idc31" + index).disabled = true;
 
             }
         }
 
+        function initTable2()
+        {
+            var table = document.getElementById("subTable");
+            var rowcount = table.rows.length;
+            rowcount = rowcount > max_row ? rowcount : max_row;
+            for (var i = 0; i < rowcount; i++)
+            {
+
+                try {
+
+                    if (document.getElementById("id28_" + i).value !== '1' 
+                         && document.getElementById("id29_" + i).value !== '1' 
+                         && document.getElementById("id30_" + i).value !== '1' )
+                    {
+                        document.getElementById("idc31" + i).disabled = false;
+                      
+                    } else
+                    {
+                        document.getElementById("idc31" + i).disabled = true;
+                     
+                    }
+                } catch (e) {
+                }
+            }
+        }
+        
+          var checkboxes = document.querySelectorAll('.onSelectChange_dnht2');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('change', function () {
+                var currentRow = this.parentNode.parentNode;
+                var currentRowIndex = currentRow.rowIndex;
+
+                if (this.checked) {
+                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = true;
+                } else {
+             
+                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = false;
+                }
+            });
+        }
+        
         initTable();
+        initTable1();
+        initTable2();
     </script>
 </html>
