@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
+import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.restapi.DuLieuNTRowX;
 
 
@@ -341,5 +342,38 @@ public class LeaveHomeDao {
             }
         }
         return _retVal;
+    }
+    public boolean save_CN_BO_DI_KHOI_DP(String khoa, String mapgd, String sGrade, String sNgaybc, String username, List<QT_DULIEU_NT> lstData, String sType) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call BODI_KHOIDP.SP_SAVE_BO_DI_KHOI_DP(?, ?, ?, ?, ?, ?, ?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, mapgd);
+            cs.setString(3, sGrade);
+            cs.setString(4, sNgaybc);
+            cs.setString(5, username);
+            cs.setArray(6, array_to_pass);
+            cs.setString(7, sType);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham save BDKPD" + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " save BDKPD-> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
     }
 }

@@ -147,10 +147,23 @@ public class NQ11cpModel {
     String m03SubsidyTranDate;
     double m12AccountingIntAmt;
     String disbursalDate;
+    String lastPaymentDate;
     String editFlag;
     String rejectReason;
     String paymentMethod;
 
+    public String getLastPaymentDate() {
+        return lastPaymentDate;
+    }
+
+    public void setLastPaymentDate(String lastPaymentDate) {
+        this.lastPaymentDate = lastPaymentDate;
+    }
+    
+
+
+
+    
     public String getMainPos() {
         return mainPos;
     }

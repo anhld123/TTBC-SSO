@@ -25,6 +25,10 @@
         <action name="popupXuLyNo" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupXuLyNo">
             <result name="success">/leavelocal/popupxulyno.jsp</result>
         </action>
+        
+        <action name="popupDeNghiHT" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupDeNghiHT">
+            <result name="success">/leavelocal/popupdenghihotro.jsp</result>
+        </action>
        
         
         <action name="saveLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="saveLeaveLocal">
@@ -51,6 +55,13 @@
                 <param name="inputName">pageResult</param>
             </result>
         </action>  
+        
+        <action name="saveDeNghiHT" class="vbsp.ims.leavelocal.LeaveTheLocal" method="saveDeNghiHT">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action> 
         
         <action name="updateClhMember" class="vbsp.ims.leavelocal.LeaveTheLocal" method="updateMember">
             <result name="success" type="stream">

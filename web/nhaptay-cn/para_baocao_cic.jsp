@@ -132,7 +132,7 @@
             }
 
             #navParamUp{
-                height: 65px;
+                height: 35px;
                 padding:0px;
                 padding-bottom: 0px;
                 padding-top: 0px;
@@ -193,7 +193,7 @@
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
                 $('#divExportReportLink').empty();
-//                var khoa_nghiquyet11cp = $("#khoa_nghiquyet11cp").val();
+//                var khoa_nhaptaycn = $("#khoa_nhaptaycn").val();
 //                var maxa = $("#maxa").val();
 ////                alert(maxa);
 //                if(maxa === "000000")
@@ -217,8 +217,8 @@
 //                    $('#message_suc_err').html("<h2 style='color: red'>Bạn đã chốt số liệu, vui lòng chọn Cập nhật hạch toán GL !</h2>");
 //                    return;
 //                }
-                 
-                var khoa = $("#khoa_nghiquyet11cp").val() + "_save";
+
+                var khoa = $("#khoa_nhaptaycn").val() + "_save";
 //                alert(khoa);
                 if (!bsubmit)
                 {
@@ -258,7 +258,7 @@
 //                    return;
 //                }
 //                alert(poscd);
-                var khoa = $("#khoa_nghiquyet11cp").val() + "_save_htlai";
+                var khoa = $("#khoa_nhaptaycn").val() + "_save_htlai";
 //                alert(khoa);
                 if (!bsubmit)
                 {
@@ -336,7 +336,7 @@
             {
 
                 var pos_cd = '';
-                var idform = 'id_' + '<s:property value="khoa_nghiquyet11cp"/>';
+                var idform = 'id_' + '<s:property value="khoa_nhaptaycn"/>';
                 var element = document.forms[idform].elements;
 //                 alert('bat dau goi submit idform='+idform);
                 var i = element.length;
@@ -406,7 +406,7 @@
 //                    return;
 //                }
 
-                var idform = 'idform_open_' + '<s:property value="khoa_nghiquyet11cp"/>';
+                var idform = 'idform_open_' + '<s:property value="khoa_nhaptaycn"/>';
                 if ($('#' + idform + ' input:checkbox:checked').length > 0)
                 {
                     $("#" + khoa)[0].click();
@@ -417,33 +417,51 @@
 //                    $('#divExportReport').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần mở khóa !</h2>");
                 }
             }
-            
-            function reLoadValue(val) {
-                    var var2, vartxt, selected;
-                    $("#mato").children().remove().end();
-                    $("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-                    $("#mato_data > option").each(function () {
-                        var2 = $(this).val().substr(0, 6);
-                        if (val.trim() == var2.trim()) {
-                            $(this).val() == vartxt ? selected = " selected" : selected = "";
-                            $("#mato").prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-                        }
-                    });
-                    
-                    $("#mato").html($("#mato option").sort(function (a, b) {
-                        return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-                    }));
-                };
 
+            function reLoadValue(val) {
+                var var2, vartxt, selected;
+                $("#mato").children().remove().end();
+
+                $("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
+                $("#mato").prepend("<option value='000000_NOGROUP' " + selected + "> NOGROUP -> Trực tiếp</option>");
+                $("#mato_data > option").each(function () {
+                    var2 = $(this).val().substr(0, 6);
+                    if (val.trim() == var2.trim()) {
+                        $(this).val() == vartxt ? selected = " selected" : selected = "";
+                        $("#mato").prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+                    }
+                });
+
+                $("#mato").html($("#mato option").sort(function (a, b) {
+                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+                }));
+                document.getElementById("labelPageNumber").style.visibility = "hidden";
+                document.getElementById("pageNumber").style.visibility = "hidden";
+            }
+            ;
+
+            function reLoadValueMaTo(val) {
+                if (val == "000000_NOGROUP")
+                {
+                    document.getElementById("labelPageNumber").style.visibility = "visible";
+                    document.getElementById("pageNumber").style.visibility = "visible";
+                } else
+                {
+                    document.getElementById("labelPageNumber").style.visibility = "hidden";
+                    document.getElementById("pageNumber").style.visibility = "hidden";
+                }
+
+            }
+            ;
 
 
         </script>
     </head>
-<!--new java.util.Date()-->
+    <!--new java.util.Date()-->
     <body>
         <div id="container" >
-            <s:form id="id_%{khoa_nghiquyet11cp}" name="name_%{khoa_nghiquyet11cp}" action="%{khoa_nghiquyet11cp}" theme="simple">
-                <s:hidden name="khoa_nghiquyet11cp" id="khoa"/>
+            <s:form id="id_%{khoa_nhaptaycn}" name="name_%{khoa_nhaptaycn}" action="%{khoa_nhaptaycn}" theme="simple">
+                <s:hidden name="khoa_nhaptaycn" id="khoa"/>
                 <s:hidden name="ReportDate" id="ReportDate" value=""/>
                 <s:hidden name="Grade" id="Grade"/>
                 <s:hidden name="UserName" id="UserName"/>
@@ -454,21 +472,17 @@
                             <tr style="height: 30px;">
                                 <td>Ngày BC</td>
                                 <td>
-                                    <sj:datepicker name="ngay_bc_DATE" value="%{'30/06/2022'}"  id="ngay_bc_DATE"
+                                    <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
                                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
                                 </td>
-                                <td>Chương trình:</td>
-                                <td>                                               
-                                    <s:select  style="width: 150px;"  list="lstChuongtrinh" id="chuongtrinh" name="chuongtrinh" listKey="sKey" listValue="sDesc"></s:select> &nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td >Mã xã:</td>
+                                <td >&nbsp;&nbsp;&nbsp;Mã xã:</td>
                                 <td  >                                               
                                     <s:select  style="width: 229px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
                                                onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td >Mã tổ:</td>
-                                <td>
-                                    <s:select  style="width: 220px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc"></s:select>
+                                    </td>
+                                    <td >Mã tổ:</td>
+                                    <td>
+                                    <s:select  style="width: 220px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
                                     <s:select  
                                         id="mato_data"
                                         list="lstMato" 
@@ -479,62 +493,30 @@
                                         cssStyle="display:none;">
                                     </s:select>
                                 </td>
-                                <!--  <td >Phân loại:</td>
-                                <td  >                                               
-                                    <s:select  style="width: 100px;"  list="lstPhanloai" id="phanloai" name="phanloai" listKey="sKey" listValue="sDesc"></s:select>
-                                </td>-->
-                                    
-                                <td >Phân loại:</td>
-                                            <td>
-                                                <select name="phanloai" id="phanloai">
-                                                    <option value="-1">--Tất cả--</option>
-                                                    <option value="0">RPA</option>                                                    
-                                                    <option value="1">Hạch toán</option>        
-                                                </select>
-                                            </td>       
-                            </tr>  
-                            <tr>
-<!--                                    <td >Giải ngân:</td>
-                                    <td  >                                               
-                                        <s:select  style="width: 100px;"  list="lstGiaiNgan" id="giaingan" name="giaingan" listKey="sKey" listValue="sDesc"></s:select>
-                                    </td>-->
-                                <td >Trạng thái:</td>
-                                            <td>
-                                                <select name="giaingan" id="giaingan">
-                                                    <option value="-1">--Tất cả--</option>
-                                                    <!--<option value="1">Món vay tất toán</option>-->                                                    
-                                                    <!--<option value="2">Giải ngân sau 31/5/2022</option>-->    
-                                                    <option value="3">Giải ngân đến 30/9/2023</option>  
-                                                    <option value="4">Giải ngân sau 30/9/2023</option>  
-                                                    <option value="5">Trả nợ sau 30/9/2023</option>  
-                                                </select>
-                                            </td>         
-
-                                <td >Nhà đầu tư:</td>
-                                <td colspan="3">                                               
-                                    <s:select  style="width: 345px;"  list="lstNhadautu" id="nha_dt" name="nha_dt" listKey="sKey" listValue="sDesc"></s:select>
-                                </td>     
+                                <td><label  id="labelPageNumber">Trang thứ</td>
+                                <td style="width: 40px;">
+                                    <input  type="number" min="1" max="500" width="40px;" value="1" id="pageNumber" name="pageNumber" placeholder="Trang thứ" title="Trang thứ">
+                                </td>
                                 <td colspan="2">                                        
                                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                                onBeforeTopics="beforediv_data"
                                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
                                     <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                                     <s:if test="Grade.equalsIgnoreCase('1')">
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận HTLS"/> 
-                                        <!--<td><input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="CN hạch toán GL"/> </td>-->
-                                        
+                                        <s:if test="chotCic.equalsIgnoreCase('1')">
+                                            <font style="color: red"> PGD đã được chốt số liệu
+                                        </s:if>
+                                        <s:else>
+                                            <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> 
+                                        </s:else>    
+
                                     </s:if>
                                     <s:else>
                                         <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/>
                                     </s:else>    
-                                    
+
                                 </td>
-<!--                                <td colspan="2">
-                                    <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/>
-                                </td>-->
-                                <td></td>
-<!--                                <td colspan="2">
-                                    <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="Cập nhật hạch toán GL"/> </td>                                -->
+
                                 <td  colspan="2">
                                     <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
                                         <img id="loadingImage" src='img/loading.gif' border='0' >
@@ -543,13 +525,13 @@
                                 <td colspan="2">
                                     <div id="message_suc_err"> 
                                     </div>
-                                </td>
-                            </tr>
+                                </td>    
+                            </tr>  
                         </table>    
                     </div>
                 </div>
 
-                <s:if test="khoa_nghiquyet11cp.equalsIgnoreCase('NQ11CP_001')">
+                <s:if test="khoa_nhaptaycn.equalsIgnoreCase('CIC_001')">
                     <div id="containParm_full" align="center">
                         <div id="divExportReport"></div>
                         <div align="right"  id="divExportReportLink"></div>
@@ -580,9 +562,12 @@
             </s:form>
         </div>
         <script>
-        $(document).ready(function () {            
-            document.getElementById('ngay_bc_DATE').value = "31/10/2023";
-        })
+            $(document).ready(function () {
+                document.getElementById('ngay_bc_DATE').value = "31/12/2023";
+            })
+            $('#ngay_bc_DATE').datepicker('disable');
+            document.getElementById("labelPageNumber").style.visibility = "hidden";
+            document.getElementById("pageNumber").style.visibility = "hidden";
         </script>
     </div>
 </body>

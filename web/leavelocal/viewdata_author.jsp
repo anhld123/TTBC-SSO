@@ -12,11 +12,11 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         border-spacing: 0;
-        width: 175%;
+        width: 170%;
     }
     #subTable th{
-        background-color: #028e07;
-        color: white;
+        background-color: #ddd;
+        color: #0000FF;
     }
 
     #subTable th, #subTable td {
@@ -26,6 +26,7 @@
     #subTable tr:nth-child(even){background-color: #f2f2f2;}
 
     #subTable tr:hover {background-color: #ddd;}
+
 
     .txtPublic{
         width: 85px;
@@ -131,34 +132,68 @@
         <table id="subTable" style="z-index: 1;">
             <thead>
                 <tr>
-                    <th  class="hdtitle">
+                    <th  rowspan="2" class="hdtitle">
                         <input type="checkbox" id ="select-all"/>
                     </th>  
-                    <th class="hdtitle">STT</th>
-                    <th class="hdtitle">Tên chi nhánh</th>
-                    <th class="hdtitle">Tên PGD</th>
-                    <th class="hdtitle">Tên xã</th>
-                    <th class="hdtitle">Tên tổ trưởng</th>
-                    <th class="hdtitle">Mã KH</th>
-                    <th class="hdtitle">Tên khách hàng vay vốn</th>
-                    <th class="hdtitle">Năm sinh</th>
-                    <th class="hdtitle">CMT/CCCD</th>
-                    <th class="hdtitle">Số điện thoại</th>
-                    <th class="hdtitle">Loại đối tượng</th>
-                    <th class="hdtitle">Thời điểm đi</th>
-                    <th class="hdtitle">Mã nhóm</th>
-                    <th class="hdtitle">Mã quản lý</th>
-                    <th class="hdtitle">Thông tin (100-200 ký tự)</th>
-                    <th class="hdtitle">Chi nhánh hộ vay chuyển đến</th>
-                    <th class="hdtitle">PGD hộ vay chuyển đến</th>
-                    <th class="hdtitle">Đề nghị hỗ trợ</th>
-                    <th class="hdtitle">Kết quả thu hồi nợ</th>
-                    <th class="hdtitle">Tình trạng xử lý nợ</th>
-                    <th class="hdtitle">Ngày bắt đầu trả nợ</th>
-                    <th class="hdtitle">Tổ chức CT-XH rà soát</th>
-                    <th class="hdtitle">Đề nghị cung cấp thông tin</th>
+                    <th rowspan="2" class="hdtitle">STT</th>
+                    <th rowspan="2" class="hdtitle">Tên chi nhánh</th>
+                    <th rowspan="2" class="hdtitle">Tên PGD</th>
+                    <th rowspan="2" class="hdtitle">Tên xã</th>
+                    <th rowspan="2" class="hdtitle">Tên tổ trưởng</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Mã KH</th>
+                    <th rowspan="2" class="hdtitle">Tên KH vay vốn</th>
+                    <th rowspan="2" class="hdtitle" style="width: 80px">Năm sinh</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">CMT/CCCD</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Số điện thoại</th>
+                    <th rowspan="2" class="hdtitle">Loại đối tượng</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Thời điểm đi</th>
+                    <th rowspan="2" class="hdtitle" style="width: 150px">Mã nhóm</th>
+                    <th rowspan="2" class="hdtitle">Đề nghị <br>cung cấp thông tin</th>
+                   
+                    <th rowspan="2" class="hdtitle" style="width: 250px">Thông tin <br>(100-200 ký tự)</th>
+                    <th rowspan="2"class="hdtitle">Chi nhánh hộ vay <br>chuyển đến</th>
+                    <th rowspan="2" class="hdtitle">PGD hộ vay <br>chuyển đến</th>
+                    <th rowspan="2" class="hdtitle" style="width: 200px" >Đề nghị hỗ trợ</th>
+                    <th colspan="2" class="hdtitle" >Kết quả hỗ trợ</th>
+                    <th rowspan="2" class="hdtitle">Tổ chức CT-XH rà soát</th>
+
+                    <th rowspan="2" class="hdtitle" style="width: 250px">Thông tin hỗ trợ</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Ngày cập nhật<br>thông tin</th>
+                     <th rowspan="2" class="hdtitle"style="width: 150px" >Mã quản lý</th>
                 </tr>
+                <tr>
+                    <th class="hdtitle" style="width: 200px">Kết quả hỗ trợ</th>
+                    <th class="hdtitle" style="width: 250px">Kết quả hỗ trợ<br>(Trường hợp 5)</th>
+                </tr>
+
             </thead>
+            <tr class="txtBody">
+                <th style="color: #000; font: italic; font-size: xx-small;"></th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(1)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(2)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(3)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(4)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(5)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(6)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(7)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(8)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(9)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(10)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(11)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(12)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(13)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(14)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(15)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(16)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(17)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(18)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(19)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(20)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(21)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(22)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(23)</th>
+                <th style="color: #000; font: italic; font-size: xx-small;">(24)</th>
+            </tr>
             <tbody>
                 <% int customerCount = 0; %>
                 <s:iterator value="lstData" status="idxRows">
@@ -207,7 +242,7 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d50" value="<s:property value='d50'/>">
                         </td>
                         <td class="txtBody" >
-                            <s:if test="D50.toString().equalsIgnoreCase('1')">
+                            <s:if test="!D50.toString().equalsIgnoreCase('2')">
                                 <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                                 </s:if>
                                 <s:else> 
@@ -216,9 +251,10 @@
                                 </s:else>
                             </s:if>
                             <s:else>
-                                 <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
+                                <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                                 </s:if>
                                 <s:else> 
+                                    <a style="color: #0000FF" title="Món đã phê duyệt">&#10003;</a>
                                     <% customerCount += 1;%>
                                 </s:else>
                             </s:else>
@@ -260,23 +296,14 @@
                         <td class="txtBody"><s:property value="d15"/></td>
                         <td class="txtBody"><s:property value="d21"/></td>
                         <td class="txtBody">
-                            <select onmousedown="return false"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData_D22<s:property  value='%{#idxRows.index}' />">
-                                <option value="01" <s:if test="d22.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>Hộ vay bỏ đi khỏi nơi cư trú có thông tin địa chỉ cụ thể</option>
-                                <option value="02" <s:if test="d22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>Hộ vay bỏ đi khỏi nơi cư trú có thông tin địa chỉ không cụ thể &nbsp;</option>
-                                <option value="03" <s:if test="d22.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>Hộ vay bỏ đi khỏi nơi cư trú không có thông tin địa chỉ</option>
-                                </select>
+                            <s:if test="d22.equalsIgnoreCase('01')"><a>Có thông tin địa chỉ cụ thể</a></s:if>
+                            <s:elseif test="d22.equalsIgnoreCase('02')"><a>Không có thông tin địa chỉ cụ thể</a></s:elseif>
                             </td>
-                            <td class="txtBody" >
-                                    <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d25" id="lstSubData_D25<s:property  value='%{#idxRows.index}' />">
-                                <option value="00" <s:if test="d25.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>>Bỏ nơi cư trú</option>
-                                <option value="01" <s:if test="d25.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>Tất toán nợ</option>
-                                <option value="02" <s:if test="d25.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>Xoá nợ</option>
-                                <option value="03" <s:if test="d25.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>Bàn giao</option>
-                                <option value="04" <s:if test="d25.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>Trở về địa phương</option>
-                                <option value="05" <s:if test="d25.equalsIgnoreCase('05')"> selected </s:if> <s:else></s:else>>Chây ỳ</option>
-                                <option value="06" <s:if test="d25.equalsIgnoreCase('06')"> selected </s:if> <s:else></s:else>>Nhận nợ nhưng chưa trả nợ</option>
-                                </select></td>
-                                <td class="txtBody"><s:property value="d23"/></td>
+                            <td class="txtBody">
+                            <s:if test="d31.equalsIgnoreCase('0')"><a>Không</a></s:if>
+                            <s:elseif test="d31.equalsIgnoreCase('1')"><a>Có</a></s:elseif>
+                            </td>
+                            <td class="txtBody"><s:property value="d23"/></td>                       
                         <td class="txtBody">
                             <select onmousedown="return false" onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />">
                                 <option value="000000">Không xác định</option>
@@ -304,41 +331,36 @@
                                 </s:iterator>
                                 <option value="999999">Nước ngoài</option>
                             </select>
-                        </td>                
+                        </td>  
                         <td class="txtBody">
-                            <select onmousedown="return false"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />" >
-                                <option value="0" <s:if test="d33.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>Không đề nghị hỗ trợ</option>
-                                <option value="1" <s:if test="d33.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>Đề nghị hỗ trợ</option>
-
-                                </select></td>
-                            <td class="txtBody">
-                                    <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d34" id="lstSubData_D34<s:property  value='%{#idxRows.index}' />">
-                                <option value="0" <s:if test="d34.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>Không thu hồi được nợ</option>
-                                <option value="1" <s:if test="d34.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>Thu hồi được nợ</option>
-                                </select></td>
-                            <td class="txtBody">
-                                    <select onmousedown="return false"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d35" id="lstSubData_D35<s:property  value='%{#idxRows.index}' />" >
-                                <option value="1" <s:if test="d35.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>Hộ vay cam kết trả nợ</option>
-                                <option value="2" <s:if test="d35.equalsIgnoreCase('2')"> selected </s:if> <s:else></s:else>>Đã trả nợ</option>
-                                <option value="3" <s:if test="d35.equalsIgnoreCase('3')"> selected </s:if> <s:else></s:else>>Bàn giao nợ</option>
-                                <option value="4" <s:if test="d35.equalsIgnoreCase('4')"> selected </s:if> <s:else></s:else>>Xem xét xử lý nợ rủi ro</option>
-                                <option value="5" <s:if test="d35.equalsIgnoreCase('5')"> selected </s:if> <s:else></s:else>>Hộ vay chưa hợp tác, tiếp tục đôn đốc</option>
-                                </select></td>
-                                <td class="txtBody"><s:property value="d37"/></td>
-                        <td class="txtBody">
-                            <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData_D24<s:property  value='%{#idxRows.index}' />">
-                                <option value="01" <s:if test="d24.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Cam kết</option>
-                                <option value="02" <s:if test="d24.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không liên hệ được</option>
-                                <option value="03" <s:if test="d24.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Liên hệ được nhưng không cam kết</option>
-                                <option value="04" <s:if test="d24.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>04: Liên hệ được nhưng không nhận nợ</option>
-                                </select>
+                            <s:if test="d33.equalsIgnoreCase('0')"><a>Không đề nghị hỗ trợ</a></s:if>
+                            <s:elseif test="d33.equalsIgnoreCase('1')"><a>Đề nghị hỗ trợ</a></s:elseif>
                             </td>
-                            <td onmousedown="return false" class="txtBody">
-                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData_D31<s:property  value='%{#idxRows.index}' />">
-                                <option value="0" <s:if test="d31.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>0: Không</option>
-                                <option value="1" <s:if test="d31.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>1: Có</option>
-                                </select></td>
-                        </tr>
+                            <td class="txtBody">
+                            <s:if test="d34.equalsIgnoreCase('0')"><a style="color: red">Chưa rà soát</a></s:if>
+                            <s:elseif test="d34.equalsIgnoreCase('1')"><a>Khách hàng cam kết thực hiện nghĩa vụ trả nợ</a></s:elseif>
+                            <s:elseif test="d34.equalsIgnoreCase('2')"><a>Khách hàng thuộc đối tượng xử lý nợ bị rủi ro</a></s:elseif>
+                            <s:elseif test="d34.equalsIgnoreCase('3')"><a>Khách hàng chây ỳ</a></s:elseif>
+                            <s:elseif test="d34.equalsIgnoreCase('4')"><a>Không liên hệ được với khách hàng</a></s:elseif>
+                            <s:elseif test="d34.equalsIgnoreCase('5')"><a>Khách hàng cam kết thực hiện nghĩa vụ trả nợ</a></s:elseif> 
+                            </td>
+                            <td class="txtBody"><s:property value="d41"/></td>        
+                        <td class="txtBody">
+                            <s:if test="d24.equalsIgnoreCase('00')"><a style="color: red">Không rà soát</a></s:if>
+                            <s:elseif test="d24.equalsIgnoreCase('01')"><a>Cam kết</a></s:elseif>
+                            <s:elseif test="d24.equalsIgnoreCase('02')"><a>Không liên hệ được</a></s:elseif>
+                            <s:elseif test="d24.equalsIgnoreCase('03')"><a>Liên hệ được nhưng không cam kết</a></s:elseif>
+                            <s:elseif test="d24.equalsIgnoreCase('04')"><a>Liên hệ được nhưng không nhận nợ</a></s:elseif>
+                            <s:elseif test="d24.equalsIgnoreCase('05')"><a>Không thực hiện cam kết</a></s:elseif>
+                            </td>
+                        <td class="txtBody"><s:property value="d27"/></td> 
+                        <td class="txtBody"><s:property value="d26"/></td>
+                        <td class="txtBody">
+                            <s:if test="d25.equalsIgnoreCase('00')"><a>Khách hàng bỏ đi</a></s:if>
+                            <s:elseif test="d25.equalsIgnoreCase('01')"><a>Tất toán nợ</a></s:elseif>
+                            <s:elseif test="d25.equalsIgnoreCase('02')"><a>Xóa nợ</a></s:elseif>
+                            <s:elseif test="d25.equalsIgnoreCase('03')"><a>Trở về địa phương</a></s:elseif>
+                            </td>
                 </s:iterator>
             </tbody>
         </table>

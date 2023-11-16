@@ -54,6 +54,33 @@ public class DuLieuNTService extends ReportService {
         }
     }
     
+    
+    public ArrayList<LockSendCiCModel> getDataLockSendCic(String posCode, String flagReport, String reportDate) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("cic-send-status-data")
+                //                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", flagReport)
+                .queryParam("reportDate", reportDate);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            try {
+                LockSendCicResp dulieuNTResp = response.readEntity(LockSendCicResp.class);
+                ArrayList<LockSendCiCModel> listOfRow = dulieuNTResp.result;
+                return listOfRow;
+            } catch (Exception e) {
+                System.err.println("loi: " + e.getMessage());
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+    
     public ArrayList<CommisionFeeModel> getCommisionFeeData(String posCode, String reportDate, String flagType) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -989,6 +1016,80 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
+    
+    public ArrayList<CustCicModel> getDataCustCIC(String posCode, String reportDate, String communeCode, String groupId, String customerCode) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("cic-customer-load-data")
+                //                .queryParam("key", key)
+                .queryParam("posCode", posCode)                
+//                .queryParam("communeCode", communeCode)
+                .queryParam("communeCode", communeCode.equals("000000") ? "" : communeCode)
+                .queryParam("groupId", groupId.equals("0000000") ? "" : groupId)
+                .queryParam("customerCode", customerCode)
+                .queryParam("reportDate", reportDate);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            CustCiResp dulieuNTResp = response.readEntity(CustCiResp.class);
+            ArrayList<CustCicModel> listOfRow = dulieuNTResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+    
+    public CustNoGroupResp getDataCustCIC_NoGroup(String posCode, String reportDate, String communeCode, int pageSize , int pageNo) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("cic-nogroup-load-data")
+                //                .queryParam("key", key)
+                .queryParam("posCode", posCode)                
+                .queryParam("communeCode", communeCode.equals("000000") ? "" : communeCode)
+//                .queryParam("groupId", groupId.equals("0000000") ? "" : groupId)
+                .queryParam("pageSize", pageSize)
+                .queryParam("pageNo", pageNo)
+                .queryParam("reportDate", reportDate);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            CustNoGroupResp dulieuNTResp = response.readEntity(CustNoGroupResp.class);
+//            ArrayList<CustCicModel> listOfRow = dulieuNTResp.result;
+            return dulieuNTResp;
+        } else {
+            return null;
+        }
+    }
+    
+    public int updateCIC(String posCode, String reportDate,String updateBy, String authoriseBy,
+            List<CustCicModel> data) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("cic-customer-update")
+                .queryParam("posCode", posCode)
+                .queryParam("reportDate", reportDate)
+                .queryParam("updateBy", updateBy)
+                .queryParam("authoriseBy", authoriseBy == null || authoriseBy == "" ? "" : authoriseBy);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
+
+        String json = "";
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(Include.NON_NULL);
+        try {
+            json = mapper.writeValueAsString(data);
+              System.out.println("ResultingJSONstring = " + json);  
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
+        System.out.println("Response code API: " + response.getStatus());
+        return response.getStatus();
+    }
 
     public ArrayList<DuLieuNTRow> getDataNQ11CP_01KH(String posCode, String reportDate, String flag) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
@@ -1132,6 +1233,36 @@ public class DuLieuNTService extends ReportService {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("clh-customer-update")
+                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", posFlag)
+                .queryParam("reportDate", reportDate)
+                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
+
+        String json = "";
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(Include.NON_NULL);
+        try {
+            json = mapper.writeValueAsString(data);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        //json = "[{\"key\": \"COVID_03\",\"code\": \"1004003452\", \"reportDate\": \"2021-06-30T00:00:00.000Z\",\"posCode\": \"000401\",\"posFlag\": \"S\",\"makerId\": \"trungnt\",\"makerDate\": \"2021-10-28T07:51:49.872Z\",\"d50\": \"1\",\"style\": 0}]";
+        //json ="[{\"key\":\"COVID_03\",\"orderValue\":\"0\",\"code\":\"1004003452\",\"reportDate\":\"2021-06-30T00:00:00\",\"reportYear\":2021,\"posCode\":\"000401\",\"posFlag\":\"S\",\"branchCode\":\"000401\",\"makerId\":\"trungnt\",\"makerDate\":\"2021-10-29T15:04:56\",\"d1\":\"1004003452\",\"d50\":\"1\",\"manualFlag\":\"Y\",\"style\":0}]";
+        Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
+        System.out.println("Response code API: " + response.getStatus());
+        return response.getStatus();
+    }
+    
+    public int updateClhCustomers_denghi(String key, String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
+            List<DuLieuNTRowX> data) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("clh-supporter-recommend")
                 .queryParam("key", key)
                 .queryParam("posCode", posCode)
                 .queryParam("posFlag", posFlag)

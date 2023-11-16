@@ -58,7 +58,7 @@
                     <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d15" value="<s:property value='d15'/>">                           
                 </td>
                 <td>
-                    <input type="text" class="cssDate" name="lstData[<s:property  value='%{#idxRows.index}' />].d13" value="<s:property value='d13'/>">                           
+                    <input type="text" readonly="true" class="cssDate" name="lstData[<s:property  value='%{#idxRows.index}' />].d13" value="<s:property value='d13'/>">                           
                 </td>
                 <td>
                     <input type="text" style="text-align: right;" name="lstData[<s:property  value='%{#idxRows.index}' />].d14" value="<s:property value='d14'/>">                           

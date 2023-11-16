@@ -43,8 +43,10 @@ import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
 import vbsp.ims.model.Pagination;
 import vbsp.ims.model.ktnb.PosMainModel;
+import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.sbv.daoSbv;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlKtgsSync;
@@ -66,6 +68,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
     public List<ModelExcelFile> lstExcel = new ArrayList<>();
     private String fileNameNew;
     private List<ListValue> lstBDD = new ArrayList<ListValue>();
+    public String chotCic;
 
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
@@ -98,6 +101,15 @@ public class ActionNhaptaycnMain extends ActionSupport {
         return langiangan;
     }
 
+    public String getChotCic() {
+        return chotCic;
+    }
+
+    public void setChotCic(String chotCic) {
+        this.chotCic = chotCic;
+    }
+
+    
     public void setLangiangan(String langiangan) {
         this.langiangan = langiangan;
     }
@@ -292,6 +304,12 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected List<ListValue> lstTide = new ArrayList<ListValue>();
     protected List<ListValue> lstGiaiNgan = new ArrayList<ListValue>();
     protected List<ListValue> lstNhadautu = new ArrayList<ListValue>();
+    
+    protected List<ListValue> lstChuongtrinh = new ArrayList<ListValue>();
+    protected List<ListValue> lstMaxa = new ArrayList<ListValue>();
+    protected List<ListValue> lstMato = new ArrayList<ListValue>();
+    protected List<ListValue> lstPhanloai = new ArrayList<ListValue>();
+
 
     protected List<ListValue> lstPLKT = new ArrayList<ListValue>();
     protected List<ListValue> lstDTTH = new ArrayList<ListValue>();
@@ -304,7 +322,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     private List<ListValue> lstCapKT = new ArrayList<ListValue>();
     private List<ListValue> lstDVUT = new ArrayList<ListValue>();
-    private List<ListValue> lstMato = new ArrayList<ListValue>();
+//    private List<ListValue> lstMato = new ArrayList<ListValue>();
     private List<ListValue> lstChutichXaHoi = new ArrayList<ListValue>();
 
     public List<QT_DULIEU_NT> getLstCombox() {
@@ -323,6 +341,31 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected List<QT_DULIEU_NT.saveDulieuNT_Phi> lstsaveNT_XAKK = new ArrayList<QT_DULIEU_NT.saveDulieuNT_Phi>();
     protected List<QT_DULIEU_NT.saveDulieuNT_Phi> lstsaveNT_XAKOKK_VAY = new ArrayList<QT_DULIEU_NT.saveDulieuNT_Phi>();
 
+    public List<ListValue> getLstChuongtrinh() {
+        return lstChuongtrinh;
+    }
+
+    public void setLstChuongtrinh(List<ListValue> lstChuongtrinh) {
+        this.lstChuongtrinh = lstChuongtrinh;
+    }
+
+    public List<ListValue> getLstMaxa() {
+        return lstMaxa;
+    }
+
+    public void setLstMaxa(List<ListValue> lstMaxa) {
+        this.lstMaxa = lstMaxa;
+    }
+
+    public List<ListValue> getLstPhanloai() {
+        return lstPhanloai;
+    }
+
+    public void setLstPhanloai(List<ListValue> lstPhanloai) {
+        this.lstPhanloai = lstPhanloai;
+    }
+
+    
     public List<QT_DULIEU_NT> getLstDulieuNt_tong() {
         return lstDulieuNt_tong;
     }
@@ -789,6 +832,30 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 //System.err.println("iRol= " + String.valueOf(iRol) );
                 //setGradeAuthor1(String.valueOf(iRol));
                 return "KTTC_MUASAM_01";
+            }
+            DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
+            if (khoa_nhaptaycn.equals("CIC_001")) {
+                System.err.println("SDQ---0");
+                setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CHUONGTRINH", Grade));
+                System.err.println("SDQ---1");
+                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));
+                System.err.println("SDQ---2");
+                setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
+                System.err.println("SDQ---3");
+                setLstPhanloai(daoMain11.getDanhMuc(UserName, "PHANLOAI", Grade));
+                System.err.println("SDQ---4");
+                setLstGiaiNgan(daoMain11.getDanhMuc(UserName, "GIAINGAN", Grade));
+                System.err.println("SDQ---3");
+                setLstNhadautu(daoMain11.getDanhMuc(UserName, "NHADT", Grade));
+                System.err.println("SDQ---5");
+                DuLieuNTService service1 = new DuLieuNTService();
+                ArrayList<LockSendModel> lstDataLock = service1.getDataLockManual("CIC_CUSTOMER", pos_cd_username, "S", "20231231");
+                try {
+                    setChotCic(lstDataLock.get(0).getStatus());
+                } catch (Exception e) {
+                    setChotCic("0");
+                }
+                return "return-cic";
             }
             
             if (conn != null) {

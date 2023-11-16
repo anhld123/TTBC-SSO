@@ -76,7 +76,7 @@
 
                             </select>
 
-                            &nbsp;&nbsp;
+                            &nbsp;&nbsp;  
                             <b>Ngày báo cáo (áp dụng mẫu biểu PCTN):</b>                            
                             <input type="text" name="dpkReportDate" id="dpkReportDate" readonly="readonly"/>
                         </td>
@@ -108,11 +108,11 @@
             $(function () {
                 var date = new Date();
                 var maxDate = "-" + date.getDate() + "D" + "+1M";
-                var minDate = "-3M " + "-" + (date.getDate() - 1)
+                var minDate = "-1M " + "-" + (date.getDate() - 1)
                         + "D";
                 var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-                if (lastDayOfMonth.getDate() - date.getDate() < 10)
+                if (lastDayOfMonth.getDate() - date.getDate() >= 25)
                 {
                     $("#dpkReportDate").datepicker(
                             {
@@ -136,7 +136,7 @@
                                 }
                             });
                 }
-                if (lastDayOfMonth.getDate() - date.getDate() >= 10)
+                if (lastDayOfMonth.getDate() - date.getDate() < 25)
                 {
                     $("#dpkReportDate").datepicker(
                             {

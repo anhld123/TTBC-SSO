@@ -49,20 +49,21 @@
                                     <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
                                 </s:iterator>
                             </select>                        
-                            Mã khách hàng: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã khách hàng" value="">                        
+                            <!--Mã khách hàng: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã khách hàng" value="">-->                        
                             Từ ngày:  <input type="text" name="txtFromDate" id="txtFromDate" readonly="readonly"/>
                             đến: <input type="text" name="txtToDate" id="txtToDate" readonly="readonly"/>
                             <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>                          
-                            Loại phê duyệt: <select style="width: 100px;" name="typeAuth" id="typeAuth">                                                    
-                                                    <option value="1" >Xử lý nợ</option>                                                    
-                                                    <option value="3">Xóa</option>   </select>                                         
+                            Loại phê duyệt: <select style="width: auto;" name="typeAuth" id="typeAuth">                                                    
+                                <option value="3">Xóa</option>                                                    
+                                <option value="4">Đề nghị cung cấp thông tin</option>
+                                <option value="5">Đề nghị hỗ trợ</option></select>                                         
                         </div>
                         <div>
                             <input type="button" id="idSearch" value="Tìm kiếm" style="height: 25px; padding: 0px 20px 0px 20px;">
                             <!--<input type="button" id="idPheduyet" value="Phê duyệt" style="height: 25px;padding: 0px 20px 0px 20px;" >-->
                             <input type="button" id="idSave" value="Phê duyệt" style="height: 25px;padding: 0px 20px 0px 20px;" >
                         </div>
-                     </s:if>
+                    </s:if>
                     <s:else>
                         <div>
                             Đơn vị:
@@ -77,7 +78,13 @@
                             <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>
                         </div>
                         <div>
+                            <s:if test="Grade.equalsIgnoreCase('3')">
+                                <font style="color: red"> Bạn đã chốt số liệu lần cung cấp thông tin lần 0
+                            </s:if>
                             <input type="button" id="idSearch" value="Tìm kiếm" style="height: 25px; padding: 0px 20px 0px 20px;">
+                            <s:if test="Grade.equalsIgnoreCase('3')">
+                                <input type="button" id="idSave" value="Chốt cung cấp TT" style="height: 25px;padding: 0px 20px 0px 20px;">   
+                            </s:if>
                             <s:if test="Grade.equalsIgnoreCase('1')">
                                 <input type="button" id="idSave" value="Lưu số liệu" style="height: 25px;padding: 0px 20px 0px 20px;" disabled="true">                            
                                 <input type="button" id="idDelete" value="Đề nghị xóa" style="color: red;height: 25px;padding: 0px 20px 0px 20px;" disabled="true">
@@ -96,44 +103,44 @@
         </div>
         <script>
             function changValSeclect() {
-                if($("#typeAuth").val()==1){
-                    $("#idPheduyet").val("Phê duyệt").prop('disabled', true);                               
-                }else {
-                    $("#idPheduyet").val("Phê duyệt").prop('disabled', false).click(function () {
-                let checkedCount = countCheckedItem();
-                if (checkedCount === 0 || checkedCount > 1) {
-                    alert('Bạn chưa chọn bản ghi để xóa hoặc mỗi lần bạn chỉ được phép xóa tối đa 1 bản ghi!');
+                if ($("#typeAuth").val() == 1) {
+                    $("#idPheduyet").val("Phê duyệt").prop('disabled', true);
                 } else {
-                    let aCheck = confirm("Bạn chắc chắn muốn xóa dữ liệu ?");
-                    if (aCheck) {
-                        var url, sdata;
-                        url = "suggestDeteleLocal.action";
-                        sdata = jQuery("#frmdata").serialize();
-                        $("#viewData").html('<img src="img/loading.gif"/>');
-                        btnDisabled(1);
-                        $.ajax({
-                            type: "POST",
-                            url: url,
-                            data: sdata,
-                            success: function (data) {
-                                if (data === "200") {
-                                    alert("Thành công: Xóa dữ liệu.");
-                                    $("#idSearch").trigger("click");
-                                } else {
-                                    alert("Lỗi: Xóa dữ liệu.");
-                                }
-                            },
-                            complete: function () {
-                                btnDisabled(0);
-                            },
-                            error: function (request) {
-                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                    $("#idPheduyet").val("Phê duyệt").prop('disabled', false).click(function () {
+                        let checkedCount = countCheckedItem();
+                        if (checkedCount === 0 || checkedCount > 1) {
+                            alert('Bạn chưa chọn bản ghi để xóa hoặc mỗi lần bạn chỉ được phép xóa tối đa 1 bản ghi!');
+                        } else {
+                            let aCheck = confirm("Bạn chắc chắn muốn xóa dữ liệu ?");
+                            if (aCheck) {
+                                var url, sdata;
+                                url = "suggestDeteleLocal.action";
+                                sdata = jQuery("#frmdata").serialize();
+                                $("#viewData").html('<img src="img/loading.gif"/>');
+                                btnDisabled(1);
+                                $.ajax({
+                                    type: "POST",
+                                    url: url,
+                                    data: sdata,
+                                    success: function (data) {
+                                        if (data === "200") {
+                                            alert("Thành công: Xóa dữ liệu.");
+                                            $("#idSearch").trigger("click");
+                                        } else {
+                                            alert("Lỗi: Xóa dữ liệu.");
+                                        }
+                                    },
+                                    complete: function () {
+                                        btnDisabled(0);
+                                    },
+                                    error: function (request) {
+                                        alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                                    }
+                                });
                             }
-                        });
-                    }
-                }
+                        }
 
-            }); 
+                    });
                 }
             }
             changValSeclect();
@@ -231,34 +238,69 @@
                 } else {
                     let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
                     if (aCheck) {
-                        var url, sdata;
-                        url = "saveLeaveLocal.action";
-                        sdata = jQuery("#frmdata").serialize();
-                        $("#viewData").html('<img src="img/loading.gif"/>');
-                        btnDisabled(1);
-                        $.ajax({
-                            type: "POST",
-                            url: url,
-                            data: sdata,
-                            success: function (data) {
-                                if (data === "200") {
-                                    alert("Thành công: Lưu dữ liệu.");
-                                    $("#idSearch").trigger("click");
-                                } else {
-                                    alert("Lỗi: Lưu dữ liệu.");
+                        var table = document.getElementById("subTable");
+                        var rowcount = table.rows.length;
+                        var isValid = true; // Tạo biến để kiểm tra tính hợp lệ của dữ liệu
+
+                        for (var i = 0; i < rowcount; i++) {
+                            try {
+//                          alert(document.getElementById("lstData_D32" + i).value +'  ' + document.getElementById("posCode" + i).value)
+                                if (document.getElementById("lstData42" + i).value === '0'  &&
+                                        document.getElementById("lstDataD27" + i).value === "") {
+                                    alert("Vui lòng nhập dữ liệu cho cột 16 trước khi lưu");
+                                    document.getElementById("lstDataD27" + i).style.backgroundColor = "#EEAFA6";
+                                    isValid = false; 
+                                    break; 
                                 }
-                            },
-                            complete: function () {
-                                btnDisabled(0);
-                            },
-                            error: function (request) {
-                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+
+                                var D22 = $('#lstData_D22' + i).find(":selected").val();
+                                if (D22 == '01') {
+                                    var lstDataD23 = document.getElementById('lstDataD23' + i).value;
+                                    if (lstDataD23.length < 5) {
+                                        alert('Vui lòng nhập thông tin cột 18.');
+                                        document.getElementById("lstDataD23" + i).style.backgroundColor = "#EEAFA6";
+                                        isValid = false; 
+                                        break; 
+                                    }
+                                }
+                            } catch (e) {
                             }
-                        });
+                        }
+
+                        if (isValid) { // Nếu dữ liệu hợp lệ, tiến hành gửi request AJAX
+                            var url, sdata;
+                            url = "saveLeaveLocal.action";
+                            sdata = jQuery("#frmdata").serialize();
+                            $("#viewData").html('<img src="img/loading.gif"/>');
+                            btnDisabled(1);
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: sdata,
+                                success: function (data) {
+                                    if (data === "200") {
+                                        alert("Thành công: Lưu dữ liệu.");
+                                        $("#idSearch").trigger("click");
+                                    } else if (data === "01") {
+                                        alert("Lỗi: Bạn chưa nhập thông tin cột 15");
+                                        $("#idSearch").trigger("click");
+                                    } else {
+                                        alert("Lỗi: Lưu dữ liệu.");
+                                        $("#idSearch").trigger("click");
+                                    }
+                                },
+                                complete: function () {
+                                    btnDisabled(0);
+                                },
+                                error: function (request) {
+                                    alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                                }
+                            });
+                        }
                     }
                 }
-
             });
+
 
             //Gửi dữ liệu
             $("#idSend").click(function () {
@@ -281,7 +323,12 @@
                                 if (data === "200") {
                                     alert("Thành công: Gửi dữ liệu.");
                                     $("#viewData").html('<h2 style="color:red;">Gửi dữ liệu thành công!</h2>');
-                                } else {
+                                }
+//                                else if(data === "1") {
+//                                    alert("Khi chọn cột 13 là 01 bạn không được để trống thông tin cột 16, 17, 18.");
+////                                    $("#viewData").html('<h2 style="color:red;">Gửi dữ liệu thành công!</h2>');
+//                                }
+                                else {
                                     alert("Lỗi: Gửi dữ liệu.");
                                 }
                             },
@@ -296,8 +343,8 @@
                 }
 
             });
-                    
-            
+
+
             $("#idDelete").click(function () {
                 let checkedCount = countCheckedItem();
                 if (checkedCount === 0 || checkedCount > 1) {
@@ -377,6 +424,8 @@
                 }
                 ;
             }
+
+
         </script>
     </body>
 </html>
