@@ -111,7 +111,7 @@ public class KTTC_QSDD_01 extends ActionMuasamtsMain
         this.posFlag = posFlag;
     }
                             
-    MuaSam_SudungDat_Service _mstsService;
+    DanhGiaQSDDService _mstsService;
     
     @Override
     public String load() {
@@ -122,7 +122,7 @@ public class KTTC_QSDD_01 extends ActionMuasamtsMain
             }
             //HashMap hmParameter = getParameter();    
             final String sReportDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
-            _mstsService = new MuaSam_SudungDat_Service();
+            _mstsService = new DanhGiaQSDDService();
             posFlag = "M";
             lstData = _mstsService.getAssetsPlanList(txtMapgd, "M", sReportDate); 
             if (lstData == null || lstData.isEmpty()) {
@@ -155,7 +155,7 @@ public class KTTC_QSDD_01 extends ActionMuasamtsMain
             if (!getParaSession()) {
                 return ERROR;
             }     
-            _mstsService = new MuaSam_SudungDat_Service();
+            _mstsService = new DanhGiaQSDDService();
             int _status = _mstsService.saveData(txtMapgd, "M", txtNgayBc, UserName, UserName, lstData, "1");
             if (_status == 200) {
                 // save local data
@@ -197,7 +197,7 @@ public class KTTC_QSDD_01 extends ActionMuasamtsMain
             }
 
             String code = "";
-            _mstsService = new MuaSam_SudungDat_Service();
+            _mstsService = new DanhGiaQSDDService();
             int _status = _mstsService.deleteData(txtMapgd, "M", this.txtNgayBc, UserName, UserName, lstSelectedData, "1");            
             
             if (_status == 200) {
