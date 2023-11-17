@@ -320,6 +320,13 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                         updateRow.setD7(String.valueOf(item.getWrongIssuePlaceConfirmFlag()));
                         updateRow.setD8(String.valueOf(item.getWrongBirthdayConfirmFlag()));
                         updateRow.setD9(item.getRemark());
+                        
+                        updateRow.setD11(String.valueOf(item.getCustomerWrongFullNameConfirmFlag()));
+                        updateRow.setD12(String.valueOf(item.getCustomerWrongIdNoConfirmFlag()));
+                        updateRow.setD13(String.valueOf(item.getCustomerWrongBirthdayConfirmFlag()));
+                        updateRow.setD14(String.valueOf(item.getCustomerNotIdConfirmFlag()));
+                        updateRow.setD15(String.valueOf(item.getCustomerReviewStatus()));
+                        
                         lstLocalDataUpdate.add(updateRow);
                     }
                     if (!DaoNghiquyet11cp.newInstance().saveCIC_Local(UserName, pos_cd_username, "31-dec-2023", lstLocalDataUpdate)) {
