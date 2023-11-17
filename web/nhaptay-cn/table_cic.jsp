@@ -141,7 +141,6 @@
             $('.TEN_KH').blur(function () {
                 $(this).closest('tr').removeClass('highlight_row');
             });
-
             function initTable()
             {
                 var table = document.getElementById("subTable");
@@ -150,7 +149,7 @@
                 for (var i = 0; i < rowcount; i++)
                 {
                     //cho combox 1
-                    var matmp1 = getMabyNumber1(i);//                       
+                    var matmp1 = getMabyNumber1(i); //                       
                     if (matmp1 == 1)
                     {
                         $('input:checkbox[id=check1' + i + ']').attr('checked', true);
@@ -179,40 +178,40 @@
                 for (var i = 0; i < rowcount; i++)
                 {
                     //cho combox 14
-                    var matmp14 = getMabyNumber14(i);//                       
+                    var matmp14 = getMabyNumber14(i); //                       
                     if (matmp14 == 1)
                     {
                         $('input:checkbox[id=idc14' + i + ']').attr('checked', true);
                     }
                     //cho combox 15
-                    var matmp15 = getMabyNumber15(i);//                       
+                    var matmp15 = getMabyNumber15(i); //                       
                     if (matmp15 == 1)
                     {
                         $('input:checkbox[id=idc15' + i + ']').attr('checked', true);
                     }
                     //cho combox 16
-                    var matmp16 = getMabyNumber16(i);//                       
+                    var matmp16 = getMabyNumber16(i); //                       
                     if (matmp16 == 1)
                     {
                         $('input:checkbox[id=idc16' + i + ']').attr('checked', true);
                     }
 
                     //cho combox 19
-                    var matmp19 = getMabyNumber19(i);//                       
+                    var matmp19 = getMabyNumber19(i); //                       
                     if (matmp19 == 1)
                     {
                         $('input:checkbox[id=idc19' + i + ']').attr('checked', true);
                     }
 
                     //cho combox 20
-                    var matmp20 = getMabyNumber20(i);//                       
+                    var matmp20 = getMabyNumber20(i); //                       
                     if (matmp20 == 1)
                     {
                         $('input:checkbox[id=idc20' + i + ']').attr('checked', true);
                     }
 
                     //cho combox 21
-                    var matmp21 = getMabyNumber21(i);//                       
+                    var matmp21 = getMabyNumber21(i); //                       
                     if (matmp21 == 1)
                     {
                         $('input:checkbox[id=idc21' + i + ']').attr('checked', true);
@@ -220,37 +219,37 @@
 
                     //-------------------------------------------------------------------------------
                     //cho combox 28
-                    var matmp28 = getMabyNumber28(i);//                       
+                    var matmp28 = getMabyNumber28(i); //                       
                     if (matmp28 == 1)
                     {
                         $('input:checkbox[id=idc28' + i + ']').attr('checked', true);
                     }
                     //cho combox 21
-                    var matmp21 = getMabyNumber21(i);//                       
+                    var matmp21 = getMabyNumber21(i); //                       
                     if (matmp21 == 1)
                     {
                         $('input:checkbox[id=idc21' + i + ']').attr('checked', true);
                     }
                     //cho combox 29
-                    var matmp29 = getMabyNumber29(i);//                       
+                    var matmp29 = getMabyNumber29(i); //                       
                     if (matmp29 == 1)
                     {
                         $('input:checkbox[id=idc29' + i + ']').attr('checked', true);
                     }
                     //cho combox 30
-                    var matmp30 = getMabyNumber30(i);//                       
+                    var matmp30 = getMabyNumber30(i); //                       
                     if (matmp30 == 1)
                     {
                         $('input:checkbox[id=idc30' + i + ']').attr('checked', true);
                     }
                     //cho combox 31
-                    var matmp31 = getMabyNumber31(i);//                       
+                    var matmp31 = getMabyNumber31(i); //                       
                     if (matmp31 == 1)
                     {
                         $('input:checkbox[id=idc31' + i + ']').attr('checked', true);
                     }
                     //cho combox 33
-                    var matmp33 = getMabyNumber33(i);//                       
+                    var matmp33 = getMabyNumber33(i); //                       
                     if (matmp33 == 1)
                     {
                         $('input:checkbox[id=idc33' + i + ']').attr('checked', true);
@@ -511,18 +510,24 @@
                                 <s:property value="%{#rowstatus.index + 1}" /> 
                             </td>
                             <td class=" D0"><s:property value="customerCode" />
-                                <input type="hidden" value="<s:property  value="profileCorrectConfirmFlag" />" name="custCIC[<s:property  value="%{#rowstatus.index}" />].profileCorrectConfirmFlag"  id="id14_<s:property  value="%{#rowstatus.index}" />" 
+                                <input type="hidden" value="<s:property  value="profileCorrectConfirmFlag" />" name="custCIC[<s:property  value="%{#rowstatus.index}" />].profileCorrectConfirmFlag"  
+                                       id="id14_<s:property  value="%{#rowstatus.index}" />" 
                                        value="<s:property  value="profileCorrectConfirmFlag"/>"/>
-                                <input type="hidden" value="<s:property  value="wrongFullNameConfirmFlag" />" name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongFullNameConfirmFlag" id="id15_<s:property  value="%{#rowstatus.index}" />" 
+                                <input type="hidden" value="<s:property  value="wrongFullNameConfirmFlag" />" name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongFullNameConfirmFlag" 
+                                       id="id15_<s:property  value="%{#rowstatus.index}" />" 
                                        value="<s:property  value="wrongFullNameConfirmFlag"/>"/>
-                                <input type="hidden" value="<s:property  value="wrongIdNoConfirmFlag" />"  name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongIdNoConfirmFlag" id="id16_<s:property  value="%{#rowstatus.index}" />" 
+                                <input type="hidden" value="<s:property  value="wrongIdNoConfirmFlag" />"  name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongIdNoConfirmFlag" 
+                                       id="id16_<s:property  value="%{#rowstatus.index}" />" 
                                        value="<s:property  value="wrongIdNoConfirmFlag"/>"/>
 
-                                <input type="hidden" value="<s:property  value="wrongBirthdayConfirmFlag" />" name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongBirthdayConfirmFlag" id="id19_<s:property  value="%{#rowstatus.index}" />" 
+                                <input type="hidden" value="<s:property  value="wrongBirthdayConfirmFlag" />" name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongBirthdayConfirmFlag" 
+                                       id="id19_<s:property  value="%{#rowstatus.index}" />" 
                                        value="<s:property  value="wrongBirthdayConfirmFlag"/>"/>
-                                <input type="hidden" value="<s:property  value="profileMissingConfirmFlag" />" name="custCIC[<s:property  value="%{#rowstatus.index}" />].profileMissingConfirmFlag" id="id20_<s:property  value="%{#rowstatus.index}" />" 
+                                <input type="hidden" value="<s:property  value="profileMissingConfirmFlag" />" name="custCIC[<s:property  value="%{#rowstatus.index}" />].profileMissingConfirmFlag" 
+                                       id="id20_<s:property  value="%{#rowstatus.index}" />" 
                                        value="<s:property  value="profileMissingConfirmFlag"/>"/>
-                                <input type="hidden" value="<s:property  value="status" />"  name="custCIC[<s:property  value="%{#rowstatus.index}" />].status" id="id21_<s:property  value="%{#rowstatus.index}" />" 
+                                <input type="hidden" value="<s:property  value="status" />"  name="custCIC[<s:property  value="%{#rowstatus.index}" />].status" 
+                                       id="id21_<s:property  value="%{#rowstatus.index}" />" 
                                        value="<s:property  value="status"/>"/>
 
                                 <input type="hidden" value="<s:property  value="customerWrongFullNameConfirmFlag" />"  id="id28_<s:property  value="%{#rowstatus.index}" />" 
@@ -611,25 +616,25 @@
                             <s:if test="rasoat_dc.equalsIgnoreCase('1')">  
                                 <!--sai với hồ sơ vv-->
                                 <td class="D0">    
-                                    <input type="checkbox" id ="idc14<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_dnht1 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c14" value="<s:property  value="cicCode" />"             
+                                    <input type="checkbox" id ="idc14<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_dnht1 D0 " name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c14" value="<s:property  value="cicCode" />"             
                                 </td> 
 
                                 <!--sai họ tên-->
                                 <td class="D0">    
-                                    <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
+                                    <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_check2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
                                 </td> 
                                 <!--sai số cm-->
                                 <td class="D0">
-                                    <input type="checkbox" id ="idc16<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c16" value="<s:property  value="cicCode" />"      
+                                    <input type="checkbox" id ="idc16<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_check2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c16" value="<s:property  value="cicCode" />"      
                                 </td>
 
 
                                 <td class="D0">
-                                    <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
+                                    <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_check2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
                                 </td>
 
                                 <td class="D0">
-                                    <input type="checkbox" id ="idc20<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c20" value="<s:property  value="cicCode" />"
+                                    <input type="checkbox" id ="idc20<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_check1 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c20" value="<s:property  value="cicCode" />"
                                 </td>
 
                                 <td class="D0">
@@ -685,12 +690,35 @@
                 document.getElementById("idc16" + index).disabled = false;
                 document.getElementById("idc19" + index).disabled = false;
                 document.getElementById("idc20" + index).disabled = false;
+                document.getElementById("idc21" + index).disabled = false;
             } else
             {
                 document.getElementById("idc15" + index).disabled = true;
                 document.getElementById("idc16" + index).disabled = true;
                 document.getElementById("idc19" + index).disabled = true;
                 document.getElementById("idc20" + index).disabled = true;
+                document.getElementById("idc21" + index).disabled = true;
+            }
+            if (document.getElementById("id15_" + i).value !== '1'
+                    && document.getElementById("id16_" + i).value !== '1'
+                    && document.getElementById("id19_" + i).value !== '1')
+            {
+                document.getElementById("idc14" + index).disabled = false;
+//                document.getElementById("idc20" + index).disabled = false;
+                document.getElementById("idc21" + index).disabled = true;
+            } else
+            {
+                document.getElementById("idc14" + index).disabled = true;
+                document.getElementById("idc20" + index).disabled = true;
+                document.getElementById("idc21" + index).disabled = false;
+            }
+            if (document.getElementById("id20_" + i).value === '1')
+            {
+                document.getElementById("idc14" + index).disabled = true;
+                document.getElementById("idc16" + index).disabled = true;
+                document.getElementById("idc19" + index).disabled = true;
+                document.getElementById("idc15" + index).disabled = true;
+                document.getElementById("idc21" + index).disabled = true;
             }
         }
 
@@ -701,21 +729,42 @@
             rowcount = rowcount > max_row ? rowcount : max_row;
             for (var i = 0; i < rowcount; i++)
             {
-
                 try {
-
                     if (document.getElementById("id14_" + i).value !== '1')
                     {
                         document.getElementById("idc15" + i).disabled = false;
                         document.getElementById("idc16" + i).disabled = false;
                         document.getElementById("idc19" + i).disabled = false;
                         document.getElementById("idc20" + i).disabled = false;
+                        document.getElementById("idc21" + i).disabled = false;
                     } else
                     {
                         document.getElementById("idc15" + i).disabled = true;
                         document.getElementById("idc16" + i).disabled = true;
                         document.getElementById("idc19" + i).disabled = true;
                         document.getElementById("idc20" + i).disabled = true;
+                        document.getElementById("idc21" + i).disabled = true;
+                    }
+                    if (document.getElementById("id15_" + i).value !== '1'
+                            && document.getElementById("id16_" + i).value !== '1'
+                            && document.getElementById("id19_" + i).value !== '1')
+                    {
+                        document.getElementById("idc14" + i).disabled = false;
+//                        document.getElementById("idc20" + i).disabled = false;
+                        document.getElementById("idc21" + i).disabled = true;
+                    } else
+                    {
+                        document.getElementById("idc14" + i).disabled = true;
+                        document.getElementById("idc20" + i).disabled = true;
+                        document.getElementById("idc21" + i).disabled = false;
+                    }
+                    if (document.getElementById("id20_" + i).value === '1')
+                    {
+                        document.getElementById("idc15" + i).disabled = true;
+                        document.getElementById("idc16" + i).disabled = true;
+                        document.getElementById("idc19" + i).disabled = true;
+                        document.getElementById("idc14" + i).disabled = true;
+                        document.getElementById("idc21" + i).disabled = true;
                     }
                 } catch (e) {
                 }
@@ -727,33 +776,71 @@
             checkboxes[i].addEventListener('change', function () {
                 var currentRow = this.parentNode.parentNode;
                 var currentRowIndex = currentRow.rowIndex;
-
                 if (this.checked) {
                     currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = true;
                     currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = true;
                     currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = true;
                     currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = true;
                 } else {
                     currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = false;
                     currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = false;
                     currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = false;
                     currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = false;
                 }
             });
         }
-
+        
+         var checkboxes = document.querySelectorAll('.onSelectChange_check1');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('change', function () {
+                var currentRow = this.parentNode.parentNode;
+                var currentRowIndex = currentRow.rowIndex;
+                if (this.checked) {
+                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = true;
+                } else {
+                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = false;
+                }
+            });
+        }
+        
+        var checkboxes = document.querySelectorAll('.onSelectChange_check2');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('change', function () {
+                var currentRow = this.parentNode.parentNode;
+                var currentRowIndex = currentRow.rowIndex;
+                if (this.checked) {
+                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = false;
+                } else {
+                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = true;
+                }
+            });
+        }
         function onSelectChange_dnht2(value, index) {
-            
-            if (document.getElementById("id28_" + i).value !== '1' 
-                && document.getElementById("id29_" + i).value !== '1' 
-                && document.getElementById("id30_" + i).value !== '1')
+
+            if (document.getElementById("id28_" + i).value !== '1'
+                    && document.getElementById("id29_" + i).value !== '1'
+                    && document.getElementById("id30_" + i).value !== '1')
             {
                 document.getElementById("idc31" + index).disabled = false;
             } else
             {
                 document.getElementById("idc31" + index).disabled = true;
-
             }
+            
         }
 
         function initTable2()
@@ -766,37 +853,34 @@
 
                 try {
 
-                    if (document.getElementById("id28_" + i).value !== '1' 
-                         && document.getElementById("id29_" + i).value !== '1' 
-                         && document.getElementById("id30_" + i).value !== '1' )
+                    if (document.getElementById("id28_" + i).value !== '1'
+                            && document.getElementById("id29_" + i).value !== '1'
+                            && document.getElementById("id30_" + i).value !== '1')
                     {
                         document.getElementById("idc31" + i).disabled = false;
-                      
                     } else
                     {
                         document.getElementById("idc31" + i).disabled = true;
-                     
                     }
                 } catch (e) {
                 }
             }
         }
-        
-          var checkboxes = document.querySelectorAll('.onSelectChange_dnht2');
+
+        var checkboxes = document.querySelectorAll('.onSelectChange_dnht2');
         for (var i = 0; i < checkboxes.length; i++) {
             checkboxes[i].addEventListener('change', function () {
                 var currentRow = this.parentNode.parentNode;
                 var currentRowIndex = currentRow.rowIndex;
-
                 if (this.checked) {
                     currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = true;
                 } else {
-             
+
                     currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = false;
                 }
             });
         }
-        
+
         initTable();
         initTable1();
         initTable2();
