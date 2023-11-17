@@ -102,7 +102,8 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                                 custCIC.add(item);
                             } else //Rà soát trực tiếp với khách hàng
                             {
-                                if (item.getProfileCorrectConfirmFlag() == 1 || item.getWrongFullNameConfirmFlag() == 1 || item.getWrongIdNoConfirmFlag() == 1
+                                if (//item.getProfileCorrectConfirmFlag() == 1 || 
+                                        item.getWrongFullNameConfirmFlag() == 1 || item.getWrongIdNoConfirmFlag() == 1
                                         || item.getWrongBirthdayConfirmFlag() == 1 || item.getProfileMissingConfirmFlag() == 1 || item.getStatus() == 1) {
                                     i++;
                                     item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
@@ -153,7 +154,8 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                                 custCIC.add(item);
                             } else //Rà soát trực tiếp với khách hàng
                             {
-                                if (item.getProfileCorrectConfirmFlag() == 1 || item.getWrongFullNameConfirmFlag() == 1 || item.getWrongIdNoConfirmFlag() == 1
+                                if (//item.getProfileCorrectConfirmFlag() == 1 || 
+                                        item.getWrongFullNameConfirmFlag() == 1 || item.getWrongIdNoConfirmFlag() == 1
                                         || item.getWrongBirthdayConfirmFlag() == 1 || item.getProfileMissingConfirmFlag() == 1 || item.getStatus() == 1) {
                                     i++;
                                     item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
