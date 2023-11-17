@@ -410,7 +410,7 @@
                 <input type="hidden"  id="rasoat_dc" name="rasoat_dc"
                        value="<s:property  value="rasoat_dc"/>"/>
 
-                <table id="subTableSum" style="z-index: 10; width: 50%">
+<!--                <table id="subTableSum" style="z-index: 10; width: 50%">
                     <tr style="height:25px;">
 
                         <th rowspan="1" style="width: 80px">Mã PGD</th>  
@@ -429,7 +429,7 @@
                             <td class="number" style="width: 180px"><s:property value="D6"/></td>
                         </tr>                                                                                                                                                                                   
                     </s:iterator>
-                </table>
+                </table>-->
                 </br>
                 <table id="subTable" style="z-index: 10;">
                     <thead>
@@ -509,7 +509,7 @@
                             <td class="D0">
                                 <s:property value="%{#rowstatus.index + 1}" /> 
                             </td>
-                            <td class=" D0"><s:property value="customerCode" />
+                            <td class=" D0" title="CCCD corebanking: <s:property value="coreBankingIdNo" />"><s:property value="customerCode" />
                                 <input type="hidden" value="<s:property  value="profileCorrectConfirmFlag" />" name="custCIC[<s:property  value="%{#rowstatus.index}" />].profileCorrectConfirmFlag"  
                                        id="id14_<s:property  value="%{#rowstatus.index}" />" 
                                        value="<s:property  value="profileCorrectConfirmFlag"/>"/>
