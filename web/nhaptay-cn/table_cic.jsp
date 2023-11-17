@@ -659,7 +659,7 @@
 
                                 <!--CHưa làm cccd-->
                                 <td class="D0">
-                                    <input type="checkbox" id ="idc31<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c31" value="<s:property  value="cicCode" />"
+                                    <input type="checkbox" id ="idc31<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_check3 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c31" value="<s:property  value="cicCode" />"
                                 </td>
                                 <!--Đã chỉnh intellect-->
                                 <td class="D0">
@@ -791,8 +791,8 @@
                 }
             });
         }
-        
-         var checkboxes = document.querySelectorAll('.onSelectChange_check1');
+
+        var checkboxes = document.querySelectorAll('.onSelectChange_check1');
         for (var i = 0; i < checkboxes.length; i++) {
             checkboxes[i].addEventListener('change', function () {
                 var currentRow = this.parentNode.parentNode;
@@ -812,7 +812,7 @@
                 }
             });
         }
-        
+
         var checkboxes = document.querySelectorAll('.onSelectChange_check2');
         for (var i = 0; i < checkboxes.length; i++) {
             checkboxes[i].addEventListener('change', function () {
@@ -840,7 +840,14 @@
             {
                 document.getElementById("idc31" + index).disabled = true;
             }
-            
+            if (document.getElementById("id31_" + i).value === '1')
+            {
+                document.getElementById("idc28" + index).disabled = true;
+                document.getElementById("idc29" + index).disabled = true;
+                document.getElementById("idc30" + index).disabled = true;
+                document.getElementById("idc33" + index).disabled = true;
+
+            }
         }
 
         function initTable2()
@@ -862,6 +869,13 @@
                     {
                         document.getElementById("idc31" + i).disabled = true;
                     }
+                    if (document.getElementById("id31_" + i).value === '1')
+                    {
+                        document.getElementById("idc28" + i).disabled = true;
+                        document.getElementById("idc29" + i).disabled = true;
+                        document.getElementById("idc30" + i).disabled = true;
+                        document.getElementById("idc33" + i).disabled = true;
+                    }
                 } catch (e) {
                 }
             }
@@ -881,6 +895,25 @@
             });
         }
 
+        var checkboxes = document.querySelectorAll('.onSelectChange_check3');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('change', function () {
+                var currentRow = this.parentNode.parentNode;
+                var currentRowIndex = currentRow.rowIndex;
+                if (this.checked) {
+                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = true;
+                } else {
+
+                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = false;
+                }
+            });
+        }
         initTable();
         initTable1();
         initTable2();
