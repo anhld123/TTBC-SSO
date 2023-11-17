@@ -394,6 +394,66 @@
                 }
                 return ma;
             }
+
+            function onSelectChangeD14(value, index)
+            {
+                try {
+                    var d14 = document.getElementById('idc14' + index).checked;
+
+                    if (d14 === true)
+                    {
+                        document.getElementById("idc15" + index).checked = false;
+                        document.getElementById("idc16" + index).checked = false;
+                        document.getElementById("idc19" + index).checked = false;
+                        document.getElementById("idc20" + index).checked = false;
+                        document.getElementById("idc21" + index).checked = false;
+                        
+                        document.getElementById("idc15" + index).disabled = true;
+                        document.getElementById("idc16" + index).disabled = true;
+                        document.getElementById("idc19" + index).disabled = true;
+                        document.getElementById("idc20" + index).disabled = true;
+                        document.getElementById("idc21" + index).disabled = true;
+                    } else
+                    {
+                        document.getElementById("idc15" + index).disabled = false;
+                        document.getElementById("idc16" + index).disabled = false;
+                        document.getElementById("idc19" + index).disabled = false;
+                        document.getElementById("idc20" + index).disabled = false;
+                        document.getElementById("idc21" + index).disabled = false;
+                    }
+                } catch (e) {
+
+                }
+
+            }
+
+            function onSelectChangeD15(value, index)
+            {
+                try {
+                    var d15 = document.getElementById('idc15' + index).checked;
+
+                    if (d15 === true)
+                    {
+                        document.getElementById("idc14" + index).disabled = true;
+                        document.getElementById("idc20" + index).disabled = true;
+                        document.getElementById("idc21" + index).disabled = false;
+                    } else
+                    {
+                        
+//                        document.getElementById("idc21" + index).disabled = true;
+                        var d16 = document.getElementById('idc16' + index).checked;
+                        var d19 = document.getElementById('idc19' + index).checked;
+                        if (d16 == false && d19 == false)
+                        {
+                            document.getElementById("idc14" + index).disabled = false;
+                            document.getElementById("idc20" + index).disabled = false;
+                        }
+                    }
+                } catch (e) {
+
+                }
+
+            }
         </script>   
         <!--</head>-->
     <body>
@@ -410,26 +470,26 @@
                 <input type="hidden"  id="rasoat_dc" name="rasoat_dc"
                        value="<s:property  value="rasoat_dc"/>"/>
 
-<!--                <table id="subTableSum" style="z-index: 10; width: 50%">
-                    <tr style="height:25px;">
+                <!--                <table id="subTableSum" style="z-index: 10; width: 50%">
+                                    <tr style="height:25px;">
+                
+                                        <th rowspan="1" style="width: 80px">Mã PGD</th>  
+                                        <th rowspan="1" style="width: 190px">Tên PGD</th>    
+                                        <th rowspan="1" style="width: 180px">Tổng số khách hàng cần rà soát</th>                             
+                                        <th rowspan="1" style="width: 180px">Số khách hàng chưa rà soát hồ sơ vay vốn</th> 
+                                        <th rowspan="1" style="width: 180px">Số khách hàng chưa đối chiếu với khách hàng</th>
+                                    </tr>
+                <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
+                    <tr>                               
+                        <td class="" style="width: 80px"><s:property value="MAPGD"/></td>
+                        <td class="" style="width: 190px"><s:property value="TEN"/></td>
+                        <td class="number" style="width: 180px"><s:property value="D1"/></td>
 
-                        <th rowspan="1" style="width: 80px">Mã PGD</th>  
-                        <th rowspan="1" style="width: 190px">Tên PGD</th>    
-                        <th rowspan="1" style="width: 180px">Tổng số khách hàng cần rà soát</th>                             
-                        <th rowspan="1" style="width: 180px">Số khách hàng chưa rà soát hồ sơ vay vốn</th> 
-                        <th rowspan="1" style="width: 180px">Số khách hàng chưa đối chiếu với khách hàng</th>
-                    </tr>
-                    <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
-                        <tr>                               
-                            <td class="" style="width: 80px"><s:property value="MAPGD"/></td>
-                            <td class="" style="width: 190px"><s:property value="TEN"/></td>
-                            <td class="number" style="width: 180px"><s:property value="D1"/></td>
-
-                            <td class="number" style="width: 180px"><s:property value="D2"/></td>
-                            <td class="number" style="width: 180px"><s:property value="D6"/></td>
-                        </tr>                                                                                                                                                                                   
-                    </s:iterator>
-                </table>-->
+                        <td class="number" style="width: 180px"><s:property value="D2"/></td>
+                        <td class="number" style="width: 180px"><s:property value="D6"/></td>
+                    </tr>                                                                                                                                                                                   
+                </s:iterator>
+            </table>-->
                 </br>
                 <table id="subTable" style="z-index: 10;">
                     <thead>
@@ -616,25 +676,25 @@
                             <s:if test="rasoat_dc.equalsIgnoreCase('1')">  
                                 <!--sai với hồ sơ vv-->
                                 <td class="D0">    
-                                    <input type="checkbox" id ="idc14<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_dnht1 D0 " name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c14" value="<s:property  value="cicCode" />"             
+                                    <input type="checkbox" id ="idc14<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" onchange="onSelectChangeD14(this.value, <s:property  value='%{#rowstatus.index}'/>)" class=" D0 " name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c14" value="<s:property  value="cicCode" />"             
                                 </td> 
 
                                 <!--sai họ tên-->
                                 <td class="D0">    
-                                    <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_check2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
+                                    <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  onchange="onSelectChangeD15(this.value, <s:property  value='%{#rowstatus.index}'/>)" class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
                                 </td> 
                                 <!--sai số cm-->
                                 <td class="D0">
-                                    <input type="checkbox" id ="idc16<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_check2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c16" value="<s:property  value="cicCode" />"      
+                                    <input type="checkbox" id ="idc16<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" onchange="onSelectChangeD16(this.value, <s:property  value='%{#rowstatus.index}'/>)" class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c16" value="<s:property  value="cicCode" />"      
                                 </td>
 
 
                                 <td class="D0">
-                                    <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_check2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
+                                    <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" onchange="onSelectChangeD19(this.value, <s:property  value='%{#rowstatus.index}'/>)" class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
                                 </td>
 
                                 <td class="D0">
-                                    <input type="checkbox" id ="idc20<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_check1 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c20" value="<s:property  value="cicCode" />"
+                                    <input type="checkbox" id ="idc20<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" onchange="onSelectChangeD20(this.value, <s:property  value='%{#rowstatus.index}'/>)" class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c20" value="<s:property  value="cicCode" />"
                                 </td>
 
                                 <td class="D0">
