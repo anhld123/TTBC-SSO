@@ -198,6 +198,16 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     
     public String vieclam_total;
     public String noxh_total;
+    public String rasoat_dc;
+
+    public String getRasoat_dc() {
+        return rasoat_dc;
+    }
+
+    public void setRasoat_dc(String rasoat_dc) {
+        this.rasoat_dc = rasoat_dc;
+    }
+    
 
     protected String totalDataView;
     

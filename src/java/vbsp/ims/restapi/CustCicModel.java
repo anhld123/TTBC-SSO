@@ -105,11 +105,106 @@ public class CustCicModel {
     private String coreBankingCustomerName;
     private String coreBankingBirthday;
     
+    private int profileCorrectConfirmFlag;
+    private int profileMissingConfirmFlag;
+    private int customerWrongIdNoConfirmFlag;
+    private int customerWrongFullNameConfirmFlag;
+    private int customerWrongBirthdayConfirmFlag;
+    private int customerNotIdConfirmFlag;  
+    private int customerReviewStatus;
+    
+    private String c14;
     private String c15;
     private String c16;
-    private String c17;
-    private String c18;
+//    private String c17;
+//    private String c18;
     private String c19;
+    
+     private String c20;
+     private String c21;
+     //xác nhận với khách hàng
+     private String c28;
+     private String c29;
+     private String c30;
+     private String c31;
+     private String c32;
+     private String c33;
+
+    public String getC21() {
+        return c21;
+    }
+
+    public void setC21(String c21) {
+        this.c21 = c21;
+    }
+
+    public String getC28() {
+        return c28;
+    }
+
+    public void setC28(String c28) {
+        this.c28 = c28;
+    }
+
+    public String getC29() {
+        return c29;
+    }
+
+    public void setC29(String c29) {
+        this.c29 = c29;
+    }
+
+    public String getC30() {
+        return c30;
+    }
+
+    public void setC30(String c30) {
+        this.c30 = c30;
+    }
+
+    public String getC31() {
+        return c31;
+    }
+
+    public void setC31(String c31) {
+        this.c31 = c31;
+    }
+
+    public String getC32() {
+        return c32;
+    }
+
+    public void setC32(String c32) {
+        this.c32 = c32;
+    }
+
+    public String getC33() {
+        return c33;
+    }
+
+    public void setC33(String c33) {
+        this.c33 = c33;
+    }
+     
+     
+
+    public String getC14() {
+        return c14;
+    }
+
+    public void setC14(String c14) {
+        this.c14 = c14;
+    }
+
+    public String getC20() {
+        return c20;
+    }
+
+    public void setC20(String c20) {
+        this.c20 = c20;
+    }
+     
+     
 
     public int getId() {
         return id;
@@ -146,21 +241,7 @@ public class CustCicModel {
         this.c16 = c16;
     }
 
-    public String getC17() {
-        return c17;
-    }
-
-    public void setC17(String c17) {
-        this.c17 = c17;
-    }
-
-    public String getC18() {
-        return c18;
-    }
-
-    public void setC18(String c18) {
-        this.c18 = c18;
-    }
+    
 
     public String getC19() {
         return c19;
@@ -488,4 +569,62 @@ public class CustCicModel {
     public void setCoreBankingBirthday(String coreBankingBirthday) {
         this.coreBankingBirthday = coreBankingBirthday;
     }
+
+    public int getProfileCorrectConfirmFlag() {
+        return profileCorrectConfirmFlag;
+    }
+
+    public void setProfileCorrectConfirmFlag(int profileCorrectConfirmFlag) {
+        this.profileCorrectConfirmFlag = profileCorrectConfirmFlag;
+    }
+
+    public int getProfileMissingConfirmFlag() {
+        return profileMissingConfirmFlag;
+    }
+
+    public void setProfileMissingConfirmFlag(int profileMissingConfirmFlag) {
+        this.profileMissingConfirmFlag = profileMissingConfirmFlag;
+    }
+
+    public int getCustomerWrongIdNoConfirmFlag() {
+        return customerWrongIdNoConfirmFlag;
+    }
+
+    public void setCustomerWrongIdNoConfirmFlag(int customerWrongIdNoConfirmFlag) {
+        this.customerWrongIdNoConfirmFlag = customerWrongIdNoConfirmFlag;
+    }
+
+    public int getCustomerWrongFullNameConfirmFlag() {
+        return customerWrongFullNameConfirmFlag;
+    }
+
+    public void setCustomerWrongFullNameConfirmFlag(int customerWrongFullNameConfirmFlag) {
+        this.customerWrongFullNameConfirmFlag = customerWrongFullNameConfirmFlag;
+    }
+
+    public int getCustomerWrongBirthdayConfirmFlag() {
+        return customerWrongBirthdayConfirmFlag;
+    }
+
+    public void setCustomerWrongBirthdayConfirmFlag(int customerWrongBirthdayConfirmFlag) {
+        this.customerWrongBirthdayConfirmFlag = customerWrongBirthdayConfirmFlag;
+    }
+
+    public int getCustomerNotIdConfirmFlag() {
+        return customerNotIdConfirmFlag;
+    }
+
+    public void setCustomerNotIdConfirmFlag(int customerNotIdConfirmFlag) {
+        this.customerNotIdConfirmFlag = customerNotIdConfirmFlag;
+    }
+
+    public int getCustomerReviewStatus() {
+        return customerReviewStatus;
+    }
+
+    public void setCustomerReviewStatus(int customerReviewStatus) {
+        this.customerReviewStatus = customerReviewStatus;
+    }
+    
+    
 }

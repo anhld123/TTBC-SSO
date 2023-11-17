@@ -125,7 +125,7 @@
                 $(".TD_CHECKBOX").css({"width": "20px"});
                 $(".TD_SOKU").css({"width": "80px"});
                 $(".TD_TENKH123").css({"width": "100px"});
-                $(".TD_TENTS").css({"width": "190px"});
+                $(".TD_TENTS").css({"width": "130px"});
                 $(".TD_SOTK").css({"width": "70px"});
                 $(".TD_MAKH").css({"width": "30px"});
                 $(".TD_THOIGIAN").css({"width": "55px"});
@@ -133,7 +133,7 @@
                 $(".TD_BUTTON1").css({"width": "40px"});
                 $(".TD_SOTIEN").css({"width": "100px"});
                 $(".TEN_KH").css({"width": "80px"});
-                $(".TD_THUTU").css({"width": "50px"});
+                $(".TD_CHECK").css({"width": "60px"});
             });
             $('.TEN_KH').focus(function () {
                 $(this).closest('tr').addClass('highlight_row');
@@ -141,7 +141,6 @@
             $('.TEN_KH').blur(function () {
                 $(this).closest('tr').removeClass('highlight_row');
             });
-
             function initTable()
             {
                 var table = document.getElementById("subTable");
@@ -150,7 +149,7 @@
                 for (var i = 0; i < rowcount; i++)
                 {
                     //cho combox 1
-                    var matmp1 = getMabyNumber1(i);//                       
+                    var matmp1 = getMabyNumber1(i); //                       
                     if (matmp1 == 1)
                     {
                         $('input:checkbox[id=check1' + i + ']').attr('checked', true);
@@ -178,39 +177,97 @@
                 rowcount = rowcount > max_row ? rowcount : max_row;
                 for (var i = 0; i < rowcount; i++)
                 {
+                    //cho combox 14
+                    var matmp14 = getMabyNumber14(i); //                       
+                    if (matmp14 == 1)
+                    {
+                        $('input:checkbox[id=idc14' + i + ']').attr('checked', true);
+                    }
                     //cho combox 15
-                    var matmp15 = getMabyNumber15(i);//                       
+                    var matmp15 = getMabyNumber15(i); //                       
                     if (matmp15 == 1)
                     {
                         $('input:checkbox[id=idc15' + i + ']').attr('checked', true);
                     }
                     //cho combox 16
-                    var matmp16 = getMabyNumber16(i);//                       
+                    var matmp16 = getMabyNumber16(i); //                       
                     if (matmp16 == 1)
                     {
                         $('input:checkbox[id=idc16' + i + ']').attr('checked', true);
                     }
-                    //cho combox 17
-                    var matmp17 = getMabyNumber17(i);//                       
-                    if (matmp17 == 1)
-                    {
-                        $('input:checkbox[id=idc17' + i + ']').attr('checked', true);
-                    }
-
-                    //cho combox 18
-                    var matmp18 = getMabyNumber18(i);//                       
-                    if (matmp18 == 1)
-                    {
-                        $('input:checkbox[id=idc18' + i + ']').attr('checked', true);
-                    }
 
                     //cho combox 19
-                    var matmp19 = getMabyNumber19(i);//                       
+                    var matmp19 = getMabyNumber19(i); //                       
                     if (matmp19 == 1)
                     {
                         $('input:checkbox[id=idc19' + i + ']').attr('checked', true);
                     }
+
+                    //cho combox 20
+                    var matmp20 = getMabyNumber20(i); //                       
+                    if (matmp20 == 1)
+                    {
+                        $('input:checkbox[id=idc20' + i + ']').attr('checked', true);
+                    }
+
+                    //cho combox 21
+                    var matmp21 = getMabyNumber21(i); //                       
+                    if (matmp21 == 1)
+                    {
+                        $('input:checkbox[id=idc21' + i + ']').attr('checked', true);
+                    }
+
+                    //-------------------------------------------------------------------------------
+                    //cho combox 28
+                    var matmp28 = getMabyNumber28(i); //                       
+                    if (matmp28 == 1)
+                    {
+                        $('input:checkbox[id=idc28' + i + ']').attr('checked', true);
+                    }
+                    //cho combox 21
+                    var matmp21 = getMabyNumber21(i); //                       
+                    if (matmp21 == 1)
+                    {
+                        $('input:checkbox[id=idc21' + i + ']').attr('checked', true);
+                    }
+                    //cho combox 29
+                    var matmp29 = getMabyNumber29(i); //                       
+                    if (matmp29 == 1)
+                    {
+                        $('input:checkbox[id=idc29' + i + ']').attr('checked', true);
+                    }
+                    //cho combox 30
+                    var matmp30 = getMabyNumber30(i); //                       
+                    if (matmp30 == 1)
+                    {
+                        $('input:checkbox[id=idc30' + i + ']').attr('checked', true);
+                    }
+                    //cho combox 31
+                    var matmp31 = getMabyNumber31(i); //                       
+                    if (matmp31 == 1)
+                    {
+                        $('input:checkbox[id=idc31' + i + ']').attr('checked', true);
+                    }
+                    //cho combox 33
+                    var matmp33 = getMabyNumber33(i); //                       
+                    if (matmp33 == 1)
+                    {
+                        $('input:checkbox[id=idc33' + i + ']').attr('checked', true);
+                    }
                 }
+            }
+
+            function getMabyNumber14(idx)
+            {
+                var ma = '';
+                try {
+                    var ma_id = 'id14_' + idx;
+                    ma = document.getElementById(ma_id).value;
+                } catch (e)
+                {
+                    ma = '999999';
+                }
+                return ma;
             }
 
             function getMabyNumber15(idx)
@@ -238,37 +295,98 @@
                 return ma;
             }
 
-            function getMabyNumber17(idx)
-            {
-                var ma = '';
-                try {
-                    var ma_id = 'id17_' + idx;
-                    ma = document.getElementById(ma_id).value;
-                } catch (e)
-                {
-                    ma = '999999';
-                }
-                return ma;
-            }
-
-            function getMabyNumber18(idx)
-            {
-                var ma = '';
-                try {
-                    var ma_id = 'id18_' + idx;
-                    ma = document.getElementById(ma_id).value;
-                } catch (e)
-                {
-                    ma = '999999';
-                }
-                return ma;
-            }
-
             function getMabyNumber19(idx)
             {
                 var ma = '';
                 try {
                     var ma_id = 'id19_' + idx;
+                    ma = document.getElementById(ma_id).value;
+                } catch (e)
+                {
+                    ma = '999999';
+                }
+                return ma;
+            }
+
+            function getMabyNumber20(idx)
+            {
+                var ma = '';
+                try {
+                    var ma_id = 'id20_' + idx;
+                    ma = document.getElementById(ma_id).value;
+                } catch (e)
+                {
+                    ma = '999999';
+                }
+                return ma;
+            }
+
+            function getMabyNumber21(idx)
+            {
+                var ma = '';
+                try {
+                    var ma_id = 'id21_' + idx;
+                    ma = document.getElementById(ma_id).value;
+                } catch (e)
+                {
+                    ma = '999999';
+                }
+                return ma;
+            }
+
+            function getMabyNumber28(idx)
+            {
+                var ma = '';
+                try {
+                    var ma_id = 'id28_' + idx;
+                    ma = document.getElementById(ma_id).value;
+                } catch (e)
+                {
+                    ma = '999999';
+                }
+                return ma;
+            }
+            function getMabyNumber29(idx)
+            {
+                var ma = '';
+                try {
+                    var ma_id = 'id29_' + idx;
+                    ma = document.getElementById(ma_id).value;
+                } catch (e)
+                {
+                    ma = '999999';
+                }
+                return ma;
+            }
+            function getMabyNumber30(idx)
+            {
+                var ma = '';
+                try {
+                    var ma_id = 'id30_' + idx;
+                    ma = document.getElementById(ma_id).value;
+                } catch (e)
+                {
+                    ma = '999999';
+                }
+                return ma;
+            }
+            function getMabyNumber31(idx)
+            {
+                var ma = '';
+                try {
+                    var ma_id = 'id31_' + idx;
+                    ma = document.getElementById(ma_id).value;
+                } catch (e)
+                {
+                    ma = '999999';
+                }
+                return ma;
+            }
+            function getMabyNumber33(idx)
+            {
+                var ma = '';
+                try {
+                    var ma_id = 'id33_' + idx;
                     ma = document.getElementById(ma_id).value;
                 } catch (e)
                 {
@@ -288,13 +406,18 @@
                     <font style="red"  class="test123"> <s:property value="messageErr"/></font>
                     <!--<br>-->
                 </a>
+
+                <input type="hidden"  id="rasoat_dc" name="rasoat_dc"
+                       value="<s:property  value="rasoat_dc"/>"/>
+
                 <table id="subTableSum" style="z-index: 10; width: 50%">
                     <tr style="height:25px;">
 
                         <th rowspan="1" style="width: 80px">Mã PGD</th>  
                         <th rowspan="1" style="width: 190px">Tên PGD</th>    
                         <th rowspan="1" style="width: 180px">Tổng số khách hàng cần rà soát</th>                             
-                        <th rowspan="1" style="width: 180px">Số khách hàng chưa rà soát</th> 
+                        <th rowspan="1" style="width: 180px">Số khách hàng chưa rà soát hồ sơ vay vốn</th> 
+                        <th rowspan="1" style="width: 180px">Số khách hàng chưa đối chiếu với khách hàng</th>
                     </tr>
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                         <tr>                               
@@ -303,6 +426,7 @@
                             <td class="number" style="width: 180px"><s:property value="D1"/></td>
 
                             <td class="number" style="width: 180px"><s:property value="D2"/></td>
+                            <td class="number" style="width: 180px"><s:property value="D6"/></td>
                         </tr>                                                                                                                                                                                   
                     </s:iterator>
                 </table>
@@ -310,32 +434,50 @@
                 <table id="subTable" style="z-index: 10;">
                     <thead>
                         <tr >      
-                            <th rowspan="2" class="hdtitle ">STT</th>   
-                            <th rowspan="2" class="TEN_KH">Mã khách hàng</th>  
-                            <th rowspan="2" class="TD_SOTIEN">Họ và tên khách hàng</th>  
-                            <th rowspan="2" class="hdtitle TD_TENTS">Dữ liệu <br>đã cập nhật</th>  
-                            <th colspan="3" class="hdtitle TEN_KH">Thông tin trên CMND</th>
-                            <th colspan="3" class="hdtitle TEN_KH">Thông tin trên CCCD</th>
-                            <th rowspan="2" class="hdtitle" style="width: 80px">Ngày tháng năm sinh</th>   
-                            <th rowspan="2" class="hdtitle TD_SOKU">Dư nợ</th>   
-                            <th rowspan="2" class="hdtitle TD_SOKU">Số dư tiền gửi</th>  
-                            <th rowspan="2" class="hdtitle TD_SOKU">Lãi tồn</th>              
-                            <th colspan="5" class="D0">Xác nhận sai sót</th> 
-                            <th rowspan="2" class="hdtitle TEN_KH">Đã hoàn thành <br>chỉnh sửa trên <br>hệ thống Intellect</th>    
-                            <th rowspan="2" class="hdtitle TEN_KH">Ghi chú</th>     
+                            <th rowspan="3" style="width: 30px">STT</th>   
+                            <th rowspan="3" class="TD_CHECK">Mã khách hàng</th>  
+                            <th colspan="5" class="TD_SOTIEN">Thông tin trên Intellect</th>  
+                            <th colspan="2" class="TD_CHECK">CIC</th>  
+                                <s:if test="rasoat_dc.equalsIgnoreCase('1')">
+                                <th colspan="5" class="TD_TENTS">Kết quả đối chiếu thông tin trên Intellect với hồ sơ vay vốn</th>  
+                                </s:if>  
+                                <s:else>
+                                <th colspan="4" class="TD_TENTS">Kết quả đối chiếu với khách hàng</th>
+                                </s:else>   
+                            <th rowspan="3" class="TD_CHECK" >Đã điều chỉnh trên Intellect</th>      
                         </tr>         
                         <tr >
-                            <th  class="hdtitle D0">Số CMTND</th>
-                            <th  class="hdtitle TD_SOTK">Ngày cấp</th>
-                            <th  class="hdtitle TD_TENKH123">Nơi cấp</th>
-                            <th  class="hdtitle D0">Số CCCD</th>
-                            <th  class="hdtitle TD_SOTK">Ngày cấp</th>
-                            <th  class="hdtitle TD_TENKH123">Nơi cấp</th>
-                            <th  style="width: 50px">Họ và tên</th>
-                            <th  style="width: 50px">Số <br>CMND<br>/CCCD</th>
-                            <th  style="width: 50px">Ngày cấp <br>CMND<br>/CCCD</th>
-                            <th  style="width: 50px">Nơi cấp <br>CMND<br>/CCCD</th>
-                            <th  style="width: 50px">Ngày tháng <br>năm sinh</th>
+                            <th rowspan="2" class="TD_TENTS">Họ tên</th>
+                            <th rowspan="2" class="TD_CHECK">Ngày, tháng, năm sinh</th>
+                            <th colspan="3" class="TD_CHECK">Thông tin CMND/CCCD</th>
+                            <th rowspan="2" class="TD_TENTS">Họ tên</th>
+                            <th rowspan="2" class="TD_CHECK">CCCD</th>
+                                <s:if test="rasoat_dc.equalsIgnoreCase('1')">
+                                <th rowspan="2" class="TD_CHECK">Thông tin khớp đúng với hồ sơ</th>
+                                </s:if>
+                                <s:if test="rasoat_dc.equalsIgnoreCase('1')">
+                                <th colspan="3" >Thông tin sai sót/chưa cập nhật</th>
+                                </s:if>
+                                <s:else>
+                                <th colspan="3" >Xác nhận có thay đổi thông tin</th>
+                                </s:else>    
+                                <s:if test="rasoat_dc.equalsIgnoreCase('1')">
+                                <th rowspan="2" class="TD_CHECK">Hồ sơ vay vốn thiếu thông tin</th>
+                                </s:if>
+                                <s:else>
+                                <th rowspan="2" class="TD_CHECK">Chưa làm CCCD</th>
+                                </s:else>  
+
+
+                        </tr>
+                        <tr >
+                            <th class="TD_CHECK">Số</th>
+                            <th class="TD_CHECK">Ngày cấp</th>
+                            <th class="TD_TENTS">Nơi cấp</th>
+
+                            <th class="TD_CHECK">Họ tên</th>
+                            <th class="TD_CHECK">CCCD</th>
+                            <th class="TD_CHECK">Ngày, tháng, năm sinh</th>
                         </tr>
 
                         <tr class="txtBody">
@@ -353,36 +495,56 @@
                             <th style="color: #000; font: italic; font-size: xx-small;">(12)</th>
                             <th style="color: #000; font: italic; font-size: xx-small;">(13)</th>
                             <th style="color: #000; font: italic; font-size: xx-small;">(14)</th>
-                            <th style="color: #000; font: italic; font-size: xx-small;">(15)</th>
-                            <th style="color: #000; font: italic; font-size: xx-small;">(16)</th>
-                            <th style="color: #000; font: italic; font-size: xx-small;">(17)</th>
-                            <th style="color: #000; font: italic; font-size: xx-small;">(18)</th>
-                            <th style="color: #000; font: italic; font-size: xx-small;">(19)</th>
-                            <th style="color: #000; font: italic; font-size: xx-small;">(20)</th>  
-                            <th style="color: #000; font: italic; font-size: xx-small;">(21)</th> 
+                                <s:if test="rasoat_dc.equalsIgnoreCase('1')">
+                                <th style="color: #000; font: italic; font-size: xx-small;">(15)</th>
+                                </s:if>
+
+
+
                         </tr>
                     </thead>
+
                     <s:iterator value="#attr.custCIC" var="modelView" status="rowstatus">   
                         <tr>
                             <td class="D0">
                                 <s:property value="%{#rowstatus.index + 1}" /> 
                             </td>
-                            <td class="TEN_KH D0"><s:property value="customerCode" />
-                                <input type="hidden" value="<s:property  value="wrongFullNameConfirmFlag" />"  id="id15_<s:property  value="%{#rowstatus.index}" />" 
+                            <td class=" D0"><s:property value="customerCode" />
+                                <input type="hidden" value="<s:property  value="profileCorrectConfirmFlag" />" name="custCIC[<s:property  value="%{#rowstatus.index}" />].profileCorrectConfirmFlag"  
+                                       id="id14_<s:property  value="%{#rowstatus.index}" />" 
+                                       value="<s:property  value="profileCorrectConfirmFlag"/>"/>
+                                <input type="hidden" value="<s:property  value="wrongFullNameConfirmFlag" />" name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongFullNameConfirmFlag" 
+                                       id="id15_<s:property  value="%{#rowstatus.index}" />" 
                                        value="<s:property  value="wrongFullNameConfirmFlag"/>"/>
-                                <input type="hidden" value="<s:property  value="wrongIdNoConfirmFlag" />"  id="id16_<s:property  value="%{#rowstatus.index}" />" 
+                                <input type="hidden" value="<s:property  value="wrongIdNoConfirmFlag" />"  name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongIdNoConfirmFlag" 
+                                       id="id16_<s:property  value="%{#rowstatus.index}" />" 
                                        value="<s:property  value="wrongIdNoConfirmFlag"/>"/>
-                                <input type="hidden" value="<s:property  value="wrongIssueDateConfirmFlag" />"  id="id17_<s:property  value="%{#rowstatus.index}" />" 
-                                       value="<s:property  value="wrongIssueDateConfirmFlag"/>"/>
-                                <input type="hidden" value="<s:property  value="wrongIssuePlaceConfirmFlag" />"  id="id18_<s:property  value="%{#rowstatus.index}" />" 
-                                       value="<s:property  value="wrongIssuePlaceConfirmFlag"/>"/>
-                                <input type="hidden" value="<s:property  value="wrongBirthdayConfirmFlag" />"  id="id19_<s:property  value="%{#rowstatus.index}" />" 
+
+                                <input type="hidden" value="<s:property  value="wrongBirthdayConfirmFlag" />" name="custCIC[<s:property  value="%{#rowstatus.index}" />].wrongBirthdayConfirmFlag" 
+                                       id="id19_<s:property  value="%{#rowstatus.index}" />" 
                                        value="<s:property  value="wrongBirthdayConfirmFlag"/>"/>
+                                <input type="hidden" value="<s:property  value="profileMissingConfirmFlag" />" name="custCIC[<s:property  value="%{#rowstatus.index}" />].profileMissingConfirmFlag" 
+                                       id="id20_<s:property  value="%{#rowstatus.index}" />" 
+                                       value="<s:property  value="profileMissingConfirmFlag"/>"/>
+                                <input type="hidden" value="<s:property  value="status" />"  name="custCIC[<s:property  value="%{#rowstatus.index}" />].status" 
+                                       id="id21_<s:property  value="%{#rowstatus.index}" />" 
+                                       value="<s:property  value="status"/>"/>
+
+                                <input type="hidden" value="<s:property  value="customerWrongFullNameConfirmFlag" />"  id="id28_<s:property  value="%{#rowstatus.index}" />" 
+                                       value="<s:property  value="customerWrongFullNameConfirmFlag"/>"/>
+                                <input type="hidden" value="<s:property  value="customerWrongIdNoConfirmFlag" />"  id="id29_<s:property  value="%{#rowstatus.index}" />" 
+                                       value="<s:property  value="customerWrongIdNoConfirmFlag"/>"/>
+                                <input type="hidden" value="<s:property  value="customerWrongBirthdayConfirmFlag" />"  id="id30_<s:property  value="%{#rowstatus.index}" />" 
+                                       value="<s:property  value="customerWrongBirthdayConfirmFlag"/>"/>
+                                <input type="hidden" value="<s:property  value="customerNotIdConfirmFlag" />"  id="id31_<s:property  value="%{#rowstatus.index}" />" 
+                                       value="<s:property  value="customerNotIdConfirmFlag"/>"/>
+                                <input type="hidden" value="<s:property  value="customerReviewStatus" />"  id="id33_<s:property  value="%{#rowstatus.index}" />" 
+                                       value="<s:property  value="customerReviewStatus"/>"/>
 
                                 <input type="hidden" value="<s:property  value="mainPos"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].mainPos" value="<s:property  value="mainPos"/>"/>
                                 <input type="hidden" value="<s:property  value="posCode"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].posCode" value="<s:property  value="posCode"/>"/>
                                 <input type="hidden" value="<s:property  value="customerCode"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].customerCode" value="<s:property  value="customerCode"/>"/>
-                                <input type="hidden" value="<s:property  value="cicCode"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].cicCode" value="<s:property  value="cicCode"/>"/>
+                                <input type="hidden" value="<s:property  value="cicCode"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].cicCode" value="<s:property  value="cicCode"/>" id="kye1<s:property  value="%{#rowstatus.index}" />"/>
                                 <input type="hidden" value="<s:property  value="customerName"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].customerName" value="<s:property  value="customerName"/>"/>
                                 <input type="hidden" value="<s:property  value="isValidCustomerName"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].isValidCustomerName" value="<s:property  value="isValidCustomerName"/>"/>
                                 <input type="hidden" value="<s:property  value="birthDay"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].birthDay" value="<s:property  value="birthDay"/>"/>
@@ -397,7 +559,7 @@
                                 <input type="hidden" value="<s:property  value="communeName"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].communeName" value="<s:property  value="communeName"/>"/>
                                 <input type="hidden" value="<s:property  value="subCommuneCode"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].subCommuneCode" value="<s:property  value="subCommuneCode"/>"/>
                                 <input type="hidden" value="<s:property  value="subCommuneName"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].subCommuneName" value="<s:property  value="subCommuneName"/>"/>
-                                <input type="hidden" value="<s:property  value="status"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].status" value="<s:property  value="status"/>"/>
+                                <!--<input type="hidden" value="<s:property  value="status"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].status" value="<s:property  value="status"/>"/>-->
                                 <input type="hidden" value="<s:property  value="type"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].type" value="<s:property  value="type"/>"/>
                                 <input type="hidden" value="<s:property  value="createdBy"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].createdBy" value="<s:property  value="createdBy"/>"/>
                                 <input type="hidden" value="<s:property  value="createdDate"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].createdDate" value="<s:property  value="createdDate"/>"/>
@@ -418,136 +580,103 @@
                                 <input type="hidden" value="<s:property  value="coreBankingBirthday"/>"name="custCIC[<s:property  value="%{#rowstatus.index}" />].coreBankingBirthday" value="<s:property  value="coreBankingBirthday"/>"/>  
                             </td>  
 
-                            <td class="TD_SOTIEN">                                
-                                <s:property value="customerName" />
+                            <td >                                
+                                <s:property value="coreBankingCustomerName" />
                             </td>
-                            <td>
-                                <s:if test="statusString.equalsIgnoreCase('0')"> 
-                                    <font style="color: #F77C61">
-                                    <s:property value="coreBankingCustomerName"/><span> </span> <s:property value="coreBankingBirthday"/>
-                                    <span> </span><s:property value="coreBankingIdNo"/><span> </span>
-                                    <s:property value="coreBankingIssuePlace"/><span> </span>
-                                    <s:property value="coreBankingIssueDate"/>
-                                    </font>
+                            <td class="D0">                                
+                                <s:property value="coreBankingBirthday" />
+                            </td>
+                            <td class="D0">                                
+                                <s:property value="coreBankingIdNo" />
+                            </td>
+                            <td class="D0">                                
+                                <s:property value="coreBankingIssueDate" />
+                            </td>
+                            <td >                                
+                                <s:property value="coreBankingIssuePlace" />
+                            </td>
+                            <td>  
+                                <s:if test="isValidCustomerName == 1">
+                                    <s:property value="customerName" /> 
+                                </s:if>
+
+                            </td>
+                            <td class="D0"  title="1 - KH đã xác thực C06 nhưng bị lệch thông tin 
+                                2 - Khách hàng chưa xác thực C06 do bị thiếu thông tin (thiếu CMT/CCCD/ngày sinh hoặc CMT/CCCD/ngày sinh ko đúng định dạng) ">  
+                                <s:if test="isValidNewIdNo == 1">
+                                    <s:property value="c06NewIdNo" /> 
                                 </s:if>
                                 <s:else>
-                                    <s:property value="coreBankingCustomerName"/><span> </span> <s:property value="coreBankingBirthday"/>
-                                    <span> </span><s:property value="coreBankingIdNo"/><span> </span>
-                                    <s:property value="coreBankingIssuePlace"/><span> </span>
-                                    <s:property value="coreBankingIssueDate"/>
+                                    <s:property value="type" />
                                 </s:else>
 
-                            </td> 
-                            <!--trường hợp cả CCCD và CMND đều chưa được xác nhận-->
-                            <s:if test="isValidOldIdNo.toString().equalsIgnoreCase('0') && isValidNewIdNo.toString().equalsIgnoreCase('0')">
-                                <!--số CMTND-->
-                                <c:if test="${fn:length(coreBankingIdNo) < 10}">
-                                    <td> <s:property value="coreBankingIdNo"/></td>
-                                    <td> <s:property value="coreBankingIssueDate"/></td>
-                                    <td> <s:property value="coreBankingIssuePlace"/></td>  
-                                    <td class="D0" title="Chưa có kết quả kiểm tra của C06, hiện lấy thông tin từ VBSP">&#8270;</td>
-                                    <td></td>
-                                    <td></td>
-                                </c:if>
-                                <c:if test="${fn:length(coreBankingIdNo) > 10}">  
-                                    <td class="D0" title="Chưa có kết quả kiểm tra của C06, hiện lấy thông tin từ VBSP">&#8270;</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td> <s:property value="coreBankingIdNo"/></td>
-                                    <td> <s:property value="coreBankingIssueDate"/></td>
-                                    <td> <s:property value="coreBankingIssuePlace"/></td> 
-                                </c:if>
-                                <!--số CCCD-->
-                            </s:if>
-                                <!--trường hợp 1 trong 2 đã đc xác nhận--> 
-                            <s:elseif test="isValidOldIdNo.toString().equalsIgnoreCase('0') || isValidNewIdNo.toString().equalsIgnoreCase('0')">
-                                <!--số CMTND-->
-                                <s:if test="isValidOldIdNo.toString().equalsIgnoreCase('0')">
-                                    <td style="font-weight: bold"> <s:property value="c06OldIdNo"/></td>
-                                    <s:if test="%{#c06OldIdNo.equals(#coreBankingIdNo)}">
-                                        <td style="font-weight: bold"> <s:property value="coreBankingIssueDate"/></td>
-                                        <td style="font-weight: bold"> <s:property value="coreBankingIssuePlace"/></td> 
-                                    </s:if>
-                                    <s:else>
-                                        <td></td>
-                                        <td></td>
-                                    </s:else>
-                                </s:if>
-                                <s:elseif test="isValidOldIdNo.toString().equalsIgnoreCase('1')">
-                                    <td> <s:property value="c06OldIdNo"/></td>
-                                    <td> <s:property value="coreBankingIssueDate"/></td>
-                                    <td> <s:property value="coreBankingIssuePlace"/></td>  
-                                </s:elseif>
-                                <s:else>
-                                    <td> <s:property value="coreBankingIdNo"/></td>
-                                    <td> <s:property value="coreBankingIssueDate"/></td>
-                                    <td> <s:property value="coreBankingIssuePlace"/></td>   
-                                </s:else>
-                                <!--số CCCD-->
-                                <s:if test="isValidNewIdNo.toString().equalsIgnoreCase('0')">
-                                    <td style="font-weight: bold"> <s:property value="c06NewIdNo"/></td>
-                                    <s:if test="%{#c06NewIdNo.equals(#coreBankingIdNo)}">
-                                        <td style="font-weight: bold"> <s:property value="coreBankingIssueDate"/></td>
-                                        <td style="font-weight: bold"> <s:property value="coreBankingIssuePlace"/></td> 
-                                    </s:if>
-                                    <s:else>
-                                        <td></td>
-                                        <td></td>
-                                    </s:else>
-                                </s:if>
-                                <s:else>
-                                    <td> <s:property value="c06NewIdNo"/></td>
-                                    <td> <s:property value="coreBankingIssueDate"/></td>
-                                    <td> <s:property value="coreBankingIssuePlace"/></td>  
-                                </s:else>
-                            </s:elseif>
-
-                            <!--ngày sinh--> 
-                            <td class="D0"><s:property value="birthDay"/></td>
-                            <!--dư nợ--> 
-                            <td class="number"><s:property value="PrincipleBalance"/></td>
-                            <!--dư tiền gửi--> 
-                            <td class="number"><s:property value="savingBalance"/></td>
-                            <!--lãi tồn--> 
-                            <td class="number"><s:property value="remainIntAmount"/></td>
-                            <!--sai họ tên-->
-                            <td class="D0">    
-                                <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
-                            </td> 
-                            <!--sai số cm-->
-                            <td class="D0">
-                                <input type="checkbox" id ="idc16<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c16" value="<s:property  value="cicCode" />"      
                             </td>
 
-                            <td class="D0">
-                                <input type="checkbox" id ="idc17<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c17" value="<s:property  value="cicCode" />"     
-                            </td>
+                            <!--Rà soát với hồ sơ khách hàng-->
+                            <s:if test="rasoat_dc.equalsIgnoreCase('1')">  
+                                <!--sai với hồ sơ vv-->
+                                <td class="D0">    
+                                    <input type="checkbox" id ="idc14<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_dnht1 D0 " name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c14" value="<s:property  value="cicCode" />"             
+                                </td> 
 
-                            <td class="D0">
-                                <input type="checkbox" id ="idc18<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c18" value="<s:property  value="cicCode" />"      
-                            </td>
-
-                            <td class="D0">
-                                <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
-                            </td>
-
-                            <td class="TEN_KH" <s:if test="statusString.equalsIgnoreCase('0')"> style="background: #F9C6BB" </s:if> >
-                                <select onchange="onSelectChange_dnht1(this.value, <s:property  value='%{#rowstatus.index}'/>)"
-                                        style="width: 100px"  name="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString" id="custCIC[<s:property  value='%{#rowstatus.index}' />].statusString">
-                                    <option value="0" <s:if test="statusString.equalsIgnoreCase('0')"> selected </s:if><s:else></s:else>>Chưa rà soát</option>
-                                    <option value="1" <s:if test="statusString.equalsIgnoreCase('1')"> selected </s:if><s:else></s:else>>Đã RS và CN trên Intellect</option>
-                                    <option value="2" <s:if test="statusString.equalsIgnoreCase('2')"> selected </s:if><s:else></s:else>>Không thực hiện chỉnh sửa</option>
-                                    </select> 
+                                <!--sai họ tên-->
+                                <td class="D0">    
+                                    <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_check2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
+                                </td> 
+                                <!--sai số cm-->
+                                <td class="D0">
+                                    <input type="checkbox" id ="idc16<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_check2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c16" value="<s:property  value="cicCode" />"      
                                 </td>
-                                <td>
-                                        <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData41<s:property  value='%{#rowstatus.index}' />" name="custCIC[<s:property  value='%{#rowstatus.index}' />].remark" <s:if test="statusString.equalsIgnoreCase('1') || statusString.equalsIgnoreCase('0')"> disabled </s:if>><s:property value='remark'/></textarea>
 
-                                </td>    
-                            </tr>
+
+                                <td class="D0">
+                                    <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_check2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
+                                </td>
+
+                                <td class="D0">
+                                    <input type="checkbox" id ="idc20<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_check1 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c20" value="<s:property  value="cicCode" />"
+                                </td>
+
+                                <td class="D0">
+                                    <input type="checkbox" id ="idc21<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c21" value="<s:property  value="cicCode" />"
+                                </td>
+                            </s:if>
+                            <!--Rà soát trực tiếp với khách hàng mẫu 03/RS-->
+                            <s:else>
+                                <!--ho tên-->
+                                <td class="D0">    
+                                    <input type="checkbox" id ="idc28<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_dnht2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c28" value="<s:property  value="cicCode" />"             
+                                </td> 
+
+                                <!--cccd-->
+                                <td class="D0">    
+                                    <input type="checkbox" id ="idc29<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_dnht2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c29" value="<s:property  value="cicCode" />"             
+                                </td> 
+                                <!--ngay thang nam sinh-->
+                                <td class="D0">
+                                    <input type="checkbox" id ="idc30<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_dnht2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c30" value="<s:property  value="cicCode" />"      
+                                </td>
+
+                                <!--CHưa làm cccd-->
+                                <td class="D0">
+                                    <input type="checkbox" id ="idc31<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_check3 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c31" value="<s:property  value="cicCode" />"
+                                </td>
+                                <!--Đã chỉnh intellect-->
+                                <td class="D0">
+                                    <input type="checkbox" id ="idc33<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c33" value="<s:property  value="cicCode" />"
+                                </td>
+
+
+                            </s:else>
+                        </tr>
                     </s:iterator>            
                 </table>
 
             </div>
+            <p style="text-align: left; color: red">Phân loại sai CCCD CIC: <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 - KH đã xác thực C06 nhưng bị lệch thông tin <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 - Khách hàng chưa xác thực C06 do bị thiếu thông tin (thiếu CMT/CCCD/ngày sinh hoặc CMT/CCCD/ngày sinh ko đúng định dạng)
+            </p>
             <sj:submit id="CIC_001_save" name="CIC_001_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
                        onCompleteTopics="completediv_ss" cssStyle="display: none"/>
         </s:form>
@@ -555,12 +684,41 @@
     <script>
 
         function onSelectChange_dnht1(value, index) {
-            if (value == '2')
+            if (document.getElementById("id14_" + i).value !== '1')
             {
-                document.getElementById("lstData41" + index).disabled = false;
+                document.getElementById("idc15" + index).disabled = false;
+                document.getElementById("idc16" + index).disabled = false;
+                document.getElementById("idc19" + index).disabled = false;
+                document.getElementById("idc20" + index).disabled = false;
+                document.getElementById("idc21" + index).disabled = false;
             } else
             {
-                document.getElementById("lstData41" + index).disabled = true;
+                document.getElementById("idc15" + index).disabled = true;
+                document.getElementById("idc16" + index).disabled = true;
+                document.getElementById("idc19" + index).disabled = true;
+                document.getElementById("idc20" + index).disabled = true;
+                document.getElementById("idc21" + index).disabled = true;
+            }
+            if (document.getElementById("id15_" + i).value !== '1'
+                    && document.getElementById("id16_" + i).value !== '1'
+                    && document.getElementById("id19_" + i).value !== '1')
+            {
+                document.getElementById("idc14" + index).disabled = false;
+//                document.getElementById("idc20" + index).disabled = false;
+                document.getElementById("idc21" + index).disabled = true;
+            } else
+            {
+                document.getElementById("idc14" + index).disabled = true;
+                document.getElementById("idc20" + index).disabled = true;
+                document.getElementById("idc21" + index).disabled = false;
+            }
+            if (document.getElementById("id20_" + i).value === '1')
+            {
+                document.getElementById("idc14" + index).disabled = true;
+                document.getElementById("idc16" + index).disabled = true;
+                document.getElementById("idc19" + index).disabled = true;
+                document.getElementById("idc15" + index).disabled = true;
+                document.getElementById("idc21" + index).disabled = true;
             }
         }
 
@@ -571,26 +729,193 @@
             rowcount = rowcount > max_row ? rowcount : max_row;
             for (var i = 0; i < rowcount; i++)
             {
-
                 try {
-
-                    var value = $('#custCIC' + i).find(":selected").val();
-                    if (value == '2')
+                    if (document.getElementById("id14_" + i).value !== '1')
                     {
-                        document.getElementById("lstData41" + i).disabled = false;
+                        document.getElementById("idc15" + i).disabled = false;
+                        document.getElementById("idc16" + i).disabled = false;
+                        document.getElementById("idc19" + i).disabled = false;
+                        document.getElementById("idc20" + i).disabled = false;
+                        document.getElementById("idc21" + i).disabled = false;
                     } else
                     {
-                        document.getElementById("lstData41" + i).disabled = true;
+                        document.getElementById("idc15" + i).disabled = true;
+                        document.getElementById("idc16" + i).disabled = true;
+                        document.getElementById("idc19" + i).disabled = true;
+                        document.getElementById("idc20" + i).disabled = true;
+                        document.getElementById("idc21" + i).disabled = true;
                     }
-
+                    if (document.getElementById("id15_" + i).value !== '1'
+                            && document.getElementById("id16_" + i).value !== '1'
+                            && document.getElementById("id19_" + i).value !== '1')
+                    {
+                        document.getElementById("idc14" + i).disabled = false;
+//                        document.getElementById("idc20" + i).disabled = false;
+                        document.getElementById("idc21" + i).disabled = true;
+                    } else
+                    {
+                        document.getElementById("idc14" + i).disabled = true;
+                        document.getElementById("idc20" + i).disabled = true;
+                        document.getElementById("idc21" + i).disabled = false;
+                    }
+                    if (document.getElementById("id20_" + i).value === '1')
+                    {
+                        document.getElementById("idc15" + i).disabled = true;
+                        document.getElementById("idc16" + i).disabled = true;
+                        document.getElementById("idc19" + i).disabled = true;
+                        document.getElementById("idc14" + i).disabled = true;
+                        document.getElementById("idc21" + i).disabled = true;
+                    }
                 } catch (e) {
-
                 }
+            }
+        }
 
+        var checkboxes = document.querySelectorAll('.onSelectChange_dnht1');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('change', function () {
+                var currentRow = this.parentNode.parentNode;
+                var currentRowIndex = currentRow.rowIndex;
+                if (this.checked) {
+                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = true;
+                } else {
+                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = false;
+                }
+            });
+        }
+
+        var checkboxes = document.querySelectorAll('.onSelectChange_check1');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('change', function () {
+                var currentRow = this.parentNode.parentNode;
+                var currentRowIndex = currentRow.rowIndex;
+                if (this.checked) {
+                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = true;
+                } else {
+                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = false;
+                }
+            });
+        }
+
+        var checkboxes = document.querySelectorAll('.onSelectChange_check2');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('change', function () {
+                var currentRow = this.parentNode.parentNode;
+                var currentRowIndex = currentRow.rowIndex;
+                if (this.checked) {
+                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = false;
+                } else {
+                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = true;
+                }
+            });
+        }
+        function onSelectChange_dnht2(value, index) {
+
+            if (document.getElementById("id28_" + i).value !== '1'
+                    && document.getElementById("id29_" + i).value !== '1'
+                    && document.getElementById("id30_" + i).value !== '1')
+            {
+                document.getElementById("idc31" + index).disabled = false;
+            } else
+            {
+                document.getElementById("idc31" + index).disabled = true;
+            }
+            if (document.getElementById("id31_" + i).value === '1')
+            {
+                document.getElementById("idc28" + index).disabled = true;
+                document.getElementById("idc29" + index).disabled = true;
+                document.getElementById("idc30" + index).disabled = true;
+                document.getElementById("idc33" + index).disabled = true;
 
             }
         }
 
+        function initTable2()
+        {
+            var table = document.getElementById("subTable");
+            var rowcount = table.rows.length;
+            rowcount = rowcount > max_row ? rowcount : max_row;
+            for (var i = 0; i < rowcount; i++)
+            {
+
+                try {
+
+                    if (document.getElementById("id28_" + i).value !== '1'
+                            && document.getElementById("id29_" + i).value !== '1'
+                            && document.getElementById("id30_" + i).value !== '1')
+                    {
+                        document.getElementById("idc31" + i).disabled = false;
+                    } else
+                    {
+                        document.getElementById("idc31" + i).disabled = true;
+                    }
+                    if (document.getElementById("id31_" + i).value === '1')
+                    {
+                        document.getElementById("idc28" + i).disabled = true;
+                        document.getElementById("idc29" + i).disabled = true;
+                        document.getElementById("idc30" + i).disabled = true;
+                        document.getElementById("idc33" + i).disabled = true;
+                    }
+                } catch (e) {
+                }
+            }
+        }
+
+        var checkboxes = document.querySelectorAll('.onSelectChange_dnht2');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('change', function () {
+                var currentRow = this.parentNode.parentNode;
+                var currentRowIndex = currentRow.rowIndex;
+                if (this.checked) {
+                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = true;
+                } else {
+
+                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = false;
+                }
+            });
+        }
+
+        var checkboxes = document.querySelectorAll('.onSelectChange_check3');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('change', function () {
+                var currentRow = this.parentNode.parentNode;
+                var currentRowIndex = currentRow.rowIndex;
+                if (this.checked) {
+                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = true;
+                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = true;
+                } else {
+
+                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = false;
+                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = false;
+                }
+            });
+        }
         initTable();
+        initTable1();
+        initTable2();
     </script>
 </html>

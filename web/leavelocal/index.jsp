@@ -72,7 +72,7 @@
                                     <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
                                 </s:iterator>
                             </select>                        
-                            Mã khách hàng: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã khách hàng" value="">                        
+                            Mã KH/ CMND/CCCD: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã KH/ CMND/CCCD" value="">                        
                             Từ ngày:  <input type="text" name="txtFromDate" id="txtFromDate" readonly="readonly" style="width: 80px"/>
                             đến: <input type="text" name="txtToDate" id="txtToDate" readonly="readonly" style="width: 80px">
                             <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>
@@ -229,7 +229,6 @@
                     }
                 });
             });
-
             //Lưu dữ liệu
             $("#idSave").click(function () {
                 let checkedCount = countCheckedItem();
@@ -244,23 +243,31 @@
 
                         for (var i = 0; i < rowcount; i++) {
                             try {
-//                          alert(document.getElementById("lstData_D32" + i).value +'  ' + document.getElementById("posCode" + i).value)
-                                if (document.getElementById("lstData42" + i).value === '0'  &&
+                                if (document.getElementById("lstData42" + i).value === '0' &&
                                         document.getElementById("lstDataD27" + i).value === "") {
                                     alert("Vui lòng nhập dữ liệu cho cột 16 trước khi lưu");
                                     document.getElementById("lstDataD27" + i).style.backgroundColor = "#EEAFA6";
-                                    isValid = false; 
-                                    break; 
+                                    isValid = false;
+                                    break;
                                 }
-
+         
+                                //Bắt số đt
+                                var lstData_D16 = document.getElementById('lstData_D16' + i).value;
+                                if (lstData_D16.length != 10 && lstData_D16.length != 0)
+                                {
+                                    alert('Vui lòng nhập thông số điện thoại 10 số.')
+                                    document.getElementById("lstData_D16" + i).style.backgroundColor = "#EEAFA6";
+                                    isValid = false;
+                                    break;
+                                }
                                 var D22 = $('#lstData_D22' + i).find(":selected").val();
                                 if (D22 == '01') {
                                     var lstDataD23 = document.getElementById('lstDataD23' + i).value;
                                     if (lstDataD23.length < 5) {
                                         alert('Vui lòng nhập thông tin cột 18.');
                                         document.getElementById("lstDataD23" + i).style.backgroundColor = "#EEAFA6";
-                                        isValid = false; 
-                                        break; 
+                                        isValid = false;
+                                        break;
                                     }
                                 }
                             } catch (e) {
@@ -424,8 +431,6 @@
                 }
                 ;
             }
-
-
         </script>
     </body>
 </html>
