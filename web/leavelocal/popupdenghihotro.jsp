@@ -66,7 +66,8 @@
             </table>
             <div style="height:10px"></div>    
             <div>
-                Ngày đề nghị:  &nbsp; <input class="cssDate" readonly="readonly" style="text-align: left" type="text" name="ngaydenghi" id="ngaydenghi" value="<s:property value='ngaydenghi'/>" >
+                Ngày đề nghị:  &nbsp; <input class="cssDate" readonly="readonly" style="text-align: left" type="text" name="ngaydenghi" id="ngaydenghi" value="<s:property value='ngaydenghi != "" ? ngaydenghi : new java.util.Date()'/>" >
+                         
             </div>
             <div style="height:10px"></div>  
             <div id="paymentDiv">

@@ -564,7 +564,13 @@
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                             </s:if>
                             <s:else>
-                          <input  style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>"  id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> value="<s:property value='d26 != null ? d26 : new java.util.Date()'/>">      </s:else>
+                                <s:if test="!D42.toString().equalsIgnoreCase('1') ">
+                                    <input  style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>"  id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> value="<s:property value='d26 != null ? d26 : new java.util.Date()'/>">   
+                                </s:if>
+                                <s:else>
+                                    <input  style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>"  id="lstData_D26<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d26" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> value="<s:property value='d26'/>">                                    
+                                </s:else>
+                            </s:else>
                         </td>
 
                         <td class="txtBody">
@@ -741,7 +747,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         var table = document.getElementById("subTable");
         var rowcount = table.rows.length;
-        var max_row = 10; 
+        var max_row = 10;
         rowcount = rowcount > max_row ? rowcount : max_row;
         for (var i = 0; i < rowcount; i++) {
             try {
