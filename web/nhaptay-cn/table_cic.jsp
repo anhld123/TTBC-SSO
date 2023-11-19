@@ -809,7 +809,7 @@
                             </td>
                             <td class="D0"  title="1 - KH đã xác thực C06 nhưng bị lệch thông tin 
                                 2 - Khách hàng chưa xác thực C06 do bị thiếu thông tin (thiếu CMT/CCCD/ngày sinh hoặc CMT/CCCD/ngày sinh ko đúng định dạng) ">  
-                                <s:if test="isValidNewIdNo == 1">
+                                <s:if test="c06NewIdNo != null">
                                     <s:property value="c06NewIdNo" /> 
                                 </s:if>
                                 <s:else>
