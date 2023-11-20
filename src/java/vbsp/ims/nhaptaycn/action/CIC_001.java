@@ -365,6 +365,11 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                         updateRow.setD13(String.valueOf(item.getCustomerWrongBirthdayConfirmFlag()));
                         updateRow.setD14(String.valueOf(item.getCustomerNotIdConfirmFlag()));
                         updateRow.setD15(String.valueOf(item.getCustomerReviewStatus()));
+                        
+                        updateRow.setD16(String.valueOf(item.getProfileCorrectConfirmFlag()));
+                        updateRow.setD17(String.valueOf(item.getProfileMissingConfirmFlag()));
+                        
+                        
 
                         lstLocalDataUpdate.add(updateRow);
                     }

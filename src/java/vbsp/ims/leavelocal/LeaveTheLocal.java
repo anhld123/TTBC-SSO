@@ -274,6 +274,8 @@ public class LeaveTheLocal extends ActionSupport {
                             tmp.setD27(item.getD27());
                             tmp.setD34(item.getD34());
                             tmp.setD41(item.getD41());
+                            tmp.setD30(item.getD30());
+                            tmp.setD32(item.getD32());
                             tmp.setOrderValue(item.getOrderValue());
 
                             lstSelectedData_Hotro.add(tmp);

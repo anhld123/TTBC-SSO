@@ -243,6 +243,15 @@
 
                         for (var i = 0; i < rowcount; i++) {
                             try {
+                                //Bắt thời điểm đi
+                                var lstData_D21 = document.getElementById('lstData_D21' + i).value;
+                                if (lstData_D21.length < 5)
+                                {
+                                    alert('Vui lòng nhập thông tin cột 12.')
+                                    document.getElementById("lstData_D21" + i).style.backgroundColor = "#EEAFA6";
+                                    return;
+                                }
+                                
                                 if (document.getElementById("lstData42" + i).value === '0' &&
                                         document.getElementById("lstDataD27" + i).value === "") {
                                     alert("Vui lòng nhập dữ liệu cho cột 16 trước khi lưu");

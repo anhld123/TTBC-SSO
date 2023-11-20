@@ -201,8 +201,8 @@
                 $("#lstData_D32" + index).prepend("<option value='000000' selected> Không xác định </option>");
                 $("#lstData_D32" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
                 //------------------------
-                $("#lstSubData_D33" + index).children().remove().end();
-                $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
+//                $("#lstSubData_D33" + index).children().remove().end();
+//                $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
                 //----------Đề nghị cung cấp thông tin
 
                 $("#lstSubData31" + index).children().remove().end();
@@ -250,13 +250,26 @@
                     {
                         document.getElementById("lstSubData31" + i).disabled = false;
                         //------------------------De nghị hỗ trợ
-                        $("#lstSubData_D33" + i).children().remove().end();
-                        $("#lstSubData_D33" + i).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
+//                        $("#lstSubData_D33" + i).children().remove().end();
+//                        $("#lstSubData_D33" + i).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
                         document.getElementById("lstDNHT_D33" + i).style.visibility = "hidden";
                         //------------------------Đề nghị cung cấp thông tin
 
                     }
                 }
+                
+                var lstData_D22 = document.getElementById('lstData_D22' + i).value;
+
+               
+                var lstSubData31 = document.getElementById('lstSubData31' + i).value;
+                if(lstData_D22 = '02' && lstSubData31 == '1' )
+                {
+//                    alert('1');
+//                    document.getElementById("lstData_D30" + i).style.visibility = "visible";
+                    document.getElementById("lstData_D30" + i).disabled = false;
+                    document.getElementById("lstData_D32" + i).disabled = false;
+                }
+                
             } catch (e) {
             }
         }
@@ -430,8 +443,9 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d19" value="<s:property value='d19'/>">
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d20" value="<s:property value='d20'/>">  
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d50" value="<s:property value='d50'/>">
-                            <s:if test="D42.equalsIgnoreCase('0')"> 
+                            <s:if test="D42.equalsIgnoreCase('0') && !(D22.equalsIgnoreCase('02') && D31.equalsIgnoreCase('1'))"> 
                                 <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" value="<s:property value='d32'/>">
+                                 <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" value="<s:property value='d30'/>">
                             </s:if>
                         </td>
                         <td class="txtBody" >
@@ -542,14 +556,19 @@
                             </td>
                         </s:if>
                         <s:else>
-                            <td class="txtBody" style="background: #f2f2f2">
+                            <td class="txtBody" style="background: #f2f2f2" 
                                 <s:if test="d22.equalsIgnoreCase('01')"><a>Có thông tin địa chỉ cụ thể</a></s:if>
                                 <s:elseif test="d22.equalsIgnoreCase('02')"><a>Không có thông tin địa chỉ cụ thể</a></s:elseif>
-                                </td>
-                                <td class="txtBody" style="background: #f2f2f2">
-                                <s:if test="d31.equalsIgnoreCase('0')"><a>Không</a></s:if>
-                                <s:elseif test="d31.equalsIgnoreCase('1')"><a>Có</a></s:elseif>
-                                </td>
+                                 <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d22" id="lstData_D22<s:property  value='%{#idxRows.index}' />" 
+                                   value="<s:property  value="D22" />" >
+                            </td>
+                        <td class="txtBody" style="background: #f2f2f2"                                 
+                            <s:if test="d31.equalsIgnoreCase('0')"><a>Không</a></s:if>
+                            <s:elseif test="d31.equalsIgnoreCase('1')"><a>Có</a></s:elseif>
+                            <s:else><a>Không</a></s:else>
+                            <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData31<s:property  value='%{#idxRows.index}' />" 
+                                   value="<s:property  value="D31" />" >
+                        </td>
                                 <td class="txtBody" style="background: #f2f2f2"><s:property value="d44"/></td>      
                         </s:else>
                         <td class="txtBody">
