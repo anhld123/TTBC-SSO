@@ -257,6 +257,7 @@
 
 //                                alert(check_box);
                                 var lstData42 = document.getElementById('lstData42' + i).value;
+//                                alert(lstData42);
                                 var lstDataD27 = document.getElementById('lstDataD27' + i).value;
                                 if (lstData42 === '0' && lstDataD27 === "" && check_box !== false) {
                                     alert("Vui lòng nhập dữ liệu cho cột 16 trước khi lưu");
@@ -269,7 +270,7 @@
                                 var check_var19 = document.getElementById('countDisplay' + i).innerText;
                                 var check_var20 = document.getElementById('countDisplay1' + i).innerText;
 //                                alert(check_var19);
-                                if (check_var19 === "0" && check_box !== false)
+                                if (check_var19 === "0" && lstData42 === '0' && check_box !== false)
                                 {
                                     alert("Vui lòng rà soát lại cột 19 ( Chi nhánh hộ vay chuyển đến ) trước khi lưu");
                                     document.getElementById("lstData_D30" + i).style.backgroundColor = "#EEAFA6";
@@ -277,7 +278,7 @@
                                     break;
                                 }
                                 // bắt check 20
-                                if (check_var20 === "0" && check_box !== false)
+                                if (check_var20 === "0" && lstData42 === '0' && check_box !== false)
                                 {
                                     alert("Vui lòng rà soát lại cột 20 ( PGD hộ vay chuyển đến ) trước khi lưu");
                                     document.getElementById("lstData_D32" + i).style.backgroundColor = "#EEAFA6";
