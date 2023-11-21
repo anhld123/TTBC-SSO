@@ -257,19 +257,19 @@
 
                     }
                 }
-                
+
                 var lstData_D22 = document.getElementById('lstData_D22' + i).value;
 
-               
+
                 var lstSubData31 = document.getElementById('lstSubData31' + i).value;
-                if(lstData_D22 = '02' && lstSubData31 == '1' )
+                if (lstData_D22 = '02' && lstSubData31 == '1')
                 {
 //                    alert('1');
 //                    document.getElementById("lstData_D30" + i).style.visibility = "visible";
                     document.getElementById("lstData_D30" + i).disabled = false;
                     document.getElementById("lstData_D32" + i).disabled = false;
                 }
-                
+
             } catch (e) {
             }
         }
@@ -324,6 +324,13 @@
             }
         }
     }
+
+    var count = 0;
+    function onSelectChange(index) {
+        count++;
+        document.getElementById('countDisplay').innerText =  count;
+    }
+
 
 </script>
 </head>
@@ -445,7 +452,7 @@
                             <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d50" value="<s:property value='d50'/>">
                             <s:if test="D42.equalsIgnoreCase('0') && !(D22.equalsIgnoreCase('02') && D31.equalsIgnoreCase('1'))"> 
                                 <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" value="<s:property value='d32'/>">
-                                 <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" value="<s:property value='d30'/>">
+                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" value="<s:property value='d30'/>">
                             </s:if>
                         </td>
                         <td class="txtBody" >
@@ -559,17 +566,17 @@
                             <td class="txtBody" style="background: #f2f2f2" 
                                 <s:if test="d22.equalsIgnoreCase('01')"><a>Có thông tin địa chỉ cụ thể</a></s:if>
                                 <s:elseif test="d22.equalsIgnoreCase('02')"><a>Không có thông tin địa chỉ cụ thể</a></s:elseif>
-                                 <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d22" id="lstData_D22<s:property  value='%{#idxRows.index}' />" 
-                                   value="<s:property  value="D22" />" >
+                                <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d22" id="lstData_D22<s:property  value='%{#idxRows.index}' />" 
+                                       value="<s:property  value="D22" />" >
                             </td>
-                        <td class="txtBody" style="background: #f2f2f2"                                 
-                            <s:if test="d31.equalsIgnoreCase('0')"><a>Không</a></s:if>
-                            <s:elseif test="d31.equalsIgnoreCase('1')"><a>Có</a></s:elseif>
-                            <s:else><a>Không</a></s:else>
-                            <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData31<s:property  value='%{#idxRows.index}' />" 
-                                   value="<s:property  value="D31" />" >
-                        </td>
-                                <td class="txtBody" style="background: #f2f2f2"><s:property value="d44"/></td>      
+                            <td class="txtBody" style="background: #f2f2f2"                                 
+                                <s:if test="d31.equalsIgnoreCase('0')"><a>Không</a></s:if>
+                                <s:elseif test="d31.equalsIgnoreCase('1')"><a>Có</a></s:elseif>
+                                <s:else><a>Không</a></s:else>
+                                <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d31" id="lstSubData31<s:property  value='%{#idxRows.index}' />" 
+                                       value="<s:property  value="D31" />" >
+                            </td>
+                            <td class="txtBody" style="background: #f2f2f2"><s:property value="d44"/></td>      
                         </s:else>
                         <td class="txtBody">
                             <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstDataD27<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> ><s:property value='d27'/></textarea>
@@ -709,7 +716,7 @@
                 </s:iterator>
             </tbody>
         </table>
-
+                <a id="countDisplay" style="color: #ffffff">0</a>
     </div>
 </body>
 <script>
