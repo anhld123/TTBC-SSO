@@ -250,8 +250,8 @@
                     {
                         document.getElementById("lstSubData31" + i).disabled = false;
                         //------------------------De nghị hỗ trợ
-//                        $("#lstSubData_D33" + i).children().remove().end();
-//                        $("#lstSubData_D33" + i).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
+                        $("#lstSubData_D33" + i).children().remove().end();
+                        $("#lstSubData_D33" + i).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
                         document.getElementById("lstDNHT_D33" + i).style.visibility = "hidden";
                         //------------------------Đề nghị cung cấp thông tin
 
@@ -325,13 +325,27 @@
         }
     }
 
-    var count = 0;
-    function onSelectChange(index) {
-        count++;
-        document.getElementById('countDisplay').innerText =  count;
+    function Check_var30(index) {
+        var countDisplay = document.getElementById("countDisplay" + index);
+        var selectElement = document.getElementById("lstData_D30" + index);
+        if (selectElement.value === "0")
+        {
+            countDisplay.innerText = 0;
+        } else {
+            countDisplay.innerText = 1;
+        }
     }
-
-
+    
+       function Check_var32(index) {
+        var countDisplay1 = document.getElementById("countDisplay1" + index);
+        var selectElement = document.getElementById("lstData_D32" + index);
+        if (selectElement.value === "0")
+        {
+            countDisplay1.innerText = 0;
+        } else {
+            countDisplay1.innerText = 1;
+        }
+    }
 </script>
 </head>
 <body>
@@ -460,7 +474,8 @@
                                 <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
                                 </s:if>
                                 <s:else> 
-                                    <input type="checkbox" class="myCheckBox" name="lstData[<s:property  value='%{#idxRows.index}' />].manualFlag" value="0" onclick="$(this).val(this.checked ? 1 : 0)">
+                                    <input id="STT_1<s:property  value='%{#idxRows.index}' />"
+                                        type="checkbox" class="myCheckBox" name="lstData[<s:property  value='%{#idxRows.index}' />].manualFlag" value="0" onclick="$(this).val(this.checked ? 1 : 0)">
                                     <% customerCount += 1;%>
                                 </s:else>
                             </s:if>
@@ -602,8 +617,8 @@
                         <td class="txtBody">
                             <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstDataD23<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d23" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> ><s:property value='d23'/></textarea>
                             </td>
-                            <td>
-                                <select onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
+                            <td> 
+                                <select onclick="Check_var30(<s:property  value='%{#idxRows.index}'/>)" onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                     <option value="000000">Không xác định</option>
                                     <option value="999999">00 - Nước ngoài</option>
                                 <s:iterator value="lstCN" status="ideRows" var="language">
@@ -614,6 +629,7 @@
                                         <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
                                     </s:else>
                                 </s:iterator>
+
                             </select>
                             <!--Ẩn-->   
                             <select class="THANHVIEN"  id="lstData_D30_tmp<s:property  value='%{#idxRows.index}' />"  cssStyle="display:none;">
@@ -628,9 +644,10 @@
                                     </s:else>
                                 </s:iterator>
                             </select>   
+                            <a id="countDisplay<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
                         </td>
                         <td>
-                            <select style="width: 200px"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
+                            <select onclick="Check_var32(<s:property  value='%{#idxRows.index}'/>)" style="width: 200px"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                     <option value="000000">Không xác định</option>
                                     <option value="999999">00 - Nước ngoài</option>
                                 <s:iterator value="lstPGD" status="ideRows" var="language">
@@ -655,6 +672,7 @@
                                     </s:else>
                                 </s:iterator>                                
                             </select>    
+                                  <a id="countDisplay1<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
                         </td>
                         <td class="txtBody" >
                             <select onchange="onSelectChange_dnht(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" 
@@ -716,7 +734,6 @@
                 </s:iterator>
             </tbody>
         </table>
-                <a id="countDisplay" style="color: #ffffff">0</a>
     </div>
 </body>
 <script>

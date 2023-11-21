@@ -233,16 +233,22 @@ public class LeaveTheLocal extends ActionSupport {
                         tmp = this.lstData.get(i);
 
                         String D22 = tmp.getD22() == null ? "00" : tmp.getD22();
-                        
+
                         //Lưu để phê duyệt đề nghị cung cấp thông tin
                         String check = "0";
+                        String check1 = "0";
                         try {
                             check = tmp.getD31() == null ? "0" : tmp.getD31();
+                            check1 = tmp.getD33() == null ? "0" : tmp.getD33();
                         } catch (Exception e) {
                             check = "0";
+                            check1 = "0";
                         }
                         if ((tmp.getD50().equals("1") || tmp.getD50().equals("5") || tmp.getD50().equals("7")) && check.equals("1")) {
                             tmp.setD50("5");
+                        }
+                        if ((tmp.getD50().equals("1") || tmp.getD50().equals("4") || tmp.getD50().equals("6")) && check1.equals("1")) {
+                            tmp.setD50("4");
                         }
                         lstSelectedData.add(tmp);
                     }
@@ -261,7 +267,7 @@ public class LeaveTheLocal extends ActionSupport {
                             List<DuLieuNTRow> lstSelectedData_Hotro = new ArrayList<>();
                             String mapgd_tmp = item.getPosCode();
                             String nguoi_nhap = item.getMakerId();
-                            
+
                             DuLieuNTRow tmp = new DuLieuNTRow();
                             tmp.setKey(item.getKey());
                             tmp.setPosCode(item.getPosCode());
