@@ -244,11 +244,13 @@ public class LeaveTheLocal extends ActionSupport {
                             check = "0";
                             check1 = "0";
                         }
-                        if ((tmp.getD50().equals("1") || tmp.getD50().equals("5") || tmp.getD50().equals("7")) && check.equals("1")) {
-                            tmp.setD50("5");
-                        }
-                        if ((tmp.getD50().equals("1") || tmp.getD50().equals("4") || tmp.getD50().equals("6")) && check1.equals("1")) {
+                        if (check.equals("1")) {
                             tmp.setD50("4");
+                            tmp.setD33("0");
+                        }
+                        if (check1.equals("1")) {
+                            tmp.setD50("5");
+                            tmp.setD31("0");
                         }
                         lstSelectedData.add(tmp);
                     }

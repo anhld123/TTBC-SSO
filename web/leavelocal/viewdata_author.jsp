@@ -300,7 +300,7 @@
                             <s:elseif test="d22.equalsIgnoreCase('02')"><a>Không có thông tin địa chỉ cụ thể</a></s:elseif>
                             </td>
                             <td class="txtBody">
-                            <s:if test="d31.equalsIgnoreCase('0')"><a>Không</a></s:if>
+                            <s:if test="!d31.equalsIgnoreCase('1')"><a>Không</a></s:if>
                             <s:elseif test="d31.equalsIgnoreCase('1')"><a>Có</a></s:elseif>
                             </td>
                             <td class="txtBody"><s:property value="d23"/></td>                       
@@ -333,7 +333,7 @@
                             </select>
                         </td>  
                         <td class="txtBody">
-                            <s:if test="d33.equalsIgnoreCase('0')"><a>Không đề nghị hỗ trợ</a></s:if>
+                            <s:if test="!d33.equalsIgnoreCase('1')"><a>Không đề nghị hỗ trợ</a></s:if>
                             <s:elseif test="d33.equalsIgnoreCase('1')"><a>Đề nghị hỗ trợ</a></s:elseif>
                             </td>
                             <td class="txtBody">
@@ -342,7 +342,7 @@
                             <s:elseif test="d34.equalsIgnoreCase('2')"><a>Khách hàng thuộc đối tượng xử lý nợ bị rủi ro</a></s:elseif>
                             <s:elseif test="d34.equalsIgnoreCase('3')"><a>Khách hàng chây ỳ</a></s:elseif>
                             <s:elseif test="d34.equalsIgnoreCase('4')"><a>Không liên hệ được với khách hàng</a></s:elseif>
-                            <s:elseif test="d34.equalsIgnoreCase('5')"><a>Khách hàng cam kết thực hiện nghĩa vụ trả nợ</a></s:elseif> 
+                            <s:elseif test="d34.equalsIgnoreCase('5')"><a>Khách hàng không nhận nợ, không nhận nợ một phần, không/chưa cam kết trả nợ hoặc trường hợp khác...</a></s:elseif> 
                             </td>
                             <td class="txtBody"><s:property value="d41"/></td>        
                         <td class="txtBody">
