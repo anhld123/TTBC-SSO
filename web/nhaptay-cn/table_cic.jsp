@@ -394,6 +394,233 @@
                 }
                 return ma;
             }
+
+            function onSelectChangeD14(value, index)
+            {
+                try {
+                    var d14 = document.getElementById('idc14' + index).checked;
+
+                    if (d14 === true)
+                    {
+                        document.getElementById("idc15" + index).checked = false;
+                        document.getElementById("idc16" + index).checked = false;
+                        document.getElementById("idc19" + index).checked = false;
+                        document.getElementById("idc20" + index).checked = false;
+                        document.getElementById("idc21" + index).checked = false;
+
+                        document.getElementById("idc15" + index).disabled = true;
+                        document.getElementById("idc16" + index).disabled = true;
+                        document.getElementById("idc19" + index).disabled = true;
+                        document.getElementById("idc20" + index).disabled = true;
+                        document.getElementById("idc21" + index).disabled = true;
+                    } else
+                    {
+                        document.getElementById("idc15" + index).disabled = false;
+                        document.getElementById("idc16" + index).disabled = false;
+                        document.getElementById("idc19" + index).disabled = false;
+                        document.getElementById("idc20" + index).disabled = false;
+                        document.getElementById("idc21" + index).disabled = false;
+                    }
+                } catch (e) {
+
+                }
+
+            }
+
+            function onSelectChangeD15(value, index)
+            {
+                try {
+                    var d15 = document.getElementById('idc15' + index).checked;
+
+                    if (d15 === true)
+                    {
+                        document.getElementById("idc14" + index).disabled = true;
+                        document.getElementById("idc20" + index).disabled = true;
+                        document.getElementById("idc21" + index).disabled = false;
+                    } else
+                    {
+
+//                        document.getElementById("idc21" + index).disabled = true;
+                        var d16 = document.getElementById('idc16' + index).checked;
+                        var d19 = document.getElementById('idc19' + index).checked;
+                        if (d16 == false && d19 == false)
+                        {
+                            document.getElementById("idc14" + index).disabled = false;
+                            document.getElementById("idc20" + index).disabled = false;
+                        }
+                    }
+                } catch (e) {
+
+                }
+            }
+            function onSelectChangeD16(value, index)
+            {
+                try {
+                    var d15 = document.getElementById('idc16' + index).checked;
+
+                    if (d15 === true)
+                    {
+                        document.getElementById("idc14" + index).disabled = true;
+                        document.getElementById("idc20" + index).disabled = true;
+                        document.getElementById("idc21" + index).disabled = false;
+                    } else
+                    {
+
+//                        document.getElementById("idc21" + index).disabled = true;
+                        var d16 = document.getElementById('idc15' + index).checked;
+                        var d19 = document.getElementById('idc19' + index).checked;
+                        if (d16 == false && d19 == false)
+                        {
+                            document.getElementById("idc14" + index).disabled = false;
+                            document.getElementById("idc20" + index).disabled = false;
+                        }
+                    }
+                } catch (e) {
+
+                }
+            }
+            function onSelectChangeD19(value, index)
+            {
+                try {
+                    var d15 = document.getElementById('idc19' + index).checked;
+
+                    if (d15 === true)
+                    {
+                        document.getElementById("idc14" + index).disabled = true;
+                        document.getElementById("idc20" + index).disabled = true;
+                        document.getElementById("idc21" + index).disabled = false;
+                    } else
+                    {
+
+//                        document.getElementById("idc21" + index).disabled = true;
+                        var d16 = document.getElementById('idc15' + index).checked;
+                        var d19 = document.getElementById('idc16' + index).checked;
+                        if (d16 == false && d19 == false)
+                        {
+                            document.getElementById("idc14" + index).disabled = false;
+                            document.getElementById("idc20" + index).disabled = false;
+                        }
+                    }
+                } catch (e) {
+
+                }
+            }
+            function onSelectChangeD20(value, index)
+            {
+                try {
+                    var d15 = document.getElementById('idc20' + index).checked;
+
+                    if (d15 === true)
+                    {
+                        document.getElementById("idc14" + index).disabled = true;
+                        document.getElementById("idc16" + index).disabled = true;
+                        document.getElementById("idc15" + index).disabled = true;
+                        document.getElementById("idc19" + index).disabled = true;
+                        document.getElementById("idc21" + index).disabled = true;
+                    } else
+                    {
+                        document.getElementById("idc14" + index).disabled = false;
+                        document.getElementById("idc16" + index).disabled = false;
+                        document.getElementById("idc15" + index).disabled = false;
+                        document.getElementById("idc19" + index).disabled = false;
+                        document.getElementById("idc21" + index).disabled = false;
+
+                    }
+                } catch (e) {
+
+                }
+            }
+            function onSelectChangeD28(value, index)
+            {
+                try {
+                    var d15 = document.getElementById('idc28' + index).checked;
+
+                    if (d15 === true)
+                    {
+                        document.getElementById("idc31" + index).disabled = true;
+                        document.getElementById("idc33" + index).disabled = false;
+                    } else
+                    {
+                        var d16 = document.getElementById('idc29' + index).checked;
+                        var d19 = document.getElementById('idc30' + index).checked;
+                        if (d16 == false && d19 == false)
+                        {
+                            document.getElementById("idc31" + index).disabled = false;
+                            document.getElementById("idc33" + index).disabled = false;
+                        }
+                    }
+                } catch (e) {
+
+                }
+            }
+            function onSelectChangeD29(value, index)
+            {
+                try {
+                    var d15 = document.getElementById('idc29' + index).checked;
+
+                    if (d15 === true)
+                    {
+                        document.getElementById("idc31" + index).disabled = true;
+                        document.getElementById("idc33" + index).disabled = false;
+                    } else
+                    {
+                        var d16 = document.getElementById('idc28' + index).checked;
+                        var d19 = document.getElementById('idc30' + index).checked;
+                        if (d16 == false && d19 == false)
+                        {
+                            document.getElementById("idc31" + index).disabled = false;
+                            document.getElementById("idc33" + index).disabled = false;
+                        }
+                    }
+                } catch (e) {
+
+                }
+            }
+            function onSelectChangeD30(value, index)
+            {
+                try {
+                    var d15 = document.getElementById('idc30' + index).checked;
+
+                    if (d15 === true)
+                    {
+                        document.getElementById("idc31" + index).disabled = true;
+                        document.getElementById("idc33" + index).disabled = false;
+                    } else
+                    {
+                        var d16 = document.getElementById('idc29' + index).checked;
+                        var d19 = document.getElementById('idc28' + index).checked;
+                        if (d16 == false && d19 == false)
+                        {
+                            document.getElementById("idc31" + index).disabled = false;
+                            document.getElementById("idc33" + index).disabled = false;
+                        }
+                    }
+                } catch (e) {
+
+                }
+            }
+            function onSelectChangeD31(value, index)
+            {
+                try {
+                    var d15 = document.getElementById('idc31' + index).checked;
+
+                    if (d15 === true)
+                    {
+                        document.getElementById("idc28" + index).disabled = true;
+                        document.getElementById("idc29" + index).disabled = true;
+                        document.getElementById("idc30" + index).disabled = true;
+                        document.getElementById("idc33" + index).disabled = true;
+                    } else
+                    {
+                        document.getElementById("idc28" + index).disabled = false;
+                        document.getElementById("idc29" + index).disabled = false;
+                        document.getElementById("idc30" + index).disabled = false;
+                        document.getElementById("idc33" + index).disabled = false;
+                    }
+                } catch (e) {
+
+                }
+            }
         </script>   
         <!--</head>-->
     <body>
@@ -404,32 +631,11 @@
                     <!--<font style="color: red"> <s:property value="messageErr"/> </font>-->
                     </br> 
                     <font style="red"  class="test123"> <s:property value="messageErr"/></font>
-                    <!--<br>-->
+
                 </a>
 
                 <input type="hidden"  id="rasoat_dc" name="rasoat_dc"
                        value="<s:property  value="rasoat_dc"/>"/>
-
-                <table id="subTableSum" style="z-index: 10; width: 50%">
-                    <tr style="height:25px;">
-
-                        <th rowspan="1" style="width: 80px">Mã PGD</th>  
-                        <th rowspan="1" style="width: 190px">Tên PGD</th>    
-                        <th rowspan="1" style="width: 180px">Tổng số khách hàng cần rà soát</th>                             
-                        <th rowspan="1" style="width: 180px">Số khách hàng chưa rà soát hồ sơ vay vốn</th> 
-                        <th rowspan="1" style="width: 180px">Số khách hàng chưa đối chiếu với khách hàng</th>
-                    </tr>
-                    <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
-                        <tr>                               
-                            <td class="" style="width: 80px"><s:property value="MAPGD"/></td>
-                            <td class="" style="width: 190px"><s:property value="TEN"/></td>
-                            <td class="number" style="width: 180px"><s:property value="D1"/></td>
-
-                            <td class="number" style="width: 180px"><s:property value="D2"/></td>
-                            <td class="number" style="width: 180px"><s:property value="D6"/></td>
-                        </tr>                                                                                                                                                                                   
-                    </s:iterator>
-                </table>
                 </br>
                 <table id="subTable" style="z-index: 10;">
                     <thead>
@@ -509,7 +715,7 @@
                             <td class="D0">
                                 <s:property value="%{#rowstatus.index + 1}" /> 
                             </td>
-                            <td class=" D0"><s:property value="customerCode" />
+                            <td class=" D0" title="CCCD corebanking: <s:property value="coreBankingIdNo" />"><s:property value="customerCode" />
                                 <input type="hidden" value="<s:property  value="profileCorrectConfirmFlag" />" name="custCIC[<s:property  value="%{#rowstatus.index}" />].profileCorrectConfirmFlag"  
                                        id="id14_<s:property  value="%{#rowstatus.index}" />" 
                                        value="<s:property  value="profileCorrectConfirmFlag"/>"/>
@@ -603,7 +809,7 @@
                             </td>
                             <td class="D0"  title="1 - KH đã xác thực C06 nhưng bị lệch thông tin 
                                 2 - Khách hàng chưa xác thực C06 do bị thiếu thông tin (thiếu CMT/CCCD/ngày sinh hoặc CMT/CCCD/ngày sinh ko đúng định dạng) ">  
-                                <s:if test="isValidNewIdNo == 1">
+                                <s:if test="c06NewIdNo != null">
                                     <s:property value="c06NewIdNo" /> 
                                 </s:if>
                                 <s:else>
@@ -616,25 +822,25 @@
                             <s:if test="rasoat_dc.equalsIgnoreCase('1')">  
                                 <!--sai với hồ sơ vv-->
                                 <td class="D0">    
-                                    <input type="checkbox" id ="idc14<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_dnht1 D0 " name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c14" value="<s:property  value="cicCode" />"             
+                                    <input type="checkbox" id ="idc14<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" onchange="onSelectChangeD14(this.value, <s:property  value='%{#rowstatus.index}'/>)" class=" D0 " name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c14" value="<s:property  value="cicCode" />"             
                                 </td> 
 
                                 <!--sai họ tên-->
                                 <td class="D0">    
-                                    <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_check2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
+                                    <input type="checkbox" id ="idc15<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  onchange="onSelectChangeD15(this.value, <s:property  value='%{#rowstatus.index}'/>)" class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c15" value="<s:property  value="cicCode" />"             
                                 </td> 
                                 <!--sai số cm-->
                                 <td class="D0">
-                                    <input type="checkbox" id ="idc16<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_check2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c16" value="<s:property  value="cicCode" />"      
+                                    <input type="checkbox" id ="idc16<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" onchange="onSelectChangeD16(this.value, <s:property  value='%{#rowstatus.index}'/>)" class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c16" value="<s:property  value="cicCode" />"      
                                 </td>
 
 
                                 <td class="D0">
-                                    <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_check2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
+                                    <input type="checkbox" id ="idc19<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" onchange="onSelectChangeD19(this.value, <s:property  value='%{#rowstatus.index}'/>)" class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c19" value="<s:property  value="cicCode" />"
                                 </td>
 
                                 <td class="D0">
-                                    <input type="checkbox" id ="idc20<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_check1 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c20" value="<s:property  value="cicCode" />"
+                                    <input type="checkbox" id ="idc20<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" onchange="onSelectChangeD20(this.value, <s:property  value='%{#rowstatus.index}'/>)" class=" D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c20" value="<s:property  value="cicCode" />"
                                 </td>
 
                                 <td class="D0">
@@ -645,21 +851,21 @@
                             <s:else>
                                 <!--ho tên-->
                                 <td class="D0">    
-                                    <input type="checkbox" id ="idc28<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_dnht2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c28" value="<s:property  value="cicCode" />"             
+                                    <input type="checkbox" id ="idc28<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  onchange="onSelectChangeD28(this.value, <s:property  value='%{#rowstatus.index}'/>)" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c28" value="<s:property  value="cicCode" />"             
                                 </td> 
 
                                 <!--cccd-->
                                 <td class="D0">    
-                                    <input type="checkbox" id ="idc29<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  class="onSelectChange_dnht2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c29" value="<s:property  value="cicCode" />"             
+                                    <input type="checkbox" id ="idc29<s:property  value="%{#rowstatus.index}" />" title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>"  onchange="onSelectChangeD29(this.value, <s:property  value='%{#rowstatus.index}'/>)" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c29" value="<s:property  value="cicCode" />"             
                                 </td> 
                                 <!--ngay thang nam sinh-->
                                 <td class="D0">
-                                    <input type="checkbox" id ="idc30<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_dnht2 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c30" value="<s:property  value="cicCode" />"      
+                                    <input type="checkbox" id ="idc30<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" onchange="onSelectChangeD30(this.value, <s:property  value='%{#rowstatus.index}'/>)" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c30" value="<s:property  value="cicCode" />"      
                                 </td>
 
                                 <!--CHưa làm cccd-->
                                 <td class="D0">
-                                    <input type="checkbox" id ="idc31<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" class="onSelectChange_check3 D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c31" value="<s:property  value="cicCode" />"
+                                    <input type="checkbox" id ="idc31<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="customerName"/> - <s:property  value="coreBankingBirthday"/>" onchange="onSelectChangeD31(this.value, <s:property  value='%{#rowstatus.index}'/>)" class="D0" name="lstCombox[<s:property  value="%{#rowstatus.index}" />].c31" value="<s:property  value="cicCode" />"
                                 </td>
                                 <!--Đã chỉnh intellect-->
                                 <td class="D0">
@@ -771,64 +977,64 @@
             }
         }
 
-        var checkboxes = document.querySelectorAll('.onSelectChange_dnht1');
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].addEventListener('change', function () {
-                var currentRow = this.parentNode.parentNode;
-                var currentRowIndex = currentRow.rowIndex;
-                if (this.checked) {
-                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = true;
-                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = true;
-                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = true;
-                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = true;
-                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = true;
-                } else {
-                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = false;
-                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = false;
-                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = false;
-                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = false;
-                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = false;
-                }
-            });
-        }
+//        var checkboxes = document.querySelectorAll('.onSelectChange_dnht1');
+//        for (var i = 0; i < checkboxes.length; i++) {
+//            checkboxes[i].addEventListener('change', function () {
+//                var currentRow = this.parentNode.parentNode;
+//                var currentRowIndex = currentRow.rowIndex;
+//                if (this.checked) {
+//                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = true;
+//                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = true;
+//                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = true;
+//                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = true;
+//                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = true;
+//                } else {
+//                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = false;
+//                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = false;
+//                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = false;
+//                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = false;
+//                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = false;
+//                }
+//            });
+//        }
 
-        var checkboxes = document.querySelectorAll('.onSelectChange_check1');
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].addEventListener('change', function () {
-                var currentRow = this.parentNode.parentNode;
-                var currentRowIndex = currentRow.rowIndex;
-                if (this.checked) {
-                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = true;
-                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = true;
-                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = true;
-                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = true;
-                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = true;
-                } else {
-                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = false;
-                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = false;
-                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = false;
-                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = false;
-                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = false;
-                }
-            });
-        }
+//        var checkboxes = document.querySelectorAll('.onSelectChange_check1');
+//        for (var i = 0; i < checkboxes.length; i++) {
+//            checkboxes[i].addEventListener('change', function () {
+//                var currentRow = this.parentNode.parentNode;
+//                var currentRowIndex = currentRow.rowIndex;
+//                if (this.checked) {
+//                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = true;
+//                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = true;
+//                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = true;
+//                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = true;
+//                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = true;
+//                } else {
+//                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = false;
+//                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = false;
+//                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = false;
+//                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = false;
+//                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = false;
+//                }
+//            });
+//        }
 
-        var checkboxes = document.querySelectorAll('.onSelectChange_check2');
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].addEventListener('change', function () {
-                var currentRow = this.parentNode.parentNode;
-                var currentRowIndex = currentRow.rowIndex;
-                if (this.checked) {
-                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = true;
-                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = true;
-                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = false;
-                } else {
-                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = false;
-                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = false;
-                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = true;
-                }
-            });
-        }
+//        var checkboxes = document.querySelectorAll('.onSelectChange_check2');
+//        for (var i = 0; i < checkboxes.length; i++) {
+//            checkboxes[i].addEventListener('change', function () {
+//                var currentRow = this.parentNode.parentNode;
+//                var currentRowIndex = currentRow.rowIndex;
+//                if (this.checked) {
+//                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = true;
+//                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = true;
+//                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = false;
+//                } else {
+//                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = false;
+//                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = false;
+//                    currentRow.cells[14].querySelector('input[type="checkbox"]').disabled = true;
+//                }
+//            });
+//        }
         function onSelectChange_dnht2(value, index) {
 
             if (document.getElementById("id28_" + i).value !== '1'
@@ -881,39 +1087,39 @@
             }
         }
 
-        var checkboxes = document.querySelectorAll('.onSelectChange_dnht2');
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].addEventListener('change', function () {
-                var currentRow = this.parentNode.parentNode;
-                var currentRowIndex = currentRow.rowIndex;
-                if (this.checked) {
-                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = true;
-                } else {
-
-                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = false;
-                }
-            });
-        }
-
-        var checkboxes = document.querySelectorAll('.onSelectChange_check3');
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].addEventListener('change', function () {
-                var currentRow = this.parentNode.parentNode;
-                var currentRowIndex = currentRow.rowIndex;
-                if (this.checked) {
-                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = true;
-                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = true;
-                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = true;
-                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = true;
-                } else {
-
-                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = false;
-                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = false;
-                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = false;
-                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = false;
-                }
-            });
-        }
+//        var checkboxes = document.querySelectorAll('.onSelectChange_dnht2');
+//        for (var i = 0; i < checkboxes.length; i++) {
+//            checkboxes[i].addEventListener('change', function () {
+//                var currentRow = this.parentNode.parentNode;
+//                var currentRowIndex = currentRow.rowIndex;
+//                if (this.checked) {
+//                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = true;
+//                } else {
+//
+//                    currentRow.cells[12].querySelector('input[type="checkbox"]').disabled = false;
+//                }
+//            });
+//        }
+//
+//        var checkboxes = document.querySelectorAll('.onSelectChange_check3');
+//        for (var i = 0; i < checkboxes.length; i++) {
+//            checkboxes[i].addEventListener('change', function () {
+//                var currentRow = this.parentNode.parentNode;
+//                var currentRowIndex = currentRow.rowIndex;
+//                if (this.checked) {
+//                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = true;
+//                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = true;
+//                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = true;
+//                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = true;
+//                } else {
+//
+//                    currentRow.cells[9].querySelector('input[type="checkbox"]').disabled = false;
+//                    currentRow.cells[10].querySelector('input[type="checkbox"]').disabled = false;
+//                    currentRow.cells[11].querySelector('input[type="checkbox"]').disabled = false;
+//                    currentRow.cells[13].querySelector('input[type="checkbox"]').disabled = false;
+//                }
+//            });
+//        }
         initTable();
         initTable1();
         initTable2();

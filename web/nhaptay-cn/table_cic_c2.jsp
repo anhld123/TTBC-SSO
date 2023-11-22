@@ -206,8 +206,8 @@
                             <th rowspan="1" class="TD_STT">STT</th>                                                       
                             <th rowspan="1" class="TD_MAKH">Mã PGD</th>  
                             <th rowspan="1" class="TD_TENKH">Tên PGD</th>    
-                            <th rowspan="1"  class="TD_MAKH">Tổng số khách hàng cần rà soát</th>                             
-                            <th rowspan="1"  class="TD_MAKH">Số khách hàng chưa rà soát</th>   
+<!--                            <th rowspan="1"  class="TD_MAKH">Tổng số khách hàng cần rà soát</th>                             
+                            <th rowspan="1"  class="TD_MAKH">Số khách hàng chưa rà soát</th>   -->
 <!--                            <th rowspan="1"  class="TD_MAKH">Số khách hàng đã rà soát và cập nhật lên Intellect</th> 
                             <th rowspan="1"  class="TD_MAKH">Số khách hàng không làm rõ được</th>   -->
                             
@@ -222,8 +222,8 @@
                             <td style="text-align: center">(2)</td>
                             <td style="text-align: center">(3)</td>
                             <td style="text-align: center">(4)</td>
-                            <td style="text-align: center">(5)</td>
-                            <td style="text-align: center">(6)</td>
+<!--                            <td style="text-align: center">(5)</td>
+                            <td style="text-align: center">(6)</td>-->
 <!--                            <td style="text-align: center">(7)</td>
                             <td style="text-align: center">(8)</td>-->
                             
@@ -252,7 +252,7 @@
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" class=" TEN_KH " onfocus="this.select();"
                                            readonly="true"/>
                                 </td>
-                                <td align = "right" class="TD_NGAY" >
+<!--                                <td align = "right" class="TD_NGAY" >
                                     <input type="text"   value="<s:property  value="D1" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="number TEN_KH " onfocus="this.select();"
                                            readonly="true"/>
@@ -262,7 +262,7 @@
                                     <input type="text"   value="<s:property  value="D2" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number TEN_KH" onfocus="this.select();" 
                                            readonly="true"/>
-                                </td>
+                                </td>-->
 
                               
                                  

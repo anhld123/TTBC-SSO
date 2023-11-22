@@ -80,7 +80,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                     CustNoGroupResp custNoGroupResp = service.getDataCustCIC_NoGroup(pos_cd_username, "20231231",
                             hmParameter.get("maxa").toString(), 50, Integer.parseInt(hmParameter.get("pageNumber").toString()));
                     custCIC_TMP = custNoGroupResp.getResult();
-                    
+
                     if (custCIC_TMP.size() > 150) {
                         setMessageErr("Dữ liệu quá lớn. Vui lòng chọn đúng trang để xác nhận.");
                     } else {
@@ -88,6 +88,10 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                         DateFormat df1 = new SimpleDateFormat("MM/dd/yyyy");
                         DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
+                        int da_rasoat_hs = 0;
+                        int da_doichieu_kh = 0;
+                        
+                        int rasoat_03 = 0;
                         for (CustCicModel item : custCIC_TMP) {
                             if (rasoat_dc.equals("1")) {  //Rà soát với hồ sơ vay vốn
                                 i++;
@@ -99,12 +103,22 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                                     item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
                                 }
                                 item.setStatusString(String.valueOf(item.getStatus()));
+                                //Đến khách hàng đã rà soát với hồ sơ
+                                if (item.getProfileCorrectConfirmFlag() == 1
+                                        || item.getWrongFullNameConfirmFlag() == 1 || item.getWrongIdNoConfirmFlag() == 1
+                                        || item.getWrongBirthdayConfirmFlag() == 1 || item.getProfileMissingConfirmFlag() == 1 || item.getStatus() == 1) {
+                                    da_rasoat_hs++;
+                                }
                                 custCIC.add(item);
                             } else //Rà soát trực tiếp với khách hàng
                             {
-                                if (//item.getProfileCorrectConfirmFlag() == 1 || 
-                                        item.getWrongFullNameConfirmFlag() == 1 || item.getWrongIdNoConfirmFlag() == 1
-                                        || item.getWrongBirthdayConfirmFlag() == 1 || item.getProfileMissingConfirmFlag() == 1 || item.getStatus() == 1) {
+                                if (item.getProfileCorrectConfirmFlag() == 0
+                                        && item.getWrongFullNameConfirmFlag() == 0 && item.getWrongIdNoConfirmFlag() == 0
+                                        && item.getWrongBirthdayConfirmFlag() == 0 && item.getProfileMissingConfirmFlag() == 0 && item.getStatus() == 0) {
+                                    addActionError("Vui lòng rà soát xong mẫu 01A/RS để làm mẫu 03/RS");
+                                    return ERROR;
+                                }
+                                if (item.getProfileMissingConfirmFlag() == 1 || item.getCoreBankingIdNo().length() != 12) {
                                     i++;
                                     item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
                                     if (item.getCoreBankingIssueDate() != null) {
@@ -114,18 +128,25 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                                         item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
                                     }
                                     item.setStatusString(String.valueOf(item.getStatus()));
+                                    if (item.getCustomerWrongFullNameConfirmFlag() == 1
+                                            || item.getCustomerWrongIdNoConfirmFlag() == 1 || item.getCustomerWrongBirthdayConfirmFlag() == 1
+                                            || item.getCustomerNotIdConfirmFlag() == 1 || item.getCustomerReviewStatus() == 1) {
+                                        da_doichieu_kh++;
+                                    }
                                     custCIC.add(item);
                                 }
 
                             }
                         }
-                        String add = "";
-                         if (rasoat_dc.equals("2"))
-                         {
-                             add = ": Có " + String.valueOf(custCIC.size()) + "/" + String.valueOf(custCIC_TMP.size()) + " đã rà soát hồ sơ)";
-                         }
-                        
-                        setMessagePage("(Trang  " + hmParameter.get("pageNumber").toString() + "/" + String.valueOf(custNoGroupResp.getMeta().getLast_page()) + add  + ")" );
+                        if (rasoat_dc.equals("1")) {
+                            setMessagePage("(Trang  " + hmParameter.get("pageNumber").toString() + "/" + String.valueOf(custNoGroupResp.getMeta().getLast_page())
+                                    + ": Có " + String.valueOf(da_rasoat_hs) + "/" + String.valueOf(custCIC.size()) + ")");
+                        }
+                        else
+                        {
+                            setMessagePage("(" + String.valueOf(da_doichieu_kh) + "/" + String.valueOf(custCIC.size()) + " đã đối chiếu với KH )");
+                        }
+
                     }
                 } else {
                     List<CustCicModel> custCIC_TMP = new ArrayList<>();
@@ -140,6 +161,8 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                         DateFormat df1 = new SimpleDateFormat("MM/dd/yyyy");
                         DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
 //                        setMessageErr("Số bản ghi tìm kiếm " + String.valueOf(custCIC_TMP.size()));
+                        int da_rasoat_hs = 0;
+                        int da_doichieu_kh = 0;
                         for (CustCicModel item : custCIC_TMP) {
                             if (rasoat_dc.equals("1")) {  //Rà soát với hồ sơ vay vốn
                                 i++;
@@ -151,12 +174,21 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                                     item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
                                 }
                                 item.setStatusString(String.valueOf(item.getStatus()));
+                                if (item.getProfileCorrectConfirmFlag() == 1
+                                        || item.getWrongFullNameConfirmFlag() == 1 || item.getWrongIdNoConfirmFlag() == 1
+                                        || item.getWrongBirthdayConfirmFlag() == 1 || item.getProfileMissingConfirmFlag() == 1 || item.getStatus() == 1) {
+                                    da_rasoat_hs++;
+                                }
                                 custCIC.add(item);
                             } else //Rà soát trực tiếp với khách hàng
                             {
-                                if (//item.getProfileCorrectConfirmFlag() == 1 || 
-                                        item.getWrongFullNameConfirmFlag() == 1 || item.getWrongIdNoConfirmFlag() == 1
-                                        || item.getWrongBirthdayConfirmFlag() == 1 || item.getProfileMissingConfirmFlag() == 1 || item.getStatus() == 1) {
+                                if (item.getProfileCorrectConfirmFlag() == 0
+                                        && item.getWrongFullNameConfirmFlag() == 0 && item.getWrongIdNoConfirmFlag() == 0
+                                        && item.getWrongBirthdayConfirmFlag() == 0 && item.getProfileMissingConfirmFlag() == 0 && item.getStatus() == 0) {
+                                    addActionError("Vui lòng rà soát xong mẫu 01A/RS để làm mẫu 03/RS");
+                                    return ERROR;
+                                }
+                                if (item.getProfileMissingConfirmFlag() == 1 || item.getCoreBankingIdNo().length() != 12) {
                                     i++;
                                     item.setBirthDay(dateHienthi.format(sdf.parse(item.getBirthDay())));
                                     if (item.getCoreBankingIssueDate() != null) {
@@ -166,37 +198,44 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                                         item.setCoreBankingBirthday(dateHienthi.format(sdf.parse(item.getCoreBankingBirthday())));
                                     }
                                     item.setStatusString(String.valueOf(item.getStatus()));
+                                    if (item.getCustomerWrongFullNameConfirmFlag() == 1
+                                            || item.getCustomerWrongIdNoConfirmFlag() == 1 || item.getCustomerWrongBirthdayConfirmFlag() == 1
+                                            || item.getCustomerNotIdConfirmFlag() == 1 || item.getCustomerReviewStatus() == 1) {
+                                        da_doichieu_kh++;
+                                    }
                                     custCIC.add(item);
                                 }
                             }
 
                         }
                         if (rasoat_dc.equals("2")) {
-                            setMessagePage("(" + String.valueOf(custCIC.size()) + "/" + String.valueOf(custCIC_TMP.size()) + " đã rà soát hồ sơ )");
+                            setMessagePage("(" + String.valueOf(da_doichieu_kh) + "/" + String.valueOf(custCIC.size()) + " đã đối chiếu với KH )");
+                        } else {
+                            setMessagePage("(Có " + String.valueOf(da_rasoat_hs) + "/" + String.valueOf(custCIC_TMP.size()) + " đã rà soát hồ sơ )");
                         }
                     }
                 }
                 //Cho phần sum
-                ArrayList<LockSendCiCModel> lstData = service.getDataLockSendCic(pos_cd_username, "S", "20231231");
-                chotsl = "";
-                for (LockSendCiCModel item : lstData) {
-                    if (item.getStatus().equals("0")) {
-                        setChotsl("0");
-                    }
-                    QT_DULIEU_NT row = new QT_DULIEU_NT();
-                    row.setKHOA("CIC_CUSTOMER");
-                    Date reportDate = DateUtil.toDate(item.getReportDate());
-                    row.setNGAYBC(reportDate);
-                    row.setMAPGD(item.getPosCode());
-                    row.setMACN(item.getMainPos());
-                    row.setTEN(item.getPosName());
-                    row.setD1(df.format(item.getCustomerTotal()));
-                    row.setD2(df.format(item.getCustomerNotReviewCount()));
-//                    row.setD5(df.format(item.getCustomerTotal()));
-                    row.setD6(df.format(item.getCustomerNotReviewCount1()));
-                    row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");
-                    lstDulieuNt.add(row);
-                }
+//                ArrayList<LockSendCiCModel> lstData = service.getDataLockSendCic(pos_cd_username, "S", "20231231");
+//                chotsl = "";
+//                for (LockSendCiCModel item : lstData) {
+//                    if (item.getStatus().equals("0")) {
+//                        setChotsl("0");
+//                    }
+//                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+//                    row.setKHOA("CIC_CUSTOMER");
+//                    Date reportDate = DateUtil.toDate(item.getReportDate());
+//                    row.setNGAYBC(reportDate);
+//                    row.setMAPGD(item.getPosCode());
+//                    row.setMACN(item.getMainPos());
+//                    row.setTEN(item.getPosName());
+//                    row.setD1(df.format(item.getCustomerTotal()));
+//                    row.setD2(df.format(item.getCustomerNotReviewCount()));
+////                    row.setD5(df.format(item.getCustomerTotal()));
+//                    row.setD6(df.format(item.getCustomerNotReviewCount1()));
+//                    row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");
+//                    lstDulieuNt.add(row);
+//                }
                 return SUCCESS;
             } else if (Grade.equals("2")) {
                 if (!getParaSession()) {
@@ -320,13 +359,18 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                         updateRow.setD7(String.valueOf(item.getWrongIssuePlaceConfirmFlag()));
                         updateRow.setD8(String.valueOf(item.getWrongBirthdayConfirmFlag()));
                         updateRow.setD9(item.getRemark());
-                        
+
                         updateRow.setD11(String.valueOf(item.getCustomerWrongFullNameConfirmFlag()));
                         updateRow.setD12(String.valueOf(item.getCustomerWrongIdNoConfirmFlag()));
                         updateRow.setD13(String.valueOf(item.getCustomerWrongBirthdayConfirmFlag()));
                         updateRow.setD14(String.valueOf(item.getCustomerNotIdConfirmFlag()));
                         updateRow.setD15(String.valueOf(item.getCustomerReviewStatus()));
                         
+                        updateRow.setD16(String.valueOf(item.getProfileCorrectConfirmFlag()));
+                        updateRow.setD17(String.valueOf(item.getProfileMissingConfirmFlag()));
+                        
+                        
+
                         lstLocalDataUpdate.add(updateRow);
                     }
                     if (!DaoNghiquyet11cp.newInstance().saveCIC_Local(UserName, pos_cd_username, "31-dec-2023", lstLocalDataUpdate)) {

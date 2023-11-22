@@ -78,7 +78,7 @@ public class LeaveHomeService {
                     }
                 } else if (typeAuth.equals("5")) {
                     for (DuLieuNTRow item : lstReturn) {
-                        if (item.getD20().equals("HOVAY") && (item.getD50() == null ? "0" : item.getD50()).equals("4")) {
+                        if (item.getD20().equals("HOVAY") && (item.getD50() == null ? "0" : item.getD50()).equals("5")) {
                             lstTmp.add(item);
                         }
                     }

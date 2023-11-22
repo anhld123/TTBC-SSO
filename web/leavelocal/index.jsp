@@ -49,7 +49,7 @@
                                     <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
                                 </s:iterator>
                             </select>                        
-                            <!--Mã khách hàng: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã khách hàng" value="">-->                        
+                            Mã khách hàng: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã khách hàng" value="">                        
                             Từ ngày:  <input type="text" name="txtFromDate" id="txtFromDate" readonly="readonly"/>
                             đến: <input type="text" name="txtToDate" id="txtToDate" readonly="readonly"/>
                             <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>                          
@@ -243,27 +243,62 @@
 
                         for (var i = 0; i < rowcount; i++) {
                             try {
-                                if (document.getElementById("lstData42" + i).value === '0' &&
-                                        document.getElementById("lstDataD27" + i).value === "") {
+                                var check_box = document.getElementById('STT_1' + i).checked; // bắt check
+                                //Bắt thời điểm đi
+                                var lstData_D21 = document.getElementById('lstData_D21' + i).value;
+                                if (lstData_D21.length < 5 && check_box !== false)
+                                {
+                                    alert('Vui lòng nhập thông tin cột 12.')
+                                    document.getElementById("lstData_D21" + i).style.backgroundColor = "#EEAFA6";
+                                    return;
+                                }
+
+                                // bắt nhập cột 16
+
+//                                alert(check_box);
+                                var lstData42 = document.getElementById('lstData42' + i).value;
+//                                alert(lstData42);
+                                var lstDataD27 = document.getElementById('lstDataD27' + i).value;
+                                if (lstData42 === '0' && lstDataD27 === "" && check_box !== false) {
                                     alert("Vui lòng nhập dữ liệu cho cột 16 trước khi lưu");
                                     document.getElementById("lstDataD27" + i).style.backgroundColor = "#EEAFA6";
                                     isValid = false;
                                     break;
                                 }
-         
+
+                                // bắt check 19                    
+                                var check_var19 = document.getElementById('countDisplay' + i).innerText;
+                                var check_var20 = document.getElementById('countDisplay1' + i).innerText;
+//                                alert(check_var19);
+                                if (check_var19 === "0" && lstData42 === '0' && check_box !== false)
+                                {
+                                    alert("Vui lòng rà soát lại cột 19 ( Chi nhánh hộ vay chuyển đến ) trước khi lưu");
+                                    document.getElementById("lstData_D30" + i).style.backgroundColor = "#EEAFA6";
+                                    isValid = false;
+                                    break;
+                                }
+                                // bắt check 20
+                                if (check_var20 === "0" && lstData42 === '0' && check_box !== false)
+                                {
+                                    alert("Vui lòng rà soát lại cột 20 ( PGD hộ vay chuyển đến ) trước khi lưu");
+                                    document.getElementById("lstData_D32" + i).style.backgroundColor = "#EEAFA6";
+                                    isValid = false;
+                                    break;
+                                }
                                 //Bắt số đt
                                 var lstData_D16 = document.getElementById('lstData_D16' + i).value;
-                                if (lstData_D16.length != 10 && lstData_D16.length != 0)
+                                if (lstData_D16.length != 10 && lstData_D16.length != 0 && check_box !== false)
                                 {
                                     alert('Vui lòng nhập thông số điện thoại 10 số.')
                                     document.getElementById("lstData_D16" + i).style.backgroundColor = "#EEAFA6";
                                     isValid = false;
                                     break;
                                 }
+
                                 var D22 = $('#lstData_D22' + i).find(":selected").val();
                                 if (D22 == '01') {
                                     var lstDataD23 = document.getElementById('lstDataD23' + i).value;
-                                    if (lstDataD23.length < 5) {
+                                    if (lstDataD23.length < 5 && check_box !== false) {
                                         alert('Vui lòng nhập thông tin cột 18.');
                                         document.getElementById("lstDataD23" + i).style.backgroundColor = "#EEAFA6";
                                         isValid = false;
