@@ -72,7 +72,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
-    
+
     private String gradeAuthor1;
 
     public String getGradeAuthor1() {
@@ -109,7 +109,6 @@ public class ActionNhaptaycnMain extends ActionSupport {
         this.chotCic = chotCic;
     }
 
-    
     public void setLangiangan(String langiangan) {
         this.langiangan = langiangan;
     }
@@ -304,12 +303,11 @@ public class ActionNhaptaycnMain extends ActionSupport {
     protected List<ListValue> lstTide = new ArrayList<ListValue>();
     protected List<ListValue> lstGiaiNgan = new ArrayList<ListValue>();
     protected List<ListValue> lstNhadautu = new ArrayList<ListValue>();
-    
+
     protected List<ListValue> lstChuongtrinh = new ArrayList<ListValue>();
     protected List<ListValue> lstMaxa = new ArrayList<ListValue>();
     protected List<ListValue> lstMato = new ArrayList<ListValue>();
     protected List<ListValue> lstPhanloai = new ArrayList<ListValue>();
-
 
     protected List<ListValue> lstPLKT = new ArrayList<ListValue>();
     protected List<ListValue> lstDTTH = new ArrayList<ListValue>();
@@ -365,7 +363,6 @@ public class ActionNhaptaycnMain extends ActionSupport {
         this.lstPhanloai = lstPhanloai;
     }
 
-    
     public List<QT_DULIEU_NT> getLstDulieuNt_tong() {
         return lstDulieuNt_tong;
     }
@@ -736,7 +733,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
             List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_nhaptaycn);
 
             lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn, UserName, Grade);
-            
+
             if (khoa_nhaptaycn.equals("HSSV_001")) {
                 setTreeNodeGrade3(lstModelTree);
 //                if (Grade.equals("3")) {
@@ -802,7 +799,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
 //                return "LEAVELOCAL";
             }
-            
+
 //            if (this.khoa_nhaptaycn.equals("GQVL_01")) {
 //                System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
 //                //Lấy danh sách Pos theo User đăng nhập
@@ -825,7 +822,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
                     lstDonvi = dao.getDonvi("1", UserName);
                 } else {
                     lstDonvi = dao.getDonvi("3", UserName);
-                }                
+                }
                 //System.err.println("iRol= 2" );
                 //User thuộc nhóm 39 có quyền phê duyệt
                 //int iRol = new LeaveHomeDao().checkRuleUser(UserName, Grade);
@@ -836,20 +833,24 @@ public class ActionNhaptaycnMain extends ActionSupport {
             DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
             if (khoa_nhaptaycn.equals("CIC_001")) {
                 System.err.println("SDQ---0");
-                setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CHUONGTRINH", Grade));
-                System.err.println("SDQ---1");
+//                setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CHUONGTRINH", Grade));
+//                System.err.println("SDQ---1");
                 setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));
                 System.err.println("SDQ---2");
                 setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
                 System.err.println("SDQ---3");
-                setLstPhanloai(daoMain11.getDanhMuc(UserName, "PHANLOAI", Grade));
-                System.err.println("SDQ---4");
-                setLstGiaiNgan(daoMain11.getDanhMuc(UserName, "GIAINGAN", Grade));
-                System.err.println("SDQ---3");
-                setLstNhadautu(daoMain11.getDanhMuc(UserName, "NHADT", Grade));
-                System.err.println("SDQ---5");
+//                setLstPhanloai(daoMain11.getDanhMuc(UserName, "PHANLOAI", Grade));
+//                System.err.println("SDQ---4");
+//                setLstGiaiNgan(daoMain11.getDanhMuc(UserName, "GIAINGAN", Grade));
+//                System.err.println("SDQ---3");
+//                setLstNhadautu(daoMain11.getDanhMuc(UserName, "NHADT", Grade));
+//                System.err.println("SDQ---5");
                 DuLieuNTService service1 = new DuLieuNTService();
                 ArrayList<LockSendModel> lstDataLock = service1.getDataLockManual("CIC_CUSTOMER", pos_cd_username, "S", "20231231");
+                if (lstDataLock == null || lstDataLock.size() == 0) {
+                    addActionError("Vui lòng kiểm tra lại kết nối tới Api trung ương");
+                    return ERROR;
+                }
                 try {
                     setChotCic(lstDataLock.get(0).getStatus());
                 } catch (Exception e) {
@@ -857,7 +858,25 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 }
                 return "return-cic";
             }
-            
+
+            if (this.khoa_nhaptaycn.equals("KTTC_QSDD_01")) {
+                System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
+                //Lấy danh sách Pos theo User đăng nhập
+                epsModel dao = new epsModel();
+                //System.err.println("iRol= 1" );
+                if (Grade.equals("2")) {
+                    lstDonvi = dao.getDonvi("1", UserName);
+                } else {
+                    lstDonvi = dao.getDonvi("3", UserName);
+                }
+                //System.err.println("iRol= 2" );
+                //User thuộc nhóm 39 có quyền phê duyệt
+                //int iRol = new LeaveHomeDao().checkRuleUser(UserName, Grade);
+                //System.err.println("iRol= " + String.valueOf(iRol) );
+                //setGradeAuthor1(String.valueOf(iRol));
+                return "KTTC_QSDD_01";
+            }
+
             if (conn != null) {
                 conn.close();
             }
