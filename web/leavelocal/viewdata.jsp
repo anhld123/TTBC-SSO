@@ -532,8 +532,8 @@
                                 <s:property value="D16"/>
                             </s:if>
                             <s:else>
-                         <input style="text-align: center" type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" id="lstData_D16<s:property  value='%{#idxRows.index}' />" class="txtPublic" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> pattern="[0-9]+" title="Please enter a valid phone number">
-    
+                                <input style="text-align: center" type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" id="lstData_D16<s:property  value='%{#idxRows.index}' />" class="txtPublic" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
+                            </s:else>
                             </td>
                         <td class="txtBody">
                             <s:property value="d15"/>
