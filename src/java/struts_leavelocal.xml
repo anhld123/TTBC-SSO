@@ -30,6 +30,9 @@
             <result name="success">/leavelocal/popupdenghihotro.jsp</result>
         </action>
        
+       <action name="popupDeNghiHT1" class="vbsp.ims.leavelocal.LeaveTheLocal" method="popupDeNghiHT">
+            <result name="success">/leavelocal/popupdenghihotro1.jsp</result>
+        </action>
         
         <action name="saveLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="saveLeaveLocal">
             <result name="success" type="stream">
