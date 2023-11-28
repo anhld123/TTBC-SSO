@@ -77,6 +77,26 @@
             }
         });
     }
+
+    $(function () {
+        setCssStyle1();
+    });
+    function setCssStyle1() {
+        var date = new Date();
+        var maxDate = "-" + date.getDate() + "D" + "-3M";
+        $(".cssDate1").datepicker({
+            dateFormat: 'dd/mm/yy',
+            showOn: "button",
+            buttonImage: "img/icon-ui_datepicker.png",
+            buttonImageOnly: true,
+            showButtonPanel: true,
+            buttonText: "icono",
+            maxDate: maxDate,
+            changeMonth: true,
+            changeYear: true
+        });
+    }
+
     $('.autoHeight').each(function () {
         this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
     }).on('input', function () {
@@ -335,8 +355,8 @@
             countDisplay.innerText = 1;
         }
     }
-    
-       function Check_var32(index) {
+
+    function Check_var32(index) {
         var countDisplay1 = document.getElementById("countDisplay1" + index);
         var selectElement = document.getElementById("lstData_D32" + index);
         if (selectElement.value === "0")
@@ -475,7 +495,7 @@
                                 </s:if>
                                 <s:else> 
                                     <input id="STT_1<s:property  value='%{#idxRows.index}' />"
-                                        type="checkbox" class="myCheckBox" name="lstData[<s:property  value='%{#idxRows.index}' />].manualFlag" value="0" onclick="$(this).val(this.checked ? 1 : 0)">
+                                           type="checkbox" class="myCheckBox" name="lstData[<s:property  value='%{#idxRows.index}' />].manualFlag" value="0" onclick="$(this).val(this.checked ? 1 : 0)">
                                     <% customerCount += 1;%>
                                 </s:else>
                             </s:if>
@@ -534,7 +554,7 @@
                             <s:else>
                                 <input style="text-align: center" type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].D16" value="<s:property value='D16'/>" id="lstData_D16<s:property  value='%{#idxRows.index}' />" class="txtPublic" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                             </s:else>
-                            </td>
+                        </td>
                         <td class="txtBody">
                             <s:property value="d15"/>
                         </td>
@@ -543,7 +563,7 @@
                             </s:if>
                             <s:else>
                                 <s:if test="!D50.equalsIgnoreCase('2') ">
-                                    <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate <s:property value="d20"/>" id="lstData_D21<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d21" value="<s:property value='d21'/>"
+                                    <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate1 <s:property value="d20"/>" id="lstData_D21<s:property  value='%{#idxRows.index}' />"  name="lstData[<s:property  value='%{#idxRows.index}' />].d21" value="<s:property value='d21'/>"
                                            <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >                           
                                 </s:if>
                                 <s:else>
@@ -672,7 +692,7 @@
                                     </s:else>
                                 </s:iterator>                                
                             </select>    
-                                  <a id="countDisplay1<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
+                            <a id="countDisplay1<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
                         </td>
                         <td class="txtBody" >
                             <select onchange="onSelectChange_dnht(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" 

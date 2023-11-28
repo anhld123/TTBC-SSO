@@ -246,16 +246,8 @@
                                 var check_box = document.getElementById('STT_1' + i).checked; // bắt check
                                 //Bắt thời điểm đi
                                 var lstData_D21 = document.getElementById('lstData_D21' + i).value;
-                                var currentDate = new Date();
-                                var threeMonthsAgo = new Date(currentDate.setMonth(currentDate.getMonth() - 3));
-                                var dd = String(threeMonthsAgo.getDate()).padStart(2, '0');
-                                var mm = String(threeMonthsAgo.getMonth() + 1).padStart(2, '0');
-                                var yyyy = threeMonthsAgo.getFullYear();
-                                var currentDate1 = dd + '/' + mm + '/' + yyyy;
                                 
-//                                alert( currentDate1);
-                                
-                                if ( lstData_D21 < currentDate1  && check_box !== false) {
+                                if ( lstData_D21 !== null  && check_box !== false) {
                                     alert('Vui lòng nhập thông tin cột 12, thời điểm đi phải bé hơn ngày hiện tại ít nhất 3 tháng.');
                                     document.getElementById("lstData_D21" + i).style.backgroundColor = "#EEAFA6";
                                     return;
