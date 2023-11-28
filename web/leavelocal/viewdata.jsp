@@ -83,7 +83,7 @@
     });
     function setCssStyle1() {
         var date = new Date();
-        var maxDate = "-" + date.getDate() + "D" + "-3M";
+        var maxDate = "-" + date.getDate() + "D" + "-2M";
         $(".cssDate1").datepicker({
             dateFormat: 'dd/mm/yy',
             showOn: "button",
