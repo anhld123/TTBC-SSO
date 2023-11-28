@@ -244,11 +244,14 @@
                         for (var i = 0; i < rowcount; i++) {
                             try {
                                 var check_box = document.getElementById('STT_1' + i).checked; // bắt check
-                                //Bắt thời điểm đi
+//Bắt thời điểm đi
                                 var lstData_D21 = document.getElementById('lstData_D21' + i).value;
-                                if (lstData_D21.length < 5 && check_box !== false)
-                                {
-                                    alert('Vui lòng nhập thông tin cột 12.')
+                                var currentDate = new Date();
+                                var lstData_D21Parts = lstData_D21.split('/');
+                                var lstData_D21Date = new Date(lstData_D21Parts[2], lstData_D21Parts[1] - 1, lstData_D21Parts[0]);
+                                var threeMonthsAgo = new Date(currentDate.setMonth(currentDate.getMonth() - 3));
+                                if (lstData_D21Date < threeMonthsAgo && lstData_D21.length < 5 && check_box !== false) {
+                                    alert('Vui lòng nhập thông tin cột 12.');
                                     document.getElementById("lstData_D21" + i).style.backgroundColor = "#EEAFA6";
                                     return;
                                 }
@@ -256,10 +259,12 @@
                                 // bắt nhập cột 16
 
 //                                alert(check_box);
+                                var lstData_D22 = document.getElementById('lstData_D22' + i).value;
                                 var lstData42 = document.getElementById('lstData42' + i).value;
+                                var lstSubData31 = document.getElementById('lstSubData31' + i).value;         
 //                                alert(lstData42);
                                 var lstDataD27 = document.getElementById('lstDataD27' + i).value;
-                                if (lstData42 === '0' && lstDataD27 === "" && check_box !== false) {
+                                if (lstData42 === '0' && lstDataD27 === "" && lstData_D22 === '02' && lstSubData31 === '1' && check_box !== false) {
                                     alert("Vui lòng nhập dữ liệu cho cột 16 trước khi lưu");
                                     document.getElementById("lstDataD27" + i).style.backgroundColor = "#EEAFA6";
                                     isValid = false;
@@ -270,7 +275,7 @@
                                 var check_var19 = document.getElementById('countDisplay' + i).innerText;
                                 var check_var20 = document.getElementById('countDisplay1' + i).innerText;
 //                                alert(check_var19);
-                                if (check_var19 === "0" && lstData42 === '0' && check_box !== false)
+                                if (check_var19 === "0" && lstData42 === '0' && lstData_D22 === '02' && lstSubData31 === '1' && check_box !== false)
                                 {
                                     alert("Vui lòng rà soát lại cột 19 ( Chi nhánh hộ vay chuyển đến ) trước khi lưu");
                                     document.getElementById("lstData_D30" + i).style.backgroundColor = "#EEAFA6";
@@ -278,7 +283,7 @@
                                     break;
                                 }
                                 // bắt check 20
-                                if (check_var20 === "0" && lstData42 === '0' && check_box !== false)
+                                if (check_var20 === "0" && lstData_D22 === '02' && lstSubData31 === '1' && lstData42 === '0' && check_box !== false)
                                 {
                                     alert("Vui lòng rà soát lại cột 20 ( PGD hộ vay chuyển đến ) trước khi lưu");
                                     document.getElementById("lstData_D32" + i).style.backgroundColor = "#EEAFA6";

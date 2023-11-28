@@ -252,6 +252,8 @@ public class LeaveTheLocal extends ActionSupport {
                             tmp.setD50("5");
                             tmp.setD31("0");
                         }
+                        if (check.equals("0") && check1.equals("0"))
+                        { tmp.setD50("1");}
                         lstSelectedData.add(tmp);
                     }
                 }

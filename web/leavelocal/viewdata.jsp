@@ -551,7 +551,7 @@
                                 </s:else>
                             </s:else>
                         </td>
-                        <s:if test="D42.toString().equalsIgnoreCase('1') || D32.toString().equalsIgnoreCase('000000') || D32.toString().equalsIgnoreCase('99999') || D32.toString().equalsIgnoreCase('')">
+                        <s:if test="D42.toString().equalsIgnoreCase('1')">
                             <td class="txtBody">
                                 <select onchange="onSelectChange_dcct(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22" id="lstData_D22<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >                                
                                     <option value="02" <s:if test="d22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không có thông tin địa chỉ cụ thể</option>
