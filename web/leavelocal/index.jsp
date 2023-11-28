@@ -247,8 +247,9 @@
                                 //Bắt thời điểm đi
                                 var lstData_D21 = document.getElementById('lstData_D21' + i).value;
                                 
-                                if ( lstData_D21 !== null  && check_box !== false) {
-                                    alert('Vui lòng nhập thông tin cột 12');
+                         
+                                if ( lstData_D21.length < 5 && check_box !== false) {
+                                    alert('Vui lòng nhập thông tin cột 12.');
                                     document.getElementById("lstData_D21" + i).style.backgroundColor = "#EEAFA6";
                                     return;
                                 }
