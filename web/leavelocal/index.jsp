@@ -240,18 +240,23 @@
                         var table = document.getElementById("subTable");
                         var rowcount = table.rows.length;
                         var isValid = true; // Tạo biến để kiểm tra tính hợp lệ của dữ liệu
-
+                        
                         for (var i = 0; i < rowcount; i++) {
                             try {
                                 var check_box = document.getElementById('STT_1' + i).checked; // bắt check
-//Bắt thời điểm đi
+                                //Bắt thời điểm đi
                                 var lstData_D21 = document.getElementById('lstData_D21' + i).value;
                                 var currentDate = new Date();
-                                var lstData_D21Parts = lstData_D21.split('/');
-                                var lstData_D21Date = new Date(lstData_D21Parts[2], lstData_D21Parts[1] - 1, lstData_D21Parts[0]);
                                 var threeMonthsAgo = new Date(currentDate.setMonth(currentDate.getMonth() - 3));
-                                if (lstData_D21Date < threeMonthsAgo && lstData_D21.length < 5 && check_box !== false) {
-                                    alert('Vui lòng nhập thông tin cột 12.');
+                                var dd = String(threeMonthsAgo.getDate()).padStart(2, '0');
+                                var mm = String(threeMonthsAgo.getMonth() + 1).padStart(2, '0');
+                                var yyyy = threeMonthsAgo.getFullYear();
+                                var currentDate1 = dd + '/' + mm + '/' + yyyy;
+                                
+//                                alert( currentDate1);
+                                
+                                if ( lstData_D21 < currentDate1  && check_box !== false) {
+                                    alert('Vui lòng nhập thông tin cột 12, thời điểm đi phải bé hơn ngày hiện tại ít nhất 3 tháng.');
                                     document.getElementById("lstData_D21" + i).style.backgroundColor = "#EEAFA6";
                                     return;
                                 }
@@ -261,7 +266,7 @@
 //                                alert(check_box);
                                 var lstData_D22 = document.getElementById('lstData_D22' + i).value;
                                 var lstData42 = document.getElementById('lstData42' + i).value;
-                                var lstSubData31 = document.getElementById('lstSubData31' + i).value;         
+                                var lstSubData31 = document.getElementById('lstSubData31' + i).value;
 //                                alert(lstData42);
                                 var lstDataD27 = document.getElementById('lstDataD27' + i).value;
                                 if (lstData42 === '0' && lstDataD27 === "" && lstData_D22 === '02' && lstSubData31 === '1' && check_box !== false) {
