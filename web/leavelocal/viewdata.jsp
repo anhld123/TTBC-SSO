@@ -179,29 +179,29 @@
                 document.getElementById("lstSubData31" + index).disabled = true;
                 document.getElementById("lstData_D44" + index).disabled = true;
                 var var2, vartxt, selected;
-                $("#lstData_D30" + index).children().remove().end();
-                //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-                $("#lstData_D30_tmp" + index + " > option").each(function () {
-                    var tmp = $(this).val();
-                    if (tmp != '000000' && tmp != '999999')
-//                alert(tmp);
-                        $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-                });
-                $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
-                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-                }));
-                //combobox huyen
-                $("#lstData_D32" + index).children().remove().end();
-                //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-                $("#lstData_D32_tmp" + index + " > option").each(function () {
-                    var tmp = $(this).val();
-                    if (tmp != '000000' && tmp != '999999')
-//                alert(tmp);
-                        $("#lstData_D32" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-                });
-                $("#lstData_D32" + index).html($("#lstData_D32" + index + " option").sort(function (a, b) {
-                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-                }));
+//                $("#lstData_D30" + index).children().remove().end();
+//                //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
+//                $("#lstData_D30_tmp" + index + " > option").each(function () {
+//                    var tmp = $(this).val();
+//                    if (tmp != '000000' && tmp != '999999')
+////                alert(tmp);
+//                        $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+//                });
+//                $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
+//                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+//                }));
+//                //combobox huyen
+//                $("#lstData_D32" + index).children().remove().end();
+//                //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
+//                $("#lstData_D32_tmp" + index + " > option").each(function () {
+//                    var tmp = $(this).val();
+//                    if (tmp != '000000' && tmp != '999999')
+////                alert(tmp);
+//                        $("#lstData_D32" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+//                });
+//                $("#lstData_D32" + index).html($("#lstData_D32" + index + " option").sort(function (a, b) {
+//                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+//                }));
 //                document.getElementById("lstDNHT_D33" + index).style.visibility = "visible";
                 document.getElementById("lstDataD23" + index).style.backgroundColor = "#C7C0BF";
                 onSelectChange(index);
@@ -214,12 +214,32 @@
                 document.getElementById("lstSubData31" + index).disabled = false;
                 document.getElementById("lstDataD23" + index).removeAttribute("style");
                 document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
+
                 $("#lstData_D30" + index).children().remove().end();
-                $("#lstData_D30" + index).prepend("<option value='000000' selected> Không xác định </option>");
-                $("#lstData_D30" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
+//                $("#lstData_D30" + index).prepend("<option value='000000' selected> Không xác định </option>");
+//                $("#lstData_D30" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
+                $("#lstData_D30_tmp" + index + " > option").each(function () {
+//                    var tmp = $(this).val();
+//                    if (tmp != '000000' && tmp != '999999')
+//                alert(tmp);
+                        $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+                });
+                $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
+                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+                }));
+                
                 $("#lstData_D32" + index).children().remove().end();
-                $("#lstData_D32" + index).prepend("<option value='000000' selected> Không xác định </option>");
-                $("#lstData_D32" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
+//                $("#lstData_D32" + index).prepend("<option value='000000' selected> Không xác định </option>");
+//                $("#lstData_D32" + index).prepend("<option value='999999' > 00 - Nước ngoài </option>");
+                $("#lstData_D32_tmp" + index + " > option").each(function () {
+//                    var tmp = $(this).val();
+//                    if (tmp != '000000' && tmp != '999999')
+//                alert(tmp);
+                        $("#lstData_D32" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+                });
+                $("#lstData_D32" + index).html($("#lstData_D32" + index + " option").sort(function (a, b) {
+                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+                }));
                 //------------------------
 //                $("#lstSubData_D33" + index).children().remove().end();
 //                $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
@@ -720,7 +740,7 @@
                                 <option value="2" <s:if test="d34.equalsIgnoreCase('2')"> selected </s:if> <s:else></s:else>>02: Khách hàng thuộc đối tượng xử lý nợ bị rủi ro</option>
                                 <option value="3" <s:if test="d34.equalsIgnoreCase('3')"> selected </s:if> <s:else></s:else>>03: Khách hàng chây ỳ</option>
                                 <option value="4" <s:if test="d34.equalsIgnoreCase('4')"> selected </s:if> <s:else></s:else>>04: Không liên hệ được với khách hàng</option>
-                                <option value="5" <s:if test="d34.equalsIgnoreCase('5')"> selected </s:if> <s:else></s:else>>05: Khách hàng không nhận nợ</option>
+                                <option value="5" <s:if test="d34.equalsIgnoreCase('5')"> selected </s:if> <s:else></s:else>>05: Khách hàng không nhận nợ/ ko thực hiện cam kết/trường hợp khác....</option>
                                 </select></td>
                             <td class="txtBody">
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
