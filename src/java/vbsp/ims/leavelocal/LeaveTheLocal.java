@@ -158,10 +158,15 @@ public class LeaveTheLocal extends ActionSupport {
                 for (DuLieuNTRow item : lstData_tmp) {
                     if (txtsMadv.substring(2, 4).equals(item.getPosCode().substring(2, 4))) {
                         item.setD42("1");
+                        
+                        lstData.add(item);
                     } else {
                         item.setD42("0");
+                        if(!item.getD50().equals("4") && !item.getD50().equals("5"))
+                            lstData.add(item);
                     }
-                    lstData.add(item);
+       
+                    
                 }
             }
             lstCN = _leaveHomeService.getDonvi("M");
@@ -245,6 +250,7 @@ public class LeaveTheLocal extends ActionSupport {
                             check1 = "0";
                         }
                         if (check.equals("1")) {
+//                            tmp.getD44()
                             tmp.setD50("4");
                             tmp.setD33("0");
                         }

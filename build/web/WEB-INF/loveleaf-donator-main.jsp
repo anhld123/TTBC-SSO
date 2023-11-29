@@ -53,6 +53,16 @@
         $("#loadingImageDiv").hide();
     });
 
+
+    $.subscribe('reloadState', function(event, data) {
+        var _term = $("#period_id" ).val();
+        if (_term === 'O') {
+            $("#spnFromDate").show();
+        } else {
+            $("#spnFromDate").hide();
+        }
+    });
+    
 </script>
 
 
@@ -84,14 +94,35 @@
             <sj:select href="%{buildTermComboUrl}" 
                        name="period"
                        id="period_id"
-                       list="periods" 
+                       list="periods"                        
                        listKey="sKey"
                        listValue="sDesc"
                        emptyOption="false"                                             
-                       theme="simple"     
+                       theme="simple" 
+                       onChangeTopics = "reloadState" 
+                       onCompleteTopics = "reloadState"
                        ></sj:select>    
                 &nbsp;&nbsp;
-                <font style="color: blue; font: 13px Arial, Helvetica, sans-serif; ">
+                <span id="spnFromDate" style="display: none;">
+                     <font style="color: blue; font: 13px Arial, Helvetica, sans-serif; "> 
+            Từ ngày: 
+            </font>
+            <sj:datepicker name="from_dt" value=""                                        
+                           onblur="validatedate(this.value)"
+                           placeholder="DD/MM/YYYY" changeYear="true" 
+                           changeMonth="true" displayFormat="dd/mm/yy"
+                           id="dpkFromDate" size="8"                           
+                           />
+            <script>
+                var lj_curDate = new Date();
+                var lj_setDate = (lj_curDate.getDate()) + "/" +
+                        (lj_curDate.getMonth() + 1) + "/" + lj_curDate.getFullYear();
+                document.getElementById("dpkFromDate").value = lj_setDate;
+            </script>
+                </span>
+               
+                &nbsp;&nbsp;
+                <font style="color: blue; font: 13px Arial, Helvetica, sans-serif; ">                                
             Chương trình: 
             </font>
             <s:url var="buildProgramComboUrl" 
@@ -174,3 +205,7 @@
     <s:hidden name="username" id="role_ID"  />                         
     <s:hidden name="permit" id="permit_ID"  />                         
 </body>
+
+<script>
+//    $( "#from_dt" ).datepicker( "option", "disabled", true );
+    </script>

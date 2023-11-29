@@ -7,7 +7,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<script src="js/js_reload_para.js" type="text/javascript"></script>
+        <script src="js/js_reload_para.js" type="text/javascript"></script>
         <style>
             .ui-datepicker{
                 font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; 
@@ -28,7 +28,7 @@
         </script>
     </head>
     <body>
-        <strong>Nhập tham số</strong>
+        <strong> </strong>
         <hr/>
         <div class="report_group_form" id="listParam">
             <s:form id="genReport" theme="simple" action="genReportExcelQuerykt740">               
@@ -46,26 +46,26 @@
                                 <s:if test="type.equalsIgnoreCase('N')">                                     
                                     <s:textfield  name="%{fieldName}_NUMB"></s:textfield>
                                 </s:if>
-                                
-								<!-- VinhNP xử lsy lại khi chọn selectbox -->
-								<s:if test="fieldName.equalsIgnoreCase('PARA_MAXA')">
-									<select name="<s:property value="fieldName"/>_LIST" id="<s:property value="fieldName"/>">
-										<option value='000000' selected='selected'>--Tất cả---</option>
-									</select>
-									<s:if test="type.equalsIgnoreCase('L')">
-										<s:select  list="comboList" name="%{fieldName}_DATA" listKey="key" listValue="value" id="%{fieldName}_DATA" cssStyle="display:none"></s:select>
-									</s:if>
-								</s:if>
-								<s:else>
-									<s:if test="type.equalsIgnoreCase('L')">
-										<s:select  list="comboList" name="%{fieldName}_LIST" listKey="key" listValue="value" id="%{fieldName}"></s:select>
-									</s:if>
-								</s:else>
-								<!--VinhNP: End-->
-								
+
+                                <!-- VinhNP xử lsy lại khi chọn selectbox -->
+                                <s:if test="fieldName.equalsIgnoreCase('PARA_MAXA')">
+                                    <select name="<s:property value="fieldName"/>_LIST" id="<s:property value="fieldName"/>">
+                                        <option value='000000' selected='selected'>--Tất cả---</option>
+                                    </select>
+                                    <s:if test="type.equalsIgnoreCase('L')">
+                                        <s:select  list="comboList" name="%{fieldName}_DATA" listKey="key" listValue="value" id="%{fieldName}_DATA" cssStyle="display:none"></s:select>
+                                    </s:if>
+                                </s:if>
+                                <s:else>
+                                    <s:if test="type.equalsIgnoreCase('L')">
+                                        <s:select  list="comboList" name="%{fieldName}_LIST" listKey="key" listValue="value" id="%{fieldName}"></s:select>
+                                    </s:if>
+                                </s:else>
+                                <!--VinhNP: End-->
+
                                 <!-- Tungnv: Neu la D thi gen Date -->
                                 <s:if test="type.equalsIgnoreCase('D')"> 
-                                    <sj:datepicker name="%{fieldName}_DATE" value="%{new java.util.Date()}" 
+                                    <sj:datepicker name="%{fieldName}_DATE" id="datepicker11" value="%{new java.util.Date()}"  
                                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy"/>
                                 </s:if>
                             </td>
@@ -91,4 +91,24 @@
         <div id="divExportReport"></div>
 
     </body>
+
+    <script>
+
+        var pre = getPreviousDay()
+        var y = pre.getFullYear();
+        var m = pre.getMonth() + 1;
+        var d = pre.getDate();
+        
+//        alert(y+ '/' + m+ '/' + d);
+
+//        sj:datepicker11
+        $("#datepicker11").val(d+ "/" + m+ "/" + y);
+
+        function getPreviousDay(date = new Date()) {
+            const previous = new Date(date.getTime());
+            previous.setDate(date.getDate() - 1);
+
+            return previous;
+        }
+    </script>
 </html>

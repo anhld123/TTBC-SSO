@@ -7,16 +7,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Danh mục Kểm tra kiểm toán nội bộ</title>
         <sj:head/>
+        <script src="js/3.6.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="js/3.6.0/jquery-ui.css">
+        <script src="js/3.6.0/jquery-ui.js"></script>
     </head>
     <script>
-        $('.textlink').click(function(){
-            alert( $('.textlink').index(this) );
+        $('.textlink').click(function () {
+            alert($('.textlink').index(this));
         });
-        function Callbaocao(fullname,linktext) {
-            var thamso = "?quyBc=" + document.getElementById("cboquybc").value + "&namBc=" + document.getElementById("cbonam").value+ "&textlink=" + linktext + "&action=" + fullname;
+        function Callbaocao(fullname, linktext) {
+            var thamso = "?quyBc=" + document.getElementById("cboquybc").value + "&namBc=" + document.getElementById("cbonam").value + "&ngayBC=" + $('#dpkReportDate').val() + "&textlink=" + linktext + "&action=" + fullname;
+//            var thamso = "?quyBc=" + document.getElementById("cboquybc").value + "&namBc=" + document.getElementById("cbonam").value + "&maBC=" + maBC + "&ngayBC=" + $('#dpkReportDate').val();
             var ht = screen.availHeight;
             var wt = screen.availWidth;
-            var resize = window.open(fullname + thamso+"&vbsprandom="+Math.random(), "IMS_REPORTS", "height=" + ht + ",width=" + wt + ",left=0,top=0,directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+            var resize = window.open(fullname + thamso + "&vbsprandom=" + Math.random(), "IMS_REPORTS", "height=" + ht + ",width=" + wt + ",left=0,top=0,directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
             if (navigator.userAgent.indexOf('Chrome') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Chrome') + 7).split(' ')[0]) >= 15) {
                 resize.resizeBy(wt, ht);
             } else {
@@ -65,12 +69,16 @@
                             &nbsp;&nbsp;
                             <b>Năm báo cáo:</b>
                             <!--Tungnv sua: 26-03-2015 <option duoc can trinh trong procedure-->
-                           <select name="cbonam" id="cbonam">
+                            <select name="cbonam" id="cbonam">
                                 <s:iterator value="lstYearReport" >
                                     <s:property escape="false"></s:property> 
                                 </s:iterator>   
-                                
+
                             </select>
+
+                            &nbsp;&nbsp;  
+                            <b>Ngày báo cáo (áp dụng mẫu biểu PCTN):</b>                            
+                            <input type="text" name="dpkReportDate" id="dpkReportDate" readonly="readonly"/>
                         </td>
                     </tr>
                     <tr>
@@ -97,15 +105,71 @@
         </form>
 
         <script>
+            $(function () {
+                var date = new Date();
+                var maxDate = "-" + date.getDate() + "D" + "+1M";
+                var minDate = "-1M " + "-" + (date.getDate() - 1)
+                        + "D";
+                var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+                if (lastDayOfMonth.getDate() - date.getDate() >= 25)
+                {
+                    $("#dpkReportDate").datepicker(
+                            {
+                                dateFormat: 'dd/mm/yy',
+                                showOn: "button",
+                                buttonImage: "img/icon-ui_datepicker.png",
+                                buttonImageOnly: true,
+                                // dateFormat: 'dd/mm/yy',
+                                showButtonPanel: true,
+                                buttonText: "icono",
+                                changeMonth: true,
+                                changeYear: true,
+                                minDate: minDate,
+                                maxDate: maxDate,
+                                beforeShowDay: function (date) {
+                                    if ((date.getDate() == 31 && (date.getMonth() == 0 || date.getMonth() == 02 || date.getMonth() == 04 || date.getMonth() == 06 || date.getMonth() == 07 || date.getMonth() == 09 || date.getMonth() == 11) || (date.getDate() == 28 && date.getMonth() == 01)) || (date.getDate() == 30 && (date.getMonth() == 03 || date.getMonth() == 05 || date.getMonth() == 08 || date.getMonth() == 10)))
+                                    {
+                                        return [true, ''];
+                                    }
+                                    return [false, ''];
+                                }
+                            });
+                }
+                if (lastDayOfMonth.getDate() - date.getDate() < 25)
+                {
+                    $("#dpkReportDate").datepicker(
+                            {
+                                dateFormat: 'dd/mm/yy',
+                                showOn: "button",
+                                buttonImage: "img/icon-ui_datepicker.png",
+                                buttonImageOnly: true,
+                                // dateFormat: 'dd/mm/yy',
+                                showButtonPanel: true,
+                                buttonText: "icono",
+                                changeYear: false,
+                                changeMonth: false,
+                                stepMonths: 0,
+                                beforeShowDay: function (date) {
+                                    if ((date.getDate() == 31 && (date.getMonth() == 0 || date.getMonth() == 02 || date.getMonth() == 04 || date.getMonth() == 06 || date.getMonth() == 07 || date.getMonth() == 09 || date.getMonth() == 11) || (date.getDate() == 28 && date.getMonth() == 01)) || (date.getDate() == 30 && (date.getMonth() == 03 || date.getMonth() == 05 || date.getMonth() == 08 || date.getMonth() == 10)))
+                                    {
+                                        return [true, ''];
+                                    }
+                                    return [false, ''];
+                                }
+                            });
+                }
+            });
+
             //CuongBM: 05Oct14
             //Desc: Xu truong hop dat gia tri mac dich cho combox Quy (Quater), la quy hien tai
             //      Cac bao cao Quy phai co id la PARA_QUY           
-            var date = new Date();
-            var year = date.getFullYear(); //nam
-            var quarter = Math.floor(date.getMonth() / 3) + 1; //quy
-
-            //Gan quy mac dinh
-            $("#cboquybc").val(quarter);
+//            var date = new Date();
+//            var year = date.getFullYear(); //nam
+//            var quarter = Math.floor(date.getMonth() / 3) + 1; //quy
+//
+//            //Gan quy mac dinh
+//            $("#cboquybc").val(quarter);
         </script>
     </body>
 </html>

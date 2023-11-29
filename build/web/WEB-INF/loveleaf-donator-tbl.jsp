@@ -209,6 +209,7 @@
                    escapeAmp="false" >
                 <s:param name="export_dt" value="tran_dt"/>
                 <s:param name="period" value="period"/>
+                <s:param name="from_dt" value="from_dt"/>
                 <s:param name="gendata_FLG" value="gendata_FLG"/>
             </s:url>
             <s:a href="%{excel_download_ID}">
