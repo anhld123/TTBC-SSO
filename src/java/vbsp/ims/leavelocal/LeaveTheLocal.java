@@ -29,6 +29,7 @@ public class LeaveTheLocal extends ActionSupport {
     private List<DuLieuNTRow> lstData;
     private List<PosClass> lstCN;
     private List<PosClass> lstPGD;
+    private List<PosClass> lstXa;
     private String txtNgayBc;
     private String txtFromDate;
     private String txtToDate;
@@ -171,6 +172,7 @@ public class LeaveTheLocal extends ActionSupport {
             }
             lstCN = _leaveHomeService.getDonvi("M");
             lstPGD = _leaveHomeService.getDonvi("S");
+            lstXa = _leaveHomeService.getXa("S");
         } catch (Exception e) {
             System.err.println("Loi trong ham saveData " + e.getMessage());
             CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
@@ -292,6 +294,7 @@ public class LeaveTheLocal extends ActionSupport {
                             tmp.setD41(item.getD41());
                             tmp.setD30(item.getD30());
                             tmp.setD32(item.getD32());
+                            tmp.setD28(item.getD28());
                             tmp.setOrderValue(item.getOrderValue());
 
                             lstSelectedData_Hotro.add(tmp);
@@ -756,6 +759,14 @@ public class LeaveTheLocal extends ActionSupport {
 
     public void setVsbpMaPgd(String vsbpMaPgd) {
         this.vsbpMaPgd = vsbpMaPgd;
+    }
+
+    public List<PosClass> getLstXa() {
+        return lstXa;
+    }
+
+    public void setLstXa(List<PosClass> lstXa) {
+        this.lstXa = lstXa;
     }
 
 }

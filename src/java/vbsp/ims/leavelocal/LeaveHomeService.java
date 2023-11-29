@@ -465,7 +465,16 @@ public class LeaveHomeService {
         }
         return _lstData;
     }
-
+    
+      public List<PosClass> getXa(String flag) {
+        epsModel dao = new epsModel();
+        if (flag.equals("S")) {
+            return dao.getXa("ALL_XA", "");
+        }  else {
+            return null;
+        }
+    }
+      
     public List<PosClass> getDonvi(String flag) {
         epsModel dao = new epsModel();
         if (flag.equals("S")) {
