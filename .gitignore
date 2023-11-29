@@ -32,3 +32,15 @@ build/web/WEB-INF/classes/vbsp/ims/khnv2021/XayDungKeHoach2021.class
 nbproject/project.properties
 *.class
 *.class
+build/web/kt740/loadpara_exp_query.jsp
+build/web/ktktnb/menu-ktktnb-auth.jsp
+build/web/ktktnb/menu-ktktnb.jsp
+build/web/nhaptay-cn/para-nhaptaycn-main.jsp
+build/web/WEB-INF/classes/vbsp/ims/chamdiemcn/CDTT_CN08TH.class
+build/web/WEB-INF/classes/vbsp/ims/dao/DaoConnect.class
+build/web/WEB-INF/loadAllBC-main.jsp
+build/web/WEB-INF/loveleaf-donator-main.jsp
+build/web/WEB-INF/loveleaf-donator-tbl.jsp
+nbproject/private/private.properties
+nbproject/private/private.xml
+nbproject/project.properties
