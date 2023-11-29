@@ -168,7 +168,7 @@
 
     function onSelectChangeXa(index) {
         let selectedValue = $('#lstData_D32' + index).find(":selected").val();
-        let province = selectedValue.substring(0, 4);
+        let province = selectedValue.substring(0, 6);
         $('#lstData_D28' + index + ' option').each(function () {
             //if (!$(this).val().startsWith('0006') ) {
             $(this).remove();
