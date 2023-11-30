@@ -149,6 +149,7 @@
     function onSelectChange(index) {
         let selectedValue = $('#lstData_D30' + index).find(":selected").val();
         let province = selectedValue.substring(0, 4);
+
         $('#lstData_D32' + index + ' option').each(function () {
             //if (!$(this).val().startsWith('0006') ) {
             $(this).remove();
@@ -164,6 +165,9 @@
                         }));
             }
         });
+//            document.getElementById("lstData_D32" + index).disabled = false;
+        var selectElement = document.getElementById("lstData_D32" + index);
+        selectElement.setAttribute("onmousedown", "return true;");
     }
 
     function onSelectChangeXa(index) {
@@ -184,6 +188,8 @@
                         }));
             }
         });
+        var selectElement = document.getElementById("lstData_D28" + index);
+        selectElement.setAttribute("onmousedown", "return true;");
     }
 
     function onSelectChange_dnht(value, index) {
@@ -282,6 +288,7 @@
         {
             try {
                 var flagPos = document.getElementById('lstData42' + i).value;
+//                document.getElementById("lstData_D32" + i).disabled = true;
 //                 alert (flagPos +  '---'+ i)
                 if (flagPos = '1')
                 {
@@ -412,8 +419,8 @@
             countDisplay1.innerText = 1;
         }
     }
-    
-      function Check_var28(index) {
+
+    function Check_var28(index) {
         var countDisplay2 = document.getElementById("countDisplay2" + index);
         var selectElement = document.getElementById("lstData_D28" + index);
         if (selectElement.value === "0")
@@ -704,7 +711,7 @@
                             <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstDataD23<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d23" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> ><s:property value='d23'/></textarea>
                             </td>
                             <td> 
-                                <select onclick="Check_var30(<s:property  value='%{#idxRows.index}'/>)" onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
+                                <select  onclick="Check_var30(<s:property  value='%{#idxRows.index}'/>)" onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                     <option value="000000">Không xác định</option>
                                     <option value="999999">00 - Nước ngoài</option>
                                 <s:iterator value="lstCN" status="ideRows" var="language">
@@ -733,7 +740,7 @@
                             <a id="countDisplay<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
                         </td>
                         <td>
-                            <select onclick="Check_var32(<s:property  value='%{#idxRows.index}'/>)" 
+                            <select onmousedown="return false" onclick="Check_var32(<s:property  value='%{#idxRows.index}'/>)" 
                                     onchange="onSelectChangeXa(<s:property  value='%{#idxRows.index}'/>)"
                                     style="width: 200px"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                         <option value="000000">Không xác định</option>
@@ -747,10 +754,10 @@
                                         </s:else>
                                     </s:iterator>                                
                             </select>
-
-                            <select style="width: 200px" class="THANHVIEN" id="lstData_D32_tmp<s:property  value='%{#idxRows.index}' />"  cssStyle="display:none;">
+                            <!--Ẩn-->   
+                            <select class="THANHVIEN"  id="lstData_D32_tmp<s:property  value='%{#idxRows.index}' />"  cssStyle="display:none;">
                                 <option value="000000">Không xác định</option>
-                                <option value="999999">Nước ngoài</option>
+                                <option value="999999">00 - Nước ngoài</option>
                                 <s:iterator value="lstPGD" status="ideRows" var="language">
                                     <s:if test="%{#language.PosCode == d32}">
                                         <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
@@ -758,12 +765,12 @@
                                     <s:else>
                                         <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
                                     </s:else>
-                                </s:iterator>                                
+                                </s:iterator>
                             </select>    
                             <a id="countDisplay1<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
                         </td>
                         <td class="<s:property value="d20"/>">
-                            <select onclick="Check_var28(<s:property  value='%{#idxRows.index}'/>)"  style="width: 200px"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d28" id="lstData_D28<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
+                            <select onmousedown="return false" onclick="Check_var28(<s:property  value='%{#idxRows.index}'/>)"  style="width: 200px"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d28" id="lstData_D28<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                     <option value="000000">Không xác định</option>
                                     <option value="999999">Nước ngoài</option>
                                 <s:iterator value="lstXa" status="ideRows" var="language">
@@ -787,7 +794,7 @@
                                     </s:else>
                                 </s:iterator>
                             </select>   
-                                  <a id="countDisplay2<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
+                            <a id="countDisplay2<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
                         </td>
                         <td class="txtBody" >
                             <select onchange="onSelectChange_dnht(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" <s:if test="!D42.equalsIgnoreCase('1')"> disabled </s:if>
