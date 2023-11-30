@@ -383,7 +383,7 @@
                             <s:elseif test="d34.equalsIgnoreCase('2')"><a>Khách hàng thuộc đối tượng xử lý nợ bị rủi ro</a></s:elseif>
                             <s:elseif test="d34.equalsIgnoreCase('3')"><a>Khách hàng chây ỳ</a></s:elseif>
                             <s:elseif test="d34.equalsIgnoreCase('4')"><a>Không liên hệ được với khách hàng</a></s:elseif>
-                            <s:elseif test="d34.equalsIgnoreCase('5')"><a>Khách hàng không nhận nợ, không nhận nợ một phần, không/chưa cam kết trả nợ hoặc trường hợp khác...</a></s:elseif> 
+                            <s:elseif test="d34.equalsIgnoreCase('5')"><a>Trường hợp khác</a></s:elseif> 
                             </td>
                             <td class="txtBody"><s:property value="d41"/></td>        
                         <td class="txtBody">

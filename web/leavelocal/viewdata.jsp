@@ -412,6 +412,17 @@
             countDisplay1.innerText = 1;
         }
     }
+    
+      function Check_var28(index) {
+        var countDisplay2 = document.getElementById("countDisplay2" + index);
+        var selectElement = document.getElementById("lstData_D28" + index);
+        if (selectElement.value === "0")
+        {
+            countDisplay2.innerText = 0;
+        } else {
+            countDisplay2.innerText = 1;
+        }
+    }
 </script>
 </head>
 <body>
@@ -453,9 +464,9 @@
                     <th rowspan="2" class="hdtitle">Mã nhóm</th>
                     <th rowspan="2" class="hdtitle">Đề nghị<br>cung cấp<br>thông tin</th>
                     <th rowspan="2" class="hdtitle" style="width: 100px">Ngày đề nghị <br>cung cấp<br>thông tin</th>
-                    <th rowspan="2" class="hdtitle">Thông tin hỗ trợ</th>
+                    <th rowspan="2" class="hdtitle">Thông tin hỗ trợ <br>(địa chỉ cụ thể)</th>
                     <th rowspan="2" class="hdtitle" style="width: 100px">Ngày cập nhật<br>thông tin</th>
-                    <th rowspan="2" class="hdtitle">Thông tin <br>(100-200 ký tự)</th>
+                    <th rowspan="2" class="hdtitle">Thông tin <br>(địa chỉ cụ thể)</th>
                     <th rowspan="2"class="hdtitle">Chi nhánh hộ vay <br>chuyển đến</th>
                     <th rowspan="2" class="hdtitle">PGD hộ vay <br>chuyển đến</th>
                     <th rowspan="2" class="hdtitle">Xã hộ vay <br>chuyển đến</th>
@@ -466,7 +477,7 @@
                 </tr>
                 <tr>
                     <th class="hdtitle">Kết quả hỗ trợ</th>
-                    <th class="hdtitle">Kết quả hỗ trợ<br>(Trường hợp 5)</th>
+                    <th class="hdtitle">Ghi chú trường hợp 05</th>
                 </tr>
 
             </thead>
@@ -752,7 +763,7 @@
                             <a id="countDisplay1<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
                         </td>
                         <td class="<s:property value="d20"/>">
-                            <select  style="width: 200px"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d28" id="lstData_D28<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
+                            <select onclick="Check_var28(<s:property  value='%{#idxRows.index}'/>)"  style="width: 200px"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d28" id="lstData_D28<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                     <option value="000000">Không xác định</option>
                                     <option value="999999">Nước ngoài</option>
                                 <s:iterator value="lstXa" status="ideRows" var="language">
@@ -776,6 +787,7 @@
                                     </s:else>
                                 </s:iterator>
                             </select>   
+                                  <a id="countDisplay2<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
                         </td>
                         <td class="txtBody" >
                             <select onchange="onSelectChange_dnht(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" <s:if test="!D42.equalsIgnoreCase('1')"> disabled </s:if>
@@ -803,7 +815,7 @@
                                 <option value="2" <s:if test="d34.equalsIgnoreCase('2')"> selected </s:if> <s:else></s:else>>02: Khách hàng thuộc đối tượng xử lý nợ bị rủi ro</option>
                                 <option value="3" <s:if test="d34.equalsIgnoreCase('3')"> selected </s:if> <s:else></s:else>>03: Khách hàng chây ỳ</option>
                                 <option value="4" <s:if test="d34.equalsIgnoreCase('4')"> selected </s:if> <s:else></s:else>>04: Không liên hệ được với khách hàng</option>
-                                <option value="5" <s:if test="d34.equalsIgnoreCase('5')"> selected </s:if> <s:else></s:else>>05: Khách hàng không nhận nợ/ ko thực hiện cam kết/trường hợp khác....</option>
+                                <option value="5" <s:if test="d34.equalsIgnoreCase('5')"> selected </s:if> <s:else></s:else>>05: Trường hợp khác</option>
                                 </select></td>
                             <td class="txtBody">
                             <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
