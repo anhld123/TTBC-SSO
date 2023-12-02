@@ -240,15 +240,15 @@
                         var table = document.getElementById("subTable");
                         var rowcount = table.rows.length;
                         var isValid = true; // Tạo biến để kiểm tra tính hợp lệ của dữ liệu
-                        
+
                         for (var i = 0; i < rowcount; i++) {
                             try {
                                 var check_box = document.getElementById('STT_1' + i).checked; // bắt check
                                 //Bắt thời điểm đi
                                 var lstData_D21 = document.getElementById('lstData_D21' + i).value;
-                                
-                         
-                                if ( lstData_D21.length < 5 && check_box !== false) {
+
+
+                                if (lstData_D21.length < 5 && check_box !== false) {
                                     alert('Vui lòng nhập thông tin cột 12.');
                                     document.getElementById("lstData_D21" + i).style.backgroundColor = "#EEAFA6";
                                     return;
@@ -289,12 +289,23 @@
                                     isValid = false;
                                     break;
                                 }
-                                
-                                 // bắt check 21
+
+                                // bắt check 21
                                 if (check_var21 === "0" && lstData_D22 === '02' && lstSubData31 === '1' && lstData42 === '0' && check_box !== false)
                                 {
                                     alert("Vui lòng rà soát lại cột 21 ( Xã hộ vay chuyển đến ) trước khi lưu");
                                     document.getElementById("lstData_D32" + i).style.backgroundColor = "#EEAFA6";
+                                    isValid = false;
+                                    break;
+                                }
+//                                Check 23,24
+                                var lstSubData34 = document.getElementById('lstSubData34' + i).value;
+                                var lstData41 = document.getElementById('lstData41' + i).value;
+                                alert(lstSubData34+"  "+ lstData41);
+                                if (lstData42 === '0' && lstData_D22 === '02' && check_box !== false && lstSubData34 === '5' && lstData41.length < 1)
+                                {
+                                    alert("Vui lòng điền thông tin vào cột 24!");
+                                    document.getElementById("lstData41" + i).style.backgroundColor = "#EEAFA6";
                                     isValid = false;
                                     break;
                                 }
@@ -312,7 +323,7 @@
                                 if (D22 == '01') {
                                     var lstDataD23 = document.getElementById('lstDataD23' + i).value;
                                     if (lstDataD23.length < 5 && check_box !== false) {
-                                        alert('Vui lòng nhập thông tin cột 18.');
+                                        alert('Vui lòng nhập thông tin cột 18 (Tối thiểu 5 ký tự)');
                                         document.getElementById("lstDataD23" + i).style.backgroundColor = "#EEAFA6";
                                         isValid = false;
                                         break;

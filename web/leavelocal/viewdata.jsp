@@ -165,6 +165,21 @@
                         }));
             }
         });
+          $('#lstData_D28' + index + ' option').each(function () {
+            //if (!$(this).val().startsWith('0006') ) {
+            $(this).remove();
+            //}
+        });
+        $('#lstXa_Temp option').each(function () {
+            if ($(this).val().startsWith(province)) {
+                //alert($(this).text() );
+                $('#lstData_D28' + index).append($('<option>',
+                        {
+                            value: $(this).val(),
+                            text: $(this).text()
+                        }));
+            }
+        });
 //            document.getElementById("lstData_D32" + index).disabled = false;
         var selectElement = document.getElementById("lstData_D32" + index);
         selectElement.setAttribute("onmousedown", "return true;");
