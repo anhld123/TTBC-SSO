@@ -575,6 +575,7 @@
                             <s:if test="D42.equalsIgnoreCase('0') && !(D22.equalsIgnoreCase('02') && D31.equalsIgnoreCase('1'))"> 
                                 <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" value="<s:property value='d32'/>">
                                 <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" value="<s:property value='d30'/>">
+                                <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d28" value="<s:property value='d30'/>">
                             </s:if>
                         </td>
                         <td class="txtBody" >
@@ -756,6 +757,7 @@
                         </td>
                         <td>
                             <select onmousedown="return false" onclick="Check_var32(<s:property  value='%{#idxRows.index}'/>)" 
+                                    title="Chọn chi nhánh để mở"
                                     onchange="onSelectChangeXa(<s:property  value='%{#idxRows.index}'/>)"
                                     style="width: 200px"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                         <option value="000000">Không xác định</option>
@@ -785,7 +787,9 @@
                             <a id="countDisplay1<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
                         </td>
                         <td class="<s:property value="d20"/>">
-                            <select onmousedown="return false" onclick="Check_var28(<s:property  value='%{#idxRows.index}'/>)"  style="width: 200px"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d28" id="lstData_D28<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
+                            <select onmousedown="return false" onclick="Check_var28(<s:property  value='%{#idxRows.index}'/>)" 
+                                    title="Chọn phòng giao dịch để mở"
+                                    style="width: 200px"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d28" id="lstData_D28<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                     <option value="000000">Không xác định</option>
                                     <option value="999999">Nước ngoài</option>
                                 <s:iterator value="lstXa" status="ideRows" var="language">
