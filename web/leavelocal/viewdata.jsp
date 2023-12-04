@@ -149,6 +149,7 @@
     function onSelectChange(index) {
         let selectedValue = $('#lstData_D30' + index).find(":selected").val();
         let province = selectedValue.substring(0, 4);
+        let province1 = selectedValue.substring(2, 4);
 
         $('#lstData_D32' + index + ' option').each(function () {
             //if (!$(this).val().startsWith('0006') ) {
@@ -171,7 +172,7 @@
             //}
         });
         $('#lstXa_Temp option').each(function () {
-            if ($(this).val().startsWith(province)) {
+            if ($(this).val().startsWith(province1)) {
                 //alert($(this).text() );
                 $('#lstData_D28' + index).append($('<option>',
                         {
@@ -188,7 +189,9 @@
 
     function onSelectChangeXa(index) {
         let selectedValue = $('#lstData_D32' + index).find(":selected").val();
-        let province = selectedValue.substring(0, 6);
+        let province = selectedValue.substring(2, 6);
+//        let province1 = selectedValue.substring(0, 6);
+//        alert(province1 + "  " + province);
         $('#lstData_D28' + index + ' option').each(function () {
             //if (!$(this).val().startsWith('0006') ) {
             $(this).remove();
