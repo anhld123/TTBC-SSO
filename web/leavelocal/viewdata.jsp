@@ -752,7 +752,7 @@
                             <select onmousedown="return false" onclick="Check_var32(<s:property  value='%{#idxRows.index}'/>)" 
                                     title="Chọn chi nhánh để mở chọn PGD"
                                     onchange="onSelectChangeXa(<s:property  value='%{#idxRows.index}'/>)"
-                                    style="width: 200px;background: #ddd"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
+                                    style="width: 200px;background: #f2f2f2"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                         <option value="000000">Không xác định</option>
                                         <option value="999999">00 - Nước ngoài</option>
                                     <s:iterator value="lstPGD" status="ideRows" var="language">
@@ -782,7 +782,7 @@
                         <td class="<s:property value="d20"/>">
                             <select onmousedown="return false" onclick="Check_var28(<s:property  value='%{#idxRows.index}'/>)" 
                                     title="Chọn phòng giao dịch để mở chọn xã"
-                                    style="width: 200px; background: #ddd"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d28" id="lstData_D28<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
+                                    style="width: 200px; background: #f2f2f2"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d28" id="lstData_D28<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                         <option value="000000">Không xác định</option>
                                         <option value="999999">Nước ngoài</option>
                                     <s:iterator value="lstXa" status="ideRows" var="language">
