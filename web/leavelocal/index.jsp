@@ -301,7 +301,7 @@
 //                                Check 23,24
                                 var lstSubData34 = document.getElementById('lstSubData34' + i).value;
                                 var lstData41 = document.getElementById('lstData41' + i).value;
-                                alert(lstSubData34+"  "+ lstData41);
+//                                alert(lstSubData34+"  "+ lstData41);
                                 if (lstData42 === '0' && lstData_D22 === '02' && check_box !== false && lstSubData34 === '5' && lstData41.length < 1)
                                 {
                                     alert("Vui lòng điền thông tin vào cột 24!");
