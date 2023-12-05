@@ -274,7 +274,7 @@
                                 var check_var20 = document.getElementById('countDisplay1' + i).innerText;
                                 var check_var21 = document.getElementById('countDisplay2' + i).innerText;
 //                                alert(check_var19);
-                                if (check_var19 === "0" && lstData42 === '0' && lstData_D22 === '02' && lstSubData31 === '1' && check_box !== false)
+                                if (check_var19 === "0" && lstData42 === '0' && lstData_D22 === '02' && lstSubData31 !== '0' && check_box !== false)
                                 {
                                     alert("Vui lòng rà soát lại cột 19 ( Chi nhánh hộ vay chuyển đến ) trước khi lưu");
                                     document.getElementById("lstData_D30" + i).style.backgroundColor = "#EEAFA6";

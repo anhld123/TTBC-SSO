@@ -365,7 +365,7 @@
                             <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d28" id="lstData_D28<s:property  value='%{#idxRows.index}' />">
                                 <option value="000000">Không xác định</option>
                                 <option value="999999">Nước ngoài</option>
-                                <s:iterator value="lstPGD" status="ideRows" var="language">
+                                <s:iterator value="lstXa" status="ideRows" var="language">
                                     <s:if test="%{#language.PosCode == d28}">
                                         <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
                                     </s:if>
