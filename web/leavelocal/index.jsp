@@ -354,16 +354,16 @@
                                     break;
                                 }
                                 // bắt 18
-                                var D22 = $('#lstData_D22' + i).find(":selected").val();
-                                if (D22 == '01') {
-                                    var lstDataD23 = document.getElementById('lstDataD23' + i).value;
-                                    if (lstDataD23.length < 5 && check_box !== false) {
-                                        alert('Vui lòng nhập thông tin cột 18 (Tối thiểu 5 ký tự)');
-                                        document.getElementById("lstDataD23" + i).style.backgroundColor = "#EEAFA6";
-                                        isValid = false;
-                                        break;
-                                    }
-                                }
+//                                var D22 = $('#lstData_D22' + i).find(":selected").val();
+//                                if (D22 == '01') {
+//                                    var lstDataD23 = document.getElementById('lstDataD23' + i).value;
+//                                    if (lstDataD23.length < 5 && check_box !== false) {
+//                                        alert('Vui lòng nhập thông tin cột 18 (Tối thiểu 5 ký tự)');
+//                                        document.getElementById("lstDataD23" + i).style.backgroundColor = "#EEAFA6";
+//                                        isValid = false;
+//                                        break;
+//                                    }
+//                                }
                             } catch (e) {
                             }
                         }
