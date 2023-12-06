@@ -298,8 +298,16 @@
                                     isValid = false;
                                     break;
                                 }
-
-                                // bắt check 19 cho pos cho vay                    
+                                // bắt check 18
+                                var lstDataD23 = document.getElementById('lstDataD23' + i).value;
+                                if (lstData42 === '1' && lstData_D22 === '01' && check_box !== false && lstDataD23.length < 5)
+                                {
+                                    alert('Vui lòng nhập thông tin cột 18 (Tối thiểu 5 ký tự)');
+                                    document.getElementById("lstDataD23" + i).style.backgroundColor = "#EEAFA6";
+                                    isValid = false;
+                                    break;
+                                }
+                                // bắt check 19 cho pos cho vay 
                                 if (check_var19 === "0" && lstData42 === '1' && lstData_D22 === '01' && check_box !== false)
                                 {
                                     alert("Vui lòng rà soát lại cột 19 ( Chi nhánh hộ vay chuyển đến ) trước khi lưu");
@@ -309,7 +317,7 @@
                                 }
 
 //                                // bắt check 20 cho pos cho vay 
-                               if (check_var20 === "0" && lstData42 === '1' && lstData_D22 === '01' && check_box !== false)
+                                if (check_var20 === "0" && lstData42 === '1' && lstData_D22 === '01' && check_box !== false)
                                 {
                                     alert("Vui lòng rà soát lại cột 20 ( PGD hộ vay chuyển đến ) trước khi lưu");
                                     document.getElementById("lstData_D32" + i).style.backgroundColor = "#EEAFA6";
@@ -318,7 +326,7 @@
                                 }
 //
 //                                // bắt check 21 cho pos cho vay 
-                               if (check_var21 === "0" && lstData42 === '1' && lstData_D22 === '01' && check_box !== false)
+                                if (check_var21 === "0" && lstData42 === '1' && lstData_D22 === '01' && check_box !== false)
                                 {
                                     alert("Vui lòng rà soát lại cột 21 ( Xã hộ vay chuyển đến ) trước khi lưu");
                                     document.getElementById("lstData_D28" + i).style.backgroundColor = "#EEAFA6";
@@ -345,7 +353,7 @@
                                     isValid = false;
                                     break;
                                 }
-
+                                // bắt 18
                                 var D22 = $('#lstData_D22' + i).find(":selected").val();
                                 if (D22 == '01') {
                                     var lstDataD23 = document.getElementById('lstDataD23' + i).value;
