@@ -22,6 +22,9 @@ import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.DuLieuNTRowX;
+import vbsp.ims.restapi.ListCommune;
+import vbsp.ims.restapi.ListMainPos;
+import vbsp.ims.restapi.ListPosCode;
 import vbsp.ims.restapi.NQ11cpModel;
 
 public class LeaveTheLocal extends ActionSupport {
@@ -30,6 +33,9 @@ public class LeaveTheLocal extends ActionSupport {
     private List<PosClass> lstCN;
     private List<PosClass> lstPGD;
     private List<PosClass> lstXa;
+    private List<ListMainPos> lstCN_API;
+    private List<ListPosCode> lstPGD_API;
+    private List<ListCommune> lstXa_API;
     private String txtNgayBc;
     private String txtFromDate;
     private String txtToDate;
@@ -159,20 +165,22 @@ public class LeaveTheLocal extends ActionSupport {
                 for (DuLieuNTRow item : lstData_tmp) {
                     if (txtsMadv.substring(2, 4).equals(item.getPosCode().substring(2, 4))) {
                         item.setD42("1");
-                        
+
                         lstData.add(item);
                     } else {
                         item.setD42("0");
-                        if(!item.getD50().equals("4") && !item.getD50().equals("5"))
+                        if (!item.getD50().equals("4") && !item.getD50().equals("5")) {
                             lstData.add(item);
+                        }
                     }
-       
-                    
                 }
             }
-            lstCN = _leaveHomeService.getDonvi("M");
-            lstPGD = _leaveHomeService.getDonvi("S");
-            lstXa = _leaveHomeService.getXa("S");
+            lstCN_API = _leaveHomeService.getListCn("");
+            lstPGD_API = _leaveHomeService.getListPgd("", "");
+            lstXa_API = _leaveHomeService.getListXa("", "", "", "");
+//            lstCN = _leaveHomeService.getDonvi("M");
+//            lstPGD = _leaveHomeService.getDonvi("S");
+//            lstXa = _leaveHomeService.getXa("S");
         } catch (Exception e) {
             System.err.println("Loi trong ham saveData " + e.getMessage());
             CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
@@ -260,8 +268,9 @@ public class LeaveTheLocal extends ActionSupport {
                             tmp.setD50("5");
                             tmp.setD31("0");
                         }
-                        if (check.equals("0") && check1.equals("0"))
-                        { tmp.setD50("1");}
+                        if (check.equals("0") && check1.equals("0")) {
+                            tmp.setD50("1");
+                        }
                         lstSelectedData.add(tmp);
                     }
                 }
@@ -767,6 +776,30 @@ public class LeaveTheLocal extends ActionSupport {
 
     public void setLstXa(List<PosClass> lstXa) {
         this.lstXa = lstXa;
+    }
+
+    public List<ListMainPos> getLstCN_API() {
+        return lstCN_API;
+    }
+
+    public void setLstCN_API(List<ListMainPos> lstCN_API) {
+        this.lstCN_API = lstCN_API;
+    }
+
+    public List<ListPosCode> getLstPGD_API() {
+        return lstPGD_API;
+    }
+
+    public void setLstPGD_API(List<ListPosCode> lstPGD_API) {
+        this.lstPGD_API = lstPGD_API;
+    }
+
+    public List<ListCommune> getLstXa_API() {
+        return lstXa_API;
+    }
+
+    public void setLstXa_API(List<ListCommune> lstXa_API) {
+        this.lstXa_API = lstXa_API;
     }
 
 }

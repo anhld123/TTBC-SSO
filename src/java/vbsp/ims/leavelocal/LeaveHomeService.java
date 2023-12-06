@@ -466,16 +466,57 @@ public class LeaveHomeService {
         }
         return _lstData;
     }
-    
-      public List<PosClass> getXa(String flag) {
+
+//    public List<ListMainPos> getListCn(String provinceCode) {
+//        List<ListMainPos> _lstData2 = new ArrayList();
+//        try {
+//            _lstData2 = _service.getListCn(provinceCode);
+//        } catch (Exception ex) {
+//        }
+//        return _lstData2;
+//    }
+
+    public List<ListMainPos> getListCn(String provinceCode) {
+        List<ListMainPos> _lstData2 = new ArrayList();
+        try {
+            _lstData2 = _service.getListCn(provinceCode);
+            if (_lstData2.size() > 1) {
+                _lstData2 = _lstData2.subList(1, _lstData2.size());
+            } else {
+                _lstData2.clear(); // Clear the list if it contains only one element
+            }
+        } catch (Exception ex) {
+        }
+        return _lstData2;
+    }
+
+    public List<ListPosCode> getListPgd(String mainPos, String posCode) {
+        List<ListPosCode> _lstData3 = new ArrayList();
+        try {
+            _lstData3 = _service.getListPgd(mainPos, posCode);
+        } catch (Exception ex) {
+        }
+        return _lstData3;
+    }
+
+    public List<ListCommune> getListXa(String provinceCode, String districtCode, String communeCode, String posCode) {
+        List<ListCommune> _lstData4 = new ArrayList();
+        try {
+            _lstData4 = _service.getListXa(provinceCode, districtCode, communeCode, posCode);
+        } catch (Exception ex) {
+        }
+        return _lstData4;
+    }
+
+    public List<PosClass> getXa(String flag) {
         epsModel dao = new epsModel();
         if (flag.equals("S")) {
             return dao.getXa("ALL_XA", "");
-        }  else {
+        } else {
             return null;
         }
     }
-      
+
     public List<PosClass> getDonvi(String flag) {
         epsModel dao = new epsModel();
         if (flag.equals("S")) {

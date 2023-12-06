@@ -233,7 +233,18 @@
                 document.getElementById("lstData_D44" + index).disabled = true;
                 var var2, vartxt, selected;
                 document.getElementById("lstDataD23" + index).style.backgroundColor = "#C7C0BF";
-//                onSelectChange(index);
+                 $("#lstData_D30" + index).children().remove().end();
+                //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
+                $("#lstData_D30_tmp" + index + " > option").each(function () {
+                    var tmp = $(this).val();
+                    if (tmp != '000000' && tmp != '999999' && tmp != '000101')
+//                alert(tmp);
+                        $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+                });
+                $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
+                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+                }));
+                onSelectChange(index);
                 //------------------------
                 $("#lstSubData_D33" + index).children().remove().end();
                 $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
@@ -243,14 +254,15 @@
                 document.getElementById("lstSubData31" + index).disabled = false;
                 document.getElementById("lstDataD23" + index).removeAttribute("style");
                 document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
-
-//                $("#lstData_D30" + index).children().remove().end()
-//                $("#lstData_D30_tmp" + index + " > option").each(function () {
-//                    $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-//                });
-//                $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
-//                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-//                }));
+                
+                $("#lstData_D30" + index).children().remove().end()
+                $("#lstData_D30_tmp" + index + " > option").each(function () {
+                    $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+                });
+                $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
+                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+                }));
+                onSelectChange(index);
 //
 //                $("#lstData_D28" + index).children().remove().end(); > ");
 //                        $("#lstData_D28_tmp" + index + " > option").each(function () {
@@ -442,16 +454,16 @@
         <div style="display: none;">
             <select id="lstPGD_Temp">
                 <option value="000000">Không xác định</option>
-                <s:iterator value="lstPGD" status="ideRows" var="language">                                    
-                    <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>                                    
+                <s:iterator value="lstPGD_API" status="ideRows" var="language">                                    
+                    <option value="<s:property value="PosCode"/>"><s:property value="PosCode"/> - <s:property value="PosName"/></option>                                    
                 </s:iterator>
                 <option value="999999">Nước ngoài</option>
             </select>
             <select id="lstXa_Temp">
                 <option value="000000">Không xác định</option>
                 <option value="999999">Nước ngoài</option>
-                <s:iterator value="lstXa" status="ideRows" var="language">                                    
-                    <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>                                    
+                <s:iterator value="lstXa_API" status="ideRows" var="language">                                    
+                    <option value="<s:property value="communeCode"/>"><s:property value="communeCode"/> - <s:property value="communeName"/></option>                                    
                 </s:iterator>
             </select>
         </div>
@@ -723,12 +735,12 @@
                                 <select  onclick="Check_var30(<s:property  value='%{#idxRows.index}'/>)" onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                     <option value="000000">Không xác định</option>
                                     <option value="999999">00 - Nước ngoài</option>
-                                <s:iterator value="lstCN" status="ideRows" var="language">
-                                    <s:if test="%{#language.PosCode == d30}">
-                                        <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
+                                <s:iterator value="lstCN_API" status="ideRows" var="language">
+                                    <s:if test="%{#language.branchCode == d30}">
+                                        <option value="<s:property value="branchCode"/>" selected><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>
                                     </s:if>
                                     <s:else>
-                                        <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                        <option value="<s:property value="branchCode"/>"><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>
                                     </s:else>
                                 </s:iterator>
 
@@ -737,12 +749,12 @@
                             <select class="THANHVIEN"  id="lstData_D30_tmp<s:property  value='%{#idxRows.index}' />"  cssStyle="display:none;">
                                 <option value="000000">Không xác định</option>
                                 <option value="999999">00 - Nước ngoài</option>
-                                <s:iterator value="lstCN" status="ideRows" var="language">
-                                    <s:if test="%{#language.PosCode == d30}">
-                                        <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
+                                <s:iterator value="lstCN_API" status="ideRows" var="language">
+                                    <s:if test="%{#language.branchCode == d30}">
+                                        <option value="<s:property value="branchCode"/>" selected><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>
                                     </s:if>
                                     <s:else>
-                                        <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                        <option value="<s:property value="branchCode"/>"><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>
                                     </s:else>
                                 </s:iterator>
                             </select>   
@@ -755,12 +767,12 @@
                                     style="width: 200px;background: #f2f2f2"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                         <option value="000000">Không xác định</option>
                                         <option value="999999">00 - Nước ngoài</option>
-                                    <s:iterator value="lstPGD" status="ideRows" var="language">
+                                    <s:iterator value="lstPGD_API" status="ideRows" var="language">
                                         <s:if test="%{#language.PosCode == d32}">
-                                            <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
+                                            <option value="<s:property value="PosCode"/>" selected><s:property value="PosCode"/> - <s:property value="PosName"/></option>
                                         </s:if>
                                         <s:else>
-                                            <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                            <option value="<s:property value="PosCode"/>"><s:property value="PosCode"/> - <s:property value="PosName"/></option>
                                         </s:else>
                                     </s:iterator>                                
                             </select>
@@ -768,12 +780,12 @@
                             <select class="THANHVIEN"  id="lstData_D32_tmp<s:property  value='%{#idxRows.index}' />"  cssStyle="display:none;">
                                 <option value="000000">Không xác định</option>
                                 <option value="999999">00 - Nước ngoài</option>
-                                <s:iterator value="lstPGD" status="ideRows" var="language">
+                                <s:iterator value="lstPGD_API" status="ideRows" var="language">
                                     <s:if test="%{#language.PosCode == d32}">
-                                        <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
+                                        <option value="<s:property value="PosCode"/>" selected><s:property value="PosCode"/> - <s:property value="PosName"/></option>
                                     </s:if>
                                     <s:else>
-                                        <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                        <option value="<s:property value="PosCode"/>"><s:property value="PosCode"/> - <s:property value="PosName"/></option>
                                     </s:else>
                                 </s:iterator>
                             </select>    
@@ -785,24 +797,24 @@
                                     style="width: 200px; background: #f2f2f2"  class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d28" id="lstData_D28<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
                                         <option value="000000">Không xác định</option>
                                         <option value="999999">Nước ngoài</option>
-                                    <s:iterator value="lstXa" status="ideRows" var="language">
-                                        <s:if test="%{#language.PosCode == d28}">
-                                            <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
+                                    <s:iterator value="lstXa_API" status="ideRows" var="language">
+                                        <s:if test="%{#language.communeCode == d28}">
+                                            <option value="<s:property value="communeCode"/>" selected><s:property value="communeCode"/> - <s:property value="communeName"/></option>
                                         </s:if>
                                         <s:else>
-                                            <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                            <option value="<s:property value="communeCode"/>"><s:property value="communeCode"/> - <s:property value="communeName"/></option>
                                         </s:else>
                                     </s:iterator>                                
                             </select>
                             <select class="THANHVIEN"  id="lstData_D28_tmp<s:property  value='%{#idxRows.index}' />"  cssStyle="display:none;">
                                 <option value="000000">Không xác định</option>
                                 <option value="999999">Nước ngoài</option>
-                                <s:iterator value="lstXa" status="ideRows" var="language">
-                                    <s:if test="%{#language.PosCode == d28}">
-                                        <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
+                                <s:iterator value="lstXa_API" status="ideRows" var="language">
+                                    <s:if test="%{#language.communeCode == d28}">
+                                        <option value="<s:property value="communeCode"/>" selected><s:property value="communeCode"/> - <s:property value="communeName"/></option>
                                     </s:if>
                                     <s:else>
-                                        <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                        <option value="<s:property value="communeCode"/>"><s:property value="communeCode"/> - <s:property value="communeName"/></option>
                                     </s:else>
                                 </s:iterator>
                             </select>   

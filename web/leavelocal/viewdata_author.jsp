@@ -119,16 +119,8 @@
 </script>
 </head>
 <body>
-    <div style="overflow:scroll; width: 99vw;">     
-        <div style="display: none;">
-            <select id="lstPGD_Temp">
-                <option value="000000">Không xác định</option>
-                <s:iterator value="lstPGD" status="ideRows" var="language">                                    
-                    <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>                                    
-                </s:iterator>
-                <option value="999999">Nước ngoài</option>
-            </select>
-        </div>
+    <div style="overflow:scroll; width: 99vw;">   
+     
         <table id="subTable" style="z-index: 1;">
             <thead>
                 <tr>
@@ -336,41 +328,41 @@
                         <td class="txtBody">
                             <select onmousedown="return false" onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />">
                                 <option value="000000">Không xác định</option>
-                                <s:iterator value="lstCN" status="ideRows" var="language">
-                                    <s:if test="%{#language.PosCode == d30}">
-                                        <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
+                                <s:iterator value="lstCN_API" status="ideRows" var="language">
+                                    <s:if test="%{#language.branchCode == d30}">
+                                        <option value="<s:property value="branchCode"/>" selected><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>
                                     </s:if>
                                     <s:else>
-                                        <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                        <option value="<s:property value="branchCode"/>"><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>
                                     </s:else>
                                 </s:iterator>
-                                <option value="999999">Nước ngoài</option>
-                            </select>
+                                <option value="999999">Nước ngoài</option>                          
                         </td>
                         <td>
                             <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />">
                                 <option value="000000">Không xác định</option>
-                                <s:iterator value="lstPGD" status="ideRows" var="language">
+                                <option value="999999">Nước ngoài</option>
+                                <s:iterator value="lstPGD_API" status="ideRows" var="language">
                                     <s:if test="%{#language.PosCode == d32}">
-                                        <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
+                                        <option value="<s:property value="PosCode"/>" selected><s:property value="PosCode"/> - <s:property value="PosName"/></option>
                                     </s:if>
                                     <s:else>
-                                        <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                        <option value="<s:property value="PosCode"/>"><s:property value="PosCode"/> - <s:property value="PosName"/></option>
                                     </s:else>
                                 </s:iterator>
-                                <option value="999999">Nước ngoài</option>
+                                
                             </select>
                         </td>  
                         <td>
                             <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d28" id="lstData_D28<s:property  value='%{#idxRows.index}' />">
                                 <option value="000000">Không xác định</option>
                                 <option value="999999">Nước ngoài</option>
-                                <s:iterator value="lstXa" status="ideRows" var="language">
-                                    <s:if test="%{#language.PosCode == d28}">
-                                        <option value="<s:property value="PosCode"/>" selected><s:property value="PosName"/></option>
+                                <s:iterator value="lstXa_API" status="ideRows" var="language">
+                                    <s:if test="%{#language.communeCode == d28}">
+                                        <option value="<s:property value="communeCode"/>" selected><s:property value="communeCode"/> - <s:property value="communeName"/></option>
                                     </s:if>
                                     <s:else>
-                                        <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
+                                        <option value="<s:property value="communeCode"/>"><s:property value="communeCode"/> - <s:property value="communeName"/></option>
                                     </s:else>
                                 </s:iterator>
 

@@ -300,15 +300,15 @@
                                 }
 
                                 // bắt check 19 cho pos cho vay                    
-                                var lstData_D30 = document.getElementById('lstData_D30' + i).value;
-//                                alert(lstData42 + lstData_D30 + lstData_D22);
-                                if (lstData42 === '1' && lstData_D22 === '01' && check_box !== false 
-                                        && (lstData_D30 === '000000' || lstData_D30 === '999999')) {
-                                    alert("Mã nhóm = 01, vui lòng chọn chi nhánh khác 'Nước ngoài' và 'Không xác định'");
-                                    document.getElementById("lstData_D30" + i).style.backgroundColor = "#EEAFA6";
-                                    isValid = false;
-                                    break;
-                                }
+//                                var lstData_D30 = document.getElementById('lstData_D30' + i).value;
+////                                alert(lstData42 + lstData_D30 + lstData_D22);
+//                                if (lstData42 === '1' && lstData_D22 === '01' && check_box !== false 
+//                                        && (lstData_D30 === '000000' || lstData_D30 === '999999')) {
+//                                    alert("Mã nhóm = 01, vui lòng chọn chi nhánh khác 'Nước ngoài' và 'Không xác định'");
+//                                    document.getElementById("lstData_D30" + i).style.backgroundColor = "#EEAFA6";
+//                                    isValid = false;
+//                                    break;
+//                                }
 
 //                                // bắt check 20 cho pos cho vay 
 //                                if (check_var20 === "0" && lstData_D22 === '01' && lstData42 === '1' && check_box !== false)
