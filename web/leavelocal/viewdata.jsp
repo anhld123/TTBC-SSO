@@ -12,7 +12,7 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         border-spacing: 0;
-        width: 220%;
+        width: 250%;
     }
     #subTable th{
         background-color: #ddd;
@@ -451,7 +451,7 @@
 </script>
 </head>
 <body>
-    <div style="overflow:scroll; width: 99vw;">     
+    <div style="overflow:scroll; width: 99vw; height: 400px;">     
         <div style="display: none;">
             <select id="lstPGD_Temp">
                 <option value="000000">Không xác định</option>
@@ -475,12 +475,12 @@
                         <input type="checkbox" id ="select-all"/>
                     </th>  
                     <th rowspan="2" class="hdtitle">STT</th>
-                    <th rowspan="2" class="hdtitle">Tên chi nhánh</th>
-                    <th rowspan="2" class="hdtitle">Tên PGD</th>
-                    <th rowspan="2" class="hdtitle">Tên xã</th>
-                    <th rowspan="2" class="hdtitle">Tên tổ trưởng</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Tên chi nhánh</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Tên PGD</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Tên xã</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Tên tổ trưởng</th>
                     <th rowspan="2" class="hdtitle" style="width: 100px">Mã KH</th>
-                    <th rowspan="2" class="hdtitle">Tên KH vay vốn</th>
+                    <th rowspan="2" class="hdtitle" style="width: 100px">Tên KH vay vốn</th>
                     <th rowspan="2" class="hdtitle" style="width: 80px">Năm sinh</th>
                     <th rowspan="2" class="hdtitle" style="width: 100px">CMT/CCCD</th>
                     <th rowspan="2" class="hdtitle" style="width: 100px">Số điện thoại</th>
@@ -821,6 +821,7 @@
                             </select>   
                             <a id="countDisplay2<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
                         </td>
+
                         <td class="txtBody" >
                             <select onchange="onSelectChange_dnht(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" <s:if test="!D42.equalsIgnoreCase('1')"> disabled </s:if>
                                     name="lstData[<s:property  value='%{#idxRows.index}' />].d33" id="lstSubData_D33<s:property  value='%{#idxRows.index}' />" >
@@ -836,49 +837,49 @@
                                    >link</a>
                             </s:else>
 
-
                         </td>
 
-                        <td class="txtBody">
-                            <select onchange="onSelectChange_dnht1(this.value, <s:property  value='%{#idxRows.index}'/>)" <s:if test="D42.equalsIgnoreCase('1')"> disabled </s:if>
-                                    class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d34" id="lstSubData34<s:property  value='%{#idxRows.index}' />">
-                                <option value="0" <s:if test="d34.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>00: Chưa rà soát</option>
-                                <option value="1" <s:if test="d34.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>01: Khách hàng cam kết thực hiện nghĩa vụ trả nợ</option>
-                                <option value="2" <s:if test="d34.equalsIgnoreCase('2')"> selected </s:if> <s:else></s:else>>02: Khách hàng thuộc đối tượng xử lý nợ bị rủi ro</option>
-                                <option value="3" <s:if test="d34.equalsIgnoreCase('3')"> selected </s:if> <s:else></s:else>>03: Khách hàng chây ỳ</option>
-                                <option value="4" <s:if test="d34.equalsIgnoreCase('4')"> selected </s:if> <s:else></s:else>>04: Không liên hệ được với khách hàng</option>
-                                <option value="5" <s:if test="d34.equalsIgnoreCase('5')"> selected </s:if> <s:else></s:else>>05: Trường hợp khác</option>
-                                </select></td>
                             <td class="txtBody">
-                            <s:if test="D20.equalsIgnoreCase('ThanhVien')"> 
-                                <s:property value="D41"/>
-                            </s:if>
-                            <s:else>
+                                <select onchange="onSelectChange_dnht1(this.value, <s:property  value='%{#idxRows.index}'/>)" <s:if test="D42.equalsIgnoreCase('1')"> disabled </s:if>
+                                        class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d34" id="lstSubData34<s:property  value='%{#idxRows.index}' />">
+                                    <option value="0" <s:if test="d34.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>00: Chưa rà soát</option>
+                                    <option value="1" <s:if test="d34.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>01: Khách hàng cam kết thực hiện nghĩa vụ trả nợ</option>
+                                    <option value="2" <s:if test="d34.equalsIgnoreCase('2')"> selected </s:if> <s:else></s:else>>02: Khách hàng thuộc đối tượng xử lý nợ bị rủi ro</option>
+                                    <option value="3" <s:if test="d34.equalsIgnoreCase('3')"> selected </s:if> <s:else></s:else>>03: Khách hàng chây ỳ</option>
+                                    <option value="4" <s:if test="d34.equalsIgnoreCase('4')"> selected </s:if> <s:else></s:else>>04: Không liên hệ được với khách hàng</option>
+                                    <option value="5" <s:if test="d34.equalsIgnoreCase('5')"> selected </s:if> <s:else></s:else>>05: Trường hợp khác</option>
+                                    </select></td>
+
+                        <td class="txtBody">
                                 <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData41<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d41" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if>><s:property value='d41'/></textarea>
-                            </s:else>
                         </td>
-                        <td class="txtBody">
-                            <select onchange="onSelectChange_tccc_rasoat(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData24<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> > 
-                                <option value="00" <s:if test="d24.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>>00: Không rà soát</option>
-                                <option value="01" <s:if test="d24.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Cam kết</option>
-                                <option value="02" <s:if test="d24.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không liên hệ được</option>
-                                <option value="03" <s:if test="d24.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Liên hệ được nhưng không cam kết</option>
-                                <option value="04" <s:if test="d24.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>04: Liên hệ được nhưng không nhận nợ</option>
-                                <option value="05" <s:if test="d24.equalsIgnoreCase('05')"> selected </s:if> <s:else></s:else>>05: Không thực hiện cam kết</option>
-
-                                </select>
-                            </td>
-
+    
+                     
                             <td class="txtBody">
-                                    <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d25" id="lstSubData_D25<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
-                                <option value="00" <s:if test="d25.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>>00: Khách hàng bỏ đi</option>
-                                <option value="01" <s:if test="d25.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Tất toán nợ</option>
-                                <option value="02" <s:if test="d25.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Xoá nợ</option>
-                                <option value="03" <s:if test="d25.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Trở về địa phương</option>
-                                </select></td>
+                                <select onchange="onSelectChange_tccc_rasoat(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData24<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> > 
+                                    <option value="00" <s:if test="d24.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>>00: Không rà soát</option>
+                                    <option value="01" <s:if test="d24.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Cam kết</option>
+                                    <option value="02" <s:if test="d24.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không liên hệ được</option>
+                                    <option value="03" <s:if test="d24.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Liên hệ được nhưng không cam kết</option>
+                                    <option value="04" <s:if test="d24.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>04: Liên hệ được nhưng không nhận nợ</option>
+                                    <option value="05" <s:if test="d24.equalsIgnoreCase('05')"> selected </s:if> <s:else></s:else>>05: Không thực hiện cam kết</option>
 
-                        </tr>
-
+                                    </select>
+                                </td>
+                   
+                        <s:if test="D20.equalsIgnoreCase('ThanhVien')">
+                            <td></td><td></td> <td></td> <td></td>                                        
+                        </s:if>
+                        <s:else>
+                            <td class="txtBody">
+                                <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d25" id="lstSubData_D25<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >
+                                    <option value="00" <s:if test="d25.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>>00: Khách hàng bỏ đi</option>
+                                    <option value="01" <s:if test="d25.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Tất toán nợ</option>
+                                    <option value="02" <s:if test="d25.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Xoá nợ</option>
+                                    <option value="03" <s:if test="d25.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Trở về địa phương</option>
+                                    </select></td>
+                            </s:else>       
+                    </tr>
                 </s:iterator>
             </tbody>
         </table>

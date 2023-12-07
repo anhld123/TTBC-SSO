@@ -49,7 +49,7 @@
                                     <option value="<s:property value="PosCode"/>"><s:property value="PosName"/></option>
                                 </s:iterator>
                             </select>                        
-                            Mã khách hàng: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã khách hàng" value="">                        
+                            Mã KH/ CMND/CCCD: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã khách hàng" value="">                        
                             Từ ngày:  <input type="text" name="txtFromDate" id="txtFromDate" readonly="readonly"/>
                             đến: <input type="text" name="txtToDate" id="txtToDate" readonly="readonly"/>
                             <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>                          
