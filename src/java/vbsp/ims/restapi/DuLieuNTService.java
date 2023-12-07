@@ -1563,6 +1563,61 @@ public class DuLieuNTService extends ReportService {
         }
     }
     
+     public ArrayList<ListMainPos> getListCn(String provinceCode) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("ims-lov-province-list")
+                .queryParam("provinceCode", provinceCode == null || provinceCode == "" ? "" : provinceCode);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            ListMainPos listMainPos = response.readEntity(ListMainPos.class);
+            ArrayList<ListMainPos> listOfRow = listMainPos.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+    
+     public ArrayList<ListPosCode> getListPgd(String mainPos, String posCode) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("ims-lov-pos-list")
+                .queryParam("mainPos", mainPos == null || mainPos == "" ? "" : mainPos)
+                .queryParam("posCode", posCode == null || posCode == "" ? "" : posCode);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            ListPosCode listPosCode = response.readEntity(ListPosCode.class);
+            ArrayList<ListPosCode> listOfRow = listPosCode.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+     
+     public ArrayList<ListCommune> getListXa(String provinceCode, String districtCode, String communeCode,String posCode) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("ims-lov-commune-list")
+                .queryParam("provinceCode", provinceCode == null || provinceCode == "" ? "" : provinceCode)
+                .queryParam("districtCode", districtCode == null || districtCode == "" ? "" : districtCode)
+                .queryParam("communeCode", communeCode == null || communeCode == "" ? "" : communeCode)
+                .queryParam("posCode", posCode == null || posCode == "" ? "" : posCode);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            ListCommune listDistrict = response.readEntity(ListCommune.class);
+            ArrayList<ListCommune> listOfRow = listDistrict.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+     
     public int updateKTKSNB(String key, String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
             List<DuLieuNTRowX> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();

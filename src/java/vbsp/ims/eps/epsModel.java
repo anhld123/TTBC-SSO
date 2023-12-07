@@ -49,6 +49,28 @@ public class epsModel {
         return lst;
     }
 
+        public List<PosClass> getXa(String capbc, String tendn) {
+        List<PosClass> lst = new ArrayList<>();
+        DaoConnect db = new DaoConnect();
+        Connection con = db.getConnect();
+        try {
+            //Thực hiện lấy các biến cần truy cập
+            CallableStatement st = con.prepareCall("{call PROC_GET_DMXA(?,?,?)}");
+            st.setString(1, capbc);
+            st.setString(2, tendn);
+            st.registerOutParameter(3, OracleTypes.CURSOR);
+            st.execute();
+            ResultSet rs = (ResultSet) st.getObject(3);
+            while (rs.next()) {
+                PosClass obj = new PosClass();
+                lst.add(new PosClass(rs.getString("MADV"), rs.getString("TENDV")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(epsAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lst;
+    }
+        
     public List<epsGetSetSL> getAllData(String capbc, String tendn, String madv, String ngaybc, String nghiepvu, String matinh,
             String searchStatus) {
         List<epsGetSetSL> lst = new ArrayList<>();

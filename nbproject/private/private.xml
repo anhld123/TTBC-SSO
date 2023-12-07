@@ -3,19 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/web/nhaptay-cn/input-nhaptaycn_main.jsp</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/tracuu_info/tracuuinfo_model.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/web/Tracuu_info/viewcontent.jsp</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/web/muasam-taisan/viewdata_dat.jsp</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/baocao_muasamts.xml</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/web/muasam-taisan/index_dat.jsp</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/web/muasam-taisan/viewdata.jsp</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/tracuu_info/tracuuinfo_ActionSupport.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/muasamts/action/DanhGiaQSDDDao.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/muasamts/action/KTTC_QSDD_01.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/baocao_nhaptaycn.xml</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/vbsp/ims/muasamts/action/DanhGiaQSDDService.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS/src/java/struts-tracuu.xml</file>
+            <file>file:/D:/Project/IMS_REPORTS/web/nghiquyet11cp/para_nghiquyet11cp_01_dkkh.jsp</file>
+            <file>file:/D:/Project/IMS_REPORTS/web/nhaptay-cn/para_baocao_cic.jsp</file>
+            <file>file:/D:/Project/IMS_REPORTS/src/java/vbsp/ims/leavelocal/LeaveHomeService.java</file>
+            <file>file:/D:/Project/IMS_REPORTS/web/muasam-taisan/index_dat.jsp</file>
+            <file>file:/D:/Project/IMS_REPORTS/web/leavelocal/viewdata.jsp</file>
+            <file>file:/D:/Project/IMS_REPORTS/src/java/vbsp/ims/nghiquyet11cp/ActionNghiquyet11cpMain.java</file>
+            <file>file:/D:/Project/IMS_REPORTS/src/java/vbsp/ims/nghiquyet11cp/DaoNghiquyet11cp.java</file>
+            <file>file:/D:/Project/IMS_REPORTS/web/nhaptay-cn/table_cic.jsp</file>
+            <file>file:/D:/Project/IMS_REPORTS/web/nhaptay-cn/table_cic_c2.jsp</file>
+            <file>file:/D:/Project/IMS_REPORTS/src/java/vbsp/ims/dao/DaoConnect.java</file>
+            <file>file:/D:/Project/IMS_REPORTS/web/leavelocal/index.jsp</file>
+            <file>file:/D:/Project/IMS_REPORTS/web/nghiquyet11cp/table_nq11cp_01_dkkh_c1.jsp</file>
+            <file>file:/D:/Project/IMS_REPORTS/src/java/vbsp/ims/nhaptaycn/action/CIC_001.java</file>
+            <file>file:/D:/Project/IMS_REPORTS/src/java/vbsp/ims/muasamts/action/KTTC_MUASAMTS_001.java</file>
+            <file>file:/D:/Project/IMS_REPORTS/web/muasam-taisan/viewdata_dat.jsp</file>
+            <file>file:/D:/Project/IMS_REPORTS/src/java/baocao_nhaptaycn.xml</file>
+            <file>file:/D:/Project/IMS_REPORTS/src/java/vbsp/ims/leavelocal/LeaveTheLocal.java</file>
+            <file>file:/D:/Project/IMS_REPORTS/src/java/vbsp/ims/restapi/DuLieuNTService.java</file>
+            <file>file:/D:/Project/IMS_REPORTS/src/java/vbsp/ims/nhaptaycn/action/ActionNhaptaycnMain.java</file>
         </group>
     </open-files>
 </project-private>
