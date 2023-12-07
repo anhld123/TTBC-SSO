@@ -359,7 +359,7 @@
 
     function addRow() {                
         var table = document.getElementById("subTable_body"); // find table to append to        
-        var rowCount = table.rows.length - 4; //Dem so dong cua bang
+        var rowCount = table.rows.length - 1; //Dem so dong cua bang
         if (max_row < rowCount)
         {
             max_row = rowCount;
