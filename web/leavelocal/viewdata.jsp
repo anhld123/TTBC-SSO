@@ -233,18 +233,18 @@
                 document.getElementById("lstData_D44" + index).disabled = true;
                 var var2, vartxt, selected;
                 document.getElementById("lstDataD23" + index).style.backgroundColor = "#C7C0BF";
-                 $("#lstData_D30" + index).children().remove().end();
-                //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-                $("#lstData_D30_tmp" + index + " > option").each(function () {
-                    var tmp = $(this).val();
-                    if (tmp != '000000' && tmp != '999999' && tmp != '000101')
-//                alert(tmp);
-                        $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-                });
-                $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
-                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-                }));
-                onSelectChange(index);
+//                 $("#lstData_D30" + index).children().remove().end();
+//                //$("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
+//                $("#lstData_D30_tmp" + index + " > option").each(function () {
+//                    var tmp = $(this).val();
+//                    if (tmp != '000000' && tmp != '999999')
+////                alert(tmp);
+//                        $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+//                });
+//                $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
+//                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+//                }));
+//                onSelectChange(index);
                 //------------------------
                 $("#lstSubData_D33" + index).children().remove().end();
                 $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
@@ -254,15 +254,15 @@
                 document.getElementById("lstSubData31" + index).disabled = false;
                 document.getElementById("lstDataD23" + index).removeAttribute("style");
                 document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
-                
-                $("#lstData_D30" + index).children().remove().end()
-                $("#lstData_D30_tmp" + index + " > option").each(function () {
-                    $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-                });
-                $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
-                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-                }));
-                onSelectChange(index);
+
+//                $("#lstData_D30" + index).children().remove().end()
+//                $("#lstData_D30_tmp" + index + " > option").each(function () {
+//                    $("#lstData_D30" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+//                });
+//                $("#lstData_D30" + index).html($("#lstData_D30" + index + " option").sort(function (a, b) {
+//                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+//                }));
+//                onSelectChange(index);
 //
 //                $("#lstData_D28" + index).children().remove().end(); > ");
 //                        $("#lstData_D28_tmp" + index + " > option").each(function () {
@@ -447,6 +447,7 @@
             countDisplay2.innerText = 1;
         }
     }
+
 </script>
 </head>
 <body>
@@ -877,6 +878,7 @@
                                 </select></td>
 
                         </tr>
+
                 </s:iterator>
             </tbody>
         </table>

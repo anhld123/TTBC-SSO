@@ -274,6 +274,9 @@
                                 var check_var20 = document.getElementById('countDisplay1' + i).innerText;
                                 var check_var21 = document.getElementById('countDisplay2' + i).innerText;
                                 var lstSubData34 = document.getElementById('lstSubData34' + i).value;
+                                var lstSubData_D33 = document.getElementById('lstSubData_D33' + i).value;
+                                var lstData24 = document.getElementById('lstData24' + i).value;
+                                var lstSubData_D25 = document.getElementById('lstSubData_D25' + i).value;
 //                                alert(check_var19);
                                 if (check_var19 === "0" && lstData42 === '0' && lstData_D22 === '02' && lstSubData31 === '1' && check_box !== false)
                                 {
@@ -301,7 +304,8 @@
                                 }
                                 // bắt check 18
                                 var lstDataD23 = document.getElementById('lstDataD23' + i).value;
-                                if (lstData42 === '1' && lstData_D22 === '01' && check_box !== false && lstDataD23.length < 5)
+                                if (lstData42 === '1' && lstData_D22 === '01' && check_box !== false && lstDataD23.length < 5
+                                        && lstSubData_D33 ==='0' && lstData24 ==='00' && lstSubData_D25 === '00')
                                 {
                                     alert('Vui lòng nhập thông tin cột 18 (Tối thiểu 5 ký tự)');
                                     document.getElementById("lstDataD23" + i).style.backgroundColor = "#EEAFA6";
@@ -310,7 +314,8 @@
                                 }
                                 
                                 // bắt check 19 cho pos cho vay 
-                                if (check_var19 === "0" && lstData42 === '1' && lstSubData34 === '5' && lstData_D22 === '01' && check_box !== false)
+                                if (check_var19 === "0" && lstData42 === '1'  && lstData_D22 === '01' && check_box !== false 
+                                        && lstSubData_D33 ==='0' && lstData24 ==='00' && lstSubData_D25 === '00')
                                 {
                                     alert("Vui lòng rà soát lại cột 19 ( Chi nhánh hộ vay chuyển đến ) trước khi lưu");
                                     document.getElementById("lstData_D30" + i).style.backgroundColor = "#EEAFA6";
@@ -319,7 +324,8 @@
                                 }
 
 //                                // bắt check 20 cho pos cho vay 
-                                if (check_var20 === "0" && lstData42 === '1' && lstSubData34 === '5' && lstData_D22 === '01' && check_box !== false)
+                                if (check_var20 === "0" && lstData42 === '1'  && lstData_D22 === '01' && check_box !== false
+                                        && lstSubData_D33 ==='0' && lstData24 ==='00' && lstSubData_D25 === '00')
                                 {
                                     alert("Vui lòng rà soát lại cột 20 ( PGD hộ vay chuyển đến ) trước khi lưu");
                                     document.getElementById("lstData_D32" + i).style.backgroundColor = "#EEAFA6";
@@ -328,7 +334,8 @@
                                 }
 //
 //                                // bắt check 21 cho pos cho vay 
-                                if (check_var21 === "0" && lstData42 === '1' && lstSubData34 === '5' && lstData_D22 === '01' && check_box !== false)
+                                if (check_var21 === "0" && lstData42 === '1' && lstData_D22 === '01' && check_box !== false
+                                        && lstSubData_D33 ==='0' && lstData24 ==='00' && lstSubData_D25 === '00')
                                 {
                                     alert("Vui lòng rà soát lại cột 21 ( Xã hộ vay chuyển đến ) trước khi lưu");
                                     document.getElementById("lstData_D28" + i).style.backgroundColor = "#EEAFA6";
