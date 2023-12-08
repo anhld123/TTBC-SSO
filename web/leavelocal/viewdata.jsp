@@ -222,6 +222,7 @@
         }
     }
 
+
     function onSelectChange_dcct(value, index) {
         try {
             if (value == '01')
@@ -333,7 +334,14 @@
                         document.getElementById("lstSubData31" + i).disabled = false;
                         //------------------------De nghị hỗ trợ
                         $("#lstSubData_D33" + i).children().remove().end();
-
+//                        $("#lstSubData_D33_tmp" + index + " > option").each(function () {
+//                            var tmp = $(this).val();
+//                            if (tmp != '1')
+//                                $("#lstSubData_D33" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+//                        });
+//                        $("#lstSubData_D33" + index).html($("#lstSubData_D33" + index + " option").sort(function (a, b) {
+//                            return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+//                        }));
 //                        alert(D21);
                         if (D21 === '1') {
                             $("#lstSubData_D33" + i).prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");
@@ -348,8 +356,6 @@
                 }
 
                 var lstData_D22 = document.getElementById('lstData_D22' + i).value;
-
-
                 var lstSubData31 = document.getElementById('lstSubData31' + i).value;
                 if (lstData_D22 = '02' && lstSubData31 == '1')
                 {
@@ -358,6 +364,7 @@
                     document.getElementById("lstData_D30" + i).disabled = false;
                     document.getElementById("lstData_D32" + i).disabled = false;
                     document.getElementById("lstData_D28" + i).disabled = false;
+
                 }
 
             } catch (e) {
@@ -377,7 +384,7 @@
 
     function onSelectChange_tccc_rasoat(value, index) {
         var selected;
-        if (value == '01')
+        if (value == '02')
         {
             $("#lstSubData_D33" + index).children().remove().end();
             $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
@@ -666,7 +673,7 @@
                         <s:if test="D42.toString().equalsIgnoreCase('1')">
                             <td class="txtBody">
                                 <select 
-                                    onchange="onSelectChange_dcct(this.value, <s:property  value='%{#idxRows.index}'/>)"
+                                    onchange="onSelectChange_tccc_rasoat(this.value, <s:property  value='%{#idxRows.index}'/>)"
                                     class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22"
                                     id="lstData_D22<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >                                
                                     <option value="02" <s:if test="d22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không có thông tin địa chỉ cụ thể</option>
@@ -839,34 +846,34 @@
 
                         </td>
 
-                            <td class="txtBody">
-                                <select onchange="onSelectChange_dnht1(this.value, <s:property  value='%{#idxRows.index}'/>)" <s:if test="D42.equalsIgnoreCase('1')"> disabled </s:if>
-                                        class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d34" id="lstSubData34<s:property  value='%{#idxRows.index}' />">
-                                    <option value="0" <s:if test="d34.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>00: Chưa rà soát</option>
-                                    <option value="1" <s:if test="d34.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>01: Khách hàng cam kết thực hiện nghĩa vụ trả nợ</option>
-                                    <option value="2" <s:if test="d34.equalsIgnoreCase('2')"> selected </s:if> <s:else></s:else>>02: Khách hàng thuộc đối tượng xử lý nợ bị rủi ro</option>
-                                    <option value="3" <s:if test="d34.equalsIgnoreCase('3')"> selected </s:if> <s:else></s:else>>03: Khách hàng chây ỳ</option>
-                                    <option value="4" <s:if test="d34.equalsIgnoreCase('4')"> selected </s:if> <s:else></s:else>>04: Không liên hệ được với khách hàng</option>
-                                    <option value="5" <s:if test="d34.equalsIgnoreCase('5')"> selected </s:if> <s:else></s:else>>05: Trường hợp khác</option>
-                                    </select></td>
-
                         <td class="txtBody">
-                                <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData41<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d41" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if>><s:property value='d41'/></textarea>
-                        </td>
-    
-                     
-                            <td class="txtBody">
-                                <select onchange="onSelectChange_tccc_rasoat(this.value, <s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData24<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> > 
-                                    <option value="00" <s:if test="d24.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>>00: Không rà soát</option>
-                                    <option value="01" <s:if test="d24.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Cam kết</option>
-                                    <option value="02" <s:if test="d24.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không liên hệ được</option>
-                                    <option value="03" <s:if test="d24.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Liên hệ được nhưng không cam kết</option>
-                                    <option value="04" <s:if test="d24.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>04: Liên hệ được nhưng không nhận nợ</option>
-                                    <option value="05" <s:if test="d24.equalsIgnoreCase('05')"> selected </s:if> <s:else></s:else>>05: Không thực hiện cam kết</option>
+                            <select onchange="onSelectChange_dnht1(this.value, <s:property  value='%{#idxRows.index}'/>)" <s:if test="D42.equalsIgnoreCase('1')"> disabled </s:if>
+                                    class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d34" id="lstSubData34<s:property  value='%{#idxRows.index}' />">
+                                <option value="0" <s:if test="d34.equalsIgnoreCase('0')"> selected </s:if> <s:else></s:else>>00: Chưa rà soát</option>
+                                <option value="1" <s:if test="d34.equalsIgnoreCase('1')"> selected </s:if> <s:else></s:else>>01: Khách hàng cam kết thực hiện nghĩa vụ trả nợ</option>
+                                <option value="2" <s:if test="d34.equalsIgnoreCase('2')"> selected </s:if> <s:else></s:else>>02: Khách hàng thuộc đối tượng xử lý nợ bị rủi ro</option>
+                                <option value="3" <s:if test="d34.equalsIgnoreCase('3')"> selected </s:if> <s:else></s:else>>03: Khách hàng chây ỳ</option>
+                                <option value="4" <s:if test="d34.equalsIgnoreCase('4')"> selected </s:if> <s:else></s:else>>04: Không liên hệ được với khách hàng</option>
+                                <option value="5" <s:if test="d34.equalsIgnoreCase('5')"> selected </s:if> <s:else></s:else>>05: Trường hợp khác</option>
+                                </select></td>
 
-                                    </select>
-                                </td>
-                   
+                            <td class="txtBody">
+                                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData41<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d41" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if>><s:property value='d41'/></textarea>
+                            </td>
+
+
+                            <td class="txtBody">
+                                <select class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D24" id="lstData24<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> > 
+                                <option value="00" <s:if test="d24.equalsIgnoreCase('00')"> selected </s:if> <s:else></s:else>>00: Không rà soát</option>
+                                <option value="01" <s:if test="d24.equalsIgnoreCase('01')"> selected </s:if> <s:else></s:else>>01: Cam kết</option>
+                                <option value="02" <s:if test="d24.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không liên hệ được</option>
+                                <option value="03" <s:if test="d24.equalsIgnoreCase('03')"> selected </s:if> <s:else></s:else>>03: Liên hệ được nhưng không cam kết</option>
+                                <option value="04" <s:if test="d24.equalsIgnoreCase('04')"> selected </s:if> <s:else></s:else>>04: Liên hệ được nhưng không nhận nợ</option>
+                                <option value="05" <s:if test="d24.equalsIgnoreCase('05')"> selected </s:if> <s:else></s:else>>05: Không thực hiện cam kết</option>
+
+                                </select>
+                            </td>
+
                         <s:if test="D20.equalsIgnoreCase('ThanhVien')">
                             <td></td><td></td> <td></td> <td></td>                                        
                         </s:if>
