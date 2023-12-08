@@ -222,7 +222,6 @@
         }
     }
 
-
     function onSelectChange_dcct(value, index) {
         try {
             if (value == '01')
@@ -334,14 +333,7 @@
                         document.getElementById("lstSubData31" + i).disabled = false;
                         //------------------------De nghị hỗ trợ
                         $("#lstSubData_D33" + i).children().remove().end();
-//                        $("#lstSubData_D33_tmp" + index + " > option").each(function () {
-//                            var tmp = $(this).val();
-//                            if (tmp != '1')
-//                                $("#lstSubData_D33" + index).prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-//                        });
-//                        $("#lstSubData_D33" + index).html($("#lstSubData_D33" + index + " option").sort(function (a, b) {
-//                            return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
-//                        }));
+
 //                        alert(D21);
                         if (D21 === '1') {
                             $("#lstSubData_D33" + i).prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");
@@ -364,7 +356,6 @@
                     document.getElementById("lstData_D30" + i).disabled = false;
                     document.getElementById("lstData_D32" + i).disabled = false;
                     document.getElementById("lstData_D28" + i).disabled = false;
-
                 }
 
             } catch (e) {
@@ -673,7 +664,7 @@
                         <s:if test="D42.toString().equalsIgnoreCase('1')">
                             <td class="txtBody">
                                 <select 
-                                    onchange="onSelectChange_tccc_rasoat(this.value, <s:property  value='%{#idxRows.index}'/>)"
+                                    onchange="onSelectChange_tccc_rasoat(this.value, <s:property  value='%{#idxRows.index}'/>); onSelectChange_dcct(this.value, <s:property  value='%{#idxRows.index}'/>)"
                                     class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22"
                                     id="lstData_D22<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >                                
                                     <option value="02" <s:if test="d22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không có thông tin địa chỉ cụ thể</option>
@@ -716,7 +707,7 @@
                             <td class="txtBody" style="background: #f2f2f2"><s:property value="d44"/></td>      
                         </s:else>
                         <td class="txtBody">
-                            <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstDataD27<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if> ><s:property value='d27'/></textarea>
+                            <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstDataD27<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> readonly="true"</s:if> ><s:property value='d27'/></textarea>
                             <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d42" id="lstData42<s:property  value='%{#idxRows.index}' />" 
                                    value="<s:property  value="D42" />" >
                             <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d39" id="lstData39<s:property  value='%{#idxRows.index}' />" 
@@ -875,7 +866,7 @@
                             </td>
 
                         <s:if test="D20.equalsIgnoreCase('ThanhVien')">
-                            <td></td><td></td> <td></td> <td></td>                                        
+                            <td></td><td></td>                                        
                         </s:if>
                         <s:else>
                             <td class="txtBody">
