@@ -273,6 +273,7 @@
                                 var check_var19 = document.getElementById('countDisplay' + i).innerText;
                                 var check_var20 = document.getElementById('countDisplay1' + i).innerText;
                                 var check_var21 = document.getElementById('countDisplay2' + i).innerText;
+                                var check_var22 = document.getElementById('countDisplay3' + i).innerText;
                                 var lstSubData34 = document.getElementById('lstSubData34' + i).value;
                                 var lstSubData_D33 = document.getElementById('lstSubData_D33' + i).value;
                                 var lstData24 = document.getElementById('lstData24' + i).value;
@@ -339,6 +340,14 @@
                                 {
                                     alert("Vui lòng rà soát lại cột 21 ( Xã hộ vay chuyển đến ) trước khi lưu");
                                     document.getElementById("lstData_D28" + i).style.backgroundColor = "#EEAFA6";
+                                    isValid = false;
+                                    break;
+                                }
+                                // check 22 cho pos cho vay
+                               if (check_var22 === "0" && lstData42 === '1' && lstSubData_D33 === '1' && check_box !== false)
+                                {
+                                    alert("Vui lòng rà soát lại cột 22 ( Đề nghị hỗ trợ ) số văn bản và ngày tháng trước khi lưu");
+                                    document.getElementById("lstDNHT_D33" + i).style.backgroundColor = "#EEAFA6";
                                     isValid = false;
                                     break;
                                 }

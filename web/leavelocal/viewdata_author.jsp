@@ -326,7 +326,7 @@
                         <td class="txtBody"><s:property value="d26"/></td>
                         <td class="txtBody"><s:property value="d23"/></td>
                         <td class="txtBody">
-                            <select onmousedown="return false" onchange="onSelectChange(<s:property  value='%{#idxRows.index}'/>)" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />">
+                            <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d30" id="lstData_D30<s:property  value='%{#idxRows.index}' />">
                                 <option value="000000">Không xác định</option>
                                 <s:iterator value="lstCN_API" status="ideRows" var="language">
                                     <s:if test="%{#language.branchCode == d30}">
@@ -336,10 +336,11 @@
                                         <option value="<s:property value="branchCode"/>"><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>
                                     </s:else>
                                 </s:iterator>
-                                <option value="999999">Nước ngoài</option>                          
+                                <option value="999999">Nước ngoài</option>
+                                 </select>
                         </td>
                         <td>
-                            <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D32<s:property  value='%{#idxRows.index}' />">
+                          <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D28<s:property  value='%{#idxRows.index}' />">
                                 <option value="000000">Không xác định</option>
                                 <option value="999999">Nước ngoài</option>
                                 <s:iterator value="lstPGD_API" status="ideRows" var="language">
