@@ -12,7 +12,7 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         border-spacing: 0;
-        width: 250%;
+        width: 230%;
     }
     #subTable th{
         background-color: #ddd;
