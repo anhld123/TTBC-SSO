@@ -305,6 +305,7 @@
         {
             try {
                 var flagPos = document.getElementById('lstData42' + i).value;
+                
 //                document.getElementById("lstData_D32" + i).disabled = true;
 //                 alert (flagPos +  '---'+ i)
                 if (flagPos = '1')
@@ -877,7 +878,7 @@
                                 </select></td>
 
                             <td class="txtBody">
-                                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData41<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d41" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> disabled </s:if>><s:property value='d41'/></textarea>
+                                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstData41<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d41" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> readonly="true" </s:if>><s:property value='d41'/></textarea>
                             </td>
 
 
