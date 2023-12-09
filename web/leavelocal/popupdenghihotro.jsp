@@ -115,8 +115,8 @@
                     success: function (data) {
                         if (data === "200") {
                             alert("Thành công: Lưu dữ liệu.");
-//                            window.opener.document.getElementById('idSearch').click();
-//                            window.close();
+                            window.opener.document.getElementById('idSearch').click();
+                            window.close();
 //                            reloadData();
                         } else {
                             alert("Lỗi: Lưu dữ liệu.");

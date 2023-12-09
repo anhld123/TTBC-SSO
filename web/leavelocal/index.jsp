@@ -333,7 +333,7 @@
                                     isValid = false;
                                     break;
                                 }
-//
+                                                           
 //                                // bắt check 21 cho pos cho vay 
                                 if (check_var21 === "0" && lstData42 === '1' && lstData_D22 === '01' && check_box !== false
                                         && lstSubData_D33 ==='0' && lstData24 ==='00' && lstSubData_D25 === '00')
@@ -344,9 +344,26 @@
                                     break;
                                 }
                                 // check 22 cho pos cho vay
-                               if (check_var22 === "0" && lstData42 === '1' && lstSubData_D33 === '1' && check_box !== false)
+//                               if (check_var22 === "0" && lstData42 === '1' && lstSubData_D33 === '1' && check_box !== false)
+//                                {
+//                                    alert("Vui lòng rà soát lại cột 22 ( Đề nghị hỗ trợ ) số văn bản và ngày tháng trước khi lưu");
+//                                    document.getElementById("lstDNHT_D33" + i).style.backgroundColor = "#EEAFA6";
+//                                    isValid = false;
+//                                    break;
+//                                }
+                                // check văn bản đề nghị pos cho vay
+                                 var lstData39 = document.getElementById('lstData39' + i).value;
+//                                 var lstData38 = document.getElementById('lstData38' + i).value;   
+//                                 if (lstData38.length < '2' && lstData42 === '1' && check_box !== false)
+//                                {
+//                                    alert("Vui lòng rà soát lại cột 22 ( Đề nghị hỗ trợ ) Ngày đề nghị trước khi lưu");
+//                                    document.getElementById("lstDNHT_D33" + i).style.backgroundColor = "#EEAFA6";
+//                                    isValid = false;
+//                                    break;
+//                                }
+                                if (lstData39.length < '2' && lstData42 === '1' && check_box !== false)
                                 {
-                                    alert("Vui lòng rà soát lại cột 22 ( Đề nghị hỗ trợ ) số văn bản và ngày tháng trước khi lưu");
+                                    alert("Vui lòng rà soát lại cột 22 ( Đề nghị hỗ trợ ) Số văn bản đề nghị trước khi lưu");
                                     document.getElementById("lstDNHT_D33" + i).style.backgroundColor = "#EEAFA6";
                                     isValid = false;
                                     break;

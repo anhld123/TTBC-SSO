@@ -310,6 +310,7 @@
 //                 alert (flagPos +  '---'+ i)
                 if (flagPos = '1')
                 {
+                
                     var value = $('#lstSubData_D33' + i).find(":selected").val();
 //                alert (value +  '---'+ i)
                     if (value == '1')
@@ -733,11 +734,16 @@
                             <td class="txtBody" style="background: #f2f2f2"><s:property value="d44"/></td>      
                         </s:else>
                         <td class="txtBody">
-                            <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstDataD27<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d27" class="autoHeight <s:property value="d20"/>" <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')"> readonly="true"</s:if> ><s:property value='d27'/></textarea>
+                            <textarea  placeholder="Nhập tối đa 200 ký tự" id="lstDataD27<s:property  value='%{#idxRows.index}' />" name="lstData[<s:property  value='%{#idxRows.index}' />].d27"
+                                       class="autoHeight <s:property value="d20"/>"
+                                       <s:if test="D42.equalsIgnoreCase('1') || D50.equalsIgnoreCase('2')">style="background: #ddd" readonly="true"</s:if> ><s:property value='d27'/></textarea>
                             <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d42" id="lstData42<s:property  value='%{#idxRows.index}' />" 
                                    value="<s:property  value="D42" />" >
                             <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d39" id="lstData39<s:property  value='%{#idxRows.index}' />" 
                                    value="<s:property  value="D39" />" >
+                                 <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d38" id="lstData38<s:property  value='%{#idxRows.index}' />" 
+                                   value="<s:property  value="D38" />" >
+                     
                         </td>
 
                         <td>
