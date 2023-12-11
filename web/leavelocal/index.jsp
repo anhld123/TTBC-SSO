@@ -50,8 +50,8 @@
                                 </s:iterator>
                             </select>                        
                             Mã KH/ CMND/CCCD: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã khách hàng" value="">                        
-                            Từ ngày:  <input type="text" name="txtFromDate" id="txtFromDate" readonly="readonly"/>
-                            đến: <input type="text" name="txtToDate" id="txtToDate" readonly="readonly"/>
+                            <input type="hidden" name="txtFromDate" id="txtFromDate" readonly="readonly" value="31/12/2020"/>
+                            <input type="hidden" name="txtToDate" id="txtToDate" readonly="readonly" value="31/12/2050"/>
                             <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>                          
                             Loại phê duyệt: <select style="width: auto;" name="typeAuth" id="typeAuth">                                                    
                                 <option value="3">Xóa</option>                                                    
@@ -73,8 +73,8 @@
                                 </s:iterator>
                             </select>                        
                             Mã KH/ CMND/CCCD: <input type="text" name="txtMakh" id="txtMakh" placeholder="Nhập mã KH/ CMND/CCCD" value="">                        
-                            Từ ngày:  <input type="text" name="txtFromDate" id="txtFromDate" readonly="readonly" style="width: 80px"/>
-                            đến: <input type="text" name="txtToDate" id="txtToDate" readonly="readonly" style="width: 80px">
+                            <input type="hidden" name="txtFromDate" id="txtFromDate" readonly="readonly" value="31/12/2020"/>
+                            <input type="hidden" name="txtToDate" id="txtToDate" readonly="readonly" value="31/12/2050">
                             <input type="hidden" name="txtNgayBc" id="txtNgayBc" readonly="readonly" value="31/12/2050"/>
                         </div>
                         <div>
@@ -144,35 +144,42 @@
                 }
             }
             changValSeclect();
-            $(function () {
-                $("#txtFromDate").datepicker(
-                        {
-                            dateFormat: 'dd/mm/yy',
-                            showOn: "button",
-                            buttonImage: "img/icon-ui_datepicker.png",
-                            buttonImageOnly: true,
-                            // dateFormat: 'dd/mm/yy',
-                            showButtonPanel: true,
-                            buttonText: "icono",
-                            changeMonth: true,
-                            changeYear: true
-                        }).val('31/12/2022');
-            });
+//            $(function () {
+//                var datePickerOptions = {
+//                    dateFormat: 'dd/mm/yy',
+//                    showOn: "button",
+//                    buttonImage: "img/icon-ui_datepicker.png",
+//                    buttonImageOnly: true,
+//                    showButtonPanel: true,
+//                    buttonText: "icono",
+//                    changeMonth: true,
+//                    changeYear: true
+//                };
+//
+//                var $txtFromDate = $("#txtFromDate");
+//                $txtFromDate.datepicker(datePickerOptions).val('31/12/2022');
+//                
+//                var txtToDate = $("#txtToDate");
+//                txtToDate.datepicker(datePickerOptions).val('31/12/2050');
+//            });
 
-            $(function () {
-                $("#txtToDate").datepicker(
-                        {
-                            dateFormat: 'dd/mm/yy',
-                            showOn: "button",
-                            buttonImage: "img/icon-ui_datepicker.png",
-                            buttonImageOnly: true,
-                            // dateFormat: 'dd/mm/yy',
-                            showButtonPanel: true,
-                            buttonText: "icono",
-                            changeMonth: true,
-                            changeYear: true
-                        }).val('31/12/2050');
-            });
+
+//
+//            $(function () {
+//                $("#txtToDate").datepicker(
+//                        {
+//                            dateFormat: 'dd/mm/yy',
+//                            showOn: "button",
+//                            buttonImage: "img/icon-ui_datepicker.png",
+//                            buttonImageOnly: true,
+//                            // dateFormat: 'dd/mm/yy',
+//                            showButtonPanel: true,
+//                            buttonText: "icono",
+//                            changeMonth: true,
+//                            changeYear: true
+//                        }).val('31/12/2050');
+//            });
+
             //Tải dữ liệu
             $("#idSearch").click(function () {
                 var url, sdata;
@@ -306,17 +313,17 @@
                                 // bắt check 18
                                 var lstDataD23 = document.getElementById('lstDataD23' + i).value;
                                 if (lstData42 === '1' && lstData_D22 === '01' && check_box !== false && lstDataD23.length < 5
-                                        && lstSubData_D33 ==='0' && lstData24 ==='00' && lstSubData_D25 === '00')
+                                        && lstSubData_D33 === '0' && lstData24 === '00' && lstSubData_D25 === '00')
                                 {
                                     alert('Vui lòng nhập thông tin cột 18 (Tối thiểu 5 ký tự)');
                                     document.getElementById("lstDataD23" + i).style.backgroundColor = "#EEAFA6";
                                     isValid = false;
                                     break;
                                 }
-                                
+
                                 // bắt check 19 cho pos cho vay 
-                                if (check_var19 === "0" && lstData42 === '1'  && lstData_D22 === '01' && check_box !== false 
-                                        && lstSubData_D33 ==='0' && lstData24 ==='00' && lstSubData_D25 === '00')
+                                if (check_var19 === "0" && lstData42 === '1' && lstData_D22 === '01' && check_box !== false
+                                        && lstSubData_D33 === '0' && lstData24 === '00' && lstSubData_D25 === '00')
                                 {
                                     alert("Vui lòng rà soát lại cột 19 ( Chi nhánh hộ vay chuyển đến ) trước khi lưu");
                                     document.getElementById("lstData_D30" + i).style.backgroundColor = "#EEAFA6";
@@ -325,18 +332,18 @@
                                 }
 
 //                                // bắt check 20 cho pos cho vay 
-                                if (check_var20 === "0" && lstData42 === '1'  && lstData_D22 === '01' && check_box !== false
-                                        && lstSubData_D33 ==='0' && lstData24 ==='00' && lstSubData_D25 === '00')
+                                if (check_var20 === "0" && lstData42 === '1' && lstData_D22 === '01' && check_box !== false
+                                        && lstSubData_D33 === '0' && lstData24 === '00' && lstSubData_D25 === '00')
                                 {
                                     alert("Vui lòng rà soát lại cột 20 ( PGD hộ vay chuyển đến ) trước khi lưu");
                                     document.getElementById("lstData_D32" + i).style.backgroundColor = "#EEAFA6";
                                     isValid = false;
                                     break;
                                 }
-                                                           
+
 //                                // bắt check 21 cho pos cho vay 
                                 if (check_var21 === "0" && lstData42 === '1' && lstData_D22 === '01' && check_box !== false
-                                        && lstSubData_D33 ==='0' && lstData24 ==='00' && lstSubData_D25 === '00')
+                                        && lstSubData_D33 === '0' && lstData24 === '00' && lstSubData_D25 === '00')
                                 {
                                     alert("Vui lòng rà soát lại cột 21 ( Xã hộ vay chuyển đến ) trước khi lưu");
                                     document.getElementById("lstData_D28" + i).style.backgroundColor = "#EEAFA6";
@@ -352,7 +359,7 @@
 //                                    break;
 //                                }
                                 // check văn bản đề nghị pos cho vay
-                                 var lstData39 = document.getElementById('lstData39' + i).value;
+                                var lstData39 = document.getElementById('lstData39' + i).value;
 //                                 var lstData38 = document.getElementById('lstData38' + i).value;   
 //                                 if (lstData38.length < '2' && lstData42 === '1' && check_box !== false)
 //                                {
@@ -361,7 +368,7 @@
 //                                    isValid = false;
 //                                    break;
 //                                }
-                                if (lstData39.length < '2' && lstData42 === '1' && check_box !== false && lstSubData_D33 ==='1')
+                                if (lstData39.length < '2' && lstData42 === '1' && check_box !== false && lstSubData_D33 === '1')
                                 {
                                     alert("Vui lòng rà soát lại cột 22 ( Đề nghị hỗ trợ ) Số văn bản đề nghị trước khi lưu");
                                     document.getElementById("lstDNHT_D33" + i).style.backgroundColor = "#EEAFA6";
@@ -369,7 +376,7 @@
                                     break;
                                 }
 //                                Check 23,24
-                                
+
                                 var lstData41 = document.getElementById('lstData41' + i).value;
 //                                alert(lstSubData34+"  "+ lstData41);
                                 if (lstData42 === '0' && check_box !== false && lstSubData34 === '5' && lstData41.length < 1)
