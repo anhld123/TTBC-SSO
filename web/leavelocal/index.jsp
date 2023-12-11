@@ -361,7 +361,7 @@
 //                                    isValid = false;
 //                                    break;
 //                                }
-                                if (lstData39.length < '2' && lstData42 === '1' && check_box !== false)
+                                if (lstData39.length < '2' && lstData42 === '1' && check_box !== false && lstSubData_D33 ==='1')
                                 {
                                     alert("Vui lòng rà soát lại cột 22 ( Đề nghị hỗ trợ ) Số văn bản đề nghị trước khi lưu");
                                     document.getElementById("lstDNHT_D33" + i).style.backgroundColor = "#EEAFA6";
