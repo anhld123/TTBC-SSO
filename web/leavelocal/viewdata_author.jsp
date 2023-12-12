@@ -115,12 +115,16 @@
             }
         });
     }
-
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+        }
+    });
 </script>
 </head>
 <body>
     <div style="overflow:scroll; width: 99vw;">   
-     
+
         <table id="subTable" style="z-index: 1;">
             <thead>
                 <tr>
@@ -337,10 +341,10 @@
                                     </s:else>
                                 </s:iterator>
                                 <option value="999999">Nước ngoài</option>
-                                 </select>
+                            </select>
                         </td>
                         <td>
-                          <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D28<s:property  value='%{#idxRows.index}' />">
+                            <select onmousedown="return false" class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].d32" id="lstData_D28<s:property  value='%{#idxRows.index}' />">
                                 <option value="000000">Không xác định</option>
                                 <option value="999999">Nước ngoài</option>
                                 <s:iterator value="lstPGD_API" status="ideRows" var="language">
@@ -351,7 +355,7 @@
                                         <option value="<s:property value="PosCode"/>"><s:property value="PosCode"/> - <s:property value="PosName"/></option>
                                     </s:else>
                                 </s:iterator>
-                                
+
                             </select>
                         </td>  
                         <td>

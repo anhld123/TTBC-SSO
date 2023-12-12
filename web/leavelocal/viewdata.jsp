@@ -305,12 +305,12 @@
         {
             try {
                 var flagPos = document.getElementById('lstData42' + i).value;
-                
+
 //                document.getElementById("lstData_D32" + i).disabled = true;
 //                 alert (flagPos +  '---'+ i)
                 if (flagPos = '1')
                 {
-                
+
                     var value = $('#lstSubData_D33' + i).find(":selected").val();
 //                alert (value +  '---'+ i)
                     if (value == '1')
@@ -389,7 +389,7 @@
             $("#lstSubData_D33" + index).prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");
         }
     }
-    
+
     function onSelectChange_D13(value, index) {
         var selected;
         if (value == '02')
@@ -404,7 +404,7 @@
             $("#lstSubData_D33" + index).prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");
         }
     }
-    
+
     function initTable1()
     {
         var table = document.getElementById("subTable");
@@ -462,7 +462,7 @@
             countDisplay2.innerText = 1;
         }
     }
-    
+
     function Check_var22(index) {
         var countDisplay3 = document.getElementById("countDisplay3" + index);
         var selectElement = document.getElementById("lstDNHT_D33" + index);
@@ -691,7 +691,8 @@
                         <s:if test="D42.toString().equalsIgnoreCase('1')">
                             <td class="txtBody">
                                 <select 
-                                    onchange="onSelectChange_D13(this.value, <s:property  value='%{#idxRows.index}'/>) ;onSelectChange_dcct(this.value, <s:property  value='%{#idxRows.index}'/>)"
+                                    onchange="onSelectChange_D13(this.value, <s:property  value='%{#idxRows.index}'/>);
+                                            onSelectChange_dcct(this.value, <s:property  value='%{#idxRows.index}'/>)"
                                     class=" <s:property value="d20"/>" name="lstData[<s:property  value='%{#idxRows.index}' />].D22"
                                     id="lstData_D22<s:property  value='%{#idxRows.index}' />" <s:if test="D42.equalsIgnoreCase('0') || D50.equalsIgnoreCase('2')"> disabled </s:if> >                                
                                     <option value="02" <s:if test="d22.equalsIgnoreCase('02')"> selected </s:if> <s:else></s:else>>02: Không có thông tin địa chỉ cụ thể</option>
@@ -741,9 +742,9 @@
                                    value="<s:property  value="D42" />" >
                             <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d39" id="lstData39<s:property  value='%{#idxRows.index}' />" 
                                    value="<s:property  value="D39" />" >
-                                 <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d38" id="lstData38<s:property  value='%{#idxRows.index}' />" 
+                            <input style="width: 95px" type="hidden" name="lstData[<s:property  value='%{#idxRows.index}' />].d38" id="lstData38<s:property  value='%{#idxRows.index}' />" 
                                    value="<s:property  value="D38" />" >
-                     
+
                         </td>
 
                         <td>
@@ -862,12 +863,12 @@
                             </s:if>
                             <s:else>
                                 <a onclick="Check_var22(<s:property  value='%{#idxRows.index}'/>)"
-                                    href="javascript:funcDeNghiHT('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>', '<s:property value="D38"/>', '<s:property value="D39"/>')"  
+                                   href="javascript:funcDeNghiHT('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>', '<s:property value="D38"/>', '<s:property value="D39"/>')"  
                                    id="lstDNHT_D33<s:property  value='%{#idxRows.index}' />"
 
                                    >link</a>
-                                   <a id="countDisplay3<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
-                     
+                                <a id="countDisplay3<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
+
                             </s:else>
 
                         </td>
@@ -970,4 +971,12 @@
     }
 
     initTable2();
+
+</script>
+<script>
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+        }
+    });
 </script>
