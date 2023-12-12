@@ -79,5 +79,8 @@
                 <param name="inputName">pageResult</param>
             </result>
         </action> 
+        <action name="fetchUploadExcelLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="fetchExcelUploadData">
+            <result name="success">/leavelocal/viewdata.jsp</result>
+        </action>
     </package>
 </struts>
