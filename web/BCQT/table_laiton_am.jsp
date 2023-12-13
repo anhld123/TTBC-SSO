@@ -211,6 +211,7 @@
                             <th rowspan="1"  class="TD_TOTIEN">Ngày hạch toán thu gốc</th>   
                             <th rowspan="1"  class="TD_GL">Bút toán hạch toán thu lãi</th>  
                             <th rowspan="1" class="TD_TOTIEN">Ngày hạch toán thu lãi</th>  
+                            <th rowspan="1" class="TD_TOTIEN">Ngày hiệu lực</th>  
 
                         </tr>         
 
@@ -234,7 +235,8 @@
                             <td style="text-align: center">(16)</td>
                             <td style="text-align: center">(17)</td>                                                        
                             <td style="text-align: center">(18)</td>                                   
-                            <td style="text-align: center">(19)</td>  
+                            <td style="text-align: center">(19)</td> 
+                            <td style="text-align: center">(20)</td>  
 
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
@@ -336,6 +338,10 @@
                                 <td align = "right" class="TD_TOTIEN">
                                     <input type="text" value="<s:property  value="D29" />" 
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29" class="D0 datepicker" placeholder="dd/MM/yyyy"/>
+                                </td>
+                                <td align = "right" class="TD_TOTIEN">
+                                    <input type="text" value="<s:property  value="D39" />" readonly="readonly"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D39" class="D0"/>
                                 </td>
                             </tr>
 

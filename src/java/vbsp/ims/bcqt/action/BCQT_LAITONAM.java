@@ -49,14 +49,14 @@ public class BCQT_LAITONAM extends ActionBcqtMain
     DuLieuNTService service;
 
     @Override
-     public String load() {
+    public String load() {
         try {
-             if (!getParaSession()) {
-                    return ERROR;
-                }
+            if (!getParaSession()) {
+                return ERROR;
+            }
             System.out.println("LAITONAM =" + Grade);
             if (Grade.equals("1")) {
-               
+
                 HashMap hmParameter = getParameter();
                 Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -77,14 +77,12 @@ public class BCQT_LAITONAM extends ActionBcqtMain
                 }
                 String conditions = "";
                 String sSoku = "AAA";
-                
+
                 conditions = (hmParameter.get("maxa").toString().equals("000000") ? "" : "D38=" + hmParameter.get("maxa").toString() + "|")
                         + (hmParameter.get("chuongtrinh").toString().equals("00") ? "" : "D25=" + hmParameter.get("chuongtrinh").toString() + "|")
                         + (hmParameter.get("nguonvon").toString().equals("-1") ? "" : "D5=" + hmParameter.get("nguonvon").toString() + "|");
-                
-                
-                
-                System.out.println(pos_cd_username + dateStr+conditions);
+
+                System.out.println(pos_cd_username + dateStr + conditions);
                 ArrayList<DuLieuNTRow> lstData = service.getDataNQ11CP_02SK("BCQT_LAITONAM", pos_cd_username, "S", dateStr, conditions);
                 System.out.println(lstData.size());
                 if (lstData.size() > 499) {
@@ -144,7 +142,7 @@ public class BCQT_LAITONAM extends ActionBcqtMain
 //                    row.setD26(item.getD26());
                     row.setD27(item.getD27());
                     row.setD28(item.getD28());
-                    row.setD24(item.getD29());                    
+                    row.setD24(item.getD29());
                     row.setD25(item.getD30());
                     row.setD26(item.getD31());
                     row.setD20(item.getD32());
@@ -152,8 +150,9 @@ public class BCQT_LAITONAM extends ActionBcqtMain
                     row.setD29(item.getD34());
 //                    row.setD35(item.getD35());
 //                    row.setD36(item.getD36());
-                    
+
 //                    row.setD38(item.getD38());
+                    row.setD39(item.getD39());
                     row.setNHAPTAY(item.getManualFlag());
                     row.setFONTFORMAT(item.getFontFormat());
                     row.setKIEUIN(item.getStyle());
@@ -162,7 +161,6 @@ public class BCQT_LAITONAM extends ActionBcqtMain
 
                 return SUCCESS;
             } else if (Grade.equals("2")) {
-                
 
                 HashMap hmParameter = getParameter();
                 Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
@@ -176,7 +174,7 @@ public class BCQT_LAITONAM extends ActionBcqtMain
 
                 ArrayList<CheckSendModel> lstData = service.getDataLockLaitonAm(pos_cd_username, "M", dateStr);
                 int i = 0;
-                 System.out.println("vao cap 2" + lstData.size());
+                System.out.println("vao cap 2" + lstData.size());
                 DecimalFormat df = new DecimalFormat("#.##");
                 //String formatted = df.format(2.00023);
 
@@ -211,7 +209,6 @@ public class BCQT_LAITONAM extends ActionBcqtMain
 
     }
 
-   
     @Override
     public String save() {
         try {
@@ -253,40 +250,40 @@ public class BCQT_LAITONAM extends ActionBcqtMain
 //                         DecimalFormat df = new DecimalFormat("#.##");
 //                ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
                 for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                        DuLieuNTRow tempadd = new DuLieuNTRow();
-                        tempadd.setBranchCode(tmp.getMACN());
-                        tempadd.setPosCode(tmp.getMAPGD());
-                        tempadd.setCode(tmp.getMA());
-                        tempadd.setD15(tmp.getD15());
-                        tempadd.setD19(tmp.getD19());
-                        tempadd.setD37(tmp.getD23());
-                        
-                        tempadd.setD29(tmp.getD24());
-                        tempadd.setD30(tmp.getD25());
-                        tempadd.setD31(tmp.getD26());
-                        tempadd.setD32(tmp.getD20());
-                        
-                        tempadd.setD33(tmp.getD16());
-                        tempadd.setD34(tmp.getD29());
+                    DuLieuNTRow tempadd = new DuLieuNTRow();
+                    tempadd.setBranchCode(tmp.getMACN());
+                    tempadd.setPosCode(tmp.getMAPGD());
+                    tempadd.setCode(tmp.getMA());
+                    tempadd.setD15(tmp.getD15());
+                    tempadd.setD19(tmp.getD19());
+                    tempadd.setD37(tmp.getD23());
+
+                    tempadd.setD29(tmp.getD24());
+                    tempadd.setD30(tmp.getD25());
+                    tempadd.setD31(tmp.getD26());
+                    tempadd.setD32(tmp.getD20());
+
+                    tempadd.setD33(tmp.getD16());
+                    tempadd.setD34(tmp.getD29());
+                    tempadd.setD35(tmp.getD39());
 //                        tempadd.setD35(tmp.getD2());
-                        lstUpdateDate.add(tempadd);
+                    lstUpdateDate.add(tempadd);
 //                        lstLocalDataUpdate.add(tmp);                    
                 }
                 int status = service.updateData("BCQT_LAITONAM", pos_cd_username, "S", strDate, UserName, UserName, lstUpdateDate);
                 if (status == 200) {
-                    System.out.println("vbsp.ims.nghiquyet11cp.BCQT_LAITONAM.save()");                    
-                    if (!DaoBcqtMain.newInstance().saveBcqtLaitonAm("BCQT_LAITONAM",UserName, pos_cd_username, strDate1, lstDulieuNt)) {
+                    System.out.println("vbsp.ims.nghiquyet11cp.BCQT_LAITONAM.save()");
+                    if (!DaoBcqtMain.newInstance().saveBcqtLaitonAm("BCQT_LAITONAM", UserName, pos_cd_username, strDate1, lstDulieuNt)) {
                         addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                         return ERROR;
                     }
                 }
-            }
-            else if (Grade.equals("2")) {
-                System.out.println("Cấp 2 chốt sl");                
+            } else if (Grade.equals("2")) {
+                System.out.println("Cấp 2 chốt sl");
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                 SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
                 String dateStr = sdf.format(date1);
-                ArrayList<LockSendModel> lstData = service.getDataLockManual("BCQT_LAITONAM",pos_cd_username, "M", dateStr);
+                ArrayList<LockSendModel> lstData = service.getDataLockManual("BCQT_LAITONAM", pos_cd_username, "M", dateStr);
                 for (LockSendModel item : lstData) {
                     if (item.getStatus().equals("2")) {
                         addActionError("Trung ương đã chốt số liệu. Vui lòng liên hệ cấp trên");
@@ -296,24 +293,23 @@ public class BCQT_LAITONAM extends ActionBcqtMain
 
                 ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
                 for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                    
+
                     UpdateLockModel tempadd = new UpdateLockModel();
                     if (tmp.getD25() == null) {
                         tempadd.setPosCode(tmp.getMAPGD());
                         tempadd.setStatus("0");
 //                        lstUpdateDateLock.add(tempadd);
-                        int status = service.updateLockManual("BCQT_LAITONAM", tmp.getMAPGD(), "S", strDate, "0",UserName,lstUpdateDateLock);
+                        int status = service.updateLockManual("BCQT_LAITONAM", tmp.getMAPGD(), "S", strDate, "0", UserName, lstUpdateDateLock);
                     } else {
-                        System.out.println("luu =" + tmp.getD25() + "--" + tmp.getMAPGD() + "--" + strDate + "-"+ UserName);
+                        System.out.println("luu =" + tmp.getD25() + "--" + tmp.getMAPGD() + "--" + strDate + "-" + UserName);
                         tempadd.setPosCode(tmp.getMAPGD());
                         tempadd.setStatus("1");
 //                        lstUpdateDateLock.add(tempadd);
-                        int status = service.updateLockManual("BCQT_LAITONAM", tmp.getMAPGD(), "S", strDate, "1",UserName,lstUpdateDateLock);
+                        int status = service.updateLockManual("BCQT_LAITONAM", tmp.getMAPGD(), "S", strDate, "1", UserName, lstUpdateDateLock);
 //                        System.out.println("status =" + status);
                     }
                 }
-                
-                        
+
             }
 
         } catch (Exception e) {
