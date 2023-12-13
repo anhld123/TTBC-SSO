@@ -15,6 +15,15 @@
                 overflow-x: scroll;
                 overflow-y: scroll;            
             }
+            input {
+                border: 2px solid currentcolor;
+            }
+            input:invalid {
+                border: 2px dashed red;
+            }
+            input:invalid:focus {
+                background-image: linear-gradient(pink, lightgreen);
+            }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="js/jquery.number.js"></script>
@@ -22,7 +31,7 @@
         <script>
             var max_row = 0;
             $(document).ready(function () {
-                
+
                 $('input.number').css({"text-align": "right"});
                 $('input.number2').css({"text-align": "right"});
                 $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
@@ -49,9 +58,9 @@
             $('.TEN_KH').blur(function () {
                 $(this).closest('tr').removeClass('highlight_row');
             });
-            
+
         </script>
-         <script>
+        <script>
 
             function initTable()
             {
@@ -68,7 +77,7 @@
                     }
                 }
             }
-            
+
             function getMabyNumber1(idx)
             {
                 var ma = '';
@@ -81,7 +90,7 @@
                 }
                 return ma;
             }
-            </script>
+        </script>
 
     </head>
     <body>
@@ -106,7 +115,7 @@
                             <th rowspan="1"  class="TD_TOTIEN">Tổng lãi tồn âm</th>
                             <th rowspan="1" class="TD_TOTIEN">Lãi âm hạch toán thu gốc</th> 
                             <th rowspan="1"  class="TD_TOTIEN">Lãi âm do khoanh nợ sai</th>   
-                             <th rowspan="1"  class="TD_TOTIEN">Chốt/ Mở chốt</th>   
+                            <th rowspan="1"  class="TD_TOTIEN">Chốt/ Mở chốt</th>   
 
                         </tr>         
 
@@ -134,11 +143,11 @@
                                     <input type="text"   value="<s:property  value="MAPGD" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD" class="D0 TEN_KH " onfocus="this.select();" 
                                            readonly="true"/> 
-                                    
+
                                     <input type="hidden" value="<s:property  value="D25" />"  id="id9_<s:property  value="%{#rowstatus.index}" />" 
-                                        value="<s:property  value="D25"/>"/>
-                                     <input type="hidden" value="<s:property  value="MACN" />" 
-                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN" value="<s:property  value="MACN"/>" />
+                                           value="<s:property  value="D25"/>"/>
+                                    <input type="hidden" value="<s:property  value="MACN" />" 
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN" value="<s:property  value="MACN"/>" />
                                 </td>
                                 <td align = "right" class="TD_TENKH" >
                                     <input type="text"   value="<s:property  value="TEN" />" style="background: #C0C0C0 !important;"
@@ -162,13 +171,13 @@
                                            readonly="true"/>
                                 </td>
 
-                               
-                                 <td  align="center" class="TD_CHECKBOX">    
+
+                                <td  align="center" class="TD_CHECKBOX">    
                                     <input type="checkbox" id ="idc11<s:property  value="%{#rowstatus.index}" />"  class="checkboxdat TEN_KH D0" 
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25" value="<s:property  value="D25"/>"                                            
                                            />
                                 </td> 
-                               
+
                             </tr>
 
 
@@ -193,7 +202,7 @@
                             <th rowspan="1" class="TD_STT">STT</th>                           
                             <!--<th rowspan="2" class="TD_TOTIEN">CIF</th>-->  
                             <th rowspan="1" class="TD_TENKH">Tên KH</th>  
-                             <th rowspan="1" class="TD_GL">Mã khách hàng</th> 
+                            <th rowspan="1" class="TD_GL">Mã khách hàng</th> 
                             <th rowspan="1" class="TD_SOKU">Mã khoản vay</th>    
                             <th rowspan="1"  class="TD_TOTIEN">Chương trình tín dụng</th>
                             <th rowspan="1" class="TD_TRANGTHAI">Trạng thái món vay</th> 
@@ -310,11 +319,11 @@
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28" class="D11 number TEN_KH" onfocus="this.select()"                                           
                                            readonly="readonly"/>
                                 </td>
-<!--                                <td align = "right" class="TD_TOTIEN">
-                                    <input type="text" value="<s:property  value="D22" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D22" class="D11 number TEN_KH" onfocus="this.select()"
-                                           readonly="readonly"/>
-                                </td>-->
+                                <!--                                <td align = "right" class="TD_TOTIEN">
+                                                                    <input type="text" value="<s:property  value="D22" />" 
+                                                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D22" class="D11 number TEN_KH" onfocus="this.select()"
+                                                                           readonly="readonly"/>
+                                                                </td>-->
                                 <td align = "right" class="TD_TOTIEN">
                                     <input type="text" value="<s:property  value="D24" />" 
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24" class="D11 number TEN_KH" onfocus="this.select()"/>
@@ -325,7 +334,7 @@
                                 </td>
                                 <td align = "right" class="TD_TOTIEN">
                                     <input type="text" value="<s:property  value="D26" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26" class="D11 TEN_KH" onfocus="this.select()"/>
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26" minlength="16" class="D11 TEN_KH" onfocus="this.select()"/>
                                 </td>
                                 <td align = "right" class="TD_GL">
                                     <input type="text" value="<s:property  value="D20" />" 
@@ -333,7 +342,7 @@
                                 </td>
                                 <td align = "right" class="TD_TOTIEN">
                                     <input type="text" value="<s:property  value="D16" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" class="D9  TEN_KH" onfocus="this.select()"/>
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" minlength="16" class="D9  TEN_KH" onfocus="this.select()"/>
                                 </td>
                                 <td align = "right" class="TD_TOTIEN">
                                     <input type="text" value="<s:property  value="D29" />" 
