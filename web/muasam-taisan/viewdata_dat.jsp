@@ -251,7 +251,7 @@
                         </td>
                         
                         <td class="txtBody" style="width: 80px;">
-                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d3" value="<s:property value='d3'/>" class="TEN_KH number">
+                            <input type="text" name="lstData[<s:property  value='%{#idxRows.index}' />].d3" value="<s:property value='d3'/>" class="TEN_KH number2">
                         </td>
                         <td class="txtBody">
                             <input type="text" value="<s:property  value="D4" />" 
