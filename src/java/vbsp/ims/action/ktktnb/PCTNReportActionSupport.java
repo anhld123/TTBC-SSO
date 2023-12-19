@@ -1072,7 +1072,7 @@ public class PCTNReportActionSupport extends ActionSupport implements ServletReq
 
                 tempadd.setKey(tmp.getKHOA());
                 tempadd.setOrderValue("");
-                tempadd.setOrderDescription("");
+                tempadd.setOrderDescription(tmp.getTT_HIENTHI());
                 tempadd.setCode(tmp.getMA());
                 tempadd.setMakerId(userName);
                 tempadd.setAuthoriseId(userName);

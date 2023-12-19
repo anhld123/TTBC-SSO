@@ -127,7 +127,7 @@ public class PCTNService {
 
                 _normalizeItem.setKey(data.get(i).getKey());
                 _normalizeItem.setOrderValue(i + 1);
-                _normalizeItem.setOrderDescription(String.format("%d", i + 1));
+                _normalizeItem.setOrderDescription(data.get(i).getOrderDescription());
                 _normalizeItem.setName(data.get(i).getName());
                 _normalizeItem.setAuthoriseId(data.get(i).getAuthoriseId());
                 _normalizeItem.setMakerId(data.get(i).getMakerId());
