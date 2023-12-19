@@ -281,14 +281,14 @@
                                     <tr height="cscontent">    
                                         <td>
                                             <s:if test="D7.equalsIgnoreCase('N')">  
-                                                <input type="text" value="<s:property  value="D6" />" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D0 TD_MAPGD" onfocus="this.select()"
+                                                <input type="text" value="<s:property  value="TT_HIENTHI" />" 
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TD_MAPGD" onfocus="this.select()"
                                                        onblur="if (this.value == '')
                                                                    ;" readonly="true" style="background: #E7DCDA !important; font-weight: bold; text-align:left ;"/>
                                             </s:if>
                                             <s:if test="D7.equalsIgnoreCase('Y')"> 
-                                                <input type="text" value="<s:property  value="D6" />" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D0 TD_MAPGD" onfocus="this.select()"
+                                                <input type="text" value="<s:property  value="TT_HIENTHI" />" 
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TD_MAPGD" onfocus="this.select()"
                                                        onblur="if (this.value == '')
                                                                    ;" readonly="true"/>
                                             </s:if>
@@ -300,8 +300,8 @@
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY" value="<s:property  value="NHAPTAY"/>"/>
                                             <input type="hidden" value="<s:property  value="MA" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/> 
-                                            <input type="hidden" value="<s:property  value="TT_HIENTHI" />"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" value="<s:property  value="TT_HIENTHI"/>"/>
+<!--                                            <input type="hidden" value="<s:property  value="TT_HIENTHI" />"
+                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" value="<s:property  value="TT_HIENTHI"/>"/>-->
                                             <input type="hidden" value="<s:property  value="D7" />"
                                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" value="<s:property  value="D7"/>"/>  
                                             <input type="hidden" value="<s:property  value="D8" />"

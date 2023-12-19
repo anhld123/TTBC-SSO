@@ -274,12 +274,12 @@
                                         <s:if test="D7.equalsIgnoreCase('Y')">                                     
 
                                             <td>
-                                                <input type="text" value="<s:property  value="D6" />" 
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="D0 TD_MAPGD" onfocus="this.select()"
+                                                <input type="text" value="<s:property  value="TT_HIENTHI" />" 
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TD_MAPGD" onfocus="this.select()"
                                                        onblur="if (this.value == '')
                                                                    ;" readonly="true" style="background: #E7DCDA !important; font-weight: bold; "/>
-                                                <input type="hidden" value="<s:property  value="TT_HIENTHI" />"
-                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" value="<s:property  value="TT_HIENTHI"/>"/>
+<!--                                                <input type="hidden" value="<s:property  value="TT_HIENTHI" />"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" value="<s:property  value="TT_HIENTHI"/>"/>-->
                                                 <input type="hidden" value="<s:property  value="THUTU" />"
                                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/> 
                                                 <input type="hidden" value="<s:property  value="MA" />"
