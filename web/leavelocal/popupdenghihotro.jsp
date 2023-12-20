@@ -162,7 +162,8 @@
                         showButtonPanel: true,
                         buttonText: "icono",
                         changeMonth: true,
-                        changeYear: true
+                        changeYear: true,
+                        yearRange: "c-100:c+0"
                     });
         }
     </script>
