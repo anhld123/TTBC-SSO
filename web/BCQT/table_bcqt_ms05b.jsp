@@ -39,7 +39,7 @@
                 $('#ui-datepicker-div').css('clip', 'auto');
                 $('.number').number(true, 0);
                 $('.number2').number(true, 1);
-                $(".TD_TEN_KH").css({"width": "130px"});
+                $(".TD_TEN_KH").css({"width": "80px"});
                 $(".TD_DONVITINH").css({"width": "50px"});
                 $(".TD_SOLUONG").css({"width": "50px"});
                 $(".TD_NGUYENGIA").css({"width": "80px"});
@@ -79,14 +79,16 @@
                 table.deleteRow(indx);
             }
 
-            function addRow(indx, ma, ten) {
+            function addRow(indx) {
                 var flag = 0;
                 var order = 0;
                 $('.number3').removeClass();
                 var index = parseInt(indx);
                 var table = document.getElementById("tablems05");
                 var rowCount = table.rows.length - 2; //Dem so dong cua bang
-                var mapgd = document.getElementById("MAPGD_"+ 0).value;
+                var mapgd = document.getElementById("MAPGD_" + 0).value;
+                var ma = document.getElementById("D1" + 0).value;
+                var ten = document.getElementById("D2" + 0).value;
                 if (max_row < rowCount)
                 {
                     max_row = rowCount;
@@ -113,23 +115,22 @@
                 max_row1 = rowCount + 1;
                 var newTr = '<tr>\n\
                                 <td ><input type="text" value="' + max_row1 + '" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="D0 number" readonly="readonly" onfocus="this.select();" /></td>\n\
-                                <td ><input type="text" value="' + ten + '" id ="ten' + rowCount + '"name="lstDulieuNt[' + rowCount + '].D2" class="TD_CHITIEU" onfocus="this.select()" readonly="readonly"></td>\n\
-                                <td ><input type="text" value="' + ma + '" id ="ma' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D1" class="TD_CHITIEU" onfocus="this.select()" readonly="readonly" ></td>\n\
+                                <td ><input type="text" value="' + ten + '" id ="D2' + rowCount + '/>" name="lstDulieuNt[' + rowCount + '].D2" class="TD_CHITIEU" onfocus="this.select()" readonly="readonly"></td>\n\
+                                <td ><input type="text" value="' + ma + '" id ="D1' + rowCount + '/>" name="lstDulieuNt[' + rowCount + '].D1" class="TD_CHITIEU" onfocus="this.select()"></td>\n\
                                 <td ><input type="text" value="' + mapgd + '" name="lstDulieuNt[' + rowCount + '].MAPGD" id ="MAPGD_' + rowCount + '/>" class="D0" onfocus="this.select()" readonly="readonly" ></td>\n\
                                 <td ><input type="text" value="0" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="number2" onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="0" id="D4" style="text-align:right" name="lstDulieuNt[' + rowCount + '].D4"  onfocus="this.select();"/></td>\n\
                                 <td ><input type="hidden"> <select name="lstDulieuNt[' + rowCount + '].D5"><option value="1">1. Đất giao có thu tiền sử dụng đất</option><option value="2">2. Đất giao không thu tiền sử dụng đất</option><option value="3">3. Đất thuê</option><option value="4">4. Đất khác</option></select></td>\n\
-                                <td ><input type="text" value="0" id="D6" name="lstDulieuNt[' + rowCount + '].D7" class="SOKU" onfocus="this.select();"/></td>\n\
+                                <td ><input type="text" value="0" id="D6" name="lstDulieuNt[' + rowCount + '].D6" class="SOKU number" onfocus="this.select();"/></td>\n\
                                 <td ><input type="hidden"> <select name="lstDulieuNt[' + rowCount + '].D7"><option value="1">1. Có</option><option value="2">2. Chưa có</option><option value="3">3. Đang làm thủ tục</option></select></td>\n\
                                 <td ><input type="text" value="0" id="D8" name="lstDulieuNt[' + rowCount + '].D8" class="SOKU number" onfocus="this.select();"/></td>\n\
-                                <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 TEN_KH"/></td>\n\
+                                <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 TD_TEN_KH"/></td>\n\
                                 </tr>';
                 $($('table#tablems05 tr')[index]).after(newTr);
 
                 $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
                 $('#ui-datepicker-div').css('clip', 'auto');
-                $(".TD_TEN_KH").css({"width": "30px"});
-                $(".TD_TEN_KH").css({"height": "22px"});
+                $(".TD_TEN_KH").css({"width": "80px"});
                 $(".TEN_KH").css({"width": "100%"});
                 $(".TEN_KH").css({"height": "22px"});
                 $('.TEN_KH').focus(function () {
@@ -196,17 +197,17 @@
                             <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/>
 
-                            <input type="text" value="<s:property  value="TT_HIENTHI" />" 
+                            <input type="text" value="<s:property value="%{#rowstatus.index + 1}" /> " 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0" onfocus="this.select()"    readonly="readonly" />                                                                                              
 
                         </td>
                         <td>    
-                            <input type="text" value="<s:property  value="D2" />" 
+                            <input type="text" value="<s:property  value="D2" />" id="D2<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="TD_CHITIEU" onfocus="this.select()"    readonly="readonly" />                                  
                         </td>
                         <td>    
-                            <input type="text" value="<s:property  value="D1" />" 
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="TD_CHITIEU" onfocus="this.select()"    readonly="readonly" />                                  
+                            <input type="text" value="<s:property  value="D1" />" id ="D1<s:property  value="%{#rowstatus.index}" />"
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="TD_CHITIEU" onfocus="this.select()"/>                                  
                         </td>
                         <td>
                             <input type="text" value="<s:property  value="MAPGD" />" id ="MAPGD_<s:property  value="%{#rowstatus.index}" />"
@@ -260,12 +261,19 @@
                             <input type="text" value="<s:property  value="D8" />" style="text-align :right"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH" onfocus="this.select()" />                                                  
                         </td>
-                        <s:if test="Grade.equalsIgnoreCase('1')">
-                            <td align = "center" class="TD_TEN_KH">
-                                <input type="button" value="Thêm" onclick="addRow(this.parentNode.parentNode.rowIndex, '<s:property  value="D1"/>', '<s:property  value="D2"/>')" class="TEN_KH"/>                                    
-                            </td>
-                        </s:if>
-
+                        <s:if test="Grade.equalsIgnoreCase('1')"> 
+                            <s:if test="%{#attr.lstDulieuNt.size > 1}">
+                                <s:if test="%{#rowstatus.count == #attr.lstDulieuNt.size}">
+                                    <td><input type="button" value="Thêm" onclick="addRow(this.parentNode.parentNode.rowIndex)" class="D0 TEN_KH"/></td>
+                                    </s:if>
+                                    <s:else>
+                                    <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 TEN_KH"/></td>
+                                    </s:else>
+                                </s:if>
+                                <s:else>
+                                <td><input type="button" value="Thêm" onclick="addRow(this.parentNode.parentNode.rowIndex)" class="D0 TEN_KH"/></td>
+                                </s:else>
+                            </s:if>
                     </tr>
 
                 </s:iterator>
