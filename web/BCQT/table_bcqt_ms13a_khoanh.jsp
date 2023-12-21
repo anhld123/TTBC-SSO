@@ -46,7 +46,7 @@
                 $('.number').number(true, 0);
 //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 2);
-                $(".STT1").css({"width": "50px"});
+                $(".STT1").css({"width": "40px"});
                 $(".STT2").css({"width": "100px"});
                 $(".STT3").css({"width": "150px"});
                 $(".STT4").css({"width": "200px"});
@@ -132,87 +132,88 @@
 
                         <s:iterator value="#attr.lstDulieuNtMs13a" var="modelView" status="rowstatus">
                         <tr>                              
-                            <td><input type="text" value="<s:property  value="D1" />"
-                                       name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D1"  
-                                       class="D0 STT1" onfocus="this.select()" readonly="readonly"/>
+                            <td style="background: #ddd"><div class="STT1 D0"><s:property value="D1"/> </div>
+                                <input type="hidden" value="<s:property  value="D1" />"
+                                       name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D1"/>
                                 <input type="hidden" 
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].posCode" value="<s:property  value="posCode"/>"/>   
                                 <input type="hidden" name="lstDulieuNtMs13a[<s:property  value='%{#rowstatus.index}' />].reportDate" value="<s:property value='reportDate'/>">
                             </td> 
-                            <td><input type="text" value="<s:property  value="D2" />"
-                                       name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D2"  
-                                       class="STT2" onfocus="this.select()" readonly="readonly"/>
+                            <td style="background: #ddd"><div class="STT2 D0"><s:property value="D2"/> </div>
+                                <input type="hidden" value="<s:property  value="D2" />"
+                                       name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D2"/>
                             </td>  
-                            <td><input type="text" value="<s:property  value="D3" />" 
-                                       name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D3"  
-                                       class="STT3" onfocus="this.select()" readonly="readonly"  />
+                            <td style="background: #ddd"><div style="margin: 3px" class="STT2"><s:property value="D3"/> </div>
+                                <input type="hidden" value="<s:property  value="D3" />" 
+                                       name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D3"/>
                             </td>  
-                            <td><input type="text" value="<s:property  value="D4" />"  style="font-size: 100%"
+                            <td style="background: #ddd"><div style="margin: 3px"  class="STT3"><s:property value="D4"/> </div>
+                                <input type="hidden" value="<s:property  value="D4" />" 
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D4"  
                                        class="STT3" onfocus="this.select()" readonly="readonly"/>
                             </td>  
-                            <td> <input type="text" value="<s:property  value="D5" />"  style="font-size: 100%"
-                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D5" 
-                                        class="STT3" onfocus="this.select()" readonly="readonly"/>
+                            <td style="background: #ddd"><div class="STT3 D0"><s:property value="D5"/> </div>
+                                <input type="hidden" value="<s:property  value="D5" />" 
+                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D5"/>
                             </td>    
-                            <td><input type="text" value="<s:property  value="D6" />" style="font-size: 100%"
-                                       name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D6" 
-                                       class="STT2 " onfocus="this.select()" readonly="readonly"/>
+                            <td style="background: #ddd"><div class="STT2 D0"><s:property value="D6"/> </div>
+                                <input type="hidden" value="<s:property  value="D6" />" 
+                                       name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D6"/>
                             </td>                             
-                            <td><input type="text" value="<s:property  value="D7" />" style="font-size: 100%"
+                            <td><input type="text" value="<s:property  value="D7" />" 
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D7"  
                                        class="STT5 D0 datepicker" placeholder="dd/MM/yyyy" onfocus="this.select()"/>
                             </td>   
                             <td>
-                                <input type="text" value="<s:property  value="D8" />" style="font-size: 100%"
+                                <input type="text" value="<s:property  value="D8" />"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D8"  
                                        class="STT5 D0 datepicker" placeholder="dd/MM/yyyy" onfocus="this.select()"/>
                             </td>   
-                            <td> <input type="text" value="<s:property  value="D9" />" style="font-size: 100%"
+                            <td> <input type="text" value="<s:property  value="D9" />" 
                                         name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D9" 
                                         class="STT5 D0 datepicker" placeholder="dd/MM/yyyy" onfocus="this.select()"/>
                             </td>  
-                            <td> <input type="text" value="<s:property  value="D10" />" style="font-size: 100%"
+                            <td> <input type="text" value="<s:property  value="D10" />" 
                                         name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D10" 
                                         class="STT2" onfocus="this.select()"/>
                             </td>  
-                            <td>  <input type="text" value="<s:property  value="D11" />" style="font-size: 100%"
+                            <td>  <input type="text" value="<s:property  value="D11" />" 
                                          name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D11"  
                                          class="STT5 D0 datepicker" placeholder="dd/MM/yyyy" onfocus="this.select()"/>
                             </td>  
-                            <td> <input type="text" value="<s:property  value="D12" />" style="font-size: 100%"
+                            <td> <input type="text" value="<s:property  value="D12" />" 
                                         name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D12" 
                                         class="D0 STT2" onfocus="this.select()"/>
                             </td>                             
-                            <td> <input type="text" value="<s:property  value="D13" />" style="font-size: 100%"
+                            <td> <input type="text" value="<s:property  value="D13" />" 
                                         name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D13"  
                                         class="STT5 D0 datepicker" placeholder="dd/MM/yyyy" onfocus="this.select()"/>
                             </td> 
-                            <td><input type="text" value="<s:property  value="D14" />" style="font-size: 100%"
+                            <td><input type="text" value="<s:property  value="D14" />" 
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D14"  
                                        class="number STT2" onfocus="this.select()"/>
                             </td> 
-                            <td><input type="text" value="<s:property  value="D15" />" style="font-size: 100%"
+                            <td><input type="text" value="<s:property  value="D15" />"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D15" 
                                        class="number STT2" onfocus="this.select()"/>
                             </td>      
-                            <td><input type="text" value="<s:property  value="D16" />" style="font-size: 100%"
+                            <td><input type="text" value="<s:property  value="D16" />" 
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D16"
                                        class="number STT2" onfocus="this.select()"/>
                             </td> 
-                            <td><input type="text" value="<s:property  value="D17" />" style="font-size: 100%"
+                            <td><input type="text" value="<s:property  value="D17" />" 
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D17" 
                                        class="number STT2" onfocus="this.select()"/>
                             </td> 
-                            <td><input type="text" value="<s:property  value="D18" />" style="font-size: 100%"
+                            <td><input type="text" value="<s:property  value="D18" />" 
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D18" 
                                        class="number STT2" onfocus="this.select()"/>
                             </td> 
-                            <td><input type="text" value="<s:property  value="D19" />" style="font-size: 100%"
+                            <td><input type="text" value="<s:property  value="D19" />" 
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D19" 
                                        class="number STT2" onfocus="this.select()"/>
                             </td> 
-                            <td><input type="text" value="<s:property  value="D20" />" style="font-size: 100%"
+                            <td><input type="text" value="<s:property  value="D20" />" 
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D20"
                                        class="number STT2" onfocus="this.select()"/>
                             </td> 
