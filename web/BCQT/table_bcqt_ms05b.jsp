@@ -38,7 +38,7 @@
                 $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
                 $('#ui-datepicker-div').css('clip', 'auto');
                 $('.number').number(true, 0);
-                $('.number2').number(true, 2);
+                $('.number2').number(true, 1);
                 $(".TD_TEN_KH").css({"width": "130px"});
                 $(".TD_DONVITINH").css({"width": "50px"});
                 $(".TD_SOLUONG").css({"width": "50px"});
@@ -116,12 +116,12 @@
                                 <td ><input type="text" value="' + ten + '" id ="ten' + rowCount + '"name="lstDulieuNt[' + rowCount + '].D2" class="TD_CHITIEU" onfocus="this.select()" readonly="readonly"></td>\n\
                                 <td ><input type="text" value="' + ma + '" id ="ma' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D1" class="TD_CHITIEU" onfocus="this.select()" readonly="readonly" ></td>\n\
                                 <td ><input type="text" value="' + mapgd + '" name="lstDulieuNt[' + rowCount + '].MAPGD" id ="MAPGD_' + rowCount + '/>" class="D0" onfocus="this.select()" readonly="readonly" ></td>\n\
-                                <td ><input type="text" value="0" id="D3" name="lstDulieuNt[' + rowCount + '].D4" class="number" onfocus="this.select();"/></td>\n\
-                                <td ><input type="text" value="0" id="D4" style="text-align:right" name="lstDulieuNt[' + rowCount + '].D5"  onfocus="this.select();"/></td>\n\
-                                <td ><input type="hidden"> <select name="lstDulieuNt[' + rowCount + '].D5"><option value="-1">-- Chọn --</option><option value="1">1. Đất giao có thu tiền sử dụng đất</option><option value="2">2. Đất giao không thu tiền sử dụng đất</option><option value="3">3. Đất thuê</option><option value="4">4. Đất khác</option></select></td>\n\
+                                <td ><input type="text" value="0" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="number2" onfocus="this.select();"/></td>\n\
+                                <td ><input type="text" value="0" id="D4" style="text-align:right" name="lstDulieuNt[' + rowCount + '].D4"  onfocus="this.select();"/></td>\n\
+                                <td ><input type="hidden"> <select name="lstDulieuNt[' + rowCount + '].D5"><option value="1">1. Đất giao có thu tiền sử dụng đất</option><option value="2">2. Đất giao không thu tiền sử dụng đất</option><option value="3">3. Đất thuê</option><option value="4">4. Đất khác</option></select></td>\n\
                                 <td ><input type="text" value="0" id="D6" name="lstDulieuNt[' + rowCount + '].D7" class="SOKU" onfocus="this.select();"/></td>\n\
-                                <td ><input type="hidden"> <select name="lstDulieuNt[' + rowCount + '].D7"><option value="-1">-- Chọn --</option><option value="1">1. Có</option><option value="2">2. Chưa có</option><option value="3">3. Đang làm thủ tục</option></select></td>\n\
-                                <td ><input type="text" value="0" id="D8" name="lstDulieuNt[' + rowCount + '].D9" class="SOKU" onfocus="this.select();"/></td>\n\
+                                <td ><input type="hidden"> <select name="lstDulieuNt[' + rowCount + '].D7"><option value="1">1. Có</option><option value="2">2. Chưa có</option><option value="3">3. Đang làm thủ tục</option></select></td>\n\
+                                <td ><input type="text" value="0" id="D8" name="lstDulieuNt[' + rowCount + '].D8" class="SOKU number" onfocus="this.select();"/></td>\n\
                                 <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 TEN_KH"/></td>\n\
                                 </tr>';
                 $($('table#tablems05 tr')[index]).after(newTr);
@@ -144,7 +144,7 @@
                 $('input.number2').css({"text-align": "right"});
                 $('.D0').css({"text-align": "center"});
                 $('.number').number(true, 0);
-                $('.number2').number(true, 2);
+                $('.number2').number(true, 1);
             }
         </script>
     </head>
@@ -214,7 +214,7 @@
                         </td>
                         <td>  
                             <input type="text" value="<s:property  value="D3" />" 
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH number" onfocus="this.select()" />                                                  
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH number2" onfocus="this.select()" />                                                  
                         </td>
                         <td>  
                             <input type="text" value="<s:property  value="D4" />"  style="text-align:right"
@@ -238,7 +238,7 @@
                         </td>
                         <td>  
                             <input type="text" value="<s:property  value="D6" />" style="text-align :right"
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH " onfocus="this.select()" />                                                  
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH number" onfocus="this.select()" />                                                  
                         </td>
 
                         <td>
