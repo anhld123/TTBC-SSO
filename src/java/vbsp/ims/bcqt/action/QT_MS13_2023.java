@@ -60,24 +60,20 @@ public class QT_MS13_2023 extends ActionNghiquyet11cpMain
                 Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                 String dateStr = sdf.format(date1);
-                ArrayList<LockSendModel> lstDataLock = service.getDataLockManual("CIC_CUSTOMER", pos_cd_username, "S", dateStr);
-//                try {
-//                    setChotsl(lstDataLock.get(0).getStatus());
-//                } catch (Exception e) {
-//                    setChotsl("0");
-//                }
-                setChotsl("0");
+                ArrayList<LockSendModel> lstDataLock = service.getDataLockManual("QT_MS13_2023", pos_cd_username, "S", dateStr);
+                try {
+                    setChotsl(lstDataLock.get(0).getStatus());
+                } catch (Exception e) {
+                    setChotsl("0");
+                }
                 if (hmParameter.get("maxa").toString().equals("000000")) {
                     addActionError("Vui lòng chọn xã để rà soát số liệu.");;
                     return ERROR;
                 }
                 DecimalFormat df = new DecimalFormat("#.##");
-                //Xử lý cho trường hợp không có mã tổ
-
                 List<DuLieuNtMs13AKhoanh> aKhoanhs = new ArrayList<>();
                 aKhoanhs = service.getDataMs13aKhoanh(pos_cd_username,
                         hmParameter.get("maxa").toString(), hmParameter.get("mato").toString().split("_")[1], "", dateStr);
-
                 if (aKhoanhs.size() > 150) {
                     setMessageErr("Dữ liệu quá lớn. Vui lòng chọn từng tổ để xác nhận.");
                 } else {
@@ -87,24 +83,17 @@ public class QT_MS13_2023 extends ActionNghiquyet11cpMain
                     DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
                     int order = 1;
                     for (DuLieuNtMs13AKhoanh item : aKhoanhs) {
-//                        DuLieuNtMs13AKhoanh tmp = new DuLieuNtMs13AKhoanh();
                         item.setD1(String.valueOf(order));
                         lstDulieuNtMs13a.add(item);
                         order++;
                     }
-
                 }
-
                 return SUCCESS;
             } else if (Grade.equals("2")) {
                 if (!getParaSession()) {
                     return ERROR;
                 }
                 HashMap hmParameter = getParameter();
-//                Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
-//                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-//                String dateStr = sdf.format(date1);
-
                 posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                 pos_cd_username = posMainModel.getPosCd();
                 service = new DuLieuNTService();
@@ -112,7 +101,6 @@ public class QT_MS13_2023 extends ActionNghiquyet11cpMain
                 int i = 0;
 
                 DecimalFormat df = new DecimalFormat("#.##");
-                //String formatted = df.format(2.00023);
                 chotsl = "";
                 for (LockSendCiCModel item : lstData) {
                     if (item.getStatus().equals("0")) {
@@ -136,8 +124,8 @@ public class QT_MS13_2023 extends ActionNghiquyet11cpMain
             }
 
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> CIC_001: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> CIC_001: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> QT_MS13_2023: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> QT_MS13_2023: " + e.getMessage());
             return ERROR;
         }
 
@@ -190,39 +178,41 @@ public class QT_MS13_2023 extends ActionNghiquyet11cpMain
                 service = new DuLieuNTService();
                 int status = service.updateMs13aKhoanh(pos_cd_username, dateStr, UserName, UserName, tmp);
                 if (status == 200) {
-//                    ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
-//                    for (CustCicModel item : custCIC_TMP) {
-//                        QT_DULIEU_NT updateRow = new QT_DULIEU_NT();
-//
-//                        updateRow.setD1(item.getCustomerCode());
-//                        updateRow.setD2(item.getCicCode());
-//
-//                        updateRow.setD3(String.valueOf(item.getStatus()));
-//                        updateRow.setD4(String.valueOf(item.getWrongFullNameConfirmFlag()));
-//                        updateRow.setD5(String.valueOf(item.getWrongIdNoConfirmFlag()));
-//                        updateRow.setD6(String.valueOf(item.getWrongIssueDateConfirmFlag()));
-//                        updateRow.setD7(String.valueOf(item.getWrongIssuePlaceConfirmFlag()));
-//                        updateRow.setD8(String.valueOf(item.getWrongBirthdayConfirmFlag()));
-//                        updateRow.setD9(item.getRemark());
-//
-//                        updateRow.setD11(String.valueOf(item.getCustomerWrongFullNameConfirmFlag()));
-//                        updateRow.setD12(String.valueOf(item.getCustomerWrongIdNoConfirmFlag()));
-//                        updateRow.setD13(String.valueOf(item.getCustomerWrongBirthdayConfirmFlag()));
-//                        updateRow.setD14(String.valueOf(item.getCustomerNotIdConfirmFlag()));
-//                        updateRow.setD15(String.valueOf(item.getCustomerReviewStatus()));
-//
-//                        updateRow.setD16(String.valueOf(item.getProfileCorrectConfirmFlag()));
-//                        updateRow.setD17(String.valueOf(item.getProfileMissingConfirmFlag()));
-//
-//                        lstLocalDataUpdate.add(updateRow);
-                } //            if (!DaoNghiquyet11cp.newInstance().saveCIC_Local(UserName, pos_cd_username, "31-dec-2023", lstLocalDataUpdate)) {
-                //                addActionError("Bạn chưa lưu được báo cáo tại chi nhánh, xin liên hệ với quản trị để khắc phục");
-                //                return ERROR;
-                //            }
-                else {
+                    ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
+                    for (DuLieuNtMs13AKhoanh item : tmp) {
+                        QT_DULIEU_NT updateRow = new QT_DULIEU_NT();
+
+                        updateRow.setMAPGD(item.getPosCode());
+                        updateRow.setD5(item.getD5());
+
+                        updateRow.setD7(item.getD7());
+                        updateRow.setD8(item.getD8());
+                        updateRow.setD9(item.getD9());
+                        updateRow.setD10(item.getD10());
+
+                        updateRow.setD11(item.getD11());
+                        updateRow.setD12(item.getD12());
+                        updateRow.setD13(item.getD13());
+                        updateRow.setD14(item.getD14());
+                        updateRow.setD15(item.getD15());
+                        updateRow.setD16(item.getD16());
+                        updateRow.setD17(item.getD17());
+                        updateRow.setD18(item.getD18());
+                        updateRow.setD19(item.getD19());
+                        updateRow.setD20(item.getD20());
+
+                        lstLocalDataUpdate.add(updateRow);
+                    }
+
+                    if (!DaoNghiquyet11cp.newInstance().saveMs13aKhoanh_Local(UserName, pos_cd_username, hmParameter.get("ngay_bc").toString(), lstLocalDataUpdate)) {
+                        addActionError("Bạn chưa lưu được báo cáo tại chi nhánh, xin liên hệ với quản trị để khắc phục");
+                        return ERROR;
+                    }
+                } else {
                     addActionError("Lỗi lưu trữ Api lên Tw, xin liên hệ với quản trị để khắc phục");
                     return ERROR;
                 }
+
             } else if (Grade.equals("2")) {
                 try {
                     chotsl = "";
@@ -242,23 +232,23 @@ public class QT_MS13_2023 extends ActionNghiquyet11cpMain
                         } else {
                             st = "1";
                         }
-                        int status = service.updateChotSL("CIC_CUSTOMER", tmp.getMAPGD(), "S", "20231231", st, UserName, null);
+                        int status = service.updateChotSL("QT_MS13_2023", tmp.getMAPGD(), "S", "20231231", st, UserName, null);
                         if (status != 200) {
                             addActionError("Bạn chưa chốt/ mở chốt được xin liên hệ với quản trị để khắc phục");
                             return ERROR;
                         }
                     }
                 } catch (Exception e) {
-                    CoreLogger.error(this.getClass().getName() + " Exception -> CIC_001: " + e.getMessage());
-                    System.err.println(this.getClass().getName() + " Exception -> NQ11CP: " + e.getMessage());
+                    CoreLogger.error(this.getClass().getName() + " Exception -> QT_MS13_2023: " + e.getMessage());
+                    System.err.println(this.getClass().getName() + " Exception -> QT_MS13_2023: " + e.getMessage());
                     addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                     return ERROR;
                 }
             }
 
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> QT_MS13_2023: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> QT_MS13_2023: " + e.getMessage());
             addActionError("Bạn chưa lưu được báo cáo <br> xin liên hệ với quản trị để khắc phục");
             return ERROR;
         }
