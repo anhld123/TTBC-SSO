@@ -35,6 +35,7 @@ import vbsp.ims.model.ModelTreeNode;
 import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.CustCicModel;
+import vbsp.ims.restapi.DuLieuNtMs13AKhoanh;
 //import vbsp.ims.xml.XmlNhaptaycnSync;
 
 /**
@@ -165,6 +166,15 @@ public class ActionNghiquyet11cpMain extends ActionSupport {
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
     protected List<QT_DULIEU_NT> lstDulieuNt_tong = new ArrayList<>();
     protected List<QT_DULIEU_NT_50> lstDulieuNt50 = new ArrayList<>();
+    protected List<DuLieuNtMs13AKhoanh> lstDulieuNtMs13a = new ArrayList<>();
+
+    public List<DuLieuNtMs13AKhoanh> getLstDulieuNtMs13a() {
+        return lstDulieuNtMs13a;
+    }
+
+    public void setLstDulieuNtMs13a(List<DuLieuNtMs13AKhoanh> lstDulieuNtMs13a) {
+        this.lstDulieuNtMs13a = lstDulieuNtMs13a;
+    }
 
     protected List<ListValue> lstChuongtrinh = new ArrayList<ListValue>();
     protected List<ListValue> lstMaxa = new ArrayList<ListValue>();

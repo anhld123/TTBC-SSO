@@ -38,6 +38,8 @@ import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.CommissionDetailModel;
 import vbsp.ims.restapi.CommissionMasterModel;
+import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlBcqtSync;
 
@@ -304,6 +306,27 @@ public class ActionBcqtMain extends ActionSupport {
                  setLstMato(daoMain11.getDanhMuc(UserName, "MATO_HOAHONG", Grade));
                 return "BCQT_LAIAM";
             }
+            if (khoa_bcqt.equals("QT_MS13_2023")) {
+                DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
+                System.err.println("SDQ---0");
+                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));
+                System.err.println("SDQ---2");
+                setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
+                System.err.println("SDQ---3");
+                DuLieuNTService service1 = new DuLieuNTService();
+//                ArrayList<LockSendModel> lstDataLock = service1.getDataLockManual("CIC_CUSTOMER", pos_cd_username, "S", "20231231");
+//                if (lstDataLock == null || lstDataLock.size() == 0) {
+//                    addActionError("Vui lòng kiểm tra lại kết nối tới Api trung ương");
+//                    return ERROR;
+//                }
+//                try {
+//                    setChotCic(lstDataLock.get(0).getStatus());
+//                } catch (Exception e) {
+//                    setChotCic("0");
+//                }
+                return "mau13A_sk";
+            }
+            
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> loadPataBcqt: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> loadPataBcqt: " + e.getMessage());

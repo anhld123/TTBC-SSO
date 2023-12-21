@@ -1090,6 +1090,32 @@ public class DuLieuNTService extends ReportService {
         System.out.println("Response code API: " + response.getStatus());
         return response.getStatus();
     }
+    
+    public int updateMs13aKhoanh(String posCode, String reportDate,String updateBy, String authoriseBy,
+            List<DuLieuNtMs13AKhoanh> data) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("qt-ms13-update")
+                .queryParam("posCode", posCode)
+                .queryParam("reportDate", reportDate)
+                .queryParam("updateBy", updateBy)
+                .queryParam("authoriseBy", authoriseBy == null || authoriseBy == "" ? "" : authoriseBy);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
+
+        String json = "";
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(Include.NON_NULL);
+        try {
+            json = mapper.writeValueAsString(data);
+              System.out.println("ResultingJSONstring = " + json);  
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
+        System.out.println("Response code API: " + response.getStatus());
+        return response.getStatus();
+    }
 
     public ArrayList<DuLieuNTRow> getDataNQ11CP_01KH(String posCode, String reportDate, String flag) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
@@ -1107,6 +1133,28 @@ public class DuLieuNTService extends ReportService {
         if (response.getStatus() == 200) {
             DuLieuNTResp dulieuNTResp = response.readEntity(DuLieuNTResp.class);
             ArrayList<DuLieuNTRow> listOfRow = dulieuNTResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+    
+        public ArrayList<DuLieuNtMs13AKhoanh> getDataMs13aKhoanh(String posCode,String communeCode, String groupId, String customerCode,  String reportDate) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("qt-ms13-data")
+                .queryParam("posCode", posCode)
+                .queryParam("communeCode", communeCode)
+                .queryParam("groupId", groupId.endsWith("0000000") ? "" : groupId)
+                .queryParam("customerCode", customerCode)
+                .queryParam("reportDate", reportDate);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            DuLieuNtMs13aResp dulieuNTResp = response.readEntity(DuLieuNtMs13aResp.class);
+            ArrayList<DuLieuNtMs13AKhoanh> listOfRow = dulieuNTResp.result;
             return listOfRow;
         } else {
             return null;

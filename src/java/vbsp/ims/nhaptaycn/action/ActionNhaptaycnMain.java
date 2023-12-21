@@ -833,18 +833,10 @@ public class ActionNhaptaycnMain extends ActionSupport {
             DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
             if (khoa_nhaptaycn.equals("CIC_001")) {
                 System.err.println("SDQ---0");
-//                setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CHUONGTRINH", Grade));
-//                System.err.println("SDQ---1");
                 setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));
                 System.err.println("SDQ---2");
                 setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
                 System.err.println("SDQ---3");
-//                setLstPhanloai(daoMain11.getDanhMuc(UserName, "PHANLOAI", Grade));
-//                System.err.println("SDQ---4");
-//                setLstGiaiNgan(daoMain11.getDanhMuc(UserName, "GIAINGAN", Grade));
-//                System.err.println("SDQ---3");
-//                setLstNhadautu(daoMain11.getDanhMuc(UserName, "NHADT", Grade));
-//                System.err.println("SDQ---5");
                 DuLieuNTService service1 = new DuLieuNTService();
                 ArrayList<LockSendModel> lstDataLock = service1.getDataLockManual("CIC_CUSTOMER", pos_cd_username, "S", "20231231");
                 if (lstDataLock == null || lstDataLock.size() == 0) {

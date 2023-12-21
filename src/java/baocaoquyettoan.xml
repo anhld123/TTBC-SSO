@@ -20,6 +20,7 @@
         <action name="LoadParaBcqt" class="vbsp.ims.bcqt.action.ActionBcqtMain"  method="loadPataBcqt">
             <result name="success">/BCQT/para-bcqt-main.jsp</result>
             <result name="BCQT_LAIAM">/BCQT/para_laiton_am.jsp</result>
+             <result name="mau13A_sk">/BCQT/para_baocao_13a_saoke.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>  
         
@@ -533,6 +534,18 @@
             <result name="success" type="json">/excel_config/edit_query.jsp</result>
             <result name="error">excel_config/success.jsp</result>
         </action>                -->
+       
+        
+        <action name="QT_MS13_2023" class="vbsp.ims.bcqt.action.QT_MS13_2023"  method="load">
+            <result name="success">/BCQT/table_bcqt_ms13a_khoanh.jsp</result>   
+            <result name="success_c2">/BCQT/table_cic_c2.jsp</result>   
+            <result name="error">/BCQT/success.jsp</result>       
+        </action>
+        
+         <action name="SAVE_QT_MS13_2023" class="vbsp.ims.bcqt.action.QT_MS13_2023"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
     </package>
     
 </struts>
