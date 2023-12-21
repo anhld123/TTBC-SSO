@@ -117,7 +117,7 @@
                                 <td ><input type="text" value="' + ma + '" id ="ma' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D1" class="TD_CHITIEU" onfocus="this.select()" readonly="readonly" ></td>\n\
                                 <td ><input type="text" value="' + mapgd + '" name="lstDulieuNt[' + rowCount + '].MAPGD" id ="MAPGD_' + rowCount + '/>" class="D0" onfocus="this.select()" readonly="readonly" ></td>\n\
                                 <td ><input type="text" value="0" id="D3" name="lstDulieuNt[' + rowCount + '].D4" class="number" onfocus="this.select();"/></td>\n\
-                                <td ><input type="text" value="0" id="D4" style="text-align:right" name="lstDulieuNt[' + rowCount + '].D5" class="number" onfocus="this.select();"/></td>\n\
+                                <td ><input type="text" value="0" id="D4" style="text-align:right" name="lstDulieuNt[' + rowCount + '].D5"  onfocus="this.select();"/></td>\n\
                                 <td ><input type="hidden"> <select name="lstDulieuNt[' + rowCount + '].D5"><option value="-1">-- Chọn --</option><option value="1">1. Đất giao có thu tiền sử dụng đất</option><option value="2">2. Đất giao không thu tiền sử dụng đất</option><option value="3">3. Đất thuê</option><option value="4">4. Đất khác</option></select></td>\n\
                                 <td ><input type="text" value="0" id="D6" name="lstDulieuNt[' + rowCount + '].D7" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td ><input type="hidden"> <select name="lstDulieuNt[' + rowCount + '].D7"><option value="-1">-- Chọn --</option><option value="1">1. Có</option><option value="2">2. Chưa có</option><option value="3">3. Đang làm thủ tục</option></select></td>\n\
