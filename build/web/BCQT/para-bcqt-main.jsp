@@ -157,7 +157,7 @@
                     }
                     var poscd = getposfromtreecheck();
 //                alert(poscd);
-                    if ((poscd == null || poscd == '') && (khoa_bcqt != 'KHOANTC001' && khoa_bcqt != 'BCQT_26A' && khoa_bcqt != 'BCQT_26B' && khoa_bcqt != 'BCQT_LAITONAM' && khoa_bcqt != 'BCQT_HOAHONG' ))
+                    if ((poscd == null || poscd == '') && (khoa_bcqt != 'KHOANTC001' && khoa_bcqt != 'BCQT_26A' && khoa_bcqt != 'BCQT_26B' && khoa_bcqt != 'BCQT_LAITONAM' && khoa_bcqt != 'BCQT_HOAHONG'))
                     {
                         $('#message_suc_err').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần xem số liệu ! </h2>");
 //                        alert('Bạn phải chọn phòng giao dịch cần gửi số liệu !');
@@ -187,7 +187,8 @@
                     var poscd = getposfromtreecheck();
                     if (poscd == null || poscd == "")
                     {
-
+                        $("#loadData")[0].click();
+                        bsubmit = true;
                     } else
                     {
                         $('#message_suc_err').html("<h2 style='color: red'>Bạn không được tích chọn PGD khi lưu dữ liệu cho chi nhánh !</h2>");
@@ -198,6 +199,23 @@
 
                 if (validateRequiredFields())
                     $("#" + khoa)[0].click();
+                if (khoa = 'BCQT_M05B_save')
+                {
+                    function saveData() {
+                        return new Promise((resolve, reject) => {
+                            bsubmit = true;
+                            setTimeout(resolve, 1);
+                        });
+                    }
+                    
+                    saveData().then(onLoadData);
+                    alert("Lưu dữ liệu thành công!")
+                } else
+                {
+                    $('#message_suc_err').html("<h2 style='color: red'>Lưu không thành công !</h2>");
+                    bsubmit = false;
+                    return;
+                }
 //                alert(khoa);
             }
             // TRUNG BO SUNG PHAN THUYET MINH
@@ -467,7 +485,7 @@
                                                        onBeforeTopics="beforediv_send"
                                                        onCompleteTopics="completediv_send" cssStyle="display:none"/>
                                             <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu"/>
-                                            
+
                                             <s:url id="idxacnhan" action="sendLockBCQT.action"></s:url>                                             
                                             <sj:submit id="idSendLock" name="nameSend" href="%{idxacnhan}" value="Gửi dữ liệu" targets="divExportReport"
                                                        onBeforeTopics="beforediv_send"
@@ -477,9 +495,9 @@
                                         <s:else>
                                             <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/>
                                         </s:else>    
-                                        
 
-                                        
+
+
                                     </s:else>
                                     &nbsp;&nbsp;&nbsp;
                                     <s:if test="!khoa_bcqt.equalsIgnoreCase('BCQT_HOAHONG') && !khoa_bcqt.equalsIgnoreCase('BCQT_LAITONAM')">
