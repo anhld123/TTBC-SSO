@@ -204,7 +204,7 @@
                                        class="number STT2" onfocus="this.select()"/>
                             </td>    
                             <td style="width: 80px;background: #ffffff">
-                                <input type="text" value="<s:property  value="D17" />" style="font-size: 13"
+                                <input type="text" value="<s:property  value="D17" />" style="font-size: 13" title="<s:property  value="D3" /> - <s:property  value="D5" />"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D17"
                                        class="number STT2" onfocus="this.select()"/>
                             </td>
@@ -214,16 +214,16 @@
                                        class="number STT2" onfocus="this.select()"/>
                             </td>  
                              <td style="width: 80px;background: #ffffff">
-                                <input type="text" value="<s:property  value="D19" />" style="font-size: 13"
+                                <input type="text" value="<s:property  value="D19" />" style="font-size: 13" title="<s:property  value="D3" /> - <s:property  value="D5" />"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D19"
                                        class="number STT2" onfocus="this.select()"/>
                             </td>
                              <td style="width: 80px;background: #ffffff">
-                                <input type="text" value="<s:property  value="D20" />" style="font-size: 13"
+                                <input type="text" value="<s:property  value="D20" />" style="font-size: 13" title="<s:property  value="D3" /> - <s:property  value="D5" />"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D20"
                                        class="number STT2" onfocus="this.select()"/>
                             </td>
-                            <td><input type="checkbox" id ="idc11<s:property  value="%{#rowstatus.index}" />" 
+                            <td><input type="checkbox" id ="idc11<s:property  value="%{#rowstatus.index}" />"  title="<s:property  value="D3" /> - <s:property  value="D5" />"
                                        class="checkboxdat STT1 D0" 
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D21"/>
                             </td>     

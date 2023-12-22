@@ -146,6 +146,18 @@ public class QT_MS13_2023 extends ActionNghiquyet11cpMain
             Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             String dateStr = sdf.format(date1);
+            service = new DuLieuNTService();
+            ArrayList<LockSendModel> lstDataLock = service.getDataLockManual("QT_MS13_2023", pos_cd_username, "S", dateStr);
+            if (lstDataLock == null || lstDataLock.size() == 0) {
+                addActionError("Vui lòng kiểm tra lại kết nối tới Api trung ương");
+                return ERROR;
+            } else {
+                if (lstDataLock.get(0).getStatus().equals("1")) {
+                    addActionError("TW đã chốt số liệu. Vui long liên hệ với cấp trên để mở lại");
+                    return ERROR;
+                }
+            }
+
             if (Grade.equals("1")) {
                 ArrayList<DuLieuNtMs13AKhoanh> tmp = new ArrayList<>();
                 //Thông tin ra soát với hồ sơ vay vốn
@@ -175,7 +187,6 @@ public class QT_MS13_2023 extends ActionNghiquyet11cpMain
                     }
                 }
 
-                service = new DuLieuNTService();
                 int status = service.updateMs13aKhoanh(pos_cd_username, dateStr, UserName, UserName, tmp);
                 if (status == 200) {
                     ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
