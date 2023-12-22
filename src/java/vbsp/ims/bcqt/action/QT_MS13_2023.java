@@ -90,37 +90,39 @@ public class QT_MS13_2023 extends ActionNghiquyet11cpMain
                 }
                 return SUCCESS;
             } else if (Grade.equals("2")) {
-                if (!getParaSession()) {
+                addActionError("Vui lòng vào cấp 1 để nhập số liệu.");;
                     return ERROR;
-                }
-                HashMap hmParameter = getParameter();
-                posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
-                pos_cd_username = posMainModel.getPosCd();
-                service = new DuLieuNTService();
-                ArrayList<LockSendCiCModel> lstData = service.getDataLockSendCic(pos_cd_username, "M", "20231231");
-                int i = 0;
-
-                DecimalFormat df = new DecimalFormat("#.##");
-                chotsl = "";
-                for (LockSendCiCModel item : lstData) {
-                    if (item.getStatus().equals("0")) {
-                        setChotsl("0");
-                    }
-                    i++;
-                    QT_DULIEU_NT row = new QT_DULIEU_NT();
-                    row.setKHOA("CIC_01");
-                    row.setTHUTU(i);
-                    Date reportDate = DateUtil.toDate(item.getReportDate());
-                    row.setNGAYBC(reportDate);
-                    row.setMAPGD(item.getPosCode());
-                    row.setMACN(item.getMainPos());
-                    row.setTEN(item.getPosName());
-                    row.setD1(df.format(item.getCustomerTotal()));
-                    row.setD2(df.format(item.getCustomerNotReviewCount()));
-                    row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");
-                    lstDulieuNt.add(row);
-                }
-                return "success_c2";
+//                if (!getParaSession()) {
+//                    return ERROR;
+//                }
+//                HashMap hmParameter = getParameter();
+//                posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+//                pos_cd_username = posMainModel.getPosCd();
+//                service = new DuLieuNTService();
+//                ArrayList<LockSendCiCModel> lstData = service.getDataLockSendCic(pos_cd_username, "M", "20231231");
+//                int i = 0;
+//
+//                DecimalFormat df = new DecimalFormat("#.##");
+//                chotsl = "";
+//                for (LockSendCiCModel item : lstData) {
+//                    if (item.getStatus().equals("0")) {
+//                        setChotsl("0");
+//                    }
+//                    i++;
+//                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+//                    row.setKHOA("CIC_01");
+//                    row.setTHUTU(i);
+//                    Date reportDate = DateUtil.toDate(item.getReportDate());
+//                    row.setNGAYBC(reportDate);
+//                    row.setMAPGD(item.getPosCode());
+//                    row.setMACN(item.getMainPos());
+//                    row.setTEN(item.getPosName());
+//                    row.setD1(df.format(item.getCustomerTotal()));
+//                    row.setD2(df.format(item.getCustomerNotReviewCount()));
+//                    row.setD25(chotsl.equals("0") ? item.getStatus() : item.getStatus().equals("1") ? "1" : "0");
+//                    lstDulieuNt.add(row);
+//                }
+//                return "success_c2";
             }
 
         } catch (Exception e) {
