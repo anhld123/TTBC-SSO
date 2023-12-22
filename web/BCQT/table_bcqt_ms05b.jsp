@@ -123,7 +123,7 @@
                                 <td ><input type="hidden"> <select name="lstDulieuNt[' + rowCount + '].D5"><option value="1">1. Đất giao có thu tiền sử dụng đất</option><option value="2">2. Đất giao không thu tiền sử dụng đất</option><option value="3">3. Đất thuê</option><option value="4">4. Đất khác</option></select></td>\n\
                                 <td ><input type="text" value="0" id="D6" name="lstDulieuNt[' + rowCount + '].D6" class="SOKU number" onfocus="this.select();"/></td>\n\
                                 <td ><input type="hidden"> <select name="lstDulieuNt[' + rowCount + '].D7"><option value="1">1. Có</option><option value="2">2. Chưa có</option><option value="3">3. Đang làm thủ tục</option></select></td>\n\
-                                <td ><input type="text" value="0" id="D8" name="lstDulieuNt[' + rowCount + '].D8" class="SOKU number" onfocus="this.select();"/></td>\n\
+                                <td ><input type="text" value="0" id="D8" name="lstDulieuNt[' + rowCount + '].D8" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 TD_TEN_KH"/></td>\n\
                                 </tr>';
                 $($('table#tablems05 tr')[index]).after(newTr);
