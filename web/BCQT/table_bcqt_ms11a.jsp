@@ -159,6 +159,7 @@
                         <th style="width: 100px;" rowspan="2">Mã sản phẩm</th>
                         <th style="width: 70px;" class="TD_SOKU" colspan="2">Sao kê</th>
                         <th style="width: 70px;" class="TD_SOKU" colspan="2">Cân đối</th>
+                        <th style="width: 70px;" class="TD_SOKU" rowspan="2">Thêm/Xóa</th>
                     </tr>
                     <tr>          
                         <th style="width: 50px;" >Tiền gốc</th>
@@ -248,6 +249,7 @@
                         </tr>
                     </s:iterator>
                     <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
