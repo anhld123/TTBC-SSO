@@ -708,11 +708,10 @@ public class DaoNghiquyet11cp {
             cs.setString(2, mapgd);
             cs.setString(3, ngaybc);
             cs.setArray(4, array_to_pass);
-            cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
-            System.err.println("Loi trong ham saveCIC_Local " + e.getMessage());
-            CoreLogger.error(this.getClass().getName() + " saveCIC_Local -> " + e.getMessage());
+            System.err.println("Loi trong ham SP_SAVE_MS13A_KHOANH " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " SP_SAVE_MS13A_KHOANH -> " + e.getMessage());
             return false;
         } finally {
             if (cs != null) {
