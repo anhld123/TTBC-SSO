@@ -708,6 +708,7 @@ public class DaoNghiquyet11cp {
             cs.setString(2, mapgd);
             cs.setString(3, ngaybc);
             cs.setArray(4, array_to_pass);
+            cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Loi trong ham SP_SAVE_MS13A_KHOANH " + e.getMessage());
