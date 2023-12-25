@@ -59,6 +59,28 @@
             $('.TEN_KH').blur(function () {
                 $(this).closest('tr').removeClass('highlight_row');
             });
+
+            $(function () {
+                setCssStyle();
+            });
+            function setCssStyle() {
+                $(".cssDate").datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    showOn: "button",
+                    buttonImage: "img/icon-ui_datepicker.png",
+                    buttonImageOnly: true,
+                    showButtonPanel: true,
+                    buttonText: "icono",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "c-100:c+0",
+                    beforeShow: function (input, inst) {
+                        if ($(input).is(':disabled')) {
+                            return false; // Ngăn chặn datepicker hiển thị nếu input bị disabled
+                        }
+                    }
+                });
+            }
         </script>
     </head>
     <body>
@@ -84,28 +106,28 @@
                         <th rowspan="2" class="STT2">Tên người vay</th>  
                         <th rowspan="2" class="STT3">Địa chỉ</th>  
                         <th rowspan="2" class="STT2">Mã món vay</th>    
-                        <th rowspan="2"  class="STT2">Chương trình vay vốn</th>                             
-                        <th rowspan="2"  class="STT5">Ngày vay</th>   
-                        <th rowspan="2"  class="STT5">Ngày đến hạn</th>   
-                        <th rowspan="2"  class="STT5">Ngày hạch toán khoanh nợ</th>  
-                        <th rowspan="2"  class="STT3">Số QĐ khoanh nợ</th>  
-                        <th rowspan="2"  class="STT5">Ngày được khoanh nợ</th>  
-                        <th rowspan="2"  class="STT2">Số tháng được khoanh</th>                             
-                        <th rowspan="2"  class="STT5"> Ngày hết hạn khoanh</th> 
+                        <th rowspan="2" class="STT2">Chương trình vay vốn</th>                             
+                        <th rowspan="2" class="STT5">Ngày vay</th>   
+                        <th rowspan="2" class="STT5">Ngày đến hạn</th>   
+                        <th rowspan="2" class="STT2">Ngày hạch toán khoanh nợ</th>  
+                        <th rowspan="2" class="STT3">Số QĐ khoanh nợ</th>  
+                        <th rowspan="2" class="STT5">Ngày được khoanh nợ</th>  
+                        <th rowspan="2" class="STT2">Số tháng được khoanh</th>                             
+                        <th rowspan="2" class="STT5"> Ngày hết hạn khoanh</th> 
 
-                        <th colspan="2"  class="STT2">Dư nợ được khoanh</th> 
-                        <th rowspan="2"  class="STT2">Nợ khoanh đã thu</th>      
-                        <th colspan="4"  class="STT4">Tiền lãi khoanh chưa thu</th> 
-                        <th rowspan="2"  class="STT1">Cập nhật</th>  
+                        <th colspan="2" class="STT2">Dư nợ được khoanh</th> 
+                        <th rowspan="2" class="STT2">Nợ khoanh đã thu</th>      
+                        <th colspan="4" class="STT4">Tiền lãi khoanh chưa thu</th> 
+                        <th rowspan="2" class="STT1">Cập nhật</th>  
 
                     </tr>         
                     <tr >
-                        <th  class="STT2">Theo QĐ</th>
-                        <th  class="STT2">Số cuối kỳ</th>
-                        <th  class="STT2">Số cuối kỳ</th>
-                        <th  class="STT2">Lãi tồn âm</th>
-                        <th  class="STT2">Chuyển sang thu gốc</th>
-                        <th  class="STT2">HT điều chỉnh</th>
+                        <th class="STT2">Theo QĐ</th>
+                        <th class="STT2">Số cuối kỳ</th>
+                        <th class="STT2">Số cuối kỳ</th>
+                        <th class="STT2">Lãi tồn âm</th>
+                        <th class="STT2">Chuyển sang thu gốc</th>
+                        <th class="STT2">HT điều chỉnh</th>
                     </tr>
                     <tr style="font-style: italic;">
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
@@ -167,15 +189,32 @@
                             <td style="background: #f2f2f2; text-align: center; width:80px;"><s:property value="D8"/>
                                 <input type="hidden" value="<s:property  value="D8" />"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D8"/>
-                            </td>   
-                            <td style="background: #f2f2f2; text-align: center; width:80px;"><s:property value="D9"/>
-                                <input type="hidden" value="<s:property  value="D9" />" 
-                                       name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D9"/>
-                            </td>  
-                            <td style="background: #f2f2f2; text-align: center; width:80px;"><s:property value="D10"/>
-                                <input type="hidden" value="<s:property  value="D10" />" 
-                                       name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D10"/>
-                            </td>  
+                            </td> 
+                            <s:if test="D9 == null || D9.trim().isEmpty()">
+                                <td style="width: 120px;background: #ffffff">
+                                    <input type="text" value="<s:property  value="D9" />" style="font-size: 13px; width: 80px" title="<s:property  value="D3" /> - <s:property  value="D5" />"
+                                           class="cssDate" name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D9"/>   
+                                </td>
+                            </s:if>
+                            <s:else> 
+                                <td style="background: #f2f2f2; text-align: center; width:120px;"><s:property value="D9"/>
+                                    <input type="hidden" value="<s:property  value="D9" />"  
+                                           name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D9"/>
+                                </td> 
+                            </s:else>
+                            <s:if test="D10 == null || D10.trim().isEmpty()">
+                                <td style="width: 80px;background: #ffffff">
+                                    <input type="text" value="<s:property  value="D10" />" style="font-size: 13px" title="<s:property  value="D3" /> - <s:property  value="D5" />"
+                                           name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D10"/>
+                                </td>
+                            </s:if>
+                            <s:else>  
+                                <td style="background: #f2f2f2; text-align: center; width:80px;"><s:property value="D10"/>
+                                    <input type="hidden" value="<s:property  value="D10" />" 
+                                           name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D10"/>
+                                </td>  
+
+                            </s:else>
                             <td style="background: #f2f2f2; text-align: center; width:80px;"><s:property value="D11"/>
                                 <input type="hidden" value="<s:property  value="D11" />" 
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D11"/>
@@ -189,37 +228,37 @@
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D13"/>
                             </td> 
                             <td style="width: 80px;background: #f2f2f2">
-                                <input type="text" value="<s:property  value="D14" />" style="background: #f2f2f2; color: #000;font-size: 13"
+                                <input type="text" value="<s:property  value="D14" />" style="background: #f2f2f2; color: #000;font-size: 13px"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D14" readonly="true"
                                        class="number STT2" onfocus="this.select()"/>
                             </td>
-                             <td style="width: 80px;background: #f2f2f2">
-                                <input type="text" value="<s:property  value="D15" />" style="background: #f2f2f2; color: #000;font-size: 13"
+                            <td style="width: 80px;background: #f2f2f2">
+                                <input type="text" value="<s:property  value="D15" />" style="background: #f2f2f2; color: #000;font-size: 13px"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D15" readonly="true"
                                        class="number STT2" onfocus="this.select()"/>
                             </td>   
-                             <td style="width: 80px;background: #f2f2f2">
-                                <input type="text" value="<s:property  value="D16" />" style="background: #f2f2f2; color: #000;font-size: 13"
+                            <td style="width: 80px;background: #f2f2f2">
+                                <input type="text" value="<s:property  value="D16" />" style="background: #f2f2f2; color: #000;font-size: 13px"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D16" readonly="true"
                                        class="number STT2" onfocus="this.select()"/>
                             </td>    
                             <td style="width: 80px;background: #ffffff">
-                                <input type="text" value="<s:property  value="D17" />" style="font-size: 13" title="<s:property  value="D3" /> - <s:property  value="D5" />"
+                                <input type="text" value="<s:property  value="D17" />" style="font-size: 13px" title="<s:property  value="D3" /> - <s:property  value="D5" />"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D17"
                                        class="number STT2" onfocus="this.select()"/>
                             </td>
-                           <td style="width: 80px;background: #f2f2f2">
-                                <input type="text" value="<s:property  value="D18" />" style="background: #f2f2f2; color: #000;font-size: 13"
+                            <td style="width: 80px;background: #f2f2f2">
+                                <input type="text" value="<s:property  value="D18" />" style="background: #f2f2f2; color: #000;font-size: 13px"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D18" readonly="true"
                                        class="number STT2" onfocus="this.select()"/>
                             </td>  
-                             <td style="width: 80px;background: #ffffff">
-                                <input type="text" value="<s:property  value="D19" />" style="font-size: 13" title="<s:property  value="D3" /> - <s:property  value="D5" />"
+                            <td style="width: 80px;background: #ffffff">
+                                <input type="text" value="<s:property  value="D19" />" style="font-size: 13px" title="<s:property  value="D3" /> - <s:property  value="D5" />"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D19"
                                        class="number STT2" onfocus="this.select()"/>
                             </td>
-                             <td style="width: 80px;background: #ffffff">
-                                <input type="text" value="<s:property  value="D20" />" style="font-size: 13" title="<s:property  value="D3" /> - <s:property  value="D5" />"
+                            <td style="width: 80px;background: #ffffff">
+                                <input type="text" value="<s:property  value="D20" />" style="font-size: 13px" title="<s:property  value="D3" /> - <s:property  value="D5" />"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D20"
                                        class="number STT2" onfocus="this.select()"/>
                             </td>
