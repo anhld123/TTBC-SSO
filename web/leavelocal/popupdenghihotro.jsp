@@ -119,7 +119,7 @@
                             window.close();
 //                            reloadData();
                         } else {
-                            alert("Lỗi: Lưu dữ liệu.");
+                            alert("Lỗi: Đề nghị lưu dữ liệu ngoài menu chính trước khi đề nghị !");
                         }
                     },
                     error: function (request) {
