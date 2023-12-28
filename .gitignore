@@ -47,3 +47,11 @@ nbproject/project.properties
 nbproject/private/private.properties
 nbproject/private/private.properties
 nbproject/private/private.xml
+nbproject/private/private.xml
+nbproject/private/private.properties
+nbproject/jaxws-build.xml
+nbproject/jax-ws.xml
+build/web/WEB-INF/web.xml
+web/WEB-INF/web.xml
+web/WEB-INF/sun-jaxws.xml
+nbproject/project.properties
