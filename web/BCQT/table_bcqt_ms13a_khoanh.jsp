@@ -63,35 +63,97 @@
             $(function () {
                 setCssStyle();
             });
-            function setCssStyle() {
-    $(".cssDate").datepicker({
-        dateFormat: 'dd/mm/yy',
-        showOn: "button",
-        buttonImage: "img/icon-ui_datepicker.png",
-        buttonImageOnly: true,
-        showButtonPanel: true,
-        buttonText: "icono",
-        changeMonth: true,
-        changeYear: true,
-        yearRange: "c-100:c+0",
-        beforeShow: function (input, inst) {
-            if ($(input).is(':disabled')) {
-                return false; // Ngăn chặn datepicker hiển thị nếu input bị disabled
+
+            function addMonths(date, months) {
+                date.setMonth(date.getMonth() + months);
+                return date;
             }
-        },
-        // Thêm CSS cho ngày tháng
-        onSelect: function(dateText, inst) {
-            $(this).css({
-                'font-size': '13px', // Cỡ chữ
-                'color': 'red' // Màu chữ
-            });
-        }
-    });
-}
+
+            function setCssStyle() {
+                $(".cssDate").datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    showOn: "button",
+                    buttonImage: "img/icon-ui_datepicker.png",
+                    buttonImageOnly: true,
+                    showButtonPanel: true,
+                    buttonText: "icono",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "c-100:c+0",
+                    beforeShow: function (input, inst) {
+                        if ($(input).is(':disabled')) {
+                            return false; // Ngăn chặn datepicker hiển thị nếu input bị disabled
+                        }
+                    },
+                    // Thêm CSS cho ngày tháng
+                    onSelect: function (dateText, inst) {
+                        $(this).css({
+                            'font-size': '13px', // Cỡ chữ
+                            'color': 'red' // Màu chữ
+                        });
+                        var _freezeDateName = this.name;
+                        var _expireDateName = _freezeDateName.replace('D11', 'D13');
+                        var _freezeMonthName = _freezeDateName.replace('D11', 'D12');
+                        var _freezeMonthValue = parseInt($("input[name='" + _freezeMonthName + "']").val());
+
+                        var toDate = new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay);//Date one month after selected date
+                        var oneDay = new addMonths(toDate, _freezeMonthValue);
+
+                        $("input[name='" + _expireDateName + "']").val($.datepicker.formatDate('dd/mm/yy', oneDay));
+
+                    }
+                }).on('change', function (event) {
+                    event.preventDefault();
+                    $(this).css({
+                        'font-size': '13px', // Cỡ chữ
+                        'color': 'red' // Màu chữ
+                    });
+                    var _freezeDateName = this.name;
+                    var _expireDateName = _freezeDateName.replace('D11', 'D13');
+                    var _freezeMonthName = _freezeDateName.replace('D11', 'D12');
+                    var _freezeMonthValue = parseInt($("input[name='" + _freezeMonthName + "']").val());
+
+                    let [day, month, year] = this.value.split('/');
+                    const toDate = new Date(+year, +month - 1, +day)    ;                                                        
+                    var oneDay = new addMonths(toDate, _freezeMonthValue);
+                    $("input[name='" + _expireDateName + "']").val($.datepicker.formatDate('dd/mm/yy', oneDay));
+                    $("input[name='" + _expireDateName + "']").css({
+                        'font-size': '13px', // Cỡ chữ
+                        'color': 'red' // Màu chữ
+                    });
+                });                
+
+                $(".cssDate2").datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    //showOn: "button",
+                    //buttonImage: "img/icon-ui_datepicker.png",
+                    //buttonImageOnly: false,
+                    //showButtonPanel: false,
+                    //buttonText: "icono",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "c-100:c+0",
+                    beforeShow: function (input, inst) {
+                        if ($(input).is(':disabled')) {
+                            return false; // Ngăn chặn datepicker hiển thị nếu input bị disabled
+                        }
+                    },
+                    // Thêm CSS cho ngày tháng
+                    onSelect: function (dateText, inst) {
+                        $(this).css({
+                            'font-size': '13px', // Cỡ chữ
+                            'color': 'red' // Màu chữ
+                        });
+                        //alert('aaa');
+                    }
+                }).change(function () {
+                    //alert('bbb');
+                });
+            }
         </script>
     </head>
     <body>
-        <div style="overflow:scroll; width: 95vw;">  
+        <div style="overflow:scroll; width: 95vw; height: 500px;">  
             <s:form id="id_sv_QT_MS13_2023" action="SAVE_QT_MS13_2023" theme="simple">  
                 <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
                     <input type="hidden" id="<s:property  value="sKey" />" 
@@ -224,8 +286,8 @@
                                 </td>  
 
                             </s:else>
-                            <td style="background: #ffffff; text-align: center; width:120px;">
-                                <input type="text" value="<s:property  value="D11" />" class="cssDate" style="font-size: 13px;width: 75px"
+                            <td style="background: #ffffff; text-align: center; width:150px;">
+                                <input type="text" value="<s:property  value="D11" />" class="cssDate" style="font-size: 13px;width: 85px"
                                        title="<s:property  value="D3" /> - <s:property  value="D5" />" id="D11_<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D11"/>
                             </td>  
@@ -233,11 +295,16 @@
                                 <input type="hidden" value="<s:property  value="D12" />" id="D12_<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D12"/>
                             </td>                             
-                             <td style="background: #f2f2f2; text-align: center; width:120px;"><s:property value="D13"/>
-                                    <input type="hidden" value="<s:property  value="D13" />"  id="D13_<s:property  value="%{#rowstatus.index}" />"
-                                           name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D13"/>
-                                </td>  
-                              <td style="width: 80px;background: #f2f2f2">
+                            <td style="background: #f2f2f2; text-align: center; width:120px;">
+
+                                <input type="text" value="<s:property  value="D13" />" style="font-size: 13px" title="<s:property  value="D3" /> - <s:property  value="D5" />"
+                                       name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D13" id="D13_<s:property  value="%{#rowstatus.index}" />"
+                                       class="cssDate2" onfocus="this.select()"/>   
+
+<!--                                 <input type="hidden" value="<s:property  value="D13" />"  id="D13_<s:property  value="%{#rowstatus.index}" />"
+          name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D13"/>-->
+                            </td>  
+                            <td style="width: 80px;background: #f2f2f2">
                                 <input type="text" value="<s:property  value="D14" />" style="background: #f2f2f2; color: #000;font-size: 13px"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D14" readonly="true" id="D14_<s:property  value="%{#rowstatus.index}" />"
                                        class="number STT2" onfocus="this.select()"/>
@@ -247,7 +314,7 @@
                                        id="D15_<s:property  value="%{#rowstatus.index}" />"
                                        class="number STT2" onfocus="this.select()"/>
                             </td>   
-                              <td style="width: 80px;background: #f2f2f2">
+                            <td style="width: 80px;background: #f2f2f2">
                                 <input type="text" value="<s:property  value="D16" />" style="background: #f2f2f2; color: #000;font-size: 13px"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D16" readonly="true" id="D16_<s:property  value="%{#rowstatus.index}" />"
                                        class="number STT2" onfocus="this.select()"/>
