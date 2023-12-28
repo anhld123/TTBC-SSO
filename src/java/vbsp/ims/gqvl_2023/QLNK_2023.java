@@ -49,7 +49,7 @@ import vbsp.ims.xml.XmlKtgsSync;
  *
  * @author Trung
  */
-public class HTLS_2023 extends ActionNhaptaycnMain
+public class QLNK_2023 extends ActionNhaptaycnMain
         implements NhaptaycnFunction {
 
     Service_GQVL2023 _leaveHomeService;
