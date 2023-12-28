@@ -101,6 +101,10 @@
 
                         $("input[name='" + _expireDateName + "']").val($.datepicker.formatDate('dd/mm/yy', oneDay));
 
+                        $("input[name='" + _expireDateName + "']").css({
+                            'font-size': '13px', // Cỡ chữ
+                            'color': 'red' // Màu chữ
+                        });
                     }
                 }).on('change', function (event) {
                     event.preventDefault();
@@ -114,14 +118,14 @@
                     var _freezeMonthValue = parseInt($("input[name='" + _freezeMonthName + "']").val());
 
                     let [day, month, year] = this.value.split('/');
-                    const toDate = new Date(+year, +month - 1, +day)    ;                                                        
+                    const toDate = new Date(+year, +month - 1, +day);
                     var oneDay = new addMonths(toDate, _freezeMonthValue);
                     $("input[name='" + _expireDateName + "']").val($.datepicker.formatDate('dd/mm/yy', oneDay));
                     $("input[name='" + _expireDateName + "']").css({
                         'font-size': '13px', // Cỡ chữ
                         'color': 'red' // Màu chữ
                     });
-                });                
+                });
 
                 $(".cssDate2").datepicker({
                     dateFormat: 'dd/mm/yy',
@@ -145,7 +149,7 @@
                             'color': 'red' // Màu chữ
                         });
                     }
-                }); 
+                });
             }
         </script>
     </head>
@@ -301,7 +305,7 @@
 
                             </td>  
                             <td style="width: 80px;background: #f2f2f2">
-     
+
                                 <input type="text" value="<s:property  value="D14" />" style="background: #f2f2f2; color: #000;font-size: 13px"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D14" readonly="true" id="D14_<s:property  value="%{#rowstatus.index}" />"
                                        class="number STT2" onfocus="this.select()"/>
