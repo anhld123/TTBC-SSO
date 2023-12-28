@@ -233,10 +233,11 @@
                                 <input type="hidden" value="<s:property  value="D12" />" id="D12_<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D12"/>
                             </td>                             
-                             <td style="background: #f2f2f2; text-align: center; width:120px;"><s:property value="D13"/>
-                                    <input type="hidden" value="<s:property  value="D13" />"  id="D13_<s:property  value="%{#rowstatus.index}" />"
-                                           name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D13"/>
-                                </td>  
+                              <td style="background: #ffffff; text-align: center; width:120px;">
+                                <input type="text" value="<s:property  value="D13" />" class="cssDate" style="font-size: 13px;width: 75px"
+                                       title="<s:property  value="D3" /> - <s:property  value="D5" />" id="D13_<s:property  value="%{#rowstatus.index}" />"
+                                       name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D13"/>
+                            </td>    
                               <td style="width: 80px;background: #f2f2f2">
                                 <input type="text" value="<s:property  value="D14" />" style="background: #f2f2f2; color: #000;font-size: 13px"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D14" readonly="true" id="D14_<s:property  value="%{#rowstatus.index}" />"
