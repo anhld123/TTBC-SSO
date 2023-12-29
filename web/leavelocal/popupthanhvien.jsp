@@ -208,7 +208,7 @@
                     buttonText: "icono",
                     changeMonth: true,
                     changeYear: true,
-                    yearRange: "c-100:c+0"
+                    yearRange: "c-50:c+1"
                 });
     }
 </script>

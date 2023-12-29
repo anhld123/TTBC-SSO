@@ -199,23 +199,18 @@
 
                 if (validateRequiredFields())
                     $("#" + khoa)[0].click();
-                if (khoa = 'BCQT_M05B_save')
+                if (khoa === 'BCQT_M05B_save' || khoa ==='BCQT_MS11A_save')
                 {
                     function saveData() {
                         return new Promise((resolve, reject) => {
                             bsubmit = true;
                             setTimeout(resolve, 1);
+
                         });
                     }
-                    
                     saveData().then(onLoadData);
                     alert("Lưu dữ liệu thành công!")
-                } else
-                {
-                    $('#message_suc_err').html("<h2 style='color: red'>Lưu không thành công !</h2>");
-                    bsubmit = false;
-                    return;
-                }
+                } 
 //                alert(khoa);
             }
             // TRUNG BO SUNG PHAN THUYET MINH
