@@ -178,7 +178,7 @@
                     }
                 });
             }
-            
+
             var current_page = 1;// trang bắt đầu 
             var records_per_page = 10; // số dòng
             var l = document.getElementById("subTable").rows.length;
@@ -298,9 +298,16 @@
                     <input type="hidden" id="<s:property  value="sKey" />" 
                            name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
                 </s:iterator>
+                <br>
                 <div id="divTitle">
-                    QUẢN LÝ NỢ KHOANH            
-                </div>           
+                    QUẢN LÝ NỢ KHOANH 
+
+                </div>    
+                Chọn trang <input style="border-top-style: hidden; border-left-style: hidden; border-right-style: hidden " class="STT1" type="number" id="pageInput" min="1" max="numPages()"/>
+                <a onclick="goToPage()" href='#' id ="btn_go">Go</a>
+                <a onclick="nextPage()" href='#' id="btn_next">&#8921;</a>
+                Trang <span id="page"></span>
+                <a onclick="prevPage()" href='#' id="btn_prev">&#8920;</a> 
                 <div id="divDonvitinh">
                     Đơn vị tính: Đồng
                 </div>
@@ -404,12 +411,12 @@
                                        id="D7_<s:property  value='%{#rowstatus.index}' />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="STT6 D0 sstyle"/>
                             </td>
-                            <td>
+                            <td class="D0">
                                 <input type="text" value="<s:property  value="D8" />" style="width: 80px;"
                                        id="D8_<s:property  value='%{#rowstatus.index}' />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="number sstyle"/>
                             </td>
-                            <td>
+                            <td class="D0">
                                 <input type="text" value="<s:property  value="D9" />" style="width: 80px;"
                                        id="D9_<s:property  value='%{#rowstatus.index}' />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="number sstyle"/>
@@ -455,12 +462,7 @@
                             </tr>
                     </s:iterator>
                 </table>
-                <br/>
-                <input class="STT1" type="number" id="pageInput" min="1" max="numPages()" />
-                <button onclick="goToPage()">Go</button>
-                <a onclick="nextPage()" href='#' id="btn_next">Next</a>
-                Trang <span id="page"></span>
-                <a onclick="prevPage()" href='#' id="btn_prev">Prev</a>               
+
 
             </div>
             <sj:submit id="QLNK_2023_save" name="QLNK_2023_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
@@ -484,7 +486,7 @@
                     }
                 });
             });
-               function initTable1()
+            function initTable1()
             {
                 nextPage();
                 prevPage();
