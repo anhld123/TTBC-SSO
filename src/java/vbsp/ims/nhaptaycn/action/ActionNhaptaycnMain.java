@@ -799,7 +799,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
 //                return "LEAVELOCAL";
             }
-
+           
 //            if (this.khoa_nhaptaycn.equals("GQVL_01")) {
 //                System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
 //                //Lấy danh sách Pos theo User đăng nhập
@@ -850,7 +850,14 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 }
                 return "return-cic";
             }
-
+            
+             if (this.khoa_nhaptaycn.equals("QLNK_2023")) {
+                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));
+                setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
+                return "QLNK_2023";
+//                return "LEAVELOCAL";
+            }
+             
             if (this.khoa_nhaptaycn.equals("KTTC_QSDD_01")) {
                 System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
                 //Lấy danh sách Pos theo User đăng nhập

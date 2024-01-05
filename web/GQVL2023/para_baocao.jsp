@@ -94,7 +94,7 @@
 
             #containParm{
                 width: 84%;
-                height: 500px;
+                height: 450px;
                 padding-left: 5px;
                 float: left;
                 overflow-x: scroll;
@@ -178,6 +178,7 @@
                 padding-bottom: 0px;
                 padding-top: 0px;
             }
+
         </style>
         <script>
             var bsubmit = false;
@@ -185,106 +186,71 @@
                 $(".NGAY_SL").css({"width": "80px"});
             });
 
-            function getDaysOfMonth(month, year) {
-                switch (month) {
-                    case 1:
-                        return 31;
-                    case 2:
-                        if (year % 4 === 0)
-                            return 29;
-                        else
-                            return 28;
-                    case 3:
-                        return 31;
-                    case 4:
-                        return 30;
-                    case 5:
-                        return 31;
-                    case 6:
-                        return 30;
-                    case 7:
-                        return 31;
-                    case 8:
-                        return 31;
-                    case 9:
-                        return 30;
-                    case 10:
-                        return 31;
-                    case 11:
-                        return 30;
-                    case 12:
-                        return 31;
-                }
+            function onLoadData() {
+                $('#message_suc_err').empty();
+                $('#divExportReport').empty();
+                $('#divExportReportLink').empty();
+                $("#loadData")[0].click();
+                // Thực hiện lần click thứ hai sau 100ms
+//                setTimeout(function () {
+//                    $("#loadData")[0].click();
+//                }, 0, 00001);
+                bsubmit = true;
             }
-            ;
-
-            function onLoadData()
-            {
-                var ngay_bc = $("#ngay_bc_DATE").val();
-//                alert(ngay_bc);
-                var lv_day = parseInt(ngay_bc.substr(0, 2));
-                var lv_month = parseInt(ngay_bc.substr(3, 2));
-                var lv_year = parseInt(ngay_bc.substr(6, 4));
-                if (lv_day == getDaysOfMonth(lv_month, lv_year)) {
-//                    var r = confirm("Bạn có thật sự muốn nhập số liệu tháng này, tiếp tục  không ? OK : Đồng ý, Cancel : Hủy bỏ");
-//                    if (r == true) {
-                    $('#message_suc_err').empty();
-                    $('#divExportReport').empty();
-                    $('#divExportReportLink').empty();
 
 
-                    $("#loadData")[0].click();
-                    bsubmit = true;
-//                    }
-
-                } else
-                {
-                    alert("Vui lòng chọn đúng quý báo cáo.");
-                }
-//                return true;
-            }
-            function onSaveData()
-            {
+            function onSaveData() {
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
-//                var poscd = getposfromtreecheck();
-//                alert(poscd);
-//                if(poscd === '' || poscd.length ===0)
-//                {
-//                    $('#message_suc_err').html("<h2 style='color: red'>Bạn đã chốt số liệu, vui lòng chọn Cập nhật hạch toán GL !</h2>");
-//                    return;
-//                }
-                var khoa = $("#khoa_traiphieucp").val() + "_save";
-//                alert(khoa);
-                if (!bsubmit)
-                {
-//                    alert('Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !');
-                    $('#message_suc_err').html("<h2 style='color: red'>Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !</h2>");
+                var poscd = getposfromtreecheck();
+                var khoa = $("#khoa_nhaptaycn").val() + "_save";
+                let checkedCount = countCheckedItem();
+                if (checkedCount === 0) {
+                    $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Bạn chưa chọn bản ghi để lưu!</h>");
                     return;
+                } else {
+                    let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
+                    if (aCheck) {
+                        var table = document.getElementById("subTable");
+                        var rowcount = table.rows.length;
+                        for (var i = 0; i < rowcount; i++) {
+                            try {
+                                var check_box = document.getElementById('check' + i).checked;
+                                var D10 = document.getElementById('D10_' + i).value;
+                                var D19 = document.getElementById('D19_' + i).value;
+                                if (D19 !== "02" && D19 !== "06" && D19 !== "07")
+                                {
+                                    if (check_box !== false && D10.length < 5) {
+//                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
+                                        alert('Vui lòng nhập thông tin cột 11.');
+                                        document.getElementById("D10_" + i).style.backgroundColor = "#EEAFA6";
+                                        return;
+                                    }
+                                }
+                            } catch (e) {
+                            }
+                        }
+                    }
                 }
-
-// Trung bo sung phan validate data
                 if (typeof validateData !== 'undefined' && typeof validateData === 'function') {
-                    if (!validateData())
-                    {
+                    if (!validateData()) {
                         alert('vao day');
                         return false;
                     }
                 }
-
-
-                if (validateRequiredFields())
+                if (validateRequiredFields()) {
                     $("#" + khoa)[0].click();
-
-//                if (khoa === 'TRAIPHIEU_001_save')
-//                {
-//                    wait(2000);
-//                    onLoadData();
-//                }
+                }
             }
 
-
-
+            function countCheckedItem() {
+                let counter = 0;
+                $('.myCheckBox').each(function () {
+                    if (this.checked === true)
+                        counter++;
+                });
+                return counter;
+            }
             function wait(ms) {
                 var start = new Date().getTime();
                 var end = start;
@@ -297,13 +263,9 @@
             {
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
-
                 $("#idUpExcel")[0].click();
                 bsubmit = true;
             }
-
-
-
 
             // TRUNG BO SUNG PHAN THUYET MINH
 
@@ -336,12 +298,11 @@
 
             //Disable enter key form submit            
             document.onkeypress = stopRKey;
-
             function getposfromtreecheck()
             {
 
                 var pos_cd = '';
-                var idform = 'id_' + '<s:property value="khoa_traiphieucp"/>';
+                var idform = 'id_' + '<s:property value="khoa_nhaptaycn"/>';
                 var element = document.forms[idform].elements;
 //                 alert('bat dau goi submit idform='+idform);
                 var i = element.length;
@@ -386,7 +347,7 @@
                             return false;
                         }
                         //Neu la kieu so --> Kiem tra xem kieu nhap co < 9999999999
-                        if (parseFloat(value) > 999999999999999) {
+                        if (parseFloat(value) > 999999999999) {
                             result = false;
                             //Dua ra canh bao
                             $("#message_suc_err").html('<span style="color:red"><h2><span style="font-weight: bold; color">Thông báo:</span>  Giá trị bạn nhập vượt quá giới hạn!</h2></span>');
@@ -401,17 +362,8 @@
 
             function openClick()
             {
-//                $('#divExportReport').empty();
                 var khoa = $("#khoa").val() + "_open";
-//                alert()
-//                if (!bsubmit)
-//                {
-//                    alert('Bạn phải tải dữ liệu và chọn PGD thì mới mở khóa được !');
-////                    $('#divExportReport').html("<h2 style='color: red'>Bạn phải tải dữ liệu và chọn PGD thì mới mở khóa được !</h2>");
-//                    return;
-//                }
-
-                var idform = 'idform_open_' + '<s:property value="khoa_traiphieucp"/>';
+                var idform = 'idform_open_' + '<s:property value="khoa_nhaptaycn"/>';
                 if ($('#' + idform + ' input:checkbox:checked').length > 0)
                 {
                     $("#" + khoa)[0].click();
@@ -427,6 +379,7 @@
                 var var2, vartxt, selected;
                 $("#mato").children().remove().end();
                 $("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
+                $("#mato").prepend("<option value='000000_NOGROUP' " + selected + "> NOGROUP -> Trực tiếp</option>");
                 $("#mato_data > option").each(function () {
                     var2 = $(this).val().substr(0, 6);
                     if (val.trim() == var2.trim()) {
@@ -434,130 +387,130 @@
                         $("#mato").prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
                     }
                 });
-
                 $("#mato").html($("#mato option").sort(function (a, b) {
                     return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
                 }));
+//                document.getElementById("labelPageNumber").style.visibility = "hidden";
+//                document.getElementById("pageNumber").style.visibility = "hidden";
             }
             ;
+            function reLoadValueMaTo(val) {
+//                if (val == "000000_NOGROUP")
+//                {
+//                    document.getElementById("labelPageNumber").style.visibility = "visible";
+//                    document.getElementById("pageNumber").style.visibility = "visible";
+//                } else
+//                {
+//                    document.getElementById("labelPageNumber").style.visibility = "hidden";
+//                    document.getElementById("pageNumber").style.visibility = "hidden";
+//                }
 
-            function callDirectLink(link) {
-                var ht = screen.availHeight;
-                var wt = screen.availWidth;
-
-                var resize = window.open(link
-                        + "random=" + Math.random(),
-                        "IMS_REPORTS_FRM2", "height=" + ht + ",width=" + wt
-                        + ",left=0,top=0,directories=no,status=no,menubar=no,\n\
-        personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
-
-                if (navigator.userAgent.indexOf('Chrome') !== -1
-                        && parseFloat(
-                                navigator.userAgent.substring(
-                                        navigator.userAgent.indexOf('Chrome') + 7
-                                        ).split(' ')[0]) >= 15) {
-                    resize.resizeBy(wt, ht);
-                } else {
-                    resize.resizeTo(wt, ht);
-                }
-                resize.moveTo(wt, ht);
-                resize.focus();
             }
-
+            ;
         </script>
     </head>
     <!--new java.util.Date()-->
     <body>
         <div id="container" >
-            <s:form id="id_%{khoa_traiphieucp}" name="name_%{khoa_traiphieucp}" action="%{khoa_traiphieucp}" theme="simple">
-                <s:hidden name="khoa_traiphieucp" id="khoa"/>
+            <s:form id="id_%{khoa_nhaptaycn}" name="name_%{khoa_nhaptaycn}" action="%{khoa_nhaptaycn}" theme="simple">
+                <s:hidden name="khoa_bcqt" id="khoa"/>
                 <s:hidden name="ReportDate" id="ReportDate" value=""/>
                 <s:hidden name="Grade" id="Grade"/>
                 <s:hidden name="UserName" id="UserName"/>
+                <fieldset style="display: flex; align-content: space-between;justify-content: space-between;" class="navParam3">
+                    <legend><b>Tìm kiếm dữ liệu</b></legend>  
+                    <table>
+                        <tr style="height: 30px;">
+                            <td>Ngày BC</td>
+                            <td>
+                                <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
+                                               placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
+                            </td>
+                            <td >&nbsp;&nbsp;&nbsp;Mã xã:</td>
+                            <td  >                                               
+                                <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
+                                           onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td >Mã tổ:</td>
+                                <td>
+                                <s:select  style="width: 180px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
+                                <s:select  
+                                    id="mato_data"
+                                    list="lstMato" 
+                                    listKey="sKey"
+                                    listValue="sDesc"
+                                    headerKey="-1"
+                                    headerValue="--- Chọn ---"                                        
+                                    cssStyle="display:none;">
+                                </s:select>
+                            </td>
 
-                <div id="navParamUp" >     
-                    <div id="navParam3">     
-                        <table>
-                            <tr style="height: 30px;">
-                                <td>Ngày BC</td>
-                                <td>
-                                    <sj:datepicker name="ngay_bc_DATE" value="%{'28/02/2023'}"  id="ngay_bc_DATE"
-                                                   placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
-                                </td>
-                                <td></td>
-                                <td>
-                                    <p class="normal_font">Chức vụ:</p>
-                                </td>
-                                <td>
-                                    <select style="width: 100px;" name="sanpham" id="sanpham">
-                                        <option value="0">  Tất cả  </option>
-                                        <option value="1410">Giám đốc</option>
-                                        <option value="1411">Phó Giám đốc</option> 
-                                        <option value="1410">Trưởng phòng</option>
-                                        <option value="1411">Phó Trưởng phòng</option>    
-                                        <option value="1410">Nhân viên</option>                                         
-                                    </select>
-                                </td>
-                                <td></td>
-                                <td>
-                                  <p class="normal_font">Phòng ban:</p>
-                                </td>
-                                <td>
-                                    <select  style="width: 100px;" name="kyhan" id="kyhan">
-                                        <option value="0">  Tất cả  </option>
-                                        <option value="1514">Ban Giám đốc</option>
-                                        <option value="1526">P. Tổng hợp</option>
-                                        <option value="1534">P. Kế toán</option>
-                                        <option value="1561">P.Phần mềm</option>
-                                        <option value="1562">P.Hệ thống</option>
-                                        <option value="1563">P.Vận hành</option>
-                                        <option value="1564">P.Hạ tầng</option>
-                                        <option value="1565">P.An ninh</option>            
-                                    </select>
-                                </td> 
-                                <td >                                        
-                                    <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
-                                               onBeforeTopics="beforediv_data"
-                                               onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                                    <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
-     
-                                    <s:if test="Grade.equalsIgnoreCase('1')">
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu số liệu"/>
+
+                            <td colspan="2" style="text-align: right">                                        
+                                <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                                           onBeforeTopics="beforediv_data"
+                                           onCompleteTopics="completediv_data" cssStyle="display:none"/>
+                                <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
+                                <s:if test="Grade.equalsIgnoreCase('1')">
+                                    <s:if test="chotCic.equalsIgnoreCase('1')">
+                                        <font style="color: red"> PGD đã được chốt số liệu
                                     </s:if>
                                     <s:else>
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu số liệu"/>
+                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> 
                                     </s:else>    
 
-
-
-                                </td>
-
-                                    <td  colspan="2">
-                                        <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
-                                            <img id="loadingImage" src='img/loading.gif' border='0' >
-                                        </div>
-                                    </td>
-                                    <td colspan="2">
-                                        <div id="message_suc_err"> 
-                                        </div>
-                                    </td>
-                                </tr>  
-                            </table>    
-                        </div>
-                    </div>
-
-                
+                                </s:if>
+                                <s:else>
+                                    <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/>
+                                </s:else>    
+                            </td>   
+                            <td>
+                                <div id="message_suc_err"> 
+                                </div>
+                            </td>  
+                        </tr>  
+                    </table>    
+                </fieldset>
+                <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
+                    <img id="loadingImage" src='img/loading.gif' border='0' >
+                </div>   
+                <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QLNK_2023')">
                     <div id="containParm_full" align="center">
                         <div id="divExportReport"></div>
                         <div align="right"  id="divExportReportLink"></div>
                     </div>
-                                   
+                </s:if>
+                <s:else>
+                    <div id="containTree">
+                        <sjt:tree
+                            name="poscd"
+                            id="treeDynamicCheckboxes"
+                            jstreetheme="apple"
+                            rootNode="nodes_pos"
+                            childCollectionProperty="children"
+                            nodeTitleProperty="title"
+                            nodeIdProperty="id"
+                            openAllOnLoad="true"
+                            checkbox="true"
+                            showThemeDots="false"
+                            showThemeIcons="true" 
+                            />
+                    </div>
+                    <div id="containParm" align="center">
+                        <div id="divExportReport"></div>
+                        <div id="divExportReport"></div>
+                    </div>
+                </s:else>                     
 
             </s:form>
         </div>
         <script>
-
-
+            $(document).ready(function () {
+                document.getElementById('ngay_bc_DATE').value = "31/12/2023";
+            })
+//            $('#ngay_bc_DATE').datepicker('disable');
+//            document.getElementById("labelPageNumber").style.visibility = "hidden";
+//            document.getElementById("pageNumber").style.visibility = "hidden";
         </script>
     </div>
 </body>
