@@ -305,9 +305,9 @@
                 </div>    
                 Chọn trang <input style="border-top-style: hidden; border-left-style: hidden; border-right-style: hidden " class="STT1" type="number" id="pageInput" min="1" max="numPages()"/>
                 <a onclick="goToPage()" href='#' id ="btn_go">Go</a>
-                <a onclick="nextPage()" href='#' id="btn_next">&#8921;</a>
-                Trang <span id="page"></span>
                 <a onclick="prevPage()" href='#' id="btn_prev">&#8920;</a> 
+                Trang <span id="page"></span>
+                <a onclick="nextPage()" href='#' id="btn_next">&#8921;</a>
                 <div id="divDonvitinh">
                     Đơn vị tính: Đồng
                 </div>

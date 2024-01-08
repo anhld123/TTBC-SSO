@@ -426,6 +426,9 @@
                                 <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
                                                placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
                             </td>
+                             <td >&nbsp;&nbsp;&nbsp;Món vay:</td>
+                             <td  ><input id="mamon" placeholder="Nhập mã món vay"/>
+                                </td>
                             <td >&nbsp;&nbsp;&nbsp;Mã xã:</td>
                             <td  >                                               
                                 <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
@@ -444,8 +447,6 @@
                                     cssStyle="display:none;">
                                 </s:select>
                             </td>
-
-
                             <td colspan="2" style="text-align: right">                                        
                                 <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                            onBeforeTopics="beforediv_data"

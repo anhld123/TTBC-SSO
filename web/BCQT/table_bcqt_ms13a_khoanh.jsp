@@ -72,11 +72,11 @@
             function setCssStyle() {
                 $(".cssDate").datepicker({
                     dateFormat: 'dd/mm/yy',
-                    showOn: "button",
-                    buttonImage: "img/icon-ui_datepicker.png",
-                    buttonImageOnly: true,
-                    showButtonPanel: true,
-                    buttonText: "icono",
+//                    showOn: "button",
+//                    buttonImage: "img/icon-ui_datepicker.png",
+//                    buttonImageOnly: true,
+//                    showButtonPanel: true,
+//                    buttonText: "icono",
                     changeMonth: true,
                     changeYear: true,
                     yearRange: "c-100:c+0",
@@ -273,22 +273,13 @@
                                            name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D9"/>
                                 </td> 
                             </s:else>
-                            <s:if test="D10 == null || D10.trim().isEmpty()">
-                                <td style="width: 80px;background: #ffffff">
+                                <td style="width: 120px;background: #ffffff">
                                     <input type="text" value="<s:property  value="D10" />" style="font-size: 13px" id="D10_<s:property  value="%{#rowstatus.index}" />"
                                            title="<s:property  value="D3" /> - <s:property  value="D5" />"
                                            name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D10"/>
-                                </td>
-                            </s:if>
-                            <s:else>  
-                                <td style="background: #f2f2f2; text-align: center; width:80px;"><s:property value="D10"/>
-                                    <input type="hidden" value="<s:property  value="D10" />" 
-                                           name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D10"/>
-                                </td>  
-
-                            </s:else>
-                            <td style="background: #ffffff; text-align: center; width:150px;">
-                                <input type="text" value="<s:property  value="D11" />" class="cssDate" style="font-size: 13px;width: 85px"
+                                </td> 
+                                <td style="background: #ffffff; text-align: center;width:120px;">
+                                <input type="text" value="<s:property  value="D11" />" class="cssDate" style="font-size: 13px"
                                        title="<s:property  value="D3" /> - <s:property  value="D5" />" id="D11_<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D11"/>
                             </td>  
@@ -298,8 +289,7 @@
                             </td>                             
 
                             <td style="background: #f2f2f2; text-align: center; width:120px;">
-
-                                <input type="text" value="<s:property  value="D13" />" style="font-size: 13px" title="<s:property  value="D3" /> - <s:property  value="D5" />"
+                                <input type="text" value="<s:property  value="D13" />" style="font-size: 13px"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D13" id="D13_<s:property  value="%{#rowstatus.index}" />"
                                        class="cssDate2" onfocus="this.select()"/>   
 
@@ -316,13 +306,13 @@
                                        id="D15_<s:property  value="%{#rowstatus.index}" />"
                                        class="number STT2" onfocus="this.select()"/>
                             </td>   
-                            <td style="width: 80px;background: #f2f2f2">
-                                <input type="text" value="<s:property  value="D16" />" style="background: #f2f2f2; color: #000;font-size: 13px"
-                                       name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D16" readonly="true" id="D16_<s:property  value="%{#rowstatus.index}" />"
+                             <td style="width: 80px;background: #ffffff">
+                                <input type="text" value="<s:property  value="D16" />" style="font-size: 13px"
+                                       name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D16" id="D16_<s:property  value="%{#rowstatus.index}" />"
                                        class="number STT2" onfocus="this.select()"/>
-                            </td>  
+                            </td> 
                             <td style="width: 80px;background: #ffffff">
-                                <input type="text" value="<s:property  value="D17" />" style="font-size: 13px" title="<s:property  value="D3" /> - <s:property  value="D5" />"
+                                <input type="text" value="<s:property  value="D17" />" style="font-size: 13px"
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D17" id="D17_<s:property  value="%{#rowstatus.index}" />"
                                        class="number STT2" onfocus="this.select()"/>
                             </td>
@@ -332,12 +322,12 @@
                                        class="number STT2" onfocus="this.select()"/>
                             </td>  
                             <td style="width: 80px;background: #ffffff">
-                                <input type="text" value="<s:property  value="D19" />" style="font-size: 13px" title="<s:property  value="D3" /> - <s:property  value="D5" />"
+                                <input type="text" value="<s:property  value="D19" />" style="font-size: 13px" 
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D19" id="D19_<s:property  value="%{#rowstatus.index}" />"
                                        class="number STT2" onfocus="this.select()"/>
                             </td>
                             <td style="width: 80px;background: #ffffff">
-                                <input type="text" value="<s:property  value="D20" />" style="font-size: 13px" title="<s:property  value="D3" /> - <s:property  value="D5" />"
+                                <input type="text" value="<s:property  value="D20" />" style="font-size: 13px" 
                                        name="lstDulieuNtMs13a[<s:property  value="%{#rowstatus.index}" />].D20" id="D20_<s:property  value="%{#rowstatus.index}" />"
                                        class="number STT2" onfocus="this.select()"/>
                             </td>
