@@ -69,7 +69,7 @@ public class CIC_001 extends ActionNghiquyet11cpMain
                 } catch (Exception e) {
                     setChotsl("0");
                 }
-                if (hmParameter.get("maxa").toString().equals("000000")) {
+                if (hmParameter.get("maxa").toString().equals("000000") && !pos_cd_username.equals("000101")) {
                     addActionError("Vui lòng chọn xã để rà soát số liệu.");;
                     return ERROR;
                 }
