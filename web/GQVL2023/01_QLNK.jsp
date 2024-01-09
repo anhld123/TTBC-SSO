@@ -99,14 +99,14 @@
             function setCssStyle() {
                 $(".cssDate").datepicker({
                     dateFormat: 'dd/mm/yy',
-                    showOn: "button",
-                    buttonImage: "img/icon-ui_datepicker.png",
-                    buttonImageOnly: true,
-                    showButtonPanel: true,
-                    buttonText: "icono",
+//                    showOn: "button",
+//                    buttonImage: "img/icon-ui_datepicker.png",
+//                    buttonImageOnly: true,
+//                    showButtonPanel: true,
+//                    buttonText: "icono",
                     changeMonth: true,
                     changeYear: true,
-                    yearRange: "c-100:c+0",
+                    yearRange: "c-50:c+50",
                     beforeShow: function (input, inst) {
                         if ($(input).is(':disabled')) {
                             return false; // Ngăn chặn datepicker hiển thị nếu input bị disabled

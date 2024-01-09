@@ -113,7 +113,6 @@ public class QLNK_2023 extends ActionNhaptaycnMain
                 row.setKIEUIN(item.getStyle());
                 lstDulieuNt.add(row);
             }
-
             if (conn != null) {
                 conn.close();
             }
