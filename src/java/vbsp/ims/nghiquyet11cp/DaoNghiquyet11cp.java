@@ -45,6 +45,7 @@ import vbsp.ims.nhaptaycn.action.QT_DULIEU_NT_50;
 import vbsp.ims.query.ImsFillParaMeter;
 import vbsp.ims.query.ImsPlSqlQuery;
 import vbsp.ims.report.fast.ListValue;
+import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.NQ11cpModel;
 
@@ -1542,5 +1543,9 @@ public class DaoNghiquyet11cp {
 //        if (conn != null) {
 //            conn.close();
 //        }
+    }
+
+    public boolean saveQLNK2023(String _qlnk, String UserName, String Grade, String toString, ArrayList<DuLieuNTRow> _arrayList, String pos_cd_username) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -440,7 +440,7 @@
                                                placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
                             </td>
                             <td >&nbsp;&nbsp;&nbsp;Món vay:</td>
-                            <td><input type="text" id="monvay" name="monvay" placeholder="Nhập mã món vay"/>
+                            <td><input id="txtSoku" name="txtSoku" placeholder="Nhập mã món vay"/>
                             </td>
                             <td >&nbsp;&nbsp;&nbsp;Mã xã:</td>
                             <td  >                                               

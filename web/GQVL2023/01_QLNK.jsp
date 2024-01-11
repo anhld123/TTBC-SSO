@@ -389,9 +389,10 @@
                                 </td>
                                 <td class="D0 STT1 sstyle" style="background: #ddd"> <s:property value="%{#rowstatus.index + 1}" /> 
                                 <s:if test ="D26.equalsIgnoreCase('1')">
-                                  <input type="hidden" value="<s:property  value="D26" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26"
-                                       id="D26_<s:property  value='%{#rowstatus.index}' />"/>
+                                    <input type="hidden" value="<s:property  value="D26" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26"
+                                           id="D26_<s:property  value='%{#rowstatus.index}' />"/>
                                 </s:if>
+                                <input type="hidden" value="<s:property  value="THUTU" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU"/>                             
                                 <input type="hidden" value="<s:property  value="MA" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/>
                                 <input type="hidden" value="<s:property  value="D19" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19"
                                        id="D19_<s:property  value='%{#rowstatus.index}' />"/>
