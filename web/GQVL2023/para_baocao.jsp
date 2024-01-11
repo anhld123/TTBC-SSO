@@ -241,6 +241,19 @@
                 if (validateRequiredFields()) {
                     $("#" + khoa)[0].click();
                 }
+                if (khoa === 'QLNK_2023_save')
+                {
+                    function saveData() {
+                        return new Promise((resolve, reject) => {
+                            bsubmit = true;
+                            setTimeout(resolve, 1);
+
+                        });
+                    }
+                    saveData().then(onLoadData);
+                     $('#message_suc_err').html("<h style='color: green; font-size: 13px ; font-weight: bold'>Bạn đã lưu dữ liệu thành công</h>");
+                  
+                }
             }
 
             function countCheckedItem() {
@@ -426,9 +439,9 @@
                                 <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
                                                placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
                             </td>
-                             <td >&nbsp;&nbsp;&nbsp;Món vay:</td>
-                                 <td><input type="text" id="monvay" name="monvay" placeholder="Nhập mã món vay"/>
-                                </td>
+                            <td >&nbsp;&nbsp;&nbsp;Món vay:</td>
+                            <td><input type="text" id="monvay" name="monvay" placeholder="Nhập mã món vay"/>
+                            </td>
                             <td >&nbsp;&nbsp;&nbsp;Mã xã:</td>
                             <td  >                                               
                                 <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"

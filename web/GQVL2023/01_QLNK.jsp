@@ -180,7 +180,7 @@
             }
 
             var current_page = 1;// trang bắt đầu 
-            var records_per_page = 10; // số dòng
+            var records_per_page = 20; // số dòng
             var l = document.getElementById("subTable").rows.length;
             function prevPage()
             {
@@ -270,8 +270,18 @@
                 for (var i = 0; i < rowcount; i++)
                 {
                     try {
+                        var D26 = document.getElementById('D26_' + i).checked;
+                        if (D26 === true)
+                        {
+                            document.getElementById("D26_" + i).disabled = true;
+                            document.getElementById("check" + i).disabled = true;
+                        } else
+                        {
+                            document.getElementById("D26_" + i).disabled = false;
+                            document.getElementById("check" + i).disabled = false;
+                        }
                         var D19 = document.getElementById('D19_' + i).value;
-                        if (D19 == "06" || D19 == "07" || D19 === "02")
+                        if (D19 === "06" || D19 === "07" || D19 === "02")
                         {
                             document.getElementById("D10_" + i).disabled = true;
                             document.getElementById("D10_" + i).style.color = "#ddd";
@@ -292,7 +302,7 @@
         </script>        
     </head>
     <body>
-        <div style="overflow:scroll; width: 98vw;">  
+        <div style="overflow:scroll; width: 98vw;height: 400px;">  
             <s:form id="id_sv_%{khoa_nhaptaycn}" action="SAVE_QLNK_2023" theme="simple">
                 <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
                     <input type="hidden" id="<s:property  value="sKey" />" 
@@ -316,6 +326,7 @@
                         <th  rowspan="3" class="D0 STT1 ">
                             <input type="checkbox" id ="select-all"/>
                         </th> 
+                        <th rowspan="3" class="STT1">Phê duyệt</th> 
                         <th rowspan="3" class="STT1">S<br>T<br>T</th>                           
                         <th rowspan="3" class="STT4">Họ và tên</th>  
                         <th rowspan="3" class="STT2">Mã món vay</th>  
@@ -344,6 +355,7 @@
                     </tr>
                     <tr style="font-style: italic;">
                         <th style="color: #000; font-style: italic; font-size: xx-small;"></th>
+                        <th><input type="checkbox" id ="select-all1"/></th> 
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
@@ -367,13 +379,33 @@
                         <tr id="tablefix"> 
                             <td class="D0">
                                 <input id="check<s:property  value='%{#rowstatus.index}' />" type="checkbox" class="myCheckBox sstyle"
-                                       name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D18">       
+                                       name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D18"/>       
                             </td>
-                            <td class="D0 STT1 sstyle" style="background: #ddd"> <s:property value="%{#rowstatus.index + 1}" /> 
-                                <input type="hidden" value="<s:property  value="MA" />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/>
-                                <input type="hidden" value="<s:property  value="D19" />" id="D19_<s:property  value='%{#rowstatus.index}' />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19"/>
+                            <td class="D0">
+                                <input id="D26_<s:property  value='%{#rowstatus.index}' />" type="checkbox" class="myCheckBox1 sstyle"
+                                       name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D26" 
+                                       <s:if test="D26.equalsIgnoreCase('1')"> checked title="Số liệu đã phê duyệt"</s:if> 
+                                           onclick="$(this).val(this.checked ? 1 : 0)"/>
+                                </td>
+                                <td class="D0 STT1 sstyle" style="background: #ddd"> <s:property value="%{#rowstatus.index + 1}" /> 
+                                <s:if test ="D26.equalsIgnoreCase('1')">
+                                  <input type="hidden" value="<s:property  value="D26" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26"
+                                       id="D26_<s:property  value='%{#rowstatus.index}' />"/>
+                                </s:if>
+                                <input type="hidden" value="<s:property  value="MA" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/>
+                                <input type="hidden" value="<s:property  value="D19" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19"
+                                       id="D19_<s:property  value='%{#rowstatus.index}' />"/>
+                                <input type="hidden" value="<s:property  value="D20" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20"/>
+                                <input type="hidden" value="<s:property  value="D21" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D21"/>
+                                <input type="hidden" value="<s:property  value="D22" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D22"/>
+                                <input type="hidden" value="<s:property  value="D23" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D23"/>
+                                <input type="hidden" value="<s:property  value="D24" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24"/>
+                                <input type="hidden" value="<s:property  value="D25" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25"/>
+                                <input type="hidden" value="<s:property  value="D27" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27"/>
+                                <input type="hidden" value="<s:property  value="D28" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28"/>
+                                <input type="hidden" value="<s:property  value="D29" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29"/>
+                                <input type="hidden" value="<s:property  value="D30" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30"/>
+
                             </td>
                             <td style="background: #ddd; width: 100px"> <s:property  value="D1" />              
                                 <input type="hidden" value="<s:property  value="D1" />" readonly="true"
@@ -472,20 +504,28 @@
         <script>
             $(function () {
                 $('#select-all').click(function (event) {
-                    if (this.checked) {
-                        // Iterate each checkbox
-                        $('.myCheckBox').each(function () {
-                            this.checked = true;
-                            this.value = '1';
-                        });
-                    } else {
-                        $('.myCheckBox').each(function () {
-                            this.checked = false;
-                            this.value = '0';
-                        });
-                    }
+                    // Iterate each checkbox
+                    $('.myCheckBox').each(function () {
+                        if (!this.disabled) {
+                            this.checked = $('#select-all').prop('checked');
+                            this.value = this.checked ? '1' : '0';
+                        }
+                    });
                 });
             });
+
+            $(function () {
+                $('#select-all1').click(function (event) {
+                    // Iterate each checkbox
+                    $('.myCheckBox1').each(function () {
+                        if (!this.disabled) {
+                            this.checked = $('#select-all1').prop('checked');
+                            this.value = this.checked ? '1' : '0';
+                        }
+                    });
+                });
+            });
+
             function initTable1()
             {
                 nextPage();
