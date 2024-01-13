@@ -1615,10 +1615,10 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posCode", posCode)
                 .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
-                .queryParam("customerCode", customerCode)
-                .queryParam("groupId", groupId.equals("0000000") ? "" : groupId)
+                .queryParam("communeCode", customerCode)
+                .queryParam("groupId", groupId)
                 .queryParam("loanId", loanId)
-                .queryParam("defaultListFlag", defaultListFlag);
+                .queryParam("dataFlag", defaultListFlag);
 
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();

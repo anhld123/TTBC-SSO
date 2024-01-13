@@ -171,7 +171,7 @@ public class Service_GQVL2023 {
         try {
             final String _fromDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
             {
-                return _service.getDataQLNK( posCode, posFlag, _fromDate, customerCode,groupId,loanId, "1");
+                return _service.getDataQLNK( posCode, posFlag, _fromDate, customerCode,groupId,loanId,defaultListFlag);
             }
         } catch (Exception e) {
             return null;

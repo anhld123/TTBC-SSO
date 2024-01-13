@@ -261,15 +261,40 @@
             }
 
 
+            var totalRows = 0;
+            var table = document.getElementById("subTable");
+            var inputs = table.querySelectorAll('input[id^="D26_"]');
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].value === "1") {
+                    totalRows++;
+                }
+            }
+            document.getElementById('totalRowsFont').innerText = "(Số món phê duyệt: " + totalRows;
+
+
 
             function initTable()
             {
                 var table = document.getElementById("subTable");
+                var txtGetData = document.getElementById('txtGetData').value;
                 var rowcount = table.rows.length;
                 rowcount = rowcount > max_row ? rowcount : max_row;
                 for (var i = 0; i < rowcount; i++)
                 {
                     try {
+                        if (txtGetData === "1")
+                        {
+                            document.getElementById("D8_" + i).disabled = true;
+                            document.getElementById("D9_" + i).disabled = true;
+                            document.getElementById("D10_" + i).disabled = true;
+                            document.getElementById("D11_" + i).disabled = true;
+                            document.getElementById("D12_" + i).disabled = true;
+                            document.getElementById("D13_" + i).disabled = true;
+                            document.getElementById("D14_" + i).disabled = true;
+                            document.getElementById("D15_" + i).disabled = true;
+                            document.getElementById("D16_" + i).disabled = true;
+                            document.getElementById("D17_" + i).disabled = true;
+                        }
                         var D26 = document.getElementById('D26_' + i).checked;
                         if (D26 === true)
                         {
@@ -299,6 +324,7 @@
             window.onload = function () {
                 changePage(current_page);
             };
+
         </script>        
     </head>
     <body>
@@ -308,11 +334,14 @@
                     <input type="hidden" id="<s:property  value="sKey" />" 
                            name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
                 </s:iterator>
-                <br>
                 <div id="divTitle">
-                    QUẢN LÝ NỢ KHOANH 
-
-                </div>    
+                    <s:if test="txtGetData.equalsIgnoreCase('0')">
+                    QUẢN LÝ NỢ KHOANH <font id="totalRowsFont" style="color: red"></font><font style="color: red">/<s:property value="messagePage"/>)</font>
+                    </s:if>
+                    <s:else>
+                   DANH SÁCH MÓN NỢ KHOANH <font id="totalRowsFont" style="color: red"></font><font style="color: red">/<s:property value="messagePage"/>)</font>    
+                    </s:else>
+                    </div>
                 Chọn trang <input style="border-top-style: hidden; border-left-style: hidden; border-right-style: hidden " class="STT1" type="number" id="pageInput" min="1" max="numPages()"/>
                 <a onclick="goToPage()" href='#' id ="btn_go">Go</a>
                 <a onclick="prevPage()" href='#' id="btn_prev">&#8920;</a> 
@@ -355,143 +384,157 @@
                     </tr>
                     <tr style="font-style: italic;">
                         <th style="color: #000; font-style: italic; font-size: xx-small;"></th>
-                        <th><input type="checkbox" id ="select-all1"/></th> 
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(10)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(12)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(13)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(14)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(15)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(16)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(17)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(18)</th>
-                    </tr>
+                        <s:if test="txtGetData.equalsIgnoreCase('1')"><th></th></s:if>
+                        <s:else><th><input type="checkbox" id ="select-all1"/></th></s:else> 
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(10)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(12)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(13)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(14)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(15)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(16)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(17)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(18)</th>
+                        </tr>
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                         <tr id="tablefix"> 
                             <td class="D0">
                                 <input id="check<s:property  value='%{#rowstatus.index}' />" type="checkbox" class="myCheckBox sstyle"
                                        name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D18"/>       
                             </td>
+                            <s:if test="txtGetData.equalsIgnoreCase('1')"><td></td>
+                            <input type="hidden" value="<s:property  value="D8" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8"/>
+                            <input type="hidden" value="<s:property  value="D9" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9"/>
+                            <input type="hidden" value="<s:property  value="D10" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10"/>
+                            <input type="hidden" value="<s:property  value="D11" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11"/>
+                            <input type="hidden" value="<s:property  value="D12" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12"/>
+                            <input type="hidden" value="<s:property  value="D13" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13"/>
+                            <input type="hidden" value="<s:property  value="D14" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14"/>
+                            <input type="hidden" value="<s:property  value="D15" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15"/>
+                            <input type="hidden" value="<s:property  value="D16" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16"/>
+                            <input type="hidden" value="<s:property  value="D17" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17"/></s:if>
+                        <s:else>
                             <td class="D0">
                                 <input id="D26_<s:property  value='%{#rowstatus.index}' />" type="checkbox" class="myCheckBox1 sstyle"
                                        name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D26" 
                                        <s:if test="D26.equalsIgnoreCase('1')"> checked title="Số liệu đã phê duyệt"</s:if> 
                                            onclick="$(this).val(this.checked ? 1 : 0)"/>
-                                </td>
-                                <td class="D0 STT1 sstyle" style="background: #ddd"> <s:property value="%{#rowstatus.index + 1}" /> 
-                                <s:if test ="D26.equalsIgnoreCase('1')">
-                                    <input type="hidden" value="<s:property  value="D26" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26"
-                                           id="D26_<s:property  value='%{#rowstatus.index}' />"/>
-                                </s:if>
-                                <input type="hidden" value="<s:property  value="THUTU" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU"/>                             
-                                <input type="hidden" value="<s:property  value="MA" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/>
-                                <input type="hidden" value="<s:property  value="D19" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19"
-                                       id="D19_<s:property  value='%{#rowstatus.index}' />"/>
-                                <input type="hidden" value="<s:property  value="D20" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20"/>
-                                <input type="hidden" value="<s:property  value="D21" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D21"/>
-                                <input type="hidden" value="<s:property  value="D22" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D22"/>
-                                <input type="hidden" value="<s:property  value="D23" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D23"/>
-                                <input type="hidden" value="<s:property  value="D24" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24"/>
-                                <input type="hidden" value="<s:property  value="D25" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25"/>
-                                <input type="hidden" value="<s:property  value="D27" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27"/>
-                                <input type="hidden" value="<s:property  value="D28" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28"/>
-                                <input type="hidden" value="<s:property  value="D29" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29"/>
-                                <input type="hidden" value="<s:property  value="D30" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30"/>
+                                </td></s:else>
+                        <td class="D0 STT1 sstyle" style="background: #ddd"> <s:property value="%{#rowstatus.index + 1}" /> 
+                            <s:if test ="D26.equalsIgnoreCase('1')">
+                                <input type="hidden" value="<s:property  value="D26" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26"
+                                       id="D26_<s:property  value='%{#rowstatus.index}' />"/>
+                            </s:if>
+                            <input type="hidden" value="<s:property  value="MACN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN"/>                             
+                            <input type="hidden" value="<s:property  value="THUTU" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU"/>                             
+                            <input type="hidden" value="<s:property  value="MA" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/>
+                            <input type="hidden" value="<s:property  value="D19" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19"
+                                   id="D19_<s:property  value='%{#rowstatus.index}' />"/>
+                            <input type="hidden" value="<s:property  value="D20" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20"/>
+                            <input type="hidden" value="<s:property  value="D21" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D21"/>
+                            <input type="hidden" value="<s:property  value="D22" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D22"/>
+                            <input type="hidden" value="<s:property  value="D23" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D23"/>
+                            <input type="hidden" value="<s:property  value="D24" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24"/>
+                            <input type="hidden" value="<s:property  value="D25" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25"/>
+                            <input type="hidden" value="<s:property  value="D27" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27"/>
+                            <input type="hidden" value="<s:property  value="D28" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28"/>
+                            <input type="hidden" value="<s:property  value="D29" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29"/>
+                            <input type="hidden" value="<s:property  value="D30" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30"/>
 
-                            </td>
-                            <td style="background: #ddd; width: 100px"> <s:property  value="D1" />              
-                                <input type="hidden" value="<s:property  value="D1" />" readonly="true"
-                                       id="D1_<s:property  value='%{#rowstatus.index}' />" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="SOKU sstyle"/>
-                            </td>                                  
-                            <td style="background: #ddd; width: 100px"> <s:property  value="D2" />   
-                                <input type="hidden" value="<s:property  value="D2" />" readonly="true"
-                                       id="D2_<s:property  value='%{#rowstatus.index}' />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="D0 sstyle"/>
-                            </td>                                  
-                            <td style="background: #ddd">
-                                <input type="text" value="<s:property  value="D3" />" readonly="true"
-                                       id="D3_<s:property  value='%{#rowstatus.index}' />"
-                                       style="width: 80px; background: #ddd"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="STT5 number sstyle"/>
-                            </td>                                                                                                
-                            <td style="background: #ddd">
-                                <input type="text" value="<s:property  value="D4" />" readonly="true" style="background: #ddd"
-                                       id="D4_<s:property  value='%{#rowstatus.index}' />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="STT5 number sstyle"/>
-                            </td>
-                            <td style="background: #ddd">
-                                <input type="text" value="<s:property  value="D5" />" readonly="true" style="background: #ddd"
-                                       id="D5_<s:property  value='%{#rowstatus.index}' />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="STT5 number sstyle"/>
-                            </td>
-                            <td class="D0" style="background: #ddd">
-                                <input type="text" value="<s:property  value="D6" />" readonly="true" style="background: #ddd"
-                                       id="D6_<s:property  value='%{#rowstatus.index}' />" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="STT6 D0 sstyle"/>
-                            </td>
-                            <td class="D0" style="background: #ddd">
-                                <input type="text" value="<s:property  value="D7" />" readonly="true" style="background: #ddd"
-                                       id="D7_<s:property  value='%{#rowstatus.index}' />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="STT6 D0 sstyle"/>
-                            </td>
-                            <td class="D0">
-                                <input type="text" value="<s:property  value="D8" />" style="width: 80px;"
-                                       id="D8_<s:property  value='%{#rowstatus.index}' />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="number sstyle"/>
-                            </td>
-                            <td class="D0">
-                                <input type="text" value="<s:property  value="D9" />" style="width: 80px;"
-                                       id="D9_<s:property  value='%{#rowstatus.index}' />"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="number sstyle"/>
-                            </td>
-                            <td class="D0">
-                                <textarea  class="STT3 sstyle" placeholder="Nhập tối đa 200 ký tự" id="D10_<s:property  value='%{#rowstatus.index}' />" 
-                                           name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10"><s:property value='D10'/></textarea>
-                            </td>
-                            <td class="D0">
-                                <textarea  class="STT3 sstyle" placeholder="Nhập tối đa 200 ký tự" id="D11_<s:property  value='%{#rowstatus.index}' />" 
-                                           name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11"><s:property value='D11'/></textarea>
-                            </td>
-                            <td class="D0">
-                                <select  class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D12" id="D12_<s:property  value='%{#rowstatus.index}' />" > 
-                                    <option value="1" <s:if test="D12.equalsIgnoreCase('1')"> selected </s:if>>1: Không có khả năng trả nợ</option>
-                                    <option value="2" <s:if test="D12.equalsIgnoreCase('2')"> selected </s:if>>2: Có khả năng trả nợ</option>
-                                    </select>
-                                </td>
-                                <td class="D0">
-                                    <select class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D13" id="D13_<s:property  value='%{#rowstatus.index}' />" > 
-                                    <option value="1" <s:if test="D13.equalsIgnoreCase('1')"> selected </s:if>>1: Không cam kết</option>
-                                    <option value="2" <s:if test="D13.equalsIgnoreCase('2')"> selected </s:if>>2: Có cam kết</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="text" value="<s:property  value="D14" />" id="D14_<s:property  value='%{#rowstatus.index}' />" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14" class="number sstyle STT5"/>
-                            </td>
-                            <td >
-                                <input type="text" value="<s:property  value="D15" />" id="D15_<s:property  value='%{#rowstatus.index}' />" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" class="number sstyle STT5"/>
+                        </td>
+                        <td style="background: #ddd; width: 100px"> <s:property  value="D1" />              
+                            <input type="hidden" value="<s:property  value="D1" />" readonly="true"
+                                   id="D1_<s:property  value='%{#rowstatus.index}' />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="SOKU sstyle"/>
+                        </td>                                  
+                        <td style="background: #ddd; width: 100px"> <s:property  value="D2" />   
+                            <input type="hidden" value="<s:property  value="D2" />" readonly="true"
+                                   id="D2_<s:property  value='%{#rowstatus.index}' />"
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="D0 sstyle"/>
+                        </td>                                  
+                        <td style="background: #ddd">
+                            <input type="text" value="<s:property  value="D3" />" readonly="true"
+                                   id="D3_<s:property  value='%{#rowstatus.index}' />"
+                                   style="width: 80px; background: #ddd"
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="STT5 number sstyle"/>
+                        </td>                                                                                                
+                        <td style="background: #ddd">
+                            <input type="text" value="<s:property  value="D4" />" readonly="true" style="background: #ddd"
+                                   id="D4_<s:property  value='%{#rowstatus.index}' />"
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="STT5 number sstyle"/>
+                        </td>
+                        <td style="background: #ddd">
+                            <input type="text" value="<s:property  value="D5" />" readonly="true" style="background: #ddd"
+                                   id="D5_<s:property  value='%{#rowstatus.index}' />"
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="STT5 number sstyle"/>
+                        </td>
+                        <td class="D0" style="background: #ddd">
+                            <input type="text" value="<s:property  value="D6" />" readonly="true" style="background: #ddd"
+                                   id="D6_<s:property  value='%{#rowstatus.index}' />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="STT6 D0 sstyle"/>
+                        </td>
+                        <td class="D0" style="background: #ddd">
+                            <input type="text" value="<s:property  value="D7" />" readonly="true" style="background: #ddd"
+                                   id="D7_<s:property  value='%{#rowstatus.index}' />"
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="STT6 D0 sstyle"/>
+                        </td>
+                        <td class="D0">
+                            <input type="text" value="<s:property  value="D8" />" style="width: 80px;"
+                                   id="D8_<s:property  value='%{#rowstatus.index}' />"
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="number sstyle"/>
+                        </td>
+                        <td class="D0">
+                            <input type="text" value="<s:property  value="D9" />" style="width: 80px;"
+                                   id="D9_<s:property  value='%{#rowstatus.index}' />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="number sstyle"/>
+                        </td>
+                        <td class="D0">
+                            <textarea  class="STT3 sstyle" placeholder="Nhập tối đa 200 ký tự" id="D10_<s:property  value='%{#rowstatus.index}' />" 
+                                       name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10"><s:property value='D10'/></textarea>
+                        </td>
+                        <td class="D0">
+                            <textarea  class="STT3 sstyle" placeholder="Nhập tối đa 200 ký tự" id="D11_<s:property  value='%{#rowstatus.index}' />" 
+                                       name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11"><s:property value='D11'/></textarea>
+                        </td>
+                        <td class="D0">
+                            <select  class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D12" id="D12_<s:property  value='%{#rowstatus.index}' />" > 
+                                <option value="1" <s:if test="D12.equalsIgnoreCase('1')"> selected </s:if>>1: Không có khả năng trả nợ</option>
+                                <option value="2" <s:if test="D12.equalsIgnoreCase('2')"> selected </s:if>>2: Có khả năng trả nợ</option>
+                                </select>
                             </td>
                             <td class="D0">
-                                <textarea class="STT3 sstyle"  placeholder="Nhập tối đa 200 ký tự" id="D16_<s:property  value='%{#rowstatus.index}' />" 
-                                          name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D16"><s:property value='D16'/></textarea>
+                                <select class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D13" id="D13_<s:property  value='%{#rowstatus.index}' />" > 
+                                <option value="1" <s:if test="D13.equalsIgnoreCase('1')"> selected </s:if>>1: Không cam kết</option>
+                                <option value="2" <s:if test="D13.equalsIgnoreCase('2')"> selected </s:if>>2: Có cam kết</option>
+                                </select>
                             </td>
-                            <td class="D0">
-                                <select class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D17" id="D17_<s:property  value='%{#rowstatus.index}' />" > 
-                                    <option value="1" <s:if test="D17.equalsIgnoreCase('1')"> selected </s:if>>1: Không</option>
-                                    <option value="2" <s:if test="D17.equalsIgnoreCase('2')"> selected </s:if>>2: Có</option>
-                                    </select>
-                                </td>  
+                            <td>
+                                <input type="text" value="<s:property  value="D14" />" id="D14_<s:property  value='%{#rowstatus.index}' />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14" class="number sstyle STT5"/>
+                        </td>
+                        <td >
+                            <input type="text" value="<s:property  value="D15" />" id="D15_<s:property  value='%{#rowstatus.index}' />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" class="number sstyle STT5"/>
+                        </td>
+                        <td class="D0">
+                            <textarea class="STT3 sstyle"  placeholder="Nhập tối đa 200 ký tự" id="D16_<s:property  value='%{#rowstatus.index}' />" 
+                                      name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D16"><s:property value='D16'/></textarea>
+                        </td>
+                        <td class="D0">
+                            <select class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D17" id="D17_<s:property  value='%{#rowstatus.index}' />" > 
+                                <option value="1" <s:if test="D17.equalsIgnoreCase('1')"> selected </s:if>>1: Không</option>
+                                <option value="2" <s:if test="D17.equalsIgnoreCase('2')"> selected </s:if>>2: Có</option>
+                                </select>
+                            </td>  
                             </tr>
                     </s:iterator>
                 </table>

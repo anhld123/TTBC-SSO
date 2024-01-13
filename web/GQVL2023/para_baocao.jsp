@@ -203,6 +203,7 @@
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
                 var poscd = getposfromtreecheck();
+                var txtGetData = document.getElementById('txtGetData').value;
                 var khoa = $("#khoa_nhaptaycn").val() + "_save";
                 let checkedCount = countCheckedItem();
                 if (checkedCount === 0) {
@@ -218,7 +219,7 @@
                                 var check_box = document.getElementById('check' + i).checked;
                                 var D10 = document.getElementById('D10_' + i).value;
                                 var D19 = document.getElementById('D19_' + i).value;
-                                if (D19 !== "02" && D19 !== "06" && D19 !== "07")
+                                if (txtGetData === "0" && D19 !== "02" && D19 !== "06" && D19 !== "07")
                                 {
                                     if (check_box !== false && D10.length < 5) {
 //                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
@@ -246,13 +247,13 @@
                     function saveData() {
                         return new Promise((resolve, reject) => {
                             bsubmit = true;
-                            setTimeout(resolve, 1);
+                            setTimeout(resolve, 0,1);
 
                         });
                     }
                     saveData().then(onLoadData);
-                     $('#message_suc_err').html("<h style='color: green; font-size: 13px ; font-weight: bold'>Bạn đã lưu dữ liệu thành công</h>");
-                  
+                    alert("Bạn đã lưu dữ liệu thành công!");
+
                 }
             }
 
@@ -304,7 +305,7 @@
             function stopRKey(evt) {
                 var evt = (evt) ? evt : ((event) ? event : null);
                 var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
-                if ((evt.keyCode == 13) && (node.type == "text")) {
+                if ((evt.keyCode === 13) && (node.type === "text")) {
                     return false;
                 }
             }
@@ -321,11 +322,11 @@
                 var i = element.length;
                 for (var k = 0; k < i; k++)
                 {
-                    if (element[k].name == 'poscd')
+                    if (element[k].name === 'poscd')
                     {
-                        if (element[k].checked == true)
+                        if (element[k].checked === true)
                         {
-                            if (element[k].value != '999999')
+                            if (element[k].value !== '999999')
 //                            alert(document.loadFormRisk.elements[k].value);
                                 pos_cd = pos_cd + element[k].value + ',';
                         }
@@ -395,13 +396,13 @@
                 $("#mato").prepend("<option value='000000_NOGROUP' " + selected + "> NOGROUP -> Trực tiếp</option>");
                 $("#mato_data > option").each(function () {
                     var2 = $(this).val().substr(0, 6);
-                    if (val.trim() == var2.trim()) {
-                        $(this).val() == vartxt ? selected = " selected" : selected = "";
+                    if (val.trim() === var2.trim()) {
+                        $(this).val() === vartxt ? selected = " selected" : selected = "";
                         $("#mato").prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
                     }
                 });
                 $("#mato").html($("#mato option").sort(function (a, b) {
-                    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1;
+                    return a.text === b.text ? 0 : a.text < b.text ? -1 : 1;
                 }));
 //                document.getElementById("labelPageNumber").style.visibility = "hidden";
 //                document.getElementById("pageNumber").style.visibility = "hidden";
@@ -433,7 +434,7 @@
                 <fieldset style="display: flex; align-content: space-between;justify-content: space-between;" class="navParam3">
                     <legend><b>Tìm kiếm dữ liệu</b></legend>  
                     <table>
-                        <tr style="height: 30px;">
+                        <tr>
                             <td>Ngày BC</td>
                             <td>
                                 <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
@@ -447,7 +448,7 @@
                                 <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
                                            onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
                                 </td>
-                                <td >Mã tổ:</td>
+                                <td >&nbsp;&nbsp;&nbsp;Mã tổ:</td>
                                 <td>
                                 <s:select  style="width: 180px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
                                 <s:select  
@@ -460,6 +461,11 @@
                                     cssStyle="display:none;">
                                 </s:select>
                             </td>
+                            <td>&nbsp;&nbsp;&nbsp;Loại phê duyệt:</td>
+                            <td><select name="txtGetData" id="txtGetData">                                                    
+                                    <option value="1">Danh sách nợ khoanh</option>                                                    
+                                    <option value="0">Nhập thông tin kiểm tra</option>
+                                </select></td>
                             <td colspan="2" style="text-align: right">                                        
                                 <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                            onBeforeTopics="beforediv_data"
@@ -478,16 +484,14 @@
                                     <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/>
                                 </s:else>    
                             </td>   
-                            <td>
-                                <div id="message_suc_err"> 
-                                </div>
-                            </td>  
+
                         </tr>  
                     </table>    
                 </fieldset>
                 <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
-                    <img id="loadingImage" src='img/loading.gif' border='0' >
+                    <img id="loadingImage" src='img/loading.gif' border='0' >                  
                 </div>   
+                <div id="message_suc_err"></div>
                 <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QLNK_2023')">
                     <div id="containParm_full" align="center">
                         <div id="divExportReport"></div>
@@ -521,7 +525,7 @@
         <script>
             $(document).ready(function () {
                 document.getElementById('ngay_bc_DATE').value = "31/12/2023";
-            })
+            });
 //            $('#ngay_bc_DATE').datepicker('disable');
 //            document.getElementById("labelPageNumber").style.visibility = "hidden";
 //            document.getElementById("pageNumber").style.visibility = "hidden";
