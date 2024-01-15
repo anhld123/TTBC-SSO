@@ -164,7 +164,7 @@
                     </tr>
                     <tr style="font-style: italic;">
                         <th style="color: #000; font-style: italic; font-size: xx-small;"></th>                    
-                        <th><input type="checkbox" id ="select-all1"/></th>
+                        <th><input type="checkbox" id ="select-all1" checked/></th>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
