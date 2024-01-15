@@ -204,6 +204,7 @@
                 $('#divExportReportLink').empty();
                 var poscd = getposfromtreecheck();
                 var txtGetData = document.getElementById('txtGetData').value;
+                var gradeAuthor1 = document.getElementById('gradeAuthor1').value;
                 var khoa = $("#khoa_nhaptaycn").val() + "_save";
                 let checkedCount = countCheckedItem();
                 if (checkedCount === 0) {
@@ -219,7 +220,7 @@
                                 var check_box = document.getElementById('check' + i).checked;
                                 var D10 = document.getElementById('D10_' + i).value;
                                 var D19 = document.getElementById('D19_' + i).value;
-                                if (txtGetData === "0" && D19 !== "02" && D19 !== "06" && D19 !== "07")
+                                if (gradeAuthor1 ==="1" && txtGetData === "0" && D19 !== "02" && D19 !== "06" && D19 !== "07")
                                 {
                                     if (check_box !== false && D10.length < 5) {
 //                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
@@ -247,7 +248,7 @@
                     function saveData() {
                         return new Promise((resolve, reject) => {
                             bsubmit = true;
-                            setTimeout(resolve, 0,1);
+                            setTimeout(resolve, 0, 1);
 
                         });
                     }
@@ -425,103 +426,145 @@
     </head>
     <!--new java.util.Date()-->
     <body>
-        <div id="container" >
-            <s:form id="id_%{khoa_nhaptaycn}" name="name_%{khoa_nhaptaycn}" action="%{khoa_nhaptaycn}" theme="simple">
-                <s:hidden name="khoa_bcqt" id="khoa"/>
-                <s:hidden name="ReportDate" id="ReportDate" value=""/>
-                <s:hidden name="Grade" id="Grade"/>
-                <s:hidden name="UserName" id="UserName"/>
-                <fieldset style="display: flex; align-content: space-between;justify-content: space-between;" class="navParam3">
-                    <legend><b>Tìm kiếm dữ liệu</b></legend>  
-                    <table>
-                        <tr>
-                            <td>Ngày BC</td>
-                            <td>
-                                <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
-                                               placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
-                            </td>
-                            <td >&nbsp;&nbsp;&nbsp;Món vay:</td>
-                            <td><input id="txtSoku" name="txtSoku" placeholder="Nhập mã món vay"/>
-                            </td>
-                            <td >&nbsp;&nbsp;&nbsp;Mã xã:</td>
-                            <td  >                                               
-                                <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
-                                           onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td >&nbsp;&nbsp;&nbsp;Mã tổ:</td>
-                                <td>
-                                <s:select  style="width: 180px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
-                                <s:select  
-                                    id="mato_data"
-                                    list="lstMato" 
-                                    listKey="sKey"
-                                    listValue="sDesc"
-                                    headerKey="-1"
-                                    headerValue="--- Chọn ---"                                        
-                                    cssStyle="display:none;">
-                                </s:select>
-                            </td>
-                            <td>&nbsp;&nbsp;&nbsp;Loại phê duyệt:</td>
-                            <td><select name="txtGetData" id="txtGetData">                                                    
-                                    <option value="1">Danh sách nợ khoanh</option>                                                    
-                                    <option value="0">Nhập thông tin kiểm tra</option>
-                                </select></td>
-                            <td colspan="2" style="text-align: right">                                        
-                                <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
-                                           onBeforeTopics="beforediv_data"
-                                           onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                                <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
-                                <s:if test="Grade.equalsIgnoreCase('1')">
-                                    <s:if test="chotCic.equalsIgnoreCase('1')">
-                                        <font style="color: red"> PGD đã được chốt số liệu
-                                    </s:if>
-                                    <s:else>
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> 
-                                    </s:else>    
 
+        <s:form id="id_%{khoa_nhaptaycn}" name="name_%{khoa_nhaptaycn}" action="%{khoa_nhaptaycn}" theme="simple">
+            <s:hidden name="khoa_bcqt" id="khoa"/>
+            <s:hidden name="ReportDate" id="ReportDate" value=""/>
+            <s:hidden name="Grade" id="Grade"/>
+            <s:hidden name="UserName" id="UserName"/>               
+            <fieldset style="display: flex; align-content: space-between;justify-content: space-between;" class="navParam3">
+                <legend><b>Tìm kiếm dữ liệu</b></legend>  
+                <table>
+                    <tr>
+                    <input type="hidden" name="gradeAuthor1" id="gradeAuthor1" value="<s:property value='gradeAuthor1'/>">
+                    <s:if test="gradeAuthor1.equalsIgnoreCase('2')">
+
+                        <td>Ngày BC</td>
+                        <td>
+                            <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
+                                           placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
+                        </td>
+                        <td >&nbsp;&nbsp;&nbsp;Món vay:</td>
+                        <td><input id="txtSoku" name="txtSoku" placeholder="Nhập mã món vay"/>
+                        </td>
+                        <td >&nbsp;&nbsp;&nbsp;Mã xã:</td>
+                        <td  >                                               
+                            <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
+                                       onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td >&nbsp;&nbsp;&nbsp;Mã tổ:</td>
+                            <td>
+                            <s:select  style="width: 180px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
+                            <s:select  
+                                id="mato_data"
+                                list="lstMato" 
+                                listKey="sKey"
+                                listValue="sDesc"
+                                headerKey="-1"
+                                headerValue="--- Chọn ---"                                        
+                                cssStyle="display:none;">
+                            </s:select>
+                        </td>
+                        <td colspan="2" style="text-align: right">                                        
+                            <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                                       onBeforeTopics="beforediv_data"
+                                       onCompleteTopics="completediv_data" cssStyle="display:none"/>
+                            <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
+                            <s:if test="Grade.equalsIgnoreCase('1')">
+                                <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> 
+                            </s:if>
+                        </td> 
+                        <td><input type="hidden" name="txtGetData" id="txtGetData" value="0"> </td>
+                        </s:if>
+                        <s:else>
+                        <td>Ngày BC</td>
+                        <td>
+                            <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
+                                           placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
+                        </td>
+                        <td >&nbsp;&nbsp;&nbsp;Món vay:</td>
+                        <td><input id="txtSoku" name="txtSoku" placeholder="Nhập mã món vay"/>
+                        </td>
+                        <td >&nbsp;&nbsp;&nbsp;Mã xã:</td>
+                        <td  >                                               
+                            <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
+                                       onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td >&nbsp;&nbsp;&nbsp;Mã tổ:</td>
+                            <td>
+                            <s:select  style="width: 180px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
+                            <s:select  
+                                id="mato_data"
+                                list="lstMato" 
+                                listKey="sKey"
+                                listValue="sDesc"
+                                headerKey="-1"
+                                headerValue="--- Chọn ---"                                        
+                                cssStyle="display:none;">
+                            </s:select>
+                        </td>
+                        <td>&nbsp;&nbsp;&nbsp;Loại phê duyệt:</td>
+                        <td><select name="txtGetData" id="txtGetData">                                                    
+                                <option value="1">Danh sách nợ khoanh</option>                                                    
+                                <option value="0">Nhập thông tin kiểm tra</option>
+                            </select>
+                        </td>
+                        <td colspan="2" style="text-align: right">                                        
+                            <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                                       onBeforeTopics="beforediv_data"
+                                       onCompleteTopics="completediv_data" cssStyle="display:none"/>
+                            <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
+                            <s:if test="Grade.equalsIgnoreCase('1')">
+                                <s:if test="chotCic.equalsIgnoreCase('1')">
+                                    <font style="color: red"> PGD đã được chốt số liệu
                                 </s:if>
                                 <s:else>
-                                    <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/>
+                                    <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> 
                                 </s:else>    
-                            </td>   
 
-                        </tr>  
-                    </table>    
-                </fieldset>
-                <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
-                    <img id="loadingImage" src='img/loading.gif' border='0' >                  
-                </div>   
-                <div id="message_suc_err"></div>
-                <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QLNK_2023')">
-                    <div id="containParm_full" align="center">
-                        <div id="divExportReport"></div>
-                        <div align="right"  id="divExportReportLink"></div>
-                    </div>
-                </s:if>
-                <s:else>
-                    <div id="containTree">
-                        <sjt:tree
-                            name="poscd"
-                            id="treeDynamicCheckboxes"
-                            jstreetheme="apple"
-                            rootNode="nodes_pos"
-                            childCollectionProperty="children"
-                            nodeTitleProperty="title"
-                            nodeIdProperty="id"
-                            openAllOnLoad="true"
-                            checkbox="true"
-                            showThemeDots="false"
-                            showThemeIcons="true" 
-                            />
-                    </div>
-                    <div id="containParm" align="center">
-                        <div id="divExportReport"></div>
-                        <div id="divExportReport"></div>
-                    </div>
-                </s:else>                     
+                            </s:if>
+                            <s:else>
+                                <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/>
+                            </s:else>    
+                        </td>   
+                    </s:else>
+                    </tr>  
+                </table>    
+            </fieldset>
+            <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
+                <img id="loadingImage" src='img/loading.gif' border='0' >                  
+            </div>   
+            <div id="message_suc_err"></div>
+            <s:if test="khoa_nhaptaycn.equalsIgnoreCase('QLNK_2023')">
+                <div id="containParm_full" align="center">
+                    <div id="divExportReport"></div>
+                    <div align="right"  id="divExportReportLink"></div>
+                </div>
+            </s:if>
+            <s:else>
+                <div id="containTree">
+                    <sjt:tree
+                        name="poscd"
+                        id="treeDynamicCheckboxes"
+                        jstreetheme="apple"
+                        rootNode="nodes_pos"
+                        childCollectionProperty="children"
+                        nodeTitleProperty="title"
+                        nodeIdProperty="id"
+                        openAllOnLoad="true"
+                        checkbox="true"
+                        showThemeDots="false"
+                        showThemeIcons="true" 
+                        />
+                </div>
+                <div id="containParm" align="center">
+                    <div id="divExportReport"></div>
+                    <div id="divExportReport"></div>
+                </div>
+            </s:else>                     
 
-            </s:form>
-        </div>
+        </s:form>
+
         <script>
             $(document).ready(function () {
                 document.getElementById('ngay_bc_DATE').value = "31/12/2023";

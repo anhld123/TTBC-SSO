@@ -333,15 +333,15 @@
                 <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
                     <input type="hidden" id="<s:property  value="sKey" />" 
                            name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
-                </s:iterator>
+                </s:iterator>      
                 <div id="divTitle">
                     <s:if test="txtGetData.equalsIgnoreCase('0')">
-                    QUẢN LÝ NỢ KHOANH <font id="totalRowsFont" style="color: red"></font><font style="color: red">/<s:property value="messagePage"/>)</font>
+                        QUẢN LÝ NỢ KHOANH <font id="totalRowsFont" style="color: red"></font><font style="color: red">/<s:property value="messagePage"/>)</font>
                     </s:if>
                     <s:else>
-                   DANH SÁCH MÓN NỢ KHOANH <font id="totalRowsFont" style="color: red"></font><font style="color: red">/<s:property value="messagePage"/>)</font>    
+                        DANH SÁCH MÓN NỢ KHOANH <font id="totalRowsFont" style="color: red"></font><font style="color: red">/<s:property value="messagePage"/>)</font>    
                     </s:else>
-                    </div>
+                </div>
                 Chọn trang <input style="border-top-style: hidden; border-left-style: hidden; border-right-style: hidden " class="STT1" type="number" id="pageInput" min="1" max="numPages()"/>
                 <a onclick="goToPage()" href='#' id ="btn_go">Go</a>
                 <a onclick="prevPage()" href='#' id="btn_prev">&#8920;</a> 

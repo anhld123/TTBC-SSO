@@ -41,7 +41,8 @@
         </action>
         
           <action name="QLNK_2023" class="vbsp.ims.gqvl_2023.QLNK_2023"  method="load">
-            <result name="success">/GQVL2023/01_QLNK.jsp</result>                                 
+            <result name="success">/GQVL2023/01_QLNK.jsp</result> 
+            <result name="success_1">/GQVL2023/01_QLNK_unlock.jsp</result>                              
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
 
