@@ -328,7 +328,7 @@ public class QLNK_2023 extends ActionNhaptaycnMain
                 }
                 String maxaValue = hmParameter.get("maxa").toString();
                 if ("000000".equals(maxaValue)) {
-                    matoValue = "";
+                    maxaValue = "";
                 }
                 if (!daoMain.saveQLNK2023_1("01_QLNK", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstLocalDataUpdate, pos_cd_username, maxaValue, matoValue)) {
                     addActionError("Bạn chưa lưu được báo cáo màn hình Nhập, tại chi nhánh vui lòng liên hệ quản trị viên!!");
