@@ -95,6 +95,7 @@
                 for (var i = 0; i < rowcount; i++)
                 {
                     try {
+                        document.getElementById("D26_" + i).value = "1";
                         document.getElementById("D8_" + i).disabled = true;
                         document.getElementById("D9_" + i).disabled = true;
                         document.getElementById("D10_" + i).disabled = true;
@@ -105,6 +106,8 @@
                         document.getElementById("D15_" + i).disabled = true;
                         document.getElementById("D16_" + i).disabled = true;
                         document.getElementById("D17_" + i).disabled = true;
+                        document.getElementById("D27_" + i).disabled = true;
+                        document.getElementById("D28_" + i).disabled = true;
                     } catch (e) {
                     }
                 }
@@ -140,27 +143,29 @@
                         <th rowspan="3" class="STT4">Họ và tên</th>  
                         <th rowspan="3" class="STT2">Mã món vay</th>  
                         <th colspan="5">PHẦN THEO DÕI TẠI NGÂN HÀNG</th>
-                        <th colspan="8" style="color: #ff6600">PHẦN KIỂM TRA THỰC TẾ TẠI KHÁCH HÀNG</th>
+                        <th colspan="10" style="color: #ff6600">PHẦN KIỂM TRA THỰC TẾ TẠI KHÁCH HÀNG</th>
                         <th rowspan="3" class="STT2">Nguyên nhân chênh lệch</th>      
                         <th rowspan="3" class="STT5">Ký xác nhận của khách hàng</th> 
                     </tr>         
                     <tr >
                         <th rowspan="2" class="STT5">Dư nợ gốc</th>  
                         <th rowspan="2" class="STT5">Dư gốc khoanh</th>    
-                        <th rowspan="2" class="STT5">Số tiền lãi</th>                             
+                        <th rowspan="2" class="STT5">Số tiền lãi <br>còn nợ NH</th>                             
                         <th rowspan="2" class="STT5">Ngày <br>bắt đầu khoanh nợ</th>   
                         <th rowspan="2" class="STT5">Ngày <br>hết hạn khoanh nợ</th> 
                         <th rowspan="2" class="STT5" style="color: #ff6600">Dư nợ gốc</th>  
-                        <th rowspan="2" class="STT5" style="color: #ff6600">Dư gốc khoanh</th>    
+                        <th rowspan="2" class="STT5" style="color: #ff6600">Dư gốc khoanh</th>  
+                        <th rowspan="2" class="STT5" style="color: #ff6600">Số tiền lãi <br>còn nợ NH</th>     
                         <th rowspan="2" class="STT5" style="color: #ff6600">Thực trạng dự án phương án vay vốn</th>                             
                         <th rowspan="2" class="STT5" style="color: #ff6600">Tình hình thực tế của khách hàng</th>   
                         <th rowspan="2" class="STT5" style="color: #ff6600">Khả năng trả nợ của khách hàng</th> 
                         <th rowspan="2" class="STT5" style="color: #ff6600">Khách hàng cam kết trả nợ</th>
-                        <th colspan="2" class="STT5" style="color: #ff6600">Chênh lệch dư nợ</th>
+                        <th colspan="3" class="STT5" style="color: #ff6600">Chênh lệch</th>
                     </tr>
                     <tr>
                         <th rowspan="1" class="STT5" style="color: #ff6600">Dư nợ gốc</th>  
-                        <th rowspan="1" class="STT5" style="color: #ff6600">Dư gốc khoanh</th> 
+                        <th rowspan="1" class="STT5" style="color: #ff6600">Dư gốc khoanh</th>
+                        <th rowspan="1" class="STT5" style="color: #ff6600">Số tiền lãi <br>còn nợ NH</th> 
                     </tr>
                     <tr style="font-style: italic;">
                         <th style="color: #000; font-style: italic; font-size: xx-small;"></th>                    
@@ -183,6 +188,8 @@
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(16)</th>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(17)</th>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(18)</th>
+                        <th style="color: #000; font-style: italic; font-size: xx-small;">(19)</th>
+                        <th style="color: #000; font-style: italic; font-size: xx-small;">(20)</th>
                     </tr>
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                         <tr id="tablefix"> 
@@ -271,6 +278,11 @@
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="number sstyle"/>
                             </td>
                             <td class="D0">
+                                <input type="text" value="<s:property  value="D27" />" style="width: 80px;"
+                                       id="D27_<s:property  value='%{#rowstatus.index}' />"
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27" class="number sstyle STT5"/>
+                            </td>
+                            <td class="D0">
                                 <textarea  class="STT3 sstyle" placeholder="Nhập tối đa 200 ký tự" id="D10_<s:property  value='%{#rowstatus.index}' />" 
                                            name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10"><s:property value='D10'/></textarea>
                             </td>
@@ -298,6 +310,11 @@
                                 <input type="text" value="<s:property  value="D15" />" id="D15_<s:property  value='%{#rowstatus.index}' />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" class="number sstyle STT5"/>
                             </td>
+                             <td class="D0">
+                            <input type="text" value="<s:property  value="D28" />" style="width: 80px;"
+                                   id="D28_<s:property  value='%{#rowstatus.index}' />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28" class="number sstyle STT5"/>
+                        </td>
                             <td class="D0">
                                 <textarea class="STT3 sstyle"  placeholder="Nhập tối đa 200 ký tự" id="D16_<s:property  value='%{#rowstatus.index}' />" 
                                           name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D16"><s:property value='D16'/></textarea>
