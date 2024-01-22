@@ -555,7 +555,7 @@
                             <td class="D0">
                                 <select class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D13" id="D13_<s:property  value='%{#rowstatus.index}' />" > 
                                 <option value="1" <s:if test="D13.equalsIgnoreCase('1')"> selected </s:if>>1: Không cam kết</option>
-                                <option value="2" <s:if test="D13.equalsIgnoreCase('2')"> selected </s:if>>2:  Không thực hiện cam kết</option>
+                                <option value="2" <s:if test="D13.equalsIgnoreCase('2')"> selected </s:if>>2: Không thực hiện cam kết</option>
                                 <option value="3" <s:if test="D13.equalsIgnoreCase('3')"> selected </s:if>>3: Có cam kết</option>
                                 </select>
                             </td>

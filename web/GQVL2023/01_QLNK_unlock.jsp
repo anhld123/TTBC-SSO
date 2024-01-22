@@ -293,13 +293,15 @@
                             <td class="D0">
                                 <select  class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D12" id="D12_<s:property  value='%{#rowstatus.index}' />" > 
                                     <option value="1" <s:if test="D12.equalsIgnoreCase('1')"> selected </s:if>>1: Không có khả năng trả nợ</option>
-                                    <option value="2" <s:if test="D12.equalsIgnoreCase('2')"> selected </s:if>>2: Có khả năng trả nợ</option>
+                                    <option value="2" <s:if test="D12.equalsIgnoreCase('2')"> selected </s:if>>2: Chưa có khả năng trả nợ</option>                        
+                                    <option value="3" <s:if test="D12.equalsIgnoreCase('3')"> selected </s:if>>3: Có khả năng trả nợ</option>
                                     </select>
                                 </td>
                                 <td class="D0">
                                     <select class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D13" id="D13_<s:property  value='%{#rowstatus.index}' />" > 
                                     <option value="1" <s:if test="D13.equalsIgnoreCase('1')"> selected </s:if>>1: Không cam kết</option>
-                                    <option value="2" <s:if test="D13.equalsIgnoreCase('2')"> selected </s:if>>2: Có cam kết</option>
+                                    <option value="2" <s:if test="D13.equalsIgnoreCase('2')"> selected </s:if>>2: Không thực hiện cam kết</option>
+                                    <option value="3" <s:if test="D13.equalsIgnoreCase('3')"> selected </s:if>>3: Có cam kết</option>
                                     </select>
                                 </td>
                                 <td>
@@ -310,11 +312,11 @@
                                 <input type="text" value="<s:property  value="D15" />" id="D15_<s:property  value='%{#rowstatus.index}' />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" class="number sstyle STT5"/>
                             </td>
-                             <td class="D0">
-                            <input type="text" value="<s:property  value="D28" />" style="width: 80px;"
-                                   id="D28_<s:property  value='%{#rowstatus.index}' />" 
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28" class="number sstyle STT5"/>
-                        </td>
+                            <td class="D0">
+                                <input type="text" value="<s:property  value="D28" />" style="width: 80px;"
+                                       id="D28_<s:property  value='%{#rowstatus.index}' />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28" class="number sstyle STT5"/>
+                            </td>
                             <td class="D0">
                                 <textarea class="STT3 sstyle"  placeholder="Nhập tối đa 200 ký tự" id="D16_<s:property  value='%{#rowstatus.index}' />" 
                                           name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D16"><s:property value='D16'/></textarea>
