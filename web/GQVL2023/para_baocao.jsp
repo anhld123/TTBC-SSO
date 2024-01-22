@@ -224,7 +224,7 @@
                                 {
                                     if (check_box !== false && D10.length < 5) {
 //                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
-                                        alert('Vui lòng nhập thông tin cột 11.');
+                                        alert('Vui lòng nhập thông tin cột 12.');
                                         document.getElementById("D10_" + i).style.backgroundColor = "#EEAFA6";
                                         return;
                                     }

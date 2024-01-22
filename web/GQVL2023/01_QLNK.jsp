@@ -321,40 +321,72 @@
 
             }
 
-            function calc() {
-                var table = document.getElementById("subTable");
-                var rowcount = table.rows.length;
-                rowcount = rowcount > max_row ? rowcount : max_row;
-                for (var i = 0; i < rowcount; i++) {
-                    var CT_D3 = parseInt(document.getElementById("D3_" + i).value.replaceAll(',', ''));
-                    var CT_D9 = parseInt(document.getElementById("D8_" + i).value.replaceAll(',', ''));
-                    document.getElementById("D14_" + i).value = CT_D3 - CT_D9;
-                }
+//            function calc() {
+//                var table = document.getElementById("subTable");
+//                var rowcount = table.rows.length;
+//                rowcount = rowcount > max_row ? rowcount : max_row;
+//                for (var i = 0; i < rowcount; i++) {
+//                    var CT_D3 = parseInt(document.getElementById("D3_" + i).value.replaceAll(',', ''));
+//                    var CT_D9 = parseInt(document.getElementById("D8_" + i).value.replaceAll(',', ''));
+//                    document.getElementById("D14_" + i).value = CT_D3 - CT_D9;
+//                }
+//            }
+           
+
+            function calc(id) {
+                var row = id.parentNode.parentNode;
+                var CT_D3 = row.cells[5].getElementsByTagName('input')[0].value;
+                var CT_D9 = row.cells[10].getElementsByTagName('input')[0].value;
+                var res = parseFloat(CT_D3.replace(/,/g, '')) - parseFloat(CT_D9.replace(/,/g, ''));
+                row.cells[17].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');
+                ;
+                row.cells[17].getElementsByTagName('input')[0].style.color = 'red';
             }
 
-            function calc1() {
-                var table = document.getElementById("subTable");
-                var rowcount = table.rows.length;
-                rowcount = rowcount > max_row ? rowcount : max_row;
-                for (var i = 0; i < rowcount; i++) {
-                    var CT_D4 = parseInt(document.getElementById("D5_" + i).value.replaceAll(',', ''));
-                    var CT_D10 = parseInt(document.getElementById("D9_" + i).value.replaceAll(',', ''));
-                    document.getElementById("D15_" + i).value = CT_D4 - CT_D10;
-                }
+            function calc1(id) {
+                var row = id.parentNode.parentNode;
+                var CT_D4 = row.cells[6].getElementsByTagName('input')[0].value;
+                var CT_D11 = row.cells[11].getElementsByTagName('input')[0].value;
+                var res = parseFloat(CT_D4.replace(/,/g, '')) - parseFloat(CT_D11.replace(/,/g, ''));
+                row.cells[18].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');
+                ;
+                row.cells[18].getElementsByTagName('input')[0].style.color = 'red';
             }
-            function calc2() {
-                var table = document.getElementById("subTable");
-                var rowcount = table.rows.length;
-                rowcount = rowcount > max_row ? rowcount : max_row;
-                for (var i = 0; i < rowcount; i++) {
-                    var CT_D5 = parseInt(document.getElementById("D4_" + i).value.replaceAll(',', ''));
-                    var CT_D11 = parseInt(document.getElementById("D27_" + i).value.replaceAll(',', ''));
-                    document.getElementById("D28_" + i).value = CT_D5 - CT_D11;
-                }
+
+            function calc2(id) {
+                var row = id.parentNode.parentNode;
+                var CT_D5 = row.cells[7].getElementsByTagName('input')[0].value;
+                var CT_D12 = row.cells[12].getElementsByTagName('input')[0].value;
+                var res = parseFloat(CT_D5.replace(/,/g, '')) - parseFloat(CT_D12.replace(/,/g, ''));
+                row.cells[19].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');
+                row.cells[19].getElementsByTagName('input')[0].style.color = 'red';
             }
+
+//            function calc1() {
+//                var table = document.getElementById("subTable");
+//                var rowcount = table.rows.length;
+//                rowcount = rowcount > max_row ? rowcount : max_row;
+//                for (var i = 0; i < rowcount; i++) {
+//                    var CT_D4 = parseInt(document.getElementById("D5_" + i).value.replaceAll(',', ''));
+//                    var CT_D10 = parseInt(document.getElementById("D9_" + i).value.replaceAll(',', ''));
+//                    document.getElementById("D15_" + i).value = CT_D4 - CT_D10;
+//                }
+//            }
+//            function calc2() {
+//                var table = document.getElementById("subTable");
+//                var rowcount = table.rows.length;
+//                rowcount = rowcount > max_row ? rowcount : max_row;
+//                for (var i = 0; i < rowcount; i++) {
+//                    var CT_D5 = parseInt(document.getElementById("D4_" + i).value.replaceAll(',', ''));
+//                    var CT_D11 = parseInt(document.getElementById("D27_" + i).value.replaceAll(',', ''));
+//                    document.getElementById("D28_" + i).value = CT_D5 - CT_D11;
+//                }
+//            }
             window.onload = function () {
                 changePage(current_page);
             };
+
+
 
         </script>        
     </head>
@@ -539,11 +571,11 @@
                         </td>
                         <td class="D0">
                             <textarea  class="STT3 sstyle" placeholder="Nhập tối đa 200 ký tự" id="D10_<s:property  value='%{#rowstatus.index}' />" 
-                                       name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10"><s:property value='D10'/></textarea>
-                        </td>
+                                       name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10" maxlength="200"><s:property value='D10'/></textarea>
+                           </td>
                         <td class="D0">
                             <textarea  class="STT3 sstyle" placeholder="Nhập tối đa 200 ký tự" id="D11_<s:property  value='%{#rowstatus.index}' />" 
-                                       name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11"><s:property value='D11'/></textarea>
+                                       name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" maxlength="200"><s:property value='D11'/></textarea>
                         </td>
                         <td class="D0">
                             <select  class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D12" id="D12_<s:property  value='%{#rowstatus.index}' />" > 
@@ -577,7 +609,7 @@
                         </td>
                         <td class="D0">
                             <textarea class="STT3 sstyle"  placeholder="Nhập tối đa 200 ký tự" id="D16_<s:property  value='%{#rowstatus.index}' />" 
-                                      name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D16"><s:property value='D16'/></textarea>
+                                      name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D16" maxlength="200"><s:property value='D16'/></textarea>
                         </td>
                         <td class="D0">
                             <select class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D17" id="D17_<s:property  value='%{#rowstatus.index}' />" > 
