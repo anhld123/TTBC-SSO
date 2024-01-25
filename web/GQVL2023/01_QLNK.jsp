@@ -386,8 +386,6 @@
                 changePage(current_page);
             };
 
-
-
         </script>        
     </head>
     <body>
