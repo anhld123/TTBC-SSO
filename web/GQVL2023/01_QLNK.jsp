@@ -331,7 +331,7 @@
 //                    document.getElementById("D14_" + i).value = CT_D3 - CT_D9;
 //                }
 //            }
-           
+
 
             function calc(id) {
                 var row = id.parentNode.parentNode;
@@ -487,8 +487,6 @@
                             <input type="hidden" value="<s:property  value="D15" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15"/>
                             <input type="hidden" value="<s:property  value="D16" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16"/>
                             <input type="hidden" value="<s:property  value="D17" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17"/>
-                            <input type="hidden" value="<s:property  value="D27" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27"/>
-                            <input type="hidden" value="<s:property  value="D28" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28"/>
                         </s:if>
                         <s:else>
                             <td class="D0">
@@ -515,6 +513,7 @@
                             <input type="hidden" value="<s:property  value="D25" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25"/>
                             <input type="hidden" value="<s:property  value="D29" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29"/>
                             <input type="hidden" value="<s:property  value="D30" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30"/>
+                          
                         </td>
                         <td style="background: #ddd; width: 200px"> <s:property  value="D1" />              
                             <input type="hidden" value="<s:property  value="D1" />" readonly="true"
@@ -570,7 +569,7 @@
                         <td class="D0">
                             <textarea  class="STT3 sstyle" placeholder="Nhập tối đa 200 ký tự" id="D10_<s:property  value='%{#rowstatus.index}' />" 
                                        name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10" maxlength="200"><s:property value='D10'/></textarea>
-                           </td>
+                        </td>
                         <td class="D0">
                             <textarea  class="STT3 sstyle" placeholder="Nhập tối đa 200 ký tự" id="D11_<s:property  value='%{#rowstatus.index}' />" 
                                        name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" maxlength="200"><s:property value='D11'/></textarea>
