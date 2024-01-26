@@ -70,7 +70,7 @@
             buttonText: "icono",
             changeMonth: true,
             changeYear: true,
-            yearRange: "c-50:c+1",
+            yearRange: "c-30:c+10",
             beforeShow: function (input, inst) {
                 if ($(input).is(':disabled')) {
                     return false; // Ngăn chặn datepicker hiển thị nếu input bị disabled
@@ -95,7 +95,7 @@
             maxDate: maxDate,
             changeMonth: true,
             changeYear: true,
-            yearRange: "c-50:c+1"
+            yearRange: "c-30:c+10"
         });
     }
 
