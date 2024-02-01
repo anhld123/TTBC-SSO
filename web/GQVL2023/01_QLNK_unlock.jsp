@@ -42,7 +42,7 @@
         display: none;
     }
     td.hdtitle {
-        position: sticky;
+        position: static;
         top: 0;
         z-index: 10;
     }

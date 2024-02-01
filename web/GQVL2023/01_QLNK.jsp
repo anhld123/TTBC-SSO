@@ -42,7 +42,7 @@
         display: none;
     }
     td.hdtitle {
-        position: sticky;
+        position: static;
         top: 0;
         z-index: 10;
     }
@@ -294,6 +294,8 @@
                             document.getElementById("D15_" + i).disabled = true;
                             document.getElementById("D16_" + i).disabled = true;
                             document.getElementById("D17_" + i).disabled = true;
+                            document.getElementById("D27_" + i).disabled = true;
+                            document.getElementById("D28_" + i).disabled = true;
                         }
                         var D26 = document.getElementById('D26_' + i).checked;
                         if (D26 === true)
@@ -487,6 +489,9 @@
                             <input type="hidden" value="<s:property  value="D15" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15"/>
                             <input type="hidden" value="<s:property  value="D16" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16"/>
                             <input type="hidden" value="<s:property  value="D17" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17"/>
+                            <input type="hidden" value="<s:property  value="D27" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27"/>
+                            <input type="hidden" value="<s:property  value="D28" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28"/>
+
                         </s:if>
                         <s:else>
                             <td class="D0">
@@ -513,7 +518,7 @@
                             <input type="hidden" value="<s:property  value="D25" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25"/>
                             <input type="hidden" value="<s:property  value="D29" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29"/>
                             <input type="hidden" value="<s:property  value="D30" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30"/>
-                          
+
                         </td>
                         <td style="background: #ddd; width: 200px"> <s:property  value="D1" />              
                             <input type="hidden" value="<s:property  value="D1" />" readonly="true"
@@ -599,8 +604,7 @@
                                    readonly="true" style="background: #ddd"/>
                         </td>
                         <td class="D0" style="background: #ddd">
-                            <input type="text" value="<s:property  value="D28" />" style="width: 80px;"
-                                   id="D28_<s:property  value='%{#rowstatus.index}' />" 
+                            <input type="text" value="<s:property  value="D28" />" id="D28_<s:property  value='%{#rowstatus.index}' />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28" class="number sstyle STT5"
                                    readonly="true" style="background: #ddd"/>
                         </td>
