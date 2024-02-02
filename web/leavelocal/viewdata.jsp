@@ -40,7 +40,7 @@
         display: none;
     }
     td.hdtitle {
-        position: sticky;
+        position: static;
         top: 0;
         z-index: 10;
     }
@@ -111,7 +111,7 @@
         var top = (screen.height / 2) - (h / 2);
         var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent(tenKH) + "&vsbpNgayBC=" + $("#txtNgayBc").val() + "&vbsprandom=" + Math.random();
         var url;
-        if (flagPos == '0')
+        if (flagPos === '0')
         {
             url = "/IMS_REPORTS/popupThanhvien_author.action?" + urlParam;
         } else
@@ -137,7 +137,7 @@
         var top = (screen.height / 2) - (h / 2);
         var urlParam = "vsbpMaPgd=" + maPgd + "&vsbpMakh=" + maKH + "&vsbpTenKh=" + encodeURIComponent(tenKH)
                 + "&flagPos=" + flagPos + "&ngaydenghi=" + ngayDNHT + "&sovbdenghi=" + vbDNHT + "&vbsprandom=" + Math.random();
-        if (flagPos == '0')
+        if (flagPos === '0')
         {
             url = "/IMS_REPORTS/popupDeNghiHT1.action?" + urlParam;
         } else
@@ -215,7 +215,7 @@
     }
 
     function onSelectChange_dnht(value, index) {
-        if (value == '1')
+        if (value === '1')
         {
             document.getElementById("lstDNHT_D33" + index).style.visibility = "visible";
         } else
@@ -226,7 +226,7 @@
 
     function onSelectChange_dcct(value, index) {
         try {
-            if (value == '01')
+            if (value === '01')
             {
 //                $('#lstSubData31' + index).find(":selected").val() = '0'
                 document.getElementById("lstSubData31" + index).value = "0";
@@ -310,12 +310,12 @@
 
 //                document.getElementById("lstData_D32" + i).disabled = true;
 //                 alert (flagPos +  '---'+ i)
-                if (flagPos = '1')
+                if (flagPos === '1')
                 {
 
                     var value = $('#lstSubData_D33' + i).find(":selected").val();
 //                alert (value +  '---'+ i)
-                    if (value == '1')
+                    if (value === '1')
                     {
                         document.getElementById("lstDNHT_D33" + i).style.visibility = "visible";
                         var lstData39 = document.getElementById('lstData39' + i).value;
@@ -328,7 +328,7 @@
                         document.getElementById("lstDNHT_D33" + i).style.visibility = "hidden";
                     }
                     var D22 = $('#lstData_D22' + i).find(":selected").val();
-                    if (D22 == '01')
+                    if (D22 === '01')
                     {
                         document.getElementById("lstSubData31" + i).disabled = true;
                     } else
@@ -353,7 +353,7 @@
 
                 var lstData_D22 = document.getElementById('lstData_D22' + i).value;
                 var lstSubData31 = document.getElementById('lstSubData31' + i).value;
-                if (lstData_D22 = '02' && lstSubData31 == '1')
+                if (lstData_D22 === '02' && lstSubData31 === '1')
                 {
 //                    alert('1');
 //                    document.getElementById("lstData_D30" + i).style.visibility = "visible";
@@ -368,7 +368,7 @@
     }
 
     function onSelectChange_dnht1(value, index) {
-        if (value == '5')
+        if (value === '5')
         {
             document.getElementById("lstData41" + index).disabled = false;
         } else
@@ -379,7 +379,7 @@
 
     function onSelectChange_tccc_rasoat(value, index) {
         var selected;
-        if (value == '01')
+        if (value === '01')
         {
             $("#lstSubData_D33" + index).children().remove().end();
             $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
@@ -394,7 +394,7 @@
 
     function onSelectChange_D13(value, index) {
         var selected;
-        if (value == '02')
+        if (value === '02')
         {
             $("#lstSubData_D33" + index).children().remove().end();
             $("#lstSubData_D33" + index).prepend("<option value='0' " + selected + "> 0: Không đề nghị hỗ trợ </option>");
@@ -415,11 +415,11 @@
         for (var i = 0; i < rowcount; i++)
         {
             try {
-                var flagPos = document.getElementById('lstData42' + i).value
-                if (flagPos != '1')
+                var flagPos = document.getElementById('lstData42' + i).value;
+                if (flagPos !== '1')
                 {
                     var value = $('#lstSubData34' + i).find(":selected").val();
-                    if (value == '5')
+                    if (value === '5')
                     {
                         document.getElementById("lstData41" + i).disabled = false;
                     } else
@@ -792,7 +792,7 @@
                                     </s:else>
                                 </s:iterator>
                             </select>   
-                            <a id="countDisplay<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
+                            <a id="countDisplay<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1px">0</a>
                         </td>
                         <td>
                             <select onmousedown="return false" onclick="Check_var32(<s:property  value='%{#idxRows.index}'/>)" 
@@ -823,7 +823,7 @@
                                     </s:else>
                                 </s:iterator>
                             </select>    
-                            <a id="countDisplay1<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
+                            <a id="countDisplay1<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1px">0</a>
                         </td>
                         <td class="<s:property value="d20"/>">
                             <select onmousedown="return false" onclick="Check_var28(<s:property  value='%{#idxRows.index}'/>)" 
@@ -852,7 +852,7 @@
                                     </s:else>
                                 </s:iterator>
                             </select>   
-                            <a id="countDisplay2<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
+                            <a id="countDisplay2<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1px">0</a>
                         </td>
 
                         <td class="txtBody" >
@@ -869,7 +869,7 @@
                                    id="lstDNHT_D33<s:property  value='%{#idxRows.index}' />"
 
                                    >link</a>
-                                <a id="countDisplay3<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1">0</a>
+                                <a id="countDisplay3<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1px">0</a>
 
                             </s:else>
 
@@ -940,7 +940,7 @@
     });
 
     function onSelectChange_time(value, index) {
-        if (value == '1') {
+        if (value === '1') {
             document.getElementById("lstData_D44" + index).disabled = false;
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
