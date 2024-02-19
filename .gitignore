@@ -55,3 +55,6 @@ build/web/WEB-INF/web.xml
 web/WEB-INF/web.xml
 web/WEB-INF/sun-jaxws.xml
 nbproject/project.properties
+nbproject/private/private.properties
+nbproject/private/private.xml
+nbproject/project.properties
