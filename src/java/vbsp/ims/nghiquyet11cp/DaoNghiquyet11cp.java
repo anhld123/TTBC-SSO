@@ -45,6 +45,7 @@ import vbsp.ims.nhaptaycn.action.QT_DULIEU_NT_50;
 import vbsp.ims.query.ImsFillParaMeter;
 import vbsp.ims.query.ImsPlSqlQuery;
 import vbsp.ims.report.fast.ListValue;
+import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.NQ11cpModel;
 
@@ -1352,6 +1353,79 @@ public class DaoNghiquyet11cp {
         return true;
     }
     
+    public boolean saveQLNK2023(String khoa, String username, String capbc, String ngaybc, List<QT_DULIEU_NT> lstData, String mapgd) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+
+        ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("POS_CD", connection);
+
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.P_SAVE_QLNK_2023(?, ?, ?, ?, ? ,?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, username);
+            cs.setString(3, capbc);
+            cs.setString(4, ngaybc);
+            cs.setArray(5, array_to_pass);
+            cs.setString(6, mapgd);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham P_SAVE_QLNK_2023 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " P_SAVE_QLNK_2023 -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
+    
+    public boolean saveQLNK2023_1(String khoa, String username, String capbc, String ngaybc, List<QT_DULIEU_NT> lstData, String mapgd, String maxa, String mato) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+
+        ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("POS_CD", connection);
+
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.P_SAVE_QLNK_2023_1(?, ?, ?, ?, ? ,?,?,?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, username);
+            cs.setString(3, capbc);
+            cs.setString(4, ngaybc);
+            cs.setArray(5, array_to_pass);
+            cs.setString(6, mapgd);
+            cs.setString(7, maxa);
+            cs.setString(8, mato);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham P_SAVE_QLNK_2023 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " P_SAVE_QLNK_2023 -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
      public boolean saveHTLS2023(String khoa, String username, String capbc, String ngaybc, List<QT_DULIEU_NT> lstData, List<String> lstArrPoscd) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -1368,7 +1442,7 @@ public class DaoNghiquyet11cp {
 
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_SAVE_HTLS_2023(?, ?, ?, ?, ? ,?)}");
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_SAVE_HTLS_2023_1(?, ?, ?, ?, ? ,?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, capbc);

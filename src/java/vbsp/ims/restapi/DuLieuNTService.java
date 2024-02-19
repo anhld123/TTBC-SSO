@@ -34,7 +34,6 @@ import vbsp.ims.model.DcplnModel;
 public class DuLieuNTService extends ReportService {
 
     // <editor-fold defaultstate="collapsed" desc="Main">
-    
     public ArrayList<ListOfValue> getListOfValue(String key, String code) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -53,8 +52,7 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
-    
+
     public ArrayList<LockSendCiCModel> getDataLockSendCic(String posCode, String flagReport, String reportDate) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -80,7 +78,7 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
+
     public ArrayList<CommisionFeeModel> getCommisionFeeData(String posCode, String reportDate, String flagType) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -805,7 +803,7 @@ public class DuLieuNTService extends ReportService {
         System.out.println("Response code API: " + response.getStatus());
         return response.getStatus();
     }
-    
+
     static String sendDataNV_QTByApi(List<QT_DULIEU_NT> lstDulieuNt, String file) {
         ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
         SimpleDateFormat sdf;
@@ -1016,14 +1014,14 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
+
     public ArrayList<CustCicModel> getDataCustCIC(String posCode, String reportDate, String communeCode, String groupId, String customerCode) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("cic-customer-load-data")
                 //                .queryParam("key", key)
-                .queryParam("posCode", posCode)                
-//                .queryParam("communeCode", communeCode)
+                .queryParam("posCode", posCode)
+                //                .queryParam("communeCode", communeCode)
                 .queryParam("communeCode", communeCode.equals("000000") ? "" : communeCode)
                 .queryParam("groupId", groupId.equals("0000000") ? "" : groupId)
                 .queryParam("customerCode", customerCode)
@@ -1040,15 +1038,15 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
-    public CustNoGroupResp getDataCustCIC_NoGroup(String posCode, String reportDate, String communeCode, int pageSize , int pageNo) {
+
+    public CustNoGroupResp getDataCustCIC_NoGroup(String posCode, String reportDate, String communeCode, int pageSize, int pageNo) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("cic-nogroup-load-data")
                 //                .queryParam("key", key)
-                .queryParam("posCode", posCode)                
+                .queryParam("posCode", posCode)
                 .queryParam("communeCode", communeCode.equals("000000") ? "" : communeCode)
-//                .queryParam("groupId", groupId.equals("0000000") ? "" : groupId)
+                //                .queryParam("groupId", groupId.equals("0000000") ? "" : groupId)
                 .queryParam("pageSize", pageSize)
                 .queryParam("pageNo", pageNo)
                 .queryParam("reportDate", reportDate);
@@ -1064,8 +1062,8 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
-    public int updateCIC(String posCode, String reportDate,String updateBy, String authoriseBy,
+
+    public int updateCIC(String posCode, String reportDate, String updateBy, String authoriseBy,
             List<CustCicModel> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -1082,7 +1080,7 @@ public class DuLieuNTService extends ReportService {
         mapper.setSerializationInclusion(Include.NON_NULL);
         try {
             json = mapper.writeValueAsString(data);
-              System.out.println("ResultingJSONstring = " + json);  
+            System.out.println("ResultingJSONstring = " + json);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -1090,8 +1088,8 @@ public class DuLieuNTService extends ReportService {
         System.out.println("Response code API: " + response.getStatus());
         return response.getStatus();
     }
-    
-    public int updateMs13aKhoanh(String posCode, String reportDate,String updateBy, String authoriseBy,
+
+    public int updateMs13aKhoanh(String posCode, String reportDate, String updateBy, String authoriseBy,
             List<DuLieuNtMs13AKhoanh> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -1108,7 +1106,7 @@ public class DuLieuNTService extends ReportService {
         mapper.setSerializationInclusion(Include.NON_NULL);
         try {
             json = mapper.writeValueAsString(data);
-              System.out.println("ResultingJSONstring = " + json);  
+            System.out.println("ResultingJSONstring = " + json);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -1138,8 +1136,8 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
-        public ArrayList<DuLieuNtMs13AKhoanh> getDataMs13aKhoanh(String posCode,String communeCode, String groupId, String customerCode,  String reportDate) {
+
+    public ArrayList<DuLieuNtMs13AKhoanh> getDataMs13aKhoanh(String posCode, String communeCode, String groupId, String customerCode, String reportDate) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("qt-ms13-data")
@@ -1305,7 +1303,7 @@ public class DuLieuNTService extends ReportService {
         System.out.println("Response code API: " + response.getStatus());
         return response.getStatus();
     }
-    
+
     public int updateClhCustomers_denghi(String key, String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
             List<DuLieuNTRowX> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
@@ -1335,8 +1333,8 @@ public class DuLieuNTService extends ReportService {
         System.out.println("Response code API: " + response.getStatus());
         return response.getStatus();
     }
-    
-  public int getGQVL2023(String key, String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
+
+    public int getGQVL2023(String key, String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
             List<DuLieuNTRowX> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -1355,7 +1353,7 @@ public class DuLieuNTService extends ReportService {
         mapper.setSerializationInclusion(Include.NON_NULL);
         try {
             json = mapper.writeValueAsString(data);
-              System.out.println("ResultingJSONstring = " + json);  
+            System.out.println("ResultingJSONstring = " + json);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -1363,7 +1361,7 @@ public class DuLieuNTService extends ReportService {
         System.out.println("Response code API: " + response.getStatus());
         return response.getStatus();
     }
-  
+
     public ArrayList<DuLieuNTRow> getClhMembers(String key, String posCode, String posFlag, String customerCode) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -1488,14 +1486,13 @@ public class DuLieuNTService extends ReportService {
         Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
         System.out.println("Response code API: " + response.getStatus());
         return response.getStatus();
-    }       
-    
-    
+    }
+
     public int clhUpdateFeedback(String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
             String customerCode, String feedback) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
-        WebTarget target = client.target(getBaseURI()).path("clh-feedback-update")                
+        WebTarget target = client.target(getBaseURI()).path("clh-feedback-update")
                 .queryParam("key", "BO_DI_KHOI_DP")
                 .queryParam("posCode", posCode)
                 .queryParam("posFlag", posFlag)
@@ -1510,11 +1507,12 @@ public class DuLieuNTService extends ReportService {
 
         return response.getStatus();
     }
-    
+
     public int clearCustomerLeave(String bo_di_khoi_dp, String posCode, String s, String _reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String string) {
         throw new UnsupportedOperationException("Not supported yet.");
 //To change body of generated methods, choose Tools | Templates.
     }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Ví dụ">
     public static void main(String[] args) {
@@ -1569,36 +1567,33 @@ public class DuLieuNTService extends ReportService {
     }
 
     //</editor-fold>
-    
-    
-    
     public ArrayList<DuLieuNTRow> getDataKTKSNB(String key, String posCode, String posFlag, String reportDate, String condition, String defaultListFlag) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
-        
+
         if (defaultListFlag.isEmpty()) {
             defaultListFlag = "0";
         }
-        
+
         WebTarget target;
-        
+
         if (condition.isEmpty()) {
             target = client.target(getBaseURI()).path("ktksnb-list-data")
-                .queryParam("key", key)
-                .queryParam("posCode", posCode)
-                .queryParam("posFlag", posFlag)
-                .queryParam("reportDate", reportDate)
-                .queryParam("defaultListFlag", defaultListFlag);
+                    .queryParam("key", key)
+                    .queryParam("posCode", posCode)
+                    .queryParam("posFlag", posFlag)
+                    .queryParam("reportDate", reportDate)
+                    .queryParam("defaultListFlag", defaultListFlag);
         } else {
             target = client.target(getBaseURI()).path("ktksnb-list-data")
-                .queryParam("key", key)
-                .queryParam("posCode", posCode)
-                .queryParam("posFlag", posFlag)
-                .queryParam("reportDate", reportDate)
-                .queryParam("condition", condition)
-                .queryParam("defaultListFlag", defaultListFlag);
+                    .queryParam("key", key)
+                    .queryParam("posCode", posCode)
+                    .queryParam("posFlag", posFlag)
+                    .queryParam("reportDate", reportDate)
+                    .queryParam("condition", condition)
+                    .queryParam("defaultListFlag", defaultListFlag);
         }
-                
+
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();
 
@@ -1610,8 +1605,34 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
-     public ArrayList<ListMainPos> getListCn(String provinceCode) {
+
+    public ArrayList<DuLieuNTRow> getDataQLNK(String posCode, String posFlag,
+            String reportDate, String customerCode, String groupId, String loanId, String defaultListFlag) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target;
+        target = client.target(getBaseURI()).path("qlnk-list-data")
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", posFlag)
+                .queryParam("reportDate", reportDate)
+                .queryParam("communeCode", customerCode)
+                .queryParam("groupId", groupId)
+                .queryParam("loanId", loanId)
+                .queryParam("dataFlag", defaultListFlag);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            DuLieuNTResp dulieuNTResp = response.readEntity(DuLieuNTResp.class);
+            ArrayList<DuLieuNTRow> listOfRow = dulieuNTResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+
+    public ArrayList<ListMainPos> getListCn(String provinceCode) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("ims-lov-province-list")
@@ -1627,8 +1648,8 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
-     public ArrayList<ListPosCode> getListPgd(String mainPos, String posCode) {
+
+    public ArrayList<ListPosCode> getListPgd(String mainPos, String posCode) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("ims-lov-pos-list")
@@ -1645,8 +1666,8 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-     
-     public ArrayList<ListCommune> getListXa(String provinceCode, String districtCode, String communeCode,String posCode) {
+
+    public ArrayList<ListCommune> getListXa(String provinceCode, String districtCode, String communeCode, String posCode) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("ims-lov-commune-list")
@@ -1665,7 +1686,7 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-     
+
     public int updateKTKSNB(String key, String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
             List<DuLieuNTRowX> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
@@ -1685,7 +1706,7 @@ public class DuLieuNTService extends ReportService {
         mapper.setSerializationInclusion(Include.NON_NULL);
         try {
             json = mapper.writeValueAsString(data);
-              System.out.println("ResultingJSONstring = " + json);  
+            System.out.println("ResultingJSONstring = " + json);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -1693,9 +1714,7 @@ public class DuLieuNTService extends ReportService {
         System.out.println("Response code API: " + response.getStatus());
         return response.getStatus();
     }
-    
-    
-    
+
     public GenericResult authorizeKTKSNB(String key, String posCode, String posFlag, String reportDate, String authoriseId,
             String dataFlag) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
@@ -1721,12 +1740,12 @@ public class DuLieuNTService extends ReportService {
         System.out.println("Response code API: " + response.getStatus());
         //String _body = response.readEntity(String.class);
         if (response.getStatus() == 200) {
-            String _bodyResp = response.readEntity(String.class);            
-            Gson g = new Gson();  
-            GenericResult _result = g.fromJson(_bodyResp, GenericResult.class) ;            
+            String _bodyResp = response.readEntity(String.class);
+            Gson g = new Gson();
+            GenericResult _result = g.fromJson(_bodyResp, GenericResult.class);
             return _result;
         } else {
             return new GenericResult(false, response.getStatus(), "Lỗi gọi api", "");
-        }                
+        }
     }
 }

@@ -159,6 +159,7 @@
                         <th style="width: 100px;" rowspan="2">Mã sản phẩm</th>
                         <th style="width: 70px;" class="TD_SOKU" colspan="2">Sao kê</th>
                         <th style="width: 70px;" class="TD_SOKU" colspan="2">Cân đối</th>
+                        <th style="width: 70px;" class="TD_SOKU" rowspan="2">Thêm/Xóa</th>
                     </tr>
                     <tr>          
                         <th style="width: 50px;" >Tiền gốc</th>
@@ -242,13 +243,13 @@
                                 <input type="text" value="<s:property  value="LAI_HACHTOAN_NT" />" id="D8"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH number2" onfocus="this.select();"/>
                             </td>
-                            <s:if test="TT_ROW.equalsIgnoreCase('I')">
-                                <td style="width: 40px;"><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex,'idRow_process_<s:property  value="%{#rowstatus.index}" />')" class="TEN_KH" style="width: 40px;"/></td>
-                            </s:if>
-
+                          
+                                <td style="width: 40px;"><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex,'idRow_process_<s:property  value="%{#rowstatus.index}" />')" class="TEN_KH" style="width: 40px;"/>
+                           
                         </tr>
                     </s:iterator>
                     <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

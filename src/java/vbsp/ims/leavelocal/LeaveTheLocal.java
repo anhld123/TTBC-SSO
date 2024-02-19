@@ -163,7 +163,7 @@ public class LeaveTheLocal extends ActionSupport {
             //Kiểm tra user thuộc pos cho vay hay không
             if (!lstData_tmp.isEmpty() && lstData_tmp.size() > 0) {
                 for (DuLieuNTRow item : lstData_tmp) {
-                    if (txtsMadv.substring(2, 4).equals(item.getPosCode().substring(2, 4))) {
+                    if (txtsMadv.equals(item.getPosCode())) {
                         item.setD42("1");
 
                         lstData.add(item);

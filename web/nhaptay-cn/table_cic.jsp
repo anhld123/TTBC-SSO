@@ -813,7 +813,7 @@
                                     <s:property value="c06NewIdNo" /> 
                                 </s:if>
                                 <s:else>
-                                    <s:property value="type" />
+                                    (<s:property value="type" />*)
                                 </s:else>
 
                             </td>
