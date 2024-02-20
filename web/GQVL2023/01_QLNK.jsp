@@ -340,8 +340,7 @@
                 var CT_D3 = row.cells[5].getElementsByTagName('input')[0].value;
                 var CT_D9 = row.cells[10].getElementsByTagName('input')[0].value;
                 var res = parseFloat(CT_D3.replace(/,/g, '')) - parseFloat(CT_D9.replace(/,/g, ''));
-                row.cells[17].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');
-                ;
+                row.cells[17].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');               
                 row.cells[17].getElementsByTagName('input')[0].style.color = 'red';
             }
 
@@ -350,8 +349,7 @@
                 var CT_D4 = row.cells[6].getElementsByTagName('input')[0].value;
                 var CT_D11 = row.cells[11].getElementsByTagName('input')[0].value;
                 var res = parseFloat(CT_D4.replace(/,/g, '')) - parseFloat(CT_D11.replace(/,/g, ''));
-                row.cells[18].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');
-                ;
+                row.cells[18].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');            
                 row.cells[18].getElementsByTagName('input')[0].style.color = 'red';
             }
 
