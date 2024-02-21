@@ -121,12 +121,7 @@
         </script>        
     </head>
     <body>
-        <div style="overflow:scroll; width: 98vw;height: 400px;">  
-            <s:form id="id_sv_%{khoa_nhaptaycn}" action="SAVE_QLNK_2023" theme="simple">
-                <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
-                    <input type="hidden" id="<s:property  value="sKey" />" 
-                           name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
-                </s:iterator>      
+        <div style="overflow:scroll; width: 98vw;height: 400px;">             
                 <div id="divTitle">
                     DANH SÁCH MÓN KHOANH NỢ ĐÃ PHÊ DUYỆT
                 </div>
@@ -333,9 +328,6 @@
 
 
             </div>
-            <sj:submit id="QLNK_2023_save" name="QLNK_2023_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
-                       onCompleteTopics="completediv_ss" cssStyle="display: none"/>
-        </s:form>
         <div id="luu_thanhcong"></div>
         <script>
             $(function () {

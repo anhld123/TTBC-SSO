@@ -340,7 +340,7 @@
                 var CT_D3 = row.cells[5].getElementsByTagName('input')[0].value;
                 var CT_D9 = row.cells[10].getElementsByTagName('input')[0].value;
                 var res = parseFloat(CT_D3.replace(/,/g, '')) - parseFloat(CT_D9.replace(/,/g, ''));
-                row.cells[17].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');               
+                row.cells[17].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');
                 row.cells[17].getElementsByTagName('input')[0].style.color = 'red';
             }
 
@@ -349,7 +349,7 @@
                 var CT_D4 = row.cells[6].getElementsByTagName('input')[0].value;
                 var CT_D11 = row.cells[11].getElementsByTagName('input')[0].value;
                 var res = parseFloat(CT_D4.replace(/,/g, '')) - parseFloat(CT_D11.replace(/,/g, ''));
-                row.cells[18].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');            
+                row.cells[18].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');
                 row.cells[18].getElementsByTagName('input')[0].style.color = 'red';
             }
 
@@ -389,12 +389,7 @@
         </script>        
     </head>
     <body>
-        <div style="overflow:scroll; width: 98vw;height: 400px;">  
-            <s:form id="id_sv_%{khoa_nhaptaycn}" action="SAVE_QLNK_2023" theme="simple">
-                <s:iterator value="#attr.lstParameters" var="para" status="rowstatus">
-                    <input type="hidden" id="<s:property  value="sKey" />" 
-                           name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
-                </s:iterator>      
+        <div style="overflow:scroll; width: 98vw;height: 400px;">             
                 <div id="divTitle">
                     <s:if test="txtGetData.equalsIgnoreCase('0')">
                         QUẢN LÝ NỢ KHOANH <font id="totalRowsFont" style="color: red"></font><font style="color: red">/<s:property value="messagePage"/>)</font>
@@ -620,9 +615,6 @@
                     </s:iterator>
                 </table>
             </div>
-            <sj:submit id="QLNK_2023_save" name="QLNK_2023_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
-                       onCompleteTopics="completediv_ss" cssStyle="display: none"/>
-        </s:form>
         <div id="luu_thanhcong"></div>
         <script>
             $(function () {

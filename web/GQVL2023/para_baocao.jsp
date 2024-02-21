@@ -198,14 +198,11 @@
                 bsubmit = true;
             }
 
-
-            function onSaveData() {
+            $("#idSave").click(function () {
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
-                var poscd = getposfromtreecheck();
                 var txtGetData = document.getElementById('txtGetData').value;
                 var gradeAuthor1 = document.getElementById('gradeAuthor1').value;
-                var khoa = $("#khoa_nhaptaycn").val() + "_save";
                 let checkedCount = countCheckedItem();
                 if (checkedCount === 0) {
                     $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Bạn chưa chọn bản ghi để lưu!</h>");
@@ -215,12 +212,13 @@
                     if (aCheck) {
                         var table = document.getElementById("subTable");
                         var rowcount = table.rows.length;
+                        var isValid = true;
                         for (var i = 0; i < rowcount; i++) {
                             try {
                                 var check_box = document.getElementById('check' + i).checked;
                                 var D10 = document.getElementById('D10_' + i).value;
                                 var D19 = document.getElementById('D19_' + i).value;
-                                if (gradeAuthor1 ==="1" && txtGetData === "0" && D19 !== "02" && D19 !== "06" && D19 !== "07")
+                                if (gradeAuthor1 === "1" && txtGetData === "0" && D19 !== "02" && D19 !== "06" && D19 !== "07")
                                 {
                                     if (check_box !== false && D10.length < 5) {
 //                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
@@ -232,30 +230,151 @@
                             } catch (e) {
                             }
                         }
+                        if (isValid) {
+                            var url, sdata;
+                            url = "SAVE_QLNK_2023.action";
+                            sdata = jQuery("#frmdata").serialize();
+                            $("#viewData").html('<img src="img/loading.gif"/>');
+                            btnDisabled(1);
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: sdata,
+                                success: function (data) {
+                                    if (data.length !== null) {
+                                        alert("Thành công: Lưu dữ liệu.");
+                                        onLoadData();
+                                    } else {
+                                        alert("Lỗi: Lưu dữ liệu.");
+                                        onLoadData();
+                                    }
+                                },
+                                complete: function () {
+                                    btnDisabled(0);
+                                },
+                                error: function (request) {
+                                    alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                                    onLoadData();
+                                }
+                            });
+                        }
                     }
                 }
-                if (typeof validateData !== 'undefined' && typeof validateData === 'function') {
-                    if (!validateData()) {
-                        alert('vao day');
-                        return false;
-                    }
-                }
-                if (validateRequiredFields()) {
-                    $("#" + khoa)[0].click();
-                }
-                if (khoa === 'QLNK_2023_save')
-                {
-                    function saveData() {
-                        return new Promise((resolve, reject) => {
-                            bsubmit = true;
-                            setTimeout(resolve, 0, 1);
+            });
 
+//            function onSaveData() {
+//                $('#message_suc_err').empty();
+//                $('#divExportReportLink').empty();
+//                var poscd = getposfromtreecheck();
+//                var txtGetData = document.getElementById('txtGetData').value;
+//                var gradeAuthor1 = document.getElementById('gradeAuthor1').value;
+//                var khoa = "QLNK_2023_save";
+//                let checkedCount = countCheckedItem();
+//                if (checkedCount === 0) {
+//                    $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Bạn chưa chọn bản ghi để lưu!</h>");
+//                    return;
+//                } else {
+//                    let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
+//                    if (aCheck) {
+//                        var table = document.getElementById("subTable");
+//                        var rowcount = table.rows.length;
+//                        for (var i = 0; i < rowcount; i++) {
+//                            try {
+//                                var check_box = document.getElementById('check' + i).checked;
+//                                var D10 = document.getElementById('D10_' + i).value;
+//                                var D19 = document.getElementById('D19_' + i).value;
+//                                if (gradeAuthor1 === "1" && txtGetData === "0" && D19 !== "02" && D19 !== "06" && D19 !== "07")
+//                                {
+//                                    if (check_box !== false && D10.length < 5) {
+////                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
+//                                        alert('Vui lòng nhập thông tin cột 12.');
+//                                        document.getElementById("D10_" + i).style.backgroundColor = "#EEAFA6";
+//                                        return;
+//                                    }
+//                                }
+//                            } catch (e) {
+//                            }
+//                        }
+//                    }
+//                }
+//                if (typeof validateData !== 'undefined' && typeof validateData === 'function') {
+//                    if (!validateData()) {
+//                        alert('vao day');
+//                        return false;
+//                    }
+//                }
+//                if (validateRequiredFields()) {
+//                    $("#QLNK_2023_save")[0].click();
+//                }
+//                if (khoa === 'QLNK_2023_save')
+//                {
+//                    function saveData() {
+//                        return new Promise((resolve, reject) => {
+//                            bsubmit = true;
+//                            setTimeout(resolve, 0, 1);
+//
+//                        });
+//                    }
+//                    saveData().then(onLoadData);
+//                    alert("Bạn đã lưu dữ liệu thành công!");
+//
+//                }
+//            }
+
+            $("#idDelete").click(function () {
+                let checkedCount = countCheckedItem();
+                if (checkedCount === 0 || checkedCount > 1) {
+                    alert('Bạn chưa chọn bản ghi để xóa hoặc mỗi lần bạn chỉ được phép xóa tối đa 1 bản ghi!');
+                } else {
+                    let aCheck = confirm("Bạn chắc chắn muốn đề nghị xóa dữ liệu ?");
+                    if (aCheck) {
+                        var url, sdata;
+                        url = "DELETE_QLNK_2023.action";
+                        sdata = jQuery("#frmdata").serialize();
+                        $("#viewData").html('<img src="img/loading.gif"/>');
+                        btnDisabled(1);
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: sdata,
+                            success: function (data) {
+                                if (data.length !== null) {
+                                    alert("Thành công: Đề nghị xóa dữ liệu.");
+                                    onLoadData();
+                                } else {
+                                    alert("Lỗi: Đề nghị xóa dữ liệu.");
+                                    onLoadData();
+                                }
+                            },
+                            complete: function () {
+                                btnDisabled(0);
+                            },
+                            error: function (request) {
+                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                                onLoadData();
+                            }
                         });
                     }
-                    saveData().then(onLoadData);
-                    alert("Bạn đã lưu dữ liệu thành công!");
-
                 }
+            });
+
+            function btnDisabled(status) {
+                if (status === 1) {
+                    $("#idSearch").prop('disabled', true);
+//                    $("#idSend").prop('disabled', true);
+//                    $("#idSave").prop('disabled', true);
+//                    $("#idDelete").prop('disabled', true);
+                    $("#idUpload").prop('disabled', true);
+                    $("#idFetch").prop('disabled', true);
+                } else {
+                    $("#idSearch").prop('disabled', false);
+//                    $("#idSend").prop('disabled', false);
+//                    $("#idSave").prop('disabled', false);
+//                    $("#idDelete").prop('disabled', false);
+                    $("#idUpload").prop('disabled', false);
+                    $("#idFetch").prop('disabled', false);
+                }
+                ;
             }
 
             function countCheckedItem() {
@@ -427,7 +546,7 @@
     <!--new java.util.Date()-->
     <body>
 
-        <s:form id="id_%{khoa_nhaptaycn}" name="name_%{khoa_nhaptaycn}" action="%{khoa_nhaptaycn}" theme="simple">
+        <s:form id="frmdata" name="frmdata" action="%{khoa_nhaptaycn}" theme="simple">
             <s:hidden name="khoa_bcqt" id="khoa"/>
             <s:hidden name="ReportDate" id="ReportDate" value=""/>
             <s:hidden name="Grade" id="Grade"/>
@@ -471,7 +590,7 @@
                                        onCompleteTopics="completediv_data" cssStyle="display:none"/>
                             <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                             <s:if test="Grade.equalsIgnoreCase('1')">
-                                <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> 
+                                <input type="button" id="idSave"  value="Lưu dữ liệu"/> 
                             </s:if>
                         </td> 
                         <td><input type="hidden" name="txtGetData" id="txtGetData" value="0"> </td>
@@ -519,7 +638,8 @@
                                     <font style="color: red"> PGD đã được chốt số liệu
                                 </s:if>
                                 <s:else>
-                                    <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> 
+                                    <input type="button" id="idSave" value="Lưu dữ liệu"/> 
+                                    <input type="button" id="idDelete" style="color: red" value="Xóa dữ liệu"/> 
                                 </s:else>    
 
                             </s:if>
@@ -572,7 +692,23 @@
 //            $('#ngay_bc_DATE').datepicker('disable');
 //            document.getElementById("labelPageNumber").style.visibility = "hidden";
 //            document.getElementById("pageNumber").style.visibility = "hidden";
+
+            function hideElement() {
+                var gradeAuthor1 = document.getElementById('gradeAuthor1').value;
+                if (gradeAuthor1 === "1")
+                {
+                    document.getElementById('idDelete').style.display = 'none';
+                }
+                document.getElementById('txtGetData').addEventListener('change', function () {
+                    var value = this.value;
+                    if (value === "0") {
+                        document.getElementById('idDelete').style.display = 'inline';
+                    } else {
+                        document.getElementById('idDelete').style.display = 'none';
+                    }
+                });
+            }
+            hideElement();
         </script>
-    </div>
-</body>
+    </body>
 </html>
