@@ -8,7 +8,10 @@ package vbsp.ims.gqvl_2023;
 import static com.opensymphony.xwork2.Action.ERROR;
 import vbsp.ims.nhaptaycn.action.*;
 import static com.opensymphony.xwork2.Action.SUCCESS;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import vbsp.ims.nhaptaycn.action.*;
 import vbsp.ims.nhaptaycn.action.*;
 import java.sql.Connection;
@@ -50,6 +53,15 @@ public class QLNK_2023 extends ActionNhaptaycnMain
     private String txtGetData;
     private String messagePage;
     private String gradeAuthor1;
+    private InputStream pageResult;
+
+    public InputStream getPageResult() {
+        return pageResult;
+    }
+
+    public void setPageResult(InputStream pageResult) {
+        this.pageResult = pageResult;
+    }
 
     @Override
     public String getGradeAuthor1() {
@@ -334,7 +346,10 @@ public class QLNK_2023 extends ActionNhaptaycnMain
                 }
                 if (!daoMain.saveQLNK2023_1("01_QLNK", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstLocalDataUpdate, pos_cd_username, maxaValue, matoValue)) {
                     addActionError("Bạn chưa lưu được báo cáo màn hình Nhập, tại chi nhánh vui lòng liên hệ quản trị viên!!");
+                    String code = String.valueOf(2);
+                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
                     return ERROR;
+
                 }
 //                }
 //                else {
@@ -348,12 +363,16 @@ public class QLNK_2023 extends ActionNhaptaycnMain
 //            CoreLogger.error(this.getClass().getName() + " Exception -> SMS_001: " + e.getMessage());
 //            System.err.println(this.getClass().getName() + " Exception -> SMS_001: " + e.getMessage());
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+            String code = String.valueOf(1);
+            this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
             return ERROR;
         }
         addActionMessage("Bạn đã lưu dữ liệu thành công");
+        String code = String.valueOf(200);
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
-    
+
     public String delete() {
         System.out.println("vao váe");
         try {
@@ -371,7 +390,7 @@ public class QLNK_2023 extends ActionNhaptaycnMain
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             String dateStr = sdf.format(date1);
             int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(date1));
-
+            String localD2 = null; 
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
                 if (tmp.getD18() != null) {
@@ -419,32 +438,30 @@ public class QLNK_2023 extends ActionNhaptaycnMain
                     tempadd.setD30(tmp.getD30());
                     lstUpdateDate.add(tempadd);
                     lstLocalDataUpdate.add(tmp);
-//                    lstDulieuNt_tmp.add(tmp);
+                    localD2 = tmp.getD2();
                 }
             }
+
             _leaveHomeService = new Service_GQVL2023();
             int status = _leaveHomeService.deleteQLNK(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
             String matoValue1 = hmParameter.get("txtGetData").toString();
             if (status == 200) {
-////                if (matoValue1.equals("0")) {
-//                String matoValue = hmParameter.get("mato").toString().split("_")[1];
-//                if ("0000000".equals(matoValue)) {
-//                    matoValue = "";
-//                }
-//                String maxaValue = hmParameter.get("maxa").toString();
-//                if ("000000".equals(maxaValue)) {
-//                    maxaValue = "";
-//                }
-//                if (!daoMain.saveQLNK2023_1("01_QLNK", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstLocalDataUpdate, pos_cd_username, maxaValue, matoValue)) {
-//                    addActionError("Bạn chưa lưu được báo cáo màn hình Nhập, tại chi nhánh vui lòng liên hệ quản trị viên!!");
-//                    return ERROR;
-//                } 
+                if (!daoMain.deleteQLNK2023("01_QLNK", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstLocalDataUpdate, pos_cd_username, localD2)) {
+                    addActionError("Bạn chưa xóa được dữ liệu màn hình Nhập, tại chi nhánh vui lòng liên hệ quản trị viên!!");
+                    String code = String.valueOf(2);
+                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                    return ERROR;
+                }
             }
         } catch (Exception e) {
             addActionError("Bạn chưa xóa được dữ liệu xin liên hệ với quản trị để khắc phục");
+            String code = String.valueOf(1);
+            this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
             return ERROR;
         }
         addActionMessage("Bạn đã xóa dữ liệu thành công");
+        String code = String.valueOf(200);
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
 

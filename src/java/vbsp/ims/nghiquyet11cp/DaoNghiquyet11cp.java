@@ -1353,7 +1353,7 @@ public class DaoNghiquyet11cp {
         return true;
     }
     
-    public boolean saveQLNK2023(String khoa, String username, String capbc, String ngaybc, List<QT_DULIEU_NT> lstData, String mapgd) throws SQLException {
+    public boolean deleteQLNK2023(String khoa, String username, String capbc, String ngaybc, List<QT_DULIEU_NT> lstData, String mapgd, String makh) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -1365,13 +1365,14 @@ public class DaoNghiquyet11cp {
 
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.P_SAVE_QLNK_2023(?, ?, ?, ?, ? ,?)}");
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.P_DELETE_QLNK_2023(?, ?, ?, ?, ? ,?,?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
             cs.setString(3, capbc);
             cs.setString(4, ngaybc);
             cs.setArray(5, array_to_pass);
             cs.setString(6, mapgd);
+            cs.setString(7, makh);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();

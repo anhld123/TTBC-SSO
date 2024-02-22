@@ -232,7 +232,7 @@
                         }
                         if (isValid) {
                             var url, sdata;
-                            url = "SAVE_QLNK_2023.action";
+                            url = "save_QLNK_2023.action";
                             sdata = jQuery("#frmdata").serialize();
                             $("#viewData").html('<img src="img/loading.gif"/>');
                             btnDisabled(1);
@@ -241,7 +241,8 @@
                                 url: url,
                                 data: sdata,
                                 success: function (data) {
-                                    if (data.length !== null) {
+//                                    if (data.length !== null) {
+                                    if (data === "200") {
                                         alert("Thành công: Lưu dữ liệu.");
                                         onLoadData();
                                     } else {
@@ -329,7 +330,7 @@
                     let aCheck = confirm("Bạn chắc chắn muốn đề nghị xóa dữ liệu ?");
                     if (aCheck) {
                         var url, sdata;
-                        url = "DELETE_QLNK_2023.action";
+                        url = "delete_QLNK_2023.action";
                         sdata = jQuery("#frmdata").serialize();
                         $("#viewData").html('<img src="img/loading.gif"/>');
                         btnDisabled(1);
@@ -338,7 +339,8 @@
                             url: url,
                             data: sdata,
                             success: function (data) {
-                                if (data.length !== null) {
+//                                if (data.length !== null) {
+                                if (data === "200") {
                                     alert("Thành công: Đề nghị xóa dữ liệu.");
                                     onLoadData();
                                 } else {
