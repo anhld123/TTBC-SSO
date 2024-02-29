@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package vbsp.ims.action;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -18,35 +17,51 @@ import vbsp.ims.report.fast.ListValue;
  *
  * @author Trung
  */
-public class ReportGroupComboAction extends ActionSupport 
+public class ReportGroupComboAction extends ActionSupport
         implements ServletRequestAware {
-    
+
     //--------------------------------------------------------------------------
     private List<ListValue> lstRptGroupObj;
-    private List<ListValue> lstReportObj;    
-    
+    private List<ListValue> lstReportObj;
+
     //--------------------------------------------------------------------------
     private String groupId;
     private String reportId;
     private HttpServletRequest request;
-    
+
     //--------------------------------------------------------------------------
     public String builCombo() {
         int menuId = ReportMenuManager.getMenuId();
-        ReportMenuManager.build(menuId,groupId);
-        
+        ReportMenuManager.build(menuId, groupId);
+
         this.lstRptGroupObj = ReportMenuManager.getReportGroupList();
         this.lstReportObj = ReportMenuManager.getReportList();
-        
-        if (this.lstReportObj.size() > 0)
+
+        if (this.lstReportObj.size() > 0) {
             this.reportId = this.lstReportObj.get(0).sKey;
-        else {
+        } else {
             this.lstReportObj = new ArrayList<>();
 //            this.lstReportObj.add(new ListValue(NONE, "--- Chọn báo cáo ---"));
         }
         return "success";
     }
-    
+
+    public String builComboAPI() {
+        int menuId = ReportMenuManager.getMenuId();
+        ReportMenuManager.build(menuId, groupId);
+
+        this.lstRptGroupObj = ReportMenuManager.getReportGroupList();
+        this.lstReportObj = ReportMenuManager.getReportList();
+
+        if (this.lstReportObj.size() > 0) {
+            this.reportId = this.lstReportObj.get(0).sKey;
+        } else {
+            this.lstReportObj = new ArrayList<>();
+//            this.lstReportObj.add(new ListValue(NONE, "--- Chọn báo cáo ---"));
+        }
+        return "success";
+    }
+
     //--------------------------------------------------------------------------
     public List<ListValue> getLstRptGroupObj() {
         return lstRptGroupObj;
@@ -62,7 +77,7 @@ public class ReportGroupComboAction extends ActionSupport
 
     public void setLstReportObj(List<ListValue> lstReportObj) {
         this.lstReportObj = lstReportObj;
-    }    
+    }
 
     public String getGroupId() {
         return groupId;
@@ -79,7 +94,7 @@ public class ReportGroupComboAction extends ActionSupport
     public void setReportId(String reportId) {
         this.reportId = reportId;
     }
-    
+
     @Override
     public void setServletRequest(HttpServletRequest request) {
         this.request = request;
