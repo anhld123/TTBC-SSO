@@ -81,7 +81,7 @@ public class DuLieuNTService_Api1 extends ReportService_Api {
 //        }
 //    }
 
-    public int Report_Api(String reportId, ReportApi data) {
+    public ReportApi Report_Api(String reportId, ReportApi data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("view-report")
@@ -99,8 +99,15 @@ public class DuLieuNTService_Api1 extends ReportService_Api {
             e.printStackTrace();
         }
         Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
-        System.out.println("Response code API: " + response.getStatus());
-        return response.getStatus();
+        if (response.getStatus() == 200) {
+            DuLieuApiResp dulieuNTResp = response.readEntity(DuLieuApiResp.class);
+            ReportApi listOfRow = dulieuNTResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+//        System.out.println("Response code API: " + response.getStatus());
+//        return response.getStatus();
     }
 
     // </editor-fold>

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -138,8 +139,21 @@ public class ExportJasperReport_Api {
             _reportApi.setReportId(reportId);
             _reportApi.setLstParameter(_LstParameter);
             // gọi API lấy chuỗi 64          
-            _apiReport.Report_Api(reportId, _reportApi);
-            
+            ReportApi kk = _apiReport.Report_Api(reportId, _reportApi);
+
+            File file = new File("d://test.pdf");
+
+            try (FileOutputStream fos = new FileOutputStream(file);) {
+                // To be short I use a corrupted PDF string, so make sure to use a valid one if you want to preview the PDF file
+                String b64 = kk.data;
+                byte[] decoder = Base64.getDecoder().decode(b64);
+
+                fos.write(decoder);
+                System.out.println("PDF File Saved");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         } catch (IOException e) {
             System.err.println(e.getMessage());
             // TODO: handle exception
