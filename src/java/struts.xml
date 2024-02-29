@@ -82,7 +82,6 @@
         </action>
         
         
-        
         <action name="User_create" class="vbsp.ims.action.UserAction" method="create">
             <!--            <result type="redirectAction">User_list</result>-->
             <!--            <result name="success">usrmanager.jsp</result>-->
@@ -137,11 +136,7 @@
         <action name="loadParams" class="vbsp.ims.action.LoadReportParamsActionSupport" method="getReportParams">
             <result name="success">/WEB-INF/loadAllBC-main.jsp</result>            
         </action>
-        
-        <action name="loadParamsAPI" class="vbsp.ims.action.LoadReportParamsActionSupport" method="getReportParams">
-            <result name="success">/Report_Api/loadReport_Api.jsp</result>            
-        </action>
-        
+
         <action name="createreportJasper" class="vbsp.ims.action.LoadReportParamsActionSupport" method="genReport">
             <result name="success">downfile_bcnhanh.jsp</result>
             <result name="error" >/error.jsp</result>
@@ -155,21 +150,21 @@
             <result name="error" >/error.jsp</result>         
         </action>
         
-         <action name="loadParamsAPI" class="vbsp.ims.action.LoadReportParamsActionSupport" method="getReportParams">
+         <action name="loadParamsAPI" class="vbsp.ims.action.LoadReportParamsActionSupport_Api" method="getReportParams_Api">
             <result name="success">/Report_Api/loadReport_Api.jsp</result>            
         </action>
         
-         <action name="viewReportJasper_Api" class="vbsp.ims.action.LoadReportParamsActionSupport" method="genViewReport_Api">
+         <action name="viewReportJasper_Api" class="vbsp.ims.action.LoadReportParamsActionSupport_Api" method="genViewReport_Api">
             <result name="success">/Report_Api/viewfilebc_api.jsp</result> 
             <result name="error" >/error.jsp</result>         
         </action>
         
-         <action name="createreportJasper_Api" class="vbsp.ims.action.LoadReportParamsActionSupport" method="genReport_Api">
+         <action name="createreportJasper_Api" class="vbsp.ims.action.LoadReportParamsActionSupport_Api" method="genReport_Api">
             <result name="success">/Report_Api/downfile_bc_api.jsp</result>
             <result name="error" >/error.jsp</result>
         </action>
         
-         <action name="genReportJasper_Api" class="vbsp.ims.action.LoadReportParamsActionSupport" method="genReport_Api">
+         <action name="genReportJasper_Api" class="vbsp.ims.action.LoadReportParamsActionSupport_Api" method="genReport_Api">
             <result name="success">/Report_Api/downfile_bc_api.jsp</result>
             <result name="error" >/error.jsp</result>
         </action>
@@ -319,7 +314,7 @@
         
          <action name="doGroupReportFilterAPI"  
                 class="vbsp.ims.action.ReportGroupComboAction" 
-                method="builComboAPI">
+                method="builCombo">
             <result name="success" type="json"></result>
         </action>
         
