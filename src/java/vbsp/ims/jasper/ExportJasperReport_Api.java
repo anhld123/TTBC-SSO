@@ -47,7 +47,7 @@ public class ExportJasperReport_Api {
     static {
         oracleConn = new DaoConnect();
     }
-
+// quyennv 29/02/2024
     public void ExportJasperPdf(String strSourceFileJasper, HashMap<String, Object> paramHashMap, Connection connectdb, String strTargetFilePdf, String reportId) {
 //        System.err.println("ExportJasperPdf -->" + paramHashMap.get("PARA_KYBC"));
         //lay ra duong dan cua file duoi dang File
@@ -75,8 +75,6 @@ public class ExportJasperReport_Api {
 
         try {
             //thiet lap cac tham so
-//            JRProperties.setProperty("net.sf.jasperreports.csv.locale.code",Locale.GERMANY.toString());
-            //JRProperties.setProperty("net.sf.jasperreports.xpath.executer.factory", "net.sf.jasperreports.engine.util.xml.JaxenXPathExecuterFactory");
             JRProperties.setProperty(JRProperties.QUERY_EXECUTER_FACTORY_PREFIX + "plsql",
                     "com.jaspersoft.jrx.query.PlSqlQueryExecuterFactory");
             //kiem tra neu file da bien dich roi thi bo qua khong bien dich nua
@@ -98,16 +96,7 @@ public class ExportJasperReport_Api {
             paramHashMap.put(JRParameter.REPORT_LOCALE, Locale.GERMANY);
             //bien dich file ra duoi dang .jspprint            
             JasperPrint localJasperPrint = JasperFillManager.fillReport(strfilejasper, paramHashMap, connectdb);
-            //tao ra file pdf
-//            JasperExportManager.exportReportToPdfFile(localJasperPrint, strTargetFilePdf);
-
-//            // Add elements to the map 
-//            paramHashMap.put("PARA_MAPGD", paramHashMap.get("PARA_MAPGD").toString());
-//            paramHashMap.put("PARA_DENNGAY", paramHashMap.get("PARA_DENNGAY").toString());
-//            paramHashMap.put("PARA_TONGHOP", paramHashMap.get("PARA_TONGHOP").toString());
-//
-//            // Finding the Set of keys from 
-//            // the HashMap chia kye và value
+       
             Set<String> keySet = paramHashMap.keySet();
             ArrayList<String> listOfKeys = new ArrayList<String>(keySet);
             Collection<Object> values = paramHashMap.values();
@@ -122,14 +111,14 @@ public class ExportJasperReport_Api {
                     LstParameter row = new LstParameter();
                     row.setParaName(key);
                     row.setParaValue(listOfValues.get(i).toString());
-
-                    if (key.equals("PARA_MAPGD")) {
-                        row.setParaType("C");
-                    } else if (key.equals("PARA_DENNGAY")) {
-                        row.setParaType("D");
-                    } else if (key.equals("PARA_TONGHOP")) {
-                        row.setParaType("C");
-                    }
+                    row.setParaType("");
+//                    if (key.equals("PARA_MAPGD")) {
+//                        row.setParaType("C");
+//                    } else if (key.equals("PARA_DENNGAY")) {
+//                        row.setParaType("D");
+//                    } else if (key.equals("PARA_TONGHOP")) {
+//                        row.setParaType("C");
+//                    }
 
                     _LstParameter.add(row);
                 }
@@ -141,8 +130,8 @@ public class ExportJasperReport_Api {
             // gọi API lấy chuỗi 64          
             ReportApi kk = _apiReport.Report_Api(reportId, _reportApi);
 
-            File file = new File("d://test.pdf");
-
+            File file = new File(strTargetFilePdf);
+            
             try (FileOutputStream fos = new FileOutputStream(file);) {
                 // To be short I use a corrupted PDF string, so make sure to use a valid one if you want to preview the PDF file
                 String b64 = kk.data;
@@ -150,6 +139,9 @@ public class ExportJasperReport_Api {
 
                 fos.write(decoder);
                 System.out.println("PDF File Saved");
+                
+                //tao ra file pdf
+//            JasperExportManager.exportReportToPdfFile(localJasperPrint, strTargetFilePdf);
             } catch (Exception e) {
                 e.printStackTrace();
             }

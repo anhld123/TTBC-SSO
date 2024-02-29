@@ -80,7 +80,7 @@ public class DuLieuNTService_Api1 extends ReportService_Api {
 //            return null;
 //        }
 //    }
-
+// quyennv 29/02/2024
     public ReportApi Report_Api(String reportId, ReportApi data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
