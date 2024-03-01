@@ -217,6 +217,9 @@
                             try {
                                 var check_box = document.getElementById('check' + i).checked;
                                 var D10 = document.getElementById('D10_' + i).value;
+                                var D11 = document.getElementById('D11_' + i).value;
+                                var D12 = document.getElementById('D12_' + i).value;
+                                var D13 = document.getElementById('D13_' + i).value;
                                 var D19 = document.getElementById('D19_' + i).value;
                                 if (gradeAuthor1 === "1" && txtGetData === "0" && D19 !== "02" && D19 !== "06" && D19 !== "07")
                                 {
@@ -227,6 +230,28 @@
                                         return;
                                     }
                                 }
+                                if (gradeAuthor1 === "1" && txtGetData === "0")
+                                {
+                                    if (check_box !== false && D11.length < 5) {
+//                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
+                                        alert('Vui lòng nhập thông tin cột 13.');
+                                        document.getElementById("D11_" + i).style.backgroundColor = "#EEAFA6";
+                                        return;
+                                    }
+                                    if (check_box !== false && D12 === "0") {
+//                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
+                                        alert('Vui lòng nhập thông tin cột 14.');
+                                        document.getElementById("D12_" + i).style.backgroundColor = "#EEAFA6";
+                                        return;
+                                    }
+                                    if (check_box !== false && D13 === "0") {
+//                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
+                                        alert('Vui lòng nhập thông tin cột 15.');
+                                        document.getElementById("D13_" + i).style.backgroundColor = "#EEAFA6";
+                                        return;
+                                    }
+                                }
+                                
                             } catch (e) {
                             }
                         }
