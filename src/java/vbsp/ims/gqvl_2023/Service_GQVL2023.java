@@ -166,12 +166,12 @@ public class Service_GQVL2023 {
     }
 
     public List<DuLieuNTRow> getQLNK(String posCode, String posFlag,
-            String reportDate, String customerCode, String groupId, String loanId, String defaultListFlag) {
+            String reportDate, String customerCode, String groupId, String loanId, String defaultListFlag, String fetchType) {
 
         try {
             final String _fromDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
             {
-                return _service.getDataQLNK( posCode, posFlag, _fromDate, customerCode,groupId,loanId,defaultListFlag);
+                return _service.getDataQLNK( posCode, posFlag, _fromDate, customerCode,groupId,loanId,defaultListFlag,fetchType);
             }
         } catch (Exception e) {
             return null;

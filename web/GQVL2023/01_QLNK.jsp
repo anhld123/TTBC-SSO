@@ -73,7 +73,7 @@
                 $(".STT2").css({"width": "100px"});
                 $(".STT3").css({"width": "150"});
                 $(".STT4").css({"width": "200px"});
-                $(".STT5").css({"width": "85px"});
+                $(".STT5").css({"width": "70px"});
                 $(".STT6").css({"width": "65px"});
                 $(".TD_NGUYENGIA").css({"width": "80px"});
                 $(".TD_THUTU").css({"width": "30px"});
@@ -261,17 +261,15 @@
             }
 
 
-            var totalRows = 0;
-            var table = document.getElementById("subTable");
-            var inputs = table.querySelectorAll('input[id^="D26_"]');
-            for (var i = 0; i < inputs.length; i++) {
-                if (inputs[i].value === "1") {
-                    totalRows++;
-                }
-            }
-            document.getElementById('totalRowsFont').innerText = "(Số món phê duyệt: " + totalRows;
-
-
+//            var totalRows = 0;
+//            var table = document.getElementById("subTable");
+//            var inputs = table.querySelectorAll('input[id^="D26_"]');
+//            for (var i = 0; i < inputs.length; i++) {
+//                if (inputs[i].value === "1") {
+//                    totalRows++;
+//                }
+//            }
+//            document.getElementById('totalRowsFont').innerText = "(Số món phê duyệt: " + totalRows;
 
             function initTable()
             {
@@ -301,31 +299,30 @@
                         if (D8 === "0")
                         {
                             document.getElementById("D8_" + i).value = document.getElementById('D3_' + i).value;
-                            ;
-                        }
-                        var D8 = document.getElementById('D8_' + i).value;
-                        if (D8 === "0")
-                        {
-                            document.getElementById("D8_" + i).value = document.getElementById('D3_' + i).value;
-                            ;
                         }
                         var D9 = document.getElementById('D9_' + i).value;
                         if (D9 === "0")
                         {
                             document.getElementById("D9_" + i).value = document.getElementById('D5_' + i).value;
-                            ;
                         }
                         var D27 = document.getElementById('D27_' + i).value;
                         if (D27 === "0")
                         {
                             document.getElementById("D27_" + i).value = document.getElementById('D4_' + i).value;
-                            ;
+                        }
+                        var D14 = document.getElementById('D14_' + i).value;
+                        var D15 = document.getElementById('D15_' + i).value;
+                        var D28 = document.getElementById('D28_' + i).value;
+                        if (D14 === "0" && D15 === "0" && D28 === "0")
+                        {
+                            document.getElementById('D16_' + i).disabled = true;
                         }
                         var D11 = document.getElementById('D11_' + i).value;
                         if (D11.length < "5")
                         {
                             document.getElementById('D12_' + i).disabled = true;
                             document.getElementById('D13_' + i).disabled = true;
+                            document.getElementById('D29_' + i).disabled = true;
                         }
                         var D26 = document.getElementById('D26_' + i).checked;
                         if (D26 === true)
@@ -362,8 +359,8 @@
                     document.getElementById("D12_" + index).disabled = true;
                 }
             }
-            
-             function onSelectChange_dnht2(value, index) {
+
+            function onSelectChange_dnht2(value, index) {
                 if (value !== '0')
                 {
                     document.getElementById("D13_" + index).disabled = false;
@@ -373,6 +370,90 @@
                 }
             }
 
+            function onSelectChange_dnht3(value, index) {
+                if (value !== '0')
+                {
+                    document.getElementById("D29_" + index).disabled = false;
+                } else
+                {
+                    document.getElementById("D29_" + index).disabled = true;
+                }
+            }
+
+            function onSelectChange_s1(value, index) {
+                var selected = "selected";
+                if (value === '1')
+                {
+                    $("#D29_" + index).children().remove().end();
+                    $("#D29_" + index).prepend("<option value='1' " + selected + ">Không cam kết</option>");
+                } else
+                {
+                    $("#D29_" + index).children().remove().end();
+                    $("#D29_" + index).prepend("<option value='3' " + selected + ">Không thực hiện cam kết</option>");
+                    $("#D29_" + index).prepend("<option value='2' " + selected + ">Thực hiện cam kết</option>");
+                    $("#D29_" + index).prepend("<option value='0' " + selected + ">--- Chọn ---</option>");
+                }
+            }
+
+            function onSelectChange_dnht4(value, index) {
+                if (value !== document.getElementById('D4_' + index).value)
+                {
+                    document.getElementById("D16_" + index).disabled = false;
+                } else
+                {
+                    if (document.getElementById('D5_' + index).value !== document.getElementById('D9_' + index).value)
+                    {
+                        document.getElementById("D16_" + index).disabled = false;
+                    } else {
+                        if (document.getElementById('D3_' + index).value !== document.getElementById('D8_' + index).value)
+                        {
+                            document.getElementById("D16_" + index).disabled = false;
+                        } else {
+                            document.getElementById("D16_" + index).disabled = true;
+                        }
+                    }
+                }
+            }
+
+            function onSelectChange_dnht5(value, index) {
+                if (value !== document.getElementById('D5_' + index).value)
+                {
+                    document.getElementById("D16_" + index).disabled = false;
+                } else
+                {
+                    if (document.getElementById('D3_' + index).value !== document.getElementById('D8_' + index).value)
+                    {
+                        document.getElementById("D16_" + index).disabled = false;
+                    } else {
+                        if (document.getElementById('D4_' + index).value !== document.getElementById('D27_' + index).value)
+                        {
+                            document.getElementById("D16_" + index).disabled = false;
+                        } else {
+                            document.getElementById("D16_" + index).disabled = true;
+                        }
+                    }
+                }
+            }
+
+            function onSelectChange_dnht6(value, index) {
+                if (value !== document.getElementById('D3_' + index).value)
+                {
+                    document.getElementById("D16_" + index).disabled = false;
+                } else
+                {
+                    if (document.getElementById('D5_' + index).value !== document.getElementById('D9_' + index).value)
+                    {
+                        document.getElementById("D16_" + index).disabled = false;
+                    } else {
+                        if (document.getElementById('D4_' + index).value !== document.getElementById('D27_' + index).value)
+                        {
+                            document.getElementById("D16_" + index).disabled = false;
+                        } else {
+                            document.getElementById("D16_" + index).disabled = true;
+                        }
+                    }
+                }
+            }
 //            function calc() {
 //                var table = document.getElementById("subTable");
 //                var rowcount = table.rows.length;
@@ -435,17 +516,18 @@
             window.onload = function () {
                 changePage(current_page);
             };
-
         </script>        
     </head>
     <body>
         <div style="overflow:scroll; width: 98vw;height: 400px;">             
             <div id="divTitle">
                 <s:if test="txtGetData.equalsIgnoreCase('0')">
-                    QUẢN LÝ NỢ KHOANH <font id="totalRowsFont" style="color: red"></font><font style="color: red">/<s:property value="messagePage"/>)</font>
+                    QUẢN LÝ NỢ KHOANH 
+                    <!--<font id="totalRowsFont" style="color: red"></font><font style="color: red">/<s:property value="messagePage"/>)</font>-->
                 </s:if>
                 <s:else>
-                    DANH SÁCH MÓN NỢ KHOANH <font id="totalRowsFont" style="color: red"></font><font style="color: red">/<s:property value="messagePage"/>)</font>    
+                    DANH SÁCH MÓN NỢ KHOANH 
+                    <!--<font id="totalRowsFont" style="color: red"></font><font style="color: red">/<s:property value="messagePage"/>)</font>-->    
                 </s:else>
             </div>
             Chọn trang <input style="border-top-style: hidden; border-left-style: hidden; border-right-style: hidden " class="STT1" type="number" id="pageInput" min="1" max="numPages()"/>
@@ -482,7 +564,7 @@
                     <th rowspan="2" class="STT5" style="color: #ff6600">Thực trạng dự án phương án vay vốn</th>                             
                     <th rowspan="2" class="STT5" style="color: #ff6600">Tình hình thực tế của khách hàng</th>   
                     <th rowspan="2" class="STT5" style="color: #ff6600">Khả năng trả nợ của khách hàng</th> 
-                    <th rowspan="2" class="STT5" style="color: #ff6600">Khách hàng cam kết trả nợ</th>
+                    <th rowspan="2" style="width:350px ;color: #ff6600">Khách hàng cam kết trả nợ</th>
                     <th colspan="3" class="STT5" style="color: #ff6600">Chênh lệch</th>
                 </tr>
                 <tr>
@@ -601,16 +683,19 @@
                     </td>
                     <td class="D0">
                         <input type="text" value="<s:property  value="D8" />" style="width: 80px;"
+                               oninput="onSelectChange_dnht6(this.value, <s:property  value='%{#rowstatus.index}'/>)"
                                id="D8_<s:property  value='%{#rowstatus.index}' />" onchange="calc(this);"
                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="number sstyle STT5"/>
                     </td>
                     <td class="D0">
                         <input type="text" value="<s:property  value="D9" />" style="width: 80px;"
+                               oninput="onSelectChange_dnht5(this.value, <s:property  value='%{#rowstatus.index}'/>)"
                                id="D9_<s:property  value='%{#rowstatus.index}' />" onchange="calc1(this);" 
                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="number sstyle STT5"/>
                     </td>
                     <td class="D0">
                         <input type="text" value="<s:property  value="D27" />" style="width: 80px;"
+                               oninput="onSelectChange_dnht4(this.value, <s:property  value='%{#rowstatus.index}'/>)"
                                id="D27_<s:property  value='%{#rowstatus.index}' />" onchange="calc2(this);"
                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27" class="number sstyle STT5"/>
                     </td>
@@ -624,20 +709,27 @@
                                   name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" maxlength="200"><s:property value='D11'/></textarea>
                     </td>
                     <td class="D0">
-                        <select oninput="onSelectChange_dnht2(this.value, <s:property  value='%{#rowstatus.index}'/>)"
+                        <select oninput="onSelectChange_dnht2(this.value, <s:property  value='%{#rowstatus.index}'/>)" style="border: hidden"
                                 class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D12" id="D12_<s:property  value='%{#rowstatus.index}' />" > 
                             <option value="0" style="text-align: center" <s:if test="D12.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
-                            <option value="1" <s:if test="D12.equalsIgnoreCase('1')"> selected </s:if>>1: Không có khả năng trả nợ</option>
-                            <option value="2" <s:if test="D12.equalsIgnoreCase('2')"> selected </s:if>>2: Chưa có khả năng trả nợ</option>                        
-                            <option value="3" <s:if test="D12.equalsIgnoreCase('3')"> selected </s:if>>3: Có khả năng trả nợ</option>
+                            <option value="1" <s:if test="D12.equalsIgnoreCase('1')"> selected </s:if>>Không có khả năng trả nợ</option>
+                            <option value="2" <s:if test="D12.equalsIgnoreCase('2')"> selected </s:if>>Chưa có khả năng trả nợ</option>                        
+                            <option value="3" <s:if test="D12.equalsIgnoreCase('3')"> selected </s:if>>Có khả năng trả nợ</option>
                             </select>
                         </td>
                         <td class="D0">
-                            <select class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D13" id="D13_<s:property  value='%{#rowstatus.index}' />" > 
+                            <select style="border: hidden" class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D13" id="D13_<s:property  value='%{#rowstatus.index}' />"
+                                oninput="onSelectChange_s1(this.value, <s:property  value='%{#rowstatus.index}'/>); onSelectChange_dnht3(this.value, <s:property  value='%{#rowstatus.index}'/>)"> 
                             <option value="0" style="text-align: center" <s:if test="D13.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
-                            <option value="1" <s:if test="D13.equalsIgnoreCase('1')"> selected </s:if>>1: Không cam kết</option>
-                            <option value="2" <s:if test="D13.equalsIgnoreCase('2')"> selected </s:if>>2: Không thực hiện cam kết</option>
-                            <option value="3" <s:if test="D13.equalsIgnoreCase('3')"> selected </s:if>>3: Có cam kết</option>
+                            <option value="1" <s:if test="D13.equalsIgnoreCase('1')"> selected </s:if>>Không cam kết</option>
+                            <option value="2" <s:if test="D13.equalsIgnoreCase('2')"> selected </s:if>>Có cam kết</option>
+                            </select>
+                            <select style="border: hidden"
+                                    class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D29" id="D29_<s:property  value='%{#rowstatus.index}' />" > 
+                            <option value="0" style="text-align: center" <s:if test="D29.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
+                            <option value="1" <s:if test="D29.equalsIgnoreCase('1')"> selected </s:if>>Không cam kết</option>
+                            <option value="2" <s:if test="D29.equalsIgnoreCase('2')"> selected </s:if>>Thực hiện cam kết</option>
+                            <option value="3" <s:if test="D29.equalsIgnoreCase('3')"> selected </s:if>>Không thực hiện cam kết</option>
                             </select>
                         </td>
                         <td class="D0" style="background: #ddd">
@@ -651,7 +743,7 @@
                                readonly="true" style="background: #ddd"/>
                     </td>
                     <td class="D0" style="background: #ddd">
-                        <input type="text" value="<s:property  value="D28" />" id="D28_<s:property  value='%{#rowstatus.index}' />" 
+                        <input type="text" value="<s:property  value="D28" />" id="D28_<s:property  value='%{#rowstatus.index}' />"
                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28" class="number sstyle STT5"
                                readonly="true" style="background: #ddd"/>
                     </td>
@@ -660,7 +752,7 @@
                                   name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D16" maxlength="200"><s:property value='D16'/></textarea>
                     </td>
                     <td class="D0">
-                        <select class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D17" id="D17_<s:property  value='%{#rowstatus.index}' />" > 
+                        <select style="border: hidden" class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D17" id="D17_<s:property  value='%{#rowstatus.index}' />" > 
                             <option value="2" <s:if test="D17.equalsIgnoreCase('2')"> selected </s:if>>Có</option>
                             <option value="1" <s:if test="D17.equalsIgnoreCase('1')"> selected </s:if>>Không</option>
                             </select>
@@ -682,7 +774,6 @@
                     });
                 });
             });
-
             $(function () {
                 $('#select-all1').click(function (event) {
                     // Iterate each checkbox
@@ -694,14 +785,19 @@
                     });
                 });
             });
-
             function initTable1()
             {
                 nextPage();
                 prevPage();
             }
             initTable1();
-
+            $(document).ready(function () {
+                $('#first').change(function () {
+                    var val = $('#first').val() * 1;
+                    $("#second").val(val == 1 ? 2 : 1);
+                });
+            }
+            );
         </script>
     </body>
 </html>

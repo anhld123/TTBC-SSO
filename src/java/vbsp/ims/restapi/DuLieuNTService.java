@@ -1607,7 +1607,7 @@ public class DuLieuNTService extends ReportService {
     }
 
     public ArrayList<DuLieuNTRow> getDataQLNK(String posCode, String posFlag,
-            String reportDate, String customerCode, String groupId, String loanId, String defaultListFlag) {
+            String reportDate, String customerCode, String groupId, String loanId, String defaultListFlag, String fetchType) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target;
@@ -1618,7 +1618,8 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("communeCode", customerCode)
                 .queryParam("groupId", groupId)
                 .queryParam("loanId", loanId)
-                .queryParam("dataFlag", defaultListFlag);
+                .queryParam("dataFlag", defaultListFlag)
+                .queryParam("fetchType", fetchType);
 
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();

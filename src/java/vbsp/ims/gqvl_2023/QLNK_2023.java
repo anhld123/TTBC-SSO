@@ -120,7 +120,7 @@ public class QLNK_2023 extends ActionNhaptaycnMain
                 return ERROR;
             }
             _leaveHomeService = new Service_GQVL2023();
-            this.lstData = _leaveHomeService.getQLNK(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), maxaValue, matoValue, txtSoku, txtGetData);
+            this.lstData = _leaveHomeService.getQLNK(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), maxaValue, matoValue, txtSoku, txtGetData, "1");
             setMessagePage(String.valueOf(lstData.size()));
             if (lstData.size() > 150) {
                 addActionError("Dữ liệu quá lớn. Vui lòng chọn từng tổ để xác nhận.");
@@ -130,58 +130,63 @@ public class QLNK_2023 extends ActionNhaptaycnMain
                 for (DuLieuNTRow item : lstData) {
                     QT_DULIEU_NT row = new QT_DULIEU_NT();
                     if (gradeAuthor1.equals("1")) {
-                        row.setKHOA(item.getKey());
-                        row.setTHUTU(iStt);
-                        iStt++;
-                        row.setTT_HIENTHI(item.getOrderDescription());
-                        row.setMA(item.getCode());
-                        row.setTEN(item.getName());
-                        Date reportDate = DateUtil.toDate(item.getReportDate());
-                        row.setNGAYBC(reportDate);
-                        row.setNAMBC(item.getReportYear());
-                        row.setMAPGD(item.getPosCode());
-                        row.setCO_TONGHOP(item.getPosFlag());
-                        row.setMACN(item.getBranchCode());
-                        row.setNGUOI_NHAP(item.getMakerId());
-                        Date makerDate = DateUtil.toDate(item.getMakerDate());
-                        row.setNGAY_NHAP(makerDate);
-                        row.setNGUOI_DUYET(item.getAuthoriseId());
-                        Date authoriseDate = DateUtil.toDate(item.getAuthoriseDate());
-                        row.setNGAY_DUYET(authoriseDate);
-                        row.setD1(item.getD1());
-                        row.setD2(item.getD2());
-                        row.setD3(item.getD3());
-                        row.setD4(item.getD4());
-                        row.setD5(item.getD5());
-                        row.setD6(item.getD6());
-                        row.setD7(item.getD7());
-                        row.setD8(item.getD8());
-                        row.setD9(item.getD9());
-                        row.setD10(item.getD10());
-                        row.setD11(item.getD11());
-                        row.setD12(item.getD12());
-                        row.setD13(item.getD13());
-                        row.setD14(item.getD14());
-                        row.setD15(item.getD15());
-                        row.setD16(item.getD16());
-                        row.setD17(item.getD17());
-                        row.setD18(item.getD18());
-                        row.setD19(item.getD19());
-                        row.setD20(item.getD20());
-                        row.setD21(item.getD21());
-                        row.setD22(item.getD22());
-                        row.setD23(item.getD23());
-                        row.setD24(item.getD24());
-                        row.setD25(item.getD25());
-                        row.setD26(item.getD26());
-                        row.setD27(item.getD27());
-                        row.setD28(item.getD28());
-                        row.setD29(item.getD29());
-                        row.setD30(item.getD30());
-                        row.setNHAPTAY(item.getManualFlag());
-                        row.setFONTFORMAT(item.getFontFormat());
-                        row.setKIEUIN(item.getStyle());
-                        lstDulieuNt.add(row);
+                        try {
+                            if (item.getD26() == null || !item.getD26().equals("1")) {
+                                row.setKHOA(item.getKey());
+                                row.setTHUTU(iStt);
+                                iStt++;
+                                row.setTT_HIENTHI(item.getOrderDescription());
+                                row.setMA(item.getCode());
+                                row.setTEN(item.getName());
+                                Date reportDate = DateUtil.toDate(item.getReportDate());
+                                row.setNGAYBC(reportDate);
+                                row.setNAMBC(item.getReportYear());
+                                row.setMAPGD(item.getPosCode());
+                                row.setCO_TONGHOP(item.getPosFlag());
+                                row.setMACN(item.getBranchCode());
+                                row.setNGUOI_NHAP(item.getMakerId());
+                                Date makerDate = DateUtil.toDate(item.getMakerDate());
+                                row.setNGAY_NHAP(makerDate);
+                                row.setNGUOI_DUYET(item.getAuthoriseId());
+                                Date authoriseDate = DateUtil.toDate(item.getAuthoriseDate());
+                                row.setNGAY_DUYET(authoriseDate);
+                                row.setD1(item.getD1());
+                                row.setD2(item.getD2());
+                                row.setD3(item.getD3());
+                                row.setD4(item.getD4());
+                                row.setD5(item.getD5());
+                                row.setD6(item.getD6());
+                                row.setD7(item.getD7());
+                                row.setD8(item.getD8());
+                                row.setD9(item.getD9());
+                                row.setD10(item.getD10());
+                                row.setD11(item.getD11());
+                                row.setD12(item.getD12());
+                                row.setD13(item.getD13());
+                                row.setD14(item.getD14());
+                                row.setD15(item.getD15());
+                                row.setD16(item.getD16());
+                                row.setD17(item.getD17());
+                                row.setD18(item.getD18());
+                                row.setD19(item.getD19());
+                                row.setD20(item.getD20());
+                                row.setD21(item.getD21());
+                                row.setD22(item.getD22());
+                                row.setD23(item.getD23());
+                                row.setD24(item.getD24());
+                                row.setD25(item.getD25());
+                                row.setD26(item.getD26());
+                                row.setD27(item.getD27());
+                                row.setD28(item.getD28());
+                                row.setD29(item.getD29());
+                                row.setD30(item.getD30());
+                                row.setNHAPTAY(item.getManualFlag());
+                                row.setFONTFORMAT(item.getFontFormat());
+                                row.setKIEUIN(item.getStyle());
+                                lstDulieuNt.add(row);
+                            }
+                        } catch (Exception e) {
+                        }
                     } else {
                         try {
                             if (item.getD26().equals("1")) {
@@ -390,7 +395,7 @@ public class QLNK_2023 extends ActionNhaptaycnMain
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             String dateStr = sdf.format(date1);
             int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(date1));
-            String localD2 = null; 
+            String localD2 = null;
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
                 if (tmp.getD18() != null) {
