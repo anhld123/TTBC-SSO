@@ -62,6 +62,7 @@
                 $('.sstyle').css({"color": "#000", "font-size": "12px"});
                 $('input.number').css({"text-align": "right"});
                 $('.D0').css({"text-align": "center"});
+                $('.D00').css({"text-align": "left"});
                 $('input.number2').css({"text-align": "right"});
                 $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
                 $('#ui-datepicker-div').css('clip', 'auto');
@@ -295,6 +296,24 @@
                             document.getElementById("D27_" + i).disabled = true;
                             document.getElementById("D28_" + i).disabled = true;
                         }
+                        var D13 = $('#D13_' + i).find(":selected").val();
+                        var savedValue = document.getElementById('D29_' + i).value; // Giá trị đã lưu, ví dụ: '2'
+
+                        // Xóa tất cả các option cũ trong dropdown list
+                        $("#D29_" + i).empty();
+
+                        if (D13 === '1') {
+                            $("#D29_" + i).append("<option value='1' selected>Không cam kết</option>");
+                        } else {
+                            $("#D29_" + i).append("<option value='0'>--- Chọn ---</option>");
+                            $("#D29_" + i).append("<option value='2'>Thực hiện cam kết</option>");
+                            $("#D29_" + i).append("<option value='3'>Không thực hiện cam kết</option>");
+                        }
+
+                        // Chọn giá trị đã lưu
+                        $("#D29_" + i).val(savedValue);
+
+
                         var D8 = document.getElementById('D8_' + i).value;
                         if (D8 === "0")
                         {
@@ -641,7 +660,7 @@
                         <input type="hidden" value="<s:property  value="D23" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D23"/>
                         <input type="hidden" value="<s:property  value="D24" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24"/>
                         <input type="hidden" value="<s:property  value="D25" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25"/>
-                        <input type="hidden" value="<s:property  value="D29" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29"/>
+                        <!--<input type="hidden" value="<s:property  value="D29" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29"/>-->
                         <input type="hidden" value="<s:property  value="D30" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30"/>
 
                     </td>
@@ -717,7 +736,7 @@
                             <option value="3" <s:if test="D12.equalsIgnoreCase('3')"> selected </s:if>>Có khả năng trả nợ</option>
                             </select>
                         </td>
-                        <td class="D0">
+                        <td class="D00">
                             <select style="border: hidden" class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D13" id="D13_<s:property  value='%{#rowstatus.index}' />"
                                 oninput="onSelectChange_s1(this.value, <s:property  value='%{#rowstatus.index}'/>); onSelectChange_dnht3(this.value, <s:property  value='%{#rowstatus.index}'/>)"> 
                             <option value="0" style="text-align: center" <s:if test="D13.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
@@ -791,13 +810,6 @@
                 prevPage();
             }
             initTable1();
-            $(document).ready(function () {
-                $('#first').change(function () {
-                    var val = $('#first').val() * 1;
-                    $("#second").val(val == 1 ? 2 : 1);
-                });
-            }
-            );
         </script>
     </body>
 </html>

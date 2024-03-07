@@ -51,10 +51,20 @@ public class QLNK_2023 extends ActionNhaptaycnMain
     private List<DuLieuNTRow> lstData;
     private String txtSoku;
     private String txtGetData;
+    private String txtType;
     private String messagePage;
     private String gradeAuthor1;
     private InputStream pageResult;
 
+    public String getTxtType() {
+        return txtType;
+    }
+
+    public void setTxtType(String txtType) {
+        this.txtType = txtType;
+    }
+    
+    
     public InputStream getPageResult() {
         return pageResult;
     }
@@ -119,8 +129,15 @@ public class QLNK_2023 extends ActionNhaptaycnMain
                 addActionError("Vui lòng nhập mã món hoặc chọn xã để rà soát số liệu.");
                 return ERROR;
             }
+            
+            if (txtGetData == "1") {
+                txtType = "1";
+            } else {
+                txtType = "0";
+            }
+
             _leaveHomeService = new Service_GQVL2023();
-            this.lstData = _leaveHomeService.getQLNK(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), maxaValue, matoValue, txtSoku, txtGetData, "1");
+            this.lstData = _leaveHomeService.getQLNK(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), maxaValue, matoValue, txtSoku, txtGetData, txtType);
             setMessagePage(String.valueOf(lstData.size()));
             if (lstData.size() > 150) {
                 addActionError("Dữ liệu quá lớn. Vui lòng chọn từng tổ để xác nhận.");
