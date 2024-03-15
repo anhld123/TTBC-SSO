@@ -68,7 +68,7 @@
                         </td>        
                     </tr>
                     <tr>
-                        <td width="150">Loại báo cáo 123: </td>
+                        <td width="150">Loại báo cáo API: </td>
                         <td width="700">
                         <sj:select href="%{buildGroupComboUrl}" 
                                    name="reportId"

@@ -1,4 +1,4 @@
-<%@taglib prefix="s" uri="/struts-tags" %>
+`<%@taglib prefix="s" uri="/struts-tags" %>
 <%@taglib prefix="sx" uri="/struts-dojo-tags" %>
 <%@taglib prefix="sj" uri="/struts-jquery-tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
