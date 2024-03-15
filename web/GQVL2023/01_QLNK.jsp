@@ -87,11 +87,9 @@
             $('.TEN_KH').blur(function () {
                 $(this).closest('tr').removeClass('highlight_row');
             });
-
             $(function () {
                 setCssStyle();
             });
-
             function addMonths(date, months) {
                 date.setMonth(date.getMonth() + months);
                 return date;
@@ -123,12 +121,9 @@
                         var _expireDateName = _freezeDateName.replace('D11', 'D13');
                         var _freezeMonthName = _freezeDateName.replace('D11', 'D12');
                         var _freezeMonthValue = parseInt($("input[name='" + _freezeMonthName + "']").val());
-
-                        var toDate = new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay);//Date one month after selected date
+                        var toDate = new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay); //Date one month after selected date
                         var oneDay = new addMonths(toDate, _freezeMonthValue);
-
                         $("input[name='" + _expireDateName + "']").val($.datepicker.formatDate('dd/mm/yy', oneDay));
-
                         $("input[name='" + _expireDateName + "']").css({
                             'font-size': '13px', // Cỡ chữ
                             'color': 'red' // Màu chữ
@@ -144,7 +139,6 @@
                     var _expireDateName = _freezeDateName.replace('D11', 'D13');
                     var _freezeMonthName = _freezeDateName.replace('D11', 'D12');
                     var _freezeMonthValue = parseInt($("input[name='" + _freezeMonthName + "']").val());
-
                     let [day, month, year] = this.value.split('/');
                     const toDate = new Date(+year, +month - 1, +day);
                     var oneDay = new addMonths(toDate, _freezeMonthValue);
@@ -154,7 +148,6 @@
                         'color': 'red' // Màu chữ
                     });
                 });
-
                 $(".cssDate2").datepicker({
                     dateFormat: 'dd/mm/yy',
                     //showOn: "button",
@@ -180,7 +173,7 @@
                 });
             }
 
-            var current_page = 1;// trang bắt đầu 
+            var current_page = 1; // trang bắt đầu 
             var records_per_page = 20; // số dòng
             var l = document.getElementById("subTable").rows.length;
             function prevPage()
@@ -216,7 +209,6 @@
                 var btn_prev = document.getElementById("btn_prev");
                 var listing_table = document.getElementById("subTable");
                 var page_span = document.getElementById("page");
-
                 // Validate page
                 if (page < 1) {
                     page = 1;
@@ -232,7 +224,6 @@
                 listing_table.rows[1].style.display = "";
                 listing_table.rows[2].style.display = "";
                 listing_table.rows[3].style.display = "";
-
                 for (var i = (page - 1) * records_per_page + 1; i < (page * records_per_page) + 1; i++) {
                     if (listing_table.rows[i]) {
                         listing_table.rows[i].style.display = "";
@@ -242,7 +233,6 @@
                 }
 
                 page_span.innerHTML = page + "/" + numPages();
-
                 if (page === 1) {
                     btn_prev.style.visibility = "hidden";
                 } else {
@@ -298,10 +288,8 @@
                         }
                         var D13 = $('#D13_' + i).find(":selected").val();
                         var savedValue = document.getElementById('D29_' + i).value; // Giá trị đã lưu, ví dụ: '2'
-
                         // Xóa tất cả các option cũ trong dropdown list
                         $("#D29_" + i).empty();
-
                         if (D13 === '1') {
                             $("#D29_" + i).append("<option value='1' selected>Không cam kết</option>");
                         } else {
@@ -309,15 +297,19 @@
                             $("#D29_" + i).append("<option value='2'>Thực hiện cam kết</option>");
                             $("#D29_" + i).append("<option value='3'>Không thực hiện cam kết</option>");
                         }
-
                         // Chọn giá trị đã lưu
                         $("#D29_" + i).val(savedValue);
-
-
-                        var D8 = document.getElementById('D8_' + i).value;
-                        if (D8 === "0")
+                        
+                        
+                        
+                        var D12 = document.getElementById('D12_' + i).value;
+                        if (D12 === "3")
                         {
                             document.getElementById("D8_" + i).value = document.getElementById('D3_' + i).value;
+                        }
+                        else {
+                            document.getElementById("D13_" + i).disabled = true;
+                            document.getElementById("D29_" + i).disabled = true;
                         }
                         var D9 = document.getElementById('D9_' + i).value;
                         if (D9 === "0")
@@ -356,9 +348,18 @@
                         var D19 = document.getElementById('D19_' + i).value;
                         if (D19 === "06" || D19 === "07" || D19 === "02")
                         {
+                            if (D19 === "06")
+                            {
+                                text = "*Cho vay nước sạch và vệ sinh môi trường nông thôn*";
+                            } else if (D19 === "07") {
+                                text = "*Cho vay hộ nghèo về nhà ở*";
+                            } else {
+                                text = "*Cho vay học sinh, sinh viên có hoàn cảnh khó khăn*";
+                            }
                             document.getElementById("D10_" + i).disabled = true;
                             document.getElementById("D10_" + i).style.color = "#ddd";
                             document.getElementById("D10_" + i).placeholder = "";
+                            document.getElementById("D10_" + i).title = "Món vay " + text + " không phải nhập phần này";
                         } else
                         {
                             document.getElementById("D10_" + i).disabled = false;
@@ -368,7 +369,8 @@
                 }
 
             }
-
+            
+            
             function onSelectChange_dnht1(value, index) {
                 if (value.length > '5')
                 {
@@ -380,12 +382,13 @@
             }
 
             function onSelectChange_dnht2(value, index) {
-                if (value !== '0')
+                if (value === '3')
                 {
                     document.getElementById("D13_" + index).disabled = false;
                 } else
                 {
                     document.getElementById("D13_" + index).disabled = true;
+                    document.getElementById("D29_" + index).disabled = true;
                 }
             }
 
@@ -633,6 +636,7 @@
                         <input type="hidden" value="<s:property  value="D15" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15"/>
                         <input type="hidden" value="<s:property  value="D16" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16"/>
                         <input type="hidden" value="<s:property  value="D17" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17"/>
+                        <input type="hidden" value="0" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26"/>
                         <input type="hidden" value="<s:property  value="D27" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27"/>
                         <input type="hidden" value="<s:property  value="D28" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28"/>
 

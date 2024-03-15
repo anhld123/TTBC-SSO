@@ -248,7 +248,7 @@
                                         document.getElementById("D12_" + i).style.backgroundColor = "#EEAFA6";
                                         return;
                                     }
-                                    if (check_box !== false && D13 === "0") {
+                                    if (check_box !== false && D13 === "0" && D12 ==="3") {
 //                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
                                         alert('Vui lòng nhập thông tin cột 15.');
                                         document.getElementById("D13_" + i).style.backgroundColor = "#EEAFA6";
