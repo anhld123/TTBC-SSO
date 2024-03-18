@@ -299,18 +299,25 @@
                         }
                         // Chọn giá trị đã lưu
                         $("#D29_" + i).val(savedValue);
-                        
-                        
-                        
-                        var D12 = document.getElementById('D12_' + i).value;
-                        if (D12 === "3")
+
+
+
+                        var D8 = document.getElementById('D8_' + i).value;
+                        if (D8 === "0")
                         {
                             document.getElementById("D8_" + i).value = document.getElementById('D3_' + i).value;
                         }
-                        else {
+                        var D12 = document.getElementById('D12_' + i).value;
+                        if (D12 === "3")
+                        {
+                            document.getElementById("D13_" + i).disabled = false;
+                            document.getElementById("D29_" + i).disabled = false;
+                        } else
+                        {
                             document.getElementById("D13_" + i).disabled = true;
                             document.getElementById("D29_" + i).disabled = true;
                         }
+
                         var D9 = document.getElementById('D9_' + i).value;
                         if (D9 === "0")
                         {
@@ -369,8 +376,8 @@
                 }
 
             }
-            
-            
+
+
             function onSelectChange_dnht1(value, index) {
                 if (value.length > '5')
                 {
