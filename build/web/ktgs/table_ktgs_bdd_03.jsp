@@ -117,7 +117,7 @@
             </s:iterator>
             <s:hidden name="khoa_ktgs"/>
             <div id="divTitle">
-                BÁO CÁO KẾT QUẢ HOẠT ĐỘNG CỦA BAN ĐẠI DIỆN HĐQT CÁC CẤP
+                BÁO CÁO KẾT QUẢ HOẠT ĐỘNG CỦA BAN ĐẠI DIỆN HĐQT CÁC CẤP <s:if test="Grade.equalsIgnoreCase('1')"><font color="red"> (Trạng thái: <s:property  value="trangthaichotsl"/>)</s:if> 
             </div>
             <div id="divDonvitinh" style="font-style: italic;">
                 Đơn vị tính: người, kỳ họp, %, triệu đồng
@@ -169,7 +169,7 @@
                     <tr></tr>
                     <tr align="center" class="clss_ttcot" style="background-color: #e7e7e7;">
                         <td width="3%">(1)</td>
-                        <td width="15%">(2)</td>
+                        <td width="10%">(2)</td>
                         <td class="TD_CHUCVU">(3)</td>
                         <td class="TD_CHUCVU">(4)</td>
                         <td class="TD_CHUCVU">(5)</td>
@@ -240,7 +240,7 @@
                     <tr></tr>
                     <tr align="center" class="clss_ttcot" style="background-color: #e7e7e7;">
                         <td width="3%">(1)</td>
-                        <td width="15%">(2)</td>
+                        <td width="10%">(2)</td>
                         <td class="TD_CHUCVU">(3)</td>
                         <td class="TD_CHUCVU">(4)</td>
                         <td class="TD_CHUCVU">(5)</td>
@@ -313,7 +313,7 @@
                             <td align = "right" class="TD_CHUCVU">
                                 <input type="text" style="text-align: right;"value="<s:property  value="D1" />" id="D1" 
                                        name="lstDulieuNt[<s:property value="%{#rowstatus.index}" />].D1" 
-                                       class="css_text number" onfocus="this.select();" readonly="readonly"
+                                       class="css_text" onfocus="this.select();" readonly="readonly"
                                        onblur="AutoEvaluate(<s:property value="%{#rowstatus.index}" />);"/>
                             </td>
 <!--                            <td align = "right" class="TD_COMBOBOX">
@@ -462,8 +462,10 @@
                             <td align = "right" class="TD_CHUCVU">
                                 <input type="text" style="text-align: right;color: #000;" value="<s:property  value="D26" />" id="D26"
                                        name="lstDulieuNt[<s:property value="%{#rowstatus.index}" />].D26" 
-                                       class="css_text number" onfocus="this.select();"
-                                       onblur="AutoEvaluate(<s:property value="%{#rowstatus.index}" />);"/>
+                                       class="css_text number"                                                                              
+                                       onfocus="this.select();"
+                                       onblur="AutoEvaluate(<s:property value="%{#rowstatus.index}" />);"                                       
+                                       />
                             </td>
                             
                             <s:if test="Grade.equalsIgnoreCase('1')">

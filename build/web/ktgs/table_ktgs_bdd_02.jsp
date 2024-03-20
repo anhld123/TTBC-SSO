@@ -54,7 +54,11 @@
                 var url = "addTVBDD002.action?ngay_bc=" + ngay_bc +
                          "&khoa_ktgs=" + khoa_ktgs + "&addedit=" + indx;;
                 popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
-        
+                
+                window.refreshData = function () {
+                        //alert('aaaa');
+                        $("#loadDatatmp").trigger("click");
+                    };
                                
             }
         </script>
@@ -100,7 +104,7 @@
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
             </s:iterator>
             <div id="divTitle">
-                THÔNG TIN THÀNH VIÊN BAN ĐẠI DIỆN CÁC CẤP
+                THÔNG TIN THÀNH VIÊN BAN ĐẠI DIỆN CÁC CẤP <s:if test="Grade.equalsIgnoreCase('1')"><font color="red"> (Trạng thái: <s:property  value="trangthaichotsl"/>)</s:if> 
             </div>
             <s:hidden name="khoa_ktgs"/>
             <div id="divDonvitinh">

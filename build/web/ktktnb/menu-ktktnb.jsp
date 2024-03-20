@@ -128,8 +128,8 @@
                                 minDate: minDate,
                                 maxDate: maxDate,
                                 beforeShowDay: function (date) {
-                                    if ((date.getDate() == 31 && (date.getMonth() == 0 || date.getMonth() == 02 || date.getMonth() == 04 || date.getMonth() == 06 || date.getMonth() == 07 || date.getMonth() == 09 || date.getMonth() == 11) || (date.getDate() == 28 && date.getMonth() == 01)) || (date.getDate() == 30 && (date.getMonth() == 03 || date.getMonth() == 05 || date.getMonth() == 08 || date.getMonth() == 10)))
-                                    {
+                                    var maxDate = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate(); // Lấy ngày cuối cùng của tháng
+                                    if (date.getDate() === maxDate) {
                                         return [true, ''];
                                     }
                                     return [false, ''];
@@ -151,8 +151,8 @@
                                 changeMonth: false,
                                 stepMonths: 0,
                                 beforeShowDay: function (date) {
-                                    if ((date.getDate() == 31 && (date.getMonth() == 0 || date.getMonth() == 02 || date.getMonth() == 04 || date.getMonth() == 06 || date.getMonth() == 07 || date.getMonth() == 09 || date.getMonth() == 11) || (date.getDate() == 28 && date.getMonth() == 01)) || (date.getDate() == 30 && (date.getMonth() == 03 || date.getMonth() == 05 || date.getMonth() == 08 || date.getMonth() == 10)))
-                                    {
+                                    var maxDate = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate(); // Lấy ngày cuối cùng của tháng
+                                    if (date.getDate() === maxDate) {
                                         return [true, ''];
                                     }
                                     return [false, ''];
