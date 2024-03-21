@@ -179,6 +179,14 @@
                 padding-top: 0px;
             }
 
+            .button-container {
+                position: relative;
+                left: 1140px; /* Điều chỉnh khoảng cách theo nhu cầu */
+            }
+
+            #idSaveLock {
+                display: block; 
+            }
         </style>
         <script>
             var bsubmit = false;
@@ -281,6 +289,7 @@
 //                                    if (data.length !== null) {
                                     if (data === "200") {
                                         alert("Thành công: Lưu dữ liệu.");
+                                        $('#message_suc_err').html("<h style='color: green; font-size: 13px ; font-weight: bold'>Bạn đã lưu dữ liệu thành công!</h>");
                                         onLoadData();
                                     } else {
                                         alert("Lỗi: Lưu dữ liệu.");
@@ -307,7 +316,7 @@
                 var gradeAuthor1 = document.getElementById('gradeAuthor1').value;
                 let checkedCount = countCheckedItem();
                 if (checkedCount === 0) {
-                    $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Bạn chưa chọn bản ghi để lưu!</h>");
+                    $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Bạn chưa chọn bản ghi để phê duyệt!</h>");
                     return;
                 } else {
                     let aCheck = confirm("Bạn chắc chắn muốn phê duyệt số liệu ?");
@@ -404,7 +413,9 @@
             $("#idDelete").click(function () {
                 let checkedCount = countCheckedItem();
                 if (checkedCount === 0 || checkedCount > 1) {
-                    alert('Bạn chưa chọn bản ghi để xóa hoặc mỗi lần bạn chỉ được phép xóa tối đa 1 bản ghi!');
+//                    alert('Bạn chưa chọn bản ghi để xóa hoặc mỗi lần bạn chỉ được phép xóa tối đa 1 bản ghi!');
+                    $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Bạn chưa chọn bản ghi để xóa, mỗi lần bạn chỉ được phép xóa tối đa 1 bản ghi!</h>");
+
                 } else {
                     let aCheck = confirm("Bạn chắc chắn muốn đề nghị xóa dữ liệu ?");
                     if (aCheck) {
@@ -632,14 +643,13 @@
             <s:hidden name="ReportDate" id="ReportDate" value=""/>
             <s:hidden name="Grade" id="Grade"/>
             <s:hidden name="UserName" id="UserName"/>               
-            <fieldset style="display: flex; align-content: space-between;justify-content: space-between;" class="navParam3">
-                <legend><b>Tìm kiếm dữ liệu</b></legend>  
+            <fieldset>
+                <legend><b>Tìm kiếm dữ liệu</b></legend> 
                 <table>
-                    <tr>
                     <input type="hidden" name="gradeAuthor1" id="gradeAuthor1" value="<s:property value='gradeAuthor1'/>">
                     <s:if test="gradeAuthor1.equalsIgnoreCase('2')">
 
-                        <td>Ngày BC</td>
+                        <td>Đến ngày: </td>
                         <td>
                             <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
                                            placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
@@ -647,82 +657,71 @@
                         <td >&nbsp;&nbsp;&nbsp;Món vay:</td>
                         <td><input id="txtSoku" name="txtSoku" placeholder="Nhập mã món vay"/>
                         </td>
-                        <td ><Mã xã:</td>
-                            <td>                                               
-                                <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
-                                           onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td >&nbsp;&nbsp;&nbsp;Mã tổ:</td>
-                                <td>
-                                <s:select  style="width: 180px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
-                                <s:select  
-                                    id="mato_data"
-                                    list="lstMato" 
-                                    listKey="sKey"
-                                    listValue="sDesc"
-                                    headerKey="-1"
-                                    headerValue="--- Chọn ---"                                        
-                                    cssStyle="display:none;">
-                                </s:select>
+                        <td >&nbsp;&nbsp;&nbsp;Mã xã:</td>
+                        <td>                                               
+                            <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
+                                       onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
                             </td>
-                            <td colspan="2" style="text-align: right">                                        
-                                <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
-                                           onBeforeTopics="beforediv_data"
-                                           onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                                <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
-                                <s:if test="Grade.equalsIgnoreCase('1')">
-                                    <input type="button" id="idSave"  value="Mở duyệt"/> 
-                                </s:if>
-                            </td> 
-                            <td><input type="hidden" name="txtGetData" id="txtGetData" value="0"> </td>
-                            </s:if>
-                            <s:else>
-                            <td>Ngày BC</td>
+                            <td >&nbsp;&nbsp;&nbsp;Mã tổ:</td>
                             <td>
-                                <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
-                                               placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
-                            </td>
-                            <td >&nbsp;&nbsp;&nbsp;Món vay:</td>
-                            <td><input id="txtSoku" name="txtSoku" placeholder="Nhập mã món vay"/>
-                            </td>
-                            <td >&nbsp;&nbsp;&nbsp;Mã xã:</td>
-                            <td  >                                               
-                                <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
-                                           onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td >&nbsp;&nbsp;&nbsp;Mã tổ:</td>
-                                <td>
-                                <s:select  style="width: 180px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
-                                <s:select  
-                                    id="mato_data"
-                                    list="lstMato" 
-                                    listKey="sKey"
-                                    listValue="sDesc"
-                                    headerKey="-1"
-                                    headerValue="--- Chọn ---"                                        
-                                    cssStyle="display:none;">
-                                </s:select>
-                            </td>
-                            <td>&nbsp;&nbsp;&nbsp;Loại phê duyệt:</td>
-                            <td><select name="txtGetData" id="txtGetData">                                                    
-                                    <option value="1">Danh sách nợ khoanh</option>                                                    
-                                    <option value="0">Nhập thông tin kiểm tra</option>
-                                </select>
-                            </td>
-                            <td colspan="2" style="text-align: right">                                        
-                                <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
-                                           onBeforeTopics="beforediv_data"
-                                           onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                                <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
-                                <s:if test="Grade.equalsIgnoreCase('1')">
-                                    <input type="button" id="idSave" value="Lưu dữ liệu"/> 
-                                    <input type="button" id="idSaveLock" value="Phê duyệt"/> 
-                                    <input type="button" id="idDelete" style="color: red" value="Xóa dữ liệu"/>  
-                                </s:if>
+                            <s:select  style="width: 180px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
+                            <s:select  
+                                id="mato_data"
+                                list="lstMato" 
+                                listKey="sKey"
+                                listValue="sDesc"
+                                headerKey="-1"
+                                headerValue="--- Chọn ---"                                        
+                                cssStyle="display:none;">
+                            </s:select>
+                        </td>
+                        <td colspan="2" style="text-align: right">                                        
+                            <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                                       onBeforeTopics="beforediv_data"
+                                       onCompleteTopics="completediv_data" cssStyle="display:none"/>
+                            <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
+                            <s:if test="Grade.equalsIgnoreCase('1')">
+                                <input type="button" id="idSave"  value="Mở duyệt"/> 
+                            </s:if>
+                        </td> 
+                        <td><input type="hidden" name="txtGetData" id="txtGetData" value="0"> </td>
+                        </s:if>
+                        <s:else>
+                        &nbsp;<label>Đến ngày:</label>
+                        <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
+                                       placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
+                        &nbsp;<label>Món vay:</label>
+                        <input id="txtSoku" name="txtSoku" style="width: 120px" placeholder="Nhập mã món vay"/>                          
+                        &nbsp;<label>Mã xã:</label>                                               
+                        <s:select  style="width: 160px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
+                                   onchange="reLoadValue(this.value)"></s:select>
 
-                            </td>   
-                        </s:else>
-                        </tr>  
+                        &nbsp;<label>Mã tổ:</label>
+                        <s:select  style="width: 160px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
+                        <s:select  
+                            id="mato_data"
+                            list="lstMato" 
+                            listKey="sKey"
+                            listValue="sDesc"
+                            headerKey="-1"
+                            headerValue="--- Chọn ---"                                        
+                            cssStyle="display:none;">
+                        </s:select>
+                        &nbsp;<label>Loại NV:</label>
+                        <select name="txtGetData" id="txtGetData">                                                    
+                            <option value="1">Danh sách nợ khoanh</option>                                                    
+                            <option value="0">Nhập thông tin kiểm tra</option>
+                        </select> 
+                        <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                                   onBeforeTopics="beforediv_data"
+                                   onCompleteTopics="completediv_data" cssStyle="display:none"/>
+                        &nbsp;<input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
+                        &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/>   
+                        &nbsp;<input type="button" id="idSaveLock" value="Phê duyệt"/> 
+                        &nbsp;<input type="button" id="idDelete" style="color: red" value="Xóa dữ liệu"/>  
+
+                    </s:else>
+
                 </table>    
             </fieldset>
             <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
