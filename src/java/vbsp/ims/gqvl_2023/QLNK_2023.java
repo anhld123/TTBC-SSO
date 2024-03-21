@@ -63,8 +63,7 @@ public class QLNK_2023 extends ActionNhaptaycnMain
     public void setTxtType(String txtType) {
         this.txtType = txtType;
     }
-    
-    
+
     public InputStream getPageResult() {
         return pageResult;
     }
@@ -129,11 +128,11 @@ public class QLNK_2023 extends ActionNhaptaycnMain
                 addActionError("Vui lòng nhập mã món hoặc chọn xã để rà soát số liệu.");
                 return ERROR;
             }
-            
+
             if (txtGetData == "1") {
                 txtType = "1";
             } else {
-                txtType = "0";
+                txtType = "1";
             }
 
             _leaveHomeService = new Service_GQVL2023();
@@ -306,11 +305,12 @@ public class QLNK_2023 extends ActionNhaptaycnMain
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
                 if (tmp.getD18() != null) {
                     DuLieuNTRow tempadd = new DuLieuNTRow();
-
+                    int iStt = 1;
+                    iStt++;
                     tempadd.setKey("01_QLNK");
                     tempadd.setOrderValue("");
                     tempadd.setOrderDescription("");
-                    tempadd.setCode(tmp.getMA());
+                    tempadd.setCode(tmp.getMA() + "_" + iStt);
                     tempadd.setMakerId(UserName);
                     tempadd.setAuthoriseId(UserName);
                     tempadd.setReportDate(hmParameter.get("ngay_bc").toString());
@@ -349,6 +349,7 @@ public class QLNK_2023 extends ActionNhaptaycnMain
                     tempadd.setD29(tmp.getD29());
                     tempadd.setD30(tmp.getD30());
                     lstUpdateDate.add(tempadd);
+                    tmp.setD26("0");
                     lstLocalDataUpdate.add(tmp);
 //                    lstDulieuNt_tmp.add(tmp);
                 }
@@ -487,4 +488,117 @@ public class QLNK_2023 extends ActionNhaptaycnMain
         return SUCCESS;
     }
 
+    public String lock() {
+        System.out.println("vao váe");
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
+                addActionError("Bạn chưa phê duyệt được số liệu xin liên hệ với quản trị để khắc phục");
+                return ERROR;
+            }
+            ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
+            DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
+            HashMap hmParameter = getParameter();
+            Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+            String dateStr = sdf.format(date1);
+            int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(date1));
+
+            ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
+//             List<QT_DULIEU_NT> lstDulieuNt_tmp = new ArrayList<>();
+            for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                if (tmp.getD18() != null) {
+                    DuLieuNTRow tempadd = new DuLieuNTRow();
+                    int iStt = 1;
+                    iStt++;
+                    tempadd.setKey("01_QLNK");
+                    tempadd.setOrderValue("");
+                    tempadd.setOrderDescription("");
+                    tempadd.setCode(tmp.getMA() + "_" + iStt);
+                    tempadd.setMakerId(UserName);
+                    tempadd.setAuthoriseId(UserName);
+                    tempadd.setReportDate(hmParameter.get("ngay_bc").toString());
+                    tempadd.setName(tmp.getTEN());
+                    tempadd.setReportYear(year);
+                    tempadd.setPosCode(pos_cd_username);
+                    tempadd.setPosFlag("S");
+                    tempadd.setBranchCode(tmp.getMACN());
+                    tempadd.setD1(tmp.getD1());
+                    tempadd.setD2(tmp.getD2());
+                    tempadd.setD3(tmp.getD3());
+                    tempadd.setD4(tmp.getD4());
+                    tempadd.setD5(tmp.getD5());
+                    tempadd.setD6(tmp.getD6());
+                    tempadd.setD7(tmp.getD7());
+                    tempadd.setD8(tmp.getD8());
+                    tempadd.setD9(tmp.getD9());
+                    tempadd.setD10(tmp.getD10());
+                    tempadd.setD11(tmp.getD11());
+                    tempadd.setD12(tmp.getD12());
+                    tempadd.setD13(tmp.getD13());
+                    tempadd.setD14(tmp.getD14());
+                    tempadd.setD15(tmp.getD15());
+                    tempadd.setD16(tmp.getD16());
+                    tempadd.setD17(tmp.getD17());
+                    tempadd.setD19(tmp.getD19());
+                    tempadd.setD20(tmp.getD20());
+                    tempadd.setD21(tmp.getD21());
+                    tempadd.setD22(tmp.getD22());
+                    tempadd.setD23(tmp.getD23());
+                    tempadd.setD24(tmp.getD24());
+                    tempadd.setD25(tmp.getD25());
+                    tempadd.setD26("1");
+                    tempadd.setD27(tmp.getD27());
+                    tempadd.setD28(tmp.getD28());
+                    tempadd.setD29(tmp.getD29());
+                    tempadd.setD30(tmp.getD30());
+                    lstUpdateDate.add(tempadd);
+                    tmp.setD26("1");
+                    lstLocalDataUpdate.add(tmp);
+//                    lstDulieuNt_tmp.add(tmp);
+                }
+            }
+            _leaveHomeService = new Service_GQVL2023();
+            int status = _leaveHomeService.saveQLNK(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
+            String matoValue1 = hmParameter.get("txtGetData").toString();
+            if (status == 200) {
+//                if (matoValue1.equals("0")) {
+                String matoValue = hmParameter.get("mato").toString().split("_")[1];
+                if ("0000000".equals(matoValue)) {
+                    matoValue = "";
+                }
+                String maxaValue = hmParameter.get("maxa").toString();
+                if ("000000".equals(maxaValue)) {
+                    maxaValue = "";
+                }
+                if (!daoMain.saveQLNK2023_1("01_QLNK", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstLocalDataUpdate, pos_cd_username, maxaValue, matoValue)) {
+                    addActionError("Bạn chưa lưu được báo cáo màn hình Nhập, tại chi nhánh vui lòng liên hệ quản trị viên!!");
+                    String code = String.valueOf(2);
+                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                    return ERROR;
+
+                }
+//                }
+//                else {
+//                    if (!daoMain.saveQLNK2023("01_QLNK", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstDulieuNt, pos_cd_username)) {
+//                        addActionError("Bạn chưa lưu được báo cáo màn hình Danh sách,tại chi nhánh vui lòng liên hệ quản trị viên!");
+//                        return ERROR;
+//                    }
+//                }
+            }
+        } catch (Exception e) {
+//            CoreLogger.error(this.getClass().getName() + " Exception -> SMS_001: " + e.getMessage());
+//            System.err.println(this.getClass().getName() + " Exception -> SMS_001: " + e.getMessage());
+            addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+            String code = String.valueOf(1);
+            this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+            return ERROR;
+        }
+        addActionMessage("Bạn đã lưu dữ liệu thành công");
+        String code = String.valueOf(200);
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        return SUCCESS;
+    }
 }

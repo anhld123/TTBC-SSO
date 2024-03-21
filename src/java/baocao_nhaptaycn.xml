@@ -55,6 +55,15 @@
             </result>      
         </action>     
         
+        <action name="lock_QLNK_2023" class="vbsp.ims.gqvl_2023.QLNK_2023"  method="lock">
+<!--            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>  -->
+             <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action>     
+        
         <action name="delete_QLNK_2023" class="vbsp.ims.gqvl_2023.QLNK_2023"  method="delete">
 <!--            <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>  -->
