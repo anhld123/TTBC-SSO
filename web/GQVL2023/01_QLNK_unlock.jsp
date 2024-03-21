@@ -14,7 +14,7 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         border-spacing: 0;
-        width: 130%;
+        width: auto;
     }
     #subTable th{
         background-color: #ddd;
@@ -115,9 +115,9 @@
 
             }
 
-            window.onload = function () {
-                changePage(current_page);
-            };
+//            window.onload = function () {
+//                changePage(current_page);
+//            };
 
         </script>        
     </head>
@@ -131,24 +131,24 @@
             </div>
             <table border="1" class="editDelete" id="subTable" align="center">               
                 <tr> 
-                    <th  rowspan="3" class="D0 STT1 ">
+                    <th  rowspan="2" class="D0 STT1 ">
                         <input type="checkbox" id ="select-all"/>
                     </th> 
-                    <th rowspan="3" class="STT1">Phê duyệt</th> 
-                    <th rowspan="3" class="STT1">S<br>T<br>T</th>                           
-                    <th rowspan="3" class="STT4">Họ và tên</th>  
-                    <th rowspan="3" class="STT2">Mã món vay</th>  
+                    <!--<th rowspan="3" class="STT1">Phê duyệt</th>--> 
+                    <th rowspan="2" class="STT1">S<br>T<br>T</th>                           
+                    <th rowspan="2 class="STT4">Họ và tên</th>  
+                    <th rowspan="2" class="STT2">Mã món vay</th>  
                     <th colspan="5">PHẦN THEO DÕI TẠI NGÂN HÀNG</th>
-                    <th colspan="10" style="color: #ff6600">PHẦN KIỂM TRA THỰC TẾ TẠI KHÁCH HÀNG</th>
-                    <th rowspan="3" class="STT2">Nguyên nhân chênh lệch</th>      
-                    <th rowspan="3" class="STT5">Ký xác nhận của khách hàng</th> 
+                    <!--<th colspan="10" style="color: #ff6600">PHẦN KIỂM TRA THỰC TẾ TẠI KHÁCH HÀNG</th>-->
+<!--                    <th rowspan="3" class="STT2">Nguyên nhân chênh lệch</th>      
+                    <th rowspan="3" class="STT5">Ký xác nhận của khách hàng</th> -->
                 </tr>         
-                <tr >
-                    <th rowspan="2" class="STT5">Dư nợ gốc</th>  
-                    <th rowspan="2" class="STT5">Dư gốc khoanh</th>    
-                    <th rowspan="2" class="STT5">Số tiền lãi <br>còn nợ NH</th>                             
-                    <th rowspan="2" class="STT5">Ngày <br>bắt đầu khoanh nợ</th>   
-                    <th rowspan="2" class="STT5">Ngày <br>hết hạn khoanh nợ</th> 
+<!--                <tr >
+-->                    <th rowspan="1" class="STT5">Dư nợ gốc</th>  
+                    <th rowspan="1" class="STT5">Dư gốc khoanh</th>    
+                    <th rowspan="1" class="STT5">Số tiền lãi <br>còn nợ NH</th>                             
+                    <th rowspan="1" class="STT5">Ngày <br>bắt đầu khoanh nợ</th>   
+                    <th rowspan="1" class="STT5">Ngày <br>hết hạn khoanh nợ</th> <!--
                     <th rowspan="2" class="STT5" style="color: #ff6600">Dư nợ gốc</th>  
                     <th rowspan="2" class="STT5" style="color: #ff6600">Dư gốc khoanh</th>  
                     <th rowspan="2" class="STT5" style="color: #ff6600">Số tiền lãi <br>còn nợ NH</th>     
@@ -162,10 +162,10 @@
                     <th rowspan="1" class="STT5" style="color: #ff6600">Dư nợ gốc</th>  
                     <th rowspan="1" class="STT5" style="color: #ff6600">Dư gốc khoanh</th>
                     <th rowspan="1" class="STT5" style="color: #ff6600">Số tiền lãi <br>còn nợ NH</th> 
-                </tr>
+                </tr>-->
                 <tr style="font-style: italic;">
                     <th style="color: #000; font-style: italic; font-size: xx-small;"></th>                    
-                    <th><input type="checkbox" id ="select-all1" checked/></th>
+                    <!--<th><input type="checkbox" id ="select-all1" checked/></th>-->
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
@@ -174,7 +174,7 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
+<!--                    <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(10)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(12)</th>
@@ -185,7 +185,7 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(17)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(18)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(19)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(20)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(20)</th>-->
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr id="tablefix"> 
@@ -193,12 +193,12 @@
                             <input id="check<s:property  value='%{#rowstatus.index}' />" type="checkbox" class="myCheckBox sstyle"
                                    name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D18"/>       
                         </td>
-                        <td class="D0">
+<!--                        <td class="D0">
                             <input id="D26_<s:property  value='%{#rowstatus.index}' />" type="checkbox" class="myCheckBox1 sstyle"
                                    name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D26" 
                                    <s:if test="D26.equalsIgnoreCase('1')"> checked title="Số liệu đã phê duyệt"</s:if> 
                                        onclick="$(this).val(this.checked ? 1 : 0)"/>
-                            </td>
+                            </td>-->
                             <td class="D0 STT1 sstyle" style="background: #ddd"> <s:property value="%{#rowstatus.index + 1}" /> 
                             <input type="hidden" value="<s:property  value="MACN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN"/>                             
                             <input type="hidden" value="<s:property  value="THUTU" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU"/>                             
@@ -263,31 +263,33 @@
                                    id="D7_<s:property  value='%{#rowstatus.index}' />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="STT6 D0 sstyle"/>
                         </td>
-                        <td class="D0" style="background: #ddd">
-                            <input type="text" value="<s:property  value="D8" />" style="width: 80px; "
+<!--                        <td class="D0" style="background: #ddd">
+                            <input type="text" value="<s:property  value="D8" />" style="width: 80px; " readonly="true"
                                    id="D8_<s:property  value='%{#rowstatus.index}' />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="number sstyle"/>
                         </td>
                         <td class="D0" style="background: #ddd">
-                            <input type="text" value="<s:property  value="D9" />" style="width: 80px;"
+                            <input type="text" value="<s:property  value="D9" />" style="width: 80px;" readonly="true"
                                    id="D9_<s:property  value='%{#rowstatus.index}' />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="number sstyle"/>
                         </td>
                         <td class="D0" style="background: #ddd">
-                            <input type="text" value="<s:property  value="D27" />" style="width: 80px;"
+                            <input type="text" value="<s:property  value="D27" />" style="width: 80px;" readonly="true"
                                    id="D27_<s:property  value='%{#rowstatus.index}' />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27" class="number sstyle STT5"/>
                         </td>
-                        <td class="D0">
-                            <textarea  class="STT3 sstyle" placeholder="Nhập tối đa 200 ký tự" id="D10_<s:property  value='%{#rowstatus.index}' />" 
+                        <td class="D0" style="background: #ddd">
+                            <textarea  readonly="true" style="background: #ddd"
+                                       class="STT3 sstyle" placeholder="Nhập tối đa 200 ký tự" id="D10_<s:property  value='%{#rowstatus.index}' />" 
                                        name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10"><s:property value='D10'/></textarea>
                         </td>
                         <td class="D0" style="background: #ddd">
-                            <textarea  class="STT3 sstyle" placeholder="Nhập tối đa 200 ký tự" id="D11_<s:property  value='%{#rowstatus.index}' />" 
+                            <textarea  readonly="true" style="background: #ddd"
+                                       class="STT3 sstyle" placeholder="Nhập tối đa 200 ký tự" id="D11_<s:property  value='%{#rowstatus.index}' />" 
                                        name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11"><s:property value='D11'/></textarea>
                         </td>
                         <td class="D0" style="background: #ddd">
-                            <select style="border: hidden"
+                            <select style="border: hidden" readonly="true"
                                     class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D12" id="D12_<s:property  value='%{#rowstatus.index}' />" > 
                                 <option value="0" style="text-align: center" <s:if test="D12.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
                                 <option value="1" <s:if test="D12.equalsIgnoreCase('1')"> selected </s:if>>Không có khả năng trả nợ</option>
@@ -302,13 +304,13 @@
                                 <option value="2" <s:if test="D29.equalsIgnoreCase('2')"> selected </s:if>>Thực hiện cam kết</option>
                                 <option value="3" <s:if test="D29.equalsIgnoreCase('3')"> selected </s:if>>Không thực cam kết</option>
                                 </select>
-                                <!--                            <select style="border: hidden"
+                                                            <select style="border: hidden"
                                                                     class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D29" id="D29_<s:property  value='%{#rowstatus.index}' />" > 
                                                             <option value="0" style="text-align: center" <s:if test="D29.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
                                                             <option value="1" <s:if test="D29.equalsIgnoreCase('1')"> selected </s:if>>Không cam kết</option>
                                                             <option value="2" <s:if test="D29.equalsIgnoreCase('2')"> selected </s:if>>Thực hiện cam kết</option>
                                                             <option value="3" <s:if test="D29.equalsIgnoreCase('3')"> selected </s:if>>Không thực hiện cam kết</option>
-                                                            </select>-->
+                                                            </select>
                             </td>
                             <td style="background: #ddd">
                                 <input type="text" value="<s:property  value="D14" />" id="D14_<s:property  value='%{#rowstatus.index}' />" 
@@ -332,7 +334,7 @@
                                 <option value="1" <s:if test="D17.equalsIgnoreCase('1')"> selected </s:if>>Không</option>
                                 <option value="2" <s:if test="D17.equalsIgnoreCase('2')"> selected </s:if>>Có</option>
                                 </select>
-                            </td>  
+                            </td>  -->
                         </tr>
                 </s:iterator>
             </table>

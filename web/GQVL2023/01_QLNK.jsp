@@ -342,16 +342,16 @@
                             document.getElementById('D13_' + i).disabled = true;
                             document.getElementById('D29_' + i).disabled = true;
                         }
-                        var D26 = document.getElementById('D26_' + i).checked;
-                        if (D26 === true)
-                        {
-                            document.getElementById("D26_" + i).disabled = true;
-                            document.getElementById("check" + i).disabled = true;
-                        } else
-                        {
-                            document.getElementById("D26_" + i).disabled = false;
-                            document.getElementById("check" + i).disabled = false;
-                        }
+//                        var D26 = document.getElementById('D26_' + i).checked;
+//                        if (D26 === true)
+//                        {
+//                            document.getElementById("D26_" + i).disabled = true;
+//                            document.getElementById("check" + i).disabled = true;
+//                        } else
+//                        {
+//                            document.getElementById("D26_" + i).disabled = false;
+//                            document.getElementById("check" + i).disabled = false;
+//                        }
                         var D19 = document.getElementById('D19_' + i).value;
                         if (D19 === "06" || D19 === "07" || D19 === "02")
                         {
@@ -497,29 +497,29 @@
 
             function calc(id) {
                 var row = id.parentNode.parentNode;
-                var CT_D3 = row.cells[5].getElementsByTagName('input')[0].value;
-                var CT_D9 = row.cells[10].getElementsByTagName('input')[0].value;
+                var CT_D3 = row.cells[4].getElementsByTagName('input')[0].value;
+                var CT_D9 = row.cells[9].getElementsByTagName('input')[0].value;
                 var res = parseFloat(CT_D3.replace(/,/g, '')) - parseFloat(CT_D9.replace(/,/g, ''));
-                row.cells[17].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');
-                row.cells[17].getElementsByTagName('input')[0].style.color = 'red';
+                row.cells[16].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');
+                row.cells[16].getElementsByTagName('input')[0].style.color = 'red';
             }
 
             function calc1(id) {
                 var row = id.parentNode.parentNode;
-                var CT_D4 = row.cells[6].getElementsByTagName('input')[0].value;
-                var CT_D11 = row.cells[11].getElementsByTagName('input')[0].value;
+                var CT_D4 = row.cells[5].getElementsByTagName('input')[0].value;
+                var CT_D11 = row.cells[10].getElementsByTagName('input')[0].value;
                 var res = parseFloat(CT_D4.replace(/,/g, '')) - parseFloat(CT_D11.replace(/,/g, ''));
-                row.cells[18].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');
-                row.cells[18].getElementsByTagName('input')[0].style.color = 'red';
+                row.cells[17].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');
+                row.cells[17].getElementsByTagName('input')[0].style.color = 'red';
             }
 
             function calc2(id) {
                 var row = id.parentNode.parentNode;
-                var CT_D5 = row.cells[7].getElementsByTagName('input')[0].value;
-                var CT_D12 = row.cells[12].getElementsByTagName('input')[0].value;
+                var CT_D5 = row.cells[6].getElementsByTagName('input')[0].value;
+                var CT_D12 = row.cells[11].getElementsByTagName('input')[0].value;
                 var res = parseFloat(CT_D5.replace(/,/g, '')) - parseFloat(CT_D12.replace(/,/g, ''));
-                row.cells[19].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');
-                row.cells[19].getElementsByTagName('input')[0].style.color = 'red';
+                row.cells[18].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');
+                row.cells[18].getElementsByTagName('input')[0].style.color = 'red';
             }
 
 //            function calc1() {
@@ -572,7 +572,7 @@
                     <th  rowspan="3" class="D0 STT1 ">
                         <input type="checkbox" id ="select-all"/>
                     </th> 
-                    <th rowspan="3" class="STT1">Phê duyệt</th> 
+                    <!--<th rowspan="3" class="STT1">Phê duyệt</th>--> 
                     <th rowspan="3" class="STT1">S<br>T<br>T</th>                           
                     <th rowspan="3" class="STT4">Họ và tên</th>  
                     <th rowspan="3" class="STT2">Mã món vay</th>  
@@ -603,8 +603,8 @@
                 </tr>
                 <tr style="font-style: italic;">
                     <th style="color: #000; font-style: italic; font-size: xx-small;"></th>
-                    <s:if test="txtGetData.equalsIgnoreCase('1')"><th></th></s:if>
-                    <s:else><th><input type="checkbox" id ="select-all1"/></th></s:else> 
+<!--                    <s:if test="txtGetData.equalsIgnoreCase('1')"><th></th></s:if>
+                    <s:else><th><input type="checkbox" id ="select-all1"/></th></s:else> -->
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
@@ -632,7 +632,8 @@
                             <input id="check<s:property  value='%{#rowstatus.index}' />" type="checkbox" class="myCheckBox sstyle"
                                    name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D18"/>       
                         </td>
-                        <s:if test="txtGetData.equalsIgnoreCase('1')"><td></td>
+                        <s:if test="txtGetData.equalsIgnoreCase('1')">
+                            <!--<td></td>-->
                         <input type="hidden" value="<s:property  value="D8" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8"/>
                         <input type="hidden" value="<s:property  value="D9" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9"/>
                         <input type="hidden" value="<s:property  value="D10" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10"/>
@@ -648,18 +649,20 @@
                         <input type="hidden" value="<s:property  value="D28" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28"/>
 
                     </s:if>
-                    <s:else>
+                    <%--<s:else>
                         <td class="D0">
                             <input id="D26_<s:property  value='%{#rowstatus.index}' />" type="checkbox" class="myCheckBox1 sstyle"
                                    name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D26" 
                                    <s:if test="D26.equalsIgnoreCase('1')"> checked title="Số liệu đã phê duyệt"</s:if> 
                                        onclick="$(this).val(this.checked ? 1 : 0)"/>
-                            </td></s:else>
+                            </td>
+            </s:else>--%>
                     <td class="D0 STT1 sstyle" style="background: #ddd"> <s:property value="%{#rowstatus.index + 1}" /> 
-                        <s:if test ="D26.equalsIgnoreCase('1')">
+                        <%--<s:if test ="D26.equalsIgnoreCase('1')">
                             <input type="hidden" value="<s:property  value="D26" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26"
                                    id="D26_<s:property  value='%{#rowstatus.index}' />"/>
                         </s:if>
+                              --%>  
                         <input type="hidden" value="<s:property  value="MACN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN"/>                             
                         <input type="hidden" value="<s:property  value="THUTU" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU"/>                             
                         <input type="hidden" value="<s:property  value="MA" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/>

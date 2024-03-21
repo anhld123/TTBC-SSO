@@ -199,6 +199,7 @@
             }
 
             $("#idSave").click(function () {
+                var testValue = $("s\\:if").attr("test");
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
                 var txtGetData = document.getElementById('txtGetData').value;
@@ -248,14 +249,14 @@
                                         document.getElementById("D12_" + i).style.backgroundColor = "#EEAFA6";
                                         return;
                                     }
-                                    if (check_box !== false && D13 === "0" && D12 ==="3") {
+                                    if (check_box !== false && D13 === "0" && D12 === "3") {
 //                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
                                         alert('Vui lòng nhập thông tin cột 15.');
                                         document.getElementById("D13_" + i).style.backgroundColor = "#EEAFA6";
                                         return;
                                     }
 
-                                    if (check_box !== false && D16.length < 5 && (D14 !== "0" || D15 !== "0" || D28 !== "0") ) {
+                                    if (check_box !== false && D16.length < 5 && (D14 !== "0" || D15 !== "0" || D28 !== "0")) {
 //                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
                                         alert('Vui lòng nhập thông tin cột 19.');
                                         document.getElementById("D16_" + i).style.backgroundColor = "#EEAFA6";
@@ -299,64 +300,106 @@
                 }
             });
 
-//            function onSaveData() {
-//                $('#message_suc_err').empty();
-//                $('#divExportReportLink').empty();
-//                var poscd = getposfromtreecheck();
-//                var txtGetData = document.getElementById('txtGetData').value;
-//                var gradeAuthor1 = document.getElementById('gradeAuthor1').value;
-//                var khoa = "QLNK_2023_save";
-//                let checkedCount = countCheckedItem();
-//                if (checkedCount === 0) {
-//                    $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Bạn chưa chọn bản ghi để lưu!</h>");
-//                    return;
-//                } else {
-//                    let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
-//                    if (aCheck) {
-//                        var table = document.getElementById("subTable");
-//                        var rowcount = table.rows.length;
-//                        for (var i = 0; i < rowcount; i++) {
-//                            try {
-//                                var check_box = document.getElementById('check' + i).checked;
-//                                var D10 = document.getElementById('D10_' + i).value;
-//                                var D19 = document.getElementById('D19_' + i).value;
-//                                if (gradeAuthor1 === "1" && txtGetData === "0" && D19 !== "02" && D19 !== "06" && D19 !== "07")
-//                                {
-//                                    if (check_box !== false && D10.length < 5) {
-////                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
-//                                        alert('Vui lòng nhập thông tin cột 12.');
-//                                        document.getElementById("D10_" + i).style.backgroundColor = "#EEAFA6";
-//                                        return;
-//                                    }
-//                                }
-//                            } catch (e) {
-//                            }
-//                        }
-//                    }
-//                }
-//                if (typeof validateData !== 'undefined' && typeof validateData === 'function') {
-//                    if (!validateData()) {
-//                        alert('vao day');
-//                        return false;
-//                    }
-//                }
-//                if (validateRequiredFields()) {
-//                    $("#QLNK_2023_save")[0].click();
-//                }
-//                if (khoa === 'QLNK_2023_save')
-//                {
-//                    function saveData() {
-//                        return new Promise((resolve, reject) => {
-//                            bsubmit = true;
-//                            setTimeout(resolve, 0, 1);
-//
-//                        });
-//                    }
-//                    saveData().then(onLoadData);
-//                    alert("Bạn đã lưu dữ liệu thành công!");
-//
-//                }
-//            }
+            $("#idSaveLock").click(function () {
+                $('#message_suc_err').empty();
+                $('#divExportReportLink').empty();
+                var txtGetData = document.getElementById('txtGetData').value;
+                var gradeAuthor1 = document.getElementById('gradeAuthor1').value;
+                let checkedCount = countCheckedItem();
+                if (checkedCount === 0) {
+                    $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Bạn chưa chọn bản ghi để lưu!</h>");
+                    return;
+                } else {
+                    let aCheck = confirm("Bạn chắc chắn muốn phê duyệt số liệu ?");
+                    if (aCheck) {
+                        var table = document.getElementById("subTable");
+                        var rowcount = table.rows.length;
+                        var isValid = true;
+                        for (var i = 0; i < rowcount; i++) {
+                            try {
+                                var check_box = document.getElementById('check' + i).checked;
+                                var D10 = document.getElementById('D10_' + i).value;
+                                var D11 = document.getElementById('D11_' + i).value;
+                                var D12 = document.getElementById('D12_' + i).value;
+                                var D13 = document.getElementById('D13_' + i).value;
+                                var D19 = document.getElementById('D19_' + i).value;
+                                var D14 = document.getElementById('D14_' + i).value;
+                                var D15 = document.getElementById('D15_' + i).value;
+                                var D16 = document.getElementById('D16_' + i).value;
+                                var D28 = document.getElementById('D28_' + i).value;
+                                if (gradeAuthor1 === "1" && txtGetData === "0" && D19 !== "02" && D19 !== "06" && D19 !== "07")
+                                {
+                                    if (check_box !== false && D10.length < 5) {
+//                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
+                                        alert('Vui lòng nhập thông tin cột 12.');
+                                        document.getElementById("D10_" + i).style.backgroundColor = "#EEAFA6";
+                                        return;
+                                    }
+                                }
+                                if (gradeAuthor1 === "1" && txtGetData === "0")
+                                {
+                                    if (check_box !== false && D11.length < 5) {
+//                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
+                                        alert('Vui lòng nhập thông tin cột 13.');
+                                        document.getElementById("D11_" + i).style.backgroundColor = "#EEAFA6";
+                                        return;
+                                    }
+                                    if (check_box !== false && D12 === "0") {
+//                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
+                                        alert('Vui lòng nhập thông tin cột 14.');
+                                        document.getElementById("D12_" + i).style.backgroundColor = "#EEAFA6";
+                                        return;
+                                    }
+                                    if (check_box !== false && D13 === "0" && D12 === "3") {
+//                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
+                                        alert('Vui lòng nhập thông tin cột 15.');
+                                        document.getElementById("D13_" + i).style.backgroundColor = "#EEAFA6";
+                                        return;
+                                    }
+
+                                    if (check_box !== false && D16.length < 5 && (D14 !== "0" || D15 !== "0" || D28 !== "0")) {
+//                                        alert("check " + check_box + " ma " + D1 + " d10 " + D10 + "d19 " + D19);
+                                        alert('Vui lòng nhập thông tin cột 19.');
+                                        document.getElementById("D16_" + i).style.backgroundColor = "#EEAFA6";
+                                        return;
+                                    }
+                                }
+
+                            } catch (e) {
+                            }
+                        }
+                        if (isValid) {
+                            var url, sdata;
+                            url = "lock_QLNK_2023.action";
+                            sdata = jQuery("#frmdata").serialize();
+                            $("#viewData").html('<img src="img/loading.gif"/>');
+                            btnDisabled(1);
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: sdata,
+                                success: function (data) {
+//                                    if (data.length !== null) {
+                                    if (data === "200") {
+                                        alert("Thành công: Duyệt dữ liệu.");
+                                        onLoadData();
+                                    } else {
+                                        alert("Lỗi: Duyệt dữ liệu.");
+                                        onLoadData();
+                                    }
+                                },
+                                complete: function () {
+                                    btnDisabled(0);
+                                },
+                                error: function (request) {
+                                    alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                                    onLoadData();
+                                }
+                            });
+                        }
+                    }
+                }
+            });
 
             $("#idDelete").click(function () {
                 let checkedCount = countCheckedItem();
@@ -604,89 +647,82 @@
                         <td >&nbsp;&nbsp;&nbsp;Món vay:</td>
                         <td><input id="txtSoku" name="txtSoku" placeholder="Nhập mã món vay"/>
                         </td>
-                        <td >&nbsp;&nbsp;&nbsp;Mã xã:</td>
-                        <td  >                                               
-                            <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
-                                       onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
+                        <td ><Mã xã:</td>
+                            <td>                                               
+                                <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
+                                           onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td >&nbsp;&nbsp;&nbsp;Mã tổ:</td>
+                                <td>
+                                <s:select  style="width: 180px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
+                                <s:select  
+                                    id="mato_data"
+                                    list="lstMato" 
+                                    listKey="sKey"
+                                    listValue="sDesc"
+                                    headerKey="-1"
+                                    headerValue="--- Chọn ---"                                        
+                                    cssStyle="display:none;">
+                                </s:select>
                             </td>
-                            <td >&nbsp;&nbsp;&nbsp;Mã tổ:</td>
-                            <td>
-                            <s:select  style="width: 180px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
-                            <s:select  
-                                id="mato_data"
-                                list="lstMato" 
-                                listKey="sKey"
-                                listValue="sDesc"
-                                headerKey="-1"
-                                headerValue="--- Chọn ---"                                        
-                                cssStyle="display:none;">
-                            </s:select>
-                        </td>
-                        <td colspan="2" style="text-align: right">                                        
-                            <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
-                                       onBeforeTopics="beforediv_data"
-                                       onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                            <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
-                            <s:if test="Grade.equalsIgnoreCase('1')">
-                                <input type="button" id="idSave"  value="Lưu dữ liệu"/> 
-                            </s:if>
-                        </td> 
-                        <td><input type="hidden" name="txtGetData" id="txtGetData" value="0"> </td>
-                        </s:if>
-                        <s:else>
-                        <td>Ngày BC</td>
-                        <td>
-                            <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
-                                           placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
-                        </td>
-                        <td >&nbsp;&nbsp;&nbsp;Món vay:</td>
-                        <td><input id="txtSoku" name="txtSoku" placeholder="Nhập mã món vay"/>
-                        </td>
-                        <td >&nbsp;&nbsp;&nbsp;Mã xã:</td>
-                        <td  >                                               
-                            <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
-                                       onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
-                            </td>
-                            <td >&nbsp;&nbsp;&nbsp;Mã tổ:</td>
-                            <td>
-                            <s:select  style="width: 180px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
-                            <s:select  
-                                id="mato_data"
-                                list="lstMato" 
-                                listKey="sKey"
-                                listValue="sDesc"
-                                headerKey="-1"
-                                headerValue="--- Chọn ---"                                        
-                                cssStyle="display:none;">
-                            </s:select>
-                        </td>
-                        <td>&nbsp;&nbsp;&nbsp;Loại phê duyệt:</td>
-                        <td><select name="txtGetData" id="txtGetData">                                                    
-                                <option value="1">Danh sách nợ khoanh</option>                                                    
-                                <option value="0">Nhập thông tin kiểm tra</option>
-                            </select>
-                        </td>
-                        <td colspan="2" style="text-align: right">                                        
-                            <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
-                                       onBeforeTopics="beforediv_data"
-                                       onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                            <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
-                            <s:if test="Grade.equalsIgnoreCase('1')">
-                                <s:if test="chotCic.equalsIgnoreCase('1')">
-                                    <font style="color: red"> PGD đã được chốt số liệu
+                            <td colspan="2" style="text-align: right">                                        
+                                <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                                           onBeforeTopics="beforediv_data"
+                                           onCompleteTopics="completediv_data" cssStyle="display:none"/>
+                                <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
+                                <s:if test="Grade.equalsIgnoreCase('1')">
+                                    <input type="button" id="idSave"  value="Mở duyệt"/> 
                                 </s:if>
-                                <s:else>
-                                    <input type="button" id="idSave" value="Lưu dữ liệu"/> 
-                                    <input type="button" id="idDelete" style="color: red" value="Xóa dữ liệu"/> 
-                                </s:else>    
-
+                            </td> 
+                            <td><input type="hidden" name="txtGetData" id="txtGetData" value="0"> </td>
                             </s:if>
                             <s:else>
-                                <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/>
-                            </s:else>    
-                        </td>   
-                    </s:else>
-                    </tr>  
+                            <td>Ngày BC</td>
+                            <td>
+                                <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
+                                               placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
+                            </td>
+                            <td >&nbsp;&nbsp;&nbsp;Món vay:</td>
+                            <td><input id="txtSoku" name="txtSoku" placeholder="Nhập mã món vay"/>
+                            </td>
+                            <td >&nbsp;&nbsp;&nbsp;Mã xã:</td>
+                            <td  >                                               
+                                <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
+                                           onchange="reLoadValue(this.value)"></s:select>  &nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td >&nbsp;&nbsp;&nbsp;Mã tổ:</td>
+                                <td>
+                                <s:select  style="width: 180px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
+                                <s:select  
+                                    id="mato_data"
+                                    list="lstMato" 
+                                    listKey="sKey"
+                                    listValue="sDesc"
+                                    headerKey="-1"
+                                    headerValue="--- Chọn ---"                                        
+                                    cssStyle="display:none;">
+                                </s:select>
+                            </td>
+                            <td>&nbsp;&nbsp;&nbsp;Loại phê duyệt:</td>
+                            <td><select name="txtGetData" id="txtGetData">                                                    
+                                    <option value="1">Danh sách nợ khoanh</option>                                                    
+                                    <option value="0">Nhập thông tin kiểm tra</option>
+                                </select>
+                            </td>
+                            <td colspan="2" style="text-align: right">                                        
+                                <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                                           onBeforeTopics="beforediv_data"
+                                           onCompleteTopics="completediv_data" cssStyle="display:none"/>
+                                <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
+                                <s:if test="Grade.equalsIgnoreCase('1')">
+                                    <input type="button" id="idSave" value="Lưu dữ liệu"/> 
+                                    <input type="button" id="idSaveLock" value="Phê duyệt"/> 
+                                    <input type="button" id="idDelete" style="color: red" value="Xóa dữ liệu"/>  
+                                </s:if>
+
+                            </td>   
+                        </s:else>
+                        </tr>  
                 </table>    
             </fieldset>
             <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
@@ -725,8 +761,15 @@
 
         <script>
             $(document).ready(function () {
-                document.getElementById('ngay_bc_DATE').value = "31/12/2023";
+                var currentDate = new Date();
+                var day = currentDate.getDate();
+                var month = currentDate.getMonth() + 1; // Note: January is 0
+                var year = currentDate.getFullYear();
+
+                var formattedDate = day + '/' + month + '/' + year;
+                document.getElementById('ngay_bc_DATE').value = formattedDate;
             });
+
 //            $('#ngay_bc_DATE').datepicker('disable');
 //            document.getElementById("labelPageNumber").style.visibility = "hidden";
 //            document.getElementById("pageNumber").style.visibility = "hidden";
@@ -736,17 +779,21 @@
                 if (gradeAuthor1 === "1")
                 {
                     document.getElementById('idDelete').style.display = 'none';
+                    document.getElementById('idSaveLock').style.display = 'none';
                 }
                 document.getElementById('txtGetData').addEventListener('change', function () {
                     var value = this.value;
                     if (value === "0") {
                         document.getElementById('idDelete').style.display = 'inline';
+                        document.getElementById('idSaveLock').style.display = 'inline';
                     } else {
                         document.getElementById('idDelete').style.display = 'none';
+                        document.getElementById('idSaveLock').style.display = 'none';
                     }
                 });
             }
             hideElement();
+
         </script>
     </body>
 </html>
