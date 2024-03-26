@@ -367,6 +367,9 @@
                             document.getElementById("D10_" + i).style.color = "#ddd";
                             document.getElementById("D10_" + i).placeholder = "";
                             document.getElementById("D10_" + i).title = "Món vay " + text + " không phải nhập phần này";
+                        } else if (txtGetData === "1")
+                        {
+                            document.getElementById("D10_" + i).disabled = true;
                         } else
                         {
                             document.getElementById("D10_" + i).disabled = false;
