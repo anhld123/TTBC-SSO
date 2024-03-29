@@ -7,7 +7,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<script src="js/js.reload.para.ver.1.1.js" type="text/javascript"></script>
+        <script src="js/js.reload.para.ver.1.1.js" type="text/javascript"></script>
         <script>
             //CuongBM: 26-Jun-14
             //Xu ly truong hop chi cho xem nguoi dung tao bao cao, xuat bao cao 1 lan
@@ -19,39 +19,39 @@
             //              a. Bo luon su kien click bang function unbin('click')
             //              b. Goi den su kien click cua nut that
             //      3. Khi hoan thanh xuat bao cao, tao bao cao: lai bind lai su kien nhu buoc 2
-            
+
             var ajaxGetting = false;    //true: He thong dang sinh bao cao, phai doi sinh xong
-                                        //false: He thong khong sinh bao cao
-            function xemBaoCao(){
+            //false: He thong khong sinh bao cao
+            function xemBaoCao() {
                 //Neu khong co bao cao dang sinh thi cho phep sinh bao cao
-                if(ajaxGetting == false){
+                if (ajaxGetting == false) {
                     ajaxGetting = true;
                     $("#aViewRpt").trigger('click');
                 }
             }
-            
-            function xuatBaoCao(){
+
+            function xuatBaoCao() {
                 //Neu khong co bao cao dang sinh thi cho phep sinh bao cao
-                if(ajaxGetting == false){
+                if (ajaxGetting == false) {
                     ajaxGetting = true;
                     $("#idGenJasperReport").trigger('click');
                 }
             }
-            
-            $.subscribe('beforeClick', function(event, data) {
+
+            $.subscribe('beforeClick', function (event, data) {
                 $("#divExportReport").empty();
             });
 
             //CuongBM: 22-Jun-14
             //Desc: Khi hoan thanh view thi cho phep nguoi dung bam tiep
-            $.subscribe('completeView', function(event, data) {
+            $.subscribe('completeView', function (event, data) {
                 //Khi tao bao cao xong khoi tao lai bien ajaxGetting
                 ajaxGetting = false;
             });
 
             //CuongBM: 22-Jun-14
             //Desc: Khi hoan thanh view thi cho phep nguoi dung bam tiep
-            $.subscribe('completeGen', function(event, data) {
+            $.subscribe('completeGen', function (event, data) {
                 //Khi tao bao cao xong khoi tao lai bien ajaxGetting
                 ajaxGetting = false;
             });
@@ -62,6 +62,10 @@
                 font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; 
                 font-size: .9em;
             }
+            .hidden {
+                display: none;
+            }
+
         </style>
 
 
@@ -82,16 +86,25 @@
                     </td>       
                     <s:iterator value="reportParamsList" var="objReport">
                         <tr>
-                            <td width="150"><s:property value="label"></s:property>:</td>
-                                <td width="500">
-                                    <!-- TUNGNV: Neu la T thi gen textfield -->
-                                <s:if test="type.equalsIgnoreCase('T')">                                     
-                                    <s:textfield  name="%{fieldName}_TEXT" cssClass="parameter"></s:textfield>
+                            <s:if test="fieldName.equals('PARA_API')"><td></td></s:if>
+                            <s:else>
+                                <td width="150"><s:property value="label"></s:property>:</td>
+                            </s:else>
+                            <td width="500">
+                                <!-- TUNGNV: Neu la T thi gen textfield -->
+                                <s:if test="fieldName.equals('PARA_API')">
+                                    <s:if test="type.equalsIgnoreCase('T')"> 
+                                        <s:textfield name="%{fieldName}_TEXT" cssClass="parameter hidden" value="Y"></s:textfield>
+                                    </s:if>   
                                 </s:if>
-								
-                               							
-								<!-- VinhNP xử lsy lại khi chọn selectbox -->
-                                
+                                <s:else>
+                                    <s:if test="type.equalsIgnoreCase('T')">  
+                                        <s:textfield  name="%{fieldName}_TEXT" cssClass="parameter"></s:textfield>
+                                    </s:if>
+                                </s:else>
+
+                                <!-- VinhNP xử lsy lại khi chọn selectbox -->
+
                                 <s:if test="fieldName.equals('PARA_MAXA') || fieldName.equals('PV_MAXAD')  || fieldName.equals('PV_MAXA') || fieldName.equals('PARA_MATO') || fieldName.equals('PV_MATO') || fieldName.equals('PARA_MATHON') || fieldName.equals('PV_MATHON')">
                                     <select name="<s:property value="fieldName"/>_LIST" id="<s:property value="fieldName"/>">
                                         <option value='000000' selected='selected'>--Tất cả---</option>
@@ -106,7 +119,7 @@
                                     </s:if>
                                 </s:else>
                                 <!--VinhNP: End-->
-								
+
                                 <!-- TUNGNV: Neu la D thi gen Date -->
                                 <s:if test="type.equalsIgnoreCase('D')"> 
                                     <sj:datepicker name="%{fieldName}_DATE" value="%{defaultRptdate}" onblur="validatedate(this.value)"
@@ -127,9 +140,9 @@
         <div align="right" id="link">
             <img id="loadingImage" src="img/loaderB32.gif" style="display:none"/>
             <a href="javascript:void(0);" id="mapViewReport" onclick="xemBaoCao()">Xem báo cáo</a>&nbsp;
-<!--            |&nbsp;
-            <a href="javascript:void(0);" id="mapGenReport" onclick="xuatBaoCao()">Xuất báo cáo</a>            -->
-            
+            <!--            |&nbsp;
+                        <a href="javascript:void(0);" id="mapGenReport" onclick="xuatBaoCao()">Xuất báo cáo</a>            -->
+
             <s:url id="ViewReport" action="viewReportJasper_Api" />
             <sj:a id="aViewRpt" formIds="genReportJasper_Api" targets="divExportReport"  href="%{ViewReport}" indicator="loadingImage" onCompleteTopics="completeView" onBeforeTopics="beforeClick"></sj:a>
             <sj:a id="idGenJasperReport" formIds="genReportJasper_Api" targets="divExportReport" 
@@ -137,19 +150,19 @@
             </sj:a>
         </div>
         <div id="divExportReport"></div>
-        
+
         <script>
             //CuongBM: 31Jul14
             //Desc: Xu truong hop dat gia tri mac dich cho combox Quy (Quater), la quy hien tai
             //      Cac bao cao Quy phai co id la PARA_QUY           
             // TrungNT88 sua
-           
-            var date = new Date(); 
+
+            var date = new Date();
             var year = date.getFullYear(); //nam
             var quarter = Math.floor(date.getMonth() / 3) + 1; //quy
             //Gan quy mac dinh
             $("#PARA_QUY").val(year + "-" + quarter);
-            
+
         </script>
     </body>
 </html>

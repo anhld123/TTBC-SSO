@@ -4,11 +4,14 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.io.File;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.struts2.interceptor.ServletRequestAware;
@@ -58,7 +61,19 @@ public class LoadReportParamsActionSupport_Api
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
         Date lastDayOfMonth = calendar.getTime();
         defaultRptdate = lastDayOfMonth;
-        return "success";
+        String desiredValue = null;
+        for (ReportParam param : reportParamsList) {
+            if (param.getFieldName().equals("PARA_API")) {
+                desiredValue = "1";
+            } else {
+                desiredValue = "2";
+            }
+        }
+        if (desiredValue == "1") {
+            return "success";
+        } else {
+            return "success_1";
+        }
     }
 
     public String genViewReport_Api() //throws Exception
@@ -302,7 +317,7 @@ public class LoadReportParamsActionSupport_Api
                 Checkpath.mkdirs();
             }
             exportReport.ExportJasperPdf(paramHashMap, connect, strPathSave + strFileSave, reportId);
-        } 
+        }
         //Kiem tra xem file da tao thanh cong chua
         File filerpt = new File(strPathSave + strFileSave);
         if (!filerpt.exists()) {
@@ -313,6 +328,7 @@ public class LoadReportParamsActionSupport_Api
         System.gc();
         return "success";
     }
+
     public String getFilereport() {
         return filereport;
     }
