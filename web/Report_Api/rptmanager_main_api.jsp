@@ -14,32 +14,32 @@
 <script src="js/Checkdate.js"></script>
 
 <script>
-    $(function() {
-        $('#reportId').change(function() {
+    $(function () {
+        $('#reportId').change(function () {
             $("#loadParameter").trigger("click");
         });
-        $('#reportId').ready(function() {
+        $('#reportId').ready(function () {
             $("#loadParameter").trigger("click");
         });
     });
 
-    $.subscribe('before-next', function(event, data) {
+    $.subscribe('before-next', function (event, data) {
         $("#divListParams").empty();
         $("#divListParams").hide();
     });
 
-    $.subscribe('after-next', function(event, data) {
+    $.subscribe('after-next', function (event, data) {
         // Effect cho the div
         $("#divListParams").slideDown("slow");
-        
+
         //1. Lay danh sach cac truong datetimepicker
-        var allDate = $(".hasDatepicker").map(function() {
+        var allDate = $(".hasDatepicker").map(function () {
             return $(this).attr("name");
-        }).get();        
-        
+        }).get();
+
         //2. Them input mask
         for (var i = 0; i < allDate.length; i++) {
-           new DateMask("dd/MM/yyyy", allDate[i].toString());           
+            new DateMask("dd/MM/yyyy", allDate[i].toString());
         }
     });
 </script>
@@ -68,7 +68,7 @@
                         </td>        
                     </tr>
                     <tr>
-                        <td width="150">Loại báo cáo API: </td>
+                        <td width="150">Loại báo cáo: </td>
                         <td width="700">
                         <sj:select href="%{buildGroupComboUrl}" 
                                    name="reportId"
@@ -84,12 +84,11 @@
                                    headerKey="-1"
                                    headerValue="--- Chọn báo cáo ---"
                                    ></sj:select>
-                            </select>
                             <img id="loadingImage_next" src="img/loaderB32.gif" style="display:none"/>
                         </td>        
                     </tr>
                     <tr></tr>
-                </table>       
+            </table>
         </s:form>            
     </div>
     <hr/>

@@ -1,4 +1,4 @@
-`<%@taglib prefix="s" uri="/struts-tags" %>
+<%@taglib prefix="s" uri="/struts-tags" %>
 <%@taglib prefix="sx" uri="/struts-dojo-tags" %>
 <%@taglib prefix="sj" uri="/struts-jquery-tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -119,7 +119,6 @@
                                     </s:if>
                                 </s:else>
                                 <!--VinhNP: End-->
-
                                 <!-- TUNGNV: Neu la D thi gen Date -->
                                 <s:if test="type.equalsIgnoreCase('D')"> 
                                     <sj:datepicker name="%{fieldName}_DATE" value="%{defaultRptdate}" onblur="validatedate(this.value)"
@@ -142,7 +141,6 @@
             <a href="javascript:void(0);" id="mapViewReport" onclick="xemBaoCao()">Xem báo cáo</a>&nbsp;
             <!--            |&nbsp;
                         <a href="javascript:void(0);" id="mapGenReport" onclick="xuatBaoCao()">Xuất báo cáo</a>            -->
-
             <s:url id="ViewReport" action="viewReportJasper_Api" />
             <sj:a id="aViewRpt" formIds="genReportJasper_Api" targets="divExportReport"  href="%{ViewReport}" indicator="loadingImage" onCompleteTopics="completeView" onBeforeTopics="beforeClick"></sj:a>
             <sj:a id="idGenJasperReport" formIds="genReportJasper_Api" targets="divExportReport" 
