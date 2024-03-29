@@ -16,39 +16,39 @@
 <script>
     //CuongBM: 15-May-14
     //Desc: khi thay doi selectbox thi goi den su kien click
-    $(function() {
+    $(function () {
         //Khi thay doi
-        $('#reportId').change(function() {
+        $('#reportId').change(function () {
             $("#loadParameter").trigger("click");
         });
         //Khi load xong
-        $('#reportId').ready(function() {
+        $('#reportId').ready(function () {
             $("#loadParameter").trigger("click");
         });
     });
 
-    $.subscribe('before-next', function(event, data) {
+    $.subscribe('before-next', function (event, data) {
         $("#divListParams").empty();
         $("#divListParams").hide();
     });
 
-    $.subscribe('after-next', function(event, data) {
+    $.subscribe('after-next', function (event, data) {
         // Effect cho the div
         $("#divListParams").slideDown("slow");
-        
+
         //CuongBM: 17Jul14
         //Desc: Xu ly truong date
         //      1. Lay danh sach datetime picker
         //      2. Them input mask cho cac datetime picker nay
-        
+
         //1. Lay danh sach cac truong datetimepicker
-        var allDate = $(".hasDatepicker").map(function() {
+        var allDate = $(".hasDatepicker").map(function () {
             return $(this).attr("name");
-        }).get();        
-        
+        }).get();
+
         //2. Them input mask
         for (var i = 0; i < allDate.length; i++) {
-           new DateMask("dd/MM/yyyy", allDate[i].toString());           
+            new DateMask("dd/MM/yyyy", allDate[i].toString());
         }
     });
 </script>
@@ -62,7 +62,7 @@
             <table>
                 <tr>
                     <td width="150">Nhóm báo cáo: </td>
-                    <td width="700">                    
+                    <td>                    
                         <s:url var="buildGroupComboUrl" action="doGroupReportFilter.action"></s:url>
                         <sj:select href="%{buildGroupComboUrl}" 
                                    name="groupId"
@@ -72,13 +72,13 @@
                                    listKey="sKey"
                                    listValue="sDesc"
                                    emptyOption="false"                                                               
-                                   theme="simple"                               
+                                   theme="simple"  
                                    ></sj:select>
                         </td>        
                     </tr>
                     <tr>
                         <td width="150">Loại báo cáo: </td>
-                        <td width="700">
+                        <td>
                         <%--<s:url var="buildGroupComboUrl" action="doGroupReportFilter.action"></s:url>--%>
                         <sj:select href="%{buildGroupComboUrl}" 
                                    name="reportId"
@@ -93,6 +93,7 @@
                                    theme="simple"
                                    headerKey="-1"
                                    headerValue="--- Chọn báo cáo ---"
+                                   style="width: 60%;"
                                    ></sj:select>
                             </select>
                             <img id="loadingImage_next" src="img/loaderB32.gif" style="display:none"/>

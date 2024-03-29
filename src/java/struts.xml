@@ -134,7 +134,8 @@
     
     <package name="callreport"  extends="struts-default">
         <action name="loadParams" class="vbsp.ims.action.LoadReportParamsActionSupport" method="getReportParams">
-            <result name="success">/WEB-INF/loadAllBC-main.jsp</result>            
+            <result name="success">/Report_Api/loadReport_Api.jsp</result> 
+            <result name="success_1">/WEB-INF/loadAllBC-main.jsp</result>              
         </action>
 
         <action name="createreportJasper" class="vbsp.ims.action.LoadReportParamsActionSupport" method="genReport">
@@ -150,22 +151,22 @@
             <result name="error" >/error.jsp</result>         
         </action>
         
-         <action name="loadParamsAPI" class="vbsp.ims.action.LoadReportParamsActionSupport_Api" method="getReportParams_Api">
+        <action name="loadParamsAPI" class="vbsp.ims.action.LoadReportParamsActionSupport_Api" method="getReportParams_Api">
             <result name="success">/Report_Api/loadReport_Api.jsp</result> 
             <result name="success_1">/WEB-INF/loadAllBC-main.jsp</result>           
         </action>
         
-         <action name="viewReportJasper_Api" class="vbsp.ims.action.LoadReportParamsActionSupport_Api" method="genViewReport_Api">
+        <action name="viewReportJasper_Api" class="vbsp.ims.action.LoadReportParamsActionSupport_Api" method="genViewReport_Api">
             <result name="success">/Report_Api/viewfilebc_api.jsp</result> 
             <result name="error" >/error.jsp</result>         
         </action>
         
-         <action name="createreportJasper_Api" class="vbsp.ims.action.LoadReportParamsActionSupport_Api" method="genReport_Api">
+        <action name="createreportJasper_Api" class="vbsp.ims.action.LoadReportParamsActionSupport_Api" method="genReport_Api">
             <result name="success">/Report_Api/downfile_bc_api.jsp</result>
             <result name="error" >/error.jsp</result>
         </action>
         
-         <action name="genReportJasper_Api" class="vbsp.ims.action.LoadReportParamsActionSupport_Api" method="genReport_Api">
+        <action name="genReportJasper_Api" class="vbsp.ims.action.LoadReportParamsActionSupport_Api" method="genReport_Api">
             <result name="success">/Report_Api/downfile_bc_api.jsp</result>
             <result name="error" >/error.jsp</result>
         </action>
@@ -313,9 +314,9 @@
             <result name="success" type="json"></result>
         </action>
         
-         <action name="doGroupReportFilterAPI"  
-                class="vbsp.ims.action.ReportGroupComboAction" 
-                method="builCombo">
+        <action name="doGroupReportFilterAPI"  
+                 class="vbsp.ims.action.ReportGroupComboAction" 
+                 method="builCombo">
             <result name="success" type="json"></result>
         </action>
         
@@ -349,13 +350,13 @@
     </package>
     
     <package name="ajax_call" extends="json-default" namespace="/">
-	<action name="CheckMaCanBo" class="vbsp.ims.action.ActionKiemTraMaCanBo" method="checkMaCanBo">
+        <action name="CheckMaCanBo" class="vbsp.ims.action.ActionKiemTraMaCanBo" method="checkMaCanBo">
             <result name="success" type="json"></result>
         </action>
         <action name="CheckDangKyND" class="vbsp.ims.action.ActionKiemTraMaCanBo" method="checkDangKy">
             <result name="success" type="json"></result>
         </action>
-	</package>
+    </package>
        
     <!--    <interceptor name="session" class="vbsp.ims.interceptor.SessionInterceptor" />
  <interceptor-stack name="sessionExpirayStack">

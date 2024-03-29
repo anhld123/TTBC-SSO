@@ -52,15 +52,27 @@ public class LoadReportParamsActionSupport
         HttpSession session = request.getSession();
         String strUserName = session.getAttribute("username").toString();
         reportParamsList = objLRP.getReportPramsList(reportId, strUserName);
-        Date today = new Date();  
+        Date today = new Date();
 
-        Calendar calendar = Calendar.getInstance();  
-        calendar.setTime(today);          
-        calendar.add(Calendar.MONTH, -1);  
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(today);
+        calendar.add(Calendar.MONTH, -1);
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-        Date lastDayOfMonth = calendar.getTime(); 
+        Date lastDayOfMonth = calendar.getTime();
         defaultRptdate = lastDayOfMonth;
-        return "success";
+        String desiredValue = null;
+        for (ReportParam param : reportParamsList) {
+            if (param.getFieldName().equals("PARA_API")) {
+                desiredValue = "1";
+            } else {
+                desiredValue = "2";
+            }
+        }
+        if (desiredValue == "1") {
+            return "success";
+        } else {
+            return "success_1";
+        }
     }
 
     //CuongBM: Sinh bao cao (file pdf, exel, text...)
@@ -224,7 +236,7 @@ public class LoadReportParamsActionSupport
             //CuongBM: xy lay lay cac tham so cho vao hashmap
             for (String parameter : prameters.keySet()) {
                 String[] values = prameters.get(parameter);
-            //CuongBM: 18-Apr-14
+                //CuongBM: 18-Apr-14
                 //Do neu parameter kieu date thi he thong se sinh them control dojo.date
                 //   nen minh can phai loai bo tham so nay di
                 if (parameter.indexOf("TEXT") > 0
@@ -253,7 +265,7 @@ public class LoadReportParamsActionSupport
                 }
             }
 
-        //CuongBM: 01-Jul-14
+            //CuongBM: 01-Jul-14
             //Desc: hardcode truong hop neu o PGD thi khong hien thi cobobox "Tong hop"
             //      gan mac dinh truong nay la No
             if (strTonghop.equalsIgnoreCase("")) {
@@ -280,7 +292,7 @@ public class LoadReportParamsActionSupport
 
             String strNameReport = hmNameReport_Jasper.get("NAME_FILE");
 
-        //Duong dan day du cua file jasper tren o dia
+            //Duong dan day du cua file jasper tren o dia
             String strSourceJasper = strPathSave + Define.M_REPORT + hmNameReport_Jasper.get("NAME_JASPER") + ".jrxml";
 
             //kiem tra file xem da co chua neu chua co thi return
@@ -300,7 +312,7 @@ public class LoadReportParamsActionSupport
             if (connect == null) {
                 //Cho nay can xua lai de bat loi
                 fileNamelocal = sMessagepdf + "ERROR_JASPER_REPORT.PDF";
-                filereport="ERROR_JASPER_REPORT.PDF";
+                filereport = "ERROR_JASPER_REPORT.PDF";
                 setMessage("Lỗi không thể kết nối được với cơ sở dữ liệu");
                 return SUCCESS;
             }
@@ -319,7 +331,7 @@ public class LoadReportParamsActionSupport
             File filerpt = new File(strPathSave + strFileSave);
             if (!filerpt.exists()) {
                 fileNamelocal = sMessagepdf + "ERROR_JASPER_REPORT.PDF";
-                filereport="ERROR_JASPER_REPORT.PDF";
+                filereport = "ERROR_JASPER_REPORT.PDF";
 //            setMessage("Lỗi bạn chưa tạo được file báo cáo "+strFileSave);
 //            return ERROR;
             } else {
@@ -330,7 +342,7 @@ public class LoadReportParamsActionSupport
         } catch (Exception e) {
             fileNamelocal = sMessagepdf + "ERROR_JASPER_REPORT.PDF";
 //            System.err.println(fileNamelocal);
-            filereport="ERROR_JASPER_REPORT.PDF";
+            filereport = "ERROR_JASPER_REPORT.PDF";
             System.err.println(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " Loi khi view bao cao genViewReport " + e.getMessage());
         }
@@ -528,7 +540,5 @@ public class LoadReportParamsActionSupport
     public void setDefaultRptdate(Date defaultRptdate) {
         this.defaultRptdate = defaultRptdate;
     }
-    
-    
-    
+
 }
