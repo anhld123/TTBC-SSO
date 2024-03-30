@@ -83,6 +83,7 @@
                                    theme="simple"
                                    headerKey="-1"
                                    headerValue="--- Chọn báo cáo ---"
+                                   style="width: 60%;"
                                    ></sj:select>
                             <img id="loadingImage_next" src="img/loaderB32.gif" style="display:none"/>
                         </td>        

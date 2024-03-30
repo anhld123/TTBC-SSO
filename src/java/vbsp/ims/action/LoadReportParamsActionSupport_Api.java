@@ -177,8 +177,8 @@ public class LoadReportParamsActionSupport_Api
                 setMessage("Lỗi không thể kết nối được với cơ sở dữ liệu");
                 return SUCCESS;
             }
-
-            strPathSave += Define.M_REPORT_PDF;
+            if (exportType.equals("PDF")) {
+                  strPathSave += Define.M_REPORT_PDF;
             strFileSave += ".PDF";
             filereport = strFileSave;
             File Checkpath = new File(strPathSave);
@@ -187,7 +187,18 @@ public class LoadReportParamsActionSupport_Api
                 Checkpath.mkdirs();
             }
             exportReport.ExportJasperPdf(paramHashMap, connect, strPathSave + strFileSave, reportId);
-
+            
+        } else {
+            strPathSave += Define.M_REPORT_XLS;
+            strFileSave += ".XLSX";
+            filereport = strFileSave;
+            File Checkpath = new File(strPathSave);
+            if (!Checkpath.exists()) {
+                System.out.println("Da tao thu muc: " + strPathSave);
+                Checkpath.mkdirs();
+            }
+            exportReport.ExportJasperExcel(paramHashMap, connect, strPathSave + strFileSave,reportId);
+        }
             //Kiem tra xem file da tao thanh cong chua        
             File filerpt = new File(strPathSave + strFileSave);
             if (!filerpt.exists()) {

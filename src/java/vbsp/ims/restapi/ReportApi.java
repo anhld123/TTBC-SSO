@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 public class ReportApi {
 
     public String reportId;
+    public String fileType;
     public ArrayList<LstParameter> lstParameter;
     public String fileName;
     public String downloadUrl;
@@ -35,6 +36,14 @@ public class ReportApi {
 
     public void setReportId(String reportId) {
         this.reportId = reportId;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     public ArrayList<LstParameter> getLstParameter() {

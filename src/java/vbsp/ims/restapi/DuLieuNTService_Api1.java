@@ -81,11 +81,13 @@ public class DuLieuNTService_Api1 extends ReportService_Api {
 //        }
 //    }
 // quyennv 29/02/2024
-    public ReportApi Report_Api(String reportId, ReportApi data) {
+    public ReportApi Report_Api(String reportId,String fileType, ReportApi data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("view-report")
-                .queryParam("reportId", reportId);
+                .queryParam("reportId", reportId)
+                .queryParam("fileType", fileType);
+        
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
 
         String json = "";

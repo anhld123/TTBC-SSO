@@ -71,7 +71,7 @@
 
     </head>
     <body onload="func_clear_data();">
-        <strong>Nhập tham số</strong>
+        <strong>Nhập tham số báo cáo API</strong>
         <hr/>
         <div class="report_group_form" id="listParam">
             <s:form id="genReportJasper_Api" theme="simple" action="genReportJasper_Api">               
@@ -81,7 +81,7 @@
                     <td width="700">
                         <select name="exportType">
                             <option value="PDF">PDF</option>
-                            <!--<option value="EXEL">EXCEL</option>-->
+                            <option value="EXEL">EXCEL</option>
                         </select>
                     </td>       
                     <s:iterator value="reportParamsList" var="objReport">
@@ -138,9 +138,8 @@
         <hr/>
         <div align="right" id="link">
             <img id="loadingImage" src="img/loaderB32.gif" style="display:none"/>
-            <a href="javascript:void(0);" id="mapViewReport" onclick="xemBaoCao()">Xem báo cáo</a>&nbsp;
-            <!--            |&nbsp;
-                        <a href="javascript:void(0);" id="mapGenReport" onclick="xuatBaoCao()">Xuất báo cáo</a>            -->
+            <a href="javascript:void(0);" id="mapViewReport" onclick="xemBaoCao()">Xem báo cáo</a>&nbsp;|&nbsp;
+                        <a href="javascript:void(0);" id="mapGenReport" onclick="xuatBaoCao()">Xuất báo cáo</a>            
             <s:url id="ViewReport" action="viewReportJasper_Api" />
             <sj:a id="aViewRpt" formIds="genReportJasper_Api" targets="divExportReport"  href="%{ViewReport}" indicator="loadingImage" onCompleteTopics="completeView" onBeforeTopics="beforeClick"></sj:a>
             <sj:a id="idGenJasperReport" formIds="genReportJasper_Api" targets="divExportReport" 
