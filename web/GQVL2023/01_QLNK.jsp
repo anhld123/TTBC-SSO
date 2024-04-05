@@ -271,6 +271,7 @@
                 for (var i = 0; i < rowcount; i++)
                 {
                     try {
+
                         if (txtGetData === "1")
                         {
                             document.getElementById("D8_" + i).disabled = true;
@@ -301,9 +302,8 @@
                         $("#D29_" + i).val(savedValue);
 
 
-
                         var D8 = document.getElementById('D8_' + i).value;
-                        if (D8 === "0")
+                        if (D8 === "0" || D8 === null || D8 === "")
                         {
                             document.getElementById("D8_" + i).value = document.getElementById('D3_' + i).value;
                         }
@@ -319,12 +319,12 @@
                         }
 
                         var D9 = document.getElementById('D9_' + i).value;
-                        if (D9 === "0")
+                        if (D9 === "0" || D9 === null || D9 === "")
                         {
                             document.getElementById("D9_" + i).value = document.getElementById('D5_' + i).value;
                         }
                         var D27 = document.getElementById('D27_' + i).value;
-                        if (D27 === "0")
+                        if (D27 === "0" || D27 === null || D27 === "")
                         {
                             document.getElementById("D27_" + i).value = document.getElementById('D4_' + i).value;
                         }
@@ -352,6 +352,10 @@
 //                            document.getElementById("D26_" + i).disabled = false;
 //                            document.getElementById("check" + i).disabled = false;
 //                        }
+                        document.getElementById('D14_' + i).value = parseInt(document.getElementById("D3_" + i).value.replaceAll(',', '')) - parseInt(document.getElementById("D8_" + i).value.replaceAll(',', ''));
+                        document.getElementById('D15_' + i).value = parseInt(document.getElementById("D5_" + i).value.replaceAll(',', '')) - parseInt(document.getElementById("D9_" + i).value.replaceAll(',', ''));
+                        document.getElementById('D28_' + i).value = parseInt(document.getElementById("D4_" + i).value.replaceAll(',', '')) - parseInt(document.getElementById("D27_" + i).value.replaceAll(',', ''));
+                        
                         var D19 = document.getElementById('D19_' + i).value;
                         if (D19 === "06" || D19 === "07" || D19 === "02")
                         {
@@ -577,7 +581,7 @@
                     </th> 
                     <!--<th rowspan="3" class="STT1">Phê duyệt</th>--> 
                     <th rowspan="3" class="STT1">S<br>T<br>T</th>                           
-                    <th rowspan="3" class="STT4">Họ và tên</th>  
+                    <th rowspan="3" class="STT4">Họ và tên111</th>  
                     <th rowspan="3" class="STT2">Mã món vay</th>  
                     <th colspan="5">PHẦN THEO DÕI TẠI NGÂN HÀNG</th>
                     <th colspan="10" style="color: #ff6600">PHẦN KIỂM TRA THỰC TẾ TẠI KHÁCH HÀNG</th>
@@ -635,37 +639,9 @@
                             <input id="check<s:property  value='%{#rowstatus.index}' />" type="checkbox" class="myCheckBox sstyle"
                                    name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D18"/>       
                         </td>
-                        <%--<s:if test="txtGetData.equalsIgnoreCase('1')">
-                            <!--<td></td>-->
-                        <input type="hidden" value="<s:property  value="D8" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8"/>
-                        <input type="hidden" value="<s:property  value="D9" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9"/>
-                        <!--<input type="hidden" value="<s:property  value="D10" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10"/>-->
-                        <input type="hidden" value="<s:property  value="D11" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11"/>
-                        <input type="hidden" value="<s:property  value="D12" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12"/>
-                        <input type="hidden" value="<s:property  value="D13" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13"/>
-                        <input type="hidden" value="<s:property  value="D14" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14"/>
-                        <input type="hidden" value="<s:property  value="D15" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15"/>
-                        <input type="hidden" value="<s:property  value="D16" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16"/>
-                        <input type="hidden" value="<s:property  value="D17" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17"/>
-                        <input type="hidden" value="0" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26"/>
-                        <input type="hidden" value="<s:property  value="D27" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27"/>
-                        <input type="hidden" value="<s:property  value="D28" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28"/>
-
-                   </s:if>--%>
-                        <%--<s:else>
-                            <td class="D0">
-                                <input id="D26_<s:property  value='%{#rowstatus.index}' />" type="checkbox" class="myCheckBox1 sstyle"
-                                       name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D26" 
-                                       <s:if test="D26.equalsIgnoreCase('1')"> checked title="Số liệu đã phê duyệt"</s:if> 
-                                           onclick="$(this).val(this.checked ? 1 : 0)"/>
-                                </td>
-                </s:else>--%>
+                      
                         <td class="D0 STT1 sstyle" style="background: #ddd"> <s:property value="%{#rowstatus.index + 1}" /> 
-                            <%--<s:if test ="D26.equalsIgnoreCase('1')">
-                                <input type="hidden" value="<s:property  value="D26" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26"
-                                       id="D26_<s:property  value='%{#rowstatus.index}' />"/>
-                            </s:if>
-                            --%>  
+                           
                             <input type="hidden" value="<s:property  value="MACN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN"/>                             
                             <input type="hidden" value="<s:property  value="THUTU" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU"/>                             
                             <input type="hidden" value="<s:property  value="MA" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/>
