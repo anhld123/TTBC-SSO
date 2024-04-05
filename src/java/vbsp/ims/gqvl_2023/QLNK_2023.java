@@ -310,7 +310,7 @@ public class QLNK_2023 extends ActionNhaptaycnMain
                     tempadd.setKey("01_QLNK");
                     tempadd.setOrderValue("");
                     tempadd.setOrderDescription("");
-                    tempadd.setCode(tmp.getMA() + "_" + iStt);
+                    tempadd.setCode(tmp.getMA());
                     tempadd.setMakerId(UserName);
                     tempadd.setAuthoriseId(UserName);
                     tempadd.setReportDate(hmParameter.get("ngay_bc").toString());
