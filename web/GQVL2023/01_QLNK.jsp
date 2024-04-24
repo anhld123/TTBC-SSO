@@ -581,7 +581,7 @@
                     </th> 
                     <!--<th rowspan="3" class="STT1">Phê duyệt</th>--> 
                     <th rowspan="3" class="STT1">S<br>T<br>T</th>                           
-                    <th rowspan="3" class="STT4">Họ và tên111</th>  
+                    <th rowspan="3" class="STT4">Họ và tên</th>  
                     <th rowspan="3" class="STT2">Mã món vay</th>  
                     <th colspan="5">PHẦN THEO DÕI TẠI NGÂN HÀNG</th>
                     <th colspan="10" style="color: #ff6600">PHẦN KIỂM TRA THỰC TẾ TẠI KHÁCH HÀNG</th>

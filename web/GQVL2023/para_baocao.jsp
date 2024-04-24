@@ -309,6 +309,37 @@
                 }
             });
 
+            $(document).ready(function () {
+                $("#idSave,#idSaveLock,#idDelete").click(function () {
+                    document.getElementById("idSave").disabled = true;
+                    document.getElementById("idSaveLock").disabled = true;
+                    document.getElementById("idDelete").disabled = true;
+                    setTimeout(function () {
+                        document.getElementById("idSave").disabled = false;
+                        document.getElementById("idSaveLock").disabled = false;
+                         document.getElementById("idDelete").disabled = false;
+                    }, 3000);
+                });
+            });
+//            
+//            $(document).ready(function () {
+//                $("#idSaveLock,#idDelete,").click(function () {
+//                    document.getElementById("idSaveLock").disabled = true;
+//                    setTimeout(function () {
+//                        document.getElementById("idSaveLock").disabled = false;
+//                    }, 2000);
+//                });
+//            });
+//            
+//            $(document).ready(function () {
+//                $("#idDelete").click(function () {
+//                    document.getElementById("idDelete").disabled = true;
+//                    setTimeout(function () {
+//                        document.getElementById("idDelete").disabled = false;
+//                    }, 2000);
+//                });
+//            });
+
             $("#idSaveLock").click(function () {
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
@@ -409,13 +440,11 @@
                     }
                 }
             });
-
             $("#idDelete").click(function () {
                 let checkedCount = countCheckedItem();
                 if (checkedCount === 0 || checkedCount > 1) {
 //                    alert('Bạn chưa chọn bản ghi để xóa hoặc mỗi lần bạn chỉ được phép xóa tối đa 1 bản ghi!');
                     $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Bạn chưa chọn bản ghi để xóa, mỗi lần bạn chỉ được phép xóa tối đa 1 bản ghi!</h>");
-
                 } else {
                     let aCheck = confirm("Bạn chắc chắn muốn đề nghị xóa dữ liệu ?");
                     if (aCheck) {
@@ -449,7 +478,6 @@
                     }
                 }
             });
-
             function btnDisabled(status) {
                 if (status === 1) {
                     $("#idSearch").prop('disabled', true);
@@ -696,7 +724,7 @@
                         <s:select  style="width: 160px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
                                    onchange="reLoadValue(this.value)"></s:select>
 
-                        &nbsp;<label>Mã tổ:</label>
+                            &nbsp;<label>Mã tổ:</label>
                         <s:select  style="width: 160px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc" onchange="reLoadValueMaTo(this.value)"></s:select>
                         <s:select  
                             id="mato_data"
@@ -764,11 +792,9 @@
                 var day = currentDate.getDate();
                 var month = currentDate.getMonth() + 1; // Note: January is 0
                 var year = currentDate.getFullYear();
-
                 var formattedDate = day + '/' + month + '/' + year;
                 document.getElementById('ngay_bc_DATE').value = formattedDate;
             });
-
 //            $('#ngay_bc_DATE').datepicker('disable');
 //            document.getElementById("labelPageNumber").style.visibility = "hidden";
 //            document.getElementById("pageNumber").style.visibility = "hidden";
