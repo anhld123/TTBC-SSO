@@ -35,6 +35,8 @@ import vbsp.ims.dao.DaoDcptNo;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.define.Define;
 import vbsp.ims.eps.epsModel;
+import vbsp.ims.huydongtk.clsCanBo;
+import vbsp.ims.huydongtk.clsHuyDongTK;
 import vbsp.ims.khnv2021.PosClass;
 import vbsp.ims.ktgs.dao.DaoKtgsMain;
 import vbsp.ims.leavelocal.LeaveHomeDao;
@@ -320,6 +322,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     private List<ListValue> lstCapKT = new ArrayList<ListValue>();
     private List<ListValue> lstDVUT = new ArrayList<ListValue>();
+    private List<clsCanBo> lstCanBo = new ArrayList<>();
 //    private List<ListValue> lstMato = new ArrayList<ListValue>();
     private List<ListValue> lstChutichXaHoi = new ArrayList<ListValue>();
 
@@ -353,6 +356,14 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     public void setLstMaxa(List<ListValue> lstMaxa) {
         this.lstMaxa = lstMaxa;
+    }
+
+    public List<clsCanBo> getLstCanBo() {
+        return lstCanBo;
+    }
+
+    public void setLstCanBo(List<clsCanBo> lstCanBo) {
+        this.lstCanBo = lstCanBo;
     }
 
     public List<ListValue> getLstPhanloai() {
@@ -859,7 +870,14 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 return "QLNK_2023";
 //                return "LEAVELOCAL";
             }
-
+            
+                if (this.khoa_nhaptaycn.equals("HUYDONG_2024")) {
+                     clsHuyDongTK Canbo2024 = new clsHuyDongTK();
+                setLstCanBo(Canbo2024.getCanBo(Grade, UserName));
+                return "HUYDONG_2024";
+//                return "LEAVELOCAL";
+            }
+                
             if (this.khoa_nhaptaycn.equals("KTTC_QSDD_01")) {
                 System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
                 //Lấy danh sách Pos theo User đăng nhập

@@ -277,7 +277,11 @@
                         }
                         if (isValid) {
                             var url, sdata;
-                            url = "save_QLNK_2023.action";
+            <s:if test="gradeAuthor1.equalsIgnoreCase('2')">
+                            url = "unlock_QLNK_2023.action";
+            </s:if>
+            <s:else>
+                            url = "save_QLNK_2023.action";</s:else>
                             sdata = jQuery("#frmdata").serialize();
                             $("#viewData").html('<img src="img/loading.gif"/>');
                             btnDisabled(1);
@@ -309,18 +313,18 @@
                 }
             });
 
-            $(document).ready(function () {
-                $("#idSave,#idSaveLock,#idDelete").click(function () {
-                    document.getElementById("idSave").disabled = true;
-                    document.getElementById("idSaveLock").disabled = true;
-                    document.getElementById("idDelete").disabled = true;
-                    setTimeout(function () {
-                        document.getElementById("idSave").disabled = false;
-                        document.getElementById("idSaveLock").disabled = false;
-                         document.getElementById("idDelete").disabled = false;
-                    }, 3000);
-                });
-            });
+//            $(document).ready(function () {
+//                $("#idSave,#idSaveLock,#idDelete").click(function () {
+//                    document.getElementById("idSave").disabled = true;
+//                    document.getElementById("idSaveLock").disabled = true;
+//                    document.getElementById("idDelete").disabled = true;
+//                    setTimeout(function () {
+//                        document.getElementById("idSave").disabled = false;
+//                        document.getElementById("idSaveLock").disabled = false;
+//                        document.getElementById("idDelete").disabled = false;
+//                    }, 3000);
+//                });
+//            });
 //            
 //            $(document).ready(function () {
 //                $("#idSaveLock,#idDelete,").click(function () {
