@@ -313,18 +313,29 @@
                 }
             });
 
-//            $(document).ready(function () {
-//                $("#idSave,#idSaveLock,#idDelete").click(function () {
-//                    document.getElementById("idSave").disabled = true;
-//                    document.getElementById("idSaveLock").disabled = true;
-//                    document.getElementById("idDelete").disabled = true;
-//                    setTimeout(function () {
-//                        document.getElementById("idSave").disabled = false;
-//                        document.getElementById("idSaveLock").disabled = false;
-//                        document.getElementById("idDelete").disabled = false;
-//                    }, 3000);
-//                });
-//            });
+            $(document).ready(function () {
+                $("#idSave").click(function () {
+            <s:if test="gradeAuthor1.equalsIgnoreCase('2')">
+                    document.getElementById("idSave").disabled = true;
+            </s:if>
+            <s:else>
+                    document.getElementById("idSave").disabled = true;
+
+                    document.getElementById("idSaveLock").disabled = true;
+                    document.getElementById("idDelete").disabled = true;
+            </s:else>
+                    setTimeout(function () {
+            <s:if test="gradeAuthor1.equalsIgnoreCase('2')">
+                        document.getElementById("idSave").disabled = false;
+            </s:if>
+            <s:else>
+                        document.getElementById("idSave").disabled = false;
+                        document.getElementById("idSaveLock").disabled = false;
+                        document.getElementById("idDelete").disabled = false;
+            </s:else>
+                    }, 3000);
+                });
+            });
 //            
 //            $(document).ready(function () {
 //                $("#idSaveLock,#idDelete,").click(function () {
