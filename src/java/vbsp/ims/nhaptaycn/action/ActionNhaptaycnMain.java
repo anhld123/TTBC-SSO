@@ -322,7 +322,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
 
     private List<ListValue> lstCapKT = new ArrayList<ListValue>();
     private List<ListValue> lstDVUT = new ArrayList<ListValue>();
-    private List<clsCanBo> lstCanBo = new ArrayList<>();
+    public List<clsCanBo> lstCanBo = new ArrayList<>();
 //    private List<ListValue> lstMato = new ArrayList<ListValue>();
     private List<ListValue> lstChutichXaHoi = new ArrayList<ListValue>();
 

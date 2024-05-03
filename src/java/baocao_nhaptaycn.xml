@@ -19,7 +19,8 @@
             <result name="CHART_001">/nhaptay-cn/para-nhaptaycn-main_chart.jsp</result>
             <result name="KSNB_02">/nhaptay-cn/para-nhaptaycn-main_ktnb02.jsp</result>
             <result name="return-cic">/nhaptay-cn/para_baocao_cic.jsp</result>
-            <result name="QLNK_2023">/GQVL2023/para_baocao.jsp</result>  
+            <result name="QLNK_2023">/GQVL2023/para_baocao.jsp</result> 
+            <result name="HUYDONG_2024">/GQVL2023/para_huydong.jsp</result> 
              <!--<result name="GQVL_01">/GQVL2023/index.jsp</result>-->
             <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>  
@@ -39,13 +40,27 @@
             <result name="success">/nhaptay-cn/table_list_bc.jsp</result>
             <result name="error">sbv/success.jsp</result>
         </action>
+         <action name="HUYDONG_2024" class="vbsp.ims.gqvl_2023.huydongtk_2024"  method="load">
+            <result name="success">/GQVL2023/huydongtietkiem.jsp</result>                                 
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action> 
+     
+          <action name="save_HUYDONG_2024" class="vbsp.ims.gqvl_2023.huydongtk_2024"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>  
         
           <action name="QLNK_2023" class="vbsp.ims.gqvl_2023.QLNK_2023"  method="load">
             <result name="success">/GQVL2023/01_QLNK.jsp</result> 
             <result name="success_1">/GQVL2023/01_QLNK_unlock.jsp</result>                              
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
-
+        <action name="unlock_QLNK_2023" class="vbsp.ims.gqvl_2023.QLNK_2023"  method="unlock">
+             <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action>   
         <action name="save_QLNK_2023" class="vbsp.ims.gqvl_2023.QLNK_2023"  method="save">
 <!--            <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>  -->
