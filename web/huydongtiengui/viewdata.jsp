@@ -1,5 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib prefix="sx" uri="/struts-dojo-tags" %> 
+<%@ taglib prefix="sj" uri="/struts-jquery-tags" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@taglib uri="/struts-jquery-tree-tags" prefix="sjt" %>
 
 <style>
     .css_text{
@@ -17,6 +23,7 @@
     }
 </style>
 <div class="clsBody">
+    
     <table id="tblTable">
         <thead>
             <tr>
