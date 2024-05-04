@@ -10,13 +10,15 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@taglib uri="/struts-jquery-tree-tags" prefix="sjt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<%--<s:head/>
-<sj:head/>--%>
+<link rel="stylesheet" type="text/css"  href="css/bcqt.css" />
+<s:head/>
+<sj:head/>
 
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="js/jquery.number.js"></script>
+        <script src="js/format_num.js"></script>
         <style>
             #menuBcttv_para{
                 width: 100%;
@@ -181,10 +183,7 @@
         </style>
         <script>
             var bsubmit = false;
-            $(document).ready(function () {
-                $(".NGAY_SL").css({"width": "80px"});
-            });
-
+            
             function onLoadData()
             {
 //                var grade = $.session.get('reportGrade').toString();
@@ -193,7 +192,7 @@
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
                 $('#divExportReportLink').empty();
-                var ngay_bc = $("#ngay_bc_DATE").val();
+                var ngay_bc = $("#ngay_bc").val();
                 var khoa_nhaptaycn = $("#khoa_nhaptaycn").val();
                 var lv_day = (ngay_bc.substr(0, 2));
                 var lv_month = (ngay_bc.substr(3, 2));
@@ -202,6 +201,22 @@
                 bsubmit = true;
 //                return true;
             }
+            
+            function onSearchData()
+            {               
+                $('#message_suc_err').empty();
+                $('#divExportReport').empty();
+                $('#divExportReportLink').empty();
+                var ngay_bc = $("#ngay_bc").val();
+                var khoa_nhaptaycn = $("#khoa_nhaptaycn").val();
+                var lv_day = (ngay_bc.substr(0, 2));
+                var lv_month = (ngay_bc.substr(3, 2));
+                
+                $("#searchData")[0].click();
+                bsubmit = true;
+            }
+            
+            
             function onSaveData()
             {
                 $('#message_suc_err').empty();
@@ -222,33 +237,35 @@
                     return;
                 }
 
-// Trung bo sung phan validate data
+                // Trung bo sung phan validate data
                 if (typeof validateData !== 'undefined' && typeof validateData === 'function') {
                     if (!validateData())
                     {
-                        alert('vao day');
+                        //alert('vao day');
                         return false;
                     }
                 }
 
-
                 if (validateRequiredFields())
-                    $("#" + khoa)[0].click();
-
-                if (khoa === 'HUYDONG_2024_save')
-                {
-                    wait(2000);
-                    onLoadData();
+                {                    
+                    $("#"+khoa)[0].click();
                 }
+
+//                if (khoa === 'HUYDONG_2024_save')
+//                {
+//                    wait(2000);
+//                    onLoadData();
+//                }
             }
+                        
     
-              $(document).ready(function () {
-                $("#onSaveData").click(function () {
-                    document.getElementById("idsaveDatatmp").disabled = true;        
-                    setTimeout(function () {
-                        document.getElementById("idsaveDatatmp").disabled = false;     
-                    }, 3000);
-                });
+            $(document).ready(function () {
+              $("#saveData").click(function () {
+                  document.getElementById("idsaveDatatmp").disabled = true;        
+                  setTimeout(function () {
+                      document.getElementById("idsaveDatatmp").disabled = false;     
+                  }, 3000);
+              });
             });
 
             function wait(ms) {
@@ -268,9 +285,6 @@
                 bsubmit = true;
             }
 
-
-
-
             // TRUNG BO SUNG PHAN THUYET MINH
 
             $.subscribe("beforediv_data", function (event, data) {
@@ -283,7 +297,8 @@
                 $("#loadingImageDiv_data").show();
             });
             $.subscribe("completediv_ss", function (event, data) {
-                $("#loadingImageDiv_data").hide();
+                $("#loadingImageDiv_data").hide();                
+                onLoadData();
             });
             $.subscribe("beforediv_send", function (event, data) {
                 $("#loadingImageDiv_data").show();
@@ -414,8 +429,7 @@
 
                 $("#idSend")[0].click();
                 bsubmit = false;
-            }
-            ;
+            };
 
             function ExpEcel()
             {
@@ -424,8 +438,8 @@
 
                 $("#idExpEceltmp")[0].click();
                 bsubmit = false;
-            }
-            ;
+            };
+            
             function ExpEcelTemp()
             {
                 $('#message_suc_err').empty();
@@ -433,8 +447,7 @@
 
                 $("#idExpEceltmpTemp")[0].click();
                 bsubmit = false;
-            }
-            ;
+            };
 
             function getDaysOfMonth(month, year) {
                 switch (month) {
@@ -466,8 +479,7 @@
                     case 12:
                         return 31;
                 }
-            }
-            ;
+            };
         </script>
     </head>
 
@@ -479,36 +491,45 @@
             <s:hidden name="UserName" id="UserName"/>
             <fieldset>
                 <legend><b>Tìm kiếm dữ liệu</b></legend> 
-                <table>
-                    <td>Ngày báo cáo </td>
+                <div style="display: flex;justify-content: center;">
+                    <table style="align-self: center;">
+                    <tr style="text-align: center;">
+                        <td>Ngày báo cáo </td>
                     <td>
-                        <sj:datepicker name="ngay_bc_DATE" value="%"  id="ngay_bc_DATE" 
-                                       placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
+                        <sj:datepicker name="ngay_bc_DATE"                                        
+                                       id="ngay_bc" 
+                                       placeholder="DD/MM/YYYY" 
+                                       changeYear="true" 
+                                       changeMonth="true" 
+                                       displayFormat="dd/mm/yy" 
+                                       cssClass="NGAY_SL" 
+                                       onChangeTopics="changeTopic"/>                                              
                     </td>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td>Cán bộ</td> 
+                    <td>Cán bộ</td> 
                     <td><select id="cboCanBo" name="cboCanBo">
                             <option value="000000">----Chọn cán bộ----</option>
                             <s:iterator value="lstCanBo">
                                 <option value='<s:property value="MaCB"/>'><s:property value="TenCB"/></option>
                             </s:iterator>
                         </select></td>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td>Chỉ tiêu được giao</td>
-                    <td><input type="text" style="text-align: right;" id="txtChitieu" name="txtChitieu" value=0 class="number">
+                    <td>Chỉ tiêu được giao</td>
+                    <td><input type="text" style="text-align: right; width: 150px;" id="txtChitieu" name="txtChitieu" value="1000000000" class="number">
                     </td>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td style="color: red">Chỉ hiện những số đã gắn cán bộ 
+                    <td style="color: red">Chỉ hiện những số đã gắn cán bộ 
                     </td>
-                    <td><input type="checkbox" checked="true" name="flgFilter" id="flgFilter">
+                    <td>
+                        <input type="checkbox" checked="true" name="flgFilter" id="flgFilter" disabled="true">
                     </td>      
+                    
                     <td >
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                        &nbsp;&nbsp;&nbsp;
+                        <sj:submit id="loadData" name="loadData" value="Tải dữ liệu đã nhập" targets="divExportReport"
                                    onBeforeTopics="beforediv_data"
                                    onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                        <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
+                        <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Danh sách đã gắn"/>
                     </td>
-
-                    <td>&nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/> </td>
-
+                    
+                   
                     <td>
                         <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
                             <img id="loadingImage" src='img/loading.gif' border='0' >
@@ -518,8 +539,33 @@
                         <div id="message_suc_err"> 
                         </div>
                     </td>
+                    </tr>
+                    
+                    <tr style="text-align: center;">
+                        <td colspan="12" style="text-align: center;">
+                            <label>Tra cứu </label>
+                            &nbsp;&nbsp;&nbsp;
+                        <input type="text" placeholder="Nhập thông tin khách hàng, số tài khoản, số sổ" style="width: 300px;" name="searchKey"></input>                                             
+                        &nbsp;&nbsp;&nbsp;    
+                        <s:url id="urlSearchData" action="search_HUYDONG_2024.action"></s:url>
+                        <sj:a id="searchData" 
+                              name="searchData" 
+                              href="%{urlSearchData}"
+                              formIds="id_%{khoa_nhaptaycn}"
+                                   value="Tải dữ liệu đã nhập" targets="divExportReport"
+                                   onBeforeTopics="beforediv_data"
+                                   onCompleteTopics="completediv_data" cssStyle="display:none"/>
+                        <input type="button" id="searchDatatmp" name="nameloadDatatmp"  onclick="onSearchData()" value="Tìm kiếm"/>
+                    &nbsp;&nbsp;&nbsp;                            
+                    
+                    <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Gắn sổ"/> </td>
 
-                </table>    
+                    </td>
+                    </tr>
+
+                </table> 
+                </div>
+                   
             </fieldset>       
 
             <s:if test="(Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('HUYDONG_2024'))">
@@ -552,13 +598,21 @@
         </s:form>
         <script>
             $(document).ready(function () {
+                                
+                $('input.number').css({"text-align": "right"});                
+                $('.number').number(true, 0);  
+                
+                
                 var currentDate = new Date();
-                var day = currentDate.getDate();
+                var day = currentDate.getDate()-1;
                 var month = currentDate.getMonth() + 1; // Note: January is 0
                 var year = currentDate.getFullYear();
                 var formattedDate = day + '/' + month + '/' + year;
-                document.getElementById('ngay_bc_DATE').value = formattedDate;
-            });
+                document.getElementById('ngay_bc').value = formattedDate;
+                
+                $(".NGAY_SL").css({"width": "80px"});                
+                $('.number').number(true, 0);
+            });                        
         </script>
     </body>
 </html>

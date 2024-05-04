@@ -56,7 +56,7 @@
                 for (var i = 0; i < rowcount; i++)
                 {
                     var matmp = getMabyNumber(i);//    
-                    if (matmp == 1)
+                    if (matmp === 1)
                     {
                         $('input:checkbox[id=' + i + ']').attr('checked', true);
                     }
@@ -212,9 +212,11 @@
             </br>
             <div id="divTitle">
                 HUY ĐỘNG TIẾT KIỆM
-                <BR>                    
+                <br/>                    
             </div>
-
+            <div style="width: 50%;">
+                <hr/>
+            </div>            
             <s:hidden name="khoa_nhaptaycn"/>
             Chọn trang <input style="border-top-style: hidden; border-left-style: hidden; border-right-style: hidden ;width: 50px" class="STT1" type="number" id="pageInput" min="1" max="numPages()"/>
             <a onclick="goToPage()" href='#' id ="btn_go">Go</a>
@@ -227,7 +229,7 @@
             <div style="overflow:scroll; width: 99vw;">
                 <table border="1" id="subTable" align="center">
                     <tr>
-                        <th style="width: 20px;">&nbsp;</th>
+                        <th style="width: 20px;">Chọn</th>
                         <th>GL</th>
                         <th>Số sổ</th>
                         <th>Số TK</th>
@@ -240,6 +242,7 @@
                         <th>Kỳ hạn</th>
                         <th>Cán bộ</th>
                         <th>Ngày gửi</th>
+                        <th>Hủy gắn</th>
                     </tr>
                     <tr style="font-style: italic;">
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
@@ -255,6 +258,7 @@
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(12)</th>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(13)</th>
+                        <th style="color: #000; font-style: italic; font-size: xx-small;">(14)</th>
                     </tr>
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                                                    
                         <tr>
@@ -278,7 +282,11 @@
                             <td><input type="text" class='css_text number' value='<s:property value="D9"/>' readonly="readonly" id ="D9_<s:property  value='%{#rowstatus.index}' />"></td>
                             <td><input type="text" class='css_text' value='<s:property value="D10"/>' readonly="readonly" id ="D10_<s:property  value='%{#rowstatus.index}' />"></td>
                             <td><input type="text" class='css_text' value='<s:property value="D12"/>' readonly="readonly" id ="D12_<s:property  value='%{#rowstatus.index}' />"></td>
-
+                            <td style="width: 80px; text-align: center;">
+                                <s:if test="%{D10 != null}">
+                                    <a href="#" onclick="cancelAssign('<s:property value="D3"/>','<s:property value="D10"/>','<s:property value="D11"/>');">Hủy gắn</a>
+                                </s:if>                                                                
+                            </td>
                         </tr>                                                                                                 
                     </s:iterator>
 
@@ -311,9 +319,7 @@
         </s:form>
         <div id="luu_thanhcong"></div>
         <script>
-
             initTable();
-
             function initTable1()
             {
                 nextPage();
@@ -340,6 +346,27 @@
                     return !~text.indexOf(val);
                 }).hide();
             });
+            
+            function cancelAssign(sotk, macb, ngayganso) {
+                //alert(sotk + ' ' + macb + ' ' + ngayganso);
+                $.ajax({
+                    type: "GET",
+                    url: "cancelAssign_HUYDONG_2024?" + "accountNo=" + sotk + "&staffCode=" + macb+ "&assignDate=" + ngayganso,
+                    success: function (res) {
+                        var status = parseInt(res.status);
+                        //alert(status);
+                        if (status === 1) {
+                            alert('Hủy gắn sổ thành công!');
+                            onLoadData();
+                        } else {
+                            alert('Hủy gắn sổ có lỗi: ' + res.message );
+                        }
+                    },
+                    error: function (res) {
+                        alert("Hủy gắn sổ có lỗi. Vui lòng liên hệ quản trị viên để được hỗ trợ!");
+                    }
+                });
+            }
         </script>
     </body>
 

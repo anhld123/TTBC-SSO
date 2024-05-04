@@ -40,12 +40,22 @@
             <result name="success">/nhaptay-cn/table_list_bc.jsp</result>
             <result name="error">sbv/success.jsp</result>
         </action>
-         <action name="HUYDONG_2024" class="vbsp.ims.gqvl_2023.huydongtk_2024"  method="load">
+        
+        <action name="HUYDONG_2024" class="vbsp.ims.huydongtk.huydongtk_2024" method="load">
+            <result name="success">/GQVL2023/huydongtietkiem.jsp</result>                                 
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action> 
+        
+        <action name="cancelAssign_HUYDONG_2024" class="vbsp.ims.huydongtk.huydongtk_2024" method="cancelAssign">
+            <result name="success" type="json"></result>
+        </action>
+        
+        <action name="search_HUYDONG_2024" class="vbsp.ims.huydongtk.huydongtk_2024"  method="search">
             <result name="success">/GQVL2023/huydongtietkiem.jsp</result>                                 
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action> 
      
-          <action name="save_HUYDONG_2024" class="vbsp.ims.gqvl_2023.huydongtk_2024"  method="save">
+          <action name="save_HUYDONG_2024" class="vbsp.ims.huydongtk.huydongtk_2024"  method="save">
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>  

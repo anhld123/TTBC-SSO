@@ -82,4 +82,10 @@ public class Constant {
         public static String _HEAD_POS_MAKER = "4";
         public static String _HEAD_POS_AUTH = "4";
     }
+    
+    public static class StatusCode {
+        public static int OK = 200;
+        public static int FAIL = 400;
+        public static int NOT_FOUND = 404;
+    }
 }

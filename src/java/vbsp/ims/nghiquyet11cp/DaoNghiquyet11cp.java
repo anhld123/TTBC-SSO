@@ -5,49 +5,25 @@
  */
 package vbsp.ims.nghiquyet11cp;
 
-import vbsp.ims.nhaptaycn.dao.*;
-import vbsp.ims.ktgs.dao.*;
-import vbsp.ims.bcqt.dao.*;
 import java.sql.CallableStatement;
-import java.sql.Clob;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
-import oracle.sql.STRUCT;
-import oracle.sql.StructDescriptor;
-import vbsp.ims.bcqt.model.DULIEU_NT;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
-import vbsp.ims.chamdiemcn.ModelExcelFile;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.DaoLoadReportParams;
-import vbsp.ims.dao.khnv.DaoDieuchinhkh;
-import vbsp.ims.export.excel.ExportExcelFile;
 import vbsp.ims.loadparams.Combo;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
-import vbsp.ims.model.DcptNoModel;
 import vbsp.ims.model.ModelTreeNode;
-import vbsp.ims.model.khnv.POSModel;
-import vbsp.ims.nhaptaycn.action.QT_DULIEU_NT_50;
-import vbsp.ims.query.ImsFillParaMeter;
-import vbsp.ims.query.ImsPlSqlQuery;
 import vbsp.ims.report.fast.ListValue;
-import vbsp.ims.restapi.DuLieuNTRow;
-import vbsp.ims.restapi.DuLieuNTService;
-import vbsp.ims.restapi.NQ11cpModel;
+import vbsp.ims.define.GenericResult; 
 
 /**
  *
@@ -60,7 +36,7 @@ public class DaoNghiquyet11cp {
     }
 
     public List<ListValue> getAllBaocao(String capbc, String module) {
-        List<ListValue> lstAllBcqt = new ArrayList<ListValue>();
+        List<ListValue> lstAllBcqt = new ArrayList<>();
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -1314,7 +1290,7 @@ public class DaoNghiquyet11cp {
     }
     
      public List<QT_DULIEU_NT> getData_HuyDong_2023(Connection conn, String sKhoa, String sNgaybc, String sUser,
-            String sGrade,String cboCanBo, String flgFilter, List<String> lstArrPoscd) {
+            String sGrade,String cboCanBo, String flgFilter, List<String> lstArrPoscd,String fetchType, String searchKey) {
         List<QT_DULIEU_NT> lstData = new ArrayList<QT_DULIEU_NT>();
         try {
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
@@ -1325,15 +1301,14 @@ public class DaoNghiquyet11cp {
 //            conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_IMS_NGHIQUYET11CP.SP_GET_DATA_HUYDONG_2024(?,?,?,?,?,?,?,?,?,?)}";
-            ResultSet reset = null;
-
+            String strStoreproce = "{call VBSP_IMS_NGHIQUYET11CP.SP_GET_DATA_HUYDONG_2024(?,?,?,?,?,?,?,?,?,?,?,?)}";
+            ResultSet reset ;
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-                calstatement.registerOutParameter(8, oracle.jdbc.OracleTypes.NUMBER);
-                calstatement.registerOutParameter(9, oracle.jdbc.OracleTypes.VARCHAR);
-                calstatement.registerOutParameter(10, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.registerOutParameter(10, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(11, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(12, oracle.jdbc.OracleTypes.CURSOR);
                 calstatement.setString(1, sKhoa);
                 calstatement.setString(2, sUser);
                 calstatement.setString(3, sGrade);
@@ -1341,14 +1316,16 @@ public class DaoNghiquyet11cp {
                 calstatement.setString(5, cboCanBo);
                 calstatement.setString(6, flgFilter);
                 calstatement.setArray(7, oracle_arrayPoscd);
+                calstatement.setString(8, fetchType);
+                calstatement.setString(9, searchKey);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
-                int pn_err_cd = calstatement.getInt(8);
+                int pn_err_cd = calstatement.getInt(10);
                 //thu hien lay mo ta loi
-                String strEdd_txt = calstatement.getString(9);
+                String strEdd_txt = calstatement.getString(11);
                 //Lay cursor ra resultset
-                reset = (ResultSet) calstatement.getObject(10);
+                reset = (ResultSet) calstatement.getObject(12);
                 while (reset.next()) {
 
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
@@ -1432,13 +1409,9 @@ public class DaoNghiquyet11cp {
         ArrayDescriptor des = ArrayDescriptor
                 .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
         ARRAY array_to_pass = new ARRAY(des, connection, array);
-
         ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("POS_CD", connection);
-
         String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
-
         ARRAY oracle_arrayPos = new ARRAY(des_ma, connection, arrayPoscd);
-
         CallableStatement cs = null;
         try {
             cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_SAVE_HUYDONG_2024(?, ?, ?, ?, ? ,?,?,?,?)}");
@@ -1466,6 +1439,44 @@ public class DaoNghiquyet11cp {
             }
         }
         return true;
+    }
+    
+    //HUYDONG_2024
+    public GenericResult<String> cancelAssign(String khoa, String taikhoan, String maCanBo, String ngayGanSo) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();        
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_CANCEL_HUYDONG_2024(?, ?, ?, ?, ? )}");            
+            cs.setString(1, taikhoan);
+            cs.setString(2, maCanBo);
+            cs.setString(3, ngayGanSo);
+            cs.registerOutParameter(4, oracle.jdbc.OracleTypes.NUMBER);
+            cs.registerOutParameter(5, oracle.jdbc.OracleTypes.VARCHAR);                
+            cs.execute();
+            
+            //Lay ma loi neu co
+            int errorCode = cs.getInt(4);            
+            String errorMessage = cs.getString(5);
+            
+            if (errorCode == 0) {
+                return (new GenericResult<String>()).Success("Success");
+            } else {
+                return (new GenericResult<String>()).Fail(errorMessage,errorCode);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham cancelAssign " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " cancelAssign -> " + e.getMessage());
+            return (new GenericResult<String>()).Fail(e.getMessage(),e.getErrorCode());
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }        
     }
    
     
