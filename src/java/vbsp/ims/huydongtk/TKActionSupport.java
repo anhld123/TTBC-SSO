@@ -70,10 +70,15 @@ public class TKActionSupport extends ActionSupport {
         if (lstDataSize > 500) {
             addActionError("Dữ liệu quá lớn, vui lòng nhập thông tin sổ vào ô tra cứu, tìm kiếm lại để lưu!");
             return ERROR;
+        } else if (lstDatatmp == null || lstDatatmp.isEmpty()) {
+            addActionError("Không có thông tin sổ cần tìm kiếm!");
+            return ERROR;
         } else {
             lstData = new clsHuyDongTK().getData(formattedDate, tendn, capbc, cboCanBo, flgFilter, cSeach);
         }
-        System.out.println(formattedDate + " " + lstDataSize);
+
+        System.out.println(formattedDate
+                + " " + lstDataSize);
         return SUCCESS;
     }
 
@@ -82,18 +87,18 @@ public class TKActionSupport extends ActionSupport {
         LocalDate date = LocalDate.parse(dateStr);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
         String formattedDate = date.format(formatter);
-        ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
-        for (QT_DULIEU_NT tmp : lstDulieuNt) {
-            if (chkChon.size() > 0 && chkChon.contains(tmp.getD3())) {
-                lstLocalDataUpdate.add(tmp);
-            }
-        }
+//        ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
+//        for (QT_DULIEU_NT tmp : lstDulieuNt) {
+//            if (chkChon.size() > 0 && chkChon.contains(tmp.getD3())) {
+//                lstLocalDataUpdate.add(tmp);
+//            }
+//        }
         if (lstDulieuNt.size() > 500) {
             String code = String.valueOf(404);
             this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
             System.out.println(pageResult);
         } else {
-            String code = new clsHuyDongTK().saveData(formattedDate, tendn, capbc, cboCanBo, txtChitieu, chkChon, lstLocalDataUpdate);
+            String code = new clsHuyDongTK().saveData(formattedDate, tendn, capbc, cboCanBo, txtChitieu, chkChon, lstDulieuNt);
             code = String.valueOf(200);
             this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         }

@@ -94,12 +94,13 @@
                             <option value='<s:property value="MaCB"/>'><s:property value="TenCB"/></option>
                         </s:iterator>
                     </select>
-                    Chỉ tiêu được giao <input type="text" style="text-align: right;" id="txtChitieu" name="txtChitieu" value=0 class="number">
+                    Chỉ tiêu được giao <input type="text" style="text-align: right;" id="txtChitieu" name="txtChitieu" value=1000000000 class="number">
                     Chỉ hiện những số đã gắn cán bộ <input type="checkbox" checked="true" name="flgFilter" id="flgFilter">
                     Tra cứu <input type="text" style="text-align: right;" id="cSeach" name="cSeach" value="" placeholder="Tìm kiếm thông tin sổ ...">                
                     <input type="button" value="Tải dữ liệu" id="cmdTaiDL" name="cmdTaiDL">
                     <input type="button" value="Lưu dữ liệu" id="cmdLuuDL" name="cmdLuuDL">
-                    
+                    <input type="button" value="1" id="cmdLuuDL_tmp" name="cmdLuuDL_tmp" style="display: none;">
+                    <input type="button" value="2" id="cmdTaiDL_tmp" name="cmdTaiDL_tmp" style="display: none;">
                 </div>
                 <div id="viewData" style="width: 99%;"></div>
             </div>
@@ -108,7 +109,7 @@
         <script src="js/format_num.js"></script>
 
         <script>
-            
+
             $(document).ready(function () {
                 //Tải dữ liệu
                 $("#cmdTaiDL").click(function () {
@@ -129,6 +130,7 @@
                                 if ($("#chkDate").val() === '200') {
                                     $("#cmdLuuDL").css("display", "inline-block");
                                     $("input.chkChonSh").removeAttr("disabled");
+                                    $("#cmdLuuDL_tmp").click();
                                 } else {
                                     $("#cmdLuuDL").css("display", "none");
                                     $("input.chkChonSh").attr("disabled", true);
@@ -188,6 +190,67 @@
                     ;
                 });
 
+                //Lưu dữ liệu2
+                $("#cmdLuuDL_tmp").click(function () {
+                    $("#cmdLuuDL_tmp").html("Đang thực hiện...");
+                    $("#cmdLuuDL_tmp").prop('disabled', true);
+                    var url, sdata;
+                    url = "savedata.action";
+                    sdata = jQuery("#HDTK_FrmMain").serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: sdata,
+                        success: function (data) {
+                            if (data === "200") {
+                                $("#cmdLuuDL_tmp").prop('disabled', false);
+                                $("#cmdLuuDL_tmp").html("Lưu dữ liệu");
+                            } else {
+                                $("#cmdLuuDL_tmp").html("Lưu dữ liệu");
+                                $("#cmdLuuDL_tmp").prop('disabled', false);
+                            }
+                        },
+                        error: function (request) {
+                            $("#cmdLuuDL_tmp").prop('disabled', false);
+                            $("#cmdLuuDL_tmp").html("Lưu dữ liệu");
+                            $("#viewData").html(request.responseText);
+                        }
+                    });
+
+                });
+
+                //Tải dữ liệu2
+                $("#cmdTaiDL_tmp").click(function () {
+                    if ($("#cboCanBo").val() === '000000') {
+                        alert("Vui lòng chọn cán bộ cần gán dữ liệu.");
+                    } else {
+                        $('#viewData').html('<img src="img/loading.gif"/>');
+                        var url, sdata;
+                        url = "viewdata.action";
+                        sdata = jQuery("#HDTK_FrmMain").serialize() + "&cSeach=" + $("#cSeach").val();
+                        ;
+                        $.ajax({
+                            type: "GET",
+                            url: url,
+                            data: sdata,
+                            success: function (data) {
+                                $("#viewData").html(data);
+                                if ($("#chkDate").val() === '200') {
+                                    $("#cmdLuuDL").css("display", "inline-block");
+                                    $("input.chkChonSh").removeAttr("disabled");
+                                } else {
+                                    $("#cmdLuuDL").css("display", "none");
+                                    $("input.chkChonSh").attr("disabled", true);
+                                }
+                            },
+                            error: function (request) {
+                                $("#viewData").html(request.responseText);
+                            }
+                        });
+                    }
+                    ;
+                });
+                
                 function checkAll() {
                     var ChkAll = document.getElementById("chkChon").length();
                     alert(ChkAll);
