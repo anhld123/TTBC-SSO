@@ -94,7 +94,7 @@
                             <option value='<s:property value="MaCB"/>'><s:property value="TenCB"/></option>
                         </s:iterator>
                     </select>
-                    Chỉ tiêu được giao <input type="text" style="text-align: right;" id="txtChitieu" name="txtChitieu" value=1000000000 class="number">
+                    Chỉ tiêu được giao <input type="text" style="text-align: right;" id="txtChitieu" name="txtChitieu" value=100000000 class="number">
                     Chỉ hiện những số đã gắn cán bộ <input type="checkbox" checked="true" name="flgFilter" id="flgFilter">
                     Tra cứu <input type="text" style="text-align: right;" id="cSeach" name="cSeach" value="" placeholder="Tìm kiếm thông tin sổ ...">                
                     <input type="button" value="Tải dữ liệu" id="cmdTaiDL" name="cmdTaiDL">
@@ -276,7 +276,7 @@
 
 // Gán giá trị mới vào trường input
             document.getElementById('dtNgaybc').value = formattedDate;
-
+            document.getElementById('dtNgaybc').setAttribute('max', formattedDate);
         </script>
     </body>
 </html>

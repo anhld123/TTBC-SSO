@@ -33,6 +33,8 @@ public class TKActionSupport extends ActionSupport {
     private String cboCanBo;
     private String flgFilter;
     private String cSeach;
+    private String checkNgaybc;
+    private String checkNgaygs;
     List<clsCanBo> lstCanBo = new ArrayList<>();
     List<QT_DULIEU_NT> lstData = new ArrayList<>();
     List<QT_DULIEU_NT> lstDatatmp = new ArrayList<>();
@@ -60,6 +62,19 @@ public class TKActionSupport extends ActionSupport {
         LocalDate date = LocalDate.parse(dateStr);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
         String formattedDate = date.format(formatter);
+        // Get the current date
+        // Get the current date
+        LocalDate currentDate = LocalDate.now();
+
+// Subtract one day from the current date to get yesterday's date
+        LocalDate yesterday = currentDate.minusDays(1);
+
+// Format yesterday's date as "dd/MM/yyyy"
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate1 = yesterday.format(formatter1);
+        String formattedDate2 = date.format(formatter1);
+        setCheckNgaybc(formattedDate1);
+        
         if (flgFilter != null) {
             flgFilter = "on";
         } else {
@@ -203,6 +218,22 @@ public class TKActionSupport extends ActionSupport {
 
     public void setLstDataSize(int lstDataSize) {
         this.lstDataSize = lstDataSize;
+    }
+
+    public String getCheckNgaybc() {
+        return checkNgaybc;
+    }
+
+    public void setCheckNgaybc(String checkNgaybc) {
+        this.checkNgaybc = checkNgaybc;
+    }
+
+    public String getCheckNgaygs() {
+        return checkNgaygs;
+    }
+
+    public void setCheckNgaygs(String checkNgaygs) {
+        this.checkNgaygs = checkNgaygs;
     }
 
 }
