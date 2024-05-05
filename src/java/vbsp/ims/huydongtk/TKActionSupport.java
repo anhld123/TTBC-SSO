@@ -74,7 +74,7 @@ public class TKActionSupport extends ActionSupport {
         String formattedDate1 = yesterday.format(formatter1);
         String formattedDate2 = date.format(formatter1);
         setCheckNgaybc(formattedDate1);
-        
+        setCheckNgaygs(formattedDate2);
         if (flgFilter != null) {
             flgFilter = "on";
         } else {

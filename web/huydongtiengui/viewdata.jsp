@@ -23,7 +23,7 @@
     }
 </style>
 <div class="clsBody">
-    
+
     <table id="tblTable">
         <thead>
             <tr>
@@ -55,14 +55,27 @@
         <tbody>
             <s:iterator value="lstData">
                 <tr>
-                    <td class="clsChon">
-                        <s:if test="%{D10 != null}">
-                            <input type="checkbox" id="chkChonSh" name="chkChonSh" value='<s:property value="D3"/>' onclick="setChecked('<s:property value="D3"/>')" class="chkChonSh" checked>
-                        </s:if>
-                        <s:else>
-                            <input type="checkbox" id="chkChonSh" name="chkChonSh" value='<s:property value="D3"/>' onclick="setChecked('<s:property value="D3"/>')" class="chkChonSh">
-                        </s:else>
-                    </td>
+                    <s:if test="checkNgaybc.equals(checkNgaygs)">
+                        <td>
+                            <s:if test="%{D10 != null}">
+                                <input type="checkbox" id="1_chkChonSh" name="chkChonSh" value='<s:property value="D3"/>' onclick="setChecked('<s:property value="D3"/>')" class="chkChonSh" checked>
+                            </s:if>
+                            <s:else>
+                                <input type="checkbox" id="2_chkChonSh" name="chkChonSh" value='<s:property value="D3"/>' onclick="setChecked('<s:property value="D3"/>')" class="chkChonSh">
+                            </s:else>
+                        </td>
+                    </s:if>
+                    <s:else>
+                        <td>
+                            <s:if test="%{D10 != null}">
+                                <input type="checkbox" id="1_chkChonSh"  class="chkChonSh" name="chkChonSh" value='<s:property value="D3"/>' onclick="setChecked('<s:property value="D3"/>')"  checked >
+                            </s:if>
+                            <s:else>
+                                <input type="checkbox" disabled id="2_chkChonSh" name="chkChonSh" value='<s:property value="D3"/>' onclick="setChecked('<s:property value="D3"/>')" >
+                            </s:else>
+                        </td>
+                    </s:else>
+
                     <td><input type="text" class='css_text' value='<s:property value="D1"/>' readonly="readonly"></td>
                     <td><input type="text" class='css_text' value='<s:property value="D2"/>' readonly="readonly"></td>
                     <td><input type="text" class='css_text' value='<s:property value="D3"/>' readonly="readonly"></td>
@@ -92,7 +105,7 @@
     <div style="display: none;">
         <s:iterator value="lstData" status="rowstatus">
             <s:if test="%{D10 != null}">
-                <input type="checkbox" id="<s:property value="D3"/>" name="chkChon" value='<s:property value="D3"/>' checked>
+                <input type="checkbox" id="<s:property value="D3"/>" name="chkChon" value='<s:property value="D3"/>' checked >
             </s:if>
             <s:else>
                 <input type="checkbox" id="<s:property value="D3"/>" name="chkChon" value='<s:property value="D3"/>'>
