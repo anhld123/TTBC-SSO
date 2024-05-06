@@ -55,7 +55,8 @@
         <tbody>
             <s:iterator value="lstData">
                 <tr>
-                    <s:if test="checkNgaybc.equals(checkNgaygs)">
+                    <%--<s:if test="checkNgaybc.equals(checkNgaygs)">--%>
+                    <s:if test="checkNgaybc < 2 ">
                         <td>
                             <s:if test="%{D10 != null}">
                                 <input type="checkbox" id="1_chkChonSh" name="chkChonSh" value='<s:property value="D3"/>' onclick="setChecked('<s:property value="D3"/>')" class="chkChonSh" checked>

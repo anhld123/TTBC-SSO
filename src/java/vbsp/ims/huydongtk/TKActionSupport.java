@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,8 +74,11 @@ public class TKActionSupport extends ActionSupport {
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate1 = yesterday.format(formatter1);
         String formattedDate2 = date.format(formatter1);
-        setCheckNgaybc(formattedDate1);
+//        setCheckNgaybc(formattedDate1);
         setCheckNgaygs(formattedDate2);
+        long daysBetween = ChronoUnit.DAYS.between(date, currentDate);
+        setCheckNgaybc(String.valueOf(daysBetween));
+
         if (flgFilter != null) {
             flgFilter = "on";
         } else {
