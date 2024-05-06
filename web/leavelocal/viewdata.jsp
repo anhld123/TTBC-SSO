@@ -867,7 +867,8 @@
                                 <a onclick="Check_var22(<s:property  value='%{#idxRows.index}'/>)"
                                    href="javascript:funcDeNghiHT('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>', '<s:property value="D38"/>', '<s:property value="D39"/>')"  
                                    id="lstDNHT_D33<s:property  value='%{#idxRows.index}' />"
-
+                                   <s:if test="D30.equalsIgnoreCase('000000') || D30.equalsIgnoreCase('999999')"> style="display: none"</s:if>
+                                  
                                    >link</a>
                                 <a id="countDisplay3<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1px">0</a>
 
