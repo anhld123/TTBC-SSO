@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package vbsp.ims.tdnn;
 
 import static com.opensymphony.xwork2.Action.ERROR;
@@ -11,18 +10,19 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.sql.Connection;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.log.CoreLogger;
+import java.util.Date;
 import java.util.HashMap;
+
 
 /**
  *
- * @author Trung
+ * @author HP
  */
-public class TDNN_001 extends ActionTdnnMain implements TdnnFunction{
-    
+public class KTGS_01GDX extends ActionTdnnMain implements TdnnFunction{
     @Override
     public String load(){
         try {
-            System.err.println("TDNN - 01");
+            System.err.println("Load KTGS_01GDX");
             if (!getParaSession()) {
                 return ERROR;
             }
@@ -48,14 +48,10 @@ public class TDNN_001 extends ActionTdnnMain implements TdnnFunction{
         }
         return SUCCESS;
     }
-    
-    public String reload(){        
-        return SUCCESS;
-    }
 
     @Override
     public String save() {
-        System.err.println("Save - TDNN - 01");
+        System.err.println("Save - KTGS_01GDX");
         try {
             if (!getParaSession()) {
                 return ERROR;
@@ -81,5 +77,5 @@ public class TDNN_001 extends ActionTdnnMain implements TdnnFunction{
         }
         addActionMessage("Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
-    }                            
+    }    
 }

@@ -14,9 +14,7 @@
             <result name="GSCMR_001">/TDNN/para-tdnn-main_cam.jsp</result>
             <result name="error">/TDNN/success.jsp</result>        
         </action>  
-        
-        
-        
+                        
         <!--gui so lieu -->
         <action name="sendTDNN" class="vbsp.ims.tdnn.ActionTdnnMain"  method="sendTDNN">
             <result name="success">/BCQT/success.jsp</result>
@@ -34,6 +32,27 @@
         </action>
                   
         <action name="SAVE_TDNN_001" class="vbsp.ims.tdnn.TDNN_001"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        
+        <action name="KTGS_01GDX" class="vbsp.ims.tdnn.KTGS_01GDX"  method="load">
+            <result name="success">/TDNN/table_tdnn_01.jsp</result>
+            <result name="error">/TDNN/success.jsp</result>        
+        </action>
+                  
+        <action name="SAVE_KTGS_01GDX" class="vbsp.ims.tdnn.KTGS_01GDX"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="KTGS_04GDX" class="vbsp.ims.tdnn.KTGS_04GDX"  method="load">
+            <result name="success">/TDNN/table_tdnn_01.jsp</result>
+            <result name="error">/TDNN/success.jsp</result>        
+        </action>
+                  
+        <action name="SAVE_KTGS_04GDX" class="vbsp.ims.tdnn.KTGS_04GDX"  method="save">
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>
