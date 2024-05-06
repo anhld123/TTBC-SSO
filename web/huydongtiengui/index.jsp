@@ -62,7 +62,7 @@
                 background-color: transparent;
                 outline: none;
             }
-            #cboCanBo{
+            select{
                 min-width: 155px;
             }
             .clsChon{
@@ -86,27 +86,30 @@
             <div style="margin: 12px;">
                 <div class="clsHeader"><h1>KẾT QUẢ HUY ĐỘNG TIẾT KIỆM</h1></div>
                 <div class="clsTitle">
-                    Ngày báo cáo <input type="text" id="dtNgaybc" name="dtNgaybc" value="" readonly="readonly">
+                    Ngày báo cáo <input type="date" id="dtNgaybc" name="dtNgaybc" value="">
                     Cán bộ 
                     <select id="cboCanBo" name="cboCanBo">
                         <option value="000000">----Chọn cán bộ----</option>
                         <s:iterator value="lstCanBo">
                             <option value='<s:property value="MaCB"/>'><s:property value="TenCB"/></option>
                         </s:iterator>
-                        <option value="000001">----Chọn cán bộ còn lại----</option>
                     </select>
-                    Chỉ tiêu được giao <input type="text" style="text-align: right;" id="txtChitieu" name="txtChitieu" value=0 class="number">
+                    Chỉ tiêu được giao <input type="text" style="text-align: right;" id="txtChitieu" name="txtChitieu" value=100000000 class="number">
                     Chỉ hiện những số đã gắn cán bộ <input type="checkbox" checked="true" name="flgFilter" id="flgFilter">
+                    Tra cứu <input type="text" style="text-align: right;" id="cSeach" name="cSeach" value="" placeholder="Tìm kiếm thông tin sổ ...">                
                     <input type="button" value="Tải dữ liệu" id="cmdTaiDL" name="cmdTaiDL">
                     <input type="button" value="Lưu dữ liệu" id="cmdLuuDL" name="cmdLuuDL">
+                    <input type="button" value="1" id="cmdLuuDL_tmp" name="cmdLuuDL_tmp" style="display: none;">
+                    <input type="button" value="2" id="cmdTaiDL_tmp" name="cmdTaiDL_tmp" style="display: none;">
                 </div>
                 <div id="viewData" style="width: 99%;"></div>
             </div>
         </form>
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
-        <script src="js/js/jquery-ui.min.js"></script>
+
         <script>
+
             $(document).ready(function () {
                 //Tải dữ liệu
                 $("#cmdTaiDL").click(function () {
@@ -116,7 +119,8 @@
                         $('#viewData').html('<img src="img/loading.gif"/>');
                         var url, sdata;
                         url = "viewdata.action";
-                        sdata = jQuery("#HDTK_FrmMain").serialize();
+                        sdata = jQuery("#HDTK_FrmMain").serialize() + "&cSeach=" + $("#cSeach").val();
+                        ;
                         $.ajax({
                             type: "GET",
                             url: url,
@@ -126,6 +130,7 @@
                                 if ($("#chkDate").val() === '200') {
                                     $("#cmdLuuDL").css("display", "inline-block");
                                     $("input.chkChonSh").removeAttr("disabled");
+                                    $("#cmdLuuDL_tmp").click();
                                 } else {
                                     $("#cmdLuuDL").css("display", "none");
                                     $("input.chkChonSh").attr("disabled", true);
@@ -161,6 +166,12 @@
                                         $("#cmdLuuDL").html("Lưu dữ liệu");
                                         alert("Lưu dữ liệu thành công.");
                                         $("#cmdTaiDL").click();
+                                    } else if (data === "404")
+                                    {
+                                        $("#cmdLuuDL").prop('disabled', false);
+                                        $("#cmdLuuDL").html("Lưu dữ liệu");
+                                        alert("Dữ liệu quá lớn, vui lòng nhập thông tin sổ vào ô tra cứu, tìm kiếm lại để lưu!");
+                                        $("#cmdTaiDL").click();
                                     } else {
                                         alert("Lỗi khi thực hiện lưu dữ liệu.");
                                         $("#cmdLuuDL").html("Lưu dữ liệu");
@@ -179,6 +190,67 @@
                     ;
                 });
 
+                //Lưu dữ liệu2
+                $("#cmdLuuDL_tmp").click(function () {
+                    $("#cmdLuuDL_tmp").html("Đang thực hiện...");
+                    $("#cmdLuuDL_tmp").prop('disabled', true);
+                    var url, sdata;
+                    url = "savedata.action";
+                    sdata = jQuery("#HDTK_FrmMain").serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: sdata,
+                        success: function (data) {
+                            if (data === "200") {
+                                $("#cmdLuuDL_tmp").prop('disabled', false);
+                                $("#cmdLuuDL_tmp").html("Lưu dữ liệu");
+                            } else {
+                                $("#cmdLuuDL_tmp").html("Lưu dữ liệu");
+                                $("#cmdLuuDL_tmp").prop('disabled', false);
+                            }
+                        },
+                        error: function (request) {
+                            $("#cmdLuuDL_tmp").prop('disabled', false);
+                            $("#cmdLuuDL_tmp").html("Lưu dữ liệu");
+                            $("#viewData").html(request.responseText);
+                        }
+                    });
+
+                });
+
+                //Tải dữ liệu2
+                $("#cmdTaiDL_tmp").click(function () {
+                    if ($("#cboCanBo").val() === '000000') {
+                        alert("Vui lòng chọn cán bộ cần gán dữ liệu.");
+                    } else {
+                        $('#viewData').html('<img src="img/loading.gif"/>');
+                        var url, sdata;
+                        url = "viewdata.action";
+                        sdata = jQuery("#HDTK_FrmMain").serialize() + "&cSeach=" + $("#cSeach").val();
+                        ;
+                        $.ajax({
+                            type: "GET",
+                            url: url,
+                            data: sdata,
+                            success: function (data) {
+                                $("#viewData").html(data);
+                                if ($("#chkDate").val() === '200') {
+                                    $("#cmdLuuDL").css("display", "inline-block");
+                                    $("input.chkChonSh").removeAttr("disabled");
+                                } else {
+                                    $("#cmdLuuDL").css("display", "none");
+                                    $("input.chkChonSh").attr("disabled", true);
+                                }
+                            },
+                            error: function (request) {
+                                $("#viewData").html(request.responseText);
+                            }
+                        });
+                    }
+                    ;
+                });
+                
                 function checkAll() {
                     var ChkAll = document.getElementById("chkChon").length();
                     alert(ChkAll);
@@ -191,16 +263,20 @@
             $("#cboCanBo").change(function () {
                 $("#cmdLuuDL").css("display", "none");
             });
-            $("#dtNgaybc").datepicker(
-             {  dateFormat: 'dd/mm/yy',
-                changeMonth: true,
-                changeYear: true,
-                showButtonPanel: true,
-                showOn: "button",
-                monthNames: ["1","2","3","4","5","6","7","8","9","10","11","12"],
-                monthNamesShort: ["1","2","3","4","5","6","7","8","9","10","11","12"]
-             });
-            $("#dtNgaybc").datepicker('setDate', new Date());
+
+            // Lấy ngày hiện tại
+            var today = new Date();
+
+// Trừ đi 1 ngày
+            var yesterday = new Date(today);
+            yesterday.setDate(today.getDate() - 1);
+
+// Format ngày thành yyyy-MM-dd
+            var formattedDate = yesterday.toISOString().slice(0, 10);
+
+// Gán giá trị mới vào trường input
+            document.getElementById('dtNgaybc').value = formattedDate;
+            document.getElementById('dtNgaybc').setAttribute('max', formattedDate);
         </script>
     </body>
 </html>

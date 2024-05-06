@@ -5,8 +5,6 @@
  */
 package vbsp.ims.define;
 
-import vbsp.ims.define.Constant.StatusCode;
-
 /**
  *
  * @author HP
