@@ -71,7 +71,7 @@
                                 <input type="checkbox" id="1_chkChonSh"  class="chkChonSh" name="chkChonSh" value='<s:property value="D3"/>' onclick="setChecked('<s:property value="D3"/>')"  checked >
                             </s:if>
                             <s:else>
-                                <input type="hidden" disabled id="2_chkChonSh" class="chkChonSh" name="chkChonSh" value='<s:property value="D3"/>' onclick="setChecked('<s:property value="D3"/>')" >
+                                <input type="checkbox" disabled id="2_chkChonSh" name="chkChonSh" value='<s:property value="D3"/>' onclick="setChecked('<s:property value="D3"/>')" >
                             </s:else>
                         </td>
                     </s:else>
@@ -102,26 +102,6 @@
             </s:iterator>
         </tbody>
     </table>
-    <div style="margin-top: 10px;">
-        <table border ="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse;">
-            <tr style="background-color: coral;">
-                <th>Số đã gán mã CB</th>
-                <th>Sổ chưa gắn mã CB</th>
-                <th>Dư TK sao kê đã gắn mã CB</th>
-                <th>Dư TK sao kê chưa gắn mã CB</th>
-                <th>Dư TK hợp đồng đã gắn mã CB</th>
-                <th>Dư TK hợp đồng chưa gắn mã CB</th>
-            </tr>
-            <tr style="text-align: right;">
-                <td id="sum01"></td>
-                <td id="sum02"></td>
-                <td id="sum03"></td>
-                <td id="sum04"></td>
-                <td id="sum05"></td>
-                <td id="sum06"></td>
-            </tr>
-        </table>
-    </div>
     <div style="display: none;">
         <s:iterator value="lstData" status="rowstatus">
             <s:if test="%{D10 != null}">
@@ -136,8 +116,8 @@
             <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" value='<s:property value="D4"/>' readonly="readonly">
             <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" value='<s:property value="D5"/>' readonly="readonly">
             <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" value='<s:property value="D6"/>' readonly="readonly">
-            <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="DuTKSK" value='<s:property value="D7"/>' readonly="readonly">
-            <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="DuTKHD" value='<s:property value="D8"/>' readonly="readonly">
+            <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" value='<s:property value="D7"/>' readonly="readonly">
+            <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value='<s:property value="D8"/>' readonly="readonly">
             <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value='<s:property value="D9"/>' readonly="readonly">
             <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" value='<s:property value="D10"/>' readonly="readonly">
             <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" value='<s:property value="D12"/>' readonly="readonly">
@@ -146,31 +126,12 @@
     </div>
 </div>
 <script>
-    var sum01 = sum02 = sum03 = sum04 = sum05 = sum06 = 0;
     function setChecked(id) {
         if ($('#' + id).prop('checked')) {
             $('#' + id).prop('checked', false);
         } else {
             $('#' + id).prop('checked', true);
         }
-        sum01 = sum02 = sum03 = sum04 = sum05 = sum06 = 0;
-        $(".chkChonSh").each(function (index) {
-            if (this.checked === true) {
-                sum01++;
-                sum03 = sum03 + parseFloat($('.DuTKSK').eq(index).val());
-                sum05 = sum05 + parseFloat($('.DuTKHD').eq(index).val());
-            } else {
-                sum02++;
-                sum04 = sum04 + parseFloat($('.DuTKSK').eq(index).val());
-                sum06 = sum06 + parseFloat($('.DuTKHD').eq(index).val());
-            }
-        });
-        $("#sum01").html(number_format(sum01, 0, ',', '.'));
-        $("#sum02").html(number_format(sum02, 0, ',', '.'));
-        $("#sum03").html(number_format(sum03, 0, ',', '.') + ' VNĐ');
-        $("#sum04").html(number_format(sum04, 0, ',', '.') + ' VNĐ');
-        $("#sum05").html(number_format(sum05, 0, ',', '.') + ' VNĐ');
-        $("#sum06").html(number_format(sum06, 0, ',', '.') + ' VNĐ');
     }
 
     var table = $('#tblTable').DataTable({
@@ -202,7 +163,7 @@
         if ($("#chkDate").val() === '200') {
             $("input.chkChonSh").removeAttr("disabled");
         } else {
-            $("input.chkChonSh").prop("disabled", true);
+            $("input.chkChonSh").attr("disabled", true);
         }
     });
     $("select[name='tblTable_length']").change(function (e) {
@@ -214,24 +175,6 @@
             $("input.chkChonSh").attr("disabled", true);
         }
     });
-
-    $(".chkChonSh").each(function (index) {
-        if (this.checked === true) {
-            sum01++;
-            sum03 = sum03 + parseFloat($('.DuTKSK').eq(index).val());
-            sum05 = sum05 + parseFloat($('.DuTKHD').eq(index).val());
-        } else {
-            sum02++;
-            sum04 = sum04 + parseFloat($('.DuTKSK').eq(index).val());
-            sum06 = sum06 + parseFloat($('.DuTKHD').eq(index).val());
-        }
-    });
-    $("#sum01").html(number_format(sum01, 0, ',', '.'));
-    $("#sum02").html(number_format(sum02, 0, ',', '.'));
-    $("#sum03").html(number_format(sum03, 0, ',', '.') + ' VNĐ');
-    $("#sum04").html(number_format(sum04, 0, ',', '.') + ' VNĐ');
-    $("#sum05").html(number_format(sum05, 0, ',', '.') + ' VNĐ');
-    $("#sum06").html(number_format(sum06, 0, ',', '.') + ' VNĐ');
 
     $('.number').number(true, 0);
 </script>
