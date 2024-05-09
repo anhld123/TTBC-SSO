@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package vbsp.ims.model;
+
 import java.math.BigDecimal;
 
 /**
@@ -11,7 +12,7 @@ import java.math.BigDecimal;
  * @author Tom
  */
 public class AntiMoney {
-    
+
     private String ma_gd;
     private String ma_pgd;
     private String lenh_ct;
@@ -31,6 +32,61 @@ public class AntiMoney {
     private String mst;
     private String ngaygd;
     private String loaibc;
+    private String manv;
+    private String tenkh_th;
+
+    private String tenkh;
+    private String loaigt;
+    private String sogt;
+    private String kenhct;
+
+    public String getTenkh() {
+        return tenkh;
+    }
+
+    public void setTenkh(String tenkh) {
+        this.tenkh = tenkh;
+    }
+
+    public String getLoaigt() {
+        return loaigt;
+    }
+
+    public void setLoaigt(String loaigt) {
+        this.loaigt = loaigt;
+    }
+
+    public String getSogt() {
+        return sogt;
+    }
+
+    public void setSogt(String sogt) {
+        this.sogt = sogt;
+    }
+
+    public String getKenhct() {
+        return kenhct;
+    }
+
+    public void setKenhct(String kenhct) {
+        this.kenhct = kenhct;
+    }
+
+    public String getManv() {
+        return manv;
+    }
+
+    public void setManv(String manv) {
+        this.manv = manv;
+    }
+
+    public String getTenkh_th() {
+        return tenkh_th;
+    }
+
+    public void setTenkh_th(String tenkh_th) {
+        this.tenkh_th = tenkh_th;
+    }
 
     public String getLoaibc() {
         return loaibc;
@@ -39,7 +95,6 @@ public class AntiMoney {
     public void setLoaibc(String loaibc) {
         this.loaibc = loaibc;
     }
-    
 
     public String getNgaygd() {
         return ngaygd;
@@ -56,7 +111,6 @@ public class AntiMoney {
     public void setMst(String mst) {
         this.mst = mst;
     }
-    
 
     public String getNoidung_ct() {
         return noidung_ct;
@@ -113,23 +167,24 @@ public class AntiMoney {
     public void setTt_tk(String tt_tk) {
         this.tt_tk = tt_tk;
     }
-    
-    public AntiMoney(){}
-    
+
+    public AntiMoney() {
+    }
+
     public AntiMoney(String ma_dg, String ma_pgd) {
         this.ma_gd = ma_dg;
-        this.ma_pgd =  ma_pgd;
-      //  this.lenh_ct = lenh_ct;
+        this.ma_pgd = ma_pgd;
+        //  this.lenh_ct = lenh_ct;
         this.sotien = new BigDecimal("0");
         this.sotien_quydoi = new BigDecimal("0");
     }
-    
-    public AntiMoney(String ma_gd,String ma_pgd, String lenh_ct,BigDecimal sotien, BigDecimal sotien_quydoi,
-            String noidung_ct, String ten_ta, String diachi,String kieukh, String cmt, String sohc,
-            String sotk, String loai_tk, String tt_tk, String ma_nh, String sotk_th,String mst,String ngaygd,
-            String loaibc) {
+
+    public AntiMoney(String ma_gd, String ma_pgd, String lenh_ct, BigDecimal sotien, BigDecimal sotien_quydoi,
+            String noidung_ct, String ten_ta, String diachi, String kieukh, String cmt, String sohc,
+            String sotk, String loai_tk, String tt_tk, String ma_nh, String sotk_th, String mst, String ngaygd,
+            String loaibc, String manv, String tenkh_th, String tenkh, String loaigt, String sogt, String kenhct) {
         this.ma_gd = ma_gd;
-        this.ma_pgd =  ma_pgd;
+        this.ma_pgd = ma_pgd;
         this.lenh_ct = lenh_ct;
         this.sotien = sotien;
         this.sotien_quydoi = sotien_quydoi;
@@ -139,14 +194,20 @@ public class AntiMoney {
         this.kieukh = kieukh;
         this.cmt = cmt;
         this.sohc = sohc;
-        this.sotk =sotk;
+        this.sotk = sotk;
         this.loai_tk = loai_tk;
-        this.tt_tk =tt_tk;
+        this.tt_tk = tt_tk;
         this.ma_nh = ma_nh;
-        this.sotk_th =sotk_th;
+        this.sotk_th = sotk_th;
         this.mst = mst;
         this.ngaygd = ngaygd;
         this.loaibc = loaibc;
+        this.manv = manv;
+        this.tenkh_th = tenkh_th;
+        this.tenkh = tenkh;
+        this.loaigt = loaigt;
+        this.sogt = sogt;
+        this.kenhct = kenhct;
     }
 
     public String getSotk_th() {
@@ -180,15 +241,15 @@ public class AntiMoney {
     public void setMa_nh(String ma_nh) {
         this.ma_nh = ma_nh;
     }
-    
-        public String getLenh_ct() {
+
+    public String getLenh_ct() {
         return lenh_ct;
     }
 
     public void setLenh_ct(String lenh_ct) {
         this.lenh_ct = lenh_ct;
     }
-    
+
     public String getMa_gd() {
         return ma_gd;
     }
@@ -196,8 +257,6 @@ public class AntiMoney {
     public void setMa_gd(String ma_gd) {
         this.ma_gd = ma_gd;
     }
-
-    
 
     public String getMa_pgd() {
         return ma_pgd;
@@ -222,6 +281,5 @@ public class AntiMoney {
     public void setSotien_quydoi(BigDecimal sotien_quydoi) {
         this.sotien_quydoi = sotien_quydoi;
     }
-    
-    
+
 }

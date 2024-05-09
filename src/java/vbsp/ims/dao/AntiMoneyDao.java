@@ -58,7 +58,8 @@ public class AntiMoneyDao {
                 antiMoneyList = new ArrayList<>();
                 String crt_magd, crt_mapgd, crt_lenhct,
                          crt_noidungct, crt_tenta, crt_diachi, crt_kieukh, crt_cmt, crt_sohc,
-                         crt_sotk, crt_loaitk, crt_tttk, crt_mahn, crt_sotkth, crt_mst, crt_ngaygd, crt_loaibc ;
+                         crt_sotk, crt_loaitk, crt_tttk, crt_mahn, crt_sotkth, crt_mst, crt_ngaygd, crt_loaibc,crt_mavn,crt_tenkh_th,
+                        crt_tenkh,crt_loaigt,crt_sogt,crt_kenhct;
                 BigDecimal crt_sotien, crt_sotienquydoi;
                     try {
                         CallableStatement calstatement;
@@ -96,9 +97,16 @@ public class AntiMoneyDao {
                                 crt_mst = accountListResult.getString("CRT_MST");
                                 crt_ngaygd = accountListResult.getString("CRT_NGAYGD");
                                 crt_loaibc = accountListResult.getString("CRT_LOAIBC");
+                                crt_mavn = accountListResult.getString("CRT_MANV");
+                                crt_tenkh_th = accountListResult.getString("CRT_TENTK_TH");
+                                crt_tenkh = accountListResult.getString("CRT_TENKH");
+                                crt_loaigt = accountListResult.getString("CRT_LOAI_GIAYTO");
+                                crt_sogt = accountListResult.getString("CRT_SO_GT");
+                                crt_kenhct = accountListResult.getString("CRT_KENH_CT");
                                 antiMoneyList.add(new AntiMoney(crt_magd,crt_mapgd,crt_lenhct,crt_sotien,crt_sotienquydoi,
                                 crt_noidungct,crt_tenta,crt_diachi,crt_kieukh,crt_cmt,crt_sohc,crt_sotk,crt_loaitk,crt_tttk,
-                                crt_mahn,crt_sotkth,crt_mst,crt_ngaygd,crt_loaibc));
+                                crt_mahn,crt_sotkth,crt_mst,crt_ngaygd,crt_loaibc,crt_mavn,crt_tenkh_th,
+                                crt_tenkh,crt_loaigt,crt_sogt,crt_kenhct));
                             }
                             //System.err.println("viewBalanceSheet() is finished generated data" + lcPosCode);
                         } catch (SQLException e) {
@@ -123,7 +131,7 @@ public class AntiMoneyDao {
                 antiMoneyList = new ArrayList<>();
                 String crt_magd, crt_mapgd, crt_lenhct,
                          crt_noidungct, crt_tenta, crt_diachi, crt_kieukh, crt_cmt, crt_sohc,
-                         crt_sotk, crt_loaitk, crt_tttk, crt_mahn, crt_sotkth,crt_mst, crt_ngaygd,crt_loaibc ;
+                         crt_sotk, crt_loaitk, crt_tttk, crt_mahn, crt_sotkth,crt_mst, crt_ngaygd,crt_loaibc,crt_manv,crt_tenkh_th,crt_tenkh,crt_loaigt,crt_sogt,crt_kenhct ;
                 BigDecimal crt_sotien, crt_sotienquydoi;
                     try {
                         CallableStatement calstatement;
@@ -163,9 +171,16 @@ public class AntiMoneyDao {
                                 crt_mst = accountListResult.getString("CRT_MST");
                                 crt_ngaygd = accountListResult.getString("CRT_NGAYGD");
                                 crt_loaibc = accountListResult.getString("CRT_LOAIBC");
+                                crt_manv = accountListResult.getString("CRT_MANV");
+                                crt_tenkh_th = accountListResult.getString("CRT_TENTK_TH");
+                                crt_tenkh = accountListResult.getString("CRT_TENKH");
+                                crt_loaigt = accountListResult.getString("CRT_LOAI_GIAYTO");
+                                crt_sogt = accountListResult.getString("CRT_SO_GT");
+                                crt_kenhct = accountListResult.getString("CRT_KENH_CT");
                                 antiMoneyList.add(new AntiMoney(crt_magd,crt_mapgd,crt_lenhct,crt_sotien,crt_sotienquydoi,
                                 crt_noidungct,crt_tenta,crt_diachi,crt_kieukh,crt_cmt,crt_sohc,crt_sotk,crt_loaitk,crt_tttk,
-                                crt_mahn,crt_sotkth,crt_mst,crt_ngaygd,crt_loaibc));
+                                crt_mahn,crt_sotkth,crt_mst,crt_ngaygd,crt_loaibc,crt_manv,crt_tenkh_th,
+                                crt_tenkh,crt_loaigt,crt_sogt,crt_kenhct));
                             }
                             //System.err.println("viewBalanceSheet() is finished generated data" + lcPosCode);
                         } catch (SQLException e) {

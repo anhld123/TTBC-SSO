@@ -167,47 +167,73 @@
         <table>                                    
             <tr>
                 <td>Loại GD</td>
+                <td>Ngày giao dịch</td>
+                <td>Mã NV</td>
                 <td>Số tham chiếu</td>
-                <td>Ngày gdịch</td>
                 <td>Mã PGD</td>
-                <td>Lệnh CT</td>
+                <!--<td>Lệnh CT</td>-->
                 <td>Số tiền</td>
                 <!--<td>Số tiền QĐ</td>-->
                 <td>Nội dung CT</td>
                 <td>Tên KH</td>
                 <!--<td>Địa chỉ</td>-->
                 <td>Kiểu KH</td>
-                <td>CMTND</td>
-                <td>Số HC</td>
-                <td>Mã số thuế</td>
+                <!--<td>CMTND</td>-->
+                <!--<td>Số HC</td>-->
+                <!--<td>Mã số thuế</td>-->
+                <td>Loại giấy tờ</td>
+                <td>Số giấy tờ</td>
                 <td>Số TK</td>
                 <td>Loại TK</td>
                 <td>TT tài khoản</td>
+                <td>Kênh chuyển tiền</td>
                 <td>Mã ngân hàng</td>
-                <td>TK thụ hưởng</td>
+                <td>Số TK thụ hưởng</td>
+                <td>Tên TK thụ hưởng</td>
+            </tr>
+            <tr style="font-style: italic; text-align: center;">
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(1)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(2)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(3)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(4)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(5)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(6)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(7)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(8)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(9)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(10)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(11)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(12)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(13)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(14)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(15)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(16)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(17)</td>
+                <td style="color: #000; font-style: italic; font-size: xx-small;">(18)</td>
             </tr>
             <s:iterator value="antiMoneyList" status="stat">
                 <tr>
                     <td><s:property value="loaibc"/></td>
-                    <td><s:property value="ma_gd"/></td>
-                    <td><s:property value="ngaygd"/></td>                   
-                    <td><s:property value="ma_pgd"/></td>    
-                    <td><s:property value="lenh_ct"/></td>
+                    <td><s:property value="ngaygd"/></td>
+                    <td><s:property value="manv"/></td> 
+                    <td><s:property value="ma_gd"/></td> 
+                    <td><s:property value="ma_pgd"/></td>  
                     <td class="alignRight">                   
                         <fmt:formatNumber type="number" 
                                           maxFractionDigits="3" value="${sotien}" />
                     </td>
                     <td><s:property value="noidung_ct"/></td>
-                    <td><s:property value="ten_ta"/></td>
+                    <td><s:property value="tenkh"/></td>
                     <td><s:property value="kieukh"/></td>
-                    <td><s:property value="cmt"/></td>
-                    <td><s:property value="sohc"/></td>
-                    <td><s:property value="mst"/></td>
+                    <td><s:property value="loaigt"/></td>
+                    <td><s:property value="sogt"/></td>
                     <td><s:property value="sotk"/></td>
                     <td><s:property value="loai_tk"/></td>
                     <td><s:property value="tt_tk"/></td>
+                    <td><s:property value="kenhct"/></td>
                     <td><s:property value="ma_nh"/></td>
                     <td><s:property value="sotk_th"/></td>
+                    <td><s:property value="tenkh_th"/></td>
                 </tr>
             </s:iterator>
         </table>        
