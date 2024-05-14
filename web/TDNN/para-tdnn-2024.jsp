@@ -696,12 +696,22 @@
                                 <option value="<s:property value="PosCode"/>"><s:property value="PosCode"/> - <s:property value="PosName"/></option>                                    
                             </s:iterator>
                         </select>
-                        <select id="lstXa_Temp">
-                            <option value="000000">----Chọn điểm giao dịch xã----</option>
-                            <s:iterator value="lstPoint_API" status="ideRows" var="language">                                    
-                                <option value="<s:property value="communeId"/>"><s:property value="transactionPoint"/> - <s:property value="communeName"/></option>                                    
-                            </s:iterator>
-                        </select>
+                        <s:if test="!Grade.equalsIgnoreCase('3')">
+                            <select id="lstXa_Temp">
+                                <option value="000000">----Chọn điểm giao dịch xã----</option>
+                                <s:iterator value="lstPoint_API" status="ideRows" var="language">                                    
+                                    <option value="<s:property value="communeId"/>"><s:property value="transactionPoint"/> - <s:property value="communeName"/></option>                                    
+                                </s:iterator>
+                            </select>
+                        </s:if>
+                        <s:else>
+                            <select id="lstXa_Temp">
+                                <option value="000000">----Chọn điểm giao dịch xã----</option>
+                                <s:iterator value="lstXa_API" status="ideRows" var="language">                                    
+                                    <option value="<s:property value="communeCode"/>">TXN<s:property value="communeCode"/> - <s:property value="communeName"/></option>                                    
+                                </s:iterator>
+                            </select> 
+                        </s:else>
                     </div>
                     <tr>
                         <td>
@@ -735,10 +745,10 @@
                     <tr>
                         <td>
                             &nbsp;<label>Trạng thái: </label> 
-                            <input id="check_1" type="checkbox" onchange="checkChange1()" name="check_1" class="myCheckBox"
+                            <input id="check_1" type="checkbox" onchange="checkChange(event)" name="check_1" class="myCheckBox"
                                    <s:if test="Grade.equalsIgnoreCase('1')"> disabled</s:if>> Xem/ Mở phê duyệt dữ liệu điểm giao dịch cấp PGD
-                                   &nbsp;&nbsp;<input id="check_2" type="checkbox" onchange="checkChange2()"  checked
-                                                      class="myCheckBox" name="check_2"> Nhập dữ liệu cấp kiểm tra
+                                   &nbsp;&nbsp;<input id="check_2" type="checkbox" onchange="checkChange(event)"  checked
+                                                      class="myCheckBox" name="check_2" <s:if test="Grade.equalsIgnoreCase('1')"> style="pointer-events: none"</s:if>> Nhập dữ liệu cấp kiểm tra
                                    <!--                            </td>
                                                                <td >-->
                             <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
@@ -746,7 +756,8 @@
                                        onCompleteTopics="completediv_data" cssStyle="display:none"/>
                             &nbsp;<input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                             &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/> 
-                            &nbsp;<input type="button" id="idPheduyet" value="Gửi dữ liệu"/>
+                            <s:if test="!Grade.equalsIgnoreCase('3')">
+                                &nbsp;<input type="button" id="idPheduyet" value="Gửi dữ liệu"/></s:if>
                             <s:if test="!Grade.equalsIgnoreCase('1')">
                                 <input type="button" id="idUnlock" value="Mở phê duyệt"/></s:if>
                                 <!--                        &nbsp;<input type="button" id="idSaveLock" value="Phê duyệt"/> 
@@ -798,19 +809,40 @@
                 document.getElementById('ngay_bc_DATE').value = formattedDate;
             });
 
-            function checkChange1() {
-                if (document.getElementById("check_1").checked) {
-                    document.getElementById("check_2").checked = false;
-                } else {
-                    document.getElementById("check_2").checked = true;
-                }
-            }
-            function checkChange2() {
-                if (document.getElementById("check_2").checked)
-                {
-                    document.getElementById("check_1").checked = false;
-                } else {
-                    document.getElementById("check_1").checked = true;
+            function checkChange(event) {
+                var Grade = document.getElementById('Grade').value;
+                var check_1 = document.getElementById('check_1');
+                var check_2 = document.getElementById('check_2');
+                var idUnlock = document.getElementById('idUnlock');
+                var idPheduyet = document.getElementById('idPheduyet');
+                var idSave = document.getElementById('idSave');
+
+                if (Grade !== "1") {
+                    if (event.target.id === "check_1") {
+                        if (check_1.checked) {
+                            check_2.checked = false;
+                            idUnlock.style.display = 'inline';
+                            idPheduyet.style.display = 'none';
+                            idSave.style.display = 'none';
+                        } else {
+                            check_2.checked = true;
+                            idUnlock.style.display = 'none';
+                            idPheduyet.style.display = 'inline';
+                            idSave.style.display = 'inline';
+                        }
+                    } else if (event.target.id === "check_2") {
+                        if (check_2.checked) {
+                            check_1.checked = false;
+                            idPheduyet.style.display = 'inline';
+                            idUnlock.style.display = 'none';
+                            idSave.style.display = 'inline';
+                        } else {
+                            check_1.checked = true;
+                            idUnlock.style.display = 'inline';
+                            idPheduyet.style.display = 'none';
+                            idSave.style.display = 'none';
+                        }
+                    }
                 }
             }
             $(function () {
@@ -830,28 +862,29 @@
                 var Grade = document.getElementById('Grade').value;
                 if (Grade !== "1") {
                     document.getElementById('idUnlock').style.display = 'none';
-                }
-                check_1.addEventListener('change', function () {
-                    if (this.checked) {
-                        idUnlock.style.display = 'inline';
-                        idPheduyet.style.display = 'none';
-                        idSave.style.display = 'none';
-                    } else {
-                        idUnlock.style.display = 'none';
-                        idSave.style.display = 'inline';
-                    }
-                });
 
-                check_2.addEventListener('change', function () {
-                    if (this.checked) {
-                        idPheduyet.style.display = 'inline';
-                        idUnlock.style.display = 'none';
-                        idSave.style.display = 'inline';
-                    } else {
-                        idPheduyet.style.display = 'inline';
-                        idSave.style.display = 'none';
-                    }
-                });
+//                    check_1.addEventListener('change', function () {
+//                        if (this.checked) {
+//                            idUnlock.style.display = 'inline';
+//                            idPheduyet.style.display = 'none';
+//                            idSave.style.display = 'none';
+//                        } else {
+//                            idUnlock.style.display = 'none';
+//                            idSave.style.display = 'inline';
+//                        }
+//                    });
+//
+//                    check_2.addEventListener('change', function () {
+//                        if (this.checked) {
+//                            idPheduyet.style.display = 'inline';
+//                            idUnlock.style.display = 'none';
+//                            idSave.style.display = 'inline';
+//                        } else {
+//                            idPheduyet.style.display = 'inline';
+//                            idSave.style.display = 'none';
+//                        }
+//                    });
+                }
             }
             hideElement();
         </script>
