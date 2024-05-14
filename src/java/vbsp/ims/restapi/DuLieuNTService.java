@@ -1633,6 +1633,30 @@ public class DuLieuNTService extends ReportService {
         }
     }
 
+    public ArrayList<DuLieuNTRow> getDataTTND_2024(String key, String posCode, String posFlag, String communeId, String reportDate, String condition, String defaultListFlag) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target;
+        target = client.target(getBaseURI()).path("ktgs-gdx-data")
+                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", posFlag)
+                .queryParam("communeId", communeId)
+                .queryParam("reportDate", reportDate)
+                .queryParam("condition", condition)
+                .queryParam("defaultListFlag", defaultListFlag);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            DuLieuNTResp dulieuNTResp = response.readEntity(DuLieuNTResp.class);
+            ArrayList<DuLieuNTRow> listOfRow = dulieuNTResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+
     public ArrayList<ListMainPos> getListCn(String provinceCode) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -1644,6 +1668,25 @@ public class DuLieuNTService extends ReportService {
         if (response.getStatus() == 200) {
             ListMainPos listMainPos = response.readEntity(ListMainPos.class);
             ArrayList<ListMainPos> listOfRow = listMainPos.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+
+    public ArrayList<ListTransactionPoint> getListPoint(String posCode, String posFlag, String keyword) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("txn-infor-search")
+                .queryParam("posCode", posCode == null || posCode == "" ? "" : posCode)
+                .queryParam("posFlag", posFlag == null || posFlag == "" ? "" : posFlag)
+                .queryParam("keyword", keyword == null || keyword == "" ? "" : keyword);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            ListTransactionPoint listDistrict = response.readEntity(ListTransactionPoint.class);
+            ArrayList<ListTransactionPoint> listOfRow = listDistrict.result;
             return listOfRow;
         } else {
             return null;
@@ -1687,7 +1730,7 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
+
     public int deleteKTKSNB(String key, String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
             List<DuLieuNTRowX> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
@@ -1715,7 +1758,7 @@ public class DuLieuNTService extends ReportService {
         System.out.println("Response code API: " + response.getStatus());
         return response.getStatus();
     }
-    
+
     public int updateKTKSNB(String key, String posCode, String posFlag, String reportDate, String makerId, String authoriseId,
             List<DuLieuNTRowX> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
@@ -1744,6 +1787,36 @@ public class DuLieuNTService extends ReportService {
         return response.getStatus();
     }
     
+     public int updateTDNN_2024(String key, String posCode, String posFlag,String communeId , String reportDate, String makerId, String authoriseId,
+            List<DuLieuNTRowX> data) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("ktksnb-update-data")
+                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", posFlag)
+                .queryParam("communeId", communeId)
+                .queryParam("reportDate", reportDate)
+                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
+
+        String json = "";
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(Include.NON_NULL);
+        try {
+            json = mapper.writeValueAsString(data);
+            System.out.println("ResultingJSONstring = " + json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
+        System.out.println("Response code API: " + response.getStatus());
+        return response.getStatus();
+    }
+
+     
     public GenericResult authorizeKTKSNB(String key, String posCode, String posFlag, String reportDate, String authoriseId,
             String dataFlag) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();

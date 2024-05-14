@@ -5,8 +5,6 @@
  */
 package vbsp.ims.tdnn;
 
-import vbsp.ims.tdnn.*;
-import vbsp.ims.bcqt.action.*;
 import com.jgeppert.struts2.jquery.tree.result.TreeNode;
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
@@ -16,7 +14,6 @@ import java.io.File;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -24,21 +21,27 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletContext;
 import org.apache.struts2.ServletActionContext;
-import vbsp.ims.bcqt.dao.DaoBcqtMain;
 import vbsp.ims.bcqt.dao.DaoSyncMain;
-import vbsp.ims.bcqt.dao.TmDao;
 import vbsp.ims.bcqt.model.ModelViewSend;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.chamdiemcn.ModelExcelFile;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.DaoKt740;
+import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.define.Define;
+import vbsp.ims.huydongtk.clsCanBo;
+import vbsp.ims.huydongtk.clsHuyDongTK;
+import vbsp.ims.leavelocal.LeaveHomeService;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
+import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.report.fast.ListValue;
+import vbsp.ims.restapi.ListCommune;
+import vbsp.ims.restapi.ListMainPos;
+import vbsp.ims.restapi.ListPosCode;
+import vbsp.ims.restapi.ListTransactionPoint;
 import vbsp.ims.syn.ProcessReportSyn;
-import vbsp.ims.xml.XmlBcqtSync;
 import vbsp.ims.xml.XmlKtgsSync;
 
 /**
@@ -48,15 +51,98 @@ import vbsp.ims.xml.XmlKtgsSync;
 public class ActionTdnnMain extends ActionSupport {
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao cac bien">
+    LeaveHomeService _server_tmp;
     protected String Grade;
     protected String UserName;
     protected String Message;
     protected List<ListValue> lstAllTdnn = new ArrayList<>();
     public List<ModelExcelFile> lstExcel = new ArrayList<>();
     private String fileNameNew;
+    private List<ListMainPos> lstCN_API;
+    private List<ListPosCode> lstPGD_API;
+    private List<ListCommune> lstXa_API;
+    private List<ListTransactionPoint> lstPoint_API;
+    private String pos_cd;
+    private String main_pos;
+    protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
+    protected PosMainModel posMainModel;
+    List<clsCanBo> lstCanBo = new ArrayList<>();
+    //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public List<ListTransactionPoint> getLstPoint_API() {
+        return lstPoint_API;
+    }
+
+    public void setLstPoint_API(List<ListTransactionPoint> lstPoint_API) {
+        this.lstPoint_API = lstPoint_API;
+    }
+
+    public String getPos_cd() {
+        return pos_cd;
+    }
+
+    public void setPos_cd(String pos_cd) {
+        this.pos_cd = pos_cd;
+    }
+
+    public String getMain_pos() {
+        return main_pos;
+    }
+
+    public void setMain_pos(String main_pos) {
+        this.main_pos = main_pos;
+    }
+
+    public DaoListPosFromUser getListKTNBDA() {
+        return listKTNBDA;
+    }
+
+    public void setListKTNBDA(DaoListPosFromUser listKTNBDA) {
+        this.listKTNBDA = listKTNBDA;
+    }
+
+    public PosMainModel getPosMainModel() {
+        return posMainModel;
+    }
+
+    public void setPosMainModel(PosMainModel posMainModel) {
+        this.posMainModel = posMainModel;
+    }
+
+    public List<ListMainPos> getLstCN_API() {
+        return lstCN_API;
+    }
+
+    public void setLstCN_API(List<ListMainPos> lstCN_API) {
+        this.lstCN_API = lstCN_API;
+    }
+
+    public List<ListPosCode> getLstPGD_API() {
+        return lstPGD_API;
+    }
+
+    public void setLstPGD_API(List<ListPosCode> lstPGD_API) {
+        this.lstPGD_API = lstPGD_API;
+    }
+
+    public List<ListCommune> getLstXa_API() {
+        return lstXa_API;
+    }
+
+    public void setLstXa_API(List<ListCommune> lstXa_API) {
+        this.lstXa_API = lstXa_API;
+    }
 
     public List<ModelExcelFile> getLstExcel() {
         return lstExcel;
+    }
+
+    public List<clsCanBo> getLstCanBo() {
+        return lstCanBo;
+    }
+
+    public void setLstCanBo(List<clsCanBo> lstCanBo) {
+        this.lstCanBo = lstCanBo;
     }
 
     public void setLstExcel(List<ModelExcelFile> lstExcel) {
@@ -89,7 +175,7 @@ public class ActionTdnnMain extends ActionSupport {
         this.fileUploadFileName = fileUploadFileName;
     }
     protected List<ReportParam> lstTdnnParams = new ArrayList<>();
-    protected String khoa_tdnn;   
+    protected String khoa_tdnn;
     protected TreeNode nodes_pos = new TreeNode();
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
     protected List<ListValue> lstParameters = new ArrayList<>();
@@ -99,13 +185,13 @@ public class ActionTdnnMain extends ActionSupport {
     protected List<ModelViewSend> lstViewSend = new ArrayList<>();
     private String tt_khoa;
     private String macn;
-    private String ngay_bc;    
-    
-    private String cap_kt; 
-    private String nha_dt; 
+    private String ngay_bc;
+
+    private String cap_kt;
+    private String nha_dt;
     private String pos_cam;
-    private String txn_cam; 
-    protected String txn_detail; 
+    private String txn_cam;
+    protected String txn_detail;
     protected List<QT_DULIEU_NT.saveDulieuNT_Phi> lstsaveNT_DAT = new ArrayList<QT_DULIEU_NT.saveDulieuNT_Phi>();
     protected List<String> lstDat = new ArrayList<String>();
 
@@ -133,8 +219,6 @@ public class ActionTdnnMain extends ActionSupport {
         this.txn_detail = txn_detail;
     }
 
-   
-
     public String getTxn_cam() {
         return txn_cam;
     }
@@ -160,8 +244,6 @@ public class ActionTdnnMain extends ActionSupport {
     public void setPos_cam(String pos_cam) {
         this.pos_cam = pos_cam;
     }
-    
-    
 
     public List<ListValue> getLstPOS() {
         return lstPOS;
@@ -170,11 +252,6 @@ public class ActionTdnnMain extends ActionSupport {
     public void setLstPOS(List<ListValue> lstPOS) {
         this.lstPOS = lstPOS;
     }
-    
-    
-
-    
-
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Xu ly cho action">
@@ -339,14 +416,11 @@ public class ActionTdnnMain extends ActionSupport {
             if (!getParaSession()) {
                 return ERROR;
             }
-            if(DaoTdnnMain.newInstance().checkUser(UserName)>0)
-            {
+            if (DaoTdnnMain.newInstance().checkUser(UserName) > 0) {
                 setLstAllTdnn(DaoTdnnMain.newInstance().getAllTdnn_SUB());
-            }
-            else
-            {
+            } else {
                 setLstAllTdnn(DaoTdnnMain.newInstance().getAllTdnn(Grade));
-            }                                    
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> execute: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> execute: " + e.getMessage());
@@ -364,22 +438,56 @@ public class ActionTdnnMain extends ActionSupport {
             DaoTdnnMain daoMain = new DaoTdnnMain();
             //khoi tao cho treeview cac pos
             List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade);
-            if (Grade.equals("3")) {
-                setTreeNodeGrade3(lstModelTree);
-            } else {
-                setTreeNodeGrade12(lstModelTree);
+            if (!khoa_tdnn.equals("01_TDNN_2024")|| !khoa_tdnn.equals("04_TDNN_2024")) {
+                if (Grade.equals("3")) {
+                    setTreeNodeGrade3(lstModelTree);
+                } else {
+                    setTreeNodeGrade12(lstModelTree);
+                }
             }
-            lstTdnnParams = daoMain.getReportParmamsTdnn(conn, khoa_tdnn,UserName,Grade);
+            lstTdnnParams = daoMain.getReportParmamsTdnn(conn, khoa_tdnn, UserName, Grade);
 
             // BO SUNG PHAN KIEM TRA XEM CO THUYET MINH HAY KO
 //            TmDao tmDao = new TmDao();
 //            isDisplayTM = tmDao.getCO_TM(khoa_tdnn);
-            if(khoa_tdnn.equals("GSCMR_001"))
-            {
+            if (khoa_tdnn.equals("GSCMR_001")) {
 //                lstPOS = new DaoKt740().getGroupQuery(null);
                 return "GSCMR_001";
             }
-                
+            if (khoa_tdnn.equals("01_TDNN_2024") || khoa_tdnn.equals("04_TDNN_2024")) {
+                String PosFlag = "";
+                if (Grade.equals("3")) {
+                    PosFlag = "H";
+                } else if (Grade.equals("2")) {
+                    PosFlag = "M";
+                } else {
+                    PosFlag = "S";
+                }
+                posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+                pos_cd = posMainModel.getPosCd();
+                main_pos = posMainModel.getMainPosCd();
+                _server_tmp = new LeaveHomeService();
+
+                if (PosFlag == "S") {
+                    lstPGD_API = _server_tmp.getListPgd(main_pos, pos_cd);
+                    lstCN_API = _server_tmp.getListCn(main_pos.substring(2, 4));
+                    lstXa_API = _server_tmp.getListXa(main_pos.substring(2, 4), pos_cd.substring(2, 6), "", pos_cd);
+                    lstPoint_API = _server_tmp.getListPoint(pos_cd, PosFlag, "TXN");
+                } else if (PosFlag == "M") {
+                    lstPGD_API = _server_tmp.getListPgd(main_pos, "");
+                    lstCN_API = _server_tmp.getListCn(main_pos.substring(2, 4));
+                    lstXa_API = _server_tmp.getListXa(main_pos.substring(2, 4),"", "", "");
+                    lstPoint_API = _server_tmp.getListPoint(pos_cd, PosFlag, "TXN");
+                } else {
+                    lstCN_API = _server_tmp.getListCn("");
+                    lstPGD_API = _server_tmp.getListPgd("", "");
+                    lstXa_API = _server_tmp.getListXa("", "", "", "");
+                    lstPoint_API = _server_tmp.getListPoint("", "", "TXN");
+                }
+
+                System.err.println(pos_cd + " " + main_pos + " " + PosFlag + " " + Grade);
+                return "TDNN_2024";
+            }
             if (conn != null) {
                 conn.close();
             }
@@ -453,8 +561,9 @@ public class ActionTdnnMain extends ActionSupport {
             Map<String, Integer> mapStatusSend = new HashMap();
 
             for (String mapgd : lstPos) {
-                if(hmParameter.get("khoa_tdnn").toString().equals("GSCMR_001") && daosync.checkMainPos(mapgd)==0)
+                if (hmParameter.get("khoa_tdnn").toString().equals("GSCMR_001") && daosync.checkMainPos(mapgd) == 0) {
                     continue;
+                }
                 ServletContext context = ServletActionContext.getServletContext();
                 String strPathSave = !context.getRealPath("/").endsWith("/")
                         ? context.getRealPath("/") + "/" + Define.M_REPORT_XML
@@ -462,7 +571,6 @@ public class ActionTdnnMain extends ActionSupport {
                 strPathSave += hmParameter.get("khoa_tdnn").toString() + "_" + mapgd
                         + "_" + UserName + "_"
                         + Long.toString(System.currentTimeMillis()).substring(Long.toString(System.currentTimeMillis()).length() - 6) + ".xml";
-
 
                 List<String> lstData = new ArrayList<>();
                 boolean bStatus_file = false;
@@ -531,9 +639,7 @@ public class ActionTdnnMain extends ActionSupport {
 
         return SUCCESS;
     }
-   
-    
-    
+
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Cho phan khoa va mo khoa">
     public String LoadParaTdnn_unlock() {
@@ -552,7 +658,7 @@ public class ActionTdnnMain extends ActionSupport {
             Connection conn = new DaoConnect().getConnect();
             DaoTdnnMain daoMain = new DaoTdnnMain();
 
-            lstTdnnParams = daoMain.getReportParmamsTdnn(conn, khoa_tdnn,UserName,Grade);
+            lstTdnnParams = daoMain.getReportParmamsTdnn(conn, khoa_tdnn, UserName, Grade);
             lstParameters = DaoSyncMain.newInstance().getMainPosLock(conn);
             // BO SUNG PHAN KIEM TRA XEM CO THUYET MINH HAY KO
 //            TmDao tmDao = new TmDao();
@@ -566,7 +672,7 @@ public class ActionTdnnMain extends ActionSupport {
         }
         return SUCCESS;
     }
-    
+
     public String LoadStatusSendCnTdnn() {
         try {
             if (!getParaSession()) {
@@ -577,8 +683,8 @@ public class ActionTdnnMain extends ActionSupport {
 
             HashMap hmParameter = getParameter();
             lstDulieuNt = daosync.getStatusSendCn(getType_bcqt(), hmParameter.get("khoa_tdnn").toString(),
-                    macn, hmParameter.get("ngay_bc").toString(), 
-                    hmParameter.get("khoa_tdnn").toString().equals("ALL")?tt_khoa:Define.WEB_SERVICES_STATUS_SEND);
+                    macn, hmParameter.get("ngay_bc").toString(),
+                    hmParameter.get("khoa_tdnn").toString().equals("ALL") ? tt_khoa : Define.WEB_SERVICES_STATUS_SEND);
 
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> LoadStatusSendCnTdnn: " + e.getMessage());
@@ -589,7 +695,7 @@ public class ActionTdnnMain extends ActionSupport {
 //        addActionMessage("Bạn gửi dữ liệu về trung ương thành công !");
         return SUCCESS;
     }
-    
+
     public String OpenPgd() {
         try {
             if (!getParaSession()) {
@@ -619,11 +725,11 @@ public class ActionTdnnMain extends ActionSupport {
 //        addActionMessage("Bạn gửi dữ liệu về trung ương thành công !");
         return SUCCESS;
     }
-    
+
     public String getPOSCAM() {
         try {
-            System.err.println("Vao ham getTotruong "+pos_cam);            
-            
+            System.err.println("Vao ham getTotruong " + pos_cam);
+
             if (!getParaSession()) {
                 return ERROR;
             }
@@ -631,7 +737,7 @@ public class ActionTdnnMain extends ActionSupport {
             DaoTdnnMain daoMain = new DaoTdnnMain();
             lstTXN = new DaoKt740().getGroupQuery(null);
 //            lstTdnnParams = daoMain.getReportParmamsTdnn(conn, khoa_tdnn,UserName,Grade);
-            
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
             CoreLogger.error(this.getClass().getCanonicalName() + " getTotruong -> " + e.getMessage());
@@ -642,7 +748,6 @@ public class ActionTdnnMain extends ActionSupport {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
-
     public String getNha_dt() {
         return nha_dt;
     }
@@ -650,8 +755,7 @@ public class ActionTdnnMain extends ActionSupport {
     public void setNha_dt(String nha_dt) {
         this.nha_dt = nha_dt;
     }
-    
-    
+
     public String getCap_kt() {
         return cap_kt;
     }
@@ -660,8 +764,6 @@ public class ActionTdnnMain extends ActionSupport {
         this.cap_kt = cap_kt;
     }
 
-   
-    
     public List<ListValue> getLstParameters() {
         return lstParameters;
     }
@@ -732,7 +834,7 @@ public class ActionTdnnMain extends ActionSupport {
 
     public void setLstAllTdnn(List<ListValue> lstAllTdnn) {
         this.lstAllTdnn = lstAllTdnn;
-    }    
+    }
 
     public List<String> getPoscd() {
         return poscd;
@@ -757,7 +859,7 @@ public class ActionTdnnMain extends ActionSupport {
     public void setLstViewSend(List<ModelViewSend> lstViewSend) {
         this.lstViewSend = lstViewSend;
     }
-    
+
     public String getKhoa_tdnn() {
         return khoa_tdnn;
     }
@@ -765,7 +867,7 @@ public class ActionTdnnMain extends ActionSupport {
     public void setKhoa_tdnn(String khoa_tdnn) {
         this.khoa_tdnn = khoa_tdnn;
     }
-    
+
     public String getTt_khoa() {
         return tt_khoa;
     }
@@ -773,7 +875,7 @@ public class ActionTdnnMain extends ActionSupport {
     public void setTt_khoa(String tt_khoa) {
         this.tt_khoa = tt_khoa;
     }
-    
+
     public String getMacn() {
         return macn;
     }
@@ -781,7 +883,7 @@ public class ActionTdnnMain extends ActionSupport {
     public void setMacn(String macn) {
         this.macn = macn;
     }
-    
+
     public String getNgay_bc() {
         return ngay_bc;
     }
