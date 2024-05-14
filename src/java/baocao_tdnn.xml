@@ -38,7 +38,7 @@
         </action>
         
         
-        <action name="KTGS_01GDX" class="vbsp.ims.tdnn.KTGS_01GDX"  method="load">
+<!--        <action name="KTGS_01GDX" class="vbsp.ims.tdnn.KTGS_01GDX"  method="load">
             <result name="success">/TDNN/table_tdnn_01.jsp</result>
             <result name="error">/TDNN/success.jsp</result>        
         </action>
@@ -47,7 +47,7 @@
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>
-        
+        -->
         <!--ducanh 2024-->
         <action name="01_TDNN_2024" class="vbsp.ims.tdnn.TDNN_0011_2024"  method="load">
             <result name="success">/TDNN/table_tdnn_01_2024.jsp</result>
@@ -103,7 +103,7 @@
             <result name="success">/TDNN/popup_seach.jsp</result>
         </action>-->
         
-        <action name="KTGS_04GDX" class="vbsp.ims.tdnn.KTGS_04GDX"  method="load">
+<!--        <action name="KTGS_04GDX" class="vbsp.ims.tdnn.KTGS_04GDX"  method="load">
             <result name="success">/TDNN/table_tdnn_01.jsp</result>
             <result name="error">/TDNN/success.jsp</result>        
         </action>
@@ -111,7 +111,7 @@
         <action name="SAVE_KTGS_04GDX" class="vbsp.ims.tdnn.KTGS_04GDX"  method="save">
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
-        </action>
+        </action>-->
         
         <action name="uploadExcelTDNN" class="vbsp.ims.tdnn.TDNN_002"  method="uploadExcelTDNN">
             <result name="success">/TDNN/table_tdnn_01.jsp</result>
