@@ -312,7 +312,7 @@
                                     <th rowspan="2"class="TD_BUTTON1">STT</th>
                                     <th rowspan="2">Tên, số, ngày, tháng, năm</th>
                                     <th rowspan="2">Cơ quan ban hành văn bản</th>
-                                    <th rowspan="2">Nội dung sơ hở, dễ bị lợi dụng để tham nhũng</th>
+                                    <th rowspan="2">Nội dung sơ hở, dễ bị lợi dụng để tham nhũng, tiêu cực</th>
                                     <th colspan="3">Kết quả khắc phục</th>
                                     <th rowspan="2">Ghi chú</th>
                                     <th rowspan="2">Trạng thái</th>
