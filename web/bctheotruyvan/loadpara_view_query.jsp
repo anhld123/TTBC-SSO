@@ -9,7 +9,7 @@
         <s:head/>
         <sj:head/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<script src="../js/js_reload_para.js" type="text/javascript"></script>
+		<script src="../js/js.reload.para.ver.1.1.js" type="text/javascript"></script>
         <style>
             .ui-datepicker{
                 font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; 
@@ -65,20 +65,21 @@
                                 </s:if>
                                 
 								<!-- VinhNP xử lsy lại khi chọn selectbox -->
-								<s:if test="fieldName.equalsIgnoreCase('PARA_MAXA')">
-									<select name="<s:property value="fieldName"/>_LIST" id="<s:property value="fieldName"/>">
-										<option value='000000' selected='selected'>--Tất cả---</option>
-									</select>
-									<s:if test="type.equalsIgnoreCase('L')">
-										<s:select  list="comboList" name="%{fieldName}_DATA" listKey="key" listValue="value" id="%{fieldName}_DATA" cssStyle="display:none"></s:select>
-									</s:if>
-								</s:if>
-								<s:else>
-									<s:if test="type.equalsIgnoreCase('L')">
-										<s:select  list="comboList" name="%{fieldName}_LIST" listKey="key" listValue="value" id="%{fieldName}"></s:select>
-									</s:if>
-								</s:else>
-								<!--VinhNP: End-->
+                                
+                                <s:if test="fieldName.equals('PARA_MAXA') || fieldName.equals('PV_MAXAD')  || fieldName.equals('PV_MAXA') || fieldName.equals('PARA_MATO') || fieldName.equals('PV_MATO') || fieldName.equals('PARA_MATHON') || fieldName.equals('PV_MATHON')">
+                                    <select name="<s:property value="fieldName"/>_LIST" id="<s:property value="fieldName"/>">
+                                        <option value='000000' selected='selected'>--Tất cả---</option>
+                                    </select>
+                                    <s:if test="type.equalsIgnoreCase('L')">
+                                        <s:select  list="comboList" name="%{fieldName}_DATA" listKey="key" listValue="value" id="%{fieldName}_DATA" cssStyle="display:none"></s:select>
+                                    </s:if>
+                                </s:if>
+                                <s:else>
+                                    <s:if test="type.equalsIgnoreCase('L')">
+                                        <s:select  list="comboList" name="%{fieldName}_LIST" listKey="key" listValue="value" id="%{fieldName}"></s:select>
+                                    </s:if>
+                                </s:else>
+                                <!--VinhNP: End-->
 								
                                 <!-- CuongBM: Neu la D thi gen Date -->
                                 <s:if test="type.equalsIgnoreCase('D')"> 

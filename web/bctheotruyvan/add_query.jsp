@@ -130,16 +130,8 @@
                         $("#containBcttv").load('bctheotruyvan/exp_query.jsp');
                     },
                     error: function (res) {
-                        
-//                         var mass = res.responseText;
-//                        console.log(mass);
-//                        if (res.message==null)
-//                             console.log('res là null message');
-//                        else console.log(res.message);
-                        
-                        alert('Lỗi bạn chưa thêm được báo cáo ');
-                        //alert(encodeURIComponent(res.message));
-                        //$('#divExportReport').append('<h2 style="color: red">Lỗi bạn chưa lưu được báo cáo xin kiểm tra lại! '+decodeURIComponent(res.message )+'</h2>');
+                        //alert(res.message);
+                        $('#divExportReport').append('<h2 style="color: red">Lỗi bạn chưa lưu được báo cáo xin kiểm tra lại! '+res.message+'</h2>');
                     }
                 });
 
