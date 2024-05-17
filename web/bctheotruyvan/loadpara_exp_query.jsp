@@ -47,7 +47,7 @@
                                     <s:textfield  name="%{fieldName}_NUMB"></s:textfield>
                                 </s:if>
                                 
-								<!-- VinhNP xử lsy lại khi chọn selectbox -->
+								<!-- anhld chọn list -->
                                 
                                 <s:if test="fieldName.equals('PARA_MAXA') || fieldName.equals('PV_MAXA') || fieldName.equals('PV_MAXAD') || fieldName.equals('PARA_MATO') || fieldName.equals('PV_MATO') || fieldName.equals('PARA_MATHON') || fieldName.equals('PV_MATHON')">
                                     <select name="<s:property value="fieldName"/>_LIST" id="<s:property value="fieldName"/>">
@@ -62,7 +62,7 @@
                                         <s:select  list="comboList" name="%{fieldName}_LIST" listKey="key" listValue="value" id="%{fieldName}"></s:select>
                                     </s:if>
                                 </s:else>
-                                <!--VinhNP: End-->
+                                <!--anhld chọn list-->
 								
                                 <!-- Tungnv: Neu la D thi gen Date -->
                                 <s:if test="type.equalsIgnoreCase('D')"> 
