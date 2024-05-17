@@ -312,30 +312,40 @@
                                         <td class="D0 D1 D2 D4"><s:property  value="D2" /></td>
                                         <td style="height: 30px" class="D4"></td><td style="height: 30px" class="D4"></td>
                                         </s:if>
-                                        <s:if test="D4.equalsIgnoreCase('2')">
+                                        <s:elseif test="D4.equalsIgnoreCase('2')">
                                         <td class="D0 D1 D3"><s:property  value="TT_HIENTHI" /></td>
                                         <td class="D1 D3"><s:property  value="D1" /></td>
                                         <td class="D0 D1 D3"><s:property  value="D2" /></td>
-                                    </s:if>
-                                    <s:if test="D4.equalsIgnoreCase('3')">
+                                    </s:elseif>
+                                    <s:elseif test="D4.equalsIgnoreCase('3')">
                                         <td class="D0 D1 "><s:property  value="TT_HIENTHI" /></td>
                                         <td class="D1"><s:property  value="D1" /></td>
                                         <td class="D0 D1"><s:property  value="D2" /></td>
-                                    </s:if>
+                                    </s:elseif>
                                     <s:if test="D4.equalsIgnoreCase('3')||D4.equalsIgnoreCase('2')">
-                                        <td>
-                                            <input type="text" value="<s:property  value="D3" />" id="D3_<s:property  value="%{#rowstatus.index}" />"
-                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3"
-                                                   class="number" onfocus="this.select()"
-                                                   onfocus="this.select()" onblur="if (this.value == '') {
-                                                               this.value = 0
-                                                           }
-                                                           ;" 
-                                                   style="height: 30px;width: 95%"
-                                                   <s:if test="TT_HIENTHI.equalsIgnoreCase('5') || TT_HIENTHI.equalsIgnoreCase('6')|| TT_HIENTHI.equalsIgnoreCase('7')"> readonly</s:if>
-                                                       />
-
-                                            </td>
+                                        <s:if test="D5.equalsIgnoreCase('1')">
+                                            <td>
+                                                <input type="text" value="<s:property  value="D3" />" id="D3_<s:property  value="%{#rowstatus.index}" />"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3"
+                                                       class="number" onfocus="this.select()" onblur="if (this.value == '') {
+                                                                   this.value = 0
+                                                               }
+                                                               ;" 
+                                                       style="height: 30px;width: 95%"
+                                                       <s:if test="TT_HIENTHI.equalsIgnoreCase('5') || TT_HIENTHI.equalsIgnoreCase('6')|| TT_HIENTHI.equalsIgnoreCase('7')"> readonly</s:if>
+                                                           />
+                                                </td>
+                                        </s:if>
+                                        <s:else>
+                                            <td>
+                                                <input type="text" value="<s:property  value="D3" />" id="D3_<s:property  value="%{#rowstatus.index}" />"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3"
+                                                       onfocus="this.select()"
+                                                       style="height: 30px;width: 95%;text-align: right"
+                                                       <s:if test="TT_HIENTHI.equalsIgnoreCase('5') || TT_HIENTHI.equalsIgnoreCase('6')|| TT_HIENTHI.equalsIgnoreCase('7')"> readonly</s:if>
+                                                           />
+                                                </td>
+                                        </s:else>
                                         <s:if test="TT_HIENTHI.equalsIgnoreCase('5') || TT_HIENTHI.equalsIgnoreCase('6')|| TT_HIENTHI.equalsIgnoreCase('7')"> <td></td></s:if>
                                         <s:else>
                                             <td class="D0">
