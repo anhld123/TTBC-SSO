@@ -235,7 +235,6 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
             } else {
                 PosFlag = "S";
             }
-            lstCanBo = new clsHuyDongTK().getCanBo(PosFlag, UserName);
             if (hmParameter.size() < 9) {
                 addActionError("Bạn chưa chọn đủ thông tin để tải dữ liệu!");
                 return ERROR;
@@ -258,29 +257,31 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 addActionError("Bạn chưa chọn phòng giao dịch!");
                 return ERROR;
             }
-            String check = "";
-            if (hmParameter.containsKey("check_2") && hmParameter.get("check_2").toString().equals("on")) {
-                check = "1";
-            } else if (hmParameter.containsKey("check_1") && hmParameter.get("check_1").toString().equals("on")) {
-                check = "2";
-            } else {
-                check = "0";
+             String check = hmParameter.getOrDefault("check_2", "off").equals("on") ? "1"
+                    : hmParameter.getOrDefault("check_1", "off").equals("on") ? "2" : "0";
+            String CO_TONGHOP = "";
+            if (check == "2" && PosFlag == "H") {
+                CO_TONGHOP = "M";
+            } else if (check == "2" && PosFlag == "M") {
+                CO_TONGHOP = "S";
+            } else if (check == "1") {
+                CO_TONGHOP = PosFlag;
             }
+            lstCanBo = new clsHuyDongTK().getCanBo(CO_TONGHOP, UserName);
             setCheck_form(check);
             _server = new Service_GQVL2023();
             if (check == "1") {
-                this.lstData = _server.getTTND_2024("KTGS_01GDX", mapgd, PosFlag, maxa, s, "", "0");
+                this.lstData = _server.getTTND_2024("KTGS_01GDX", mapgd, CO_TONGHOP, maxa, s, "", "0");
                 if (lstData == null || lstData.isEmpty()) {
-                    this.lstData = _server.getTTND_2024("KTGS_01GDX", mapgd, PosFlag, maxa, s, "", "1");
+                    this.lstData = _server.getTTND_2024("KTGS_01GDX", mapgd, CO_TONGHOP, maxa, s, "", "1");
                 }
             } else if (check == "2") {
-                this.lstData = _server.getTTND_2024("KTGS_01GDX", mapgd, "S", maxa, s, "", "0");
+                this.lstData = _server.getTTND_2024("KTGS_01GDX", mapgd, CO_TONGHOP, maxa, s, "", "0");
                 if (lstData == null || lstData.isEmpty()) {
                     addActionError("Điểm giao dịch chưa có dữ liệu");
                     return ERROR;
                 }
             }
-            System.out.println(pos_cd + " " + maxa + " " + main_pos + " " + hmParameter.containsKey("lstPGD"));
             int iStt = 1;
             for (DuLieuNTRow item : lstData) {
                 QT_DULIEU_NT row = new QT_DULIEU_NT();

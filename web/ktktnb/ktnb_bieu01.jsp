@@ -83,7 +83,7 @@
                 width: 70px;
             }
             input[readonly] {
-                background-color: #f2f2f2;
+                background-color: #cccccc;
                 color: #666;
                 cursor: not-allowed;
             }
@@ -340,16 +340,22 @@
                                                                this.value = 0
                                                            }
                                                            ;" style="height: 30px;width: 95%"
-                                                   <s:if test="D7.equalsIgnoreCase('2') || D7.equalsIgnoreCase('1')"> readonly</s:if>
+                                                   <s:if test="D7.equalsIgnoreCase('2') || D7.equalsIgnoreCase('1')"> readonly onkeypress="return false;"</s:if>
                                                        />
 
                                             </td>
-                                        <s:if test="D7.equalsIgnoreCase('2') || D7.equalsIgnoreCase('1')"> <td></td></s:if>
+                                        <s:if test="D7.equalsIgnoreCase('2') || D7.equalsIgnoreCase('1')"> <td style="background: #cccccc; color: red">Lưu ý không nhập</td></s:if>
                                         <s:else>
                                             <td class="D0">
-                                                <textarea  placeholder="Nhập tối đa 200 ký tự" id="D10_<s:property  value='%{#rowstatus.index}' />" 
-                                                           name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10" 
-                                                           style="width: 98%;height: 98%" maxlength="200"><s:property value='D10'/></textarea>
+                                                <textarea  <s:if test ="TT_HIENTHI.equalsIgnoreCase('4') || TT_HIENTHI.equalsIgnoreCase('5')
+                                                      || TT_HIENTHI.equalsIgnoreCase('14') || TT_HIENTHI.equalsIgnoreCase('18')
+                                                      || TT_HIENTHI.equalsIgnoreCase('25') || TT_HIENTHI.equalsIgnoreCase('36')
+                                                      ||TT_HIENTHI.equalsIgnoreCase('40') ||TT_HIENTHI.equalsIgnoreCase('42')" >
+                                                        placeholder="Lưu ý nhập" </s:if>
+                                                    <s:else>placeholder="0" </s:else>
+                                                    id="D10_<s:property  value='%{#rowstatus.index}' />" 
+                                                    name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10" 
+                                                    style="width: 98%;height: 98%" maxlength="200"><s:property value='D10'/></textarea>
                                             </td>
                                         </s:else>
                                     </s:elseif>

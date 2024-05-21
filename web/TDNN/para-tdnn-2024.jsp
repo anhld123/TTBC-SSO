@@ -746,7 +746,7 @@
                         <td>
                             &nbsp;<label>Trạng thái: </label> 
                             <input id="check_1" type="checkbox" onchange="checkChange(event)" name="check_1" class="myCheckBox"
-                                   <s:if test="Grade.equalsIgnoreCase('1')"> disabled</s:if>> Xem/ Mở phê duyệt dữ liệu điểm giao dịch cấp PGD
+                                   <s:if test="Grade.equalsIgnoreCase('1')"> disabled</s:if>> Xem/ Mở phê duyệt dữ liệu điểm giao dịch cấp <s:if test="!Grade.equalsIgnoreCase('3')">PGD</s:if><s:else> CN</s:else>
                                    &nbsp;&nbsp;<input id="check_2" type="checkbox" onchange="checkChange(event)"  checked
                                                       class="myCheckBox" name="check_2" <s:if test="Grade.equalsIgnoreCase('1')"> style="pointer-events: none"</s:if>> Nhập dữ liệu cấp kiểm tra
                                    <!--                            </td>
@@ -821,26 +821,32 @@
                     if (event.target.id === "check_1") {
                         if (check_1.checked) {
                             check_2.checked = false;
-                            idUnlock.style.display = 'inline';
-                            idPheduyet.style.display = 'none';
                             idSave.style.display = 'none';
+                            idUnlock.style.display = 'inline';
+                            if (Grade !== "3"){
+                            idPheduyet.style.display = 'none';}
                         } else {
                             check_2.checked = true;
-                            idUnlock.style.display = 'none';
-                            idPheduyet.style.display = 'inline';
                             idSave.style.display = 'inline';
+                            idUnlock.style.display = 'none';
+                            if (Grade !== "3"){
+                            idPheduyet.style.display = 'inline';}
                         }
                     } else if (event.target.id === "check_2") {
                         if (check_2.checked) {
                             check_1.checked = false;
-                            idPheduyet.style.display = 'inline';
-                            idUnlock.style.display = 'none';
                             idSave.style.display = 'inline';
+                            if (Grade !== "3"){
+                            idPheduyet.style.display = 'inline';}
+                            idUnlock.style.display = 'none';
+                            
                         } else {
                             check_1.checked = true;
-                            idUnlock.style.display = 'inline';
-                            idPheduyet.style.display = 'none';
                             idSave.style.display = 'none';
+                            idUnlock.style.display = 'inline';
+                            if (Grade !== "3"){
+                            idPheduyet.style.display = 'none';}
+                            
                         }
                     }
                 }
@@ -860,31 +866,11 @@
 
             function hideElement() {
                 var Grade = document.getElementById('Grade').value;
+//                alert(check_1);
                 if (Grade !== "1") {
-                    document.getElementById('idUnlock').style.display = 'none';
-
-//                    check_1.addEventListener('change', function () {
-//                        if (this.checked) {
-//                            idUnlock.style.display = 'inline';
-//                            idPheduyet.style.display = 'none';
-//                            idSave.style.display = 'none';
-//                        } else {
-//                            idUnlock.style.display = 'none';
-//                            idSave.style.display = 'inline';
-//                        }
-//                    });
-//
-//                    check_2.addEventListener('change', function () {
-//                        if (this.checked) {
-//                            idPheduyet.style.display = 'inline';
-//                            idUnlock.style.display = 'none';
-//                            idSave.style.display = 'inline';
-//                        } else {
-//                            idPheduyet.style.display = 'inline';
-//                            idSave.style.display = 'none';
-//                        }
-//                    });
+                    document.getElementById('idUnlock').style.display = 'none';             
                 }
+                
             }
             hideElement();
         </script>
