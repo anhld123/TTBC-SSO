@@ -52,11 +52,20 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
     private String disintctD6;
     private String disintctD8;
     private String disintctD50;
+    private String check_Flag;
     private List<ListMainPos> lstCN_API;
     private List<ListPosCode> lstPGD_API;
     private List<ListCommune> lstXa_API;
     private List<ListTransactionPoint> lstPoint_API;
     //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public String getCheck_Flag() {
+        return check_Flag;
+    }
+
+    public void setCheck_Flag(String check_Flag) {
+        this.check_Flag = check_Flag;
+    }
 
     public String getCheck_form() {
         return check_form;
@@ -266,7 +275,8 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 CO_TONGHOP = "S";
             } else if (check == "1") {
                 CO_TONGHOP = PosFlag;
-            }         
+            }     
+            setCheck_Flag(CO_TONGHOP);
             lstCanBo = new clsHuyDongTK().getCanBo(CO_TONGHOP, UserName);
             setCheck_form(check);
             _server = new Service_GQVL2023();

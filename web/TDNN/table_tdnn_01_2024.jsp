@@ -96,13 +96,14 @@
                 <table border="1" class="editDelete" id="subTable_tmp" align="center">   
                     <input type="hidden" name="checkD50" id="id_D50" value="<s:property value="disintctD50"/>">
                 <input type="hidden" name="check_image" id="check_image" value="<s:property value="inmage"/>">
+                <input type="hidden" value="<s:property value="check_Flag"/>">
                 <tr>
                     <th>Thông tin cán bộ kiểm tra</th>
                     <th>Nội Dung</th>                
                 </tr>  
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>               
                 </tr>
                 <tr>
                     <td class="STT2">Cán bộ kiểm tra</td>
@@ -120,7 +121,7 @@
  
                 </tr>
                 <tr>
-                    <s:if test="Grade.equalsIgnoreCase('1')">      
+                    <s:if test="check_Flag.equalsIgnoreCase('S')">      
                         <td>Đơn vị công tác/ Chức vụ</td>
                         <td>
                             <select name="namedistinctD6" id="idnamedistinctD6" style="border: hidden"> 
@@ -140,7 +141,7 @@
                             </td>
 
                     </s:if>
-                    <s:elseif test="Grade.equalsIgnoreCase('2')">
+                    <s:elseif test="check_Flag.equalsIgnoreCase('M')">
 
                         <td>Đơn vị công tác/ Chức vụ</td>
                         <td>
