@@ -7,7 +7,12 @@ package vbsp.ims.tdnn;
 
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
@@ -16,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import javax.servlet.ServletContext;
+import static org.apache.struts2.ServletActionContext.getServletContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
@@ -52,14 +59,32 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
     private String disintctD6;
     private String disintctD8;
     private String disintctD50;
+    private String inmage;
+    private String imageSize;
     private List<ListMainPos> lstCN_API;
     private List<ListPosCode> lstPGD_API;
     private List<ListCommune> lstXa_API;
     private List<ListTransactionPoint> lstPoint_API;
     //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
 
+    public String getImageSize() {
+        return imageSize;
+    }
+
+    public void setImageSize(String imageSize) {
+        this.imageSize = imageSize;
+    }
+
     public String getCheck_form() {
         return check_form;
+    }
+
+    public String getInmage() {
+        return inmage;
+    }
+
+    public void setInmage(String inmage) {
+        this.inmage = inmage;
     }
 
     public void setCheck_form(String check_form) {
@@ -235,7 +260,6 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
             } else {
                 PosFlag = "S";
             }
-            lstCanBo = new clsHuyDongTK().getCanBo(PosFlag, UserName);
             if (hmParameter.size() < 9) {
                 addActionError("Bạn chưa chọn đủ thông tin để tải dữ liệu!");
                 return ERROR;
@@ -258,29 +282,53 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
                 addActionError("Bạn chưa chọn phòng giao dịch!");
                 return ERROR;
             }
-            String check = "";
-            if (hmParameter.containsKey("check_2") && hmParameter.get("check_2").toString().equals("on")) {
-                check = "1";
-            } else if (hmParameter.containsKey("check_1") && hmParameter.get("check_1").toString().equals("on")) {
-                check = "2";
-            } else {
-                check = "0";
+             String check = hmParameter.getOrDefault("check_2", "off").equals("on") ? "1"
+                    : hmParameter.getOrDefault("check_1", "off").equals("on") ? "2" : "0";
+            String CO_TONGHOP = "";
+            if (check == "2" && PosFlag == "H") {
+                CO_TONGHOP = "M";
+            } else if (check == "2" && PosFlag == "M") {
+                CO_TONGHOP = "S";
+            } else if (check == "1") {
+                CO_TONGHOP = PosFlag;
             }
+            try {
+
+                ServletContext servletContext = getServletContext();
+                String _contextPath = servletContext.getRealPath("/");
+                File file = new File(_contextPath + "/Image_tdnn_gdx/" + maxa + dateStr + PosFlag + ".txt");
+                FileReader fr = new FileReader(file);
+                BufferedReader br = new BufferedReader(fr);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line);
+                }
+
+                String image = sb.toString();
+                setInmage(image);
+                // Sử dụng biến string image ở đây
+                br.close();
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            lstCanBo = new clsHuyDongTK().getCanBo(CO_TONGHOP, UserName);
             setCheck_form(check);
             _server = new Service_GQVL2023();
             if (check == "1") {
-                this.lstData = _server.getTTND_2024("KTGS_04GDX", mapgd, PosFlag, maxa, s, "", "0");
+                this.lstData = _server.getTTND_2024("KTGS_04GDX", mapgd, CO_TONGHOP, maxa, s, "", "0");
                 if (lstData == null || lstData.isEmpty()) {
-                    this.lstData = _server.getTTND_2024("KTGS_04GDX", mapgd, PosFlag, maxa, s, "", "1");
+                    this.lstData = _server.getTTND_2024("KTGS_04GDX", mapgd, CO_TONGHOP, maxa, s, "", "1");
                 }
             } else if (check == "2") {
-                this.lstData = _server.getTTND_2024("KTGS_04GDX", mapgd, "S", maxa, s, "", "0");
+                this.lstData = _server.getTTND_2024("KTGS_04GDX", mapgd, CO_TONGHOP, maxa, s, "", "0");
                 if (lstData == null || lstData.isEmpty()) {
                     addActionError("Điểm giao dịch chưa có dữ liệu");
                     return ERROR;
                 }
             }
-            System.out.println(pos_cd + " " + maxa + " " + main_pos + " " + hmParameter.containsKey("lstPGD"));
             int iStt = 1;
             for (DuLieuNTRow item : lstData) {
                 QT_DULIEU_NT row = new QT_DULIEU_NT();
@@ -370,8 +418,21 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
             int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(date1));
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
             String tranPoint = "TNX0" + maxa;
-            System.out.println(macb + " " + tranPoint);
+            String imageBase64 = hmParameter.get("imageBase64").toString();
+            if (imageBase64.length() > 1) {
+                setImageSize("1");
+            }
+            ServletContext servletContext = getServletContext();
+            String _contextPath = servletContext.getRealPath("/");
 
+            String filePath = _contextPath + "/Image_tdnn_gdx/" + maxa + dateStr + PosFlag + ".txt";
+            // Ghi chuỗi base64 vào tệp tin
+                try (FileWriter fileWriter = new FileWriter(filePath)) {
+                    fileWriter.write(imageBase64);
+                    System.out.println("Đã ghi thành công chuỗi base64 vào tệp tin " + filePath);
+                } catch (IOException e) {
+                    System.err.println("Đã xảy ra lỗi khi ghi tệp tin: " + e.getMessage());
+                }
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
                 DuLieuNTRow tempadd = new DuLieuNTRow();

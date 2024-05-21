@@ -823,30 +823,34 @@
                             check_2.checked = false;
                             idSave.style.display = 'none';
                             idUnlock.style.display = 'inline';
-                            if (Grade !== "3"){
-                            idPheduyet.style.display = 'none';}
+                            if (Grade !== "3") {
+                                idPheduyet.style.display = 'none';
+                            }
                         } else {
                             check_2.checked = true;
                             idSave.style.display = 'inline';
                             idUnlock.style.display = 'none';
-                            if (Grade !== "3"){
-                            idPheduyet.style.display = 'inline';}
+                            if (Grade !== "3") {
+                                idPheduyet.style.display = 'inline';
+                            }
                         }
                     } else if (event.target.id === "check_2") {
                         if (check_2.checked) {
                             check_1.checked = false;
                             idSave.style.display = 'inline';
-                            if (Grade !== "3"){
-                            idPheduyet.style.display = 'inline';}
+                            if (Grade !== "3") {
+                                idPheduyet.style.display = 'inline';
+                            }
                             idUnlock.style.display = 'none';
-                            
+
                         } else {
                             check_1.checked = true;
                             idSave.style.display = 'none';
                             idUnlock.style.display = 'inline';
-                            if (Grade !== "3"){
-                            idPheduyet.style.display = 'none';}
-                            
+                            if (Grade !== "3") {
+                                idPheduyet.style.display = 'none';
+                            }
+
                         }
                     }
                 }
@@ -868,9 +872,9 @@
                 var Grade = document.getElementById('Grade').value;
 //                alert(check_1);
                 if (Grade !== "1") {
-                    document.getElementById('idUnlock').style.display = 'none';             
+                    document.getElementById('idUnlock').style.display = 'none';
                 }
-                
+
             }
             hideElement();
         </script>

@@ -51,7 +51,7 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         border-spacing: 0;
-        width: 550px;
+        width: 70%;
     }
 </style>
 <html>
@@ -86,7 +86,7 @@
         </script>      
     </head>
     <body>
-        <div style="overflow:scroll; width: 98vw;height: 400px;">             
+        <div style="overflow:scroll; width: 98vw;">             
             <div id="divTitle">
                 <s:hidden name="khoa_tdnn" id="khoa"/>
                 BIỂU GIÁM SÁT HOẠT ĐỘNG GIAO DỊCH XÃ QUA CAMERA IP
@@ -95,13 +95,16 @@
                 <div style="height:10px"></div>  
                 <table border="1" class="editDelete" id="subTable_tmp" align="center">   
                     <input type="hidden" name="checkD50" id="id_D50" value="<s:property value="disintctD50"/>">
+                <input type="hidden" name="check_image" id="check_image" value="<s:property value="inmage"/>">
                 <tr>
                     <th>Thông tin cán bộ kiểm tra</th>
                     <th>Nội Dung</th>
+                    <th>Hình ảnh vi phạm</th>                    
                 </tr>  
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
                 </tr>
                 <tr>
                     <td class="STT2">Cán bộ kiểm tra</td>
@@ -116,9 +119,15 @@
                                     <option value='<s:property value="MaCB"/>'><s:property value="TenCB"/></option>  </s:else>
                             </s:iterator>
                         </select>  </td>
+                    <td>
+                        <s:if test="check_form.equalsIgnoreCase('1')">  
+                            <input type="file" id="fileInput"><button id="displayButton">Tải ảnh lên</button>
+                            <input type="hidden" id="outputInput" name="imageBase64">
+                        </s:if>
+                    </td>
                 </tr>
-                <s:if test="Grade.equalsIgnoreCase('1')">
-                    <tr>
+                <tr>
+                    <s:if test="Grade.equalsIgnoreCase('1')">      
                         <td>Đơn vị công tác/ Chức vụ</td>
                         <td>
                             <select name="namedistinctD6" id="idnamedistinctD6" style="border: hidden"> 
@@ -136,10 +145,10 @@
                                 <option value="4" <s:if test="disintctD8.equalsIgnoreCase('4')"> selected </s:if>>Phó giám đốc</option>
                                 </select>
                             </td>
-                        </tr>
-                </s:if>
-                <s:elseif test="Grade.equalsIgnoreCase('2')">
-                    <tr>
+
+                    </s:if>
+                    <s:elseif test="Grade.equalsIgnoreCase('2')">
+
                         <td>Đơn vị công tác/ Chức vụ</td>
                         <td>
                             <select name="namedistinctD6" id="idnamedistinctD6" style="border: hidden"> 
@@ -160,10 +169,10 @@
                                 <option value="5" <s:if test="disintctD8.equalsIgnoreCase('5')"> selected </s:if>>Giám đốc</option>
                                 </select>
                             </td>
-                        </tr>
-                </s:elseif>
-                <s:else>
-                    <tr>
+
+                    </s:elseif>
+                    <s:else>
+
                         <td>Đơn vị công tác/ Chức vụ</td>
                         <td>
                             <select name="namedistinctD6" id="idnamedistinctD6" style="border: hidden"> 
@@ -177,27 +186,34 @@
                                 <option value="3" <s:if test="disintctD8.equalsIgnoreCase('3')"> selected </s:if>>Phó ban</option>
                                 </select>
                             </td>
-                        </tr>
-                </s:else>
-            </table>
-            <div style="height:10px"></div>  
-            <table border="1" class="editDelete" id="subTable" align="center" style="padding-top: 10px">   
-                <tr>
-                    <th>STT</th>
-                    <th>Tiêu chí</th>
-                    <th style="width: 5%">Thang điểm</th>
-                    <th style="width: 5%">Điểm</th>
-                    <th>Ghi chú lỗi vi phạm</th>
-                    <th>Hình ảnh vi phạm</th>
-                </tr>  
-                <tr>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
-                </tr>
+
+                    </s:else>
+                    <td>
+                        <s:if test="!inmage.equalsIgnoreCase('')">
+                            <button id="showImage">Tải ảnh vi phạm</button>
+                            <!--                        <div id="imageContainer"></div>-->
+                            <a id="downloadContainer"></a>
+                        </s:if>
+                        <s:else><button id="showImage" disabled>Không có ảnh</button></s:else>
+                        </td>
+                    </tr>
+                </table>
+                <div style="height:10px"></div>  
+                <table border="1" class="editDelete" id="subTable" align="center" style="padding-top: 10px">   
+                    <tr>
+                        <th style="width: 50px">STT</th>
+                        <th>Tiêu chí</th>
+                        <th style="width: 5%">Thang điểm</th>
+                        <th style="width: 5%">Điểm</th>
+                        <th>Ghi chú lỗi vi phạm</th>
+                    </tr>  
+                    <tr>
+                        <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
+                        <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
+                        <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
+                        <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
+                        <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
+                    </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr>
                     <input type="hidden" value="<s:property  value="THUTU" />"
@@ -225,7 +241,7 @@
                     </div>
                     <s:if test="KIEUIN != 3 || !KIEUIN.equalsIgnoreCase('3')">  
                         <td class="D0" style="background: #ddd; font-weight: bold; width: 50px"><s:property  value="TT_HIENTHI" /></td>
-                        <td style="background: #ddd; width: 50%; font-weight: bold" 
+                        <td style="background: #ddd; width: 60%; font-weight: bold" 
                             id="TEN_<s:property value="%{#rowstatus.index}"/>"><s:property  value="TEN" /></td>
                         <td style="background: #ddd;">
                             <input type="text" class="number2" style="background: #ddd; font-weight: bold;" 
@@ -248,12 +264,10 @@
                         </s:else>
                         <td style="background: #ddd; font-weight: bold" class="STT2"
                             id="D9_<s:property value="%{#rowstatus.index}"/>"><s:property  value="D9" /></td>   
-                        <td style="background: #ddd; font-weight: bold" class="STT2"
-                            id="D10_<s:property value="%{#rowstatus.index}"/>"><s:property  value="D10" /></td>
                     </s:if>
                     <s:elseif test="KIEUIN == 3 || KIEUIN.equalsIgnoreCase('3')">  
                         <td class="D0" style="background: #ddd; width: 50px"><s:property  value="TT_HIENTHI" /></td>
-                        <td style="background: #ddd; width: 50%;" id="TEN_<s:property value="%{#rowstatus.index}"/>"><s:property  value="TEN" /></td>
+                        <td style="background: #ddd; width: 60%;" id="TEN_<s:property value="%{#rowstatus.index}"/>"><s:property  value="TEN" /></td>
                         <td style="background: #ddd;">
                             <input type="text" class="number2" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1"  readonly
                                    style="background: #ddd" id="D1_<s:property value="%{#rowstatus.index}"/>" value="<s:property value="D1" />">
@@ -263,14 +277,18 @@
                                 <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
                                        id="D4_<s:property value="%{#rowstatus.index}"/>" value="<s:property value="D4" />"
                                        class="number2" onkeyup="calc(this);"  onchange="calc(this);"
-                                       onblur="check(<s:property value="%{#rowstatus.index}"/>);"/>
+                                       onblur="if (this.value == '') {
+                                                   this.value = 0
+                                               }
+                                               ;
+                                               check(<s:property value="%{#rowstatus.index}"/>);
+                                       "/>
                             </td>
                             <td class="D0">
                                 <textarea placeholder="Nhập tối đa 200 ký tự" id="D9_<s:property  value='%{#rowstatus.index}' />" 
                                           style="width: 99%;height: 99%"
                                           name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D9" maxlength="200"><s:property value='D9'/></textarea>
                             </td>
-                            <td></td>
                         </s:if>
                         <s:else>
                             <td style="background: #ddd;">
@@ -279,13 +297,23 @@
                             </td>  
                             <td style="background: #ddd;" class="STT2"
                                 id="D9_<s:property value="%{#rowstatus.index}"/>"><s:property  value="D9" /></td>   
-                            <td></td>
+
                         </s:else>
                     </s:elseif>
                     </tr>
                 </s:iterator>
+                <tr style="height: 30px">
+                    <td style="font-weight: bold;text-align: center"></td>
+                    <td style="font-weight: bold;text-align: center">TỔNG ĐIỂM</td>
+                    <td style="font-weight: bold;text-align: right">100</td>
+                    <td> <input type="text" value="0" name="sumAll" id="sumAll" class="number2" 
+                                style="font-weight: bold; background: #ffffff; color: #000"
+                                readonly/></td>
+                    <td></td>
 
-            </table>
+                </tr>
+
+            </table><div style="height:20px"></div> 
         </div>
         <div id="luu_thanhcong"></div>
         <script>
@@ -315,6 +343,8 @@
                 document.getElementById("D4_14").value = getValue(["D4_15"]);
                 document.getElementById("D4_16").value = getValue(["D4_17"]);
                 document.getElementById("D4_18").value = getValue(["D4_19"]);
+                var tong = sum(["D4_0", "D4_2", "D4_4", "D4_6", "D4_8", "D4_10", "D4_12", "D4_14", "D4_16", "D4_18"]);
+                document.getElementById("sumAll").value = parseInt(tong);
             }
 
             function check(index) {
@@ -336,6 +366,47 @@
                 }
                 calc();
             }
+
+            $("#displayButton").click(function () {
+                const files = fileInput.files;
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const reader = new FileReader();
+
+                    const getSizeImage = file.size;
+
+                    if (getSizeImage > 1024 * 1024) {
+                        alert("Chỉ cho phép tải tệp tin nhỏ hơn 1Mb");
+                    } else {
+                        alert("Đăng ảnh thành công");
+                    }
+
+                    reader.onload = function (e) {
+                        const base64String = e.target.result.split(',')[1]; // Lấy phần dữ liệu Base64 sau dấu phẩy
+                        outputInput.value = base64String; // Hiển thị chuỗi Base64 trong input
+                    };
+
+                    reader.readAsDataURL(file);
+                }
+            });
+          
+            document.getElementById('showImage').addEventListener('click', function () {
+                const base64String = "data:image/jpeg;base64," + document.getElementById('check_image').value;
+                const downloadContainer = document.getElementById('downloadContainer');
+                downloadContainer.innerHTML = ''; // Clear any previous download links
+
+                if (base64String) {
+                    // Create a link for downloading the image
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = base64String;
+                    downloadLink.download = 'TTCNTT_VBSP.jpg'; // Set the filename for the downloaded image
+                    downloadLink.innerHTML = 'Tải ảnh vi phạm';
+                    downloadContainer.appendChild(downloadLink);
+                } else {
+                    alert("Lỗi tải ảnh!");
+                }
+            });
+            calc();
         </script>
     </body>
 </html>
