@@ -266,7 +266,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 CO_TONGHOP = "S";
             } else if (check == "1") {
                 CO_TONGHOP = PosFlag;
-            }
+            }         
             lstCanBo = new clsHuyDongTK().getCanBo(CO_TONGHOP, UserName);
             setCheck_form(check);
             _server = new Service_GQVL2023();
@@ -371,8 +371,6 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
             int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(date1));
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
             String tranPoint = "TNX0" + maxa;
-            System.out.println(macb + " " + tranPoint);
-
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
                 DuLieuNTRow tempadd = new DuLieuNTRow();

@@ -14,7 +14,7 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         border-spacing: 0;
-        width: 80%;
+        width: 90%;
     }
     #subTable th{
         background-color: #ddd;
@@ -69,9 +69,9 @@
                 $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
                 $('#ui-datepicker-div').css('clip', 'auto');
                 $(".STT1").css({"width": "5%"});
-                $(".STT2").css({"width": "35%"});
+                $(".STT2").css({"width": "30%"});
                 //Cac truong bang so --> se co so truong = 0
-                $('.number').number(true, 1);
+                $('.number').number(true, 2);
                 //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 0);
 
@@ -95,9 +95,10 @@
                 <div style="height:10px"></div>  
                 <table border="1" class="editDelete" id="subTable_tmp" align="center">   
                     <input type="hidden" name="checkD50" id="id_D50" value="<s:property value="disintctD50"/>">
+                <input type="hidden" name="check_image" id="check_image" value="<s:property value="inmage"/>">
                 <tr>
                     <th>Thông tin cán bộ kiểm tra</th>
-                    <th>Nội Dung</th>
+                    <th>Nội Dung</th>                
                 </tr>  
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
@@ -116,9 +117,10 @@
                                     <option value='<s:property value="MaCB"/>'><s:property value="TenCB"/></option>  </s:else>
                             </s:iterator>
                         </select>  </td>
+ 
                 </tr>
-                <s:if test="Grade.equalsIgnoreCase('1')">
-                    <tr>
+                <tr>
+                    <s:if test="Grade.equalsIgnoreCase('1')">      
                         <td>Đơn vị công tác/ Chức vụ</td>
                         <td>
                             <select name="namedistinctD6" id="idnamedistinctD6" style="border: hidden"> 
@@ -136,10 +138,10 @@
                                 <option value="4" <s:if test="disintctD8.equalsIgnoreCase('4')"> selected </s:if>>Phó giám đốc</option>
                                 </select>
                             </td>
-                        </tr>
-                </s:if>
-                <s:elseif test="Grade.equalsIgnoreCase('2')">
-                    <tr>
+
+                    </s:if>
+                    <s:elseif test="Grade.equalsIgnoreCase('2')">
+
                         <td>Đơn vị công tác/ Chức vụ</td>
                         <td>
                             <select name="namedistinctD6" id="idnamedistinctD6" style="border: hidden"> 
@@ -160,10 +162,10 @@
                                 <option value="5" <s:if test="disintctD8.equalsIgnoreCase('5')"> selected </s:if>>Giám đốc</option>
                                 </select>
                             </td>
-                        </tr>
-                </s:elseif>
-                <s:else>
-                    <tr>
+
+                    </s:elseif>
+                    <s:else>
+
                         <td>Đơn vị công tác/ Chức vụ</td>
                         <td>
                             <select name="namedistinctD6" id="idnamedistinctD6" style="border: hidden"> 
@@ -177,10 +179,12 @@
                                 <option value="3" <s:if test="disintctD8.equalsIgnoreCase('3')"> selected </s:if>>Phó ban</option>
                                 </select>
                             </td>
-                        </tr>
-                </s:else>
-            </table>
-            <div style="height:10px"></div>  
+
+                    </s:else>
+                    
+                    </tr>
+                </table>
+                <div style="height:10px"></div>  
             <table border="1" class="editDelete" id="subTable" align="center" style="padding-top: 10px">   
                 <tr>
                     <th>STT</th>
@@ -330,7 +334,7 @@
             function check(index) {
                 var D1 = parseInt(document.getElementById("D1_" + index).value.replaceAll(',', ''));
                 var D4 = document.getElementById("D4_" + index).value.replaceAll(',', '');
-             
+
                 if (D1 < D4)
                 {
                     alert("Điểm nhập không thể cao hơn thang điểm!");
