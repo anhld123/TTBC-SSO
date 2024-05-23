@@ -226,6 +226,14 @@
                 }
                 document.getElementById('totalordercost').value = tot;
             }
+              document.addEventListener('DOMContentLoaded', function () {
+                document.getElementById('tableKtnb').addEventListener('keydown', function (event) {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+//                        alert('Phím Enter đã bị khóa!');
+                    }
+                });
+            });
         </script>
 
     </head>
@@ -262,13 +270,13 @@
                     <tr>
                         <td colspan="2">
                             <hr>
-                            <table border="1px" id="tableKtnb" style="width: 90%; margin: auto">
+                            <table border="1px" id="tableKtnb" style="width: 80%; margin: auto">
                                 <tr class="tbhead">
-                                    <th class="TD_BUTTON1">MS</th>
-                                    <th style="width: 50%">Nội dung</th>
-                                    <th class="TD_TENKH123">Đơn vị tính</th>
+                                    <th style="width: 3%">MS</th>
+                                    <th style="width: 60%">Nội dung</th>
+                                    <th style="width: 10%">Đơn vị tính</th>
                                     <th style="width: 10%">Kết quả</th>
-                                    <th class="SOKU">Ghi chú</th>
+                                    <th style="width: 10%">Ghi chú</th>
                                 </tr>
 
                                 <tr class="tbhead">
@@ -346,13 +354,8 @@
                                                            />
                                                 </td>
                                         </s:else>
-                                        <s:if test="TT_HIENTHI.equalsIgnoreCase('5') || TT_HIENTHI.equalsIgnoreCase('6')|| TT_HIENTHI.equalsIgnoreCase('7')"> <td></td></s:if>
-                                        <s:else>
-                                            <td class="D0">
-                                                <textarea  placeholder="Nhập tối đa 200 ký tự" id="D10_<s:property  value='%{#rowstatus.index}' />" 
-                                                           name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10" 
-                                                           style="width: 98%;height: 98%" maxlength="200"><s:property value='D10'/></textarea>
-                                            </td></s:else>      
+                                        <s:if test="TT_HIENTHI.equalsIgnoreCase('5') || TT_HIENTHI.equalsIgnoreCase('6')|| TT_HIENTHI.equalsIgnoreCase('7')"> <td td style="background: #cccccc; color: #000">Lưu ý không nhập</td></s:if>
+                                        <s:else><td style="background: #cccccc;" ></td></s:else>      
                                     </s:if>
                         </tr>
 

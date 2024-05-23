@@ -71,7 +71,7 @@
                 $(".STT1").css({"width": "5%"});
                 $(".STT2").css({"width": "30%"});
                 //Cac truong bang so --> se co so truong = 0
-                $('.number').number(true, 2);
+                $('.number').number(true, 1);
                 //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 0);
 
@@ -108,31 +108,34 @@
                 <tr>
                     <td class="STT2">Cán bộ kiểm tra</td>
                     <td>
-                        <select id="cboCanBo<s:property value="#rowstatus.index" />" name="cboCanBo" style="border: hidden">
-                            <option value="000000">----Chọn cán bộ----</option>
-                            <s:iterator value="lstCanBo" status="rowstatus" var="language">
-                                <s:if test="%{#language.MaCB == disintctD5}">
-                                    <option value="<s:property value="MaCB"/>" selected><s:property value="TenCB"/></option>
-                                </s:if>
-                                <s:else>
-                                    <option value='<s:property value="MaCB"/>'><s:property value="TenCB"/></option>  </s:else>
-                            </s:iterator>
+                        <select id="cboCanBo<s:property value="#rowstatus.index" />" name="cboCanBo" style="border: hidden"
+                                <s:if test="check_form.equalsIgnoreCase('2')">onmousedown="return false" </s:if>>
+                                    <option value="000000">----Chọn cán bộ----</option>
+                                <s:iterator value="lstCanBo" status="rowstatus" var="language">
+                                    <s:if test="%{#language.MaCB == disintctD5}">
+                                        <option value="<s:property value="MaCB"/>" selected><s:property value="TenCB"/></option>
+                                    </s:if>
+                                    <s:else>
+                                        <option value='<s:property value="MaCB"/>'><s:property value="TenCB"/></option>  </s:else>
+                                </s:iterator>
                         </select>  </td>
- 
+
                 </tr>
                 <tr>
                     <s:if test="check_Flag.equalsIgnoreCase('S')">      
                         <td>Đơn vị công tác/ Chức vụ</td>
                         <td>
-                            <select name="namedistinctD6" id="idnamedistinctD6" style="border: hidden"> 
+                            <select name="namedistinctD6" id="idnamedistinctD6" style="border: hidden" 
+                                    <s:if test="check_form.equalsIgnoreCase('2')">onmousedown="return false" </s:if>> 
                                 <option value="0" style="text-align: center" <s:if test="disintctD6.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
                                 <option value="1" <s:if test="disintctD6.equalsIgnoreCase('1')"> selected </s:if>>Tổng hợp</option>
                                 <option value="2" <s:if test="disintctD6.equalsIgnoreCase('2')"> selected </s:if>>Kế toán Ngân quỹ</option>                        
                                 <option value="3" <s:if test="disintctD6.equalsIgnoreCase('3')"> selected </s:if>>Kế hoạch nghiệp vụ</option>
                                 <option value="4" <s:if test="disintctD6.equalsIgnoreCase('4')"> selected </s:if>>Giám đốc</option>
                                 </select>                 
-                                &nbsp;&nbsp;&nbsp; <select name="namedistinctD8" id="idnamedistinctD8" style="border: hidden"> 
-                                    <option value="0" style="text-align: center" <s:if test="disintctD8.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
+                                &nbsp;&nbsp;&nbsp; <select name="namedistinctD8" id="idnamedistinctD8" style="border: hidden"
+                                <s:if test="check_form.equalsIgnoreCase('2')">onmousedown="return false" </s:if>> 
+                                <option value="0" style="text-align: center" <s:if test="disintctD8.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
                                 <option value="1" <s:if test="disintctD8.equalsIgnoreCase('1')"> selected </s:if>>Cán bộ</option>
                                 <option value="2" <s:if test="disintctD8.equalsIgnoreCase('2')"> selected </s:if>>Tổ trưởng/Trưởng phòng</option>                        
                                 <option value="3" <s:if test="disintctD8.equalsIgnoreCase('3')"> selected </s:if>>Giám đốc</option>
@@ -154,8 +157,9 @@
                                 <option value="5" <s:if test="disintctD6.equalsIgnoreCase('5')"> selected </s:if>>Tổng hợp</option>
                                 <option value="6" <s:if test="disintctD6.equalsIgnoreCase('6')"> selected </s:if>>Giám đốc</option>
                                 </select>                 
-                                &nbsp;&nbsp;&nbsp;<select name="namedistinctD8" id="idnamedistinctD8" style="border: hidden"> 
-                                    <option value="0" style="text-align: center" <s:if test="disintctD8.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
+                                &nbsp;&nbsp;&nbsp;<select name="namedistinctD8" id="idnamedistinctD8" style="border: hidden"
+                                <s:if test="check_form.equalsIgnoreCase('2')">onmousedown="return false" </s:if>> 
+                                <option value="0" style="text-align: center" <s:if test="disintctD8.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
                                 <option value="1" <s:if test="disintctD8.equalsIgnoreCase('1')"> selected </s:if>>Cán bộ</option>
                                 <option value="2" <s:if test="disintctD8.equalsIgnoreCase('2')"> selected </s:if>>Phó phòng</option>  
                                 <option value="3" <s:if test="disintctD8.equalsIgnoreCase('3')"> selected </s:if>>Trưởng phòng</option>
@@ -169,7 +173,8 @@
 
                         <td>Đơn vị công tác/ Chức vụ</td>
                         <td>
-                            <select name="namedistinctD6" id="idnamedistinctD6" style="border: hidden"> 
+                            <select name="namedistinctD6" id="idnamedistinctD6" style="border: hidden"
+                                    <s:if test="check_form.equalsIgnoreCase('2')">onmousedown="return false" </s:if>> 
                                 <option value="0" style="text-align: center" <s:if test="disintctD6.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
                                 <option value="1" <s:if test="disintctD6.equalsIgnoreCase('1')"> selected </s:if>>Ban Tín dụng người nghèo</option>
                                 </select>                 
@@ -182,10 +187,10 @@
                             </td>
 
                     </s:else>
-                    
-                    </tr>
-                </table>
-                <div style="height:10px"></div>  
+
+                </tr>
+            </table>
+            <div style="height:10px"></div>  
             <table border="1" class="editDelete" id="subTable" align="center" style="padding-top: 10px">   
                 <tr>
                     <th>STT</th>
@@ -278,16 +283,26 @@
                     </s:elseif>
                     </tr>
                 </s:iterator>
-                <tr style="height: 30px; background: #ffffff">
+                <tr style="height: 30px; background: #FFE47A">
                     <td style="font-weight: bold;text-align: center">III</td>
                     <td style="font-weight: bold;text-align: center">TỔNG ĐIỂM</td>
                     <td style="font-weight: bold;text-align: right">100</td>
                     <td> <input type="text" value="0" name="sumAll" id="sumAll" class="number2" 
-                                style="font-weight: bold; background: #ffffff; color: #000"
+                                style="font-weight: bold; background: #FFE47A; color: #000"
                                 readonly/></td>
 
                 </tr>
+                <tr style="height: 30px; background: #9ad717">
+                    <td style="font-weight: bold;text-align: center"></td>
+                    <td style="font-weight: bold;text-align: center">XẾP LOẠI</td>
+                    <td></td>
+                    <td style="font-weight: bold;text-align: right">
+                        <input type="text" value="" name="xeploai" id="xeploai" class="D0" 
+                               style="font-weight: bold; background: #9ad717; color: #000"
+                               readonly/></td>
 
+
+                </tr>
             </table><div style="height:20px"></div> 
         </div>      
         <div id="luu_thanhcong"></div>
@@ -330,6 +345,16 @@
                 document.getElementById("D4_39").value = sum(["D4_40", "D4_41", "D4_42"]);
 
                 document.getElementById("sumAll").value = total + parseInt(document.getElementById("D4_36").value);
+                var xeploaiABC = document.getElementById("sumAll").value;
+                if (xeploaiABC > 84) {
+                    document.getElementById("xeploai").value = "Tốt";
+                } else if (xeploaiABC < 85 || xeploaiABC > 64) {
+                    document.getElementById("xeploai").value = "Khá";
+                } else if (xeploaiABC < 65 || xeploaiABC > 49) {
+                    document.getElementById("xeploai").value = "Trung bình";
+                } else if (xeploaiABC < 50) {
+                    document.getElementById("xeploai").value = "Yếu";
+                }
             }
 
             function check(index) {
