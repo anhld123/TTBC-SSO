@@ -302,37 +302,38 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
                 CO_TONGHOP = PosFlag;
             }
             setCheck_Flag(CO_TONGHOP);
-            try {
-
-                ServletContext servletContext = getServletContext();
-                String _contextPath = servletContext.getRealPath("/");
-                File file = new File(_contextPath + "/Image_tdnn_gdx/" + maxa + dateStr + PosFlag + ".txt");
-                FileReader fr = new FileReader(file);
-                BufferedReader br = new BufferedReader(fr);
-
-                StringBuilder sb = new StringBuilder();
-                String line;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line);
-                }
-
-                String image = sb.toString();
-                setInmage(image);
-                // Sử dụng biến string image ở đây
-                br.close();
-                fr.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            lstCanBo = new clsHuyDongTK().getCanBo(CO_TONGHOP, UserName);
+//            try {
+//
+//                ServletContext servletContext = getServletContext();
+//                String _contextPath = servletContext.getRealPath("/");
+//                File file = new File(_contextPath + "/Image_tdnn_gdx/" + maxa + dateStr + PosFlag + ".txt");
+//                FileReader fr = new FileReader(file);
+//                BufferedReader br = new BufferedReader(fr);
+//
+//                StringBuilder sb = new StringBuilder();
+//                String line;
+//                while ((line = br.readLine()) != null) {
+//                    sb.append(line);
+//                }
+//
+//                String image = sb.toString();
+//                setInmage(image);
+//                // Sử dụng biến string image ở đây
+//                br.close();
+//                fr.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
             setCheck_form(check);
             _server = new Service_GQVL2023();
             if (check == "1") {
+                lstCanBo = new clsHuyDongTK().getCanBo(CO_TONGHOP, UserName);
                 this.lstData = _server.getTTND_2024("KTGS_04GDX", mapgd, CO_TONGHOP, maxa, s, "", "0");
                 if (lstData == null || lstData.isEmpty()) {
                     this.lstData = _server.getTTND_2024("KTGS_04GDX", mapgd, CO_TONGHOP, maxa, s, "", "1");
                 }
             } else if (check == "2") {
+                lstCanBo = new clsHuyDongTK().getCanBo("A", UserName);
                 this.lstData = _server.getTTND_2024("KTGS_04GDX", mapgd, CO_TONGHOP, maxa, s, "", "0");
                 if (lstData == null || lstData.isEmpty()) {
                     addActionError("Điểm giao dịch chưa có dữ liệu");
@@ -428,21 +429,21 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
             int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(date1));
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
             String tranPoint = "TNX0" + maxa;
-            String imageBase64 = hmParameter.get("imageBase64").toString();
-            if (imageBase64.length() > 1) {
-                setImageSize("1");
-            }
-            ServletContext servletContext = getServletContext();
-            String _contextPath = servletContext.getRealPath("/");
-
-            String filePath = _contextPath + "/Image_tdnn_gdx/" + maxa + dateStr + PosFlag + ".txt";
-            // Ghi chuỗi base64 vào tệp tin
-                try (FileWriter fileWriter = new FileWriter(filePath)) {
-                    fileWriter.write(imageBase64);
-                    System.out.println("Đã ghi thành công chuỗi base64 vào tệp tin " + filePath);
-                } catch (IOException e) {
-                    System.err.println("Đã xảy ra lỗi khi ghi tệp tin: " + e.getMessage());
-                }
+//            String imageBase64 = hmParameter.get("imageBase64").toString();
+//            if (imageBase64.length() > 1) {
+//                setImageSize("1");
+//            }
+//            ServletContext servletContext = getServletContext();
+//            String _contextPath = servletContext.getRealPath("/");
+//
+//            String filePath = _contextPath + "/Image_tdnn_gdx/" + maxa + dateStr + PosFlag + ".txt";
+//            // Ghi chuỗi base64 vào tệp tin
+//                try (FileWriter fileWriter = new FileWriter(filePath)) {
+//                    fileWriter.write(imageBase64);
+//                    System.out.println("Đã ghi thành công chuỗi base64 vào tệp tin " + filePath);
+//                } catch (IOException e) {
+//                    System.err.println("Đã xảy ra lỗi khi ghi tệp tin: " + e.getMessage());
+//                }
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
                 DuLieuNTRow tempadd = new DuLieuNTRow();
@@ -458,7 +459,7 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
                 tempadd.setName(tmp.getTEN());
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(mapgd);
-                tempadd.setPosFlag(PosFlag);
+                tempadd.setPosFlag(check_Flag);
                 tempadd.setBranchCode(macn);
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(maxa);
@@ -549,7 +550,7 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
                 tempadd.setName(tmp.getTEN());
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(mapgd);
-                tempadd.setPosFlag(PosFlag);
+                tempadd.setPosFlag(check_Flag);
                 tempadd.setBranchCode(macn);
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(maxa);
@@ -638,7 +639,7 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
                 tempadd.setName(tmp.getTEN());
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(mapgd);
-                tempadd.setPosFlag(PosFlag);
+                tempadd.setPosFlag(check_Flag);
                 tempadd.setBranchCode(macn);
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(maxa);

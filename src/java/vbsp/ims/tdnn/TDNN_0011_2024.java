@@ -277,15 +277,16 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 CO_TONGHOP = PosFlag;
             }     
             setCheck_Flag(CO_TONGHOP);
-            lstCanBo = new clsHuyDongTK().getCanBo(CO_TONGHOP, UserName);
             setCheck_form(check);
             _server = new Service_GQVL2023();
             if (check == "1") {
+                lstCanBo = new clsHuyDongTK().getCanBo(CO_TONGHOP, UserName);
                 this.lstData = _server.getTTND_2024("KTGS_01GDX", mapgd, CO_TONGHOP, maxa, s, "", "0");
                 if (lstData == null || lstData.isEmpty()) {
                     this.lstData = _server.getTTND_2024("KTGS_01GDX", mapgd, CO_TONGHOP, maxa, s, "", "1");
                 }
             } else if (check == "2") {
+                lstCanBo = new clsHuyDongTK().getCanBo("A", UserName);
                 this.lstData = _server.getTTND_2024("KTGS_01GDX", mapgd, CO_TONGHOP, maxa, s, "", "0");
                 if (lstData == null || lstData.isEmpty()) {
                     addActionError("Điểm giao dịch chưa có dữ liệu");
@@ -396,7 +397,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 tempadd.setName(tmp.getTEN());
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(mapgd);
-                tempadd.setPosFlag(PosFlag);
+                tempadd.setPosFlag(check_Flag);
                 tempadd.setBranchCode(macn);
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(maxa);
@@ -487,7 +488,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 tempadd.setName(tmp.getTEN());
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(mapgd);
-                tempadd.setPosFlag(PosFlag);
+                tempadd.setPosFlag(check_Flag);
                 tempadd.setBranchCode(macn);
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(maxa);
@@ -576,7 +577,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 tempadd.setName(tmp.getTEN());
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(mapgd);
-                tempadd.setPosFlag(PosFlag);
+                tempadd.setPosFlag(check_Flag);
                 tempadd.setBranchCode(macn);
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(maxa);
