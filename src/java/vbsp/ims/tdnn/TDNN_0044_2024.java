@@ -660,7 +660,7 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
 
             }
             _server = new Service_GQVL2023();
-            int status = _server.saveTDNN_2024("KTGS_04GDX", mapgd, PosFlag, maxa, hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
+            int status = _server.deleteTDNN_2024("KTGS_04GDX", mapgd, PosFlag, maxa, hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
             if (status != 200) {
                 String code = String.valueOf(status);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));

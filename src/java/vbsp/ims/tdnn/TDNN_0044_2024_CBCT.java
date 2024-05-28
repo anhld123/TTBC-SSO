@@ -291,7 +291,7 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
                 addActionError("Bạn chưa chọn phòng giao dịch!");
                 return ERROR;
             }
-             String check = hmParameter.getOrDefault("check_2", "off").equals("on") ? "1"
+            String check = hmParameter.getOrDefault("check_2", "off").equals("on") ? "1"
                     : hmParameter.getOrDefault("check_1", "off").equals("on") ? "2" : "0";
             String CO_TONGHOP = "";
             if (check == "2" && PosFlag == "H") {
@@ -329,16 +329,16 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
             if (check == "1") {
                 lstCanBo = new clsHuyDongTK().getCanBo("B", UserName);
                 if (lstCanBo == null || lstCanBo.isEmpty()) {
-                addActionError("Phòng giao dịch chưa có cán bộ chuyên trách!");
-                return ERROR;
-            }
-                this.lstData = _server.getTTND_2024("KTGS_04GDX_CBCT_CBCT", mapgd, CO_TONGHOP, maxa, s, "", "0");
+                    addActionError("Phòng giao dịch chưa có cán bộ chuyên trách!");
+                    return ERROR;
+                }
+                this.lstData = _server.getTTND_2024("KTGS_04GDX_CBCT", mapgd, CO_TONGHOP, maxa, s, "", "0");
                 if (lstData == null || lstData.isEmpty()) {
-                    this.lstData = _server.getTTND_2024("KTGS_04GDX_CBCT_CBCT", mapgd, CO_TONGHOP, maxa, s, "", "1");
+                    this.lstData = _server.getTTND_2024("KTGS_04GDX_CBCT", mapgd, CO_TONGHOP, maxa, s, "", "1");
                 }
             } else if (check == "2") {
                 lstCanBo = new clsHuyDongTK().getCanBo("A", UserName);
-                this.lstData = _server.getTTND_2024("KTGS_04GDX_CBCT_CBCT", mapgd, CO_TONGHOP, maxa, s, "", "0");
+                this.lstData = _server.getTTND_2024("KTGS_04GDX_CBCT", mapgd, CO_TONGHOP, maxa, s, "", "0");
                 if (lstData == null || lstData.isEmpty()) {
                     addActionError("Điểm giao dịch chưa có dữ liệu");
                     return ERROR;
@@ -664,7 +664,7 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
 
             }
             _server = new Service_GQVL2023();
-            int status = _server.saveTDNN_2024("KTGS_04GDX_CBCT", mapgd, PosFlag, maxa, hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
+            int status = _server.deleteTDNN_2024("KTGS_04GDX_CBCT", mapgd, PosFlag, maxa, hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
             if (status != 200) {
                 String code = String.valueOf(status);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));

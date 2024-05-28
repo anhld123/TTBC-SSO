@@ -127,7 +127,7 @@
         </action>
         
         <action name="04_TDNN_2024_CBCT" class="vbsp.ims.tdnn.TDNN_0044_2024_CBCT"  method="load">
-            <result name="success">/TDNN/table_tdnn_04_2024_CBCT.jsp</result>
+            <result name="success">/TDNN/table_tdnn_04_2024_cbct.jsp</result>
             <result name="error">/TDNN/success.jsp</result>        
         </action> 
         
