@@ -73,18 +73,47 @@
         width: 70px;
     }
     input[readonly] {
-        background-color: #f2f2f2;
+        background-color: #cccccc;
         color: #666;
         cursor: not-allowed;
     }
+    @-webkit-keyframes my {
+        0% { color: #C40000; } 
+        50% { color: #fff;  } 
+        100% { color: #C40000;  } 
+    }
+    @-moz-keyframes my { 
+        0% { color: #C40000;  } 
+        50% { color: #fff;  }
+        100% { color: #C40000;  } 
+    }
+    @-o-keyframes my { 
+        0% { color: #C40000; } 
+        50% { color: #fff; } 
+        100% { color: #C40000;  } 
+    }
+    @keyframes my { 
+        0% { color: #C40000;  } 
+        50% { color: #fff;  }
+        100% { color: #C40000;  } 
+    } 
+    .test {
+        background:#ddd;
+        font-size:12px;
+        font-weight:bold;
+        -webkit-animation: my 700ms infinite;
+        -moz-animation: my 700ms infinite; 
+        -o-animation: my 700ms infinite; 
+        animation: my 700ms infinite;
+    }
 </style>
-<table  id="tableKtnb" border="1">
+<table  id="tableKtnb" border="1" style="width: 80%" align="center">
     <tr class="tbhead">
-        <th class="TD_BUTTON1">MS</th>
-        <th class="TD_THOIGIAN">Nội dung</th>
-        <th class="TD_TENKH123">Đơn vị tính</th>
-        <th class="SOKU1">Kết quả</th>
-        <th class="SOKU">Ghi chú</th>
+        <th style="width: 3%">STT</th>
+        <th style="width: 60%">Nội dung</th>
+        <th style="width: 8%">Đơn vị tính</th>
+        <th style="width: 10%">Kết quả</th>
+        <th style="width: 10%">Ghi chú</th>
     </tr>
 
     <tr class="tbhead">
@@ -94,9 +123,8 @@
         <th>(4)</th>
         <th>(5)</th>
     </tr>
-
     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
-        <tr height="cscontent">    
+        <tr height="cscontent"> 
         <input type="hidden" value="<s:property  value="TT_HIENTHI" />"
                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" value="<s:property  value="TT_HIENTHI"/>"/>     
         <input type="hidden" value="<s:property  value="THUTU" />"
@@ -154,20 +182,21 @@
                                    this.value = 0
                                }
                                ;" style="height: 30px;width: 95%"
-                       <s:if test="D7.equalsIgnoreCase('2') || D7.equalsIgnoreCase('1')"> readonly</s:if>
+                       <s:if test="D7.equalsIgnoreCase('2') || D7.equalsIgnoreCase('1')"> readonly onkeypress="return false;"</s:if>
                            />
 
                 </td>
-            <s:if test="D7.equalsIgnoreCase('2') || D7.equalsIgnoreCase('1')"> <td></td></s:if>
-            <s:else>
-                <td class="D0">
-                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="D10_<s:property  value='%{#rowstatus.index}' />" 
-                               name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10" 
-                               style="width: 98%;height: 98%" maxlength="200"><s:property value='D10'/></textarea>
-                </td>
+            <s:if test="D7.equalsIgnoreCase('2') || D7.equalsIgnoreCase('1')"> <td style="background: #cccccc; color: #000">Lưu ý không nhập</td></s:if>
+            <s:else> 
+                <s:if test ="TT_HIENTHI.equalsIgnoreCase('4') || TT_HIENTHI.equalsIgnoreCase('5')
+                      || TT_HIENTHI.equalsIgnoreCase('14') || TT_HIENTHI.equalsIgnoreCase('18')
+                      || TT_HIENTHI.equalsIgnoreCase('25') || TT_HIENTHI.equalsIgnoreCase('36')
+                      ||TT_HIENTHI.equalsIgnoreCase('40') ||TT_HIENTHI.equalsIgnoreCase('42')" >
+                    <td style="background: #cccccc; color: red" class="test">Lưu ý nhập</td> </s:if>
+                <s:else><td style="background: #cccccc;" ></td></s:else> 
             </s:else>
         </s:elseif>
-    </tr>                                
+    </tr>
 </s:iterator>
 
 </table>

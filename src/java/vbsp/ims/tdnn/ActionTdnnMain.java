@@ -454,7 +454,8 @@ public class ActionTdnnMain extends ActionSupport {
 //                lstPOS = new DaoKt740().getGroupQuery(null);
                 return "GSCMR_001";
             }
-            if (khoa_tdnn.equals("01_TDNN_2024") || khoa_tdnn.equals("04_TDNN_2024")) {
+            if (khoa_tdnn.equals("01_TDNN_2024") || khoa_tdnn.equals("04_TDNN_2024")
+                    ||khoa_tdnn.equals("01_TDNN_2024_CBCT") || khoa_tdnn.equals("04_TDNN_2024_CBCT")) {
                 String PosFlag = "";
                 if (Grade.equals("3")) {
                     PosFlag = "H";

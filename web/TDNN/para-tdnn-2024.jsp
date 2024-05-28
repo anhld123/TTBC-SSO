@@ -769,7 +769,8 @@
                     <img id="loadingImage" src='img/loading.gif' border='0' >                  
                 </div>   
                 <div id="message_suc_err"></div>
-            <s:if test="khoa_tdnn.equalsIgnoreCase('01_TDNN_2024') || khoa_tdnn.equalsIgnoreCase('04_TDNN_2024')">
+            <s:if test="khoa_tdnn.equalsIgnoreCase('01_TDNN_2024') || khoa_tdnn.equalsIgnoreCase('04_TDNN_2024')
+                  || khoa_tdnn.equalsIgnoreCase('01_TDNN_2024_CBCT')|| khoa_tdnn.equalsIgnoreCase('04_TDNN_2024_CBCT')">
                 <div id="containParm_full" align="center">
                     <div id="divExportReport"></div>
                     <div align="right"  id="divExportReportLink"></div>

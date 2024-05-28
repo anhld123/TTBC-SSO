@@ -77,103 +77,98 @@
         cursor: not-allowed;
     }
 </style>
-<table border="1px" id="tableKtnb">
-    <tr class="tbhead">
-        <th class="TD_BUTTON1">MS</th>
-        <th class="TD_THOIGIAN">Nội dung</th>
-        <th class="TD_TENKH123">Đơn vị tính</th>
-        <th class="SOKU1">Kết quả</th>
-        <th class="SOKU">Ghi chú</th>
-    </tr>
+<table border="1px" id="tableKtnb" style="width: 80%; margin: auto">
+                                <tr class="tbhead">
+                                    <th style="width: 3%">MS</th>
+                                    <th style="width: 60%">Nội dung</th>
+                                    <th style="width: 10%">Đơn vị tính</th>
+                                    <th style="width: 10%">Kết quả</th>
+                                    <th style="width: 10%">Ghi chú</th>
+                                </tr>
 
-    <tr class="tbhead">
-        <th>(1)</th>
-        <th>(2)</th>
-        <th>(3)</th>
-        <th>(4)</th>
-        <th>(5)</th>
-    </tr>
+                                <tr class="tbhead">
+                                    <th>(1)</th>
+                                    <th>(2)</th>
+                                    <th>(3)</th>
+                                    <th>(4)</th>
+                                    <th>(5)</th>
+                                </tr>
 
-    <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
-        <tr height="cscontent">    
-        <input type="hidden" value="<s:property  value="TT_HIENTHI" />"
-               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" value="<s:property  value="TT_HIENTHI"/>"/>
-        <input type="hidden" value="<s:property  value="THUTU" />"
-               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/> 
-        <input type="hidden" value="<s:property  value="MA" />"
-               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/> 
-        <input type="hidden" value="<s:property  value="FONTFORMAT" />"
-               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].FONTFORMAT" value="<s:property  value="FONTFORMAT"/>"/> 
-        <input type="hidden" value="<s:property  value="CO_TONGHOP" />"
-               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP" value="<s:property  value="CO_TONGHOP"/>"/> 
-        <input type="hidden" value="<s:property  value="D7" />"
-               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" value="<s:property  value="D7"/>"/>  
-        <input type="hidden" value="<s:property  value="D4" />"
-               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" value="<s:property  value="D4"/>"/>  
-        <input type="hidden" value="<s:property  value="D2" />"
-               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" value="<s:property  value="D4"/>"/>  
+                                <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
+                                    <tr height="cscontent">    
+                                    <input type="hidden" value="<s:property  value="TT_HIENTHI" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" value="<s:property  value="TT_HIENTHI"/>"/>
+                                    <input type="hidden" value="<s:property  value="THUTU" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/> 
+                                    <input type="hidden" value="<s:property  value="MA" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/> 
+                                    <input type="hidden" value="<s:property  value="FONTFORMAT" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].FONTFORMAT" value="<s:property  value="FONTFORMAT"/>"/> 
+                                    <input type="hidden" value="<s:property  value="CO_TONGHOP" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP" value="<s:property  value="CO_TONGHOP"/>"/> 
+                                    <input type="hidden" value="<s:property  value="D7" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" value="<s:property  value="D7"/>"/>  
+                                    <input type="hidden" value="<s:property  value="D4" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" value="<s:property  value="D4"/>"/>  
+                                    <input type="hidden" value="<s:property  value="D2" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" value="<s:property  value="D4"/>"/>  
 
-        <input type="hidden" value="<s:property  value="D8" />"
-               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/>
-        <input type="hidden" value="<s:property  value="D9" />"
-               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/>
-        <input type="hidden" value="<s:property  value="TEN" />"
-               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" value="<s:property  value="TEN"/>"/> 
-        <input type="hidden" value="<s:property  value="D50" />"
-               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D50" value="<s:property  value="D50"/>"/>
-        <s:if test="D4.equalsIgnoreCase('1')">
-            <td class="D0 D1 D2 D4"><s:property  value="TT_HIENTHI" /></td>
-            <td class="D1 D2 D4"><s:property  value="D1" /></td>
-            <td class="D0 D1 D2 D4"><s:property  value="D2" /></td>
-            <td style="height: 30px" class="D4"></td><td style="height: 30px" class="D4"></td>
-            </s:if>
-            <s:elseif test="D4.equalsIgnoreCase('2')">
-            <td class="D0 D1 D3"><s:property  value="TT_HIENTHI" /></td>
-            <td class="D1 D3"><s:property  value="D1" /></td>
-            <td class="D0 D1 D3"><s:property  value="D2" /></td>
-        </s:elseif>
-        <s:elseif test="D4.equalsIgnoreCase('3')">
-            <td class="D0 D1 "><s:property  value="TT_HIENTHI" /></td>
-            <td class="D1"><s:property  value="D1" /></td>
-            <td class="D0 D1"><s:property  value="D2" /></td>
-        </s:elseif>
-        <s:if test="D4.equalsIgnoreCase('3')||D4.equalsIgnoreCase('2')">
-            <s:if test="D5.equalsIgnoreCase('1')">
-                <td>
-                    <input type="text" value="<s:property  value="D3" />" id="D3_<s:property  value="%{#rowstatus.index}" />"
-                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3"
-                           class="number" onfocus="this.select()" onblur="if (this.value == '') {
-                                       this.value = 0
-                                   }
-                                   ;" 
-                           style="height: 30px;width: 95%"
-                           <s:if test="TT_HIENTHI.equalsIgnoreCase('5') || TT_HIENTHI.equalsIgnoreCase('6')|| TT_HIENTHI.equalsIgnoreCase('7')"> readonly</s:if>
-                               />
-                    </td>
-            </s:if>
-            <s:else>
-                <td>
-                    <input type="text" value="<s:property  value="D3" />" id="D3_<s:property  value="%{#rowstatus.index}" />"
-                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3"
-                           onfocus="this.select()"
-                           style="height: 30px;width: 95%;text-align: right"
-                           <s:if test="TT_HIENTHI.equalsIgnoreCase('5') || TT_HIENTHI.equalsIgnoreCase('6')|| TT_HIENTHI.equalsIgnoreCase('7')"> readonly</s:if>
-                               />
-                    </td>
-            </s:else>
-            <s:if test="TT_HIENTHI.equalsIgnoreCase('5') || TT_HIENTHI.equalsIgnoreCase('6')|| TT_HIENTHI.equalsIgnoreCase('7')"> <td></td></s:if>
-            <s:else>
-                <td class="D0">
-                    <textarea  placeholder="Nhập tối đa 200 ký tự" id="D10_<s:property  value='%{#rowstatus.index}' />" 
-                               name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10" 
-                               style="width: 98%;height: 98%" maxlength="200"><s:property value='D10'/></textarea>
-                </td></s:else>      
-        </s:if>
-    </tr>
+                                    <input type="hidden" value="<s:property  value="D8" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/>
+                                    <input type="hidden" value="<s:property  value="D9" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" value="<s:property  value="D9"/>"/>
+                                    <input type="hidden" value="<s:property  value="TEN" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" value="<s:property  value="TEN"/>"/> 
+                                    <input type="hidden" value="<s:property  value="D50" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D50" value="<s:property  value="D50"/>"/>
+                                    <s:if test="D4.equalsIgnoreCase('1')">
+                                        <td class="D0 D1 D2 D4"><s:property  value="TT_HIENTHI" /></td>
+                                        <td class="D1 D2 D4"><s:property  value="D1" /></td>
+                                        <td class="D0 D1 D2 D4"><s:property  value="D2" /></td>
+                                        <td style="height: 30px" class="D4"></td><td style="height: 30px" class="D4"></td>
+                                        </s:if>
+                                        <s:elseif test="D4.equalsIgnoreCase('2')">
+                                        <td class="D0 D1 D3"><s:property  value="TT_HIENTHI" /></td>
+                                        <td class="D1 D3"><s:property  value="D1" /></td>
+                                        <td class="D0 D1 D3"><s:property  value="D2" /></td>
+                                    </s:elseif>
+                                    <s:elseif test="D4.equalsIgnoreCase('3')">
+                                        <td class="D0 D1 "><s:property  value="TT_HIENTHI" /></td>
+                                        <td class="D1"><s:property  value="D1" /></td>
+                                        <td class="D0 D1"><s:property  value="D2" /></td>
+                                    </s:elseif>
+                                    <s:if test="D4.equalsIgnoreCase('3')||D4.equalsIgnoreCase('2')">
+                                        <s:if test="D5.equalsIgnoreCase('1')">
+                                            <td>
+                                                <input type="text" value="<s:property  value="D3" />" id="D3_<s:property  value="%{#rowstatus.index}" />"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3"
+                                                       class="number" onfocus="this.select()" onblur="if (this.value == '') {
+                                                                   this.value = 0
+                                                               }
+                                                               ;" 
+                                                       style="height: 30px;width: 95%"
+                                                       <s:if test="TT_HIENTHI.equalsIgnoreCase('5') || TT_HIENTHI.equalsIgnoreCase('6')|| TT_HIENTHI.equalsIgnoreCase('7')"> readonly</s:if>
+                                                           />
+                                                </td>
+                                        </s:if>
+                                        <s:else>
+                                            <td>
+                                                <input type="text" value="<s:property  value="D3" />" id="D3_<s:property  value="%{#rowstatus.index}" />"
+                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3"
+                                                       onfocus="this.select()"
+                                                       style="height: 30px;width: 95%;text-align: right"
+                                                       <s:if test="TT_HIENTHI.equalsIgnoreCase('5') || TT_HIENTHI.equalsIgnoreCase('6')|| TT_HIENTHI.equalsIgnoreCase('7')"> readonly</s:if>
+                                                           />
+                                                </td>
+                                        </s:else>
+                                        <s:if test="TT_HIENTHI.equalsIgnoreCase('5') || TT_HIENTHI.equalsIgnoreCase('6')|| TT_HIENTHI.equalsIgnoreCase('7')"> <td td style="background: #cccccc; color: #000">Lưu ý không nhập</td></s:if>
+                                        <s:else><td style="background: #cccccc;" ></td></s:else>      
+                                    </s:if>
+                        </tr>
 
-</s:iterator>
+                    </s:iterator>
 
-</table>            
+                </table>       
 
 <script>
     var max_row = 0;

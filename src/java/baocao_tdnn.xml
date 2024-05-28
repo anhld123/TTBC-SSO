@@ -99,6 +99,58 @@
                 <param name="inputName">pageResult</param>
             </result>       
         </action>
+        <!--ducanh 2024 bo sung 25/5/2024-->
+        <action name="01_TDNN_2024_CBCT" class="vbsp.ims.tdnn.TDNN_0011_2024_CBCT"  method="load">
+            <result name="success">/TDNN/table_tdnn_01_2024_cbct.jsp</result>
+            <result name="error">/TDNN/success.jsp</result>        
+        </action> 
+        
+        <action name="save_01_TDNN_2024_CBCT" class="vbsp.ims.tdnn.TDNN_0011_2024_CBCT"  method="save">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>       
+        </action>
+        
+        <action name="unlock_01_TDNN_2024_CBCT" class="vbsp.ims.tdnn.TDNN_0011_2024_CBCT"  method="unlock">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>       
+        </action>
+        
+        <action name="send_01_TDNN_2024_CBCT" class="vbsp.ims.tdnn.TDNN_0011_2024_CBCT"  method="send">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>       
+        </action>
+        
+        <action name="04_TDNN_2024_CBCT" class="vbsp.ims.tdnn.TDNN_0044_2024_CBCT"  method="load">
+            <result name="success">/TDNN/table_tdnn_04_2024_CBCT.jsp</result>
+            <result name="error">/TDNN/success.jsp</result>        
+        </action> 
+        
+        <action name="save_04_TDNN_2024_CBCT" class="vbsp.ims.tdnn.TDNN_0044_2024_CBCT"  method="save">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>       
+        </action>
+        
+        <action name="unlock_04_TDNN_2024_CBCT" class="vbsp.ims.tdnn.TDNN_0044_2024_CBCT"  method="unlock">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>       
+        </action>
+        
+        <action name="send_04_TDNN_2024_CBCT" class="vbsp.ims.tdnn.TDNN_0044_2024_CBCT"  method="send">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>       
+        </action>
         <!--<action name="popup_seach" class="vbsp.ims.tdnn.TDNN_0011_2024" method="popup_seach">
             <result name="success">/TDNN/popup_seach.jsp</result>
         </action>-->

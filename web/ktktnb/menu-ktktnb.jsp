@@ -79,6 +79,7 @@
                             &nbsp;&nbsp;  
                             <b>Ngày báo cáo (áp dụng mẫu biểu PCTN):</b>                            
                             <input type="text" name="dpkReportDate" id="dpkReportDate" readonly="readonly"/>
+                            <b style="color: red">(Hiển thị vào ngày 10 đến 14 hàng tháng)</b>
                         </td>
                     </tr>
                     <tr>
@@ -107,59 +108,86 @@
         <script>
             $(function () {
                 var date = new Date();
-                var maxDate = "-" + date.getDate() + "D" + "+1M";
-                var minDate = "-1M " + "-" + (date.getDate() - 1)
-                        + "D";
-                var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-                if (lastDayOfMonth.getDate() - date.getDate() >= 25)
-                {
-                    $("#dpkReportDate").datepicker(
-                            {
-                                dateFormat: 'dd/mm/yy',
-                                showOn: "button",
-                                buttonImage: "img/icon-ui_datepicker.png",
-                                buttonImageOnly: true,
-                                // dateFormat: 'dd/mm/yy',
-                                showButtonPanel: true,
-                                buttonText: "icono",
-                                changeMonth: true,
-                                changeYear: true,
-                                minDate: minDate,
-                                maxDate: maxDate,
-                                beforeShowDay: function (date) {
-                                    var maxDate = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate(); // Lấy ngày cuối cùng của tháng
-                                    if (date.getDate() === maxDate) {
-                                        return [true, ''];
-                                    }
-                                    return [false, ''];
-                                }
-                            });
-                }
-                if (lastDayOfMonth.getDate() - date.getDate() < 25)
-                {
-                    $("#dpkReportDate").datepicker(
-                            {
-                                dateFormat: 'dd/mm/yy',
-                                showOn: "button",
-                                buttonImage: "img/icon-ui_datepicker.png",
-                                buttonImageOnly: true,
-                                // dateFormat: 'dd/mm/yy',
-                                showButtonPanel: true,
-                                buttonText: "icono",
-                                changeYear: false,
-                                changeMonth: false,
-                                stepMonths: 0,
-                                beforeShowDay: function (date) {
-                                    var maxDate = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate(); // Lấy ngày cuối cùng của tháng
-                                    if (date.getDate() === maxDate) {
-                                        return [true, ''];
-                                    }
-                                    return [false, ''];
-                                }
-                            });
+                var currentDay = date.getDate();
+                if (currentDay >= 10 && currentDay <= 14) {
+                    $("#dpkReportDate").datepicker({
+                        dateFormat: 'dd/mm/yy',
+                        showOn: "button",
+                        buttonImage: "img/icon-ui_datepicker.png",
+                        buttonImageOnly: true,
+                        showButtonPanel: true,
+                        buttonText: "icono",
+                        changeMonth: true,
+                        changeYear: true,
+                        beforeShowDay: function (date) {
+                            var day = date.getDate();
+                            // Only allow selecting days from the 10th to the 14th
+                            if (day >= 10 && day <= 14) {
+                                return [true, ""];
+                            } else {
+                                return [false, ""];
+                            }
+                        }
+                    });
                 }
             });
+
+
+
+//            $(function () {
+//                var date = new Date();
+//                var maxDate = "-" + date.getDate() + "D" + "+1M";
+//                var minDate = "-1M " + "-" + (date.getDate() - 1)
+//                        + "D";
+//                var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+//                if (lastDayOfMonth.getDate() - date.getDate() >= 25)
+//                {
+//                    $("#dpkReportDate").datepicker(
+//                            {
+//                                dateFormat: 'dd/mm/yy',
+//                                showOn: "button",
+//                                buttonImage: "img/icon-ui_datepicker.png",
+//                                buttonImageOnly: true,
+//                                // dateFormat: 'dd/mm/yy',
+//                                showButtonPanel: true,
+//                                buttonText: "icono",
+//                                changeMonth: true,
+//                                changeYear: true,
+//                                minDate: minDate,
+//                                maxDate: maxDate,
+//                                beforeShowDay: function (date) {
+//                                    var maxDate = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate(); // Lấy ngày cuối cùng của tháng
+//                                    if (date.getDate() === maxDate) {
+//                                        return [true, ''];
+//                                    }
+//                                    return [false, ''];
+//                                }
+//                            });
+//                }
+//                if (lastDayOfMonth.getDate() - date.getDate() < 25)
+//                {
+//                    $("#dpkReportDate").datepicker(
+//                            {
+//                                dateFormat: 'dd/mm/yy',
+//                                showOn: "button",
+//                                buttonImage: "img/icon-ui_datepicker.png",
+//                                buttonImageOnly: true,
+//                                // dateFormat: 'dd/mm/yy',
+//                                showButtonPanel: true,
+//                                buttonText: "icono",
+//                                changeYear: false,
+//                                changeMonth: false,
+//                                stepMonths: 0,
+//                                beforeShowDay: function (date) {
+//                                    var maxDate = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate(); // Lấy ngày cuối cùng của tháng
+//                                    if (date.getDate() === maxDate) {
+//                                        return [true, ''];
+//                                    }
+//                                    return [false, ''];
+//                                }
+//                            });
+//                }
+//            });
 
             //CuongBM: 05Oct14
             //Desc: Xu truong hop dat gia tri mac dich cho combox Quy (Quater), la quy hien tai
@@ -170,6 +198,7 @@
 //
 //            //Gan quy mac dinh
 //            $("#cboquybc").val(quarter);
+
         </script>
     </body>
 </html>
