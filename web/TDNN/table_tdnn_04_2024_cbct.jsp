@@ -297,7 +297,7 @@
                             </td>
                             <td class="D0">
                                 <textarea placeholder="Nhập tối đa 200 ký tự" id="D9_<s:property  value='%{#rowstatus.index}' />" 
-                                          style="width: 99%;height: 99%"
+                                          style="width: 98%;height: 98%"
                                           name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D9" maxlength="200"><s:property value='D9'/></textarea>
                             </td>
                         </s:if>

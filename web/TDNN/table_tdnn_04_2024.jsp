@@ -109,13 +109,13 @@
                     <!--<th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>-->
                 </tr>
                 <tr>
-                  <td class="STT2">Cán bộ kiểm tra</td>
+                    <td class="STT2">Cán bộ kiểm tra</td>
 
                     <td>
                         <select id="cboCanBo<s:property value="#rowstatus.index" />" name="cboCanBo" style="border: hidden"
                                 <s:if test="check_form.equalsIgnoreCase('2')">onmousedown="return false" </s:if>>
-                            
-                                <option value="000000">----Chọn cán bộ----</option>
+
+                                    <option value="000000">----Chọn cán bộ----</option>
                                 <s:iterator value="lstCanBo" status="rowstatus" var="language">
                                     <s:if test="%{#language.MaCB == disintctD5}">
                                         <option value="<s:property value="MaCB"/>" selected><s:property value="TenCB"/></option>
@@ -287,7 +287,7 @@
                             <td style="background: #ffffff;">
                                 <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
                                        id="D4_<s:property value="%{#rowstatus.index}"/>" value="<s:property value="D4" />"
-                                       class="number2" onkeyup="calc(this);"  onchange="calc(this);"
+                                       class="number2" onkeyup="calc(this);"  onchange="calc(this);" onclick="calc(this)"
                                        onblur="if (this.value == '') {
                                                    this.value = 0
                                                }
@@ -297,8 +297,8 @@
                             </td>
                             <td class="D0">
                                 <textarea placeholder="Nhập tối đa 200 ký tự" id="D9_<s:property  value='%{#rowstatus.index}' />" 
-                                          style="width: 99%;height: 99%"
-                                          name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D9" maxlength="200"><s:property value='D9'/></textarea>
+                                          style="width: 98%;height: 98%" maxlength="200" 
+                                          name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D9" ><s:property value='D9'/></textarea>
                             </td>
                         </s:if>
                         <s:else>
