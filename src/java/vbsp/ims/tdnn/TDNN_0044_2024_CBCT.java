@@ -335,6 +335,10 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
                 this.lstData = _server.getTTND_2024("KTGS_04GDX_CBCT", mapgd, CO_TONGHOP, maxa, s, "", "0");
                 if (lstData == null || lstData.isEmpty()) {
                     this.lstData = _server.getTTND_2024("KTGS_04GDX_CBCT", mapgd, CO_TONGHOP, maxa, s, "", "1");
+                    if (lstData == null || lstData.isEmpty()) {
+                        addActionError("Không có kết nối đến API từ TW, vui lòng liên hệ tin học để hỗ trợ!");
+                        return ERROR;
+                    }
                 }
             } else if (check == "2") {
                 lstCanBo = new clsHuyDongTK().getCanBo("A", UserName);

@@ -291,7 +291,7 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
                 addActionError("Bạn chưa chọn phòng giao dịch!");
                 return ERROR;
             }
-             String check = hmParameter.getOrDefault("check_2", "off").equals("on") ? "1"
+            String check = hmParameter.getOrDefault("check_2", "off").equals("on") ? "1"
                     : hmParameter.getOrDefault("check_1", "off").equals("on") ? "2" : "0";
             String CO_TONGHOP = "";
             if (check == "2" && PosFlag == "H") {
@@ -331,6 +331,10 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
                 this.lstData = _server.getTTND_2024("KTGS_04GDX", mapgd, CO_TONGHOP, maxa, s, "", "0");
                 if (lstData == null || lstData.isEmpty()) {
                     this.lstData = _server.getTTND_2024("KTGS_04GDX", mapgd, CO_TONGHOP, maxa, s, "", "1");
+                    if (lstData == null || lstData.isEmpty()) {
+                        addActionError("Không có kết nối đến API từ TW, vui lòng liên hệ tin học để hỗ trợ!");
+                        return ERROR;
+                    }
                 }
             } else if (check == "2") {
                 lstCanBo = new clsHuyDongTK().getCanBo("A", UserName);
