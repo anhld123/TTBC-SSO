@@ -610,10 +610,17 @@
             $(document).ready(function () {
                 initTable();
             });
+            
+            function subString(input) {
+                var _index = input.indexOf("_");
+                var _result = input.substring(_index+1, input.length);
+                return _result;
+            }
+            
             function onSelectChange() {
                 let selectedValue = $('#lstCN').find(":selected").val();
-                let province = selectedValue.substring(0, 4);
-                let province1 = selectedValue.substring(2, 4);
+                let province = selectedValue;//.substring(0, 4);
+                //let province1 = selectedValue;//.substring(2, 4);
 
                 $('#lstPGD' + ' option').each(function () {
                     $(this).remove();
@@ -622,20 +629,24 @@
                     if ($(this).val().startsWith(province)) {
                         $('#lstPGD').append($('<option>',
                                 {
-                                    value: $(this).val(),
+                                    value: subString($(this).val()),
                                     text: $(this).text()
                                 }));
                     }
                 });
+                
+                let province1 = $('#lstPGD').find(":selected").val();
+                
                 $('#lstXa' + ' option').each(function () {
                     $(this).remove();
                     //}
                 });
+                
                 $('#lstXa_Temp option').each(function () {
                     if ($(this).val().startsWith(province1)) {
                         $('#lstXa').append($('<option>',
                                 {
-                                    value: $(this).val(),
+                                    value: subString($(this).val()),
                                     text: $(this).text()
                                 }));
                     }
@@ -648,7 +659,7 @@
 
             function onSelectChangeXa() {
                 let selectedValue = $('#lstPGD').find(":selected").val();
-                let province = selectedValue.substring(2, 6);
+                let province = selectedValue;//.substring(2, 6);
                 $('#lstXa' + ' option').each(function () {
                     $(this).remove();
                 });
@@ -656,7 +667,7 @@
                     if ($(this).val().startsWith(province)) {
                         $('#lstXa').append($('<option>',
                                 {
-                                    value: $(this).val(),
+                                    value: subString($(this).val()),
                                     text: $(this).text()
                                 }));
                     }
@@ -693,14 +704,14 @@
                         <select id="lstPGD_Temp">
                             <option value="000000">----Chọn phòng giao dịch----</option>
                             <s:iterator value="lstPGD_API" status="ideRows" var="language">                                    
-                                <option value="<s:property value="PosCode"/>"><s:property value="PosCode"/> - <s:property value="PosName"/></option>                                    
+                                <option value="<s:property value="MainPos"/>_<s:property value="PosCode"/>"><s:property value="PosCode"/> - <s:property value="PosName"/></option>                                    
                             </s:iterator>
                         </select>
                         <s:if test="!Grade.equalsIgnoreCase('3')">
                             <select id="lstXa_Temp">
                                 <option value="000000">----Chọn điểm giao dịch xã----</option>
                                 <s:iterator value="lstPoint_API" status="ideRows" var="language">                                    
-                                    <option value="<s:property value="communeId"/>"><s:property value="transactionPoint"/> - <s:property value="communeName"/></option>                                    
+                                    <option value="<s:property value="PosCode"/>_<s:property value="communeId"/>"><s:property value="transactionPoint"/> - <s:property value="communeName"/></option>                                    
                                 </s:iterator>
                             </select>
                         </s:if>
@@ -708,7 +719,7 @@
                             <select id="lstXa_Temp">
                                 <option value="000000">----Chọn điểm giao dịch xã----</option>
                                 <s:iterator value="lstXa_API" status="ideRows" var="language">                                    
-                                    <option value="<s:property value="communeCode"/>">TXN<s:property value="communeCode"/> - <s:property value="communeName"/></option>                                    
+                                    <option value="<s:property value="PosCode"/>_<s:property value="communeCode"/>">TXN<s:property value="communeCode"/> - <s:property value="communeName"/></option>                                    
                                 </s:iterator>
                             </select> 
                         </s:else>
