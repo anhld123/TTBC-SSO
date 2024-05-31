@@ -69,7 +69,7 @@ public class ExportJasperReport_Api {
         //thi chi lay ra ten la Candoi
 //        String strNameFile = scrFile.getName().toUpperCase().replaceAll(".JRXML", "");
         //Khoi tao ngay tao file
-        Date date = new Date();
+//        Date date = new Date();
         // long TimeReport = date.getTime();
         //Lay ra ten file can tao
 //        File localFile2 = null;
@@ -81,8 +81,8 @@ public class ExportJasperReport_Api {
         //System.err.println(localFile3.toString());
 
         //thiet lap cac tham so
-        JRProperties.setProperty(JRProperties.QUERY_EXECUTER_FACTORY_PREFIX + "plsql",
-                "com.jaspersoft.jrx.query.PlSqlQueryExecuterFactory");
+//        JRProperties.setProperty(JRProperties.QUERY_EXECUTER_FACTORY_PREFIX + "plsql",
+//                "com.jaspersoft.jrx.query.PlSqlQueryExecuterFactory");
         //kiem tra neu file da bien dich roi thi bo qua khong bien dich nua
 //            if (localFile3.exists()) {
 //                strfilejasper = localFile3.getCanonicalPath();
@@ -125,7 +125,6 @@ public class ExportJasperReport_Api {
 //                    } else if (key.equals("PARA_TONGHOP")) {
 //                        row.setParaType("C");
 //                    }
-
                 _LstParameter.add(row);
             }
         }
@@ -135,80 +134,82 @@ public class ExportJasperReport_Api {
         _reportApi.setFileType("PDF");
         _reportApi.setLstParameter(_LstParameter);
         // gọi API lấy chuỗi 64          
-        ReportApi kk = _apiReport.Report_Api(reportId,"PDF", _reportApi);
+        ReportApi _reportResponse = _apiReport.Report_Api(reportId, "PDF", _reportApi);
 
-        File file = new File(strTargetFilePdf);
-
-        try (FileOutputStream fos = new FileOutputStream(file);) {
-            // To be short I use a corrupted PDF string, so make sure to use a valid one if you want to preview the PDF file
-            String b64 = kk.data;
-            byte[] decoder = Base64.getDecoder().decode(b64);
-
-            fos.write(decoder);
-            System.out.println("PDF File Saved");
-
-            //tao ra file pdf
-//            JasperExportManager.exportReportToPdfFile(localJasperPrint, strTargetFilePdf);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (_reportResponse != null && _reportResponse.data != null) {
+            File file = new File(strTargetFilePdf);
+            try (FileOutputStream fos = new FileOutputStream(file)) {
+                // To be short I use a corrupted PDF string, so make sure to use a valid one if you want to preview the PDF file
+                String b64 = _reportResponse.data;
+                byte[] decoder = Base64.getDecoder().decode(b64);
+                fos.write(decoder);
+                System.out.println("PDF File Saved");
+                //tao ra file pdf
+                //            JasperExportManager.exportReportToPdfFile(localJasperPrint, strTargetFilePdf);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Khong co du lieu ~" + reportId);
         }
     }
 
     public void ExportJasperPdf(HashMap<String, Object> paramHashMap, String strTargetFilePdf, String reportId) {
         ExportJasperPdf(paramHashMap, oracleConn.getConnect(), strTargetFilePdf, reportId);
     }
-  
-  public void ExportJasperExcel(HashMap<String, Object> paramHashMap, Connection connectdb, String strFileName, String reportId) {
-    try {
-        Set<String> keySet = paramHashMap.keySet();
-        ArrayList<String> listOfKeys = new ArrayList<String>(keySet);
-        Collection<Object> values = paramHashMap.values();
-        ArrayList<Object> listOfValues = new ArrayList<>(values);
 
-        ArrayList<LstParameter> _LstParameter = new ArrayList<>();
-        // lấy các tham số para trên màn hình
-        int k = paramHashMap.size();
-        for (int i = 0; i < k; i++) {
-            String key = listOfKeys.get(i);
-            if (key.startsWith("PARA_")) {
-                LstParameter row = new LstParameter();
-                row.setParaName(key);
-                row.setParaValue(listOfValues.get(i).toString());
-                row.setParaType("");
-                _LstParameter.add(row);
+    public void ExportJasperExcel(HashMap<String, Object> paramHashMap, Connection connectdb, String strFileName, String reportId) {
+        try {
+            Set<String> keySet = paramHashMap.keySet();
+            ArrayList<String> listOfKeys = new ArrayList<String>(keySet);
+            Collection<Object> values = paramHashMap.values();
+            ArrayList<Object> listOfValues = new ArrayList<>(values);
+
+            ArrayList<LstParameter> _LstParameter = new ArrayList<>();
+            // lấy các tham số para trên màn hình
+            int k = paramHashMap.size();
+            for (int i = 0; i < k; i++) {
+                String key = listOfKeys.get(i);
+                if (key.startsWith("PARA_")) {
+                    LstParameter row = new LstParameter();
+                    row.setParaName(key);
+                    row.setParaValue(listOfValues.get(i).toString());
+                    row.setParaType("");
+                    _LstParameter.add(row);
+                }
             }
-        }
 
-        _apiReport = new DuLieuNTService_Api1();
-        ReportApi _reportApi = new ReportApi();
-        _reportApi.setReportId(reportId);
-        _reportApi.setFileType("XLSX");
-        _reportApi.setLstParameter(_LstParameter);
+            _apiReport = new DuLieuNTService_Api1();
+            ReportApi _reportApi = new ReportApi();
+            _reportApi.setReportId(reportId);
+            _reportApi.setFileType("XLSX");
+            _reportApi.setLstParameter(_LstParameter);
 
-        // Gọi API để lấy chuỗi base64
-        ReportApi kk = _apiReport.Report_Api(reportId, "XLSX", _reportApi);
-        String base64String = kk.data;
+            // Gọi API để lấy chuỗi base64
+            ReportApi _reportResponse = _apiReport.Report_Api(reportId, "XLSX", _reportApi);
 
-        // Decode chuỗi Base64 thành mảng byte
-        byte[] decodedBytes = Base64.getDecoder().decode(base64String);
-
-        // Tạo workbook từ mảng byte
-        try (Workbook workbook = new XSSFWorkbook(new ByteArrayInputStream(decodedBytes))) {
-            // Ghi workbook ra tệp Excel
-            try (FileOutputStream fileOut = new FileOutputStream(strFileName)) {
-                workbook.write(fileOut);
+            if (_reportResponse != null && _reportResponse.data != null) {
+                String base64String = _reportResponse.data;
+                // Decode chuỗi Base64 thành mảng byte
+                byte[] decodedBytes = Base64.getDecoder().decode(base64String);
+                // Tạo workbook từ mảng byte
+                try (Workbook workbook = new XSSFWorkbook(new ByteArrayInputStream(decodedBytes))) {
+                    // Ghi workbook ra tệp Excel
+                    try (FileOutputStream fileOut = new FileOutputStream(strFileName)) {
+                        workbook.write(fileOut);
+                    }
+                }
+                System.out.println("Excel File Saved");
+            } else {
+                System.out.println("Khong co du lieu ~" + reportId);
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        System.out.println("Excel File Saved");
-
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
 
-  
-  public void ExportJasperExcel(HashMap<String, Object> paramHashMap, String strFileName,String reportId) {
-    ExportJasperExcel( paramHashMap, oracleConn.getConnect(),strFileName, reportId);
-  }
+    public void ExportJasperExcel(HashMap<String, Object> paramHashMap, String strFileName, String reportId) {
+        ExportJasperExcel(paramHashMap, oracleConn.getConnect(), strFileName, reportId);
+    }
 }
