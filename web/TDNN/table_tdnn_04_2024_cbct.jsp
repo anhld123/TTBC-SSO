@@ -109,13 +109,13 @@
                     <!--<th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>-->
                 </tr>
                 <tr>
-                  <td class="STT2">Cán bộ chuyên trách</td>
+                    <td class="STT2">Cán bộ chuyên trách</td>
 
                     <td>
                         <select id="cboCanBo<s:property value="#rowstatus.index" />" name="cboCanBo" style="border: hidden"
                                 <s:if test="check_form.equalsIgnoreCase('2')">onmousedown="return false" </s:if>>
-                            
-                                <option value="000000">----Chọn cán bộ----</option>
+
+                                    <option value="000000">----Chọn cán bộ----</option>
                                 <s:iterator value="lstCanBo" status="rowstatus" var="language">
                                     <s:if test="%{#language.MaCB == disintctD5}">
                                         <option value="<s:property value="MaCB"/>" selected><s:property value="TenCB"/></option>
@@ -142,12 +142,15 @@
                                 <option value="2" <s:if test="disintctD6.equalsIgnoreCase('2')"> selected </s:if>>Kế toán Ngân quỹ</option>                        
                                 <option value="3" <s:if test="disintctD6.equalsIgnoreCase('3')"> selected </s:if>>Kế hoạch nghiệp vụ</option>
                                 <option value="4" <s:if test="disintctD6.equalsIgnoreCase('4')"> selected </s:if>>Giám đốc</option>
+                                <option value="5" <s:if test="disintctD6.equalsIgnoreCase('5')"> selected </s:if>>Kiểm tra kiểm soát nội bộ</option>
+
                                 </select>                 
                                 &nbsp;&nbsp;&nbsp; <select name="namedistinctD8" id="idnamedistinctD8" style="border: hidden"
                                 <s:if test="check_form.equalsIgnoreCase('2')">onmousedown="return false" </s:if>> 
                                 <option value="0" style="text-align: center" <s:if test="disintctD8.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
                                 <option value="1" <s:if test="disintctD8.equalsIgnoreCase('1')"> selected </s:if>>Cán bộ</option>
                                 <option value="2" <s:if test="disintctD8.equalsIgnoreCase('2')"> selected </s:if>>Tổ trưởng/Trưởng phòng</option>                        
+                                <option value="5" <s:if test="disintctD8.equalsIgnoreCase('5')"> selected </s:if>>Phó phòng</option>
                                 <option value="3" <s:if test="disintctD8.equalsIgnoreCase('3')"> selected </s:if>>Giám đốc</option>
                                 <option value="4" <s:if test="disintctD8.equalsIgnoreCase('4')"> selected </s:if>>Phó giám đốc</option>
                                 </select>
@@ -167,6 +170,8 @@
                                 <option value="4" <s:if test="disintctD6.equalsIgnoreCase('4')"> selected </s:if>>Kế hoạch nghiệp vụ</option>
                                 <option value="5" <s:if test="disintctD6.equalsIgnoreCase('5')"> selected </s:if>>Tổng hợp</option>
                                 <option value="6" <s:if test="disintctD6.equalsIgnoreCase('6')"> selected </s:if>>Giám đốc</option>
+                                <option value="7" <s:if test="disintctD6.equalsIgnoreCase('7')"> selected </s:if>>Kiểm tra kiểm soát nội bộ</option>
+
                                 </select>                 
                                 &nbsp;&nbsp;&nbsp;<select name="namedistinctD8" id="idnamedistinctD8" style="border: hidden"
                                 <s:if test="check_form.equalsIgnoreCase('2')">onmousedown="return false" </s:if>> 
@@ -188,6 +193,8 @@
                                     <s:if test="check_form.equalsIgnoreCase('2')">onmousedown="return false" </s:if>> 
                                 <option value="0" style="text-align: center" <s:if test="disintctD6.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
                                 <option value="1" <s:if test="disintctD6.equalsIgnoreCase('1')"> selected </s:if>>Ban Tín dụng người nghèo</option>
+                                <option value="2" <s:if test="disintctD6.equalsIgnoreCase('2')"> selected </s:if>>Ban Kiểm tra kiểm soát nội bộ</option>
+
                                 </select>                 
                                 &nbsp;&nbsp;&nbsp;<select name="namedistinctD8" id="idnamedistinctD8" style="border: hidden"
                                 <s:if test="check_form.equalsIgnoreCase('2')">onmousedown="return false" </s:if>> 

@@ -464,7 +464,7 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(mapgd);
                 tempadd.setPosFlag(check_Flag);
-                tempadd.setBranchCode(macn);
+                tempadd.setBranchCode(main_pos);
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(maxa);
                 tempadd.setD3(tmp.getD3());
@@ -555,7 +555,7 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(mapgd);
                 tempadd.setPosFlag(check_Flag);
-                tempadd.setBranchCode(macn);
+                tempadd.setBranchCode(main_pos);
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(maxa);
                 tempadd.setD3(tmp.getD3());
@@ -644,7 +644,7 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(mapgd);
                 tempadd.setPosFlag(check_Flag);
-                tempadd.setBranchCode(macn);
+                tempadd.setBranchCode(main_pos);
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(maxa);
                 tempadd.setD3(tmp.getD3());
