@@ -235,7 +235,8 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
             Connection conn = new DaoConnect().getConnect();
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd = posMainModel.getPosCd();
-            main_pos = posMainModel.getMainPosCd();
+            setMain_pos(posMainModel.getMainPosCd());
+            System.out.println("load : name " + UserName + " caP " + Grade + " pgd " + pos_cd + " cn " + main_pos);
             String PosFlag = "";
             if (Grade.equals("3")) {
                 PosFlag = "H";
@@ -266,7 +267,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 addActionError("Bạn chưa chọn phòng giao dịch!");
                 return ERROR;
             }
-             String check = hmParameter.getOrDefault("check_2", "off").equals("on") ? "1"
+            String check = hmParameter.getOrDefault("check_2", "off").equals("on") ? "1"
                     : hmParameter.getOrDefault("check_1", "off").equals("on") ? "2" : "0";
             String CO_TONGHOP = "";
             if (check == "2" && PosFlag == "H") {
@@ -275,7 +276,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 CO_TONGHOP = "S";
             } else if (check == "1") {
                 CO_TONGHOP = PosFlag;
-            }     
+            }
             setCheck_Flag(CO_TONGHOP);
             setCheck_form(check);
             _server = new Service_GQVL2023();
@@ -284,7 +285,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 this.lstData = _server.getTTND_2024("KTGS_01GDX", mapgd, CO_TONGHOP, maxa, s, "", "0");
                 if (lstData == null || lstData.isEmpty()) {
                     this.lstData = _server.getTTND_2024("KTGS_01GDX", mapgd, CO_TONGHOP, maxa, s, "", "1");
-                     if (lstData == null || lstData.isEmpty()) {
+                    if (lstData == null || lstData.isEmpty()) {
                         addActionError("Không có kết nối đến API từ TW, vui lòng liên hệ tin học để hỗ trợ!");
                         return ERROR;
                     }
@@ -373,6 +374,9 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
             } else {
                 PosFlag = "S";
             }
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd = posMainModel.getPosCd();
+            main_pos = posMainModel.getMainPosCd();
             String maxa = hmParameter.get("lstXa").toString();
             String mapgd = hmParameter.get("lstPGD").toString();
             String macn = hmParameter.get("lstCN").toString();
@@ -402,7 +406,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(mapgd);
                 tempadd.setPosFlag(check_Flag);
-                tempadd.setBranchCode(main_pos);
+                tempadd.setBranchCode(macn != "000000" ? macn : main_pos);
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(maxa);
                 tempadd.setD3(tmp.getD3());
@@ -419,7 +423,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 tempadd.setStyle(tmp.getKIEUIN());
                 lstUpdateDate.add(tempadd);
                 lstLocalDataUpdate.add(tmp);
-
+                System.out.println("macn: " + macn + " c1 " + main_pos + " 2 ");
             }
             _server = new Service_GQVL2023();
             int status = _server.saveTDNN_2024("KTGS_01GDX", mapgd, PosFlag, maxa, hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
@@ -476,7 +480,9 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
             }
             String tranPoint = "TNX0" + maxa;
             System.out.println(macb + " " + tranPoint);
-
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd = posMainModel.getPosCd();
+            main_pos = posMainModel.getMainPosCd();
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
                 DuLieuNTRow tempadd = new DuLieuNTRow();
@@ -491,9 +497,9 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 tempadd.setReportDate(hmParameter.get("ngay_bc").toString());
                 tempadd.setName(tmp.getTEN());
                 tempadd.setReportYear(year);
-                tempadd.setPosCode(mapgd);
+                tempadd.setPosCode(macn);
                 tempadd.setPosFlag(check_Flag);
-                tempadd.setBranchCode(main_pos);
+                tempadd.setBranchCode(macn != "000000" ? macn : main_pos);
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(maxa);
                 tempadd.setD3(tmp.getD3());
@@ -565,7 +571,9 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
             String tranPoint = "TNX0" + maxa;
             System.out.println(macb + " " + tranPoint);
-
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd = posMainModel.getPosCd();
+            main_pos = posMainModel.getMainPosCd();
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
                 DuLieuNTRow tempadd = new DuLieuNTRow();
@@ -582,7 +590,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(mapgd);
                 tempadd.setPosFlag(check_Flag);
-                tempadd.setBranchCode(main_pos);
+                tempadd.setBranchCode(macn != "000000" ? macn : main_pos);
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(maxa);
                 tempadd.setD3(tmp.getD3());
@@ -603,7 +611,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
             }
             _server = new Service_GQVL2023();
             int status = _server.deleteTDNN_2024("KTGS_01GDX", mapgd, PosFlag, maxa, hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
-            
+
             if (status != 200) {
                 String code = String.valueOf(status);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));

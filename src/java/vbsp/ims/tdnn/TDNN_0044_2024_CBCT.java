@@ -424,6 +424,9 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
             } else {
                 PosFlag = "S";
             }
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd = posMainModel.getPosCd();
+            main_pos = posMainModel.getMainPosCd();
             String maxa = hmParameter.get("lstXa").toString();
             String mapgd = hmParameter.get("lstPGD").toString();
             String macn = hmParameter.get("lstCN").toString();
@@ -468,7 +471,7 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(mapgd);
                 tempadd.setPosFlag(check_Flag);
-                tempadd.setBranchCode(main_pos);
+                tempadd.setBranchCode(macn != "000000" ? macn : main_pos);
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(maxa);
                 tempadd.setD3(tmp.getD3());
@@ -526,6 +529,9 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
             } else {
                 PosFlag = "S";
             }
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd = posMainModel.getPosCd();
+            main_pos = posMainModel.getMainPosCd();
             String maxa = hmParameter.get("lstXa").toString();
             String mapgd = hmParameter.get("lstPGD").toString();
             String macn = hmParameter.get("lstCN").toString();
@@ -559,7 +565,7 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(mapgd);
                 tempadd.setPosFlag(check_Flag);
-                tempadd.setBranchCode(main_pos);
+                tempadd.setBranchCode(macn != "000000" ? macn : main_pos);
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(maxa);
                 tempadd.setD3(tmp.getD3());
@@ -617,6 +623,9 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
             } else {
                 PosFlag = "S";
             }
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd = posMainModel.getPosCd();
+            main_pos = posMainModel.getMainPosCd();
             String maxa = hmParameter.get("lstXa").toString();
             String mapgd = hmParameter.get("lstPGD").toString();
             String macn = hmParameter.get("lstCN").toString();
@@ -648,7 +657,7 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
                 tempadd.setReportYear(year);
                 tempadd.setPosCode(mapgd);
                 tempadd.setPosFlag(check_Flag);
-                tempadd.setBranchCode(main_pos);
+                tempadd.setBranchCode(macn != "000000" ? macn : main_pos);
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(maxa);
                 tempadd.setD3(tmp.getD3());

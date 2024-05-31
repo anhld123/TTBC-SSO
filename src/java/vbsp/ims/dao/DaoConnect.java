@@ -85,9 +85,9 @@ public class DaoConnect {
 //        return getConnect("10.18.0.56", "imsreport", 1521, "intellect", "intellect");
 //        return getConnect("10.68.0.56", "imsreport", 1521, "intellect", "intellect");
       //  return getConnect("10.0.19.12", "VBSPBKA", 1521, "intellect", "intellect");
-//       return getConnect("10.63.48.70", "IMSDEV", 1521, "intellect", "intellect");
+       return getConnect("10.63.48.70", "IMSDEV", 1521, "intellect", "intellect");
     //   return getConnect("10.142.0.56", "imsreport", 1521, "intellect", "intellect");
-       return getConnect("10.6.0.56", "imsreport", 1521, "intellect", "intellect");
+//       return getConnect("10.6.0.56", "imsreport", 1521, "intellect", "intellect");
 //        return getConnect("10.63.8.78", "VBSPIMS", 1521, "intellect", "intellect");
         } catch (Exception ex) {
              Logger.getLogger(DaoConnect.class.getName()).log(Level.SEVERE, null, ex);
