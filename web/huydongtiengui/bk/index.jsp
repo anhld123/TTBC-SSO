@@ -90,15 +90,15 @@
                     Cán bộ 
                     <select id="cboCanBo" name="cboCanBo">
                         <option value="000000">----Chọn cán bộ----</option>
+                        <option value="000001">----Cán bộ không có phát sinh gắn sổ----</option>
                         <s:iterator value="lstCanBo">
                             <option value='<s:property value="MaCB"/>'><s:property value="TenCB"/></option>
                         </s:iterator>
-                        <option value="000001">----Chọn cán bộ còn lại----</option>
                     </select>
                     Chỉ tiêu được giao <input type="text" style="text-align: right;" id="txtChitieu" name="txtChitieu" value=0 class="number">
                     Chỉ hiện những số đã gắn cán bộ <input type="checkbox" checked="true" name="flgFilter" id="flgFilter">
                     Tra cứu <input type="text" style="text-align: right;" id="cSeach" name="cSeach" value="" placeholder="Tìm kiếm thông tin sổ ...">                
-                      
+
                     <input type="button" value="Tải dữ liệu" id="cmdTaiDL" name="cmdTaiDL">
                     <input type="button" value="Lưu dữ liệu" id="cmdLuuDL" name="cmdLuuDL">
                 </div>
@@ -119,23 +119,17 @@
                         var url, sdata;
                         url = "viewdata.action";
                         sdata = jQuery("#HDTK_FrmMain").serialize() + "&cSeach=" + $("#cSeach").val();
-                        ;
                         $.ajax({
                             type: "GET",
                             url: url,
                             data: sdata,
                             success: function (data) {
                                 $("#viewData").html(data);
-                                if ($("#chkDate").val() === '200') {
-                                    $("#cmdLuuDL").css("display", "inline-block");
-                                    $("input.chkChonSh").removeAttr("disabled");
-                                } else {
-                                    $("#cmdLuuDL").css("display", "none");
-                                    $("input.chkChonSh").attr("disabled", true);
-                                }
+                                $("#cmdLuuDL").css("display", "inline-block");
                             },
                             error: function (request) {
                                 $("#viewData").html(request.responseText);
+                                $("#cmdLuuDL").css("display", "inline-block");
                             }
                         });
                     }
@@ -146,7 +140,7 @@
                 $("#cmdLuuDL").click(function () {
                     var chk = confirm("Bạn có chắc chắn muốn lưu dữ liệu");
                     if (chk) {
-                        if ($('#txtChitieu').val() <= 0) {
+                        if ($('#txtChitieu').val() <= 0 && $("#cboCanBo").val() != '000001') {
                             alert('Số tiền giao chỉ tiêu phải > 0');
                         } else {
                             $("#cmdLuuDL").html("Đang thực hiện...");
@@ -189,21 +183,22 @@
                 ;
             });
 
-            $('.number').number(true, 0);
+            $('.number').number(true, 0, ',', '.');
 
             $("#cboCanBo").change(function () {
                 $("#cmdLuuDL").css("display", "none");
             });
             $("#dtNgaybc").datepicker(
-             {  dateFormat: 'dd/mm/yy',
-                changeMonth: true,
-                changeYear: true,
-                showButtonPanel: true,
-                showOn: "button",
-                monthNames: ["1","2","3","4","5","6","7","8","9","10","11","12"],
-                monthNamesShort: ["1","2","3","4","5","6","7","8","9","10","11","12"]
-             });
+                    {dateFormat: 'dd/mm/yy',
+                        changeMonth: true,
+                        changeYear: true,
+                        showButtonPanel: true,
+                        showOn: "button",
+                        monthNames: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+                        monthNamesShort: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                    });
             $("#dtNgaybc").datepicker('setDate', new Date());
+
         </script>
     </body>
 </html>
