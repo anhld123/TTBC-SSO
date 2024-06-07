@@ -152,14 +152,14 @@
                     var vb_xlrr = $("#vb_xlrr").val();
                     var poscd = $('#poscd').val();
                     var sNguyennhan = $("#sNguyennhan").val();
-                    
+
                     var url = "khonglamgica.action?soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nhom_xlrr=" + nhom_xlrr
                             + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd
                             + "&vb_xlrr=" + vb_xlrr
                             + "&sTenkh=" + sTenkh + "&sNgayvay=" + sNgayvay + "&dbMdthiethai=" + dbMdthiethai
                             + "&sNgayrr=" + sNgayrr + "&dbDnghi_Tg=" + dbDnghi_Tg + "&dbPduyet_Tg=" + dbPduyet_Tg
                             + "&dbHt_Dno=" + dbHt_Dno + "&dbHt_Lai=" + dbHt_Lai
-                            + "&dbSolanxl=" + dbSolanxl + "&dbDnghi_Lai=" + dbDnghi_Lai 
+                            + "&dbSolanxl=" + dbSolanxl + "&dbDnghi_Lai=" + dbDnghi_Lai
                             + "&sNguyennhan=" + sNguyennhan
                             ;
 
@@ -343,24 +343,10 @@
                                     <td><input type="text" value="Số tháng phê duyệt" name="maPGD" class="maPGD" style="color: red" readonly="readonly"/></td>
                                     <td><input type="text" value="<s:property value='dbPduyet_Tg'/>" name="tenPGD" id="dbPduyet_Tg" class="tenPGD" style="color: red" onfocus="this.select()" /></td>
                                 </tr>
-                                <tr class="cscontent">
-                                    <td><input type="text" value="Nguyên nhân rủi ro" style="color: red" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                    <td><select style="color: red; border: hidden; text-align: left" value="<s:property value='sNguyennhan'/>" name="tenPGD" id="sNguyennhan">
-                                            <option value="102"<s:if test="sNguyennhan.equalsIgnoreCase('102')"> selected </s:if>>102 - Thiên tai, ĐH, HH, DB (QĐ 62)</option>
-                                            <option value="103"<s:if test="sNguyennhan.equalsIgnoreCase('103')"> selected </s:if>>103 - NN thay đổi chính sách (QĐ 62)</option>
-                                            <option value="104"<s:if test="sNguyennhan.equalsIgnoreCase('104')"> selected </s:if>>104 - KH bị phá sản/giải thể (QĐ 62)</option>
-                                            <option value="105"<s:if test="sNguyennhan.equalsIgnoreCase('105')"> selected </s:if>>105 - LĐ về nước trước hạn (QĐ 62)</option>
-                                            <option value="106"<s:if test="sNguyennhan.equalsIgnoreCase('106')"> selected </s:if>>106 - KH/TV khác gặp rủi ro (QĐ 62)</option>
-                                            <option value="107"<s:if test="sNguyennhan.equalsIgnoreCase('107')"> selected </s:if>>107 - Vắng mặt tại nơi CT (QĐ 62)</option>
-                                            <option value="108"<s:if test="sNguyennhan.equalsIgnoreCase('108')"> selected </s:if>>108 - Nợ phải thu theo BA, QĐ của TA (QĐ 62)</option>
-                                            <option value="109"<s:if test="sNguyennhan.equalsIgnoreCase('109')"> selected </s:if>>109 - Nợ TO/CD mà người CD chết, MT (QĐ 62)</option>
-                                            <option value="110"<s:if test="sNguyennhan.equalsIgnoreCase('110')"> selected </s:if>>110 - KH hết thời gian khoanh nợ (QĐ 62)</option>
-                                            <option value="111"<s:if test="sNguyennhan.equalsIgnoreCase('111')"> selected </s:if>>111 - RR không làm kịp thời (QĐ 62)</option>
-                                            <option value="112"<s:if test="sNguyennhan.equalsIgnoreCase('112')"> selected </s:if>>112 - Nợ nhận bàn giao (QĐ 62)</option>
-                                            </select></td>
-                                    </tr>                    
+
                             </s:if>
                             <s:else>
+
                                 <tr class="cscontent">
                                     <td><input type="text" value="Số tháng đề nghị" name="maPGD" class="maPGD"  readonly="readonly"/></td>
                                     <td><input type="text" value="<s:property value='dbDnghi_Tg'/>" id="dbDnghi_Tg" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
@@ -369,16 +355,32 @@
                                     <td><input type="text" value="Số tháng phê duyệt" name="maPGD" class="maPGD" readonly="readonly"/></td>
                                     <td><input type="text" value="<s:property value='dbPduyet_Tg'/>" id="dbPduyet_Tg" name="tenPGD" class="tenPGD"  onfocus="this.select()" readonly="readonly"/></td>
                                 </tr>
-                                <tr class="cscontent">
+<!--                                <tr class="cscontent">
                                     <td><input type="text" value="Nguyên nhân rủi ro" name="maPGD" class="maPGD" readonly="readonly"/></td>
                                     <td><input type="text" value="<s:property value='sNguyennhan'/>" name="tenPGD" class="tenPGD" id="sNguyennhan" onfocus="this.select()" readonly="readonly"/></td>
-                                </tr>
+                                </tr>-->
 
-                            </s:else>    
+                            </s:else> 
                             <tr class="cscontent">
-                                <td><input type="text" value="Mô tả nguyên nhân" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                <!--<td><input type="text" value="" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>-->
-                                <td class="maPGD" style="padding-left: 10px"><s:property value='sMotann'/></td>
+                                <td><input type="text" value="Nguyên nhân rủi ro" style="color: red" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                                <td><select style="color: red; border: hidden; text-align: left" value="<s:property value='sNguyennhan'/>" name="tenPGD" id="sNguyennhan">
+                                        <option value="102"<s:if test="sNguyennhan.equalsIgnoreCase('102')"> selected </s:if>>102 - Thiên tai, ĐH, HH, DB (QĐ 62)</option>
+                                        <option value="103"<s:if test="sNguyennhan.equalsIgnoreCase('103')"> selected </s:if>>103 - NN thay đổi chính sách (QĐ 62)</option>
+                                        <option value="104"<s:if test="sNguyennhan.equalsIgnoreCase('104')"> selected </s:if>>104 - KH bị phá sản/giải thể (QĐ 62)</option>
+                                        <option value="105"<s:if test="sNguyennhan.equalsIgnoreCase('105')"> selected </s:if>>105 - LĐ về nước trước hạn (QĐ 62)</option>
+                                        <option value="106"<s:if test="sNguyennhan.equalsIgnoreCase('106')"> selected </s:if>>106 - KH/TV khác gặp rủi ro (QĐ 62)</option>
+                                        <option value="107"<s:if test="sNguyennhan.equalsIgnoreCase('107')"> selected </s:if>>107 - Vắng mặt tại nơi CT (QĐ 62)</option>
+                                        <option value="108"<s:if test="sNguyennhan.equalsIgnoreCase('108')"> selected </s:if>>108 - Nợ phải thu theo BA, QĐ của TA (QĐ 62)</option>
+                                        <option value="109"<s:if test="sNguyennhan.equalsIgnoreCase('109')"> selected </s:if>>109 - Nợ TO/CD mà người CD chết, MT (QĐ 62)</option>
+                                        <option value="110"<s:if test="sNguyennhan.equalsIgnoreCase('110')"> selected </s:if>>110 - KH hết thời gian khoanh nợ (QĐ 62)</option>
+                                        <option value="111"<s:if test="sNguyennhan.equalsIgnoreCase('111')"> selected </s:if>>111 - RR không làm kịp thời (QĐ 62)</option>
+                                        <option value="112"<s:if test="sNguyennhan.equalsIgnoreCase('112')"> selected </s:if>>112 - Nợ nhận bàn giao (QĐ 62)</option>
+                                        </select></td>
+                                </tr> 
+                                <tr class="cscontent">
+                                    <td><input type="text" value="Mô tả nguyên nhân" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                                    <!--<td><input type="text" value="" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>-->
+                                    <td class="maPGD" style="padding-left: 10px"><s:property value='sMotann'/></td>
                             </tr>
                             <tr class="cscontent">
                                 <td><input type="text" value="Trạng thái bản ghi" name="maPGD" class="maPGD" readonly="readonly"/></td>

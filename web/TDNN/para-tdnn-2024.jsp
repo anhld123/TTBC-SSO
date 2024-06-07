@@ -214,10 +214,31 @@
                 var macb = document.getElementById('cboCanBo').value;
                 var checkD50 = document.getElementById('id_D50').value;
                 var mapgd = document.getElementById('lstPGD').value;
+                var ngaybc = document.getElementById('ngay_bc_DATE').value;
+                var currentDate = new Date();
+                var day = currentDate.getDate();
+                var month = currentDate.getMonth() + 1;
+                var year = currentDate.getFullYear();
+                // Đảm bảo ngày và tháng hiển thị đúng format
+                if (day < 10) {
+                    day = '0' + day;
+                }
+                if (month < 10) {
+                    month = '0' + month;
+                }
+                var formattedDate = day + '/' + month + '/' + year;
+                var ngaybcParts = ngaybc.split('/');
+                var ngaybcDay = parseInt(ngaybcParts[0], 10);
+                var ngaybcMonth = parseInt(ngaybcParts[1], 10);
+                var ngaybcYear = parseInt(ngaybcParts[2], 10);
 //                alert(checkD50);
                 let checkedCount = countCheckedItem();
                 if (checkedCount === 0) {
                     $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Bạn chưa chọn bản ghi để lưu!</h>");
+                    return;
+                } else if (ngaybcYear < year || (ngaybcYear === year && ngaybcMonth < month))
+                {
+                    $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Hết thời gian lưu!</h>");
                     return;
                 } else {
                     let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
@@ -289,11 +310,32 @@
                 var checkD50 = document.getElementById('id_D50').value;
                 var mapgd = document.getElementById('lstPGD').value;
 //                alert(checkD50);
+var ngaybc = document.getElementById('ngay_bc_DATE').value;
+                var currentDate = new Date();
+                var day = currentDate.getDate();
+                var month = currentDate.getMonth() + 1;
+                var year = currentDate.getFullYear();
+                // Đảm bảo ngày và tháng hiển thị đúng format
+                if (day < 10) {
+                    day = '0' + day;
+                }
+                if (month < 10) {
+                    month = '0' + month;
+                }
+                var formattedDate = day + '/' + month + '/' + year;
+                var ngaybcParts = ngaybc.split('/');
+                var ngaybcDay = parseInt(ngaybcParts[0], 10);
+                var ngaybcMonth = parseInt(ngaybcParts[1], 10);
+                var ngaybcYear = parseInt(ngaybcParts[2], 10);
                 let checkedCount = countCheckedItem();
                 if (checkedCount === 0) {
                     $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Bạn chưa chọn bản ghi để lưu!</h>");
                     return;
-                } else {
+                } else if (ngaybcYear < year || (ngaybcYear === year && ngaybcMonth < month))
+                {
+                    $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Hết thời gian mở khóa!</h>");
+                    return;
+                }else {
                     let aCheck = confirm("Bạn chắc chắn muốn mở số liệu báo cáo ?");
                     if (aCheck) {
                         var table = document.getElementById("subTable");
@@ -362,12 +404,33 @@
                 var macb = document.getElementById('cboCanBo').value;
                 var checkD50 = document.getElementById('id_D50').value;
                 var mapgd = document.getElementById('lstPGD').value;
+                var ngaybc = document.getElementById('ngay_bc_DATE').value;
+                var currentDate = new Date();
+                var day = currentDate.getDate();
+                var month = currentDate.getMonth() + 1;
+                var year = currentDate.getFullYear();
+                // Đảm bảo ngày và tháng hiển thị đúng format
+                if (day < 10) {
+                    day = '0' + day;
+                }
+                if (month < 10) {
+                    month = '0' + month;
+                }
+                var formattedDate = day + '/' + month + '/' + year;
+                var ngaybcParts = ngaybc.split('/');
+                var ngaybcDay = parseInt(ngaybcParts[0], 10);
+                var ngaybcMonth = parseInt(ngaybcParts[1], 10);
+                var ngaybcYear = parseInt(ngaybcParts[2], 10);
 //                alert(checkD50);
                 let checkedCount = countCheckedItem();
                 if (checkedCount === 0) {
                     $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Bạn chưa chọn bản ghi để lưu!</h>");
                     return;
-                } else {
+                } else if (ngaybcYear < year || (ngaybcYear === year && ngaybcMonth < month))
+                {
+                    $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Hết thời gian phê duyệt!</h>");
+                    return;
+                }else {
                     let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
                     if (aCheck) {
                         var table = document.getElementById("subTable");
@@ -610,13 +673,13 @@
             $(document).ready(function () {
                 initTable();
             });
-            
+
             function subString(input) {
                 var _index = input.indexOf("_");
-                var _result = input.substring(_index+1, input.length);
+                var _result = input.substring(_index + 1, input.length);
                 return _result;
             }
-            
+
             function onSelectChange() {
                 let selectedValue = $('#lstCN').find(":selected").val();
                 let province = selectedValue;//.substring(0, 4);
@@ -634,14 +697,14 @@
                                 }));
                     }
                 });
-                
+
                 let province1 = $('#lstPGD').find(":selected").val();
-                
+
                 $('#lstXa' + ' option').each(function () {
                     $(this).remove();
                     //}
                 });
-                
+
                 $('#lstXa_Temp option').each(function () {
                     if ($(this).val().startsWith(province1)) {
                         $('#lstXa').append($('<option>',
