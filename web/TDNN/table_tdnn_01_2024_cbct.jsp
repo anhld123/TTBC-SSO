@@ -89,6 +89,9 @@
         <div style="overflow:scroll; width: 98vw;">             
             <div id="divTitle">
                 <s:hidden name="khoa_tdnn" id="khoa"/>
+                <s:if test="!alfet_canhbao.equalsIgnoreCase('')">
+                <a style="color: red" ><s:property value="alfet_canhbao"/></a><br>
+                </s:if>
                 BIỂU TỔNG HỢP KẾT QUẢ ĐÁNH GIÁ VIỆC CHẤP HÀNH CÁC QUY ĐỊNH VỀ GIAO DỊCH XÃ
                 <s:if test="!disintctD50.equalsIgnoreCase('1')" ><a style="color: red">(Dữ liệu đã gửi)</a></s:if>
                 </div>

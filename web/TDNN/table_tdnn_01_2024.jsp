@@ -83,6 +83,7 @@
                 $(this).closest('tr').removeClass('highlight_row');
             });
 
+           
         </script>      
     </head>
     <body>

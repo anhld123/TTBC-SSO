@@ -18,7 +18,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import javax.swing.JOptionPane;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
@@ -57,11 +56,20 @@ public class TDNN_0011_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
     private String disintctD8;
     private String disintctD50;
     private String check_Flag;
+    private String alfet_canhbao;
     private List<ListMainPos> lstCN_API;
     private List<ListPosCode> lstPGD_API;
     private List<ListCommune> lstXa_API;
     private List<ListTransactionPoint> lstPoint_API;
     //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public String getAlfet_canhbao() {
+        return alfet_canhbao;
+    }
+
+    public void setAlfet_canhbao(String alfet_canhbao) {
+        this.alfet_canhbao = alfet_canhbao;
+    }
 
     public String getCheck_Flag() {
         return check_Flag;
@@ -285,7 +293,7 @@ public class TDNN_0011_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
 
             _server = new Service_GQVL2023();
             if (check == "1") {
-                
+
                 SimpleDateFormat sdfInput = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
                 Date inputDate = sdfInput.parse(s);
 
@@ -315,7 +323,7 @@ public class TDNN_0011_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
                     // Kiểm tra điều kiện dừng khi có dữ liệu và ngày kiểm tra đúng
                     if (lstData_tmp.size() > 0 && !checkdate1.equals(checkdate2)) {
                         String ngay1 = sdf2.format(calendar.getTime());
-                        JOptionPane.showMessageDialog(null, "Điểm giao dịch đã nhập dữ liệu vào ngày " + ngay1, "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                        setAlfet_canhbao("Điểm giao dịch đã nhập dữ liệu vào ngày " + ngay1);
                     }
                     calendar.add(Calendar.DATE, 1);
                 }
