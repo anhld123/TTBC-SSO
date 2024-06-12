@@ -16,7 +16,7 @@
 <html>
     <head>
         <script src="js/jquery.number.js"></script>
-<!--        <link  rel="stylesheet" type="text/css" href="chamdiem_tapthe/css/cdtt.css"/>-->
+        <!--        <link  rel="stylesheet" type="text/css" href="chamdiem_tapthe/css/cdtt.css"/>-->
         <style>
 
             #container{
@@ -35,7 +35,7 @@
                 float: left;
                 overflow: scroll;
             }            
-            
+
             #containParm{
                 width: 84%;
                 height: 450px;
@@ -116,7 +116,7 @@
             }
             function fnResetVal()
             {
-                
+
             }
             function onReLoadData1()
             {
@@ -126,7 +126,7 @@
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
                 var khoa_cdtt = $("#khoa_cdtt").val() + "_reload";
-                
+
                 if (!bsubmit)
                 {
 //                    alert('Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !');
@@ -134,14 +134,14 @@
                     return;
                 }
                 //alert(khoa_cdtt);
-                
+
 
                 //$("#idreloadData")[0].click();
-                 $('#divExportReport').load(khoa_cdtt+'.action');
+                $('#divExportReport').load(khoa_cdtt + '.action');
                 bsubmit = false;
 //                return true;
             }
-            
+
             function onSaveData()
             {
                 $('#message_suc_err').empty();
@@ -151,10 +151,10 @@
                 if (khoa_cdtt == 'CDTT_CN01PL')
                 {
                     var r = confirm("Bạn chắc chắn muốn gán các sổ cho cán bộ " + macb_old + " ? OK : Đồng ý, Cancel : Hủy bỏ");
-                    if (r == false) 
-                         return false;
+                    if (r == false)
+                        return false;
                 }
-                
+
                 var poscd = getposfromtreecheck();
                 if (!bsubmit)
                 {
@@ -230,20 +230,20 @@
 
                 var poscd = getposfromtreecheck();
 //                alert(khoa_cdtt);
-                if(khoa_cdtt != 'BC00230032' && khoa_cdtt != 'BC00230033' && khoa_cdtt != 'CDTT_CN')
+                if (khoa_cdtt != 'BC00230032' && khoa_cdtt != 'BC00230033' && khoa_cdtt != 'CDTT_CN')
                 {
                     if (poscd == null || poscd == '')
                     {
                         $('#divExportReport').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần gửi số liệu ! </h2>");
-    //                    alert('Bạn phải chọn phòng giao dịch cần gửi số liệu !');
+                        //                    alert('Bạn phải chọn phòng giao dịch cần gửi số liệu !');
                         return;
                     }
                 }
-                
+
                 $("#idSend")[0].click();
                 bsubmit = false;
             }
-            
+
             function onViewData()
             {
                 $('#message_suc_err').empty();
@@ -253,11 +253,11 @@
                 var poscd = getposfromtreecheck();
 //                alert(khoa_cdtt);
 
-                
+
                 $("#idView")[0].click();
                 bsubmit = false;
             }
-            
+
             function onMokhoaData()
             {
                 $('#message_suc_err').empty();
@@ -267,11 +267,11 @@
                 var poscd = getposfromtreecheck();
 //                alert(khoa_cdtt);
 
-                
+
                 $("#idmokhoa")[0].click();
                 bsubmit = false;
             }
-            
+
             function onChot()
             {
                 $('#message_suc_err').empty();
@@ -281,11 +281,11 @@
                 var poscd = getposfromtreecheck();
 //                alert(khoa_cdtt);
 
-                
+
                 $("#idTV")[0].click();
                 bsubmit = false;
             }
-            
+
             function onHoiDongDuyet()
             {
                 $('#message_suc_err').empty();
@@ -295,11 +295,11 @@
                 var poscd = getposfromtreecheck();
 //                alert(khoa_cdtt);
 
-                
+
                 $("#idHoiDongDuyetTV")[0].click();
                 bsubmit = false;
             }
-            
+
             function onReLoadData()
             {
                 $('#message_suc_err').empty();
@@ -314,7 +314,7 @@
                     $('#message_suc_err').html("<h2 style='color: red'>Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !</h2>");
                     return;
                 }
-                
+
                 $("#idReLoad")[0].click();
 //                bsubmit = false;
             }
@@ -356,39 +356,39 @@
                 }
                 return result;
             }
-            
+
             function getDaysOfMonth(month, year) {
-        switch (month) {
-            case 1:
-                return 31;
-            case 2:
-                if (year % 4 === 0)
-                    return 29;
-                else
-                    return 28;
-            case 3:
-                return 31;
-            case 4:
-                return 30;
-            case 5:
-                return 31;
-            case 6:
-                return 30;
-            case 7:
-                return 31;
-            case 8:
-                return 31;
-            case 9:
-                return 30;
-            case 10:
-                return 31;
-            case 11:
-                return 30;
-            case 12:
-                return 31;
-        }
-    }
-    ;
+                switch (month) {
+                    case 1:
+                        return 31;
+                    case 2:
+                        if (year % 4 === 0)
+                            return 29;
+                        else
+                            return 28;
+                    case 3:
+                        return 31;
+                    case 4:
+                        return 30;
+                    case 5:
+                        return 31;
+                    case 6:
+                        return 30;
+                    case 7:
+                        return 31;
+                    case 8:
+                        return 31;
+                    case 9:
+                        return 30;
+                    case 10:
+                        return 31;
+                    case 11:
+                        return 30;
+                    case 12:
+                        return 31;
+                }
+            }
+            ;
         </script>
     </head>
 
@@ -405,7 +405,7 @@
                             <tr style="height: 30px;">
                                 <s:iterator value="lstCdttParams">
                                     <td class="<s:property  value="action"/>"> <label> <s:property value="label"></s:property></label></td>
-                                        <td class="<s:property  value="action"/>">
+                                    <td class="<s:property  value="action"/>">
                                         <s:if test="type.equalsIgnoreCase('T')">  
                                             <s:if test="khoa_cdtt.equalsIgnoreCase('CDTT_CN08TH')">
                                                 <input type="text" style="text-align:right;width: 170px" value="1.00" id="<s:property value="fieldName"/>" name="<s:property value="fieldName"/>" class="" placeholder="<s:property value="label"/>"/>
@@ -413,7 +413,7 @@
                                             <s:else>
                                                 <input type="text" style="text-align:right;width: 170px" value="" id="<s:property value="fieldName"/>" name="<s:property value="fieldName"/>" class="" placeholder="<s:property value="label"/>"/>
                                             </s:else>    
-                                            
+
                                         </s:if>
                                         <!-- Tungnv Neu: la L thi gen List -->
                                         <s:if test="type.equalsIgnoreCase('L')">
@@ -432,7 +432,7 @@
                                     </td>
 
                                 </s:iterator>     
-                                    <td >
+                                <td >
                                     <s:if test="RULEUSER.equalsIgnoreCase('9')">
                                         &nbsp;&nbsp;&nbsp;
                                         <sj:submit id="loadData" name="loadData" value="Xét duyệt" targets="divExportReport"
@@ -442,34 +442,34 @@
                                         &nbsp;&nbsp;&nbsp;
                                         <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Phê duyệt" class="metroButtonStyle"/>                                            
                                         &nbsp;&nbsp;&nbsp;
-                                        
-<!--                                        <s:url id="idViewStatus" action="viewStatusCDCN.action"></s:url>                                      
-                                            <sj:submit id="idView" name="nameView" href="%{idViewStatus}" value="Kiểm soát" targets="divExportReport"
-                                                       onBeforeTopics="beforediv_send"
-                                                       onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                            <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onViewData()" value="Kiểm soát" class="metroButtonStyle"/>
-                                                &nbsp;&nbsp;&nbsp;-->
-                                                
-                                                
+
+                                        <!--                                        <s:url id="idViewStatus" action="viewStatusCDCN.action"></s:url>                                      
+                                        <sj:submit id="idView" name="nameView" href="%{idViewStatus}" value="Kiểm soát" targets="divExportReport"
+                                                   onBeforeTopics="beforediv_send"
+                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                        <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onViewData()" value="Kiểm soát" class="metroButtonStyle"/>
+                                            &nbsp;&nbsp;&nbsp;-->
+
+
                                         <s:if test="!Grade.equalsIgnoreCase('3') && khoa_cdtt.equalsIgnoreCase('CDTT_CN')">
-                                         <s:url id="idSendData" action="sendCDTT.action"></s:url>                                      
+                                            <s:url id="idSendData" action="sendCDTT.action"></s:url>                                      
                                             <sj:submit id="idSend" name="nameSend" href="%{idSendData}" value="Gửi dữ liệu" targets="divExportReport"
                                                        onBeforeTopics="beforediv_send"
                                                        onCompleteTopics="completediv_send" cssStyle="display:none"/>
                                             <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu" class="metroButtonStyle"/>
-                                                &nbsp;&nbsp;&nbsp;  
+                                            &nbsp;&nbsp;&nbsp;  
                                         </s:if>   
-                                                
+
                                         <s:if test="khoa_cdtt.equalsIgnoreCase('CDTT_CN08TH')">
-                                         <s:url id="idMokhoa" action="unlockCDTT_CN08TH.action"></s:url>                                      
+                                            <s:url id="idMokhoa" action="unlockCDTT_CN08TH.action"></s:url>                                      
                                             <sj:submit id="idmokhoa" name="namemokhoa" href="%{idMokhoa}" value="Mở duyệt" targets="divExportReport"
                                                        onBeforeTopics="beforediv_send"
                                                        onCompleteTopics="completediv_send" cssStyle="display:none"/>
                                             <input type="button" id="idmkhoatmp" name="nameidmokhoatmp"  onclick="onMokhoaData()" value="Mở duyệt" class="metroButtonStyle"/>
-                                                &nbsp;&nbsp;&nbsp;  
+                                            &nbsp;&nbsp;&nbsp;  
                                         </s:if>          
                                     </s:if>  
-                                        
+
                                     <s:else>  
                                         &nbsp;&nbsp;&nbsp;
                                         <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
@@ -477,22 +477,22 @@
                                                    onCompleteTopics="completediv_data" cssStyle="display:none"/>
                                         <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu" class="metroButtonStyle"/>
                                         &nbsp;&nbsp;&nbsp;
-                                                                                    
-                                        
-                                            <s:if test="Grade.equalsIgnoreCase('1')">
-                                                <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu" class="metroButtonStyle"/>                                            
-                                                &nbsp;&nbsp;&nbsp;
-                                                <s:if test="khoa_cdtt.equalsIgnoreCase('CDTT_PGD')">
-                                                    <s:url id="idTraVe" action="ChotCDTT.action"></s:url>                                      
-                                                    <sj:submit id="idTV" name="nameSend" href="%{idTraVe}" value="Phê duyệt" targets="divExportReport"
-                                                               onBeforeTidSendopics="beforediv_send"
-                                                               onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                                    <input type="button" id="idChottmp" name="nameidSendtmp"  onclick="onChot()" value="Phê duyệt" class="metroButtonStyle"/>
-                                                    </s:if>
+
+
+                                        <s:if test="Grade.equalsIgnoreCase('1')">
+                                            <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu" class="metroButtonStyle"/>                                            
+                                            &nbsp;&nbsp;&nbsp;
+                                            <s:if test="khoa_cdtt.equalsIgnoreCase('CDTT_PGD')">
+                                                <s:url id="idTraVe" action="ChotCDTT.action"></s:url>                                      
+                                                <sj:submit id="idTV" name="nameSend" href="%{idTraVe}" value="Phê duyệt" targets="divExportReport"
+                                                           onBeforeTidSendopics="beforediv_send"
+                                                           onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                                <input type="button" id="idChottmp" name="nameidSendtmp"  onclick="onChot()" value="Phê duyệt" class="metroButtonStyle"/>
                                             </s:if>
+                                        </s:if>
                                         <s:else>                                                     
-                                                <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu" class="metroButtonStyle"/>                                            
-                                                 &nbsp;&nbsp;&nbsp;
+                                            <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu" class="metroButtonStyle"/>                                            
+                                            &nbsp;&nbsp;&nbsp;
                                         </s:else>                                        
                                     </s:else>                                                 
                                     &nbsp;&nbsp;&nbsp;                                                                        
@@ -511,66 +511,69 @@
                         </table>
                     </div>
                 </div>                
-                    <s:if test="khoa_cdtt.equalsIgnoreCase('CDTT_CN08TH')">
+                <s:if test="khoa_cdtt.equalsIgnoreCase('CDTT_CN08TH')">
 
-                    </s:if>
-                    <s:else>                        
-                        <div id="containTree" align="left">
-                            <sjt:tree
-                                name="poscd"
-                                id="treeDynamicCheckboxes"
-                                jstreetheme="apple"
-                                rootNode="nodes_pos"
-                                childCollectionProperty="children"
-                                nodeTitleProperty="title"
-                                nodeIdProperty="id"
-                                openAllOnLoad="true"
-                                checkbox="true"
-                                showThemeDots="false"
-                                showThemeIcons="true" 
-                                />
-                        </div>
-                    </s:else>
-                             
+                </s:if>
+                <s:else>                        
+                    <div id="containTree" align="left">
+                        <sjt:tree
+                            name="poscd"
+                            id="treeDynamicCheckboxes"
+                            jstreetheme="apple"
+                            rootNode="nodes_pos"
+                            childCollectionProperty="children"
+                            nodeTitleProperty="title"
+                            nodeIdProperty="id"
+                            openAllOnLoad="true"
+                            checkbox="true"
+                            showThemeDots="false"
+                            showThemeIcons="true" 
+                            />
+                    </div>
+                </s:else>
+
             </s:form>
             <s:if test="khoa_cdtt.equalsIgnoreCase('CDTT_CN08TH')">
                 <div id="containParm_full" align="center">
                 </s:if>
                 <s:else>
-                    
-                        <div id="containParm" align="center">  
-                          
-                    
-                </s:else>
-                <div id="divExportReport"></div>
+
+                    <div id="containParm" align="center">  
+
+
+                    </s:else>
+                    <div id="divExportReport"></div>
                 </div>
             </div>
             <script>
-            //CuongBM: 31Jul14
-            //Desc: Xu truong hop dat gia tri mac dich cho combox Quy (Quater), la quy hien tai
-            //      Cac bao cao Quy phai co id la PARA_QUY           
-            // TrungNT88 sua
-           
-            var date = new Date(); 
-            
-                                   
-            var month = date.getMonth();
-            var year = date.getFullYear(); //nam
-            if (month===0)
-            {
-                month = 12;
-                year = year -1;
-            }
-            var day = getDaysOfMonth(month,year)
-            
-            var daynow = day + "/" + month + "/" + year;
-            
-            document.getElementById("ngay_bc_DATE").value = '28/02/2023' //daynow;
-            //Gan quy mac dinh
+                //CuongBM: 31Jul14
+                //Desc: Xu truong hop dat gia tri mac dich cho combox Quy (Quater), la quy hien tai
+                //      Cac bao cao Quy phai co id la PARA_QUY           
+                // TrungNT88 sua
+
+                var date = new Date();
+
+
+                var month = date.getMonth();
+                var year = date.getFullYear(); //nam
+                if (month === 0)
+                {
+                    month = 12;
+                    year = year - 1;
+                }
+//                var day = getDaysOfMonth(month, year)
+//
+//                var daynow = day + "/" + month + "/" + year;
+//
+//                document.getElementById("ngay_bc_DATE").value = '28/02/2023' //daynow;
+                //Gan quy mac dinh
 //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
-            
-            
-            
-        </script>
+
+                var day = new Date(year, month, 0).getDate(); // Get the last day of the specified month and year
+                var daynow = day + "/" + month + "/" + year;
+
+                document.getElementById("ngay_bc_DATE").value = daynow;
+
+            </script>
     </body>
 </html>
