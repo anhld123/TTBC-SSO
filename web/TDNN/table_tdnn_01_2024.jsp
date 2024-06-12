@@ -89,6 +89,9 @@
     <body>
         <div style="overflow:scroll; width: 98vw;">             
             <div id="divTitle">
+                <s:if test="!alfet_canhbao.equalsIgnoreCase('')">
+                <a style="color: red" ><s:property value="alfet_canhbao"/></a><br>
+                </s:if>
                 <s:hidden name="khoa_tdnn" id="khoa"/>
                 BIỂU TỔNG HỢP KẾT QUẢ ĐÁNH GIÁ VIỆC CHẤP HÀNH CÁC QUY ĐỊNH VỀ GIAO DỊCH XÃ
                 <s:if test="!disintctD50.equalsIgnoreCase('1')" ><a style="color: red">(Dữ liệu đã gửi)</a></s:if>
@@ -130,11 +133,11 @@
                             <select name="namedistinctD6" id="idnamedistinctD6" style="border: hidden" 
                                     <s:if test="check_form.equalsIgnoreCase('2')">onmousedown="return false" </s:if>> 
                                 <option value="0" style="text-align: center" <s:if test="disintctD6.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
-                                <option value="1" <s:if test="disintctD6.equalsIgnoreCase('1')"> selected </s:if>>Tổng hợp</option>
-                                <option value="2" <s:if test="disintctD6.equalsIgnoreCase('2')"> selected </s:if>>Kế toán Ngân quỹ</option>                        
-                                <option value="3" <s:if test="disintctD6.equalsIgnoreCase('3')"> selected </s:if>>Kế hoạch nghiệp vụ</option>
-                                <option value="4" <s:if test="disintctD6.equalsIgnoreCase('4')"> selected </s:if>>Giám đốc</option>
-                                <option value="5" <s:if test="disintctD6.equalsIgnoreCase('5')"> selected </s:if>>Kiểm tra kiểm soát nội bộ</option>
+                                <option value="1" <s:if test="disintctD6.equalsIgnoreCase('1')"> selected </s:if>>Phòng Tổng hợp</option>
+                                <option value="2" <s:if test="disintctD6.equalsIgnoreCase('2')"> selected </s:if>>Phòng Kế toán Ngân quỹ</option>                        
+                                <option value="3" <s:if test="disintctD6.equalsIgnoreCase('3')"> selected </s:if>>Phòng Kế hoạch nghiệp vụ</option>
+                                <option value="4" <s:if test="disintctD6.equalsIgnoreCase('4')"> selected </s:if>>Ban Giám đốc</option>
+                                <option value="5" <s:if test="disintctD6.equalsIgnoreCase('5')"> selected </s:if>>Phòng Kiểm tra KSNB</option>
 
                                 </select>                 
                                 &nbsp;&nbsp;&nbsp; <select name="namedistinctD8" id="idnamedistinctD8" style="border: hidden"
@@ -156,13 +159,13 @@
                             <select name="namedistinctD6" id="idnamedistinctD6" style="border: hidden"
                                     <s:if test="check_form.equalsIgnoreCase('2')">onmousedown="return false" </s:if>> 
                                 <option value="0" style="text-align: center" <s:if test="disintctD6.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
-                                <option value="1" <s:if test="disintctD6.equalsIgnoreCase('1')"> selected </s:if>>Tin học</option>
-                                <option value="2" <s:if test="disintctD6.equalsIgnoreCase('2')"> selected </s:if>>Hành chính tổ chức</option>                        
-                                <option value="3" <s:if test="disintctD6.equalsIgnoreCase('3')"> selected </s:if>>Kế toán ngân quỹ</option>
-                                <option value="4" <s:if test="disintctD6.equalsIgnoreCase('4')"> selected </s:if>>Kế hoạch nghiệp vụ</option>
-                                <option value="5" <s:if test="disintctD6.equalsIgnoreCase('5')"> selected </s:if>>Tổng hợp</option>
-                                <option value="6" <s:if test="disintctD6.equalsIgnoreCase('6')"> selected </s:if>>Giám đốc</option>
-                                <option value="7" <s:if test="disintctD6.equalsIgnoreCase('7')"> selected </s:if>>Kiểm tra kiểm soát nội bộ</option>
+                                <option value="1" <s:if test="disintctD6.equalsIgnoreCase('1')"> selected </s:if>>Phòng Tin học</option>
+                                <option value="2" <s:if test="disintctD6.equalsIgnoreCase('2')"> selected </s:if>>Phòng Hành chính tổ chức</option>                        
+                                <option value="3" <s:if test="disintctD6.equalsIgnoreCase('3')"> selected </s:if>>Phòng Kế toán ngân quỹ</option>
+                                <option value="4" <s:if test="disintctD6.equalsIgnoreCase('4')"> selected </s:if>>Phòng Kế hoạch nghiệp vụ</option>
+                                <option value="5" <s:if test="disintctD6.equalsIgnoreCase('5')"> selected </s:if>>Phòng Tổng hợp</option>
+                                <option value="6" <s:if test="disintctD6.equalsIgnoreCase('6')"> selected </s:if>>Ban Giám đốc</option>
+                                <option value="7" <s:if test="disintctD6.equalsIgnoreCase('7')"> selected </s:if>>Phòng Kiểm tra KSNB</option>
 
                                 </select>                 
                                 &nbsp;&nbsp;&nbsp;<select name="namedistinctD8" id="idnamedistinctD8" style="border: hidden"

@@ -310,7 +310,7 @@
                 var checkD50 = document.getElementById('id_D50').value;
                 var mapgd = document.getElementById('lstPGD').value;
 //                alert(checkD50);
-var ngaybc = document.getElementById('ngay_bc_DATE').value;
+                var ngaybc = document.getElementById('ngay_bc_DATE').value;
                 var currentDate = new Date();
                 var day = currentDate.getDate();
                 var month = currentDate.getMonth() + 1;
@@ -335,7 +335,7 @@ var ngaybc = document.getElementById('ngay_bc_DATE').value;
                 {
                     $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Hết thời gian mở khóa!</h>");
                     return;
-                }else {
+                } else {
                     let aCheck = confirm("Bạn chắc chắn muốn mở số liệu báo cáo ?");
                     if (aCheck) {
                         var table = document.getElementById("subTable");
@@ -430,7 +430,7 @@ var ngaybc = document.getElementById('ngay_bc_DATE').value;
                 {
                     $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'>Hết thời gian phê duyệt!</h>");
                     return;
-                }else {
+                } else {
                     let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
                     if (aCheck) {
                         var table = document.getElementById("subTable");
@@ -789,7 +789,12 @@ var ngaybc = document.getElementById('ngay_bc_DATE').value;
                     </div>
                     <tr>
                         <td>
-                            &nbsp;<label>Ngày báo cáo: </label>
+                            <s:if test="khoa_tdnn.equalsIgnoreCase('01_TDNN_2024') || khoa_tdnn.equalsIgnoreCase('01_TDNN_2024_CBCT')">
+                                &nbsp;<label>Ngày kiểm tra: </label>
+                            </s:if>
+                            <s:else>
+                                &nbsp;<label>Ngày giám sát: </label>
+                            </s:else>
                             <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
                                            placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
 
