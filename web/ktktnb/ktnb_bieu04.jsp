@@ -305,7 +305,8 @@
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" value="<s:property  value="D4"/>"/>  
                                     <input type="hidden" value="<s:property  value="D2" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" value="<s:property  value="D4"/>"/>  
-
+                                    <input type="hidden" value="<s:property  value="KIEUIN" />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KIEUIN" value="<s:property  value="KIEUIN"/>"/>
                                     <input type="hidden" value="<s:property  value="D8" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" value="<s:property  value="D8"/>"/>
                                     <input type="hidden" value="<s:property  value="D9" />"
