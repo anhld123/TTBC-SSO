@@ -18,9 +18,11 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.ServletContext;
 import static org.apache.struts2.ServletActionContext.getServletContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
@@ -46,6 +48,7 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
 
     Service_GQVL2023 _server;
     private List<DuLieuNTRow> lstData;
+    private List<DuLieuNTRow> lstData_tmp;
     private String txtSoku;
     private String txtGetData;
     private String txtType;
@@ -62,11 +65,20 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
     private String check_Flag;
     private String inmage;
     private String imageSize;
+    private String alfet_canhbao;
     private List<ListMainPos> lstCN_API;
     private List<ListPosCode> lstPGD_API;
     private List<ListCommune> lstXa_API;
     private List<ListTransactionPoint> lstPoint_API;
     //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public String getAlfet_canhbao() {
+        return alfet_canhbao;
+    }
+
+    public void setAlfet_canhbao(String alfet_canhbao) {
+        this.alfet_canhbao = alfet_canhbao;
+    }
 
     public String getCheck_Flag() {
         return check_Flag;
@@ -327,6 +339,39 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
             setCheck_form(check);
             _server = new Service_GQVL2023();
             if (check == "1") {
+                 SimpleDateFormat sdfInput = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+                Date inputDate = sdfInput.parse(s);
+
+                // Lấy ngày đầu tiên của tháng của ngày s truyền vào
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(inputDate);
+                calendar.set(Calendar.DAY_OF_MONTH, 1);
+                Date startDate = calendar.getTime();
+
+                // Lấy ngày cuối cùng của tháng của ngày s truyền vào
+                calendar.add(Calendar.MONTH, 1);
+                calendar.add(Calendar.DATE, -1);
+                Date endDate = calendar.getTime();
+
+                // Duyệt qua từng ngày trong tháng và gọi hàm
+                SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+                SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
+
+                calendar.setTime(startDate);
+                while (calendar.getTime().compareTo(endDate) <= 0) {
+                    String ngay = sdf1.format(calendar.getTime());
+                    String checkdate1 = sdf.format(calendar.getTime());
+                    String checkdate2 = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy", Locale.US).parse(s));
+
+                    this.lstData_tmp = _server.getTTND_2024("KTGS_01GDX", mapgd, CO_TONGHOP, maxa, ngay, "", "0");
+
+                    // Kiểm tra điều kiện dừng khi có dữ liệu và ngày kiểm tra đúng
+                    if (lstData_tmp.size() > 0 && !checkdate1.equals(checkdate2)) {
+                        String ngay1 = sdf2.format(calendar.getTime());
+                        setAlfet_canhbao("Điểm giao dịch đã nhập dữ liệu vào ngày " + ngay1);
+                    }
+                    calendar.add(Calendar.DATE, 1);
+                }
                 lstCanBo = new clsHuyDongTK().getCanBo("B", UserName);
                 if (lstCanBo == null || lstCanBo.isEmpty()) {
                     addActionError("Phòng giao dịch chưa có cán bộ chuyên trách!");

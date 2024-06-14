@@ -147,6 +147,8 @@
                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" value="<s:property  value="D3"/>">
         <input type="hidden" value="<s:property  value="D50" />"
                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D50" value="<s:property  value="D50"/>"/>
+        <input type="hidden" value="<s:property  value="KIEUIN" />"
+               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KIEUIN" value="<s:property  value="KIEUIN"/>"/>
         <s:if test="D3.equalsIgnoreCase('1')">
             <td class="D0 D1 D2 D4"><s:property value="TT_HIENTHI"/></td> 
             <td class="D1 D2 D4"><s:property value="TEN"/></td>
