@@ -166,9 +166,10 @@
                     <input type="button" value="Gửi cấp trên" id="cmdGuiDL" name="nameGuiDL" class="cmd"/>
                     <input type="button" value="Trả lại đơn vị" id="cmdTraLaiDL" name="nameTraLaiDL" class="cmd"/>
                     <input type="button" value="Lưu dữ liệu" id="idLuuDL" name="nameLuuDL" class="cmd"/>
+                    
+                </div>
                     &nbsp;
                     <div id="idViewMess" name="nameViewMess" style="font-weight: bold; color: red; line-height: 30px;"></div>
-                </div>
             </div>
             <div class="cls-over">
                 <div id="idViewData"></div>
@@ -251,7 +252,7 @@
                             });
                             function SendData(event) {
                                 var surl, sdata, idView, idMess, idForm, method, strMess;
-                                if ($("#cboTonghop").val().trim() == "N")
+                                if ($("#cboTonghop").val().trim() === "N")
                                     $('.cls-over').height("65vh");
                                 else{
                                     $('.cls-over').height("85vh");
@@ -274,7 +275,7 @@
                                         if (["10", "11", "20", "21", "01", "30", "31","404"].includes(result)) {
                                             switch (result) {
                                                 case "01":
-                                                    strMess = 'Lỗi: Tải dữ liệu không thành công.';
+                                                    strMess = 'Lỗi: Không có dữ liệu.';
                                                     $(idView).html('');
                                                     break;
                                                 case "10":
