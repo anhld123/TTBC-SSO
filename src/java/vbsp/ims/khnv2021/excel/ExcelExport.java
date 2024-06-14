@@ -429,7 +429,7 @@ public class ExcelExport {
                         titleRow = sheet.createRow(3);
                     }
 
-                    XSSFCell titleCell = titleRow.getCell(1, Row.CREATE_NULL_AS_BLANK);
+                    XSSFCell titleCell = titleRow.getCell(0, Row.CREATE_NULL_AS_BLANK);
                     fillTitle(titleCell, "NHU CẦU VỐN TÍN DỤNG CHÍNH SÁCH NĂM " + namBc);
 
                     XSSFRow subTitleRow = sheet.getRow(4);
@@ -437,7 +437,7 @@ public class ExcelExport {
                         subTitleRow = sheet.createRow(4);
                     }
 
-                    XSSFCell subTitleCell = subTitleRow.getCell(1, Row.CREATE_NULL_AS_BLANK);
+                    XSSFCell subTitleCell = subTitleRow.getCell(0, Row.CREATE_NULL_AS_BLANK);
                     String subTitleData = "XÃ/PHƯỜNG/THỊ TRẤN: " + commune.getDesc().toUpperCase() + "; HUYỆN:" + lstTitleData.get(0).toUpperCase() + "; TỈNH: " + lstTitleData.get(1).toUpperCase();
                     fillTitle(subTitleCell, subTitleData);
 
