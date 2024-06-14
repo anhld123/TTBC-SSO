@@ -268,7 +268,7 @@ public class ExcelExport {
                             for (int k = 0; k < lstData.size(); k++) {
                                 if (lstData.get(k).code.equals(code)) {
                                     numberStyle = dataPrinCell.getCellStyle();
-                                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                                    numberStyle.setDataFormat(format.getFormat("#,##0"));
                                     numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                                     //numberStyle.setFont(font);
                                     numberStyle.setLocked(false);
@@ -429,15 +429,15 @@ public class ExcelExport {
                         titleRow = sheet.createRow(3);
                     }
 
-                    XSSFCell titleCell = titleRow.getCell(1, Row.CREATE_NULL_AS_BLANK);
-                    fillTitle(titleCell, "NHU CẦU VỐN TÍN DỤNG CHÍNH SÁCH NĂM " + namBc);
+                    XSSFCell titleCell = titleRow.getCell(0, Row.CREATE_NULL_AS_BLANK);
+                    fillTitle(titleCell, "NHU CẦU VỐN TÍN DỤNG CHÍNH SÁCH NĂM " +(Integer.parseInt(namBc) - 2)+"-"+ namBc);
 
                     XSSFRow subTitleRow = sheet.getRow(4);
                     if (subTitleRow == null) {
                         subTitleRow = sheet.createRow(4);
                     }
 
-                    XSSFCell subTitleCell = subTitleRow.getCell(1, Row.CREATE_NULL_AS_BLANK);
+                    XSSFCell subTitleCell = subTitleRow.getCell(0, Row.CREATE_NULL_AS_BLANK);
                     String subTitleData = "XÃ/PHƯỜNG/THỊ TRẤN: " + commune.getDesc().toUpperCase() + "; HUYỆN:" + lstTitleData.get(0).toUpperCase() + "; TỈNH: " + lstTitleData.get(1).toUpperCase();
                     fillTitle(subTitleCell, subTitleData);
 
@@ -511,7 +511,7 @@ public class ExcelExport {
                             for (int k = 0; k < lstData.size(); k++) {
                                 if (lstData.get(k).code.equals(code)) {
                                     numberStyle = dataPrinCell6.getCellStyle();
-                                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                                    numberStyle.setDataFormat(format.getFormat("#,##0"));
                                     numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                                     //numberStyle.setFont(font);
                                     numberStyle.setLocked(false);
@@ -519,7 +519,7 @@ public class ExcelExport {
                                     dataPrinCell6.setCellValue(lstData.get(k).d4);
 
                                     numberStyle = dataPrinCell7.getCellStyle();
-                                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                                    numberStyle.setDataFormat(format.getFormat("#,##0"));
                                     numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                                     //numberStyle.setFont(font);
                                     numberStyle.setLocked(false);
@@ -527,7 +527,7 @@ public class ExcelExport {
                                     dataPrinCell7.setCellValue(lstData.get(k).d5);
 
                                     numberStyle = dataPrinCell8.getCellStyle();
-                                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                                    numberStyle.setDataFormat(format.getFormat("#,##0"));
                                     numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                                     //numberStyle.setFont(font);
                                     numberStyle.setLocked(false);
@@ -744,7 +744,7 @@ public class ExcelExport {
 
                         XSSFCell xssfCell03 = xssfRow.getCell(3, Row.CREATE_NULL_AS_BLANK);
                         numberStyle = xssfCell03.getCellStyle();
-                        numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                        numberStyle.setDataFormat(format.getFormat("#,##0"));
                         numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                         numberStyle.setFont(font);
                         numberStyle.setLocked(false);
@@ -753,7 +753,7 @@ public class ExcelExport {
 
                         XSSFCell xssfCell05 = xssfRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
                         numberStyle = xssfCell05.getCellStyle();
-                        numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                        numberStyle.setDataFormat(format.getFormat("#,##0"));
                         numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                         numberStyle.setFont(font);
                         numberStyle.setLocked(false);
@@ -762,7 +762,7 @@ public class ExcelExport {
 
                         XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
                         lockStyle = xssfCell04.getCellStyle();
-                        lockStyle.setDataFormat(format.getFormat("#,##0.00"));
+                        lockStyle.setDataFormat(format.getFormat("#,##0"));
                         lockStyle.setAlignment(HorizontalAlignment.RIGHT);
                         lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
                         lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
@@ -1178,7 +1178,7 @@ public class ExcelExport {
 
                     XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
                     numberStyle = xssfCell04.getCellStyle();
-                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                    numberStyle.setDataFormat(format.getFormat("#,##0"));
                     numberStyle.setAlignment(HorizontalAlignment.RIGHT);
 //                    numberStyle.setLocked(false);
 //                    xssfCell04.setCellStyle(numberStyle);
@@ -1186,7 +1186,7 @@ public class ExcelExport {
 
                     XSSFCell xssfCell05 = xssfRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
                     lockStyle = xssfCell05.getCellStyle();
-                    lockStyle.setDataFormat(format.getFormat("#,##0.00"));
+                    lockStyle.setDataFormat(format.getFormat("#,##0"));
                     lockStyle.setAlignment(HorizontalAlignment.RIGHT);
 
                     if (lstData.get(i).code.equals("XD00100")
@@ -1211,7 +1211,7 @@ public class ExcelExport {
 
                     XSSFCell xssfCell06 = xssfRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
                     numberStyle = xssfCell06.getCellStyle();
-                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+                    numberStyle.setDataFormat(format.getFormat("#,##0"));
                     numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                     numberStyle.setLocked(true);
                     xssfCell06.setCellStyle(numberStyle);
@@ -1219,7 +1219,7 @@ public class ExcelExport {
 
                     XSSFCell xssfCell07 = xssfRow.getCell(7, Row.CREATE_NULL_AS_BLANK);
                     lockStyle = xssfCell07.getCellStyle();
-                    lockStyle.setDataFormat(format.getFormat("#,##0.00"));
+                    lockStyle.setDataFormat(format.getFormat("#,##0"));
                     lockStyle.setAlignment(HorizontalAlignment.RIGHT);
                     lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
                     lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
