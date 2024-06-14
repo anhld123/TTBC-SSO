@@ -1376,6 +1376,45 @@ public class XDKHDao2021 {
         return lstBcqt_NT;
     }
    
+   public List<String> getTitleData(String posCode) throws SQLException {
+        List<String> lstData = new ArrayList<>();
+        DaoConnect daoconnect = new DaoConnect();
+        Connection conn = null;
+        conn = daoconnect.getConnect();
+        CallableStatement calstatement = null;
+        ResultSet reset = null;
+//        try {
+        //Khoi tao procedure cung voi tham so truyen vao la dau ?
+        String strStoreproce = "{call VBSP_IMS_KHNV2021.SP_GET_TITLE_DATA(?,?)}";
+        try {
+            //Khoi tao goi store
+            calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);            
+            calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
+            calstatement.setString(1, posCode);
+            //Thuc hien execute lay du lieu
+            calstatement.execute();            
+            reset = (ResultSet) calstatement.getObject(2);
+            while (reset.next()) {
+                lstData.add(reset.getString(2));
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getTitleData -> " + e.getMessage());
+            throw new SQLException(e);
+        } finally {
+            if (reset != null) {
+                reset.close();
+            }
+            if (calstatement != null) {
+                calstatement.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return lstData;
+    }
+   
    
 }
 
