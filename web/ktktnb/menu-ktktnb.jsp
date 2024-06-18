@@ -109,7 +109,7 @@
             $(function () {
                 var date = new Date();
                 var currentDay = date.getDate();
-                if (currentDay >= 10 && currentDay <= 14) {
+                if (currentDay >= 10 && currentDay <= 20) {
                     $("#dpkReportDate").datepicker({
                         dateFormat: 'dd/mm/yy',
                         showOn: "button",
