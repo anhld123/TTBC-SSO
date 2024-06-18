@@ -1213,7 +1213,7 @@ public class ExcelExport {
 
                     XSSFCell xssfCell06 = xssfRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
                     numberStyle = xssfCell06.getCellStyle();
-                    numberStyle.setDataFormat(format.getFormat("#,##0;-#,##0;;@"));
+                    //numberStyle.setDataFormat(format.getFormat("#,##0;-#,##0;;@"));
                     numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                     numberStyle.setLocked(true);
                     xssfCell06.setCellStyle(numberStyle);
@@ -1221,7 +1221,7 @@ public class ExcelExport {
 
                     XSSFCell xssfCell07 = xssfRow.getCell(7, Row.CREATE_NULL_AS_BLANK);
                     lockStyle = xssfCell07.getCellStyle();
-                    lockStyle.setDataFormat(format.getFormat("#,##0.0;-#,##0.0;-;@"));
+                    //lockStyle.setDataFormat(format.getFormat("#,##0.0;-#,##0.0;-;@"));
                     lockStyle.setAlignment(HorizontalAlignment.RIGHT);
                     lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
                     lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
