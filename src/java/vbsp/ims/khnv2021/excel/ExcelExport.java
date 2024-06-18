@@ -1221,7 +1221,7 @@ public class ExcelExport {
 
                     XSSFCell xssfCell07 = xssfRow.getCell(7, Row.CREATE_NULL_AS_BLANK);
                     lockStyle = xssfCell07.getCellStyle();
-                    lockStyle.setDataFormat(format.getFormat("#,##0;-#,##0;;@"));
+                    lockStyle.setDataFormat(format.getFormat("#,##0.0;-#,##0.0;-;@"));
                     lockStyle.setAlignment(HorizontalAlignment.RIGHT);
                     lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
                     lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
@@ -1232,7 +1232,7 @@ public class ExcelExport {
 
                 FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
                 formulaEvaluator.evaluateAll();
-                sheet.protectSheet("123456");
+                sheet.protectSheet("khnv2024");
                 java.io.FileOutputStream out = new java.io.FileOutputStream(fileName);
                 xssfWorkbook.write(out);
                 out.close();
