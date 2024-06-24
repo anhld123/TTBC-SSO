@@ -214,6 +214,7 @@
                 var macb = document.getElementById('cboCanBo').value;
                 var checkD50 = document.getElementById('id_D50').value;
                 var mapgd = document.getElementById('lstPGD').value;
+                var macn = document.getElementById('lstCN').value;
                 var ngaybc = document.getElementById('ngay_bc_DATE').value;
                 var currentDate = new Date();
                 var day = currentDate.getDate();
@@ -262,6 +263,11 @@
                                 if (mapgd === "000000")
                                 {
                                     alert('Vui lòng chọn phòng giao dịch');
+                                    return;
+                                }
+                                if (macn === "000000")
+                                {
+                                    alert('Vui lòng chọn chi nhánh');
                                     return;
                                 }
                             } catch (e) {
@@ -404,6 +410,7 @@
                 var macb = document.getElementById('cboCanBo').value;
                 var checkD50 = document.getElementById('id_D50').value;
                 var mapgd = document.getElementById('lstPGD').value;
+                var macn = document.getElementById('lstCN').value;
                 var ngaybc = document.getElementById('ngay_bc_DATE').value;
                 var currentDate = new Date();
                 var day = currentDate.getDate();
@@ -452,6 +459,11 @@
                                 if (mapgd === "000000")
                                 {
                                     alert('Vui lòng chọn phòng giao dịch');
+                                    return;
+                                }
+                                 if (macn === "000000")
+                                {
+                                    alert('Vui lòng chọn chi nhánh');
                                     return;
                                 }
                             } catch (e) {
