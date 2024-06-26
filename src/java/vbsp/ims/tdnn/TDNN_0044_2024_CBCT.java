@@ -484,7 +484,7 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
             String dateStr = sdf.format(date1);
             int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(date1));
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-            String tranPoint = "TNX0" + maxa;
+            String tranPoint = "TXN0" + maxa;
 //            String imageBase64 = hmParameter.get("imageBase64").toString();
 //            if (imageBase64.length() > 1) {
 //                setImageSize("1");
@@ -591,7 +591,7 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
             if (macb.equals("000000")) {
                 addActionError("Bạn chưa chọn cán bộ kiểm tra!");
             }
-            String tranPoint = "TNX0" + maxa;
+            String tranPoint = "TXN0" + maxa;
             System.out.println(macb + " " + tranPoint);
 
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
@@ -683,7 +683,7 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
             String dateStr = sdf.format(date1);
             int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(date1));
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-            String tranPoint = "TNX0" + maxa;
+            String tranPoint = "TXN0" + maxa;
             System.out.println(macb + " " + tranPoint);
 
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();

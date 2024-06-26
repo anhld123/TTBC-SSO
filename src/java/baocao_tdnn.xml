@@ -11,6 +11,7 @@
         
         <action name="LoadParaTdnn" class="vbsp.ims.tdnn.ActionTdnnMain"  method="loadPataTdnn">
             <result name="success">/TDNN/para-tdnn-main.jsp</result>
+            <result name="UNLOCK_GDX">/TDNN/para-tdnn-unlock.jsp</result>
             <result name="GSCMR_001">/TDNN/para-tdnn-main_cam.jsp</result>
             <result name="TDNN_2024">/TDNN/para-tdnn-2024.jsp</result>     
             <result name="error">/TDNN/success.jsp</result>   
@@ -49,6 +50,15 @@
         </action>
         -->
         <!--ducanh 2024-->
+        <action name="GDX_UNLOCK" class="vbsp.ims.tdnn.Unlock_GDX"  method="load">
+            <result name="success">/TDNN/table_tdnn_unlock.jsp</result>
+            <result name="error">/TDNN/success.jsp</result>        
+        </action> 
+        
+        <action name="cancelAssign_unlock_gdx" class="vbsp.ims.tdnn.Unlock_GDX" method="cancelAssign">
+            <result name="success" type="json"></result>
+        </action>
+        
         <action name="01_TDNN_2024" class="vbsp.ims.tdnn.TDNN_0011_2024"  method="load">
             <result name="success">/TDNN/table_tdnn_01_2024.jsp</result>
             <result name="error">/TDNN/success.jsp</result>        

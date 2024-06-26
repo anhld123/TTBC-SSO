@@ -438,7 +438,7 @@ public class ActionTdnnMain extends ActionSupport {
             DaoTdnnMain daoMain = new DaoTdnnMain();
             //khoi tao cho treeview cac pos
             List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade);
-            if (!khoa_tdnn.equals("01_TDNN_2024")|| !khoa_tdnn.equals("04_TDNN_2024")) {
+            if (!khoa_tdnn.equals("01_TDNN_2024") || !khoa_tdnn.equals("04_TDNN_2024") || !khoa_tdnn.equals("GDX_UNLOCK")) {
                 if (Grade.equals("3")) {
                     setTreeNodeGrade3(lstModelTree);
                 } else {
@@ -454,8 +454,13 @@ public class ActionTdnnMain extends ActionSupport {
 //                lstPOS = new DaoKt740().getGroupQuery(null);
                 return "GSCMR_001";
             }
+            if (khoa_tdnn.equals("GDX_UNLOCK")) {
+                _server_tmp = new LeaveHomeService();
+                lstCN_API = _server_tmp.getListCn("");
+                return "UNLOCK_GDX";
+            }
             if (khoa_tdnn.equals("01_TDNN_2024") || khoa_tdnn.equals("04_TDNN_2024")
-                    ||khoa_tdnn.equals("01_TDNN_2024_CBCT") || khoa_tdnn.equals("04_TDNN_2024_CBCT")) {
+                    || khoa_tdnn.equals("01_TDNN_2024_CBCT") || khoa_tdnn.equals("04_TDNN_2024_CBCT")) {
                 String PosFlag = "";
                 if (Grade.equals("3")) {
                     PosFlag = "H";
@@ -477,7 +482,7 @@ public class ActionTdnnMain extends ActionSupport {
                 } else if (PosFlag == "M") {
                     lstPGD_API = _server_tmp.getListPgd(main_pos, "");
                     lstCN_API = _server_tmp.getListCn(main_pos.substring(2, 4));
-                    lstXa_API = _server_tmp.getListXa(main_pos.substring(2, 4),"", "", "");
+                    lstXa_API = _server_tmp.getListXa(main_pos.substring(2, 4), "", "", "");
                     lstPoint_API = _server_tmp.getListPoint(pos_cd, PosFlag, "TXN");
                 } else {
                     lstCN_API = _server_tmp.getListCn("");

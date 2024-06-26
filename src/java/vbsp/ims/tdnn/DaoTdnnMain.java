@@ -21,6 +21,7 @@ import oracle.sql.ArrayDescriptor;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.DaoLoadReportParams;
+import vbsp.ims.define.GenericResult;
 import vbsp.ims.loadparams.Combo;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
@@ -1974,6 +1975,95 @@ public class DaoTdnnMain {
         return lstBcqt_NT;
     }
     
+    public List<QT_DULIEU_NT> getData_UnlockGdx(Connection conn, String sNgaybc,String sKhoa,String sMacn) {
+        List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
+        try {
+            CallableStatement calstatement = null;
+            String strStoreproce = "{call VBSP_IMS_NGHIQUYET11CP.SP_GET_DATA_UNLOCKGDX(?,?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(2, sKhoa);
+                calstatement.setString(3, sMacn);
+                calstatement.setString(1, sNgaybc);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+                int pn_err_cd = calstatement.getInt(4);
+                //thu hien lay mo ta loi
+                String strEdd_txt = calstatement.getString(5);
+                //Lay cursor ra resultset
+                reset = (ResultSet) calstatement.getObject(6);
+                while (reset.next()) {
+
+                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();             
+                    value.setD1(reset.getString("D1"));
+                    value.setD2(reset.getString("D2"));
+                    value.setD3(reset.getString("D3"));
+                    value.setD4(reset.getString("D4"));
+                    value.setD5(reset.getString("D5"));  
+                    value.setD6(reset.getString("D6"));  
+                    lstBcqt_NT.add(value);
+                }
+
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getDataKH04 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+        }
+        return lstBcqt_NT;
+    }
+    
+    public GenericResult<String> cancelAssign(String skhoa, String smadgx, String sngaybc) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();        
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_UNLOCK_GDX(?, ?, ? ,?, ? )}");            
+            cs.setString(1, skhoa);
+            cs.setString(2, smadgx);
+            cs.setString(3, sngaybc);
+            cs.registerOutParameter(4, oracle.jdbc.OracleTypes.NUMBER);
+            cs.registerOutParameter(5, oracle.jdbc.OracleTypes.VARCHAR);                
+            cs.execute();
+            
+            //Lay ma loi neu co
+            int errorCode = cs.getInt(4);            
+            String errorMessage = cs.getString(5);
+            
+            if (errorCode == 0) {
+                return (new GenericResult<String>()).Success("Success");
+            } else {
+                return (new GenericResult<String>()).Fail(errorMessage,errorCode);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham cancelAssign " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " cancelAssign -> " + e.getMessage());
+            return (new GenericResult<String>()).Fail(e.getMessage(),e.getErrorCode());
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }        
+    }
     public int checkMainPos(String sPos) throws SQLException {
         int _retVal = 0;
         Connection conn = new DaoConnect().getConnect();
