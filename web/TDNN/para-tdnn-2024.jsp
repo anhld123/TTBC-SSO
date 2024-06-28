@@ -785,8 +785,10 @@
                         <s:if test="!Grade.equalsIgnoreCase('3')">
                             <select id="lstXa_Temp">
                                 <option value="000000">----Chọn điểm giao dịch xã----</option>
-                                <s:iterator value="lstPoint_API" status="ideRows" var="language">                                    
+                                <s:iterator value="lstPoint_API" status="ideRows" var="language">   
+                                    <s:if test="!status.equalsIgnoreCase('C')">
                                     <option value="<s:property value="PosCode"/>_<s:property value="communeId"/>"><s:property value="transactionPoint"/> - <s:property value="communeName"/></option>                                    
+                                    </s:if>
                                 </s:iterator>
                             </select>
                         </s:if>
