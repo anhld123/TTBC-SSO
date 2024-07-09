@@ -30,16 +30,17 @@ public class ExcelUploader {
         ExcelFileLibrary excel_file_library = new ExcelFileLibrary();
         ExcelFile excel_file;
         
-         boolean isExcel = true;
+        boolean isExcel = true;
         
         for (File file : files) {
             //Kiểm tra file xem có đúng là xls ko
             if (!DefineFun.isFileExcel(file.getAbsolutePath())) {
-                isExcel = true;
+                isExcel = false;
+                break;
             }
         }
         //Nếu có file không phải là file excel thì xóa hết file đi
-        if (isExcel) {
+        if (!isExcel) {
             for (File file : files) {
                 file.delete();
             }

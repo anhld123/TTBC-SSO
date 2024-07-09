@@ -45,7 +45,7 @@ public class DefineFun {
     }
 
     public static boolean isFileExcel(String fullPath) {
-        if (!fullPath.toLowerCase().contains(".xls")) {
+        if (!(fullPath.toLowerCase().contains(".xls") || fullPath.toLowerCase().contains(".xlsx"))) {
             return false;
         }
         return true;

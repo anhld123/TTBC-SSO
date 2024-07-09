@@ -36,11 +36,12 @@ public class Dtw_Import {
         for (File file : files) {
             //Kiểm tra file xem có đúng là xls ko
             if (!DefineFun.isFileExcel(file.getAbsolutePath())) {
-                isExcel = true;
+                isExcel = false;
+                break;
             }
         }
         //Nếu có file không phải là file excel thì xóa hết file đi
-        if (isExcel) {
+        if (!isExcel) {
             for (File file : files) {
                 file.delete();
             }
