@@ -53,17 +53,27 @@
         border-spacing: 0;
         width: auto;
     }
-    .port-name {
-        float:left;
-        width:80%;
-        margin: 0 auto;
-    }
+     .container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
 
-    .admincp-button {
-        float:right;
-        width:80%;
-        margin: 0 auto;
-    }
+        .box {
+            flex: 1;
+            margin: 10px;
+            min-width: 200px; /* Đảm bảo các hộp không nhỏ hơn kích thước này */
+            background-color: #f0f0f0; /* Màu nền để dễ nhìn */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+            .box {
+                flex: 1 1 100%;
+                margin: 5px 0;
+            }
+        }
 </style>
 <html>
     <head>
@@ -98,7 +108,7 @@
         </script>      
     </head>
     <body>
-        <div style="overflow:scroll; width: 70%;height: 400px;">              
+        <div style="overflow:scroll; width: 98vw;">              
             <div id="divTitle">
 
                 <s:hidden name="khoa_ktgs" id="khoa"/>
@@ -107,7 +117,8 @@
             </div>
             <div style="height:10px"></div>  
             <div style="height:10px"></div>  
-            <table border="1" class="editDelete port-name" id="subTable" style="padding-top: 10px">   
+            <div class="container">
+            <table border="1" class="editDelete so1" id="subTable" style="padding-top: 10px">   
                 <tr>
                     <th style="width: 50px">Mã CN</th>
                     <th style="width: 100px">Tên chi nhánh</th>
@@ -128,32 +139,36 @@
                         <s:if test="D6.equalsIgnoreCase('1')">
                             <td style="background: #ffffff;">
                                 <input class="D0" type="text" readonly name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
-                                       id="D1_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D1"/>"/>
+                                       id="D1_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D1"/>"
+                                       <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red"</s:if>/>
                             </td>
                             <td style="background: #ffffff;">
                                 <input  type="text" readonly name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" 
-                                        id="D2_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D2"/>"/>
+                                        id="D2_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D2"/>"
+                                        <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red"</s:if>/>
                             </td>
                             <td style="background: #ffffff;">
                                 <input type="text" class="D0" readonly name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" 
-                                       id="D3_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D3"/>"/>
+                                       id="D3_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D3"/>"
+                                       <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red"</s:if>/>
                             </td>
 
                             <td style="background: #ffffff;">
                                 <input type="text" class="D0" readonly name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
-                                       id="D4_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D4"/>"/>
+                                       id="D4_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D4"/>"
+                                       <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red"</s:if>/>
                             </td>
 
                             <td style="background: #ffffff;">
                                 <input class="D0" type="text" readonly name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
                                        id="D5_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D5"/>"
-                                       <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red"</s:if>>
+                                       <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red"</s:if>/>
                                 </td>
                         </s:if>
                     </tr>
                 </s:iterator>
             </table>
-            <table border="1" class="editDelete admincp-button" id="subTable"  style="padding-top: 10px">   
+            <table border="1" class="editDelete so2" id="subTable"  style="padding-top: 10px">   
                 <tr>
                     <th style="width: 50px">Mã CN</th>
                     <th style="width: 100px">Tên chi nhánh</th>
@@ -171,34 +186,89 @@
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr>
-                        <s:if test="!D6.equalsIgnoreCase('1')">
+                        <s:if test="D6.equalsIgnoreCase('2')">
                             <td style="background: #ffffff;">
                                 <input class="D0" type="text" readonly name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
-                                       id="D1_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D1"/>"/>
+                                       id="D1_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D1"/>"
+                                       <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red"</s:if>/>
                             </td>
                             <td style="background: #ffffff;">
                                 <input  type="text" readonly name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" 
-                                        id="D2_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D2"/>"/>
+                                        id="D2_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D2"/>"
+                                        <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red"</s:if>/>
                             </td>
                             <td style="background: #ffffff;">
                                 <input type="text" class="D0" readonly name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" 
-                                       id="D3_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D3"/>"/>
+                                       id="D3_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D3"/>"
+                                       <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red"</s:if>/>
                             </td>
 
                             <td style="background: #ffffff;">
                                 <input type="text" class="D0" readonly name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
-                                       id="D4_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D4"/>"/>
+                                       id="D4_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D4"/>"
+                                       <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red"</s:if>/>
+                            </td>
+
+                            <td style="background: #ffffff;">
+                                <input class="D0" type="text" readonly name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
+                                       id="D5_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D5"/>"
+                                       <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red" </s:if>/>
+                                </td>
+                        </s:if>
+                    </tr>
+                </s:iterator>
+            </table>
+            <table border="1" class="editDelete so3" id="subTable"  style="padding-top: 10px">   
+                <tr>
+                    <th style="width: 50px">Mã CN</th>
+                    <th style="width: 100px">Tên chi nhánh</th>
+                    <th style="width: 80px">Số lượng PGD</th>
+                    <th style="width: 80px">Số lượng PGD đã gửi</th>
+                    <th style="width: 80px">Số lượng PGD chưa gửi</th>
+
+                </tr>  
+                <tr>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th> 
+                </tr>
+                <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
+                    <tr>
+                        <s:if test="D6.equalsIgnoreCase('3')">
+                            <td style="background: #ffffff;">
+                                <input class="D0" type="text" readonly name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
+                                       id="D1_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D1"/>"
+                                       <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red"</s:if>/>
+                            </td>
+                            <td style="background: #ffffff;">
+                                <input  type="text" readonly name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" 
+                                        id="D2_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D2"/>"
+                                        <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red"</s:if>/>
+                            </td>
+                            <td style="background: #ffffff;">
+                                <input type="text" class="D0" readonly name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" 
+                                       id="D3_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D3"/>"
+                                       <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red"</s:if>/>
+                            </td>
+
+                            <td style="background: #ffffff;">
+                                <input type="text" class="D0" readonly name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
+                                       id="D4_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D4"/>"
+                                       <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red"</s:if>/>
                             </td>
 
                             <td style="background: #ffffff;">
                                 <input class="D0" type="text" readonly name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
                                        id="D5_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D5"/>"
                                        <s:if test="!D5.equalsIgnoreCase('0')"> style="color: red"</s:if>>
-                                </td>
+                                </td> 
                         </s:if>
                     </tr>
                 </s:iterator>
             </table>
+                </div>
         </div>      
         <div id="luu_thanhcong"></div>
         <script>
