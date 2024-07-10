@@ -110,9 +110,13 @@
         <!--Chi phan khoa va mo khoa gui du lieu-->
         <action name="LoadParaKtgs_unlock" class="vbsp.ims.ktgs.action.ActionKtgsMain"  method="LoadParaKtgs_unlock">
             <result name="success">/ktgs/para-ktgs-main_unlock.jsp</result>
+            <result name="UNLOCK_99">/ktgs/para_unlock.jsp</result>
             <result name="error">/ktgs/success.jsp</result>        
         </action>
-        
+        <action name="99" class="vbsp.ims.ktgs.action.UNLOCK_KTKSNB"  method="load">
+            <result name="success">/ktgs/table_ktgs_unlock.jsp</result>
+            <result name="error">/ktgs/success.jsp</result>        
+        </action> 
         <action name="UNLOCK_KTGS" class="vbsp.ims.ktgs.action.ActionKtgsMain"  method="LoadStatusSendCnKtgs">
             <result name="success">/ktgs/table_unlock.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        

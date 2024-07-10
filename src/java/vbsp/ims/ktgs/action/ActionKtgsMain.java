@@ -277,7 +277,6 @@ public class ActionKtgsMain extends ActionSupport {
                 setTreeNodeGrade12(lstModelTree);
             }
             lstKtgsParams = daoMain.getReportParmamsKtgs(conn, khoa_ktgs);
-
             // BO SUNG PHAN KIEM TRA XEM CO THUYET MINH HAY KO
 //            TmDao tmDao = new TmDao();
 //            isDisplayTM = tmDao.getCO_TM(khoa_ktgs);
@@ -452,6 +451,9 @@ public class ActionKtgsMain extends ActionSupport {
                 if (khoa_ktgs.isEmpty()) {
                     setKhoa_ktgs("ALL");
                 }
+            }
+             if (khoa_ktgs.equals("99")) {
+                return "UNLOCK_99";
             }
             Connection conn = new DaoConnect().getConnect();
             DaoKtgsMain daoMain = new DaoKtgsMain();
