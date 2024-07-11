@@ -420,9 +420,10 @@
                     </table>    
                 </fieldset>
                 <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
-                    <img id="loadingImage" src='img/loading.gif' border='0' >                  
+                    <img id="loadingImage" src='img/loading.gif' border='0' >      
+                    <div id="message_suc_err"></div>
                 </div>   
-                <div id="message_suc_err"></div>
+                
             <s:if test="khoa_ktgs.equalsIgnoreCase('99')">
                 <div id="containParm_full" align="center">
                     <div id="divExportReport"></div>

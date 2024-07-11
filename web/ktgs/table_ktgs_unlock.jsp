@@ -109,14 +109,10 @@
     </head>
     <body>
         <div style="overflow:scroll; width: 98vw;">              
-            <div id="divTitle">
-
+            <div id="divTitle">DANH SÁCH CN/ PGD ĐÃ GỬI DỮ LIỆU
                 <s:hidden name="khoa_ktgs" id="khoa"/>
-                DANH SÁCH CN/ PGD ĐÃ GỬI DỮ LIỆU
-
-            </div>
-            <div style="height:10px"></div>  
-            <div style="height:10px"></div>  
+            </div>  
+            <div style="height:2px"></div>  
             <div class="container">
             <table border="1" class="editDelete so1" id="subTable" style="padding-top: 10px">   
                 <tr>
