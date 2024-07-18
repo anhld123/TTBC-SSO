@@ -20,6 +20,7 @@
                 $('input.number').css({"text-align": "right"});
                 $('input.number2').css({"text-align": "right"});
                 $('.D0').css({"text-align": "center"});
+                $('.D00').css({"text-align": "left"});
                 $('.number').number(true, 0);
 //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 2);
@@ -33,8 +34,8 @@
                 $(".TD_THOIGIAN").css({"width": "55px"});
                 $(".TD_MAPGD").css({"width": "45px"});
                 $(".TD_BUTTON1").css({"width": "40px"});
-                $(".TD_SOTIEN").css({"width": "100px"});
-                $(".TEN_KH").css({"width": "100%"});
+                $(".TD_SOTIEN").css({"width": "200px"});
+                $(".TEN_KH").css({"width": "100px"});
             });
             $('.TEN_KH').focus(function () {
                 $(this).closest('tr').addClass('highlight_row');
@@ -46,15 +47,6 @@
 
         <script>
 
-            function hienthichitiet(soku) {
-                var ht1 = screen.availHeight - 360;
-                var wt1 = 500;
-                var left1 = (screen.width / 2) - (wt1 / 2);
-                var top1 = 100;
-                var url = "getDetialTIDE.action?soku=" + soku;
-                popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
-            }
-
             var max_row = 0;
             function initTable()
             {
@@ -64,11 +56,12 @@
                 for (var i = 0; i < rowcount; i++)
                 {
                     var matmp = getMabyNumber(i);//    
-                    if (matmp == 1)
+                    if (matmp === 1)
                     {
                         $('input:checkbox[id=' + i + ']').attr('checked', true);
                     }
                 }
+                autoEvaluate();
             }
 
             function getMabyNumber(idx)
@@ -92,14 +85,14 @@
                 z-index: 6;
                 font-style: italic;
                 font-size: xx-small;
-                width: 500px;
+                width: auto;
             }
             #subTable {
                 font-size: 16px;
                 font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
                 border-collapse: collapse;
                 border-spacing: 0;
-                width: 200%;
+                width: 150%;
             }
 
 
@@ -147,55 +140,55 @@
             <div id="divDonvitinh">
                 Đơn vị tính: Đồng
             </div>
-            <div style="overflow:scroll; width: 99vw;">
-                <!--<table border="1" class="editDelete" id="tablesms01" align="center">-->
+            <div style="overflow:scroll; width: 98vw; height: 25vw">
                 <table id="subTable" style="z-index: 1;">
-                    <tr>                                            
-                        <!--<th rowspan="2" class="hdtitle">STT</th>-->
-                        <s:if test="!Grade.equalsIgnoreCase('3')">
-                         <th rowspan="2" class="hdtitle">Tên PGD</th>    
-                        </s:if>
-                       <s:if test="Grade.equalsIgnoreCase('3')">
-                         <th rowspan="2" class="hdtitle">Tên chi nhánh</th>    
-                        </s:if>
-                        <th rowspan="2" class="hdtitle">Tổng chỉ tiêu kế hoạch dư nợ Quỹ QGVL</th>
-                        <th rowspan="2" class="hdtitle">Tổng dư nợ Quỹ QGVL</th>
-                        <th rowspan="2" class="hdtitle">Tổng số lãi thu được</th>
-                        <th rowspan="2" class="hdtitle">10% bổ sung vào nguồn vốn của Qũy</th>
-                        <th colspan="3" class="hdtitle">UBND</th>
-                        <th colspan="3" class="hdtitle">Hội Phụ nữ</th>
-                        <th colspan="3" class="hdtitle">Hội Nông dân</th>
-                        <th colspan="3" class="hdtitle">Hội Cựu chiến binh</th>
-                        <th colspan="3" class="hdtitle">Đoàn thanh niên</th>
-                        <th colspan="3" class="hdtitle">Liên minh Hợp tác xã</th>
-                        <th colspan="3" class="hdtitle">Tổng Liên đoàn lao động</th>
-                        <th colspan="3" class="hdtitle">Hội người mù</th>
+                    <tr>      
+                        <th rowspan="2" class="TD_CHECKBOX">TT</th>
+                            <s:if test="!Grade.equalsIgnoreCase('3')">
+                            <th rowspan="2" class="TD_SOTIEN">Tên PGD</th>    
+                            </s:if>
+                            <s:if test="Grade.equalsIgnoreCase('3')">
+                            <th rowspan="2" class="TD_SOTIEN">Tên chi nhánh</th>    
+                            </s:if>
+                        <th colspan="3" class="hdtitle">Ủy ban nhân dân tỉnh quản lý</th>
+                        <th colspan="3" class="hdtitle">Tổng LĐ lao động Việt Nam</th>
+                        <th colspan="3" class="hdtitle">TW Đoàn TNCS Hồ Chí Minh</th>
+                        <th colspan="3" class="hdtitle">TW Hội Liên hiệp Phụ nữ VN</th>
+                        <th colspan="3" class="hdtitle">Hội Nông dân Việt Nam</th>
+                        <th colspan="3" class="hdtitle">Hội Cựu chiến binh Việt Nam</th>
+                        <th colspan="3" class="hdtitle">Liên minh Hợp tác xã Việt Nam</th>
+                        <th colspan="3" class="hdtitle">Hội Người mù Việt Nam</th>
+                        <!--<th colspan="3" class="hdtitle">NHCSXH</th>-->
+
                     </tr>  
                     <tr>
-                        <th class="hdtitle">Tổng chỉ tiêu kế hoạch dư nợ Quỹ</th>
-                        <th class="hdtitle">Tổng dư nợ Quỹ QGVL</th>
-                        <th class="hdtitle">10% bổ sung vào nguồn vốn của Qũy</th>
-                        <th class="hdtitle">Tổng chỉ tiêu kế hoạch dư nợ Quỹ</th>
-                        <th class="hdtitle">Tổng dư nợ Quỹ QGVL</th>
-                        <th class="hdtitle">10% bổ sung vào nguồn vốn của Qũy</th>
-                        <th class="hdtitle">Tổng chỉ tiêu kế hoạch dư nợ Quỹ</th>
-                        <th class="hdtitle">Tổng dư nợ Quỹ QGVL</th>
-                        <th class="hdtitle">10% bổ sung vào nguồn vốn của Qũy</th>
-                        <th class="hdtitle">Tổng chỉ tiêu kế hoạch dư nợ Quỹ</th>
-                        <th class="hdtitle">Tổng dư nợ Quỹ QGVL</th>
-                        <th class="hdtitle">10% bổ sung vào nguồn vốn của Qũy</th>
-                        <th class="hdtitle">Tổng chỉ tiêu kế hoạch dư nợ Quỹ</th>
-                        <th class="hdtitle">Tổng dư nợ Quỹ QGVL</th>
-                        <th class="hdtitle">10% bổ sung vào nguồn vốn của Qũy</th>
-                        <th class="hdtitle">Tổng chỉ tiêu kế hoạch dư nợ Quỹ</th>
-                        <th class="hdtitle">Tổng dư nợ Quỹ QGVL</th>
-                        <th class="hdtitle">10% bổ sung vào nguồn vốn của Qũy</th>
-                        <th class="hdtitle">Tổng chỉ tiêu kế hoạch dư nợ Quỹ</th>
-                        <th class="hdtitle">Tổng dư nợ Quỹ QGVL</th>
-                        <th class="hdtitle">10% bổ sung vào nguồn vốn của Qũy</th>
-                        <th class="hdtitle">Tổng chỉ tiêu kế hoạch dư nợ Quỹ</th>
-                        <th class="hdtitle">Tổng dư nợ Quỹ QGVL</th>
-                        <th class="hdtitle">10% bổ sung vào nguồn vốn của Qũy</th>        
+                        <th class="TEN_KH">Lãi thu được trong tháng</th>
+                        <th class="TEN_KH">Số trích 10% trong tháng</th>
+                        <th class="TEN_KH">Lũy kế số trích 10% từ đầu năm</th>
+                        <th class="TEN_KH">Lãi thu được trong tháng</th>
+                        <th class="TEN_KH">Số trích 10% trong tháng</th>
+                        <th class="TEN_KH">Lũy kế số trích 10% từ đầu năm</th>
+                        <th class="TEN_KH">Lãi thu được trong tháng</th>
+                        <th class="TEN_KH">Số trích 10% trong tháng</th>
+                        <th class="TEN_KH">Lũy kế số trích 10% từ đầu năm</th>
+                        <th class="TEN_KH">Lãi thu được trong tháng</th>
+                        <th class="TEN_KH">Số trích 10% trong tháng</th>
+                        <th class="TEN_KH">Lũy kế số trích 10% từ đầu năm</th>
+                        <th class="TEN_KH">Lãi thu được trong tháng</th>
+                        <th class="TEN_KH">Số trích 10% trong tháng</th>
+                        <th class="TEN_KH">Lũy kế số trích 10% từ đầu năm</th>
+                        <th class="TEN_KH">Lãi thu được trong tháng</th>
+                        <th class="TEN_KH">Số trích 10% trong tháng</th>
+                        <th class="TEN_KH">Lũy kế số trích 10% từ đầu năm</th>
+                        <th class="TEN_KH">Lãi thu được trong tháng</th>
+                        <th class="TEN_KH">Số trích 10% trong tháng</th>
+                        <th class="TEN_KH">Lũy kế số trích 10% từ đầu năm</th>
+                        <th class="TEN_KH">Lãi thu được trong tháng</th>
+                        <th class="TEN_KH">Số trích 10% trong tháng</th>
+                        <th class="TEN_KH">Lũy kế số trích 10% từ đầu năm</th>
+                        <!--                        <th class="hdtitle">Lãi thu được trong tháng</th>
+                                                <th class="hdtitle">Số trích 10% trong tháng</th>
+                                                <th class="hdtitle">Lũy kế số trích 10% từ đầu năm</th>       -->
                     </tr>           
                     <tr>
                         <th class="hdtitle1">(1)</th> 
@@ -224,379 +217,256 @@
                         <th class="hdtitle1">(24)</th>
                         <th class="hdtitle1">(25)</th> 
                         <th class="hdtitle1">(26)</th>
-                        <th class="hdtitle1">(27)</th> 
-                        <th class="hdtitle1">(28)</th>
-                        <th class="hdtitle1">(29)</th> 
-                        <!--<th class="hdtitle1">(30)</th>-->
                     </tr>
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                                                    
                         <tr> 
-      
-                           <td class="txtBody" >
+                            <td class="D0"> <s:property value="%{#rowstatus.index + 1}" /> </td>
+                            <td class="txtBody" >
                                 <input type="text"   value="<s:property  value="TEN" />" style="text-align: right"
-                                       class="D0 txtBody" readonly="true"
+                                       class="D00 txtBody" readonly="true" id="TEN_<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" 
                                        onfocus="this.select();" /> 
-                            </td>
-                           <s:if test="Grade.equalsIgnoreCase('1')">
-                            <td class="txtBody">
-                                <input type="text"   value="<s:property  value="D3" />" style="text-align: right"
-                                       class="number txtBody"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" 
-                                       onfocus="this.select();" /> 
+                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>
+                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" value="<s:property  value="TT_HIENTHI"/>"/>
                                 <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/>
+
                                 <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD" value="<s:property  value="MAPGD"/>"/>
                                 <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN" value="<s:property  value="MACN"/>"/>
+                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" value="<s:property  value="D1"/>"/>
+                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" value="<s:property  value="D2"/>"/>
+                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" value="<s:property  value="D3"/>"/>
+                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" value="<s:property  value="D4"/>"/>
+                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" value="<s:property  value="D5"/>"/>
 
                             </td>
                             <td class="txtBody" >
-                                <input type="text"   value="<s:property  value="D4" />" style="text-align: right"
-                                       class="number txtBody"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D5" />" style="text-align: right"
-                                       class="number txtBody"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
                                 <input type="text"   value="<s:property  value="D6" />" style="text-align: right"
-                                       class="number txtBody"
+                                       class="number txtBody" id="D6<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D7" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D7" />" style="text-align: right"
+                                       class="number txtBody" id="D7<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D8" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D8" />" style="text-align: right"
+                                       class="number txtBody" id="D8<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D9" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D9" />" style="text-align: right"
+                                       class="number txtBody" id="D9<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D10" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D10" />" style="text-align: right"
+                                       class="number txtBody" id="D10<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D11" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D11" />" style="text-align: right"
+                                       class="number txtBody" id="D11<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D12" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D12" />" style="text-align: right"
+                                       class="number txtBody" id="D12<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D13" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D13" />" style="text-align: right"
+                                       class="number txtBody" id="D13<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D14" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D14" />" style="text-align: right"
+                                       class="number txtBody" id="D14<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D15" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D15" />" style="text-align: right"
+                                       class="number txtBody" id="D15<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D16" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D16" />" style="text-align: right"
+                                       class="number txtBody" id="D16<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D17" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D17" />" style="text-align: right"
+                                       class="number txtBody" id="D17<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D18" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D18" />" style="text-align: right"
+                                       class="number txtBody" id="D18<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D19" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D19" />" style="text-align: right"
+                                       class="number txtBody" id="D19<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D20" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D20" />" style="text-align: right"
+                                       class="number txtBody" id="D20<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D21" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D21" />" style="text-align: right"
+                                       class="number txtBody" id="D21<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D21" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D22" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D22" />" style="text-align: right"
+                                       class="number txtBody" id="D22<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D22" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                           
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D23" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D23" />" style="text-align: right"
+                                       class="number txtBody" id="D23<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D23" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D24" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D24" />" style="text-align: right"
+                                       class="number txtBody" id="D24<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D25" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D25" />" style="text-align: right"
+                                       class="number txtBody" id="D25<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D26" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D26" />" style="text-align: right"
+                                       class="number txtBody" id="D26<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D27" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D27" />" style="text-align: right"
+                                       class="number txtBody" id="D27<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D28" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D28" />" style="text-align: right"
+                                       class="number txtBody" id="D28<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D29" />" style="text-align: right"
-                                       class="number txtBody"
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <td class="txtBody" >
+                                    <input type="text"   value="<s:property  value="D29" />" style="text-align: right"
+                                       class="number txtBody" id="D29<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D30" />" style="text-align: right"
-                                       class="number txtBody"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" 
-                                       onfocus="this.select();" /> 
-                            </td>  
-                          </s:if>
-                            <s:if test="!Grade.equalsIgnoreCase('1')">
-                            <td class="txtBody">
-                                <input type="text"   value="<s:property  value="D3" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" 
-                                       onfocus="this.select();" /> 
-                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/>
-                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD" value="<s:property  value="MAPGD"/>"/>
-                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN" value="<s:property  value="MACN"/>"/>
+                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                </td>
+                                <!--                                <td class="txtBody" >
+                                                                    <input type="text"   value="<s:property  value="D30" />" style="text-align: right"
+                                                                       class="number txtBody"
+                                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" 
+                                                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                                                </td>
+                                                                <td class="txtBody" >
+                                                                    <input type="text"   value="<s:property  value="D31" />" style="text-align: right"
+                                                                       class="number txtBody"
+                                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D31" 
+                                                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                                                </td>
+                                                                <td class="txtBody" >
+                                                                    <input type="text"   value="<s:property  value="D32" />" style="text-align: right"
+                                                                       class="number txtBody"
+                                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D32" 
+                                                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                                                </td>-->
 
-                            </td>
-                            <td class="txtBody" >
-                                <input type="text"   value="<s:property  value="D4" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D5" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D6" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D7" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D8" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D9" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D10" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D11" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D12" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D13" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D14" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D15" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D16" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D17" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D18" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D19" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D20" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D21" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D21" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D22" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D22" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                           
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D23" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D23" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D24" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D25" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D26" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D27" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D28" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D29" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29" 
-                                       onfocus="this.select();" /> 
-                            </td>
-                            <td  class="txtBody" >
-                                <input type="text"   value="<s:property  value="D30" />" style="text-align: right"
-                                       class="number txtBody" readonly="true"
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" 
-                                       onfocus="this.select();" /> 
-                            </td>  
-                          </s:if>
-                        </tr>                                                                                                       
+                            </tr>                                                                                                       
                     </s:iterator>
+                    <tr>
+                        <td style="text-align: center; background: #9ad717" ></td>
+                        <td style="text-align: center; background: #9ad717;font-weight: bold" >TỔNG CỘNG</td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD6" id="SumD6" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD7" id="SumD7" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD8" id="SumD8" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD9" id="SumD9" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD10" id="SumD10" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD11" id="SumD11" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD12" id="SumD12" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD13" id="SumD13" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD14" id="SumD14" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD15" id="SumD15" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD16" id="SumD16" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD17" id="SumD17" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD18" id="SumD18" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD19" id="SumD19" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD20" id="SumD20" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD21" id="SumD21" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD22" id="SumD22" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD23" id="SumD23" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD24" id="SumD24" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD25" id="SumD25" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD26" id="SumD26" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD27" id="SumD27" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD28" id="SumD28" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
+                        <td style="background: #9ad717;font-weight: bold" >
+                            <input type="text" value="0" name="SumD29" id="SumD29" class="number" readonly="readonly" style="background: #9ad717;font-weight: bold"/></td>
 
+                    </tr>
                 </table>                    
             </div>
             <sj:submit id="%{khoa_nhaptaycn}_save" name="%{khoa_nhaptaycn}_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
@@ -604,7 +474,98 @@
         </s:form>
         <div id="luu_thanhcong"></div>
         <script>
+            function autoEvaluate() {
+//                alert('vao doClick');
+                var arrCot = [".D6", ".D7", ".D8", ".D9", ".D10", ".D11", ".D12", ".D13", ".D14", ".D15",
+                    ".D16", ".D17", ".D18", ".D19", ".D20", ".D21", ".D22", ".D23", ".D24", ".D25",
+                    ".D26", ".D27", ".D28", ".D29"]; //Luu cac cot cua du lieu can tinh toan
+//                alert($(".number").size());
+                var SumD6 = 0;
+                var SumD7 = 0;
+                var SumD8 = 0;
+                var SumD9 = 0;
+                var SumD10 = 0;
+                var SumD11 = 0;
+                var SumD12 = 0;
+                var SumD13 = 0;
+                var SumD14 = 0;
+                var SumD15 = 0;
+                var SumD16 = 0;
+                var SumD17 = 0;
+                var SumD18 = 0;
+                var SumD19 = 0;
+                var SumD20 = 0;
+                var SumD21 = 0;
+                var SumD22 = 0;
+                var SumD23 = 0;
+                var SumD24 = 0;
+                var SumD25 = 0;
+                var SumD26 = 0;
+                var SumD27 = 0;
+                var SumD28 = 0;
+                var SumD29 = 0;
+                for (var i = 0; i < 100; i++) {
+                    let element;
+                    element = document.getElementById("D6" + i);
+                    if (element !== null) {
+                        SumD6 = SumD6 + parseInt(document.getElementById("D6" + i).value.replaceAll(',', ''));
+                        SumD7 = SumD7 + parseInt(document.getElementById("D7" + i).value.replaceAll(',', ''));
+                        SumD8 = SumD8 + parseInt(document.getElementById("D8" + i).value.replaceAll(',', ''));
+                        SumD9 = SumD9 + parseInt(document.getElementById("D9" + i).value.replaceAll(',', ''));
+                        SumD10 = SumD10 + parseInt(document.getElementById("D10" + i).value.replaceAll(',', ''));
+                        SumD11 = SumD11 + parseInt(document.getElementById("D11" + i).value.replaceAll(',', ''));
+                        SumD12 = SumD12 + parseInt(document.getElementById("D12" + i).value.replaceAll(',', ''));
+                        SumD13 = SumD13 + parseInt(document.getElementById("D13" + i).value.replaceAll(',', ''));
+                        SumD14 = SumD14 + parseInt(document.getElementById("D14" + i).value.replaceAll(',', ''));
+                        SumD15 = SumD15 + parseInt(document.getElementById("D15" + i).value.replaceAll(',', ''));
+                        SumD16 = SumD16 + parseInt(document.getElementById("D16" + i).value.replaceAll(',', ''));
+                        SumD17 = SumD17 + parseInt(document.getElementById("D17" + i).value.replaceAll(',', ''));
+                        SumD18 = SumD18 + parseInt(document.getElementById("D18" + i).value.replaceAll(',', ''));
+                        SumD19 = SumD19 + parseInt(document.getElementById("D19" + i).value.replaceAll(',', ''));
+                        SumD20 = SumD20 + parseInt(document.getElementById("D20" + i).value.replaceAll(',', ''));
+                        SumD21 = SumD21 + parseInt(document.getElementById("D21" + i).value.replaceAll(',', ''));
+                        SumD22 = SumD22 + parseInt(document.getElementById("D22" + i).value.replaceAll(',', ''));
+                        SumD23 = SumD23 + parseInt(document.getElementById("D23" + i).value.replaceAll(',', ''));
+                        SumD24 = SumD24 + parseInt(document.getElementById("D24" + i).value.replaceAll(',', ''));
+                        SumD25 = SumD25 + parseInt(document.getElementById("D25" + i).value.replaceAll(',', ''));
+                        SumD26 = SumD26 + parseInt(document.getElementById("D26" + i).value.replaceAll(',', ''));
+                        SumD27 = SumD27 + parseInt(document.getElementById("D27" + i).value.replaceAll(',', ''));
+                        SumD28 = SumD28 + parseInt(document.getElementById("D28" + i).value.replaceAll(',', ''));
+                        SumD29 = SumD29 + parseInt(document.getElementById("D29" + i).value.replaceAll(',', ''));
+                    }
+                }
+//                totalD8
+                document.getElementById("SumD6").value = SumD6;
+                document.getElementById("SumD7").value = SumD7;
+                document.getElementById("SumD8").value = SumD8;
+                document.getElementById("SumD9").value = SumD9;
+                document.getElementById("SumD10").value = SumD10;
+                document.getElementById("SumD11").value = SumD11;
+                document.getElementById("SumD12").value = SumD12;
+                document.getElementById("SumD13").value = SumD13;
+                document.getElementById("SumD14").value = SumD14;
+                document.getElementById("SumD15").value = SumD15;
+                document.getElementById("SumD16").value = SumD16;
+                document.getElementById("SumD17").value = SumD17;
+                document.getElementById("SumD18").value = SumD18;
+                document.getElementById("SumD19").value = SumD19;
+                document.getElementById("SumD20").value = SumD20;
+                document.getElementById("SumD21").value = SumD21;
+                document.getElementById("SumD22").value = SumD22;
+                document.getElementById("SumD23").value = SumD23;
+                document.getElementById("SumD24").value = SumD24;
+                document.getElementById("SumD25").value = SumD25;
+                document.getElementById("SumD26").value = SumD26;
+                document.getElementById("SumD27").value = SumD27;
+                document.getElementById("SumD28").value = SumD28;
+                document.getElementById("SumD29").value = SumD29;
+                $('.number').number(true, 0);
+            }
+            ;
+
             initTable();
+
+
         </script>
     </body>
 

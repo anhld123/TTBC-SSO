@@ -8,32 +8,17 @@ package vbsp.ims.gqvl_2023;
 import static com.opensymphony.xwork2.Action.ERROR;
 import vbsp.ims.nhaptaycn.action.*;
 import static com.opensymphony.xwork2.Action.SUCCESS;
-import java.io.File;
-import vbsp.ims.nhaptaycn.action.*;
-import vbsp.ims.nhaptaycn.action.*;
 import java.sql.Connection;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import javax.servlet.ServletContext;
-import org.apache.struts2.ServletActionContext;
-import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
-import vbsp.ims.bcqt.model.DULIEU_NT;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
-import vbsp.ims.define.Define;
-import vbsp.ims.log.CoreLogger;
 import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.restapi.DuLieuNTRow;
-import vbsp.ims.syn.ProcessReportSyn;
-import vbsp.ims.tdnn.DaoTdnnMain;
 import vbsp.ims.util.DateUtil;
-import vbsp.ims.xml.XmlKtgsSync;
 
 /**
  *
@@ -44,18 +29,28 @@ public class Local_GQVL2023 extends ActionNhaptaycnMain
 
     Service_GQVL2023 _leaveHomeService;
     private List<DuLieuNTRow> lstData;
+    protected String main_pos_username;
+
+    public String getMain_pos_username() {
+        return main_pos_username;
+    }
+
+    public void setMain_pos_username(String main_pos_username) {
+        this.main_pos_username = main_pos_username;
+    }
 
     @Override
     public String load() {
         try {
-//            System.err.println("NTMOI - 01");
             if (!getParaSession()) {
                 return ERROR;
             }
             HashMap hmParameter = getParameter();
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
             Connection conn = new DaoConnect().getConnect();
-
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, hmParameter.get("ngay_bc").toString());
+            pos_cd_username = posMainModel.getPosCd();
+            main_pos_username = posMainModel.getMainPosCd();
 //            lstDulieuNt = daoMain.getDataSms01(conn, "SMS_001",  hmParameter.get("ngay_bc").toString(),UserName, Grade,poscd,hmParameter.get("soku").toString(),hmParameter.get("tenkh").toString());
             _leaveHomeService = new Service_GQVL2023();
 //            final String sFromDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.Grade));
@@ -63,26 +58,38 @@ public class Local_GQVL2023 extends ActionNhaptaycnMain
                 if (poscd.size() > 1) {
                     addActionError("Bạn chỉ được xem 1 chi nhánh");
                     return ERROR;
-                } else if (poscd.size() == 0) {
-                    lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2023", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
+                } else if (poscd.isEmpty()) {
+                    lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2024", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
                 } else {
-                    lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2023", hmParameter.get("ngay_bc").toString(), UserName, "4", poscd);
+                    lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2024", hmParameter.get("ngay_bc").toString(), UserName, "4", poscd);
                 }
             } else if (Grade.equals("2")) {
                 if (poscd.size() > 1) {
-                    addActionError("Bạn chỉ được xem 1 phòng giao dịch");
-                    return ERROR;
-                } else if (poscd.size() == 0) {
-                    lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2023", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
-                } else {
-                    this.lstData = _leaveHomeService.getCustomers(poscd.get(0), "S", hmParameter.get("ngay_bc").toString(), "1", "GQVL_2023");
-                }
-            } else if (Grade.equals("1")){
-                this.lstData = _leaveHomeService.getCustomers(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), "1", "GQVL_2023");
-            }
-            if ((lstData.size() == 0 || lstData == null) && Grade.equals("1" )) {
+                    List<DuLieuNTRow> allCustomers = new ArrayList<>();
 
-                lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2023", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
+                    for (String pos : poscd) {
+                        if (!pos.equals("999999")) {
+                            List<DuLieuNTRow> data = _leaveHomeService.getCustomers(pos, "S", hmParameter.get("ngay_bc").toString(), "1", "GQVL_2024");
+                            allCustomers.addAll(data); // Thêm kết quả vào danh sách tổng hợp  
+                        }
+                    }
+                    this.lstData = allCustomers;
+                } else if (lstData == null || lstData.isEmpty()) {
+                    addActionError("Chưa có dữ liệu, liên hệ TTCNTT để được hỗ trợ!");
+                    return ERROR;    
+                } else if (poscd.isEmpty()) {
+                    addActionError("Bạn chưa chọn Phòng giao dịch để xem dữ liệu!");
+                    return ERROR;
+                } else {
+                    this.lstData = _leaveHomeService.getCustomers(poscd.get(0), "S", hmParameter.get("ngay_bc").toString(), "1", "GQVL_2024");
+                }
+
+            } else if (Grade.equals("1")) {
+                this.lstData = _leaveHomeService.getCustomers(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), "1", "GQVL_2024");
+            }
+            if ((lstData.isEmpty() || lstData == null) && Grade.equals("1")) {
+                addActionError("PGD chưa đươc tạo dữ liệu, liên hệ TTCNTT để được hỗ trợ");
+                return ERROR;
             } else {
                 int iStt = 1;
                 for (DuLieuNTRow item : lstData) {
@@ -170,21 +177,24 @@ public class Local_GQVL2023 extends ActionNhaptaycnMain
             ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
             HashMap hmParameter = getParameter();
-
+            Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+            String dateStr = sdf.format(date1);
+            int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(date1));
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
 
                 DuLieuNTRow tempadd = new DuLieuNTRow();
 
-                tempadd.setKey("GQVL_2023");
-                tempadd.setOrderValue("");
-                tempadd.setOrderDescription("");
+                tempadd.setKey("GQVL_2024");
+                tempadd.setOrderValue(tmp.getTT_HIENTHI());
+                tempadd.setOrderDescription(tmp.getTT_HIENTHI());
                 tempadd.setCode(tmp.getMA());
                 tempadd.setMakerId(UserName);
                 tempadd.setAuthoriseId(UserName);
                 tempadd.setReportDate(totalDataView);
                 tempadd.setName(tmp.getTEN());
-                tempadd.setReportYear(2023);
+                tempadd.setReportYear(year);
                 tempadd.setPosCode(tmp.getMAPGD());
                 tempadd.setPosFlag("S");
                 tempadd.setBranchCode(tmp.getMACN());
@@ -224,7 +234,7 @@ public class Local_GQVL2023 extends ActionNhaptaycnMain
             _leaveHomeService = new Service_GQVL2023();
             int status = _leaveHomeService.saveCustomers(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
             if (status == 200) {
-                if (!daoMain.saveGQVL2023("GQVL_2023", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstDulieuNt, poscd)) {
+                if (!daoMain.saveGQVL2023("GQVL_2024", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstDulieuNt, poscd)) {
                     addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                     return ERROR;
                 }

@@ -337,7 +337,7 @@
                         document.getElementById("lstSubData31" + i).disabled = false;
                         //------------------------De nghị hỗ trợ
                         $("#lstSubData_D33" + i).children().remove().end();
-
+                        document.getElementById("lstDNHT_D33" + i).style.visibility = "hidden";
 //                        alert(D21);
                         if (D21 === '1') {
                             $("#lstSubData_D33" + i).prepend("<option value='1' " + selected + "> 1: Đề nghị hỗ trợ </option>");

@@ -106,6 +106,8 @@ public class Service_GQVL2023 {
                     _normalizeItem.setD28(data.get(i).getD28());
                     _normalizeItem.setD29(data.get(i).getD29());
                     _normalizeItem.setD30(data.get(i).getD30());
+                    _normalizeItem.setD31(data.get(i).getD31());
+                    _normalizeItem.setD32(data.get(i).getD32());
 
                     _lstNormalizeData.add(_normalizeItem);
                 }

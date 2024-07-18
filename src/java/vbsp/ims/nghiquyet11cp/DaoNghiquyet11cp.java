@@ -1266,6 +1266,8 @@ public class DaoNghiquyet11cp {
                     value.setD28(reset.getString(42));
                     value.setD29(reset.getString(43));
                     value.setD30(reset.getString(44));
+                    value.setD31(reset.getString(45));
+                    value.setD32(reset.getString(46));
                     lstBcqt_NT.add(value);
                 }
 
