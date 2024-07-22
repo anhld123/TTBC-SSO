@@ -56,7 +56,7 @@ public class Local_GQVL2023 extends ActionNhaptaycnMain
 //            final String sFromDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.Grade));
             if (Grade.equals("3")) {
                 if (poscd.size() > 1) {
-                    addActionError("Bạn chỉ được xem 1 chi nhánh");
+                    addActionError("Bạn chỉ được xem 1 chi nhánh, hoặc bỏ tích chọn -- NHCSXH Việt Nam -- để xem dữ liệu tất cả các chi nhánh");
                     return ERROR;
                 } else if (poscd.isEmpty()) {
                     lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2024", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
@@ -229,12 +229,11 @@ public class Local_GQVL2023 extends ActionNhaptaycnMain
                 tempadd.setD30(tmp.getD30());
                 lstUpdateDate.add(tempadd);
                 lstLocalDataUpdate.add(tmp);
-
             }
             _leaveHomeService = new Service_GQVL2023();
             int status = _leaveHomeService.saveCustomers(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
             if (status == 200) {
-                if (!daoMain.saveGQVL2023("GQVL_2024", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstDulieuNt, poscd)) {
+                if (!daoMain.saveGQVL2023("GQVL_2024", UserName, hmParameter.get("ngay_bc").toString(), lstLocalDataUpdate)) {
                     addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                     return ERROR;
                 }

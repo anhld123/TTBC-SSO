@@ -227,6 +227,9 @@
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" 
                                        onfocus="this.select();" /> 
                                 <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KHOA" value="<s:property  value="KHOA"/>"/>
+                                
+                                <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>
                                 <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" value="<s:property  value="TT_HIENTHI"/>"/>

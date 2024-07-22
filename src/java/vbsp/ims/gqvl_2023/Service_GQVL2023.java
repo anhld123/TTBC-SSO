@@ -62,7 +62,7 @@ public class Service_GQVL2023 {
                 for (int i = 0; i < data.size(); i++) {
                     DuLieuNTRowX _normalizeItem = new DuLieuNTRowX();
 
-                    _normalizeItem.setKey("GQVL_2023");
+                    _normalizeItem.setKey("GQVL_2024");
                     _normalizeItem.setOrderValue(i + 1);
                     _normalizeItem.setOrderDescription(String.format("%d", i + 1));
                     _normalizeItem.setName(data.get(i).getName());
@@ -111,7 +111,7 @@ public class Service_GQVL2023 {
 
                     _lstNormalizeData.add(_normalizeItem);
                 }
-                return _service.getGQVL2023("GQVL_2023", posCode, posFlag, _reportDate, makerId, authoriseId, _lstNormalizeData);
+                return _service.getGQVL2023("GQVL_2024", posCode, posFlag, _reportDate, makerId, authoriseId, _lstNormalizeData);
 
             }
         } catch (Exception e) {
