@@ -542,7 +542,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 tempadd.setReportDate(hmParameter.get("ngay_bc").toString());
                 tempadd.setName(tmp.getTEN());
                 tempadd.setReportYear(year);
-                tempadd.setPosCode(macn);
+                tempadd.setPosCode(mapgd);
                 tempadd.setPosFlag(check_Flag);
                 tempadd.setBranchCode(macn != "000000" ? macn : main_pos);
                 tempadd.setD1(tmp.getD1());
