@@ -101,8 +101,8 @@
                             <tr>
                                 <td>
                                     <div style="float: left;">                                                        
-                                        <input type="radio" name="launderingType" value="01" checked>Báo cáo giao dịch tiền mặt
-                                        <input type="radio" name="launderingType" value="02">Báo cáo giao dịch điện tử 
+                                        <input type="radio" name="launderingType" value="01" checked>Báo cáo giao dịch có giá trị lớn
+                                        <input type="radio" name="launderingType" value="02">Báo cáo giao dịch chuyển tiền điện tử 
 <!--                                        <input type="radio" name="launderingType" value="03">Tất cả dữ liệu trong tháng-->
                                     </div>
                                     <div style="float:right;">

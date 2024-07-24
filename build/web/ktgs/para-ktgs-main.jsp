@@ -149,7 +149,7 @@
             }
             function fnResetVal()
             {
-
+                
             }
             function onReLoadData1()
             {
@@ -159,7 +159,7 @@
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
                 var khoa_ktgs = $("#khoa_ktgs").val() + "_reload";
-
+                
                 if (!bsubmit)
                 {
 //                    alert('Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !');
@@ -167,14 +167,14 @@
                     return;
                 }
                 //alert(khoa_ktgs);
-
+                
 
                 //$("#idreloadData")[0].click();
-                $('#divExportReport').load(khoa_ktgs + '.action');
+                 $('#divExportReport').load(khoa_ktgs+'.action');
                 bsubmit = false;
 //                return true;
             }
-
+            
             function onSaveData()
             {
                 $('#message_suc_err').empty();
@@ -252,48 +252,20 @@
 
                 var poscd = getposfromtreecheck();
 //                alert(khoa_ktgs);
-                if (khoa_ktgs != 'BC00230032' && khoa_ktgs != 'BC00230033' && khoa_ktgs != 'BC00230034')
+                if(khoa_ktgs != 'BC00230032' && khoa_ktgs != 'BC00230033' && khoa_ktgs != 'BC00230034')
                 {
                     if (poscd == null || poscd == '')
                     {
                         $('#divExportReport').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần gửi số liệu ! </h2>");
-                        //                    alert('Bạn phải chọn phòng giao dịch cần gửi số liệu !');
+    //                    alert('Bạn phải chọn phòng giao dịch cần gửi số liệu !');
                         return;
                     }
                 }
-
+                
                 $("#idSend")[0].click();
                 bsubmit = false;
             }
             
-            function onMo()
-            {
-                $('#message_suc_err').empty();
-                $('#divExportReport').empty();
-//                var khoa_cdtt = $("#khoa_muasamts").val();
-
-                var poscd = getposfromtreecheck();
-//                alert(khoa_cdtt);
-
-                
-                $("#idMoKtgs")[0].click();
-                bsubmit = false;
-            }
-
-            function onChot()
-            {
-                $('#message_suc_err').empty();
-                $('#divExportReport').empty();
-//                var khoa_cdtt = $("#khoa_muasamts").val();
-
-//                var poscd = getposfromtreecheck();
-//                alert(khoa_cdtt);
-
-
-                $("#idKtgs")[0].click();
-                bsubmit = false;
-            }
-
             function onReLoadData()
             {
                 $('#message_suc_err').empty();
@@ -308,7 +280,7 @@
                     $('#message_suc_err').html("<h2 style='color: red'>Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !</h2>");
                     return;
                 }
-
+                
                 $("#idReLoad")[0].click();
 //                bsubmit = false;
             }
@@ -349,41 +321,39 @@
                     });
                 }
                 return result;
-            }
-            ;
-
+            };
+            
             function getDaysOfMonth(month, year) {
-                switch (month) {
-                    case 1:
-                        return 31;
-                    case 2:
-                        if (year % 4 === 0)
-                            return 29;
-                        else
-                            return 28;
-                    case 3:
-                        return 31;
-                    case 4:
-                        return 30;
-                    case 5:
-                        return 31;
-                    case 6:
-                        return 30;
-                    case 7:
-                        return 31;
-                    case 8:
-                        return 31;
-                    case 9:
-                        return 30;
-                    case 10:
-                        return 31;
-                    case 11:
-                        return 30;
-                    case 12:
-                        return 31;
+            switch (month) {
+                case 1:
+                    return 31;
+                case 2:
+                    if (year % 4 === 0)
+                        return 29;
+                    else
+                        return 28;
+                case 3:
+                    return 31;
+                case 4:
+                    return 30;
+                case 5:
+                    return 31;
+                case 6:
+                    return 30;
+                case 7:
+                    return 31;
+                case 8:
+                    return 31;
+                case 9:
+                    return 30;
+                case 10:
+                    return 31;
+                case 11:
+                    return 30;
+                case 12:
+                    return 31;
                 }
-            }
-            ;
+            };
         </script>
     </head>
 
@@ -419,7 +389,7 @@
                                     </td>
 
                                 </s:iterator>     
-                                <td >
+                                    <td >
                                     &nbsp;&nbsp;&nbsp;
                                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                                onBeforeTopics="beforediv_data"
@@ -436,8 +406,8 @@
                                                            onCompleteTopics="completediv_send" cssStyle="display:none"/>
                                                 <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu"/>
                                             </s:if>
-
-
+                                            
+                                                
                                         </s:if>  
                                         <s:else>  
                                             &nbsp;&nbsp;&nbsp;
@@ -449,18 +419,18 @@
                                                 <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu"/>
                                                 &nbsp;&nbsp;&nbsp;
                                                 <s:url id="idReloadData" action="%{khoa_ktgs}_reload.action"></s:url>                                      
-                                                <sj:submit id="idReLoad" name="nameSend" href="%{idReloadData}" value="Lấy DL tháng trước" targets="divExportReport"
+                                                <sj:submit id="idReLoad" name="nameSend" href="%{idReloadData}" value="Lấy dữ liệu tháng trước" targets="divExportReport"
                                                            onBeforeTopics="beforediv_send"
                                                            onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                                <input type="button" id="idReLoadtmp" name="nameidReLoadtmp"  onclick="onReLoadData()" value="Lấy DL tháng trước" style="width:122px;height:25px;color: red;"/>
-
+                                                <input type="button" id="idReLoadtmp" name="nameidReLoadtmp"  onclick="onReLoadData()" value="Lấy dữ liệu tháng trước" style="width:122px;height:25px;color: red;"/>
+                                           
                                             </s:if>
                                             <s:else>
                                                 <s:url id="idReloadData" action="%{khoa_ktgs}_reload.action"></s:url>                                      
-                                                <sj:submit id="idReLoad" name="nameSend" href="%{idReloadData}" value="Lấy DL tháng trước" targets="divExportReport"
+                                                <sj:submit id="idReLoad" name="nameSend" href="%{idReloadData}" value="Lấy dữ liệu tháng trước" targets="divExportReport"
                                                            onBeforeTopics="beforediv_send"
                                                            onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                                <input type="button" id="idReLoadtmp" name="nameidReLoadtmp"  onclick="onReLoadData()" value="Lấy DL tháng trước" style="width:122px;height:25px;color: red;"/>
+                                                <input type="button" id="idReLoadtmp" name="nameidReLoadtmp"  onclick="onReLoadData()" value="Lấy dữ liệu tháng trước" style="width:122px;height:25px;color: red;"/>
                                             </s:else>    
                                         </s:else>      
 
@@ -468,18 +438,17 @@
                                     <s:else>
                                         <s:if test="Grade.equalsIgnoreCase('1')">
                                             <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/>
-
+                                            
                                             <!--<input type="button" id="idreloadData" name="namereloadDatatmp"  onclick="onReLoadData()" value="Reset dữ liệu"/>-->
-
-
+                                           
+                                                
                                             <s:url id="idReloadData" action="%{khoa_ktgs}_reload.action"></s:url>                                      
                                             <sj:submit id="idReLoad" name="nameSend" href="%{idReloadData}" value="Reset dữ liệu" targets="divExportReport"
                                                        onBeforeTopics="beforediv_send"
                                                        onCompleteTopics="completediv_send" cssStyle="display:none"/>
                                             <input type="button" id="idReLoadtmp" name="nameidReLoadtmp"  onclick="onReLoadData()" value="Reset dữ liệu" style="width:122px;height:25px;color: red;"/>
 
-
-
+                                    
                                         </s:if>
                                         <s:else>
                                             <s:url id="idSendData" action="sendKTGS.action"></s:url>                                      
@@ -497,26 +466,6 @@
                                     &nbsp;&nbsp;&nbsp;                                                                        
                                 </td>
                                 <td>
-                                    <s:if test="Grade.equalsIgnoreCase('1') && (khoa_ktgs.equalsIgnoreCase('BC00230033') || khoa_ktgs.equalsIgnoreCase('BC00230034'))">
-                                        <s:url id="idChotKtgs" action="ChotKtgs.action"></s:url>                                      
-                                        <sj:submit id="idKtgs" name="nameSend" href="%{idChotKtgs}" value="Chốt số liệu" targets="divExportReport"
-                                                   onBeforeTidSendopics="beforediv_send"
-                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                        <input type="button" id="idChottmp" name="nameidSendtmp"  onclick="onChot()" value="Chốt số liệu" />
-                                    </s:if>
-                                </td> 
-                                
-                                <td>
-                                        <s:if test="Grade.equalsIgnoreCase('2') && (khoa_ktgs.equalsIgnoreCase('BC00230033') || khoa_ktgs.equalsIgnoreCase('BC00230034'))">
-                                        <s:url id="idMoKtgs" action="MoChotKTGS.action"></s:url>                                      
-                                        <sj:submit id="idMoKtgs" name="nameSend" href="%{idMoKtgs}" value="  Mở chốt  " targets="divExportReport"
-                                                   onBeforeTidSendopics="beforediv_send"
-                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                        <input type="button" id="idChottmp" name="nameidSendtmp"  onclick="onMo()" value="  Mở chốt  " />
-                                    </s:if>
-                                </td>
-                                
-                                <td>
                                     <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
                                         <img id="loadingImage" src='img/loading.gif' border='0' >
                                     </div>
@@ -532,7 +481,8 @@
                 </div>
                 <s:if test="!Grade.equalsIgnoreCase('1')">
                     <s:if test="Grade.equalsIgnoreCase('2') && khoa_ktgs.equalsIgnoreCase('BC00230032')
-                          ">
+                          ||Grade.equalsIgnoreCase('2') && khoa_ktgs.equalsIgnoreCase('BC00230033')
+                          ||Grade.equalsIgnoreCase('2') && khoa_ktgs.equalsIgnoreCase('BC00230034')">
 
                     </s:if>
                     <s:else>
@@ -556,7 +506,8 @@
                 </s:if>
             </s:form>
             <s:if test="Grade.equalsIgnoreCase('1') || (Grade.equalsIgnoreCase('2') && khoa_ktgs.equalsIgnoreCase('BC00230032'))
-                  ">
+                        || (Grade.equalsIgnoreCase('2') && khoa_ktgs.equalsIgnoreCase('BC00230033'))
+                        || (Grade.equalsIgnoreCase('2') && khoa_ktgs.equalsIgnoreCase('BC00230034'))">
                 <div id="containParm_full" align="center">
                 </s:if>
                 <s:else>
@@ -565,29 +516,28 @@
                     <div id="divExportReport"></div>
                 </div>
             </div>
-
-            <script>
-                //CuongBM: 31Jul14
-                //Desc: Xu truong hop dat gia tri mac dich cho combox Quy (Quater), la quy hien tai
-                //      Cac bao cao Quy phai co id la PARA_QUY           
-                // TrungNT88 sua
-
-                var date = new Date();
-//                alert(date)
-
-                var month = date.getMonth();
-                var year = date.getFullYear(); //nam
-                month = month == 0 ? 1: month;
-                var day = getDaysOfMonth(month, year)
-
-                var daynow = day + "/" + month  + "/" + year;
             
-                document.getElementById('ngay_bc_DATE').value = daynow;
-//                Gan quy mac dinh
+            <script>
+            //CuongBM: 31Jul14
+            //Desc: Xu truong hop dat gia tri mac dich cho combox Quy (Quater), la quy hien tai
+            //      Cac bao cao Quy phai co id la PARA_QUY           
+            // TrungNT88 sua
+           
+            var date = new Date(); 
+            
+                                   
+            var month = date.getMonth();
+            var year = date.getFullYear(); //nam
+            var day = getDaysOfMonth(month,year)
+            
+            var daynow = day + "/" + month + "/" + year;
+//            alert(daynow)
+            document.getElementById('ngay_bc_DATE').value = daynow;
+            //Gan quy mac dinh
 //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
-
-
-
-            </script>
+            
+            
+            
+        </script>
     </body>
 </html>

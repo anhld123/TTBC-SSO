@@ -185,29 +185,34 @@
                 $(".NGAY_SL").css({"width": "80px"});
             });
 
-            function onLoadData()
-            {
-//                var grade = $.session.get('reportGrade').toString();
-//                $.session.get()
-//                alert(grade);
+            function isEndOfMonth(day, month, year) {
+                // Tạo đối tượng ngày với ngày kế tiếp
+                var nextDay = new Date(year, month - 1, day + 1);
+                // Kiểm tra nếu ngày kế tiếp là ngày đầu tháng
+                return nextDay.getDate() === 1;
+            }
+
+            function onLoadData() {
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
                 $('#divExportReportLink').empty();
-                 var ngay_bc = $("#ngay_bc_DATE").val();
+
+                var ngay_bc = $("#ngay_bc_DATE").val();
                 var khoa_nhaptaycn = $("#khoa_nhaptaycn").val();
-                var lv_day = (ngay_bc.substr(0, 2));
-                var lv_month = (ngay_bc.substr(3, 2));
-//                alert(khoa_nhaptaycn);
-                if (khoa_nhaptaycn == 'GQVL_01' && (lv_day + lv_month != '3006' && lv_day + lv_month != '3112'))
-                {
-                    alert("Chọn định kỳ 30 tháng 6 hoặc 31 tháng 12 để tải dữ liệu!");
-                 
-                   return;
-                    }               
+                var lv_day = parseInt(ngay_bc.substr(0, 2));
+                var lv_month = parseInt(ngay_bc.substr(3, 5));
+                var lv_year = parseInt(ngay_bc.substr(6, 4));
+
+                // Kiểm tra nếu là ngày cuối tháng
+                if (khoa_nhaptaycn === 'GQVL_01' && !isEndOfMonth(lv_day, lv_month, lv_year)) {
+                    alert("Chọn ngày cuối tháng trong năm để tải dữ liệu!");
+                    return;
+                }
+
                 $("#loadData")[0].click();
                 bsubmit = true;
-//                return true;
             }
+
             function onSaveData()
             {
                 $('#message_suc_err').empty();
@@ -654,7 +659,7 @@
                                         </td>
 
                                         <s:if test="(khoa_nhaptaycn.equalsIgnoreCase('QD23_007') || khoa_nhaptaycn.equalsIgnoreCase('QD23_008')) && Grade.equalsIgnoreCase('2')
-                                                    || (!Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('GQVL_01'))">                                        
+                                              || (!Grade.equalsIgnoreCase('1') && khoa_nhaptaycn.equalsIgnoreCase('GQVL_01'))">                                        
                                         </s:if>
                                         <s:else>
                                             <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HTLS2021') && Grade.equalsIgnoreCase('1')">
@@ -741,11 +746,11 @@
                                                 <input type="button" id="idReLoadtmpTemp" name="nameidReLoadtmpTemp"  onclick="ExpEcelTemp()" value="Mẫu danh sách NLĐ" />
 
                                             </s:if>      
-                                                
+
                                             <s:if test="Grade.equalsIgnoreCase('3') && khoa_nhaptaycn.equalsIgnoreCase('HTLS_2023')">  
                                                 <sj:submit class="cmd" href="#" onclick="callDirectLink('khvn_open_upload_qt_kh?');" value="Upload Excel"> </sj:submit>   
                                             </s:if>   
-                                                
+
                                         </td>
 
 
@@ -784,7 +789,7 @@
                                 </table>    
                             </div>
                         </div>
-<!--Bắt đầu HANOI_004-->
+                        <!--Bắt đầu HANOI_004-->
                         <div>
                             <s:if test="khoa_nhaptaycn.equalsIgnoreCase('HANOI_004')"> 
                                 <style>
@@ -796,7 +801,8 @@
                                 <table>
                                     <tr>
                                         <td>Ngày báo cáo
-                                            <input type="text" id="dtNgayBC" name="dtNgayBC">
+                                                <input type="text" id="dtNgayBC" name="dtNgayBC">
+                                       
                                             Mã xã
                                             <input type="text" id="strMaxa" name="strMaxa" value="">
                                             <input type="button" id="DownloadFile" name="DownloadFile" value="Tải File"/>&nbsp;&nbsp;
@@ -859,8 +865,8 @@
                                         <div id="containTreeQD23_3">
                                         </s:else>
 
-                            </s:if>                             
-                            <s:else>
+                                    </s:if>                             
+                                    <s:else>
                                         <div id="containTree">
                                         </s:else>
 
@@ -987,51 +993,57 @@
                                                         </script>-->
                             <script>
 
-            document.getElementById('ngay_bc_DATE').value = '31/12/2023';
-            //Gan quy mac dinh
+                                
+                                //Gan quy mac dinh
 //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
-            
-            
-        
-    function callDirectLink(link) {
-            var ht = screen.availHeight / 5 + 35;
-            var wt = screen.availWidth / 5 + 20;
 
-            var resize = window.open(link
-                    + "random=" + Math.random(),
-                    "IMS_REPORTS_FRM2", "height=" + ht + ",width=" + wt
-                    + ",left=0,top=0,directories=no,status=no,menubar=no,\n\
+
+
+                                function callDirectLink(link) {
+                                    var ht = screen.availHeight / 5 + 35;
+                                    var wt = screen.availWidth / 5 + 20;
+
+                                    var resize = window.open(link
+                                            + "random=" + Math.random(),
+                                            "IMS_REPORTS_FRM2", "height=" + ht + ",width=" + wt
+                                            + ",left=0,top=0,directories=no,status=no,menubar=no,\n\
         personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
 
-            if (navigator.userAgent.indexOf('Chrome') !== -1
-                    && parseFloat(
-                            navigator.userAgent.substring(
-                                    navigator.userAgent.indexOf('Chrome') + 7
-                                    ).split(' ')[0]) >= 15) {
-                resize.resizeBy(wt, ht);
-            } else {
-                resize.resizeTo(wt, ht);
-            }
-            resize.moveTo(wt, ht);
-            resize.focus();
-        }
-        </script>
-        
+                                    if (navigator.userAgent.indexOf('Chrome') !== -1
+                                            && parseFloat(
+                                                    navigator.userAgent.substring(
+                                                            navigator.userAgent.indexOf('Chrome') + 7
+                                                            ).split(' ')[0]) >= 15) {
+                                        resize.resizeBy(wt, ht);
+                                    } else {
+                                        resize.resizeTo(wt, ht);
+                                    }
+                                    resize.moveTo(wt, ht);
+                                    resize.focus();
+                                }
+                            </script>
+
                         </div>
-                                         <!--Bắt đầu HANOI_004-->                
+                        <!--Bắt đầu HANOI_004-->                
                         <script>
                             $(function () {
-                                $("#dtNgayBC").datepicker({dateFormat: 'dd/mm/yy', showOn: "button",
+                                $("#dtNgayBC").datepicker({
+                                    dateFormat: 'dd/mm/yy',
+                                    showOn: "button",
                                     buttonImage: "img/icon-ui_datepicker.png",
                                     buttonImageOnly: true,
-                                    dateFormat: 'dd/mm/yy',
                                     showButtonPanel: true,
                                     buttonText: "icono",
                                     changeMonth: true,
                                     changeYear: true,
-                                    // showOn: "both"}).val('31/10/2022');
-                                    showOn: "both"}).val(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toLocaleDateString("zh-HK", {year: 'numeric', month: '2-digit', day: '2-digit'}));
+                                    showOn: "both"
+                                }).val(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toLocaleDateString("zh-HK", {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit'
+                                }));
                             });
+
                             $("#UpLoadFile").click(function () {
                                 $('#Mfile').prop('disabled', true);
                                 $('#UpLoadFile').prop('disabled', true);
@@ -1075,6 +1087,19 @@
                                 $("#DownLF").attr("href", "HN04SaveFile.action?dtNgayBC=" + sDate + "&strMaxa=" + sMax);
                                 location.href = $('#DownLF').attr('href');
                             });
+
+                            // Tính ngày cuối tháng hiện tại
+                            var currentDate = new Date();
+                            var lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                            var formattedDate = lastDayOfMonth.toLocaleDateString("zh-HK", {
+                                year: 'numeric',
+                                month: '2-digit',
+                                day: '2-digit'
+                            });
+                            // Đặt giá trị cho #dtNgayBC
+                            $("#dtNgayBC_temp").val(formattedDate);
+                            
+                            document.getElementById('ngay_bc_DATE').value = formattedDate;
                         </script>
                         <!--Kết thúc HANOI_004-->
                         </body>
