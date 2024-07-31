@@ -9,36 +9,22 @@ import static com.opensymphony.xwork2.Action.ERROR;
 import vbsp.ims.nhaptaycn.action.*;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import vbsp.ims.nhaptaycn.action.*;
-import vbsp.ims.nhaptaycn.action.*;
 import java.sql.Connection;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import javax.servlet.ServletContext;
-import org.apache.struts2.ServletActionContext;
-import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
-import vbsp.ims.bcqt.model.DULIEU_NT;
+import java.util.Locale;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
-import vbsp.ims.define.Define;
-import vbsp.ims.leavelocal.LeaveHomeDao;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.restapi.DuLieuNTRow;
-import vbsp.ims.restapi.DuLieuNTRowX;
-import vbsp.ims.syn.ProcessReportSyn;
-import vbsp.ims.tdnn.DaoTdnnMain;
 import vbsp.ims.util.DateUtil;
-import vbsp.ims.xml.XmlKtgsSync;
 
 /**
  *
@@ -467,18 +453,42 @@ public class QLNK_2023 extends ActionNhaptaycnMain
                     localD2 = tmp.getD2();
                 }
             }
-
             _leaveHomeService = new Service_GQVL2023();
-            int status = _leaveHomeService.deleteQLNK(pos_cd_username, "S", hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
-            String matoValue1 = hmParameter.get("txtGetData").toString();
-            if (status == 200) {
-                if (!daoMain.deleteQLNK2023("01_QLNK", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstLocalDataUpdate, pos_cd_username, localD2)) {
-                    addActionError("Bạn chưa xóa được dữ liệu màn hình Nhập, tại chi nhánh vui lòng liên hệ quản trị viên!!");
-                    String code = String.valueOf(2);
-                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                    return ERROR;
+            String s = hmParameter.get("ngay_bc").toString();
+            SimpleDateFormat sdfInput = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+                Date inputDate = sdfInput.parse(s);
+
+                // Lấy ngày đầu tiên của tháng của ngày s truyền vào
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(inputDate);
+                calendar.set(Calendar.DAY_OF_MONTH, 1);
+                Date startDate = calendar.getTime();
+
+                // Lấy ngày cuối cùng của tháng của ngày s truyền vào
+                calendar.add(Calendar.MONTH, 1);
+                calendar.add(Calendar.DATE, -1);
+                Date endDate = calendar.getTime();
+
+                // Duyệt qua từng ngày trong tháng và gọi hàm
+                SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+                SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
+
+                calendar.setTime(startDate);
+                while (calendar.getTime().compareTo(endDate) <= 0) {
+                    String ngay = sdf1.format(calendar.getTime());
+                int status = _leaveHomeService.deleteQLNK(pos_cd_username, "S", localD2, ngay , "", "", lstUpdateDate, "1");
+//                System.out.println("Status for " + ngay + ": " + status);
+                if (status == 200) {
+                    if (!daoMain.deleteQLNK2023("01_QLNK", UserName, Grade, ngay, lstLocalDataUpdate, pos_cd_username, localD2)) {
+                        addActionError("Bạn chưa xóa được dữ liệu màn hình Nhập, tại chi nhánh vui lòng liên hệ quản trị viên!!");
+                        String code = String.valueOf(2);
+                        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                        return ERROR;
+                    }
                 }
+                calendar.add(Calendar.DATE, 1);
             }
+
         } catch (Exception e) {
             addActionError("Bạn chưa xóa được dữ liệu xin liên hệ với quản trị để khắc phục");
             String code = String.valueOf(1);
@@ -682,6 +692,7 @@ public class QLNK_2023 extends ActionNhaptaycnMain
 //                    lstDulieuNt_tmp.add(tmp);
                 }
             }
+
             _leaveHomeService = new Service_GQVL2023();
             int status = _leaveHomeService.saveQLNK(pos_cd_username, "S", Ngaybc, "", "", lstUpdateDate, "1");
             String matoValue1 = hmParameter.get("txtGetData").toString();
