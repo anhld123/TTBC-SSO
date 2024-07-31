@@ -495,22 +495,20 @@
             });
             function btnDisabled(status) {
                 if (status === 1) {
-                    $("#idSearch").prop('disabled', true);
-//                    $("#idSend").prop('disabled', true);
-//                    $("#idSave").prop('disabled', true);
-//                    $("#idDelete").prop('disabled', true);
-                    $("#idUpload").prop('disabled', true);
-                    $("#idFetch").prop('disabled', true);
+                    $("#loadDatatmp").prop('disabled', true);
+                    $("#idPheduyet").prop('disabled', true);
+                    $("#idSave").prop('disabled', true);
+                    $("#idSaveLock").prop('disabled', true);
+                    $("#idDelete").prop('disabled', true);
                 } else {
-                    $("#idSearch").prop('disabled', false);
-//                    $("#idSend").prop('disabled', false);
-//                    $("#idSave").prop('disabled', false);
-//                    $("#idDelete").prop('disabled', false);
-                    $("#idUpload").prop('disabled', false);
-                    $("#idFetch").prop('disabled', false);
+                    $("#idPheduyet").prop('disabled', false);
+                    $("#idSave").prop('disabled', false);
+                    $("#loadDatatmp").prop('disabled', false);
+                    $("#idSaveLock").prop('disabled', false);
+                    $("#idDelete").prop('disabled', false);
                 }
-                ;
             }
+            ;   
 
             function countCheckedItem() {
                 let counter = 0;

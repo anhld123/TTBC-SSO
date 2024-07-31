@@ -636,8 +636,15 @@
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr id="tablefix"> 
                         <td class="D0">
+                            <s:if test="!txtGetData.equalsIgnoreCase('1')"> 
                             <input id="check<s:property  value='%{#rowstatus.index}' />" type="checkbox" class="myCheckBox sstyle"
-                                   name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D18"/>       
+                                       title="Ngày nhập <s:property  value="NGAYBC" />, chọn về tháng của ngày nhập nếu muốn xoá món vay"
+                                   name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D18"/>   
+                            </s:if>
+                            <s:else>
+                                <input id="check<s:property  value='%{#rowstatus.index}' />" type="checkbox" class="myCheckBox sstyle"
+                                   name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D18"/>   
+                            </s:else>
                         </td>
                       
                         <td class="D0 STT1 sstyle" style="background: #ddd"> <s:property value="%{#rowstatus.index + 1}" /> 
