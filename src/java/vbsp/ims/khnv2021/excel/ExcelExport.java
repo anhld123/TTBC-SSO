@@ -267,7 +267,8 @@ public class ExcelExport {
                             XSSFCell dataPrinCell = dataRow.getCell(col + 4, Row.CREATE_NULL_AS_BLANK);
                             String code = dataCodeCell.getStringCellValue();
                             for (int k = 0; k < lstData.size(); k++) {
-                                if (lstData.get(k).code.equals(code)) {
+                                if (lstData.get(k).code.equals(code)
+                                        && code != "XD00024" && code != "XD00052") {
                                     numberStyle = dataPrinCell.getCellStyle();
                                     numberStyle.setDataFormat(format.getFormat("#,##0"));
                                     numberStyle.setAlignment(HorizontalAlignment.RIGHT);
@@ -340,7 +341,7 @@ public class ExcelExport {
 //                        }
                     }
 
-                    sheet.protectSheet("1234567890");
+                    sheet.protectSheet("khnv2024");
                     java.io.FileOutputStream out = new java.io.FileOutputStream(fileName);
                     xssfWorkbook.write(out);
                     out.close();
