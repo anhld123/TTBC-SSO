@@ -6,6 +6,7 @@
 package vbsp.ims.khnv2021.excel;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.struts2.ServletActionContext;
 import vbsp.ims.khnv2021.model.DistrictInfo;
 import vbsp.ims.model.khnv.POSModel;
 import vbsp.ims.nhaptaycn.action.QT_DULIEU_NT_50;
@@ -1020,6 +1022,221 @@ public class ExcelExport {
         return strPreYear;
     }
 
+    public FileExportInfo xuatExcel_Mau01_2024(String posCode, String commune, String subcommune, String name_subcommune, String reportDate, String namBc, String dotBc, String savedDirPath) throws SQLException {
+        String filePath = "", fileName = "";
+        List<String> lstOfTextFile = new ArrayList<>();
+        List<DownloadFileInfor> filesList = new ArrayList<>();
+        List<String> zipFileList = new ArrayList<>();
+        lstOfTextFile.clear();
+        filesList.clear();
+        zipFileList.clear();
+        XDKHDao2021 daoXdkh = new XDKHDao2021();
+        List<POSModel> subCommuneList = daoXdkh.getSubCommuneList(posCode, commune);
+        List<String> lstTitleData = daoXdkh.getTitleData(posCode);
+        ArrayList<String> fullPathList = new ArrayList<>();
+        String strTimeFile = Long.toString(System.currentTimeMillis());
+        String zipFile = "FileNen_KHNV02_" + strTimeFile + ".zip", zipPath = "";
+        String cSeach = ServletActionContext.getRequest().getParameter("cSeach");
+        try {
+
+            String strPreYear = getPreYearString(Integer.parseInt(namBc));
+            String strTwoYearAgo = getPreYearString(Integer.parseInt(namBc) - 1);
+
+            //xu ly cho export file ra PDF hoac la Excel
+            Date dReportDate = new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate);
+            String strCurrDate = new SimpleDateFormat("ddMMyyyy").format(dReportDate);
+            //duong dan chua file tren o dia + Define.M_REPORT_XLS
+            //String strPathSave = savedDirPath;
+            //Ham nay lay ra ten file bao cao can tao, ten file jasper report
+
+            DaoMau02 daoMau02 = new DaoMau02();
+
+            String templateFile = savedDirPath + Define.M_EXCEL_TEMP + "/KHNV/KHNV_01_2024.xlsx";
+
+//            for (DistrictInfo district : lstDistrict) {
+            String strFileSave = "KHNV_01_2024_" + commune + "_" + subcommune //+ "_" + district.districtCode
+                    + "_" + strCurrDate
+                    + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
+
+            String strPathSave = savedDirPath + Define.M_REPORT_XLS;
+            strFileSave += ".XLSX";
+            filePath = strFileSave;
+
+            fileName = strPathSave + strFileSave;
+            File source = new File(templateFile);
+            File dest = new File(fileName);
+
+            FileUtil.copyFile(source, dest);
+
+            // Get data
+            List<Mau02Model> lstData = daoMau02.getExportData_2024(commune, subcommune, "", reportDate);
+
+            if (lstData.size() > 0) {
+
+                // Fill data              
+                XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new java.io.FileInputStream(fileName));
+                //SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
+                XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
+
+                XSSFCellStyle orderStyle;
+                XSSFCellStyle codeStyle;
+
+                String strTitle = "NHU CẦU VAY VỐN TÍN DỤNG CHÍNH SÁCH GIAI ĐOẠN " + namBc + " - " + (Integer.parseInt(namBc) + 4);
+                XSSFCell xssfCellTitle = sheet.getRow(3).getCell(0, Row.CREATE_NULL_AS_BLANK);
+                XSSFCell xssfCellTitle0 = sheet.getRow(3).getCell(26, Row.CREATE_NULL_AS_BLANK);
+                XSSFCell xssfCellTitle1 = sheet.getRow(3).getCell(48, Row.CREATE_NULL_AS_BLANK);
+                fillTitle(xssfCellTitle, strTitle);
+                fillTitle(xssfCellTitle0, strTitle);
+                fillTitle(xssfCellTitle1, strTitle);
+
+//                String strTitle1 = "XÃ/PHƯỜNG/THỊ TRẤN: " + " " +"; HUYỆN: " + "; TỈNH: " ;
+                String strTitle1 = "XÃ/PHƯỜNG/THỊ TRẤN: " + name_subcommune.toUpperCase() + "; HUYỆN:" + lstTitleData.get(0).toUpperCase() + "; TỈNH: " + lstTitleData.get(1).toUpperCase();
+
+                XSSFCell xssfCellTitle2 = sheet.getRow(4).getCell(0, Row.CREATE_NULL_AS_BLANK);
+                XSSFCell xssfCellTitle3 = sheet.getRow(4).getCell(26, Row.CREATE_NULL_AS_BLANK);
+                XSSFCell xssfCellTitle4 = sheet.getRow(4).getCell(48, Row.CREATE_NULL_AS_BLANK);
+                fillTitle(xssfCellTitle2, strTitle1);
+                fillTitle(xssfCellTitle3, strTitle1);
+                fillTitle(xssfCellTitle4, strTitle1);
+
+                // Tạo XSSFCellStyle với font chữ Times New Roman, cỡ chữ 12 và in đậm
+                XSSFCellStyle boldStyle = sheet.getWorkbook().createCellStyle();
+                XSSFFont boldFont = sheet.getWorkbook().createFont();
+                boldFont.setBold(true);
+                boldFont.setFontHeightInPoints((short) 12); // Set cỡ chữ 12
+                boldFont.setFontName("Times New Roman");
+                boldStyle.setFont(boldFont);
+
+                for (int i = 0; i < lstData.size(); i++) {
+                    XSSFRow xssfRow = sheet.getRow(i + 10);
+                    if (xssfRow == null) {
+                        xssfRow = sheet.createRow(i + 10);
+                    }
+                    XSSFCell xssfCell00 = xssfRow.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+
+                    orderStyle = sheet.getWorkbook().createCellStyle();
+                    orderStyle.cloneStyleFrom(xssfCell00.getCellStyle());
+                    orderStyle.setAlignment(HorizontalAlignment.CENTER);
+                    orderStyle.setLocked(true);
+                    // Thiết lập font chữ Times New Roman, cỡ chữ 12
+                    XSSFFont orderFont = sheet.getWorkbook().createFont();
+                    orderFont.setFontHeightInPoints((short) 12);
+                    orderFont.setFontName("Times New Roman");
+                    orderStyle.setFont(orderFont);
+                    xssfCell00.setCellStyle(orderStyle);
+
+                    XSSFCell xssfCell01 = xssfRow.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+
+                    codeStyle = sheet.getWorkbook().createCellStyle();
+                    codeStyle.cloneStyleFrom(xssfCell01.getCellStyle());
+                    codeStyle.setLocked(true);
+                    codeStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+                    codeStyle.setAlignment(HorizontalAlignment.LEFT);
+                    // Thiết lập font chữ Times New Roman, cỡ chữ 12
+                    XSSFFont codeFont = sheet.getWorkbook().createFont();
+                    codeFont.setFontHeightInPoints((short) 12);
+                    codeFont.setFontName("Times New Roman");
+                    codeStyle.setFont(codeFont);
+                    xssfCell01.setCellStyle(codeStyle);
+
+                    // Kiểm tra printType
+                    if (lstData.get(i).printType == 0) {
+                        XSSFCellStyle boldOrderStyle = sheet.getWorkbook().createCellStyle();
+                        boldOrderStyle.cloneStyleFrom(orderStyle);
+                        boldOrderStyle.setFont(boldFont);
+                        xssfCell00.setCellStyle(boldOrderStyle);
+
+                        XSSFCellStyle boldCodeStyle = sheet.getWorkbook().createCellStyle();
+                        boldCodeStyle.cloneStyleFrom(codeStyle);
+                        boldCodeStyle.setFont(boldFont);
+                        xssfCell01.setCellStyle(boldCodeStyle);
+                    }
+
+                    xssfCell00.setCellValue(lstData.get(i).order);
+                    xssfCell01.setCellValue(lstData.get(i).code);
+                }
+
+                for (int i = lstData.size(); i < sheet.getLastRowNum() + 1; i++) {
+                    XSSFRow rowToDelete = sheet.getRow(i + 10);
+                    if (rowToDelete != null) {
+                        sheet.removeRow(rowToDelete);
+                    }
+                }
+
+                // Add signature rows
+                int startRowNum = lstData.size() + 11;
+                XSSFRow row1 = sheet.createRow(startRowNum);
+                XSSFRow row2 = sheet.createRow(startRowNum + 1);
+
+                XSSFCell cell1_1 = row1.createCell(5);
+                cell1_1.setCellValue("CÁN BỘ TÍN DỤNG THEO DÕI ĐỊA BÀN");
+                XSSFCell cell1_2 = row1.createCell(18);
+                cell1_2.setCellValue("CHỦ TỊCH UBND XÃ/PHƯỜNG/THỊ TRẤN");
+
+                XSSFCell cell2_1 = row2.createCell(5);
+                cell2_1.setCellValue("(Ký, ghi rõ họ và tên)");
+                XSSFCell cell2_2 = row2.createCell(18);
+                cell2_2.setCellValue("(Ký tên, đóng dấu)");
+
+                // Style for signature rows
+                XSSFCellStyle signatureStyle = xssfWorkbook.createCellStyle();
+                XSSFFont signatureBoldFont = xssfWorkbook.createFont();
+                signatureBoldFont.setBold(true);
+                signatureBoldFont.setFontHeightInPoints((short) 12); // Set cỡ chữ 12
+                signatureBoldFont.setFontName("Times New Roman");
+                signatureStyle.setFont(signatureBoldFont);
+                signatureStyle.setAlignment(HorizontalAlignment.CENTER);
+
+                cell1_1.setCellStyle(signatureStyle);
+                cell1_2.setCellStyle(signatureStyle);
+
+                XSSFCellStyle italicStyle = xssfWorkbook.createCellStyle();
+                XSSFFont italicFont = xssfWorkbook.createFont();
+                italicFont.setItalic(true);
+                italicFont.setFontHeightInPoints((short) 12); // Set cỡ chữ 12
+                italicFont.setFontName("Times New Roman");
+                italicStyle.setFont(italicFont);
+                italicStyle.setAlignment(HorizontalAlignment.CENTER);
+
+                cell2_1.setCellStyle(italicStyle);
+                cell2_2.setCellStyle(italicStyle);
+
+                FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
+                formulaEvaluator.evaluateAll();
+                sheet.protectSheet("khnv2024");
+                java.io.FileOutputStream out = new java.io.FileOutputStream(fileName);
+                xssfWorkbook.write(out);
+                out.close();
+
+                lstOfTextFile.add(fileName);
+                FileInfo file = new FileInfo(new File(fileName));
+                filesList.add(new DownloadFileInfor(file.getName(), fileName,
+                        DefineFun.round_up((double) file.getSize() / 1000) + " KB"));
+                fullPathList.add(file.getAbsolutePath());
+                zipPath = Define.M_ROOT + Define.M_REPORT_XLS + zipFile;
+            }
+
+            if (fullPathList.size() > 1) {
+                try {
+                    FileZip.ZipFileFromArray(fullPathList, zipPath);
+                    zipFileList.add(zipFile);
+                    zipFileList.add(zipPath);
+                } catch (Exception ex) {
+                    Logger.getLogger(ExportText2SbvManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                filePath = zipFile;
+                fileName = zipPath;
+            }
+
+            System.gc();
+            return new FileExportInfo(fileName, filePath);
+        } catch (Exception ex) {
+            CoreLogger.error(this.getClass().getName() + " xuatExcelMau02 " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " loi xuatExcelMau02 " + ex.getMessage());
+            return null;
+        }
+    }
+
     public FileExportInfo xuatExcelMau02(POSModel pos, String posFlag, String reportDate, String namBc, String dotBc, String savedDirPath) {
         String filePath = "", fileName = "";
         List<String> lstOfTextFile = new ArrayList<>();
@@ -1174,9 +1391,10 @@ public class ExcelExport {
 //                        lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
 //                        lockStyle.setLocked(true);
 //                        xssfCell03.setCellStyle(lockStyle);
+                        if (!lstData.get(i).code.equals("XD00024") && !lstData.get(i).code.equals("XD00052")) {
+                            xssfCell03.setCellValue(lstData.get(i).d1);
+                        }
 
-                        xssfCell03.setCellValue(lstData.get(i).d1);
-                      
                     }
 
                     XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
@@ -1185,8 +1403,9 @@ public class ExcelExport {
                     numberStyle.setAlignment(HorizontalAlignment.RIGHT);
 //                    numberStyle.setLocked(false);
 //                    xssfCell04.setCellStyle(numberStyle);
-                    xssfCell04.setCellValue(lstData.get(i).d2);
-
+                    if (!lstData.get(i).code.equals("XD00024") && !lstData.get(i).code.equals("XD00052")) {
+                        xssfCell04.setCellValue(lstData.get(i).d2);
+                    }
                     XSSFCell xssfCell05 = xssfRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
                     lockStyle = xssfCell05.getCellStyle();
                     lockStyle.setDataFormat(format.getFormat("#,##0;-#,##0;;@"));
@@ -1202,14 +1421,18 @@ public class ExcelExport {
                             || lstData.get(i).code.equals("XD00030")
                             || lstData.get(i).code.equals("XD00039")
                             || lstData.get(i).code.equals("XD00111")) {
+
                         xssfCell05.setCellStyle(lockStyle);
                         xssfCell05.setCellValue(lstData.get(i).d3);
+
                     } else {
 //                        lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
 //                        lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
 //                        lockStyle.setLocked(true);
 //                        xssfCell05.setCellStyle(lockStyle);
-                        xssfCell05.setCellValue(lstData.get(i).d3);
+                        if (!lstData.get(i).code.equals("XD00024") && !lstData.get(i).code.equals("XD00052")) {
+                            xssfCell05.setCellValue(lstData.get(i).d3);
+                        }
                     }
 
                     XSSFCell xssfCell06 = xssfRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
@@ -1218,8 +1441,9 @@ public class ExcelExport {
                     numberStyle.setAlignment(HorizontalAlignment.RIGHT);
                     numberStyle.setLocked(true);
                     xssfCell06.setCellStyle(numberStyle);
-                    xssfCell06.setCellValue(lstData.get(i).d4);
-
+                    if (!lstData.get(i).code.equals("XD00024") && !lstData.get(i).code.equals("XD00052")) {
+                        xssfCell06.setCellValue(lstData.get(i).d4);
+                    }
                     XSSFCell xssfCell07 = xssfRow.getCell(7, Row.CREATE_NULL_AS_BLANK);
                     lockStyle = xssfCell07.getCellStyle();
                     //lockStyle.setDataFormat(format.getFormat("#,##0.0;-#,##0.0;-;@"));
