@@ -1633,6 +1633,26 @@ public class DuLieuNTService extends ReportService {
         }
     }
 
+    public CicGenFile_Tmp xuatfileExecl(String key, String posCode, String posFlag, String reportDate) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("cic-gen-file")
+                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", posFlag)
+                .queryParam("reportDate", reportDate);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            CicGenFile listDistrict = response.readEntity(CicGenFile.class);
+            CicGenFile_Tmp listOfRow = listDistrict.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+
     public ArrayList<DuLieuNTRow> getDataTTND_2024(String key, String posCode, String posFlag, String communeId, String reportDate, String condition, String defaultListFlag) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -1786,8 +1806,8 @@ public class DuLieuNTService extends ReportService {
         System.out.println("Response code API: " + response.getStatus());
         return response.getStatus();
     }
-    
-     public int updateTDNN_2024(String key, String posCode, String posFlag,String communeId , String reportDate, String makerId, String authoriseId,
+
+    public int updateTDNN_2024(String key, String posCode, String posFlag, String communeId, String reportDate, String makerId, String authoriseId,
             List<DuLieuNTRowX> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -1816,7 +1836,7 @@ public class DuLieuNTService extends ReportService {
         return response.getStatus();
     }
 
-          public int deleteTDNN_2024(String key, String posCode, String posFlag,String communeId , String reportDate, String makerId, String authoriseId,
+    public int deleteTDNN_2024(String key, String posCode, String posFlag, String communeId, String reportDate, String makerId, String authoriseId,
             List<DuLieuNTRowX> data) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -1845,7 +1865,6 @@ public class DuLieuNTService extends ReportService {
         return response.getStatus();
     }
 
-          
     public GenericResult authorizeKTKSNB(String key, String posCode, String posFlag, String reportDate, String authoriseId,
             String dataFlag) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();

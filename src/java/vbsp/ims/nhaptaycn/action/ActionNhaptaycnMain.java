@@ -40,6 +40,7 @@ import vbsp.ims.huydongtk.clsHuyDongTK;
 import vbsp.ims.khnv2021.PosClass;
 import vbsp.ims.ktgs.dao.DaoKtgsMain;
 import vbsp.ims.leavelocal.LeaveHomeDao;
+import vbsp.ims.leavelocal.LeaveHomeService;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
@@ -48,6 +49,8 @@ import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.ListMainPos;
+import vbsp.ims.restapi.ListPosCode;
 import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.sbv.daoSbv;
 import vbsp.ims.syn.ProcessReportSyn;
@@ -63,6 +66,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
     //<editor-fold defaultstate="collapsed" desc="Khai bao cac bien">
     String fileNamelocal;
     String filereport;
+    LeaveHomeService _server_tmp;
     public String reportId; //CuongBM: Ma bao cao
     public List<File> fileUpload = new ArrayList<>();
     private List<String> fileUploadContentType = new ArrayList<>();
@@ -71,6 +75,43 @@ public class ActionNhaptaycnMain extends ActionSupport {
     private String fileNameNew;
     private List<ListValue> lstBDD = new ArrayList<ListValue>();
     public String chotCic;
+    private List<ListPosCode> lstPGD_API;
+    private List<ListMainPos> lstCN_API;
+    private String pos_cd;
+    private String main_pos;
+
+    public String getPos_cd() {
+        return pos_cd;
+    }
+
+    public void setPos_cd(String pos_cd) {
+        this.pos_cd = pos_cd;
+    }
+
+    public String getMain_pos() {
+        return main_pos;
+    }
+
+    public void setMain_pos(String main_pos) {
+        this.main_pos = main_pos;
+    }
+    
+
+    public List<ListPosCode> getLstPGD_API() {
+        return lstPGD_API;
+    }
+
+    public void setLstPGD_API(List<ListPosCode> lstPGD_API) {
+        this.lstPGD_API = lstPGD_API;
+    }
+
+    public List<ListMainPos> getLstCN_API() {
+        return lstCN_API;
+    }
+
+    public void setLstCN_API(List<ListMainPos> lstCN_API) {
+        this.lstCN_API = lstCN_API;
+    }
 
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
@@ -870,14 +911,37 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 return "QLNK_2023";
 //                return "LEAVELOCAL";
             }
-            
-                if (this.khoa_nhaptaycn.equals("HUYDONG_2024")) {
-                     clsHuyDongTK Canbo2024 = new clsHuyDongTK();
+
+            if (this.khoa_nhaptaycn.equals("HUYDONG_2024")) {
+                clsHuyDongTK Canbo2024 = new clsHuyDongTK();
                 setLstCanBo(Canbo2024.getCanBo(Grade, UserName));
                 return "HUYDONG_2024";
 //                return "LEAVELOCAL";
             }
-                
+            if (this.khoa_nhaptaycn.equals("CIC_002")) {
+                 String PosFlag = "";
+                if (Grade.equals("3")) {
+                    PosFlag = "H";
+                } else if (Grade.equals("2")) {
+                    PosFlag = "M";
+                } else {
+                    PosFlag = "S";
+                }
+                posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+                pos_cd = posMainModel.getPosCd();
+                main_pos = posMainModel.getMainPosCd();
+                _server_tmp = new LeaveHomeService();
+
+                if (PosFlag == "S") {
+                    lstCN_API = _server_tmp.getListCn(main_pos.substring(2, 4));
+                } else if (PosFlag == "M") {
+                    lstCN_API = _server_tmp.getListCn(main_pos.substring(2, 4));
+                } else {
+                    lstCN_API = _server_tmp.getListCn("");
+                }
+                return "CIC_002";
+            }
+
             if (this.khoa_nhaptaycn.equals("KTTC_QSDD_01")) {
                 System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
                 //Lấy danh sách Pos theo User đăng nhập

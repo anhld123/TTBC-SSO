@@ -190,7 +190,19 @@ public class Service_GQVL2023 {
             return null;
         }
     }
+    
+      public  CicGenFile_Tmp xuatfileExcel_cic(String kye, String posCode, String posFlag,String reportDate) {
 
+        try {
+            final String _fromDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
+            {
+                return _service.xuatfileExecl(kye, posCode, posFlag, _fromDate);
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
     public int saveQLNK(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
         try {
 
@@ -265,7 +277,7 @@ public class Service_GQVL2023 {
         return 0;
     }
 
-    public int deleteQLNK(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
+    public int deleteQLNK(String posCode, String posFlag,String soku ,String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
         try {
 
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
@@ -330,7 +342,7 @@ public class Service_GQVL2023 {
 
                     _lstNormalizeData.add(_normalizeItem);
                 }
-                return _service.deleteKTKSNB("01_QLNK", posCode, posFlag, _reportDate, makerId, authoriseId, _lstNormalizeData);
+                return _service.deleteTDNN_2024("01_QLNK", posCode, posFlag, soku ,_reportDate, "", "", _lstNormalizeData);
 
             }
         } catch (Exception e) {
@@ -338,8 +350,8 @@ public class Service_GQVL2023 {
         }
         return 0;
     }
-    
-    public int deleteTDNN_2024(String kyes,String posCode, String posFlag, String communeId, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
+
+    public int deleteTDNN_2024(String kyes, String posCode, String posFlag, String communeId, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
         try {
 
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
@@ -414,7 +426,7 @@ public class Service_GQVL2023 {
         }
         return 0;
     }
-     
+
     public int clearMembers(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, String customerCode, String sourceFlag) {
         try {
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
@@ -541,7 +553,7 @@ public class Service_GQVL2023 {
         }
     }
 
-    public int saveTDNN_2024(String kyes,String posCode, String posFlag, String communeId, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
+    public int saveTDNN_2024(String kyes, String posCode, String posFlag, String communeId, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
         try {
 
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));

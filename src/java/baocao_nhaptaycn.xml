@@ -21,6 +21,7 @@
             <result name="return-cic">/nhaptay-cn/para_baocao_cic.jsp</result>
             <result name="QLNK_2023">/GQVL2023/para_baocao.jsp</result> 
             <result name="HUYDONG_2024">/GQVL2023/para_huydong.jsp</result> 
+            <result name="CIC_002">/CIC_2024/para_cic.jsp</result>
              <!--<result name="GQVL_01">/GQVL2023/index.jsp</result>-->
             <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>  
@@ -59,7 +60,13 @@
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>  
-        
+         <action name="CIC_002" class="vbsp.ims.gqvl_2023.CIC_2024"  method="load">
+            <result name="success">/CIC_2024/table_cic_2024.jsp</result>                              
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+         <action name="popupTableFile" class="vbsp.ims.gqvl_2023.CIC_2024" method="popupTableFile">
+            <result name="success">/CIC_2024/popupfile.jsp</result>
+        </action>
           <action name="QLNK_2023" class="vbsp.ims.gqvl_2023.QLNK_2023"  method="load">
             <result name="success">/GQVL2023/01_QLNK.jsp</result> 
             <result name="success_1">/GQVL2023/01_QLNK_unlock.jsp</result>                              
