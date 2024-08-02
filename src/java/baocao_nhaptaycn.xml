@@ -42,7 +42,7 @@
             <result name="error">sbv/success.jsp</result>
         </action>
         
-        <action name="HUYDONG_2024" class="vbsp.ims.huydongtk.huydongtk_2024" method="load">
+<!--        <action name="HUYDONG_2024" class="vbsp.ims.huydongtk.huydongtk_2024" method="load">
             <result name="success">/GQVL2023/huydongtietkiem.jsp</result>                                 
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action> 
@@ -59,7 +59,7 @@
           <action name="save_HUYDONG_2024" class="vbsp.ims.huydongtk.huydongtk_2024"  method="save">
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
-        </action>  
+        </action>  -->
          <action name="CIC_002" class="vbsp.ims.gqvl_2023.CIC_2024"  method="load">
             <result name="success">/CIC_2024/table_cic_2024.jsp</result>                              
             <result name="error">/nhaptay-cn/success.jsp</result>       
