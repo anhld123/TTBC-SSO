@@ -1449,7 +1449,6 @@ public class ExcelExport {
                             e.printStackTrace();
                         }
                     }
-
                 }
                 FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
                 formulaEvaluator.evaluateAll();
@@ -1712,8 +1711,10 @@ public class ExcelExport {
                     FileZip.ZipFileFromArray(fullPathList, zipPath);
                     zipFileList.add(zipFile);
                     zipFileList.add(zipPath);
+
                 } catch (Exception ex) {
-                    Logger.getLogger(ExportText2SbvManager.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ExportText2SbvManager.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
                 filePath = zipFile;
                 fileName = zipPath;
@@ -1918,8 +1919,10 @@ public class ExcelExport {
                     FileZip.ZipFileFromArray(fullPathList, zipPath);
                     zipFileList.add(zipFile);
                     zipFileList.add(zipPath);
+
                 } catch (Exception ex) {
-                    Logger.getLogger(ExportText2SbvManager.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ExportText2SbvManager.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
                 filePath = zipFile;
                 fileName = zipPath;
@@ -1980,8 +1983,10 @@ public class ExcelExport {
                     FileZip.ZipFileFromArray(fullPathList, zipPath);
                     zipFileList.add(zipFile);
                     zipFileList.add(zipPath);
+
                 } catch (Exception ex) {
-                    Logger.getLogger(ExportText2SbvManager.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ExportText2SbvManager.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
                 filePath = zipFile;
                 fileName = zipPath;
