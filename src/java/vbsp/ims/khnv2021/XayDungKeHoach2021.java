@@ -321,19 +321,18 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
 //            String tenthon = pos.getDesc();
             String mathon = hmParameter.get("subcommune_cd").toString();
 
-            ArrayList<POSModel> listxa = daoXdkh.getNameSubCommune(maxa, mathon);
-            String tenthon = listxa.get(0).getDesc();
-
-            if (maxa.equals("000000")) {
+            if (maxa.equals("000000") || maxa.equals(NONE)) {
                 addActionError("Bạn chưa chọn mã xã!");
                 return ERROR;
             }
-            if (mathon.equals("000000")) {
+            if (mathon.equals("000000") || mathon.equals(NONE)) {
                 addActionError("Bạn chưa chọn mã thôn!");
                 return ERROR;
             }
-
-            FileExportInfo fileInfo = excelExport.xuatExcel_Mau01_2024(pos_cd_username, maxa, mathon,tenthon, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
+            ArrayList<POSModel> listxa = daoXdkh.getNameSubCommune(maxa, mathon);
+            String tenthon = listxa.get(0).getDesc();
+            
+            FileExportInfo fileInfo = excelExport.xuatExcel_Mau01_2024(pos_cd_username, maxa, mathon, tenthon, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
             if (fileInfo != null) {
                 fileNamelocal = fileInfo.fileName;
                 filereport = fileInfo.filePath;
@@ -343,13 +342,13 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
                 return ERROR;
             }
         } catch (Exception ex) {
-            CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv02 " + ex.getMessage());
-            System.err.println(this.getClass().getName() + " Loi ExpExcelKhnv02 " + ex.getMessage());
+            CoreLogger.error(this.getClass().getName() + " 0102024 " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " Loi 012024 " + ex.getMessage());
             return ERROR;
         }
     }
-    
-      public String xuatExcel_KHNV02_2024()  {
+
+    public String xuatExcel_KHNV02_2024() {
         try {
             getInfo();
             request = ServletActionContext.getRequest();
@@ -366,12 +365,12 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
                 return ERROR;
             }
         } catch (Exception ex) {
-            CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv02 " + ex.getMessage());
-            System.err.println(this.getClass().getName() + " Loi ExpExcelKhnv02 " + ex.getMessage());
+            CoreLogger.error(this.getClass().getName() + " 022024 " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " Loi 022024 " + ex.getMessage());
             return ERROR;
         }
     }
-      
+
     public String ExpExcelKhnv01B_3N() {
         try {
             System.out.println("vào ham ExpExcelKhnv01B_3N");

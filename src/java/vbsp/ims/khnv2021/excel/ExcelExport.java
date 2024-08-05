@@ -1159,11 +1159,11 @@ public class ExcelExport {
                     if (lstData.get(i).getKIEUIN() == 0) {
                         xssfCell00.setCellStyle(boldStyle);
                         xssfCell01.setCellStyle(boldStyle);
-                        xssfCell02.setCellStyle(boldStyle);
-                        xssfCell03.setCellStyle(boldStyle);
-                        xssfCell18.setCellStyle(boldStyle);
-                        xssfCell33.setCellStyle(boldStyle);
-                        xssfCell46.setCellStyle(boldStyle);
+                        xssfCell02.setCellStyle(numberStyle);
+                        xssfCell03.setCellStyle(numberStyle);
+                        xssfCell18.setCellStyle(numberStyle);
+                        xssfCell33.setCellStyle(numberStyle);
+                        xssfCell46.setCellStyle(numberStyle);
                     }
 
                     xssfCell00.setCellValue(lstData.get(i).getTT_HIENTHI());
