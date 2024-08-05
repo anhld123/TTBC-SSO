@@ -1,0 +1,1092 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package vbsp.ims.khnv2021.model;
+
+import java.util.Date;
+
+/**
+ *
+ * @author HP
+ */
+public class DULIEU_NT_100 {
+     private String KHOA;
+    private int THUTU;
+    private String TT_HIENTHI;
+    private String MA;
+    private String TEN;
+    private Date NGAYBC;
+    private int NAMBC;
+    private String MAPGD;
+    private String CO_TONGHOP;
+    private String MACN;
+    private String NGUOI_NHAP;
+    private Date NGAY_NHAP;
+    private String NGUOI_DUYET;
+    private Date NGAY_DUYET;
+    private String D1;
+    private String D2;
+    private String D3;
+    private String D4;
+    private String D5;
+    private String D6;
+    private String D7;
+    private String D8;
+    private String D9;
+    private String D10;
+    private String D11;
+    private String D12;
+    private String D13;
+    private String D14;
+    private String D15;
+    private String D16;
+    private String D17;
+    private String D18;
+    private String D19;
+    private String D20;
+    private String D21;
+    private String D22;
+    private String D23;
+    private String D24;
+    private String D25;
+    private String D26;
+    private String D27;
+    private String D28;
+    private String D29;
+    private String D30;
+
+    private String D31;
+    private String D32;
+    private String D33;
+    private String D34;
+    private String D35;
+    private String D36;
+    private String D37;
+    private String D38;
+    private String D39;
+    private String D40;
+
+    private String D41;
+    private String D42;
+    private String D43;
+    private String D44;
+    private String D45;
+    private String D46;
+    private String D47;
+    private String D48;
+    private String D49;
+    private String D50;
+    private String D51;
+    private String D52;
+    private String D53;
+    private String D54;
+    private String D55;
+    private String D56;
+    private String D57;
+    private String D58;
+    private String D59;
+    private String D60;
+    private String D61;
+    private String D62;
+    private String D63;
+    private String D64;
+    private String D65;
+    private String D66;
+    private String D67;
+    private String D68;
+    private String D69;
+    private String D70;
+    private String D71;
+    private String D72;
+    private String D73;
+    private String D74;
+    private String D75;
+    private String D76;
+    private String D77;
+    private String D78;
+    private String D79;
+    private String D80;
+    private String D81;
+    private String D82;
+    private String D83;
+    private String D84;
+    private String D85;
+    private String D86;
+    private String D87;
+    private String D88;
+    private String D89;
+    private String D90;
+    private String D91;
+    private String D92;
+    private String D93;
+    private String D94;
+    private String D95;
+    private String D96;
+    private String D97;
+    private String D98;
+    private String D99;
+    private String D100;
+
+    private String NHAPTAY;
+    private String FONTFORMAT;
+    private int KIEUIN;
+    private String CAP;
+    private String CO_CONGCAP;
+
+    public String getKHOA() {
+        return KHOA;
+    }
+
+    public void setKHOA(String KHOA) {
+        this.KHOA = KHOA;
+    }
+
+    public int getTHUTU() {
+        return THUTU;
+    }
+
+    public void setTHUTU(int THUTU) {
+        this.THUTU = THUTU;
+    }
+
+    public String getTT_HIENTHI() {
+        return TT_HIENTHI;
+    }
+
+    public void setTT_HIENTHI(String TT_HIENTHI) {
+        this.TT_HIENTHI = TT_HIENTHI;
+    }
+
+    public String getMA() {
+        return MA;
+    }
+
+    public void setMA(String MA) {
+        this.MA = MA;
+    }
+
+    public String getTEN() {
+        return TEN;
+    }
+
+    public void setTEN(String TEN) {
+        this.TEN = TEN;
+    }
+
+    public Date getNGAYBC() {
+        return NGAYBC;
+    }
+
+    public void setNGAYBC(Date NGAYBC) {
+        this.NGAYBC = NGAYBC;
+    }
+
+    public int getNAMBC() {
+        return NAMBC;
+    }
+
+    public void setNAMBC(int NAMBC) {
+        this.NAMBC = NAMBC;
+    }
+
+    public String getMAPGD() {
+        return MAPGD;
+    }
+
+    public void setMAPGD(String MAPGD) {
+        this.MAPGD = MAPGD;
+    }
+
+    public String getCO_TONGHOP() {
+        return CO_TONGHOP;
+    }
+
+    public void setCO_TONGHOP(String CO_TONGHOP) {
+        this.CO_TONGHOP = CO_TONGHOP;
+    }
+
+    public String getMACN() {
+        return MACN;
+    }
+
+    public void setMACN(String MACN) {
+        this.MACN = MACN;
+    }
+
+    public String getNGUOI_NHAP() {
+        return NGUOI_NHAP;
+    }
+
+    public void setNGUOI_NHAP(String NGUOI_NHAP) {
+        this.NGUOI_NHAP = NGUOI_NHAP;
+    }
+
+    public Date getNGAY_NHAP() {
+        return NGAY_NHAP;
+    }
+
+    public void setNGAY_NHAP(Date NGAY_NHAP) {
+        this.NGAY_NHAP = NGAY_NHAP;
+    }
+
+    public String getNGUOI_DUYET() {
+        return NGUOI_DUYET;
+    }
+
+    public void setNGUOI_DUYET(String NGUOI_DUYET) {
+        this.NGUOI_DUYET = NGUOI_DUYET;
+    }
+
+    public Date getNGAY_DUYET() {
+        return NGAY_DUYET;
+    }
+
+    public void setNGAY_DUYET(Date NGAY_DUYET) {
+        this.NGAY_DUYET = NGAY_DUYET;
+    }
+
+    public String getD1() {
+        return D1;
+    }
+
+    public void setD1(String D1) {
+        this.D1 = D1;
+    }
+
+    public String getD2() {
+        return D2;
+    }
+
+    public void setD2(String D2) {
+        this.D2 = D2;
+    }
+
+    public String getD3() {
+        return D3;
+    }
+
+    public void setD3(String D3) {
+        this.D3 = D3;
+    }
+
+    public String getD4() {
+        return D4;
+    }
+
+    public void setD4(String D4) {
+        this.D4 = D4;
+    }
+
+    public String getD5() {
+        return D5;
+    }
+
+    public void setD5(String D5) {
+        this.D5 = D5;
+    }
+
+    public String getD6() {
+        return D6;
+    }
+
+    public void setD6(String D6) {
+        this.D6 = D6;
+    }
+
+    public String getD7() {
+        return D7;
+    }
+
+    public void setD7(String D7) {
+        this.D7 = D7;
+    }
+
+    public String getD8() {
+        return D8;
+    }
+
+    public void setD8(String D8) {
+        this.D8 = D8;
+    }
+
+    public String getD9() {
+        return D9;
+    }
+
+    public void setD9(String D9) {
+        this.D9 = D9;
+    }
+
+    public String getD10() {
+        return D10;
+    }
+
+    public void setD10(String D10) {
+        this.D10 = D10;
+    }
+
+    public String getD11() {
+        return D11;
+    }
+
+    public void setD11(String D11) {
+        this.D11 = D11;
+    }
+
+    public String getD12() {
+        return D12;
+    }
+
+    public void setD12(String D12) {
+        this.D12 = D12;
+    }
+
+    public String getD13() {
+        return D13;
+    }
+
+    public void setD13(String D13) {
+        this.D13 = D13;
+    }
+
+    public String getD14() {
+        return D14;
+    }
+
+    public void setD14(String D14) {
+        this.D14 = D14;
+    }
+
+    public String getD15() {
+        return D15;
+    }
+
+    public void setD15(String D15) {
+        this.D15 = D15;
+    }
+
+    public String getD16() {
+        return D16;
+    }
+
+    public void setD16(String D16) {
+        this.D16 = D16;
+    }
+
+    public String getD17() {
+        return D17;
+    }
+
+    public void setD17(String D17) {
+        this.D17 = D17;
+    }
+
+    public String getD18() {
+        return D18;
+    }
+
+    public void setD18(String D18) {
+        this.D18 = D18;
+    }
+
+    public String getD19() {
+        return D19;
+    }
+
+    public void setD19(String D19) {
+        this.D19 = D19;
+    }
+
+    public String getD20() {
+        return D20;
+    }
+
+    public void setD20(String D20) {
+        this.D20 = D20;
+    }
+
+    public String getD21() {
+        return D21;
+    }
+
+    public void setD21(String D21) {
+        this.D21 = D21;
+    }
+
+    public String getD22() {
+        return D22;
+    }
+
+    public void setD22(String D22) {
+        this.D22 = D22;
+    }
+
+    public String getD23() {
+        return D23;
+    }
+
+    public void setD23(String D23) {
+        this.D23 = D23;
+    }
+
+    public String getD24() {
+        return D24;
+    }
+
+    public void setD24(String D24) {
+        this.D24 = D24;
+    }
+
+    public String getD25() {
+        return D25;
+    }
+
+    public void setD25(String D25) {
+        this.D25 = D25;
+    }
+
+    public String getD26() {
+        return D26;
+    }
+
+    public void setD26(String D26) {
+        this.D26 = D26;
+    }
+
+    public String getD27() {
+        return D27;
+    }
+
+    public void setD27(String D27) {
+        this.D27 = D27;
+    }
+
+    public String getD28() {
+        return D28;
+    }
+
+    public void setD28(String D28) {
+        this.D28 = D28;
+    }
+
+    public String getD29() {
+        return D29;
+    }
+
+    public void setD29(String D29) {
+        this.D29 = D29;
+    }
+
+    public String getD30() {
+        return D30;
+    }
+
+    public void setD30(String D30) {
+        this.D30 = D30;
+    }
+
+    public String getD31() {
+        return D31;
+    }
+
+    public void setD31(String D31) {
+        this.D31 = D31;
+    }
+
+    public String getD32() {
+        return D32;
+    }
+
+    public void setD32(String D32) {
+        this.D32 = D32;
+    }
+
+    public String getD33() {
+        return D33;
+    }
+
+    public void setD33(String D33) {
+        this.D33 = D33;
+    }
+
+    public String getD34() {
+        return D34;
+    }
+
+    public void setD34(String D34) {
+        this.D34 = D34;
+    }
+
+    public String getD35() {
+        return D35;
+    }
+
+    public void setD35(String D35) {
+        this.D35 = D35;
+    }
+
+    public String getD36() {
+        return D36;
+    }
+
+    public void setD36(String D36) {
+        this.D36 = D36;
+    }
+
+    public String getD37() {
+        return D37;
+    }
+
+    public void setD37(String D37) {
+        this.D37 = D37;
+    }
+
+    public String getD38() {
+        return D38;
+    }
+
+    public void setD38(String D38) {
+        this.D38 = D38;
+    }
+
+    public String getD39() {
+        return D39;
+    }
+
+    public void setD39(String D39) {
+        this.D39 = D39;
+    }
+
+    public String getD40() {
+        return D40;
+    }
+
+    public void setD40(String D40) {
+        this.D40 = D40;
+    }
+
+    public String getD41() {
+        return D41;
+    }
+
+    public void setD41(String D41) {
+        this.D41 = D41;
+    }
+
+    public String getD42() {
+        return D42;
+    }
+
+    public void setD42(String D42) {
+        this.D42 = D42;
+    }
+
+    public String getD43() {
+        return D43;
+    }
+
+    public void setD43(String D43) {
+        this.D43 = D43;
+    }
+
+    public String getD44() {
+        return D44;
+    }
+
+    public void setD44(String D44) {
+        this.D44 = D44;
+    }
+
+    public String getD45() {
+        return D45;
+    }
+
+    public void setD45(String D45) {
+        this.D45 = D45;
+    }
+
+    public String getD46() {
+        return D46;
+    }
+
+    public void setD46(String D46) {
+        this.D46 = D46;
+    }
+
+    public String getD47() {
+        return D47;
+    }
+
+    public void setD47(String D47) {
+        this.D47 = D47;
+    }
+
+    public String getD48() {
+        return D48;
+    }
+
+    public void setD48(String D48) {
+        this.D48 = D48;
+    }
+
+    public String getD49() {
+        return D49;
+    }
+
+    public void setD49(String D49) {
+        this.D49 = D49;
+    }
+
+    public String getD50() {
+        return D50;
+    }
+
+    public void setD50(String D50) {
+        this.D50 = D50;
+    }
+
+    public String getD51() {
+        return D51;
+    }
+
+    public void setD51(String D51) {
+        this.D51 = D51;
+    }
+
+    public String getD52() {
+        return D52;
+    }
+
+    public void setD52(String D52) {
+        this.D52 = D52;
+    }
+
+    public String getD53() {
+        return D53;
+    }
+
+    public void setD53(String D53) {
+        this.D53 = D53;
+    }
+
+    public String getD54() {
+        return D54;
+    }
+
+    public void setD54(String D54) {
+        this.D54 = D54;
+    }
+
+    public String getD55() {
+        return D55;
+    }
+
+    public void setD55(String D55) {
+        this.D55 = D55;
+    }
+
+    public String getD56() {
+        return D56;
+    }
+
+    public void setD56(String D56) {
+        this.D56 = D56;
+    }
+
+    public String getD57() {
+        return D57;
+    }
+
+    public void setD57(String D57) {
+        this.D57 = D57;
+    }
+
+    public String getD58() {
+        return D58;
+    }
+
+    public void setD58(String D58) {
+        this.D58 = D58;
+    }
+
+    public String getD59() {
+        return D59;
+    }
+
+    public void setD59(String D59) {
+        this.D59 = D59;
+    }
+
+    public String getD60() {
+        return D60;
+    }
+
+    public void setD60(String D60) {
+        this.D60 = D60;
+    }
+
+    public String getD61() {
+        return D61;
+    }
+
+    public void setD61(String D61) {
+        this.D61 = D61;
+    }
+
+    public String getD62() {
+        return D62;
+    }
+
+    public void setD62(String D62) {
+        this.D62 = D62;
+    }
+
+    public String getD63() {
+        return D63;
+    }
+
+    public void setD63(String D63) {
+        this.D63 = D63;
+    }
+
+    public String getD64() {
+        return D64;
+    }
+
+    public void setD64(String D64) {
+        this.D64 = D64;
+    }
+
+    public String getD65() {
+        return D65;
+    }
+
+    public void setD65(String D65) {
+        this.D65 = D65;
+    }
+
+    public String getD66() {
+        return D66;
+    }
+
+    public void setD66(String D66) {
+        this.D66 = D66;
+    }
+
+    public String getD67() {
+        return D67;
+    }
+
+    public void setD67(String D67) {
+        this.D67 = D67;
+    }
+
+    public String getD68() {
+        return D68;
+    }
+
+    public void setD68(String D68) {
+        this.D68 = D68;
+    }
+
+    public String getD69() {
+        return D69;
+    }
+
+    public void setD69(String D69) {
+        this.D69 = D69;
+    }
+
+    public String getD70() {
+        return D70;
+    }
+
+    public void setD70(String D70) {
+        this.D70 = D70;
+    }
+
+    public String getD71() {
+        return D71;
+    }
+
+    public void setD71(String D71) {
+        this.D71 = D71;
+    }
+
+    public String getD72() {
+        return D72;
+    }
+
+    public void setD72(String D72) {
+        this.D72 = D72;
+    }
+
+    public String getD73() {
+        return D73;
+    }
+
+    public void setD73(String D73) {
+        this.D73 = D73;
+    }
+
+    public String getD74() {
+        return D74;
+    }
+
+    public void setD74(String D74) {
+        this.D74 = D74;
+    }
+
+    public String getD75() {
+        return D75;
+    }
+
+    public void setD75(String D75) {
+        this.D75 = D75;
+    }
+
+    public String getD76() {
+        return D76;
+    }
+
+    public void setD76(String D76) {
+        this.D76 = D76;
+    }
+
+    public String getD77() {
+        return D77;
+    }
+
+    public void setD77(String D77) {
+        this.D77 = D77;
+    }
+
+    public String getD78() {
+        return D78;
+    }
+
+    public void setD78(String D78) {
+        this.D78 = D78;
+    }
+
+    public String getD79() {
+        return D79;
+    }
+
+    public void setD79(String D79) {
+        this.D79 = D79;
+    }
+
+    public String getD80() {
+        return D80;
+    }
+
+    public void setD80(String D80) {
+        this.D80 = D80;
+    }
+
+    public String getD81() {
+        return D81;
+    }
+
+    public void setD81(String D81) {
+        this.D81 = D81;
+    }
+
+    public String getD82() {
+        return D82;
+    }
+
+    public void setD82(String D82) {
+        this.D82 = D82;
+    }
+
+    public String getD83() {
+        return D83;
+    }
+
+    public void setD83(String D83) {
+        this.D83 = D83;
+    }
+
+    public String getD84() {
+        return D84;
+    }
+
+    public void setD84(String D84) {
+        this.D84 = D84;
+    }
+
+    public String getD85() {
+        return D85;
+    }
+
+    public void setD85(String D85) {
+        this.D85 = D85;
+    }
+
+    public String getD86() {
+        return D86;
+    }
+
+    public void setD86(String D86) {
+        this.D86 = D86;
+    }
+
+    public String getD87() {
+        return D87;
+    }
+
+    public void setD87(String D87) {
+        this.D87 = D87;
+    }
+
+    public String getD88() {
+        return D88;
+    }
+
+    public void setD88(String D88) {
+        this.D88 = D88;
+    }
+
+    public String getD89() {
+        return D89;
+    }
+
+    public void setD89(String D89) {
+        this.D89 = D89;
+    }
+
+    public String getD90() {
+        return D90;
+    }
+
+    public void setD90(String D90) {
+        this.D90 = D90;
+    }
+
+    public String getD91() {
+        return D91;
+    }
+
+    public void setD91(String D91) {
+        this.D91 = D91;
+    }
+
+    public String getD92() {
+        return D92;
+    }
+
+    public void setD92(String D92) {
+        this.D92 = D92;
+    }
+
+    public String getD93() {
+        return D93;
+    }
+
+    public void setD93(String D93) {
+        this.D93 = D93;
+    }
+
+    public String getD94() {
+        return D94;
+    }
+
+    public void setD94(String D94) {
+        this.D94 = D94;
+    }
+
+    public String getD95() {
+        return D95;
+    }
+
+    public void setD95(String D95) {
+        this.D95 = D95;
+    }
+
+    public String getD96() {
+        return D96;
+    }
+
+    public void setD96(String D96) {
+        this.D96 = D96;
+    }
+
+    public String getD97() {
+        return D97;
+    }
+
+    public void setD97(String D97) {
+        this.D97 = D97;
+    }
+
+    public String getD98() {
+        return D98;
+    }
+
+    public void setD98(String D98) {
+        this.D98 = D98;
+    }
+
+    public String getD99() {
+        return D99;
+    }
+
+    public void setD99(String D99) {
+        this.D99 = D99;
+    }
+
+    public String getD100() {
+        return D100;
+    }
+
+    public void setD100(String D100) {
+        this.D100 = D100;
+    }
+
+    public String getNHAPTAY() {
+        return NHAPTAY;
+    }
+
+    public void setNHAPTAY(String NHAPTAY) {
+        this.NHAPTAY = NHAPTAY;
+    }
+
+    public String getFONTFORMAT() {
+        return FONTFORMAT;
+    }
+
+    public void setFONTFORMAT(String FONTFORMAT) {
+        this.FONTFORMAT = FONTFORMAT;
+    }
+
+    public int getKIEUIN() {
+        return KIEUIN;
+    }
+
+    public void setKIEUIN(int KIEUIN) {
+        this.KIEUIN = KIEUIN;
+    }
+
+    public String getCAP() {
+        return CAP;
+    }
+
+    public void setCAP(String CAP) {
+        this.CAP = CAP;
+    }
+
+    public String getCO_CONGCAP() {
+        return CO_CONGCAP;
+    }
+
+    public void setCO_CONGCAP(String CO_CONGCAP) {
+        this.CO_CONGCAP = CO_CONGCAP;
+    }
+    
+
+    
+}
