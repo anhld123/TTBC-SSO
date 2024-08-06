@@ -1083,7 +1083,7 @@ public class ExcelExport {
                 XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new java.io.FileInputStream(fileName));
                 XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
 
-                String strTitle = "NHU CẦU VAY VỐN TÍN DỤNG CHÍNH SÁCH GIAI ĐOẠN " + namBc + " - " + (Integer.parseInt(namBc) + 4);
+                String strTitle = "NHU CẦU VAY VỐN TÍN DỤNG CHÍNH SÁCH GIAI ĐOẠN " + (Integer.parseInt(namBc) - 4) + " - " + namBc;
                 XSSFCell xssfCellTitle = sheet.getRow(3).getCell(0, Row.CREATE_NULL_AS_BLANK);
                 XSSFCell xssfCellTitle0 = sheet.getRow(3).getCell(26, Row.CREATE_NULL_AS_BLANK);
                 XSSFCell xssfCellTitle1 = sheet.getRow(3).getCell(48, Row.CREATE_NULL_AS_BLANK);
@@ -1334,7 +1334,7 @@ public class ExcelExport {
                 XSSFCellStyle numberStyle1 = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false);
                 XSSFCellStyle numberStyle2 = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false);
 
-                String strTitle = "KẾ HOẠCH TÍN DỤNG GIAI ĐOẠN " + namBc + " - " + (Integer.parseInt(namBc) + 4);
+                String strTitle = "KẾ HOẠCH TÍN DỤNG GIAI ĐOẠN " + (Integer.parseInt(namBc) - 4) + " - " + namBc;
                 XSSFCell xssfCellTitle = sheet.getRow(4).getCell(0, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(xssfCellTitle, strTitle);
 
@@ -1342,54 +1342,54 @@ public class ExcelExport {
                 XSSFCell xssfPosTitle = sheet.getRow(2).getCell(1, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(xssfPosTitle, strPosTitle);
 
-                String colTitle3 = "Ước thực hiện đến 31/12/" + (Integer.parseInt(namBc) - 2);
+                String colTitle3 = "Ước thực hiện đến 31/12/" + (Integer.parseInt(namBc) - 6);
                 XSSFCell colTitle = sheet.getRow(6).getCell(2, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle3);
 
-                String colTitle5 = "Ước thực hiện đến 31/12/" + (Integer.parseInt(namBc) - 1);
+                String colTitle5 = "Ước thực hiện đến 31/12/" + (Integer.parseInt(namBc) - 5);
                 colTitle = sheet.getRow(6).getCell(3, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle5);
 
-                String colTitle6 = "Kế hoạch tín dụng năm " + namBc;
+                String colTitle6 = "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) - 4);
                 colTitle = sheet.getRow(6).getCell(4, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle6);
 
-                String colTitle55 = "Tăng, giảm so với 31/12/" + namBc;
+                String colTitle55 = "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 4);
                 colTitle = sheet.getRow(7).getCell(5, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle55);
 
-                String colTitle7 = "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) + 1);
+                String colTitle7 = "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) - 3);
                 colTitle = sheet.getRow(6).getCell(7, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle7);
 
-                String colTitle77 = "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) + 1);
+                String colTitle77 = "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 3);
                 colTitle = sheet.getRow(7).getCell(8, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle77);
 
-                String colTitle8 = "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) + 2);
+                String colTitle8 = "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) - 2);
                 colTitle = sheet.getRow(6).getCell(10, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle8);
 
-                String colTitle88 = "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) + 2);
+                String colTitle88 = "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 2);
                 colTitle = sheet.getRow(7).getCell(11, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle88);
 
-                String colTitle9 = "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) + 3);
+                String colTitle9 = "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) - 1);
                 colTitle = sheet.getRow(6).getCell(13, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle9);
 
-                String colTitle99 = "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) + 3);
+                String colTitle99 = "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 1);
                 colTitle = sheet.getRow(7).getCell(14, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle99);
 
-                String colTitle10 = "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) + 4);
+                String colTitle10 = "Kế hoạch tín dụng năm " + namBc;
                 colTitle = sheet.getRow(6).getCell(16, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle10);
 
-                String colTitle100 = "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) + 4);
+                String colTitle100 = "Tăng, giảm so với 31/12/" + namBc;
                 colTitle = sheet.getRow(7).getCell(18, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle100);
-                String colTitle101 = "Tăng, giảm so với 31/12/" + namBc;
+                String colTitle101 = "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 4);
                 colTitle = sheet.getRow(7).getCell(18, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle101);
 
