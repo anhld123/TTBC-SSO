@@ -866,7 +866,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
 //                return "GQVL_01";
 //            }
             if (this.khoa_nhaptaycn.equals("KTTC_MUASAM_01")) {
-                System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
+//                System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
                 //Lấy danh sách Pos theo User đăng nhập
                 epsModel dao = new epsModel();
                 //System.err.println("iRol= 1" );
@@ -875,11 +875,6 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 } else {
                     lstDonvi = dao.getDonvi("3", UserName);
                 }
-                //System.err.println("iRol= 2" );
-                //User thuộc nhóm 39 có quyền phê duyệt
-                //int iRol = new LeaveHomeDao().checkRuleUser(UserName, Grade);
-                //System.err.println("iRol= " + String.valueOf(iRol) );
-                //setGradeAuthor1(String.valueOf(iRol));
                 return "KTTC_MUASAM_01";
             }
             DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();

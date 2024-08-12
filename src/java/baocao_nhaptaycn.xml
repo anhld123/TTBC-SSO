@@ -14,7 +14,7 @@
             <result name="htls2021">/nhaptay-cn/para-nhaptaycn-main-htls2021.jsp</result>
             <result name="PHIUT_001">/nhaptay-cn/para-nhaptaycn-main_phiut.jsp</result>
             <result name="LEAVELOCAL">/leavelocal/index.jsp</result>
-            <result name="KTTC_MUASAM_01">/muasam-taisan/index.jsp</result>
+            <!--<result name="KTTC_MUASAM_01">/muasam-taisan/index.jsp</result>-->
             <result name="KTTC_QSDD_01">/muasam-taisan/index_dat.jsp</result>
             <result name="CHART_001">/nhaptay-cn/para-nhaptaycn-main_chart.jsp</result>
             <result name="KSNB_02">/nhaptay-cn/para-nhaptaycn-main_ktnb02.jsp</result>
@@ -22,6 +22,7 @@
             <result name="QLNK_2023">/GQVL2023/para_baocao.jsp</result> 
             <result name="HUYDONG_2024">/GQVL2023/para_huydong.jsp</result> 
             <result name="CIC_002">/CIC_2024/para_cic.jsp</result>
+            <result name="KTTC_MUASAM_01">/muasam_taisan_2024/para_muasamts_2024.jsp</result> 
              <!--<result name="GQVL_01">/GQVL2023/index.jsp</result>-->
             <result name="error">/nhaptay-cn/success.jsp</result>        
         </action>  
@@ -694,7 +695,32 @@
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>
-            
+        <!--        mua sắm tài sản 2024 _ nvquyen-->
+        <action name="KTTC_MUASAM_01" class="vbsp.ims.gqvl_2023.Mua_Tsan_2024"  method="load">
+            <result name="success">/muasam_taisan_2024/viewmuasamts_2024.jsp</result>                              
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        <action name="save_MSTS_2024" class="vbsp.ims.gqvl_2023.Mua_Tsan_2024"  method="save">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action> 
+        <action name="send_MSTS_2024" class="vbsp.ims.gqvl_2023.Mua_Tsan_2024"  method="send">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action> 
+        <action name="loadDMChtrinh"  class="vbsp.ims.gqvl_2023.Mua_Tsan_2024" method="loadDMChtrinh">
+            <result name="success" type="json">/muasam_taisan_2024/viewmuasamts_2024.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>
+        </action>     
+        
+        <action name="seach_MSTS_2024" class="vbsp.ims.gqvl_2023.Mua_Tsan_2024"  method="seach">
+            <result name="success">/muasam_taisan_2024/seach.jsp</result>                              
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
     </package>
     
 </struts>
