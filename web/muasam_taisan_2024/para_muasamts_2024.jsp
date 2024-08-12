@@ -259,12 +259,14 @@
                     $("#loadDatatmp").prop('disabled', true);
                     $("#idSend").prop('disabled', true);
                     $("#idSave").prop('disabled', true);
-//                    $("#idDelete").prop('disabled', true);
+                    $("#idUnlock").prop('disabled', true);
+                    $("#idSeach").prop('disabled', true);
                 } else {
                     $("#loadDatatmp").prop('disabled', false);
                     $("#idSend").prop('disabled', false);
                     $("#idSave").prop('disabled', false);
-//                    $("#idDelete").prop('disabled', false);
+                    $("#idUnlock").prop('disabled', false);
+                     $("#idSeach").prop('disabled', false);
                 }
                 ;
             }
@@ -586,7 +588,7 @@
                         </s:if>
                         <s:if test="Grade.equalsIgnoreCase('2')">
                             &nbsp;<input type="button" id="idUnlock" value="Mở dữ liệu"/>
-                            &nbsp;<input type="button" id="idSearch" value="Danh sách gửi dữ liệu">
+                            &nbsp;<input type="button" id="idSearch" value="Danh sách gửi dữ liệu" style="color: red">
                         </s:if>
                     </td> 
 

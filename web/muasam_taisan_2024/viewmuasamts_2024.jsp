@@ -392,7 +392,7 @@
                             </td>
                         <s:if test="Grade.equalsIgnoreCase('1')">
                             <td class="D0">
-                                <s:if test="TT_HIENTHI.toString().equalsIgnoreCase('1')">
+                                <s:if test="(#rowstatus.index + 1) == 1">
                                 </s:if>
                                 <s:else>
                                     <input style="color: red" type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="SOKU"/>

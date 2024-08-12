@@ -196,7 +196,7 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
                 addActionError("Chương trình hỗ trợ cấp Chi nhánh và Phòng giao dịch nhập!");
                 return ERROR;
             }
-            if (poscd.get(0).equals("999999")) {
+            if (!Grade.equals("1") && poscd.get(0).equals("999999")) {
                 addActionError("Vui lòng chọn từng phòng giao dịch theo ngày gửi dữ liệu để xem dữ liệu!");
                 return ERROR;
             }
@@ -271,7 +271,6 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
             main_pos_username = posMainModel.getMainPosCd();
             int year = date.getYear();
             String PosFlag = "S";
-            System.out.println(pos + " " + poscd.toString());
             ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
             List<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
