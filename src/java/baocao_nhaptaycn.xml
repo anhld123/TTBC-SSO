@@ -721,6 +721,20 @@
             <result name="success">/muasam_taisan_2024/seach.jsp</result>                              
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
+        
+         <action name="loadc3_MSTS_2024" class="vbsp.ims.gqvl_2023.Mua_Tsan_2024"  method="loadc3">
+            <result name="success">/muasam_taisan_2024/viewc3.jsp</result>                              
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        
+        <action name="lock_MSTS_2024" class="vbsp.ims.gqvl_2023.Mua_Tsan_2024" method="lock">
+            <result name="success">nhaptay-cn/success.jsp</result>  
+            <result name="error">/nhaptay-cn/success.jsp</result>      
+        </action>
+        
+        <action name="unlock_MSTS_2024_c3" class="vbsp.ims.gqvl_2023.Mua_Tsan_2024" method="unlock_C3">
+            <result name="success" type="json"></result>
+        </action>
     </package>
     
 </struts>

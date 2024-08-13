@@ -95,7 +95,6 @@ public class ActionNhaptaycnMain extends ActionSupport {
     public void setMain_pos(String main_pos) {
         this.main_pos = main_pos;
     }
-    
 
     public List<ListPosCode> getLstPGD_API() {
         return lstPGD_API;
@@ -866,17 +865,27 @@ public class ActionNhaptaycnMain extends ActionSupport {
 //                return "GQVL_01";
 //            }
             if (this.khoa_nhaptaycn.equals("KTTC_MUASAM_01")) {
-//                System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
-                //Lấy danh sách Pos theo User đăng nhập
-                epsModel dao = new epsModel();
-                //System.err.println("iRol= 1" );
-                if (Grade.equals("2")) {
-                    lstDonvi = dao.getDonvi("1", UserName);
+//             pos_cd = posMainModel.getPosCd();
+                main_pos = posMainModel.getMainPosCd();
+                _server_tmp = new LeaveHomeService();
+                String PosFlag = "";
+                if (Grade.equals("3")) {
+                    PosFlag = "H";
+                } else if (Grade.equals("2")) {
+                    PosFlag = "M";
                 } else {
-                    lstDonvi = dao.getDonvi("3", UserName);
+                    PosFlag = "S";
+                }
+                if (PosFlag == "S") {
+                    lstCN_API = _server_tmp.getListCn(main_pos.substring(2, 4));
+                } else if (PosFlag == "M") {
+                    lstCN_API = _server_tmp.getListCn(main_pos.substring(2, 4));
+                } else {
+                    lstCN_API = _server_tmp.getListCn("");
                 }
                 return "KTTC_MUASAM_01";
             }
+
             DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
             if (khoa_nhaptaycn.equals("CIC_001")) {
                 System.err.println("SDQ---0");
@@ -914,7 +923,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
 //                return "LEAVELOCAL";
             }
             if (this.khoa_nhaptaycn.equals("CIC_002")) {
-                 String PosFlag = "";
+                String PosFlag = "";
                 if (Grade.equals("3")) {
                     PosFlag = "H";
                 } else if (Grade.equals("2")) {

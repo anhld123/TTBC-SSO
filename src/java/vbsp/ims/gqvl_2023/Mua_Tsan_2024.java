@@ -31,6 +31,8 @@ import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.ListOfValue;
+import vbsp.ims.restapi.LockSendModel;
+import vbsp.ims.restapi.UpdateLockModel;
 import vbsp.ims.tdnn.DaoTdnnMain;
 
 /**
@@ -54,15 +56,33 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
     private String tenPgd;
     private String status;
     private String message;
-    private String lock;
+    private String lock_PGD;
+    private String lock_CN;
+    private String chotsl;
 //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
 
-    public String getLock() {
-        return lock;
+    public String getChotsl() {
+        return chotsl;
     }
 
-    public void setLock(String lock) {
-        this.lock = lock;
+    public void setChotsl(String chotsl) {
+        this.chotsl = chotsl;
+    }
+
+    public String getLock_PGD() {
+        return lock_PGD;
+    }
+
+    public void setLock_PGD(String lock_PGD) {
+        this.lock_PGD = lock_PGD;
+    }
+
+    public String getLock_CN() {
+        return lock_CN;
+    }
+
+    public void setLock_CN(String lock_CN) {
+        this.lock_CN = lock_CN;
     }
 
     public String getStatus() {
@@ -192,22 +212,26 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
             _serverlocal = new DaoNghiquyet11cp();
             poscd_face = Arrays.asList(pos_cd_username);
             lstTaisan = _service_listts.getListOfValue("110", "");
-            if (Grade.equals("3")) {
-                addActionError("Chương trình hỗ trợ cấp Chi nhánh và Phòng giao dịch nhập!");
+            String pos = poscd.toString().replace("[", "").replace("]", "") == null || poscd.toString().replace("[", "").replace("]", "").isEmpty() ? pos_cd_username : poscd.toString().replace("[", "").replace("]", "");
+            if (!Grade.equals("1") && (poscd.size() == 0 || poscd.get(0).equals("999999"))) {
+                addActionError("Vui lòng chọn từng phòng giao dịch để xem dữ liệu!");
                 return ERROR;
             }
-            if (!Grade.equals("1") && poscd.get(0).equals("999999")) {
-                addActionError("Vui lòng chọn từng phòng giao dịch theo ngày gửi dữ liệu để xem dữ liệu!");
-                return ERROR;
-            }
+
             String dateStr = hmParameter.get("ngay_bc").toString();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
             LocalDate date = LocalDate.parse(dateStr, formatter);
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             int year = date.getYear();
             setNamBc(String.valueOf(year));
             setNambc_next(String.valueOf(year + 1));
+            ArrayList<LockSendModel> lstData_tmp = _service_listts.getDataLockManual("KTTC_MUASAM_01", pos, "S", _reportDate);
+            try {
+                setChotsl(lstData_tmp.get(0).getStatus());
+            } catch (Exception e) {
+                setChotsl("0");
+            }
             lstData = _serverlocal.getData_Muasam_2024(conn, "KTTC_MUASAM_01", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
-//            System.out.println(UserName + " " + Grade + " " + poscd + " " + main_pos_username + " " + pos_cd_username);
             for (QT_DULIEU_NT item : lstData) {
                 QT_DULIEU_NT row = new QT_DULIEU_NT();
                 try {
@@ -236,8 +260,7 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
                 }
                 setMaPgd(item.getMAPGD());
                 setTenPgd(item.getD1());
-                setLock(item.getD12());
-//                System.out.println(maPgd +" "+ tenPgd);
+                setLock_PGD(item.getD12());
                 if (conn != null) {
                     conn.close();
                 }
@@ -246,7 +269,11 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
             CoreLogger.error(this.getClass().getName() + " Exception -> tin dung 2024 : " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> tin dung 2024: " + e.getMessage());
         }
-        return SUCCESS;
+        if (!Grade.equals(3)) {
+            return SUCCESS;
+        } else {
+            return "SUCCESS_3";
+        }
     }
 
     @Override
@@ -480,6 +507,29 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
         return SUCCESS;
     }
 
+    public String loadc3() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            HashMap hmParameter = getParameter();
+            String sngaybc = hmParameter.get("ngay_bc").toString();
+            String smacn = hmParameter.get("lstCN").toString();
+            Connection conn = new DaoConnect().getConnect();
+            DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
+            lstDulieuNt = daoMain.getData_load_c3(conn, sngaybc, "KTTC_MUASAM_01", smacn);
+            System.out.println(sngaybc + " " + smacn);
+            if (conn != null) {
+                conn.close();
+            }
+
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> gdx: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> gdx: " + e.getMessage());
+        }
+        return SUCCESS;
+    }
+
     public String loadDMChtrinh() {
         List<ListOfValue> listOfValues = _service_listts.getListOfValue("110", "");
         Map<String, String> mapAllChtrinh = new LinkedHashMap<>();
@@ -487,6 +537,68 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
             mapAllChtrinh.put(value.getDescription(), value.getValue());
         }
         setLstTaisan(listOfValues);
+        return SUCCESS;
+    }
+
+    public String lock() {
+        try {
+            HashMap hmParameter = getParameter();
+            String dateStr = hmParameter.get("ngay_bc").toString();
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
+            String pos = poscd.toString().replace("[", "").replace("]", "") == null || poscd.toString().replace("[", "").replace("]", "").isEmpty() ? pos_cd_username : poscd.toString().replace("[", "").replace("]", "");
+
+            _service_listts = new DuLieuNTService();
+            System.out.println(pos);
+            if (pos == null || pos == "999999") {
+                addActionError("Chọn 1 PGD 'Tải dữ liệu' để xem và 'Chốt số liệu'");
+                return ERROR;
+            }
+            ArrayList<LockSendModel> lstData_tmp = _service_listts.getDataLockManual("KTTC_MUASAM_01", pos, "S", _reportDate);
+
+            // Kiểm tra trạng thái và thực hiện chốt số liệu
+            if (lstData_tmp != null && !lstData_tmp.isEmpty()) {
+                if (lstData_tmp.get(0).getStatus().equals("1")) {
+                    addActionError("Dữ liệu đã chốt với TW, không thể chốt dữ liệu nữa.");
+                    return ERROR;
+                }
+            }
+            _service_listts.updateChotSL("KTTC_MUASAM_01", pos, "S", _reportDate, "1", UserName, null);
+            addActionMessage("Bạn đã chốt dữ liệu và gửi lên TW thành công");
+            return SUCCESS;
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> mua sam 2024: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception ->  mua sam 2024: " + e.getMessage());
+            addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+            return ERROR;
+        }
+    }
+
+    public String unlock_C3() {
+        try {
+            String D2 = ServletActionContext.getRequest().getParameter("madiemgd");
+            String D5 = ServletActionContext.getRequest().getParameter("ssngaybc");
+            SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MMM/yyyy");
+            Date date = inputFormat.parse(D5);
+            String formattedDate = outputFormat.format(date);
+            String D6 = ServletActionContext.getRequest().getParameter("skhoa");
+            System.out.println(D6 + " " + formattedDate + " " + D2);
+            DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
+            GenericResult<String> _result = daoMain.cancelAssign("KTTC_MUASAM_01", D2, formattedDate);
+
+            if (_result.isIsSuccess()) {
+                status = "1";
+                message = "";
+            } else {
+                status = "0";
+                message = _result.getMessage();
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            status = "0";
+            message = e.getMessage();
+        }
         return SUCCESS;
     }
 }

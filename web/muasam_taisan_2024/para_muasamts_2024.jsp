@@ -195,9 +195,22 @@
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
                 $('#divExportReportLink').empty();
+
+                var ngay_bc = $("#ngay_bc_DATE").val();
+                var lv_day = parseInt(ngay_bc.substr(0, 2));
+                var lv_month = parseInt(ngay_bc.substr(3, 2));
+                var lv_year = parseInt(ngay_bc.substr(6, 4));
+
+                // Check if the selected date is the last day of the year
+                if (lv_day !== 31 || lv_month !== 12 || lv_year !== new Date().getFullYear()) {
+                    alert("Chọn ngày cuối năm để tải dữ liệu!");
+                    return;
+                }
+
                 $("#loadData")[0].click();
                 bsubmit = true;
             }
+
 
             $("#idSave").click(function () {
                 $('#message_suc_err').empty();
@@ -210,7 +223,8 @@
                     var isValid = true;
             <s:if test="Grade.equalsIgnoreCase('1')">
                     var lock = document.getElementById("lock_temp").value;
-                    if (lock === "1") {
+                    var chot = document.getElementById("chotsl_temp").value;
+                    if (lock === "1" || chot === "1") {
                         alert("Dữ liệu đã gửi, không thể lưu.");
                         isValid = false; // Không cho phép lưu dữ liệu
                         onLoadData();
@@ -261,12 +275,14 @@
                     $("#idSave").prop('disabled', true);
                     $("#idUnlock").prop('disabled', true);
                     $("#idSeach").prop('disabled', true);
+                    $("#lock_MSTS_2024tmp").prop('disabled', true);
                 } else {
                     $("#loadDatatmp").prop('disabled', false);
                     $("#idSend").prop('disabled', false);
                     $("#idSave").prop('disabled', false);
                     $("#idUnlock").prop('disabled', false);
-                     $("#idSeach").prop('disabled', false);
+                    $("#idSeach").prop('disabled', false);
+                    $("#lock_MSTS_2024tmp").prop('disabled', false);
                 }
                 ;
             }
@@ -280,8 +296,9 @@
                     var table = document.getElementById("subTable");
                     var rowcount = table.rows.length;
                     var lock = document.getElementById("lock_temp").value;
+                    var chot = document.getElementById("chotsl_temp").value;
                     var isValid = true;
-                    if (lock === "1") {
+                    if (lock === "1" || chot === "1") {
                         alert("Dữ liệu đã gửi, không thể tiếp tục gửi.");
                         isValid = false; // Không cho phép lưu dữ liệu
                         onLoadData();
@@ -328,11 +345,17 @@
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
 
-                let aCheck = confirm("Bạn chắc chắn muốn gửi số liệu báo cáo ?");
+                let aCheck = confirm("Bạn chắc chắn muốn mở dữ liệu báo cáo ?");
                 if (aCheck) {
                     var table = document.getElementById("subTable");
                     var rowcount = table.rows.length;
+                    var chot = document.getElementById("chotsl_temp").value;
                     var isValid = true;
+                    if (chot === "1") {
+                        alert("Dữ liệu đã gửi lên TW, không thể mở dữ liệu.");
+                        isValid = false; // Không cho phép lưu dữ liệu
+                        onLoadData();
+                    }
                     for (var i = 0; i < rowcount; i++) {
                         try {
                         } catch (e) {
@@ -521,7 +544,7 @@
 
             }
             ;
-            
+
             $("#idSearch").click(function () {
                 var url, sdata;
                 $("#txtNghiepVu").val("TRACUU");
@@ -548,7 +571,50 @@
                     }
                 });
             });
-            
+
+            $("#idLoad_c3").click(function () {
+                // Get and parse the date from the input field
+                var ngay_bc = $("#ngay_bc_DATE").val();
+                var lv_day = parseInt(ngay_bc.substr(0, 2));
+                var lv_month = parseInt(ngay_bc.substr(3, 2));
+                var lv_year = parseInt(ngay_bc.substr(6, 4));
+
+                // Check if the selected date is the last day of the year
+                if (lv_day !== 31 || lv_month !== 12 || lv_year !== new Date().getFullYear()) {
+                    alert("Chọn ngày cuối năm để tải dữ liệu!");
+                    return; // Exit the function if the date is not the last day of the year
+                }
+
+                // Prepare for AJAX request
+                var url, sdata;
+                $("#txtNghiepVu").val("TRACUU");
+                url = "loadc3_MSTS_2024.action";
+                sdata = jQuery("#frmdata").serialize();
+                $("#divExportReport").html('<img src="img/loading.gif"/>');
+                btnDisabled(1);
+
+                // Make AJAX request
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: sdata,
+                    success: function (data) {
+                        $("#divExportReport").html(data);
+                        $("#idSend").prop('disabled', true);
+                        $("#idSave").prop('disabled', false);
+                        $("#idDelete").prop('disabled', false);
+                    },
+                    complete: function () {
+                        btnDisabled(0);
+                    },
+                    error: function (request) {
+                        console.log(request);
+                        alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                    }
+                });
+            });
+
+
         </script>
     </head>
     <!--new java.util.Date()-->
@@ -564,8 +630,16 @@
                 <table>
                     <td>Ngày dữ liệu: </td>
                     <td>
-                        <sj:datepicker name="ngay_bc_DATE"  id="ngay_bc_DATE" 
-                                       placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
+                        <sj:datepicker 
+                            name="ngay_bc_DATE"  
+                            id="ngay_bc_DATE" 
+                            placeholder="DD/MM/YYYY" 
+                            changeYear="true" 
+                            changeMonth="true" 
+                            displayFormat="dd/mm/yy" 
+                            cssClass="NGAY_SL" 
+                            onChangeTopics="changeTopic"
+                            />
                     </td>
                     <s:if test="Grade.equalsIgnoreCase('3')">
                         <td>Mã chi nhánh: </td>
@@ -577,18 +651,30 @@
                                 </s:iterator>
                             </select> </td>
                         </s:if>
-                    <td colspan="2" style="text-align: right">                                        
-                        <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
-                                   onBeforeTopics="beforediv_data"
-                                   onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                        <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
+                    <td colspan="2" style="text-align: right">   
+                        <s:if test="!Grade.equalsIgnoreCase('3')">
+                            <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                                       onBeforeTopics="beforediv_data"
+                                       onCompleteTopics="completediv_data" cssStyle="display:none"/>
+                            <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
+                        </s:if>
                         <s:if test="Grade.equalsIgnoreCase('1')">
                             &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/>
-                            &nbsp;<input type="button" id="idSend" value="Gửi dữ liệu"/>    
+                            &nbsp;|&nbsp;<input type="button" id="idSend" value="Gửi dữ liệu" style="color: red"/>    
                         </s:if>
                         <s:if test="Grade.equalsIgnoreCase('2')">
                             &nbsp;<input type="button" id="idUnlock" value="Mở dữ liệu"/>
-                            &nbsp;<input type="button" id="idSearch" value="Danh sách gửi dữ liệu" style="color: red">
+                            &nbsp;|&nbsp;<input type="button" id="idSearch" value="Danh sách gửi dữ liệu" style="color: red">
+                            <s:url id="lock_MSTS_2024" action="lock_MSTS_2024.action"></s:url>
+                            &nbsp;<sj:submit id="lock_MSTS_2024tmp" name="nameLock" href="%{lock_MSTS_2024}" 
+                                       value="Chốt dữ liệu" 
+                                       targets="divExportReport"
+                                       onBeforeTopics="beforediv_data"
+                                       onCompleteTopics="completediv_data"/>
+
+                        </s:if>
+                        <s:if test="Grade.equalsIgnoreCase('3')">
+                            <input type="button" id="idLoad_c3" value="Tải dữ liệu">
                         </s:if>
                     </td> 
 
@@ -598,7 +684,7 @@
                 <img id="loadingImage" src='img/loading.gif' border='0' >                  
             </div>   
             <div id="message_suc_err"></div>
-            <s:if test="khoa_nhaptaycn.equalsIgnoreCase('KTTC_MUASAM_01') && Grade.equalsIgnoreCase('1')">
+            <s:if test="khoa_nhaptaycn.equalsIgnoreCase('KTTC_MUASAM_01') && !Grade.equalsIgnoreCase('2')">
                 <div id="containParm_full" align="center">
                     <div id="divExportReport"></div>
                     <div align="right"  id="divExportReportLink"></div>
@@ -628,17 +714,34 @@
         </s:form>
 
         <script>
-            var currentDate = new Date();
-            var lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-            var formattedDate = lastDayOfMonth.toLocaleDateString("zh-HK", {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit'
-            });
-            // Đặt giá trị cho #dtNgayBC
-            $("#dtNgayBC_temp").val(formattedDate);
+            $(document).ready(function () {
+                var currentYear = new Date().getFullYear();
+                var lastDayOfYear = new Date(currentYear, 11, 31); // 11 corresponds to December
 
-            document.getElementById('ngay_bc_DATE').value = formattedDate;
+                function disableDates(date) {
+                    // Only allow the 31st of December
+                    if (date.getDate() === 31 && date.getMonth() === 11) {
+                        return [true, "", "Available"];
+                    }
+                    return [false, "", "Unavailable"];
+                }
+
+                // Initialize the datepicker with the beforeShowDay function
+                $("#ngay_bc_DATE").datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    beforeShowDay: disableDates
+                });
+
+                // Set the date to 31/12 of the current year
+                var formattedDate = $.datepicker.formatDate('dd/mm/yy', lastDayOfYear);
+                $("#ngay_bc_DATE").val(formattedDate);
+            });
+
+            function onLoadData_tmp() {
+                $("#idLoad_c3").click(); // Trigger the click event
+            }
         </script>
     </body>
 </html>
