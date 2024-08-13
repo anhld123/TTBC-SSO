@@ -386,12 +386,15 @@
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="number STT2"
                                    <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/>
                             </td> 
-                            <td>              
-                                <input type="text" value="<s:property  value="D11" />"
-                                   id="D11_<s:property  value='%{#rowstatus.index}' />" 
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" class="number STT2"
-                                   <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/>
-                            </td>
+                             <td class="D0">
+                            <select style="border: hidden" class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" id="D11_<s:property  value='%{#rowstatus.index}' />" 
+                                <s:if test="!Grade.equalsIgnoreCase('1')"> onmousedown="return false"</s:if>> 
+                                <option value="0" <s:if test="D11.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
+                                <option value="1" <s:if test="D11.equalsIgnoreCase('1')"> selected </s:if>>Nguồn TW</option>
+                                <option value="2" <s:if test="D11.equalsIgnoreCase('2')"> selected </s:if>>Nguồn ĐP</option>
+                                <option value="3" <s:if test="D11.equalsIgnoreCase('3')"> selected </s:if>>Nguồn khác</option>
+                                </select>
+                            </td>  
                         <s:if test="Grade.equalsIgnoreCase('1')">
                             <td class="D0">
                                 <s:if test="(#rowstatus.index + 1) == 1">

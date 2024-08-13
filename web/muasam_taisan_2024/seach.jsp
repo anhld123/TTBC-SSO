@@ -14,7 +14,7 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         border-spacing: 0;
-        width: 40%;
+        width: 50%;
     }
     #subTable th{
         background-color: #ddd;
@@ -98,11 +98,13 @@
             <div style="height:10px"></div>  
             <table border="1" class="editDelete" id="subTable" align="center" style="padding-top: 10px">   
                 <tr>
-                    <th style="width: 50px">STT</th>
+                    <th style="width: 30px">STT</th>
                     <th style="width: 80px">Mã PGD</th>
-                    <th style="width: 150px">Tên PGD</th>
-                    <th style="width: 100px">Ngày gửi số liệu</th>
-                    <th style="width: 100px">Trạng thái</th>
+                    <th style="width: 170px">Tên PGD</th>
+                    <th style="width: 80px">Ngày gửi số liệu CN</th>
+                    <th style="width: 150px">Trạng thái gửi CN</th>
+                    <th style="width: 80px">Ngày gửi số liệu TW</th>
+                    <th style="width: 170px">Trạng thái gửi TW</th>
                 </tr>  
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
@@ -110,17 +112,49 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
                 </tr>
+
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr>
-                        <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>><s:property  value="D1"/> </td>
-                        <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>><s:property  value="D2"/> </td>
-                        <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>><s:property  value="D3"/> </td>
-                        <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>><s:property  value="D5"/> </td>
-                        <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>><s:property  value="D4"/> </td>
-                        </tr>
-                </s:iterator>
+                        <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
+                            <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>><s:property  value="D1"/> </td>
+                        <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
+                            <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>><s:property  value="D2"/> </td>
+                        <td <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
+                            <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>><s:property  value="D3"/> </td>
+                        <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
+                            <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>><s:property  value="D5"/> </td>
+                        <td <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
+                        <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>><s:property  value="D4"/> </td>
+                        <td class="D0"> 
+                            <s:iterator value="#attr.lstData_tmp1" var="modelViewTmp" status="rowstatusTmp">
+                                <s:if test="#modelView.D2.equalsIgnoreCase(#modelViewTmp.posCode)">
+                                    <s:if test="#modelViewTmp.status == 1">
+                                        <a style="color: #003eff"><s:property  value="updateDate"/></a>
+                                    </s:if>
+                                    <s:elseif test="#modelViewTmp.status == 0">
+                                        <a style="color: red"><s:property  value="updateDate"/></a></s:elseif>
+                                </s:if>
+                            </s:iterator>
+                        </td>
+                        <td> 
+                            <s:iterator value="#attr.lstData_tmp1" var="modelViewTmp" status="rowstatusTmp">
+                                <s:if test="#modelView.D2.equalsIgnoreCase(#modelViewTmp.posCode)">
+                                    <s:if test="#modelViewTmp.status == 1">
+                                        <a style="color: #003eff">Dữ liệu đã gửi lên TW</a>
+                                    </s:if>
+                                    <s:elseif test="#modelViewTmp.status == 0">
+                                        <a style="color: red">Chưa gửi dữ liệu lên TW</a></s:elseif>
+
+                                </s:if>
+                            </s:iterator>
+                        </td>
+                    </tr>
+                </s:iterator>    
             </table>
+
         </div>      
         <div id="luu_thanhcong"></div>
         <!--        <script>

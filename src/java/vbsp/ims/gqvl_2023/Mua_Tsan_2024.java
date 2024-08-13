@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import vbsp.ims.nhaptaycn.action.*;
 import java.sql.Connection;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -32,8 +33,6 @@ import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.ListOfValue;
 import vbsp.ims.restapi.LockSendModel;
-import vbsp.ims.restapi.UpdateLockModel;
-import vbsp.ims.tdnn.DaoTdnnMain;
 
 /**
  *
@@ -46,6 +45,7 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
     DaoNghiquyet11cp _serverlocal;
     private List<QT_DULIEU_NT> lstData;
     private List<ListOfValue> lstTaisan;
+    private List<LockSendModel> lstData_tmp1;
     protected List<String> poscd_face = new ArrayList<String>();
     protected String main_pos_username;
     private String namBc;
@@ -60,6 +60,14 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
     private String lock_CN;
     private String chotsl;
 //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public List<LockSendModel> getLstData_tmp1() {
+        return lstData_tmp1;
+    }
+
+    public void setLstData_tmp1(List<LockSendModel> lstData_tmp1) {
+        this.lstData_tmp1 = lstData_tmp1;
+    }
 
     public String getChotsl() {
         return chotsl;
@@ -480,29 +488,70 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
     }
 
     public String seach() {
+        Connection conn = null;
         try {
             if (!getParaSession()) {
                 return ERROR;
             }
+
+            // Lấy tham số và định dạng ngày
             HashMap hmParameter = getParameter();
-            Connection conn = new DaoConnect().getConnect();
             String sngaybc = hmParameter.get("ngay_bc").toString();
+            DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(sngaybc));
+
+            // Lấy thông tin chính từ posMainModel
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
+
             _serverlocal = new DaoNghiquyet11cp();
-            if (poscd.size() == 0 || poscd.get(0).equals("999999")) {
+            conn = new DaoConnect().getConnect();
+
+            List<LockSendModel> allCustomers = new ArrayList<>();
+
+            // Kiểm tra và xử lý dữ liệu
+            if (poscd.isEmpty()) {
+                addActionError("Chọn 'Hội sở' để xem tình trạng gửi dữ liệu của các PGD");
+                return ERROR;
+            }
+            if (poscd.get(0).equals("999999")) {
                 lstDulieuNt = _serverlocal.seach_StatusMSTS(conn, sngaybc, "KTTC_MUASAM_01", main_pos_username);
+
+                if (poscd.get(0).equals("999999")) {
+                    for (String pos : poscd) {
+                        if (!pos.equals("999999")) {
+                            ArrayList<LockSendModel> lstData_tmp = _service_listts.getDataLockManual("KTTC_MUASAM_01", pos, "S", _reportDate);
+
+                            // Định dạng ngày trước khi thêm vào danh sách
+                            for (LockSendModel item : lstData_tmp) {
+                                if (item.getUpdateDate() != null) {
+                                    item.setUpdateDate(dateHienthi.format(sdf.parse(item.getUpdateDate())));
+                                }
+                            }
+                            allCustomers.addAll(lstData_tmp);
+                        }
+                    }
+                }
+                this.lstData_tmp1 = allCustomers;
             } else {
                 addActionError("Chọn 'Hội sở' để xem tình trạng gửi dữ liệu của các PGD");
                 return ERROR;
             }
-            if (conn != null) {
-                conn.close();
-            }
+
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> seach 2024 : " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> seach 2024: " + e.getMessage());
+            return ERROR;
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                CoreLogger.error(this.getClass().getName() + " Exception in closing connection: " + e.getMessage());
+            }
         }
         return SUCCESS;
     }
