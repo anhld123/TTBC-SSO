@@ -151,7 +151,7 @@
                         '<td><input type="text" value="' + rownew + '" id="TT_HIENTHI' + rowCount + '" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="D0" onfocus="this.select();" /></td>' +
                         '<td><input readonly="true" type="text" value="' + idmaPgd + '" id="MAPGD' + rowCount + '" name="lstDulieuNt[' + rowCount + '].MAPGD"  onfocus="this.select();"/></td>' +
                         '<td><input readonly="true" type="text" value="' + idtenPgd + '" id="D1' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D1"  onfocus="this.select();"/></td>' +
-                        '<td><select name="lstDulieuNt[' + rowCount + '].D2" id="' + idTaisan + '" onchange="updateD6(this, ' + rowCount + ')"></select></td>' +
+                        '<td class="D0"><textarea type="text" value="" id="D2' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D2" placeholder="Nhập tối đa 200 ký tự" maxlength="200" onfocus="this.select();" style="width: 98%"></textarea></td>' +
                         '<td><input type="text" value="0" id="D3' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D3" class="number" onfocus="this.select();"/></td>' +
                         '<td><input type="text" value="0" id="D4' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D4" class="number" onfocus="this.select();"/></td>' +
                         '<td class="D0"><textarea type="text" value="" id="D5' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D5" placeholder="Nhập tối đa 200 ký tự" maxlength="200" onfocus="this.select();" style="width: 98%"></textarea></td>' +
@@ -160,11 +160,19 @@
                         '<td class="D0"><textarea type="text" value="" id="D8' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D8" placeholder="Nhập tối đa 200 ký tự" maxlength="200" onfocus="this.select();" style="width: 98%"></textarea></td>' +
                         '<td><input type="text" value="0" id="D9' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D9" class="number" onfocus="this.select();"/></td>' +
                         '<td><input type="text" value="0" id="D10' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D10" class="number" onfocus="this.select();"/></td>' +
-                        '<td><input type="text" value="0" id="D11' + rowCount + '" name="lstDulieuNt[' + rowCount + '].D11" class="number"  onfocus="this.select();"/></td>' +
+                        '<td class="D0">' +
+                        '<select style="border: hidden" class="sstyle" name="lstDulieuNt[' + rowCount + '].D11" id="D11_' + rowCount + '">' +
+                        '<option value="0">--- Chọn ---</option>' +
+                        '<option value="1">Nguồn TW</option>' +
+                        '<option value="2">Nguồn ĐP</option>' +
+                        '<option value="3">Nguồn khác</option>' +
+                        '</select>' +
+                        '</td>' +
                         '<td class="D0"><input type="button" style="color: red" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)"/></td>' +
                         '</tr>';
 
                 $(newTr).insertBefore($('table#subTable tr').eq(index));
+
 
                 // Thiết lập lại các kiểu CSS
                 $('.sstyle').css({"color": "#000", "font-size": "12px"});
@@ -196,11 +204,11 @@
                     khoa_nhaptaycn: 'KTTC_MUASAM_01'
                 }, function (jsonResponse) {
                     try {
-                        var chtrinh = '<option value="000000">----Tên tài sản cần bổ sung thay thế----</option>';
-                        $.each(jsonResponse.lstTaisan, function () {
-                            chtrinh += '<option value="' + this.description + '">' + this.value + '</option>';
-                        });
-                        $('#' + idTaisan).html(chtrinh);
+//                        var chtrinh = '<option value="000000">----Tên tài sản cần bổ sung thay thế----</option>';
+//                        $.each(jsonResponse.lstTaisan, function () {
+//                            chtrinh += '<option value="' + this.description + '">' + this.value + '</option>';
+//                        });
+//                        $('#' + idTaisan).html(chtrinh);
 
                         var dm_chiemdung = '<option value="000000">----Mã tài sản----</option>';
                         $.each(jsonResponse.lstTaisan, function () {
@@ -218,17 +226,17 @@
             }
 
 // Hàm cập nhật D6 khi chọn D2
-            function updateD6(selectElement, rowCount) {
-                var selectedValue = selectElement.value;
-                var d6Select = document.getElementById('idMaTaisan_' + rowCount);
-
-                for (var i = 0; i < d6Select.options.length; i++) {
-                    if (d6Select.options[i].value === selectedValue) {
-                        d6Select.value = selectedValue;
-                        break;
-                    }
-                }
-            }
+//            function updateD6(selectElement, rowCount) {
+//                var selectedValue = selectElement.value;
+//                var d6Select = document.getElementById('idMaTaisan_' + rowCount);
+//
+//                for (var i = 0; i < d6Select.options.length; i++) {
+//                    if (d6Select.options[i].value === selectedValue) {
+//                        d6Select.value = selectedValue;
+//                        break;
+//                    }
+//                }
+//            }
 
 
             function deleteRow(indx) {
@@ -260,7 +268,7 @@
                     <th rowspan="2" class="STT1" >STT</th>  
                     <th rowspan="2" class="STT2">Mã pos</th>
                     <th rowspan="2" class="STT2">Tên đơn vị</th> 
-                    <th rowspan="2" class="STT2">Tên tài sản<br>cần bổ sung thay thế</th>
+                    <th rowspan="2" style="width: 15%">Tên tài sản<br>cần bổ sung thay thế</th>
                     <th rowspan="2" class="STT2">Tổng số lượng hiện có</th> 
                     <th rowspan="2" class="STT2">Tổng giá trị còn lại</th> 
                     <th rowspan="2" style="width: 15%">Hiện trạng tài sản <br><a style="color: red">(Ghi rõ trang bị năm nào, hiện trạng của TSCĐ tương đương cần thay thế)</a></th> 
@@ -318,21 +326,27 @@
                                    id="D1_<s:property  value='%{#rowstatus.index}' />" readonly="true"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="STT3"/>
                         </td>  
-                        <td>              
-                            <select id="D2_<s:property value='%{#rowstatus.index}' />" 
-                                    <s:if test="!Grade.equalsIgnoreCase('1')"> onmousedown="return false"</s:if>
-                                    name="lstDulieuNt[<s:property value='%{#rowstatus.index}' />].D2"
-                                    onchange="updateD66(this, <s:property value='%{#rowstatus.index}' />)">
-                                <option value="000000">----Tên tài sản cần bổ sung thay thế----</option>
-                                <s:iterator value="lstTaisan" status="ideRows" var="language">
-                                    <option value="<s:property value='description' />" 
-                                            <s:if test='%{#language.description == D2}'>selected</s:if>>
-                                        <s:property value="value" />
-                                    </option>
-                                </s:iterator>
-                            </select>
+                        <!--                        <td>              
+                                                    <select id="D2_<s:property value='%{#rowstatus.index}' />" 
+                        <s:if test="!Grade.equalsIgnoreCase('1')"> onmousedown="return false"</s:if>
+                        name="lstDulieuNt[<s:property value='%{#rowstatus.index}' />].D2"
+                        onchange="updateD66(this, <s:property value='%{#rowstatus.index}' />)">
+                    <option value="000000">----Tên tài sản cần bổ sung thay thế----</option>
+                        <s:iterator value="lstTaisan" status="ideRows" var="language">
+                            <option value="<s:property value='description' />" 
+                            <s:if test='%{#language.description == D2}'>selected</s:if>>
+                            <s:property value="value" />
+                        </option>
+                        </s:iterator>
+                    </select>
 
-                        </td>  
+                </td>  -->
+                        <td class="D0">
+                            <textarea style="width: 98%" placeholder="Nhập tối đa 200 ký tự" id="D2_<s:property  value='%{#rowstatus.index}' />" 
+                                      name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D2" maxlength="200"
+                                      <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>
+                                      ><s:property value='D2'/></textarea>
+                        </td> 
                         <td>              
                             <input type="text" value="<s:property  value="D3" />"
                                    <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>
@@ -386,9 +400,9 @@
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="number STT2"
                                    <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/>
                             </td> 
-                             <td class="D0">
-                            <select style="border: hidden" class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" id="D11_<s:property  value='%{#rowstatus.index}' />" 
-                                <s:if test="!Grade.equalsIgnoreCase('1')"> onmousedown="return false"</s:if>> 
+                            <td class="D0">
+                                <select style="border: hidden" class="sstyle" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" id="D11_<s:property  value='%{#rowstatus.index}' />" 
+                                    <s:if test="!Grade.equalsIgnoreCase('1')"> onmousedown="return false"</s:if>> 
                                 <option value="0" <s:if test="D11.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
                                 <option value="1" <s:if test="D11.equalsIgnoreCase('1')"> selected </s:if>>Nguồn TW</option>
                                 <option value="2" <s:if test="D11.equalsIgnoreCase('2')"> selected </s:if>>Nguồn ĐP</option>
@@ -429,16 +443,16 @@
         <div id="luu_thanhcong"></div>
     </body>
     <script>
-        function updateD66(selectElement, index) {
-            var selectedValue = selectElement.value;
-            var d6Select = document.getElementById('D6_' + index);
-
-            for (var i = 0; i < d6Select.options.length; i++) {
-                if (d6Select.options[i].value === selectedValue) {
-                    d6Select.value = selectedValue;
-                    break;
-                }
-            }
-        }
+//        function updateD66(selectElement, index) {
+//            var selectedValue = selectElement.value;
+//            var d6Select = document.getElementById('D6_' + index);
+//
+//            for (var i = 0; i < d6Select.options.length; i++) {
+//                if (d6Select.options[i].value === selectedValue) {
+//                    d6Select.value = selectedValue;
+//                    break;
+//                }
+//            }
+//        }
     </script>
 </html>

@@ -228,7 +228,7 @@
                                        onfocus="this.select();" /> 
                                 <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KHOA" value="<s:property  value="KHOA"/>"/>
-                                
+
                                 <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/>
                                 <input type="hidden" id="id_<s:property  value="%{#rowstatus.index}" />" 
@@ -265,13 +265,13 @@
                                        onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
                                 </td>
                                 <td class="txtBody" >
-                                    <input type="text"   value="<s:property  value="D8" />" style="text-align: right"
+                                    <input type="text"   value="<s:property  value="D8" />" style="text-align: right" 
                                        class="number txtBody" id="D8<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" 
-                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
-                                </td>
-                                <td class="txtBody" >
-                                    <input type="text"   value="<s:property  value="D9" />" style="text-align: right"
+                                       onfocus="this.select();" readonly="true"/> 
+                            </td>
+                            <td class="txtBody" >
+                                <input type="text"   value="<s:property  value="D9" />" style="text-align: right"
                                        class="number txtBody" id="D9<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" 
                                        onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
@@ -286,10 +286,10 @@
                                     <input type="text"   value="<s:property  value="D11" />" style="text-align: right"
                                        class="number txtBody" id="D11<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" 
-                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
-                                </td>
-                                <td class="txtBody" >
-                                    <input type="text"   value="<s:property  value="D12" />" style="text-align: right"
+                                       onfocus="this.select();" readonly="true"/> 
+                            </td>
+                            <td class="txtBody" >
+                                <input type="text"   value="<s:property  value="D12" />" style="text-align: right"
                                        class="number txtBody" id="D12<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" 
                                        onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
@@ -304,10 +304,10 @@
                                     <input type="text"   value="<s:property  value="D14" />" style="text-align: right"
                                        class="number txtBody" id="D14<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14" 
-                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
-                                </td>
-                                <td class="txtBody" >
-                                    <input type="text"   value="<s:property  value="D15" />" style="text-align: right"
+                                       onfocus="this.select();" readonly="true"/> 
+                            </td>
+                            <td class="txtBody" >
+                                <input type="text"   value="<s:property  value="D15" />" style="text-align: right"
                                        class="number txtBody" id="D15<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" 
                                        onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
@@ -322,10 +322,10 @@
                                     <input type="text"   value="<s:property  value="D17" />" style="text-align: right"
                                        class="number txtBody" id="D17<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" 
-                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
-                                </td>
-                                <td class="txtBody" >
-                                    <input type="text"   value="<s:property  value="D18" />" style="text-align: right"
+                                       onfocus="this.select();" readonly="true"/> 
+                            </td>
+                            <td class="txtBody" >
+                                <input type="text"   value="<s:property  value="D18" />" style="text-align: right"
                                        class="number txtBody" id="D18<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" 
                                        onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
@@ -340,10 +340,10 @@
                                     <input type="text"   value="<s:property  value="D20" />" style="text-align: right"
                                        class="number txtBody" id="D20<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" 
-                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
-                                </td>
-                                <td class="txtBody" >
-                                    <input type="text"   value="<s:property  value="D21" />" style="text-align: right"
+                                       onfocus="this.select();" readonly="true"/> 
+                            </td>
+                            <td class="txtBody" >
+                                <input type="text"   value="<s:property  value="D21" />" style="text-align: right"
                                        class="number txtBody" id="D21<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D21" 
                                        onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
@@ -358,10 +358,10 @@
                                     <input type="text"   value="<s:property  value="D23" />" style="text-align: right"
                                        class="number txtBody" id="D23<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D23" 
-                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
-                                </td>
-                                <td class="txtBody" >
-                                    <input type="text"   value="<s:property  value="D24" />" style="text-align: right"
+                                       onfocus="this.select();"readonly="true"/> 
+                            </td>
+                            <td class="txtBody" >
+                                <input type="text"   value="<s:property  value="D24" />" style="text-align: right"
                                        class="number txtBody" id="D24<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24" 
                                        onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
@@ -376,10 +376,10 @@
                                     <input type="text"   value="<s:property  value="D26" />" style="text-align: right"
                                        class="number txtBody" id="D26<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26" 
-                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
-                                </td>
-                                <td class="txtBody" >
-                                    <input type="text"   value="<s:property  value="D27" />" style="text-align: right"
+                                       onfocus="this.select();" readonly="true"/> 
+                            </td>
+                            <td class="txtBody" >
+                                <input type="text"   value="<s:property  value="D27" />" style="text-align: right"
                                        class="number txtBody" id="D27<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27" 
                                        onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
@@ -394,26 +394,26 @@
                                     <input type="text"   value="<s:property  value="D29" />" style="text-align: right"
                                        class="number txtBody" id="D29<s:property  value="%{#rowstatus.index}" />"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29" 
-                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
-                                </td>
-                                <!--                                <td class="txtBody" >
-                                                                    <input type="text"   value="<s:property  value="D30" />" style="text-align: right"
-                                                                       class="number txtBody"
-                                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" 
-                                                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
-                                                                </td>
-                                                                <td class="txtBody" >
-                                                                    <input type="text"   value="<s:property  value="D31" />" style="text-align: right"
-                                                                       class="number txtBody"
-                                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D31" 
-                                                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
-                                                                </td>
-                                                                <td class="txtBody" >
-                                                                    <input type="text"   value="<s:property  value="D32" />" style="text-align: right"
-                                                                       class="number txtBody"
-                                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D32" 
-                                                                       onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
-                                                                </td>-->
+                                       onfocus="this.select();" readonly="true"/> 
+                            </td>
+                            <!--                                <td class="txtBody" >
+                                                                <input type="text"   value="<s:property  value="D30" />" style="text-align: right"
+                                                                   class="number txtBody"
+                                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" 
+                                                                   onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                                            </td>
+                                                            <td class="txtBody" >
+                                                                <input type="text"   value="<s:property  value="D31" />" style="text-align: right"
+                                                                   class="number txtBody"
+                                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D31" 
+                                                                   onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                                            </td>
+                                                            <td class="txtBody" >
+                                                                <input type="text"   value="<s:property  value="D32" />" style="text-align: right"
+                                                                   class="number txtBody"
+                                                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D32" 
+                                                                   onfocus="this.select();" <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>/> 
+                                                            </td>-->
 
                             </tr>                                                                                                       
                     </s:iterator>

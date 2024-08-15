@@ -1060,7 +1060,7 @@ public class ExcelExport {
             String templateFile = savedDirPath + Define.M_EXCEL_TEMP + "/KHNV/KHNV_01_2024.xlsx";
 
 //            for (DistrictInfo district : lstDistrict) {
-            String strFileSave = "KHNV_01_2024_" + commune + "_" + subcommune //+ "_" + district.districtCode
+            String strFileSave = "KHNV_01_2024_" + commune  //+ "_" + district.districtCode
                     + "_" + strCurrDate
                     + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
 
@@ -1075,7 +1075,7 @@ public class ExcelExport {
             FileUtil.copyFile(source, dest);
 
             // Get data
-            List<DULIEU_NT_100> lstData = daoMau02.getExportData_2024(commune, subcommune, "", reportDate);
+            List<DULIEU_NT_100> lstData = daoMau02.getExportData_2024(commune, "", "", reportDate);
 
             if (lstData.size() > 0) {
 
@@ -1085,8 +1085,8 @@ public class ExcelExport {
 
                 String strTitle = "NHU CẦU VAY VỐN TÍN DỤNG CHÍNH SÁCH GIAI ĐOẠN " + (Integer.parseInt(namBc) - 4) + " - " + namBc;
                 XSSFCell xssfCellTitle = sheet.getRow(3).getCell(0, Row.CREATE_NULL_AS_BLANK);
-                XSSFCell xssfCellTitle0 = sheet.getRow(3).getCell(26, Row.CREATE_NULL_AS_BLANK);
-                XSSFCell xssfCellTitle1 = sheet.getRow(3).getCell(48, Row.CREATE_NULL_AS_BLANK);
+                XSSFCell xssfCellTitle0 = sheet.getRow(3).getCell(28, Row.CREATE_NULL_AS_BLANK);
+                XSSFCell xssfCellTitle1 = sheet.getRow(3).getCell(50, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(xssfCellTitle, strTitle);
                 fillTitle(xssfCellTitle0, strTitle);
                 fillTitle(xssfCellTitle1, strTitle);
@@ -1095,8 +1095,8 @@ public class ExcelExport {
                 String strTitle1 = "XÃ/PHƯỜNG/THỊ TRẤN: " + name_subcommune.toUpperCase() + "; HUYỆN:" + lstTitleData.get(0).toUpperCase() + "; TỈNH: " + lstTitleData.get(1).toUpperCase();
 
                 XSSFCell xssfCellTitle2 = sheet.getRow(4).getCell(0, Row.CREATE_NULL_AS_BLANK);
-                XSSFCell xssfCellTitle3 = sheet.getRow(4).getCell(26, Row.CREATE_NULL_AS_BLANK);
-                XSSFCell xssfCellTitle4 = sheet.getRow(4).getCell(48, Row.CREATE_NULL_AS_BLANK);
+                XSSFCell xssfCellTitle3 = sheet.getRow(4).getCell(28, Row.CREATE_NULL_AS_BLANK);
+                XSSFCell xssfCellTitle4 = sheet.getRow(4).getCell(50, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(xssfCellTitle2, strTitle1);
                 fillTitle(xssfCellTitle3, strTitle1);
                 fillTitle(xssfCellTitle4, strTitle1);
@@ -1109,21 +1109,23 @@ public class ExcelExport {
                 XSSFCellStyle numberStyle = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true);
 
                 for (int i = 0; i < lstData.size(); i++) {
-                    XSSFRow xssfRow = sheet.getRow(i + 10);
+                    XSSFRow xssfRow = sheet.getRow(i + 11);
                     if (xssfRow == null) {
-                        xssfRow = sheet.createRow(i + 10);
+                        xssfRow = sheet.createRow(i + 11);
                     }
 
                     XSSFCell xssfCell00 = xssfRow.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    XSSFCell xssfCell01 = xssfRow.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    XSSFCell xssfCell02 = xssfRow.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    XSSFCell xssfCell03 = xssfRow.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    XSSFCell xssfCell18 = xssfRow.getCell(18, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    XSSFCell xssfCell33 = xssfRow.getCell(33, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    XSSFCell xssfCell46 = xssfRow.getCell(46, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    XSSFCell xssfCell01 = xssfRow.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    XSSFCell xssfCell02 = xssfRow.getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    XSSFCell xssfCell03 = xssfRow.getCell(5, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    XSSFCell xssfCell04 = xssfRow.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    XSSFCell xssfCell05 = xssfRow.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    XSSFCell xssfCell18 = xssfRow.getCell(20, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    XSSFCell xssfCell33 = xssfRow.getCell(35, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    XSSFCell xssfCell46 = xssfRow.getCell(48, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 
-                    for (int ii = 2; ii < 65; ii++) {
-                        if (ii == 2 || ii == 3 || ii == 18 || ii == 33 || ii == 46) {
+                    for (int ii = 4; ii < 67; ii++) {
+                        if (ii == 4|| ii == 5 || ii == 20 || ii == 35 || ii == 48) {
                             continue; // Bỏ qua giá trị này và tiếp tục vòng lặp
                         }
                         XSSFCell xssfCell = xssfRow.getCell(ii, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -1133,7 +1135,7 @@ public class ExcelExport {
                         // Lấy giá trị tương ứng từ getD1 đến getD63
                         try {
                             // Bỏ qua cell 2 và 3
-                            if (ii != 2 && ii != 3 && ii != 18 && ii != 33 && ii != 46) {
+                            if (ii != 4 && ii != 5 && ii != 20 && ii != 35 && ii != 48) {
                                 Method method = lstData.get(i).getClass().getMethod("getD" + (ii - 1));
                                 Object value = method.invoke(lstData.get(i));
                                 if (value != null) {
@@ -1161,6 +1163,8 @@ public class ExcelExport {
                         xssfCell01.setCellStyle(boldStyle);
                         xssfCell02.setCellStyle(numberStyle);
                         xssfCell03.setCellStyle(numberStyle);
+                        xssfCell04.setCellStyle(boldStyle);
+                        xssfCell05.setCellStyle(boldStyle);
                         xssfCell18.setCellStyle(numberStyle);
                         xssfCell33.setCellStyle(numberStyle);
                         xssfCell46.setCellStyle(numberStyle);
@@ -1168,7 +1172,8 @@ public class ExcelExport {
 
                     xssfCell00.setCellValue(lstData.get(i).getTT_HIENTHI());
                     xssfCell01.setCellValue(lstData.get(i).getTEN());
-
+                    xssfCell04.setCellValue(lstData.get(i).getMA());
+                    xssfCell05.setCellValue(lstData.get(i).getD100());
                 }
 
                 for (int i = lstData.size(); i < sheet.getLastRowNum() + 1; i++) {
@@ -1343,54 +1348,54 @@ public class ExcelExport {
                 fillTitle(xssfPosTitle, strPosTitle);
 
                 String colTitle3 = "Ước thực hiện đến 31/12/" + (Integer.parseInt(namBc) - 6);
-                XSSFCell colTitle = sheet.getRow(6).getCell(2, Row.CREATE_NULL_AS_BLANK);
+                XSSFCell colTitle = sheet.getRow(6).getCell(3, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle3);
 
                 String colTitle5 = "Ước thực hiện đến 31/12/" + (Integer.parseInt(namBc) - 5);
-                colTitle = sheet.getRow(6).getCell(3, Row.CREATE_NULL_AS_BLANK);
+                colTitle = sheet.getRow(6).getCell(4, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle5);
 
                 String colTitle6 = "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) - 4);
-                colTitle = sheet.getRow(6).getCell(4, Row.CREATE_NULL_AS_BLANK);
+                colTitle = sheet.getRow(6).getCell(5, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle6);
 
                 String colTitle55 = "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 4);
-                colTitle = sheet.getRow(7).getCell(5, Row.CREATE_NULL_AS_BLANK);
+                colTitle = sheet.getRow(7).getCell(6, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle55);
 
                 String colTitle7 = "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) - 3);
-                colTitle = sheet.getRow(6).getCell(7, Row.CREATE_NULL_AS_BLANK);
+                colTitle = sheet.getRow(6).getCell(8, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle7);
 
                 String colTitle77 = "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 3);
-                colTitle = sheet.getRow(7).getCell(8, Row.CREATE_NULL_AS_BLANK);
+                colTitle = sheet.getRow(7).getCell(9, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle77);
 
                 String colTitle8 = "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) - 2);
-                colTitle = sheet.getRow(6).getCell(10, Row.CREATE_NULL_AS_BLANK);
+                colTitle = sheet.getRow(6).getCell(11, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle8);
 
                 String colTitle88 = "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 2);
-                colTitle = sheet.getRow(7).getCell(11, Row.CREATE_NULL_AS_BLANK);
+                colTitle = sheet.getRow(7).getCell(12, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle88);
 
                 String colTitle9 = "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) - 1);
-                colTitle = sheet.getRow(6).getCell(13, Row.CREATE_NULL_AS_BLANK);
+                colTitle = sheet.getRow(6).getCell(14, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle9);
 
                 String colTitle99 = "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 1);
-                colTitle = sheet.getRow(7).getCell(14, Row.CREATE_NULL_AS_BLANK);
+                colTitle = sheet.getRow(7).getCell(15, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle99);
 
                 String colTitle10 = "Kế hoạch tín dụng năm " + namBc;
-                colTitle = sheet.getRow(6).getCell(16, Row.CREATE_NULL_AS_BLANK);
+                colTitle = sheet.getRow(6).getCell(17, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle10);
 
                 String colTitle100 = "Tăng, giảm so với 31/12/" + namBc;
-                colTitle = sheet.getRow(7).getCell(18, Row.CREATE_NULL_AS_BLANK);
+                colTitle = sheet.getRow(7).getCell(19, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle100);
                 String colTitle101 = "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 4);
-                colTitle = sheet.getRow(7).getCell(18, Row.CREATE_NULL_AS_BLANK);
+                colTitle = sheet.getRow(7).getCell(20, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle101);
 
                 for (int i = 0; i < lstData.size(); i++) {
@@ -1400,22 +1405,27 @@ public class ExcelExport {
                     }
 
                     XSSFCell xssfCell00 = xssfRow.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    XSSFCell xssfCell01 = xssfRow.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    XSSFCell xssfCell02 = xssfRow.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    XSSFCell xssfCell01 = xssfRow.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 
                     if (lstData.get(i).getKIEUIN() == 1) {
                         xssfCell00.setCellStyle(boldStyle);
+                        xssfCell02.setCellStyle(codeStyleSTT);
                         xssfCell01.setCellStyle(leftStyle);
                     } else if (lstData.get(i).getKIEUIN() == 2) {
                         xssfCell00.setCellStyle(italicsStyleSTT);
+                        xssfCell02.setCellStyle(codeStyleSTT);
                         xssfCell01.setCellStyle(italicsStyle);
                     } else {
                         xssfCell00.setCellStyle(codeStyleSTT);
+                        xssfCell02.setCellStyle(codeStyleSTT);
                         xssfCell01.setCellStyle(codeStyle);
                     }
                     xssfCell00.setCellValue(lstData.get(i).getTT_HIENTHI());
+                    xssfCell02.setCellValue(lstData.get(i).getMA());
                     xssfCell01.setCellValue(lstData.get(i).getTEN());
 
-                    for (int ii = 2; ii < 21; ii++) {
+                    for (int ii = 3; ii < 22; ii++) {
                         XSSFCell xssfCell = xssfRow.getCell(ii, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 
                         xssfCell.setCellStyle(numberStyle);

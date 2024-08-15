@@ -325,11 +325,11 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
                 addActionError("Bạn chưa chọn mã xã!");
                 return ERROR;
             }
-            if (mathon.equals("000000") || mathon.equals(NONE)) {
-                addActionError("Bạn chưa chọn mã thôn!");
-                return ERROR;
-            }
-            ArrayList<POSModel> listxa = daoXdkh.getNameSubCommune(maxa, mathon);
+//            if (mathon.equals("000000") || mathon.equals(NONE)) {
+//                addActionError("Bạn chưa chọn mã thôn!");
+//                return ERROR;
+//            }
+            ArrayList<POSModel> listxa = daoXdkh.getNameSubCommune(maxa, "");
             String tenthon = listxa.get(0).getDesc();
             
             FileExportInfo fileInfo = excelExport.xuatExcel_Mau01_2024(pos_cd_username, maxa, mathon, tenthon, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
