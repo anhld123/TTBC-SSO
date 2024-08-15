@@ -384,8 +384,8 @@
                                       <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>><s:property value='D7'/></textarea>
                             </td> 
                             <td class="D0">
-                                <textarea style="width: 98%"  placeholder="Nhập tối đa 200 ký tự" id="D8_<s:property  value='%{#rowstatus.index}' />" 
-                                      name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D8" maxlength="200"
+                                <textarea style="width: 98%"  placeholder="Nhập thông số tài sản cố định" id="D8_<s:property  value='%{#rowstatus.index}' />" 
+                                      name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D8" maxlength="1000"
                                       <s:if test="!Grade.equalsIgnoreCase('1')"> readonly="true"</s:if>><s:property value='D8'/></textarea>
                             </td> 
                             <td>           
