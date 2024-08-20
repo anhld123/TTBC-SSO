@@ -179,7 +179,7 @@ public class DaoMau02 {
                     item.setTEN(cursor.getString("TEN"));
                     item.setD1(cursor.getString("D1"));
                     item.setD2(cursor.getString("D2"));
-                    item.setD2(cursor.getString("D3"));
+                    item.setD3(cursor.getString("D3"));
                     item.setD4(cursor.getString("D4"));
                     item.setD5(cursor.getString("D5"));
                     item.setD6(cursor.getString("D6"));
@@ -194,8 +194,9 @@ public class DaoMau02 {
                     item.setD15(cursor.getString("D15"));
                     item.setD16(cursor.getString("D16"));
                     item.setD17(cursor.getString("D17"));
-                    item.setD17(cursor.getString("D18"));
-                    item.setD17(cursor.getString("D19"));
+                    item.setD18(cursor.getString("D18"));
+                    item.setD19(cursor.getString("D19"));
+                    item.setD100(cursor.getString("THUTU"));
                     lstData.add(item);
                 }
                 
@@ -249,14 +250,14 @@ public class DaoMau02 {
                 while (cursor.next()) {
                     DULIEU_NT_100 item = new DULIEU_NT_100();
                     item.setKIEUIN(cursor.getInt("KIEUIN"));
-//                    item.setTHUTU(cursor.getInt("THUTU"));
+//                    item.setD98(cursor.getString("D98"));
                     item.setD100(cursor.getString("NAMBC"));
                     item.setTT_HIENTHI(cursor.getString("THUTU"));
                     item.setMA(cursor.getString("MA"));
                     item.setTEN(cursor.getString("TEN"));
-                    item.setD1(getNumberValueString(cursor.getString("D1")));
+                    item.setD1(cursor.getString("D1"));
                     item.setD2(cursor.getString("D2"));
-                    item.setD3(getNumberValueString(cursor.getString("D3")));
+                    item.setD3(cursor.getString("D3"));
                     item.setD4(cursor.getString("D4"));
                     item.setD5(cursor.getString("D5"));
                     item.setD6(cursor.getString("D6"));
