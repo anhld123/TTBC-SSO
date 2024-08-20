@@ -1104,7 +1104,7 @@ public class ExcelExport {
 
                 XSSFWorkbook workbook = sheet.getWorkbook();
                 XSSFCellStyle boldStyle = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.CENTER, IndexedColors.AUTOMATIC.getIndex(), true);
-                XSSFCellStyle orderStyle = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.CENTER, IndexedColors.AUTOMATIC.getIndex(), true);
+                XSSFCellStyle orderStyle = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true);
                 XSSFCellStyle codeStyle = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false);
                 XSSFCellStyle leftStyle = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.LEFT, IndexedColors.AUTOMATIC.getIndex(), true);
                 XSSFCellStyle numberStyle = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true);
@@ -1122,6 +1122,7 @@ public class ExcelExport {
                     XSSFCell xssfCell04 = xssfRow.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                     XSSFCell xssfCell05 = xssfRow.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                     XSSFCell xssfCell18 = xssfRow.getCell(20, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    XSSFCell xssfCell28 = xssfRow.getCell(28, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                     XSSFCell xssfCell33 = xssfRow.getCell(35, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                     XSSFCell xssfCell46 = xssfRow.getCell(48, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 
@@ -1130,9 +1131,11 @@ public class ExcelExport {
                             continue; // Bỏ qua giá trị này và tiếp tục vòng lặp
                         }
                         XSSFCell xssfCell = xssfRow.getCell(ii, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-
-                        xssfCell.setCellStyle(codeStyle);
-
+                        if (lstData.get(i).getKIEUIN() == 0) {
+                            xssfCell.setCellStyle(numberStyle);
+                        } else {
+                            xssfCell.setCellStyle(codeStyle);
+                        }
                         // Lấy giá trị tương ứng từ getD1 đến getD63
                         try {
                             // Bỏ qua cell 2 và 3
@@ -1142,12 +1145,24 @@ public class ExcelExport {
                                 if (value != null) {
                                     if (value instanceof Number) {
                                         xssfCell.setCellValue(((Number) value).doubleValue());
+                                    } else if (value instanceof String) {
+                                        try {
+                                            // chuyển chuỗi thành số
+                                            double doubleValue = Double.parseDouble((String) value);
+                                            xssfCell.setCellValue(doubleValue);
+                                        } catch (NumberFormatException e) {
+                                            // Nếu chuỗi không thể chuyển thành số, kiểm tra xem nó có thể là công thức không
+                                            if (((String) value).startsWith("=")) {
+                                                // Nếu là công thức, sử dụng setCellFormula thay vì setCellValue
+                                                xssfCell.setCellFormula(((String) value).substring(1));
+                                            } else {
+                                                // Nếu không phải công thức, ghi giá trị chuỗi vào ô Excel
+                                                xssfCell.setCellValue((String) value);
+                                            }
+                                        }
                                     } else {
-                                        // lấy ra các giá trị kiểu số
-                                        double doubleValue = Double.parseDouble(value.toString());
-                                        xssfCell.setCellValue(doubleValue);
-
-//                                        xssfCell.setCellValue(value.toString());
+                                        // Xử lý các loại khác nếu cần thiết
+                                        xssfCell.setCellValue(value.toString());
                                     }
                                 }
                             }
@@ -1166,6 +1181,7 @@ public class ExcelExport {
                         xssfCell04.setCellStyle(boldStyle);
                         xssfCell05.setCellStyle(boldStyle);
                         xssfCell18.setCellStyle(numberStyle);
+                        xssfCell28.setCellStyle(numberStyle);
                         xssfCell33.setCellStyle(numberStyle);
                         xssfCell46.setCellStyle(numberStyle);
                     }
@@ -1177,7 +1193,7 @@ public class ExcelExport {
                 }
 
                 for (int i = lstData.size(); i < sheet.getLastRowNum() + 1; i++) {
-                    XSSFRow rowToDelete = sheet.getRow(i + 10);
+                    XSSFRow rowToDelete = sheet.getRow(i + 11);
                     if (rowToDelete != null) {
                         sheet.removeRow(rowToDelete);
                     }
@@ -1198,7 +1214,7 @@ public class ExcelExport {
                     borderRow.getCell(i).setCellStyle(borderStyle);
                 }
                 // Thêm nội dung phần cuối
-                int startRowNum = lstData.size() + 11;
+                int startRowNum = lstData.size() + 13;
                 XSSFRow row1 = sheet.createRow(startRowNum);
                 XSSFRow row2 = sheet.createRow(startRowNum + 1);
 
