@@ -276,6 +276,7 @@
                     $("#idUnlock").prop('disabled', true);
                     $("#idSeach").prop('disabled', true);
                     $("#lock_MSTS_2024tmp").prop('disabled', true);
+                    $("#idDelete").prop('disabled', true);
                 } else {
                     $("#loadDatatmp").prop('disabled', false);
                     $("#idSend").prop('disabled', false);
@@ -283,6 +284,7 @@
                     $("#idUnlock").prop('disabled', false);
                     $("#idSeach").prop('disabled', false);
                     $("#lock_MSTS_2024tmp").prop('disabled', false);
+                    $("#idDelete").prop('disabled', false);
                 }
                 ;
             }
@@ -378,6 +380,63 @@
                                     onLoadData();
                                 } else {
                                     alert("Lỗi: Lưu dữ liệu.");
+                                    onLoadData();
+                                }
+                            },
+                            complete: function () {
+                                btnDisabled(0);
+                            },
+                            error: function (request) {
+                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                                onLoadData();
+                            }
+                        });
+                    }
+                }
+
+            });
+
+            $("#idDelete").click(function () {
+                $('#message_suc_err').empty();
+                $('#divExportReportLink').empty();
+
+                let aCheck = confirm("Bạn chắc chắn muốn xóa dữ liệu báo cáo ?");
+                if (aCheck) {
+                    var table = document.getElementById("subTable");
+                    var rowcount = table.rows.length;
+                    var chot = document.getElementById("chotsl_temp").value;
+                    var isValid = true;
+            <s:if test="Grade.equalsIgnoreCase('1')">
+                    var lock = document.getElementById("lock_temp").value;
+                    var chot = document.getElementById("chotsl_temp").value;
+                    if (lock === "1" || chot === "1") {
+                        alert("Dữ liệu đã gửi, không thể xóa.");
+                        isValid = false; // Không cho phép lưu dữ liệu
+                        onLoadData();
+                    }
+            </s:if>
+                    for (var i = 0; i < rowcount; i++) {
+                        try {
+                        } catch (e) {
+                        }
+                    }
+                    if (isValid) {
+                        var url, sdata;
+                        url = "delete_MSTS_2024.action";
+                        sdata = jQuery("#frmdata").serialize();
+                        $("#viewData").html('<img src="img/loading.gif"/>');
+                        btnDisabled(1);
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: sdata,
+                            success: function (data) {
+                                if (data === "200") {
+                                    alert("Thành công: Xóa dữ liệu.");
+                                    $('#message_suc_err').html("<h style='color: green; font-size: 13px ; font-weight: bold'>Bạn đã xóa dữ liệu thành công!</h>");
+                                    onLoadData();
+                                } else {
+                                    alert("Lỗi: Xóa dữ liệu.");
                                     onLoadData();
                                 }
                             },
@@ -660,6 +719,7 @@
                         </s:if>
                         <s:if test="Grade.equalsIgnoreCase('1')">
                             &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/>
+                            &nbsp;<input type="button" id="idDelete" value="Xóa dữ liệu" style="color: red"/>
                             &nbsp;|&nbsp;<input type="button" id="idSend" value="Gửi dữ liệu" style="color: red"/>    
                         </s:if>
                         <s:if test="Grade.equalsIgnoreCase('2')">

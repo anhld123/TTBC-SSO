@@ -722,6 +722,13 @@
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
         
+        <action name="delete_MSTS_2024" class="vbsp.ims.gqvl_2023.Mua_Tsan_2024"  method="delete">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action> 
+        
          <action name="loadc3_MSTS_2024" class="vbsp.ims.gqvl_2023.Mua_Tsan_2024"  method="loadc3">
             <result name="success">/muasam_taisan_2024/viewc3.jsp</result>                              
             <result name="error">/nhaptay-cn/success.jsp</result>       

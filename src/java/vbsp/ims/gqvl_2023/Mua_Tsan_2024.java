@@ -30,6 +30,7 @@ import vbsp.ims.define.GenericResult;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.restapi.DuLieuNTRow;
+import vbsp.ims.restapi.DuLieuNTRowX;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.ListOfValue;
 import vbsp.ims.restapi.LockSendModel;
@@ -648,6 +649,107 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
             status = "0";
             message = e.getMessage();
         }
+        return SUCCESS;
+    }
+    
+    public String delete() {
+        System.out.println("vao váe");
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
+                return ERROR;
+            }
+            DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
+            HashMap hmParameter = getParameter();
+            String dateStr = hmParameter.get("ngay_bc").toString();
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
+            final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00.000").format(new SimpleDateFormat("yyyyMMdd").parse(_reportDate));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+            LocalDate date = LocalDate.parse(dateStr, formatter);
+            String pos = poscd.toString().replace("[", "").replace("]", "") == null || poscd.toString().replace("[", "").replace("]", "").isEmpty() ? pos_cd_username : poscd.toString().replace("[", "").replace("]", "");
+            main_pos_username = posMainModel.getMainPosCd();
+            int year = date.getYear();
+            String PosFlag = "S";
+            ArrayList<DuLieuNTRowX> lstUpdateDate = new ArrayList<>();
+            List<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
+            for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                DuLieuNTRowX tempadd = new DuLieuNTRowX();
+                int iStt = 1;
+                iStt++;
+                tempadd.setKey("KTTC_MUASAM_01");
+                tempadd.setOrderDescription(tmp.getTT_HIENTHI());
+                tempadd.setName(tmp.getD1());
+                tempadd.setCode(pos + iStt + PosFlag + _reportDate + tmp.getD6() + tmp.getTT_HIENTHI());
+                tempadd.setMakerId(UserName);
+                tempadd.setMakerDate(_reportDate1);
+                tempadd.setAuthoriseId(UserName);
+                tempadd.setAuthoriseDate(_reportDate1);
+                tempadd.setReportDate(_reportDate1);
+                tempadd.setReportYear(year);
+                tempadd.setPosCode(pos);
+                tempadd.setPosFlag(PosFlag);
+                tempadd.setBranchCode(main_pos_username);
+                tempadd.setD1(tmp.getD1());
+                tempadd.setD2(tmp.getD2());
+                tempadd.setD3(tmp.getD3());
+                tempadd.setD4(tmp.getD4());
+                tempadd.setD5(tmp.getD5());
+                tempadd.setD6(tmp.getD6());
+                tempadd.setD7(tmp.getD7());
+                tempadd.setD8(tmp.getD8());
+                tempadd.setD9(tmp.getD9());
+                tempadd.setD10(tmp.getD10());
+                tempadd.setD11(tmp.getD11());
+                tempadd.setD12("0");
+                lstUpdateDate.add(tempadd);
+
+                QT_DULIEU_NT temlocal = new QT_DULIEU_NT();
+                temlocal.setKHOA("KTTC_MUASAM_01");
+                temlocal.setTT_HIENTHI(tmp.getTT_HIENTHI());
+                temlocal.setTEN(tmp.getD1());
+                temlocal.setMA(pos + iStt + PosFlag + _reportDate + tmp.getD6() + tmp.getTT_HIENTHI());
+                temlocal.setNGUOI_DUYET(UserName);
+                temlocal.setNGUOI_NHAP(UserName);
+                temlocal.setNAMBC(year);
+                temlocal.setMAPGD(pos);
+                temlocal.setCO_TONGHOP(PosFlag);
+                temlocal.setMACN(main_pos_username);
+                temlocal.setD1(tmp.getD1());
+                temlocal.setD2(tmp.getD2());
+                temlocal.setD3(tmp.getD3());
+                temlocal.setD4(tmp.getD4());
+                temlocal.setD5(tmp.getD5());
+                temlocal.setD6(tmp.getD6());
+                temlocal.setD7(tmp.getD7());
+                temlocal.setD8(tmp.getD8());
+                temlocal.setD9(tmp.getD9());
+                temlocal.setD10(tmp.getD10());
+                temlocal.setD11(tmp.getD11());
+                temlocal.setD12("0");
+                lstLocalDataUpdate.add(temlocal);
+            }
+
+            _service_listts = new DuLieuNTService();
+            int status = _service_listts.deleteManualData("KTTC_MUASAM_01", pos, PosFlag, _reportDate, "", "", lstUpdateDate);
+            System.out.println(status);
+            if (status == 200) {
+                if (!daoMain.deleteMSTS_2024("KTTC_MUASAM_01", hmParameter.get("ngay_bc").toString(), pos)) {
+                    addActionError("Thất bại: Xóa dữ liệu tại chi nhánh không thành công!");
+                    String code = String.valueOf(2);
+                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                    return ERROR;
+                }
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> muats2024: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> muats2024: " + e.getMessage());
+        }
+        addActionMessage("Bạn đã xóa dữ liệu thành công");
+        String code = String.valueOf(200);
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
 }
