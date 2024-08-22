@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package vbsp.ims.khnv2021.dao;
 
 import vbsp.ims.dao.khnv.*;
@@ -21,6 +20,7 @@ import java.util.Map;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.export.excel.ExportExcelFile;
+import vbsp.ims.khnv2021.model.DULIEU_NT_100;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.khnv.POSModel;
 import vbsp.ims.model.khnv.XdkhModel;
@@ -31,11 +31,11 @@ import vbsp.ims.report.fast.ListValue;
  * @author CuongBM0211
  */
 public class XDKHDao2021 {
-    
+
     public List<ListValue> getLOV(String username, String type) {
         List<ListValue> lstDMNgNhan = new ArrayList<ListValue>();
         try {
-            
+
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
             conn = daoconnect.getConnect();
@@ -48,7 +48,7 @@ public class XDKHDao2021 {
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
                 calstatement.setString(1, username);
                 calstatement.setString(2, type);
-               
+
                 calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
@@ -84,8 +84,8 @@ public class XDKHDao2021 {
         }
         return lstDMNgNhan;
     }
-    
-    public ArrayList<XdkhModel> get_data_xdkh(String posCD, String capbc,String xa_pgd, int namBc) {
+
+    public ArrayList<XdkhModel> get_data_xdkh(String posCD, String capbc, String xa_pgd, int namBc) {
         ArrayList<XdkhModel> dataList = new ArrayList<XdkhModel>();
         boolean bSuccess = false;
         try {
@@ -105,20 +105,20 @@ public class XDKHDao2021 {
                 calstatement.setString(2, capbc);
                 calstatement.setString(3, xa_pgd);
                 calstatement.setInt(4, namBc);
-        
+
                 calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.CURSOR);
-                
+
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
-                
+
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(7);
-                
+
                 while (reset.next()) {
                     XdkhModel obj = new XdkhModel();
-                    
+
                     obj.setKH_MA_CT(reset.getString("KH_MA_CT"));
                     obj.setKH_STT_HT(reset.getString("KH_STT_HT"));
                     obj.setKH_CHI_TIEU(reset.getString("KH_CHI_TIEU"));
@@ -133,13 +133,12 @@ public class XDKHDao2021 {
                     //Them vao list
                     dataList.add(obj);
                 }
-                
+
 //                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
 //                int pn_err_cd = calstatement.getInt(4);
 //                //thu hien lay mo ta loi
 //                String strEdd_txt = calstatement.getString(5);
 //                //Lay cursor ra resultset
-
                 if (calstatement != null) {
                     calstatement.close();
                 }
@@ -153,14 +152,14 @@ public class XDKHDao2021 {
             }
         } catch (Exception e) {
             System.err.println("Loi trong ham get_data_xdkh " + e.getMessage());
-            CoreLogger.error(this.getClass().getName()+ " get_data_xdkh -> " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " get_data_xdkh -> " + e.getMessage());
         }
         return dataList;
     }
-    
-    public ArrayList<POSModel> getPosList(String posCD, String maCn, String reportGrade){
+
+    public ArrayList<POSModel> getPosList(String posCD, String maCn, String reportGrade) {
         ArrayList<POSModel> posList = new ArrayList<>();
-        
+
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -173,12 +172,12 @@ public class XDKHDao2021 {
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                
+
                 //Truyen vao username
-                calstatement.setString(1, posCD);          
-                calstatement.setString(2, maCn);          
-                calstatement.setString(3, reportGrade);          
-                
+                calstatement.setString(1, posCD);
+                calstatement.setString(2, maCn);
+                calstatement.setString(3, reportGrade);
+
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
@@ -215,9 +214,9 @@ public class XDKHDao2021 {
         }
         return posList;
     }
-    
-    public POSModel getPosByCode(String posCode){
-        ArrayList<POSModel> posList = new ArrayList<>();        
+
+    public POSModel getPosByCode(String posCode) {
+        ArrayList<POSModel> posList = new ArrayList<>();
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -230,10 +229,10 @@ public class XDKHDao2021 {
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                
+
                 //Truyen vao username
-                calstatement.setString(1, posCode);                          
-                
+                calstatement.setString(1, posCode);
+
                 calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.CURSOR);
@@ -270,10 +269,10 @@ public class XDKHDao2021 {
         }
         return posList.get(0);
     }
-    
-    public ArrayList<POSModel> getSubCommuneList(String posCD, String commuuneId, String reportGrade){
+
+    public ArrayList<POSModel> getSubCommuneList(String posCD, String commuuneId, String reportGrade) {
         ArrayList<POSModel> posList = new ArrayList<POSModel>();
-        
+
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -286,12 +285,12 @@ public class XDKHDao2021 {
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                
+
                 //Truyen vao username
-                calstatement.setString(1, posCD);          
-                calstatement.setString(2, commuuneId);          
-                calstatement.setString(3, reportGrade);          
-                
+                calstatement.setString(1, posCD);
+                calstatement.setString(2, commuuneId);
+                calstatement.setString(3, reportGrade);
+
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
@@ -328,10 +327,10 @@ public class XDKHDao2021 {
         }
         return posList;
     }
-    
-    public ArrayList<POSModel> getNameSubCommune(String communeId, String sub_communeId){
+
+    public ArrayList<POSModel> getNameSubCommune(String communeId, String sub_communeId) {
         ArrayList<POSModel> posList = new ArrayList<POSModel>();
-        
+
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -344,11 +343,11 @@ public class XDKHDao2021 {
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                
+
                 //Truyen vao username        
-                calstatement.setString(1, communeId);          
-                calstatement.setString(2, sub_communeId);          
-                
+                calstatement.setString(1, communeId);
+                calstatement.setString(2, sub_communeId);
+
                 calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
@@ -385,13 +384,13 @@ public class XDKHDao2021 {
         }
         return posList;
     }
-    
-    public ArrayList<POSModel> getSubCommuneList(String posCD, String communeId){
+
+    public ArrayList<POSModel> getSubCommuneList(String posCD, String communeId) {
         ArrayList<POSModel> posList = new ArrayList<>();
-        
+
         try {
             DaoConnect daoconnect = new DaoConnect();
-            Connection conn ;
+            Connection conn;
             conn = daoconnect.getConnect();
             CallableStatement calstatement;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
@@ -401,12 +400,12 @@ public class XDKHDao2021 {
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                
+
                 //Truyen vao username
-                calstatement.setString(1, posCD);          
-                calstatement.setString(2, communeId);          
-                calstatement.setString(3, "1");          
-                
+                calstatement.setString(1, posCD);
+                calstatement.setString(2, communeId);
+                calstatement.setString(3, "1");
+
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
@@ -435,10 +434,10 @@ public class XDKHDao2021 {
         }
         return posList;
     }
-    
-    public ArrayList<POSModel> getCommuneListAll(String posCode){
+
+    public ArrayList<POSModel> getCommuneListAll(String posCode) {
         ArrayList<POSModel> posList = new ArrayList<>();
-        
+
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -451,10 +450,10 @@ public class XDKHDao2021 {
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                
+
                 //Truyen vao username
-                calstatement.setString(1, posCode);                         
-                
+                calstatement.setString(1, posCode);
+
                 calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
 
                 //Thuc hien execute lay du lieu
@@ -489,7 +488,7 @@ public class XDKHDao2021 {
         }
         return posList;
     }
-    
+
 //   public String getQueryExpXls(String mabc, String nambc, String dotbc,String maDonvi, String capbc) throws SQLException {
 //        String pos_cd = "";
 //        CallableStatement calstatement = null;
@@ -532,7 +531,7 @@ public class XDKHDao2021 {
 //        return pos_cd;
 //    }
 //   
-   public boolean getDataExp(String sSave_id, Map<String, String> mapinPara,
+    public boolean getDataExp(String sSave_id, Map<String, String> mapinPara,
             String sPos_cd, String stringPara_Poscd, String sPos_Flag, String strFileName, String namBc, String dotBc, String maxa) {
         List<HashMap<Integer, List<Object>>> lstDataExp = new ArrayList<HashMap<Integer, List<Object>>>();
         if (sSave_id == null || sSave_id.length() < 1) {
@@ -550,12 +549,12 @@ public class XDKHDao2021 {
             }
 
             //Lay ra title cho bao cao
-            String strTitle = "NHU CẦU VAY VỐN TÍN DỤNG CHÍNH SÁCH NĂM " + namBc + " XÃ " + maxa ;//getTitleQuery(sSave_id, connect);
+            String strTitle = "NHU CẦU VAY VỐN TÍN DỤNG CHÍNH SÁCH NĂM " + namBc + " XÃ " + maxa;//getTitleQuery(sSave_id, connect);
             //Lay ra truy van cho bao cao
-            String strQuery = getQueryKHNV01("KHNV_01A",namBc,dotBc,maxa,"1", connect);
+            String strQuery = getQueryKHNV01("KHNV_01A", namBc, dotBc, maxa, "1", connect);
 
             //Lay ra danh sach pos
-            List<ListValue> lstPostCd  = getPosGeneralReport(connect, sPos_cd, sPos_Flag);
+            List<ListValue> lstPostCd = getPosGeneralReport(connect, sPos_cd, sPos_Flag);
 
             Integer nValue = 0;
             Integer nCountData = 0;
@@ -653,8 +652,8 @@ public class XDKHDao2021 {
         }
         return true;
     }
-   
-   public String getQueryKHNV01(String mabc, String nambc, String dotbc,String maDonvi, String capbc, Connection connect) {
+
+    public String getQueryKHNV01(String mabc, String nambc, String dotbc, String maDonvi, String capbc, Connection connect) {
         String strQuery = "";
 
         // Connection connect = null;
@@ -710,8 +709,8 @@ public class XDKHDao2021 {
         return strQuery;
 
     }
-   
-   public List<ListValue> getPosGeneralReport(Connection conn, String sPos_cd, String sPos_flag) {
+
+    public List<ListValue> getPosGeneralReport(Connection conn, String sPos_cd, String sPos_flag) {
         List<ListValue> lstPoscd = new ArrayList<ListValue>();
 
         try {
@@ -765,8 +764,8 @@ public class XDKHDao2021 {
         }
         return lstPoscd;
     }
-   
-   public List<String> getAllCommune(String posUser, String khoa, String nambc, String dotbc) throws SQLException {
+
+    public List<String> getAllCommune(String posUser, String khoa, String nambc, String dotbc) throws SQLException {
         List<String> lstData = new ArrayList<>();
         DaoConnect daoconnect = new DaoConnect();
         Connection conn = null;
@@ -784,7 +783,7 @@ public class XDKHDao2021 {
             calstatement.setString(3, khoa);
             calstatement.setString(4, nambc);
             calstatement.setString(5, dotbc);
-            
+
             //Thuc hien execute lay du lieu
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -815,10 +814,10 @@ public class XDKHDao2021 {
         }
         return lstData;
     }
-   
-   public List<String> getAllSubCommune(String posCD, String communeId){
+
+    public List<String> getAllSubCommune(String posCD, String communeId) {
         List<String> lstData = new ArrayList<>();
-        
+
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -831,12 +830,12 @@ public class XDKHDao2021 {
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                
+
                 //Truyen vao username
-                calstatement.setString(1, posCD);          
-                calstatement.setString(2, communeId);          
-                calstatement.setString(3, "1");          
-                
+                calstatement.setString(1, posCD);
+                calstatement.setString(2, communeId);
+                calstatement.setString(3, "1");
+
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
@@ -873,8 +872,8 @@ public class XDKHDao2021 {
         }
         return lstData;
     }
-   
-   public List<QT_DULIEU_NT> getDataAuthCommune( String sMaBC,  String sUser,
+
+    public List<QT_DULIEU_NT> getDataAuthCommune(String sMaBC, String sUser,
             String sGrade, String namBC, String dotBc, String maxa, String mathon) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
@@ -899,7 +898,7 @@ public class XDKHDao2021 {
                 calstatement.setString(5, dotBc);
                 calstatement.setString(6, maxa);
                 calstatement.setString(7, mathon);
-                        
+
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -965,8 +964,84 @@ public class XDKHDao2021 {
         }
         return lstBcqt_NT;
     }
-   
-   public List<QT_DULIEU_NT> getDataAuthCommuneSum( String sMaBC,  String sUser,
+ 
+    public List<QT_DULIEU_NT> getData_02_2024(String maBc, String userId, String reportGrade, String namBc,
+                String dotBc, String commune_cd) {
+       
+        List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
+        try {
+           DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call VBSP_IMS_KHNV2021.VIEW_MAU02_2024(?, ?, ?, ?, ?, ?, ?)}";
+            ResultSet reset = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(1, maBc);
+                calstatement.setString(2, userId);
+                calstatement.setString(3, reportGrade);
+                calstatement.setString(4, namBc);
+                calstatement.setString(5, dotBc);
+                calstatement.setString(6, commune_cd);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+                //Lay cursor ra resultset
+                System.out.println("vào vào 1");
+                reset = (ResultSet) calstatement.getObject(7);
+                while (reset.next()) {
+
+                    QT_DULIEU_NT item = QT_DULIEU_NT.newInstance();
+                    item.setKIEUIN(reset.getInt("KIEUIN"));
+                    item.setMA(reset.getString("MA"));
+                    item.setTT_HIENTHI(reset.getString("TT_HIENTHI"));
+                    item.setTEN(reset.getString("TEN"));
+                    item.setD1(reset.getString("D1"));
+                    item.setD2(reset.getString("D2"));
+                    item.setD3(reset.getString("D3"));
+                    item.setD4(reset.getString("D4"));
+                    item.setD5(reset.getString("D5"));
+                    item.setD6(reset.getString("D6"));
+                    item.setD7(reset.getString("D7"));
+                    item.setD8(reset.getString("D8"));
+                    item.setD9(reset.getString("D9"));
+                    item.setD10(reset.getString("D10"));
+                    item.setD11(reset.getString("D11"));
+                    item.setD12(reset.getString("D12"));
+                    item.setD13(reset.getString("D13"));
+                    item.setD14(reset.getString("D14"));
+                    item.setD15(reset.getString("D15"));
+                    item.setD16(reset.getString("D16"));
+                    item.setD17(reset.getString("D17"));
+                    item.setD18(reset.getString("D18"));
+                    item.setD19(reset.getString("D19"));
+                    item.setD20(reset.getString("THUTU"));
+                    lstBcqt_NT.add(item);
+                }
+
+                if (reset != null) {
+                    reset.close();
+                }
+                System.out.println("vào vào 2");
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " khnv2024 -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham khnv2024 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " khnv2024 -> " + e.getMessage());
+        }
+        return lstBcqt_NT;
+    }
+    public List<QT_DULIEU_NT> getDataAuthCommuneSum(String sMaBC, String sUser,
             String sGrade, String namBC, String dotBc, String maxa, String mathon) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
@@ -991,7 +1066,7 @@ public class XDKHDao2021 {
                 calstatement.setString(5, dotBc);
                 calstatement.setString(6, maxa);
                 calstatement.setString(7, mathon);
-                        
+
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -1057,8 +1132,8 @@ public class XDKHDao2021 {
         }
         return lstBcqt_NT;
     }
-   
-   public boolean setLockUnlockCommune(String maxa, String nambc, String dotbc, String tt_khoa, String username, String grade) throws SQLException {
+
+    public boolean setLockUnlockCommune(String maxa, String nambc, String dotbc, String tt_khoa, String username, String grade) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 
         CallableStatement cs = null;
@@ -1069,7 +1144,7 @@ public class XDKHDao2021 {
             cs.setString(2, nambc);
             cs.setString(3, dotbc);
             cs.setString(4, tt_khoa);
-            cs.setString(5, username);            
+            cs.setString(5, username);
             cs.setString(6, grade);
             cs.execute();
             bSuccess = true;
@@ -1088,12 +1163,12 @@ public class XDKHDao2021 {
         }
         return bSuccess;
     }
-   
-   public String getReason(String mabc, String nambc, String dotbc,String maDonvi, String capbc) {
-       DaoConnect daoconnect = new DaoConnect();
-            Connection conn = null;
-            conn = daoconnect.getConnect();
-            
+
+    public String getReason(String mabc, String nambc, String dotbc, String maDonvi, String capbc) {
+        DaoConnect daoconnect = new DaoConnect();
+        Connection conn = null;
+        conn = daoconnect.getConnect();
+
         String strQuery = "";
 
         // Connection connect = null;
@@ -1112,7 +1187,7 @@ public class XDKHDao2021 {
             //dang ky tham so tra du lieu ra la tham so thu nhat, kieu du lieu tra ra la number
             calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.CLOB);
             //Truyen tham so thu 2 vao la mang main_pos
-            
+
             calstatement.setString(2, nambc);
             calstatement.setString(3, dotbc);
             calstatement.setString(4, maDonvi);
@@ -1149,12 +1224,12 @@ public class XDKHDao2021 {
         return strQuery;
 
     }
-   
-   public String getCheckInputPGD(String mabc, String nambc, String dotbc,String maDonvi, String capbc, String usernam) {
-       DaoConnect daoconnect = new DaoConnect();
-            Connection conn = null;
-            conn = daoconnect.getConnect();
-            
+
+    public String getCheckInputPGD(String mabc, String nambc, String dotbc, String maDonvi, String capbc, String usernam) {
+        DaoConnect daoconnect = new DaoConnect();
+        Connection conn = null;
+        conn = daoconnect.getConnect();
+
         String strQuery = "";
 
         // Connection connect = null;
@@ -1173,7 +1248,7 @@ public class XDKHDao2021 {
             //dang ky tham so tra du lieu ra la tham so thu nhat, kieu du lieu tra ra la number
             calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.CLOB);
             //Truyen tham so thu 2 vao la mang main_pos
-            
+
             calstatement.setString(2, nambc);
             calstatement.setString(3, dotbc);
             calstatement.setString(4, maDonvi);
@@ -1211,8 +1286,8 @@ public class XDKHDao2021 {
         return strQuery;
 
     }
-   
-   public int getPosSendDataLockKHNV(String type, String khoa, String mapgd, String ngay_bc, String tt_khoa) throws SQLException {
+
+    public int getPosSendDataLockKHNV(String type, String khoa, String mapgd, String ngay_bc, String tt_khoa) throws SQLException {
         int nPos = 0;
         DaoConnect daoconnect = new DaoConnect();
         Connection conn = null;
@@ -1254,8 +1329,8 @@ public class XDKHDao2021 {
         }
         return nPos;
     }
-   
-   public List<QT_DULIEU_NT> getDataQtKehoach( String sMaBC,  String sUser,
+
+    public List<QT_DULIEU_NT> getDataQtKehoach(String sMaBC, String sUser,
             String sGrade, String namBC) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
@@ -1277,7 +1352,7 @@ public class XDKHDao2021 {
                 calstatement.setString(2, sUser);
                 calstatement.setString(3, sGrade);
                 calstatement.setString(4, namBC);
-                        
+
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -1343,9 +1418,8 @@ public class XDKHDao2021 {
         }
         return lstBcqt_NT;
     }
-   
-   
-   public List<QT_DULIEU_NT> getDataQtKehoachByFile( String sMaBC,  String sFileName) {
+
+    public List<QT_DULIEU_NT> getDataQtKehoachByFile(String sMaBC, String sFileName) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
             DaoConnect daoconnect = new DaoConnect();
@@ -1366,7 +1440,7 @@ public class XDKHDao2021 {
                 calstatement.setString(2, sFileName);
 //                calstatement.setString(3, sGrade);
 //                calstatement.setString(4, namBC);
-                        
+
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -1432,8 +1506,8 @@ public class XDKHDao2021 {
         }
         return lstBcqt_NT;
     }
-   
-   public List<String> getTitleData(String posCode) throws SQLException {
+
+    public List<String> getTitleData(String posCode) throws SQLException {
         List<String> lstData = new ArrayList<>();
         DaoConnect daoconnect = new DaoConnect();
         Connection conn = null;
@@ -1445,11 +1519,11 @@ public class XDKHDao2021 {
         String strStoreproce = "{call VBSP_IMS_KHNV2021.SP_GET_TITLE_DATA(?,?)}";
         try {
             //Khoi tao goi store
-            calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);            
+            calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
             calstatement.setString(1, posCode);
             //Thuc hien execute lay du lieu
-            calstatement.execute();            
+            calstatement.execute();
             reset = (ResultSet) calstatement.getObject(2);
             while (reset.next()) {
                 lstData.add(reset.getString(2));
@@ -1471,7 +1545,5 @@ public class XDKHDao2021 {
         }
         return lstData;
     }
-   
-   
-}
 
+}

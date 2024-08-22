@@ -25,6 +25,50 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
 
     private List<POSModel> custCommuneList = new ArrayList<>();
     private List<POSModel> custSubCommuneList = new ArrayList<>();
+    private String namBc_1;
+    private String namBc_2;
+    private String namBc_3;
+    private String namBc_4;
+
+    public XDKHDao2021 getDaoXdkh() {
+        return daoXdkh;
+    }
+
+    public void setDaoXdkh(XDKHDao2021 daoXdkh) {
+        this.daoXdkh = daoXdkh;
+    }
+
+    public String getNamBc_1() {
+        return namBc_1;
+    }
+
+    public void setNamBc_1(String namBc_1) {
+        this.namBc_1 = namBc_1;
+    }
+
+    public String getNamBc_2() {
+        return namBc_2;
+    }
+
+    public void setNamBc_2(String namBc_2) {
+        this.namBc_2 = namBc_2;
+    }
+
+    public String getNamBc_3() {
+        return namBc_3;
+    }
+
+    public void setNamBc_3(String namBc_3) {
+        this.namBc_3 = namBc_3;
+    }
+
+    public String getNamBc_4() {
+        return namBc_4;
+    }
+
+    public void setNamBc_4(String namBc_4) {
+        this.namBc_4 = namBc_4;
+    }
 
     public XayDungKeHoach2021() {
     }
@@ -90,6 +134,19 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
                 lstDulieuNt = daoXdkh.getDataAuthCommune(maBc, userId, reportGrade, namBc, dotBc, commune_cd, subcommune_cd);
                 lstDulieuNt2 = daoXdkh.getDataAuthCommuneSum(maBc, userId, reportGrade, namBc, dotBc, "000000", "000000");
                 return "loadAllCommuneAuth";
+            }
+            if (maBc.equals("KHNV_02_2024")) {
+                lstDulieuNt = daoXdkh.getData_02_2024(maBc, userId, reportGrade, namBc, dotBc, commune_cd);
+                int year1 = Integer.parseInt(namBc) + 1;
+                int year2 = Integer.parseInt(namBc) + 2;
+                int year3 = Integer.parseInt(namBc) + 3;
+                int year4 = Integer.parseInt(namBc) + 4;
+                namBc_1 = String.valueOf(year1);
+                namBc_2 = String.valueOf(year2);
+                namBc_3 = String.valueOf(year3);
+                namBc_4 = String.valueOf(year4);
+//                System.out.println(maBc + " 2. " + userId + " 3. " + reportGrade + " 4. " + namBc + " 5. " + dotBc + " 6. " + commune_cd);
+                return "load02_2024";
             }
 
         } catch (Exception ex) {
@@ -331,7 +388,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
 //            }
             ArrayList<POSModel> listxa = daoXdkh.getNameSubCommune(maxa, "");
             String tenthon = listxa.get(0).getDesc();
-            
+
             FileExportInfo fileInfo = excelExport.xuatExcel_Mau01_2024(pos_cd_username, maxa, mathon, tenthon, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
             if (fileInfo != null) {
                 fileNamelocal = fileInfo.fileName;

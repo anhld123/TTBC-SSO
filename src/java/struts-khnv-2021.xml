@@ -52,7 +52,8 @@
             <result name="loadAllCommuneAuth">/khnv2021/table_auth_commune.jsp</result>
             <result name="loadAllSubCommune">/khnv2021/table_all_subcommune_bycommune.jsp</result>            
             <result name="loadOneSubCommune">/khnv2021/table_detal_by_subcommune.jsp</result>     
-            <result name="load02Pos">/khnv2021/table_detal_by_pos_mau02.jsp</result>     
+            <result name="load02Pos">/khnv2021/table_detal_by_pos_mau02.jsp</result>   
+            <result name="load02_2024">/khnv2021/table_detal_02_2024.jsp</result>      
                    
         </action>
         
