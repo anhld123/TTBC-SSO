@@ -29,6 +29,15 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
     private String namBc_2;
     private String namBc_3;
     private String namBc_4;
+    private String check_count;
+
+    public String getCheck_count() {
+        return check_count;
+    }
+
+    public void setCheck_count(String check_count) {
+        this.check_count = check_count;
+    }
 
     public XDKHDao2021 getDaoXdkh() {
         return daoXdkh;
@@ -137,6 +146,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             }
             if (maBc.equals("KHNV_02_2024")) {
                 lstDulieuNt = daoXdkh.getData_02_2024(maBc, userId, reportGrade, namBc, dotBc, commune_cd);
+                int countdata = lstDulieuNt.size();
                 int year1 = Integer.parseInt(namBc) + 1;
                 int year2 = Integer.parseInt(namBc) + 2;
                 int year3 = Integer.parseInt(namBc) + 3;
@@ -145,6 +155,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
                 namBc_2 = String.valueOf(year2);
                 namBc_3 = String.valueOf(year3);
                 namBc_4 = String.valueOf(year4);
+                check_count = String.valueOf(countdata);
 //                System.out.println(maBc + " 2. " + userId + " 3. " + reportGrade + " 4. " + namBc + " 5. " + dotBc + " 6. " + commune_cd);
                 return "load02_2024";
             }

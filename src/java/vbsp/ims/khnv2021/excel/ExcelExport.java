@@ -1087,7 +1087,7 @@ public class ExcelExport {
                 String strTitle = "NHU CẦU VAY VỐN TÍN DỤNG CHÍNH SÁCH GIAI ĐOẠN " + namBc + " - " + (Integer.parseInt(namBc) + 4);
                 XSSFCell xssfCellTitle = sheet.getRow(3).getCell(0, Row.CREATE_NULL_AS_BLANK);
                 XSSFCell xssfCellTitle0 = sheet.getRow(3).getCell(28, Row.CREATE_NULL_AS_BLANK);
-                XSSFCell xssfCellTitle1 = sheet.getRow(3).getCell(52, Row.CREATE_NULL_AS_BLANK);
+                XSSFCell xssfCellTitle1 = sheet.getRow(3).getCell(51, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(xssfCellTitle, strTitle);
                 fillTitle(xssfCellTitle0, strTitle);
                 fillTitle(xssfCellTitle1, strTitle);
@@ -1097,7 +1097,7 @@ public class ExcelExport {
 
                 XSSFCell xssfCellTitle2 = sheet.getRow(4).getCell(0, Row.CREATE_NULL_AS_BLANK);
                 XSSFCell xssfCellTitle3 = sheet.getRow(4).getCell(28, Row.CREATE_NULL_AS_BLANK);
-                XSSFCell xssfCellTitle4 = sheet.getRow(4).getCell(52, Row.CREATE_NULL_AS_BLANK);
+                XSSFCell xssfCellTitle4 = sheet.getRow(4).getCell(51, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(xssfCellTitle2, strTitle1);
                 fillTitle(xssfCellTitle3, strTitle1);
                 fillTitle(xssfCellTitle4, strTitle1);
@@ -1127,7 +1127,7 @@ public class ExcelExport {
                     XSSFCell xssfCell46 = xssfRow.getCell(48, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 
                     for (int ii = 4; ii < 67; ii++) {
-                        if (ii == 4 || ii == 5 || ii == 20 || ii == 35 || ii == 48) {
+                        if (ii == 4 || ii == 5 || ii == 20 || ii == 28 || ii == 35 || ii == 48) {
                             continue; // Bỏ qua giá trị này và tiếp tục vòng lặp
                         }
                         XSSFCell xssfCell = xssfRow.getCell(ii, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -1139,7 +1139,7 @@ public class ExcelExport {
                         // Lấy giá trị tương ứng từ getD1 đến getD63
                         try {
                             // Bỏ qua cell 2 và 3
-                            if (ii != 4 && ii != 5 && ii != 20 && ii != 35 && ii != 48) {
+                            if (ii != 4 && ii != 5 && ii != 20 && ii != 28 && ii != 35 && ii != 48) {
                                 Method method = lstData.get(i).getClass().getMethod("getD" + (ii - 3));
                                 Object value = method.invoke(lstData.get(i));
                                 if (value != null) {

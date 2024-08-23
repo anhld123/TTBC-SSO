@@ -75,6 +75,35 @@
                 color: #0077b3;
                 text-align: center;
             }
+             @-webkit-keyframes my {
+        0% { color: red; } 
+        50% { color: #fff;  } 
+        100% { color: red;  } 
+    }
+    @-moz-keyframes my { 
+        0% { color: red;  } 
+        50% { color: #fff;  }
+        100% { color: red;  } 
+    }
+    @-o-keyframes my { 
+        0% { color: red; } 
+        50% { color: #fff; } 
+        100% { color: red;  } 
+    }
+    @keyframes my { 
+        0% { color: red;  } 
+        50% { color: #fff;  }
+        100% { color: red;  } 
+    } 
+    .color_11 {
+        background:#fff;
+        font-size:14px;
+        font-weight:bold;
+        -webkit-animation: my 700ms infinite;
+        -moz-animation: my 700ms infinite; 
+        -o-animation: my 700ms infinite; 
+        animation: my 700ms infinite;
+    }
         </style>  
         <script>
             var max_row = 0;
@@ -119,8 +148,9 @@
             <br>
             <s:hidden name="namBc_pre"/>
             <div id="divTitle">
-                KẾ HOẠCH TÍN DỤNG CỦA PGD                   
+                KẾ HOẠCH TÍN DỤNG GIAI ĐOẠN <s:property value="namBc"/> - <s:property value="namBc_4"/>                   
             </div>
+                <s:if test="!check_count.equalsIgnoreCase('0')">
             <s:hidden name="khoa_nhaptaycn"/>
             </br>
             <div style=" width: 98vw;height: 400px;">
@@ -205,7 +235,7 @@
                                 <s:else></s:else>">
                                 <s:property value="TEN"/>
                             </td>
-
+                            
                             <td style="text-align:right"
                                 class="<s:if test="KIEUIN.toString().equalsIgnoreCase('1')">number Bold_1</s:if>
                                 <s:elseif test="KIEUIN.toString().equalsIgnoreCase('2')">number Italic_1</s:elseif>
@@ -323,7 +353,8 @@
 
                         </tr>                                                                                                       
                     </s:iterator>
-
+                </s:if>
+                        <s:else><a style="color: red; font-size: 15px;" class="Bold_1 color_11">Chưa có dữ liệu</a></s:else>
                 </table> 
             </div>
         </s:form>
