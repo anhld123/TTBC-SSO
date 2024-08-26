@@ -49,6 +49,7 @@ import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -1502,6 +1503,86 @@ public class ExcelExport {
                         }
                     }
                 }
+                CellStyle defaultStyle = workbook.createCellStyle();
+
+                int startRow = lstData.size() + 11; 
+                for (int i = sheet.getNumMergedRegions() - 1; i >= 0; i--) {
+                    CellRangeAddress mergedRegion = sheet.getMergedRegion(i);
+                    if (mergedRegion.getFirstRow() >= startRow) {
+                        sheet.removeMergedRegion(i);
+                    }
+                }
+
+                for (int i = startRow; i <= sheet.getLastRowNum(); i++) {
+                    XSSFRow row = sheet.getRow(i);
+                    if (row != null) {
+                        for (Cell cell : row) {
+                            // Loại bỏ wrap text
+                            cell.getCellStyle().setWrapText(false);
+                            cell.setCellStyle(defaultStyle);
+                        }
+                        sheet.removeRow(row);
+                    }
+                }
+                if (startRow <= sheet.getLastRowNum()) {
+                    sheet.shiftRows(startRow + 1, sheet.getLastRowNum(), startRow - sheet.getLastRowNum() - 1);
+                }
+                // đóng khung dòng cuối
+                int lastRowNum = sheet.getLastRowNum();
+                XSSFRow lastRow = sheet.getRow(lastRowNum);
+                if (lastRow == null) {
+                    lastRow = sheet.createRow(lastRowNum);
+                }
+                XSSFRow borderRow = sheet.createRow(lastRowNum + 1);
+                XSSFCellStyle borderStyle = sheet.getWorkbook().createCellStyle();
+                borderStyle.setBorderTop(BorderStyle.THIN);
+                for (int i = 0; i < lastRow.getLastCellNum(); i++) {
+                    if (borderRow.getCell(i) == null) {
+                        borderRow.createCell(i);
+                    }
+                    borderRow.getCell(i).setCellStyle(borderStyle);
+                }
+                int startRowNum = lstData.size() + 12;
+                XSSFRow row1 = sheet.createRow(startRowNum);
+                XSSFRow row2 = sheet.createRow(startRowNum + 1);
+                XSSFRow row3 = sheet.createRow(startRowNum + 2);
+
+                XSSFCell cell1_1 = row1.createCell(14);
+                cell1_1.setCellValue("…, ngày … tháng … Năm ……");
+
+                XSSFCell cell1_2 = row2.createCell(2);
+                cell1_2.setCellValue("GIÁM ĐỐC");
+
+                XSSFCell cell1_3 = row2.createCell(14);
+                cell1_3.setCellValue("TRƯỞNG BĐD HĐQT - NHCSXH");
+
+                XSSFCell cell2_2 = row3.createCell(2);
+                cell2_2.setCellValue("(Ký tên)");
+                XSSFCell cell2_3 = row3.createCell(14);
+                cell2_3.setCellValue("(Ký tên, đóng dấu)");
+
+                XSSFCellStyle signatureStyle = xssfWorkbook.createCellStyle();
+                XSSFFont signatureBoldFont = xssfWorkbook.createFont();
+                signatureBoldFont.setBold(true);
+                signatureBoldFont.setFontHeightInPoints((short) 12); // Set cỡ chữ 12
+                signatureBoldFont.setFontName("Times New Roman");
+                signatureStyle.setFont(signatureBoldFont);
+                signatureStyle.setAlignment(HorizontalAlignment.CENTER);
+
+                cell1_2.setCellStyle(signatureStyle);
+                cell1_3.setCellStyle(signatureStyle);
+
+                XSSFCellStyle italicStyle = xssfWorkbook.createCellStyle();
+                XSSFFont italicFont = xssfWorkbook.createFont();
+                italicFont.setItalic(true);
+                italicFont.setFontHeightInPoints((short) 12); // Set cỡ chữ 12
+                italicFont.setFontName("Times New Roman");
+                italicStyle.setFont(italicFont);
+                italicStyle.setAlignment(HorizontalAlignment.CENTER);
+                cell1_1.setCellStyle(italicStyle);
+                cell2_2.setCellStyle(italicStyle);
+                cell2_3.setCellStyle(italicStyle);
+
                 FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
                 formulaEvaluator.evaluateAll();
                 sheet.protectSheet("khnv2024");
