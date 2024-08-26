@@ -1447,26 +1447,36 @@ public class ExcelExport {
                     for (int ii = 3; ii < 22; ii++) {
                         XSSFCell xssfCell = xssfRow.getCell(ii, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 
-                        if (lstData.get(i).getKIEUIN() == 1) {
-                            if (ii == 3 || ii == 4 || ii == 6 || ii == 7 || ii == 9 || ii == 10 || ii == 12 || ii == 13
+                        if (lstData.get(i).getKIEUIN() == 1) {                            
+                            if (
+                                    //ii == 3 || ii == 4 || 
+                                    ii == 6 || ii == 7 || ii == 9 || ii == 10 || ii == 12 || ii == 13
                                     || ii == 15 || ii == 16 || ii == 18 || ii == 19 || ii == 20 || ii == 21
-                                    || i == 0 || i == 1 || i == 2 || i == 7 || i == 8 || i == 23 || i == 38 || i == 51) {
+                                    || i == 0 || i == 1 || i == 2 || i == 3 || i == 7 || i == 8 || i == 23 || i == 38 || i == 51
+                                    || (i > 7 && i < 74 && i != 54)
+                                    ) {
                                 xssfCell.setCellStyle(numberStyle11);
                             } else {
                                 xssfCell.setCellStyle(numberStyle1);
                             }
                         } else if (lstData.get(i).getKIEUIN() == 2) {
-                            if (ii == 3 || ii == 4 || ii == 6 || ii == 7 || ii == 9 || ii == 10 || ii == 12 || ii == 13
+                            if (
+                                    //ii == 3 || ii == 4 || 
+                                    ii == 6 || ii == 7 || ii == 9 || ii == 10 || ii == 12 || ii == 13
                                     || ii == 15 || ii == 16 || ii == 18 || ii == 19 || ii == 20 || ii == 21
-                                    || i == 0 || i == 1 || i == 2 || i == 7 || i == 8 || i == 23 || i == 38 || i == 51) {
+                                    || i == 0 || i == 1 || i == 2 || i == 3|| i == 7 || i == 8 || i == 23 || i == 38 || i == 51
+                                    || (i > 7 && i < 74 && i != 54)) {
                                 xssfCell.setCellStyle(numberStyle22);
                             } else {
                                 xssfCell.setCellStyle(numberStyle2);
                             }
                         } else {
-                            if (ii == 3 || ii == 4 || ii == 6 || ii == 7 || ii == 9 || ii == 10 || ii == 12 || ii == 13
+                            if (
+                                    //ii == 3 || ii == 4 || 
+                                    ii == 6 || ii == 7 || ii == 9 || ii == 10 || ii == 12 || ii == 13
                                     || ii == 15 || ii == 16 || ii == 18 || ii == 19 || ii == 20 || ii == 21
-                                    || i == 0 || i == 1 || i == 2 || i == 7 || i == 8 || i == 23 || i == 38 || i == 51) {
+                                    || i == 0 || i == 1 || i == 2 || i == 3|| i == 7 || i == 8 || i == 23 || i == 38 || i == 51
+                                    || (i > 7 && i < 74 && i != 54)) {
                                 xssfCell.setCellStyle(numberStyle00);
                             } else {
                                 xssfCell.setCellStyle(numberStyle);
