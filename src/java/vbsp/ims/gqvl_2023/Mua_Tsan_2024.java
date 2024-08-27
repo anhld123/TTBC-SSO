@@ -34,6 +34,7 @@ import vbsp.ims.restapi.DuLieuNTRowX;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.ListOfValue;
 import vbsp.ims.restapi.LockSendModel;
+import vbsp.ims.util.DateUtil;
 
 /**
  *
@@ -44,7 +45,9 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
 
     Service_GQVL2023 _server;
     DaoNghiquyet11cp _serverlocal;
+    DuLieuNTService _serverAPI;
     private List<QT_DULIEU_NT> lstData;
+    private List<DuLieuNTRow> lstData_Api;
     private List<ListOfValue> lstTaisan;
     private List<LockSendModel> lstData_tmp1;
     protected List<String> poscd_face = new ArrayList<String>();
@@ -61,6 +64,14 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
     private String lock_CN;
     private String chotsl;
 //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public DuLieuNTService getServerAPI() {
+        return _serverAPI;
+    }
+
+    public void setServerAPI(DuLieuNTService _serverAPI) {
+        this._serverAPI = _serverAPI;
+    }
 
     public List<LockSendModel> getLstData_tmp1() {
         return lstData_tmp1;
@@ -219,6 +230,7 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
             _serverlocal = new DaoNghiquyet11cp();
+            _server = new Service_GQVL2023();
             poscd_face = Arrays.asList(pos_cd_username);
             lstTaisan = _service_listts.getListOfValue("110", "");
             String pos = poscd.toString().replace("[", "").replace("]", "") == null || poscd.toString().replace("[", "").replace("]", "").isEmpty() ? pos_cd_username : poscd.toString().replace("[", "").replace("]", "");
@@ -240,17 +252,19 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
             } catch (Exception e) {
                 setChotsl("0");
             }
-            lstData = _serverlocal.getData_Muasam_2024(conn, "KTTC_MUASAM_01", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
-            for (QT_DULIEU_NT item : lstData) {
+
+            lstData_Api = _server.getCustomers(pos, "S", dateStr, "1", "KTTC_MUASAM_01");
+            for (DuLieuNTRow item : lstData_Api) {
                 QT_DULIEU_NT row = new QT_DULIEU_NT();
                 try {
-                    row.setKHOA(item.getKHOA());
-                    row.setTHUTU(item.getTHUTU());
-                    row.setTT_HIENTHI(item.getTT_HIENTHI());
-                    row.setMA(item.getMA());
-                    row.setNGAYBC(item.getNGAYBC());
+                    row.setKHOA(item.getKey());
+                    row.setTHUTU(0);
+                    row.setTT_HIENTHI(item.getOrderDescription());
+                    row.setMA(item.getCode());
+                    Date reportDate = DateUtil.toDate(item.getReportDate());
+                    row.setNGAYBC(reportDate);
                     row.setNAMBC(year);
-                    row.setMAPGD(item.getMAPGD());
+                    row.setMAPGD(item.getPosCode());
                     row.setMACN(main_pos_username);
                     row.setD1(item.getD1());
                     row.setD2(item.getD2());
@@ -267,9 +281,43 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
                     lstDulieuNt.add(row);
                 } catch (Exception e) {
                 }
-                setMaPgd(item.getMAPGD());
+                setMaPgd(item.getPosCode());
                 setTenPgd(item.getD1());
                 setLock_PGD(item.getD12());
+            }
+            if (lstData_Api == null || lstData_Api.isEmpty()) {
+                lstData = _serverlocal.getData_Muasam_2024(conn, "KTTC_MUASAM_01", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
+
+                for (QT_DULIEU_NT item : lstData) {
+                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+                    try {
+                        row.setKHOA(item.getKHOA());
+                        row.setTHUTU(item.getTHUTU());
+                        row.setTT_HIENTHI(item.getTT_HIENTHI());
+                        row.setMA(item.getMA());
+                        row.setNGAYBC(item.getNGAYBC());
+                        row.setNAMBC(year);
+                        row.setMAPGD(item.getMAPGD());
+                        row.setMACN(main_pos_username);
+                        row.setD1(item.getD1());
+                        row.setD2(item.getD2());
+                        row.setD3(item.getD3());
+                        row.setD4(item.getD4());
+                        row.setD5(item.getD5());
+                        row.setD6(item.getD6());
+                        row.setD7(item.getD7());
+                        row.setD8(item.getD8());
+                        row.setD9(item.getD9());
+                        row.setD10(item.getD10());
+                        row.setD11(item.getD11());
+                        row.setD12(item.getD12());
+                        lstDulieuNt.add(row);
+                    } catch (Exception e) {
+                    }
+                    setMaPgd(item.getMAPGD());
+                    setTenPgd(item.getD1());
+                    setLock_PGD(item.getD12());
+                }
                 if (conn != null) {
                     conn.close();
                 }
@@ -651,7 +699,7 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
         }
         return SUCCESS;
     }
-    
+
     public String delete() {
         System.out.println("vao váe");
         try {
