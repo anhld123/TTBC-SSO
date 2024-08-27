@@ -234,7 +234,7 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
             poscd_face = Arrays.asList(pos_cd_username);
             lstTaisan = _service_listts.getListOfValue("110", "");
             String pos = poscd.toString().replace("[", "").replace("]", "") == null || poscd.toString().replace("[", "").replace("]", "").isEmpty() ? pos_cd_username : poscd.toString().replace("[", "").replace("]", "");
-            if (!Grade.equals("1") && (poscd.size() == 0 || poscd.get(0).equals("999999"))) {
+            if (!Grade.equals("1") && (poscd.isEmpty() || poscd.get(0).equals("999999") || poscd.size() > 1)) {
                 addActionError("Vui lòng chọn từng phòng giao dịch để xem dữ liệu!");
                 return ERROR;
             }
@@ -416,14 +416,24 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
 
             _service_listts = new DuLieuNTService();
             int status = _service_listts.updateData("KTTC_MUASAM_01", pos, PosFlag, _reportDate, "", "", lstUpdateDate);
-            System.out.println(status);
-            if (status == 200) {
-                if (!daoMain.saveMSTS_2024("KTTC_MUASAM_01", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstLocalDataUpdate, pos)) {
-                    addActionError("Thất bại: Lưu dữ liệu tại chi nhánh không thành công!");
-                    String code = String.valueOf(2);
-                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                    return ERROR;
-                }
+//            System.out.println(status);
+//            if (status == 200) {
+//                if (!daoMain.saveMSTS_2024("KTTC_MUASAM_01", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstLocalDataUpdate, pos)) {
+//                    addActionError("Thất bại: Lưu dữ liệu tại chi nhánh không thành công!");
+//                    String code = String.valueOf(2);
+//                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+//                    return ERROR;
+//                }
+//            }
+            if (status != 200) {
+                String code = String.valueOf(status);
+                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                return SUCCESS;
+            } else if (status == 200 && !Grade.equals("1")) {
+                _service_listts.updateChotSL("KTTC_MUASAM_01", pos, "S", _reportDate, "0", UserName, null);
+                String code = String.valueOf(status);
+                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                return SUCCESS;
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> muats2024: " + e.getMessage());
@@ -517,14 +527,20 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
 
             _service_listts = new DuLieuNTService();
             int status = _service_listts.updateData("KTTC_MUASAM_01", pos, PosFlag, _reportDate, "", "", lstUpdateDate);
-            System.out.println(status);
+//            System.out.println(status);
+//            if (status == 200) {
+//                if (!daoMain.saveMSTS_2024("KTTC_MUASAM_01", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstLocalDataUpdate, pos)) {
+//                    addActionError("Thất bại: Gửi dữ liệu cấp chi nhánh không thành công!");
+//                    String code = String.valueOf(2);
+//                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+//                    return ERROR;
+//                }
+//            }
             if (status == 200) {
-                if (!daoMain.saveMSTS_2024("KTTC_MUASAM_01", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstLocalDataUpdate, pos)) {
-                    addActionError("Thất bại: Gửi dữ liệu cấp chi nhánh không thành công!");
-                    String code = String.valueOf(2);
-                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                    return ERROR;
-                }
+                _service_listts.updateChotSL("KTTC_MUASAM_01", pos, "S", _reportDate, "1", UserName, null);
+                String code = String.valueOf(status);
+                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                return SUCCESS;
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> muats2024: " + e.getMessage());
@@ -565,26 +581,29 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
                 addActionError("Chọn 'Hội sở' để xem tình trạng gửi dữ liệu của các PGD");
                 return ERROR;
             }
+//            if (poscd.get(0).equals("999999")) {
+//                lstDulieuNt = _serverlocal.seach_StatusMSTS(conn, sngaybc, "KTTC_MUASAM_01", main_pos_username);
+
             if (poscd.get(0).equals("999999")) {
-                lstDulieuNt = _serverlocal.seach_StatusMSTS(conn, sngaybc, "KTTC_MUASAM_01", main_pos_username);
+                for (String pos : poscd) {
+                    if (!pos.equals("999999")) {
+                        ArrayList<LockSendModel> lstData_tmp = _service_listts.getDataLockManual("KTTC_MUASAM_01", pos, "S", _reportDate);
 
-                if (poscd.get(0).equals("999999")) {
-                    for (String pos : poscd) {
-                        if (!pos.equals("999999")) {
-                            ArrayList<LockSendModel> lstData_tmp = _service_listts.getDataLockManual("KTTC_MUASAM_01", pos, "S", _reportDate);
-
-                            // Định dạng ngày trước khi thêm vào danh sách
-                            for (LockSendModel item : lstData_tmp) {
-                                if (item.getUpdateDate() != null) {
-                                    item.setUpdateDate(dateHienthi.format(sdf.parse(item.getUpdateDate())));
-                                }
+                        // Định dạng ngày trước khi thêm vào danh sách
+                        for (LockSendModel item : lstData_tmp) {
+                            if (item.getUpdateDate() != null) {
+                                item.setUpdateDate(dateHienthi.format(sdf.parse(item.getUpdateDate())));
                             }
-                            allCustomers.addAll(lstData_tmp);
+                            if (item.getReportDate() != null) {
+                                item.setReportDate(dateHienthi.format(sdf.parse(item.getReportDate())));
+                            }
                         }
+                        allCustomers.addAll(lstData_tmp);
                     }
                 }
                 this.lstData_tmp1 = allCustomers;
-            } else {
+            } //            } 
+            else {
                 addActionError("Chọn 'Hội sở' để xem tình trạng gửi dữ liệu của các PGD");
                 return ERROR;
             }
@@ -647,7 +666,7 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
 
             _service_listts = new DuLieuNTService();
             System.out.println(pos);
-            if (pos == null || pos == "999999") {
+            if (pos == null || pos == "999999" || poscd.size() > 1) {
                 addActionError("Chọn 1 PGD 'Tải dữ liệu' để xem và 'Chốt số liệu'");
                 return ERROR;
             }
@@ -655,12 +674,12 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
 
             // Kiểm tra trạng thái và thực hiện chốt số liệu
             if (lstData_tmp != null && !lstData_tmp.isEmpty()) {
-                if (lstData_tmp.get(0).getStatus().equals("1")) {
+                if (lstData_tmp.get(0).getStatus().equals("2")) {
                     addActionError("Dữ liệu đã chốt với TW, không thể chốt dữ liệu nữa.");
                     return ERROR;
                 }
             }
-            _service_listts.updateChotSL("KTTC_MUASAM_01", pos, "S", _reportDate, "1", UserName, null);
+            _service_listts.updateChotSL("KTTC_MUASAM_01", pos, "S", _reportDate, "2", UserName, null);
             addActionMessage("Bạn đã chốt dữ liệu và gửi lên TW thành công");
             return SUCCESS;
         } catch (Exception e) {
@@ -782,14 +801,19 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
 
             _service_listts = new DuLieuNTService();
             int status = _service_listts.deleteManualData("KTTC_MUASAM_01", pos, PosFlag, _reportDate, "", "", lstUpdateDate);
-            System.out.println(status);
-            if (status == 200) {
-                if (!daoMain.deleteMSTS_2024("KTTC_MUASAM_01", hmParameter.get("ngay_bc").toString(), pos)) {
-                    addActionError("Thất bại: Xóa dữ liệu tại chi nhánh không thành công!");
-                    String code = String.valueOf(2);
-                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                    return ERROR;
-                }
+//            System.out.println(status);
+//            if (status == 200) {
+//                if (!daoMain.deleteMSTS_2024("KTTC_MUASAM_01", hmParameter.get("ngay_bc").toString(), pos)) {
+//                    addActionError("Thất bại: Xóa dữ liệu tại chi nhánh không thành công!");
+//                    String code = String.valueOf(2);
+//                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+//                    return ERROR;
+//                }
+//            }
+            if (status != 200) {
+                String code = String.valueOf(status);
+                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                return SUCCESS;
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> muats2024: " + e.getMessage());
