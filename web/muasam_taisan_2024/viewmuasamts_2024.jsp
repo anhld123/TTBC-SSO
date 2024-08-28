@@ -309,13 +309,13 @@
                             <input type="text" value="<s:property value="%{#rowstatus.index + 1}" />"
                                    id="TT_HIENTHI_<s:property  value='%{#rowstatus.index}' />" readonly="true"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="STT1 D0"/>
-                            <s:if test="!Grade.equalsIgnoreCase('1')">
+                            <%--<s:if test="!Grade.equalsIgnoreCase('1')">--%>
                                 <input type="hidden" value="<s:property  value="MACN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN"/>                             
                                 <input type="hidden" value="<s:property  value="MAPGD" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD"/>                             
                                 <input type="hidden" value="<s:property  value="MA" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/>
                                 <input type="hidden" value="<s:property  value="NGUOI_NHAP" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NGUOI_NHAP"/>                             
                                 <input type="hidden" value="<s:property  value="NGUOI_DUYET" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NGUOI_DUYET"/>
-                            </s:if>
+                            <%--</s:if>--%>
                         </td>                                     
                         <td>
                             <input type="text" value="<s:property  value="MAPGD" />"

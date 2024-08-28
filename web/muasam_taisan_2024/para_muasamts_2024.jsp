@@ -224,7 +224,7 @@
             <s:if test="Grade.equalsIgnoreCase('1')">
                     var lock = document.getElementById("lock_temp").value;
                     var chot = document.getElementById("chotsl_temp").value;
-                    if (lock === "1" || chot === "2") {
+                    if (chot === "1" ||chot === "2") {
                         alert("Dữ liệu đã gửi, không thể lưu.");
                         isValid = false; // Không cho phép lưu dữ liệu
                         onLoadData();

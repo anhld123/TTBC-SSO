@@ -364,7 +364,7 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
                 tempadd.setKey("KTTC_MUASAM_01");
                 tempadd.setOrderDescription(tmp.getTT_HIENTHI());
                 tempadd.setName(tmp.getD1());
-                tempadd.setCode(pos + iStt + PosFlag + _reportDate + tmp.getD6() + tmp.getTT_HIENTHI());
+                tempadd.setCode(tmp.getMA() == null && tmp.getMA().isEmpty() ? pos + iStt + PosFlag + _reportDate + tmp.getD6() + tmp.getTT_HIENTHI() : tmp.getMA());
                 tempadd.setMakerId(UserName);
                 tempadd.setMakerDate(_reportDate1);
                 tempadd.setAuthoriseId(UserName);
