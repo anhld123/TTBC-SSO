@@ -1105,8 +1105,7 @@ public class ExcelExport {
                 fillTitle(xssfCellTitle4, strTitle1);
 
                 XSSFWorkbook workbook = sheet.getWorkbook();
-                
-                
+
                 XSSFCellStyle boldStyle = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.CENTER, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
                 XSSFCellStyle orderStyle = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
                 XSSFCellStyle codeStyle = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, false);
@@ -1303,84 +1302,55 @@ public class ExcelExport {
         String strTimeFile = Long.toString(System.currentTimeMillis());
         String zipFile = "FileNen_KHNV02_2024" + strTimeFile + ".zip", zipPath = "";
         String posCode = pos.getId();
-
         try {
-
-            //xu ly cho export file ra PDF hoac la Excel
-            Date dReportDate = new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate);
-            String strCurrDate = new SimpleDateFormat("ddMMyyyy").format(dReportDate);
-            //duong dan chua file tren o dia + Define.M_REPORT_XLS
-            //String strPathSave = savedDirPath;
-            //Ham nay lay ra ten file bao cao can tao, ten file jasper report
+            Date dReportDate = (new SimpleDateFormat("dd-MMM-yyyy")).parse(reportDate);
+            String strCurrDate = (new SimpleDateFormat("ddMMyyyy")).format(dReportDate);
             String strPosFlag = "";
             if (posFlag.equals("N")) {
                 strPosFlag = "S";
             } else {
                 strPosFlag = "M";
             }
-
             DaoMau02 daoMau02 = new DaoMau02();
-
             List<DistrictInfo> lstDistrict = daoMau02.getDistrictByPos(posCode);
-            String templateFile = savedDirPath + Define.M_EXCEL_TEMP + "/KHNV/KHNV_02_2024.xlsx";
-
-//            for (DistrictInfo district : lstDistrict) {
-            String strFileSave = "KHNV_02_2024_" + posCode + "_" + strPosFlag //+ "_" + district.districtCode
-                    + "_" + strCurrDate
-                    + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
-
-            String strPathSave = savedDirPath + Define.M_REPORT_XLS;
-            strFileSave += ".XLSX";
+            String templateFile = savedDirPath + "EXCEL_TEMPLATE/" + "/KHNV/KHNV_02_2024.xlsx";
+            String strFileSave = "KHNV_02_2024_" + posCode + "_" + strPosFlag + "_" + strCurrDate + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
+            String strPathSave = savedDirPath + "EXPORT_REPORT/XLS/";
+            strFileSave = strFileSave + ".XLSX";
             filePath = strFileSave;
-
             fileName = strPathSave + strFileSave;
             File source = new File(templateFile);
             File dest = new File(fileName);
-
             FileUtil.copyFile(source, dest);
-
-            // Get data
             List<DULIEU_NT_100> lstData = daoMau02.getExportData_02_2024(posCode, posFlag, "", reportDate);
-
             if (lstData.size() > 0) {
-
-                // Fill data              
                 XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new java.io.FileInputStream(fileName));
                 XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
-
                 XSSFWorkbook workbook = sheet.getWorkbook();
-                
                 XSSFCellStyle boldStyle = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.CENTER, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
                 XSSFCellStyle leftStyle = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.LEFT, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
                 XSSFCellStyle codeStyleSTT = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.CENTER, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
                 XSSFCellStyle codeStyle = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.LEFT, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
                 XSSFCellStyle italicsStyle = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.LEFT, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
                 XSSFCellStyle italicsStyleSTT = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.CENTER, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
-
                 XSSFCellStyle numberStyle = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, false);
                 XSSFCellStyle numberStylep = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, true, false);
                 XSSFCellStyle numberStylea = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, true);
-
                 XSSFCellStyle numberStyle1 = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, false);
                 XSSFCellStyle numberStyle1p = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, true, false);
                 XSSFCellStyle numberStyle1a = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, true);
-
                 XSSFCellStyle numberStyle2 = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, false);
                 XSSFCellStyle numberStyle2p = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, true, false);
                 XSSFCellStyle numberStyle2a = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, true);
-
                 XSSFCellStyle numberStyle00 = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
                 XSSFCellStyle numberStyle00p = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, true, false);
                 XSSFCellStyle numberStyle00a = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, true);
-
                 XSSFCellStyle numberStyle11 = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
                 XSSFCellStyle numberStyle11p = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, true, false);
                 XSSFCellStyle numberStyle11a = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, true);
-
                 XSSFCellStyle numberStyle22 = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
                 XSSFCellStyle numberStyle22p = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, true, false);
                 XSSFCellStyle numberStyle22a = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, true);
-
                 String strTitle = "KẾ HOẠCH TÍN DỤNG GIAI ĐOẠN " + namBc + " - " + (Integer.parseInt(namBc) + 4);
                 XSSFCell xssfCellTitle = sheet.getRow(4).getCell(0, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(xssfCellTitle, strTitle);
@@ -1439,113 +1409,118 @@ public class ExcelExport {
                 String colTitle101 = "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 1);
                 colTitle = sheet.getRow(7).getCell(20, Row.CREATE_NULL_AS_BLANK);
                 fillTitle(colTitle, colTitle101);
-
                 for (int i = 0; i < lstData.size(); i++) {
                     XSSFRow xssfRow = sheet.getRow(i + 11);
                     if (xssfRow == null) {
                         xssfRow = sheet.createRow(i + 11);
                     }
-
                     XSSFCell xssfCell00 = xssfRow.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                     XSSFCell xssfCell02 = xssfRow.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                     XSSFCell xssfCell01 = xssfRow.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-
-                    if (lstData.get(i).getKIEUIN() == 1) {
-                        xssfCell00.setCellStyle(boldStyle);
-                        xssfCell02.setCellStyle(codeStyleSTT);
-                        xssfCell01.setCellStyle(leftStyle);
-                    } else if (lstData.get(i).getKIEUIN() == 2) {
-                        xssfCell00.setCellStyle(italicsStyleSTT);
-                        xssfCell02.setCellStyle(codeStyleSTT);
-                        xssfCell01.setCellStyle(italicsStyle);
+                    if (((DULIEU_NT_100) lstData.get(i)).getKIEUIN() == 1) {
+                        xssfCell00.setCellStyle((CellStyle) boldStyle);
+                        xssfCell02.setCellStyle((CellStyle) codeStyleSTT);
+                        xssfCell01.setCellStyle((CellStyle) leftStyle);
+                    } else if (((DULIEU_NT_100) lstData.get(i)).getKIEUIN() == 2) {
+                        xssfCell00.setCellStyle((CellStyle) italicsStyleSTT);
+                        xssfCell02.setCellStyle((CellStyle) codeStyleSTT);
+                        xssfCell01.setCellStyle((CellStyle) italicsStyle);
                     } else {
-                        xssfCell00.setCellStyle(codeStyleSTT);
-                        xssfCell02.setCellStyle(codeStyleSTT);
-                        xssfCell01.setCellStyle(codeStyle);
+                        xssfCell00.setCellStyle((CellStyle) codeStyleSTT);
+                        xssfCell02.setCellStyle((CellStyle) codeStyleSTT);
+                        xssfCell01.setCellStyle((CellStyle) codeStyle);
                     }
-                    xssfCell00.setCellValue(lstData.get(i).getTT_HIENTHI());
-                    xssfCell02.setCellValue(lstData.get(i).getMA());
-                    xssfCell01.setCellValue(lstData.get(i).getTEN());
-
+                    xssfCell00.setCellValue(((DULIEU_NT_100) lstData.get(i)).getTT_HIENTHI());
+                    xssfCell02.setCellValue(((DULIEU_NT_100) lstData.get(i)).getMA());
+                    xssfCell01.setCellValue(((DULIEU_NT_100) lstData.get(i)).getTEN());
                     int[] _arrIncludeCol = {3, 4};
-                    int[] _arrExcludeCol = {6, 7, 9, 10, 12, 13, 15, 16, 18, 19, 20, 21};
-                    int[] _arrLockRow = {0, 1, 2, 3, 7, 8, 23, 31, 38, 51, 55};
-
+                    int[] _arrExcludeCol = {
+                        6, 7, 9, 10, 12, 13, 15, 16, 18, 19,
+                        20, 21};
+                    int[] _arrLockRow = {
+                        0, 1, 2, 3, 7, 8, 23, 31, 38, 51,
+                        55};
                     int[] _arrPercentCol = {7, 10, 13, 16, 19, 21};
                     int[] _arrAbsoluteCol = {6, 9, 12, 15, 18, 20};
-
                     for (int ii = 3; ii < 22; ii++) {
                         XSSFCell xssfCell = xssfRow.getCell(ii, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-
-                                    
+                        if (((DULIEU_NT_100) lstData.get(i)).getKIEUIN() == 1) {
+                            if (inArray(_arrExcludeCol, ii)
+                                    || inArray(_arrLockRow, i) || (i > 7 && i < 72 && i != 54
+                                    && !inArray(_arrIncludeCol, ii))) {
                                 if (inArray(_arrPercentCol, ii)) {
-                                    xssfCell.setCellStyle(numberStyle1p);
+                                    xssfCell.setCellStyle((CellStyle) numberStyle11p);
+                                } else if (inArray(_arrAbsoluteCol, ii)) {
+                                    xssfCell.setCellStyle((CellStyle) numberStyle11a);
                                 } else {
-                                    if (inArray(_arrAbsoluteCol, ii)) {
-                                        xssfCell.setCellStyle(numberStyle1a);
-                                    } else {
-                                        xssfCell.setCellStyle(numberStyle1);
-                                    }
-
+                                    xssfCell.setCellStyle((CellStyle) numberStyle11);
                                 }
-
+                            } else if (inArray(_arrPercentCol, ii)) {
+                                xssfCell.setCellStyle((CellStyle) numberStyle1p);
+                            } else if (inArray(_arrAbsoluteCol, ii)) {
+                                xssfCell.setCellStyle((CellStyle) numberStyle1a);
+                            } else {
+                                xssfCell.setCellStyle((CellStyle) numberStyle1);
                             }
-                        } else if (lstData.get(i).getKIEUIN() == 2) {
-                            if (
+                        } else if (((DULIEU_NT_100) lstData.get(i)).getKIEUIN() == 2) {
+                            if (inArray(_arrExcludeCol, ii)
+                                    || inArray(_arrLockRow, i) || (i > 7 && i < 72 && i != 54
+                                    && !inArray(_arrIncludeCol, ii))) {
                                 if (inArray(_arrPercentCol, ii)) {
-                                    xssfCell.setCellStyle(numberStyle2p);
+                                    xssfCell.setCellStyle((CellStyle) numberStyle22p);
+                                } else if (inArray(_arrAbsoluteCol, ii)) {
+                                    xssfCell.setCellStyle((CellStyle) numberStyle22a);
                                 } else {
-                                    if (inArray(_arrAbsoluteCol, ii)) {
-                                        xssfCell.setCellStyle(numberStyle2a);
-                                    } else {
-                                        xssfCell.setCellStyle(numberStyle2);
-                                    }
-
+                                    xssfCell.setCellStyle((CellStyle) numberStyle22);
                                 }
-
+                            } else if (inArray(_arrPercentCol, ii)) {
+                                xssfCell.setCellStyle((CellStyle) numberStyle2p);
+                            } else if (inArray(_arrAbsoluteCol, ii)) {
+                                xssfCell.setCellStyle((CellStyle) numberStyle2a);
+                            } else {
+                                xssfCell.setCellStyle((CellStyle) numberStyle2);
                             }
+                        } else if (inArray(_arrExcludeCol, ii)
+                                || inArray(_arrLockRow, i) || (i > 7 && i < 72 && i != 54
+                                && !inArray(_arrIncludeCol, ii))) {
+                            if (inArray(_arrPercentCol, ii)) {
+                                xssfCell.setCellStyle((CellStyle) numberStyle00p);
+                            } else if (inArray(_arrAbsoluteCol, ii)) {
+                                xssfCell.setCellStyle((CellStyle) numberStyle00a);
+                            } else {
+                                xssfCell.setCellStyle((CellStyle) numberStyle00);
+                            }
+                        } else if (inArray(_arrPercentCol, ii)) {
+                            xssfCell.setCellStyle((CellStyle) numberStylep);
+                        } else if (inArray(_arrAbsoluteCol, ii)) {
+                            xssfCell.setCellStyle((CellStyle) numberStylea);
                         } else {
-                            if (
-                                if (inArray(_arrPercentCol, ii)) {
-                                    xssfCell.setCellStyle(numberStylep);
-                                } else {
-                                    if (inArray(_arrAbsoluteCol, ii)) {
-                                        xssfCell.setCellStyle(numberStylea);
-                                    } else {
-                                        xssfCell.setCellStyle(numberStyle);
-                                    }
-
-                                }
-
-                            }
+                            xssfCell.setCellStyle((CellStyle) numberStyle);
                         }
-                        // Lấy giá trị tương ứng 
                         try {
-                            Method method = lstData.get(i).getClass().getMethod("getD" + (ii - 2));
-                            Object value = method.invoke(lstData.get(i));
+                            Method method = ((DULIEU_NT_100) lstData.get(i)).getClass().getMethod("getD" + (ii - 2), new Class[0]);
+                            Object value = method.invoke(lstData.get(i), new Object[0]);
                             if (value != null) {
                                 if (value instanceof Number) {
                                     xssfCell.setCellValue(((Number) value).doubleValue());
                                 } else {
                                     try {
-                                        // Attempt to parse the value as a double
                                         double doubleValue = Double.parseDouble(value.toString());
                                         xssfCell.setCellValue(doubleValue);
                                     } catch (NumberFormatException e) {
-                                        // If parsing fails, treat the value as a string
                                         xssfCell.setCellValue(value.toString());
                                     }
                                 }
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 }
+                
                 CellStyle defaultStyle = workbook.createCellStyle();
 
-                int startRow = lstData.size() + 11; 
+                int startRow = lstData.size() + 11;
                 for (int i = sheet.getNumMergedRegions() - 1; i >= 0; i--) {
                     CellRangeAddress mergedRegion = sheet.getMergedRegion(i);
                     if (mergedRegion.getFirstRow() >= startRow) {
@@ -1622,40 +1597,35 @@ public class ExcelExport {
                 cell1_1.setCellStyle(italicStyle);
                 cell2_2.setCellStyle(italicStyle);
                 cell2_3.setCellStyle(italicStyle);
-
                 FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
                 formulaEvaluator.evaluateAll();
                 sheet.protectSheet("khnv2024");
                 java.io.FileOutputStream out = new java.io.FileOutputStream(fileName);
                 xssfWorkbook.write(out);
                 out.close();
-
                 lstOfTextFile.add(fileName);
                 FileInfo file = new FileInfo(new File(fileName));
                 filesList.add(new DownloadFileInfor(file.getName(), fileName,
-                        DefineFun.round_up((double) file.getSize() / 1000) + " KB"));
+                        DefineFun.round_up(Double.valueOf(file.getSize() / 1000.0D)) + " KB"));
                 fullPathList.add(file.getAbsolutePath());
-                zipPath = Define.M_ROOT + Define.M_REPORT_XLS + zipFile;
+                zipPath = Define.M_ROOT + "EXPORT_REPORT/XLS/" + zipFile;
             }
-//            }
-
             if (fullPathList.size() > 1) {
                 try {
                     FileZip.ZipFileFromArray(fullPathList, zipPath);
                     zipFileList.add(zipFile);
                     zipFileList.add(zipPath);
                 } catch (Exception ex) {
-                    Logger.getLogger(ExportText2SbvManager.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ExportText2SbvManager.class.getName()).log(Level.SEVERE, (String) null, ex);
                 }
                 filePath = zipFile;
                 fileName = zipPath;
             }
-
             System.gc();
             return new FileExportInfo(fileName, filePath);
         } catch (Exception ex) {
-            CoreLogger.error(this.getClass().getName() + " xuatExcelMau02_2024 " + ex.getMessage());
-            System.err.println(this.getClass().getName() + " loi xuatExcelMau02_2024 " + ex.getMessage());
+            CoreLogger.error(getClass().getName() + " xuatExcelMau02_2024 " + ex.getMessage());
+            System.err.println(getClass().getName() + " loi xuatExcelMau02_2024 " + ex.getMessage());
             return null;
         }
     }
@@ -2418,10 +2388,9 @@ public class ExcelExport {
 
         // Thiết lập định dạng số
         DataFormat format = workbook.createDataFormat();
-        
 
         if (percentageValue) {
-            style.setDataFormat(format.getFormat("#,###.0"));
+            style.setDataFormat(format.getFormat("#,##0.0"));
         } else {
             if (absoluteValue) {
                 style.setDataFormat(format.getFormat("#,##0"));
