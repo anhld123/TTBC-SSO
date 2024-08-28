@@ -1044,7 +1044,7 @@ public class ExcelExport {
         List<String> lstTitleData = daoXdkh.getTitleData(posCode);
         ArrayList<String> fullPathList = new ArrayList<>();
         String strTimeFile = Long.toString(System.currentTimeMillis());
-        String zipFile = "FileNen_KHNV02_" + strTimeFile + ".zip", zipPath = "";
+        String zipFile = "FileNen_KHNV01_" + strTimeFile + ".zip", zipPath = "";
         String cSeach = ServletActionContext.getRequest().getParameter("cSeach");
         try {
 
@@ -1060,10 +1060,10 @@ public class ExcelExport {
 
             DaoMau02 daoMau02 = new DaoMau02();
 
-            String templateFile = savedDirPath + Define.M_EXCEL_TEMP + "/KHNV/KHNV_01_2024.xlsx";
+            String templateFile = savedDirPath + Define.M_EXCEL_TEMP + "/KHNV/KHNV_01C_2024.xlsx";
 
 //            for (DistrictInfo district : lstDistrict) {
-            String strFileSave = "KHNV_01_2024_" + commune //+ "_" + district.districtCode
+            String strFileSave = "KHNV_01C_2024_" + commune //+ "_" + district.districtCode
                     + "_" + strCurrDate
                     + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
 
@@ -1313,8 +1313,8 @@ public class ExcelExport {
             }
             DaoMau02 daoMau02 = new DaoMau02();
             List<DistrictInfo> lstDistrict = daoMau02.getDistrictByPos(posCode);
-            String templateFile = savedDirPath + "EXCEL_TEMPLATE/" + "/KHNV/KHNV_02_2024.xlsx";
-            String strFileSave = "KHNV_02_2024_" + posCode + "_" + strPosFlag + "_" + strCurrDate + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
+            String templateFile = savedDirPath + "EXCEL_TEMPLATE/" + "/KHNV/KHNV_02C_2024.xlsx";
+            String strFileSave = "KHNV_02C_2024_" + posCode + "_" + strPosFlag + "_" + strCurrDate + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
             String strPathSave = savedDirPath + "EXPORT_REPORT/XLS/";
             strFileSave = strFileSave + ".XLSX";
             filePath = strFileSave;
