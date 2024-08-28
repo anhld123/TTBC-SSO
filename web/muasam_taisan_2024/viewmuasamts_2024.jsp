@@ -275,7 +275,7 @@
                     <th rowspan="2" style="width: 15%">Hiện trạng tài sản <br><a style="color: red">(Ghi rõ trang bị năm nào, hiện trạng của TSCĐ tương đương cần thay thế)</a></th> 
                     <th colspan="6" >TSCĐ đề nghị trang bị năm <s:property  value="nambc_next" /></th>
                         <s:if test="Grade.equalsIgnoreCase('1')">
-                        <th rowspan="2" class="STT2" style="color: red">Thêm/Xóa</th> </s:if>
+                        <th rowspan="2" class="STT2" style="color: red">Thêm dòng</th> </s:if>
                     </tr>
                     <tr>
                         <th>Mã nhóm TSCĐ- Theo VB 2858</th> 
@@ -410,7 +410,7 @@
                                 <option value="3" <s:if test="D11.equalsIgnoreCase('3')"> selected </s:if>>Nguồn khác</option>
                                 </select>
                             </td>  
-                        <s:if test="Grade.equalsIgnoreCase('1')">
+                       <%-- <s:if test="Grade.equalsIgnoreCase('1')">
                             <td class="D0">
                                 <s:if test="(#rowstatus.index + 1) == 1">
                                 </s:if>
@@ -418,7 +418,7 @@
                                     <input style="color: red" type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="SOKU"/>
                                 </s:else>
                             </td>
-                        </s:if>
+                        </s:if>--%>
                     </tr>
                 </s:iterator>
                 <s:if test="Grade.equalsIgnoreCase('1')">
