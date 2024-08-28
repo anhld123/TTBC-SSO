@@ -224,7 +224,7 @@
             <s:if test="Grade.equalsIgnoreCase('1')">
                     var lock = document.getElementById("lock_temp").value;
                     var chot = document.getElementById("chotsl_temp").value;
-                    if (lock === "1" || chot === "1") {
+                    if (lock === "1" || chot === "2") {
                         alert("Dữ liệu đã gửi, không thể lưu.");
                         isValid = false; // Không cho phép lưu dữ liệu
                         onLoadData();
@@ -353,7 +353,7 @@
                     var rowcount = table.rows.length;
                     var chot = document.getElementById("chotsl_temp").value;
                     var isValid = true;
-                    if (chot === "1") {
+                    if (chot === "2") {
                         alert("Dữ liệu đã gửi lên TW, không thể mở dữ liệu.");
                         isValid = false; // Không cho phép lưu dữ liệu
                         onLoadData();
@@ -375,8 +375,8 @@
                             data: sdata,
                             success: function (data) {
                                 if (data === "200") {
-                                    alert("Thành công: Gửi dữ liệu.");
-                                    $('#message_suc_err').html("<h style='color: green; font-size: 13px ; font-weight: bold'>Bạn đã gửi dữ liệu thành công!</h>");
+                                    alert("Thành công: Mở dữ liệu.");
+                                    $('#message_suc_err').html("<h style='color: green; font-size: 13px ; font-weight: bold'>Bạn đã mở dữ liệu thành công!</h>");
                                     onLoadData();
                                 } else {
                                     alert("Lỗi: Lưu dữ liệu.");
@@ -409,7 +409,7 @@
             <s:if test="Grade.equalsIgnoreCase('1')">
                     var lock = document.getElementById("lock_temp").value;
                     var chot = document.getElementById("chotsl_temp").value;
-                    if (lock === "1" || chot === "1") {
+                    if (lock === "1" || chot !== "0") {
                         alert("Dữ liệu đã gửi, không thể xóa.");
                         isValid = false; // Không cho phép lưu dữ liệu
                         onLoadData();

@@ -252,9 +252,10 @@
     <body>
         <div style="overflow:scroll; width: 98vw;height: 400px;">    
             <div id="divTitle">
-                KẾ HOẠCH MUA SẮM TÀI SẢN CỐ ĐỊNH<br>Năm <s:property  value="namBc" />
-                <s:if test="chotsl.equalsIgnoreCase('1')" ><a class="color_11">(Chi nhánh đã chốt số liệu)</a></s:if>
-                <s:elseif test="lock_PGD.equalsIgnoreCase('1')" ><a class="color_11">(Phòng giao dịch đã gửi dữ liệu)</a></s:elseif>
+                KẾ HOẠCH MUA SẮM TÀI SẢN CỐ ĐỊNH<br>
+                <%--Năm <s:property  value="namBc" />--%>
+                <s:if test="chotsl.equalsIgnoreCase('2')" ><a class="color_11">(Chi nhánh đã chốt số liệu)</a></s:if>
+                <s:elseif test="chotsl.equalsIgnoreCase('1')" ><a class="color_11">(Phòng giao dịch đã gửi dữ liệu)</a></s:elseif>
                 <input type="hidden" id ="maPgd_temp" value="<s:property  value="maPgd" />">
                 <input type="hidden" id ="tenPgd_temp" value="<s:property  value="tenPgd" />">
                 <input type="hidden" id ="lock_temp" value="<s:property  value="lock" />">

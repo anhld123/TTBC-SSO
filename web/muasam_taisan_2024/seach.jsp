@@ -116,79 +116,80 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
                 </tr>
 
-                <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
-                    <tr>
-                        <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
-                            <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>><s:property  value="D1"/> </td>
-                        <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
-                            <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>><s:property  value="D2"/> </td>
-                        <td <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
-                            <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>><s:property  value="D3"/> </td>
-                        <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
-                            <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>><s:property  value="D5"/> </td>
-                        <td <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
-                        <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>><s:property  value="D4"/> </td>
-                        <td class="D0"> 
-                            <s:iterator value="#attr.lstData_tmp1" var="modelViewTmp" status="rowstatusTmp">
-                                <s:if test="#modelView.D2.equalsIgnoreCase(#modelViewTmp.posCode)">
-                                    <s:if test="#modelViewTmp.status == 1">
-                                        <a style="color: #003eff"><s:property  value="updateDate"/></a>
-                                    </s:if>
-                                    <s:elseif test="#modelViewTmp.status == 0">
-                                        <a style="color: red"><s:property  value="updateDate"/></a></s:elseif>
-                                </s:if>
-                            </s:iterator>
-                        </td>
-                        <td> 
-                            <s:iterator value="#attr.lstData_tmp1" var="modelViewTmp" status="rowstatusTmp">
-                                <s:if test="#modelView.D2.equalsIgnoreCase(#modelViewTmp.posCode)">
-                                    <s:if test="#modelViewTmp.status == 1">
-                                        <a style="color: #003eff">Dữ liệu đã gửi lên TW</a>
-                                    </s:if>
-                                    <s:elseif test="#modelViewTmp.status == 0">
-                                        <a style="color: red">Chưa gửi dữ liệu lên TW</a></s:elseif>
+                <!--        <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
+                            <tr>
+                                <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
+                    <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>><s:property  value="D1"/> </td>
+                <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
+                    <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>><s:property  value="D2"/> </td>
+                <td <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
+                    <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>><s:property  value="D3"/> </td>
+                <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
+                    <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>><s:property  value="D5"/> </td>
+                <td <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
+                    <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>><s:property  value="D4"/> </td>
+                    <td class="D0"> 
+                    <s:iterator value="#attr.lstData_tmp1" var="modelViewTmp" status="rowstatusTmp">
+                        <s:if test="#modelView.D2.equalsIgnoreCase(#modelViewTmp.posCode)">
+                            <s:if test="#modelViewTmp.status == 1">
+                                <a style="color: #003eff"><s:property  value="updateDate"/></a>
+                            </s:if>
+                            <s:elseif test="#modelViewTmp.status == 0">
+                                <a style="color: red"><s:property  value="updateDate"/></a></s:elseif>
+                        </s:if>
+                    </s:iterator>
+                </td>
+                <td> 
+                    <s:iterator value="#attr.lstData_tmp1" var="modelViewTmp" status="rowstatusTmp">
+                        <s:if test="#modelView.D2.equalsIgnoreCase(#modelViewTmp.posCode)">
+                            <s:if test="#modelViewTmp.status == 1">
+                                <a style="color: #003eff">Dữ liệu đã gửi lên TW</a>
+                            </s:if>
+                            <s:elseif test="#modelViewTmp.status == 0">
+                                <a style="color: red">Chưa gửi dữ liệu lên TW</a></s:elseif>
 
-                                </s:if>
-                            </s:iterator>
-                        </td>
+                        </s:if>
+                    </s:iterator>
+                </td>
+            </tr>
+                </s:iterator>    -->
+                <s:iterator value="#attr.lstData_tmp1" var="modelView" status="rowstatus">
+                    <tr>
+                        <td class = "D0">
+                            <s:property value="%{#rowstatus.index + 1}" /></td>
+                        <td class = "D0"> <s:property  value="posCode"/></td>
+                        <td><s:property  value="posName"/></td>
+                        <s:if test="status.equalsIgnoreCase(0)">
+                            <td class = "D0"></td>
+                            <td class = "D0">
+                                <a style="color: red">Chưa gửi dữ liệu</a></td>
+                            <td class = "D0"></td>
+                            <td class = "D0">
+                                <a style="color: red">Chưa gửi dữ liệu lên TW</a></td>
+                            </s:if>
+                            <s:if test="status.equalsIgnoreCase(1)">
+                            <td class = "D0"><s:property  value="reportDate"/></td>
+                            <td class = "D0">
+                                <a style="color: #003eff">Đã gửi dữ liệu</a></td>
+                            <td class = "D0"></td>
+                            <td class = "D0">
+                                <a style="color: red">Chưa gửi dữ liệu lên TW</a></td>
+                            </s:if>
+                            <s:if test="status.equalsIgnoreCase(2)">
+                            <td class = "D0">
+                                <s:property  value="reportDate"/></td>
+                            <td class = "D0"> <a style="color: #003eff">Đã gửi dữ liệu</a></td>
+                            <td class = "D0">
+                                <s:property  value="updateDate"/></td>
+                            <td class = "D0">
+                                <a style="color: #003eff">Dữ liệu đã gửi lên TW</a></td>
+                            </s:if>
                     </tr>
-                </s:iterator>    
+                </s:iterator>
             </table>
 
         </div>      
         <div id="luu_thanhcong"></div>
-        <!--        <script>
-                    $(function () {
-                        $('#select-all').click(function (event) {
-                            // Iterate each checkbox
-                            $('.myCheckBox').each(function () {
-                                if (!this.disabled) {
-                                    this.checked = $('#select-all').prop('checked');
-                                    this.value = this.checked ? '1' : '0';
-                                }
-                            });
-                        });
-                    });
-                     function cancelAssign(D2, D5,D6) {
-        //                alert(D2 + ' ' + D5);
-                        $.ajax({
-                            type: "GET",
-                            url: "cancelAssign_unlock_gdx?" + "madiemgd=" + D2 + "&ssngaybc=" + D5 + "&skhoa=" + D6,
-                            success: function (res) {
-                                var status = parseInt(res.status);
-                                //alert(status);
-                                if (status === 1) {
-                                    alert('Mở phê duyệt thành công!');
-                                    onLoadData();
-                                } else {
-                                    alert('Mở phê duyệt lỗi: ' + res.message );
-                                }
-                            },
-                            error: function (res) {
-                                alert("Mở phê duyệt lỗi. Vui lòng liên hệ quản trị viên để được hỗ trợ!");
-                            }
-                        });
-                    }
-                </script>-->
+     
     </body>
 </html>
