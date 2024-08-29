@@ -142,20 +142,14 @@ public class ims_services {
                 }
                 break;
                 case Define.PARA_SYN_REPORT_KHNV2021: {
-                    if (!strFulPathFile.equalsIgnoreCase("KHNV_02B")) {
-                        HashMap<String, Object> hmHeader = new XmlBcqtSync().readXmlBCQT(strFulPathFile);
-                        int icount = new XDKHDao2021().getPosSendDataLockKHNV(hmHeader.get(Define.XML_TYPE_BCQT).toString(),
-                                hmHeader.get(Define.XML_MA_BCQT).toString(),
-                                hmHeader.get(Define.XML_POS_CD).toString(),
-                                hmHeader.get(Define.XML_NGAY_BC).toString(),
-                                Define.WEB_SERVICES_STATUS_SEND);
-                        if (icount > 0) {
-                            return Define.WEB_SERVICES_STATUS_SEND;
-                        }
-                    }
-                    else
-                    {
-                        System.out.println("tw nhạn KHNV_02B");
+                    HashMap<String, Object> hmHeader = new XmlBcqtSync().readXmlBCQT(strFulPathFile);
+                    int icount = new XDKHDao2021().getPosSendDataLockKHNV(hmHeader.get(Define.XML_TYPE_BCQT).toString(),
+                            hmHeader.get(Define.XML_MA_BCQT).toString(),
+                            hmHeader.get(Define.XML_POS_CD).toString(),
+                            hmHeader.get(Define.XML_NGAY_BC).toString(),
+                            Define.WEB_SERVICES_STATUS_SEND);
+                    if (icount > 0) {
+                        return Define.WEB_SERVICES_STATUS_SEND;
                     }
                 }
                 break;
