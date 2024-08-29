@@ -416,24 +416,11 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
 
             _service_listts = new DuLieuNTService();
             int status = _service_listts.updateData("KTTC_MUASAM_01", pos, PosFlag, _reportDate, "", "", lstUpdateDate);
-//            System.out.println(status);
-//            if (status == 200) {
-//                if (!daoMain.saveMSTS_2024("KTTC_MUASAM_01", UserName, Grade, hmParameter.get("ngay_bc").toString(), lstLocalDataUpdate, pos)) {
-//                    addActionError("Thất bại: Lưu dữ liệu tại chi nhánh không thành công!");
-//                    String code = String.valueOf(2);
-//                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-//                    return ERROR;
-//                }
-//            }
-            if (status != 200) {
-                String code = String.valueOf(status);
-                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                return SUCCESS;
-            } else if (status == 200 && !Grade.equals("1")) {
+             if (status == 200) {
                 _service_listts.updateChotSL("KTTC_MUASAM_01", pos, "S", _reportDate, "0", UserName, null);
                 String code = String.valueOf(status);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                return ERROR;
+                return SUCCESS;
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> muats2024: " + e.getMessage());
