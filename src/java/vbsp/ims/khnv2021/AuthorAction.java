@@ -37,7 +37,70 @@ public class AuthorAction extends ActionSupport {
     private InputStream pageResult;
     protected List<ModelViewSend> lstViewSend = new ArrayList<>();
     private String ShowMessage;
-    
+    private String namBc_2pre;
+    private String namBc_pre;
+    private String namBc;
+    private String namBc_1;
+    private String namBc_2;
+    private String namBc_3;
+    private String namBc_4;
+
+    public String getNamBc_2pre() {
+        return namBc_2pre;
+    }
+
+    public void setNamBc_2pre(String namBc_2pre) {
+        this.namBc_2pre = namBc_2pre;
+    }
+
+    public String getNamBc_pre() {
+        return namBc_pre;
+    }
+
+    public void setNamBc_pre(String namBc_pre) {
+        this.namBc_pre = namBc_pre;
+    }
+
+    public String getNamBc() {
+        return namBc;
+    }
+
+    public void setNamBc(String namBc) {
+        this.namBc = namBc;
+    }
+
+    public String getNamBc_1() {
+        return namBc_1;
+    }
+
+    public void setNamBc_1(String namBc_1) {
+        this.namBc_1 = namBc_1;
+    }
+
+    public String getNamBc_2() {
+        return namBc_2;
+    }
+
+    public void setNamBc_2(String namBc_2) {
+        this.namBc_2 = namBc_2;
+    }
+
+    public String getNamBc_3() {
+        return namBc_3;
+    }
+
+    public void setNamBc_3(String namBc_3) {
+        this.namBc_3 = namBc_3;
+    }
+
+    public String getNamBc_4() {
+        return namBc_4;
+    }
+
+    public void setNamBc_4(String namBc_4) {
+        this.namBc_4 = namBc_4;
+    }
+
     @Override
     //Lấy danh đơn vị theo cấp báo cáo
     public String execute() throws Exception {
@@ -55,7 +118,20 @@ public class AuthorAction extends ActionSupport {
         session = ActionContext.getContext().getSession();
         CapBC = (String) session.get("reportGrade");
         TenDN = (String) session.get("username");
-        if (status.trim().equals("4")){
+        int year_2 = Integer.parseInt(cboNam) - 2;
+        int year_1 = Integer.parseInt(cboNam) - 1;
+        int year1 = Integer.parseInt(cboNam) + 1;
+        int year2 = Integer.parseInt(cboNam) + 2;
+        int year3 = Integer.parseInt(cboNam) + 3;
+        int year4 = Integer.parseInt(cboNam) + 4;
+        namBc_2pre = String.valueOf(year_2);
+        namBc_pre = String.valueOf(year_1);
+        namBc = cboNam;
+        namBc_1 = String.valueOf(year1);
+        namBc_2 = String.valueOf(year2);
+        namBc_3 = String.valueOf(year3);
+        namBc_4 = String.valueOf(year4);
+        if (status.trim().equals("4")) {
             cboTonghop = "ShowPrint";
         }
         if (cboTonghop.equals("W")) {
@@ -67,13 +143,16 @@ public class AuthorAction extends ActionSupport {
                 case "0":
                     //Nhớ truyền đủ 7 tham số
                     lstData = new AuthorModel().getData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
-                    if(cboTonghop.equals("S") && (CapBC.equals("3") || CapBC.equals("2")) && (lstData != null && !lstData.isEmpty())) //quyennv - tong hop gui nhan
+                    if (cboTonghop.equals("S") && (CapBC.equals("3") || CapBC.equals("2")) && (lstData != null && !lstData.isEmpty())) //quyennv - tong hop gui nhan
                     {
                         chkSuccess = "resultSend";
                         pageResult = new StringBufferInputStream("00");
-                    }
-                    else if (lstData != null && !lstData.isEmpty()) {
-                        chkSuccess = "SuccessLoad";
+                    } else if (lstData != null && !lstData.isEmpty()) {
+                        if (!cboDot.equals("5")) {
+                            chkSuccess = "SuccessLoad";
+                        } else {
+                            chkSuccess = "SuccessLoad2024";
+                        }
                         pageResult = new StringBufferInputStream("00");
                     } else {
                         chkSuccess = "FaildMessage";
@@ -81,10 +160,16 @@ public class AuthorAction extends ActionSupport {
                     }
                     break;
                 case "1":
-                    sendTwKhnv();
-                    chkSuccess = "SuccessMessage";
-                    pageResult = new StringBufferInputStream("10");
-                    break;
+                    if (!cboDot.equals("5")) {
+                        sendTwKhnv_2024();
+                        chkSuccess = "SuccessMessage";
+                        pageResult = new StringBufferInputStream("10");
+                    } else {
+                        sendTwKhnv();
+                        chkSuccess = "SuccessMessage";
+                        pageResult = new StringBufferInputStream("10");
+                        break;
+                    }
                 case "2":
                     dataReult = new AuthorModel().rollBackData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
                     if (dataReult.equals("20")) {
@@ -113,10 +198,11 @@ public class AuthorAction extends ActionSupport {
                     pageResult = new StringBufferInputStream(dataReult);
                     break;
             }
+//            System.out.println(cboDot + " " + chkSuccess);
         }
         return chkSuccess;
     }
-    
+
     public String ShowDetaiCn() throws Exception {
         //Lấy danh sách đơn vị theo cấp báo cáo
         session = ActionContext.getContext().getSession();
@@ -204,6 +290,17 @@ public class AuthorAction extends ActionSupport {
         }
     }
 
+    public void sendTwKhnv_2024() {
+        try {
+            
+            
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> sendKTGS: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> sendKTGS: " + e.getMessage());
+            addActionError("Bạn chưa gửi được dữ liệu xin liên hệ với quản trị để được khắc phục");
+        }
+    }
+
     private List<ModelViewSend> getViewStatusSend(List<String> lstPos, Map<String, Integer> mapStatus) {
         addActionMessage("Danh sách các PGD gửi dữ liệu và tình trạng dữ liệu");
         List<ModelViewSend> lstStatus = new ArrayList();
@@ -254,7 +351,6 @@ public class AuthorAction extends ActionSupport {
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getter Setter">
-
     public String getMacn_detail() {
         return macn_detail;
     }
@@ -262,8 +358,7 @@ public class AuthorAction extends ActionSupport {
     public void setMacn_detail(String macn_detail) {
         this.macn_detail = macn_detail;
     }
-    
-    
+
     public List<ModelViewSend> getLstViewSend() {
         return lstViewSend;
     }
@@ -391,7 +486,7 @@ public class AuthorAction extends ActionSupport {
     public void setBtnSend(String btnSend) {
         this.btnSend = btnSend;
     }
-    
+
     public String getShowMessage() {
         return ShowMessage;
     }

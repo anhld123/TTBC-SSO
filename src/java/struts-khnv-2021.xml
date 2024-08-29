@@ -134,7 +134,8 @@
             <result name="success">/khnv2021/ViewAuthor.jsp</result>
         </action>
         <action name="SendAction" class="vbsp.ims.khnv2021.AuthorAction" method="SendAction">
-            <result name="SuccessLoad">/khnv2021/ViewAuthorDetail.jsp</result>            
+            <result name="SuccessLoad">/khnv2021/ViewAuthorDetail.jsp</result> 
+            <result name="SuccessLoad2024">/khnv2021/ViewAuthorDetail2024.jsp</result>            
             <result name="SuccessMessage">/khnv2021/table_list_result_send_tw.jsp</result>            
             <result name="resultSend">/khnv2021/table_result_send.jsp</result>      
             <!-- Công việc: Hoàn trả dữ liệu cho PGD, CN-->        

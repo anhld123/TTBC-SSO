@@ -364,7 +364,7 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
                 tempadd.setKey("KTTC_MUASAM_01");
                 tempadd.setOrderDescription(tmp.getTT_HIENTHI());
                 tempadd.setName(tmp.getD1());
-                tempadd.setCode(tmp.getMA() == null && tmp.getMA().isEmpty() ? pos + iStt + PosFlag + _reportDate + tmp.getD6() + tmp.getTT_HIENTHI() : tmp.getMA());
+                tempadd.setCode(tmp.getMA() == null ? pos + iStt + PosFlag + _reportDate + tmp.getD6() + tmp.getTT_HIENTHI() : tmp.getMA());
                 tempadd.setMakerId(UserName);
                 tempadd.setMakerDate(_reportDate1);
                 tempadd.setAuthoriseId(UserName);
@@ -433,7 +433,7 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
                 _service_listts.updateChotSL("KTTC_MUASAM_01", pos, "S", _reportDate, "0", UserName, null);
                 String code = String.valueOf(status);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                return SUCCESS;
+                return ERROR;
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> muats2024: " + e.getMessage());

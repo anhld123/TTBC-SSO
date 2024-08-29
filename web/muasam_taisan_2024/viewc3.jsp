@@ -116,39 +116,39 @@
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr>
 
-                        <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
-                            <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>>
+                        <td class="D0" <s:if test="D6.equalsIgnoreCase('0')"> style="color: red"</s:if>
+                            <s:elseif test="D6.equalsIgnoreCase('2')"> style="color: #003eff"</s:elseif>>
                             <s:property  value="D1"/>
                             <input type="hidden" value="<s:property  value="D6" />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" value="<s:property  value="D6"/>"/>
                         </td>
-                        <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
-                            <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>>
+                        <td class="D0" <s:if test="D6.equalsIgnoreCase('0')"> style="color: red"</s:if>
+                            <s:elseif test="D6.equalsIgnoreCase('2')"> style="color: #003eff"</s:elseif>>
                             <s:property  value="D2"/>
                             <input class="D0" type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" 
                                    id="D2_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D2"/>"/>
                         </td>
-                        <td <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
-                            <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>>
+                        <td <s:if test="D6.equalsIgnoreCase('0')"> style="color: red"</s:if>
+                            <s:elseif test="D6.equalsIgnoreCase('2')"> style="color: #003eff"</s:elseif>>
                             <s:property  value="D3"/>
                             <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" 
                                    id="D3_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D3"/>"/>
                         </td>
 
-                        <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
-                            <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>>
+                        <td class="D0" <s:if test="D6.equalsIgnoreCase('0')"> style="color: red"</s:if>
+                            <s:elseif test="D6.equalsIgnoreCase('2')"> style="color: #003eff"</s:elseif>>
                             <s:property  value="D5"/>
                             <input class="D0" type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
                                    id="D5_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D5"/>"/>
                         </td>
-                        <td class="D0" <s:if test="D6.equalsIgnoreCase(0)"> style="color: red"</s:if>
-                            <s:elseif test="D6.equalsIgnoreCase(1)"> style="color: #003eff"</s:elseif>>
+                        <td class="D0" <s:if test="D6.equalsIgnoreCase('0')"> style="color: red"</s:if>
+                            <s:elseif test="D6.equalsIgnoreCase('2')"> style="color: #003eff"</s:elseif>>
                             <s:property  value="D4"/>
                             <input class="D0" type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
                                    id="D4_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D4"/>"/>
                         </td>
                         <td style="width: 80px; text-align: center;">
-                            <s:if test="D6.equalsIgnoreCase('1')">
+                            <s:if test="D6.equalsIgnoreCase('2')">
                                 <a href="#" onclick="cancelAssign('<s:property value="D2"/>', '<s:property value="D5"/>', '<s:property value="D6"/>');">Mở dữ liệu</a>
                             </s:if>                                                                
                         </td>

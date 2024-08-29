@@ -964,13 +964,13 @@ public class XDKHDao2021 {
         }
         return lstBcqt_NT;
     }
- 
+
     public List<QT_DULIEU_NT> getData_02_2024(String maBc, String userId, String reportGrade, String namBc,
-                String dotBc, String commune_cd) {
-       
+            String dotBc, String commune_cd) {
+
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
-           DaoConnect daoconnect = new DaoConnect();
+            DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
@@ -1041,6 +1041,7 @@ public class XDKHDao2021 {
         }
         return lstBcqt_NT;
     }
+
     public List<QT_DULIEU_NT> getDataAuthCommuneSum(String sMaBC, String sUser,
             String sGrade, String namBC, String dotBc, String maxa, String mathon) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -1235,7 +1236,13 @@ public class XDKHDao2021 {
         // Connection connect = null;
         CallableStatement calstatement = null;
         //Khoi tao function se tra ra du lieu la kieu gi
-        String strStoreproce = "{?=call VBSP_IMS_KHNV2021.F_CHECK_INPUT_SEND_CN(?,?,?,?,?)}";
+
+        String strStoreproce;
+        if (mabc.equals("KHNV_02_2024")) {
+            strStoreproce = "{?=call VBSP_IMS_KHNV2021.F_CHECK_INPUT_SEND_CN_2024(?,?,?,?,?)}";
+        } else {
+            strStoreproce = "{?=call VBSP_IMS_KHNV2021.F_CHECK_INPUT_SEND_CN(?,?,?,?,?)}";
+        }
 
         try {
             //Khoi tao ket noi
