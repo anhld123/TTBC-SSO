@@ -160,16 +160,16 @@ public class AuthorAction extends ActionSupport {
                     }
                     break;
                 case "1":
-                    if (!cboDot.equals("5")) {
-                        sendTwKhnv_2024();
+                    if (cboDot.equals("5")) {
+                        sendTwKhnv_2024(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
                         chkSuccess = "SuccessMessage";
                         pageResult = new StringBufferInputStream("10");
                     } else {
                         sendTwKhnv();
                         chkSuccess = "SuccessMessage";
-                        pageResult = new StringBufferInputStream("10");
-                        break;
+                        pageResult = new StringBufferInputStream("10");                      
                     }
+                      break;
                 case "2":
                     dataReult = new AuthorModel().rollBackData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
                     if (dataReult.equals("20")) {
@@ -290,9 +290,76 @@ public class AuthorAction extends ActionSupport {
         }
     }
 
-    public void sendTwKhnv_2024() {
+    public void sendTwKhnv_2024(String CapBC, String TenDN, String cboDonvi, String cboNam, String cboDot, String cboTonghop, String strNguyennhan) {
         try {
-            
+            System.err.println("qưe");
+            session = ActionContext.getContext().getSession();
+            CapBC = (String) session.get("reportGrade");
+            TenDN = (String) session.get("username");
+
+            List<String> lstPos = new ArrayList<>();
+
+            Map<String, Integer> mapStatusSend = new HashMap();
+
+            lstPos = new DaoMau01A().getAllPosUser(TenDN);
+
+            for (String mapgd : lstPos) {
+
+                ServletContext context = ServletActionContext.getServletContext();
+                String strPathSave = !context.getRealPath("/").endsWith("/")
+                        ? context.getRealPath("/") + "/" + Define.M_REPORT_XML
+                        : context.getRealPath("/") + Define.M_REPORT_XML;
+                strPathSave += "KHNV02B_" + mapgd
+                        + "_" + TenDN + "_"
+                        + Long.toString(System.currentTimeMillis()).substring(Long.toString(System.currentTimeMillis()).length() - 6) + ".xml";
+
+                List<String> lstData = new ArrayList<>();
+                boolean bStatus_file = false;
+                String ngayBc = new DaoMau01A().getNgaybc(cboNam, cboDot);
+                lstData = new DaoMau01A().getDataSendKhnv("NT", "KHNV_02B", mapgd, ngayBc);
+                if (lstData == null || lstData.size() == 0) {
+                    mapStatusSend.put(mapgd, 6);
+                    continue;
+                }
+                bStatus_file = new XmlKhnv2021Sync().createXmlFileKhnv2021(Define.PARA_SYN_REPORT_KHNV2021, "NT",
+                        "KHNV_02B", ngayBc, TenDN, CapBC,
+                        mapgd, lstData, Define.WEB_SERVICES_STATUS_SEND, strPathSave);
+
+                if (!bStatus_file) {
+                    CoreLogger.error(this.getClass().getName() + " Exception -> sendKTGS: Khong tao duoc file " + strPathSave);
+
+                    mapStatusSend.put(mapgd, 1); //1 la tao file xml bi loi
+                }
+                //Tao file xml theo cau truc
+//
+                File checkfile = new File(strPathSave);
+                if (!checkfile.exists()) {
+                    CoreLogger.error(this.getClass().getName() + " Exception -> sendKTGS: Khong tao duoc file " + strPathSave);
+                    mapStatusSend.put(mapgd, 2); //2 la khong tim thay file xml
+                }
+                ProcessReportSyn clientWritexml = new ProcessReportSyn();
+                String sStatus = clientWritexml.SendFileXmlToWebServices(strPathSave);
+//
+                if (sStatus.equals(Define.WEB_SERVICES_STATUS_FAIL)) {
+                    System.err.println("Ban chua dong bo du lieu duoc ve TW");
+                    if (checkfile.exists()) {
+                        checkfile.delete();
+                    }
+                    CoreLogger.error(this.getClass().getName() + " Exception -> sendKTGS: Khong dong bo duoc file " + strPathSave);
+                    mapStatusSend.put(mapgd, 3); //3 la gui file du lieu bi loi
+                } else if (sStatus.equals(Define.WEB_SERVICES_STATUS_OK)) {
+                    if (checkfile.exists()) {
+                        checkfile.delete();
+                    }
+                    mapStatusSend.put(mapgd, 4);  //gui du lieu thanh cong
+                } else {
+                    if (checkfile.exists()) {
+                        checkfile.delete();
+                    }
+                    mapStatusSend.put(mapgd, 5);  //pgd bi khoa khong gui duoc du lieu
+                }
+            }
+            setLstViewSend(getViewStatusSend(lstPos, mapStatusSend));
             
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> sendKTGS: " + e.getMessage());
