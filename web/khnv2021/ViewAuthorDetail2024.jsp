@@ -223,7 +223,8 @@
                 <s:else></s:else>">
                 <s:property value="TT_HIENTHI"/>
                 <input type="hidden" value="<s:property  value="TT_HIENTHI" />" name="lstData[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI"/>                             
-                <input type="hidden" value="<s:property  value="TEN" />" name="lstData[<s:property  value="%{#rowstatus.index}" />].TEN"/>  
+                <input type="hidden" value="<s:property  value="TEN" />" name="lstData[<s:property  value="%{#rowstatus.index}" />].TEN"/>
+                <input type="hidden" value="<s:property  value="MA" />" name="lstData[<s:property  value="%{#rowstatus.index}" />].MA"/>
                 <input type="hidden" value="<s:property  value="D1" />" name="lstData[<s:property  value="%{#rowstatus.index}" />].D1"/> 
                 <input type="hidden" value="<s:property  value="D2" />" name="lstData[<s:property  value="%{#rowstatus.index}" />].D2"/>                             
                 <input type="hidden" value="<s:property  value="D3" />" name="lstData[<s:property  value="%{#rowstatus.index}" />].D3"/>                             
