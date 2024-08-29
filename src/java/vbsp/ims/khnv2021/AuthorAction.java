@@ -145,8 +145,13 @@ public class AuthorAction extends ActionSupport {
                     lstData = new AuthorModel().getData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
                     if (cboTonghop.equals("S") && (CapBC.equals("3") || CapBC.equals("2")) && (lstData != null && !lstData.isEmpty())) //quyennv - tong hop gui nhan
                     {
-                        chkSuccess = "resultSend";
-                        pageResult = new StringBufferInputStream("00");
+                        if (!cboDot.equals("5")) {
+                            chkSuccess = "resultSend";
+                            pageResult = new StringBufferInputStream("00");
+                        } else {
+                            chkSuccess = "resultSend_2024";
+                            pageResult = new StringBufferInputStream("00");
+                        }
                     } else if (lstData != null && !lstData.isEmpty()) {
                         if (!cboDot.equals("5")) {
                             chkSuccess = "SuccessLoad";
@@ -167,9 +172,9 @@ public class AuthorAction extends ActionSupport {
                     } else {
                         sendTwKhnv();
                         chkSuccess = "SuccessMessage";
-                        pageResult = new StringBufferInputStream("10");                      
+                        pageResult = new StringBufferInputStream("10");
                     }
-                      break;
+                    break;
                 case "2":
                     dataReult = new AuthorModel().rollBackData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
                     if (dataReult.equals("20")) {
@@ -360,7 +365,7 @@ public class AuthorAction extends ActionSupport {
                 }
             }
             setLstViewSend(getViewStatusSend(lstPos, mapStatusSend));
-            
+
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> sendKTGS: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> sendKTGS: " + e.getMessage());
