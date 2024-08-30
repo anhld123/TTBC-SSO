@@ -138,7 +138,8 @@
             <result name="SuccessLoad2024">/khnv2021/ViewAuthorDetail2024.jsp</result>            
             <result name="SuccessMessage">/khnv2021/table_list_result_send_tw.jsp</result>            
             <result name="resultSend">/khnv2021/table_result_send.jsp</result>     
-            <result name="resultSend_2024">/khnv2021/table_result_send_2024.jsp</result>       
+            <result name="resultSend_2024">/khnv2021/table_result_send_2024.jsp</result>    
+            <result name="ShowMessage_TW">/khnv2021/ShowMessage_TW.jsp</result>    
             <!-- Công việc: Hoàn trả dữ liệu cho PGD, CN-->        
             <result name="SuccessRoll" type="stream">
                 <param name="contentType">text/html</param>

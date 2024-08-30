@@ -5,24 +5,33 @@
  */
 package vbsp.ims.khnv2021;
 
+import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.File;
 import java.io.InputStream;
 import java.io.StringBufferInputStream;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletContext;
 import org.apache.struts2.ServletActionContext;
+import vbsp.ims.action.Utilities;
 import vbsp.ims.bcqt.model.DULIEU_NT;
 import vbsp.ims.bcqt.model.ModelViewSend;
+import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.define.Define;
 import vbsp.ims.khnv2021.dao.DaoMau01A;
 import vbsp.ims.ktgs.dao.DaoKtgsMain;
 import vbsp.ims.log.CoreLogger;
+import vbsp.ims.model.ktnb.PosMainModel;
+import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlKhnv2021Sync;
 
@@ -44,9 +53,27 @@ public class AuthorAction extends ActionSupport {
     private String namBc_2;
     private String namBc_3;
     private String namBc_4;
+    private String chotsl;
+    DuLieuNTService _service_listts = new DuLieuNTService();
+    protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
+    protected PosMainModel posMainModel;
+    protected String main_pos_username;
+    //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public void setMain_pos_username(String main_pos_username) {
+        this.main_pos_username = main_pos_username;
+    }
 
     public String getNamBc_2pre() {
         return namBc_2pre;
+    }
+
+    public String getChotsl() {
+        return chotsl;
+    }
+
+    public void setChotsl(String chotsl) {
+        this.chotsl = chotsl;
     }
 
     public void setNamBc_2pre(String namBc_2pre) {
@@ -100,6 +127,7 @@ public class AuthorAction extends ActionSupport {
     public void setNamBc_4(String namBc_4) {
         this.namBc_4 = namBc_4;
     }
+//</editor-fold>
 
     @Override
     //Lấy danh đơn vị theo cấp báo cáo
@@ -138,6 +166,7 @@ public class AuthorAction extends ActionSupport {
             //Lấy dữ liệu phản hồi từ cấp trên
             strNguyennhan = new AuthorModel().ShowMessage(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
             chkSuccess = "ShowMessage";
+        
         } else {
             switch (status.trim()) {
                 case "0":
@@ -149,8 +178,13 @@ public class AuthorAction extends ActionSupport {
                             chkSuccess = "resultSend";
                             pageResult = new StringBufferInputStream("00");
                         } else {
-                            chkSuccess = "resultSend_2024";
-                            pageResult = new StringBufferInputStream("00");
+                            if (CapBC.equals("3")) {
+                                chkSuccess = "resultSend";
+                                pageResult = new StringBufferInputStream("00");
+                            } else {
+                                chkSuccess = "resultSend_2024";
+                                pageResult = new StringBufferInputStream("00");
+                            }
                         }
                     } else if (lstData != null && !lstData.isEmpty()) {
                         if (!cboDot.equals("5")) {
@@ -165,10 +199,24 @@ public class AuthorAction extends ActionSupport {
                     }
                     break;
                 case "1":
+                    posMainModel = listKTNBDA.get_pos_main_pos(TenDN, CapBC);
+                    main_pos_username = posMainModel.getMainPosCd();
+                    String dateStr = new Utilities().fnc_getDateBC(cboNam, cboDot);
+                    final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
+                    ArrayList<LockSendModel> lstData_tmp = _service_listts.getDataLockManual("KHNV_02C", main_pos_username, "M", _reportDate);
+                    try {
+                        setChotsl(lstData_tmp.get(0).getStatus());
+                    } catch (Exception e) {
+                        setChotsl("0");
+                    }
                     if (cboDot.equals("5")) {
-                        sendTwKhnv_2024(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
-                        chkSuccess = "SuccessMessage";
-                        pageResult = new StringBufferInputStream("10");
+                        if (chotsl.equals("0")) {
+                            sendTwKhnv_2024(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
+                            chkSuccess = "SuccessMessage";
+                            pageResult = new StringBufferInputStream("10");
+                        } else {
+                            chkSuccess = "ShowMessage_TW";
+                        }
                     } else {
                         sendTwKhnv();
                         chkSuccess = "SuccessMessage";
@@ -314,20 +362,20 @@ public class AuthorAction extends ActionSupport {
                 String strPathSave = !context.getRealPath("/").endsWith("/")
                         ? context.getRealPath("/") + "/" + Define.M_REPORT_XML
                         : context.getRealPath("/") + Define.M_REPORT_XML;
-                strPathSave += "KHNV02B_" + mapgd
+                strPathSave += "KHNV02C_" + mapgd
                         + "_" + TenDN + "_"
                         + Long.toString(System.currentTimeMillis()).substring(Long.toString(System.currentTimeMillis()).length() - 6) + ".xml";
 
                 List<String> lstData = new ArrayList<>();
                 boolean bStatus_file = false;
                 String ngayBc = new DaoMau01A().getNgaybc(cboNam, cboDot);
-                lstData = new DaoMau01A().getDataSendKhnv("NT", "KHNV_02B", mapgd, ngayBc);
+                lstData = new DaoMau01A().getDataSendKhnv("NT", "KHNV_02C", mapgd, ngayBc);
                 if (lstData == null || lstData.size() == 0) {
                     mapStatusSend.put(mapgd, 6);
                     continue;
                 }
                 bStatus_file = new XmlKhnv2021Sync().createXmlFileKhnv2021(Define.PARA_SYN_REPORT_KHNV2021, "NT",
-                        "KHNV_02B", ngayBc, TenDN, CapBC,
+                        "KHNV_02C", ngayBc, TenDN, CapBC,
                         mapgd, lstData, Define.WEB_SERVICES_STATUS_SEND, strPathSave);
 
                 if (!bStatus_file) {
