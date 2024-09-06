@@ -886,6 +886,10 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 return "KTTC_MUASAM_01";
             }
 
+            if (this.khoa_nhaptaycn.equals("THTK_2024")) {
+                return "THTK_2024";
+            }
+
             DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
             if (khoa_nhaptaycn.equals("CIC_001")) {
                 System.err.println("SDQ---0");
