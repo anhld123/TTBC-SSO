@@ -23,7 +23,7 @@
             <result name="HUYDONG_2024">/GQVL2023/para_huydong.jsp</result> 
             <result name="CIC_002">/CIC_2024/para_cic.jsp</result>
             <result name="KTTC_MUASAM_01">/muasam_taisan_2024/para_muasamts_2024.jsp</result> 
-            <result name="THTK_2024">/GQVL2023/para_thanhkhoan.jsp</result> 
+            <result name="THTK_2024">/Taikhoan_Thanhtoan/para_taikhoan.jsp</result> 
              <!--<result name="GQVL_01">/GQVL2023/index.jsp</result>-->
             <result name="error">/nhaptay-cn/success.jsp</result>    
                 
@@ -731,7 +731,7 @@
             </result>      
         </action> 
         
-         <action name="loadc3_MSTS_2024" class="vbsp.ims.gqvl_2023.Mua_Tsan_2024"  method="loadc3">
+        <action name="loadc3_MSTS_2024" class="vbsp.ims.gqvl_2023.Mua_Tsan_2024"  method="loadc3">
             <result name="success">/muasam_taisan_2024/viewc3.jsp</result>                              
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
@@ -746,7 +746,9 @@
         </action>
         
         <action name="THTK_2024" class="vbsp.ims.gqvl_2023.TK_thanh_khoan_2024"  method="load">
-            <result name="success">/GQVL2023/THTKTK_2024.jsp</result>                              
+            <result name="success_1">/Taikhoan_Thanhtoan/THTKTK_2024.jsp</result>
+            <result name="success_2">/Taikhoan_Thanhtoan/THTKTK_2024_c2.jsp</result>
+            <result name="success_3">/Taikhoan_Thanhtoan/THTKTK_2024_c3.jsp</result>                                                            
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
         <action name="save_THTK_2024" class="vbsp.ims.gqvl_2023.TK_thanh_khoan_2024"  method="save">
@@ -755,6 +757,29 @@
                 <param name="inputName">pageResult</param>
             </result>      
         </action> 
+        <action name="send_THTK_2024" class="vbsp.ims.gqvl_2023.TK_thanh_khoan_2024"  method="send">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action> 
+        <action name="unlock_THTK_2024_c2" class="vbsp.ims.gqvl_2023.TK_thanh_khoan_2024" method="unlock_c2">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>  
+        </action>
+        <action name="lock_THTK_2024_c2" class="vbsp.ims.gqvl_2023.TK_thanh_khoan_2024" method="lock_c2">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>  
+        </action>
+        <action name="popupTablePos" class="vbsp.ims.gqvl_2023.TK_thanh_khoan_2024" method="popupTablePos">
+            <result name="success">/Taikhoan_Thanhtoan/popupTablePos.jsp</result>
+        </action>
+        <action name="unlock_THTK_2024_c3" class="vbsp.ims.gqvl_2023.TK_thanh_khoan_2024" method="unlock_c3">
+            <result name="success" type="json"></result>
+        </action>
     </package>
-    
 </struts>

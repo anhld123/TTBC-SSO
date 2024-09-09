@@ -215,6 +215,12 @@
                     var table = document.getElementById("subTable");
                     var rowcount = table.rows.length;
                     var isValid = true;
+                    var chot = document.getElementById("chotsl_temp").value;
+                    if (chot === "1" ||chot === "2") {
+                        alert("Dữ liệu đã gửi, không thể lưu.");
+                        isValid = false; // Không cho phép lưu dữ liệu
+                        onLoadData();
+                    }
                     for (var i = 0; i < rowcount; i++) {
                         try {
                         } catch (e) {
@@ -402,7 +408,58 @@
 //                    $('#divExportReport').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần mở khóa !</h2>");
                 }
             }
+            $("#idSend").click(function () {
+                $('#message_suc_err').empty();
+                $('#divExportReportLink').empty();
 
+                let aCheck = confirm("Bạn chắc chắn muốn gửi số liệu báo cáo ?");
+                if (aCheck) {
+                    var table = document.getElementById("subTable");
+                    var rowcount = table.rows.length;
+                    var chot = document.getElementById("chotsl_temp").value;
+                    var isValid = true;
+                    if (chot === "1") {
+                        alert("Dữ liệu đã gửi, không thể tiếp tục gửi.");
+                        isValid = false; // Không cho phép lưu dữ liệu
+                        onLoadData();
+                    }
+                    for (var i = 0; i < rowcount; i++) {
+                        try {
+                        } catch (e) {
+                        }
+                    }
+                    if (isValid) {
+                        var url, sdata;
+                        url = "send_THTK_2024.action";
+                        sdata = jQuery("#frmdata").serialize();
+                        $("#viewData").html('<img src="img/loading.gif"/>');
+                        btnDisabled(1);
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: sdata,
+                            success: function (data) {
+                                if (data === "200") {
+                                    alert("Thành công: Gửi dữ liệu.");
+                                    $('#message_suc_err').html("<h style='color: green; font-size: 13px ; font-weight: bold'>Bạn đã gửi dữ liệu thành công!</h>");
+                                    onLoadData();
+                                } else {
+                                    alert("Lỗi: Lưu dữ liệu.");
+                                    onLoadData();
+                                }
+                            },
+                            complete: function () {
+                                btnDisabled(0);
+                            },
+                            error: function (request) {
+                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                                onLoadData();
+                            }
+                        });
+                    }
+                }
+
+            });
         </script>
     </head>
     <body>
@@ -425,14 +482,23 @@
                     Ngày báo cáo: 
                     <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
-
+                    <s:if test="Grade.equalsIgnoreCase('3')">
+                      Mã chi nhánh: 
+                            <select id="lstCN"  name="lstCN">
+                                <option value="000000">----Chọn mã chi nhánh----</option>
+                                <s:iterator value="lstCN_API">
+                                    <option value="<s:property value="branchCode"/>"><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>               
+                                </s:iterator>
+                            </select> 
+                        </s:if>
                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                onBeforeTopics="beforediv_data"
                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
                     &nbsp;<input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
-                    &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/>   
-                    <!--                        &nbsp;<input type="button" id="idSaveLock" value="Phê duyệt"/> 
-                                            &nbsp;<input type="button" id="idDelete" style="color: red" value="Xóa dữ liệu"/>  -->
+                    <s:if test="Grade.equalsIgnoreCase('1')">
+                    &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/>  
+                    &nbsp;|&nbsp;<input type="button" id="idSend" value="Gửi dữ liệu" style="color: red"/></s:if>
+                    
                 </table>    
             </fieldset>
             <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >

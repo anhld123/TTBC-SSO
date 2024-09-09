@@ -887,6 +887,9 @@ public class ActionNhaptaycnMain extends ActionSupport {
             }
 
             if (this.khoa_nhaptaycn.equals("THTK_2024")) {
+                main_pos = posMainModel.getMainPosCd();
+                _server_tmp = new LeaveHomeService();
+                lstCN_API = _server_tmp.getListCn("");
                 return "THTK_2024";
             }
 

@@ -46,6 +46,35 @@
         top: 0;
         z-index: 10;
     }
+    @-webkit-keyframes my {
+        0% { color: red; } 
+        50% { color: #fff;  } 
+        100% { color: red;  } 
+    }
+    @-moz-keyframes my { 
+        0% { color: red;  } 
+        50% { color: #fff;  }
+        100% { color: red;  } 
+    }
+    @-o-keyframes my { 
+        0% { color: red; } 
+        50% { color: #fff; } 
+        100% { color: red;  } 
+    }
+    @keyframes my { 
+        0% { color: red;  } 
+        50% { color: #fff;  }
+        100% { color: red;  } 
+    } 
+    .color_11 {
+        background:#fff;
+        font-size:14px;
+        font-weight:bold;
+        -webkit-animation: my 700ms infinite;
+        -moz-animation: my 700ms infinite; 
+        -o-animation: my 700ms infinite; 
+        animation: my 700ms infinite;
+    }
 </style>
 <html>
     <head>
@@ -92,6 +121,13 @@
         <div style="overflow:scroll; width: 98vw;height: 400px;">             
             <div id="divTitle">
                 BÁO CÁO TÌNH HÌNH TÀI KHOẢN THANH TOÁN
+                <s:if test="txtGetData.equalsIgnoreCase('1')"><a style="color: #009900"> (Kỳ báo cáo tuần)</a></s:if>
+                <s:elseif test="txtGetData.equalsIgnoreCase('2')"><a style="color: #009900"> (Kỳ báo cáo tháng)</a></s:elseif>
+                <s:elseif test="txtGetData.equalsIgnoreCase('3')"><a style="color: #009900"> (Kỳ báo cáo năm)</a></s:elseif>
+                <br>
+                <s:if test="chotsl.equalsIgnoreCase('2')" ><a class="color_11">(Chi nhánh đã chốt số liệu)</a></s:if>
+                <s:elseif test="chotsl.equalsIgnoreCase('1')" ><a class="color_11">(Phòng giao dịch đã gửi dữ liệu)</a></s:elseif>
+                <input type="hidden" id ="chotsl_temp" value="<s:property  value="chotsl" />">
             </div>
             <div id="divDonvitinh">
                 Đơn vị tính: Khách hàng; Tài khoản
