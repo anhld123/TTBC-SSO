@@ -53,14 +53,14 @@
         <div style="height: 7px;"/>
         <div class="bgcolor">
             <s:if test="hasActionMessages()">
-                <div class="success" id="messSucc">
+                <div class="success">
                     <s:iterator value="actionMessages">  
                         <span class="blink"><s:property escape="false" /></span>
                     </s:iterator> 
                 </div>
             </s:if>
             <s:if test="hasActionErrors()">
-                <div class="errors" id="messError">
+                <div class="errors" >
                     <s:iterator value="actionErrors">  
                         <span class="blink"><s:property escape="false" /></span>
                     </s:iterator> 

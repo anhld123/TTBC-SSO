@@ -169,7 +169,6 @@
             }
 
         </style>
-        <script src="js/webapi.js"></script>
         <script>
             $(document).ready(function () {
 
