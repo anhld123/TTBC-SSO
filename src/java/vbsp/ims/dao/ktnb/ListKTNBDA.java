@@ -159,7 +159,7 @@ public class ListKTNBDA {
         try {
             DaoConnect db = new DaoConnect();
             Connection conn = db.getConnect();
-            String MSQL = "SELECT PO_MA FROM DMPOS WHERE  PO_STATUS = 'O' AND PO_MACN =  " + sMainPos ;
+            String MSQL = "SELECT PO_MA FROM DMPOS WHERE po_ma not in ('005334') and  PO_STATUS = 'O' AND PO_MACN =  " + sMainPos ;
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery(MSQL);
             while (rs.next()) {
