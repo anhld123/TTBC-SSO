@@ -179,14 +179,14 @@
                 String reportGrade = session.getAttribute("reportGrade").toString();
             %>
 //                console.log('username= <%= username%> -> reportGrade=<%=reportGrade%>');
-                if (<%=reportGrade%> == '1')
+                if (<%=reportGrade%> === '1')
                 {
 //                        console.log('dung cap =2');
                     $('#containTree').hide();
                     $('#containParm').hide();
 
                 }
-                if (<%=reportGrade%> == '2')
+                if (<%=reportGrade%> === '2')
                 {
 //                        console.log('dung cap =2');
 //                        $('#containTree').hide();
@@ -195,19 +195,19 @@
                 }
 
             });
-            
-             $.subscribe('beforediv', function (event, data) {
+
+            $.subscribe('beforediv', function (event, data) {
                 $("#table_data").empty();
                 $("#table_data").hide();
                 $("#loadingImageDiv").show();
             });
-            
+
 
             $.subscribe('completediv', function (event, data) {
                 $("#loadingImageDiv").hide();
                 $("#table_data").show();
             });
-            
+
             $.subscribe("beforediv_send", function (event, data) {
                 $("#loadingImageDiv").show();
             });
@@ -227,63 +227,63 @@
                 $("#loadingImageDivSave").hide();
                 $("#para_api").show();
             });
-            var bflag=false;
+            var bflag = false;
             function loaddata()
             {
-                bflag=true;
+                bflag = true;
             }
             function submitLuudulieu()
             {
 //                alert('vao submit');
                 $("#para_api").empty();
                 $("#para_api").text('');
-                if(!bflag)
+                if (!bflag)
                 {
                     alert('Bạn chưa tải dữ liệu nên không thể lưu dữ liệu');
                     return;
                 }
                 //Kiem tra chi tieu CD270 và CD440 phải bằng nhau
                 var loai_module = $("#loaimodule").val();
-                if(loai_module=='CIC001')
+                if (loai_module === 'CIC001')
                 {
                     var nambc = $("#idnambc").val();
-                    var D5_cd270=getvalue('D5_CD270');
-                    var D5_cd440=getvalue('D5_CD440');
-                    
-                    if(D5_cd270!=D5_cd440)
+                    var D5_cd270 = getvalue('D5_CD270');
+                    var D5_cd440 = getvalue('D5_CD440');
+
+                    if (D5_cd270 !== D5_cd440)
                     {
-                        alert('Số liệu chỉ tiêu CD270 và chỉ tiêu CD440 năm báo cáo '+(nambc-1).toString()+' đang lệch ! CD270='+(D5_cd270).toString()+' CD440='+D5_cd440.toString());
+                        alert('Số liệu chỉ tiêu CD270 và chỉ tiêu CD440 năm báo cáo ' + (nambc - 1).toString() + ' đang lệch ! CD270=' + (D5_cd270).toString() + ' CD440=' + D5_cd440.toString());
                         return;
                     }
-                    var D6_cd270=getvalue('D6_CD270');
-                    var D6_cd440=getvalue('D6_CD440');
-                    
-                    if(D6_cd270!=D6_cd440)
+                    var D6_cd270 = getvalue('D6_CD270');
+                    var D6_cd440 = getvalue('D6_CD440');
+
+                    if (D6_cd270 !== D6_cd440)
                     {
-                        alert('Số liệu chỉ tiêu CD270 và chỉ tiêu CD440 năm báo cáo '+(nambc).toString()+' đang lệch ! CD270='+(D6_cd270).toString()+' CD440='+D6_cd440.toString());
+                        alert('Số liệu chỉ tiêu CD270 và chỉ tiêu CD440 năm báo cáo ' + (nambc).toString() + ' đang lệch ! CD270=' + (D6_cd270).toString() + ' CD440=' + D6_cd440.toString());
                         return;
                     }
                 }
                 $("#idluudulieu")[0].click();
             }
-            
+
             function getposfromtreecheck()
             {
 
                 var pos_cd = '';
                 var loai_module = $("#loaimodule").val();
                 var idform = 'id_' + loai_module;
-                
+
                 var element = document.forms['id_cic'].elements;
 //                alert('bat dau goi submit idform='+element); 
                 var i = element.length;
                 for (var k = 0; k < i; k++)
                 {
-                    if (element[k].name == 'poscd')
+                    if (element[k].name === 'poscd')
                     {
-                        if (element[k].checked == true)
+                        if (element[k].checked === true)
                         {
-                            if (element[k].value != '999999')
+                            if (element[k].value !== '999999')
 //                            alert(document.loadFormRisk.elements[k].value);
                                 pos_cd = pos_cd + element[k].value + ',';
                         }
@@ -292,20 +292,20 @@
 //                alert('bat dau goi submit pos_cd='+pos_cd);
                 return pos_cd;
             }
-            
+
             function onSentData()
             {
                 $('#message_suc_err').empty();
                 $('#table_data').empty();
-                
+
 
                 var poscd = getposfromtreecheck();
 //                alert(poscd);                
-                
+
                 $("#idSend")[0].click();
                 bsubmit = false;
             }
-            
+
             function onchange_ab()
             {
                 try {
@@ -316,7 +316,7 @@
                     var ma_dn = $("#idma_dn").val();
                     var nambc = $("#idnambc").val();
 //                    alert("thay doi gia tri loai_module=" + loai_module+" ma_dn= "+ma_dn);
-                    if (loai_module == '-1' || ma_dn == '')
+                    if (loai_module === '-1' || ma_dn === '')
                     {
                         alert('Bạn phải chọn loại chỉ tiêu cần nhập !');
                         return;
@@ -333,7 +333,7 @@
 
             }
 
-           
+
 
 
         </script>
@@ -347,7 +347,7 @@
                         <tr style="width: 100%">
                             <td style="width: 70%">
                                 <div id="navParam2">
-                                        Loại chỉ tiêu:
+                                    Loại chỉ tiêu:
                                     <s:select
                                         id="loaimodule"
                                         name="loai_module"
@@ -361,8 +361,8 @@
                                         onBeforeTopics="BeforeHandler_loaibc" 
                                         onCompleteTopics="myCompleteTopics1"></s:select> 
                                         <!--<div id="pgdtruyvan">-->
-                                        <s:if test="!Grade.equalsIgnoreCase('3')">
-                                            <label id="lbldv" > Đơn vị:
+                                    <s:if test="!Grade.equalsIgnoreCase('3')">
+                                        <label id="lbldv" > Đơn vị:
                                             <s:select
                                                 id="idma_dn"
                                                 name="ma_dn"
@@ -373,8 +373,8 @@
                                                 onBeforeTopics="BeforeHandler_loaibc" 
                                                 onCompleteTopics="myCompleteTopics1"></s:select> 
                                             </label> 
-                                        </s:if>
-                                        Năm bc:
+                                    </s:if>
+                                    Năm bc:
                                     <s:select
                                         id="idnambc"
                                         name="nambc"
@@ -395,29 +395,29 @@
                                         <input type="button" id="idload" name="nameloadap"  onclick="submitLuudulieu()" value="Lưu dữ liệu"/>
                                     </s:if>
                                     <s:if test="Grade.equalsIgnoreCase('2')">                                       
-                                            <s:url id="idSendData" action="sendCICTT200.action"></s:url>                                      
-                                            <sj:submit id="idSend" name="nameSend" href="%{idSendData}" value="Gửi dữ liệu" targets="table_data"
-                                                       onBeforeTopics="beforediv_send"
-                                                       onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                            <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu"/>
+                                        <s:url id="idSendData" action="sendCICTT200.action"></s:url>                                      
+                                        <sj:submit id="idSend" name="nameSend" href="%{idSendData}" value="Gửi dữ liệu" targets="table_data"
+                                                   onBeforeTopics="beforediv_send"
+                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                        <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu"/>
                                     </s:if> 
-                                          
-                                    
+
+
                                 </div>
                             </td>
                             <td style="width: 30%">
                                 <div id="loadingImageDivSave" style="display: none;">
-                                        <img id="loadingImage" src='img/loading.gif' border='0' >
-                                    </div>
+                                    <img id="loadingImage" src='img/loading.gif' border='0' >
+                                </div>
                                 <div id="para_api">
-                                    
+
                                 </div>
                             </td>
                         </tr>
                     </table>
                 </div>
-                                                             
-                    <s:if test="!Grade.equalsIgnoreCase('1')">
+
+                <s:if test="!Grade.equalsIgnoreCase('1')">
                     <div id="containTree">
                         <sjt:tree
                             name="poscd"
@@ -433,26 +433,26 @@
                             showThemeIcons="true" 
                             />
                     </div>
-                    </s:if>
+                </s:if>
 
-                </s:form>               
+            </s:form>               
 
-                 <s:if test="Grade.equalsIgnoreCase('1')">
+            <s:if test="Grade.equalsIgnoreCase('1')">
                 <div id="containParm_full" align="center">
                 </s:if>
                 <s:else>
                     <div id="containParm" align="center">
                     </s:else>
                     <div id="loadingImageDiv" style="display: none;">
-                            <h2 style='color: red'>Xin chờ đang tải dữ liệu!</h2>
-                            </br>
-                            <img id="loadingImage" src='img/loading.gif' border='0' >
-                        </div>
-                        <div id="table_data"></div>
+                        <h2 style='color: red'>Xin chờ đang tải dữ liệu!</h2>
+                        </br>
+                        <img id="loadingImage" src='img/loading.gif' border='0' >
+                    </div>
+                    <div id="table_data"></div>
                 </div>
-            </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

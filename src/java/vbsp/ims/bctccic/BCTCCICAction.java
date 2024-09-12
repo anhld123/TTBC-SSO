@@ -1,10 +1,11 @@
 package vbsp.ims.bctccic;
-// đức anh fix 9/9/2024
+
 import com.jgeppert.struts2.jquery.tree.result.TreeNode;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.File;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,6 +45,24 @@ public class BCTCCICAction extends ActionSupport {
     protected TreeNode nodes_pos = new TreeNode();
     private String totalDataView;
     protected List<ModelViewSend> lstViewSend = new ArrayList();
+    private String sKiemtoan;
+    private String sBcao;
+
+    public String getsKiemtoan() {
+        return sKiemtoan;
+    }
+
+    public void setsKiemtoan(String sKiemtoan) {
+        this.sKiemtoan = sKiemtoan;
+    }
+
+    public String getsBcao() {
+        return sBcao;
+    }
+
+    public void setsBcao(String sBcao) {
+        this.sBcao = sBcao;
+    }
 
     protected boolean getParaSession() {
         Map session = ActionContext.getContext().getSession();
@@ -235,30 +254,41 @@ public class BCTCCICAction extends ActionSupport {
 
     public String loadDataDoanhnghiep() {
         try {
+            HashMap hmParameter = this.getParameter();
+            setsKiemtoan(hmParameter.get("txtKiemtoan").toString());
+            setsBcao(hmParameter.get("txtBchopnhat").toString());
             if (!this.getParaSession()) {
                 return "error";
             } else if (this.loai_module != null && !this.loai_module.equals("-1")) {
                 if (this.nambc != null && !this.nambc.equals("")) {
                     daoBCTCCIC dao = new daoBCTCCIC();
                     if (this.Grade.equals("1")) {
-                        if (this.ma_dn != null && !this.ma_dn.equals("")) {
-                            this.lstDulieuNt = dao.loadDataDoanhnghiep(this.loai_module, Integer.parseInt(this.nambc), this.ma_dn, this.UserName, this.Grade, this.poscd);
-                            return this.loai_module;
-                        } else {
+                        if (this.ma_dn == null && this.ma_dn.equals("")) {
                             this.addActionError("Bạn phải chọn mã doanh nghiệp cần load số liệu");
                             return "error";
+                        }
+                        if (sKiemtoan == null || sKiemtoan.equals("")) {
+                            this.addActionError("Bạn chưa chọn kiểm toán!");
+                            return "error";
+                        }
+                        if (sBcao == null || sBcao.equals("")) {
+                            this.addActionError("Bạn chưa chọn báo cáo tài chính hợp nhất!");
+                            return "error";
+                        } else {
+                            this.lstDulieuNt = dao.loadDataDoanhnghiep(this.loai_module, Integer.parseInt(this.nambc), this.ma_dn, this.UserName, this.Grade, this.poscd, sKiemtoan, sBcao);
+                            return this.loai_module;
                         }
                     } else if (this.Grade.equals("2")) {
                         if (this.ma_dn != null && !this.ma_dn.equals("")) {
                             this.totalDataView = dao.loadDataTotalDoanhnghiep(this.loai_module, Integer.parseInt(this.nambc), this.ma_dn, this.UserName, this.Grade, this.poscd);
-                            this.lstDulieuNt = dao.loadDataDoanhnghiep(this.loai_module, Integer.parseInt(this.nambc), this.ma_dn, this.UserName, this.Grade, this.poscd);
+                            this.lstDulieuNt = dao.loadDataDoanhnghiep(this.loai_module, Integer.parseInt(this.nambc), this.ma_dn, this.UserName, this.Grade, this.poscd, sKiemtoan, sBcao);
                             return this.loai_module;
                         } else {
                             this.addActionError("Bạn phải chọn mã doanh nghiệp cần load số liệu");
                             return "error";
                         }
                     } else {
-                        HashMap hmParameter = this.getParameter();
+
                         List<String> lstPos = (List) hmParameter.get("poscd");
                         this.lstDulieuNt = dao.getStatusSendCn("NT", hmParameter.get("loai_module").toString(), this.poscd, hmParameter.get("nambc").toString(), hmParameter.get("loai_module").toString().equals("ALL") ? this.loai_module : "SEND");
                         return "checksend";
@@ -296,7 +326,7 @@ public class BCTCCICAction extends ActionSupport {
                             }
 
                             daoBCTCCIC dao = new daoBCTCCIC();
-                            dao.saveDataDoanhnghiep(this.loai_module, Integer.parseInt(this.nambc), this.ma_dn, this.UserName, this.Grade, this.lstDulieuNt);
+                            dao.saveDataDoanhnghiep(this.loai_module, Integer.parseInt(this.nambc), this.ma_dn, this.UserName, this.Grade, sKiemtoan, sBcao, this.lstDulieuNt);
                             break label57;
                         }
 
@@ -311,10 +341,8 @@ public class BCTCCICAction extends ActionSupport {
                 this.addActionError("Bạn phải chọn loại module cần load số liệu");
                 return "error";
             }
-        } catch (Exception var2) {
-            System.err.println(var2.getMessage());
-            CoreLogger.error(this.getClass().getCanonicalName() + " saveBctcCic -> " + var2.getMessage());
-            this.addActionError("Lỗi bạn không thể lưu dữ liệu, xin liên hệ với quản trị để khắc phục" + var2.getMessage());
+        } catch (SQLException var2) {
+            this.addActionError("Lỗi bạn không thể lưu dữ liệu, xin liên hệ với quản trị để khắc phục." + var2.getMessage().substring(var2.getMessage().indexOf("<messageError>"), var2.getMessage().indexOf("</messageError>")));
             return "error";
         }
 
