@@ -137,11 +137,10 @@
                     </select>
                     &nbsp;
                     <span class="clss-lable">Đợt thực hiện:</span>
-                    <select  id="cboDot" name="cboDot">
-                        <option value="1">Đợt I</option>
-                        <option value="2">Đợt II</option>
-                        <option value="3">Đợt III</option>
-                        <option value="4">Đợt IV</option>
+                    <select  id="cboDot" name="cboDot" onchange="toggleNguyenNhan()">
+                        <option value="1">Năm</option>
+                        <option value="2">3 Năm</option>
+                        <option value="5">5 Năm</option>
                     </select>
                     &nbsp;
                     <span class="clss-lable">Tổng hợp</span>
@@ -166,10 +165,10 @@
                     <input type="button" value="Gửi cấp trên" id="cmdGuiDL" name="nameGuiDL" class="cmd"/>
                     <input type="button" value="Trả lại đơn vị" id="cmdTraLaiDL" name="nameTraLaiDL" class="cmd"/>
                     <input type="button" value="Lưu dữ liệu" id="idLuuDL" name="nameLuuDL" class="cmd"/>
-                    
+
                 </div>
-                    &nbsp;
-                    <div id="idViewMess" name="nameViewMess" style="font-weight: bold; color: red; line-height: 30px;"></div>
+                &nbsp;
+                <div id="idViewMess" name="nameViewMess" style="font-weight: bold; color: red; line-height: 30px;"></div>
             </div>
             <div class="cls-over">
                 <div id="idViewData"></div>
@@ -254,7 +253,7 @@
                                 var surl, sdata, idView, idMess, idForm, method, strMess;
                                 if ($("#cboTonghop").val().trim() === "N")
                                     $('.cls-over').height("65vh");
-                                else{
+                                else {
                                     $('.cls-over').height("85vh");
                                 }
                                 surl = "SendAction.action?status=" + event.data.status;
@@ -272,7 +271,7 @@
                                         $(idMess).html('<img src="imgs/newloading.gif"/>');
                                     },
                                     success: function (result) {
-                                        if (["10", "11", "20", "21", "01", "30", "31","404"].includes(result)) {
+                                        if (["10", "11", "20", "21", "01", "30", "31", "404"].includes(result)) {
                                             switch (result) {
                                                 case "01":
                                                     strMess = 'Lỗi: Không có dữ liệu.';
@@ -322,6 +321,16 @@
                                         alert('Lỗi khi thực hiện.');
                                     }
                                 });
+                            }
+                            function toggleNguyenNhan() {
+                                var cboDotValue = document.getElementById("cboDot").value;
+                                var nguyenNhanDiv = document.getElementById("idNguyenNhan");
+
+                                if (cboDotValue == "5") {
+                                    nguyenNhanDiv.style.display = "none";
+                                } else {
+                                    nguyenNhanDiv.style.display = "block";
+                                }
                             }
         </script>
     </body>

@@ -232,11 +232,22 @@
                 <input type="button" class="cmd" onclick="callDirectLink('khvn_open_upload?');" value="Upload Excel">
                 
                 &nbsp;&nbsp;|&nbsp;&nbsp;
-                <s:url id="idExpEcelKhnv01B_3N" action="khnv/dk/ExpExcelKhnv01B_3N.action"></s:url>                                      
+                <s:url id="idExpEcelKhnv01B_3N" action="khnv/dk/xuatExcel_KHNV01_2024.action"></s:url>                                      
                 <sj:submit id="idExpEcelKhnvtmp01new_3N" name="nameSendnew_3N" href="%{idExpEcelKhnv01B_3N}" value="Xuất xls mẫu 01 (3 năm)" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
                            onCompleteTopics="completediv_send" class="cmd"/>
                 
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <s:url id="idExpEcelKhnv01_2024" action="khnv/dk/ExpExcelKhnv01_2024.action"></s:url>                                      
+                <sj:submit id="idExpEcelKhnvtmp01_2024" name="nameSend01_2024" href="%{idExpEcelKhnv01_2024}" value="Xuất xls mẫu 01 (5 năm)" targets="divKhDetail"
+                           onBeforeTopics="beforediv_send"
+                           onCompleteTopics="completediv_send" class="cmd"/>
+  
+                 &nbsp;&nbsp;|&nbsp;&nbsp;
+                <s:url id="idExpEcelKhnv02_2024" action="khnv/dk/ExpExcelKhnv02_2024.action"></s:url>                                      
+                <sj:submit id="idExpEcelKhnvtmp02_2024" name="nameSend02_2024" href="%{idExpEcelKhnv02_2024}" value="Xuất xls mẫu 02 (5 năm)" targets="divKhDetail"
+                           onBeforeTopics="beforediv_send"
+                           onCompleteTopics="completediv_send" class="cmd"/>
                 </div>
                 <hr/>
             </div>
