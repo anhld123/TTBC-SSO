@@ -9,7 +9,7 @@
 <%@taglib uri="/struts-jquery-tree-tags" prefix="sjt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%--<sj:head/>--%>
-<script src="js/bctc_cic_tt200.js"></script>
+<script src="js/bctc_cic.js"></script>
 <script src="js/jquery.number.js"></script>
 <script src="js/format_num.js"></script>
 <style>
@@ -76,7 +76,7 @@
         $(this).closest('tr').removeClass('highlight_row');
     });
 </script>
-<s:form id="id_cicsave" name="name_cicsave" action="saveBctcCicTT200.action" theme="simple">
+<s:form id="id_cicsave" name="name_cicsave" action="saveBctcCic.action" theme="simple">
     <s:if test="Grade.equalsIgnoreCase('2')">
         <div id="formatdiv" style=" text-align: center;">
             <h3><span style="color: #007fff">Tổng số doanh nghiệp được đã nhập(Mã PGD - số doanh nghiệp) </span></h3>
@@ -138,6 +138,9 @@
                 </td>
             <input type="hidden" value="<s:property value='D9'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9"/>
             <input type="hidden" value="<s:property value='D10'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10"/>
+            <input type="hidden" value="<s:property value='NHAPTAY'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY"/>
+            <input type="hidden" value="<s:property value='KIEUIN'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KIEUIN"/>
+
             <td align = "left" style="width: 250px">
                 <%--<s:property value='TEN'/>--%>
                 <s:if test="NHAPTAY.equalsIgnoreCase('N') ">

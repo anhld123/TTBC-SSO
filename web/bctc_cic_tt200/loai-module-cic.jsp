@@ -385,6 +385,18 @@
                                         cssStyle="font-weight: bold;vertical-align: middle;width: 70px;"
                                         onBeforeTopics="BeforeHandler_loaibc" 
                                         onCompleteTopics="myCompleteTopics1"></s:select> 
+                                        Kiểm toán:
+                                        <select name="txtKiemtoan" id="txtKiemtoan">  
+                                            <option value=""> --- Chọn ---</option>     
+                                            <option value="0">0 - Không kiểm toán</option>                                                    
+                                            <option value="1">1 - Có kiểm toán</option>
+                                        </select> 
+                                        Báo cáo:
+                                        <select name="txtBchopnhat" id="txtBchopnhat">   
+                                            <option value=""> --- Chọn ---</option>
+                                            <option value="0">0 - Báo cáo tài chính riêng lẻ</option>                                                    
+                                            <option value="1">1 - Báo cáo tài chính hợp nhất</option>
+                                        </select> 
                                         <!--</div>-->
                                         <!--<input type="button" id="idload" name="nameloadap"  onclick="onchange_ab()" value="Tải dữ liệu"/>-->
                                     <sj:submit id="idtruyvan" name="nametruyvan" value="Tải dữ liệu" targets="table_data"
@@ -405,18 +417,16 @@
 
                                 </div>
                             </td>
-                            <td style="width: 30%">
-                                <div id="loadingImageDivSave" style="display: none;">
-                                    <img id="loadingImage" src='img/loading.gif' border='0' >
-                                </div>
-                                <div id="para_api">
 
-                                </div>
-                            </td>
                         </tr>
                     </table>
                 </div>
+                <div id="loadingImageDivSave" style="display: none;">
+                    <img id="loadingImage" src='img/loading.gif' border='0' >
+                </div>
+                <div id="para_api">
 
+                </div>
                 <s:if test="!Grade.equalsIgnoreCase('1')">
                     <div id="containTree">
                         <sjt:tree

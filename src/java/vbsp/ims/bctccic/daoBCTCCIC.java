@@ -207,7 +207,7 @@ public class daoBCTCCIC {
         return lstBcqt_NT;
     }
 
-    public String loadDataTotalDoanhnghiep(String Khoa, int nambc, String ma_dn, String username, String grade, List<String> lstMapgd) throws SQLException {
+    public String loadDataTotalDoanhnghiep(String Khoa, int nambc, String ma_dn, String username, String grade, List<String> lstMapgd, String sKiemtoan, String sBcao) throws SQLException {
         new ArrayList();
         DaoConnect daoconnect = new DaoConnect();
         Connection conn = null;
@@ -219,7 +219,7 @@ public class daoBCTCCIC {
             String[] arrayPoscd = (String[]) lstMapgd.toArray(new String[0]);
             ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
             CallableStatement calstatement = null;
-            String strStoreproce = "{?=call IMS_CIC.sp_load_total_data_doanhnghiep(?,?,?,?,?,?)}";
+            String strStoreproce = "{?=call IMS_CIC.sp_load_total_data_doanhnghiep(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
             calstatement = conn.prepareCall(strStoreproce, 1003, 1007);
             calstatement.registerOutParameter(1, 12);
@@ -229,6 +229,8 @@ public class daoBCTCCIC {
             calstatement.setString(5, username);
             calstatement.setString(6, grade);
             calstatement.setArray(7, oracle_arrayPoscd);
+            calstatement.setString(8, sKiemtoan);
+            calstatement.setString(9, sBcao);
             calstatement.execute();
             sCountTotalCust = calstatement.getString(1);
             if (reset != null) {

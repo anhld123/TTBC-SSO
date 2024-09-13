@@ -386,6 +386,7 @@
                                         cssStyle="font-weight: bold;vertical-align: middle;width: 70px;"
                                         onBeforeTopics="BeforeHandler_loaibc" 
                                         onCompleteTopics="myCompleteTopics1"></s:select> 
+                                    <s:if test="!Grade.equalsIgnoreCase('3')">
                                         Kiểm toán:
                                         <select name="txtKiemtoan" id="txtKiemtoan">  
                                             <option value=""> --- Chọn ---</option>     
@@ -398,6 +399,7 @@
                                             <option value="0">0 - Báo cáo tài chính riêng lẻ</option>                                                    
                                             <option value="1">1 - Báo cáo tài chính hợp nhất</option>
                                         </select> 
+                                        </s:if>
                                         <!--</div>-->
                                         <!--<input type="button" id="idload" name="nameloadap"  onclick="onchange_ab()" value="Tải dữ liệu"/>-->
                                     <sj:submit id="idtruyvan" name="nametruyvan" value="Tải dữ liệu" targets="table_data"
