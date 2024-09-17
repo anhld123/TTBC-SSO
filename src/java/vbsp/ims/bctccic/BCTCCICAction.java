@@ -47,7 +47,16 @@ public class BCTCCICAction extends ActionSupport {
     protected List<ModelViewSend> lstViewSend = new ArrayList();
     private String sKiemtoan;
     private String sBcao;
+    private String sThongtu;
 
+    public String getsThongtu() {
+        return sThongtu;
+    }
+
+    public void setsThongtu(String sThongtu) {
+        this.sThongtu = sThongtu;
+    }
+    
     public String getsKiemtoan() {
         return sKiemtoan;
     }
@@ -257,6 +266,7 @@ public class BCTCCICAction extends ActionSupport {
             HashMap hmParameter = this.getParameter();
             setsKiemtoan(hmParameter.get("txtKiemtoan").toString());
             setsBcao(hmParameter.get("txtBchopnhat").toString());
+            setsThongtu(hmParameter.get("txtThongtu").toString());
             if (sKiemtoan == null || sKiemtoan.equals("")) {
                 this.addActionError("Bạn chưa chọn kiểm toán!");
                 return "error";
@@ -265,8 +275,13 @@ public class BCTCCICAction extends ActionSupport {
                 this.addActionError("Bạn chưa chọn báo cáo tài chính hợp nhất!");
                 return "error";
             }
+            if (sThongtu == null || sThongtu.equals("")) {
+                this.addActionError("Bạn chưa chọn số Thông tư!");
+                return "error";
+            }
             ActionContext.getContext().getSession().put("sKiemtoan", sKiemtoan);
             ActionContext.getContext().getSession().put("sBcao", sBcao);
+            ActionContext.getContext().getSession().put("sThongtu", sThongtu);
             if (!this.getParaSession()) {
                 return "error";
             } else if (this.loai_module != null && !this.loai_module.equals("-1")) {
@@ -277,13 +292,13 @@ public class BCTCCICAction extends ActionSupport {
                             this.addActionError("Bạn phải chọn mã doanh nghiệp cần load số liệu");
                             return "error";
                         } else {
-                            this.lstDulieuNt = dao.loadDataDoanhnghiep(this.loai_module, Integer.parseInt(this.nambc), this.ma_dn, this.UserName, this.Grade, this.poscd, sKiemtoan, sBcao);
+                            this.lstDulieuNt = dao.loadDataDoanhnghiep(this.loai_module, Integer.parseInt(this.nambc), this.ma_dn, this.UserName, this.Grade, this.poscd, sKiemtoan, sBcao, sThongtu);
                             return this.loai_module;
                         }
                     } else if (this.Grade.equals("2")) {
                         if (this.ma_dn != null && !this.ma_dn.equals("")) {
-                            this.totalDataView = dao.loadDataTotalDoanhnghiep(this.loai_module, Integer.parseInt(this.nambc), this.ma_dn, this.UserName, this.Grade, this.poscd, sKiemtoan, sBcao);
-                            this.lstDulieuNt = dao.loadDataDoanhnghiep(this.loai_module, Integer.parseInt(this.nambc), this.ma_dn, this.UserName, this.Grade, this.poscd, sKiemtoan, sBcao);
+                            this.totalDataView = dao.loadDataTotalDoanhnghiep(this.loai_module, Integer.parseInt(this.nambc), this.ma_dn, this.UserName, this.Grade, this.poscd, sKiemtoan, sBcao,sThongtu);
+                            this.lstDulieuNt = dao.loadDataDoanhnghiep(this.loai_module, Integer.parseInt(this.nambc), this.ma_dn, this.UserName, this.Grade, this.poscd, sKiemtoan, sBcao,sThongtu);
                             return this.loai_module;
                         } else {
                             this.addActionError("Bạn phải chọn mã doanh nghiệp cần load số liệu");
@@ -321,7 +336,7 @@ public class BCTCCICAction extends ActionSupport {
                 }
                 sKiemtoan = (String) ActionContext.getContext().getSession().get("sKiemtoan");
                 sBcao = (String) ActionContext.getContext().getSession().get("sBcao");
-
+                sThongtu = (String) ActionContext.getContext().getSession().get("sThongtu");
                 // Kiểm tra xem giá trị đã được lấy từ session chưa
                 if (sKiemtoan == null || sKiemtoan.equals("")) {
                     this.addActionError("Bạn chưa chọn kiểm toán!");
@@ -340,7 +355,7 @@ public class BCTCCICAction extends ActionSupport {
                             }
                             System.out.println(sKiemtoan + " " + sBcao);
                             daoBCTCCIC dao = new daoBCTCCIC();
-                            dao.saveDataDoanhnghiep(this.loai_module, Integer.parseInt(this.nambc), this.ma_dn, this.UserName, this.Grade, sKiemtoan, sBcao, this.lstDulieuNt);
+                            dao.saveDataDoanhnghiep(this.loai_module, Integer.parseInt(this.nambc), this.ma_dn, this.UserName, this.Grade, sKiemtoan, sBcao,sThongtu, this.lstDulieuNt);
                             break label57;
                         }
 

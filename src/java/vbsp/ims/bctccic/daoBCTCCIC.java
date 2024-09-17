@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import oracle.jdbc.OraclePreparedStatement;
+import oracle.jdbc.OracleTypes;
 import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import oracle.xdb.XMLType;
@@ -135,7 +136,7 @@ public class daoBCTCCIC {
         return nambcList;
     }
 
-    public List<QT_DULIEU_NT> loadDataDoanhnghiep(String Khoa, int nambc, String ma_dn, String username, String grade, List<String> lstMapgd, String sKiemtoan, String sBcao) throws SQLException {
+    public List<QT_DULIEU_NT> loadDataDoanhnghiep(String Khoa, int nambc, String ma_dn, String username, String grade, List<String> lstMapgd, String sKiemtoan, String sBcao, String sThongtu) throws SQLException {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList();
         DaoConnect daoconnect = new DaoConnect();
         Connection conn = null;
@@ -144,12 +145,12 @@ public class daoBCTCCIC {
         ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
         String[] arrayPoscd = (String[]) lstMapgd.toArray(new String[0]);
         ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
-        String strStoreproce = "{call IMS_CIC.sp_load_data_doanhnghiep(?,?,?,?,?,?,?,?,?)}";
+        String strStoreproce = "{call IMS_CIC.sp_load_data_doanhnghiep(?,?,?,?,?,?,?,?,?,?)}";
         ResultSet reset = null;
 
         try {
             calstatement = conn.prepareCall(strStoreproce, 1003, 1007);
-            calstatement.registerOutParameter(9, -10);
+            calstatement.registerOutParameter(10, OracleTypes.CURSOR);
             calstatement.setString(1, Khoa);
             calstatement.setInt(2, nambc);
             calstatement.setString(3, ma_dn);
@@ -158,8 +159,9 @@ public class daoBCTCCIC {
             calstatement.setArray(6, oracle_arrayPoscd);
             calstatement.setString(7, sKiemtoan);
             calstatement.setString(8, sBcao);
+            calstatement.setString(9, sThongtu);
             calstatement.execute();
-            reset = (ResultSet) calstatement.getObject(9);
+            reset = (ResultSet) calstatement.getObject(10);
 
             while (reset.next()) {
                 QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
@@ -181,6 +183,7 @@ public class daoBCTCCIC {
                 value.setD8(reset.getString("D8"));
                 value.setD9(reset.getString("D9"));
                 value.setD10(reset.getString("D10"));
+                value.setD11(reset.getString("D11"));
                 value.setNHAPTAY(reset.getString("NHAPTAY"));
                 value.setKIEUIN(reset.getInt("KIEUIN"));
                 lstBcqt_NT.add(value);
@@ -207,7 +210,7 @@ public class daoBCTCCIC {
         return lstBcqt_NT;
     }
 
-    public String loadDataTotalDoanhnghiep(String Khoa, int nambc, String ma_dn, String username, String grade, List<String> lstMapgd, String sKiemtoan, String sBcao) throws SQLException {
+    public String loadDataTotalDoanhnghiep(String Khoa, int nambc, String ma_dn, String username, String grade, List<String> lstMapgd, String sKiemtoan, String sBcao, String sThongtu) throws SQLException {
         new ArrayList();
         DaoConnect daoconnect = new DaoConnect();
         Connection conn = null;
@@ -231,6 +234,7 @@ public class daoBCTCCIC {
             calstatement.setArray(7, oracle_arrayPoscd);
             calstatement.setString(8, sKiemtoan);
             calstatement.setString(9, sBcao);
+             calstatement.setString(10, sThongtu);
             calstatement.execute();
             sCountTotalCust = calstatement.getString(1);
             if (reset != null) {
@@ -248,7 +252,7 @@ public class daoBCTCCIC {
         return sCountTotalCust;
     }
 
-    public boolean saveDataDoanhnghiep(String khoa, int nambc, String ma_dn, String username, String grade, String sKiemtoan, String sBcao, List<QT_DULIEU_NT> lstData) throws SQLException {
+    public boolean saveDataDoanhnghiep(String khoa, int nambc, String ma_dn, String username, String grade, String sKiemtoan, String sBcao,String sThongtu, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = (new DaoConnect()).getConnect();
         Object[] array = lstData.toArray();
         ArrayDescriptor des = ArrayDescriptor.createDescriptor("TAB_DULIEU_NT", connection);
@@ -256,7 +260,7 @@ public class daoBCTCCIC {
         CallableStatement cs = null;
 
         try {
-            cs = connection.prepareCall("{call IMS_CIC.sp_save_doanhnghiep(?, ?, ?, ?, ?,?,?, ?)}");
+            cs = connection.prepareCall("{call IMS_CIC.sp_save_doanhnghiep(?, ?, ?, ?, ?,?,?,?, ?)}");
             cs.setString(1, khoa);
             cs.setInt(2, nambc);
             cs.setString(3, ma_dn);
@@ -264,7 +268,8 @@ public class daoBCTCCIC {
             cs.setString(5, grade);
             cs.setString(6, sKiemtoan);
             cs.setString(7, sBcao);
-            cs.setArray(8, array_to_pass);
+            cs.setString(8, sThongtu);
+            cs.setArray(9, array_to_pass);
             cs.execute();
         } catch (SQLException var16) {
             var16.printStackTrace();

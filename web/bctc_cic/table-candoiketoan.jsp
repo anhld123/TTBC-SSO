@@ -140,7 +140,7 @@
             <input type="hidden" value="<s:property value='D10'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10"/>
             <input type="hidden" value="<s:property value='NHAPTAY'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY"/>
             <input type="hidden" value="<s:property value='KIEUIN'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KIEUIN"/>
-
+            <input type="hidden" value="<s:property value='D11'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11"/>
             <td align = "left" style="width: 250px">
                 <%--<s:property value='TEN'/>--%>
                 <s:if test="NHAPTAY.equalsIgnoreCase('N') ">
