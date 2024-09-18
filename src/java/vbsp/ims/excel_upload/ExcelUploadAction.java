@@ -12,7 +12,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import vbsp.ims.khnv2021.dao.XDKHDao2021;
 import java.io.OutputStream;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
+import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.define.Define;
 import vbsp.ims.dtw.UploadFileLogObject;
 import vbsp.ims.dtw.dao.DtwUploadDao;
@@ -42,13 +45,23 @@ public class ExcelUploadAction extends ActionSupport
     private List<File> fileUpload = new ArrayList<>();
     private List<String> fileUploadContentType = new ArrayList<>();
     private List<String> fileUploadFileName = new ArrayList<>();
+    private List<QT_DULIEU_NT> lstData;
     HttpServletRequest request;
-
+    private XDKHDao2021 daoXdkh = new XDKHDao2021();
+    private String chotsl;
     private String message;
     private String font_type;
     private static List<UploadFileLogObject> logObj = new ArrayList<>();
     private String logPath;
     private String logPathType;
+
+    public String getChotsl() {
+        return chotsl;
+    }
+
+    public void setChotsl(String chotsl) {
+        this.chotsl = chotsl;
+    }
 
     @Override
     public void setServletRequest(HttpServletRequest request) {
@@ -73,14 +86,39 @@ public class ExcelUploadAction extends ActionSupport
 
                 String fileExtend = FilenameUtils.getExtension(new_file_path);
                 String file_name = new_file.getName();
+//                System.out.println(file_name);
+                String khoa = file_name.substring(0, 8);
+//                System.out.println(khoa);
+                if (khoa.equals("KHNV_02C")) {
+                    String nambc = file_name.substring(27, 31);
+                    String mapgd_tmp = file_name.substring(14, 20);
+                    int year1 = Integer.parseInt(nambc) + 1;
+                    String namBc_1 = String.valueOf(year1);
+                    Connection conn = new DaoConnect().getConnect();
+                    XDKHDao2021 daoMain = new XDKHDao2021();
+                    System.out.println(khoa);
 
+                    lstData = daoMain.getData_checklock(conn, namBc_1, "5", mapgd_tmp, khoa);
+                    try {
+                        setChotsl(lstData.get(0).getD2());
+                    } catch (Exception e) {
+                        setChotsl("0");
+                    }
+                    if (chotsl.equals("1")) {
+                        message = "(*) PGD đã gửi dữ liệu lên CN, không thể gửi lại";
+                        return ERROR;
+                    }
+                }
+//                } else {
+//                    return SUCCESS;
+//                }
                 if (fileExtend.toLowerCase().equals("zip")) {
                     boolean is_unzip = unzip_file(new_file.getAbsolutePath(), new_file.getParent());
 
                     if (is_unzip) {
 
                         ExcelUploader excelUploader = new ExcelUploader();
-                        
+
                         ResultModel status = excelUploader.import_directory(new_file.getParent() + "/"
                                 + FilenameUtils.removeExtension(file_name), font_type);
 
@@ -115,18 +153,15 @@ public class ExcelUploadAction extends ActionSupport
                         if (file_name.startsWith(Define.NV_QT)) {
                             List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
                             lstDulieuNt = new XDKHDao2021().getDataQtKehoachByFile(Define.NV_QT, file_name);
-                            String sReturn = sendDataNV_QTByApi(lstDulieuNt,file_name);
-                            if(sReturn.equals(SUCCESS))
-                            {
+                            String sReturn = sendDataNV_QTByApi(lstDulieuNt, file_name);
+                            if (sReturn.equals(SUCCESS)) {
                                 message = "(*) Xử lý file thành công: [" + file_name + "].";
-                            }
-                            else
-                            {
-                                message = "(*) Xử lý api thành công: [" + file_name + "].";                                
+                            } else {
+                                message = "(*) Xử lý api thành công: [" + file_name + "].";
                             }
                         } else {
                             message = "(*) Xử lý file thành công: [" + file_name + "].";
-                        }                        
+                        }
                     } else {
                         message = status.message;
                     }
@@ -147,38 +182,38 @@ public class ExcelUploadAction extends ActionSupport
         SimpleDateFormat sdf;
         sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                DuLieuNTRow tempadd = new DuLieuNTRow();
-                tempadd.setKey(tmp.getKHOA());
+            DuLieuNTRow tempadd = new DuLieuNTRow();
+            tempadd.setKey(tmp.getKHOA());
 //                tempadd.setOrderValue(tmp.getTHUTU());
-                tempadd.setOrderDescription(tmp.getTT_HIENTHI());
-                tempadd.setCode(tmp.getMA());
-                tempadd.setName(tmp.getTEN());
+            tempadd.setOrderDescription(tmp.getTT_HIENTHI());
+            tempadd.setCode(tmp.getMA());
+            tempadd.setName(tmp.getTEN());
 //                tempadd.setReportDate(tmp.getNGAYBC());
-                String text = sdf.format(tmp.getNGAYBC());
-                tempadd.setReportDate(text);
-                
-                tempadd.setReportYear(tmp.getNAMBC());
-                tempadd.setPosCode(tmp.getMAPGD());
-                
-                tempadd.setPosFlag(tmp.getCO_TONGHOP());
-                tempadd.setBranchCode(tmp.getMACN());
-                tempadd.setMakerId(tmp.getNGUOI_NHAP());
+            String text = sdf.format(tmp.getNGAYBC());
+            tempadd.setReportDate(text);
 
-                tempadd.setD1(tmp.getD1());
-                tempadd.setD2(tmp.getD2());
-                tempadd.setD3(tmp.getD3());
-                tempadd.setD4(tmp.getD4());
-                tempadd.setD5(tmp.getD5());
-                tempadd.setD6(tmp.getD6());
-                tempadd.setD7(tmp.getD7());
-                tempadd.setD8(tmp.getD8());
-                tempadd.setD9(tmp.getD9());
-                                
-                lstUpdateDate.add(tempadd);
-            }
+            tempadd.setReportYear(tmp.getNAMBC());
+            tempadd.setPosCode(tmp.getMAPGD());
+
+            tempadd.setPosFlag(tmp.getCO_TONGHOP());
+            tempadd.setBranchCode(tmp.getMACN());
+            tempadd.setMakerId(tmp.getNGUOI_NHAP());
+
+            tempadd.setD1(tmp.getD1());
+            tempadd.setD2(tmp.getD2());
+            tempadd.setD3(tmp.getD3());
+            tempadd.setD4(tmp.getD4());
+            tempadd.setD5(tmp.getD5());
+            tempadd.setD6(tmp.getD6());
+            tempadd.setD7(tmp.getD7());
+            tempadd.setD8(tmp.getD8());
+            tempadd.setD9(tmp.getD9());
+
+            lstUpdateDate.add(tempadd);
+        }
         service = new DuLieuNTService();
 //        int status = service.insertData("insert","system",lstUpdateDate);
-        int status = service.updateData(Define.NV_QT, file.split("_", -1)[2], file.split("_", -1)[3], file.split("_", -1)[4], file.split("_", -1)[5], "system", lstUpdateDate);  
+        int status = service.updateData(Define.NV_QT, file.split("_", -1)[2], file.split("_", -1)[3], file.split("_", -1)[4], file.split("_", -1)[5], "system", lstUpdateDate);
         if (status == 200) {
             return SUCCESS;
         }
