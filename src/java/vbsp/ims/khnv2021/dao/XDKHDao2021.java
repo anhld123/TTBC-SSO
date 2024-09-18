@@ -385,6 +385,55 @@ public class XDKHDao2021 {
         return posList;
     }
 
+    public List<QT_DULIEU_NT> getData_checklock(Connection conn, String para1, String para2, String para3, String para4) {
+        List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
+        try {
+            CallableStatement calstatement = null;
+            String strStoreproce = "{call VBSP_IMS_KHNV2021.SP_CHECK_LOCK2024(?,?,?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(1, para1);
+                calstatement.setString(2, para2);
+                calstatement.setString(3, para3);
+                calstatement.setString(4, para4);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+                int pn_err_cd = calstatement.getInt(5);
+                //thu hien lay mo ta loi
+                String strEdd_txt = calstatement.getString(6);
+                //Lay cursor ra resultset
+                reset = (ResultSet) calstatement.getObject(7);
+                while (reset.next()) {
+
+                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+                    value.setD2(reset.getString("D2"));
+                    lstBcqt_NT.add(value);
+                }
+
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getDataKH04 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+        }
+        return lstBcqt_NT;
+    }
+
     public ArrayList<POSModel> getSubCommuneList(String posCD, String communeId) {
         ArrayList<POSModel> posList = new ArrayList<>();
 

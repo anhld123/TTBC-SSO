@@ -153,7 +153,12 @@ public class AuthorModel {
         String ChkSuccess = "20";
         try {
             //Thực hiện lấy các biến cần truy cập
-            CallableStatement st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2021_ROLLBACKDATA(?,?,?,?,?,?,?,?)}");
+            CallableStatement st;
+            if (!cboDot.equals("5")) {
+                st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2021_ROLLBACKDATA(?,?,?,?,?,?,?,?)}");
+            } else {
+                st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2024_ROLLBACKDATA(?,?,?,?,?,?,?,?)}");
+            }
             st.setString(1, CapBC);
             st.setString(2, TenDN);
             st.setString(3, cboDonvi);

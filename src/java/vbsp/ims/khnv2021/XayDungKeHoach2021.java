@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import org.apache.struts2.ServletActionContext;
 import vbsp.ims.action.Utilities;
+import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.define.Define;
 import vbsp.ims.khnv2021.excel.ExcelExport;
 import vbsp.ims.khnv2021.model.FileExportInfo;
@@ -30,6 +31,8 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
     private String namBc_3;
     private String namBc_4;
     private String check_count;
+//<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
 
     public String getCheck_count() {
         return check_count;
@@ -78,6 +81,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
     public void setNamBc_4(String namBc_4) {
         this.namBc_4 = namBc_4;
     }
+//</editor-fold>
 
     public XayDungKeHoach2021() {
     }
@@ -172,8 +176,11 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
         try {
             getInfo();
             String message = daoXdkh.getCheckInputPGD(maBc, namBc, dotBc, pos_cd_username, reportGrade, userId);
-            if (!message.endsWith("AAA")) {
+            if (message.endsWith("AAA1")) {
                 addActionError("Bạn chưa nhập số liệu mẫu 02 tại pgd!");
+                return ERROR;
+            } else if (message.endsWith("AAA2")) {
+                addActionError("PGD đã gửi dữ liệu lên CN, vui lòng liên hệ CN để mở!");
                 return ERROR;
             }
             addActionMessage("Bạn đã gửi thành công số liệu lên chi nhánh");

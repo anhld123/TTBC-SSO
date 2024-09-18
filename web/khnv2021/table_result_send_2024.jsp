@@ -62,7 +62,7 @@
                        name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
             </s:iterator>
 
-                <div id="divTitle" style="text-align: center">
+            <div id="divTitle" style="text-align: center">
                 DANH SÁCH CHI NHÁNH GỬI DỮ LIỆU VÀ TRẠNG THÁI KHÓA
             </div>
             <p></p>
@@ -80,11 +80,27 @@
                 <s:iterator value="#attr.lstData" var="modelView" status="rowstatus">
 
                     <tr>
-                        <td style="width: 60px;"><s:property  value="D1" /></td>
-                        <td style="width: 40px; text-align: left"><s:property  value="D2" /></td>
-                        <td style="width: 90px;"><s:property  value="D4" /></td>
-                        <td style="width: 90px;"><s:property  value="D3" /></td>
-                        <td style="width: 90px;text-align: left"><s:property  value="TEN" /></td>
+                        <s:if test="D12.equalsIgnoreCase('1')">
+                            <td style="width: 60px; color: red;font-weight: bold"><s:property  value="D1" /></td>
+                            <td style="width: 40px; text-align: left; color: red;font-weight: bold"><s:property  value="D2" /></td>
+                            <td style="width: 90px; color: red;font-weight: bold"><s:property  value="D4" /></td>
+                            <td style="width: 90px; color: red;font-weight: bold"><s:property  value="D3" /></td>
+                            <td style="width: 90px; color: red;font-weight: bold;text-align: left"><s:property  value="TEN" /></td>
+                        </s:if>
+                        <s:elseif test="D12.equalsIgnoreCase('2')">
+                            <td style="width: 60px; color: #3dc21b;font-weight: bold"><s:property  value="D1" /></td>
+                            <td style="width: 40px; text-align: left; color: #3dc21b;font-weight: bold"><s:property  value="D2" /></td>
+                            <td style="width: 90px; color: #3dc21b;font-weight: bold"><s:property  value="D4" /></td>
+                            <td style="width: 90px; color: #3dc21b;font-weight: bold"><s:property  value="D3" /></td>
+                            <td style="width: 90px; color: #3dc21b;font-weight: bold;text-align: left"><s:property  value="TEN" /></td>
+                        </s:elseif>
+                        <s:else>
+                            <td style="width: 60px;font-weight: bold"><s:property  value="D1" /></td>
+                            <td style="width: 40px; text-align: left;font-weight: bold"><s:property  value="D2" /></td>
+                            <td style="width: 90px; font-weight: bold"><s:property  value="D4" /></td>
+                            <td style="width: 90px;font-weight: bold"><s:property  value="D3" /></td>
+                            <td style="width: 90px; font-weight: bold;text-align: left"><s:property  value="TEN" /></td>   
+                        </s:else>
                     </tr>
 
                 </s:iterator>
