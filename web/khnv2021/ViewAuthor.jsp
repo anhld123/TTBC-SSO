@@ -137,7 +137,7 @@
                     </select>
                     &nbsp;
                     <span class="clss-lable">Đợt thực hiện:</span>
-                    <select  id="cboDot" name="cboDot" onchange="toggleNguyenNhan()">
+                    <select  id="cboDot" name="cboDot" >
                         <option value="1">Năm</option>
                         <option value="2">3 Năm</option>
                         <option value="5">5 Năm</option>
@@ -322,16 +322,16 @@
                                     }
                                 });
                             }
-                            function toggleNguyenNhan() {
-                                var cboDotValue = document.getElementById("cboDot").value;
-                                var nguyenNhanDiv = document.getElementById("idNguyenNhan");
-
-                                if (cboDotValue == "5") {
-                                    nguyenNhanDiv.style.display = "none";
-                                } else {
-                                    nguyenNhanDiv.style.display = "block";
-                                }
-                            }
+//                            function toggleNguyenNhan() {
+//                                var cboDotValue = document.getElementById("cboDot").value;
+//                                var nguyenNhanDiv = document.getElementById("idNguyenNhan");
+//
+//                                if (cboDotValue == "5") {
+//                                    nguyenNhanDiv.style.display = "none";
+//                                } else {
+//                                    nguyenNhanDiv.style.display = "block";
+//                                }
+//                            }
         </script>
     </body>
 </html>

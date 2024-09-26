@@ -49,6 +49,7 @@ import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.ListCommune;
 import vbsp.ims.restapi.ListMainPos;
 import vbsp.ims.restapi.ListPosCode;
 import vbsp.ims.restapi.LockSendModel;
@@ -77,8 +78,17 @@ public class ActionNhaptaycnMain extends ActionSupport {
     public String chotCic;
     private List<ListPosCode> lstPGD_API;
     private List<ListMainPos> lstCN_API;
+    private List<ListCommune> lstXa_API;
     private String pos_cd;
     private String main_pos;
+
+    public List<ListCommune> getLstXa_API() {
+        return lstXa_API;
+    }
+
+    public void setLstXa_API(List<ListCommune> lstXa_API) {
+        this.lstXa_API = lstXa_API;
+    }
 
     public String getPos_cd() {
         return pos_cd;
@@ -885,12 +895,26 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 }
                 return "KTTC_MUASAM_01";
             }
-
+            if (khoa_nhaptaycn.equals("KPBL_01")) {
+                DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
+                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));
+                setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
+                _server_tmp = new LeaveHomeService();
+                lstCN_API = _server_tmp.getListCn("");
+                return "KPBL_01";
+            }
             if (this.khoa_nhaptaycn.equals("THTK_2024")) {
                 main_pos = posMainModel.getMainPosCd();
                 _server_tmp = new LeaveHomeService();
                 lstCN_API = _server_tmp.getListCn("");
                 return "THTK_2024";
+            }
+
+            if (this.khoa_nhaptaycn.equals("TDKT_01")) {
+                main_pos = posMainModel.getMainPosCd();
+                _server_tmp = new LeaveHomeService();
+                lstCN_API = _server_tmp.getListCn("");
+                return "TDKT_01";
             }
 
             DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();

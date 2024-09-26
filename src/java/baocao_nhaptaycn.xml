@@ -24,7 +24,8 @@
             <result name="CIC_002">/CIC_2024/para_cic.jsp</result>
             <result name="KTTC_MUASAM_01">/muasam_taisan_2024/para_muasamts_2024.jsp</result> 
             <result name="THTK_2024">/Taikhoan_Thanhtoan/para_taikhoan.jsp</result> 
-             <!--<result name="GQVL_01">/GQVL2023/index.jsp</result>-->
+            <result name="TDKT_01">/TDKT_2024/para_thiduakhenthuong.jsp</result>
+             <result name="KPBL_01">/KP_Baoso3/para_baoso3.jsp</result>
             <result name="error">/nhaptay-cn/success.jsp</result>    
                 
         </action>  
@@ -781,5 +782,52 @@
         <action name="unlock_THTK_2024_c3" class="vbsp.ims.gqvl_2023.TK_thanh_khoan_2024" method="unlock_c3">
             <result name="success" type="json"></result>
         </action>
+           <action name="TDKT_01" class="vbsp.ims.gqvl_2023.Thidua_khenthuong_2024"  method="load">
+            <result name="success">/TDKT_2024/Thidua_khenthuong_2024.jsp</result>                                                         
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+         <action name="save_TDTK_2024" class="vbsp.ims.gqvl_2023.Thidua_khenthuong_2024"  method="save">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action> 
+        <action name="lock_TDKT_2024" class="vbsp.ims.gqvl_2023.Thidua_khenthuong_2024" method="lock">
+            <result name="success" type="json"></result>
+        </action>
+           <action name="KPBL_01" class="vbsp.ims.gqvl_2023.Khacphuc_Baoso3"  method="load">
+            <result name="success_1">/KP_Baoso3/table_baoso3_1.jsp</result>
+            <result name="success_2">/KP_Baoso3/table_baoso3_2.jsp</result>
+            <result name="success_3">/KP_Baoso3/table_baoso3_3.jsp</result>                                                            
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        <action name="save_KPBL_2024" class="vbsp.ims.gqvl_2023.Khacphuc_Baoso3"  method="save">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action> 
+        <action name="send_KPBL_2024_C1" class="vbsp.ims.gqvl_2023.Khacphuc_Baoso3"  method="send">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action> 
+        <action name="popupTableGroup" class="vbsp.ims.gqvl_2023.Khacphuc_Baoso3" method="popupTablePos">
+            <result name="success">/KP_Baoso3/popupTableGroup.jsp</result>
+        </action>
+        <action name="unlock_Baoso3_c2" class="vbsp.ims.gqvl_2023.Khacphuc_Baoso3" method="unlock_c2">
+            <result name="success" type="json"></result>
+        </action>
+         <action name="send_KPBL_2024_C2" class="vbsp.ims.gqvl_2023.Khacphuc_Baoso3"  method="sendTW">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action>
+        <action name="unlock_Baoso3_c3" class="vbsp.ims.gqvl_2023.Khacphuc_Baoso3" method="unlock_c3">
+            <result name="success" type="json"></result>
+        </action>
+        
     </package>
 </struts>

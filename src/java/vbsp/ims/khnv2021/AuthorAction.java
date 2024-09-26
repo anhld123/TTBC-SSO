@@ -172,6 +172,7 @@ public class AuthorAction extends ActionSupport {
                 case "0":
                     //Nhớ truyền đủ 7 tham số
                     lstData = new AuthorModel().getData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
+//                    System.err.println(CapBC +" 11: "+ TenDN +" 2: "+ cboDonvi +" 3: "+ cboNam+" 4: "+cboDot +" 5: "+ cboTonghop+" 6: "+ strNguyennhan);
                     if (cboTonghop.equals("S") && (CapBC.equals("3") || CapBC.equals("2")) && (lstData != null && !lstData.isEmpty())) //quyennv - tong hop gui nhan
                     {
                         if (!cboDot.equals("5")) {

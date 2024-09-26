@@ -51,7 +51,7 @@ public class AuthorModel {
         Connection con = db.getConnect();
         try {
             //Thực hiện lấy các biến cần truy cập
-            if (!cboDot.equals("5") || (cboDot.equals("5") && CapBC.equals("3"))) {
+            if (!cboDot.equals("5")) {
                 CallableStatement st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2021_GETDATA_PGD(?,?,?,?,?,?,?,?,?,?)}");
                 st.setString(1, CapBC);
                 st.setString(2, TenDN);
