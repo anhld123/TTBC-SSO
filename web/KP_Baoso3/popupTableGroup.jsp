@@ -230,9 +230,16 @@
         });
 
         function cancelAssign(D1, D3, D7, type) {
+            var chotsl_tw = $('#chotsl_tw').val(); // Lấy giá trị của input ẩn
+
+            if (chotsl_tw === "2") {
+                alert('Dữ liệu đã được chốt lên TW, không thể thực hiện thao tác này!');
+                return; // Dừng hàm nếu chotsl_tw bằng 2
+            }
+
             $.ajax({
                 type: "GET",
-                url: "send_KPBL_2024_C2.action?" + "smaxa=" + D1 + "&smato=" + D3 + "&sngaybc=" + D7 + "&type=" + type,
+                url: "unlock_Baoso3_c2.action?" + "smaxa=" + D1 + "&smato=" + D3 + "&sngaybc=" + D7 + "&type=" + type,
                 success: function (res) {
                     var status = parseInt(res.status);
                     //alert(status);

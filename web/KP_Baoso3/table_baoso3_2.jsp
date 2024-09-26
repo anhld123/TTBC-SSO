@@ -250,10 +250,10 @@
                             </s:if>
                             <s:else>
                                 <td class="D0"><s:property value="%{#rowstatus.index + 1}" />
-                                <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
-                                       id="D1_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D1"/>"/>
-                                <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" 
-                                       id="D7_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D7"/>"/>
+                                    <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
+                                           id="D1_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D1"/>"/>
+                                    <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" 
+                                           id="D7_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D7"/>"/>
                                 </td>
                                 <td class="D0"><s:property value="D1" /></td>
                                 <td><s:property value="D2" /></td>
@@ -269,8 +269,14 @@
         </div>      
         <div id="luu_thanhcong"></div>
         <script>
-           
+
             function sendData(D1, D7) {
+                var rows = document.querySelectorAll("td a");
+                rows.forEach(function (row) {
+                    row.style.pointerEvents = "none"; // Vô hiệu hóa click
+                    row.style.color = "gray";         // Thay đổi màu để trông như bị khóa
+                });
+
                 var url, sdata;
                 url = "send_KPBL_2024_C2.action?" + "madiemgd=" + D1 + "&ngaybc=" + D7,
                         sdata = jQuery("#frmdata").serialize();
