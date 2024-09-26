@@ -271,16 +271,21 @@
         <script>
 
             function sendData(D1, D7) {
-                var rows = document.querySelectorAll("td a");
+                var table = document.getElementById("subTable");
+                // Chọn tất cả các liên kết chỉ trong bảng con
+                var rows = table.querySelectorAll("td a");
+
+                // Khóa các liên kết trong bảng
                 rows.forEach(function (row) {
                     row.style.pointerEvents = "none"; // Vô hiệu hóa click
                     row.style.color = "gray";         // Thay đổi màu để trông như bị khóa
                 });
 
                 var url, sdata;
-                url = "send_KPBL_2024_C2.action?" + "madiemgd=" + D1 + "&ngaybc=" + D7,
-                        sdata = jQuery("#frmdata").serialize();
+                url = "send_KPBL_2024_C2.action?" + "madiemgd=" + D1 + "&ngaybc=" + D7;
+                sdata = jQuery("#frmdata").serialize();
                 $("#viewData").html('<img src="img/loading.gif"/>');
+
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -295,7 +300,6 @@
                             onLoadData();
                         }
                     },
-
                     error: function (request) {
                         alert("Lỗi. Vui lòng liên hệ quản trị viên để được hỗ trợ!");
                     }
