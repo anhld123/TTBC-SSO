@@ -156,14 +156,16 @@
                     <th class="STT6" rowspan="2">Mã khách hàng</th>  
                     <th class="STT2" rowspan="2">Họ tên</th>  
                     <th class="STT6" rowspan="2">Ngày tháng năm sinh</th>
+                    <th class="STT4" rowspan="2">Địa chỉ</th>
                     <th class="STT6" colspan="3">Thông tin CMTND/CCDC</th>
-                    <th class="STT1" rowspan="2">Loại trừ</th>  
+                    <th class="STT1" rowspan="1">Loại trừ</th>  
                     <th class="STT4" rowspan="2">Nguyên nhân</th>  
                 </tr>
                 <tr>
                     <th class="STT2">Số</th>      
                     <th class="STT2">Ngày cấp</th> 
                     <th class="STT2">Nơi cấp</th> 
+                    <th><input type="checkbox" id ="select-all1"/></th>
                 </tr>         
 
                 <tr>
@@ -176,6 +178,7 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(10)</th>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr id="tablefix"> 
@@ -198,18 +201,20 @@
                             <input type="hidden" value="<s:property  value="D7" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7"/>
                             <input type="hidden" value="<s:property  value="D8" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8"/>
                             <input type="hidden" value="<s:property  value="D9" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9"/>
+                             <input type="hidden" value="<s:property  value="D12" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12"/>
 
 
                         </td>
                         <td><s:property value="D1" /></td>
                         <td><s:property value="D2" /></td>
                         <td class="D0"><s:property value="D3" /></td>
+                        <td><s:property value="D12" /></td>
                         <td class="D0"><s:property value="D4" /></td>
                         <td class="D0"><s:property value="D6" /></td>
                         <td><s:property value="D5" /></td>
                         <td class="D0">
                             <input type="checkbox" id ="D10_<s:property value="%{#rowstatus.index}" />" 
-                                   onclick="$(this).val(this.checked ? 1 : 0)"
+                                   onclick="$(this).val(this.checked ? 1 : 0)" class="myCheckBox1"
                                    oninput="onSelectChange_dnht2(this.value, <s:property  value='%{#rowstatus.index}'/>)"
                                    id="D10_<s:property  value='%{#rowstatus.index}' />"
                                    name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10" value="<s:property  value="D10" />"/>      
@@ -224,15 +229,33 @@
         </div>
         <div id="luu_thanhcong"></div>
         <script>
+
             function onSelectChange_dnht2(value, index) {
                 if (value === '1')
                 {
                     document.getElementById("D11_" + index).disabled = false;
+                    document.getElementById("D11_" + index).value ="Ảnh hưởng bão số 3 (Yagi)";
                 } else
                 {
                     document.getElementById("D11_" + index).disabled = true;
+                     document.getElementById("D11_" + index).value ="";
                 }
             }
+
+            $(function () {
+                $('#select-all1').click(function () {
+                    const isChecked = $('#select-all1').prop('checked');
+
+                    // Lặp qua các checkbox và cập nhật trạng thái
+                    $('.myCheckBox1').each(function (index) {
+                        if (!this.disabled) {
+                            this.checked = isChecked;
+                            this.value = isChecked ? '1' : '0';
+                            onSelectChange_dnht2(this.value, index);
+                        }
+                    });
+                });
+            });
         </script>
     </body>
 </html>

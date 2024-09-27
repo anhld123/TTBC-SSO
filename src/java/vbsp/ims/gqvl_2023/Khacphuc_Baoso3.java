@@ -7,6 +7,7 @@ package vbsp.ims.gqvl_2023;
 
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
+import com.opensymphony.xwork2.ActionContext;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -232,11 +233,11 @@ public class Khacphuc_Baoso3 extends ActionNhaptaycnMain
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
 
-            if (!Arrays.asList("03", "26", "07", "09", "17", "18", "19", "16", "15", "63", "25", "24", "21", "20",
-                    "23", "11", "12", "22", "13", "14", "04", "06", "05", "08", "10", "27").contains(main_pos_username.substring(2, 4))) {
-                addActionError("Đơn vị không thuộc danh sách ảnh hưởng bởi bão lũ do cơn bão số 3!");
-                return ERROR;
-            }
+//            if (!Arrays.asList("03", "26", "07", "09", "17", "18", "19", "16", "15", "63", "25", "24", "21", "20",
+//                    "23", "11", "12", "22", "13", "14", "04", "06", "05", "08", "10", "27").contains(main_pos_username.substring(2, 4))) {
+//                addActionError("Đơn vị không thuộc danh sách ảnh hưởng bởi bão lũ do cơn bão số 3!");
+//                return ERROR;
+//            }
             ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("KPBL_01", pos_cd_username, "S", _reportDate);
             try {
                 setChotsl_tw(lstData_tmp.get(0).getStatus());
@@ -277,11 +278,11 @@ public class Khacphuc_Baoso3 extends ActionNhaptaycnMain
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
-            if (!Arrays.asList("03", "26", "07", "09", "17", "18", "19", "16", "15", "63", "25", "24", "21", "20",
-                    "23", "11", "12", "22", "13", "14", "04", "06", "05", "08", "10", "27").contains(main_pos_username.substring(2, 4))) {
-                addActionError("Đơn vị không thuộc danh sách ảnh hưởng bởi bão lũ do cơn bão số 3!");
-                return ERROR;
-            }
+//            if (!Arrays.asList("03", "26", "07", "09", "17", "18", "19", "16", "15", "63", "25", "24", "21", "20",
+//                    "23", "11", "12", "22", "13", "14", "04", "06", "05", "08", "10", "27").contains(main_pos_username.substring(2, 4))) {
+//                addActionError("Đơn vị không thuộc danh sách ảnh hưởng bởi bão lũ do cơn bão số 3!");
+//                return ERROR;
+//            }
             String dateStr = hmParameter.get("ngay_bc").toString();
             String nghiepvu = hmParameter.get("txtGetData").toString();
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
@@ -354,6 +355,7 @@ public class Khacphuc_Baoso3 extends ActionNhaptaycnMain
             String smacn = hmParameter.get("lstCN").toString();
             Connection conn = new DaoConnect().getConnect();
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
+            ActionContext.getContext().getSession().put("sUserName", UserName);
             lstDulieuNt = daoMain.getData_THTK_c3(conn, sngaybc, "KPBL_01", smacn, "S");
 //            System.out.println(sngaybc + " " + smacn +" " +Pos_Flag);
             if (conn != null) {
@@ -638,8 +640,8 @@ public class Khacphuc_Baoso3 extends ActionNhaptaycnMain
             Date date = inputFormat.parse(D5);
             String formattedDate = outputFormat.format(date);
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
-            GenericResult<String> _result = daoMain.unlock_c3_THTK("KPBL_01", D1, D6, formattedDate, D7);
-
+            UserName = (String) ActionContext.getContext().getSession().get("sUserName");
+            GenericResult<String> _result = daoMain.unlock_c3_THTK("KPBL_01", D1, UserName, formattedDate, D7);
             if (_result.isIsSuccess()) {
                 status = "1";
                 message = "";
