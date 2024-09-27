@@ -84,7 +84,9 @@
         <script>
             var popWindow;
             var max_row = 0;
-
+            $(document).ready(function () {
+                initTable();
+            });
             $(document).ready(function () {
                 $('.sstyle').css({"color": "#000", "font-size": "12px"});
                 $('input.number').css({"text-align": "right"});
@@ -114,7 +116,28 @@
             $('.TEN_KH').blur(function () {
                 $(this).closest('tr').removeClass('highlight_row');
             });
+            function initTable()
+            {
+                var table = document.getElementById("subTable");
+                var rowcount = table.rows.length;
+                rowcount = rowcount > max_row ? rowcount : max_row;
+                for (var i = 0; i < rowcount; i++)
+                {
+                    try {
+                        var D10 = document.getElementById("D10_" + i).value;
+                        if (D10 === "1")
+                        {
+                            document.getElementById("D10_" + i).checked = true;
+                            document.getElementById("D11_" + i).disabled = false;
+                        } else
+                        {
+                            document.getElementById("D11_" + i).disabled = true;
+                        }
+                    } catch (e) {
+                    }
+                }
 
+            }
         </script>        
     </head>
     <body>
@@ -187,11 +210,12 @@
                         <td class="D0">
                             <input type="checkbox" id ="D10_<s:property value="%{#rowstatus.index}" />" 
                                    onclick="$(this).val(this.checked ? 1 : 0)"
-                                   name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10" value="<s:property  value="D10" />"
-                                   <s:if test="D10.equalsIgnoreCase('1')">checked</s:if>/>      
-                            </td>
-                            <td class="D0">
-                                <textarea style="width: 98%" placeholder="Nhập tối đa 1000 ký tự" id="D11_<s:property  value='%{#rowstatus.index}' />" 
+                                   oninput="onSelectChange_dnht2(this.value, <s:property  value='%{#rowstatus.index}'/>)"
+                                   id="D10_<s:property  value='%{#rowstatus.index}' />"
+                                   name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10" value="<s:property  value="D10" />"/>      
+                        </td>
+                        <td class="D0">
+                            <textarea style="width: 98%" placeholder="Nhập tối đa 1000 ký tự" id="D11_<s:property  value='%{#rowstatus.index}' />" 
                                       name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" maxlength="1000"><s:property value='D11'/></textarea>
                         </td>
                     </tr>
@@ -200,7 +224,15 @@
         </div>
         <div id="luu_thanhcong"></div>
         <script>
-           
+            function onSelectChange_dnht2(value, index) {
+                if (value === '1')
+                {
+                    document.getElementById("D11_" + index).disabled = false;
+                } else
+                {
+                    document.getElementById("D11_" + index).disabled = true;
+                }
+            }
         </script>
     </body>
 </html>

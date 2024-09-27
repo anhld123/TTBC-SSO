@@ -161,7 +161,9 @@
                                        id="D8_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D8"/>"/></td>
                             <td class="D0" ><s:property value="D1" /></td>
                             <td class="D0" ><s:property value="D2" /></td>
-                            <td class="D0" ><s:property value="D3" /></td>
+                            <td class="D0" > <a style="text-decoration: underline" 
+                                                href="javascript:funcTableFile('<s:property value="D1"/>', '<s:property value="D3"/>','<s:property value="D7"/>', '3')">
+                                    <s:property value="D3" /></a></td>
                             <td><s:property value="D4" /></td>
                             <td class="D0"><s:property value="D5" /></td>
                             <s:if test="D6.equalsIgnoreCase('1')">
@@ -254,6 +256,16 @@
                     alert("Mở phê duyệt lỗi. Vui lòng liên hệ quản trị viên để được hỗ trợ!");
                 }
             });
+        }
+
+        function funcTableFile(D1, D3, D7, type) {
+            var w = 1000, h = 400;
+            var left = (screen.width / 2) - (w / 2);
+            var top = (screen.height / 2) - (h / 2);
+            var urlParam = "madiemgd=" + D1 + "&smato=" + D3 + "&ngaybc=" + D7 + "&type=" + type;
+            var url = "/IMS_REPORTS/popupTableGroup.action?" + urlParam;
+            var childPopupName = "IMS_REPORTS_CHILD_" + new Date().getTime();
+            popWindow = window.open(url, childPopupName, "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
         }
 
     </script>

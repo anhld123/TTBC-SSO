@@ -726,6 +726,8 @@ public class DaoNghiquyet11cp {
                     value.setD5(reset.getString("D5"));
                     value.setD6(reset.getString("D6"));
                     value.setD7(reset.getString("D7"));
+                    value.setD8(reset.getString("D8"));
+                    value.setD9(reset.getString("D9"));
                     lstBcqt_NT.add(value);
                 }
 

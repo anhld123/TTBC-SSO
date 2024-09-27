@@ -53,6 +53,19 @@
         border-spacing: 0;
         width: 550px;
     }
+    .table11 {
+        float: left;
+        width:80%;
+        margin: 0 auto;
+        margin-left: 8%; 
+    }
+
+    .table22 {
+        float:right;
+        width:80%;
+        margin: 0 auto;
+        margin-right:  8%; 
+    }
 </style>
 <html>
     <head>
@@ -92,77 +105,138 @@
 
                 <s:hidden name="khoa_tdnn" id="khoa"/>
                 DANH SÁCH PGD ĐÃ GỬI DỮ LIỆU
-                </div>
-                <div style="height:10px"></div>  
-                <div style="height:10px"></div>  
-                <table border="1" class="editDelete" id="subTable" align="center" style="padding-top: 10px">   
-                    <tr>
-                        <th style="width: 50px">STT</th>
-                        <th style="width: 80px">Mã PGD</th>
-                        <th style="width: 150px">Tên</th>
-                        <th style="width: 150px">Trạng thái</th>
-                        <th style="width: 100px">Mở</th>
-                    </tr>  
-                    <tr>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
-                    </tr>
+            </div>
+            <div style="height:10px"></div>  
+            <div style="height:10px"></div>  
+            <table border="1" class="editDelete table11" id="subTable" align="center" style="padding-top: 10px">   
+                <tr>
+                    <th style="width: 50px">STT</th>
+                    <th style="width: 80px">Mã PGD</th>
+                    <th style="width: 150px">Tên</th>
+                    <th style="width: 150px">Ngày gửi dữ liệu</th>
+                    <th style="width: 100px">Trạng thái</th>
+                </tr>  
+                <tr>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
+                </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
-                    <tr>
-                        <s:if test="D4.equalsIgnoreCase('1')">
-                            <td class="D0" style="color: red"><s:property value="%{#rowstatus.index + 1}" /></td>
-                            <td class="D0" style="color: red"><s:property  value="D1" /></td>
-                            <td style="color: red"> <s:property value="D2"/></td>
-                            <!--<td class="D0" style="color: red"><s:property  value="D3" /></td>-->
-                            <td class = "D0">
-                                <a style="color: red">Chưa gửi dữ liệu</a></td>
+                    <tr> 
+                        <s:if test="D8.equalsIgnoreCase('1')">
+                            <s:if test="D4.equalsIgnoreCase('1')">
+                                <td class="D0" style="color: red"><s:property value="%{#rowstatus.index + 1}" /></td>
+                                <td class="D0" style="color: red"><s:property  value="D1" /></td>
+                                <td style="color: red"> <s:property value="D2"/></td>
+                                <td class="D0" style="color: red"> <s:property value="D9"/></td>
                             </s:if>
                             <s:elseif test="D4.equalsIgnoreCase('2')">
-                            <td class="D0" style="color: #003eff"><s:property value="%{#rowstatus.index + 1}" /></td>
-                            <td class="D0" style="color: #003eff"><s:property  value="D1" />
-                                <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
-                                       id="D1_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D1"/>"/>
-                                <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
-                                       id="D5_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D5"/>"/>
-                                <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" 
-                                       id="D6_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D6"/>"/>
-                                <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" 
-                                       id="D7_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D7"/>"/></td>
-                            <td style="color: #003eff"><s:property value="D2"/></td>
-                            <td class = "D0"> <a style="color: #003eff">Đã gửi dữ liệu</a>
-                            </td>
-                        </s:elseif>
-                        <s:else>
-                            <td class="D0"><s:property value="%{#rowstatus.index + 1}" /></td>
-                            <td class="D0"><s:property  value="D1" /></td>
-                            <td><s:property  value="D2" /></td>
-                            <!--<td class="D0" style="color: red"><s:property  value="D3" /></td>-->
-                            <td class = "D0">
-                                 <s:if test="D7.equalsIgnoreCase('1')">
-                                <a style="color: red">Mở khoá tất cả PGD</a>    
-                                </s:if>
-                                <s:else>
-                                <a>Chưa nhập dữ liệu</a></td></s:else>
+                                <td class="D0" style="color: #003eff"><s:property value="%{#rowstatus.index + 1}" /></td>
+                                <td class="D0" style="color: #003eff"><s:property  value="D1" />
+                                    <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
+                                           id="D1_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D1"/>"/>
+                                    <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
+                                           id="D5_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D5"/>"/>
+                                    <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" 
+                                           id="D6_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D6"/>"/>
+                                    <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" 
+                                           id="D7_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D7"/>"/></td>
+                                <td style="color: #003eff"><s:property value="D2"/></td>
+                                <td class="D0" style="color: #003eff"><s:property value="D9"/></td>
+                                </td>
+                            </s:elseif>
+                            <s:else>
+                                <td class="D0"><s:property value="%{#rowstatus.index + 1}" /></td>
+                                <td class="D0"><s:property  value="D1" /></td>
+                                <td><s:property  value="D2" /></td>
+                                <td class="D0"><s:property  value="D9" /></td>
                             </s:else>
-                        <td style="width: 80px; text-align: center;">
-                            <s:if test="D4.equalsIgnoreCase('2') && D7.equalsIgnoreCase('0')">
-                                <a href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', '<s:property value="D7"/>');">Mở dữ liệu</a>
-                            </s:if>  
-                            <s:elseif test="D7.equalsIgnoreCase('1')">
-                                <a href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', '<s:property value="D7"/>');">Mở All Pos</a>
-                            </s:elseif>     
-                        </td>
-                       
+                            <td style="width: 80px; text-align: center;">
+                                <s:if test="D4.equalsIgnoreCase('2') && D7.equalsIgnoreCase('0')">
+                                    <a style="text-decoration: underline"  href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', '<s:property value="D7"/>');">Mở dữ liệu</a>
+                                </s:if>  
+                                <s:elseif test="D7.equalsIgnoreCase('1')">
+                                    <a style="text-decoration: underline"  href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', '<s:property value="D7"/>');">Mở All Pos</a>
+                                </s:elseif>  
+                                <s:elseif test="D4.equalsIgnoreCase('0')">Chưa gửi dữ liệu</s:elseif>
+                                </td>
+                        </s:if>
                     </tr>
                 </s:iterator>
-
+            </table>
+            <table border="1" class="editDelete table22" id="subTable" align="center" style="padding-top: 10px">   
+                <tr>
+                    <th style="width: 50px">STT</th>
+                    <th style="width: 80px">Mã PGD</th>
+                    <th style="width: 150px">Tên</th>
+                    <th style="width: 150px">Ngày gửi dữ liệu</th>
+                    <th style="width: 100px">Trạng thái</th>
+                </tr>  
+                <tr>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
+                </tr>
+                <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
+                    <tr> 
+                        <s:if test="D8.equalsIgnoreCase('2')">
+                            <s:if test="D4.equalsIgnoreCase('1')">
+                                <td class="D0" style="color: red"><s:property value="%{#rowstatus.index + 1}" /></td>
+                                <td class="D0" style="color: red"><s:property  value="D1" /></td>
+                                <td style="color: red"> <s:property value="D2"/></td>
+                                <td class="D0" style="color: red"> <s:property value="D9"/></td>
+                            </s:if>
+                            <s:elseif test="D4.equalsIgnoreCase('2')">
+                                <td class="D0" style="color: #003eff"><s:property value="%{#rowstatus.index + 1}" /></td>
+                                <td class="D0" style="color: #003eff"><s:property  value="D1" />
+                                    <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" 
+                                           id="D1_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D1"/>"/>
+                                    <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
+                                           id="D5_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D5"/>"/>
+                                    <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" 
+                                           id="D6_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D6"/>"/>
+                                    <input type="hidden" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" 
+                                           id="D7_<s:property value="%{#rowstatus.index}"/>" value="<s:property  value="D7"/>"/></td>
+                                <td style="color: #003eff"><s:property value="D2"/></td>
+                                <td class="D0" style="color: #003eff"><s:property value="D9"/></td>
+                                </td>
+                            </s:elseif>
+                            <s:else>
+                                <td class="D0"><s:property value="%{#rowstatus.index + 1}" /></td>
+                                <td class="D0"><s:property  value="D1" /></td>
+                                <td><s:property  value="D2" /></td>
+                                <td class="D0"><s:property  value="D9" /></td>
+                            </s:else>
+                            <td style="width: 80px; text-align: center;">
+                                <s:if test="D4.equalsIgnoreCase('2') && D7.equalsIgnoreCase('0')">
+                                    <a style="text-decoration: underline"  href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', '<s:property value="D7"/>');">Mở dữ liệu</a>
+                                </s:if>  
+                                <s:elseif test="D7.equalsIgnoreCase('1')">
+                                    <a style="text-decoration: underline"  href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', '<s:property value="D7"/>');">Mở All Pos</a>
+                                </s:elseif>  
+                                <s:elseif test="D4.equalsIgnoreCase('0')">Chưa gửi dữ liệu</s:elseif>
+                                </td>
+                        </s:if>
+                    </tr>
+                </s:iterator>
+            </table>
         </div>      
         <div id="luu_thanhcong"></div>
         <script>
-              function cancelAssign(D1, D5, D6, D7) {
+            function cancelAssign(D1, D5, D6, D7) {
+                var table = document.getElementById("subTable");
+                // Chọn tất cả các liên kết chỉ trong bảng con
+                var rows = table.querySelectorAll("td a");
+
+                // Khóa các liên kết trong bảng
+                rows.forEach(function (row) {
+                    row.style.pointerEvents = "none"; // Vô hiệu hóa click
+                    row.style.color = "gray";         // Thay đổi màu để trông như bị khóa
+                });
                 $.ajax({
                     type: "GET",
                     url: "unlock_Baoso3_c3.action?" + "madiemgd=" + D1 + "&ngaybc=" + D5 + "&pos_flag=" + D6 + "&key_lock=" + D7,

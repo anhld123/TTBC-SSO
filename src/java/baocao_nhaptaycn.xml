@@ -815,6 +815,7 @@
         </action> 
         <action name="popupTableGroup" class="vbsp.ims.gqvl_2023.Khacphuc_Baoso3" method="popupTablePos">
             <result name="success">/KP_Baoso3/popupTableGroup.jsp</result>
+            <result name="success_1">/KP_Baoso3/popupTableKh.jsp</result>
         </action>
         <action name="unlock_Baoso3_c2" class="vbsp.ims.gqvl_2023.Khacphuc_Baoso3" method="unlock_c2">
             <result name="success" type="json"></result>

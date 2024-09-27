@@ -7,13 +7,11 @@ package vbsp.ims.gqvl_2023;
 
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
-import com.opensymphony.xwork2.ActionContext;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import vbsp.ims.nhaptaycn.action.*;
 import java.sql.Connection;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -236,7 +234,7 @@ public class Khacphuc_Baoso3 extends ActionNhaptaycnMain
 
             if (!Arrays.asList("03", "26", "07", "09", "17", "18", "19", "16", "15", "63", "25", "24", "21", "20",
                     "23", "11", "12", "22", "13", "14", "04", "06", "05", "08", "10", "27").contains(main_pos_username.substring(2, 4))) {
-                addActionError("Đơn vị không thuộc danh sách ảnh hưởng bời bão lũ do cơn bão số 3!");
+                addActionError("Đơn vị không thuộc danh sách ảnh hưởng bởi bão lũ do cơn bão số 3!");
                 return ERROR;
             }
             ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("KPBL_01", pos_cd_username, "S", _reportDate);
@@ -256,7 +254,7 @@ public class Khacphuc_Baoso3 extends ActionNhaptaycnMain
                 setTenxa("");
             }
             if (chotsl.equals("1")) {
-                setTitle1("Tổ TK&VV:" + tento + " - Xã: " + tenxa + " đã gửi dữ liệu lên CN!");
+                setTitle1("Tổ TK&VV:" + tento + " - Xã: " + tenxa + " - đã gửi dữ liệu lên CN!");
             } else {
                 setTitle1("Tổ TK&VV:" + mato + " - Xã: " + maxa);
             }
@@ -279,6 +277,11 @@ public class Khacphuc_Baoso3 extends ActionNhaptaycnMain
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
+            if (!Arrays.asList("03", "26", "07", "09", "17", "18", "19", "16", "15", "63", "25", "24", "21", "20",
+                    "23", "11", "12", "22", "13", "14", "04", "06", "05", "08", "10", "27").contains(main_pos_username.substring(2, 4))) {
+                addActionError("Đơn vị không thuộc danh sách ảnh hưởng bởi bão lũ do cơn bão số 3!");
+                return ERROR;
+            }
             String dateStr = hmParameter.get("ngay_bc").toString();
             String nghiepvu = hmParameter.get("txtGetData").toString();
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
@@ -587,9 +590,10 @@ public class Khacphuc_Baoso3 extends ActionNhaptaycnMain
     public String popupTablePos() throws Exception {
         try {
             String D1 = ServletActionContext.getRequest().getParameter("madiemgd");
-            String D5 = ServletActionContext.getRequest().getParameter("ngaybc");
+
+            String D7 = ServletActionContext.getRequest().getParameter("ngaybc");
             String type = ServletActionContext.getRequest().getParameter("type");
-            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(D5));
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(D7));
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
             Connection conn = new DaoConnect().getConnect();
             ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("KPBL_01", D1, "S", _reportDate);
@@ -599,17 +603,28 @@ public class Khacphuc_Baoso3 extends ActionNhaptaycnMain
                 setChotsl_tw("0");
             }
             setTxtGetData(type);
-            if (txtGetData.equals("1")) {
-                lstDulieuNt = daoMain.getLock_Baoso3_2(conn, "BBB1", D5, UserName, D1, "", "");
-            } else {
-                lstDulieuNt = daoMain.getLock_Baoso3_2(conn, "BBB2", D5, UserName, D1, "", "");
+            switch (txtGetData) {
+                case "1":
+                    lstDulieuNt = daoMain.getLock_Baoso3_2(conn, "BBB1", D7, UserName, D1, "", "");
+                    break;
+                case "2":
+                    lstDulieuNt = daoMain.getLock_Baoso3_2(conn, "BBB2", D7, UserName, D1, "", "");
+                    break;
+                default:
+                    String D3 = ServletActionContext.getRequest().getParameter("smato");
+                    lstDulieuNt = daoMain.getLock_Baoso3_2(conn, "BBB3", D7, UserName, D1, "", D3);
+                    break;
             }
-
+//            System.out.println("ngay: " + D7 + "ma: " + D1);
         } catch (Exception e) {
             System.err.println("Loi trong ham saveDataaa " + e.getMessage());
             CoreLogger.error(this.getClass().getName() + " saveDataaa -> " + e.getMessage());
         }
-        return "success";
+        if (!txtGetData.equals("3")) {
+            return "success";
+        } else {
+            return "success_1";
+        }
     }
 
     public String unlock_c3() {
