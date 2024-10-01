@@ -207,7 +207,9 @@
             <result name="error">/khnv2021/error.jsp</result>      
                    
         </action>
-                      
+          <action name="lock_khnv_02c" class="vbsp.ims.khnv2021.AuthorAction" method="lock">
+            <result name="success" type="json"></result>
+        </action>             
     </package>
         
     

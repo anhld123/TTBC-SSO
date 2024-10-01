@@ -9,12 +9,12 @@ import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.io.StringBufferInputStream;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +26,7 @@ import vbsp.ims.bcqt.model.DULIEU_NT;
 import vbsp.ims.bcqt.model.ModelViewSend;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.define.Define;
+import vbsp.ims.define.GenericResult;
 import vbsp.ims.khnv2021.dao.DaoMau01A;
 import vbsp.ims.ktgs.dao.DaoKtgsMain;
 import vbsp.ims.log.CoreLogger;
@@ -54,11 +55,20 @@ public class AuthorAction extends ActionSupport {
     private String namBc_3;
     private String namBc_4;
     private String chotsl;
+    private String message;
     DuLieuNTService _service_listts = new DuLieuNTService();
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
     protected String main_pos_username;
     //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public void setMain_pos_username(String main_pos_username) {
         this.main_pos_username = main_pos_username;
@@ -166,7 +176,7 @@ public class AuthorAction extends ActionSupport {
             //Lấy dữ liệu phản hồi từ cấp trên
             strNguyennhan = new AuthorModel().ShowMessage(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
             chkSuccess = "ShowMessage";
-        
+
         } else {
             switch (status.trim()) {
                 case "0":
@@ -226,6 +236,13 @@ public class AuthorAction extends ActionSupport {
                     break;
                 case "2":
                     dataReult = new AuthorModel().rollBackData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
+                    if (cboDot.equals("5")) {
+                        posMainModel = listKTNBDA.get_pos_main_pos(TenDN, CapBC);
+                        main_pos_username = posMainModel.getMainPosCd();
+                        String dateStr1 = new Utilities().fnc_getDateBC(cboNam, cboDot);
+                        final String _reportDate1 = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr1));
+                        int skhoa = _service_listts.updateChotSL("KHNV_02C", main_pos_username, "S", _reportDate1, "0", TenDN, null);
+                    }
                     if (dataReult.equals("20")) {
                         chkSuccess = "SuccessRoll";
                         pageResult = new StringBufferInputStream("20");
@@ -469,6 +486,31 @@ public class AuthorAction extends ActionSupport {
             System.err.println(this.getClass().getName() + " Exception -> getViewStatusSend: " + e.getMessage());
         }
         return lstStatus;
+    }
+
+    public String lock() {
+        try {
+            String D1 = ServletActionContext.getRequest().getParameter("cboDot");
+            String D2 = ServletActionContext.getRequest().getParameter("cboNam");
+            System.out.println(D1 +" "+ D2);
+            String ngayBc = new DaoMau01A().getNgaybc(D2, D1);
+            DaoMau01A daoMain = new DaoMau01A();
+            GenericResult<String> _result = daoMain.lock_TDKT_2024("KHNV_02C", "000100", "M", ngayBc);
+
+            if (_result.isIsSuccess()) {
+                status = "1";
+                message = "";
+            } else {
+                status = "0";
+                message = _result.getMessage();
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            status = "0";
+            message = e.getMessage();
+        }
+        return SUCCESS;
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getter Setter">

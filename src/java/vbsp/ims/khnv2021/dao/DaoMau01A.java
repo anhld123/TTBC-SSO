@@ -5,7 +5,6 @@
  */
 package vbsp.ims.khnv2021.dao;
 
-
 import java.sql.CallableStatement;
 import java.sql.Clob;
 import java.sql.Connection;
@@ -13,7 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import oracle.sql.ARRAY;
+import oracle.sql.ArrayDescriptor;
+import vbsp.ims.action.ktktnb.DULIEU_NT_TQ;
+import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
+import vbsp.ims.define.GenericResult;
 import vbsp.ims.khnv2021.model.Mau01AModel;
 import vbsp.ims.log.CoreLogger;
 
@@ -22,10 +26,10 @@ import vbsp.ims.log.CoreLogger;
  * @author HP
  */
 public class DaoMau01A {
-    
-    public List<Mau01AModel> getExportData(String posCode, String communeCode, String subCommuneCode, String reportDate){
+
+    public List<Mau01AModel> getExportData(String posCode, String communeCode, String subCommuneCode, String reportDate) {
         List<Mau01AModel> lstData = new ArrayList<>();
-        
+
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -37,12 +41,12 @@ public class DaoMau01A {
 
             try {
                 //Khoi tao goi store
-                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);                
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 //Truyen vao username
-                calstatement.setString(1, posCode);          
-                calstatement.setString(2, communeCode);          
-                calstatement.setString(3, subCommuneCode);          
-                calstatement.setString(4, reportDate);                                         
+                calstatement.setString(1, posCode);
+                calstatement.setString(2, communeCode);
+                calstatement.setString(3, subCommuneCode);
+                calstatement.setString(4, reportDate);
                 calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
@@ -62,21 +66,21 @@ public class DaoMau01A {
                     item.level = cursor.getInt("CAPCT");
                     item.levelCode = cursor.getString("CAPCT_MA");
                     item.printType = cursor.getInt("KIEUIN");
-                    item.totalFlag = cursor.getInt("CONGCAP");                    
+                    item.totalFlag = cursor.getInt("CONGCAP");
                     item.d1 = Double.parseDouble(getNumberValueString(cursor.getString("D1")));
                     item.d2 = Double.parseDouble(getNumberValueString(cursor.getString("D2")));
                     item.d3 = Double.parseDouble(getNumberValueString(cursor.getString("D3")));
                     item.d4 = Double.parseDouble(getNumberValueString(cursor.getString("D4")));
                     item.d5 = Double.parseDouble(getNumberValueString(cursor.getString("D5")));
                     item.d6 = Double.parseDouble(getNumberValueString(cursor.getString("D6")));
-                    
+
                     lstData.add(item);
                 }
 
                 if (cursor != null) {
                     cursor.close();
                 }
-                
+
                 if (calstatement != null) {
                     calstatement.close();
                 }
@@ -93,10 +97,10 @@ public class DaoMau01A {
         }
         return lstData;
     }
-    
-    public List<Mau01AModel> getExportData3Year(String posCode, String communeCode, String subCommuneCode, String reportDate){
+
+    public List<Mau01AModel> getExportData3Year(String posCode, String communeCode, String subCommuneCode, String reportDate) {
         List<Mau01AModel> lstData = new ArrayList<>();
-        
+
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -108,12 +112,12 @@ public class DaoMau01A {
 
             try {
                 //Khoi tao goi store
-                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);                
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 //Truyen vao username
-                calstatement.setString(1, posCode);          
-                calstatement.setString(2, communeCode);          
-                calstatement.setString(3, subCommuneCode);          
-                calstatement.setString(4, reportDate);                                         
+                calstatement.setString(1, posCode);
+                calstatement.setString(2, communeCode);
+                calstatement.setString(3, subCommuneCode);
+                calstatement.setString(4, reportDate);
                 calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
@@ -133,21 +137,21 @@ public class DaoMau01A {
                     item.level = cursor.getInt("CAPCT");
                     item.levelCode = cursor.getString("CAPCT_MA");
                     item.printType = cursor.getInt("KIEUIN");
-                    item.totalFlag = cursor.getInt("CONGCAP");                    
+                    item.totalFlag = cursor.getInt("CONGCAP");
                     item.d1 = Double.parseDouble(getNumberValueString(cursor.getString("D1")));
                     item.d2 = Double.parseDouble(getNumberValueString(cursor.getString("D2")));
                     item.d3 = Double.parseDouble(getNumberValueString(cursor.getString("D3")));
                     item.d4 = Double.parseDouble(getNumberValueString(cursor.getString("D4")));
                     item.d5 = Double.parseDouble(getNumberValueString(cursor.getString("D5")));
                     item.d6 = Double.parseDouble(getNumberValueString(cursor.getString("D6")));
-                    
+
                     lstData.add(item);
                 }
 
                 if (cursor != null) {
                     cursor.close();
                 }
-                
+
                 if (calstatement != null) {
                     calstatement.close();
                 }
@@ -164,10 +168,10 @@ public class DaoMau01A {
         }
         return lstData;
     }
-    
-    public List<Mau01AModel> getExportData01(String posCode, String communeCode,  String reportDate){
+
+    public List<Mau01AModel> getExportData01(String posCode, String communeCode, String reportDate) {
         List<Mau01AModel> lstData = new ArrayList<>();
-        
+
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -179,11 +183,11 @@ public class DaoMau01A {
 
             try {
                 //Khoi tao goi store
-                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);                
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 //Truyen vao username
-                calstatement.setString(1, posCode);          
-                calstatement.setString(2, communeCode);                                
-                calstatement.setString(3, reportDate);                                         
+                calstatement.setString(1, posCode);
+                calstatement.setString(2, communeCode);
+                calstatement.setString(3, reportDate);
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.CURSOR);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
@@ -205,14 +209,14 @@ public class DaoMau01A {
                     item.d4 = Double.parseDouble(getNumberValueString(cursor.getString("D4")));
                     item.d5 = Double.parseDouble(getNumberValueString(cursor.getString("D5")));
                     item.d6 = Double.parseDouble(getNumberValueString(cursor.getString("D6")));
-                    
+
                     lstData.add(item);
                 }
 
                 if (cursor != null) {
                     cursor.close();
                 }
-                
+
                 if (calstatement != null) {
                     calstatement.close();
                 }
@@ -229,8 +233,7 @@ public class DaoMau01A {
         }
         return lstData;
     }
-    
-    
+
     public List<String> getDataSendKhnv(String type, String khoa, String mapgd, String nambc, String dotbc) throws SQLException {
         List<String> lstData = new ArrayList<>();
         DaoConnect daoconnect = new DaoConnect();
@@ -281,7 +284,7 @@ public class DaoMau01A {
         }
         return lstData;
     }
-    
+
     public List<String> getAllPosUser(String username) throws SQLException {
         List<String> lstData = new ArrayList<>();
         DaoConnect daoconnect = new DaoConnect();
@@ -328,16 +331,54 @@ public class DaoMau01A {
             }
         }
         return lstData;
-    }   
-    
+    }
+
     private String getNumberValueString(String value) {
-        if (value == null || value.isEmpty()){
+        if (value == null || value.isEmpty()) {
             return "0";
         } else {
             return value;
         }
     }
-    
+
+    public GenericResult<String> lock_TDKT_2024(String skhoa, String smacn, String spos_flag, String sngaybc) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_LOCK_TDKT_2024(?, ?, ?, ? ,?, ?)}");
+            cs.setString(1, skhoa);
+            cs.setString(2, smacn);
+            cs.setString(3, spos_flag);
+            cs.setString(4, sngaybc);
+            cs.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
+            cs.registerOutParameter(6, oracle.jdbc.OracleTypes.VARCHAR);
+            cs.execute();
+
+            //Lay ma loi neu co
+            int errorCode = cs.getInt(5);
+            String errorMessage = cs.getString(6);
+
+            if (errorCode == 0) {
+                return (new GenericResult<String>()).Success("Success");
+            } else {
+                return (new GenericResult<String>()).Fail(errorMessage, errorCode);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham cancelAssign " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " cancelAssign -> " + e.getMessage());
+            return (new GenericResult<String>()).Fail(e.getMessage(), e.getErrorCode());
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+    }
+
     public List<String> getDataSendKhnv(String type, String khoa, String mapgd, String ngaybc) throws SQLException {
         List<String> lstData = new ArrayList<>();
         DaoConnect daoconnect = new DaoConnect();
@@ -358,7 +399,7 @@ public class DaoMau01A {
             calstatement.setString(2, khoa);
             calstatement.setString(3, mapgd);
             calstatement.setString(4, ngaybc);
-            
+
             //Thuc hien execute lay du lieu
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -389,12 +430,12 @@ public class DaoMau01A {
         }
         return lstData;
     }
-    
+
     public String getNgaybc(String nambc, String dotbc) {
-       DaoConnect daoconnect = new DaoConnect();
-            Connection conn = null;
-            conn = daoconnect.getConnect();
-            
+        DaoConnect daoconnect = new DaoConnect();
+        Connection conn = null;
+        conn = daoconnect.getConnect();
+
         String strQuery = "";
 
         // Connection connect = null;
@@ -413,7 +454,7 @@ public class DaoMau01A {
             //dang ky tham so tra du lieu ra la tham so thu nhat, kieu du lieu tra ra la number
             calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.CLOB);
             //Truyen tham so thu 2 vao la mang main_pos
-            
+
             calstatement.setString(2, nambc);
             calstatement.setString(3, dotbc);
 //            calstatement.setString(3, strModule_id);
@@ -448,11 +489,10 @@ public class DaoMau01A {
         return strQuery;
 
     }
-    
-    
-    public List<Mau01AModel> getExportDataQt11(String posCode, String capbc, String reportDate){
+
+    public List<Mau01AModel> getExportDataQt11(String posCode, String capbc, String reportDate) {
         List<Mau01AModel> lstData = new ArrayList<>();
-        
+
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -464,12 +504,12 @@ public class DaoMau01A {
 
             try {
                 //Khoi tao goi store
-                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);                
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 //Truyen vao username
-                calstatement.setString(1, posCode);          
-                calstatement.setString(2, capbc);          
+                calstatement.setString(1, posCode);
+                calstatement.setString(2, capbc);
 //                calstatement.setString(3, subCommuneCode);          
-                calstatement.setString(3, reportDate);                                         
+                calstatement.setString(3, reportDate);
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.CURSOR);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
@@ -489,21 +529,21 @@ public class DaoMau01A {
                     item.level = cursor.getInt("CAPCT");
                     item.levelCode = cursor.getString("CAPCT_MA");
                     item.printType = cursor.getInt("KIEUIN");
-                    item.totalFlag = cursor.getInt("CONGCAP");                    
+                    item.totalFlag = cursor.getInt("CONGCAP");
                     item.d1 = Double.parseDouble(getNumberValueString(cursor.getString("D1")));
                     item.d2 = Double.parseDouble(getNumberValueString(cursor.getString("D2")));
                     item.d3 = Double.parseDouble(getNumberValueString(cursor.getString("D3")));
                     item.d4 = Double.parseDouble(getNumberValueString(cursor.getString("D4")));
                     item.d5 = Double.parseDouble(getNumberValueString(cursor.getString("D5")));
                     item.d6 = Double.parseDouble(getNumberValueString(cursor.getString("D6")));
-                    
+
                     lstData.add(item);
                 }
 
                 if (cursor != null) {
                     cursor.close();
                 }
-                
+
                 if (calstatement != null) {
                     calstatement.close();
                 }
@@ -520,5 +560,5 @@ public class DaoMau01A {
         }
         return lstData;
     }
-        
+
 }
