@@ -84,7 +84,32 @@
         <script>
             var popWindow;
             var max_row = 0;
+            $(document).ready(function () {
+                initTable();
+            });
+            function initTable()
+            {
+                var table = document.getElementById("subTable");
+                var rowcount = table.rows.length;
+                rowcount = rowcount > max_row ? rowcount : max_row;
+                for (var i = 0; i < rowcount; i++) {
+                    try {
+                        var row = table.rows[i];
 
+                        // Apply styles only to the first row (index 0)
+                        if (i === 2) {
+                            var cells = row.cells;
+                            for (var j = 0; j < cells.length; j++) {
+                                var cell = cells[j];
+                                cell.style.backgroundColor = '#ffcccb';  
+                                cell.style.fontWeight = 'bold';            
+                                cell.style.color = '#0000ff';             
+                            }
+                        }
+                    } catch (e) {
+                    }
+                }
+            }
             $(document).ready(function () {
                 $('.sstyle').css({"color": "#000", "font-size": "12px"});
                 $('input.number').css({"text-align": "right"});
@@ -210,7 +235,7 @@
                             <input type="hidden" value="<s:property  value="CO_TONGHOP" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP"/>
                             <input type="hidden" value="<s:property  value="NGUOI_NHAP" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NGUOI_NHAP"/>
                             <input type="hidden" value="<s:property  value="NAMBC" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NAMBC"/>
-                            <input type="hidden" value="<s:property  value="MAPGD" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD"/>
+                            <input type="hidden" value="<s:property  value="MAPGD" />" id="macn_<s:property  value="%{#rowstatus.index}" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD"/>
                             <input type="hidden" value="<s:property  value="MACN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN"/>
                             <input type="hidden" value="<s:property  value="D16" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16"/>
                             <input type="hidden" value="<s:property  value="D17" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17"/>
