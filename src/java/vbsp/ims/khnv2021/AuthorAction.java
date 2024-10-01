@@ -236,13 +236,6 @@ public class AuthorAction extends ActionSupport {
                     break;
                 case "2":
                     dataReult = new AuthorModel().rollBackData(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
-                    if (cboDot.equals("5")) {
-                        posMainModel = listKTNBDA.get_pos_main_pos(TenDN, CapBC);
-                        main_pos_username = posMainModel.getMainPosCd();
-                        String dateStr1 = new Utilities().fnc_getDateBC(cboNam, cboDot);
-                        final String _reportDate1 = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr1));
-                        int skhoa = _service_listts.updateChotSL("KHNV_02C", main_pos_username, "S", _reportDate1, "0", TenDN, null);
-                    }
                     if (dataReult.equals("20")) {
                         chkSuccess = "SuccessRoll";
                         pageResult = new StringBufferInputStream("20");
