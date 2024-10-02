@@ -90,8 +90,8 @@
 
     <body>
         <div id="menuBcttv" align="center">
-            <s:form id="loadAllnhaptaycn" action="LoadParaNhaptaycn" theme="simple">
-                <s:url id="reloadData" action="loadAllNhaptaycn" includeParams="post"></s:url>
+            <s:form id="loadAllchtrinhcn" action="LoadParachtrinhcn" theme="simple">
+                <s:url id="reloadData" action="loadAllchtrinhcn" includeParams="post"></s:url>
                     <table >
                         <tr>
                             <td>

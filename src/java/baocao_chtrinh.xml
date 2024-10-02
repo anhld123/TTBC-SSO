@@ -5,11 +5,11 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>           
     <package name="main_chtrinhcn" extends="struts-default,json-default">                       
-        <action name="loadAllNhaptaycn" class="vbsp.ims.chtrinh_cn.ActionChtrinhcnMain"  method="execute">
+        <action name="loadAllchtrinhcn" class="vbsp.ims.chtrinh_cn.ActionChtrinhcnMain"  method="execute">
             <result name="success" type="json"></result>        
         </action>   
         
-        <action name="LoadParaNhaptaycn" class="vbsp.ims.chtrinh_cn.ActionChtrinhcnMain"  method="loadPataNhaptaycn">
+        <action name="LoadParachtrinhcn" class="vbsp.ims.chtrinh_cn.ActionChtrinhcnMain"  method="loadPataNhaptaycn">
             <result name="success">/nhaptay-cn/para-nhaptaycn-main.jsp</result>
             <result name="success_1">/KP_Baoso3/para_baoso3.jsp</result>
             <result name="error">/nhaptay-cn/success.jsp</result>    

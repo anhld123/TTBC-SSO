@@ -202,7 +202,8 @@
                     <th>Chất lượng hoạt động Tổ TKVV</th>
                     <th>Kết quả đánh giá mức độ hoàn thành nhiệm vụ theo CV 9759</th>
                     <th>Số chỉ tiêu đạt được</th>
-                    <th>Dự kiến Khen thưởng</th><th>Số tiền KT Quý 1</th>
+                    <th style="width: 100px">Dự kiến Khen thưởng</th>
+                    <th>Số tiền KT Quý 1</th>
                     <th>Số tiền KT 6 tháng đầu năm</th>
                     <th>Công tác truyền thông</th>
                 </tr>         
@@ -291,7 +292,7 @@
                         <td><input type="text" value="<s:property  value="D11" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" class="number"/></td>
                         <td><input type="text" value="<s:property  value="D12" />" 
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" class="number"/></td>
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" placeholder="Ví dụ 1A2B3C"/></td>
                         <td><input type="text" value="<s:property  value="D13" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP49')">readonly="true"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" class="number"/></td>
