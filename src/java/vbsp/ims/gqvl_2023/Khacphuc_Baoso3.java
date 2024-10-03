@@ -28,6 +28,7 @@ import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.DuLieuNTRowX;
 import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.ListCommune;
 import vbsp.ims.restapi.ListPosCode;
 import vbsp.ims.restapi.LockSendModel;
 
@@ -44,6 +45,7 @@ public class Khacphuc_Baoso3 extends ActionNhaptaycnMain
     private List<DuLieuNTRow> lstData_Api;
     private List<ListPosCode> lstPGD_API;
     private List<LockSendModel> lstData_tmp;
+    private List<ListCommune> lstXa_API;
     protected String main_pos_username;
     private InputStream pageResult;
     DuLieuNTService _serverAPI = new DuLieuNTService();
@@ -57,6 +59,14 @@ public class Khacphuc_Baoso3 extends ActionNhaptaycnMain
     private String tento;
     private String tenxa;
 //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public List<ListCommune> getLstXa_API() {
+        return lstXa_API;
+    }
+
+    public void setLstXa_API(List<ListCommune> lstXa_API) {
+        this.lstXa_API = lstXa_API;
+    }
 
     public List<LockSendModel> getLstData_tmp() {
         return lstData_tmp;
@@ -528,65 +538,91 @@ public class Khacphuc_Baoso3 extends ActionNhaptaycnMain
             String D5 = ServletActionContext.getRequest().getParameter("ngaybc");
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(D5));
             final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(new Date());
-            lstData = daoMain.getData_baoso3(conn, D5, "AAA1", UserName, D1, "", "S", "");
-            ArrayList<DuLieuNTRowX> lstUpdateDate = new ArrayList<>();
-            for (QT_DULIEU_NT tmp : lstData) {
-                DuLieuNTRowX tempadd = new DuLieuNTRowX();
-                tempadd.setKey("KPBL_01");
-                tempadd.setOrderValue(tmp.getTHUTU());
-                tempadd.setOrderDescription(tmp.getTT_HIENTHI());
-                tempadd.setName(tmp.getTEN());
-                tempadd.setCode(tmp.getMA());
-                tempadd.setMakerId(UserName);
-                tempadd.setMakerDate(_reportDate1);
-                tempadd.setAuthoriseId(UserName);
-                tempadd.setAuthoriseDate(_reportDate1);
-                tempadd.setReportDate(_reportDate1);
-                tempadd.setReportYear(tmp.getNAMBC());
-                tempadd.setPosCode(tmp.getMAPGD());
-                tempadd.setPosFlag(tmp.getCO_TONGHOP());
-                tempadd.setBranchCode(tmp.getMACN());
-                tempadd.setD1(tmp.getD1());
-                tempadd.setD2(tmp.getD2());
-                tempadd.setD3(tmp.getD3());
-                tempadd.setD4(tmp.getD4());
-                tempadd.setD5(tmp.getD5());
-                tempadd.setD6(tmp.getD6());
-                tempadd.setD7(tmp.getD7());
-                tempadd.setD8(tmp.getD8());
-                tempadd.setD9(tmp.getD9());
-                tempadd.setD10(tmp.getD10());
-                tempadd.setD11(tmp.getD11());
-                tempadd.setD12(tmp.getD12());
-                tempadd.setD13(tmp.getD13());
-                tempadd.setD14(tmp.getD14());
-                tempadd.setD15(tmp.getD15());
-                tempadd.setD16(tmp.getD16());
-                tempadd.setD17(tmp.getD17());
-                tempadd.setD18(tmp.getD18());
-                tempadd.setD19(tmp.getD19());
-                tempadd.setD20(tmp.getD20());
+//            System.out.println("api vào xã");
+            lstXa_API = _serverAPI.getListXa("", "", "", D1);
 
-                lstUpdateDate.add(tempadd);
+            for (ListCommune item : lstXa_API) {
+                try {
+//                     System.out.println("api vào local");
+                    lstData = daoMain.getData_baoso3(conn, D5, "AAA1", UserName, D1, item.communeCode, "S", "");
+                    ArrayList<DuLieuNTRowX> lstUpdateDate = new ArrayList<>();
+                    for (QT_DULIEU_NT tmp : lstData) {
+                        DuLieuNTRowX tempadd = new DuLieuNTRowX();
+                        tempadd.setKey("KPBL_01");
+                        tempadd.setOrderValue(tmp.getTHUTU());
+                        tempadd.setOrderDescription(tmp.getTT_HIENTHI());
+                        tempadd.setName(tmp.getTEN());
+                        tempadd.setCode(tmp.getMA());
+                        tempadd.setMakerId(UserName);
+                        tempadd.setMakerDate(_reportDate1);
+                        tempadd.setAuthoriseId(UserName);
+                        tempadd.setAuthoriseDate(_reportDate1);
+                        tempadd.setReportDate(_reportDate1);
+                        tempadd.setReportYear(tmp.getNAMBC());
+                        tempadd.setPosCode(tmp.getMAPGD());
+                        tempadd.setPosFlag(tmp.getCO_TONGHOP());
+                        tempadd.setBranchCode(tmp.getMACN());
+                        tempadd.setD1(tmp.getD1());
+                        tempadd.setD2(tmp.getD2());
+                        tempadd.setD3(tmp.getD3());
+                        tempadd.setD4(tmp.getD4());
+                        tempadd.setD5(tmp.getD5());
+                        tempadd.setD6(tmp.getD6());
+                        tempadd.setD7(tmp.getD7());
+                        tempadd.setD8(tmp.getD8());
+                        tempadd.setD9(tmp.getD9());
+                        tempadd.setD10(tmp.getD10());
+                        tempadd.setD11(tmp.getD11());
+                        tempadd.setD12(tmp.getD12());
+                        tempadd.setD13(tmp.getD13());
+                        tempadd.setD14(tmp.getD14());
+                        tempadd.setD15(tmp.getD15());
+                        tempadd.setD16(tmp.getD16());
+                        tempadd.setD17(tmp.getD17());
+                        tempadd.setD18(tmp.getD18());
+                        tempadd.setD19(tmp.getD19());
+                        tempadd.setD20(tmp.getD20());
+
+                        lstUpdateDate.add(tempadd);
+                    }
+
+                    _serverAPI = new DuLieuNTService();
+//                    System.out.println("api vào lưu lên");
+                    int status = _serverAPI.getGQVL2023("KPBL_01", D1, "S", _reportDate, "", "", lstUpdateDate);
+                    System.out.println("maxa: " + item.communeCode + " số dòng "+ lstUpdateDate.size());
+                    // Check if the status is not successful (200)
+                    if (status != 200) {
+                        addActionError("Bạn chưa lưu được báo cáo tại chi nhánh vui lòng liên hệ quản trị viên!");
+                        String code = String.valueOf(2);
+                        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                        return ERROR;
+                    }
+                    
+                } catch (Exception e) {
+                    CoreLogger.error(this.getClass().getName() + " Exception -> bao so 3: " + e.getMessage());
+                    System.err.println(this.getClass().getName() + " Exception -> bao so 3: " + e.getMessage());
+                }
             }
 
-            _serverAPI = new DuLieuNTService();
-            int status = _serverAPI.getGQVL2023("KPBL_01", D1, "S", _reportDate, "", "", lstUpdateDate);
             int skhoa = _serverAPI.updateChotSL("KPBL_01", D1, "S", _reportDate, "2", UserName, null);
-            if (status != 200 || skhoa != 200) {
+
+            if (skhoa != 200) {
                 addActionError("Bạn chưa lưu được báo cáo tại chi nhánh vui lòng liên hệ quản trị viên!");
                 String code = String.valueOf(2);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
                 return ERROR;
             }
+
+            addActionMessage("Bạn đã lưu dữ liệu thành công");
+            String code = String.valueOf(200);
+            this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+            return SUCCESS;
+
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> bao so 3: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> bao so 3: " + e.getMessage());
         }
-        addActionMessage("Bạn đã lưu dữ liệu thành công");
-        String code = String.valueOf(200);
-        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-        return SUCCESS;
+        return ERROR;
     }
 
     public String popupTablePos() throws Exception {

@@ -101,9 +101,9 @@
                             var cells = row.cells;
                             for (var j = 0; j < cells.length; j++) {
                                 var cell = cells[j];
-                                cell.style.backgroundColor = '#ffcccb';  
-                                cell.style.fontWeight = 'bold';            
-                                cell.style.color = '#0000ff';             
+                                cell.style.backgroundColor = '#ffcccb';
+                                cell.style.fontWeight = 'bold';
+                                cell.style.color = '#0000ff';
                             }
                         }
                     } catch (e) {
@@ -124,7 +124,7 @@
                 $('.number2').number(true, 2);
                 $(".STT1").css({"width": "30px"});
                 $(".STT2").css({"width": "90px"});
-                $(".STT3").css({"width": "150"});
+                $(".STT3").css({"width": "120"});
                 $(".STT4").css({"width": "200px"});
                 $(".STT5").css({"width": "70px"});
                 $(".STT6").css({"width": "65px"});
@@ -206,6 +206,8 @@
                     <th>Số tiền KT Quý 1</th>
                     <th>Số tiền KT 6 tháng đầu năm</th>
                     <th>Công tác truyền thông</th>
+                    <th>Số tiền KT 9 tháng</th>
+                    <th>Số tiền KT những ngày đầu năm</th>
                 </tr>         
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
@@ -225,6 +227,8 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(15)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(16)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(17)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(18)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(19)</th>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr id="tablefix"> 
@@ -302,6 +306,12 @@
                         <td><input type="text" value="<s:property  value="D15" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP18')">readonly="true"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" class="number"/></td>
+                        <td><input type="text" value="<s:property  value="D16" />" 
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP49')">readonly="true"</s:if>
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" class="number"/></td>
+                        <td><input type="text" value="<s:property  value="D17" />" 
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP49')">readonly="true"</s:if>
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" class="number"/></td>
                     </tr>
                 </s:iterator>
             </table>
