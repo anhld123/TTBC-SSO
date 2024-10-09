@@ -11,6 +11,7 @@
         
         <action name="LoadParaKtgs" class="vbsp.ims.ktgs.action.ActionKtgsMain"  method="loadPataKtgs">
             <result name="success">/ktgs/para-ktgs-main.jsp</result>
+            <result name="UNLOCK_99">/ktgs/para_unlock.jsp</result>
             <result name="error">/ktgs/success.jsp</result>        
         </action>  
         
@@ -110,7 +111,7 @@
         <!--Chi phan khoa va mo khoa gui du lieu-->
         <action name="LoadParaKtgs_unlock" class="vbsp.ims.ktgs.action.ActionKtgsMain"  method="LoadParaKtgs_unlock">
             <result name="success">/ktgs/para-ktgs-main_unlock.jsp</result>
-            <result name="UNLOCK_99">/ktgs/para_unlock.jsp</result>
+<!--            <result name="UNLOCK_99">/ktgs/para_unlock.jsp</result>-->
             <result name="error">/ktgs/success.jsp</result>        
         </action>
         <action name="99" class="vbsp.ims.ktgs.action.UNLOCK_KTKSNB"  method="load">

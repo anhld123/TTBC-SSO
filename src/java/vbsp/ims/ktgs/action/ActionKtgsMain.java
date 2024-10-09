@@ -263,7 +263,7 @@ public class ActionKtgsMain extends ActionSupport {
 
     public String loadPataKtgs() {
         try {
-//            System.err.println("khoa_ktgs=" + khoa_ktgs);
+            System.err.println("khoa_ktgs=" + khoa_ktgs);
             if (!getParaSession()) {
                 return ERROR;
             }
@@ -275,6 +275,9 @@ public class ActionKtgsMain extends ActionSupport {
                 setTreeNodeGrade3(lstModelTree);
             } else {
                 setTreeNodeGrade12(lstModelTree);
+            }
+            if (khoa_ktgs.equals("99")) {
+                return "UNLOCK_99";
             }
             lstKtgsParams = daoMain.getReportParmamsKtgs(conn, khoa_ktgs);
             // BO SUNG PHAN KIEM TRA XEM CO THUYET MINH HAY KO
@@ -441,7 +444,7 @@ public class ActionKtgsMain extends ActionSupport {
     //<editor-fold defaultstate="collapsed" desc="Cho phan khoa va mo khoa">
     public String LoadParaKtgs_unlock() {
         try {
-            System.err.println("khoa_ktgs=" + khoa_ktgs);
+            System.err.println("khoa_ktgs=1" + khoa_ktgs);
             if (!getParaSession()) {
                 return ERROR;
             }
@@ -451,9 +454,6 @@ public class ActionKtgsMain extends ActionSupport {
                 if (khoa_ktgs.isEmpty()) {
                     setKhoa_ktgs("ALL");
                 }
-            }
-             if (khoa_ktgs.equals("99")) {
-                return "UNLOCK_99";
             }
             Connection conn = new DaoConnect().getConnect();
             DaoKtgsMain daoMain = new DaoKtgsMain();
