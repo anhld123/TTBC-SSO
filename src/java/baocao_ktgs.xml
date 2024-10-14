@@ -120,6 +120,7 @@
         </action> 
         <action name="UNLOCK_KTGS" class="vbsp.ims.ktgs.action.ActionKtgsMain"  method="LoadStatusSendCnKtgs">
             <result name="success">/ktgs/table_unlock.jsp</result>
+            <result name="UNLOCK_99">/ktgs/para_unlock.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action> 
         
