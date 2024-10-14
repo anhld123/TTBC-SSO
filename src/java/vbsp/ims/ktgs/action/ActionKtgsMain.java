@@ -455,6 +455,9 @@ public class ActionKtgsMain extends ActionSupport {
                     setKhoa_ktgs("ALL");
                 }
             }
+            if (khoa_ktgs.equals("99")) {
+                return "UNLOCK_99";
+            }
             Connection conn = new DaoConnect().getConnect();
             DaoKtgsMain daoMain = new DaoKtgsMain();
 
