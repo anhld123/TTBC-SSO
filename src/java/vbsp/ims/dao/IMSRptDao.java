@@ -691,7 +691,7 @@ public class IMSRptDao {
                 + "GROUP BY PARENTID "
                 + "ORDER BY PARENTID) B "
                 + "WHERE A.MENUID = B.PARENTID(+) AND A.GROUPID = (select ND_NHOMND from ng_dung where nd_ma = ?) "
-                + "ORDER BY MENUID";
+                + "ORDER BY CASE WHEN A.PARENTID = '32' THEN ASCII(SUBSTR(TEXT, 1, 1)) - ASCII('a') + 1 ELSE MENUID END";
         try {
             Connection con;
             con = daoConnect.getConnect();
