@@ -273,28 +273,23 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
             String sCanbo = "";
             if (sKehoach.equals("1")) {
                 sCanbo = "99999";
-                String conditions = "D3=" + sMaxa + "|D4=" + sCanbo + "|D5=" + sThangkt + "|";
-//                System.out.println(conditions);
-                lstData_Api = _serverAPI.getDataKTKSNB_2024(skhoa, pos_cd_username, "S", _reportDate, conditions, "0");
-                if (lstData_Api == null || lstData_Api.isEmpty()) {
-                    setChotsl_tw("0");
-                    lstData_Api = _serverAPI.getDataKTKSNB_2024(skhoa, pos_cd_username, "S", _reportDate, conditions, "1");
-                } else {
-                    setChotsl_tw("1");
-                }
-            } else if (sKehoach.equals("2")) {
+            } else {
                 sCanbo = hmParameter.get("txtCanbo").toString();
-                if (sCanbo.equals("00000")) {
-                    addActionError("Bạn chưa chọn cán bộ kiểm tra");
-                    return ERROR;
-                }
-                String conditions = "D3=" + sTenxa + "|D4=" + sCanbo + "|D5=" + sThangkt + "|";
-                lstData_Api = _serverAPI.getDataKTKSNB_2024(skhoa, pos_cd_username, "S", _reportDate, conditions, "0");
-                if (lstData_Api == null || lstData_Api.isEmpty()) {
-                    setChotsl_tw("0");
-                    lstData_Api = _serverAPI.getDataKTKSNB_2024(skhoa, pos_cd_username, "S", _reportDate, conditions, "1");
-                }
             }
+            if (sCanbo.equals("00000")) {
+                addActionError("Bạn chưa chọn cán bộ kiểm tra");
+                return ERROR;
+            }
+            String conditions = "D3=" + sMaxa + "|D4=" + sCanbo + "|D5=" + sThangkt + "|";
+//                System.out.println(conditions);
+            lstData_Api = _serverAPI.getDataKTKSNB_2024(skhoa, pos_cd_username, "S", _reportDate, conditions, "0");
+            if (lstData_Api == null || lstData_Api.isEmpty()) {
+                setChotsl_tw("0");
+                lstData_Api = _serverAPI.getDataKTKSNB_2024(skhoa, pos_cd_username, "S", _reportDate, conditions, "1");
+            } else {
+                setChotsl_tw("1");
+            }
+
             setTitle1("Kiểm tra " + sTenxa + " - Tháng " + sThangkt);
             for (DuLieuNTRow item : lstData_Api) {
                 QT_DULIEU_NT row = new QT_DULIEU_NT();

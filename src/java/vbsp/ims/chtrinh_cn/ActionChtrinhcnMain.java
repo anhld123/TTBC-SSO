@@ -827,6 +827,8 @@ public class ActionChtrinhcnMain extends ActionSupport {
                         return "success_1";
                     case "KTKSNB_02":
                         return "success_2";
+                    case "KTKSNB_03":
+                        return "success_3";
                     default:
                         return "success";
                 }

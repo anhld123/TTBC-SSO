@@ -234,7 +234,7 @@
                     }
                     if (isValid) {
                         var url, sdata;
-                        url = "save_KTKSNB_00_2024.action";
+                        url = "save_KTKSNB_03_2024.action";
                         sdata = jQuery("#frmdata").serialize();
                         $("#viewData").html('<img src="img/loading.gif"/>');
                         btnDisabled(1);
@@ -436,8 +436,7 @@
                         onLoadData();
                     }
                     if (chot_tw === "0") {
-                        alert(chot_tw);
-                        alert("Chưa có dữ liệu, đề nghị lưu dữ liệu trước khi gửi, ít nhất phải chọn 1 cán bộ chuyên trách!");
+                        alert("Chưa có dữ liệu, đề nghị lưu dữ liệu trước khi gửi!");
                         isValid = false; // Không cho phép lưu dữ liệu
                     }
                     for (var i = 0; i < rowcount; i++) {
@@ -447,7 +446,7 @@
                     }
                     if (isValid) {
                         var url, sdata;
-                        url = "send_KTKSNB_00_2024.action";
+                        url = "send_KTKSNB_03_2024.action";
                         sdata = jQuery("#frmdata").serialize();
                         $("#viewData").html('<img src="img/loading.gif"/>');
                         btnDisabled(1);
@@ -569,12 +568,81 @@
                 <table>
                     Ngày báo cáo: 
                     <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
-                                   placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/>    
-                    <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                                   placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
+                    <s:if test="!Grade.equalsIgnoreCase('3')">
+                        <%--<s:if test="Grade.equalsIgnoreCase('2')">--%>
+                        <label id="title21">&nbsp; Nghiệp vụ :</label>
+                        <select name="txtGetData" id="txtGetData" onchange="toggleButton()">                                                    
+                            <option value="1">1. Nhập dữ liệu cấp tỉnh</option>                                                    
+                            <option value="2">2. Tình trạng nhập dữ liệu PGD</option>
+                            <option value="3">3. Tình trạng nhập dữ liệu Tỉnh</option>
+                        </select> 
+                        <label id="title22">&nbsp; PGD kiểm tra :</label>
+                        <select id="lstPGD" name="lstPGD" style="width: 100px">
+                            <option value="000000">---Chọn PGD---</option>
+                            <s:iterator value="lstPGD_API">                                    
+                                <option value="<s:property value='posCode'/>|<s:property value='posName'/>"><s:property value="posCode"/> - <s:property value="posName"/></option>                                         
+                            </s:iterator>   
+                        </select>
+                        <%--</s:if>--%>
+                        <%--<s:if test="Grade.equalsIgnoreCase('1')">--%>
+                        <label id="title3">&nbsp; Kế hoạch kiểm tra :</label>
+                        <select name="txtKehoach" id="txtKehoach" style="width: 100px" onchange="toggleSelect()">                                                    
+                            <option value="1">1. Đoàn kiểm tra của NHCSXH cấp huyện đối với cấp xã</option>                                                    
+                            <option value="2">2. Cán bộ chuyên trách KTKSNB cấp huyện</option>
+                        </select> 
+                        <label id="title4">&nbsp; Xã kiểm tra: </label>
+                        <select id="lstXa" name="lstXa" style="width: 100px">
+                            <option value="000000">---Chọn xã---</option>
+                            <s:iterator value="lstXa_API">                                    
+                                <option value="<s:property value="communeCode"/>|<s:property value="communeName"/>"><s:property value="communeCode"/> - <s:property value="communeName"/></option>                                         
+                            </s:iterator>   
+                        </select>
+                        <%--</s:if>--%>
+<!--                        <label id="title5">&nbsp; Tháng kiểm tra: </label>
+                        <select id="monthSelect" name="monthSelect">
+                            <option value="0">---Chọn---</option>
+                            <option value="1">Tháng 1</option>
+                            <option value="2">Tháng 2</option>
+                            <option value="3">Tháng 3</option>
+                            <option value="4">Tháng 4</option>
+                            <option value="5">Tháng 5</option>
+                            <option value="6">Tháng 6</option>
+                            <option value="7">Tháng 7</option>
+                            <option value="8">Tháng 8</option>
+                            <option value="9">Tháng 9</option>
+                            <option value="10">Tháng 10</option>
+                            <option value="11">Tháng 11</option>
+                            <option value="12">Tháng 12</option>
+                        </select>-->
+                        <label id="title2">&nbsp; Cán bộ kiểm tra :</label>
+                        <select name="txtCanbo" id="txtCanbo" style="width: 100px">   
+                            <option value="00000">---Chọn cán bộ---</option>
+                            <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
+                                <option value='<s:property value="D1"/>'><s:property value="D2"/> - <s:property value="D3"/></option>      
+                            </s:iterator>
+                        </select> 
+                    </s:if>
+                    <s:if test="Grade.equalsIgnoreCase('3')">
+                        <label id="title31">&nbsp; Nghiệp vụ :</label>
+                        <select name="txtGetData3" id="txtGetData3" >
+                            <!--onchange="toggleCap3()">-->                                                    
+                            <option value="1">1. Phê duyệt kế hoạch PGD</option>                                                    
+                            <option value="2">2. Phê duyệt kế hoạch Tỉnh</option>
+                        </select> 
+                        <label id="title31">&nbsp; Mã chi nhánh: </label>
+                        <select id="lstCN"  name="lstCN">
+                            <option value="000000">----Chọn mã chi nhánh----</option>
+                            <s:iterator value="lstCN_API">
+                                <option value="<s:property value="branchCode"/>"><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>               
+                            </s:iterator>
+                        </select> 
+                    </s:if>
+                    &nbsp;<sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                onBeforeTopics="beforediv_data"
                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                    &nbsp;<input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
-                    <s:if test="Grade.equalsIgnoreCase('1')">
+                    <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
+                    <s:if test="!Grade.equalsIgnoreCase('3')">
                         &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/>  
                         &nbsp;<input type="button" id="idSend" value="Chốt dữ liệu" style="color: red"/></s:if>
                     </table>    
@@ -594,25 +662,97 @@
                 function updateDatepicker() {
                     var datepicker = $('#ngay_bc_DATE');
                     var currentDate = new Date();
-                    var year = currentDate.getFullYear();
-                    var lastDayOfYear = new Date(year, 11, 31);
-                    var formattedDate = ('0' + lastDayOfYear.getDate()).slice(-2) + '/' +
-                            ('0' + (lastDayOfYear.getMonth() + 1)).slice(-2) + '/' +
-                            lastDayOfYear.getFullYear();
-
-                    datepicker.val(formattedDate);
-
                     datepicker.datepicker("option", {
                         beforeShowDay: function (date) {
-                            return [date.getDate() === 31 && date.getMonth() === 11, ""];
+                            var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+                            return [date.getDate() === lastDayOfMonth, ""];
                         }
                     });
 
+                    var lastDayOfCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+                    var formattedDate = ('0' + lastDayOfCurrentMonth).slice(-2) + '/' +
+                            ('0' + (currentDate.getMonth() + 1)).slice(-2) + '/' +
+                            currentDate.getFullYear();
+
+                    datepicker.val(formattedDate);
                 }
 
-                // Initialize the datepicker with the default settings
+                // Khởi tạo datepicker với cài đặt mặc định
                 updateDatepicker();
             });
+
+            function toggleButton() {
+            <s:if test="Grade.equalsIgnoreCase('2')">
+                var selectedValue = document.getElementById("txtGetData").value;
+                if (selectedValue === "1") {
+                    document.getElementById("idSave").style.display = "inline";
+                    document.getElementById("idSend").style.display = "inline";
+                    document.getElementById("lstPGD").style.display = "inline";
+                    document.getElementById("title22").style.display = "inline";
+                    document.getElementById("lstPGD").style.display = "inline";
+                    onLoadData();
+                } else {
+                    document.getElementById("idSave").style.display = "none";
+                    document.getElementById("idSend").style.display = "none";
+                    document.getElementById("title22").style.display = "none";
+                    document.getElementById("lstPGD").style.display = "none";
+                    onLoadData();
+                }
+            </s:if>
+            }
+            function toggleSelect() {
+            <s:if test="Grade.equalsIgnoreCase('1')">
+                var selectedValue = document.getElementById("txtKehoach").value;
+                if (selectedValue === "2") {
+                    document.getElementById("title2").style.display = "inline";
+                    document.getElementById("txtCanbo").style.display = "inline";
+                    onLoadData();
+                } else {
+                    document.getElementById("title2").style.display = "none";
+                    document.getElementById("txtCanbo").style.display = "none";
+                    onLoadData();
+                }
+            </s:if>
+            }
+            function initTable()
+            {
+            <s:if test="Grade.equalsIgnoreCase('1')">
+                document.getElementById("title2").style.display = "inline";
+                document.getElementById("txtCanbo").style.display = "inline";
+                document.getElementById("title3").style.display = "inline";
+                document.getElementById("txtKehoach").style.display = "inline";
+                document.getElementById("title4").style.display = "inline";
+                document.getElementById("lstXa").style.display = "inline";
+                document.getElementById("title21").style.display = "none";
+                document.getElementById("txtGetData").style.display = "none";
+                document.getElementById("title22").style.display = "none";
+                document.getElementById("lstPGD").style.display = "none";
+                var D1 = document.getElementById("txtKehoach").value;
+                if (D1 === "1")
+                {
+                    document.getElementById("title2").style.display = "none";
+                    document.getElementById("txtCanbo").style.display = "none";
+                } else
+                {
+                    document.getElementById("title2").style.display = "inline";
+                    document.getElementById("txtCanbo").style.display = "inline";
+                }
+            </s:if>
+            <s:if test="Grade.equalsIgnoreCase('2')">
+                document.getElementById("title21").style.display = "inline";
+                document.getElementById("txtGetData").style.display = "inline";
+                document.getElementById("title22").style.display = "inline";
+                document.getElementById("lstPGD").style.display = "inline";
+                document.getElementById("title2").style.display = "none";
+                document.getElementById("txtCanbo").style.display = "none";
+                document.getElementById("title3").style.display = "none";
+                document.getElementById("txtKehoach").style.display = "none";
+                document.getElementById("title4").style.display = "none";
+                document.getElementById("lstXa").style.display = "none";
+            </s:if>
+            }
+
+            initTable();
 
         </script>
     </body>
