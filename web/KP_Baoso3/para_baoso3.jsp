@@ -568,7 +568,7 @@
                 <legend><b>Tìm kiếm dữ liệu</b></legend> 
                 <table>
                     Ngày báo cáo: 
-                    <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
+                    <sj:datepicker name="ngay_bc_DATE" value="%{'30/09/2024'}"  id="ngay_bc_DATE" 
                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
                     <s:if test="Grade.equalsIgnoreCase('1')">
                         &nbsp;&nbsp;<label>Mã xã: </label>
@@ -636,7 +636,7 @@
                     if (selectedPeriod === "2") { // Kỳ tháng
                         datepicker.datepicker("option", {
                             beforeShowDay: function (date) {
-                                var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+                                var lastDayOfMonth = "30/09/2024";
                                 return [date.getDate() === lastDayOfMonth, ""];
                             }
                         });
@@ -646,9 +646,7 @@
                     var newDate = selectedPeriod === "2" ? new Date(year, month + 1, 0) : currentDate;
 
                     // Định dạng ngày theo dd/mm/yyyy
-                    var formattedDate = ('0' + newDate.getDate()).slice(-2) + '/' +
-                            ('0' + (newDate.getMonth() + 1)).slice(-2) + '/' +
-                            newDate.getFullYear();
+                    var formattedDate = "30/09/2024";
 
                     datepicker.val(formattedDate);
                 }

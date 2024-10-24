@@ -125,13 +125,26 @@
                 {
                     try {
                         var D10 = document.getElementById("D10_" + i).value;
+                        document.getElementById("D10_" + i).disabled = true;
+
+                        document.getElementById("D11_" + i).disabled = true;
                         if (D10 === "1")
                         {
                             document.getElementById("D10_" + i).checked = true;
-                            document.getElementById("D11_" + i).disabled = false;
+//                            document.getElementById("D11_" + i).disabled = false;
+                            document.getElementById("D13_" + i).disabled = false;
+
                         } else
                         {
-                            document.getElementById("D11_" + i).disabled = true;
+//                            document.getElementById("D11_" + i).disabled = true;
+//                            document.getElementById("D13_" + i).disabled = true;
+                        }
+                        var D12 = document.getElementById("D13_" + i).value;
+                        if (D12 === "1") {
+                            document.getElementById("D13_" + i).checked = true;
+                            document.getElementById("D14_" + i).disabled = false;
+                        } else {
+                            document.getElementById("D14_" + i).disabled = true
                         }
                     } catch (e) {
                     }
@@ -141,7 +154,7 @@
         </script>        
     </head>
     <body>
-        <div style="overflow:scroll; width: 80%;height: 400px;">             
+        <div style="overflow:scroll; width: 90%;height: 400px;">             
             <div id="divTitle">
                 DANH SÁCH KHÁCH HÀNG ĐƯỢC LOẠI TRỪ CHẤM ĐIỂM CHẤT LƯỢNG TÍN DỤNG DO NNKQ
                 <input type="hidden" value="<s:property value="chotsl"/>" name="chotsl" id="chotsl"/> 
@@ -158,14 +171,17 @@
                     <th class="STT6" rowspan="2">Ngày tháng năm sinh</th>
                     <th class="STT4" rowspan="2">Địa chỉ</th>
                     <th class="STT6" colspan="3">Thông tin CMTND/CCDC</th>
-                    <th class="STT1" rowspan="1">Loại trừ</th>  
-                    <th class="STT4" rowspan="2">Nguyên nhân</th>  
+                    <th class="STT2" rowspan="1">Loại trừ</th>  
+                    <th class="STT4" rowspan="2">Nguyên nhân loại trừ</th>  
+                    <th class="STT2" rowspan="1">Phát sinh lãi</th>  
+                    <th class="STT4" rowspan="2">Nguyên nhân giải trình</th>  
                 </tr>
                 <tr>
                     <th class="STT2">Số</th>      
                     <th class="STT2">Ngày cấp</th> 
                     <th class="STT2">Nơi cấp</th> 
                     <th><input type="checkbox" id ="select-all1"/></th>
+                    <th><input type="checkbox" id ="select-all2"/></th>
                 </tr>         
 
                 <tr>
@@ -179,6 +195,8 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(10)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(12)</th>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr id="tablefix"> 
@@ -201,7 +219,7 @@
                             <input type="hidden" value="<s:property  value="D7" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7"/>
                             <input type="hidden" value="<s:property  value="D8" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8"/>
                             <input type="hidden" value="<s:property  value="D9" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9"/>
-                             <input type="hidden" value="<s:property  value="D12" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12"/>
+                            <input type="hidden" value="<s:property  value="D12" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12"/>
 
 
                         </td>
@@ -223,7 +241,24 @@
                             <textarea style="width: 98%" placeholder="Nhập tối đa 1000 ký tự" id="D11_<s:property  value='%{#rowstatus.index}' />" 
                                       name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" maxlength="1000"><s:property value='D11'/></textarea>
                         </td>
-                    </tr>
+                        <s:if test="D10.equalsIgnoreCase('1')">
+                        <input type="hidden" value="<s:property  value="D10" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10"/>
+                        <input type="hidden" value="<s:property  value="D11" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11"/>
+
+                        <td class="D0">
+                            <input type="checkbox" id ="D13_<s:property value="%{#rowstatus.index}" />" 
+                                   onclick="$(this).val(this.checked ? 1 : 0)" class="myCheckBox2"
+                                   oninput="onSelectChange_dnht3(this.value, <s:property  value='%{#rowstatus.index}'/>)"
+                                   id="D13_<s:property  value='%{#rowstatus.index}' />"
+                                   name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D13" value="<s:property  value="D13" />"/>      
+                        </td>
+                        <td class="D0">
+                            <textarea style="width: 98%" placeholder="Nhập tối đa 1000 ký tự" id="D14_<s:property  value='%{#rowstatus.index}' />" 
+                                      name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D14" maxlength="1000"><s:property value='D14'/></textarea>
+                        </td>
+                    </s:if>
+                    <s:else><td></td><td></td></s:else>
+                        </tr>
                 </s:iterator>
             </table>
         </div>
@@ -234,11 +269,16 @@
                 if (value === '1')
                 {
                     document.getElementById("D11_" + index).disabled = false;
-                    document.getElementById("D11_" + index).value ="Ảnh hưởng bão số 3 (Yagi)";
+                    document.getElementById("D11_" + index).value = "Ảnh hưởng bão số 3 (Yagi)";
+                    document.getElementById("D13_" + index).disabled = false;
                 } else
                 {
                     document.getElementById("D11_" + index).disabled = true;
-                     document.getElementById("D11_" + index).value ="";
+                    document.getElementById("D11_" + index).value = "";
+                    document.getElementById("D13_" + index).disabled = true;
+                    document.getElementById("D13_" + index).checked = false;
+                    document.getElementById("D14_" + index).disabled = true;
+                    document.getElementById("D14_" + index).value = "";
                 }
             }
 
@@ -256,6 +296,29 @@
                     });
                 });
             });
+            $(function () {
+                $('#select-all2').click(function () {
+                    const isChecked = $('#select-all2').prop('checked');
+
+                    // Lặp qua các checkbox và cập nhật trạng thái
+                    $('.myCheckBox2').each(function (index) {
+                        if (!this.disabled) {
+                            this.checked = isChecked;
+                            this.value = isChecked ? '1' : '0';
+                            onSelectChange_dnht3(this.value, index);
+                        }
+                    });
+                });
+            });
+            function onSelectChange_dnht3(value, index) {
+                if (value === '1')
+                {
+                    document.getElementById("D14_" + index).disabled = false;
+                } else
+                {
+                    document.getElementById("D14_" + index).disabled = true;
+                }
+            }
         </script>
     </body>
 </html>
