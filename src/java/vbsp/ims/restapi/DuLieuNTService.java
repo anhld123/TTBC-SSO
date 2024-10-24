@@ -1606,6 +1606,31 @@ public class DuLieuNTService extends ReportService {
         }
     }
 
+    public ArrayList<DuLieuNTRow> getDataKTKSNB_2024(String key, String posCode, String posFlag, String reportDate, String conditions, String defaultListFlag) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+
+        WebTarget target = client.target(getBaseURI()).path("ktksnb-list-data")
+                .queryParam("key", key)
+                .queryParam("posCode", posCode)
+                .queryParam("posFlag", posFlag)
+                .queryParam("reportDate", reportDate)
+                .queryParam("conditions", conditions)
+                .queryParam("defaultListFlag", defaultListFlag);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+//        System.out.println("json: " + target.getUri().toString());
+
+        if (response.getStatus() == 200) {
+            DuLieuNTResp dulieuNTResp = response.readEntity(DuLieuNTResp.class);
+            ArrayList<DuLieuNTRow> listOfRow = dulieuNTResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+
     public ArrayList<DuLieuNTRow> getDataQLNK(String posCode, String posFlag,
             String reportDate, String customerCode, String groupId, String loanId, String defaultListFlag, String fetchType) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
