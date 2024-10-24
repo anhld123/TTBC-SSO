@@ -35,29 +35,24 @@ import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.DaoDcptNo;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.define.Define;
-import vbsp.ims.eps.epsModel;
 import vbsp.ims.huydongtk.clsCanBo;
-import vbsp.ims.huydongtk.clsHuyDongTK;
 import vbsp.ims.khnv2021.PosClass;
 import vbsp.ims.ktgs.dao.DaoKtgsMain;
-import vbsp.ims.leavelocal.LeaveHomeDao;
 import vbsp.ims.leavelocal.LeaveHomeService;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
 import vbsp.ims.model.Pagination;
 import vbsp.ims.model.ktnb.PosMainModel;
-import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
+import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.ListCommune;
 import vbsp.ims.restapi.ListMainPos;
 import vbsp.ims.restapi.ListPosCode;
-import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.sbv.daoSbv;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlKtgsSync;
-//import vbsp.ims.xml.XmlNhaptaycnSync;
 
 /**
  *
@@ -356,7 +351,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
     protected List<ListValue> lstTide = new ArrayList<ListValue>();
     protected List<ListValue> lstGiaiNgan = new ArrayList<ListValue>();
     protected List<ListValue> lstNhadautu = new ArrayList<ListValue>();
-
+    private List<DuLieuNTRow> lstData_Api;
     protected List<ListValue> lstChuongtrinh = new ArrayList<ListValue>();
     protected List<ListValue> lstMaxa = new ArrayList<ListValue>();
     protected List<ListValue> lstMato = new ArrayList<ListValue>();
@@ -376,6 +371,14 @@ public class ActionChtrinhcnMain extends ActionSupport {
     public List<clsCanBo> lstCanBo = new ArrayList<>();
 //    private List<ListValue> lstMato = new ArrayList<ListValue>();
     private List<ListValue> lstChutichXaHoi = new ArrayList<ListValue>();
+
+    public List<DuLieuNTRow> getLstData_Api() {
+        return lstData_Api;
+    }
+
+    public void setLstData_Api(List<DuLieuNTRow> lstData_Api) {
+        this.lstData_Api = lstData_Api;
+    }
 
     public List<QT_DULIEU_NT> getLstCombox() {
         return lstCombox;
@@ -792,176 +795,41 @@ public class ActionChtrinhcnMain extends ActionSupport {
             Connection conn = new DaoConnect().getConnect();
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
             //khoi tao cho treeview cac pos
-            List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_nhaptaycn);
+//            List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_nhaptaycn);
 
             lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn, UserName, Grade);
 
-            if (khoa_nhaptaycn.equals("HSSV_001")) {
-                setTreeNodeGrade3(lstModelTree);
-            } else {
-                if (!this.khoa_nhaptaycn.equals("LEAVELOCAL")) {
-                    if (Grade.equals("3")) {
-                        setTreeNodeGrade3(lstModelTree);
-                    } else {
-                        setTreeNodeGrade12(lstModelTree);
-                    }
-                }
-            }
-
-            if (khoa_nhaptaycn.equals("PHIUT_001") && !Grade.equals("3")) {
-                lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, "PHIUT_001", UserName, Grade);
-                if (conn != null) {
-                    conn.close();
-                }
-                return "PHIUT_001";
-            }
-
-            if (khoa_nhaptaycn.equals("CHART_001")) {
-                lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, "CHART_001", UserName, Grade);
-                if (conn != null) {
-                    conn.close();
-                }
-                return "CHART_001";
-            }
-
-            if (khoa_nhaptaycn.equals("KSNB_02")) {
-                lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn, UserName, Grade);
-                setLstCapKT(daoMain.getCanBo(UserName, "CAPKT"));
-                setLstDVUT(daoMain.getCanBo(UserName, "DVUT"));
-                setLstMato(daoMain.getCanBo(UserName, "MATO"));
-                setLstChutichXaHoi(daoMain.getCanBo(UserName, "CHUTICH"));
-                if (conn != null) {
-                    conn.close();
-                }
-                return "KSNB_02";
-            }
-            if (khoa_nhaptaycn.equals("QD23_001")) {
-                setLstTide(daoMain.getCanBo(UserName, "TIDE595"));
-            } else if (khoa_nhaptaycn.equals("HTLS2021")) {
-//                setLstGiaiNgan(daoMain.getCanBo(UserName, "TIDE595"));
-                setLstNhadautu(daoMain.getCanBo(UserName, "NHADT"));
-            }
-
-            if (this.khoa_nhaptaycn.equals("LEAVELOCAL")) {
-                epsModel dao = new epsModel();
-                lstDonvi = dao.getDonvi(Grade, UserName);
-                int iRol = new LeaveHomeDao().checkRuleUser(UserName, Grade);
-                setGradeAuthor1(String.valueOf(iRol));
-                return "LEAVELOCAL";
-
-            }
-
-            if (this.khoa_nhaptaycn.equals("KTTC_MUASAM_01")) {
-//             pos_cd = posMainModel.getPosCd();
-                main_pos = posMainModel.getMainPosCd();
-                _server_tmp = new LeaveHomeService();
-                String PosFlag = "";
-                if (Grade.equals("3")) {
-                    PosFlag = "H";
-                } else if (Grade.equals("2")) {
-                    PosFlag = "M";
-                } else {
-                    PosFlag = "S";
-                }
-                if (PosFlag == "S") {
-                    lstCN_API = _server_tmp.getListCn(main_pos.substring(2, 4));
-                } else if (PosFlag == "M") {
-                    lstCN_API = _server_tmp.getListCn(main_pos.substring(2, 4));
-                } else {
-                    lstCN_API = _server_tmp.getListCn("");
-                }
-                return "KTTC_MUASAM_01";
-            }
-            if (khoa_nhaptaycn.equals("KPBL_01")) {
-                DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
-                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));
-                setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
-                _server_tmp = new LeaveHomeService();
-                lstCN_API = _server_tmp.getListCn("");
-                return "KPBL_01";
-            }
-            if (this.khoa_nhaptaycn.equals("THTK_2024")) {
-                main_pos = posMainModel.getMainPosCd();
-                _server_tmp = new LeaveHomeService();
-                lstCN_API = _server_tmp.getListCn("");
-                return "THTK_2024";
-            }
-
-            if (this.khoa_nhaptaycn.equals("TDKT_01")) {
-                main_pos = posMainModel.getMainPosCd();
-                _server_tmp = new LeaveHomeService();
-                lstCN_API = _server_tmp.getListCn("");
-                return "TDKT_01";
-            }
-
-            DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
-            if (khoa_nhaptaycn.equals("CIC_001")) {
-                System.err.println("SDQ---0");
-                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));
-                System.err.println("SDQ---2");
-                setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
-                System.err.println("SDQ---3");
-                DuLieuNTService service1 = new DuLieuNTService();
-                ArrayList<LockSendModel> lstDataLock = service1.getDataLockManual("CIC_CUSTOMER", pos_cd_username, "S", "20231231");
-                if (lstDataLock == null || lstDataLock.size() == 0) {
-                    addActionError("Vui lòng kiểm tra lại kết nối tới Api trung ương");
-                    return ERROR;
-                }
-                try {
-                    setChotCic(lstDataLock.get(0).getStatus());
-                } catch (Exception e) {
-                    setChotCic("0");
-                }
-                return "return-cic";
-            }
-
-            if (this.khoa_nhaptaycn.equals("QLNK_2023")) {
-                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));
-                setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
-                int iRol = new LeaveHomeDao().checkRuleUser(UserName, Grade);
-                setGradeAuthor1(String.valueOf(iRol));
-                return "QLNK_2023";
-//                return "LEAVELOCAL";
-            }
-
-            if (this.khoa_nhaptaycn.equals("TEST_2024_01")) {
-                return "success_1";
-            }
-            if (this.khoa_nhaptaycn.equals("CIC_002")) {
-                String PosFlag = "";
-                if (Grade.equals("3")) {
-                    PosFlag = "H";
-                } else if (Grade.equals("2")) {
-                    PosFlag = "M";
-                } else {
-                    PosFlag = "S";
-                }
+            if (this.khoa_nhaptaycn.equals("KTKSNB_01") || this.khoa_nhaptaycn.equals("KTKSNB_02") || this.khoa_nhaptaycn.equals("KTKSNB_03")) {
                 posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                 pos_cd = posMainModel.getPosCd();
                 main_pos = posMainModel.getMainPosCd();
-                _server_tmp = new LeaveHomeService();
-
-                if (PosFlag == "S") {
-                    lstCN_API = _server_tmp.getListCn(main_pos.substring(2, 4));
-                } else if (PosFlag == "M") {
-                    lstCN_API = _server_tmp.getListCn(main_pos.substring(2, 4));
-                } else {
-                    lstCN_API = _server_tmp.getListCn("");
+                DuLieuNTService _serverAPI = new DuLieuNTService();
+                Date date = new Date();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+                simpleDateFormat.applyPattern("yyyy");
+                String format = simpleDateFormat.format(date);
+                lstData_Api = _serverAPI.getDataKTKSNB("CB_KTKSNB", pos_cd_username, "S", format + "1231", "", "0");
+                for (DuLieuNTRow item : lstData_Api) {
+                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+                    try {
+                        row.setD1(item.getD1());
+                        row.setD2(item.getD2());
+                        row.setD3(item.getD3());
+                        lstDulieuNt.add(row);
+                    } catch (Exception e) {
+                    }
                 }
-                return "CIC_002";
-            }
-
-            if (this.khoa_nhaptaycn.equals("KTTC_QSDD_01")) {
-                System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
-                //Lấy danh sách Pos theo User đăng nhập
-                epsModel dao = new epsModel();
-                //System.err.println("iRol= 1" );
-                if (Grade.equals("2")) {
-                    lstDonvi = dao.getDonvi("1", UserName);
-                } else {
-                    lstDonvi = dao.getDonvi("3", UserName);
+                lstXa_API = _serverAPI.getListXa("", "", "", pos_cd);
+                lstPGD_API = _serverAPI.getListPgd(main_pos, "");
+                lstCN_API = _serverAPI.getListCn("");
+                switch (this.khoa_nhaptaycn) {
+                    case "KTKSNB_01":
+                        return "success_1";
+                    case "KTKSNB_02":
+                        return "success_2";
+                    default:
+                        return "success";
                 }
-                return "KTTC_QSDD_01";
             }
 
             if (conn != null) {
