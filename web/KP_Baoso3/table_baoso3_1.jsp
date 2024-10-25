@@ -173,7 +173,7 @@
                     <th class="STT6" colspan="3">Thông tin CMTND/CCDC</th>
                     <th class="STT2" rowspan="1">Loại trừ</th>  
                     <th class="STT4" rowspan="2">Nguyên nhân loại trừ</th>  
-                    <th class="STT2" rowspan="1">Phát sinh lãi</th>  
+                    <th class="STT2" rowspan="1">Phát sinh trả lãi</th>  
                     <th class="STT4" rowspan="2">Nguyên nhân giải trình</th>  
                 </tr>
                 <tr>
