@@ -55,19 +55,17 @@ import vbsp.ims.zip.FileZip;
 public class P0001 extends ActionCanhbaoSsttMain
         implements CbssFunction {
 
-    
     private String khoaduyet;
     private String strComment;
 
     public String getStrComment() {
         return strComment;
     }
-    
+
     public void setStrComment(String strComment) {
         this.strComment = strComment;
     }
-    
-   
+
     public String getKhoaduyet() {
         return khoaduyet;
     }
@@ -75,7 +73,7 @@ public class P0001 extends ActionCanhbaoSsttMain
     public void setKhoaduyet(String khoaduyet) {
         this.khoaduyet = khoaduyet;
     }
-    
+
     @Override
     public String load() {
         try {
@@ -132,7 +130,7 @@ public class P0001 extends ActionCanhbaoSsttMain
         addActionMessage("Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
     }
-    
+
     public String saveGiaiTrinhTmp() {
         System.err.println("Save - saveGiaiTrinhTmp");
         try {
@@ -290,8 +288,15 @@ public class P0001 extends ActionCanhbaoSsttMain
             }
             HashMap hmParameter = getParameter();
             Connection conn = new DaoConnect().getConnect();
+            String sngaybc = hmParameter.get("ngay_bc").toString();
+            String[] values = sngaybc.split("\\-");
+            String ssngay = values[0];
+            String ssthang = values[1];
+            String ssnam = values[2];
+            String result = ssthang.length() != 3 ? ssthang.substring(0, 3) : ssthang;
+            String formattedDate = ssngay + result + ssnam;
             DaoCanhbaoSsttMain daoMain = new DaoCanhbaoSsttMain();
-            lstDulieuNt = daoMain.getDataCBSS01_Detail(conn, hmParameter.get("khoa_detail").toString(), hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd, hmParameter.get("mapgd").toString());
+            lstDulieuNt = daoMain.getDataCBSS01_Detail(conn, hmParameter.get("khoa_detail").toString(), formattedDate, UserName, Grade, poscd, hmParameter.get("mapgd").toString());
             if (conn != null) {
                 conn.close();
             }
@@ -314,8 +319,8 @@ public class P0001 extends ActionCanhbaoSsttMain
             Connection conn = new DaoConnect().getConnect();
             DaoCanhbaoSsttMain daoMain = new DaoCanhbaoSsttMain();
 
-            String sResult = daoMain.authDetail(khoaduyet, UserName, Grade,"", "");
-            
+            String sResult = daoMain.authDetail(khoaduyet, UserName, Grade, "", "");
+
             if (conn != null) {
                 conn.close();
             }
@@ -328,17 +333,16 @@ public class P0001 extends ActionCanhbaoSsttMain
         }
         return SUCCESS;
     }
-    
-        
-    public String uploadGiaitrinh(){
-       try {      
+
+    public String uploadGiaitrinh() {
+        try {
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> uploadGiaitrinh: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> uploadGiaitrinh: " + e.getMessage());
-        }        
+        }
         return SUCCESS;
     }
-    
+
     public String uploadCbss_Giaitrinh() {
         try {
             System.err.println("Upload file");
@@ -365,9 +369,7 @@ public class P0001 extends ActionCanhbaoSsttMain
                 startrow = Integer.parseInt(start_end.split("-")[0]);
                 endcell = Integer.parseInt(start_end.split("-")[1]);
             }
-            
-          
-            
+
             if (new_file.isFile()) {
                 setLstExcel(readFileExcel(new_file_path, startrow, endcell));
 
@@ -378,33 +380,32 @@ public class P0001 extends ActionCanhbaoSsttMain
 //                }  
 //                
                 String strTimeFile = Long.toString(System.currentTimeMillis());
-                 
+
                 String sMa = UserName + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
-                
-                if (!daoCbss.insert_xlx_giaitrinh(hmParameter.get("khoa_detail").toString(), hmParameter.get("mapgd").toString(), getFileNameNew(), convertStringToDate(hmParameter.get("ngay_bc").toString()), UserName, lstExcel,sMa)) 
-                {
+
+                if (!daoCbss.insert_xlx_giaitrinh(hmParameter.get("khoa_detail").toString(), hmParameter.get("mapgd").toString(), getFileNameNew(), convertStringToDate(hmParameter.get("ngay_bc").toString()), UserName, lstExcel, sMa)) {
                     addActionError("Lỗi khi đọc dữ liệu từ file excel ");
                     return ERROR;
-                }        
-                if (!daoCbss.mergeAfterUpFile(hmParameter.get("khoa_detail").toString(), UserName, hmParameter.get("mapgd").toString()
-                        , hmParameter.get("ngay_bc").toString(), sMa, Grade)) {
+                }
+                if (!daoCbss.mergeAfterUpFile(hmParameter.get("khoa_detail").toString(), UserName, hmParameter.get("mapgd").toString(),
+                        hmParameter.get("ngay_bc").toString(), sMa, Grade)) {
                     addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                     return ERROR;
                 }
             }
             Connection conn = new DaoConnect().getConnect();
-                lstDulieuNt = dao.getDataAfterUpFile(conn, "COVID_GIAINGAN", sNgayBC, poscd, UserName, Grade, "", "");
-                if (conn != null) {
-                    conn.close();
-                }
+            lstDulieuNt = dao.getDataAfterUpFile(conn, "COVID_GIAINGAN", sNgayBC, poscd, UserName, Grade, "", "");
+            if (conn != null) {
+                conn.close();
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> COVID_GIAINGAN: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> COVID_GIAINGAN: " + e.getMessage());
             addActionError("Có lỗi xảy ra: " + e.getMessage().replace("\\", "/").replace("'", "\""));
             return ERROR;
-        }    
+        }
         addActionMessage("Bạn đã upload file thành công. ");
-            return SUCCESS;
+        return SUCCESS;
     }
 
     public Date convertStringToDate(String dateString) {

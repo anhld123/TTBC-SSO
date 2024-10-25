@@ -14,6 +14,7 @@ import java.net.URI;
  */
 public class ReportService {
     protected URI getBaseURI() {
-        return UriBuilder.fromUri("http://10.63.16.52:8005/api/v1/").build(); //16
+//        return UriBuilder.fromUri("http://10.63.16.52:8005/api/v1/").build(); //16
+        return UriBuilder.fromUri("http://10.63.52.52:8005/api/v1/").build(); //16
     }
 }

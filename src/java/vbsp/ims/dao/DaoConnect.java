@@ -82,12 +82,12 @@ public class DaoConnect {
 //              return getConnect("jdbc/intellect");
             //return getConnect("10.129.0.56", "imsreport", 1521, "intellect", "intellect");
 //        return getConnect("10.63.8.63", "VBSPIMS1", 1521, "intellect", "intellect");
-            return getConnect("10.63.8.63", "VBSPIMS1", 1521, "intellect", "Mdbims92024");
+//            return getConnect("10.63.8.63", "VBSPIMS1", 1521, "intellect", "Mdbims92024");
 //        return getConnect("10.130.0.56", "imsreport", 1521, "intellect", "intellect");
 //        return getConnect("10.10.0.56", "imsreport", 1521, "intellect", "intellect");
 //        return getConnect("10.68.0.56", "imsreport", 1521, "intellect", "intellect");
             //  return getConnect("10.0.19.12", "VBSPBKA", 1521, "intellect", "intellect");
-//                 return getConnect("10.63.48.70", "DEVIMS", 1521, "intellect", "intellect");
+                 return getConnect("10.63.48.70", "DEVIMS", 1521, "intellect", "intellect");
             //   return getConnect("10.142.0.56", "imsreport", 1521, "intellect", "intellect");
 //       return getConnect("10.6.0.56", "imsreport", 1521, "intellect", "intellect");
 //        return getConnect("10.63.8.78", "VBSPIMS", 1521, "intellect", "intellect");
