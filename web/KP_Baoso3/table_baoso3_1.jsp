@@ -238,8 +238,8 @@
                                    name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10" value="<s:property  value="D10" />"/>      
                         </td>
                         <td class="D0">
-                            <textarea style="width: 98%" placeholder="Nhập tối đa 1000 ký tự" id="D11_<s:property  value='%{#rowstatus.index}' />" 
-                                      name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" maxlength="1000"><s:property value='D11'/></textarea>
+                            <textarea style="width: 98%" placeholder="Nhập tối đa 500 ký tự" id="D11_<s:property  value='%{#rowstatus.index}' />" 
+                                      name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" maxlength="500"><s:property value='D11'/></textarea>
                         </td>
                         <s:if test="D10.equalsIgnoreCase('1')">
                         <input type="hidden" value="<s:property  value="D10" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10"/>
@@ -253,8 +253,8 @@
                                    name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D13" value="<s:property  value="D13" />"/>      
                         </td>
                         <td class="D0">
-                            <textarea style="width: 98%" placeholder="Nhập tối đa 1000 ký tự" id="D14_<s:property  value='%{#rowstatus.index}' />" 
-                                      name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D14" maxlength="1000"><s:property value='D14'/></textarea>
+                            <textarea style="width: 98%" placeholder="Nhập tối đa 500 ký tự" id="D14_<s:property  value='%{#rowstatus.index}' />" 
+                                      name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D14" maxlength="500"><s:property value='D14'/></textarea>
                         </td>
                     </s:if>
                     <s:else><td></td><td></td></s:else>
