@@ -162,7 +162,7 @@
                             <td class="D0" ><s:property value="D1" /></td>
                             <td class="D0" ><s:property value="D2" /></td>
                             <td class="D0" > <a style="text-decoration: underline" 
-                                                href="javascript:funcTableFile('<s:property value="D1"/>', '<s:property value="D3"/>','<s:property value="D7"/>', '3')">
+                                                href="javascript:funcTableFile('<s:property value="D8"/>-<s:property value="D1"/>', '<s:property value="D3"/>','<s:property value="D7"/>', '3')">
                                     <s:property value="D3" /></a></td>
                             <td><s:property value="D4" /></td>
                             <td class="D0"><s:property value="D5" /></td>

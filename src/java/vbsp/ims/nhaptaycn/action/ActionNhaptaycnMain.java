@@ -898,7 +898,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
             if (khoa_nhaptaycn.equals("KPBL_01")) {
                 DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
                 setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));
-                setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
+                setLstMato(daoMain11.getDanhMuc(UserName, "MATO_KPBL", Grade));
                 _server_tmp = new LeaveHomeService();
                 lstCN_API = _server_tmp.getListCn("");
                 return "KPBL_01";

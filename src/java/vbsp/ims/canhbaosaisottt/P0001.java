@@ -294,6 +294,7 @@ public class P0001 extends ActionCanhbaoSsttMain
             String ssthang = values[1];
             String ssnam = values[2];
             String result = ssthang.length() != 3 ? ssthang.substring(0, 3) : ssthang;
+//            System.out.println("check: " +result);
             String formattedDate = ssngay + result + ssnam;
             DaoCanhbaoSsttMain daoMain = new DaoCanhbaoSsttMain();
             lstDulieuNt = daoMain.getDataCBSS01_Detail(conn, hmParameter.get("khoa_detail").toString(), formattedDate, UserName, Grade, poscd, hmParameter.get("mapgd").toString());
