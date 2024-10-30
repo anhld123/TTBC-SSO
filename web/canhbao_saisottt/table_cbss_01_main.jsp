@@ -96,7 +96,9 @@
 // Format the date as "day-month-year"
                 const formattedDate = day + "-" + month + "-" + year;
                 var numError = parseInt(document.getElementById(chkVal).value.replace(',', ''));
-                if (numError > 50) {
+                var Grade = document.getElementById("Grade").value;
+//                alert(Grade);
+                if (numError > 50 && Grade === "1") {
                     alert('Vui lòng giải trình bằng file Excel');
                 } else {
                     var url = "getGiaitrinh.action?khoa_detail=" + khoa1 + khoa2 + "&ngay_bc=" + formattedDate + "&mapgd=" + mapgd + "&strComment=" + comment;
@@ -160,7 +162,7 @@
                 TỔNG HỢP SỐ LIỆU CẢNH BÁO SAI SÓT
             </div>
             <s:hidden name="khoa_cbss"/>
-
+            <s:hidden name="Grade" id="Grade"/>
             </br>
             <table border="1" class="tbl_cbss_css" id="tableCbssMaim01" style="width: 95%"  align="center">
                 <tr>                                            

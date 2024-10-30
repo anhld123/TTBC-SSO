@@ -486,6 +486,9 @@ public class Khacphuc_Baoso3 extends ActionNhaptaycnMain
                 tempadd.setD9(tmp.getD9());
                 tempadd.setD10(tmp.getD10());
                 tempadd.setD11(tmp.getD11());
+                tempadd.setD12(tmp.getD12());
+                tempadd.setD13(tmp.getD13());
+                tempadd.setD14(tmp.getD14());
                 lstUpdateDate.add(tempadd);
             }
 
