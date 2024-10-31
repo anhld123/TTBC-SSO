@@ -221,7 +221,6 @@
                             <input type="hidden" value="<s:property  value="D9" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9"/>
                             <input type="hidden" value="<s:property  value="D12" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12"/>
 
-
                         </td>
                         <td><s:property value="D1" /></td>
                         <td><s:property value="D2" /></td>

@@ -11,6 +11,7 @@ import vbsp.ims.gqvl_2023.*;
 import com.opensymphony.xwork2.ActionContext;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import static java.lang.Integer.parseInt;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import vbsp.ims.nhaptaycn.action.*;
@@ -740,6 +741,99 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
             status = "0";
             message = e.getMessage();
         }
+        return SUCCESS;
+    }
+
+    public String delete() {
+        System.out.println("vao váe");
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd_username = posMainModel.getPosCd();
+            main_pos_username = posMainModel.getMainPosCd();
+            HashMap<String, Object> hmParameter = getParameter();
+            String dateStr = hmParameter.get("ngay_bc").toString();
+            String sKehoach = hmParameter.get("txtKehoach").toString();
+            String smapgd;
+            String sMaxa;
+            if (Grade.equals("1")) {
+                skhoa = "KH_HUYEN";
+                smapgd = pos_cd_username;
+                String ssMaxa = hmParameter.get("lstXa").toString();
+                String[] values = ssMaxa.split("\\|");
+                sMaxa = values[0];
+                if (sMaxa.equals("000000")) {
+                    String code = "1";
+                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                    return SUCCESS;
+                }
+            } else {
+                skhoa = "KH_TINH";
+                String ssMapgd = hmParameter.get("lstPGD").toString();
+                String[] values = ssMapgd.split("\\|");
+                smapgd = values[0];  // giá trị posCode
+                sMaxa = smapgd;
+            }
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
+            String sThangkt = hmParameter.get("monthSelect").toString();
+            String sCanbo;
+            if (sKehoach.equals("1")) {
+                sCanbo = "99999";
+            } else {
+                sCanbo = hmParameter.get("txtCanbo").toString();
+            }
+            String conditions = "D3=" + sMaxa + "|D4=" + sCanbo + "|D5=" + sThangkt + "|";
+            if (sThangkt.equals("0")) {
+                String code = "2";
+                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                return SUCCESS;
+            }
+            lstData_Api = _serverAPI.getDataKTKSNB_2024(skhoa, smapgd, "S", _reportDate, conditions, "0");
+            System.out.println("skhoa: " + skhoa + " smapgd: " + smapgd + " _reportDate: " + _reportDate + " conditions: " + conditions);
+
+            ArrayList<DuLieuNTRowX> lstUpdateDate = new ArrayList<>();
+            for (DuLieuNTRow tmp : lstData_Api) {
+                DuLieuNTRowX tempadd = new DuLieuNTRowX();
+                tempadd.setKey(skhoa);
+                tempadd.setOrderValue(Integer.parseInt(tmp.getOrderValue()));
+                tempadd.setOrderDescription(tmp.getOrderDescription());
+                tempadd.setName(tmp.getName());
+                tempadd.setCode(tmp.getCode());
+                tempadd.setMakerId(tmp.getMakerId());
+                tempadd.setMakerDate(tmp.getMakerDate());
+                tempadd.setAuthoriseId(tmp.getAuthoriseId());
+                tempadd.setAuthoriseDate(tmp.getAuthoriseDate());
+                tempadd.setReportDate(tmp.getReportDate());
+                tempadd.setReportYear(tmp.getReportYear());
+                tempadd.setPosCode(tmp.getPosCode());
+                tempadd.setPosFlag(tmp.getPosFlag());
+                tempadd.setBranchCode(tmp.getBranchCode());
+                tempadd.setD1(tmp.getD1());
+                tempadd.setD2(tmp.getD2());
+                tempadd.setD3(tmp.getD3());
+                tempadd.setD4(tmp.getD4());
+                tempadd.setD5(tmp.getD5());
+                tempadd.setD6(tmp.getD6());
+                tempadd.setD7(tmp.getD7());
+                tempadd.setD8(tmp.getD8());
+                lstUpdateDate.add(tempadd);
+            }
+            int status = _serverAPI.deleteKTKSNB(skhoa, smapgd, "S", _reportDate, "", "", lstUpdateDate);
+
+            if (status != 200) {
+                String code = String.valueOf(status);
+                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                return SUCCESS;
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> muats2024: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> muats2024: " + e.getMessage());
+        }
+        addActionMessage("Bạn đã xóa dữ liệu thành công");
+        String code = String.valueOf(200);
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
 }

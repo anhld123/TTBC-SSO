@@ -626,7 +626,7 @@
                     <s:if test="Grade.equalsIgnoreCase('3')">
                         <label id="title31">&nbsp; Nghiệp vụ :</label>
                         <select name="txtGetData3" id="txtGetData3" >
-                                <!--onchange="toggleCap3()">-->                                                    
+                            <!--onchange="toggleCap3()">-->                                                    
                             <option value="1">1. Phê duyệt kế hoạch PGD</option>                                                    
                             <option value="2">2. Phê duyệt kế hoạch Tỉnh</option>
                         </select> 
@@ -644,6 +644,7 @@
                     <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                     <s:if test="!Grade.equalsIgnoreCase('3')">
                         &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/>  
+                        &nbsp;<input type="button" id="idDelete" value="Xóa dữ liệu" style="color: red"/>  
                         &nbsp;<input type="button" id="idSend" value="Chốt dữ liệu" style="color: red"/></s:if>
                     </table>    
                 </fieldset>
@@ -702,6 +703,7 @@
                 if (selectedValue === "1") {
                     document.getElementById("idSave").style.display = "inline";
                     document.getElementById("idSend").style.display = "inline";
+                    document.getElementById("idDelete").style.display = "inline";
                     document.getElementById("lstPGD").style.display = "inline";
                     document.getElementById("title22").style.display = "inline";
                     document.getElementById("lstPGD").style.display = "inline";
@@ -710,6 +712,7 @@
                     onLoadData();
                 } else {
                     document.getElementById("idSave").style.display = "none";
+                    document.getElementById("idDelete").style.display = "none";
                     document.getElementById("idSend").style.display = "none";
                     document.getElementById("title22").style.display = "none";
                     document.getElementById("lstPGD").style.display = "none";
@@ -786,6 +789,69 @@
             }
 
             initTable();
+
+            $("#idDelete").click(function () {
+                $('#message_suc_err').empty();
+                $('#divExportReportLink').empty();
+
+                let aCheck = confirm("Bạn chắc chắn muốn xóa dữ liệu báo cáo ?");
+                if (aCheck) {
+                    var table = document.getElementById("subTable");
+                    var rowcount = table.rows.length;
+                    var chot = document.getElementById("chotsl").value;
+                    var chot_tw = document.getElementById("chotsl_tw").value;
+                    var isValid = true;
+                    if (chot === "2") {
+                        alert("Chi nhánh đã chốt dữ liệu lên Tw!");
+                        isValid = false; // Không cho phép lưu dữ liệu
+                        onLoadData();
+                    }
+                    if (chot === "1") {
+                        alert("Dữ liệu đã gửi, không thể xóa.");
+                        isValid = false; // Không cho phép lưu dữ liệu
+                        onLoadData();
+                    }
+                    if (chot_tw === "0") {
+                        alert("Chưa có dữ liệu, đề nghị lưu dữ liệu trước khi gửi!");
+                        isValid = false; // Không cho phép lưu dữ liệu
+                    }
+                    for (var i = 0; i < rowcount; i++) {
+                        try {
+                        } catch (e) {
+                        }
+                    }
+                    if (isValid) {
+                        var url, sdata;
+                        url = "delete_KTKSNB_2024.action";
+                        sdata = jQuery("#frmdata").serialize();
+                        $("#viewData").html('<img src="img/loading.gif"/>');
+                        btnDisabled(1);
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: sdata,
+                            success: function (data) {
+                                if (data === "200") {
+                                    alert("Thành công: Xóa dữ liệu.");
+                                    $('#message_suc_err').html("<h style='color: green; font-size: 13px ; font-weight: bold'>Bạn đã xóa dữ liệu thành công!</h>");
+                                    onLoadData();
+                                } else {
+                                    alert("Lỗi: Xóa dữ liệu.");
+                                    onLoadData();
+                                }
+                            },
+                            complete: function () {
+                                btnDisabled(0);
+                            },
+                            error: function (request) {
+                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                                onLoadData();
+                            }
+                        });
+                    }
+                }
+
+            });
 
         </script>
     </body>
