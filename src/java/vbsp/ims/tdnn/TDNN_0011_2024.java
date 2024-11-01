@@ -248,7 +248,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd = posMainModel.getPosCd();
             setMain_pos(posMainModel.getMainPosCd());
-            System.out.println("load : name " + UserName + " caP " + Grade + " pgd " + pos_cd + " cn " + main_pos);
+//            System.out.println("load : name " + UserName + " caP " + Grade + " pgd " + pos_cd + " cn " + main_pos);
             String PosFlag = "";
             if (Grade.equals("3")) {
                 PosFlag = "H";
@@ -400,7 +400,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
 
     @Override
     public String save() {
-        System.out.println("vao váe");
+//        System.out.println("vao váe");
         try {
             if (!getParaSession()) {
                 return ERROR;
@@ -468,7 +468,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 tempadd.setStyle(tmp.getKIEUIN());
                 lstUpdateDate.add(tempadd);
                 lstLocalDataUpdate.add(tmp);
-                System.out.println("macn: " + macn + " c1 " + main_pos + " 2 ");
+//                System.out.println("macn: " + macn + " c1 " + main_pos + " 2 ");
             }
             _server = new Service_GQVL2023();
             int status = _server.saveTDNN_2024("KTGS_01GDX", mapgd, PosFlag, maxa, hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
@@ -490,7 +490,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
     }
 
     public String send() {
-        System.out.println("vao váe");
+//        System.out.println("vao váe");
         try {
             if (!getParaSession()) {
                 return ERROR;
@@ -524,7 +524,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
                 addActionError("Bạn chưa chọn cán bộ kiểm tra!");
             }
             String tranPoint = "TXN0" + maxa;
-            System.out.println(macb + " " + tranPoint);
+//            System.out.println(macb + " " + tranPoint);
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd = posMainModel.getPosCd();
             main_pos = posMainModel.getMainPosCd();
@@ -565,10 +565,15 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
             }
             _server = new Service_GQVL2023();
             int status = _server.saveTDNN_2024("KTGS_01GDX", mapgd, PosFlag, maxa, hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
-            if (status != 200) {
-                String code = String.valueOf(status);
-                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                return SUCCESS;
+            if (status == 200) {
+                DaoTdnnMain daoMain = new DaoTdnnMain();
+                if (!daoMain.save_GDX_2024("KTGS_01GDX", dateStr, UserName, mapgd, maxa, PosFlag, lstLocalDataUpdate)) {
+                    addActionError("Bạn chưa lưu được báo cáo tại chi nhánh vui lòng liên hệ quản trị viên!");
+                    String code = String.valueOf(2);
+                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                    return ERROR;
+
+                }
             }
         } catch (Exception e) {
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
@@ -583,7 +588,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
     }
 
     public String unlock() {
-        System.out.println("vao váe");
+//        System.out.println("vao váe");
         try {
             if (!getParaSession()) {
                 return ERROR;
@@ -615,7 +620,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
             int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(date1));
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
             String tranPoint = "TXN0" + maxa;
-            System.out.println(macb + " " + tranPoint);
+//            System.out.println(macb + " " + tranPoint);
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd = posMainModel.getPosCd();
             main_pos = posMainModel.getMainPosCd();

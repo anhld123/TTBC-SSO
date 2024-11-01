@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
+import vbsp.ims.action.ktktnb.DULIEU_NT_TQ;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.DaoLoadReportParams;
@@ -2099,5 +2100,39 @@ public class DaoTdnnMain {
             }
         }
         return _retVal;
+    }
+    public boolean save_GDX_2024(String khoa, String ngaybc, String sUser, String sPoscd, String smaxa, String smato, List<QT_DULIEU_NT> lstData) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(DULIEU_NT_TQ.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.P_SAVE_GDX_2024(?, ?, ? , ?, ?, ? ,?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, ngaybc);
+            cs.setString(3, sUser);
+            cs.setString(4, sPoscd);
+            cs.setString(5, smaxa);
+            cs.setString(6, smato);
+            cs.setArray(7, array_to_pass);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham bao so 3 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " bao so 3 -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
     }
 }

@@ -627,10 +627,15 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
             }
             _server = new Service_GQVL2023();
             int status = _server.saveTDNN_2024("KTGS_04GDX", mapgd, PosFlag, maxa, hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
-            if (status != 200) {
-                String code = String.valueOf(status);
-                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                return SUCCESS;
+            if (status == 200) {
+                DaoTdnnMain daoMain = new DaoTdnnMain();
+                if (!daoMain.save_GDX_2024("KTGS_04GDX", dateStr, UserName, mapgd, maxa, PosFlag, lstLocalDataUpdate)) {
+                    addActionError("Bạn chưa lưu được báo cáo tại chi nhánh vui lòng liên hệ quản trị viên!");
+                    String code = String.valueOf(2);
+                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                    return ERROR;
+
+                }
             }
         } catch (Exception e) {
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
