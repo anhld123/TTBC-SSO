@@ -38,15 +38,35 @@
                 color: #666;
             }
 
+            .countdown-container {
+                text-align: center;
+                font-size: 36px; /* Increase title font size */
+                margin-top: 20px;
+            }
+
             .countdown {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-image: url('img/tet2025.jpg'); /* Đặt ảnh nền */
-                background-size: cover; /* Làm cho ảnh phủ kín */
-                background-position: center; /* Căn giữa ảnh */
+                background-image: url('img/tet2025.jpg');
+                background-size: cover; 
+                background-position: center; 
                 border-radius: 10px;
-                padding: 20px; /* Thêm padding để ảnh không bị cắt */
+                padding: 80px; 
+                width: 100%; 
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            .time-box {
+                background-color: rgba(255, 193, 7, 0.8); 
+                padding: 30px; 
+                margin: 0 15px; 
+                border-radius: 10px; 
+                font-size: 48px; 
+                font-weight: bold;
+                text-align: center;
+                color: #000;
             }
 
             .time-box {
@@ -234,12 +254,12 @@
                 <tr>                    
                     <td height="50" valign="top">
                         <table border="0"  cellpadding="0" cellspacing="0">
-                            <div class="container">
-                                <h1 id="title99">Đếm ngược</h1>
-                                <h2 id="title98">Tết Ất Tỵ, 2025</h2>
+                            <div class="container" style="font-family: Brush Script MT">
+                                <h1 id="title99" style="font-family: Comic Sans MS">Đếm ngược</h1>
+                                <h2 id="title98" style="font-family: Bradley Hand">Tết Ất Tỵ, 2025</h2>
                                 <div class="countdown">
                                     <div class="time-box">
-                                        <span id="days" class="time">00</span>
+                                        <span id="days" class="time">00</span><br>
                                         <span class="label">Ngày</span>
                                     </div>
                                     <div class="time-box">
@@ -247,11 +267,11 @@
                                         <span class="label">Giờ</span>
                                     </div>
                                     <div class="time-box">
-                                        <span id="minutes" class="time">00</span>
+                                        <span id="minutes" class="time">00</span><br>
                                         <span class="label">Phút</span>
                                     </div>
                                     <div class="time-box">
-                                        <span id="seconds" class="time">00</span>
+                                        <span id="seconds" class="time">00</span><br>
                                         <span class="label">Giây</span>
                                     </div>
                                 </div>

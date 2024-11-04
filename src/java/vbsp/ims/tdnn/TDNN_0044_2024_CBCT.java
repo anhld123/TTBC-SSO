@@ -626,14 +626,41 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
                 tempadd.setFontFormat(tmp.getFONTFORMAT());
                 tempadd.setStyle(tmp.getKIEUIN());
                 lstUpdateDate.add(tempadd);
-                lstLocalDataUpdate.add(tmp);
+                
+                QT_DULIEU_NT temlocal = new QT_DULIEU_NT();
+                temlocal.setKHOA("KTGS_04GDX_CBCT");
+                temlocal.setTHUTU(tmp.getTHUTU());
+                temlocal.setTT_HIENTHI(tmp.getTT_HIENTHI());
+                temlocal.setTEN(tmp.getTEN());
+                temlocal.setMA(tmp.getMA());
+                temlocal.setNGUOI_DUYET(UserName);
+                temlocal.setNGUOI_NHAP(UserName);
+                Date reportDate = DateUtil.toDate(hmParameter.get("ngay_bc").toString());
+                temlocal.setNGAYBC(reportDate);
+                temlocal.setNAMBC(tmp.getNAMBC());
+                temlocal.setMAPGD(tmp.getMAPGD());
+                temlocal.setCO_TONGHOP(check_Flag);
+                temlocal.setMACN(macn != "000000" ? macn : main_pos);
+                temlocal.setD1(tmp.getD1());
+                temlocal.setD2(maxa);
+                temlocal.setD3(tmp.getD3());
+                temlocal.setD4(tmp.getD4());
+                temlocal.setD5(macb);
+                temlocal.setD6(D6_tmp);
+                temlocal.setD7(tranPoint);
+                temlocal.setD8(D8_tmp);
+                temlocal.setD9(tmp.getD9());
+                temlocal.setD10(tmp.getD10());
+                temlocal.setD11("2");
+                temlocal.setD12(toString().valueOf(tmp.getKIEUIN()));
+                lstLocalDataUpdate.add(temlocal);
 
             }
             _server = new Service_GQVL2023();
             int status = _server.saveTDNN_2024("KTGS_04GDX_CBCT", mapgd, PosFlag, maxa, hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
             if (status == 200) {
                 DaoTdnnMain daoMain = new DaoTdnnMain();
-                if (!daoMain.save_GDX_2024("KTGS_04GDX_CBCT", dateStr, UserName, mapgd, maxa, PosFlag, lstLocalDataUpdate)) {
+                if (!daoMain.save_GDX_2024("KTGS_04GDX_CBCT", dateStr, UserName, mapgd, maxa, PosFlag, lstLocalDataUpdate,"KTGS_04GDX_CBCT")) {
                     addActionError("Bạn chưa lưu được báo cáo tại chi nhánh vui lòng liên hệ quản trị viên!");
                     String code = String.valueOf(2);
                     this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
@@ -728,10 +755,15 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
             }
             _server = new Service_GQVL2023();
             int status = _server.deleteTDNN_2024("KTGS_04GDX_CBCT", mapgd, PosFlag, maxa, hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
-            if (status != 200) {
-                String code = String.valueOf(status);
-                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                return SUCCESS;
+           if (status == 200) {
+                DaoTdnnMain daoMain = new DaoTdnnMain();
+                if (!daoMain.save_GDX_2024("KTGS_04GDX_CBCT", hmParameter.get("ngay_bc").toString(), UserName, mapgd, maxa, PosFlag, lstLocalDataUpdate, "DELETE_GDX_1")) {
+                    addActionError("Bạn chưa lưu được báo cáo tại chi nhánh vui lòng liên hệ quản trị viên!");
+                    String code = String.valueOf(2);
+                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                    return ERROR;
+
+                }
             }
         } catch (Exception e) {
         }

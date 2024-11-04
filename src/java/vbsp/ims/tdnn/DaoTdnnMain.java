@@ -56,7 +56,7 @@ public class DaoTdnnMain {
                 calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(2, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.CURSOR);
-                 calstatement.setString(4, sGrade);
+                calstatement.setString(4, sGrade);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -92,8 +92,7 @@ public class DaoTdnnMain {
         }
         return lstAllBcqt;
     }
-    
-    
+
     public List<ListValue> getAllTdnn_SUB() {
         List<ListValue> lstAllBcqt = new ArrayList<ListValue>();
         try {
@@ -201,8 +200,6 @@ public class DaoTdnnMain {
         return lstPo;
     }
 
-    
-    
     public List<String> getDataSendTdnn(String type, String khoa, String mapgd, String ngay_bc) throws SQLException {
         List<String> lstData = new ArrayList<>();
         DaoConnect daoconnect = new DaoConnect();
@@ -327,8 +324,8 @@ public class DaoTdnnMain {
         }
         return lstAllBcqt;
     }
-    
-    public List<QT_DULIEU_NT> getStatusSendCn( String Khoa, List<String> lstArrPoscd, String ngaybc, String sCapKT) {
+
+    public List<QT_DULIEU_NT> getStatusSendCn(String Khoa, List<String> lstArrPoscd, String ngaybc, String sCapKT) {
         List<QT_DULIEU_NT> lstStatusSendcn = new ArrayList<QT_DULIEU_NT>();
         try {
             DaoConnect daoconnect = new DaoConnect();
@@ -344,11 +341,11 @@ public class DaoTdnnMain {
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);                
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
                 calstatement.setString(1, Khoa);
                 calstatement.setArray(2, oracle_arrayPoscd);
-                calstatement.setString(3, ngaybc);                
-                calstatement.setString(4, sCapKT);                
+                calstatement.setString(3, ngaybc);
+                calstatement.setString(4, sCapKT);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -461,7 +458,6 @@ public class DaoTdnnMain {
         return lstStatusSendcn;
     }
 
-
     public List<QT_DULIEU_NT> getDataTDNN_01(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd, String sCapKT) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -552,7 +548,7 @@ public class DaoTdnnMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataTDNN_01_re(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -642,7 +638,7 @@ public class DaoTdnnMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataTDNN_02(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -731,8 +727,8 @@ public class DaoTdnnMain {
             CoreLogger.error(this.getClass().getName() + " getDataTDNN_02 -> " + e.getMessage());
         }
         return lstBcqt_NT;
-    }     
-    
+    }
+
     public List<QT_DULIEU_NT> getDataTDNN_02_re(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -821,7 +817,7 @@ public class DaoTdnnMain {
             CoreLogger.error(this.getClass().getName() + " getDataTDNN_02 -> " + e.getMessage());
         }
         return lstBcqt_NT;
-    }     
+    }
 
     public boolean saveTdnn01(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData, String sCapKT) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
@@ -855,7 +851,7 @@ public class DaoTdnnMain {
         }
         return true;
     }
-    
+
     public boolean saveTdnn02(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -895,18 +891,18 @@ public class DaoTdnnMain {
         ResultSet reset = null;
         //Khoi tao procedure cung voi tham so truyen vao la dau ?
         String strStoreproce = "{ ? = call VBSP_IMS_TDNN.F_CHECK_USER(?) }";
-        
+
         try {
             //Khoi tao goi Store
-            calstatement = conn.prepareCall(strStoreproce, 
+            calstatement = conn.prepareCall(strStoreproce,
                     ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-            calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);            
+            calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
             calstatement.setString(2, UserName);
             //Thuc hien execute lay du lieu
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
             _retVal = calstatement.getInt(1);
-            
+
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " checkUserTdnn -> " + e.getMessage());
@@ -924,7 +920,6 @@ public class DaoTdnnMain {
         }
         return _retVal;
     }
-
 
     public List<String> getDataSendBcqt(String type, String khoa, String mapgd, String ngay_bc) throws SQLException {
         List<String> lstData = new ArrayList<>();
@@ -1079,13 +1074,12 @@ public class DaoTdnnMain {
 
         DaoTdnnMain.newInstance().getPosByName(pos);
         Connection conn = new DaoConnect().getConnect();
-        new DaoTdnnMain().getReportParmamsTdnn(conn, "BCQT_M03","","");
+        new DaoTdnnMain().getReportParmamsTdnn(conn, "BCQT_M03", "", "");
         if (conn != null) {
             conn.close();
         }
     }
-    
-    
+
     public List<QT_DULIEU_NT> getDataTCTD_B05(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -1175,7 +1169,7 @@ public class DaoTdnnMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<QT_DULIEU_NT> getDataTCTD_B06(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -1265,7 +1259,7 @@ public class DaoTdnnMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public List<ReportParam> getReportParmamsTdnn(Connection conn, String sKhoa, String sUserName, String sCap) {
         ArrayList<ReportParam> report_param_list = new ArrayList<>();
 
@@ -1342,7 +1336,7 @@ public class DaoTdnnMain {
         }
         return report_param_list;
     }
-    
+
     public List<QT_DULIEU_NT> getStatusSendCn(String type, String Khoa, String macn, String ngaybc, String tt_khoa) {
         List<QT_DULIEU_NT> lstStatusSendcn = new ArrayList<QT_DULIEU_NT>();
         try {
@@ -1473,7 +1467,7 @@ public class DaoTdnnMain {
         }
         return lstStatusSendcn;
     }
-    
+
     public int getPosSendDataLockTdnn(String type, String khoa, String mapgd, String ngay_bc, String tt_khoa) throws SQLException {
         int nPos = 0;
         DaoConnect daoconnect = new DaoConnect();
@@ -1516,7 +1510,7 @@ public class DaoTdnnMain {
         }
         return nPos;
     }
-    
+
     public boolean setStatusLock(String type, String khoa, List<String> lstMapgd, String ngaybc, String tt_khoa, String username, String grade) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -1551,11 +1545,10 @@ public class DaoTdnnMain {
         }
         return bSuccess;
     }
-    
-        //CHUDV: Hàm thực hiện Bind dữ liệu ra màn hình nhập liệu báo cáo Kết quả hoạt động của Ban Đại diện HĐQT 01/BDD
+
+    //CHUDV: Hàm thực hiện Bind dữ liệu ra màn hình nhập liệu báo cáo Kết quả hoạt động của Ban Đại diện HĐQT 01/BDD
     public List<QT_DULIEU_NT> get_data_ktnb32(Connection conn, String sKhoa, String sNgaybc, String sUser,
-            String sGrade, List<String> lstArrPoscd)
-    {
+            String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
@@ -1632,7 +1625,7 @@ public class DaoTdnnMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public boolean saveTdnn03(String Khoa, String UserName, String sGrade, String MaPGD, String NgayBC, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -1665,7 +1658,7 @@ public class DaoTdnnMain {
         }
         return true;
     }
-    
+
     public List<String> getAllPosUser(String username) throws SQLException {
         List<String> lstData = new ArrayList<>();
         DaoConnect daoconnect = new DaoConnect();
@@ -1713,7 +1706,7 @@ public class DaoTdnnMain {
         }
         return lstData;
     }
-    
+
     public List<QT_DULIEU_NT> getDataGSCMR_01(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd, String sCapKT) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -1804,21 +1797,21 @@ public class DaoTdnnMain {
         }
         return lstBcqt_NT;
     }
-    
-    public boolean saveGscmr01(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData, String sCapKT,List<String> lstArrPoscd) throws SQLException {
+
+    public boolean saveGscmr01(String khoa, String username, String mapgd, String ngaybc, List<QT_DULIEU_NT> lstData, String sCapKT, List<String> lstArrPoscd) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
         ArrayDescriptor des = ArrayDescriptor
                 .createDescriptor(QT_DULIEU_NT.ORACLE_TABLE_TYPE, connection);
         ARRAY array_to_pass = new ARRAY(des, connection, array);
-        
-        ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("POS_CD", connection);        
 
-        String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);       
+        ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("POS_CD", connection);
 
-        ARRAY oracle_arrayPos = new ARRAY(des_ma, connection, arrayPoscd);        
-        
+        String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
+
+        ARRAY oracle_arrayPos = new ARRAY(des_ma, connection, arrayPoscd);
+
         CallableStatement cs = null;
         try {
             cs = connection.prepareCall("{call VBSP_IMS_TDNN.SP_SAVE_GSCMR_01(?, ?, ?, ?, ? ,?, ?)}");
@@ -1845,7 +1838,7 @@ public class DaoTdnnMain {
         }
         return true;
     }
-    
+
     public String getTXNDetail(String sTxn, String sNgaybc) throws SQLException {
         String pos_cd = "";
         CallableStatement calstatement = null;
@@ -1884,7 +1877,7 @@ public class DaoTdnnMain {
         }
         return pos_cd;
     }
-    
+
     public List<QT_DULIEU_NT> getDataGSCMR_01_TH(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd, String sCapKT) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
@@ -1975,8 +1968,8 @@ public class DaoTdnnMain {
         }
         return lstBcqt_NT;
     }
-    
-    public List<QT_DULIEU_NT> getData_UnlockGdx(Connection conn, String sNgaybc,String sKhoa,String sMacn) {
+
+    public List<QT_DULIEU_NT> getData_UnlockGdx(Connection conn, String sNgaybc, String sKhoa, String sMacn) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
             CallableStatement calstatement = null;
@@ -2002,13 +1995,13 @@ public class DaoTdnnMain {
                 reset = (ResultSet) calstatement.getObject(6);
                 while (reset.next()) {
 
-                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();             
+                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
                     value.setD1(reset.getString("D1"));
                     value.setD2(reset.getString("D2"));
                     value.setD3(reset.getString("D3"));
                     value.setD4(reset.getString("D4"));
-                    value.setD5(reset.getString("D5"));  
-                    value.setD6(reset.getString("D6"));  
+                    value.setD5(reset.getString("D5"));
+                    value.setD6(reset.getString("D6"));
                     lstBcqt_NT.add(value);
                 }
 
@@ -2028,34 +2021,34 @@ public class DaoTdnnMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public GenericResult<String> cancelAssign(String skhoa, String smadgx, String sngaybc) throws SQLException {
-        Connection connection = new DaoConnect().getConnect();        
+        Connection connection = new DaoConnect().getConnect();
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_UNLOCK_GDX(?, ?, ? ,?, ? )}");            
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_UNLOCK_GDX(?, ?, ? ,?, ? )}");
             cs.setString(1, skhoa);
             cs.setString(2, smadgx);
             cs.setString(3, sngaybc);
             cs.registerOutParameter(4, oracle.jdbc.OracleTypes.NUMBER);
-            cs.registerOutParameter(5, oracle.jdbc.OracleTypes.VARCHAR);                
+            cs.registerOutParameter(5, oracle.jdbc.OracleTypes.VARCHAR);
             cs.execute();
-            
+
             //Lay ma loi neu co
-            int errorCode = cs.getInt(4);            
+            int errorCode = cs.getInt(4);
             String errorMessage = cs.getString(5);
-            
+
             if (errorCode == 0) {
                 return (new GenericResult<String>()).Success("Success");
             } else {
-                return (new GenericResult<String>()).Fail(errorMessage,errorCode);
+                return (new GenericResult<String>()).Fail(errorMessage, errorCode);
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Loi trong ham cancelAssign " + e.getMessage());
             CoreLogger.error(this.getClass().getName() + " cancelAssign -> " + e.getMessage());
-            return (new GenericResult<String>()).Fail(e.getMessage(),e.getErrorCode());
+            return (new GenericResult<String>()).Fail(e.getMessage(), e.getErrorCode());
         } finally {
             if (cs != null) {
                 cs.close();
@@ -2063,8 +2056,9 @@ public class DaoTdnnMain {
             if (connection != null) {
                 connection.close();
             }
-        }        
+        }
     }
+
     public int checkMainPos(String sPos) throws SQLException {
         int _retVal = 0;
         Connection conn = new DaoConnect().getConnect();
@@ -2072,18 +2066,18 @@ public class DaoTdnnMain {
         ResultSet reset = null;
         //Khoi tao procedure cung voi tham so truyen vao la dau ?
         String strStoreproce = "{ ? = call VBSP_IMS_TDNN.F_CHECK_MAINPOS(?) }";
-        
+
         try {
             //Khoi tao goi Store
-            calstatement = conn.prepareCall(strStoreproce, 
+            calstatement = conn.prepareCall(strStoreproce,
                     ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-            calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);            
+            calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
             calstatement.setString(2, sPos);
             //Thuc hien execute lay du lieu
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
             _retVal = calstatement.getInt(1);
-            
+
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " checkUserTdnn -> " + e.getMessage());
@@ -2101,7 +2095,8 @@ public class DaoTdnnMain {
         }
         return _retVal;
     }
-    public boolean save_GDX_2024(String khoa, String ngaybc, String sUser, String sPoscd, String smaxa, String smato, List<QT_DULIEU_NT> lstData) throws SQLException {
+
+    public boolean save_GDX_2024(String khoa, String ngaybc, String sUser, String sPoscd, String smaxa, String smato, List<QT_DULIEU_NT> lstData, String stype) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
@@ -2111,7 +2106,7 @@ public class DaoTdnnMain {
 
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.P_SAVE_GDX_2024(?, ?, ? , ?, ?, ? ,?)}");
+            cs = connection.prepareCall("{call VBSP_IMS_TDNN.P_SAVE_GDX_2024(? ,?, ?, ? , ?, ?, ? ,?)}");
             cs.setString(1, khoa);
             cs.setString(2, ngaybc);
             cs.setString(3, sUser);
@@ -2119,6 +2114,7 @@ public class DaoTdnnMain {
             cs.setString(5, smaxa);
             cs.setString(6, smato);
             cs.setArray(7, array_to_pass);
+            cs.setString(8, stype);
             cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
