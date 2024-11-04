@@ -189,8 +189,8 @@
                     <th class="STT1" >STT</th>                           
                     <th class="STT4" >Nội dung</th>  
                     <th class="STT2" >Đơn vị</th>  
-                    <th class="STT6" >Số liệu đăng ký</th>
-                    <th class="STT6" style="color: red">Số liệu điều chỉnh</th>
+                    <th class="STT6" >Kế hoạch kiểm tra</th>
+                    <th class="STT6" style="color: red">Kế hoạch điều chỉnh</th>
                 </tr>
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>

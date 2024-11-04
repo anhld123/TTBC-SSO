@@ -187,6 +187,35 @@
             #idSaveLock {
                 display: block; 
             }
+            @-webkit-keyframes my {
+                0% { color: red; } 
+                50% { color: #fff;  } 
+                100% { color: red;  } 
+            }
+            @-moz-keyframes my { 
+                0% { color: red;  } 
+                50% { color: #fff;  }
+                100% { color: red;  } 
+            }
+            @-o-keyframes my { 
+                0% { color: red; } 
+                50% { color: #fff; } 
+                100% { color: red;  } 
+            }
+            @keyframes my { 
+                0% { color: red;  } 
+                50% { color: #fff;  }
+                100% { color: red;  } 
+            } 
+            .color_11 {
+                background:#fff;
+                font-size:14px;
+                font-weight:bold;
+                -webkit-animation: my 700ms infinite;
+                -moz-animation: my 700ms infinite; 
+                -o-animation: my 700ms infinite; 
+                animation: my 700ms infinite;
+            }
         </style>
         <script>
             var bsubmit = false;
@@ -210,28 +239,46 @@
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
 
-                let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
+
+                let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo?");
                 if (aCheck) {
                     var table = document.getElementById("subTable");
                     var rowcount = table.rows.length;
                     var isValid = true;
                     var chot = document.getElementById("chotsl").value;
-//                    var chot_tw = document.getElementById("chotsl_tw").value;
-                    if (chot === "2") {
-                        alert("Chi nhánh đã chốt dữ liệu lên Tw!");
-                        isValid = false; // Không cho phép lưu dữ liệu
-                        onLoadData();
+                    var ngaybc = document.getElementById("ngay_bc_DATE").value;
+                    var parts = ngaybc.split('/');
+                    var snam = parts[2];
+                    // Lấy ngày hiện tại
+                    var today = new Date();
+                    var currentYear = today.getFullYear();
+                    var currentMonth = today.getMonth(); // 0 - 11, tháng hiện tại
+                    var currentDate = today.getDate();
+//                    alert(sthang + " " + sngay + " " + currentMonth + " " + currentDate);
+                    if (currentYear.toString() !== snam.toString()) {
+                          $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
+                        return;
+//                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 hàng năm " + currentYear + "</h>");
+//                        return;
+                    } else if (chot === "2") {
+//                        alert("Chi nhánh đã chốt dữ liệu lên Tw!");
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
+                        return;
+                    } else if (chot === "1") {
+//                        alert("Dữ liệu đã gửi, không thể lưu.");
+                       $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
+                        return;
                     }
-                    if (chot === "1") {
-                        alert("Dữ liệu đã gửi, không thể lưu.");
-                        isValid = false; // Không cho phép lưu dữ liệu
-                        onLoadData();
-                    }
+
                     for (var i = 0; i < rowcount; i++) {
                         try {
+                            // Xử lý mỗi hàng ở đây nếu cần
                         } catch (e) {
+                            // Xử lý lỗi nếu có
                         }
                     }
+
                     if (isValid) {
                         var url, sdata;
                         url = "save_KTKSNB_01_2024.action";
@@ -245,7 +292,7 @@
                             success: function (data) {
                                 if (data === "200") {
                                     alert("Thành công: Lưu dữ liệu.");
-                                    $('#message_suc_err').html("<h style='color: green; font-size: 13px ; font-weight: bold'>Bạn đã lưu dữ liệu thành công!</h>");
+//                                    $('#message_suc_err').html("<h style='color: green; font-size: 13px; font-weight: bold'>Bạn đã lưu dữ liệu thành công!</h>");
                                     onLoadData();
                                 } else {
                                     alert("Lỗi: Lưu dữ liệu.");
@@ -262,8 +309,8 @@
                         });
                     }
                 }
-
             });
+
 
 
             function btnDisabled(status) {
@@ -362,44 +409,6 @@
                 return pos_cd;
             }
 
-
-            function validateRequiredFields() {
-                var result = true; //Luu ket qua kiem tra kieu so co dung khong
-                var arrCot = [".number", ".number2", ".number3"]; //Luu cac cot cua du lieu can tinh toan
-
-                //Tinh toan tong cho ca 2 cot KH_UOC_TH, KH_KH_NAM
-                for (k = 0; k < arrCot.length; k++) {
-                    //Cac class nubmer2 phai nhap kieu so
-                    $(arrCot[k]).each(function (index) {
-                        if (!result)
-                        {
-                            return false;
-                        }
-                        var value = $(this).val();
-                        value = value.replace(/,/g, "");
-                        //value = '1.34.5';
-                        if (isNaN(value)) {
-                            result = false;
-                            //Neu nguoi dung khong nhap dung kieu du lieu
-                            //Dua ra canh bao
-                            alert('Bạn nhập không đúng kiểu số xin nhập lại dữ liệu');
-                            $("#message_suc_err").html('<span style="font-weight: bold; color">Thông báo:</span>  Bạn nhập không đúng kiểu số xin nhập lại dữ liệu!');
-                            return false;
-                        }
-                        //Neu la kieu so --> Kiem tra xem kieu nhap co < 9999999999
-                        if (parseFloat(value) > 999999999999) {
-                            result = false;
-                            //Dua ra canh bao
-                            $("#message_suc_err").html('<span style="color:red"><h2><span style="font-weight: bold; color">Thông báo:</span>  Giá trị bạn nhập vượt quá giới hạn!</h2></span>');
-                            alert('Giá trị bạn nhập vượt quá giới hạn!');
-                            return false;
-                        }
-                        // }
-                    });
-                }
-                return result;
-            }
-
             function openClick()
             {
                 var khoa = $("#khoa").val() + "_open";
@@ -425,19 +434,34 @@
                     var chot = document.getElementById("chotsl").value;
                     var chot_tw = document.getElementById("chotsl_tw").value;
                     var isValid = true;
-                    if (chot === "2") {
-                        alert("Chi nhánh đã chốt dữ liệu lên Tw!");
-                        isValid = false; // Không cho phép lưu dữ liệu
-                        onLoadData();
-                    }
-                    if (chot === "1") {
-                        alert("Dữ liệu đã gửi, không thể tiếp tục gửi.");
-                        isValid = false; // Không cho phép lưu dữ liệu
-                        onLoadData();
-                    }
-                    if (chot_tw === "0") {
-                        alert("Chưa có dữ liệu, đề nghị lưu dữ liệu trước khi gửi!");
-                        isValid = false; // Không cho phép lưu dữ liệu
+                    var ngaybc = document.getElementById("ngay_bc_DATE").value;
+                    var parts = ngaybc.split('/');
+                    var sngay = parts[0];
+                    var sthang = parts[1];
+                    var snam = parts[2];
+                    // Lấy ngày hiện tại
+                    var today = new Date();
+                    var currentYear = today.getFullYear();
+                    var currentMonth = today.getMonth(); // 0 - 11, tháng hiện tại
+                    var currentDate = today.getDate();
+                    alert(sthang + " " + sngay + " " + currentMonth + " " + currentDate);
+                    if (currentYear.toString() !== snam.toString()) {
+                          $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
+                        return;
+//                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 hàng năm " + currentYear + "</h>");
+//                        return;
+                    } else if (chot === "2") {
+//                        alert("Chi nhánh đã chốt dữ liệu lên Tw!");
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
+                        return;
+                    } else if (chot === "1") {
+//                        alert("Dữ liệu đã gửi, không thể lưu.");
+                       $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
+                        return;
+                    } else if (chot_tw === "0") {
+                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Lưu dữ liệu trước khi gửi!</h>");
+                        return;
                     }
                     for (var i = 0; i < rowcount; i++) {
                         try {
@@ -456,7 +480,7 @@
                             data: sdata,
                             success: function (data) {
                                 if (data === "200") {
-                                    alert("Thành công: Gửi dữ liệu.");
+//                                    alert("Thành công: Gửi dữ liệu.");
                                     $('#message_suc_err').html("<h style='color: green; font-size: 13px ; font-weight: bold'>Bạn đã gửi dữ liệu thành công!</h>");
                                     onLoadData();
                                 } else {
@@ -659,44 +683,6 @@
         </s:form>
 
         <script>
-            $(document).ready(function () {
-                function updateDatepicker() {
-                    var selectedPeriod = "2"; // Assuming period "2" corresponds to 'Kỳ tháng'
-                    var datepicker = $('#ngay_bc_DATE');
-                    var currentDate = new Date();
-                    var year = currentDate.getFullYear();
-
-                    if (selectedPeriod === "2") { // Kỳ tháng
-                        datepicker.datepicker("option", {
-                            beforeShowDay: function (date) {
-                                var month = date.getMonth(); // 0 = January, 11 = December
-                                var day = date.getDate();
-
-                                // Only allow from December 10 to December 31
-                                if (month === 11 && day >= 10 && day <= 31) {
-                                    return [true, ""]; // Enable the date
-                                } else {
-                                    return [false, ""]; // Disable the date
-                                }
-                            }
-                        });
-                    }
-
-                    // Automatically set date based on the selected period
-                    var newDate = selectedPeriod === "2" ? new Date(year, 11, 10) : currentDate;
-
-                    // Format the date as dd/mm/yyyy
-                    var formattedDate = ('0' + newDate.getDate()).slice(-2) + '/' +
-                            ('0' + (newDate.getMonth() + 1)).slice(-2) + '/' +
-                            newDate.getFullYear();
-
-                    datepicker.val(formattedDate);
-                }
-
-                // Initialize the datepicker with default settings
-                updateDatepicker();
-            });
-
             function toggleButton() {
             <s:if test="Grade.equalsIgnoreCase('2')">
                 var selectedValue = document.getElementById("txtGetData").value;
@@ -736,20 +722,6 @@
                 }
             </s:if>
             }
-//            function toggleCap3() {
-//            <s:if test="Grade.equalsIgnoreCase('3')">
-//                var selectedValue = document.getElementById("txtGetData3").value;
-//                if (selectedValue === "1") {
-//                    document.getElementById("title31").style.display = "inline";
-//                    document.getElementById("lstCN").style.display = "inline";
-//                    onLoadData();
-//                } else {
-//                    document.getElementById("title31").style.display = "none";
-//                    document.getElementById("lstCN").style.display = "none";
-//                    onLoadData();
-//                }
-//            </s:if>
-//            }
             function initTable()
             {
             <s:if test="Grade.equalsIgnoreCase('1')">
@@ -801,19 +773,34 @@
                     var chot = document.getElementById("chotsl").value;
                     var chot_tw = document.getElementById("chotsl_tw").value;
                     var isValid = true;
-                    if (chot === "2") {
-                        alert("Chi nhánh đã chốt dữ liệu lên Tw!");
-                        isValid = false; // Không cho phép lưu dữ liệu
-                        onLoadData();
-                    }
-                    if (chot === "1") {
-                        alert("Dữ liệu đã gửi, không thể xóa.");
-                        isValid = false; // Không cho phép lưu dữ liệu
-                        onLoadData();
-                    }
-                    if (chot_tw === "0") {
-                        alert("Chưa có dữ liệu, đề nghị lưu dữ liệu trước khi gửi!");
-                        isValid = false; // Không cho phép lưu dữ liệu
+                    var ngaybc = document.getElementById("ngay_bc_DATE").value;
+                    var parts = ngaybc.split('/');
+                    var sngay = parts[0];
+                    var sthang = parts[1];
+                    var snam = parts[2];
+                    // Lấy ngày hiện tại
+                    var today = new Date();
+                    var currentYear = today.getFullYear();
+                    var currentMonth = today.getMonth(); // 0 - 11, tháng hiện tại
+                    var currentDate = today.getDate();
+                    alert(sthang + " " + sngay + " " + currentMonth + " " + currentDate);
+                    if (currentYear.toString() !== snam.toString()) {
+                          $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
+                        return;
+//                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 hàng năm " + currentYear + "</h>");
+//                        return;
+                    } else if (chot === "2") {
+//                        alert("Chi nhánh đã chốt dữ liệu lên Tw!");
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể xóa dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
+                        return;
+                    } else if (chot === "1") {
+//                        alert("Dữ liệu đã gửi, không thể lưu.");
+                       $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
+                        return;
+                    } else if (chot_tw === "0") {
+                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không có dữ liệu để xóa!</h>");
+                        return;
                     }
                     for (var i = 0; i < rowcount; i++) {
                         try {
@@ -852,7 +839,70 @@
                 }
 
             });
+            <s:if test="Grade.equalsIgnoreCase('1')">
+            $(document).ready(function () {
+                function updateDatepicker() {
+                    var datepicker = $('#ngay_bc_DATE');
+                    var currentDate = new Date();
+                    var year = currentDate.getFullYear();
+                    var lastDayOfYear = new Date(year, 11, 31);
+                    var formattedDate = ('0' + lastDayOfYear.getDate()).slice(-2) + '/' +
+                            ('0' + (lastDayOfYear.getMonth() + 1)).slice(-2) + '/' +
+                            lastDayOfYear.getFullYear();
 
+                    datepicker.val(formattedDate);
+
+                    datepicker.datepicker("option", {
+                        beforeShowDay: function (date) {
+                            return [date.getDate() === 31 && date.getMonth() === 11, ""];
+                        }
+                    });
+
+                }
+
+                // Initialize the datepicker with the default settings
+                updateDatepicker();
+            });
+            </s:if>
+            <s:if test="!Grade.equalsIgnoreCase('1')">
+            $(document).ready(function () {
+                function updateDatepicker() {
+                    var selectedPeriod = "2"; // Assuming period "2" corresponds to 'Kỳ tháng'
+                    var datepicker = $('#ngay_bc_DATE');
+                    var currentDate = new Date();
+                    var year = currentDate.getFullYear();
+
+                    if (selectedPeriod === "2") { // Kỳ tháng
+                        datepicker.datepicker("option", {
+                            beforeShowDay: function (date) {
+                                var month = date.getMonth(); // 0 = January, 11 = December
+                                var day = date.getDate();
+
+                                // Only allow from December 10 to December 31
+                                if (month === 11 && day >= 10 && day <= 31) {
+                                    return [true, ""]; // Enable the date
+                                } else {
+                                    return [false, ""]; // Disable the date
+                                }
+                            }
+                        });
+                    }
+
+                    // Automatically set date based on the selected period
+                    var newDate = selectedPeriod === "2" ? new Date(year, 11, 10) : currentDate;
+
+                    // Format the date as dd/mm/yyyy
+                    var formattedDate = ('0' + newDate.getDate()).slice(-2) + '/' +
+                            ('0' + (newDate.getMonth() + 1)).slice(-2) + '/' +
+                            newDate.getFullYear();
+
+                    datepicker.val(formattedDate);
+                }
+
+                // Initialize the datepicker with default settings
+                updateDatepicker();
+            });
+            </s:if>
         </script>
     </body>
 </html>

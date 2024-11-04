@@ -158,7 +158,7 @@
                     <th class="STT1" >STT</th>                           
                     <th class="STT4" >Nội dung</th>  
                     <th class="STT2" >Đơn vị</th>  
-                    <th class="STT6" >Mô tả</th>
+                    <th class="STT6" >Kế hoạch thực hiện</th>
                 </tr>
 
 

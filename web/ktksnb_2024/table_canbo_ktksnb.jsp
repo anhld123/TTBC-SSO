@@ -157,6 +157,7 @@
                     <th class="STT2" >Giới tính</th>
                     <th class="STT2" >Số CMT</th>  
                     <th class="STT2" >Số điện thoại</th>
+                    <th class="STT2" >Chức vụ</th>
                         <s:if test="Grade.equalsIgnoreCase('1')">
                         <th class="STT2" >Cờ cán bộ chuyên trách</th></s:if>
                     </tr>
@@ -169,6 +170,7 @@
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
+                        <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
                         <s:if test="Grade.equalsIgnoreCase('1')">
                         <th><input type="checkbox" id ="select-all1"/></th></s:if>
                     </tr>
@@ -195,6 +197,7 @@
                     <input type="hidden" value="<s:property  value="D10" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10"/>
                     <input type="hidden" value="<s:property  value="D11" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11"/>
                     <input type="hidden" value="<s:property  value="D12" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12"/>
+                    <input type="hidden" value="<s:property  value="D15" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15"/>
                     <input type="hidden" value="<s:property  value="KIEUIN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KIEUIN"/>
                     <input type="hidden" value="<s:property  value="NHAPTAY" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY"/>
 
@@ -206,6 +209,7 @@
                     <td class="D0"><s:property  value="D5" /></td> 
                     <td class="D0"><s:property  value="D9" /></td>
                     <td class="D0"><s:property  value="D12" /></td>
+                    <td><s:property  value="D15" /></td>
                     <s:if test="Grade.equalsIgnoreCase('1')">
                         <td class="D0">
                             <input type="checkbox" id ="D14_<s:property value="%{#rowstatus.index}" />" 

@@ -568,7 +568,7 @@
                 <legend><b>Tìm kiếm dữ liệu</b></legend> 
                 <table>
                     Ngày báo cáo: 
-                    <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
+                    <sj:datepicker name="ngay_bc_DATE" value=""  id="ngay_bc_DATE" 
                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/>    
                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                onBeforeTopics="beforediv_data"
