@@ -594,7 +594,7 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
 //            System.out.println("dateStr: "+ dateStr+ " mapgd: "+ mapgd+" maxa= " +maxa+ " PosFlag= " + PosFlag);
             if (status == 200) {
                 DaoTdnnMain daoMain = new DaoTdnnMain();
-                if (!daoMain.save_GDX_2024("KTGS_01GDX", ssngaybc, UserName, mapgd, maxa, PosFlag, lstLocalDataUpdate,"KTGS_01GDX")) {
+                if (!daoMain.save_GDX_2024("KTGS_01GDX", ssngaybc, UserName, mapgd, maxa, PosFlag, lstLocalDataUpdate, "KTGS_01GDX")) {
                     addActionError("Bạn chưa lưu được báo cáo tại chi nhánh vui lòng liên hệ quản trị viên!");
                     String code = String.valueOf(2);
                     this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
@@ -687,13 +687,11 @@ public class TDNN_0011_2024 extends ActionTdnnMain implements TdnnFunction {
 
             }
             _server = new Service_GQVL2023();
-            int status = 200;
-//                    _server.deleteTDNN_2024("KTGS_01GDX", mapgd, PosFlag, maxa, hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
+            int status = _server.deleteTDNN_2024("KTGS_01GDX", mapgd, PosFlag, maxa, hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
 
             if (status == 200) {
-//                System.out.println(hmParameter.get("ngay_bc").toString() +" mapgd= " +mapgd +" maxa= " +maxa +" PosFlag= " +PosFlag);
                 DaoTdnnMain daoMain = new DaoTdnnMain();
-                if (!daoMain.save_GDX_2024("KTGS_01GDX", hmParameter.get("ngay_bc").toString(), UserName, mapgd, maxa, PosFlag, lstLocalDataUpdate,"DELETE_GDX_1")) {
+                if (!daoMain.save_GDX_2024("KTGS_01GDX", hmParameter.get("ngay_bc").toString(), UserName, mapgd, maxa, PosFlag, lstLocalDataUpdate, "DELETE_GDX_1")) {
                     addActionError("Bạn chưa lưu được báo cáo tại chi nhánh vui lòng liên hệ quản trị viên!");
                     String code = String.valueOf(2);
                     this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
