@@ -51,6 +51,7 @@ import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.ListCommune;
 import vbsp.ims.restapi.ListMainPos;
+import vbsp.ims.restapi.ListOfValue;
 import vbsp.ims.restapi.ListPosCode;
 import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.sbv.daoSbv;
@@ -74,6 +75,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
     public List<String> fileUploadFileName = new ArrayList<>();
     public List<ModelExcelFile> lstExcel = new ArrayList<>();
     private String fileNameNew;
+    private List<ListOfValue> lstDmKhac;
     private List<ListValue> lstBDD = new ArrayList<ListValue>();
     public String chotCic;
     private List<ListPosCode> lstPGD_API;
@@ -81,6 +83,14 @@ public class ActionNhaptaycnMain extends ActionSupport {
     private List<ListCommune> lstXa_API;
     private String pos_cd;
     private String main_pos;
+
+    public List<ListOfValue> getLstDmKhac() {
+        return lstDmKhac;
+    }
+
+    public void setLstDmKhac(List<ListOfValue> lstDmKhac) {
+        this.lstDmKhac = lstDmKhac;
+    }
 
     public List<ListCommune> getLstXa_API() {
         return lstXa_API;
@@ -913,6 +923,8 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 main_pos = posMainModel.getMainPosCd();
                 _server_tmp = new LeaveHomeService();
                 lstCN_API = _server_tmp.getListCn("");
+                DuLieuNTService service1 = new DuLieuNTService();
+                lstDmKhac = service1.getListOfValue("115", "");
                 return "KKTS_01";
             }
             if (this.khoa_nhaptaycn.equals("TDKT_01")) {

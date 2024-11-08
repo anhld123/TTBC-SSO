@@ -406,8 +406,7 @@
                                 if (data === "200") {
                                     alert("Thành công: Gửi dữ liệu.");
                                     onLoadData();
-                                }
-                                if (data === "1") {
+                                } else if (data === "1") {
                                     $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Lưu dữ liệu trước khi gửi!</h>");
                                     return;
                                 } else {
@@ -445,9 +444,16 @@
                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                onBeforeTopics="beforediv_data"
                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
+                    &nbsp; Dự án:
+                    <select id="lstsDmkhac" name="lstsDmkhac">
+                            <s:iterator value="lstDmKhac">                                    
+                                <option value="<s:property value="code"/>"><s:property value="code"/> - <s:property value="value"/></option>                                         
+                            </s:iterator>   
+                        </select>
                     &nbsp;<input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                     <s:if test="Grade.equalsIgnoreCase('2')">
-                        &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/>  
+                        &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/> 
+                        &nbsp;<input style="color: red" type="button" id="idUpload" value="Upload excel" onclick="callDirectLink('khvn_open_upload_qt_kh?');">
                         &nbsp;|&nbsp;<input type="button" id="idSend" value="Gửi dữ liệu" style="color: red"/>
                     </s:if>
                 </table>    
@@ -507,6 +513,7 @@
                 var targetWin = window.open(pageURL, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
                 return targetWin;
             }
+            
         </script>
     </body>
 </html>

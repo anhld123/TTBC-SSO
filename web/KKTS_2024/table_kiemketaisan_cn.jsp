@@ -122,18 +122,14 @@
                 var idTenTb = "lstDm111_" + max_row;
                 var idNsd = "lstDm112_" + max_row;
                 var idNhomTb = "lstDm113_" + max_row;
+                var idDvt = "lstDm114_" + max_row;
                 var newTr = '<tr>' +
                         '<td ><input type="text" value="' + (max_row + 1) + '" id="TT_HIENTHI" name="lstDulieuNt[' + max_row + '].TT_HIENTHI" class="D0 number" onfocus="this.select();" /></td>' +
                         '<td><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D1" id="' + idPGD + '"></select></td>' +
                         '<td><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D2" id="' + idTenTb + '"></select></td>' +
                         '<td><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D3" id="' + idNhomTb + '"></select></td>' +
                         '<td><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D4" id="' + idNsd + '"></select></td>' +
-                        '<td class="D0">' +
-                        '<select style="border: hidden" class="sstyle" name="lstDulieuNt[' + max_row + '].D5" id="D5_' + max_row + '">' +
-                        '<option value="0">--- Chọn ---</option>' +
-                        '<option value="1">Cái</option>' +
-                        '</select>' +
-                        '</td>' +
+                        '<td><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D5" id="' + idDvt + '"></select></td>' +
                         '<td><input type="text" value="0" id="D6' + max_row + '" name="lstDulieuNt[' + max_row + '].D6" class="number" onfocus="this.select();"/></td>' +
                         '<td><input type="text" value="0" id="D7' + max_row + '" name="lstDulieuNt[' + max_row + '].D7" class="number" onfocus="this.select();"/></td>' +
                         '<td><input type="text" value="0" id="D8' + max_row + '" name="lstDulieuNt[' + max_row + '].D8" class="number" onfocus="this.select();"/></td>' +
@@ -243,11 +239,30 @@
                         alert(e.toString());
                     }
                 });
+                $.getJSON('loadDmKhac114', {
+                    Message: 'fileTemplate',
+                    khoa_nhaptaycn: 'KKTS_01'
+                }, function (jsonResponse) {
+                    try {
+                        var dm_khac = '<option value="000000">---Chọn---</option>';
+                        $.each(jsonResponse.lstDmKhac114, function () {
+                            dm_khac += '<option value="' + this.code + '">' + this.code + ' - ' + this.value + '</option>';
+                        });
+                        $('#' + idDvt).html(dm_khac);
+
+                        if (jsonResponse.msgError !== null) {
+                            $('#message_suc_err').text(jsonResponse.msgError);
+                        }
+                    } catch (e) {
+                        alert(e.toString());
+                    }
+                });
             }
 
             function deleteRow(indx) {
                 var table = document.getElementById("subTable");
                 table.deleteRow(indx);
+                onLoadData();
             }
         </script>        
     </head>
@@ -255,7 +270,7 @@
         <div style="overflow:scroll; width: 98%;height: 400px;">    
             <div id="divTitle">
                 DANH SÁCH TÀI SẢN KIỂM KÊ<br>
-                <s:if test="chotsl.equalsIgnoreCase('2')" ><a class="color_11">(Chi nhánh đã chốt số liệu)</a></s:if>
+                <s:if test="chotsl.equalsIgnoreCase('2')" ><a class="color_11">(Đơn vị đã gửi dữ liệu)</a></s:if>
                 <input type="hidden" value="<s:property value="chotsl"/>" name="chotsl" id="chotsl"/> 
                 <!--<input type="hidden" value="<s:property value="chotsl_tw"/>" name="chotsl_tw" id="chotsl_tw"/>--> 
             </div>
@@ -368,12 +383,18 @@
                             </select>
                         </td>
 
-                        <td class="D0">
-                            <select style="border: hidden" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D5" id="D5_<s:property  value='%{#rowstatus.index}' />"> 
-                                <option value="0" <s:if test="D5.equalsIgnoreCase('0')"> selected </s:if>>--- Chọn ---</option>
-                                <option value="1" <s:if test="D5.equalsIgnoreCase('1')"> selected </s:if>>Cái</option>
-                                </select>
-                            </td>  
+                       <td class="D0">
+                            <select  id="lstDm114_<s:property  value='%{#rowstatus.index}' />" style="width: 150px;border: hidden"
+                                     name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5">
+                                <option value="000000">---Chọn---</option>
+                                <s:iterator value="lstDmKhac114" status="ideRows" var="language">
+                                    <option value="<s:property value="code"/>" 
+                                            <s:if test='%{#language.code == D5}'>selected</s:if>>
+                                        <s:property value="code"/> - <s:property value="value"/>
+                                    </option>        
+                                </s:iterator>
+                            </select>
+                        </td>
 
                             <td> <input type="text" value="<s:property  value="D6" />" id="D6_<s:property  value='%{#rowstatus.index}' />" 
                                     name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="number"/>

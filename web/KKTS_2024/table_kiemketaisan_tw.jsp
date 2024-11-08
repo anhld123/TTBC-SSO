@@ -148,10 +148,10 @@
                             </s:else>
                         <td style="width: 80px; text-align: center;">
                             <s:if test="D4.equalsIgnoreCase('2') && D7.equalsIgnoreCase('0')">
-                                <a href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', '<s:property value="D7"/>');">Mở dữ liệu</a>
+                                <a href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', '<s:property value="D7"/>','<s:property value="D8"/>');">Mở dữ liệu</a>
                             </s:if>  
                             <s:elseif test="D7.equalsIgnoreCase('1')">
-                                <a href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', '<s:property value="D7"/>');">Mở All Pos</a>
+                                <a href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', '<s:property value="D7"/>','<s:property value="D8"/>');">Mở All Pos</a>
                             </s:elseif>     
                         </td>
                        
@@ -161,11 +161,11 @@
         </div>      
         <div id="luu_thanhcong"></div>
         <script>
-              function cancelAssign(D1, D5, D6, D7) {
-                  alert(D5);
+              function cancelAssign(D1, D5, D6, D7, D8) {
+//                  alert(D7);
                 $.ajax({
                     type: "GET",
-                    url: "unlock_KKTS_2024_c3.action?" + "madiemgd=" + D1 + "&ngaybc=" + D5 + "&pos_flag=" + D6 + "&key_lock=" + D7,
+                    url: "unlock_KKTS_2024_c3.action?" + "madiemgd=" + D1 + "&ngaybc=" + D5 + "&pos_flag=" + D6 + "&key_lock=" + D7 +"&skhoa=" + D8,
                     success: function (res) {
                         var status = parseInt(res.status);
                         //alert(status);

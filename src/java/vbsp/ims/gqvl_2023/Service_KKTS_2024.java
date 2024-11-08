@@ -54,6 +54,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
     private List<ListOfValue> lstDmKhac111;
     private List<ListOfValue> lstDmKhac112;
     private List<ListOfValue> lstDmKhac113;
+    private List<ListOfValue> lstDmKhac114;
     protected String main_pos_username;
     private InputStream pageResult;
     DuLieuNTService _serverAPI = new DuLieuNTService();
@@ -64,6 +65,14 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
     private String sCode;
     private String stype;
 //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public List<ListOfValue> getLstDmKhac114() {
+        return lstDmKhac114;
+    }
+
+    public void setLstDmKhac114(List<ListOfValue> lstDmKhac114) {
+        this.lstDmKhac114 = lstDmKhac114;
+    }
 
     public String getStype() {
         return stype;
@@ -232,9 +241,13 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
             String dateStr = hmParameter.get("ngay_bc").toString();
+            String sDu_an = hmParameter.get("lstsDmkhac").toString();
             ActionContext.getContext().getSession().put("ssmacn", main_pos_username);
+            ActionContext.getContext().getSession().put("sDu_an", sDu_an);
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
-            ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("KKTS_01", main_pos_username, "M", _reportDate);
+            String conditions = "D14=" + sDu_an + "|";
+            String sKyeLock = "KKTS_01_" + sDu_an;
+            ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual(sKyeLock, main_pos_username, "M", _reportDate);
             try {
                 setChotsl(lstData_tmp.get(0).getStatus());
             } catch (Exception e) {
@@ -245,10 +258,11 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             lstDmKhac111 = _serverAPI.getListOfValue("111", "");
             lstDmKhac112 = _serverAPI.getListOfValue("112", "");
             lstDmKhac113 = _serverAPI.getListOfValue("113", "");
-            lstData_Api = _serverAPI.getDataKTKSNB_2024("KKTS_01", pos_cd_username, "M", _reportDate, "", "0");
+            lstDmKhac114 = _serverAPI.getListOfValue("114", "");
+            lstData_Api = _serverAPI.getDataKTKSNB_2024("KKTS_01", pos_cd_username, "M", _reportDate, conditions, "0");
             if (lstData_Api == null || lstData_Api.isEmpty()) {
                 setStype("1");
-                lstData_Api = _serverAPI.getDataKTKSNB_2024("KKTS_01", pos_cd_username, "M", _reportDate, "", "1");
+                lstData_Api = _serverAPI.getDataKTKSNB_2024("KKTS_01", pos_cd_username, "M", _reportDate, conditions, "1");
             } else {
                 setStype("0");
             }
@@ -288,6 +302,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
                     row.setD11(item.getD11());
                     row.setD12(item.getD12());
                     row.setD13(item.getD13());
+                    row.setD14(sDu_an);
                     lstDulieuNt.add(row);
                 } catch (Exception e) {
                 }
@@ -308,9 +323,11 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             }
             HashMap hmParameter = getParameter();
             String sngaybc = hmParameter.get("ngay_bc").toString();
+            String sDu_an = hmParameter.get("lstsDmkhac").toString();
+            String sKyeLock = "KKTS_01_" + sDu_an;
             Connection conn = new DaoConnect().getConnect();
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
-            lstDulieuNt = daoMain.getData_THTK_c3(conn, sngaybc, "KKTS_01", "", "M");
+            lstDulieuNt = daoMain.getData_THTK_c3(conn, sngaybc, sKyeLock, "31121992", "M");
 //            System.out.println(sngaybc);
             if (conn != null) {
                 conn.close();
@@ -339,6 +356,8 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             String dateStr = hmParameter.get("ngay_bc").toString();
             String[] values = dateStr.split("\\-");
             String snambc = values[2];
+            String sDu_an = hmParameter.get("lstsDmkhac").toString();
+            String sKyeLock = "KKTS_01_" + sDu_an;
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00.000").format(new SimpleDateFormat("yyyyMMdd").parse(_reportDate));
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
@@ -379,6 +398,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
                 tempadd.setD11(tmp.getD11());
                 tempadd.setD12(tmp.getD1());
                 tempadd.setD13(tmp.getMA() == null ? sCode : tmp.getMA());
+                tempadd.setD14(sDu_an);
                 lstUpdateDate.add(tempadd);
 
             }
@@ -386,7 +406,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             _serverAPI = new DuLieuNTService();
             int status = _serverAPI.updateKTKSNB("KKTS_01", main_pos_username, "M", _reportDate, "", "", lstUpdateDate);
             if (status == 200) {
-                _serverAPI.updateChotSL("KKTS_01", pos_cd_username, "M", _reportDate, "0", UserName, null);
+                _serverAPI.updateChotSL(sKyeLock, main_pos_username, "M", _reportDate, "0", UserName, null);
                 String code = String.valueOf(status);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
                 return SUCCESS;
@@ -412,13 +432,16 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             }
             HashMap hmParameter = getParameter();
             String dateStr = hmParameter.get("ngay_bc").toString();
+            String sDu_an = hmParameter.get("lstsDmkhac").toString();
+            String sKyeLock = "KKTS_01_" + sDu_an;
+            String conditions = "D14=" + sDu_an + "|";
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
             int table = lstDulieuNt.size();
-            lstData_Api = _serverAPI.getDataKTKSNB_2024("KKTS_01", main_pos_username, "M", _reportDate, "", "1");
+            lstData_Api = _serverAPI.getDataKTKSNB_2024("KKTS_01", main_pos_username, "M", _reportDate, conditions, "1");
             int tableapi = lstData_Api.size();
 //            System.out.println("table= "+ table +" tableapi="+tableapi);
             if (table != tableapi) {
@@ -426,7 +449,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
                 return SUCCESS;
             }
-            int status = _serverAPI.updateChotSL("KKTS_01", main_pos_username, "M", _reportDate, "2", UserName, null);
+            int status = _serverAPI.updateChotSL(sKyeLock, main_pos_username, "M", _reportDate, "2", UserName, null);
             if (status == 200) {
                 String code = String.valueOf(status);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
@@ -450,12 +473,14 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             String D5 = ServletActionContext.getRequest().getParameter("ngaybc");
             String D6 = ServletActionContext.getRequest().getParameter("pos_flag");
             String D7 = ServletActionContext.getRequest().getParameter("key_lock");
+            String D8 = ServletActionContext.getRequest().getParameter("skhoa");
+            System.out.println(D7 +"  " + D8);
             SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MMM/yyyy");
             Date date = inputFormat.parse(D5);
             String formattedDate = outputFormat.format(date);
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
-            GenericResult<String> _result = daoMain.unlock_c3_THTK("KKTS_01", D1, D6, formattedDate, D7);
+            GenericResult<String> _result = daoMain.unlock_c3_THTK(D8, D1, D6, formattedDate, D7);
 
             if (_result.isIsSuccess()) {
                 status = "1";
@@ -503,6 +528,16 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
         return SUCCESS;
     }
 
+    public String loadDmKhac114() {
+        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("114", "");
+        Map<String, String> mapAllChtrinh1 = new LinkedHashMap<>();
+        for (ListOfValue value : listOfValues) {
+            mapAllChtrinh1.put(value.getCode(), value.getValue());
+        }
+        setLstDmKhac114(listOfValues);
+        return SUCCESS;
+    }
+
     public String loadPGD() {
         String ssmacn = (String) ActionContext.getContext().getSession().get("ssmacn");
 //        System.out.println("ssmacn: " +ssmacn);
@@ -522,7 +557,8 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             String sD12 = ServletActionContext.getRequest().getParameter("sD12");
             String _reportDate = (String) ActionContext.getContext().getSession().get("_reportDate");
             String ssmacn = (String) ActionContext.getContext().getSession().get("ssmacn");
-            String conditions = "D13=" + MA + "|D1=" + sD12 + "|";
+            String sDu_an = (String) ActionContext.getContext().getSession().get("sDu_an");
+            String conditions = "D13=" + MA + "|D1=" + sD12 + "|D14=" + sDu_an + "|";
             System.out.println(smapgd + " " + sD12 + " " + conditions);
             lstData_Api = _serverAPI.getDataKTKSNB_2024("KKTS_01", ssmacn, "M", _reportDate, conditions, "1");
             ArrayList<DuLieuNTRowX> lstDelete = new ArrayList<>();
@@ -555,6 +591,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
                 tempadd.setD11(tmp.getD11());
                 tempadd.setD12(tmp.getD12());
                 tempadd.setD13(tmp.getD13());
+                tempadd.setD14(tmp.getD14());
                 lstDelete.add(tempadd);
             }
             _serverAPI = new DuLieuNTService();
