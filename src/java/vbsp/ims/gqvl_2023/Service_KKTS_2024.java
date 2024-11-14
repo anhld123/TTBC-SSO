@@ -55,6 +55,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
     private List<ListOfValue> lstDmKhac112;
     private List<ListOfValue> lstDmKhac113;
     private List<ListOfValue> lstDmKhac114;
+    private List<ListOfValue> lstDmKhac116;
     protected String main_pos_username;
     private InputStream pageResult;
     DuLieuNTService _serverAPI = new DuLieuNTService();
@@ -65,6 +66,14 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
     private String sCode;
     private String stype;
 //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public List<ListOfValue> getLstDmKhac116() {
+        return lstDmKhac116;
+    }
+
+    public void setLstDmKhac116(List<ListOfValue> lstDmKhac116) {
+        this.lstDmKhac116 = lstDmKhac116;
+    }
 
     public List<ListOfValue> getLstDmKhac114() {
         return lstDmKhac114;
@@ -259,6 +268,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             lstDmKhac112 = _serverAPI.getListOfValue("112", "");
             lstDmKhac113 = _serverAPI.getListOfValue("113", "");
             lstDmKhac114 = _serverAPI.getListOfValue("114", "");
+            lstDmKhac116 = _serverAPI.getListOfValue("116", "");
             lstData_Api = _serverAPI.getDataKTKSNB_2024("KKTS_01", pos_cd_username, "M", _reportDate, conditions, "0");
             if (lstData_Api == null || lstData_Api.isEmpty()) {
                 setStype("1");
@@ -294,9 +304,9 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
                     row.setD3(item.getD3());
                     row.setD4(item.getD4());
                     row.setD5(item.getD5());
-                    row.setD6(item.getD6());
-                    row.setD7(item.getD7());
-                    row.setD8(item.getD8());
+                    row.setD6(item.getD6() == null || item.getD6().equals("")? "0" : item.getD6());
+                    row.setD7(item.getD7() == null || item.getD7().equals("")? "0" : item.getD7());
+                    row.setD8(item.getD8() == null || item.getD8().equals("")? "0" : item.getD8());
                     row.setD9(item.getD9());
                     row.setD10(item.getD10());
                     row.setD11(item.getD11());
@@ -474,7 +484,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             String D6 = ServletActionContext.getRequest().getParameter("pos_flag");
             String D7 = ServletActionContext.getRequest().getParameter("key_lock");
             String D8 = ServletActionContext.getRequest().getParameter("skhoa");
-            System.out.println(D7 +"  " + D8);
+            System.out.println(D7 + "  " + D8);
             SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MMM/yyyy");
             Date date = inputFormat.parse(D5);
@@ -535,6 +545,16 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             mapAllChtrinh1.put(value.getCode(), value.getValue());
         }
         setLstDmKhac114(listOfValues);
+        return SUCCESS;
+    }
+
+    public String loadDmKhac116() {
+        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("116", "");
+        Map<String, String> mapAllChtrinh1 = new LinkedHashMap<>();
+        for (ListOfValue value : listOfValues) {
+            mapAllChtrinh1.put(value.getCode(), value.getValue());
+        }
+        setLstDmKhac116(listOfValues);
         return SUCCESS;
     }
 

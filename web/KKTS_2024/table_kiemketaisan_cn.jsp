@@ -123,19 +123,20 @@
                 var idNsd = "lstDm112_" + max_row;
                 var idNhomTb = "lstDm113_" + max_row;
                 var idDvt = "lstDm114_" + max_row;
+                var idThuctrang = "lstDm116_" + max_row;
                 var newTr = '<tr>' +
                         '<td ><input type="text" value="' + (max_row + 1) + '" id="TT_HIENTHI" name="lstDulieuNt[' + max_row + '].TT_HIENTHI" class="D0 number" onfocus="this.select();" /></td>' +
                         '<td><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D1" id="' + idPGD + '"></select></td>' +
                         '<td><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D2" id="' + idTenTb + '"></select></td>' +
                         '<td><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D3" id="' + idNhomTb + '"></select></td>' +
                         '<td><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D4" id="' + idNsd + '"></select></td>' +
-                        '<td><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D5" id="' + idDvt + '"></select></td>' +
-                        '<td><input type="text" value="0" id="D6' + max_row + '" name="lstDulieuNt[' + max_row + '].D6" class="number" onfocus="this.select();"/></td>' +
-                        '<td><input type="text" value="0" id="D7' + max_row + '" name="lstDulieuNt[' + max_row + '].D7" class="number" onfocus="this.select();"/></td>' +
-                        '<td><input type="text" value="0" id="D8' + max_row + '" name="lstDulieuNt[' + max_row + '].D8" class="number" onfocus="this.select();"/></td>' +
+                        '<td><select style="width: 80px;border: hidden" name="lstDulieuNt[' + max_row + '].D5" id="' + idDvt + '"></select></td>' +
+                        '<td><input type="text" value="0" id="D6' + max_row + '" name="lstDulieuNt[' + max_row + '].D6" class="number" onfocus="this.select();" onchange="calc(this);"/></td>' +
+                        '<td><input type="text" value="0" id="D7' + max_row + '" name="lstDulieuNt[' + max_row + '].D7" class="number" onfocus="this.select();" onchange="calc(this);"/></td>' +
+                        '<td><input readonly type="text" value="0" id="D8' + max_row + '" name="lstDulieuNt[' + max_row + '].D8" class="number" onfocus="this.select();"/></td>' +
                         '<td class="D0"><textarea type="text" value="" id="D9' + max_row + '" name="lstDulieuNt[' + max_row + '].D9" placeholder="Nhập tối đa 500 ký tự" maxlength="500" onfocus="this.select();" style="width: 98%"></textarea></td>' +
                         '<td class="D0"><textarea type="text" value="" id="D10' + max_row + '" name="lstDulieuNt[' + max_row + '].D10" placeholder="Nhập tối đa 500 ký tự" maxlength="500" onfocus="this.select();" style="width: 98%"></textarea></td>' +
-                        '<td class="D0"><textarea type="text" value="" id="D11' + max_row + '" name="lstDulieuNt[' + max_row + '].D11" placeholder="Nhập tối đa 500 ký tự" maxlength="500" onfocus="this.select();" style="width: 98%"></textarea></td>' +
+                        '<td class="D0"><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D5" id="' + idThuctrang + '"></select></td>' +
                         '<td class="D0"><input type="button" style="color: red" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)"/></td>' +
                         '</tr>';
 
@@ -244,11 +245,29 @@
                     khoa_nhaptaycn: 'KKTS_01'
                 }, function (jsonResponse) {
                     try {
-                        var dm_khac = '<option value="000000">---Chọn---</option>';
+                        var dm_khac = '<option value="000000">---ĐVT---</option>';
                         $.each(jsonResponse.lstDmKhac114, function () {
                             dm_khac += '<option value="' + this.code + '">' + this.code + ' - ' + this.value + '</option>';
                         });
                         $('#' + idDvt).html(dm_khac);
+
+                        if (jsonResponse.msgError !== null) {
+                            $('#message_suc_err').text(jsonResponse.msgError);
+                        }
+                    } catch (e) {
+                        alert(e.toString());
+                    }
+                });
+                $.getJSON('loadDmKhac116', {
+                    Message: 'fileTemplate',
+                    khoa_nhaptaycn: 'KKTS_01'
+                }, function (jsonResponse) {
+                    try {
+                        var dm_khac = '<option value="000000">---Tình trạng---</option>';
+                        $.each(jsonResponse.lstDmKhac116, function () {
+                            dm_khac += '<option value="' + this.code + '">' + this.code + ' - ' + this.value + '</option>';
+                        });
+                        $('#' + idThuctrang).html(dm_khac);
 
                         if (jsonResponse.msgError !== null) {
                             $('#message_suc_err').text(jsonResponse.msgError);
@@ -383,10 +402,10 @@
                             </select>
                         </td>
 
-                       <td class="D0">
-                            <select  id="lstDm114_<s:property  value='%{#rowstatus.index}' />" style="width: 150px;border: hidden"
+                        <td class="D0">
+                            <select  id="lstDm114_<s:property  value='%{#rowstatus.index}' />" style="width: 80px;border: hidden"
                                      name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5">
-                                <option value="000000">---Chọn---</option>
+                                <option value="000000">---ĐVT---</option>
                                 <s:iterator value="lstDmKhac114" status="ideRows" var="language">
                                     <option value="<s:property value="code"/>" 
                                             <s:if test='%{#language.code == D5}'>selected</s:if>>
@@ -396,14 +415,14 @@
                             </select>
                         </td>
 
-                            <td> <input type="text" value="<s:property  value="D6" />" id="D6_<s:property  value='%{#rowstatus.index}' />" 
-                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="number"/>
+                        <td> <input type="text" value="<s:property  value="D6" />" id="D6_<s:property  value='%{#rowstatus.index}' />" 
+                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="number" onchange="calc(this);"/>
                         </td> 
                         <td> <input type="text" value="<s:property  value="D7" />" id="D8_<s:property  value='%{#rowstatus.index}' />" 
-                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="number"/>
+                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="number" onchange="calc(this);"/>
                         </td> 
                         <td> <input type="text" value="<s:property  value="D8" />" id="D7_<s:property  value='%{#rowstatus.index}' />" 
-                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="number"/>
+                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="number" readonly/>
                         </td> 
                         <td class="D0"><textarea style="width: 98%" placeholder="Nhập tối đa 500 ký tự" id="D9_<s:property  value='%{#rowstatus.index}' />" 
                                                  name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D9" maxlength="500"><s:property value='D9'/></textarea>
@@ -411,8 +430,17 @@
                         <td class="D0"><textarea style="width: 98%" placeholder="Nhập tối đa 500 ký tự" id="D10_<s:property  value='%{#rowstatus.index}' />" 
                                                  name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D10" maxlength="500"><s:property value='D10'/></textarea>
                         </td>
-                        <td class="D0"><textarea style="width: 98%" placeholder="Nhập tối đa 500 ký tự" id="D11_<s:property  value='%{#rowstatus.index}' />" 
-                                                 name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" maxlength="500"><s:property value='D11'/></textarea>
+                        <td class="D0">
+                            <select  id="lstDm116_<s:property  value='%{#rowstatus.index}' />" style="width: 150px;border: hidden"
+                                     name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11">
+                                <option value="000000">---Tình trạng---</option>
+                                <s:iterator value="lstDmKhac116" status="ideRows" var="language">
+                                    <option value="<s:property value="code"/>" 
+                                            <s:if test='%{#language.code == D11}'>selected</s:if>>
+                                        <s:property value="code"/> - <s:property value="value"/>
+                                    </option>        
+                                </s:iterator>
+                            </select>
                         </td>
                         <td class="D0"><input type="button" style="color: red;width: 50px"
                                               onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D13"/>', '<s:property value="D12"/>');" value="Xóa"/>
@@ -463,6 +491,14 @@
                         onLoadData();
                     }
                 });
+            }
+              function calc(id) {
+                var row = id.parentNode.parentNode;
+                var CT_D3 = row.cells[6].getElementsByTagName('input')[0].value;
+                var CT_D9 = row.cells[7].getElementsByTagName('input')[0].value;
+                var res = parseFloat(CT_D3.replace(/,/g, '')) - parseFloat(CT_D9.replace(/,/g, ''));
+                row.cells[8].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');
+                row.cells[8].getElementsByTagName('input')[0].style.color = 'red';
             }
         </script>
     </body>

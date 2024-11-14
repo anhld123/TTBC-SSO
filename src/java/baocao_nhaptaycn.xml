@@ -856,6 +856,10 @@
             <result name="success" type="json">/KKTS_2024/table_kiemketaisan_cn.jsp</result>
             <result name="error">/BCQT/success.jsp</result>
         </action>
+        <action name="loadDmKhac116"  class="vbsp.ims.gqvl_2023.Service_KKTS_2024" method="loadDmKhac116">
+            <result name="success" type="json">/KKTS_2024/table_kiemketaisan_cn.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>
+        </action>
         <action name="save_KKTS_2024" class="vbsp.ims.gqvl_2023.Service_KKTS_2024"  method="save">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>
