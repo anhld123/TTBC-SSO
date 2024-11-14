@@ -264,8 +264,8 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             }
             ActionContext.getContext().getSession().put("_reportDate", _reportDate);
             lstPGD_API = _serverAPI.getListPgd(main_pos_username, "");
-            lstDmKhac111 = _serverAPI.getListOfValue("111", "");
-            lstDmKhac112 = _serverAPI.getListOfValue("112", "");
+            lstDmKhac111 = _serverAPI.getListOfValue("111", sDu_an);
+            lstDmKhac112 = _serverAPI.getListOfValue("112", sDu_an);
             lstDmKhac113 = _serverAPI.getListOfValue("113", "");
             lstDmKhac114 = _serverAPI.getListOfValue("114", "");
             lstDmKhac116 = _serverAPI.getListOfValue("116", "");
@@ -304,9 +304,9 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
                     row.setD3(item.getD3());
                     row.setD4(item.getD4());
                     row.setD5(item.getD5());
-                    row.setD6(item.getD6() == null || item.getD6().equals("")? "0" : item.getD6());
-                    row.setD7(item.getD7() == null || item.getD7().equals("")? "0" : item.getD7());
-                    row.setD8(item.getD8() == null || item.getD8().equals("")? "0" : item.getD8());
+                    row.setD6(item.getD6() == null || item.getD6().equals("") ? "0" : item.getD6());
+                    row.setD7(item.getD7() == null || item.getD7().equals("") ? "0" : item.getD7());
+                    row.setD8(item.getD8() == null || item.getD8().equals("") ? "0" : item.getD8());
                     row.setD9(item.getD9());
                     row.setD10(item.getD10());
                     row.setD11(item.getD11());
@@ -509,20 +509,22 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
     }
 
     public String loadDmKhac111() {
-        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("111", "");
+        String sDu_an = (String) ActionContext.getContext().getSession().get("sDu_an");
+        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("111", sDu_an);
         Map<String, String> mapAllChtrinh = new LinkedHashMap<>();
         for (ListOfValue value : listOfValues) {
-            mapAllChtrinh.put(value.getCode(), value.getValue());
+            mapAllChtrinh.put(value.getDescription(), value.getValue());
         }
         setLstDmKhac111(listOfValues);
         return SUCCESS;
     }
 
     public String loadDmKhac112() {
-        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("112", "");
+        String sDu_an = (String) ActionContext.getContext().getSession().get("sDu_an");
+        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("112", sDu_an);
         Map<String, String> mapAllChtrinh1 = new LinkedHashMap<>();
         for (ListOfValue value : listOfValues) {
-            mapAllChtrinh1.put(value.getCode(), value.getValue());
+            mapAllChtrinh1.put(value.getDescription(), value.getValue());
         }
         setLstDmKhac112(listOfValues);
         return SUCCESS;

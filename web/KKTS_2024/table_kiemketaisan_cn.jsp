@@ -175,7 +175,7 @@
                     try {
                         var dm_khac = '<option value="000000">---Tên thiết bị---</option>';
                         $.each(jsonResponse.lstDmKhac111, function () {
-                            dm_khac += '<option value="' + this.code + '">' + this.code + ' - ' + this.value + '</option>';
+                            dm_khac += '<option value="' + this.description + '">' + this.description + ' - ' + this.value + '</option>';
                         });
                         $('#' + idTenTb).html(dm_khac);
 
@@ -193,7 +193,7 @@
                     try {
                         var dm_khac = '<option value="000000">---Nhóm thiết bị---</option>';
                         $.each(jsonResponse.lstDmKhac112, function () {
-                            dm_khac += '<option value="' + this.code + '">' + this.code + ' - ' + this.value + '</option>';
+                            dm_khac += '<option value="' + this.description + '">' + this.description + ' - ' + this.value + '</option>';
                         });
                         $('#' + idNhomTb).html(dm_khac);
 
@@ -368,9 +368,9 @@
                                      name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2">
                                 <option value="000000">---Tên thiết bị---</option>
                                 <s:iterator value="lstDmKhac111" status="ideRows" var="language">
-                                    <option value="<s:property value="code"/>" 
+                                    <option value="<s:property value="description"/>" 
                                             <s:if test='%{#language.code == D2}'>selected</s:if>>
-                                        <s:property value="code"/> - <s:property value="value"/>
+                                        <s:property value="description"/> - <s:property value="value"/>
                                     </option>        
                                 </s:iterator>
                             </select>
@@ -381,9 +381,9 @@
                                      name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3">
                                 <option value="000000">---Nhóm thiết bị---</option>
                                 <s:iterator value="lstDmKhac112" status="ideRows" var="language">
-                                    <option value="<s:property value="code"/>" 
+                                    <option value="<s:property value="description"/>" 
                                             <s:if test='%{#language.code == D3}'>selected</s:if>>
-                                        <s:property value="code"/> - <s:property value="value"/>
+                                        <s:property value="description"/> - <s:property value="value"/>
                                     </option>        
                                 </s:iterator>
                             </select>
