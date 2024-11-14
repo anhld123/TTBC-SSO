@@ -365,11 +365,12 @@
                         </td>
                         <td class="D0">
                             <select  id="lstDm111_<s:property  value='%{#rowstatus.index}' />" style="width: 150px;border: hidden"
-                                     name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2">
+                                     name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" 
+                                     onchange="updateD3Selection(this)">
                                 <option value="000000">---Tên thiết bị---</option>
                                 <s:iterator value="lstDmKhac111" status="ideRows" var="language">
                                     <option value="<s:property value="description"/>" 
-                                            <s:if test='%{#language.code == D2}'>selected</s:if>>
+                                            <s:if test='%{#language.description == D2}'>selected</s:if>>
                                         <s:property value="description"/> - <s:property value="value"/>
                                     </option>        
                                 </s:iterator>
@@ -382,7 +383,7 @@
                                 <option value="000000">---Nhóm thiết bị---</option>
                                 <s:iterator value="lstDmKhac112" status="ideRows" var="language">
                                     <option value="<s:property value="description"/>" 
-                                            <s:if test='%{#language.code == D3}'>selected</s:if>>
+                                            <s:if test='%{#language.description == D3}'>selected</s:if>>
                                         <s:property value="description"/> - <s:property value="value"/>
                                     </option>        
                                 </s:iterator>
@@ -418,10 +419,10 @@
                         <td> <input type="text" value="<s:property  value="D6" />" id="D6_<s:property  value='%{#rowstatus.index}' />" 
                                     name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="number" onchange="calc(this);"/>
                         </td> 
-                        <td> <input type="text" value="<s:property  value="D7" />" id="D8_<s:property  value='%{#rowstatus.index}' />" 
+                        <td> <input type="text" value="<s:property  value="D7" />" id="D7_<s:property  value='%{#rowstatus.index}' />" 
                                     name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="number" onchange="calc(this);"/>
                         </td> 
-                        <td> <input type="text" value="<s:property  value="D8" />" id="D7_<s:property  value='%{#rowstatus.index}' />" 
+                        <td> <input type="text" value="<s:property  value="D8" />" id="D8_<s:property  value='%{#rowstatus.index}' />" 
                                     name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="number" readonly/>
                         </td> 
                         <td class="D0"><textarea style="width: 98%" placeholder="Nhập tối đa 500 ký tự" id="D9_<s:property  value='%{#rowstatus.index}' />" 
@@ -492,13 +493,24 @@
                     }
                 });
             }
-              function calc(id) {
+            function calc(id) {
                 var row = id.parentNode.parentNode;
                 var CT_D3 = row.cells[6].getElementsByTagName('input')[0].value;
                 var CT_D9 = row.cells[7].getElementsByTagName('input')[0].value;
                 var res = parseFloat(CT_D3.replace(/,/g, '')) - parseFloat(CT_D9.replace(/,/g, ''));
                 row.cells[8].getElementsByTagName('input')[0].value = res.toLocaleString('en-US');
                 row.cells[8].getElementsByTagName('input')[0].style.color = 'red';
+            }
+            function updateD3Selection(d2Select) {
+                const selectedDescription = d2Select.value;
+                const d3Select = d2Select.closest('td').nextElementSibling.querySelector('select');
+
+                for (let option of d3Select.options) {
+                    if (option.value === selectedDescription) {
+                        option.selected = true;
+                        break;
+                    }
+                }
             }
         </script>
     </body>
