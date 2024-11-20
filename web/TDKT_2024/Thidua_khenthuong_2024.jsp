@@ -242,8 +242,6 @@
                             <input type="hidden" value="<s:property  value="NAMBC" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NAMBC"/>
                             <input type="hidden" value="<s:property  value="MAPGD" />" id="macn_<s:property  value="%{#rowstatus.index}" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD"/>
                             <input type="hidden" value="<s:property  value="MACN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN"/>
-                            <input type="hidden" value="<s:property  value="D16" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16"/>
-                            <input type="hidden" value="<s:property  value="D17" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17"/>
                             <input type="hidden" value="<s:property  value="D18" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18"/>
                             <input type="hidden" value="<s:property  value="D19" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19"/>
                             <input type="hidden" value="<s:property  value="D20" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20"/>
@@ -261,10 +259,27 @@
                             <input type="hidden" value="<s:property  value="D32" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D32"/>
                             <input type="hidden" value="<s:property  value="D33" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D33"/>
                             <input type="hidden" value="<s:property  value="D34" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D34"/>
+                            <input type="hidden" value="<s:property  value="D35" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D35"/>
+                            <input type="hidden" value="<s:property  value="D36" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D36"/>
+                            <input type="hidden" value="<s:property  value="D37" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D37"/>
+                            <input type="hidden" value="<s:property  value="D38" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D38"/>
+                            <input type="hidden" value="<s:property  value="D39" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D39"/>
+                            <input type="hidden" value="<s:property  value="D40" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D40"/>
+                            <input type="hidden" value="<s:property  value="D41" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D41"/>
+                            <input type="hidden" value="<s:property  value="D42" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D42"/>
+                            <input type="hidden" value="<s:property  value="D43" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D43"/>
+                            <input type="hidden" value="<s:property  value="D44" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D44"/>
+                            <input type="hidden" value="<s:property  value="D45" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D45"/>
+                            <input type="hidden" value="<s:property  value="D46" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D46"/>
+                            <input type="hidden" value="<s:property  value="D47" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D47"/>
+                            <input type="hidden" value="<s:property  value="D48" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D48"/>
+                            <input type="hidden" value="<s:property  value="D49" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D49"/>
+                            <input type="hidden" value="<s:property  value="D50" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D50"/>
                         </td>
                         <td><s:property  value="TEN"/></td>
                         <td><input type="text" value="<s:property  value="D1" />"
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP23')">readonly="true"</s:if>
+                                   <s:if test="!D35.equalsIgnoreCase('0')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="number"/></td>
                         <td><input type="text" value="<s:property  value="D2" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP24')">readonly="true"</s:if>

@@ -201,7 +201,7 @@ public class Thidua_khenthuong_2024 extends ActionNhaptaycnMain
             if (Arrays.asList("USRGRP08", "USRGRP49", "USRGRP23", "USRGRP24", "USRGRP15", "USRGRP18", "USRGRP19").contains(check_Username)) {
 
                 lstDulieuNt = daoMain.getTDKT_2024(conn, dateStr, "TDKT_02", "000100");
-                
+
             } else {
                 addActionError("User không có quyền sử dụng chương trình");
                 return ERROR;
@@ -237,7 +237,7 @@ public class Thidua_khenthuong_2024 extends ActionNhaptaycnMain
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
                 QT_DULIEU_NT temlocal = new QT_DULIEU_NT();
-                temlocal.setKHOA("TDTK_02");
+                temlocal.setKHOA("TDKT_02");
                 temlocal.setTHUTU(tmp.getTHUTU());
                 temlocal.setTT_HIENTHI(tmp.getTT_HIENTHI());
                 temlocal.setTEN(tmp.getTEN());
@@ -319,15 +319,26 @@ public class Thidua_khenthuong_2024 extends ActionNhaptaycnMain
                     temlocal.setD33(tmp.getD33());
                     temlocal.setD34(tmp.getD34());
                 }
-
+                temlocal.setD35(tmp.getD35());
+                temlocal.setD36(tmp.getD36());
+                temlocal.setD37(tmp.getD37());
+                temlocal.setD38(tmp.getD38());
+                temlocal.setD39(tmp.getD39());
+                temlocal.setD40(tmp.getD40());
+                temlocal.setD41(tmp.getD41());
+                temlocal.setD42(tmp.getD42());
+                temlocal.setD43(tmp.getD43());
+                temlocal.setD44(tmp.getD44());
+                temlocal.setD45(tmp.getD45());
+                temlocal.setD46(tmp.getD46());
+                temlocal.setD47(tmp.getD47());
+                temlocal.setD48(tmp.getD48());
+                temlocal.setD49(tmp.getD49());
+                temlocal.setD50(tmp.getD50());
                 lstLocalDataUpdate.add(temlocal);
             }
-
-//            _serverAPI = new DuLieuNTService();
-//            int status = _serverAPI.getGQVL2023("THTK_2024", pos_cd_username, "S", _reportDate, "", "", lstUpdateDate);
             int status = 200;
             if (status == 200) {
-//                _serverAPI.updateChotSL("THTK_2024", pos_cd_username, "S", _reportDate, "0", UserName, null);
                 if (!daoMain.save_TDTK_2024("TDKT_02", UserName, dateStr, lstLocalDataUpdate)) {
                     addActionError("Bạn chưa lưu được báo cáo tại chi nhánh vui lòng liên hệ quản trị viên!");
                     String code = String.valueOf(2);

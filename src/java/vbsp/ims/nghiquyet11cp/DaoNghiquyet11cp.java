@@ -870,6 +870,22 @@ public class DaoNghiquyet11cp {
                     value.setD32(reset.getString("D32"));
                     value.setD33(reset.getString("D33"));
                     value.setD34(reset.getString("D34"));
+                    value.setD35(reset.getString("D35"));
+                    value.setD36(reset.getString("D36"));
+                    value.setD37(reset.getString("D37"));
+                    value.setD38(reset.getString("D38"));
+                    value.setD39(reset.getString("D39"));
+                    value.setD40(reset.getString("D40"));
+                    value.setD41(reset.getString("D41"));
+                    value.setD42(reset.getString("D42"));
+                    value.setD43(reset.getString("D43"));
+                    value.setD44(reset.getString("D44"));
+                    value.setD45(reset.getString("D45"));
+                    value.setD46(reset.getString("D46"));
+                    value.setD47(reset.getString("D47"));
+                    value.setD48(reset.getString("D48"));
+                    value.setD49(reset.getString("D49"));
+                    value.setD50(reset.getString("D50"));
                     lstBcqt_NT.add(value);
                 }
 
@@ -2398,7 +2414,6 @@ public class DaoNghiquyet11cp {
 
     public boolean save_TDTK_2024(String khoa, String username, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
-//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
         Object array[] = lstData.toArray();
         ArrayDescriptor des = ArrayDescriptor
                 .createDescriptor(DULIEU_NT_TQ.ORACLE_TABLE_TYPE, connection);
