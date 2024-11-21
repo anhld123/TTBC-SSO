@@ -195,7 +195,7 @@
                         <th style="width: 100px">Người gửi dữ liệu</th>
                         <th style="width: 100px">Ngày gửi dữ liệu</th>
                         <th style="width: 120px">Mở dữ liệu</th>
-                        <th style="width: 120px">Gửi dữ liệu</th>
+                        <!--<th style="width: 120px">Gửi dữ liệu</th>-->
                     </tr>  
                     <tr>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
@@ -204,7 +204,7 @@
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
+                        <!--<th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>-->
                     </tr>
                     <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                         <tr>
@@ -218,8 +218,8 @@
                                 <td style="color: #3dc21b"><s:property value="D2" /></td>
                                 <td class="D0" style="color: #3dc21b"><s:property value="D8" /></td>
                                 <td style="color: #3dc21b" class="D0"><s:property value="D3" /></td> 
-                                <td class="D0" style="color: #3dc21b">Đã gửi dữ liệu lên TW</td>
-                                <td class="D0" style="color: #3dc21b">Đã gửi dữ liệu lên TW</td>
+                                <td class="D0" style="color: #3dc21b">Đã gửi dữ liệu</td>
+                                <!--<td class="D0" style="color: #3dc21b">Đã gửi dữ liệu lên TW</td>-->
                             </s:if>
                             <s:elseif test="D4.equalsIgnoreCase('0')">
                                 <td class="D0" style="color: #ff0000"><s:property value="%{#rowstatus.index + 1}" />
@@ -228,7 +228,7 @@
                                 <td class="D0" style="color: #ff0000"><s:property value="D8" /></td>
                                 <td style="color: #ff0000" class="D0"><s:property value="D3" /></td> 
                                 <td class="D0" style="color: #ff0000">Chưa gửi dữ liệu</td>
-                                <td class="D0" style="color: #ff0000">Chưa gửi dữ liệu</td>
+                                <!--<td class="D0" style="color: #ff0000">Chưa gửi dữ liệu</td>-->
                             </s:elseif>
                             <s:else> 
                                 <td class="D0" style="color: #0000FF"><s:property value="%{#rowstatus.index + 1}" />
@@ -246,7 +246,7 @@
                                 <td class="D0" style="color: #0000FF"><s:property value="D8" /></td>
                                 <td class="D0" style="color: #0000FF"><s:property value="D3" /></td> 
                                 <td class="D0"> <a style="text-decoration: underline" href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D7"/>', '1');">Mở dữ liệu</a></td>
-                                <td class="D0"> <a style="text-decoration: underline" href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D7"/>', '2');">Gửi dữ liệu lên TW</a></td>
+                                <!--<td class="D0"> <a style="text-decoration: underline" href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D7"/>', '2');">Gửi dữ liệu lên TW</a></td>-->
                             </s:else>
                         </tr>
                     </s:iterator>

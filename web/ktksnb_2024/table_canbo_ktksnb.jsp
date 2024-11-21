@@ -127,6 +127,11 @@
                             document.getElementById("D14_" + i).checked = true;
                         } else
                         {
+                            if (D10 === "2")
+                            {
+                                document.getElementById("D14_" + i).disabled = true;
+                                document.getElementById("D14_" + i).checked = false;
+                            }
                             document.getElementById("D14_" + i).checked = false;
                         }
                     } catch (e) {
@@ -158,22 +163,32 @@
                     <th class="STT2" >Số CMT</th>  
                     <th class="STT2" >Số điện thoại</th>
                     <th class="STT2" >Chức vụ</th>
+                    <th class="STT2" >Hiệu lực đến ngày</th>
                         <s:if test="Grade.equalsIgnoreCase('1')">
-                        <th class="STT2" >Cờ cán bộ chuyên trách</th></s:if>
-                    </tr>
-                    <tr>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
-                        <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
+                        <th class="STT2" >Cờ cán bộ chuyên trách</th>
+                        </s:if>
+                        <s:else>
+                        <th class="STT2" >PGD trực thuộc</th>
+                        </s:else>
+                </tr>
+                <tr>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(10)</th>
                         <s:if test="Grade.equalsIgnoreCase('1')">
-                        <th><input type="checkbox" id ="select-all1"/></th></s:if>
-                    </tr>
+                        <th><input type="checkbox" id ="select-all1"/></th>
+                        </s:if>
+                        <s:else>
+                        <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
+                        </s:else>
+                </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr id="tablefix"> 
                     <input type="hidden" value="<s:property  value="THUTU" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU"/>                             
@@ -212,16 +227,35 @@
                     <td><s:property  value="D15" /></td>
                     <s:if test="Grade.equalsIgnoreCase('1')">
                         <td class="D0">
-                            <input type="checkbox" id ="D14_<s:property value="%{#rowstatus.index}" />" 
-                                   onclick="$(this).val(this.checked ? 1 : 0)" class="myCheckBox1"
-                                   id="D14_<s:property  value='%{#rowstatus.index}' />"
-                                   name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D14" value="<s:property  value="D14" />"/>      
+                            <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate" 
+                                   onchange="onSelectChange_dnht2(this.value, <s:property value='%{#rowstatus.index}'/>)"
+                                   id="D16_<s:property value='%{#rowstatus.index}' />" 
+                                   name="lstDulieuNt[<s:property value='%{#rowstatus.index}' />].D16" 
+                                   value="<s:property value='D16'/>">   
+                        </td>
+
+                        <td class="D0">
+                            <input type="checkbox" 
+                                   onclick="$(this).val(this.checked ? 1 : 0)" 
+                                   class="myCheckBox1"
+                                   id="D14_<s:property value='%{#rowstatus.index}' />"
+                                   name="lstDulieuNt[<s:property value='%{#rowstatus.index}' />].D14" 
+                                   value="<s:property value='D14' />"/>      
                         </td>
                     </s:if>
                     <s:else>
-                        <input type="hidden" value="<s:property  value="D14" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14"/> 
+                        <td class="D0"><s:property value='D16' />
+                            <input type="hidden" 
+                                   value="<s:property value='D14' />" 
+                                   name="lstDulieuNt[<s:property value='%{#rowstatus.index}' />].D14"/> 
+                        </td>
                     </s:else>
-                    </tr>
+                    <s:if test="%{#rowstatus.index == 0 || lstDulieuNt[#rowstatus.index].D17 != lstDulieuNt[#rowstatus.index - 1].D17}">
+                        <td class="D0" style="font-weight: bold"><s:property value='D17' />
+                        </td>
+                    </s:if>
+                    <s:else><td></td></s:else>
+                        </tr>
                 </s:iterator>
             </table><div style="height:20px"></div> 
         </div>
@@ -240,6 +274,60 @@
                     });
                 });
             });
+            $(function () {
+                setCssStyle();
+            });
+
+            function setCssStyle() {
+                $(".cssDate").datepicker(
+                        {
+                            dateFormat: 'dd/mm/yy',
+                            showOn: "button",
+                            buttonImage: "img/icon-ui_datepicker.png",
+                            buttonImageOnly: true,
+                            // dateFormat: 'dd/mm/yy',
+                            showButtonPanel: true,
+                            buttonText: "icono",
+                            changeMonth: true,
+                            changeYear: true,
+                            yearRange: "c-10:c+10"
+                        });
+            }
+
+            function onSelectChange_dnht2(value, index) {
+                var currentDate = new Date();
+                var day = currentDate.getDate();
+                var month = currentDate.getMonth() + 1;
+                var year = currentDate.getFullYear();
+
+                if (day < 10) {
+                    day = '0' + day;
+                }
+                if (month < 10) {
+                    month = '0' + month;
+                }
+
+                var ngaybcParts = value.split('/');
+                if (ngaybcParts.length === 3) {
+                    var ngaybcDay = parseInt(ngaybcParts[0], 10);
+                    var ngaybcMonth = parseInt(ngaybcParts[1], 10);
+                    var ngaybcYear = parseInt(ngaybcParts[2], 10);
+
+                    var checkbox = document.getElementById("D14_" + index);
+                    if (ngaybcYear < year || (ngaybcYear === year && ngaybcMonth < month && ngaybcDay < day)) {
+                        if (checkbox) {
+                            checkbox.disabled = true;
+                            checkbox.checked = false;
+                        }
+                    } else if (ngaybcYear > year || (ngaybcYear === year && ngaybcMonth >= month && ngaybcDay >= day)) {
+                        if (checkbox) {
+                            checkbox.disabled = false;
+                        }
+                    }
+                }
+            }
+
+
         </script>
     </body>
 </html>

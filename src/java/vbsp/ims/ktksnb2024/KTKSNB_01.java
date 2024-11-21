@@ -238,18 +238,26 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
             }
 
             HashMap<String, Object> hmParameter = getParameter();
-            Connection conn = new DaoConnect().getConnect();
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
-            main_pos_username = posMainModel.getMainPosCd();
-
             String dateStr = hmParameter.get("ngay_bc").toString();
             String sKehoach = hmParameter.get("txtKehoach").toString();
             String ssMaxa = hmParameter.get("lstXa").toString();
-            String[] values = ssMaxa.split("\\|");
-            String sMaxa = values[0];  // giá trị posCode
-            String sTenxa = values[1];   // giá trị posName
+            String sMaxa;
+            String sTenxa;
+            if (ssMaxa.equals("000000")) {
+                addActionError("Bạn chưa chọn xã kiểm tra");
+                return ERROR;
+            } else {
+                String[] values = ssMaxa.split("\\|");
+                sMaxa = values[0];  // giá trị posCode
+                sTenxa = values[1];   // giá trị posName
+            }
             String sThangkt = hmParameter.get("monthSelect").toString();
+            if (sThangkt.equals("0")) {
+                addActionError("Bạn chưa chọn tháng kiểm tra");
+                return ERROR;
+            }
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             final String _reportDate1 = _reportDate.substring(0, 4) + "1231";
             String sskhoa = hmParameter.get("khoa_nhaptaycn").toString();
@@ -262,14 +270,6 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
                 setChotsl(lstData_tmp.get(0).getStatus());
             } catch (Exception e) {
                 setChotsl("0");
-            }
-            if (sMaxa.equals("000000")) {
-                addActionError("Bạn chưa chọn xã kiểm tra");
-                return ERROR;
-            }
-            if (sThangkt.equals("0")) {
-                addActionError("Bạn chưa chọn tháng kiểm tra");
-                return ERROR;
             }
             String sCanbo = "";
             if (sKehoach.equals("1")) {
@@ -358,10 +358,17 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
             ActionContext.getContext().getSession().put("skhoa", skhoa);
             setTxtGetData(nghiepvu);
             if (nghiepvu.equals("1")) {
+                String sMapgd;
+                String sTenpgd;
                 String ssMapgd = hmParameter.get("lstPGD").toString();
-                String[] values = ssMapgd.split("\\|");
-                String sMapgd = values[0];  // giá trị posCode
-                String sTenpgd = values[1];   // giá trị posName
+                if (ssMapgd.equals("000000")) {
+                    addActionError("Bạn chưa chọn PGD kiểm tra");
+                    return ERROR;
+                } else {
+                    String[] values = ssMapgd.split("\\|");
+                    sMapgd = values[0];  // giá trị posCode
+                    sTenpgd = values[1];   // giá trị posName
+                }
                 ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("KH_TINH", sMapgd, "S", _reportDate1);
                 try {
                     setChotsl(lstData_tmp.get(0).getStatus());
@@ -371,10 +378,7 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
 
                 String sThangkt = hmParameter.get("monthSelect").toString();
                 String conditions = "D3=" + sMapgd + "|D4=99999" + "|D5=" + sThangkt + "|";
-                if (sMapgd.equals("000000")) {
-                    addActionError("Bạn chưa chọn PGD kiểm tra");
-                    return ERROR;
-                }
+
                 if (sThangkt.equals("0")) {
                     addActionError("Bạn chưa chọn tháng kiểm tra");
                     return ERROR;
@@ -501,7 +505,8 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
             String sngaybc = hmParameter.get("ngay_bc").toString();
             String smacn = hmParameter.get("lstCN").toString();
             String lastFourChars = "31-dec-" + sngaybc.substring(sngaybc.length() - 4);
-            String ssNghiepvu = hmParameter.get("txtGetData3").toString();
+            String ssNghiepvu = "2";
+//                    hmParameter.get("txtGetData3").toString();
             Connection conn = new DaoConnect().getConnect();
             ActionContext.getContext().getSession().put("sUserName", UserName);
             DaoChtrinhcnMain daoMain = new DaoChtrinhcnMain();
@@ -619,7 +624,7 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
                 String[] values = ssMapgd.split("\\|");
                 smapgd = values[0];  // giá trị posCode
             }
-            int status = _serverAPI.updateChotSL(skhoa, smapgd, "S", _reportDate2, Grade, UserName, null);
+            int status = _serverAPI.updateChotSL(skhoa, smapgd, "S", _reportDate2, "2", UserName, null);
 
             if (status != 200) {
                 String code = String.valueOf(status);

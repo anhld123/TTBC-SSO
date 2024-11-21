@@ -249,25 +249,24 @@
                     var ngaybc = document.getElementById("ngay_bc_DATE").value;
                     var parts = ngaybc.split('/');
                     var snam = parts[2];
-                    // Lấy ngày hiện tại
-                    var today = new Date();
-                    var currentYear = today.getFullYear();
-                    var currentMonth = today.getMonth(); // 0 - 11, tháng hiện tại
-                    var currentDate = today.getDate();
-//                    alert(sthang + " " + sngay + " " + currentMonth + " " + currentDate);
+                   var stoday = document.getElementById("stoday").value;
+                    var sparts = stoday.split('/');
+                    var currentYear = sparts[2];
+                    var currentMonth = sparts[1];
+                    var currentDate = sparts[0];
                     if (currentYear.toString() !== snam.toString()) {
-                          $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
                         return;
-//                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
-//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 hàng năm " + currentYear + "</h>");
-//                        return;
+                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + currentYear + "</h>");
+                        return;
                     } else if (chot === "2") {
 //                        alert("Chi nhánh đã chốt dữ liệu lên Tw!");
                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
                         return;
                     } else if (chot === "1") {
 //                        alert("Dữ liệu đã gửi, không thể lưu.");
-                       $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
                         return;
                     }
 
@@ -436,31 +435,29 @@
                     var isValid = true;
                     var ngaybc = document.getElementById("ngay_bc_DATE").value;
                     var parts = ngaybc.split('/');
-                    var sngay = parts[0];
-                    var sthang = parts[1];
                     var snam = parts[2];
-                    // Lấy ngày hiện tại
-                    var today = new Date();
-                    var currentYear = today.getFullYear();
-                    var currentMonth = today.getMonth(); // 0 - 11, tháng hiện tại
-                    var currentDate = today.getDate();
-                    alert(sthang + " " + sngay + " " + currentMonth + " " + currentDate);
+                    var stoday = document.getElementById("stoday").value;
+                    var sparts = stoday.split('/');
+                    var currentYear = sparts[2];
+                    var currentMonth = sparts[1];
+                    var currentDate = sparts[0];
+//                    alert(sthang + " " + sngay + " " + currentMonth + " " + currentDate +" " +currentYear);
                     if (currentYear.toString() !== snam.toString()) {
-                          $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
                         return;
-//                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
-//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 hàng năm " + currentYear + "</h>");
-//                        return;
+                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + currentYear + "</h>");
+                        return;
                     } else if (chot === "2") {
 //                        alert("Chi nhánh đã chốt dữ liệu lên Tw!");
                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
                         return;
                     } else if (chot === "1") {
 //                        alert("Dữ liệu đã gửi, không thể lưu.");
-                       $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
                         return;
                     } else if (chot_tw === "0") {
-                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Lưu dữ liệu trước khi gửi!</h>");
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Lưu dữ liệu trước khi gửi!</h>");
                         return;
                     }
                     for (var i = 0; i < rowcount; i++) {
@@ -500,84 +497,6 @@
                 }
 
             });
-
-            $("#idSendTW").click(function () {
-                $('#message_suc_err').empty();
-                $('#divExportReportLink').empty();
-
-                let aCheck = confirm("Bạn chắc chắn muốn gửi số liệu báo cáo ?");
-                if (aCheck) {
-                    var table = document.getElementById("subTable");
-                    var rowcount = table.rows.length;
-                    var chot_tw = document.getElementById("chotsl_tw").value;
-                    var isValid = true;
-                    if (chot_tw === "2") {
-                        alert("Dữ liệu đã gửi, không thể tiếp tục gửi.");
-                        isValid = false; // Không cho phép lưu dữ liệu
-                        onLoadData();
-                    }
-//                    if (chot === "10") {
-//                        alert("Lưu dữ liệu để gửi!.");
-//                        isValid = false; // Không cho phép lưu dữ liệu
-//                        onLoadData();
-//                    }
-                    for (var i = 0; i < rowcount; i++) {
-                        try {
-                        } catch (e) {
-                        }
-                    }
-                    if (isValid) {
-                        var url, sdata;
-                        url = "send_KPBL_2024_C2.action";
-                        sdata = jQuery("#frmdata").serialize();
-                        $("#viewData").html('<img src="img/loading.gif"/>');
-                        btnDisabled(1);
-                        $.ajax({
-                            type: "POST",
-                            url: url,
-                            data: sdata,
-                            success: function (data) {
-                                if (data === "200") {
-                                    alert("Thành công: Gửi dữ liệu.");
-                                    $('#message_suc_err').html("<h style='color: green; font-size: 13px ; font-weight: bold'>Bạn đã gửi dữ liệu thành công!</h>");
-                                    onLoadData();
-                                } else {
-                                    alert("Lỗi: Lưu dữ liệu.");
-                                    onLoadData();
-                                }
-                            },
-                            complete: function () {
-                                btnDisabled(0);
-                            },
-                            error: function (request) {
-                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
-                                onLoadData();
-                            }
-                        });
-                    }
-                }
-
-            });
-
-            function reLoadValue(val) {
-                var var2, vartxt, selected;
-                $("#mato").children().remove().end();
-
-                $("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-                $("#mato").prepend("<option value='000000_NOGROUP' " + selected + "> NOGROUP -> Trực tiếp</option>");
-                $("#mato_data > option").each(function () {
-                    var2 = $(this).val().substr(0, 6);
-                    if (val.trim() === var2.trim()) {
-                        $(this).val() === vartxt ? selected = " selected" : selected = "";
-                        $("#mato").prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-                    }
-                });
-
-                $("#mato").html($("#mato option").sort(function (a, b) {
-                    return a.text === b.text ? 0 : a.text < b.text ? -1 : 1;
-                }));
-            }
-            ;
         </script>
     </head>
     <body>
@@ -593,13 +512,15 @@
                     Ngày báo cáo: 
                     <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
                                    placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
+                    <s:iterator value="lstDmKhac">      
+                        <input type="hidden" id="stoday" value="<s:property  value="value" />" name="stoday"/>                                
+                    </s:iterator>   
                     <s:if test="!Grade.equalsIgnoreCase('3')">
                         <%--<s:if test="Grade.equalsIgnoreCase('2')">--%>
                         <label id="title21">&nbsp; Nghiệp vụ :</label>
                         <select name="txtGetData" id="txtGetData" onchange="toggleButton()">                                                    
                             <option value="1">1. Nhập dữ liệu cấp tỉnh</option>                                                    
                             <option value="2">2. Tình trạng nhập dữ liệu PGD</option>
-                            <option value="3">3. Tình trạng nhập dữ liệu Tỉnh</option>
                         </select> 
                         <label id="title22">&nbsp; PGD kiểm tra :</label>
                         <select id="lstPGD" name="lstPGD" style="width: 100px">
@@ -610,18 +531,20 @@
                         </select>
                         <%--</s:if>--%>
                         <%--<s:if test="Grade.equalsIgnoreCase('1')">--%>
-                        <label id="title3">&nbsp; Kế hoạch kiểm tra :</label>
-                        <select name="txtKehoach" id="txtKehoach" style="width: 100px" onchange="toggleSelect()">                                                    
-                            <option value="1">1. Đoàn kiểm tra của NHCSXH cấp huyện đối với cấp xã</option>                                                    
-                            <option value="2">2. Cán bộ chuyên trách KTKSNB cấp huyện</option>
-                        </select> 
-                        <label id="title4">&nbsp; Xã kiểm tra: </label>
-                        <select id="lstXa" name="lstXa" style="width: 100px">
-                            <option value="000000">---Chọn xã---</option>
+                        <label id="title3">&nbsp; Kế hoạch :</label>
+                        <select name="txtKehoach" id="txtKehoach" style="width: 300px" onchange="toggleSelect()">                                                    
+                            <option value="1">1. Đoàn kiểm tra của NHCSXH cấp huyện đối với cấp xã</option>   
+                            <s:if test="!pos_cd.equalsIgnoreCase(main_pos)">
+                                <option value="2">2. Cán bộ chuyên trách KTKSNB cấp huyện</option></s:if>
+                            </select> 
+                            <label id="title4">&nbsp; Xã kiểm tra: </label>
+                            <select id="lstXa" name="lstXa" style="width: 100px">
+                                <option value="000000">---Chọn xã---</option>
                             <s:iterator value="lstXa_API">                                    
                                 <option value="<s:property value="communeCode"/>|<s:property value="communeName"/>"><s:property value="communeCode"/> - <s:property value="communeName"/></option>                                         
                             </s:iterator>   
                         </select>
+
                         <%--</s:if>--%>
                         <label id="title5">&nbsp; Tháng kiểm tra: </label>
                         <select id="monthSelect" name="monthSelect">
@@ -641,19 +564,19 @@
                         </select>
                         <label id="title2">&nbsp; Cán bộ kiểm tra :</label>
                         <select name="txtCanbo" id="txtCanbo" style="width: 100px">   
-                            <option value="00000">---Chọn cán bộ---</option>
                             <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                                 <option value='<s:property value="D1"/>'><s:property value="D2"/> - <s:property value="D3"/></option>      
                             </s:iterator>
+                            <option value="00000">---Chọn cán bộ---</option>
                         </select> 
                     </s:if>
                     <s:if test="Grade.equalsIgnoreCase('3')">
-                        <label id="title31">&nbsp; Nghiệp vụ :</label>
-                        <select name="txtGetData3" id="txtGetData3" >
-                            <!--onchange="toggleCap3()">-->                                                    
-                            <option value="1">1. Phê duyệt kế hoạch PGD</option>                                                    
-                            <option value="2">2. Phê duyệt kế hoạch Tỉnh</option>
-                        </select> 
+                        <!--                        <label id="title31">&nbsp; Nghiệp vụ :</label>
+                                                <select name="txtGetData3" id="txtGetData3" >
+                                                    onchange="toggleCap3()">                                                    
+                                                    <option value="1">1. Phê duyệt kế hoạch PGD</option>                                                    
+                                                    <option value="2">2. Phê duyệt kế hoạch Tỉnh</option>
+                                                </select> -->
                         <label id="title31">&nbsp; Mã chi nhánh: </label>
                         <select id="lstCN"  name="lstCN">
                             <option value="000000">----Chọn mã chi nhánh----</option>
@@ -775,31 +698,28 @@
                     var isValid = true;
                     var ngaybc = document.getElementById("ngay_bc_DATE").value;
                     var parts = ngaybc.split('/');
-                    var sngay = parts[0];
-                    var sthang = parts[1];
                     var snam = parts[2];
-                    // Lấy ngày hiện tại
-                    var today = new Date();
-                    var currentYear = today.getFullYear();
-                    var currentMonth = today.getMonth(); // 0 - 11, tháng hiện tại
-                    var currentDate = today.getDate();
-                    alert(sthang + " " + sngay + " " + currentMonth + " " + currentDate);
+                    var stoday = document.getElementById("stoday").value;
+                    var sparts = stoday.split('/');
+                    var currentYear = sparts[2];
+                    var currentMonth = sparts[1];
+                    var currentDate = sparts[0];
                     if (currentYear.toString() !== snam.toString()) {
-                          $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
                         return;
-//                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
-//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 hàng năm " + currentYear + "</h>");
-//                        return;
+                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + currentYear + "</h>");
+                        return;
                     } else if (chot === "2") {
 //                        alert("Chi nhánh đã chốt dữ liệu lên Tw!");
                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể xóa dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
                         return;
                     } else if (chot === "1") {
 //                        alert("Dữ liệu đã gửi, không thể lưu.");
-                       $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
                         return;
                     } else if (chot_tw === "0") {
-                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không có dữ liệu để xóa!</h>");
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không có dữ liệu để xóa!</h>");
                         return;
                     }
                     for (var i = 0; i < rowcount; i++) {
@@ -839,7 +759,7 @@
                 }
 
             });
-            <s:if test="Grade.equalsIgnoreCase('1')">
+            <%--<s:if test="Grade.equalsIgnoreCase('1')">--%>
             $(document).ready(function () {
                 function updateDatepicker() {
                     var datepicker = $('#ngay_bc_DATE');
@@ -863,46 +783,47 @@
                 // Initialize the datepicker with the default settings
                 updateDatepicker();
             });
-            </s:if>
-            <s:if test="!Grade.equalsIgnoreCase('1')">
-            $(document).ready(function () {
-                function updateDatepicker() {
-                    var selectedPeriod = "2"; // Assuming period "2" corresponds to 'Kỳ tháng'
-                    var datepicker = $('#ngay_bc_DATE');
-                    var currentDate = new Date();
-                    var year = currentDate.getFullYear();
-
-                    if (selectedPeriod === "2") { // Kỳ tháng
-                        datepicker.datepicker("option", {
-                            beforeShowDay: function (date) {
-                                var month = date.getMonth(); // 0 = January, 11 = December
-                                var day = date.getDate();
-
-                                // Only allow from December 10 to December 31
-                                if (month === 11 && day >= 10 && day <= 31) {
-                                    return [true, ""]; // Enable the date
-                                } else {
-                                    return [false, ""]; // Disable the date
-                                }
-                            }
-                        });
-                    }
-
-                    // Automatically set date based on the selected period
-                    var newDate = selectedPeriod === "2" ? new Date(year, 11, 10) : currentDate;
-
-                    // Format the date as dd/mm/yyyy
-                    var formattedDate = ('0' + newDate.getDate()).slice(-2) + '/' +
-                            ('0' + (newDate.getMonth() + 1)).slice(-2) + '/' +
-                            newDate.getFullYear();
-
-                    datepicker.val(formattedDate);
-                }
-
-                // Initialize the datepicker with default settings
-                updateDatepicker();
-            });
-            </s:if>
+            <%--
+    </s:if>
+    <s:if test="!Grade.equalsIgnoreCase('1')"> --%>
+//            $(document).ready(function () {
+//                function updateDatepicker() {
+//                    var selectedPeriod = "2"; // Assuming period "2" corresponds to 'Kỳ tháng'
+//                    var datepicker = $('#ngay_bc_DATE');
+//                    var currentDate = new Date();
+//                    var year = currentDate.getFullYear();
+//
+//                    if (selectedPeriod === "2") { // Kỳ tháng
+//                        datepicker.datepicker("option", {
+//                            beforeShowDay: function (date) {
+//                                var month = date.getMonth(); // 0 = January, 11 = December
+//                                var day = date.getDate();
+//
+//                                // Only allow from December 10 to December 31
+//                                if (month === 11 && day >= 10 && day <= 31) {
+//                                    return [true, ""]; // Enable the date
+//                                } else {
+//                                    return [false, ""]; // Disable the date
+//                                }
+//                            }
+//                        });
+//                    }
+//
+//                    // Automatically set date based on the selected period
+//                    var newDate = selectedPeriod === "2" ? new Date(year, 11, 10) : currentDate;
+//
+//                    // Format the date as dd/mm/yyyy
+//                    var formattedDate = ('0' + newDate.getDate()).slice(-2) + '/' +
+//                            ('0' + (newDate.getMonth() + 1)).slice(-2) + '/' +
+//                            newDate.getFullYear();
+//
+//                    datepicker.val(formattedDate);
+//                }
+//
+//                // Initialize the datepicker with default settings
+//                updateDatepicker();
+//            });
+            <%--</s:if>--%>
         </script>
     </body>
 </html>

@@ -576,7 +576,8 @@
                     &nbsp;<input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                     <s:if test="Grade.equalsIgnoreCase('1')">
                         &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/>  
-                        &nbsp;<input type="button" id="idSend" value="Chốt dữ liệu" style="color: red"/></s:if>
+                        <!--                        &nbsp;<input type="button" id="idSend" value="Chốt dữ liệu" style="color: red"/>-->
+                    </s:if>
                     </table>    
                 </fieldset>
                 <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >

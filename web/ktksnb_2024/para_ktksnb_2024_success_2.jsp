@@ -213,10 +213,26 @@
                 let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
                 if (aCheck) {
                     var table = document.getElementById("subTable");
+                    var sthangbc = document.getElementById("monthSelect").value.padStart(2, '0');
+                    var snambc = document.getElementById("yearSelect").value;
+                    var stoday = document.getElementById("stoday").value;
+                    var sparts = stoday.split('/');
+                    var currentYear = sparts[2];
+                    var currentMonth = sparts[1];
                     var rowcount = table.rows.length;
                     var isValid = true;
                     var chot = document.getElementById("chotsl").value;
 //                    var chot_tw = document.getElementById("chotsl_tw").value;
+                    if (snambc.toString() < currentYear.toString())
+                    {
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
+                        return;
+                    }
+                     if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
+                        window.alert(snambc + " " + currentYear + " " + sthangbc + " " + currentMonth);
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng " + currentMonth + "</h>");
+                        return;
+                    }
                     if (chot === "2") {
                         alert("Chi nhánh đã chốt dữ liệu lên Tw!");
                         isValid = false; // Không cho phép lưu dữ liệu
@@ -362,44 +378,6 @@
                 return pos_cd;
             }
 
-
-            function validateRequiredFields() {
-                var result = true; //Luu ket qua kiem tra kieu so co dung khong
-                var arrCot = [".number", ".number2", ".number3"]; //Luu cac cot cua du lieu can tinh toan
-
-                //Tinh toan tong cho ca 2 cot KH_UOC_TH, KH_KH_NAM
-                for (k = 0; k < arrCot.length; k++) {
-                    //Cac class nubmer2 phai nhap kieu so
-                    $(arrCot[k]).each(function (index) {
-                        if (!result)
-                        {
-                            return false;
-                        }
-                        var value = $(this).val();
-                        value = value.replace(/,/g, "");
-                        //value = '1.34.5';
-                        if (isNaN(value)) {
-                            result = false;
-                            //Neu nguoi dung khong nhap dung kieu du lieu
-                            //Dua ra canh bao
-                            alert('Bạn nhập không đúng kiểu số xin nhập lại dữ liệu');
-                            $("#message_suc_err").html('<span style="font-weight: bold; color">Thông báo:</span>  Bạn nhập không đúng kiểu số xin nhập lại dữ liệu!');
-                            return false;
-                        }
-                        //Neu la kieu so --> Kiem tra xem kieu nhap co < 9999999999
-                        if (parseFloat(value) > 999999999999) {
-                            result = false;
-                            //Dua ra canh bao
-                            $("#message_suc_err").html('<span style="color:red"><h2><span style="font-weight: bold; color">Thông báo:</span>  Giá trị bạn nhập vượt quá giới hạn!</h2></span>');
-                            alert('Giá trị bạn nhập vượt quá giới hạn!');
-                            return false;
-                        }
-                        // }
-                    });
-                }
-                return result;
-            }
-
             function openClick()
             {
                 var khoa = $("#khoa").val() + "_open";
@@ -420,10 +398,31 @@
 
                 let aCheck = confirm("Bạn chắc chắn muốn gửi số liệu báo cáo ?");
                 if (aCheck) {
+                    var khoa_nhaptaycn = $("#khoa_nhaptaycn").val();
+
                     var table = document.getElementById("subTable");
                     var rowcount = table.rows.length;
                     var chot = document.getElementById("chotsl").value;
+                    var sthangbc = document.getElementById("monthSelect").value.padStart(2, '0');
+                    var snambc = document.getElementById("yearSelect").value;
+                    var stoday = document.getElementById("stoday").value;
+                    var sparts = stoday.split('/');
+                    var currentYear = sparts[2];
+                    var currentMonth = sparts[1];
+                    var rowcount = table.rows.length;
                     var isValid = true;
+                    var chot = document.getElementById("chotsl").value;
+//                    var chot_tw = document.getElementById("chotsl_tw").value;
+                    if (snambc.toString() < currentYear.toString())
+                    {
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
+                        return;
+                    }
+                    if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
+//                        window.alert(snambc + " " + currentYear + " " + sthangbc + " " + currentMonth);
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng " + currentMonth + "</h>");
+                        return;
+                    }
                     if (chot === "2") {
                         alert("Chi nhánh đã chốt dữ liệu lên Tw!");
                         isValid = false; // Không cho phép lưu dữ liệu
@@ -441,7 +440,12 @@
                     }
                     if (isValid) {
                         var url, sdata;
-                        url = "send_KTKSNB_02_2024.action";
+                        if (khoa_nhaptaycn === "KTKSNB_02")
+                        {
+                            url = "send_KTKSNB_02_2024.action";
+                        } else {
+                            url = "send_KTKSNB_03_2024.action";
+                        }
                         sdata = jQuery("#frmdata").serialize();
                         $("#viewData").html('<img src="img/loading.gif"/>');
                         btnDisabled(1);
@@ -453,7 +457,7 @@
                                 if (data === "200") {
                                     alert("Thành công: Gửi dữ liệu.");
                                 } else if (data === "1") {
-                                    alert("Lỗi: Chưa có dữ liệu điều chỉnh để gửi, lưu dữ liệu để gửi!");
+                                    alert("Lỗi: Không có kế hoạch để gửi!");
 
                                 } else {
                                     alert("Lỗi: Gửi dữ liệu.");
@@ -530,26 +534,6 @@
                 }
 
             });
-
-            function reLoadValue(val) {
-                var var2, vartxt, selected;
-                $("#mato").children().remove().end();
-
-                $("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-                $("#mato").prepend("<option value='000000_NOGROUP' " + selected + "> NOGROUP -> Trực tiếp</option>");
-                $("#mato_data > option").each(function () {
-                    var2 = $(this).val().substr(0, 6);
-                    if (val.trim() === var2.trim()) {
-                        $(this).val() === vartxt ? selected = " selected" : selected = "";
-                        $("#mato").prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-                    }
-                });
-
-                $("#mato").html($("#mato option").sort(function (a, b) {
-                    return a.text === b.text ? 0 : a.text < b.text ? -1 : 1;
-                }));
-            }
-            ;
         </script>
     </head>
     <body>
@@ -561,20 +545,10 @@
             <s:hidden name="UserName" id="UserName"/>               
             <fieldset>
                 <legend><b>Tìm kiếm dữ liệu</b></legend> 
-                <table>
-                    <label id="title21" style="font-weight: bold">&nbsp; Nghiệp vụ </label>
-                    <select name="txtGetData" id="txtGetData" onchange="toggleButton()">                                                    
-                        <option value="1">1. Nhập dữ liệu cấp tỉnh</option>                                                    
-                        <option value="2">2. Tình trạng nhập dữ liệu PGD</option>
-                        <option value="3">3. Tình trạng nhập dữ liệu Tỉnh</option>
-                    </select> 
-                    <label id="title22" style="font-weight: bold">&nbsp; PGD kiểm tra </label>
-                    <select id="lstPGD" name="lstPGD" style="width: 100px">
-                        <option value="000000">---Chọn PGD---</option>
-                        <s:iterator value="lstPGD_API">                                    
-                            <option value="<s:property value="posCode"/>|<s:property value="posName"/>"><s:property value="posCode"/> - <s:property value="posName"/></option>                                         
-                        </s:iterator>   
-                    </select>
+                <table> 
+                    <s:iterator value="lstDmKhac">      
+                        <input type="hidden" id="stoday" value="<s:property  value="value" />" name="stoday"/>                                
+                    </s:iterator>  
                     <label style="font-weight: bold">&nbsp; Tháng </label>
                     <select id="monthSelect" name="monthSelect">
                         <option value="1">Tháng 1</option>
@@ -590,35 +564,16 @@
                         <option value="11">Tháng 11</option>
                         <option value="12">Tháng 12</option>
                     </select>
-
                     <label style="font-weight: bold">&nbsp; Năm </label>
                     <select id="yearSelect" name="yearSelect"></select>
-                    <label id="title3" style="font-weight: bold">&nbsp; Kế hoạch kiểm tra </label>
-                    <select name="txtKehoach" id="txtKehoach" style="width: 100px" onchange="toggleSelect()">                                                    
-                        <option value="1">1. Đoàn kiểm tra của NHCSXH cấp huyện đối với cấp xã</option>                                                    
-                        <option value="2">2. Cán bộ chuyên trách KTKSNB cấp huyện</option>
-                    </select> 
-                    <label id="title4" style="font-weight: bold">&nbsp; Xã kiểm tra </label>
-                    <select id="lstXa" name="lstXa" style="width: 100px">
-                        <option value="000000">---Chọn xã---</option>
-                        <s:iterator value="lstXa_API">                                    
-                            <option value="<s:property value="communeCode"/>|<s:property value="communeName"/>"><s:property value="communeCode"/> - <s:property value="communeName"/></option>                                         
-                        </s:iterator>   
-                    </select>
-                    <label id="title2" style="font-weight: bold">&nbsp; Cán bộ kiểm tra </label>
-                    <select name="txtCanbo" id="txtCanbo" style="width: 100px">   
-                        <option value="00000">---Chọn cán bộ---</option>
-                        <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
-                            <option value='<s:property value="D1"/>'><s:property value="D2"/> - <s:property value="D3"/></option>      
-                        </s:iterator>
-                    </select>
-                    <s:if test="Grade.equalsIgnoreCase('3')">
-                        <label id="title31" style="font-weight: bold">&nbsp; Nghiệp vụ :</label>
-                        <select name="txtGetData3" id="txtGetData3" >
-                                <!--onchange="toggleCap3()">-->                                                    
-                            <option value="1">1. Phê duyệt kế hoạch PGD</option>                                                    
-                            <option value="2">2. Phê duyệt kế hoạch Tỉnh</option>
+                    <s:if test="Grade.equalsIgnoreCase('2')">
+                        <label id="title21" style="font-weight: bold">&nbsp; Nghiệp vụ </label>
+                        <select name="txtGetData" id="txtGetData" onchange="toggleButton()">                                                    
+                            <option value="1">1. Nhập dữ liệu cấp tỉnh</option>                                                    
+                            <option value="2">2. Tình trạng nhập dữ liệu PGD</option>
                         </select> 
+                    </s:if>
+                    <s:if test="Grade.equalsIgnoreCase('3')">
                         <label id="title31" style="font-weight: bold">&nbsp; Mã chi nhánh: </label>
                         <select id="lstCN"  name="lstCN">
                             <option value="000000">----Chọn mã chi nhánh----</option>
@@ -632,7 +587,6 @@
                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
                     &nbsp;<input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                     <s:if test="!Grade.equalsIgnoreCase('3')">
-                        &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/>  
                         &nbsp;<input type="button" id="idSend" value="Chốt dữ liệu" style="color: red"/></s:if>
                     </table>  
 
@@ -640,7 +594,7 @@
                 <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
                     <img id="loadingImage" src='img/loading.gif' border='0' >                  
                 </div>   
-                <!--<div id="message_suc_err" style="height: 10px"></div>-->
+                <div id="message_suc_err" style="height: 10px"></div>
                 <div id="containParm_full" align="center">
                     <div id="divExportReport"></div>
                     <div align="right"  id="divExportReportLink"></div>
@@ -653,7 +607,7 @@
             const pastYears = 5;   // Lấy 10 năm trước
             const futureYears = 5; // Tiến thêm 10 năm
 
-// Lặp từ 10 năm trước đến 10 năm sau
+            // Lặp từ 10 năm trước đến 10 năm sau
             for (let i = -pastYears; i <= futureYears; i++) {
                 let option = document.createElement("option");
                 let year = currentYear + i;
@@ -668,91 +622,18 @@
                 yearSelect.appendChild(option);
             }
 
-            function toggleSelect() {
-            <s:if test="Grade.equalsIgnoreCase('1')">
-                var selectedValue = document.getElementById("txtKehoach").value;
-                if (selectedValue === "2") {
-                    document.getElementById("title2").style.display = "inline";
-                    document.getElementById("txtCanbo").style.display = "inline";
-                    onLoadData();
-                } else {
-                    document.getElementById("title2").style.display = "none";
-                    document.getElementById("txtCanbo").style.display = "none";
-                    onLoadData();
-                }
-            </s:if>
-            }
-            function initTable()
-            {
-            <s:if test="Grade.equalsIgnoreCase('1')">
-                document.getElementById("title2").style.display = "inline";
-                document.getElementById("txtCanbo").style.display = "inline";
-                document.getElementById("title3").style.display = "inline";
-                document.getElementById("txtKehoach").style.display = "inline";
-                document.getElementById("title4").style.display = "inline";
-                document.getElementById("lstXa").style.display = "inline";
-                document.getElementById("title21").style.display = "none";
-                document.getElementById("txtGetData").style.display = "none";
-                document.getElementById("title22").style.display = "none";
-                document.getElementById("lstPGD").style.display = "none";
-                var D1 = document.getElementById("txtKehoach").value;
-                if (D1 === "1")
-                {
-                    document.getElementById("title2").style.display = "none";
-                    document.getElementById("txtCanbo").style.display = "none";
-                } else
-                {
-                    document.getElementById("title2").style.display = "inline";
-                    document.getElementById("txtCanbo").style.display = "inline";
-                }
-            </s:if>
-            <s:elseif test="Grade.equalsIgnoreCase('2')">
-                document.getElementById("title2").style.display = "none";
-                document.getElementById("txtCanbo").style.display = "none";
-                document.getElementById("title3").style.display = "none";
-                document.getElementById("txtKehoach").style.display = "none";
-                document.getElementById("title4").style.display = "none";
-                document.getElementById("lstXa").style.display = "none";
-                document.getElementById("title21").style.display = "inline";
-                document.getElementById("txtGetData").style.display = "inline";
-                document.getElementById("title22").style.display = "inline";
-                document.getElementById("lstPGD").style.display = "inline";
-            </s:elseif>
-            <s:else>
-                document.getElementById("title2").style.display = "none";
-                document.getElementById("txtCanbo").style.display = "none";
-                document.getElementById("title3").style.display = "none";
-                document.getElementById("txtKehoach").style.display = "none";
-                document.getElementById("title4").style.display = "none";
-                document.getElementById("lstXa").style.display = "none";
-                document.getElementById("title21").style.display = "none";
-                document.getElementById("txtGetData").style.display = "none";
-                document.getElementById("title22").style.display = "none";
-                document.getElementById("lstPGD").style.display = "none";
-            </s:else>
-            }
-
-            initTable();
             function toggleButton() {
             <s:if test="Grade.equalsIgnoreCase('2')">
                 var selectedValue = document.getElementById("txtGetData").value;
                 if (selectedValue === "1") {
-                    document.getElementById("idSave").style.display = "inline";
                     document.getElementById("idSend").style.display = "inline";
-                    document.getElementById("lstPGD").style.display = "inline";
-                    document.getElementById("title22").style.display = "inline";
-                    document.getElementById("lstPGD").style.display = "inline";
                     onLoadData();
                 } else {
-                    document.getElementById("idSave").style.display = "none";
                     document.getElementById("idSend").style.display = "none";
-                    document.getElementById("title22").style.display = "none";
-                    document.getElementById("lstPGD").style.display = "none";
                     onLoadData();
                 }
             </s:if>
             }
-
         </script>
     </body>
 </html>

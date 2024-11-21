@@ -18,9 +18,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import org.apache.struts2.ServletActionContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.chtrinh_cn.ActionChtrinhcnMain;
@@ -41,6 +43,7 @@ import vbsp.ims.util.DateUtil;
  */
 public class KTKSNB_00 extends ActionChtrinhcnMain
         implements NhaptaycnFunction {
+//<editor-fold defaultstate="collapsed" desc="khai biến">
 
     Service_GQVL2023 _server;
     DaoChtrinhcnMain _serverlocal;
@@ -62,7 +65,17 @@ public class KTKSNB_00 extends ActionChtrinhcnMain
     private String tento;
     private String tenxa;
     private String skhoa;
+    private String sCode;
+    //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public String getsCode() {
+        return sCode;
+    }
+
+    public void setsCode(String sCode) {
+        this.sCode = sCode;
+    }
 
     public String getSkhoa() {
         return skhoa;
@@ -248,7 +261,10 @@ public class KTKSNB_00 extends ActionChtrinhcnMain
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
-
+            if (pos_cd_username.equals(main_pos_username)) {
+                addActionError("Chú ý: Hội sở tỉnh không nhập tại cấp (1) PGD!");
+                return ERROR;
+            }
             String dateStr = hmParameter.get("ngay_bc").toString();
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("CB_KTKSNB", pos_cd_username, "S", _reportDate);
@@ -278,70 +294,77 @@ public class KTKSNB_00 extends ActionChtrinhcnMain
             if (!getParaSession()) {
                 return ERROR;
             }
-            HashMap hmParameter = getParameter();
-            Connection conn = new DaoConnect().getConnect();
+
+            HashMap<String, Object> hmParameter = getParameter();
+            String dateStr = hmParameter.get("ngay_bc").toString();
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
-            String dateStr = hmParameter.get("ngay_bc").toString();
-            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
 
+            String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
+
+            // Retrieve PGD list
             lstPGD_API = _serverAPI.getListPgd(main_pos_username, "");
-
             if (lstPGD_API == null || lstPGD_API.isEmpty()) {
                 addActionError("Lỗi khi gọi API!");
                 return ERROR;
             }
 
             for (ListPosCode item : lstPGD_API) {
-                QT_DULIEU_NT row = new QT_DULIEU_NT();
-                try {
-                    row.setD1(item.getPosCode());
-                    row.setD2(item.getPosName());
-                    row.setD3(null);
-                    row.setD4("0");
-                    row.setD5(null);
-                    row.setD6(null);
-                    row.setD7(_reportDate);
-                    row.setD8(null);
-                    lstData_tmp = _serverAPI.getDataLockManual("CB_KTKSNB", item.getPosCode(), "S", _reportDate);
+                lstData_Api = _serverAPI.getDataKTKSNB("CB_KTKSNB", item.getPosCode(), "S", _reportDate, "", "0");
 
-                    // If there are data rows to process
-                    if (!lstData_tmp.isEmpty()) {
-                        for (LockSendModel item_tmp : lstData_tmp) {
-                            QT_DULIEU_NT dataRow = new QT_DULIEU_NT();
-                            try {
-                                dataRow.setD1(item.getPosCode());
-                                dataRow.setD2(item.getPosName());
-                                if (item_tmp.getUpdateDate() != null) {
-                                    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-                                    LocalDateTime dateTime = LocalDateTime.parse(item_tmp.getUpdateDate(), inputFormatter);
-                                    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-                                    String formattedDate = dateTime.format(outputFormatter);
-                                    dataRow.setD3(formattedDate);
-                                }
-                                dataRow.setD4(item_tmp.getStatus());
-                                dataRow.setD5(item_tmp.getReportDate());
-                                dataRow.setD6(item_tmp.getPosFlag());
-                                dataRow.setD7(_reportDate);
-                                dataRow.setD8(item_tmp.getUpdateId());
-                            } catch (Exception e) {
-                                System.err.println("gọi api chốt dữ liệu lỗi: " + e.getMessage());
-                            }
-                            lstDulieuNt.add(dataRow);
+                for (DuLieuNTRow dataItem : lstData_Api) {
+                    try {
+                        if ("1".equals(dataItem.getD14())) {
+                            QT_DULIEU_NT row = new QT_DULIEU_NT();
+                            row.setKHOA(dataItem.getKey());
+                            row.setTHUTU(Integer.parseInt(dataItem.getOrderValue()));
+                            row.setTT_HIENTHI(dataItem.getOrderDescription());
+                            row.setMA(dataItem.getCode());
+                            row.setTEN(dataItem.getName());
+                            row.setCO_TONGHOP(dataItem.getPosFlag());
+                            row.setNGUOI_NHAP(dataItem.getMakerId());
+                            Date reportDate = DateUtil.toDate(dataItem.getReportDate());
+                            row.setNGAYBC(reportDate);
+                            row.setNAMBC(dataItem.getReportYear());
+                            row.setMAPGD(pos_cd_username);
+                            row.setMACN(main_pos_username);
+                            row.setD1(dataItem.getD1());
+                            row.setD2(dataItem.getD2());
+                            row.setD3(dataItem.getD3());
+                            row.setD4(dataItem.getD4());
+                            row.setD5(dataItem.getD5());
+                            row.setD6(dataItem.getD6());
+                            row.setD7(dataItem.getD7());
+                            row.setD8(dataItem.getD8());
+                            row.setD9(dataItem.getD9());
+                            row.setD10(dataItem.getD10());
+                            row.setD11(dataItem.getD11());
+                            row.setD12(dataItem.getD12());
+                            row.setD13(dataItem.getD13());
+                            row.setD14(dataItem.getD14());
+                            row.setD15(dataItem.getD15());
+                            row.setD16(dataItem.getD16());
+                            row.setD17(item.getPosCode());
+                            row.setNHAPTAY(dataItem.getManualFlag());
+                            row.setKIEUIN(dataItem.getStyle());
+
+                            lstDulieuNt.add(row);
                         }
-                    } else {
-                        lstDulieuNt.add(row);
+                    } catch (Exception e) {
+                        CoreLogger.error("Error processing row for posCode " + item.getPosCode() + ": " + e.getMessage());
                     }
-
-                } catch (Exception e) {
-                    System.err.println("Error processing posCode " + item.getPosCode() + ": " + e.getMessage());
                 }
             }
+
+            // Sort the list by MAPGD
+            lstDulieuNt.sort(Comparator.comparingInt((QT_DULIEU_NT obj) -> Integer.parseInt(obj.getMAPGD())));
 
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> tin dung 2024: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> tin dung 2024: " + e.getMessage());
+            addActionError("Đã xảy ra lỗi trong quá trình tải dữ liệu.");
+            return ERROR;
         }
         return "success_2";
     }
@@ -359,17 +382,24 @@ public class KTKSNB_00 extends ActionChtrinhcnMain
             DaoChtrinhcnMain daoMain = new DaoChtrinhcnMain();
             HashMap hmParameter = getParameter();
             String dateStr = hmParameter.get("ngay_bc").toString();
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
+            final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(new Date());
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
+            ArrayList<DuLieuNTRowX> lstUpdateDate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                UUID uuid = UUID.randomUUID(); // Tạo UUID mới
+                long timestamp = System.currentTimeMillis(); // Lấy timestamp hiện tại
+                String sysGuid = uuid.toString().replace("-", "") + timestamp;
+                setsCode(sysGuid);
                 QT_DULIEU_NT temlocal = new QT_DULIEU_NT();
                 temlocal.setKHOA("CB_KTKSNB");
                 temlocal.setTHUTU(tmp.getTHUTU());
                 temlocal.setTT_HIENTHI(tmp.getTT_HIENTHI());
                 temlocal.setTEN(tmp.getTEN());
-                temlocal.setMA(tmp.getMA());
+                temlocal.setMA(tmp.getMA() == null || tmp.getMA().equals("") ? sCode : tmp.getMA());
                 temlocal.setNGUOI_DUYET(UserName);
                 temlocal.setNGUOI_NHAP(UserName);
                 temlocal.setNAMBC(tmp.getNAMBC());
@@ -397,15 +427,53 @@ public class KTKSNB_00 extends ActionChtrinhcnMain
                 temlocal.setD19(tmp.getD19());
                 temlocal.setD20(tmp.getD20());
                 lstLocalDataUpdate.add(temlocal);
+
+                DuLieuNTRowX tempadd = new DuLieuNTRowX();
+                tempadd.setKey("CB_KTKSNB");
+                tempadd.setOrderValue(tmp.getTHUTU());
+                tempadd.setOrderDescription(tmp.getTT_HIENTHI());
+                tempadd.setName(tmp.getTEN());
+                tempadd.setCode(tmp.getMA() == null || tmp.getMA().equals("") ? sCode : tmp.getMA());
+                tempadd.setMakerId(UserName);
+                tempadd.setMakerDate(_reportDate1);
+                tempadd.setAuthoriseId(UserName);
+                tempadd.setAuthoriseDate(_reportDate1);
+                tempadd.setReportDate(_reportDate1);
+                tempadd.setReportYear(tmp.getNAMBC());
+                tempadd.setPosCode(tmp.getMAPGD());
+                tempadd.setPosFlag(tmp.getCO_TONGHOP());
+                tempadd.setBranchCode(tmp.getMACN());
+                tempadd.setD1(tmp.getD1());
+                tempadd.setD2(tmp.getD2());
+                tempadd.setD3(tmp.getD3());
+                tempadd.setD4(tmp.getD4());
+                tempadd.setD5(tmp.getD5());
+                tempadd.setD6(tmp.getD6());
+                tempadd.setD7(tmp.getD7());
+                tempadd.setD8(tmp.getD8());
+                tempadd.setD9(tmp.getD9());
+                tempadd.setD10(tmp.getD10());
+                tempadd.setD11(tmp.getD11());
+                tempadd.setD12(tmp.getD12());
+                tempadd.setD13(tmp.getD13());
+                tempadd.setD14(tmp.getD14());
+                tempadd.setD15(tmp.getD15());
+                tempadd.setD16(tmp.getD16());
+                tempadd.setD17(tmp.getD17());
+                tempadd.setD18(tmp.getD18());
+                tempadd.setD19(tmp.getD19());
+                tempadd.setD20(tmp.getD20());
+
+                lstUpdateDate.add(tempadd);
             }
 
-            int status = 200;
+            int status = _serverAPI.updateKTKSNB("CB_KTKSNB", pos_cd_username, "S", _reportDate, "", "", lstUpdateDate);
             if (status == 200) {
                 if (!daoMain.save_Canbo_ktksnb("CB_KTKSNB", dateStr, UserName, pos_cd_username, lstLocalDataUpdate)) {
                     addActionError("Bạn chưa lưu được báo cáo tại chi nhánh vui lòng liên hệ quản trị viên!");
                     String code = String.valueOf(2);
                     this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                    return ERROR;
+                    return SUCCESS;
 
                 }
             }

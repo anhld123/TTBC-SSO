@@ -49,6 +49,7 @@ import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.ListCommune;
 import vbsp.ims.restapi.ListMainPos;
+import vbsp.ims.restapi.ListOfValue;
 import vbsp.ims.restapi.ListPosCode;
 import vbsp.ims.sbv.daoSbv;
 import vbsp.ims.syn.ProcessReportSyn;
@@ -77,6 +78,15 @@ public class ActionChtrinhcnMain extends ActionSupport {
     private List<ListCommune> lstXa_API;
     private String pos_cd;
     private String main_pos;
+    private List<ListOfValue> lstDmKhac;
+
+    public List<ListOfValue> getLstDmKhac() {
+        return lstDmKhac;
+    }
+
+    public void setLstDmKhac(List<ListOfValue> lstDmKhac) {
+        this.lstDmKhac = lstDmKhac;
+    }
 
     public List<ListCommune> getLstXa_API() {
         return lstXa_API;
@@ -804,24 +814,35 @@ public class ActionChtrinhcnMain extends ActionSupport {
                 pos_cd = posMainModel.getPosCd();
                 main_pos = posMainModel.getMainPosCd();
                 DuLieuNTService _serverAPI = new DuLieuNTService();
-                Date date = new Date();
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
-                simpleDateFormat.applyPattern("yyyy");
-                String format = simpleDateFormat.format(date);
+
+                Date currentDate = new Date();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+                String format = simpleDateFormat.format(currentDate);
                 lstData_Api = _serverAPI.getDataKTKSNB("CB_KTKSNB", pos_cd_username, "S", format + "1231", "", "0");
+                final String _reportDate = new SimpleDateFormat("ddMMyyyy").format(currentDate);
                 for (DuLieuNTRow item : lstData_Api) {
                     QT_DULIEU_NT row = new QT_DULIEU_NT();
                     try {
-                        row.setD1(item.getD1());
-                        row.setD2(item.getD2());
-                        row.setD3(item.getD3());
-                        lstDulieuNt.add(row);
+                        if ("1".equals(item.getD14())) {
+                            String[] values = item.getD16().split("\\/");
+                            String value1 = values[0];
+                            String value2 = values[1];
+                            String value3 = values[2];
+                            String _reportDate1 = value1 + value2 + value3; if (_reportDate1.compareTo(_reportDate) >= 0) {
+                                row.setD1(item.getD1());
+                                row.setD2(item.getD2());
+                                row.setD3(item.getD3());
+                                lstDulieuNt.add(row);
+                            }
+                        }
                     } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
                 lstXa_API = _serverAPI.getListXa("", "", "", pos_cd);
                 lstPGD_API = _serverAPI.getListPgd(main_pos, "");
                 lstCN_API = _serverAPI.getListCn("");
+                lstDmKhac = _serverAPI.getListOfValue("199", main_pos);
                 switch (this.khoa_nhaptaycn) {
                     case "KTKSNB_01":
                         return "success_1";

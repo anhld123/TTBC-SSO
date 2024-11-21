@@ -79,8 +79,6 @@
                 $('input.number').css({"text-align": "right"});
                 $('.D0').css({"text-align": "center"});
                 $('input.number2').css({"text-align": "right"});
-                $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
-                $('#ui-datepicker-div').css('clip', 'auto');
                 $(".STT1").css({"width": "5%"});
                 $(".STT2").css({"width": "30%"});
                 $('.number').number(true, 1);
@@ -101,13 +99,17 @@
             <div style="height:10px"></div>  
             <table border="1" class="editDelete" id="subTable" align="center" style="padding-top: 10px">   
                 <tr>
-                    <th style="width: 50px">STT</th>
-                    <th style="width: 80px">Mã PGD</th>
-                    <th style="width: 150px">Tên</th>
-                    <th style="width: 100px">Người gửi dữ liệu</th>
-                    <th style="width: 100px">Ngày gửi dữ liệu</th>
-                    <th style="width: 100px">Trạng thái</th>
-                </tr>  
+                    <th style="width: 50px" rowspan="2">STT</th>
+                    <th style="width: 80px" rowspan="2">Mã PGD</th>
+                    <th style="width: 150px" rowspan="2">Tên</th>
+                    <th style="width: 100px" rowspan="2">Người gửi dữ liệu</th>
+                    <th style="width: 100px" rowspan="2">Ngày gửi dữ liệu</th>
+                    <th style="width: 200px " colspan="2">Trạng thái</th>
+                </tr> 
+                <tr>
+                    <th style="width: 100px">Mở khóa</th>      
+                    <th style="width: 100px">Thêm ngày nhập</th> 
+                </tr>
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
@@ -115,6 +117,7 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
                 </tr>
 
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
@@ -158,8 +161,14 @@
                             </s:if>  
                             <s:elseif test="D7.equalsIgnoreCase('1')">
                                 <a style="text-decoration: underline"  href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', '<s:property value="D7"/>', '<s:property value="D10"/>');">Mở All Pos</a>
-                            </s:elseif>  
+                            </s:elseif> 
                             <s:else><s:property  value="D3" /></s:else>
+                            </td>
+                            <td class="D0">
+                            <s:if test="D7.equalsIgnoreCase('1')">
+                                <a style="text-decoration: underline"  href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', 3, '<s:property value="D10"/>');">Thêm thời gian nhập</a>
+                            </s:if>
+                            <s:else></s:else>
                             </td>
                         </tr>
                 </s:iterator>
@@ -184,7 +193,11 @@
                         var status = parseInt(res.status);
                         //alert(status);
                         if (status === 1) {
-                            alert('Mở phê duyệt thành công!');
+                            if (D7.toString() === "3") {
+                                alert('Thêm thời gian nhập cho ngày ' + D5 + ' thành công, thời hạn nhập đến 6h sáng ngày tiếp theo!');
+                            } else {
+                                alert('Mở phê duyệt thành công!');
+                            }
                             onLoadData();
                         } else {
                             alert('Mở phê duyệt lỗi: ' + res.message);

@@ -14,7 +14,7 @@
             <result name="success_1">/ktksnb_2024/para_ktksnb_2024_success_1.jsp</result>
             <result name="success_2">/ktksnb_2024/para_ktksnb_2024_success_2.jsp</result>
             <result name="success">/ktksnb_2024/para_ktksnb_2024_success.jsp</result>
-            <result name="success_3">/ktksnb_2024/para_ktksnb_2024_success_3.jsp</result>
+            <result name="success_3">/ktksnb_2024/para_ktksnb_2024_success_2.jsp</result>
             <result name="error">/chtrinh_cn/success.jsp</result>    
                 
         </action>  
@@ -38,7 +38,7 @@
         <!--   ktksnb 2024 cán bộ-->
         <action name="KTKSNB_00" class="vbsp.ims.ktksnb2024.KTKSNB_00"  method="load">
             <result name="success_1">/ktksnb_2024/table_canbo_ktksnb.jsp</result>
-            <result name="success_2">/ktksnb_2024/table_canbo_ktksnb_2.jsp</result>
+            <result name="success_2">/ktksnb_2024/table_canbo_ktksnb.jsp</result>
             <!--<result name="success_3">/ktksnb_2024/table_dky_ktksnb2024_3.jsp</result>-->                                                            
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
@@ -94,10 +94,13 @@
         </action>
         <!--điều chỉnh--> 
         <action name="KTKSNB_02" class="vbsp.ims.ktksnb2024.KTKSNB_02"  method="load">
-            <result name="success_1">/ktksnb_2024/table_dchinh_ktksnb2024_1.jsp</result>
+            <result name="success_1">/ktksnb_2024/table_dchinh_ktksnb2024.jsp</result>
             <result name="success_2">/ktksnb_2024/table_dchinh_ktksnb2024_2.jsp</result>
             <result name="success_3">/ktksnb_2024/table_dchinh_ktksnb2024_3.jsp</result>                                                            
             <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        <action name="popupTableDchinh" class="vbsp.ims.ktksnb2024.KTKSNB_02" method="popupTable">
+            <result name="success">/ktksnb_2024/table_dchinh_ktksnb2024_1.jsp</result>
         </action>
         <action name="save_KTKSNB_02_2024" class="vbsp.ims.ktksnb2024.KTKSNB_02"  method="save">
             <result name="success" type="stream">
@@ -126,9 +129,15 @@
         <action name="unlock_KTKSNB_02_c3" class="vbsp.ims.ktksnb2024.KTKSNB_02" method="unlock_c3">
             <result name="success" type="json"></result>
         </action>
+        <action name="delete_KTKSNB_02_list" class="vbsp.ims.ktksnb2024.KTKSNB_02" method="delete">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>  
+        </action>
         <!--thực hiện--> 
         <action name="KTKSNB_03" class="vbsp.ims.ktksnb2024.KTKSNB_03"  method="load">
-            <result name="success_1">/ktksnb_2024/table_thuchien_ktksnb2024_1.jsp</result>
+            <result name="success_1">/ktksnb_2024/table_thuchien_ktksnb2024.jsp</result>
             <result name="success_2">/ktksnb_2024/table_thuchien_ktksnb2024_2.jsp</result>
             <result name="success_3">/ktksnb_2024/table_thuchien_ktksnb2024_3.jsp</result>                                                            
             <result name="error">/nhaptay-cn/success.jsp</result>       
@@ -139,6 +148,9 @@
                 <param name="inputName">pageResult</param>
             </result>      
         </action> 
+        <action name="popupTableThien" class="vbsp.ims.ktksnb2024.KTKSNB_03" method="popupTable">
+            <result name="success">/ktksnb_2024/table_thuchien_ktksnb2024_1.jsp</result>
+        </action>
         <action name="send_KTKSNB_03_2024" class="vbsp.ims.ktksnb2024.KTKSNB_03"  method="send">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>
@@ -154,7 +166,7 @@
         <action name="unlock_KTKSNB_03_c3" class="vbsp.ims.ktksnb2024.KTKSNB_03" method="unlock_c3">
             <result name="success" type="json"></result>
         </action>
-         <action name="delete_KTKSNB_2024" class="vbsp.ims.ktksnb2024.KTKSNB_01" method="delete">
+        <action name="delete_KTKSNB_2024" class="vbsp.ims.ktksnb2024.KTKSNB_01" method="delete">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
