@@ -2412,7 +2412,7 @@ public class DaoNghiquyet11cp {
         return true;
     }
 
-    public boolean save_TDTK_2024(String khoa, String username, String ngaybc, List<QT_DULIEU_NT> lstData) throws SQLException {
+    public boolean save_TDTK_2024(String khoa, String username, String ngaybc, List<DULIEU_NT_TQ> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
         Object array[] = lstData.toArray();
         ArrayDescriptor des = ArrayDescriptor

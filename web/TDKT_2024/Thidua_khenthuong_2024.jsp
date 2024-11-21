@@ -279,53 +279,69 @@
                         <td><s:property  value="TEN"/></td>
                         <td><input type="text" value="<s:property  value="D1" />"
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP23')">readonly="true"</s:if>
-                                   <s:if test="!D35.equalsIgnoreCase('0')">style="background: blanchedalmond"</s:if>
+                                   <s:if test="!D35.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="number"/></td>
                         <td><input type="text" value="<s:property  value="D2" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP24')">readonly="true"</s:if>
+                                   <s:if test="!D36.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D3" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP24')">readonly="true"</s:if>
+                                   <s:if test="!D37.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D4" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP24')">readonly="true"</s:if>
+                                   <s:if test="!D38.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D5" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP23')">readonly="true"</s:if>
+                                   <s:if test="!D39.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D6" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP23')">readonly="true"</s:if>
+                                   <s:if test="!D40.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D7" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP23')">readonly="true"</s:if>
+                                   <s:if test="!D41.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D8" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP21')">readonly="true"</s:if>
+                                   <s:if test="!D42.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D9" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP21')">readonly="true"</s:if>
+                                   <s:if test="!D43.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D10" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP15')">readonly="true"</s:if>
+                                   <s:if test="!D44.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="number"/></td>
                         <td><input type="text" value="<s:property  value="D11" />" 
+                                   <s:if test="!D45.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" class="number"/></td>
                         <td><input type="text" value="<s:property  value="D12" />" 
+                                   <s:if test="!D46.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" placeholder="Ví dụ 1A2B3C"/></td>
                         <td><input type="text" value="<s:property  value="D13" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP49')">readonly="true"</s:if>
+                                   <s:if test="!D47.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" class="number"/></td>
                         <td><input type="text" value="<s:property  value="D14" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP49')">readonly="true"</s:if>
+                                   <s:if test="!D48.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14" class="number"/></td>
                         <td><input type="text" value="<s:property  value="D15" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP18')">readonly="true"</s:if>
+                                   <s:if test="!D49.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" class="number"/></td>
                         <td><input type="text" value="<s:property  value="D16" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP49')">readonly="true"</s:if>
+                                   <s:if test="!D50.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" class="number"/></td>
                         <td><input type="text" value="<s:property  value="D17" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP49')">readonly="true"</s:if>
+                                   <s:if test="!D18.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" class="number"/></td>
                     </tr>
                 </s:iterator>

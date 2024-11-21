@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.struts2.ServletActionContext;
+import vbsp.ims.action.ktktnb.DULIEU_NT_TQ;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.define.GenericResult;
@@ -41,6 +42,7 @@ public class Thidua_khenthuong_2024 extends ActionNhaptaycnMain
 
     Service_GQVL2023 _server;
     private List<QT_DULIEU_NT> lstData;
+    private List<DULIEU_NT_TQ> lstData50;
     private List<DuLieuNTRow> lstData_Api;
     private List<ListPosCode> lstPGD_API;
     private List<ListMainPos> lstCN_API;
@@ -54,6 +56,14 @@ public class Thidua_khenthuong_2024 extends ActionNhaptaycnMain
     private String check_Username;
     private String sngaybc;
 //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public List<DULIEU_NT_TQ> getLstData50() {
+        return lstData50;
+    }
+
+    public void setLstData50(List<DULIEU_NT_TQ> lstData50) {
+        this.lstData50 = lstData50;
+    }
 
     public String getSngaybc() {
         return sngaybc;
@@ -234,18 +244,16 @@ public class Thidua_khenthuong_2024 extends ActionNhaptaycnMain
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
-            ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
+            ArrayList<DULIEU_NT_TQ> lstLocalDataUpdate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                QT_DULIEU_NT temlocal = new QT_DULIEU_NT();
+                DULIEU_NT_TQ temlocal = new DULIEU_NT_TQ();
                 temlocal.setKHOA("TDKT_02");
                 temlocal.setTHUTU(tmp.getTHUTU());
                 temlocal.setTT_HIENTHI(tmp.getTT_HIENTHI());
                 temlocal.setTEN(tmp.getTEN());
                 temlocal.setMA(tmp.getMA().equals("") ? tmp.getMAPGD() : tmp.getMA());
                 temlocal.setNGUOI_DUYET(UserName);
-//                temlocal.setNGAY_DUYET(date);
                 temlocal.setNGUOI_NHAP(UserName);
-//                temlocal.setNGAY_NHAP(date);
                 temlocal.setNAMBC(tmp.getNAMBC());
                 temlocal.setMAPGD(tmp.getMAPGD());
                 temlocal.setCO_TONGHOP(tmp.getCO_TONGHOP());
