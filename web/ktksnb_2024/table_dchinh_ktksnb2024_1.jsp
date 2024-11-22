@@ -15,7 +15,7 @@
 
         <style type="text/css">
             *{
-                font: 12px Arial, Helvetica, sans-serif;
+                font: 13px Arial, Helvetica, sans-serif;
             }
             table{
                 border-style: solid;
@@ -269,11 +269,9 @@
             <s:form name="frmdata" id="frmdata" >
                 <table border="0" cellspacing="0" cellpading="0" height="100%" class="tblmain" style="background-image: url('img/baner11.jpg');background-size: cover;">
                     <tr >
-                        <td width="80%" style="color: black; font-family: Comic Sans MS; text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white;">
+                        <td width="70%" style="color: black; font-family: Comic Sans MS; text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white;">
                             <s:property value="title3" />
                         </td>
-
-
                         <td align="right">     
                             <div id="result" style="color: red">                            
                             </div>
