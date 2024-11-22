@@ -119,7 +119,6 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
                 </tr>
-
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr> 
                         <s:if test="D4.equalsIgnoreCase('1')">
@@ -194,7 +193,7 @@
                         //alert(status);
                         if (status === 1) {
                             if (D7.toString() === "3") {
-                                alert('Thêm thời gian nhập cho ngày ' + D5 + ' thành công, thời hạn nhập đến 6h sáng ngày tiếp theo!');
+                                alert('Thêm thời gian nhập cho ngày ' + D5 + ' thành công, thời hạn nhập đến 00h ngày hiện tại!');
                             } else {
                                 alert('Mở phê duyệt thành công!');
                             }
