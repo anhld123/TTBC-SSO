@@ -583,6 +583,7 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
             String macb = hmParameter.get("cboCanBo").toString();
             String D6_tmp = hmParameter.get("namedistinctD6").toString();
             String D8_tmp = hmParameter.get("namedistinctD8").toString();
+            String ssngaybc = hmParameter.get("ngay_bc").toString();
             Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             String dateStr = sdf.format(date1);
@@ -635,7 +636,7 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
                 temlocal.setMA(tmp.getMA());
                 temlocal.setNGUOI_DUYET(UserName);
                 temlocal.setNGUOI_NHAP(UserName);
-                Date reportDate = DateUtil.toDate(hmParameter.get("ngay_bc").toString());
+                Date reportDate = DateUtil.toDate(ssngaybc);
                 temlocal.setNGAYBC(reportDate);
                 temlocal.setNAMBC(tmp.getNAMBC());
                 temlocal.setMAPGD(tmp.getMAPGD());
@@ -660,7 +661,7 @@ public class TDNN_0044_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
             int status = _server.saveTDNN_2024("KTGS_04GDX_CBCT", mapgd, PosFlag, maxa, hmParameter.get("ngay_bc").toString(), "", "", lstUpdateDate, "1");
             if (status == 200) {
                 DaoTdnnMain daoMain = new DaoTdnnMain();
-                if (!daoMain.save_GDX_2024("KTGS_04GDX_CBCT", dateStr, UserName, mapgd, maxa, PosFlag, lstLocalDataUpdate,"KTGS_04GDX_CBCT")) {
+                if (!daoMain.save_GDX_2024("KTGS_04GDX_CBCT", ssngaybc, UserName, mapgd, maxa, PosFlag, lstLocalDataUpdate, "KTGS_04GDX_CBCT")) {
                     addActionError("Bạn chưa lưu được báo cáo tại chi nhánh vui lòng liên hệ quản trị viên!");
                     String code = String.valueOf(2);
                     this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
