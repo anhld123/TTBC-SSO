@@ -254,20 +254,23 @@
                     var currentYear = sparts[2];
                     var currentMonth = sparts[1];
                     var currentDate = sparts[0];
-                    if (currentYear.toString() !== snam.toString()) {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
-                        return;
-                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + currentYear + "</h>");
-                        return;
-                    } else if (chot === "2") {
-//                        alert("Chi nhánh đã chốt dữ liệu lên Tw!");
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
-                        return;
+//                    if (currentYear.toString() !== snam.toString()) {
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
+//                        return;
+//                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + currentYear + "</h>");
+//                        return;
+//                    } else 
+                        if (chot === "2") {
+                        alert("Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!");
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
+                       isValid = false;
+                       onLoadData();
                     } else if (chot === "1") {
-//                        alert("Dữ liệu đã gửi, không thể lưu.");
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
-                        return;
+                        alert("Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!");
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
+                        isValid = false;
+                        onLoadData();
                     }
 
                     for (var i = 0; i < rowcount; i++) {
@@ -441,24 +444,29 @@
                     var currentYear = sparts[2];
                     var currentMonth = sparts[1];
                     var currentDate = sparts[0];
-//                    alert(sthang + " " + sngay + " " + currentMonth + " " + currentDate +" " +currentYear);
-                    if (currentYear.toString() !== snam.toString()) {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
-                        return;
-                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + currentYear + "</h>");
-                        return;
-                    } else if (chot === "2") {
-//                        alert("Chi nhánh đã chốt dữ liệu lên Tw!");
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
-                        return;
+//                    if (currentYear.toString() !== snam.toString()) {
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
+//                        return;
+//                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + currentYear + "</h>");
+//                        return;
+//                    }
+//                    else 
+                       if (chot === "2") {
+                        alert("Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!");
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
+                       isValid = false;
+                       onLoadData();
                     } else if (chot === "1") {
-//                        alert("Dữ liệu đã gửi, không thể lưu.");
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
-                        return;
+                        alert("Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!");
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
+                        isValid = false;
+                        onLoadData();
                     } else if (chot_tw === "0") {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Lưu dữ liệu trước khi gửi!</h>");
-                        return;
+                        alert("Cảnh báo: Lưu dữ liệu trước khi gửi!");
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Lưu dữ liệu trước khi gửi!</h>");
+                         isValid = false;
+                        onLoadData();
                     }
                     for (var i = 0; i < rowcount; i++) {
                         try {
@@ -704,23 +712,28 @@
                     var currentYear = sparts[2];
                     var currentMonth = sparts[1];
                     var currentDate = sparts[0];
-                    if (currentYear.toString() !== snam.toString()) {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
-                        return;
-                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + currentYear + "</h>");
-                        return;
-                    } else if (chot === "2") {
-//                        alert("Chi nhánh đã chốt dữ liệu lên Tw!");
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể xóa dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
-                        return;
+//                    if (currentYear.toString() !== snam.toString()) {
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
+//                        return;
+//                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + currentYear + "</h>");
+//                        return;
+//                    } else 
+                       if (chot === "2") {
+                        alert("Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!");
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
+                       isValid = false;
+                       onLoadData();
                     } else if (chot === "1") {
-//                        alert("Dữ liệu đã gửi, không thể lưu.");
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
-                        return;
+                        alert("Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!");
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
+                        isValid = false;
+                        onLoadData();
                     } else if (chot_tw === "0") {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không có dữ liệu để xóa!</h>");
-                        return;
+                        alert("Cảnh báo: Không có dữ liệu để xóa!");
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không có dữ liệu để xóa!</h>");
+                        isValid = false;
+                        onLoadData();
                     }
                     for (var i = 0; i < rowcount; i++) {
                         try {

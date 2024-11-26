@@ -139,33 +139,42 @@
             $('.TEN_KH').blur(function () {
                 $(this).closest('tr').removeClass('highlight_row');
             });
-            function cancelAssign(sngaybc, chotsl) {
+            function cancelAssign(sngaybc, stype, chotsl) {
+                if (chotsl === '1')
+                {
+                    alert("Chốt dữ liệu thất bại. Ban Thi đua khen thưởng đã khoá nhập dữ liệu!");
+                    return;
+                }
                 $.ajax({
                     type: "GET",
-                    url: "lock_TDKT_2024.action?" + "ssngaybc=" + sngaybc + "&schotsl=" + chotsl,
+                    url: "lock_TDKT_2024.action?" + "ssngaybc=" + sngaybc + "&stype=" + stype + "&schotsl=" + chotsl,
                     success: function (res) {
                         var status = parseInt(res.status);
                         //alert(status);
                         if (status === 1) {
-                            if (chotsl === "0") {
+                            if (stype === "49") {
                                 alert('Khóa dữ liệu thành công!');
+                            } else if (stype.length === 2 && stype !== "49") {
+                                alert('Chốt dữ liệu thành công!');
                             } else {
                                 alert('Mở dữ liệu thành công!');
                             }
                             onLoadData();
                         } else {
-                            if (chotsl === "0") {
+                            if (stype === "49") {
                                 alert('Khóa dữ liệu lỗi: ' + res.message);
+                            } else if (stype.length === 2 && stype !== "49") {
+                                alert('Chốt dữ liệu lỗi: ' + res.message);
                             } else {
                                 alert('Mở khoá dữ liệu lỗi: ' + res.message);
                             }
                         }
                     },
                     error: function (res) {
-                        if (chotsl === "0") {
+                        if (stype === "49") {
                             alert("Khóa dữ liệu lỗi. Vui lòng liên hệ quản trị viên để được hỗ trợ!");
                         } else {
-                            alert("Mở khóa dữ liệu lỗi. Vui lòng liên hệ quản trị viên để được hỗ trợ!");
+                            alert("Lỗi vui lòng liên hệ quản trị viên để được hỗ trợ!");
                         }
                     }
                 });
@@ -173,14 +182,200 @@
         </script>        
     </head>
     <body>
-        <div style="overflow:scroll; width: 98vw;height: 400px;">             
+        <div style="overflow:scroll; width: 98vw;height: 400px;"> 
+            <div id="divTitle">
+                DANH SÁCH CÁC PHÒNG BAN LIÊN QUAN ĐÃ CHỐT DỮ LIỆU
+            </div>       
+            <table border="1" class="editDelete" align="center" style="width: 50%">               
+                <tr> 
+                    <th class="STT1" rowspan="4">Trạng thái</th>                           
+                    <th colspan="7">Phòng ban</th>  
+                </tr> 
+                <tr> 
+                    <th>TDNN</th>                           
+                    <th>QL&XLNRR</th>      
+                    <th>KHNV</th>    
+                    <th>KT&QLTC</th>      
+                    <th>TCCB</th>      
+                    <th>HTQT</th>      
+                    <th>TĐKT</th>    
+
+                </tr> 
+                <tr>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
+                </tr>
+                <s:iterator value="#attr.lstData" var="modelView" status="rowstatus">
+                    <tr id="tablefix"> 
+                        <td class="D0">
+                            <s:if test="check_Username.equalsIgnoreCase('USRGRP21')">
+                                <s:if test="D1.equalsIgnoreCase('1')"> 
+                                    <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4>
+                                </s:if>
+                                <s:else>
+                                    <a style="text-decoration: underline; color: red" href="#" 
+                                       onclick="cancelAssign('<s:property value="sngaybc"/>', '21', '<s:property value="chotsl"/>')"> Chốt dữ liệu
+                                    </a>
+                                </s:else>
+                            </s:if>
+                            <s:elseif test="check_Username.equalsIgnoreCase('USRGRP49')">
+                                <s:if test="D1.equalsIgnoreCase('1')">
+                                    <a style="text-decoration: underline; color: #0000FF" href="#" 
+                                       onclick="cancelAssign('<s:property value="sngaybc"/>', '211', '<s:property value="chotsl"/>')"> Mở dữ liệu
+                                    </a>
+                                </s:if>
+                                <s:else> Chưa chốt </s:else>
+                            </s:elseif>
+                            <s:else>
+                                <s:if test="D1.equalsIgnoreCase('1')"> <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4></s:if>
+                                <s:else>Chưa chốt</s:else>
+                            </s:else>
+                        </td>
+                        <td class="D0">
+                            <s:if test="check_Username.equalsIgnoreCase('USRGRP23')">
+                                <s:if test="D2.equalsIgnoreCase('1')"> 
+                                    <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4>
+                                </s:if>
+                                <s:else>
+                                    <a style="text-decoration: underline; color: red" href="#" 
+                                       onclick="cancelAssign('<s:property value="sngaybc"/>', '23', '<s:property value="chotsl"/>')"> Chốt dữ liệu
+                                    </a>
+                                </s:else>
+                            </s:if>
+                            <s:elseif test="check_Username.equalsIgnoreCase('USRGRP49')">
+                                <s:if test="D2.equalsIgnoreCase('1')">
+                                    <a style="text-decoration: underline; color: #0000FF" href="#" 
+                                       onclick="cancelAssign('<s:property value="sngaybc"/>', '233', '<s:property value="chotsl"/>')"> Mở dữ liệu
+                                    </a>
+                                </s:if>
+                                <s:else> Chưa chốt </s:else>
+                            </s:elseif>
+                            <s:else>
+                                <s:if test="D2.equalsIgnoreCase('1')"><h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4></s:if>
+                                <s:else>Chưa chốt</s:else>
+                            </s:else>
+                        </td>
+
+                        <td class="D0">
+                            <s:if test="check_Username.equalsIgnoreCase('USRGRP24')">
+                                <s:if test="D3.equalsIgnoreCase('1')">
+                                    <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4>
+                                </s:if>
+                                <s:else>
+                                    <a style="text-decoration: underline; color: red" href="#" 
+                                       onclick="cancelAssign('<s:property value="sngaybc"/>', '24', '<s:property value="chotsl"/>')"> Chốt dữ liệu
+                                    </a>
+                                </s:else>
+                            </s:if>
+                            <s:elseif test="check_Username.equalsIgnoreCase('USRGRP49')">
+                                <s:if test="D3.equalsIgnoreCase('1')">
+                                    <a style="text-decoration: underline; color: #0000FF" href="#" 
+                                       onclick="cancelAssign('<s:property value="sngaybc"/>', '244', '<s:property value="chotsl"/>')"> Mở dữ liệu
+                                    </a>
+                                </s:if>
+                                <s:else> Chưa chốt </s:else>
+                            </s:elseif>
+                            <s:else>
+                                <s:if test="D3.equalsIgnoreCase('1')"><h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4> </s:if>
+                                <s:else>Chưa chốt</s:else>
+                            </s:else>
+                        </td>
+
+                        <td class="D0">
+                            <s:if test="check_Username.equalsIgnoreCase('USRGRP19')">
+                                <s:if test="D4.equalsIgnoreCase('1')">
+                                    <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4>
+                                </s:if>
+                                <s:else>
+                                    <a style="text-decoration: underline; color: red" href="#" 
+                                       onclick="cancelAssign('<s:property value="sngaybc"/>', '19', '<s:property value="chotsl"/>')"> Chốt dữ liệu
+                                    </a>
+                                </s:else>
+                            </s:if>
+                            <s:elseif test="check_Username.equalsIgnoreCase('USRGRP49')">
+                                <s:if test="D4.equalsIgnoreCase('1')">
+                                    <a style="text-decoration: underline; color: #0000FF" href="#" 
+                                       onclick="cancelAssign('<s:property value="sngaybc"/>', '199', '<s:property value="chotsl"/>')"> Mở dữ liệu
+                                    </a>
+                                </s:if>
+                                <s:else> Chưa chốt </s:else>
+                            </s:elseif>
+                            <s:else>
+                                <s:if test="D4.equalsIgnoreCase('1')"> <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4></s:if>
+                                <s:else>Chưa chốt</s:else>
+                            </s:else>
+                        </td>
+
+                        <td class="D0">
+                            <s:if test="check_Username.equalsIgnoreCase('USRGRP15')">
+                                <s:if test="D5.equalsIgnoreCase('1')">
+                                    <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4>
+                                </s:if>
+                                <s:else>
+                                    <a style="text-decoration: underline; color: red" href="#" 
+                                       onclick="cancelAssign('<s:property value="sngaybc"/>', '15', '<s:property value="chotsl"/>')"> Chốt dữ liệu
+                                    </a>
+                                </s:else>
+                            </s:if>
+                            <s:elseif test="check_Username.equalsIgnoreCase('USRGRP49')">
+                                <s:if test="D5.equalsIgnoreCase('1')">
+                                    <a style="text-decoration: underline; color: #0000FF" href="#" 
+                                       onclick="cancelAssign('<s:property value="sngaybc"/>', '155', '<s:property value="chotsl"/>')"> Mở dữ liệu
+                                    </a>
+                                </s:if>
+                                <s:else> Chưa chốt </s:else>
+                            </s:elseif>
+                            <s:else>
+                                <s:if test="D5.equalsIgnoreCase('1')"> <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4></s:if>
+                                <s:else>Chưa chốt</s:else>
+                            </s:else>
+                        </td>
+
+                        <td class="D0">
+                            <s:if test="check_Username.equalsIgnoreCase('USRGRP18')">
+                                <s:if test="D6.equalsIgnoreCase('1')">
+                                    <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4>
+                                </s:if>
+                                <s:else>
+                                    <a style="text-decoration: underline; color: red" href="#" 
+                                       onclick="cancelAssign('<s:property value="sngaybc"/>', '18', '<s:property value="chotsl"/>')"> Chốt dữ liệu
+                                    </a>
+                                </s:else>
+                            </s:if>
+                            <s:elseif test="check_Username.equalsIgnoreCase('USRGRP49')">
+                                <s:if test="D6.equalsIgnoreCase('1')">
+                                    <a style="text-decoration: underline; color: #0000FF" href="#" 
+                                       onclick="cancelAssign('<s:property value="sngaybc"/>', '188', '<s:property value="chotsl"/>')"> Mở dữ liệu
+                                    </a>
+                                </s:if>
+                                <s:else> Chưa chốt </s:else>
+                            </s:elseif>
+                            <s:else>
+                                <s:if test="D6.equalsIgnoreCase('1')"> <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4></s:if>
+                                <s:else>Chưa chốt</s:else>
+                            </s:else>
+                        </td>
+
+                        <td class="D0"><s:if test="check_Username.equalsIgnoreCase('USRGRP49')">
+                                <a style="color: red" href="#" onclick="cancelAssign('<s:property value="sngaybc"/>', '49', '<s:property value="chotsl"/>')">
+                                    <s:if test="chotsl.equalsIgnoreCase('0')"><u>Khóa nhập dữ liệu</u></s:if>
+                                    <s:else><u>Mở nhập dữ liệu</u></s:else></a>
+                                    </s:if>
+                                    <s:else>
+                                        <s:if test="chotsl.equalsIgnoreCase('1')"> <h4 style="color: #3dc21b; margin: auto" >Đã khóa</h4></s:if>
+                                <s:else>Chưa khóa</s:else>
+                                    </s:else></td>
+                        </tr>
+                </s:iterator>
+            </table>
+            <br>
             <div id="divTitle">
                 BIỂU TỔNG HỢP MỘT SỐ CHỈ TIÊU ĐÁNH GIÁ HOẠT ĐỘNG CỦA CÁC CHI NHÁNH NHCSXH<br>
-                <s:if test="check_Username.equalsIgnoreCase('USRGRP49')">
-                    <a style="color: red" href="#" onclick="cancelAssign('<s:property value="sngaybc"/>', '<s:property value="chotsl"/>')">
-                        <s:if test="chotsl.equalsIgnoreCase('0')">Nhấn vào đây để: <u>Khóa nhập dữ liệu</u></s:if>
-                        <s:else>Nhấn vào đây để: <u>Mở nhập dữ liệu</u></s:else></a>
-                        </s:if>
                 <input type="hidden" value="<s:property value="sngaybc"/>" name="sngaybc" id="sngaybc"/> 
                 <input type="hidden" value="<s:property value="chotsl"/>" name="chotsl" id="chotsl"/> 
             </div>
@@ -278,43 +473,43 @@
                         </td>
                         <td><s:property  value="TEN"/></td>
                         <td><input type="text" value="<s:property  value="D1" />"
-                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP23')">readonly="true"</s:if>
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP23')|| check_D2.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D35.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="number"/></td>
                         <td><input type="text" value="<s:property  value="D2" />" 
-                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP24')">readonly="true"</s:if>
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP24') || check_D3.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D36.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D3" />" 
-                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP24')">readonly="true"</s:if>
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP24') || check_D3.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D37.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D4" />" 
-                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP24')">readonly="true"</s:if>
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP24') || check_D3.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D38.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D5" />" 
-                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP23')">readonly="true"</s:if>
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP23') || check_D2.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D39.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D6" />" 
-                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP23')">readonly="true"</s:if>
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP23')|| check_D2.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D40.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D7" />" 
-                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP23')">readonly="true"</s:if>
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP23') || check_D2.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D41.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D8" />" 
-                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP21')">readonly="true"</s:if>
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP21') || check_D1.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D42.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D9" />" 
-                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP21')">readonly="true"</s:if>
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP21') || check_D1.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D43.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D10" />" 
-                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP15')">readonly="true"</s:if>
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP15') || check_D5.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D44.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="number"/></td>
                         <td><input type="text" value="<s:property  value="D11" />" 
@@ -332,7 +527,7 @@
                                    <s:if test="!D48.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14" class="number"/></td>
                         <td><input type="text" value="<s:property  value="D15" />" 
-                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP18')">readonly="true"</s:if>
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP18') || check_D6.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D49.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15" class="number"/></td>
                         <td><input type="text" value="<s:property  value="D16" />" 

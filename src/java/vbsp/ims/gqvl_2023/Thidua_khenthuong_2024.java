@@ -31,7 +31,6 @@ import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.ListMainPos;
 import vbsp.ims.restapi.ListPosCode;
 import vbsp.ims.restapi.LockSendModel;
-import vbsp.ims.util.DateUtil;
 
 /**
  *
@@ -55,7 +54,61 @@ public class Thidua_khenthuong_2024 extends ActionNhaptaycnMain
     private String message;
     private String check_Username;
     private String sngaybc;
+    private String check_D1;
+    private String check_D2;
+    private String check_D3;
+    private String check_D4;
+    private String check_D5;
+    private String check_D6;
 //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public String getCheck_D1() {
+        return check_D1;
+    }
+
+    public void setCheck_D1(String check_D1) {
+        this.check_D1 = check_D1;
+    }
+
+    public String getCheck_D2() {
+        return check_D2;
+    }
+
+    public void setCheck_D2(String check_D2) {
+        this.check_D2 = check_D2;
+    }
+
+    public String getCheck_D3() {
+        return check_D3;
+    }
+
+    public void setCheck_D3(String check_D3) {
+        this.check_D3 = check_D3;
+    }
+
+    public String getCheck_D4() {
+        return check_D4;
+    }
+
+    public void setCheck_D4(String check_D4) {
+        this.check_D4 = check_D4;
+    }
+
+    public String getCheck_D5() {
+        return check_D5;
+    }
+
+    public void setCheck_D5(String check_D5) {
+        this.check_D5 = check_D5;
+    }
+
+    public String getCheck_D6() {
+        return check_D6;
+    }
+
+    public void setCheck_D6(String check_D6) {
+        this.check_D6 = check_D6;
+    }
 
     public List<DULIEU_NT_TQ> getLstData50() {
         return lstData50;
@@ -205,12 +258,28 @@ public class Thidua_khenthuong_2024 extends ActionNhaptaycnMain
                 setChotsl("0");
             }
             if (lstData_tmp == null || lstData_tmp.isEmpty()) {
-                int createChot = _serverAPI.updateChotSL("TDKT_02", "000100", "H", _reportDate, "0", "ANHLD", null);
+                _serverAPI.updateChotSL("TDKT_02", "000100", "H", _reportDate, "0", "ANHLD", null);
             }
             ActionContext.getContext().getSession().put("check_Username", check_Username);
-            if (Arrays.asList("USRGRP08", "USRGRP49", "USRGRP23", "USRGRP24", "USRGRP15", "USRGRP18", "USRGRP19").contains(check_Username)) {
+            if (Arrays.asList("USRGRP49", "USRGRP23", "USRGRP24", "USRGRP15", "USRGRP18", "USRGRP19").contains(check_Username)) {
+                lstData = daoMain.getTDKT_2024(conn, dateStr, "AAA1", "000100");
+                try {
+                    setCheck_D1(lstData.get(0).getD1());
+                    setCheck_D2(lstData.get(0).getD2());
+                    setCheck_D3(lstData.get(0).getD3());
+                    setCheck_D4(lstData.get(0).getD4());
+                    setCheck_D5(lstData.get(0).getD5());
+                    setCheck_D6(lstData.get(0).getD6());
+                } catch (Exception e) {
+                    setCheck_D1("0");
+                    setCheck_D2("0");
+                    setCheck_D3("0");
+                    setCheck_D4("0");
+                    setCheck_D5("0");
+                    setCheck_D6("0");
 
-                lstDulieuNt = daoMain.getTDKT_2024(conn, dateStr, "TDKT_02", "000100");
+                }
+                lstDulieuNt = daoMain.getTDKT_2024(conn, dateStr, "AAA", "000100");
 
             } else {
                 addActionError("User không có quyền sử dụng chương trình");
@@ -368,8 +437,9 @@ public class Thidua_khenthuong_2024 extends ActionNhaptaycnMain
     public String lock() {
         try {
             String D1 = ServletActionContext.getRequest().getParameter("ssngaybc");
+            String stype = ServletActionContext.getRequest().getParameter("stype");
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
-            GenericResult<String> _result = daoMain.lock_TDKT_2024("TDKT_02", "000100", "H", D1);
+            GenericResult<String> _result = daoMain.lock_TDKT_2024(stype, "000100", "H", D1);
 
             if (_result.isIsSuccess()) {
                 status = "1";

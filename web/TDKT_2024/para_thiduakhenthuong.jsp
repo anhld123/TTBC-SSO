@@ -491,7 +491,7 @@
             <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
                 <img id="loadingImage" src='img/loading.gif' border='0' >                  
             </div>   
-            <div id="message_suc_err"></div>
+                <div id="message_suc_err" style="height: 10px"></div>
             <s:if test="khoa_nhaptaycn.equalsIgnoreCase('TDKT_01')">
                 <div id="containParm_full" align="center">
                     <div id="divExportReport"></div>

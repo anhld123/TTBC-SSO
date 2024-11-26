@@ -261,10 +261,10 @@ public class KTKSNB_00 extends ActionChtrinhcnMain
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
-            if (pos_cd_username.equals(main_pos_username)) {
-                addActionError("Chú ý: Hội sở tỉnh không nhập tại cấp (1) PGD!");
-                return ERROR;
-            }
+//            if (pos_cd_username.equals(main_pos_username)) {
+//                addActionError("Chú ý: Hội sở tỉnh không nhập tại cấp (1) PGD!");
+//                return ERROR;
+//            }
             String dateStr = hmParameter.get("ngay_bc").toString();
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("CB_KTKSNB", pos_cd_username, "S", _reportDate);
