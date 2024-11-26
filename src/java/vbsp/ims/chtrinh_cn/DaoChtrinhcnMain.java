@@ -9787,6 +9787,7 @@ public class DaoChtrinhcnMain {
                     value.setD8(reset.getString("D8"));
                     value.setD9(reset.getString("D9"));
                     value.setD10(reset.getString("D10"));
+                    value.setD11(reset.getString("D11"));
                     lstBcqt_NT.add(value);
                 }
 

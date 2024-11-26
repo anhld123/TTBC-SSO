@@ -164,9 +164,12 @@
                             <s:else><s:property  value="D3" /></s:else>
                             </td>
                             <td class="D0">
-                            <s:if test="D7.equalsIgnoreCase('1')">
+                            <s:if test="D7.equalsIgnoreCase('1') && D11.toString().equalsIgnoreCase('0')">
                                 <a style="text-decoration: underline"  href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', 3, '<s:property value="D10"/>');">Thêm thời gian nhập</a>
                             </s:if>
+                            <s:elseif test="D7.equalsIgnoreCase('1') && D11.toString().equalsIgnoreCase('1')">
+                                <a style="text-decoration: underline"  href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', 4, '<s:property value="D10"/>');">Cập nhật ngày hiện tại</a>
+                            </s:elseif>
                             <s:else></s:else>
                             </td>
                         </tr>
@@ -194,7 +197,11 @@
                         if (status === 1) {
                             if (D7.toString() === "3") {
                                 alert('Thêm thời gian nhập cho ngày ' + D5 + ' thành công, thời hạn nhập đến 00h ngày hiện tại!');
-                            } else {
+                            }
+                            else if (D7.toString() === "4") {
+                                alert('Cập nhật ngày hiện tại thành công!');
+                            }
+                            else {
                                 alert('Mở phê duyệt thành công!');
                             }
                             onLoadData();

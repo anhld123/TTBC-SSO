@@ -413,7 +413,7 @@
                     var isValid = true;
                     var chot = document.getElementById("chotsl").value;
 //                    var chot_tw = document.getElementById("chotsl_tw").value;
-                    if (snambc.toString() < currentYear.toString())
+                    if (snambc.toString() !== currentYear.toString())
                     {
                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
                         return;

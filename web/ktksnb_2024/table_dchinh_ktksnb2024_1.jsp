@@ -499,13 +499,13 @@
             var sparts = stoday.split('/');
             var currentYear = sparts[2];
             var currentMonth = sparts[1];
-            if (snambc.toString() < currentYear.toString()) {
+            if (snambc.toString() !== currentYear.toString()) {
                 alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear);
-                tai_lai_trang();
+                return;
             }
             if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
                 alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + currentMonth);
-                tai_lai_trang();
+                return;
             }
             var selectedText = cboCanBo.options[cboCanBo.selectedIndex].text;
             url = "status_KTKSNB_02_C1.action?" + "chotsl" + chotsl + "&madiemgd=" + mapgd + "&smaxa=" + D3 + "&sCanbo=" + D4 + "&sThang=" + monthSelect + "&sNam=" + nambc + "&skhoa=" + skhoa + "&ssThang=" + D5 + "&type=" + type,
