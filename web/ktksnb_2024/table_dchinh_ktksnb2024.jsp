@@ -132,7 +132,7 @@
                     <th class="STT2" >STT</th>                           
                     <th >Kế hoạch đăng ký & điều chỉnh</th>  
                     <th class="STT2" >Ghi chú</th> 
-                    <th class="STT2" >Trạng thái</th>  
+                    <th class="STT3" >Trạng thái</th>  
                 </tr>
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
@@ -152,7 +152,13 @@
                             <s:else>Điều chỉnh</s:else>
                             </td>
                             <td class="D0">
-                            <s:if test="KHOA.equalsIgnoreCase('KH_HUYEN')|| KHOA.equalsIgnoreCase('KH_TINH')"></s:if>
+                            <s:if test="KHOA.equalsIgnoreCase('KH_HUYEN')|| KHOA.equalsIgnoreCase('KH_TINH')">
+                                <a id="linkaa" style="text-decoration: underline" href="#" 
+                                   onclick="cancelAssignList('<s:property value="KHOA"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', '<s:property value="MAPGD"/>', '<s:property value="D7"/>', '<s:property value="D9"/>', '<s:property value="chotsl"/>', '2')">
+                                    <s:if test="D10.equalsIgnoreCase('1')">Thực hiện</s:if>
+                                    <s:else>Không thực hiện</s:else>
+                                    </a>
+                            </s:if>
                             <s:else>
                                 <a id="deletePlanLink" style="text-decoration: underline" href="#" 
                                    onclick="cancelAssignList('<s:property value="KHOA"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', '<s:property value="MAPGD"/>', '<s:property value="D7"/>', '<s:property value="D9"/>', '<s:property value="chotsl"/>', '1')">
@@ -189,7 +195,12 @@
                     data: sdata,
                     success: function (data) {
                         if (data === "200") {
-                            alert("Xóa điều chỉnh  thành công!");
+                            if (type === "1")
+                            {
+                                alert("Xóa điều chỉnh thành công!");
+                            } else {
+                                alert("Thao tác thành công!");
+                            }
                         } else if (data === "100") {
                             alert("Lỗi: Đơn vị đã gửi dữ liệu không thể thao tác!");
                         } else {

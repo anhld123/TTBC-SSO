@@ -228,7 +228,7 @@
                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
                         return;
                     }
-                     if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
+                    if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
                         window.alert(snambc + " " + currentYear + " " + sthangbc + " " + currentMonth);
                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng " + currentMonth + "</h>");
                         return;
@@ -413,16 +413,16 @@
                     var isValid = true;
                     var chot = document.getElementById("chotsl").value;
 //                    var chot_tw = document.getElementById("chotsl_tw").value;
-                    if (snambc.toString() !== currentYear.toString())
-                    {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
-                        return;
-                    }
-                    if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
-//                        window.alert(snambc + " " + currentYear + " " + sthangbc + " " + currentMonth);
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng " + currentMonth + "</h>");
-                        return;
-                    }
+//                    if (snambc.toString() !== currentYear.toString())
+//                    {
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
+//                        return;
+//                    }
+//                    if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
+////                        window.alert(snambc + " " + currentYear + " " + sthangbc + " " + currentMonth);
+//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng " + currentMonth + "</h>");
+//                        return;
+//                    }
                     if (chot === "2") {
                         alert("Chi nhánh đã chốt dữ liệu lên Tw!");
                         isValid = false; // Không cho phép lưu dữ liệu
@@ -604,13 +604,13 @@
         <script>
             const yearSelect = document.getElementById("yearSelect");
             const currentYear = new Date().getFullYear();
-            const pastYears = 5;   // Lấy 10 năm trước
-            const futureYears = 5; // Tiến thêm 10 năm
+            const startYear = 2025; // Năm bắt đầu
+            const yearsToShow = 10; // Số năm cần hiển thị
 
-            // Lặp từ 10 năm trước đến 10 năm sau
-            for (let i = -pastYears; i <= futureYears; i++) {
+            // Lặp từ năm bắt đầu đến số năm muốn hiển thị
+            for (let i = 0; i < yearsToShow; i++) {
                 let option = document.createElement("option");
-                let year = currentYear + i;
+                let year = startYear + i; // Tính toán năm
                 option.value = year;
                 option.text = year;
 

@@ -369,7 +369,7 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
                     sMapgd = values[0];  // giá trị posCode
                     sTenpgd = values[1];   // giá trị posName
                 }
-                ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("KH_TINH", sMapgd, "S", _reportDate1);
+                ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("KH_TINH", main_pos_username, "S", _reportDate1);
                 try {
                     setChotsl(lstData_tmp.get(0).getStatus());
                 } catch (Exception e) {
@@ -574,6 +574,7 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
                 tempadd.setD3(tmp.getD3());
                 tempadd.setD4(tmp.getD4());
                 tempadd.setD5(tmp.getD5());
+                tempadd.setD7("1");
                 tempadd.setManualFlag(tmp.getNHAPTAY());
                 tempadd.setStyle(tmp.getKIEUIN());
                 lstUpdateDate.add(tempadd);
@@ -582,7 +583,6 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
             _serverAPI = new DuLieuNTService();
             int status = _serverAPI.updateKTKSNB(skhoa, smapgd, "S", _reportDate, "", "", lstUpdateDate);
             if (status == 200) {
-                _serverAPI.updateChotSL(skhoa, smapgd, "S", _reportDate2, "0", UserName, null);
                 String code = String.valueOf(status);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
                 return SUCCESS;
@@ -620,11 +620,12 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
                 smapgd = pos_cd_username;
             } else {
                 skhoa = "KH_TINH";
-                String ssMapgd = hmParameter.get("lstPGD").toString();
-                String[] values = ssMapgd.split("\\|");
-                smapgd = values[0];  // giá trị posCode
+//                String ssMapgd = hmParameter.get("lstPGD").toString();
+//                String[] values = ssMapgd.split("\\|");
+//                smapgd = values[0];  // giá trị posCode
+                smapgd = main_pos_username;
             }
-            int status = _serverAPI.updateChotSL(skhoa, smapgd, "S", _reportDate2, "2", UserName, null);
+            int status = _serverAPI.updateChotSL(skhoa, smapgd, "S", _reportDate2, Grade, UserName, null);
 
             if (status != 200) {
                 String code = String.valueOf(status);

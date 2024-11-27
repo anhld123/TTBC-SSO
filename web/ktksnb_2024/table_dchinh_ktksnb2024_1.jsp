@@ -421,7 +421,7 @@
                                 <input type="text" value="<s:property  value="D2" />"
                                    id="D2_<s:property  value='%{#rowstatus.index}' />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number" readonly
-                                   <s:if test="KIEUIN.toString().equalsIgnoreCase('1') && (THUTU.toString().equalsIgnoreCase('1')
+                                   <s:if test="(THUTU.toString().equalsIgnoreCase('1')
                                          || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
                                          || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold" </s:if>/>
                             </td>
@@ -429,7 +429,7 @@
                                 <input type="text"
                                        id="D6_<s:property value='%{#rowstatus.index}' />"
                                 name="lstDulieuNt[<s:property value='%{#rowstatus.index}' />].D6" class="number"
-                                <s:if test="KIEUIN.toString().equalsIgnoreCase('1') && (THUTU.toString().equalsIgnoreCase('1')
+                                <s:if test="(THUTU.toString().equalsIgnoreCase('1')
                                       || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
                                       || THUTU.toString().equalsIgnoreCase('17'))"> 
                                     style="font-weight: bold" readonly
@@ -561,14 +561,14 @@
                 var currentMonth = sparts[1];
                 var isValid = true;
                 var chot = document.getElementById("chotsl").value;
-                if (snambc.toString() < currentYear.toString()) {
-                    alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear);
-                    isValid = false;
-                }
-                if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
-                    alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + currentMonth);
-                    isValid = false;
-                }
+//                if (snambc.toString() < currentYear.toString()) {
+//                    alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear);
+//                    isValid = false;
+//                }
+//                if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
+//                    alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + currentMonth);
+//                    isValid = false;
+//                }
                 if (chot === "2") {
                     alert("Chi nhánh đã chốt dữ liệu lên Tw!");
                     isValid = false;

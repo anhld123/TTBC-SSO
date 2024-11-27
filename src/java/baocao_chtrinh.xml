@@ -39,6 +39,7 @@
         <action name="KTKSNB_00" class="vbsp.ims.ktksnb2024.KTKSNB_00"  method="load">
             <result name="success_1">/ktksnb_2024/table_canbo_ktksnb.jsp</result>
             <result name="success_2">/ktksnb_2024/table_canbo_ktksnb.jsp</result>
+            <result name="success_3">/ktksnb_2024/table_canbo_ktksnb.jsp</result>
             <!--<result name="success_3">/ktksnb_2024/table_dky_ktksnb2024_3.jsp</result>-->                                                            
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>

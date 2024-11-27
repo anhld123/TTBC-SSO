@@ -246,7 +246,7 @@ public class KTKSNB_00 extends ActionChtrinhcnMain
             case "2":
                 return load_c2();
             default:
-                return null;
+                return load_c3();
         }
     }
 
@@ -368,7 +368,40 @@ public class KTKSNB_00 extends ActionChtrinhcnMain
         }
         return "success_2";
     }
+    
+     public String load_c3() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
 
+            HashMap<String, Object> hmParameter = getParameter();
+            Connection conn = new DaoConnect().getConnect();
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd_username = posMainModel.getPosCd();
+            main_pos_username = posMainModel.getMainPosCd();
+//            if (pos_cd_username.equals(main_pos_username)) {
+//                addActionError("Chú ý: Hội sở tỉnh không nhập tại cấp (1) PGD!");
+//                return ERROR;
+//            }
+            String dateStr = hmParameter.get("ngay_bc").toString();
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
+            ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("CB_KTKSNB", pos_cd_username, "S", _reportDate);
+            try {
+                setChotsl(lstData_tmp.get(0).getStatus());
+            } catch (Exception e) {
+                setChotsl("0");
+            }
+            DaoChtrinhcnMain daoMain = new DaoChtrinhcnMain();
+            lstDulieuNt = daoMain.getCanbo_Ktksnb(conn, "AAA2", dateStr, UserName, pos_cd_username, Grade);
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> ktksnb2024: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> ktksnb2024: " + e.getMessage());
+        }
+
+        return "success_3";
+    }
+     
     public String save() {
         System.out.println("vao váe");
         try {

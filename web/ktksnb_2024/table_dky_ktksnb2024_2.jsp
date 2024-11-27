@@ -46,7 +46,7 @@
         top: 0;
         z-index: 10;
     }
-@-webkit-keyframes my {
+    @-webkit-keyframes my {
         0% { color: red; } 
         50% { color: #fff;  } 
         100% { color: red;  } 
@@ -122,7 +122,7 @@
             <s:if test="txtGetData.equalsIgnoreCase('1')">
                 <div id="divTitle">
                     ĐĂNG KÝ KẾ HOẠCH TỈNH<br>
-                <s:if test="chotsl.equalsIgnoreCase('2')" ><a class="color_11">(Chi nhánh đã chốt số liệu)</a></s:if>
+                    <s:if test="chotsl.equalsIgnoreCase('2')" ><a class="color_11">(Chi nhánh đã chốt số liệu)</a></s:if>
                     <input type="hidden" value="<s:property value="chotsl"/>" name="chotsl" id="chotsl"/> 
                     <input type="hidden" value="<s:property value="chotsl_tw"/>" name="chotsl_tw" id="chotsl_tw"/> 
                 </div>
@@ -167,14 +167,20 @@
                         <input type="hidden" value="<s:property  value="KIEUIN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KIEUIN"/>
                         <input type="hidden" value="<s:property  value="NHAPTAY" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY"/>
 
-                        <td class="D0" <s:if test="KIEUIN.toString().equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
-                        <td <s:if test="KIEUIN.toString().equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
-                        <td class="D0" <s:if test="KIEUIN.toString().equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
+                        <td class="D0" <s:if test="(THUTU.toString().equalsIgnoreCase('1')
+                              || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
+                              || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
+                        <td <s:if test="(THUTU.toString().equalsIgnoreCase('1')
+                              || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
+                              || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
+                        <td class="D0" <s:if test="(THUTU.toString().equalsIgnoreCase('1')
+                              || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
+                              || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
                             <td style="background:  #E5E5E5">
                                 <input type="text" value="<s:property  value="D2" />"
                                    id="D2_<s:property  value='%{#rowstatus.index}' />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number"
-                                   <s:if test="KIEUIN.toString().equalsIgnoreCase('1') && (THUTU.toString().equalsIgnoreCase('1')
+                                   <s:if test="(THUTU.toString().equalsIgnoreCase('1')
                                          || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
                                          || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold" readonly</s:if>/>
                             </td>

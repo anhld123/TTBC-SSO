@@ -143,16 +143,22 @@
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr id="tablefix" > 
                         <td class="D0" ><s:property value="%{#rowstatus.index + 1}" /></td>
-                        <td><a style="text-decoration: underline; color: #3dc21b" 
-                               href="javascript:funcTableFile('<s:property value="KHOA"/>','<s:property value="D4"/>', '<s:property value="D5"/>','<s:property value="D6"/>','<s:property value="MAPGD"/>-<s:property value="MACN"/>','<s:property value="D7"/>','<s:property value="D9"/>','<s:property value="chotsl"/>', '1')">
-                                <s:property value="D1"/><s:property value="D2"/><s:property value="D3"/></a>
+                        <td> <s:if test="!D10.equalsIgnoreCase('1')"><s:property value="D1"/><s:property value="D2"/><s:property value="D3"/></s:if>
+                            <s:else>
+                                <a style="text-decoration: underline; color: #3dc21b" 
+                                   href="javascript:funcTableFile('<s:property value="KHOA"/>','<s:property value="D4"/>', '<s:property value="D5"/>','<s:property value="D6"/>','<s:property value="MAPGD"/>-<s:property value="MACN"/>','<s:property value="D7"/>','<s:property value="D9"/>','<s:property value="chotsl"/>', '1')">
+                                    <s:property value="D1"/><s:property value="D2"/><s:property value="D3"/></a>
+                                </s:else>
                         </td>
                         <td class="D0">
+                        <s:if test="!D10.equalsIgnoreCase('1')">Không thực hiện</s:if>
+                        <s:else>
                             <s:if test="KHOA.equalsIgnoreCase('KH_HUYEN') || KHOA.equalsIgnoreCase('KH_TINH')">Kế hoạch gốc</s:if>
                             <s:elseif test="KHOA.equalsIgnoreCase('KH_HUYEN_DC') || KHOA.equalsIgnoreCase('KH_TINH_DC')">Điều chỉnh</s:elseif>
                             <s:else>Thực hiện</s:else>
+                            </s:else>
                             </td>
-                    </tr>
+                        </tr>
                 </s:iterator>
             </table><div style="height:20px"></div> 
         </div>

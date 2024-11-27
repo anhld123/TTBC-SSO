@@ -458,6 +458,7 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
             row.setD7(sNam);
             row.setD8(_reportDate);
             row.setD9(Grade);
+            row.setD10(item.getD7());
             row.setNHAPTAY(item.getManualFlag());
             row.setKIEUIN(item.getStyle());
 
@@ -541,12 +542,14 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
                         if (lstDataApi1 != null) {
                             for (DuLieuNTRow api1Item : lstDataApi1) {
                                 String d3d4Key = api1Item.getD3() + "|" + api1Item.getD4();
-                                if (!d3d4SetApi3.contains(d3d4Key) && !d3d4SetApi2.contains(d3d4Key)) {
+                                if (!d3d4SetApi2.contains(d3d4Key) && !d3d4SetApi3.contains(d3d4Key)) {
+
                                     QT_DULIEU_NT row = cvQT_DULIEU_NT(api1Item, item.getPosCode(), main_pos_username, sThangkt, sNam, _reportDate1, Grade);
                                     lstDulieuNt.add(row);
                                 }
                             }
                         }
+
                         if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                             addActionError("Chưa có dữ liệu kiểm tra!");
                             return ERROR;
@@ -701,6 +704,7 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
                 tempadd.setD4(tmp.getD4());
                 tempadd.setD5(tmp.getD5());
                 tempadd.setD6(tmp.getD6());
+                tempadd.setD7(tmp.getD7());
                 tempadd.setManualFlag(tmp.getNHAPTAY());
                 tempadd.setStyle(tmp.getKIEUIN());
                 lstUpdateDate.add(tempadd);
@@ -885,8 +889,8 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
             String dc_thang = ServletActionContext.getRequest().getParameter("dc_thang");
             String dc_bank = ServletActionContext.getRequest().getParameter("dc_mapgd");
             String[] values = dc_bank.split("\\-");
-            String dc_mapgd =values[0];
-            String dc_macn=values[1];
+            String dc_mapgd = values[0];
+            String dc_macn = values[1];
             String dc_nam = ServletActionContext.getRequest().getParameter("dc_nam");
             String dc_cap = ServletActionContext.getRequest().getParameter("dc_cap");
             String dc_chot = ServletActionContext.getRequest().getParameter("dc_chot");
