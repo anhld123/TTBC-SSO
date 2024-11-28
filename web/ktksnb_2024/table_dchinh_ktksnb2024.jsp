@@ -145,9 +145,12 @@
                         <td class="D0" ><s:property value="%{#rowstatus.index + 1}" /></td>
                         <td><a style="text-decoration: underline; color: #3dc21b" 
                                href="javascript:funcTableFile('<s:property value="KHOA"/>','<s:property value="D4"/>', '<s:property value="D5"/>','<s:property value="D6"/>','<s:property value="MAPGD"/>-<s:property value="MACN"/>','<s:property value="D7"/>','<s:property value="D9"/>','<s:property value="chotsl"/>', '1')">
-                                <s:property value="D1"/><s:property value="D2"/><s:property value="D3"/></a> 
-                        </td>
-                        <td class="D0">
+                                <s:if test="Grade.equalsIgnoreCase('1')">
+                                    <s:property value="D1"/><s:property value="D2"/><s:property value="D3"/>
+                                </s:if>
+                                <s:else><s:property value="D1"/><s:property value="D2"/></s:else></a> 
+                            </td>
+                            <td class="D0">
                             <s:if test="KHOA.equalsIgnoreCase('KH_HUYEN') || KHOA.equalsIgnoreCase('KH_TINH')">Kế hoạch gốc</s:if>
                             <s:else>Điều chỉnh</s:else>
                             </td>

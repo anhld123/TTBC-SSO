@@ -167,9 +167,9 @@
                         <s:if test="Grade.equalsIgnoreCase('1')">
                         <th class="STT2" >Cờ cán bộ chuyên trách</th>
                         </s:if>
-                       <%-- <s:else>
-                        <th class="STT2" >PGD trực thuộc</th>
-                        </s:else>--%>
+                        <s:elseif test="Grade.equalsIgnoreCase('3')">
+                        <th class="STT2" >Đơn vị</th>
+                        </s:elseif>
                 </tr>
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
@@ -185,9 +185,9 @@
                         <s:if test="Grade.equalsIgnoreCase('1')">
                         <th><input type="checkbox" id ="select-all1"/></th>
                         </s:if>
-                        <%--<s:else>
+                        <s:elseif test="Grade.equalsIgnoreCase('3')">
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
-                        </s:else>--%>
+                        </s:elseif>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr id="tablefix"> 
@@ -250,11 +250,10 @@
                                    name="lstDulieuNt[<s:property value='%{#rowstatus.index}' />].D14"/> 
                         </td>
                     </s:else>
-                    <%--<s:if test="%{#rowstatus.index == 0 || lstDulieuNt[#rowstatus.index].D17 != lstDulieuNt[#rowstatus.index - 1].D17}">
-                        <td class="D0" style="font-weight: bold"><s:property value='D17' />
+                    <s:if test="Grade.equalsIgnoreCase('3')">
+                        <td class="D0"><s:property value='D17' />
                         </td>
                     </s:if>
-                    <s:else><td></td></s:else>--%>
                         </tr>
                 </s:iterator>
             </table><div style="height:20px"></div> 
