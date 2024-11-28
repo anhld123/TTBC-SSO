@@ -331,7 +331,7 @@
 
                             </div>
                             <s:if test="!D4.equalsIgnoreCase('99999') && #rowStatus.first">
-                                <div style="color: red; background: yellow; text-align: left; font-weight: bold; width: 98%; font-size: 13px; 
+                                <div style="color: red; background: yellow; text-align: left; font-weight: bold; width: 99%; font-size: 13px; 
                                      display: flex; margin: auto;">
                                     Đổi cán bộ nếu thay đổi về nhân sự &nbsp;
                                     <select id="cboCanBo" name="cboCanBo" onchange="updateCb()">
@@ -499,15 +499,15 @@
             var sparts = stoday.split('/');
             var currentYear = sparts[2];
             var currentMonth = sparts[1];
-            if (snambc.toString() !== currentYear.toString()) {
-                alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear);
-                return;
-            }
-            if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
-                alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + currentMonth);
-                return;
-            }
-            var selectedText = cboCanBo.options[cboCanBo.selectedIndex].text;
+//            if (snambc.toString() !== currentYear.toString()) {
+//                alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear);
+//                return;
+//            }
+//            if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
+//                alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + currentMonth);
+//                return;
+//            }
+//            
             url = "status_KTKSNB_02_C1.action?" + "chotsl" + chotsl + "&madiemgd=" + mapgd + "&smaxa=" + D3 + "&sCanbo=" + D4 + "&sThang=" + monthSelect + "&sNam=" + nambc + "&skhoa=" + skhoa + "&ssThang=" + D5 + "&type=" + type,
                     sdata = jQuery("#frmdata").serialize();
             $("#viewData").html('<img src="img/loading.gif"/>');
@@ -520,10 +520,9 @@
                         if (type === "2") {
                             alert("Điều chỉnh tháng kiểm tra từ tháng " + D5 + " sang tháng " + monthSelect + " thành công!");
                         } else if (type === "3") {
-                            alert("Điều chỉnh sang cán bộ " + selectedText + " thành công!");
+                            alert("Điều chỉnh sang cán bộ " + cboCanBo.options[cboCanBo.selectedIndex].text + " thành công!");
                         } else {
                             alert("Xóa điều chỉnh tháng " + D5 + " thành công!");
-
                         }
                         idEnd();
                     } else if (data === "1") {
