@@ -169,7 +169,7 @@
         <script>
             function funcTableFile(dc_khoa, dc_maxa, dc_macb, dc_thang, dc_mapgd, dc_nam, dc_cap, dc_chot, type) {
                 var screenWidth = screen.width, screenHeight = screen.height;
-                var w = screenWidth / 2;
+                var w = screenWidth / 1.5;
                 var h = screen.height;
                 var left = (screenWidth - w) / 2;
                 var top = (screenHeight - h) / 2;

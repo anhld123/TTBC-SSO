@@ -791,18 +791,23 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
             String sNam = sNgaybc.substring(sNgaybc.length() - 4);
             String ssKhoa;
             String ssCanbo22 = "";
-            if (!stype.equals("3")) {
+            String ssDieuchinh = "";
+            if (stype.equals("1") || stype.equals("2")) {
                 ssThang = ServletActionContext.getRequest().getParameter("ssThang");
                 ssKhoa = ServletActionContext.getRequest().getParameter("skhoa");
             } else {
                 String ssKhoa22 = ServletActionContext.getRequest().getParameter("skhoa");
-                System.out.println("ssKhoa22= " + ssKhoa22);
+//                System.out.println("ssKhoa22= " + ssKhoa22);
                 String[] values = ssKhoa22.split("\\-");
                 ssKhoa = values[0];
                 ssThang = values[1];
-                ssCanbo22 = ServletActionContext.getRequest().getParameter("ssThang");
+                if (stype.equals("3")) {
+                    ssCanbo22 = ServletActionContext.getRequest().getParameter("ssThang");
+                } else {
+                    ssDieuchinh = ServletActionContext.getRequest().getParameter("ssThang");
+                }
             }
-            System.out.println("ssKhoa= " + ssKhoa + " ssThang= " + ssThang + " ssCanbo22= " + ssCanbo22);
+//            System.out.println("ssKhoa= " + ssKhoa + " ssThang= " + ssThang + " ssCanbo22= " + ssCanbo22);
             String schotsl = ServletActionContext.getRequest().getParameter("chotsl");
             String conditions = "D3=" + smaxa + "|D4=" + sCanbo + "|D5=" + sThang + "|";
 //            System.out.println("ssKhoa " + ssKhoa + " zzz: " + conditions);
@@ -953,6 +958,7 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
                         this.pageResult = new ByteArrayInputStream(String.valueOf(status).getBytes(StandardCharsets.UTF_8));
                         return SUCCESS;
                     case "3":
+                    case "4":
                         ArrayList<DuLieuNTRowX> lstUpdateDate = new ArrayList<>();
                         for (QT_DULIEU_NT tmp : lstDulieuNt) {
                             DuLieuNTRowX tempUpdate = new DuLieuNTRowX();
@@ -972,8 +978,16 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
                             tempUpdate.setBranchCode(tmp.getMACN());
                             tempUpdate.setD1(tmp.getD1());
                             tempUpdate.setD2(tmp.getD2());
-                            tempUpdate.setD3(tmp.getD3());
-                            tempUpdate.setD4(ssCanbo22);
+                            if (!stype.equals("3")) {
+                                tempUpdate.setD3(ssDieuchinh);
+                            } else {
+                                tempUpdate.setD3(tmp.getD3());
+                            }
+                            if (stype.equals("3")) {
+                                tempUpdate.setD4(ssCanbo22);
+                            } else {
+                                tempUpdate.setD4(tmp.getD4());
+                            }
                             tempUpdate.setD5(sThang);
                             tempUpdate.setD6(tmp.getD6());
                             tempUpdate.setManualFlag(tmp.getNHAPTAY());
@@ -982,6 +996,65 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
                         }
                         _serverAPI = new DuLieuNTService();
                         status = _serverAPI.updateKTKSNB(ssKhoa, sMaPgd, "S", _reportDate3, "", "", lstUpdateDate);
+                        this.pageResult = new ByteArrayInputStream(String.valueOf(status).getBytes(StandardCharsets.UTF_8));
+                        return SUCCESS;
+                    case "5":
+                        ArrayList<DuLieuNTRowX> lstUpdateDate1 = new ArrayList<>();
+                        ArrayList<DuLieuNTRowX> lstDelete1 = new ArrayList<>();
+                        for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                            DuLieuNTRowX tempUpdate = new DuLieuNTRowX();
+                            tempUpdate.setKey(ssKhoa);
+                            tempUpdate.setOrderValue(tmp.getTHUTU());
+                            tempUpdate.setOrderDescription(tmp.getTT_HIENTHI());
+                            tempUpdate.setName(tmp.getTEN());
+                            tempUpdate.setCode(tmp.getMA());
+                            tempUpdate.setMakerId(UserName);
+                            tempUpdate.setMakerDate(_reportDate11);
+                            tempUpdate.setAuthoriseId(UserName);
+                            tempUpdate.setAuthoriseDate(_reportDate11);
+                            tempUpdate.setReportDate(_reportDate11);
+                            tempUpdate.setReportYear(tmp.getNAMBC());
+                            tempUpdate.setPosCode(ssDieuchinh);
+                            tempUpdate.setPosFlag(tmp.getCO_TONGHOP());
+                            tempUpdate.setBranchCode(tmp.getMACN());
+                            tempUpdate.setD1(tmp.getD1());
+                            tempUpdate.setD2(tmp.getD2());
+                            tempUpdate.setD3(ssDieuchinh);
+                            tempUpdate.setD4(tmp.getD4());
+                            tempUpdate.setD5(sThang);
+                            tempUpdate.setD6(tmp.getD6());
+                            tempUpdate.setManualFlag(tmp.getNHAPTAY());
+                            tempUpdate.setStyle(tmp.getKIEUIN());
+                            lstUpdateDate1.add(tempUpdate);
+
+                            DuLieuNTRowX tempDelete = new DuLieuNTRowX();
+                            tempDelete.setKey(ssKhoa);
+                            tempDelete.setOrderValue(tmp.getTHUTU());
+                            tempDelete.setOrderDescription(tmp.getTT_HIENTHI());
+                            tempDelete.setName(tmp.getTEN());
+                            tempDelete.setCode(tmp.getMA());
+                            tempDelete.setMakerId(UserName);
+                            tempDelete.setMakerDate(_reportDate11);
+                            tempDelete.setAuthoriseId(UserName);
+                            tempDelete.setAuthoriseDate(_reportDate11);
+                            tempDelete.setReportDate(_reportDate11);
+                            tempDelete.setReportYear(tmp.getNAMBC());
+                            tempDelete.setPosCode(sMaPgd);
+                            tempDelete.setPosFlag(tmp.getCO_TONGHOP());
+                            tempDelete.setBranchCode(tmp.getMACN());
+                            tempDelete.setD1(tmp.getD1());
+                            tempDelete.setD2(tmp.getD2());
+                            tempDelete.setD3(tmp.getD3());
+                            tempDelete.setD4(tmp.getD4());
+                            tempDelete.setD5(tmp.getD5());
+                            tempDelete.setD6(tmp.getD6());
+                            tempDelete.setManualFlag(tmp.getNHAPTAY());
+                            tempDelete.setStyle(tmp.getKIEUIN());
+                            lstDelete1.add(tempDelete);
+                        }
+                        _serverAPI = new DuLieuNTService();
+                        status = _serverAPI.updateKTKSNB(ssKhoa, ssDieuchinh, "S", _reportDate3, "", "", lstUpdateDate1);
+                        _serverAPI.deleteKTKSNB(ssKhoa, sMaPgd, "S", _reportDate3, "", "", lstDelete1);
                         this.pageResult = new ByteArrayInputStream(String.valueOf(status).getBytes(StandardCharsets.UTF_8));
                         return SUCCESS;
                     default:
@@ -1068,6 +1141,7 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
             String dc_nam = ServletActionContext.getRequest().getParameter("dc_nam");
             String dc_cap = ServletActionContext.getRequest().getParameter("dc_cap");
             String dc_chot = ServletActionContext.getRequest().getParameter("dc_chot");
+            setGrade(dc_cap);
             setScapbc(dc_cap);
             clsHuyDongTK Canbo2024 = new clsHuyDongTK();
             setLstCanBo(Canbo2024.getCanBo(dc_mapgd + "KTKSNB", UserName));
@@ -1127,7 +1201,7 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
                 setTitle3("Xã kiểm tra " + title1 + " -/- " + title2 + " -/- Kiểm tra tháng " + dc_thang + " năm " + title4);
             } else {
                 sskhoas = "KH_TINH_DC";
-                lstPGD_API = _serverAPI.getListPgd("", dc_mapgd);
+                lstPGD_API = _serverAPI.getListPgd(dc_macn, "");
                 for (ListPosCode row : lstPGD_API) {
                     if (row.getPosCode() != null && row.getPosCode().equals(dc_mapgd)) {
                         String posCode = (String) row.getPosCode();

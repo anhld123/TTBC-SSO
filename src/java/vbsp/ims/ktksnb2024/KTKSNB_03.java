@@ -705,6 +705,9 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
                 tempadd.setD5(tmp.getD5());
                 tempadd.setD6(tmp.getD6());
                 tempadd.setD7(tmp.getD7());
+                tempadd.setD8(tmp.getD8());
+                tempadd.setD9(tmp.getD9());
+                tempadd.setD10(tmp.getD10());
                 tempadd.setManualFlag(tmp.getNHAPTAY());
                 tempadd.setStyle(tmp.getKIEUIN());
                 lstUpdateDate.add(tempadd);
@@ -988,11 +991,12 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
                     row.setMAPGD(item.getPosCode());
                     row.setMACN(item.getBranchCode());
                     row.setD1(item.getD1());
-                    if (check_cn.equals("1")) {
-                        row.setD2(item.getD2());
-                    } else {
-                        row.setD2(item.getD6());
-                    }
+//                    if (check_cn.equals("1")) {
+//                        row.setD2(item.getD2());
+//                    } else {
+//                        row.setD2(item.getD6());
+//                    }
+                    row.setD2(item.getD2());
                     row.setD3(dc_maxa);
                     row.setD4(dc_macb);
                     row.setD5(dc_thang);

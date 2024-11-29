@@ -264,10 +264,10 @@
         </script>
 
     </head>
-     <body style="background-image: url('img/backgroud_logo.jpg');background-size: cover;">
+    <body style="background-image: url('img/backgroud_logo.jpg');background-size: cover;">
         <div style="margin: 7px 7px 7px 7px;">
             <s:form name="frmdata" id="frmdata" >
-                 <table border="0" cellspacing="0" cellpading="0" height="100%" class="tblmain" style="background-image: url('img/baner11.jpg');background-size: cover;">              
+                <table border="0" cellspacing="0" cellpading="0" height="100%" class="tblmain" style="background-image: url('img/baner11.jpg');background-size: cover;">              
                     <tr>
                         <td width="70%" style="color: black; font-family: Comic Sans MS; text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white;">
                             <s:property value="title3" />
@@ -307,7 +307,9 @@
                         <tr> 
                             <th class="STT1" >STT</th>                           
                             <th class="STT4" >Nội dung</th>  
-                            <th class="STT2" >Đơn vị</th>  
+                            <th class="STT2" >Đơn vị</th> 
+                            <th class="STT6" >Kế hoạch gốc</th>
+                            <th class="STT6" >Kế hoạch điều chỉnh</th>
                             <th class="STT6" >Kế hoạch thực hiện</th>
                         </tr>
                         <tr>
@@ -315,6 +317,9 @@
                             <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
                             <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
                             <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
+                            <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
+
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                             <tr id="tablefix"> 
@@ -331,35 +336,65 @@
                             <input type="hidden" value="<s:property  value="D3" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3"/>
                             <input type="hidden" value="<s:property  value="D4" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4"/>
                             <input type="hidden" value="<s:property  value="D5" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5"/>
-                            <input type="hidden" value="<s:property  value="D6" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6"/>
                             <input type="hidden" value="<s:property  value="D7" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7"/>
-                            <input type="hidden" value="<s:property  value="D8" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8"/>
                             <input type="hidden" value="<s:property  value="D9" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9"/>
                             <input type="hidden" value="<s:property  value="D12" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12"/>
                             <input type="hidden" value="<s:property  value="KIEUIN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KIEUIN"/>
                             <input type="hidden" value="<s:property  value="NHAPTAY" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY"/>
                             <s:if test="scapbc.equalsIgnoreCase('1')">
-                                <td class="D0" <s:if test="KIEUIN.toString().equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
-                                <td <s:if test="KIEUIN.toString().equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
-                                <td class="D0" <s:if test="KIEUIN.toString().equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
+                                <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
+                                      || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
+                                <td <s:if test="THUTU.toString().equalsIgnoreCase('1')
+                                      || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
+                                <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
+                                      || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
                                     <td style="background:  #E5E5E5">
                                         <input type="text" value="<s:property  value="D2" />"
                                            id="D2_<s:property  value='%{#rowstatus.index}' />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number"
-                                           <s:if test="KIEUIN.toString().equalsIgnoreCase('1')"> style="font-weight: bold" readonly</s:if>/>
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number" readonly/>
+                                </td>
+                                <td style="background:  #E5E5E5">
+                                    <input type="text" value="<s:property  value="D6" />"
+                                           id="D6_<s:property  value='%{#rowstatus.index}' />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="number" readonly/>
+                                </td> 
+                                <td style="background:  #E5E5E5">
+                                    <input type="text" 
+                                           id="D8_<s:property  value='%{#rowstatus.index}' />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="number"
+                                           <s:if test="THUTU.toString().equalsIgnoreCase('1')
+                                                 || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold" readonly</s:if>
+                                                 <s:else> value="<s:property value='%{D8 != null ? D8 : 0}' />"</s:else>
+                                                 />
                                     </td>
                             </s:if> 
                             <s:else>
-                                <td class="D0" <s:if test="KIEUIN.toString().equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
-                                <td <s:if test="KIEUIN.toString().equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
-                                <td class="D0" <s:if test="KIEUIN.toString().equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
+                                <td class="D0" <s:if test="(THUTU.toString().equalsIgnoreCase('1')
+                                      || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
+                                      || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
+                                <td <s:if test="(THUTU.toString().equalsIgnoreCase('1')
+                                      || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
+                                      || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
+                                <td class="D0" <s:if test="(THUTU.toString().equalsIgnoreCase('1')
+                                      || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
+                                      || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
+                                <td <s:if test="(THUTU.toString().equalsIgnoreCase('1')
+                                      || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
+                                      || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property  value="D2" /></td> 
+                                <td <s:if test="(THUTU.toString().equalsIgnoreCase('1')
+                                      || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
+                                      || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property  value="D6" /></td>     
                                     <td style="background:  #E5E5E5">
-                                        <input type="text" value="<s:property  value="D2" />"
-                                           id="D2_<s:property  value='%{#rowstatus.index}' />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number"
-                                           <s:if test="KIEUIN.toString().equalsIgnoreCase('1') && (THUTU.toString().equalsIgnoreCase('1')
+                                        <input type="text" id="D8_<s:property value='%{#rowstatus.index}' />"
+                                           name="lstDulieuNt[<s:property value='%{#rowstatus.index}' />].D8" class="number"
+                                           <s:if test="(THUTU.toString().equalsIgnoreCase('1')
                                                  || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
-                                                 || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold" readonly</s:if>/>                                
+                                                 || THUTU.toString().equalsIgnoreCase('17'))"> 
+                                               style="font-weight: bold" readonly
+                                           </s:if>
+                                           <s:else> value="<s:property value='%{D8 != null ? D8 : 0}' />"</s:else>
+                                               />
+                                    </td>                              
                             </s:else>
                             </tr>
                         </s:iterator>
