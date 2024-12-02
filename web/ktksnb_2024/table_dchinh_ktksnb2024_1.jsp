@@ -345,373 +345,392 @@
                                         <a id="selectLink1" style="text-decoration: underline" href="#" 
                                            onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="NGAYBC"/>', '<s:property value="KHOA"/>-<s:property value="D5"/>', document.getElementById('cboCanBo').value, '3');">
                                         </a>
-                                    </s:if>
-                                </s:if>
-                                <s:elseif test="D4.equalsIgnoreCase('99999') && #rowStatus.first">
+                                    </div>
                                     <div style="color: red; background: yellow; text-align: left; font-weight: bold; width: 99%; font-size: 13px; 
-                                         display: flex; margin: auto;">
-                                        <s:if test="Grade.equalsIgnoreCase('1')">
-                                            Đổi xã kiểm tra &nbsp;
-                                            <select id="lstXa" name="lstXa" onchange="updateXa()">
-                                                <option value="000000">---Chọn xã---</option>
-                                                <s:iterator value="lstXa_API">                                    
-                                                    <option value="<s:property value="communeCode"/>"><s:property value="communeCode"/> - <s:property value="communeName"/></option>                                         
-                                                </s:iterator>   
-                                            </select>
-                                            <s:if test="#rowStatus.first">
-                                                &nbsp;&raquo;&raquo;&nbsp;
-                                                <a id="selectLink2" style="text-decoration: underline" href="#" 
-                                                   onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="NGAYBC"/>', '<s:property value="KHOA"/>-<s:property value="D5"/>', document.getElementById('lstXa').value, '4');">
-                                                </a>
-                                            </s:if>
+                                     display: flex; margin: auto;">
+                                        Đổi xã kiểm tra &nbsp;
+                                        <select id="lstXa" name="lstXa" onchange="updateXa()">
+                                            <option value="000000">---Chọn xã---</option>
+                                            <s:iterator value="lstXa_API">                                    
+                                                <option value="<s:property value="communeCode"/>"><s:property value="communeCode"/> - <s:property value="communeName"/></option>                                         
+                                            </s:iterator>   
+                                        </select>
+                                        <s:if test="#rowStatus.first">
+                                            &nbsp;&raquo;&raquo;&nbsp;
+                                            <a id="selectLink2" style="text-decoration: underline" href="#" 
+                                               onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="NGAYBC"/>', '<s:property value="KHOA"/>-<s:property value="D5"/>', document.getElementById('lstXa').value, '4');">
+                                            </a>
                                         </s:if>
-                                        <s:else>
-                                            Đổi Pgd kiểm tra &nbsp;
-                                            <select id="lstPGD" name="lstPGD" onchange="updatePgd()">
-                                                <option value="000000">---Chọn PGD---</option>
-                                                <s:iterator value="lstPGD_API">                                    
-                                                    <option value="<s:property value='posCode'/>"><s:property value="posCode"/> - <s:property value="posName"/></option>                                         
-                                                </s:iterator>   
-                                            </select>
-                                            <s:if test="#rowStatus.first">
-                                                &nbsp;&raquo;&raquo;&nbsp;
-                                                <a id="selectLink3" style="text-decoration: underline" href="#" 
-                                                   onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="NGAYBC"/>', '<s:property value="KHOA"/>-<s:property value="D5"/>', document.getElementById('lstPGD').value, '5');">
-                                                </a>
-                                            </s:if>
-                                        </s:else>
-
-                                    </s:elseif>
-                                </s:iterator>
+                                            </div>
+                                    </s:if>
+                                
                             </s:if>
-                        </div>
-                        <input type="hidden" value="<s:property value="chotsl"/>" name="chotsl" id="chotsl"/> 
-                        <input type="hidden" id="stoday" value="<s:property  value="sngay_sys" />" name="stoday"/> 
-                        <input type="hidden" id="sthang" value="<s:property  value="ssthang" />" name="ssthang"/> 
-                        <input type="hidden" id="snam" value="<s:property  value="title4" />" name="title4"/> 
-
-                        <div style="height:5px">
-                        </div></div>
-                    </tr>
-                    <table  id="subTable" border="1" style="width: 98%;" align="center">
-                        <tr> 
-                            <th class="STT1" >STT</th>                           
-                            <th class="STT4" >Nội dung</th>  
-                            <th class="STT2" >Đơn vị</th>  
-                            <th class="STT6" >Kế hoạch kiểm tra</th>
-                            <th class="STT6" style="color: red">Kế hoạch điều chỉnh</th>
-                        </tr>
-                        <tr>
-                            <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
-                            <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
-                            <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
-                            <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
-                            <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
-                        </tr>
-                        <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
-                            <tr height="cscontent"> 
-                            <input type="hidden" value="<s:property  value="THUTU" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU"/>    
-                            <input type="hidden" value="<s:property  value="KHOA" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KHOA"/>  
-                            <input type="hidden" value="<s:property value="TT_HIENTHI" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI"/>
-                            <input type="hidden" value="<s:property  value="MA" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/>                             
-                            <input type="hidden" value="<s:property  value="TEN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN"/>
-                            <input type="hidden" value="<s:property  value="CO_TONGHOP" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP"/>
-                            <input type="hidden" value="<s:property  value="NGUOI_NHAP" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NGUOI_NHAP"/>
-                            <input type="hidden" value="<s:property  value="NAMBC" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NAMBC"/>
-                            <input type="hidden" value="<s:property  value="NGAYBC" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NGAYBC"/>
-                            <input type="hidden" value="<s:property  value="MAPGD" />"name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD"/>
-                            <input type="hidden" value="<s:property  value="MACN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN"/>
-                            <input type="hidden" value="<s:property  value="D1" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1"/>
-                            <input type="hidden" value="<s:property  value="D3" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3"/>
-                            <input type="hidden" value="<s:property  value="D4" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4"/>
-                            <input type="hidden" value="<s:property  value="D5" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5"/>
-                            <input type="hidden" value="<s:property  value="D7" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7"/>
-                            <input type="hidden" value="<s:property  value="D8" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8"/>
-                            <input type="hidden" value="<s:property  value="D9" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9"/>
-                            <input type="hidden" value="<s:property  value="D12" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12"/>
-                            <input type="hidden" value="<s:property  value="KIEUIN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KIEUIN" id="KIEUIN_<s:property  value='%{#rowstatus.index}' />"/>
-                            <input type="hidden" value="<s:property  value="NHAPTAY" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY"/>
-                            <s:if test="scapbc.equalsIgnoreCase('1')">
-                                <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                                      || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
-                                <td <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                                      || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
-                                <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                                      || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
-                                    <td style="background:  #E5E5E5">
-                                        <input type="text" value="<s:property  value="D2" />"
-                                           id="D2_<s:property  value='%{#rowstatus.index}' />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number" readonly
-                                           <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                                                 || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold"</s:if>/>
-                                    </td>    
-                                    <td style="background:  #E5E5E5">
-                                        <input type="text" 
-                                               id="D6_<s:property  value='%{#rowstatus.index}' />"
-                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="number"
-                                        <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                                              || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold" readonly</s:if>
-                                        <s:else> value="<s:property value='%{D6 != null ? D6 : 0}' />"</s:else>/>
-                                    </td>
-                            </s:if>
-                            <s:else>
-                                <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                                      || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
-                                      || THUTU.toString().equalsIgnoreCase('17')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
-                                <td <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                                      || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
-                                      || THUTU.toString().equalsIgnoreCase('17')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
-                                <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                                      || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
-                                      || THUTU.toString().equalsIgnoreCase('17')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
-                                    <td style="background:  #E5E5E5">
-                                        <input type="text" value="<s:property  value="D2" />"
-                                           id="D2_<s:property  value='%{#rowstatus.index}' />"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number" readonly
-                                           <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                                                 || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
-                                                 || THUTU.toString().equalsIgnoreCase('17')"> style="font-weight: bold" </s:if>/>
-                                    </td>
-                                    <td style="background:  #E5E5E5">
-                                        <input type="text"
-                                               id="D6_<s:property value='%{#rowstatus.index}' />"
-                                        name="lstDulieuNt[<s:property value='%{#rowstatus.index}' />].D6" class="number"
-                                        <s:if test="(THUTU.toString().equalsIgnoreCase('1')
-                                              || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
-                                              || THUTU.toString().equalsIgnoreCase('17'))"> 
-                                            style="font-weight: bold" readonly
+                            <s:elseif test="D4.equalsIgnoreCase('99999') && #rowStatus.first">
+                                <div style="color: red; background: yellow; text-align: left; font-weight: bold; width: 99%; font-size: 13px; 
+                                     display: flex; margin: auto;">
+                                    <s:if test="Grade.equalsIgnoreCase('1')">
+                                        Đổi xã kiểm tra &nbsp;
+                                        <select id="lstXa" name="lstXa" onchange="updateXa()">
+                                            <option value="000000">---Chọn xã---</option>
+                                            <s:iterator value="lstXa_API">                                    
+                                                <option value="<s:property value="communeCode"/>"><s:property value="communeCode"/> - <s:property value="communeName"/></option>                                         
+                                            </s:iterator>   
+                                        </select>
+                                        <s:if test="#rowStatus.first">
+                                            &nbsp;&raquo;&raquo;&nbsp;
+                                            <a id="selectLink2" style="text-decoration: underline" href="#" 
+                                               onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="NGAYBC"/>', '<s:property value="KHOA"/>-<s:property value="D5"/>', document.getElementById('lstXa').value, '4');">
+                                            </a>
                                         </s:if>
-                                        <s:else> value="<s:property value='%{D6 != null ? D6 : 0}' />"</s:else>
-                                            />
-                                    </td>
-                            </s:else>
-                            </tr>
+                                    </s:if>
+                                    <s:else>
+                                        Đổi Pgd kiểm tra &nbsp;
+                                        <select id="lstPGD" name="lstPGD" onchange="updatePgd()">
+                                            <option value="000000">---Chọn PGD---</option>
+                                            <s:iterator value="lstPGD_API">                                    
+                                                <option value="<s:property value='posCode'/>"><s:property value="posCode"/> - <s:property value="posName"/></option>                                         
+                                            </s:iterator>   
+                                        </select>
+                                        <s:if test="#rowStatus.first">
+                                            &nbsp;&raquo;&raquo;&nbsp;
+                                            <a id="selectLink3" style="text-decoration: underline" href="#" 
+                                               onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="NGAYBC"/>', '<s:property value="KHOA"/>-<s:property value="D5"/>', document.getElementById('lstPGD').value, '5');">
+                                            </a>
+                                        </s:if>
+                                    </div>
+                                </s:else>
+
+                            </s:elseif>
                         </s:iterator>
+                    </s:if>
+                </div>
+                <input type="hidden" value="<s:property value="chotsl"/>" name="chotsl" id="chotsl"/> 
+                <input type="hidden" id="stoday" value="<s:property  value="sngay_sys" />" name="stoday"/> 
+                <input type="hidden" id="sthang" value="<s:property  value="ssthang" />" name="ssthang"/> 
+                <input type="hidden" id="snam" value="<s:property  value="title4" />" name="title4"/> 
 
-                    </table>
+                <div style="height:5px">
+                </div></div>
+        </tr>
+        <table  id="subTable" border="1" style="width: 98%;" align="center">
+            <tr> 
+                <th class="STT1" >STT</th>                           
+                <th class="STT4" >Nội dung</th>  
+                <th class="STT2" >Đơn vị</th>  
+                <th class="STT6" >Kế hoạch kiểm tra</th>
+                <th class="STT6" style="color: red">Kế hoạch điều chỉnh</th>
+            </tr>
+            <tr>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
+                <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
+            </tr>
+            <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
+                <tr height="cscontent"> 
+                <input type="hidden" value="<s:property  value="THUTU" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU"/>    
+                <input type="hidden" value="<s:property  value="KHOA" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KHOA"/>  
+                <input type="hidden" value="<s:property value="TT_HIENTHI" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI"/>
+                <input type="hidden" value="<s:property  value="MA" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/>                             
+                <input type="hidden" value="<s:property  value="TEN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN"/>
+                <input type="hidden" value="<s:property  value="CO_TONGHOP" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].CO_TONGHOP"/>
+                <input type="hidden" value="<s:property  value="NGUOI_NHAP" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NGUOI_NHAP"/>
+                <input type="hidden" value="<s:property  value="NAMBC" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NAMBC"/>
+                <input type="hidden" value="<s:property  value="NGAYBC" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NGAYBC"/>
+                <input type="hidden" value="<s:property  value="MAPGD" />"name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD"/>
+                <input type="hidden" value="<s:property  value="MACN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN"/>
+                <input type="hidden" value="<s:property  value="D1" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1"/>
+                <input type="hidden" value="<s:property  value="D3" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3"/>
+                <input type="hidden" value="<s:property  value="D4" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4"/>
+                <input type="hidden" value="<s:property  value="D5" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5"/>
+                <input type="hidden" value="<s:property  value="D7" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7"/>
+                <input type="hidden" value="<s:property  value="D8" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8"/>
+                <input type="hidden" value="<s:property  value="D9" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9"/>
+                <input type="hidden" value="<s:property  value="D12" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12"/>
+                <input type="hidden" value="<s:property  value="KIEUIN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KIEUIN" id="KIEUIN_<s:property  value='%{#rowstatus.index}' />"/>
+                <input type="hidden" value="<s:property  value="NHAPTAY" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY"/>
+                <s:if test="scapbc.equalsIgnoreCase('1')">
+                    <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
+                          || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
+                    <td <s:if test="THUTU.toString().equalsIgnoreCase('1')
+                          || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
+                    <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
+                          || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
+                        <td style="background:  #E5E5E5">
+                            <input type="text" value="<s:property  value="D2" />"
+                               id="D2_<s:property  value='%{#rowstatus.index}' />"
+                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number" readonly
+                               <s:if test="THUTU.toString().equalsIgnoreCase('1')
+                                     || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold"</s:if>/>
+                        </td>    
+                        <td style="background:  #E5E5E5">
+                            <input type="text" 
+                                   id="D6_<s:property  value='%{#rowstatus.index}' />"
+                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="number"
+                            <s:if test="THUTU.toString().equalsIgnoreCase('1')
+                                  || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold" readonly</s:if>
+                            <s:else> value="<s:property value='%{D6 != null ? D6 : D2}' />"</s:else>/>
+                        </td>
+                </s:if>
+                <s:else>
+                    <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
+                          || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
+                          || THUTU.toString().equalsIgnoreCase('17')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
+                    <td <s:if test="THUTU.toString().equalsIgnoreCase('1')
+                          || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
+                          || THUTU.toString().equalsIgnoreCase('17')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
+                    <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
+                          || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
+                          || THUTU.toString().equalsIgnoreCase('17')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
+                        <td style="background:  #E5E5E5">
+                            <input type="text" value="<s:property  value="D2" />"
+                               id="D2_<s:property  value='%{#rowstatus.index}' />"
+                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number" readonly
+                               <s:if test="THUTU.toString().equalsIgnoreCase('1')
+                                     || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
+                                     || THUTU.toString().equalsIgnoreCase('17')"> style="font-weight: bold" </s:if>/>
+                        </td>
+                        <td style="background:  #E5E5E5">
+                            <input type="text"
+                                   id="D6_<s:property value='%{#rowstatus.index}' />"
+                            name="lstDulieuNt[<s:property value='%{#rowstatus.index}' />].D6" class="number"
+                            <s:if test="(THUTU.toString().equalsIgnoreCase('1')
+                                  || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
+                                  || THUTU.toString().equalsIgnoreCase('17'))"> 
+                                style="font-weight: bold" readonly
+                            </s:if>
+                            <s:else> value="<s:property value='%{D6 != null ? D6 : D2}' />"</s:else>
+                                />
+                        </td>
+                </s:else>
+            </tr>
+        </s:iterator>
 
-                </s:form>
-            </div>
-            <script>
-                function initTable()
+    </table>
+
+</s:form>
+</div>
+<script>
+    function initTable()
+    {
+        var table = document.getElementById("subTable");
+        var rowcount = table.rows.length;
+        rowcount = rowcount > max_row ? rowcount : max_row;
+        for (var i = 0; i < rowcount; i++)
+        {
+            try {
+                var D6 = document.getElementById("D6_" + i).value;
+                var KIEUIN = document.getElementById("KIEUIN_" + i).value;
+                if (D6 === "" && KIEUIN === "3")
                 {
-                    var table = document.getElementById("subTable");
-                    var rowcount = table.rows.length;
-                    rowcount = rowcount > max_row ? rowcount : max_row;
-                    for (var i = 0; i < rowcount; i++)
-                    {
-                        try {
-                            var D6 = document.getElementById("D6_" + i).value;
-                            var KIEUIN = document.getElementById("KIEUIN_" + i).value;
-                            if (D6 === "" && KIEUIN === "3")
-                            {
-                                document.getElementById("D6_" + i).value = 0;
-                            }
-                        } catch (e) {
-                        }
-                    }
-
+                    document.getElementById("D6_" + i).value = 0;
                 }
-                function updateMonthText() {
-                    var monthSelect = document.getElementById("select1").value;
-                    var selectLink = document.getElementById("selectLink");
+            } catch (e) {
+            }
+        }
 
-                    if (monthSelect.value !== "0") {
-                        selectLink.innerText = "Chuyển sang tháng " + monthSelect;
-                    } else {
-                        selectLink.innerText = "Chuyển sang tháng ";
-                    }
-                }
+    }
+    function updateMonthText() {
+        var monthSelect = document.getElementById("select1").value;
+        var selectLink = document.getElementById("selectLink");
 
-                function updateCb() {
-                    var cboCanBo = document.getElementById("cboCanBo");
-                    var selectedValue = cboCanBo.value; // Lấy giá trị MaCB
-                    var selectedText = cboCanBo.options[cboCanBo.selectedIndex].text; // Lấy tên TenCB
-                    var selectLink = document.getElementById("selectLink1");
+        if (monthSelect.value !== "0") {
+            selectLink.innerText = "Chuyển sang tháng " + monthSelect;
+        } else {
+            selectLink.innerText = "Chuyển sang tháng ";
+        }
+    }
 
-                    if (selectedValue !== "000000") {
-                        selectLink.innerText = "Chuyển sang " + selectedText;
-                    } else {
-                        selectLink.innerText = "Chuyển sang ";
-                    }
-                }
+    function updateCb() {
+        var cboCanBo = document.getElementById("cboCanBo");
+        var selectedValue = cboCanBo.value; // Lấy giá trị MaCB
+        var selectedText = cboCanBo.options[cboCanBo.selectedIndex].text; // Lấy tên TenCB
+        var selectLink = document.getElementById("selectLink1");
 
-                function updateXa() {
-                    var lstXa = document.getElementById("lstXa");
-                    var selectedValue = lstXa.value; // Lấy giá trị MaCB
-                    var selectedText = lstXa.options[lstXa.selectedIndex].text; // Lấy tên TenCB
-                    var selectLink = document.getElementById("selectLink2");
+        if (selectedValue !== "000000") {
+            selectLink.innerText = "Chuyển sang " + selectedText;
+        } else {
+            selectLink.innerText = "Chuyển sang ";
+        }
+    }
 
-                    if (selectedValue !== "000000") {
-                        selectLink.innerText = "Chuyển sang " + selectedText;
-                    } else {
-                        selectLink.innerText = "Chuyển sang ";
-                    }
-                }
+    function updateXa() {
+        var lstXa = document.getElementById("lstXa");
+        var selectedValue = lstXa.value; // Lấy giá trị MaCB
+        var selectedText = lstXa.options[lstXa.selectedIndex].text; // Lấy tên TenCB
+        var selectLink = document.getElementById("selectLink2");
 
-                function updatePgd() {
-                    var lstPGD = document.getElementById("lstPGD");
-                    var selectedValue = lstPGD.value; // Lấy giá trị MaCB
-                    var selectedText = lstPGD.options[lstPGD.selectedIndex].text; // Lấy tên TenCB
-                    var selectLink = document.getElementById("selectLink3");
+        if (selectedValue !== "000000") {
+            selectLink.innerText = "Chuyển sang " + selectedText;
+        } else {
+            selectLink.innerText = "Chuyển sang ";
+        }
+    }
 
-                    if (selectedValue !== "000000") {
-                        selectLink.innerText = "Chuyển sang " + selectedText;
-                    } else {
-                        selectLink.innerText = "Chuyển sang ";
-                    }
-                }
-                function cancelAssign(chotsl, mapgd, D3, D4, monthSelect, nambc, skhoa, D5, type) {
-                    var url, sdata;
+    function updatePgd() {
+        var lstPGD = document.getElementById("lstPGD");
+        var selectedValue = lstPGD.value; // Lấy giá trị MaCB
+        var selectedText = lstPGD.options[lstPGD.selectedIndex].text; // Lấy tên TenCB
+        var selectLink = document.getElementById("selectLink3");
+
+        if (selectedValue !== "000000") {
+            selectLink.innerText = "Chuyển sang " + selectedText;
+        } else {
+            selectLink.innerText = "Chuyển sang ";
+        }
+    }
+    function cancelAssign(chotsl, mapgd, D3, D4, monthSelect, nambc, skhoa, D5, type) {
+        var url, sdata;
 //                    alert(monthSelect + " " + skhoa + " " + D5 + " " + type);
-                    var sthangbc = document.getElementById("sthang").value.padStart(2, '0');
-                    var snambc = document.getElementById("snam").value;
-                    var stoday = document.getElementById("stoday").value;
-                    var sparts = stoday.split('/');
-                    var currentYear = sparts[2];
-                    var currentMonth = sparts[1];
-                    //            if (snambc.toString() !== currentYear.toString()) {
-                    //                alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear);
-                    //                return;
-                    //            }
-                    //            if (snambc.toString() === currentYear.toString() && sthangbc.toString() < currentMonth.toString()) {
-                    //                alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + currentMonth);
-                    //                return;
-                    //            }
-                    //            
-                    url = "status_KTKSNB_02_C1.action?" + "chotsl" + chotsl + "&madiemgd=" + mapgd + "&smaxa=" + D3 + "&sCanbo=" + D4 + "&sThang=" + monthSelect + "&sNam=" + nambc + "&skhoa=" + skhoa + "&ssThang=" + D5 + "&type=" + type,
-                            sdata = jQuery("#frmdata").serialize();
-                    $("#viewData").html('<img src="img/loading.gif"/>');
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: sdata,
-                        success: function (data) {
-                            if (data === "200") {
-                                if (type === "2") {
-                                    alert("Điều chỉnh tháng kiểm tra từ tháng " + D5 + " sang tháng " + monthSelect + " thành công!");
-                                } else if (type === "3") {
-                                    alert("Điều chỉnh sang cán bộ " + cboCanBo.options[cboCanBo.selectedIndex].text + " thành công!");
-                                } else if (type === "4") {
-                                    alert("Điều chỉnh kế hoạch kiểm tra sang xã " + lstXa.options[lstXa.selectedIndex].text + ", thành công!");
-                                } else if (type === "5") {
-                                    alert("Điều chỉnh kế hoạch kiểm tra sang Pgd " + lstPGD.options[lstPGD.selectedIndex].text + ", thành công!");
-                                } else {
-                                    alert("Xóa điều chỉnh tháng " + D5 + " thành công!");
-                                }
-                                idEnd();
-                            } else if (data === "1") {
-                                alert("Lỗi: Xã " + D3 + " - Tháng " + monthSelect + " đã có kế hoạch kiểm tra, không thể điều chỉnh tiếp!");
-                                tai_lai_trang();
-                            } else if (data === "100") {
-                                alert("Lỗi: Đơn vị đã gửi dữ liệu không thể thao tác!");
-                                tai_lai_trang();
-                            } else {
-                                alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
-                                tai_lai_trang();
-                            }
-                        },
-                        error: function (request) {
-                            alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
+        var sthangbc = document.getElementById("sthang").value.padStart(2, '0');
+        var snambc = document.getElementById("snam").value;
+        var stoday = document.getElementById("stoday").value;
+        var sparts = stoday.split('/');
+        var currentYear = sparts[2];
+        var currentMonth = sparts[1];
+        //            if (snambc.toString() !== currentYear.toString()) {
+        //                alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear);
+        //                return;
+        //            }
+        //            if (snambc.toString() === currentYear.toString() && sthangbc.toString() < currentMonth.toString()) {
+        //                alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + currentMonth);
+        //                return;
+        //            }
+        //            
+        url = "status_KTKSNB_02_C1.action?" + "chotsl" + chotsl + "&madiemgd=" + mapgd + "&smaxa=" + D3 + "&sCanbo=" + D4 + "&sThang=" + monthSelect + "&sNam=" + nambc + "&skhoa=" + skhoa + "&ssThang=" + D5 + "&type=" + type,
+                sdata = jQuery("#frmdata").serialize();
+        $("#viewData").html('<img src="img/loading.gif"/>');
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: sdata,
+            success: function (data) {
+                if (data === "200") {
+                    if (type === "2") {
+                        alert("Điều chỉnh tháng kiểm tra từ tháng " + D5 + " sang tháng " + monthSelect + " thành công!");
+                    } else if (type === "3") {
+                        alert("Điều chỉnh sang cán bộ " + cboCanBo.options[cboCanBo.selectedIndex].text + " thành công!");
+                    } else if (type === "4") {
+                        alert("Điều chỉnh kế hoạch kiểm tra sang xã " + lstXa.options[lstXa.selectedIndex].text + ", thành công!");
+                    } else if (type === "5") {
+                        alert("Điều chỉnh kế hoạch kiểm tra sang Pgd " + lstPGD.options[lstPGD.selectedIndex].text + ", thành công!");
+                    } else {
+                        alert("Xóa điều chỉnh tháng " + D5 + " thành công!");
+                    }
+                    idEnd();
+                } else if (data === "1") {
+                    alert("Lỗi: Xã " + D3 + " - Tháng " + monthSelect + " đã có kế hoạch kiểm tra, không thể điều chỉnh tiếp!");
+                    tai_lai_trang();
+                } else if (data === "100") {
+                    alert("Lỗi: Đơn vị đã gửi dữ liệu không thể thao tác!");
+                    tai_lai_trang();
+                } else {
+                    alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
+                    tai_lai_trang();
+                }
+            },
+            error: function (request) {
+                alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
+                tai_lai_trang();
+            }
+        });
+    }
+    $("#idSave").click(function () {
+        $('#message_suc_err').empty();
+        $('#divExportReportLink').empty();
+
+        let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
+        if (aCheck) {
+            var table = document.getElementById("subTable");
+            var rowcount = table.rows.length;
+            var isValid = true;
+            var chot = document.getElementById("chotsl").value;
+            var sthangbc = document.getElementById("sthang").value.padStart(2, '0');
+            var snambc = document.getElementById("snam").value;
+            var stoday = document.getElementById("stoday").value;
+            var sparts = stoday.split('/');
+            var currentYear = sparts[2];
+            var currentMonth = sparts[1];
+            var isValid = true;
+            var chot = document.getElementById("chotsl").value;
+            //                if (snambc.toString() < currentYear.toString()) {
+            //                    alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear);
+            //                    isValid = false;
+            //                }
+            //                if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
+            //                    alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + currentMonth);
+            //                    isValid = false;
+            //                }
+            if (chot === "2") {
+                alert("Chi nhánh đã chốt dữ liệu lên Tw!");
+                isValid = false;
+            }
+            if (chot === "1") {
+                alert("Dữ liệu đã gửi, không thể lưu!");
+                isValid = false;
+            }
+            if (isValid) {
+                var url, sdata;
+                url = "save_KTKSNB_02_2024.action";
+                sdata = jQuery("#frmdata").serialize();
+                $("#viewData").html('<img src="img/loading.gif"/>');
+                btnDisabled(1);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: sdata,
+                    success: function (data) {
+                        if (data === "200") {
+                            alert("Thành công: Lưu dữ liệu.");
+                            idEnd();
+                        } else {
+                            alert("Lỗi: Lưu dữ liệu.");
                             tai_lai_trang();
                         }
-                    });
-                }
-                $("#idSave").click(function () {
-                    $('#message_suc_err').empty();
-                    $('#divExportReportLink').empty();
-
-                    let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
-                    if (aCheck) {
-                        var table = document.getElementById("subTable");
-                        var rowcount = table.rows.length;
-                        var isValid = true;
-                        var chot = document.getElementById("chotsl").value;
-                        var sthangbc = document.getElementById("sthang").value.padStart(2, '0');
-                        var snambc = document.getElementById("snam").value;
-                        var stoday = document.getElementById("stoday").value;
-                        var sparts = stoday.split('/');
-                        var currentYear = sparts[2];
-                        var currentMonth = sparts[1];
-                        var isValid = true;
-                        var chot = document.getElementById("chotsl").value;
-                        //                if (snambc.toString() < currentYear.toString()) {
-                        //                    alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear);
-                        //                    isValid = false;
-                        //                }
-                        //                if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
-                        //                    alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + currentMonth);
-                        //                    isValid = false;
-                        //                }
-                        if (chot === "2") {
-                            alert("Chi nhánh đã chốt dữ liệu lên Tw!");
-                            isValid = false;
-                        }
-                        if (chot === "1") {
-                            alert("Dữ liệu đã gửi, không thể lưu!");
-                            isValid = false;
-                        }
-                        if (isValid) {
-                            var url, sdata;
-                            url = "save_KTKSNB_02_2024.action";
-                            sdata = jQuery("#frmdata").serialize();
-                            $("#viewData").html('<img src="img/loading.gif"/>');
-                            btnDisabled(1);
-                            $.ajax({
-                                type: "POST",
-                                url: url,
-                                data: sdata,
-                                success: function (data) {
-                                    if (data === "200") {
-                                        alert("Thành công: Lưu dữ liệu.");
-                                        idEnd();
-                                    } else {
-                                        alert("Lỗi: Lưu dữ liệu.");
-                                        tai_lai_trang();
-                                    }
-                                },
-                                complete: function () {
-                                    btnDisabled(0);
-                                },
-                                error: function (request) {
-                                    alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
-                                    tai_lai_trang();
-                                }
-                            });
-                        }
+                    },
+                    complete: function () {
+                        btnDisabled(0);
+                    },
+                    error: function (request) {
+                        alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                        tai_lai_trang();
                     }
-
                 });
-                function btnDisabled(status) {
-                    if (status === 1) {
-                        $("#loadDatatmp").prop('disabled', true);
-                        $("#idPheduyet").prop('disabled', true);
-                        $("#idSave").prop('disabled', true);
-                        $("#idSaveLock").prop('disabled', true);
-                        $("#idDelete").prop('disabled', true);
-                    } else {
-                        $("#idPheduyet").prop('disabled', false);
-                        $("#idSave").prop('disabled', false);
-                        $("#loadDatatmp").prop('disabled', false);
-                        $("#idSaveLock").prop('disabled', false);
-                        $("#idDelete").prop('disabled', false);
-                    }
-                }
-                ;
+            }
+        }
 
-                $("#cmdEnd").click(function () {
-                    window.opener.document.getElementById('loadDatatmp').click();
-                    window.close();
-                });
+    });
+    function btnDisabled(status) {
+        if (status === 1) {
+            $("#loadDatatmp").prop('disabled', true);
+            $("#idPheduyet").prop('disabled', true);
+            $("#idSave").prop('disabled', true);
+            $("#idSaveLock").prop('disabled', true);
+            $("#idDelete").prop('disabled', true);
+        } else {
+            $("#idPheduyet").prop('disabled', false);
+            $("#idSave").prop('disabled', false);
+            $("#loadDatatmp").prop('disabled', false);
+            $("#idSaveLock").prop('disabled', false);
+            $("#idDelete").prop('disabled', false);
+        }
+    }
+    ;
 
-                function idEnd() {
-                    window.opener.document.getElementById('loadDatatmp').click();
-                    window.close();
-                }
-                window.onbeforeunload = function () {
-                    // Thực hiện hành động reset bảng trước khi đóng
-                    window.opener.document.getElementById('loadDatatmp').click();
-                };
-            </script>
-    </body>
+    $("#cmdEnd").click(function () {
+        window.opener.document.getElementById('loadDatatmp').click();
+        window.close();
+    });
+
+    function idEnd() {
+        window.opener.document.getElementById('loadDatatmp').click();
+        window.close();
+    }
+    window.onbeforeunload = function () {
+        // Thực hiện hành động reset bảng trước khi đóng
+        window.opener.document.getElementById('loadDatatmp').click();
+    };
+</script>
+</body>
 </html>

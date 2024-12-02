@@ -517,6 +517,17 @@ public class BCQT_18B_2024 extends ActionNhaptaycnMain
             String dateStr = (String) ActionContext.getContext().getSession().get("dateStr");
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(new Date());
+             ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("BCQT_MS18B", smapgd, "S", _reportDate);
+            try {
+                setChotsl(lstData_tmp.get(0).getStatus());
+            } catch (Exception e) {
+                setChotsl("0");
+            }
+            if (chotsl.equals("2")) {
+                String code = String.valueOf(100);
+                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                return SUCCESS;
+            }
             DaoBcqtMain daoMain = new DaoBcqtMain();
             Connection conn = new DaoConnect().getConnect();
             lstData = daoMain.getbcqt_11c_2024(conn, "BBB", sngaybc, UserName, smapgd);

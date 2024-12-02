@@ -310,7 +310,7 @@
                             <th class="STT2" >Đơn vị</th> 
                             <th class="STT6" >Kế hoạch gốc</th>
                             <th class="STT6" >Kế hoạch điều chỉnh</th>
-                            <th class="STT6" >Kế hoạch thực hiện</th>
+                            <th class="STT6" >Thực hiện kế hoạch</th>
                         </tr>
                         <tr>
                             <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
@@ -364,7 +364,7 @@
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="number"
                                            <s:if test="THUTU.toString().equalsIgnoreCase('1')
                                                  || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold" readonly</s:if>
-                                                 <s:else> value="<s:property value='%{D8 != null ? D8 : 0}' />"</s:else>
+                                                 <s:else> value="<s:property value='%{D8 != null ? D8 : D6}' />"</s:else>
                                                  />
                                     </td>
                             </s:if> 
@@ -392,7 +392,7 @@
                                                  || THUTU.toString().equalsIgnoreCase('17'))"> 
                                                style="font-weight: bold" readonly
                                            </s:if>
-                                           <s:else> value="<s:property value='%{D8 != null ? D8 : 0}' />"</s:else>
+                                           <s:else> value="<s:property value='%{D8 != null ? D8 : D6}' />"</s:else>
                                                />
                                     </td>                              
                             </s:else>

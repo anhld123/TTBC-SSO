@@ -213,7 +213,7 @@
                 });
             }
 
-            function senTW(skhoa,sngaybc, smapgd, stenpgd, stype) {
+            function senTW(skhoa, sngaybc, smapgd, stenpgd, stype) {
                 var table = document.getElementById("subTable");
                 var rows = table.querySelectorAll("td a");
                 rows.forEach(function (row) {
@@ -231,6 +231,9 @@
                     success: function (data) {
                         if (data === "200") {
                             alert("Gửi dữ liệu thành công!");
+                            onLoadData();
+                        }  else if (data === "100") {
+                            alert("Lỗi: Chưa mở khóa tại TW, liên hệ ban Kế toán để hỗ trợ mở lại!");
                             onLoadData();
                         } else {
                             alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
