@@ -9,12 +9,15 @@ import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.sql.Connection;
 import java.util.HashMap;
+import java.util.List;
 import vbsp.ims.bcqt.dao.DaoBcqtMain;
 import vbsp.ims.bcqt.dao.DaoSyncMain;
 import vbsp.ims.bcqt.dao.TmDao;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.define.Define;
+import vbsp.ims.leavelocal.LeaveHomeService;
 import vbsp.ims.log.CoreLogger;
+import vbsp.ims.restapi.ListMainPos;
 
 /**
  *
@@ -25,9 +28,17 @@ public class ActionBcqtSyncMain extends ActionBcqtMain {
     //<editor-fold defaultstate="collapsed" desc="Khai bao bien">
     private String macn;
     private String ngay_bc;
-    
+     private List<ListMainPos> lstCN_API;
     private String tt_khoa; //Trang thai khoa là OK: đã gửi số liệu, SEND: Đã xác nhận số liệu
 //</editor-fold>
+
+    public List<ListMainPos> getLstCN_API() {
+        return lstCN_API;
+    }
+
+    public void setLstCN_API(List<ListMainPos> lstCN_API) {
+        this.lstCN_API = lstCN_API;
+    }
 
     //<editor-fold defaultstate="collapsed" desc="Phan xu ly chinh">
     public String LoadParaBcqt_unlock() {
@@ -38,7 +49,12 @@ public class ActionBcqtSyncMain extends ActionBcqtMain {
             }
             if (khoa_bcqt == null) {
                 setKhoa_bcqt("ALL");
-            } else {
+            } 
+            if (khoa_bcqt.equals("BCQT_MS11C") || khoa_bcqt.equals("BCQT_MS18B")||khoa_bcqt.equals("BCQT_MS19A")) {
+                _server_tmp = new LeaveHomeService();
+                lstCN_API = _server_tmp.getListCn("");
+                return "BCQT_MS11C";
+            }else {
                 if (khoa_bcqt.isEmpty()) {
                     setKhoa_bcqt("ALL");
                 }

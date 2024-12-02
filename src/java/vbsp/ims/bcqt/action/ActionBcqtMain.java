@@ -30,6 +30,7 @@ import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.define.Define;
+import vbsp.ims.leavelocal.LeaveHomeService;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
@@ -39,6 +40,7 @@ import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.CommissionDetailModel;
 import vbsp.ims.restapi.CommissionMasterModel;
 import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.ListMainPos;
 import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlBcqtSync;
@@ -59,6 +61,7 @@ public class ActionBcqtMain extends ActionSupport {
     protected String khoa_bcqt;
     protected TreeNode nodes_pos = new TreeNode();
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
+    private List<ListMainPos> lstCN_API;
     protected ArrayList<CommissionMasterModel> lstDulieuHoahong = new ArrayList<>();
     
 //    protected CommissionMasterModel hoahongMaster = new CommissionMasterModel();
@@ -76,7 +79,7 @@ public class ActionBcqtMain extends ActionSupport {
     protected String type_bcqt;
     protected List<ModelViewSend> lstViewSend = new ArrayList<>();
     private Map<String, String> dmChtrinh = new LinkedHashMap<String, String>();
-    
+    LeaveHomeService _server_tmp;
     protected List<ListValue> lstChuongtrinh = new ArrayList<ListValue>();
     protected List<ListValue> lstMaxa = new ArrayList<ListValue>();
     protected List<ListValue> lstNguonvon = new ArrayList<ListValue>();
@@ -86,6 +89,14 @@ public class ActionBcqtMain extends ActionSupport {
 
     protected PosMainModel posMainModel;
     protected String pos_cd_username;
+
+    public List<ListMainPos> getLstCN_API() {
+        return lstCN_API;
+    }
+
+    public void setLstCN_API(List<ListMainPos> lstCN_API) {
+        this.lstCN_API = lstCN_API;
+    }
     
     
 
@@ -313,20 +324,13 @@ public class ActionBcqtMain extends ActionSupport {
                 System.err.println("SDQ---2");
                 setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
                 System.err.println("SDQ---3");
-                DuLieuNTService service1 = new DuLieuNTService();
-//                ArrayList<LockSendModel> lstDataLock = service1.getDataLockManual("CIC_CUSTOMER", pos_cd_username, "S", "20231231");
-//                if (lstDataLock == null || lstDataLock.size() == 0) {
-//                    addActionError("Vui lòng kiểm tra lại kết nối tới Api trung ương");
-//                    return ERROR;
-//                }
-//                try {
-//                    setChotCic(lstDataLock.get(0).getStatus());
-//                } catch (Exception e) {
-//                    setChotCic("0");
-//                }
                 return "mau13A_sk";
             }
-            
+            if (khoa_bcqt.equals("BCQT_MS11C") || khoa_bcqt.equals("BCQT_MS18B")||khoa_bcqt.equals("BCQT_MS19A")) {
+                _server_tmp = new LeaveHomeService();
+                lstCN_API = _server_tmp.getListCn("");
+                return "BCQT_MS11C";
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> loadPataBcqt: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> loadPataBcqt: " + e.getMessage());

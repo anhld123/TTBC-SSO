@@ -20,13 +20,15 @@
         <action name="LoadParaBcqt" class="vbsp.ims.bcqt.action.ActionBcqtMain"  method="loadPataBcqt">
             <result name="success">/BCQT/para-bcqt-main.jsp</result>
             <result name="BCQT_LAIAM">/BCQT/para_laiton_am.jsp</result>
-             <result name="mau13A_sk">/BCQT/para_baocao_13a_saoke.jsp</result>
+            <result name="mau13A_sk">/BCQT/para_baocao_13a_saoke.jsp</result>
+            <result name="BCQT_MS11C">/BCQT/para_baocao_11c_saoke.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>  
         
         <!--Chi phan khoa va mo khoa gui du lieu-->
         <action name="LoadParaBcqt_unlock" class="vbsp.ims.bcqt.action.ActionBcqtSyncMain"  method="LoadParaBcqt_unlock">
             <result name="success">/BCQT/para-bcqt-main_unlock.jsp</result>
+             <result name="BCQT_MS11C">/BCQT/para_baocao_11c_saoke.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>  
         
@@ -47,7 +49,7 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>  
         
-         <action name="LOCK_PGD" class="vbsp.ims.bcqt.action.ActionBcqtSyncMain"  method="LockPgd">
+        <action name="LOCK_PGD" class="vbsp.ims.bcqt.action.ActionBcqtSyncMain"  method="LockPgd">
             <result name="success" type="redirectAction">
                 <param name="actionName">UNLOCK_BCQT</param>
                 <!--<param name="namespace">/genReport</param>-->
@@ -77,7 +79,7 @@
         </action>
         <!--cac mau cua tungnv-->
         <action name="downladFileHH" class="vbsp.ims.bcqt.action.BCQT_HOAHONG"  method="downladFileHH">
-<!--            <result name="success" type="stream">
+            <!--            <result name="success" type="stream">
                 <param name="contentType">application/octet-stream</param>
                 <param name="inputName">fileInputStream</param>
                 <param name="contentDisposition">attachment;filename="${fileName}"</param>
@@ -127,12 +129,12 @@
         </action>
         
         <action name="BCQT_PL01A" class="vbsp.ims.bcqt.action.BCQT_PL01A"  method="load">
-                <result name="success">/BCQT/table_bcqt_pl01a.jsp</result>
-                <result name="error">/BCQT/success.jsp</result>        
+            <result name="success">/BCQT/table_bcqt_pl01a.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
         </action>    
         <action name="SAVE_BCQT_PL01A" class="vbsp.ims.bcqt.action.BCQT_PL01A"  method="save">
-                <result name="success">/BCQT/success.jsp</result>
-                <result name="error">/BCQT/success.jsp</result>        
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
         </action>
         
         <action name="BCQT_M12A" class="vbsp.ims.bcqt.action.BCQT_M12A"  method="load">
@@ -162,7 +164,7 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>
         
-         <action name="BCQT_MS11B" class="vbsp.ims.bcqt.action.BCQT_M11B"  method="load">
+        <action name="BCQT_MS11B" class="vbsp.ims.bcqt.action.BCQT_M11B"  method="load">
             <result name="success">/BCQT/table_bcqt_ms11b.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>    
@@ -512,7 +514,7 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>
     
-         <action name="26B_DAILY" class="vbsp.ims.bcqt.action.BCQT_26B_DAILY"  method="load">
+        <action name="26B_DAILY" class="vbsp.ims.bcqt.action.BCQT_26B_DAILY"  method="load">
             <result name="success">/BCQT/table_26b_daily.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>
@@ -524,13 +526,13 @@
         
     </package>
     
-     <package name="load_danhmuc" extends="struts-default,json-default">
+    <package name="load_danhmuc" extends="struts-default,json-default">
         <action name="loadDMChtrinh"  class="vbsp.ims.bcqt.action.ActionBcqtMain" method="loadDMChtrinh">
             <result name="success" type="json">/BCQT/table_bcqt_ms11b.jsp</result>
             <result name="error">/BCQT/success.jsp</result>
         </action>      
         
-<!--        <action name="loadColumnQuery"  class="vbsp.ims.excel.template.ActionExcelTemplate" method="loadColumnQuery">
+        <!--        <action name="loadColumnQuery"  class="vbsp.ims.excel.template.ActionExcelTemplate" method="loadColumnQuery">
             <result name="success" type="json">/excel_config/edit_query.jsp</result>
             <result name="error">excel_config/success.jsp</result>
         </action>                -->
@@ -542,10 +544,103 @@
             <result name="error">/BCQT/success.jsp</result>       
         </action>
         
-         <action name="SAVE_QT_MS13_2023" class="vbsp.ims.bcqt.action.QT_MS13_2023"  method="save">
+        <action name="SAVE_QT_MS13_2023" class="vbsp.ims.bcqt.action.QT_MS13_2023"  method="save">
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>
+        <action name="BCQT_MS11C" class="vbsp.ims.bcqt.action.BCQT_11C_2024"  method="load">
+            <result name="success_1">/BCQT/table_bcqt_11c_cn.jsp</result>   
+            <result name="success_2">/BCQT/table_bcqt_11c_cn_duyet.jsp</result>   
+            <result name="success_3">/BCQT/table_bcqt_11c_tw.jsp</result>   
+            <result name="error">/BCQT/success.jsp</result>       
+        </action>
+        <action name="save_BCQT_MS11C" class="vbsp.ims.bcqt.action.BCQT_11C_2024"  method="save">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action> 
+        <action name="send_BCQT_MS11C" class="vbsp.ims.bcqt.action.BCQT_11C_2024" method="send">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>  
+        </action>
+        <action name="unlock_11C_2024_c3" class="vbsp.ims.bcqt.action.BCQT_11C_2024" method="unlock_c3">
+            <result name="success" type="json"></result>
+        </action>
+        <action name="unlock_BCQT_MS11C_c3" class="vbsp.ims.bcqt.action.BCQT_11C_2024" method="unlock_c3">
+            <result name="success" type="json"></result>
+        </action>
+        <action name="idAddline_BCQT_MS11C" class="vbsp.ims.bcqt.action.BCQT_11C_2024" method="addline">
+            <result name="success" type="json"></result>
+        </action>
+        <action name="senTW_BCQT_MS11C" class="vbsp.ims.bcqt.action.BCQT_11C_2024" method="senTw">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>  
+        </action>
+        <action name="BCQT_MS18B" class="vbsp.ims.bcqt.action.BCQT_18B_2024"  method="load">
+            <result name="success_1">/BCQT/table_bcqt_18b_cn.jsp</result>   
+            <result name="success_2">/BCQT/table_bcqt_11c_cn_duyet.jsp</result>   
+            <result name="success_3">/BCQT/table_bcqt_11c_tw.jsp</result>   
+            <result name="error">/BCQT/success.jsp</result>       
+        </action>
+        <action name="save_BCQT_MS18B" class="vbsp.ims.bcqt.action.BCQT_18B_2024"  method="save">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>  
+        </action>    
+        <action name="send_BCQT_MS18B" class="vbsp.ims.bcqt.action.BCQT_18B_2024" method="send">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result> 
+        </action> 
+        <action name="idAddline_BCQT_MS18B" class="vbsp.ims.bcqt.action.BCQT_18B_2024" method="addline">
+            <result name="success" type="json"></result>
+        </action>
+        <action name="senTW_BCQT_MS18B" class="vbsp.ims.bcqt.action.BCQT_18B_2024" method="senTw">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>  
+        </action>
+        <action name="unlock_BCQT_MS18B_c3" class="vbsp.ims.bcqt.action.BCQT_18B_2024" method="unlock_c3">
+            <result name="success" type="json"></result>
+        </action>
+        <!--/**/-->
+        <action name="BCQT_MS19A" class="vbsp.ims.bcqt.action.BCQT_19A_2024"  method="load">
+            <result name="success_1">/BCQT/table_bcqt_19a_cn.jsp</result>   
+            <result name="success_2">/BCQT/table_bcqt_11c_cn_duyet.jsp</result>   
+            <result name="success_3">/BCQT/table_bcqt_11c_tw.jsp</result>   
+            <result name="error">/BCQT/success.jsp</result>       
+        </action>
+        <action name="save_BCQT_MS19A" class="vbsp.ims.bcqt.action.BCQT_19A_2024"  method="save">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>  
+        </action>    
+        <action name="send_BCQT_MS19A" class="vbsp.ims.bcqt.action.BCQT_19A_2024" method="send">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result> 
+        </action> 
+        <action name="idAddline_BCQT_MS19A" class="vbsp.ims.bcqt.action.BCQT_19A_2024" method="addline">
+            <result name="success" type="json"></result>
+        </action>
+        <action name="senTW_BCQT_MS19A" class="vbsp.ims.bcqt.action.BCQT_19A_2024" method="senTw">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>  
+        </action>
+        <action name="unlock_BCQT_MS19A_c3" class="vbsp.ims.bcqt.action.BCQT_19A_2024" method="unlock_c3">
+            <result name="success" type="json"></result>
+        </action>
     </package>
-    
 </struts>
