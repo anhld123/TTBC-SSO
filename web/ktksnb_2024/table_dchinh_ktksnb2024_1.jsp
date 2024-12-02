@@ -299,7 +299,7 @@
                             <s:iterator value="#attr.lstDulieuNt" status="rowStatus">
                                 <s:if test="#rowStatus.first">
                                     &raquo;&raquo;&nbsp; <a id="deletePlanLink" style="text-decoration: underline" href="#" 
-                                                            onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="NGAYBC"/>', '<s:property value="KHOA"/>', '<s:property value="D5"/>', '1');">
+                                                            onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="D13"/>', '<s:property value="KHOA"/>', '<s:property value="D5"/>', '1');">
                                         Xóa điều chỉnh tháng <s:property value="D5"/>
                                     </a></s:if></s:iterator>
                                     &nbsp;-/- Đổi tháng k.tra &nbsp;
@@ -324,7 +324,7 @@
 
                                     &nbsp; &raquo;&raquo;&nbsp; 
                                     <a id="selectLink" style="text-decoration: underline" href="#" 
-                                       onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', document.getElementById('select1').value, '<s:property value="NGAYBC"/>', '<s:property value="KHOA"/>', '<s:property value="D5"/>', '2');">
+                                       onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', document.getElementById('select1').value, '<s:property value="D13"/>', '<s:property value="KHOA"/>', '<s:property value="D5"/>', '2');">
 
                                     </a>
                                 </s:if>
@@ -343,11 +343,11 @@
                                     <s:if test="#rowStatus.first">
                                         &nbsp;&raquo;&raquo;&nbsp;
                                         <a id="selectLink1" style="text-decoration: underline" href="#" 
-                                           onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="NGAYBC"/>', '<s:property value="KHOA"/>-<s:property value="D5"/>', document.getElementById('cboCanBo').value, '3');">
+                                           onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="D13"/>', '<s:property value="KHOA"/>-<s:property value="D5"/>', document.getElementById('cboCanBo').value, '3');">
                                         </a>
                                     </div>
                                     <div style="color: red; background: yellow; text-align: left; font-weight: bold; width: 99%; font-size: 13px; 
-                                     display: flex; margin: auto;">
+                                         display: flex; margin: auto;">
                                         Đổi xã kiểm tra &nbsp;
                                         <select id="lstXa" name="lstXa" onchange="updateXa()">
                                             <option value="000000">---Chọn xã---</option>
@@ -358,12 +358,12 @@
                                         <s:if test="#rowStatus.first">
                                             &nbsp;&raquo;&raquo;&nbsp;
                                             <a id="selectLink2" style="text-decoration: underline" href="#" 
-                                               onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="NGAYBC"/>', '<s:property value="KHOA"/>-<s:property value="D5"/>', document.getElementById('lstXa').value, '4');">
+                                               onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="D13"/>', '<s:property value="KHOA"/>-<s:property value="D5"/>', document.getElementById('lstXa').value, '4');">
                                             </a>
                                         </s:if>
-                                            </div>
-                                    </s:if>
-                                
+                                    </div>
+                                </s:if>
+
                             </s:if>
                             <s:elseif test="D4.equalsIgnoreCase('99999') && #rowStatus.first">
                                 <div style="color: red; background: yellow; text-align: left; font-weight: bold; width: 99%; font-size: 13px; 
@@ -379,7 +379,7 @@
                                         <s:if test="#rowStatus.first">
                                             &nbsp;&raquo;&raquo;&nbsp;
                                             <a id="selectLink2" style="text-decoration: underline" href="#" 
-                                               onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="NGAYBC"/>', '<s:property value="KHOA"/>-<s:property value="D5"/>', document.getElementById('lstXa').value, '4');">
+                                               onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="D13"/>', '<s:property value="KHOA"/>-<s:property value="D5"/>', document.getElementById('lstXa').value, '4');">
                                             </a>
                                         </s:if>
                                     </s:if>
@@ -394,7 +394,7 @@
                                         <s:if test="#rowStatus.first">
                                             &nbsp;&raquo;&raquo;&nbsp;
                                             <a id="selectLink3" style="text-decoration: underline" href="#" 
-                                               onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="NGAYBC"/>', '<s:property value="KHOA"/>-<s:property value="D5"/>', document.getElementById('lstPGD').value, '5');">
+                                               onclick="cancelAssign('<s:property value="chotsl"/>', '<s:property value="MAPGD"/>', '<s:property value="D3"/>', '<s:property value="D4"/>', '<s:property value="D5"/>', '<s:property value="D13"/>', '<s:property value="KHOA"/>-<s:property value="D5"/>', document.getElementById('lstPGD').value, '5');">
                                             </a>
                                         </s:if>
                                     </div>
@@ -438,7 +438,8 @@
                 <input type="hidden" value="<s:property  value="NGUOI_NHAP" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NGUOI_NHAP"/>
                 <input type="hidden" value="<s:property  value="NAMBC" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NAMBC"/>
                 <input type="hidden" value="<s:property  value="NGAYBC" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NGAYBC"/>
-                <input type="hidden" value="<s:property  value="MAPGD" />"name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD"/>
+                <input type="hidden" value="<s:property  value="D13" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13"/>
+                 <input type="hidden" value="<s:property  value="MAPGD" />"name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD"/>
                 <input type="hidden" value="<s:property  value="MACN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN"/>
                 <input type="hidden" value="<s:property  value="D1" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1"/>
                 <input type="hidden" value="<s:property  value="D3" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3"/>
@@ -582,8 +583,7 @@
     }
     function cancelAssign(chotsl, mapgd, D3, D4, monthSelect, nambc, skhoa, D5, type) {
         var url, sdata;
-//                    alert(monthSelect + " " + skhoa + " " + D5 + " " + type);
-        var sthangbc = document.getElementById("sthang").value.padStart(2, '0');
+      var sthangbc = document.getElementById("sthang").value.padStart(2, '0');
         var snambc = document.getElementById("snam").value;
         var stoday = document.getElementById("stoday").value;
         var sparts = stoday.split('/');
@@ -598,7 +598,7 @@
         //                return;
         //            }
         //            
-        url = "status_KTKSNB_02_C1.action?" + "chotsl" + chotsl + "&madiemgd=" + mapgd + "&smaxa=" + D3 + "&sCanbo=" + D4 + "&sThang=" + monthSelect + "&sNam=" + nambc + "&skhoa=" + skhoa + "&ssThang=" + D5 + "&type=" + type,
+        url = "status_KTKSNB_02_C1.action?" + "chotsl=" + chotsl + "&madiemgd=" + mapgd + "&smaxa=" + D3 + "&sCanbo=" + D4 + "&sThang=" + monthSelect + "&sNam=" + nambc + "&skhoa=" + skhoa + "&ssThang=" + D5 + "&type=" + type,
                 sdata = jQuery("#frmdata").serialize();
         $("#viewData").html('<img src="img/loading.gif"/>');
         $.ajax({

@@ -792,6 +792,7 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
             String ssKhoa;
             String ssCanbo22 = "";
             String ssDieuchinh = "";
+
             if (stype.equals("1") || stype.equals("2")) {
                 ssThang = ServletActionContext.getRequest().getParameter("ssThang");
                 ssKhoa = ServletActionContext.getRequest().getParameter("skhoa");
@@ -850,7 +851,7 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
             } else {
                 status2 = 0;
             }
-//            System.out.println(lstData_Api.size() + " " + ssKhoa + " " + sMaPgd + " " + _reportDate3 + " " + conditions + " " + status2);
+            System.out.println("sMaPgd= " + sMaPgd + " smaxa= " + smaxa + " sCanbo= " + sCanbo + " sThang= " + sThang + " ssThang= " + ssThang + " stype= " + stype + " ssCanbo22== " + ssCanbo22 + " ssDieuchinh== " + ssDieuchinh);
             int status;
             if (schotsl.equals("1") || schotsl.equals("2")) {
                 status = 100;
@@ -1245,6 +1246,9 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
                     row.setD10(item.getD10());
                     row.setD11(item.getD11());
                     row.setD12(item.getD12());
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    String formattedDate = dateFormat.format(reportDate);
+                    row.setD13(formattedDate);
                     row.setNHAPTAY(item.getManualFlag());
                     row.setKIEUIN(item.getStyle());
                     lstDulieuNt.add(row);
