@@ -158,7 +158,7 @@
                     <th class="STT1" >STT</th>                           
                     <th class="STT4" >Nội dung</th>  
                     <th class="STT2" >Đơn vị</th>  
-                    <th class="STT6" >Kế hoạch kiểm tra</th>
+                    <th class="STT6" >Kế hoạch</th>
                 </tr>
 
 
@@ -191,14 +191,14 @@
                     <input type="hidden" value="<s:property  value="KIEUIN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KIEUIN"/>
                     <input type="hidden" value="<s:property  value="NHAPTAY" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY"/>
 
-                    <td class="D0" <s:if test="KIEUIN.toString().equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
-                    <td <s:if test="KIEUIN.toString().equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
+                    <td class="D0" <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
+                    <td <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
                     <td class="D0" <s:if test="KIEUIN.toString().equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
                         <td style="background:  #E5E5E5">
                             <input type="text" value="<s:property  value="D2" />"
                                id="D2_<s:property  value='%{#rowstatus.index}' />"
                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number"
-                               <s:if test="KIEUIN.toString().equalsIgnoreCase('1')"> style="font-weight: bold" readonly</s:if>/>
+                               <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold" readonly</s:if>/>
                         </td>
                         </tr>
                 </s:iterator>

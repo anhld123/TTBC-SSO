@@ -439,7 +439,7 @@
                 <input type="hidden" value="<s:property  value="NAMBC" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NAMBC"/>
                 <input type="hidden" value="<s:property  value="NGAYBC" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NGAYBC"/>
                 <input type="hidden" value="<s:property  value="D13" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13"/>
-                 <input type="hidden" value="<s:property  value="MAPGD" />"name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD"/>
+                <input type="hidden" value="<s:property  value="MAPGD" />"name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD"/>
                 <input type="hidden" value="<s:property  value="MACN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN"/>
                 <input type="hidden" value="<s:property  value="D1" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1"/>
                 <input type="hidden" value="<s:property  value="D3" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3"/>
@@ -452,38 +452,27 @@
                 <input type="hidden" value="<s:property  value="KIEUIN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KIEUIN" id="KIEUIN_<s:property  value='%{#rowstatus.index}' />"/>
                 <input type="hidden" value="<s:property  value="NHAPTAY" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY"/>
                 <s:if test="scapbc.equalsIgnoreCase('1')">
-                    <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                          || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
-                    <td <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                          || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
-                    <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                          || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
+                    <td class="D0" <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
+                    <td <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
+                    <td class="D0" <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
                         <td style="background:  #E5E5E5">
                             <input type="text" value="<s:property  value="D2" />"
                                id="D2_<s:property  value='%{#rowstatus.index}' />"
                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number" readonly
-                               <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                                     || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold"</s:if>/>
+                               <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold"</s:if>/>
                         </td>    
                         <td style="background:  #E5E5E5">
                             <input type="text" 
                                    id="D6_<s:property  value='%{#rowstatus.index}' />"
                             name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="number"
-                            <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                                  || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold" readonly</s:if>
+                            <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold" readonly</s:if>
                             <s:else> value="<s:property value='%{D6 != null ? D6 : D2}' />"</s:else>/>
                         </td>
                 </s:if>
                 <s:else>
-                    <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                          || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
-                          || THUTU.toString().equalsIgnoreCase('17')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
-                    <td <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                          || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
-                          || THUTU.toString().equalsIgnoreCase('17')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
-                    <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                          || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
-                          || THUTU.toString().equalsIgnoreCase('17')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
+                    <td class="D0" <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
+                    <td <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
+                    <td class="D0" <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
                         <td style="background:  #E5E5E5">
                             <input type="text" value="<s:property  value="D2" />"
                                id="D2_<s:property  value='%{#rowstatus.index}' />"
@@ -583,7 +572,7 @@
     }
     function cancelAssign(chotsl, mapgd, D3, D4, monthSelect, nambc, skhoa, D5, type) {
         var url, sdata;
-      var sthangbc = document.getElementById("sthang").value.padStart(2, '0');
+        var sthangbc = document.getElementById("sthang").value.padStart(2, '0');
         var snambc = document.getElementById("snam").value;
         var stoday = document.getElementById("stoday").value;
         var sparts = stoday.split('/');

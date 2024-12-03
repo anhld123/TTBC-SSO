@@ -396,8 +396,6 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
         try {
             // Populate data fields
             row.setKHOA(item.getKey());
-
-            // Safely parse and set values with null checks
             if (item.getOrderValue() != null) {
                 row.setTHUTU(Integer.parseInt(item.getOrderValue()));
             }
@@ -489,6 +487,9 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
                         List<DuLieuNTRow> lstDataApi1 = _serverAPI.getListKTKSNB_2024("KH_TINH", item.getPosCode(), "S", _reportDate1, sThangkt);
                         List<DuLieuNTRow> lstDataApi2 = _serverAPI.getListKTKSNB_2024("KH_TINH_DC", item.getPosCode(), "S", _reportDate3, sThangkt);
 
+                        if ((lstDataApi1 == null || lstDataApi1.isEmpty()) && (lstDataApi2 == null || lstDataApi2.isEmpty())) {
+                            continue; // Bỏ qua mục này và tiếp tục xử lý các mục khác
+                        }
                         // Set for d3 and d4 combinations from API 2
                         Set<String> d3d4SetApi2 = new HashSet<>();
                         for (DuLieuNTRow api2Item : lstDataApi2) {
@@ -674,6 +675,8 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
                 tempadd.setD5(tmp.getD5());
                 tempadd.setD6(tmp.getD6());
                 tempadd.setD7("1");
+                tempadd.setD8(tmp.getD8());
+                tempadd.setD9(tmp.getD9());
                 tempadd.setManualFlag(tmp.getNHAPTAY());
                 tempadd.setStyle(tmp.getKIEUIN());
                 lstUpdateDate.add(tempadd);
@@ -890,6 +893,9 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
                                 tempUpdate.setD4(tmp.getD4());
                                 tempUpdate.setD5(sThang);
                                 tempUpdate.setD6(tmp.getD6());
+                                tempUpdate.setD7(tmp.getD7());
+                                tempUpdate.setD8(tmp.getD8());
+                                tempUpdate.setD9(tmp.getD9());
                                 tempUpdate.setManualFlag(tmp.getNHAPTAY());
                                 tempUpdate.setStyle(tmp.getKIEUIN());
 
@@ -916,6 +922,9 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
                                 tempDelete.setD4(tmp.getD4());
                                 tempDelete.setD5(tmp.getD5());
                                 tempDelete.setD6(tmp.getD6());
+                                tempDelete.setD7(tmp.getD7());
+                                tempDelete.setD8(tmp.getD8());
+                                tempDelete.setD9(tmp.getD9());
                                 tempDelete.setManualFlag(tmp.getNHAPTAY());
                                 tempDelete.setStyle(tmp.getKIEUIN());
                                 lstDelete.add(tempDelete);
@@ -950,6 +959,9 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
                             tempDelete.setD4(tmp.getD4());
                             tempDelete.setD5(tmp.getD5());
                             tempDelete.setD6(tmp.getD6());
+                            tempDelete.setD7(tmp.getD7());
+                            tempDelete.setD8(tmp.getD8());
+                            tempDelete.setD9(tmp.getD9());
                             tempDelete.setManualFlag(tmp.getNHAPTAY());
                             tempDelete.setStyle(tmp.getKIEUIN());
                             lstDelete.add(tempDelete);
@@ -991,6 +1003,9 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
                             }
                             tempUpdate.setD5(sThang);
                             tempUpdate.setD6(tmp.getD6());
+                            tempUpdate.setD7(tmp.getD7());
+                            tempUpdate.setD8(tmp.getD8());
+                            tempUpdate.setD9(tmp.getD9());
                             tempUpdate.setManualFlag(tmp.getNHAPTAY());
                             tempUpdate.setStyle(tmp.getKIEUIN());
                             lstUpdateDate.add(tempUpdate);
@@ -1024,6 +1039,9 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
                             tempUpdate.setD4(tmp.getD4());
                             tempUpdate.setD5(sThang);
                             tempUpdate.setD6(tmp.getD6());
+                            tempUpdate.setD7(tmp.getD7());
+                            tempUpdate.setD8(tmp.getD8());
+                            tempUpdate.setD9(tmp.getD9());
                             tempUpdate.setManualFlag(tmp.getNHAPTAY());
                             tempUpdate.setStyle(tmp.getKIEUIN());
                             lstUpdateDate1.add(tempUpdate);
@@ -1049,6 +1067,9 @@ public class KTKSNB_02 extends ActionChtrinhcnMain
                             tempDelete.setD4(tmp.getD4());
                             tempDelete.setD5(tmp.getD5());
                             tempDelete.setD6(tmp.getD6());
+                            tempUpdate.setD7(tmp.getD7());
+                            tempUpdate.setD8(tmp.getD8());
+                            tempUpdate.setD9(tmp.getD9());
                             tempDelete.setManualFlag(tmp.getNHAPTAY());
                             tempDelete.setStyle(tmp.getKIEUIN());
                             lstDelete1.add(tempDelete);

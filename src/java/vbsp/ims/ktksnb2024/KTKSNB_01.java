@@ -575,6 +575,8 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
                 tempadd.setD4(tmp.getD4());
                 tempadd.setD5(tmp.getD5());
                 tempadd.setD7("1");
+                tempadd.setD8(tmp.getD8());
+                tempadd.setD9(tmp.getD9());
                 tempadd.setManualFlag(tmp.getNHAPTAY());
                 tempadd.setStyle(tmp.getKIEUIN());
                 lstUpdateDate.add(tempadd);
@@ -824,6 +826,7 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
                 tempadd.setD6(tmp.getD6());
                 tempadd.setD7(tmp.getD7());
                 tempadd.setD8(tmp.getD8());
+                tempadd.setD9(tmp.getD9());
                 lstUpdateDate.add(tempadd);
             }
             int status = _serverAPI.deleteKTKSNB(skhoa, smapgd, "S", _reportDate, "", "", lstUpdateDate);

@@ -518,6 +518,10 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
                                 return ERROR;
                             }
                         }
+                        if ((lstDataApi1 == null || lstDataApi1.isEmpty()) && (lstDataApi2 == null || lstDataApi2.isEmpty())
+                                && (lstDataApi3 == null || lstDataApi3.isEmpty())) {
+                            continue; // Bỏ qua mục này và tiếp tục xử lý các mục khác
+                        }
                         Set<String> d3d4SetApi3 = new HashSet<>();
                         if (lstDataApi3 != null) {
                             for (DuLieuNTRow api3Item : lstDataApi3) {

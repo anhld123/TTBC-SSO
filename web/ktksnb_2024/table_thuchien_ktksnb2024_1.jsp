@@ -342,12 +342,9 @@
                             <input type="hidden" value="<s:property  value="KIEUIN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KIEUIN"/>
                             <input type="hidden" value="<s:property  value="NHAPTAY" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY"/>
                             <s:if test="scapbc.equalsIgnoreCase('1')">
-                                <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                                      || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
-                                <td <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                                      || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
-                                <td class="D0" <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                                      || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
+                                <td class="D0" <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
+                                <td <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
+                                <td class="D0" <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
                                     <td style="background:  #E5E5E5">
                                         <input type="text" value="<s:property  value="D2" />"
                                            id="D2_<s:property  value='%{#rowstatus.index}' />"
@@ -362,37 +359,34 @@
                                     <input type="text" 
                                            id="D8_<s:property  value='%{#rowstatus.index}' />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="number"
-                                           <s:if test="THUTU.toString().equalsIgnoreCase('1')
-                                                 || THUTU.toString().equalsIgnoreCase('8')"> style="font-weight: bold" readonly</s:if>
-                                                 <s:else> value="<s:property value='%{D8 != null ? D8 : D6}' />"</s:else>
-                                                 />
+                                           <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold" readonly</s:if>
+                                           <s:else> value="<s:property value='%{D8 != null ? D8 : (D6 == null ? D2 :0)}' />"</s:else>
+                                               />
                                     </td>
                             </s:if> 
                             <s:else>
-                                <td class="D0" <s:if test="(THUTU.toString().equalsIgnoreCase('1')
-                                      || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
-                                      || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
-                                <td <s:if test="(THUTU.toString().equalsIgnoreCase('1')
-                                      || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
-                                      || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
-                                <td class="D0" <s:if test="(THUTU.toString().equalsIgnoreCase('1')
-                                      || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
-                                      || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
-                                <td <s:if test="(THUTU.toString().equalsIgnoreCase('1')
-                                      || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
-                                      || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property  value="D2" /></td> 
-                                <td <s:if test="(THUTU.toString().equalsIgnoreCase('1')
-                                      || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
-                                      || THUTU.toString().equalsIgnoreCase('17'))"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property  value="D6" /></td>     
+                                <td class="D0" <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TT_HIENTHI" /></td>
+                                <td <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="TEN" /></td>
+                                <td class="D0" <s:if test="D9.equalsIgnoreCase('1')"> style="font-weight: bold;background:  #E5E5E5" </s:if>><s:property value="D1" /></td>
                                     <td style="background:  #E5E5E5">
-                                        <input type="text" id="D8_<s:property value='%{#rowstatus.index}' />"
+                                        <input type="text" value="<s:property  value="D2" />"
+                                           id="D2_<s:property  value='%{#rowstatus.index}' />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="number" readonly/>
+                                </td>  
+                                <td style="background:  #E5E5E5">
+                                    <input type="text" value="<s:property  value="D6" />"
+                                           id="D6_<s:property  value='%{#rowstatus.index}' />"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="number" readonly/>
+                                </td>   
+                                <td style="background:  #E5E5E5">
+                                    <input type="text" id="D8_<s:property value='%{#rowstatus.index}' />"
                                            name="lstDulieuNt[<s:property value='%{#rowstatus.index}' />].D8" class="number"
                                            <s:if test="(THUTU.toString().equalsIgnoreCase('1')
                                                  || THUTU.toString().equalsIgnoreCase('2') || THUTU.toString().equalsIgnoreCase('10')
                                                  || THUTU.toString().equalsIgnoreCase('17'))"> 
                                                style="font-weight: bold" readonly
                                            </s:if>
-                                           <s:else> value="<s:property value='%{D8 != null ? D8 : D6}' />"</s:else>
+                                           <s:else> value="<s:property value='%{D8 != null ? D8 : (D6 == null ? D2 :0)}' />"</s:else>
                                                />
                                     </td>                              
                             </s:else>
