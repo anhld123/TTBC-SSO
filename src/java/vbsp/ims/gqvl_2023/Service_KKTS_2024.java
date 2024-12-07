@@ -709,7 +709,13 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             ActionContext.getContext().getSession().put("skhoa", skhoa);
             ActionContext.getContext().getSession().put("sduan", sduan);
             ActionContext.getContext().getSession().put("sUserName", sUserName);
-            ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual(skhoa, smacn, "M", _reportDate);
+            String sKyeLock = "KKTS_01_" + sduan;
+            ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual(sKyeLock, smacn, "M", _reportDate);
+            try {
+                setChotsl(lstData_tmp.get(0).getStatus());
+            } catch (Exception e) {
+                setChotsl("0");
+            }
             lstDmKhac88 = _serverAPI.getListOfValue("88", "");
             lstDmKhac87 = _serverAPI.getListOfValue("87", "");
             lstDmKhac117 = _serverAPI.getListOfValue("117", "");

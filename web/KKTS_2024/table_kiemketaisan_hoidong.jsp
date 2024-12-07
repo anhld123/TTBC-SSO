@@ -316,7 +316,7 @@
                             </td>
                             <td class="D0"><s:property value="%{#rowstatus.index + 1}" /></td>
                             <td class="D0">   
-                                <select  id="lstCanBo_<s:property  value='%{#rowstatus.index}' />" style="width: 150px;border: hidden"
+                                <select  id="lstCanBo_<s:property  value='%{#rowstatus.index}' />" style="width: 200px;border: hidden"
                                          name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1">
                                     <option value="000000">---Mã cán bộ---</option>
                                     <s:iterator value="lstCanBo" status="ideRows" var="language">
@@ -330,7 +330,7 @@
                                 </select>
                             </td>
                             <td class="D0">   
-                                <select  id="lstDm87_<s:property  value='%{#rowstatus.index}' />" style="width: 150px;border: hidden"
+                                <select  id="lstDm87_<s:property  value='%{#rowstatus.index}' />" style="width: 200px;border: hidden"
                                          name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2">
                                     <option value="000000">---Phòng ban---</option>
                                     <s:iterator value="lstDmKhac87" status="ideRows" var="language">
@@ -342,7 +342,7 @@
                                 </select>
                             </td>
                             <td class="D0">   
-                                <select  id="lstDm88_<s:property  value='%{#rowstatus.index}' />" style="width: 150px;border: hidden"
+                                <select  id="lstDm88_<s:property  value='%{#rowstatus.index}' />" style="width: 200px;border: hidden"
                                          name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3">
                                     <option value="000000">---Chức vụ công tác---</option>
                                     <s:iterator value="lstDmKhac88" status="ideRows" var="language">
@@ -354,7 +354,7 @@
                                 </select>
                             </td>
                             <td class="D0">   
-                                <select  id="lstDm117_<s:property  value='%{#rowstatus.index}' />" style="width: 150px;border: hidden"
+                                <select  id="lstDm117_<s:property  value='%{#rowstatus.index}' />" style="width: 200px;border: hidden"
                                          name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4">
                                     <option value="000000">---Chức vụ kiểm tra--</option>
                                     <s:iterator value="lstDmKhac117" status="ideRows" var="language">
@@ -393,7 +393,7 @@
                 if (aCheck) {
                     var isValid = true;
                     var chot = document.getElementById("chotsl").value;
-                    if (chot === "1") {
+                    if (chot === "2") {
                         alert("Dữ liệu đã gửi, không thể lưu!");
                         isValid = false;
                     }
@@ -480,29 +480,36 @@
 
             function cancelAssign(skhoa, sma, sten) {
                 var url, sdata;
-
-                url = "delete_KKTS_HDKT_2024.action?" + "skhoa=" + skhoa + "&sma=" + sma + "&sten=" + sten,
-                        sdata = jQuery("#frmdata").serialize();
-                $("#viewData").html('<img src="img/loading.gif"/>');
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: sdata,
-                    success: function (data) {
-                        if (data === "200") {
-                            alert("Xóa dữ liệu thành công!");
-                        } else if (data === "100") {
-                            alert("Lỗi: Đơn vị đã gửi dữ liệu không thể thao tác!");
-                        } else {
+                var isValid = true;
+                var chot = document.getElementById("chotsl").value;
+                if (chot === "2") {
+                    alert("Dữ liệu đã gửi, không thể lưu!");
+                    isValid = false;
+                }
+                if (isValid) {
+                    url = "delete_KKTS_HDKT_2024.action?" + "skhoa=" + skhoa + "&sma=" + sma + "&sten=" + sten,
+                            sdata = jQuery("#frmdata").serialize();
+                    $("#viewData").html('<img src="img/loading.gif"/>');
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: sdata,
+                        success: function (data) {
+                            if (data === "200") {
+                                alert("Xóa dữ liệu thành công!");
+                            } else if (data === "100") {
+                                alert("Lỗi: Đơn vị đã gửi dữ liệu không thể thao tác!");
+                            } else {
+                                alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
+                            }
+                            idEnd();
+                        },
+                        error: function (request) {
                             alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
+                            tai_lai_trang();
                         }
-                        idEnd();
-                    },
-                    error: function (request) {
-                        alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
-                        tai_lai_trang();
-                    }
-                });
+                    });
+                }
             }
             function addRow(indx) {
                 var index = parseInt(indx);
@@ -520,10 +527,10 @@
                 var idCvu2 = "lstDm117_" + max_row;
                 var newTr = '<tr>' +
                         '<td class="D0"><input type="text" value="' + (max_row + 1) + '" id="TT_HIENTHI" name="lstDulieuNt[' + max_row + '].TT_HIENTHI" class="D0 number" onfocus="this.select();" /></td>' +
-                        '<td class="D0"><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D1" id="' + idMacb + '"></select></td>' +
-                        '<td class="D0"><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D2" id="' + idPban + '"></select></td>' +
-                        '<td class="D0"><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D3" id="' + idCvu1 + '"></select></td>' +
-                        '<td class="D0"><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D4" id="' + idCvu2 + '"></select></td>' +
+                        '<td class="D0"><select style="width: 200px;border: hidden" name="lstDulieuNt[' + max_row + '].D1" id="' + idMacb + '"></select></td>' +
+                        '<td class="D0"><select style="width: 200px;border: hidden" name="lstDulieuNt[' + max_row + '].D2" id="' + idPban + '"></select></td>' +
+                        '<td class="D0"><select style="width: 200px;border: hidden" name="lstDulieuNt[' + max_row + '].D3" id="' + idCvu1 + '"></select></td>' +
+                        '<td class="D0"><select style="width: 200px;border: hidden" name="lstDulieuNt[' + max_row + '].D4" id="' + idCvu2 + '"></select></td>' +
                         '<td class="D0"><input type="button" style="color: red;width: 100px" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)"/></td>' +
                         '</tr>';
 

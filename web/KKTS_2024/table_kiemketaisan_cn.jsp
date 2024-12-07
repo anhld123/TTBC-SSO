@@ -515,7 +515,7 @@
 
             function funcTableFile(skhoa, smapgd, smacn, sduan, sngaybc) {
                 var screenWidth = screen.width, screenHeight = screen.height;
-                var w = screenWidth / 1.7;
+                var w = screenWidth / 1.5;
                 var h = screenHeight/2;
                 var left = (screenWidth - w) / 2;
                 var top = (screenHeight - h) / 2;
