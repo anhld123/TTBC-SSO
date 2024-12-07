@@ -709,13 +709,14 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             ActionContext.getContext().getSession().put("skhoa", skhoa);
             ActionContext.getContext().getSession().put("sduan", sduan);
             ActionContext.getContext().getSession().put("sUserName", sUserName);
-            String sKyeLock = "KKTS_01_" + sduan;
-            ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual(sKyeLock, smacn, "M", _reportDate);
-            try {
-                setChotsl(lstData_tmp.get(0).getStatus());
-            } catch (Exception e) {
-                setChotsl("0");
-            }
+//            String sKyeLock = "KKTS_01_" + sduan;
+//            ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual(sKyeLock, smacn, "M", _reportDate);
+//            try {
+//                setChotsl(lstData_tmp.get(0).getStatus());
+//            } catch (Exception e) {
+//                setChotsl("0");
+//            }
+            setChotsl("0");
             lstDmKhac118 = _serverAPI.getListOfValue("118", "");
             lstDmKhac119 = _serverAPI.getListOfValue("119", "");
             lstDmKhac117 = _serverAPI.getListOfValue("117", "");
@@ -727,7 +728,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
                 setChotsl("0");
             }
 //            System.out.println("api: " + skhoa + " " + smacn + " " + _reportDate);
-            lstData_Api = _serverAPI.getDataKTKSNB_2024(skhoa, smacn, "M", _reportDate, "", "0");
+            lstData_Api = _serverAPI.getDataKTKSNB_2024("KKTS_01_HDKK", smacn, "M", _reportDate, "", "0");
             if (lstData_Api == null || lstData_Api.isEmpty()) {
                 setStype("1");
                 lstData_Api = _serverAPI.getDataKTKSNB_2024("ANHLD_KYE", smacn, "M", _reportDate, "", "1");
@@ -808,7 +809,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
                 String sysGuid = uuid.toString().replace("-", "") + timestamp;
                 setsCode(sysGuid);
                 DuLieuNTRowX tempadd = new DuLieuNTRowX();
-                tempadd.setKey(skhoa);
+                tempadd.setKey("KKTS_01_HDKK");
                 tempadd.setOrderValue(tmp.getTHUTU());
                 tempadd.setOrderDescription(tmp.getTT_HIENTHI());
                 tempadd.setName(tmp.getD1());
@@ -838,7 +839,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
                 lstUpdateDate.add(tempadd);
             }
             _serverAPI = new DuLieuNTService();
-            int status = _serverAPI.updateKTKSNB(skhoa, smacn, "M", _reportDate, "", "", lstUpdateDate);
+            int status = _serverAPI.updateKTKSNB("KKTS_01_HDKK", smacn, "M", _reportDate, "", "", lstUpdateDate);
             if (status == 200) {
                 String code = String.valueOf(status);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));

@@ -272,7 +272,7 @@
                 <table   border="1" style="width: 98%" align="center">
                     <tr>
                     <div id="divTitle" style="text-align: center; font: 16px Arial, Helvetica, sans-serif; font-weight: bold; color: #0000FF">
-                        DANH SÁCH HỘI ĐỒNG KIỂM TRA
+                        DANH SÁCH HỘI ĐỒNG KIỂM KÊ
                         <s:if test="chotsl.equalsIgnoreCase('2')" ><a class="color_11">(Đơn vị đã gửi dữ liệu)</a></s:if>
                         <input type="hidden" value="<s:property value="chotsl"/>" name="chotsl" id="chotsl"/> 
                         <div style="height:10px"></div>

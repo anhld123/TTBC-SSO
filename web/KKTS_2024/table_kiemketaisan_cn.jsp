@@ -289,7 +289,7 @@
         <div style="overflow:scroll; width: 98%;height: 400px;">    
             <div id="divTitle" style="text-align: left">
                         <a style="text-decoration: underline; color: #3dc21b" 
-                           href="javascript:funcTableFile('KKTS_01_HDKT_<s:property value="ssduan1"/>','<s:property value="pos_cd_username"/>','<s:property value="main_pos_username"/>','<s:property value="ssduan1"/>','<s:property value="ssngay1"/>')">DANH SÁCH HỘI ĐỒNG KIỂM TRA </a>
+                           href="javascript:funcTableFile('KKTS_01_HDKT_<s:property value="ssduan1"/>','<s:property value="pos_cd_username"/>','<s:property value="main_pos_username"/>','<s:property value="ssduan1"/>','<s:property value="ssngay1"/>')">DANH SÁCH HỘI ĐỒNG KIỂM KÊ</a>
             
                 </div>
                 <div id="divTitle">
