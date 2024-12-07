@@ -287,16 +287,16 @@
     </head>
     <body>
         <div style="overflow:scroll; width: 98%;height: 400px;">    
-            <div id="divTitle">
-                DANH SÁCH TÀI SẢN KIỂM KÊ<br>
+            <div id="divTitle" style="text-align: left">
+                        <a style="text-decoration: underline; color: #3dc21b" 
+                           href="javascript:funcTableFile('KKTS_01_HDKT_<s:property value="ssduan1"/>','<s:property value="pos_cd_username"/>','<s:property value="main_pos_username"/>','<s:property value="ssduan1"/>','<s:property value="ssngay1"/>')">DANH SÁCH HỘI ĐỒNG KIỂM TRA </a>
+            
+                </div>
+                <div id="divTitle">
+                    DANH SÁCH TÀI SẢN KIỂM KÊ<br> 
                 <s:if test="chotsl.equalsIgnoreCase('2')" ><a class="color_11">(Đơn vị đã gửi dữ liệu)</a></s:if>
                 <input type="hidden" value="<s:property value="chotsl"/>" name="chotsl" id="chotsl"/> 
-                <!--<input type="hidden" value="<s:property value="chotsl_tw"/>" name="chotsl_tw" id="chotsl_tw"/>--> 
             </div>
-            <!--<div style="height:5px"></div>-->
-            <!--            <div style="color: red; background: yellow; text-align: left; font-weight: bold; width: 98%; font-size: 14px">
-            <s:property value="title1" />
-        </div>-->
             <table border="1" class="editDelete" id="subTable" align="center">               
                 <tr> 
                     <th class="STT1" rowspan="2">STT</th>                           
@@ -511,6 +511,18 @@
                         break;
                     }
                 }
+            }
+
+            function funcTableFile(skhoa, smapgd, smacn, sduan, sngaybc) {
+                var screenWidth = screen.width, screenHeight = screen.height;
+                var w = screenWidth / 1.7;
+                var h = screenHeight/2;
+                var left = (screenWidth - w) / 2;
+                var top = (screenHeight - h) / 2;
+                var urlParam = "skhoa=" + skhoa + "&smapgd=" + smapgd + "&smacn=" + smacn + "&sduan=" + sduan + "& sngaybc=" + sngaybc;
+                var url = "/IMS_REPORTS/popupTableHoidong.action?" + urlParam;
+                popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ", directories=no, status=no, menubar=no, personalbar=no, resizable=yes, location=no, scrollbars=yes, toolbar=no, border=no");
+                popWindow.focus();
             }
         </script>
     </body>

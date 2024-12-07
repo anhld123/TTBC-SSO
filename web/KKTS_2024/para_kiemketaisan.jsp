@@ -445,15 +445,15 @@
                                onBeforeTopics="beforediv_data"
                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
                     &nbsp; Dự án:
-                    <select id="lstsDmkhac" name="lstsDmkhac">
-                            <s:iterator value="lstDmKhac">                                    
-                                <option value="<s:property value="code"/>"><s:property value="code"/> - <s:property value="value"/></option>                                         
-                            </s:iterator>   
-                        </select>
+                    <select id="lstsDmkhac" name="lstsDmkhac" style="width: 200px">
+                        <s:iterator value="lstDmKhac">                                    
+                            <option value="<s:property value="code"/>"><s:property value="code"/> - <s:property value="value"/></option>                                         
+                        </s:iterator>   
+                    </select>
                     &nbsp;<input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                     <s:if test="Grade.equalsIgnoreCase('2')">
                         &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/> 
-                        &nbsp;<input style="color: red" type="button" id="idUpload" value="Upload excel" onclick="callDirectLink('khvn_open_upload_qt_kh?');">
+                        <!--&nbsp;<input style="color: red" type="button" id="idUpload" value="Upload excel" onclick="callDirectLink('khvn_open_upload_qt_kh?');">-->
                         &nbsp;|&nbsp;<input type="button" id="idSend" value="Gửi dữ liệu" style="color: red"/>
                     </s:if>
                 </table>    
@@ -497,12 +497,27 @@
 
         <script>
             $(document).ready(function () {
-                var currentDate = new Date();
-                var day = currentDate.getDate();
-                var month = currentDate.getMonth() + 1; // Note: January is 0
-                var year = currentDate.getFullYear();
-                var formattedDate = day + '/' + month + '/' + year;
-                document.getElementById('ngay_bc_DATE').value = formattedDate;
+                function updateDatepicker() {
+                    var datepicker = $('#ngay_bc_DATE');
+                    var currentDate = new Date();
+                    var year = currentDate.getFullYear();
+                    var lastDayOfYear = new Date(year, 11, 31);
+                    var formattedDate = ('0' + lastDayOfYear.getDate()).slice(-2) + '/' +
+                            ('0' + (lastDayOfYear.getMonth() + 1)).slice(-2) + '/' +
+                            lastDayOfYear.getFullYear();
+
+                    datepicker.val(formattedDate);
+
+                    datepicker.datepicker("option", {
+                        beforeShowDay: function (date) {
+                            return [date.getDate() === 31 && date.getMonth() === 11, ""];
+                        }
+                    });
+
+                }
+
+                // Initialize the datepicker with the default settings
+                updateDatepicker();
             });
             function callDirectLink(link) {
                 PopupCenter(link, 'Upload excel', 800, 400);
@@ -513,7 +528,7 @@
                 var targetWin = window.open(pageURL, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
                 return targetWin;
             }
-            
+
         </script>
     </body>
 </html>

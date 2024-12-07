@@ -13,7 +13,6 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import vbsp.ims.nhaptaycn.action.*;
 import java.sql.Connection;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -28,6 +27,8 @@ import org.apache.struts2.ServletActionContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.define.GenericResult;
+import vbsp.ims.huydongtk.clsCanBo;
+import vbsp.ims.huydongtk.clsHuyDongTK;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.restapi.DuLieuNTRow;
@@ -56,6 +57,9 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
     private List<ListOfValue> lstDmKhac113;
     private List<ListOfValue> lstDmKhac114;
     private List<ListOfValue> lstDmKhac116;
+    private List<ListOfValue> lstDmKhac88;
+    private List<ListOfValue> lstDmKhac87;
+    private List<ListOfValue> lstDmKhac117;
     protected String main_pos_username;
     private InputStream pageResult;
     DuLieuNTService _serverAPI = new DuLieuNTService();
@@ -65,7 +69,58 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
     private String message;
     private String sCode;
     private String stype;
+    private String ssduan1;
+    private String ssngay1;
+    public List<clsCanBo> lstCanBo = new ArrayList<>();
 //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public List<ListOfValue> getLstDmKhac87() {
+        return lstDmKhac87;
+    }
+
+    public void setLstDmKhac87(List<ListOfValue> lstDmKhac87) {
+        this.lstDmKhac87 = lstDmKhac87;
+    }
+
+    public List<ListOfValue> getLstDmKhac117() {
+        return lstDmKhac117;
+    }
+
+    public void setLstDmKhac117(List<ListOfValue> lstDmKhac117) {
+        this.lstDmKhac117 = lstDmKhac117;
+    }
+
+    public List<clsCanBo> getLstCanBo() {
+        return lstCanBo;
+    }
+
+    public void setLstCanBo(List<clsCanBo> lstCanBo) {
+        this.lstCanBo = lstCanBo;
+    }
+
+    public List<ListOfValue> getLstDmKhac88() {
+        return lstDmKhac88;
+    }
+
+    public void setLstDmKhac88(List<ListOfValue> lstDmKhac88) {
+        this.lstDmKhac88 = lstDmKhac88;
+    }
+
+    public String getSsduan1() {
+        return ssduan1;
+    }
+
+    public void setSsduan1(String ssduan1) {
+        this.ssduan1 = ssduan1;
+    }
+
+    public String getSsngay1() {
+        return ssngay1;
+    }
+
+    public void setSsngay1(String ssngay1) {
+        this.ssngay1 = ssngay1;
+    }
 
     public List<ListOfValue> getLstDmKhac116() {
         return lstDmKhac116;
@@ -251,9 +306,15 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             main_pos_username = posMainModel.getMainPosCd();
             String dateStr = hmParameter.get("ngay_bc").toString();
             String sDu_an = hmParameter.get("lstsDmkhac").toString();
+            setSsduan1(sDu_an);
+
             ActionContext.getContext().getSession().put("ssmacn", main_pos_username);
-            ActionContext.getContext().getSession().put("sDu_an", sDu_an);
+            ActionContext.getContext().getSession().put("sDu_an", ssduan1);
+            ActionContext.getContext().getSession().put("UserName", UserName);
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            final String _reportDate1 = new SimpleDateFormat("dd/MM/yyyy").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
+            setSsngay1(_reportDate1);
             String conditions = "D14=" + sDu_an + "|";
             String sKyeLock = "KKTS_01_" + sDu_an;
             ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual(sKyeLock, main_pos_username, "M", _reportDate);
@@ -313,6 +374,8 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
                     row.setD12(item.getD12());
                     row.setD13(item.getD13());
                     row.setD14(sDu_an);
+                    String formattedDate = dateFormat.format(reportDate);
+                    row.setD15(formattedDate);
                     lstDulieuNt.add(row);
                 } catch (Exception e) {
                 }
@@ -515,6 +578,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
         for (ListOfValue value : listOfValues) {
             mapAllChtrinh.put(value.getDescription(), value.getValue());
         }
+
         setLstDmKhac111(listOfValues);
         return SUCCESS;
     }
@@ -581,7 +645,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             String ssmacn = (String) ActionContext.getContext().getSession().get("ssmacn");
             String sDu_an = (String) ActionContext.getContext().getSession().get("sDu_an");
             String conditions = "D13=" + MA + "|D1=" + sD12 + "|D14=" + sDu_an + "|";
-            System.out.println(smapgd + " " + sD12 + " " + conditions);
+//            System.out.println(smapgd + " " + sD12 + " " + conditions);
             lstData_Api = _serverAPI.getDataKTKSNB_2024("KKTS_01", ssmacn, "M", _reportDate, conditions, "1");
             ArrayList<DuLieuNTRowX> lstDelete = new ArrayList<>();
             for (DuLieuNTRow tmp : lstData_Api) {
@@ -628,4 +692,260 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             return SUCCESS;
         }
     }
+
+    public String popupTableHoidong() throws Exception {
+        try {
+            String skhoa = ServletActionContext.getRequest().getParameter("skhoa");
+            String smapgd = ServletActionContext.getRequest().getParameter("smapgd");
+            String smacn = ServletActionContext.getRequest().getParameter("smacn");
+            String sngaybc = ServletActionContext.getRequest().getParameter("sngaybc");
+            String sduan = ServletActionContext.getRequest().getParameter("sduan");
+            String sUserName = (String) ActionContext.getContext().getSession().get("UserName");
+            String _reportDate = (String) ActionContext.getContext().getSession().get("_reportDate");
+            ActionContext.getContext().getSession().put("smapgd", smapgd);
+            ActionContext.getContext().getSession().put("smacn", smacn);
+            ActionContext.getContext().getSession().put("_reportDate", _reportDate);
+            ActionContext.getContext().getSession().put("sngaybc", sngaybc);
+            ActionContext.getContext().getSession().put("skhoa", skhoa);
+            ActionContext.getContext().getSession().put("sduan", sduan);
+            ActionContext.getContext().getSession().put("sUserName", sUserName);
+            ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual(skhoa, smacn, "M", _reportDate);
+            lstDmKhac88 = _serverAPI.getListOfValue("88", "");
+            lstDmKhac87 = _serverAPI.getListOfValue("87", "");
+            lstDmKhac117 = _serverAPI.getListOfValue("117", "");
+            clsHuyDongTK Canbo2024 = new clsHuyDongTK();
+            setLstCanBo(Canbo2024.getCanBo("M", sUserName));
+            try {
+                setChotsl(lstData_tmp.get(0).getStatus());
+            } catch (Exception e) {
+                setChotsl("0");
+            }
+//            System.out.println("api: " + skhoa + " " + smacn + " " + _reportDate);
+            lstData_Api = _serverAPI.getDataKTKSNB_2024(skhoa, smacn, "M", _reportDate, "", "0");
+            if (lstData_Api == null || lstData_Api.isEmpty()) {
+                setStype("1");
+                lstData_Api = _serverAPI.getDataKTKSNB_2024("KKTS_01", smacn, "M", _reportDate, "", "1");
+            } else {
+                setStype("0");
+            }
+            for (DuLieuNTRow item : lstData_Api) {
+                QT_DULIEU_NT row = new QT_DULIEU_NT();
+                try {
+                    row.setKHOA(item.getKey());
+                    row.setTHUTU(Integer.parseInt(item.getOrderValue()));
+                    row.setTT_HIENTHI(item.getOrderDescription());
+                    UUID uuid = UUID.randomUUID(); // Tạo UUID mới
+                    long timestamp = System.currentTimeMillis(); // Lấy timestamp hiện tại
+                    String sysGuid = uuid.toString().replace("-", "") + timestamp;
+                    setsCode(sysGuid);
+                    row.setKHOA(item.getKey());
+                    row.setTHUTU(Integer.parseInt(item.getOrderValue()));
+                    row.setTT_HIENTHI(item.getOrderDescription());
+                    if (stype.equals("0")) {
+                        row.setMA(item.getCode());
+                    } else {
+                        row.setMA(sCode);
+                    }
+                    row.setTEN(item.getName());
+                    row.setCO_TONGHOP(item.getPosFlag());
+                    row.setNGUOI_NHAP(item.getMakerId());
+                    Date reportDate = DateUtil.toDate(item.getReportDate());
+                    row.setNGAYBC(reportDate);
+                    row.setNAMBC(item.getReportYear());
+                    row.setMAPGD(item.getPosCode());
+                    row.setMACN(item.getBranchCode());
+                    row.setD1(item.getD1());
+                    row.setD2(item.getD2());
+                    row.setD3(item.getD3());
+                    row.setD4(item.getD4());
+                    row.setD5(item.getD5());
+                    row.setD6(item.getD6());
+                    row.setD7(item.getD7());
+                    row.setD8(item.getD8());
+                    row.setD9(item.getD9());
+                    row.setD10(item.getD10());
+                    row.setD11(item.getD11());
+                    row.setD12(item.getD12());
+                    row.setD13(item.getD13());
+                    lstDulieuNt.add(row);
+                } catch (Exception e) {
+                }
+            }
+            lstDulieuNt.sort(Comparator.comparingInt((QT_DULIEU_NT obj) -> Integer.parseInt(obj.getD4()))
+                    .thenComparingInt(obj -> Integer.parseInt(obj.getD3())));
+        } catch (Exception e) {
+            System.err.println("Loi trong ham table pos " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " table pos -> " + e.getMessage());
+        }
+        return "success";
+    }
+
+    public String save_popup() {
+        System.out.println("vao váe");
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            String skhoa = (String) ActionContext.getContext().getSession().get("skhoa");
+            String smapgd = (String) ActionContext.getContext().getSession().get("smapgd");
+            String smacn = (String) ActionContext.getContext().getSession().get("smacn");
+            String sngaybc = (String) ActionContext.getContext().getSession().get("sngaybc");
+            String sUserName = (String) ActionContext.getContext().getSession().get("sUserName");
+            String _reportDate = (String) ActionContext.getContext().getSession().get("_reportDate");
+            String snambc = _reportDate.substring(4);
+//            System.out.println("skhoa= " + skhoa + " sngaybc= " + sngaybc + " _reportDate= " + _reportDate);
+            final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00.000").format(new SimpleDateFormat("yyyyMMdd").parse(_reportDate));
+            ArrayList<DuLieuNTRowX> lstUpdateDate = new ArrayList<>();
+            for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                UUID uuid = UUID.randomUUID(); // Tạo UUID mới
+                long timestamp = System.currentTimeMillis(); // Lấy timestamp hiện tại
+                String sysGuid = uuid.toString().replace("-", "") + timestamp;
+                setsCode(sysGuid);
+                DuLieuNTRowX tempadd = new DuLieuNTRowX();
+                tempadd.setKey(skhoa);
+                tempadd.setOrderValue(tmp.getTHUTU());
+                tempadd.setOrderDescription(tmp.getTT_HIENTHI());
+                tempadd.setName(tmp.getD1());
+                tempadd.setCode(tmp.getMA() == null ? sCode : tmp.getMA());
+                tempadd.setMakerId(sUserName);
+                tempadd.setMakerDate(_reportDate1);
+                tempadd.setAuthoriseId(sUserName);
+                tempadd.setAuthoriseDate(_reportDate1);
+                tempadd.setReportDate(sngaybc);
+                tempadd.setReportYear(Integer.valueOf(snambc));
+                tempadd.setPosCode(smapgd);
+                tempadd.setPosFlag("M");
+                tempadd.setBranchCode(smacn);
+                tempadd.setD1(tmp.getD1());
+                tempadd.setD2(tmp.getD2());
+                tempadd.setD3(tmp.getD3());
+                tempadd.setD4(tmp.getD4());
+                tempadd.setD5(tmp.getD5());
+                tempadd.setD6(tmp.getD6());
+                tempadd.setD7(tmp.getD7());
+                tempadd.setD8(tmp.getD8());
+                tempadd.setD9(tmp.getD9());
+                tempadd.setD10(tmp.getD10());
+                tempadd.setD11(tmp.getD11());
+                tempadd.setD12(tmp.getD1());
+                tempadd.setD13(tmp.getMA() == null ? sCode : tmp.getMA());
+                lstUpdateDate.add(tempadd);
+            }
+            _serverAPI = new DuLieuNTService();
+            int status = _serverAPI.updateKTKSNB(skhoa, smacn, "M", _reportDate, "", "", lstUpdateDate);
+            if (status == 200) {
+                String code = String.valueOf(status);
+                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                return SUCCESS;
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> muats2024: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> muats2024: " + e.getMessage());
+        }
+        addActionMessage("Bạn đã lưu dữ liệu thành công");
+        String code = String.valueOf(200);
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        return SUCCESS;
+    }
+
+    public String delete_popup() {
+        try {
+            String skhoa = ServletActionContext.getRequest().getParameter("skhoa");
+            String sma = ServletActionContext.getRequest().getParameter("sma");
+            String sten = ServletActionContext.getRequest().getParameter("sten");
+            String _reportDate = (String) ActionContext.getContext().getSession().get("_reportDate");
+            String ssmacn = (String) ActionContext.getContext().getSession().get("ssmacn");
+            String conditions = "D13=" + sma + "|D12=" + sten+"|";
+            lstData_Api = _serverAPI.getDataKTKSNB_2024(skhoa, ssmacn, "M", _reportDate, conditions, "1");
+            ArrayList<DuLieuNTRowX> lstDelete = new ArrayList<>();
+            for (DuLieuNTRow tmp : lstData_Api) {
+                DuLieuNTRowX tempadd = new DuLieuNTRowX();
+                tempadd.setKey(skhoa);
+                tempadd.setOrderValue(Integer.valueOf(tmp.getOrderValue()));
+                tempadd.setOrderDescription(tmp.getOrderDescription());
+                tempadd.setName(tmp.getName());
+                tempadd.setCode(tmp.getCode());
+                tempadd.setMakerId(tmp.getMakerId());
+                tempadd.setMakerDate(tmp.getMakerDate());
+                tempadd.setAuthoriseId(tmp.getAuthoriseId());
+                tempadd.setAuthoriseDate(tmp.getAuthoriseDate());
+                tempadd.setReportDate(tmp.getReportDate());
+                tempadd.setReportYear(tmp.getReportYear());
+                tempadd.setPosCode(tmp.getPosCode());
+                tempadd.setPosFlag(tmp.getPosFlag());
+                tempadd.setBranchCode(tmp.getBranchCode());
+                tempadd.setD1(tmp.getD1());
+                tempadd.setD2(tmp.getD2());
+                tempadd.setD3(tmp.getD3());
+                tempadd.setD4(tmp.getD4());
+                tempadd.setD5(tmp.getD5());
+                tempadd.setD6(tmp.getD6());
+                tempadd.setD7(tmp.getD7());
+                tempadd.setD8(tmp.getD8());
+                tempadd.setD9(tmp.getD9());
+                tempadd.setD10(tmp.getD10());
+                tempadd.setD11(tmp.getD11());
+                tempadd.setD12(tmp.getD12());
+                tempadd.setD13(tmp.getD13());
+                tempadd.setD14(tmp.getD14());
+                lstDelete.add(tempadd);
+            }
+            _serverAPI = new DuLieuNTService();
+            int status = _serverAPI.deleteKTKSNB(skhoa, ssmacn, "M", _reportDate, "", "", lstDelete);
+            this.pageResult = new ByteArrayInputStream(String.valueOf(status).getBytes(StandardCharsets.UTF_8));
+            return SUCCESS;
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> unlock_c2: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> unlock_c2: " + e.getMessage());
+            String code = String.valueOf(3);
+            this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+            return SUCCESS;
+        }
+    }
+
+    public String loadDmKhac88() {
+        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("88", "");
+        Map<String, String> mapAllChtrinh = new LinkedHashMap<>();
+        for (ListOfValue value : listOfValues) {
+            mapAllChtrinh.put(String.valueOf(value.getSortOrder()), value.getDescription());
+        }
+        setLstDmKhac88(listOfValues);
+        return SUCCESS;
+    }
+
+    public String loadDmKhac87() {
+        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("87", "");
+        Map<String, String> mapAllChtrinh = new LinkedHashMap<>();
+        for (ListOfValue value : listOfValues) {
+            mapAllChtrinh.put(value.getDescription(), value.getValue());
+        }
+        setLstDmKhac87(listOfValues);
+        return SUCCESS;
+    }
+
+    public String loadDmKhac117() {
+        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("117", "");
+        Map<String, String> mapAllChtrinh = new LinkedHashMap<>();
+        for (ListOfValue value : listOfValues) {
+            mapAllChtrinh.put(value.getDescription(), value.getValue());
+        }
+        setLstDmKhac117(listOfValues);
+        return SUCCESS;
+    }
+
+    public String loadcanbo() {
+        String sUserName = (String) ActionContext.getContext().getSession().get("sUserName");
+        List<clsCanBo> listOfValues = new clsHuyDongTK().getCanBo("M", sUserName);
+        Map<String, String> mapAllChtrinh = new LinkedHashMap<>();
+
+        for (clsCanBo value : listOfValues) {
+            String smacb = value.getMaCB();
+            String stencb = value.getTenCB();
+            mapAllChtrinh.put(smacb, stencb);
+        }
+        setLstCanBo(listOfValues);
+
+        return SUCCESS;
+    }
+
 }
