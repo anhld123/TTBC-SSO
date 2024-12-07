@@ -730,7 +730,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             lstData_Api = _serverAPI.getDataKTKSNB_2024(skhoa, smacn, "M", _reportDate, "", "0");
             if (lstData_Api == null || lstData_Api.isEmpty()) {
                 setStype("1");
-                lstData_Api = _serverAPI.getDataKTKSNB_2024("KKTS_01", smacn, "M", _reportDate, "", "1");
+                lstData_Api = _serverAPI.getDataKTKSNB_2024("ANHLD_KYE", smacn, "M", _reportDate, "", "1");
             } else {
                 setStype("0");
             }
