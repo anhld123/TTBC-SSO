@@ -339,7 +339,12 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
             String sChot_dc = getStatusFromAPI("KH_HUYEN_DC", pos_cd_username, _reportDate3);
             String sChot_kh = getStatusFromAPI("KH_HUYEN", pos_cd_username, _reportDate1);
             setChotsl(getStatusFromAPI("KH_HUYEN_TH", pos_cd_username, _reportDate3));
-
+            lstDmKhac = _serverAPI.getListOfValue("199", main_pos_username);
+            try {
+                setSngay_sys(lstDmKhac.get(0).getValue());
+            } catch (Exception e) {
+                setSngay_sys("0");
+            }
             List<DuLieuNTRow> lstDataApi1 = null;
             List<DuLieuNTRow> lstDataApi2 = null;
             List<DuLieuNTRow> lstDataApi3;
@@ -486,6 +491,12 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
             int year = Integer.parseInt(hmParameter.get("yearSelect").toString());
             int month = Integer.parseInt(sThangkt);
             LocalDate firstDayOfMonth = LocalDate.of(year, month, 1);
+            lstDmKhac = _serverAPI.getListOfValue("199", main_pos_username);
+            try {
+                setSngay_sys(lstDmKhac.get(0).getValue());
+            } catch (Exception e) {
+                setSngay_sys("0");
+            }
             int lastDay = firstDayOfMonth.lengthOfMonth();
             final String _reportDate3 = String.format("%04d%02d%02d", year, month, lastDay);
             String nghiepvu = hmParameter.get("txtGetData").toString();

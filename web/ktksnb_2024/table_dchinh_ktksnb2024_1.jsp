@@ -571,59 +571,66 @@
         }
     }
     function cancelAssign(chotsl, mapgd, D3, D4, monthSelect, nambc, skhoa, D5, type) {
-        var url, sdata;
         var sthangbc = document.getElementById("sthang").value.padStart(2, '0');
         var snambc = document.getElementById("snam").value;
         var stoday = document.getElementById("stoday").value;
         var sparts = stoday.split('/');
         var currentYear = sparts[2];
         var currentMonth = sparts[1];
-        //            if (snambc.toString() !== currentYear.toString()) {
-        //                alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear);
-        //                return;
-        //            }
-        //            if (snambc.toString() === currentYear.toString() && sthangbc.toString() < currentMonth.toString()) {
-        //                alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + currentMonth);
-        //                return;
-        //            }
-        //            
-        url = "status_KTKSNB_02_C1.action?" + "chotsl=" + chotsl + "&madiemgd=" + mapgd + "&smaxa=" + D3 + "&sCanbo=" + D4 + "&sThang=" + monthSelect + "&sNam=" + nambc + "&skhoa=" + skhoa + "&ssThang=" + D5 + "&type=" + type,
-                sdata = jQuery("#frmdata").serialize();
-        $("#viewData").html('<img src="img/loading.gif"/>');
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: sdata,
-            success: function (data) {
-                if (data === "200") {
-                    if (type === "2") {
-                        alert("Điều chỉnh tháng kiểm tra từ tháng " + D5 + " sang tháng " + monthSelect + " thành công!");
-                    } else if (type === "3") {
-                        alert("Điều chỉnh sang cán bộ " + cboCanBo.options[cboCanBo.selectedIndex].text + " thành công!");
-                    } else if (type === "4") {
-                        alert("Điều chỉnh kế hoạch kiểm tra sang xã " + lstXa.options[lstXa.selectedIndex].text + ", thành công!");
-                    } else if (type === "5") {
-                        alert("Điều chỉnh kế hoạch kiểm tra sang Pgd " + lstPGD.options[lstPGD.selectedIndex].text + ", thành công!");
-                    } else {
-                        alert("Xóa điều chỉnh tháng " + D5 + " thành công!");
+        var isValid = true;
+        if (snambc.toString() > currentYear.toString()) {
+            alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + snambc);
+            isValid = false;
+        }
+        if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
+            alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + snambc);
+            isValid = false;
+        }
+        if (isValid) {
+            var url, sdata;
+            url = "status_KTKSNB_02_C1.action?" + "chotsl=" + chotsl + "&madiemgd=" + mapgd + "&smaxa=" + D3 + "&sCanbo=" + D4 + "&sThang=" + monthSelect + "&sNam=" + nambc + "&skhoa=" + skhoa + "&ssThang=" + D5 + "&type=" + type,
+                    sdata = jQuery("#frmdata").serialize();
+            $("#viewData").html('<img src="img/loading.gif"/>');
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: sdata,
+                success: function (data) {
+                    if (data === "200") {
+                        if (type === "2") {
+                            alert("Điều chỉnh tháng kiểm tra từ tháng " + D5 + " sang tháng " + monthSelect + " thành công!");
+                        } else if (type === "3") {
+                            alert("Điều chỉnh sang cán bộ " + cboCanBo.options[cboCanBo.selectedIndex].text + " thành công!");
+                        } else if (type === "4") {
+                            alert("Điều chỉnh kế hoạch kiểm tra sang xã " + lstXa.options[lstXa.selectedIndex].text + ", thành công!");
+                        } else if (type === "5") {
+                            alert("Điều chỉnh kế hoạch kiểm tra sang Pgd " + lstPGD.options[lstPGD.selectedIndex].text + ", thành công!");
+                        } else {
+                            alert("Xóa điều chỉnh tháng " + D5 + " thành công!");
+                        }
+                        idEnd();
+                    } else if (data === "1") {
+                        alert("Lỗi: Xã " + D3 + " - Tháng " + monthSelect + " đã có kế hoạch kiểm tra, không thể điều chỉnh tiếp!");
+                        tai_lai_trang();
+                    } 
+                    else if (data === "5") {
+                        alert("Lỗi: PGD " + D3 + " - Tháng " + monthSelect + " đã có kế hoạch kiểm tra, không thể điều chỉnh tiếp!");
+                        tai_lai_trang();
                     }
-                    idEnd();
-                } else if (data === "1") {
-                    alert("Lỗi: Xã " + D3 + " - Tháng " + monthSelect + " đã có kế hoạch kiểm tra, không thể điều chỉnh tiếp!");
-                    tai_lai_trang();
-                } else if (data === "100") {
-                    alert("Lỗi: Đơn vị đã gửi dữ liệu không thể thao tác!");
-                    tai_lai_trang();
-                } else {
+                    else if (data === "100") {
+                        alert("Lỗi: Đơn vị đã gửi dữ liệu không thể thao tác!");
+                        tai_lai_trang();
+                    } else {
+                        alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
+                        tai_lai_trang();
+                    }
+                },
+                error: function (request) {
                     alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
                     tai_lai_trang();
                 }
-            },
-            error: function (request) {
-                alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
-                tai_lai_trang();
-            }
-        });
+            });
+        }
     }
     $("#idSave").click(function () {
         $('#message_suc_err').empty();
@@ -641,16 +648,15 @@
             var sparts = stoday.split('/');
             var currentYear = sparts[2];
             var currentMonth = sparts[1];
-            var isValid = true;
             var chot = document.getElementById("chotsl").value;
-            //                if (snambc.toString() < currentYear.toString()) {
-            //                    alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear);
-            //                    isValid = false;
-            //                }
-            //                if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
-            //                    alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + currentMonth);
-            //                    isValid = false;
-            //                }
+            if (snambc.toString() > currentYear.toString()) {
+                alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + snambc);
+                isValid = false;
+            }
+            if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
+                alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + snambc);
+                isValid = false;
+            }
             if (chot === "2") {
                 alert("Chi nhánh đã chốt dữ liệu lên Tw!");
                 isValid = false;

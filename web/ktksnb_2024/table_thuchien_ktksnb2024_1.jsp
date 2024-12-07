@@ -412,21 +412,16 @@
                     var sparts = stoday.split('/');
                     var currentYear = sparts[2];
                     var currentMonth = sparts[1];
-                    var isValid = true;
                     var chot = document.getElementById("chotsl").value;
-//                    if (snambc.toString() < currentYear.toString()) {
-//                        alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear);
-//                        isValid = false;
-//                    }
-//                    if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
-//                        alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + currentMonth);
-//                        isValid = false;
-//                    }
-//                    if (chot === "2") {
-//                        alert("Chi nhánh đã chốt dữ liệu lên Tw!");
-//                        isValid = false;
-//                    }
-                    if (chot === "1") {
+                    if (snambc.toString() > currentYear.toString()) {
+                        alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + snambc);
+                        isValid = false;
+                    }
+                    if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
+                        alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + snambc);
+                        isValid = false;
+                    }
+                    if (chot === "1" || chot === "2") {
                         alert("Dữ liệu đã gửi, không thể lưu!");
                         isValid = false;
                     }

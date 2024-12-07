@@ -413,16 +413,16 @@
                     var isValid = true;
                     var chot = document.getElementById("chotsl").value;
 //                    var chot_tw = document.getElementById("chotsl_tw").value;
-//                    if (snambc.toString() !== currentYear.toString())
-//                    {
-//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
-//                        return;
-//                    }
-//                    if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
-////                        window.alert(snambc + " " + currentYear + " " + sthangbc + " " + currentMonth);
-//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng " + currentMonth + "</h>");
-//                        return;
-//                    }
+                    if (snambc.toString() > currentYear.toString())
+                    {
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + snambc + "</h>");
+                        return;
+                    }
+                    if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
+//                        window.alert(snambc + " " + currentYear + " " + sthangbc + " " + currentMonth);
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng " + snambc + "</h>");
+                        return;
+                    }
                     if (chot === "2") {
                         alert("Chi nhánh đã chốt dữ liệu lên Tw!");
                         isValid = false; // Không cho phép lưu dữ liệu

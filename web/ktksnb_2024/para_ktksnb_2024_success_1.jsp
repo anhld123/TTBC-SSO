@@ -222,7 +222,7 @@
             $(document).ready(function () {
                 $(".NGAY_SL").css({"width": "80px"});
             });
-
+            
             function onLoadData() {
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
@@ -234,12 +234,12 @@
 //                }, 0, 00001);
                 bsubmit = true;
             }
-
+            
             $("#idSave").click(function () {
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
-
-
+                
+                
                 let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo?");
                 if (aCheck) {
                     var table = document.getElementById("subTable");
@@ -249,30 +249,31 @@
                     var ngaybc = document.getElementById("ngay_bc_DATE").value;
                     var parts = ngaybc.split('/');
                     var snam = parts[2];
-                   var stoday = document.getElementById("stoday").value;
+                    var stoday = document.getElementById("stoday").value;
                     var sparts = stoday.split('/');
                     var currentYear = sparts[2];
                     var currentMonth = sparts[1];
                     var currentDate = sparts[0];
-//                    if (currentYear.toString() !== snam.toString()) {
-//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
-//                        return;
-//                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
-//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + currentYear + "</h>");
-//                        return;
-//                    } else 
-                        if (chot === "2") {
+//                    window.alert(currentYear + currentMonth + currentDate);
+                    if (currentYear.toString() > snam.toString()) {
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + snam + "</h>");
+                        return;
+                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + snam + "</h>");
+                        return;
+                    }
+                    if (chot === "2") {
                         alert("Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!");
 //                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
-                       isValid = false;
-                       onLoadData();
+                        isValid = false;
+                        onLoadData();
                     } else if (chot === "1") {
                         alert("Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!");
 //                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
                         isValid = false;
                         onLoadData();
                     }
-
+                    
                     for (var i = 0; i < rowcount; i++) {
                         try {
                             // Xử lý mỗi hàng ở đây nếu cần
@@ -280,7 +281,7 @@
                             // Xử lý lỗi nếu có
                         }
                     }
-
+                    
                     if (isValid) {
                         var url, sdata;
                         url = "save_KTKSNB_01_2024.action";
@@ -312,9 +313,9 @@
                     }
                 }
             });
-
-
-
+            
+            
+            
             function btnDisabled(status) {
                 if (status === 1) {
                     $("#loadDatatmp").prop('disabled', true);
@@ -331,7 +332,7 @@
                 }
             }
             ;
-
+            
             function countCheckedItem() {
                 let counter = 0;
                 $('.myCheckBox').each(function () {
@@ -347,7 +348,7 @@
                     end = new Date().getTime();
                 }
             }
-
+            
             function onUpExcel()
             {
                 $('#message_suc_err').empty();
@@ -355,9 +356,9 @@
                 $("#idUpExcel")[0].click();
                 bsubmit = true;
             }
-
+            
             // TRUNG BO SUNG PHAN THUYET MINH
-
+            
             $.subscribe("beforediv_data", function (event, data) {
                 $("#loadingImageDiv_data").show();
             });
@@ -384,12 +385,12 @@
                     return false;
                 }
             }
-
+            
             //Disable enter key form submit            
             document.onkeypress = stopRKey;
             function getposfromtreecheck()
             {
-
+                
                 var pos_cd = '';
                 var idform = 'id_' + '<s:property value="khoa_nhaptaycn"/>';
                 var element = document.forms[idform].elements;
@@ -410,7 +411,7 @@
 //                alert('bat dau goi submit pos_cd='+pos_cd);
                 return pos_cd;
             }
-
+            
             function openClick()
             {
                 var khoa = $("#khoa").val() + "_open";
@@ -428,7 +429,7 @@
             $("#idSend").click(function () {
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
-
+                
                 let aCheck = confirm("Bạn chắc chắn muốn gửi số liệu báo cáo ?");
                 if (aCheck) {
                     var table = document.getElementById("subTable");
@@ -444,19 +445,18 @@
                     var currentYear = sparts[2];
                     var currentMonth = sparts[1];
                     var currentDate = sparts[0];
-//                    if (currentYear.toString() !== snam.toString()) {
-//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + currentYear + "</h>");
-//                        return;
-//                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
-//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + currentYear + "</h>");
-//                        return;
-//                    }
-//                    else 
-                       if (chot === "2") {
+                    if (currentYear.toString() > snam.toString()) {
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + snam + "</h>");
+                        return;
+                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + snam + "</h>");
+                        return;
+                    }
+                    if (chot === "2") {
                         alert("Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!");
 //                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
-                       isValid = false;
-                       onLoadData();
+                        isValid = false;
+                        onLoadData();
                     } else if (chot === "1") {
                         alert("Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!");
 //                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
@@ -465,7 +465,7 @@
                     } else if (chot_tw === "0") {
                         alert("Cảnh báo: Lưu dữ liệu trước khi gửi!");
 //                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Lưu dữ liệu trước khi gửi!</h>");
-                         isValid = false;
+                        isValid = false;
                         onLoadData();
                     }
                     for (var i = 0; i < rowcount; i++) {
@@ -503,7 +503,7 @@
                         });
                     }
                 }
-
+                
             });
         </script>
     </head>
@@ -690,13 +690,13 @@
                 document.getElementById("lstXa").style.display = "none";
             </s:if>
             }
-
+            
             initTable();
-
+            
             $("#idDelete").click(function () {
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
-
+                
                 let aCheck = confirm("Bạn chắc chắn muốn xóa dữ liệu báo cáo ?");
                 if (aCheck) {
                     var table = document.getElementById("subTable");
@@ -719,11 +719,11 @@
 //                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + currentYear + "</h>");
 //                        return;
 //                    } else 
-                       if (chot === "2") {
+                    if (chot === "2") {
                         alert("Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!");
 //                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
-                       isValid = false;
-                       onLoadData();
+                        isValid = false;
+                        onLoadData();
                     } else if (chot === "1") {
                         alert("Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!");
 //                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
@@ -770,7 +770,7 @@
                         });
                     }
                 }
-
+                
             });
             <%--<s:if test="Grade.equalsIgnoreCase('1')">--%>
             $(document).ready(function () {
@@ -782,17 +782,17 @@
                     var formattedDate = ('0' + lastDayOfYear.getDate()).slice(-2) + '/' +
                             ('0' + (lastDayOfYear.getMonth() + 1)).slice(-2) + '/' +
                             lastDayOfYear.getFullYear();
-
+                    
                     datepicker.val(formattedDate);
-
+                    
                     datepicker.datepicker("option", {
                         beforeShowDay: function (date) {
                             return [date.getDate() === 31 && date.getMonth() === 11, ""];
                         }
                     });
-
+                    
                 }
-
+                
                 // Initialize the datepicker with the default settings
                 updateDatepicker();
             });

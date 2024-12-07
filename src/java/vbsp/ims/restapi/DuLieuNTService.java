@@ -1620,7 +1620,7 @@ public class DuLieuNTService extends ReportService {
 
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();
-//        System.out.println("json: " + target.getUri().toString());
+        System.out.println("json: " + target.getUri().toString());
 
         if (response.getStatus() == 200) {
             DuLieuNTResp dulieuNTResp = response.readEntity(DuLieuNTResp.class);

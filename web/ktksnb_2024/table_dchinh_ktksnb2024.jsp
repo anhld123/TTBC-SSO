@@ -125,6 +125,7 @@
                 <s:elseif test="chotsl.equalsIgnoreCase('1')" ><a class="color_11">(Phòng giao dịch đã gửi dữ liệu)</a></s:elseif>
                 <input type="hidden" value="<s:property value="chotsl"/>" name="chotsl" id="chotsl"/> 
                 <input type="hidden" value="<s:property value="chotsl_tw"/>" name="chotsl_tw" id="chotsl_tw"/> 
+                <input type="hidden" id="stoday" value="<s:property  value="sngay_sys" />" name="stoday"/> 
             </div>
             <div style="height:5px"></div>
             <table border="1" class="editDelete" id="subTable" align="center">               
@@ -188,35 +189,50 @@
 
 
             function cancelAssignList(dc_khoa, dc_maxa, dc_macb, dc_thang, dc_mapgd, dc_nam, dc_cap, dc_chot, type) {
-                var url, sdata;
-                url = "delete_KTKSNB_02_list.action?" + "dc_khoa=" + dc_khoa + "&dc_maxa=" + dc_maxa + "&dc_macb=" + dc_macb + "&dc_thang=" + dc_thang + "&dc_mapgd=" + dc_mapgd + "&dc_nam=" + dc_nam + "&dc_cap=" + dc_cap + "&dc_chot=" + dc_chot + "&type=" + type,
-                        sdata = jQuery("#frmdata").serialize();
-                $("#viewData").html('<img src="img/loading.gif"/>');
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: sdata,
-                    success: function (data) {
-                        if (data === "200") {
-                            if (type === "1")
-                            {
-                                alert("Xóa điều chỉnh thành công!");
+                var isValid = true;
+                var stoday = document.getElementById("stoday").value;
+                var sparts = stoday.split('/');
+                var currentYear = sparts[2];
+                var currentMonth = sparts[1];
+                if (dc_nam.toString() > currentYear.toString()) {
+                    alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + (parseInt(dc_nam) + 1));
+                    isValid = false;
+                }
+                if (dc_nam.toString() === currentYear.toString() && dc_thang.toString() !== currentMonth.toString()) {
+                    alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + (parseInt(dc_nam) + 1));
+                    isValid = false;
+                }
+                if (isValid) {
+                    var url, sdata;
+                    url = "delete_KTKSNB_02_list.action?" + "dc_khoa=" + dc_khoa + "&dc_maxa=" + dc_maxa + "&dc_macb=" + dc_macb + "&dc_thang=" + dc_thang + "&dc_mapgd=" + dc_mapgd + "&dc_nam=" + dc_nam + "&dc_cap=" + dc_cap + "&dc_chot=" + dc_chot + "&type=" + type,
+                            sdata = jQuery("#frmdata").serialize();
+                    $("#viewData").html('<img src="img/loading.gif"/>');
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: sdata,
+                        success: function (data) {
+                            if (data === "200") {
+                                if (type === "1")
+                                {
+                                    alert("Xóa điều chỉnh thành công!");
+                                } else {
+                                    alert("Thao tác thành công!");
+                                }
+                            } else if (data === "100") {
+                                alert("Lỗi: Đơn vị đã gửi dữ liệu không thể thao tác!");
                             } else {
-                                alert("Thao tác thành công!");
+                                alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
                             }
-                        } else if (data === "100") {
-                            alert("Lỗi: Đơn vị đã gửi dữ liệu không thể thao tác!");
-                        } else {
-                            alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
+                            onLoadData();
                         }
-                        onLoadData();
-                    }
-                    ,
-                    error: function (request) {
-                        alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
-                        onLoadData();
-                    }
-                });
+                        ,
+                        error: function (request) {
+                            alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
+                            onLoadData();
+                        }
+                    });
+                }
             }
         </script>
     </body>
