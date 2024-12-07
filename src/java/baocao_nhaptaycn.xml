@@ -896,12 +896,12 @@
                 <param name="inputName">pageResult</param>
             </result>  
         </action>
-        <action name="loadDmKhac88"  class="vbsp.ims.gqvl_2023.Service_KKTS_2024" method="loadDmKhac88">
+        <action name="loadDmKhac118"  class="vbsp.ims.gqvl_2023.Service_KKTS_2024" method="loadDmKhac118">
             <result name="success" type="json">/KKTS_2024/table_kiemketaisan_hoidong.jsp</result>
             <result name="error">/BCQT/success.jsp</result>
         </action>
         
-        <action name="loadDmKhac87"  class="vbsp.ims.gqvl_2023.Service_KKTS_2024" method="loadDmKhac87">
+        <action name="loadDmKhac119"  class="vbsp.ims.gqvl_2023.Service_KKTS_2024" method="loadDmKhac119">
             <result name="success" type="json">/KKTS_2024/table_kiemketaisan_hoidong.jsp</result>
             <result name="error">/BCQT/success.jsp</result>
         </action>

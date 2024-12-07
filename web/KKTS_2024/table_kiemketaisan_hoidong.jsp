@@ -330,25 +330,25 @@
                                 </select>
                             </td>
                             <td class="D0">   
-                                <select  id="lstDm87_<s:property  value='%{#rowstatus.index}' />" style="width: 200px;border: hidden"
+                                <select  id="lstDm119_<s:property  value='%{#rowstatus.index}' />" style="width: 200px;border: hidden"
                                          name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2">
                                     <option value="000000">---Phòng ban---</option>
-                                    <s:iterator value="lstDmKhac87" status="ideRows" var="language">
-                                        <option value="<s:property value="sortOrder"/>" 
-                                                <s:if test='%{#language.sortOrder == D2}'>selected</s:if>>
-                                            <s:property value="sortOrder"/> - <s:property value="description"/>
+                                    <s:iterator value="lstDmKhac119" status="ideRows" var="language">
+                                        <option value="<s:property value="description"/>" 
+                                                <s:if test='%{#language.description == D2}'>selected</s:if>>
+                                            <s:property value="description"/> - <s:property value="value"/>
                                         </option>        
                                     </s:iterator>
                                 </select>
                             </td>
                             <td class="D0">   
-                                <select  id="lstDm88_<s:property  value='%{#rowstatus.index}' />" style="width: 200px;border: hidden"
+                                <select  id="lstDm118_<s:property  value='%{#rowstatus.index}' />" style="width: 200px;border: hidden"
                                          name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3">
                                     <option value="000000">---Chức vụ công tác---</option>
-                                    <s:iterator value="lstDmKhac88" status="ideRows" var="language">
-                                        <option value="<s:property value="sortOrder"/>" 
-                                                <s:if test='%{#language.sortOrder == D3}'>selected</s:if>>
-                                            <s:property value="sortOrder"/> - <s:property value="description"/>
+                                    <s:iterator value="lstDmKhac118" status="ideRows" var="language">
+                                        <option value="<s:property value="description"/>" 
+                                                <s:if test='%{#language.description == D3}'>selected</s:if>>
+                                            <s:property value="description"/> - <s:property value="value"/>
                                         </option>        
                                     </s:iterator>
                                 </select>
@@ -522,8 +522,8 @@
                     rowCount = max_row;
                 }
                 var idMacb = "lstCanBo_" + max_row;
-                var idPban = "lstDm87_" + max_row;
-                var idCvu1 = "lstDm88_" + max_row;
+                var idPban = "lstDm119_" + max_row;
+                var idCvu1 = "lstDm118_" + max_row;
                 var idCvu2 = "lstDm117_" + max_row;
                 var newTr = '<tr>' +
                         '<td class="D0"><input type="text" value="' + (max_row + 1) + '" id="TT_HIENTHI" name="lstDulieuNt[' + max_row + '].TT_HIENTHI" class="D0 number" onfocus="this.select();" /></td>' +
@@ -548,13 +548,13 @@
                 $('.number2').number(true, 0);
 
                 // Fetch data and populate the new select elements
-                $.getJSON('loadDmKhac87', {
+                $.getJSON('loadDmKhac119', {
                     Message: 'fileTemplate'
                 }, function (jsonResponse) {
                     try {
                         var dm_khac = '<option value="000000">---Phòng ban---</option>';
-                        $.each(jsonResponse.lstDmKhac87, function () {
-                            dm_khac += '<option value="' + this.sortOrder + '">' + this.sortOrder + ' - ' + this.description + '</option>';
+                        $.each(jsonResponse.lstDmKhac119, function () {
+                            dm_khac += '<option value="' + this.description + '">' + this.description + ' - ' + this.value + '</option>';
                         });
                         $('#' + idPban).html(dm_khac);
 
@@ -565,13 +565,13 @@
                         alert(e.toString());
                     }
                 });
-                $.getJSON('loadDmKhac88', {
+                $.getJSON('loadDmKhac118', {
                     Message: 'fileTemplate'
                 }, function (jsonResponse) {
                     try {
                         var dm_khac = '<option value="000000">---Chức vụ công tác---</option>';
-                        $.each(jsonResponse.lstDmKhac88, function () {
-                            dm_khac += '<option value="' + this.sortOrder + '">' + this.sortOrder + ' - ' + this.description + '</option>';
+                        $.each(jsonResponse.lstDmKhac118, function () {
+                            dm_khac += '<option value="' + this.description + '">' + this.description + ' - ' + this.value + '</option>';
                         });
                         $('#' + idCvu1).html(dm_khac);
                         if (jsonResponse.msgError !== null) {

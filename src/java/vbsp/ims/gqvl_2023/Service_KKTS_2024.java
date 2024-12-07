@@ -57,8 +57,8 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
     private List<ListOfValue> lstDmKhac113;
     private List<ListOfValue> lstDmKhac114;
     private List<ListOfValue> lstDmKhac116;
-    private List<ListOfValue> lstDmKhac88;
-    private List<ListOfValue> lstDmKhac87;
+    private List<ListOfValue> lstDmKhac118;
+    private List<ListOfValue> lstDmKhac119;
     private List<ListOfValue> lstDmKhac117;
     protected String main_pos_username;
     private InputStream pageResult;
@@ -73,14 +73,6 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
     private String ssngay1;
     public List<clsCanBo> lstCanBo = new ArrayList<>();
 //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
-
-    public List<ListOfValue> getLstDmKhac87() {
-        return lstDmKhac87;
-    }
-
-    public void setLstDmKhac87(List<ListOfValue> lstDmKhac87) {
-        this.lstDmKhac87 = lstDmKhac87;
-    }
 
     public List<ListOfValue> getLstDmKhac117() {
         return lstDmKhac117;
@@ -98,12 +90,20 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
         this.lstCanBo = lstCanBo;
     }
 
-    public List<ListOfValue> getLstDmKhac88() {
-        return lstDmKhac88;
+    public List<ListOfValue> getLstDmKhac118() {
+        return lstDmKhac118;
     }
 
-    public void setLstDmKhac88(List<ListOfValue> lstDmKhac88) {
-        this.lstDmKhac88 = lstDmKhac88;
+    public void setLstDmKhac118(List<ListOfValue> lstDmKhac118) {
+        this.lstDmKhac118 = lstDmKhac118;
+    }
+
+    public List<ListOfValue> getLstDmKhac119() {
+        return lstDmKhac119;
+    }
+
+    public void setLstDmKhac119(List<ListOfValue> lstDmKhac119) {
+        this.lstDmKhac119 = lstDmKhac119;
     }
 
     public String getSsduan1() {
@@ -716,8 +716,8 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             } catch (Exception e) {
                 setChotsl("0");
             }
-            lstDmKhac88 = _serverAPI.getListOfValue("88", "");
-            lstDmKhac87 = _serverAPI.getListOfValue("87", "");
+            lstDmKhac118 = _serverAPI.getListOfValue("118", "");
+            lstDmKhac119 = _serverAPI.getListOfValue("119", "");
             lstDmKhac117 = _serverAPI.getListOfValue("117", "");
             clsHuyDongTK Canbo2024 = new clsHuyDongTK();
             setLstCanBo(Canbo2024.getCanBo("M", sUserName));
@@ -861,7 +861,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             String sten = ServletActionContext.getRequest().getParameter("sten");
             String _reportDate = (String) ActionContext.getContext().getSession().get("_reportDate");
             String ssmacn = (String) ActionContext.getContext().getSession().get("ssmacn");
-            String conditions = "D13=" + sma + "|D12=" + sten+"|";
+            String conditions = "D13=" + sma + "|D12=" + sten + "|";
             lstData_Api = _serverAPI.getDataKTKSNB_2024(skhoa, ssmacn, "M", _reportDate, conditions, "1");
             ArrayList<DuLieuNTRowX> lstDelete = new ArrayList<>();
             for (DuLieuNTRow tmp : lstData_Api) {
@@ -909,23 +909,23 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
         }
     }
 
-    public String loadDmKhac88() {
-        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("88", "");
+    public String loadDmKhac118() {
+        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("118", "");
         Map<String, String> mapAllChtrinh = new LinkedHashMap<>();
         for (ListOfValue value : listOfValues) {
-            mapAllChtrinh.put(String.valueOf(value.getSortOrder()), value.getDescription());
+            mapAllChtrinh.put(String.valueOf(value.getDescription()), value.getValue());
         }
-        setLstDmKhac88(listOfValues);
+        setLstDmKhac118(listOfValues);
         return SUCCESS;
     }
 
-    public String loadDmKhac87() {
-        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("87", "");
+    public String loadDmKhac119() {
+        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("119", "");
         Map<String, String> mapAllChtrinh = new LinkedHashMap<>();
         for (ListOfValue value : listOfValues) {
             mapAllChtrinh.put(value.getDescription(), value.getValue());
         }
-        setLstDmKhac87(listOfValues);
+        setLstDmKhac119(listOfValues);
         return SUCCESS;
     }
 
