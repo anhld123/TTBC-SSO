@@ -717,8 +717,14 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
 //                setChotsl("0");
 //            }
             setChotsl("0");
-            lstDmKhac118 = _serverAPI.getListOfValue("118", "");
-            lstDmKhac119 = _serverAPI.getListOfValue("119", "");
+            String xkhoa;
+            if (smacn.equals("000196")) {
+                xkhoa = "2";
+            } else {
+                xkhoa = "1";
+            }
+            lstDmKhac118 = _serverAPI.getListOfValue("118", xkhoa);
+            lstDmKhac119 = _serverAPI.getListOfValue("119", xkhoa);
             lstDmKhac117 = _serverAPI.getListOfValue("117", "");
             clsHuyDongTK Canbo2024 = new clsHuyDongTK();
             setLstCanBo(Canbo2024.getCanBo("M", sUserName));
@@ -911,7 +917,14 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
     }
 
     public String loadDmKhac118() {
-        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("118", "");
+        String ssmacn = (String) ActionContext.getContext().getSession().get("ssmacn");
+        String xkhoa;
+        if (ssmacn.equals("000196")) {
+            xkhoa = "2";
+        } else {
+            xkhoa = "1";
+        }
+        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("118", xkhoa);
         Map<String, String> mapAllChtrinh = new LinkedHashMap<>();
         for (ListOfValue value : listOfValues) {
             mapAllChtrinh.put(String.valueOf(value.getDescription()), value.getValue());
@@ -921,7 +934,14 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
     }
 
     public String loadDmKhac119() {
-        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("119", "");
+        String ssmacn = (String) ActionContext.getContext().getSession().get("ssmacn");
+        String xkhoa;
+        if (ssmacn.equals("000196")) {
+            xkhoa = "2";
+        } else {
+            xkhoa = "1";
+        }
+        List<ListOfValue> listOfValues = _serverAPI.getListOfValue("119", xkhoa);
         Map<String, String> mapAllChtrinh = new LinkedHashMap<>();
         for (ListOfValue value : listOfValues) {
             mapAllChtrinh.put(value.getDescription(), value.getValue());
