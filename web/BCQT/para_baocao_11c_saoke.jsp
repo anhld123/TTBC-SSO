@@ -249,6 +249,27 @@
                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Dữ liệu đã gửi, không thể chỉnh sửa!</h>");
                         return;
                     }
+                    for (var i = 0; i < rowcount; i++) {
+                        try {
+                            var D10 = document.getElementById("D10_" + i).value;
+                            var D2 = document.getElementById("D2_" + i).value;
+                            var D3 = document.getElementById("D3_" + i).value;
+                            if (khoa === "BCQT_MS19A" && D10 !== "1") {
+                                if (D2 === "") {
+                                    alert("Chưa nhập DANH MỤC CÁC KHOẢN PHẢI THU!");
+                                    document.getElementById("D2_" + i).style.backgroundColor = "#EEAFA6";
+                                    return;
+                                }
+                                if (D3.length !== 10 || isNaN(D3)) {
+                                    alert("GL không hợp lệ, số ký tự là " + D3.length + " ký tự hợp lệ là 10!");
+                                    document.getElementById("D3_" + i).style.backgroundColor = "#EEAFA6";
+                                    return;
+                                }
+                            }
+
+                        } catch (e) {
+                        }
+                    }
                     if (isValid) {
                         var url, sdata;
                         url = "save_" + khoa + ".action";

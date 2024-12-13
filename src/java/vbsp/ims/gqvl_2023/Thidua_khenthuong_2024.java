@@ -261,7 +261,7 @@ public class Thidua_khenthuong_2024 extends ActionNhaptaycnMain
                 _serverAPI.updateChotSL("TDKT_02", "000100", "H", _reportDate, "0", "ANHLD", null);
             }
             ActionContext.getContext().getSession().put("check_Username", check_Username);
-            if (Arrays.asList("USRGRP49", "USRGRP23", "USRGRP24", "USRGRP15", "USRGRP18", "USRGRP19").contains(check_Username)) {
+            if (Arrays.asList("USRGRP49","USRGRP21", "USRGRP23", "USRGRP24", "USRGRP15", "USRGRP18", "USRGRP19").contains(check_Username)) {
                 lstData = daoMain.getTDKT_2024(conn, dateStr, "AAA1", "000100");
                 try {
                     setCheck_D1(lstData.get(0).getD1());

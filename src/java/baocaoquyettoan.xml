@@ -642,5 +642,8 @@
         <action name="unlock_BCQT_MS19A_c3" class="vbsp.ims.bcqt.action.BCQT_19A_2024" method="unlock_c3">
             <result name="success" type="json"></result>
         </action>
+        <action name="addLineC1_19A" class="vbsp.ims.bcqt.action.BCQT_19A_2024" method="addlinec1">
+            <result name="success" type="json"></result>
+        </action>
     </package>
 </struts>

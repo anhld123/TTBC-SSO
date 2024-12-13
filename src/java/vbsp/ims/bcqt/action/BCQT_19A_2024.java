@@ -6,8 +6,8 @@
 package vbsp.ims.bcqt.action;
 
 import static com.opensymphony.xwork2.Action.ERROR;
-import vbsp.ims.gqvl_2023.*;
 import static com.opensymphony.xwork2.Action.SUCCESS;
+import vbsp.ims.gqvl_2023.*;
 import com.opensymphony.xwork2.ActionContext;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -219,6 +219,10 @@ public class BCQT_19A_2024 extends ActionNhaptaycnMain
             String dateStr = hmParameter.get("ngay_bc").toString();
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             DaoBcqtMain daoMain = new DaoBcqtMain();
+            ActionContext.getContext().getSession().put("pos_cd_username", pos_cd_username);
+            ActionContext.getContext().getSession().put("main_pos_username", main_pos_username);
+            ActionContext.getContext().getSession().put("UserName", UserName);
+            ActionContext.getContext().getSession().put("dateStr", dateStr);
             lstData = daoMain.getbcqt_11c_2024(conn, "CCC1", dateStr, UserName, pos_cd_username);
             try {
                 setChotsl(lstData.get(0).getD1());
@@ -229,41 +233,76 @@ public class BCQT_19A_2024 extends ActionNhaptaycnMain
             lstDulieuNt = daoMain.getbcqt_11c_2024(conn, "CCC", dateStr, UserName, pos_cd_username);
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 lstData_Api = _serverAPI.getDataKTKSNB_2024("BCQT_MS19_KEY", pos_cd_username, "S", _reportDate, "", "1");
-            }
-            for (DuLieuNTRow item : lstData_Api) {
-                QT_DULIEU_NT row = new QT_DULIEU_NT();
-                try {
-                    row.setKHOA(item.getKey());
-                    row.setTHUTU(Integer.parseInt(item.getOrderValue()));
-                    row.setTT_HIENTHI(item.getOrderDescription());
-                    row.setMA(item.getCode());
-                    row.setTEN(item.getName());
-                    row.setCO_TONGHOP(item.getPosFlag());
-                    row.setNGUOI_NHAP(item.getMakerId());
-                    Date reportDate = DateUtil.toDate(item.getReportDate());
-                    row.setNGAYBC(reportDate);
-                    row.setNAMBC(item.getReportYear());
-                    row.setMAPGD(item.getPosCode());
-                    row.setMACN(item.getBranchCode());
-                    row.setD1(item.getD1());
-                    row.setD2(item.getD2());
-                    row.setD3(item.getD3());
-                    row.setD4(item.getD4());
-                    row.setD5(item.getD5());
-                    row.setD6(item.getD6());
-                    row.setD7(item.getD7());
-                    row.setD8(item.getD8());
-                    row.setD9(item.getD9());
-                    row.setD10(item.getD10());
-                    row.setD11(item.getD11());
-                    row.setD12(item.getD12());
-                    row.setD13(item.getD13());
-                    row.setD14(item.getD14());
-                    row.setKIEUIN(item.getStyle());
-                    lstDulieuNt.add(row);
-                } catch (Exception e) {
+
+                for (DuLieuNTRow item : lstData_Api) {
+                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+                    try {
+                        row.setKHOA(item.getKey());
+                        row.setTHUTU(Integer.parseInt(item.getOrderValue()));
+                        row.setTT_HIENTHI(item.getOrderDescription());
+                        row.setMA(item.getCode());
+                        row.setTEN(item.getName());
+                        row.setCO_TONGHOP(item.getPosFlag());
+                        row.setNGUOI_NHAP(item.getMakerId());
+                        Date reportDate = DateUtil.toDate(item.getReportDate());
+                        row.setNGAYBC(reportDate);
+                        row.setNAMBC(item.getReportYear());
+                        row.setMAPGD(item.getPosCode());
+                        row.setMACN(item.getBranchCode());
+                        row.setD1(item.getD1());
+                        row.setD2(item.getD2());
+                        row.setD3(item.getD3());
+                        row.setD4(item.getD4());
+                        row.setD5(item.getD5());
+                        row.setD6(item.getD6());
+                        row.setD7(item.getD7());
+                        row.setD8(item.getD8());
+                        row.setD9(item.getD9());
+                        row.setD10(item.getD10());
+                        row.setD11(item.getD11());
+                        row.setD12(item.getD12());
+                        row.setD13(item.getD13());
+                        row.setD14(item.getD14());
+                        row.setKIEUIN(item.getStyle());
+                        lstDulieuNt.add(row);
+                    } catch (Exception e) {
+                        // Handle row processing exceptions
+                    }
                 }
+                ArrayList<DULIEU_NT_TQ> lstLocalDataUpdate = new ArrayList<>();
+                for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                    DULIEU_NT_TQ temlocal = new DULIEU_NT_TQ();
+                    temlocal.setKHOA("BCQT_MS19A");
+                    temlocal.setTHUTU(tmp.getTHUTU());
+                    temlocal.setTT_HIENTHI(tmp.getTT_HIENTHI());
+                    temlocal.setTEN(tmp.getTEN());
+                    temlocal.setMA(tmp.getMA());
+                    temlocal.setNGUOI_DUYET(UserName);
+                    temlocal.setNGUOI_NHAP(UserName);
+                    temlocal.setMAPGD(pos_cd_username);
+                    temlocal.setCO_TONGHOP("S");
+                    temlocal.setMACN(main_pos_username);
+                    temlocal.setD1(tmp.getD1());
+                    temlocal.setD2(tmp.getD2());
+                    temlocal.setD3(tmp.getD3());
+                    temlocal.setD4(tmp.getD4());
+                    temlocal.setD5(tmp.getD5());
+                    temlocal.setD6(tmp.getD6());
+                    temlocal.setD7(tmp.getD7());
+                    temlocal.setD8(tmp.getD8());
+                    temlocal.setD9(tmp.getD9());
+                    temlocal.setD10(tmp.getD10());
+                    temlocal.setD11(tmp.getD11());
+                    temlocal.setD12(tmp.getD12());
+                    temlocal.setD13(tmp.getD13());
+                    temlocal.setD14(tmp.getD14());
+                    temlocal.setD15(tmp.getD15());
+                    temlocal.setD16(tmp.getD16());
+                    lstLocalDataUpdate.add(temlocal);
+                }
+                daoMain.savebcqt_19A_2024("BCQT_MS19A", dateStr, UserName, pos_cd_username, lstLocalDataUpdate);
             }
+
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> tin dung 2024 : " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> tin dung 2024: " + e.getMessage());
@@ -296,7 +335,7 @@ public class BCQT_19A_2024 extends ActionNhaptaycnMain
         return "success_2";
     }
 
-   public String load_c3() {
+    public String load_c3() {
         try {
             if (!getParaSession()) {
                 return ERROR;
@@ -363,9 +402,14 @@ public class BCQT_19A_2024 extends ActionNhaptaycnMain
                 temlocal.setD6(tmp.getD6());
                 temlocal.setD7(tmp.getD7());
                 temlocal.setD8(tmp.getD8());
-                temlocal.setD10(Integer.toString(tmp.getKIEUIN()));
+                temlocal.setD9(tmp.getD9());
+                temlocal.setD10(tmp.getD10());
                 temlocal.setD11(tmp.getD11());
-                temlocal.setKIEUIN(tmp.getKIEUIN());
+                temlocal.setD12(tmp.getD12());
+                temlocal.setD13(tmp.getD13());
+                temlocal.setD14(tmp.getD14());
+                temlocal.setD15(tmp.getD15());
+                temlocal.setD16(tmp.getD16());
                 lstLocalDataUpdate.add(temlocal);
             }
             if (!daoMain.savebcqt_19A_2024("BCQT_MS19A", dateStr, UserName, pos_cd_username, lstLocalDataUpdate)) {
@@ -424,7 +468,8 @@ public class BCQT_19A_2024 extends ActionNhaptaycnMain
         this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
-   public String unlock_c3() {
+
+    public String unlock_c3() {
         try {
             String D1 = ServletActionContext.getRequest().getParameter("madiemgd");
             String D5 = ServletActionContext.getRequest().getParameter("ngaybc");
@@ -491,7 +536,7 @@ public class BCQT_19A_2024 extends ActionNhaptaycnMain
             String dateStr = (String) ActionContext.getContext().getSession().get("dateStr");
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(new Date());
-             ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("BCQT_MS19A", smapgd, "S", _reportDate);
+            ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("BCQT_MS19A", smapgd, "S", _reportDate);
             try {
                 setChotsl(lstData_tmp.get(0).getStatus());
             } catch (Exception e) {
@@ -589,6 +634,41 @@ public class BCQT_19A_2024 extends ActionNhaptaycnMain
         }
         String code = String.valueOf(200);
         this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        return SUCCESS;
+    }
+
+    public String addlinec1() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            String sdanhmuc = ServletActionContext.getRequest().getParameter("sdanhmuc");
+            String sGL = ServletActionContext.getRequest().getParameter("sGL");
+            String ssotien = ServletActionContext.getRequest().getParameter("ssotien");
+            String snguyennhan = ServletActionContext.getRequest().getParameter("snguyennhan");
+            String stype = ServletActionContext.getRequest().getParameter("stype");
+            String skey1 = ServletActionContext.getRequest().getParameter("skey1");
+            String skey2 = ServletActionContext.getRequest().getParameter("skey2");
+            String dateStr = (String) ActionContext.getContext().getSession().get("dateStr");
+            String smapgd = (String) ActionContext.getContext().getSession().get("pos_cd_username");
+            String smacn = (String) ActionContext.getContext().getSession().get("main_pos_username");
+            String UserName = (String) ActionContext.getContext().getSession().get("UserName");
+            DaoBcqtMain daoMain = new DaoBcqtMain();
+            GenericResult<String> _result = daoMain.addline_data_19a("BCQT_MS19A_ADDLINE", dateStr, smapgd, smacn, sdanhmuc, sGL, ssotien, snguyennhan, skey1, skey2, UserName, stype);
+//            String skhoa, String sngaybc, String smapgd, String smacn, String sdanhmuc, String sgl, String ssotien, String snguyenhan, String skey1, String skey2, String sUser
+            if (_result.isIsSuccess()) {
+                status = "1";
+                message = "";
+            } else {
+                status = "0";
+                message = _result.getMessage();
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            status = "0";
+            message = e.getMessage();
+        }
         return SUCCESS;
     }
 }

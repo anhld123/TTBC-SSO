@@ -4957,6 +4957,7 @@ public class DaoBcqtMain {
         }
         return true;
     }
+
     public boolean sendbcqt_11c_2024(String khoa, String ngaybc, String sUser, String sPoscd) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
         CallableStatement cs = null;
@@ -4982,6 +4983,7 @@ public class DaoBcqtMain {
         }
         return true;
     }
+
     public List<QT_DULIEU_NT> getData_bcqt11c_c3(Connection conn, String sNgaybc, String sKhoa, String sMacn, String sPod_Flag) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
@@ -5038,7 +5040,8 @@ public class DaoBcqtMain {
         }
         return lstBcqt_NT;
     }
-     public GenericResult<String> unlock_c3_bcqt(String skhoa, String smapgd, String spos_flag, String sngaybc, String skye) throws SQLException {
+
+    public GenericResult<String> unlock_c3_bcqt(String skhoa, String smapgd, String spos_flag, String sngaybc, String skye) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
         CallableStatement cs = null;
         try {
@@ -5076,7 +5079,8 @@ public class DaoBcqtMain {
             }
         }
     }
-     public boolean savebcqt_18B_2024(String khoa, String ngaybc, String username, String smapgd, List<DULIEU_NT_TQ> lstData) throws SQLException {
+
+    public boolean savebcqt_18B_2024(String khoa, String ngaybc, String username, String smapgd, List<DULIEU_NT_TQ> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
         Object array[] = lstData.toArray();
         ArrayDescriptor des = ArrayDescriptor
@@ -5107,7 +5111,7 @@ public class DaoBcqtMain {
         }
         return true;
     }
-     
+
     public boolean savebcqt_19A_2024(String khoa, String ngaybc, String username, String smapgd, List<DULIEU_NT_TQ> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
         Object array[] = lstData.toArray();
@@ -5138,5 +5142,51 @@ public class DaoBcqtMain {
             }
         }
         return true;
+    }
+
+    public GenericResult<String> addline_data_19a(String skhoa, String sngaybc, String smapgd, String smacn, String sdanhmuc, String sgl, String ssotien, String snguyenhan, String skey1, String skey2, String sUser, String stype) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_BCQT2024.P_ADDLINE_DATA_19A(?,?,?,?,?, ?, ?, ? ,?, ?, ?,?,?,?)}");
+            cs.setString(1, skhoa);
+            cs.setString(2, sngaybc);
+            cs.setString(3, smapgd);
+            cs.setString(4, smacn);
+            cs.setString(5, sdanhmuc);
+            cs.setString(6, sgl);
+            cs.setString(7, ssotien);
+            cs.setString(8, snguyenhan);
+            cs.setString(9, skey1);
+            cs.setString(10, skey2);
+            cs.setString(11, sUser);
+            cs.setString(12, stype);
+            cs.registerOutParameter(13, oracle.jdbc.OracleTypes.NUMBER);
+            cs.registerOutParameter(14, oracle.jdbc.OracleTypes.VARCHAR);
+            cs.execute();
+
+            //Lay ma loi neu co
+            int errorCode = cs.getInt(13);
+            String errorMessage = cs.getString(14);
+
+            if (errorCode == 0) {
+                return (new GenericResult<String>()).Success("Success");
+            } else {
+                return (new GenericResult<String>()).Fail(errorMessage, errorCode);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham cancelAssign " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " cancelAssign -> " + e.getMessage());
+            return (new GenericResult<String>()).Fail(e.getMessage(), e.getErrorCode());
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
     }
 }

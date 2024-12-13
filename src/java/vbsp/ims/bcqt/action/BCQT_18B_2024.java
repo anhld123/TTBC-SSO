@@ -229,39 +229,40 @@ public class BCQT_18B_2024 extends ActionNhaptaycnMain
             lstDulieuNt = daoMain.getbcqt_11c_2024(conn, "BBB", dateStr, UserName, pos_cd_username);
             if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
                 lstData_Api = _serverAPI.getDataKTKSNB_2024("BCQT_MS18_KEY", pos_cd_username, "S", _reportDate, "", "1");
-            }
-            for (DuLieuNTRow item : lstData_Api) {
-                QT_DULIEU_NT row = new QT_DULIEU_NT();
-                try {
-                    row.setKHOA(item.getKey());
-                    row.setTHUTU(Integer.parseInt(item.getOrderValue()));
-                    row.setTT_HIENTHI(item.getOrderDescription());
-                    row.setMA(item.getCode());
-                    row.setTEN(item.getName());
-                    row.setCO_TONGHOP(item.getPosFlag());
-                    row.setNGUOI_NHAP(item.getMakerId());
-                    Date reportDate = DateUtil.toDate(item.getReportDate());
-                    row.setNGAYBC(reportDate);
-                    row.setNAMBC(item.getReportYear());
-                    row.setMAPGD(item.getPosCode());
-                    row.setMACN(item.getBranchCode());
-                    row.setD1(item.getD1());
-                    row.setD2(item.getD2());
-                    row.setD3(item.getD3());
-                    row.setD4(item.getD4());
-                    row.setD5(item.getD5());
-                    row.setD6(item.getD6());
-                    row.setD7(item.getD7());
-                    row.setD8(item.getD8());
-                    row.setD9(item.getD9());
-                    row.setD10(item.getD10());
-                    row.setD11(item.getD11());
-                    row.setD12(item.getD12());
-                    row.setD13(item.getD13());
-                    row.setD14(item.getD14());
-                    row.setKIEUIN(item.getStyle());
-                    lstDulieuNt.add(row);
-                } catch (Exception e) {
+
+                for (DuLieuNTRow item : lstData_Api) {
+                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+                    try {
+                        row.setKHOA(item.getKey());
+                        row.setTHUTU(Integer.parseInt(item.getOrderValue()));
+                        row.setTT_HIENTHI(item.getOrderDescription());
+                        row.setMA(item.getCode());
+                        row.setTEN(item.getName());
+                        row.setCO_TONGHOP(item.getPosFlag());
+                        row.setNGUOI_NHAP(item.getMakerId());
+                        Date reportDate = DateUtil.toDate(item.getReportDate());
+                        row.setNGAYBC(reportDate);
+                        row.setNAMBC(item.getReportYear());
+                        row.setMAPGD(item.getPosCode());
+                        row.setMACN(item.getBranchCode());
+                        row.setD1(item.getD1());
+                        row.setD2(item.getD2());
+                        row.setD3(item.getD3());
+                        row.setD4(item.getD4());
+                        row.setD5(item.getD5());
+                        row.setD6(item.getD6());
+                        row.setD7(item.getD7());
+                        row.setD8(item.getD8());
+                        row.setD9(item.getD9());
+                        row.setD10(item.getD10());
+                        row.setD11(item.getD11());
+                        row.setD12(item.getD12());
+                        row.setD13(item.getD13());
+                        row.setD14(item.getD14());
+                        row.setKIEUIN(item.getStyle());
+                        lstDulieuNt.add(row);
+                    } catch (Exception e) {
+                    }
                 }
             }
         } catch (Exception e) {
@@ -296,7 +297,7 @@ public class BCQT_18B_2024 extends ActionNhaptaycnMain
         return "success_2";
     }
 
-   public String load_c3() {
+    public String load_c3() {
         try {
             if (!getParaSession()) {
                 return ERROR;
@@ -363,7 +364,8 @@ public class BCQT_18B_2024 extends ActionNhaptaycnMain
                 temlocal.setD6(tmp.getD6());
                 temlocal.setD7(tmp.getD7());
                 temlocal.setD8(tmp.getD8());
-                temlocal.setD10(Integer.toString(tmp.getKIEUIN()));
+                temlocal.setD9(tmp.getD9());
+                temlocal.setD10(tmp.getD10());
                 temlocal.setD11(tmp.getD11());
                 temlocal.setKIEUIN(tmp.getKIEUIN());
                 lstLocalDataUpdate.add(temlocal);
@@ -450,7 +452,7 @@ public class BCQT_18B_2024 extends ActionNhaptaycnMain
         return SUCCESS;
     }
 
-   public String unlock_c3() {
+    public String unlock_c3() {
         try {
             String D1 = ServletActionContext.getRequest().getParameter("madiemgd");
             String D5 = ServletActionContext.getRequest().getParameter("ngaybc");
@@ -517,7 +519,7 @@ public class BCQT_18B_2024 extends ActionNhaptaycnMain
             String dateStr = (String) ActionContext.getContext().getSession().get("dateStr");
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(new Date());
-             ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("BCQT_MS18B", smapgd, "S", _reportDate);
+            ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("BCQT_MS18B", smapgd, "S", _reportDate);
             try {
                 setChotsl(lstData_tmp.get(0).getStatus());
             } catch (Exception e) {
