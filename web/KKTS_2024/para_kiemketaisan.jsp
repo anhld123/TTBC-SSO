@@ -278,6 +278,12 @@
                                 document.getElementById("lstDm113_" + i).style.backgroundColor = "#EEAFA6";
                                 return;
                             }
+                            var lstDm114 = document.getElementById("lstDm114_" + i).value;
+                            if (lstDm114 === "000000") {
+                                $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Bạn chưa chọn đơn vị tính!</h>");
+                                document.getElementById("lstDm114_" + i).style.backgroundColor = "#EEAFA6";
+                                return;
+                            }
                         } catch (e) {
                         }
                     }
@@ -389,6 +395,40 @@
                     }
                     for (var i = 0; i < rowcount; i++) {
                         try {
+                            var element = document.getElementById("lstPGD_" + i);
+                            if (element) { // Check if the element exists
+                                var posCd = element.value;
+                                if (posCd === "000000") {
+                                    $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Bạn chưa chọn đơn vị kiểm tra!</h>");
+                                    element.style.backgroundColor = "#EEAFA6";
+                                    return;
+                                }
+                            } else {
+                            }
+                            var lstDm111 = document.getElementById("lstDm111_" + i).value;
+                            if (lstDm111 === "000000") {
+                                $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Bạn chưa chọn tên thiết bị!</h>");
+                                document.getElementById("lstDm111_" + i).style.backgroundColor = "#EEAFA6";
+                                return;
+                            }
+                            var lstDm112 = document.getElementById("lstDm112_" + i).value;
+                            if (lstDm112 === "000000") {
+                                $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Bạn chưa chọn nhóm thiết bị!</h>");
+                                document.getElementById("lstDm112_" + i).style.backgroundColor = "#EEAFA6";
+                                return;
+                            }
+                            var lstDm113 = document.getElementById("lstDm113_" + i).value;
+                            if (lstDm113 === "000000") {
+                                $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Bạn chưa chọn nơi sử dụng!</h>");
+                                document.getElementById("lstDm113_" + i).style.backgroundColor = "#EEAFA6";
+                                return;
+                            }
+                            var lstDm114 = document.getElementById("lstDm114_" + i).value;
+                            if (lstDm114 === "000000") {
+                                $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Bạn chưa chọn đơn vị tính!</h>");
+                                document.getElementById("lstDm114_" + i).style.backgroundColor = "#EEAFA6";
+                                return;
+                            }
                         } catch (e) {
                         }
                     }
@@ -456,12 +496,13 @@
                         <!--&nbsp;<input style="color: red" type="button" id="idUpload" value="Upload excel" onclick="callDirectLink('khvn_open_upload_qt_kh?');">-->
                         &nbsp;|&nbsp;<input type="button" id="idSend" value="Gửi dữ liệu" style="color: red"/>
                     </s:if>
+                        <a id="message_suc_err"/>
                 </table>    
             </fieldset>
             <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
                 <img id="loadingImage" src='img/loading.gif' border='0' >                  
             </div>   
-            <div id="message_suc_err" style="height: 10px"></div>
+           
             <div id="containParm_full" align="center">
                 <div id="divExportReport"></div>
                 <div align="right"  id="divExportReportLink"></div>

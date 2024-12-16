@@ -298,6 +298,7 @@
                                     onLoadData();
                                 } else {
                                     alert('Lỗi: ' + res.message);
+                                    unlockLinks();
                                 }
                             },
                             error: function (res) {
