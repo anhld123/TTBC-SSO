@@ -28,7 +28,7 @@
         <!--Chi phan khoa va mo khoa gui du lieu-->
         <action name="LoadParaBcqt_unlock" class="vbsp.ims.bcqt.action.ActionBcqtSyncMain"  method="LoadParaBcqt_unlock">
             <result name="success">/BCQT/para-bcqt-main_unlock.jsp</result>
-             <result name="BCQT_MS11C">/BCQT/para_baocao_11c_saoke.jsp</result>
+            <result name="BCQT_MS11C">/BCQT/para_baocao_11c_saoke.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>  
         
@@ -609,6 +609,9 @@
             </result>  
         </action>
         <action name="unlock_BCQT_MS18B_c3" class="vbsp.ims.bcqt.action.BCQT_18B_2024" method="unlock_c3">
+            <result name="success" type="json"></result>
+        </action>
+        <action name="addLineC1_18B" class="vbsp.ims.bcqt.action.BCQT_18B_2024" method="addlinec1">
             <result name="success" type="json"></result>
         </action>
         <!--/**/-->

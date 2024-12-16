@@ -6,8 +6,8 @@
 package vbsp.ims.bcqt.action;
 
 import static com.opensymphony.xwork2.Action.ERROR;
-import vbsp.ims.gqvl_2023.*;
 import static com.opensymphony.xwork2.Action.SUCCESS;
+import vbsp.ims.gqvl_2023.*;
 import com.opensymphony.xwork2.ActionContext;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -219,6 +219,10 @@ public class BCQT_18B_2024 extends ActionNhaptaycnMain
             String dateStr = hmParameter.get("ngay_bc").toString();
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             DaoBcqtMain daoMain = new DaoBcqtMain();
+            ActionContext.getContext().getSession().put("pos_cd_username", pos_cd_username);
+            ActionContext.getContext().getSession().put("main_pos_username", main_pos_username);
+            ActionContext.getContext().getSession().put("UserName", UserName);
+            ActionContext.getContext().getSession().put("dateStr", dateStr);
             lstData = daoMain.getbcqt_11c_2024(conn, "BBB1", dateStr, UserName, pos_cd_username);
             try {
                 setChotsl(lstData.get(0).getD1());
@@ -262,9 +266,43 @@ public class BCQT_18B_2024 extends ActionNhaptaycnMain
                         row.setKIEUIN(item.getStyle());
                         lstDulieuNt.add(row);
                     } catch (Exception e) {
+                        // Handle row processing exceptions
                     }
                 }
+                ArrayList<DULIEU_NT_TQ> lstLocalDataUpdate = new ArrayList<>();
+                for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                    DULIEU_NT_TQ temlocal = new DULIEU_NT_TQ();
+                    temlocal.setKHOA("BCQT_MS18B");
+                    temlocal.setTHUTU(tmp.getTHUTU());
+                    temlocal.setTT_HIENTHI(tmp.getTT_HIENTHI());
+                    temlocal.setTEN(tmp.getTEN());
+                    temlocal.setMA(tmp.getMA());
+                    temlocal.setNGUOI_DUYET(UserName);
+                    temlocal.setNGUOI_NHAP(UserName);
+                    temlocal.setMAPGD(pos_cd_username);
+                    temlocal.setCO_TONGHOP("S");
+                    temlocal.setMACN(main_pos_username);
+                    temlocal.setD1(tmp.getD1());
+                    temlocal.setD2(tmp.getD2());
+                    temlocal.setD3(tmp.getD3());
+                    temlocal.setD4(tmp.getD4());
+                    temlocal.setD5(tmp.getD5());
+                    temlocal.setD6(tmp.getD6());
+                    temlocal.setD7(tmp.getD7());
+                    temlocal.setD8(tmp.getD8());
+                    temlocal.setD9(tmp.getD9());
+                    temlocal.setD10(tmp.getD10());
+                    temlocal.setD11(tmp.getD11());
+                    temlocal.setD12(tmp.getD12());
+                    temlocal.setD13(tmp.getD13());
+                    temlocal.setD14(tmp.getD14());
+                    temlocal.setD15(tmp.getD15());
+                    temlocal.setD16(tmp.getD16());
+                    lstLocalDataUpdate.add(temlocal);
+                }
+                daoMain.savebcqt_18B_2024("BCQT_MS18B", dateStr, UserName, pos_cd_username, lstLocalDataUpdate);
             }
+
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> tin dung 2024 : " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> tin dung 2024: " + e.getMessage());
@@ -315,8 +353,8 @@ public class BCQT_18B_2024 extends ActionNhaptaycnMain
             }
 
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> BCQT_MS11B: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> BCQT_MS11B: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> BCQT_MS18B: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> BCQT_MS18B: " + e.getMessage());
         }
         return "success_3";
     }
@@ -367,7 +405,11 @@ public class BCQT_18B_2024 extends ActionNhaptaycnMain
                 temlocal.setD9(tmp.getD9());
                 temlocal.setD10(tmp.getD10());
                 temlocal.setD11(tmp.getD11());
-                temlocal.setKIEUIN(tmp.getKIEUIN());
+                temlocal.setD12(tmp.getD12());
+                temlocal.setD13(tmp.getD13());
+                temlocal.setD14(tmp.getD14());
+                temlocal.setD15(tmp.getD15());
+                temlocal.setD16(tmp.getD16());
                 lstLocalDataUpdate.add(temlocal);
             }
             if (!daoMain.savebcqt_18B_2024("BCQT_MS18B", dateStr, UserName, pos_cd_username, lstLocalDataUpdate)) {
@@ -416,36 +458,11 @@ public class BCQT_18B_2024 extends ActionNhaptaycnMain
                 return SUCCESS;
             }
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> muats2024: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> muats2024: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " Exception -> BCQT_MS18B: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> BCQT_MS18B: " + e.getMessage());
             String code = String.valueOf(status);
             this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
             return SUCCESS;
-        }
-        String code = String.valueOf(200);
-        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-        return SUCCESS;
-    }
-
-    public String status() {
-        try {
-            String D1 = ServletActionContext.getRequest().getParameter("madiemgd");
-            String D7 = ServletActionContext.getRequest().getParameter("ngaybc");
-            String D8 = ServletActionContext.getRequest().getParameter("type");
-            int status;
-            if (D8.equals("1")) {
-                status = _serverAPI.updateChotSL("BCQT_MS11C", D1, "S", D7, "0", UserName, null);
-            } else {
-                status = _serverAPI.updateChotSL("BCQT_MS11C", D1, "S", D7, "2", UserName, null);
-            }
-            if (status != 200) {
-                String code = String.valueOf(1);
-                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                return ERROR;
-            }
-        } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> unlock_c2: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> unlock_c2: " + e.getMessage());
         }
         String code = String.valueOf(200);
         this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
@@ -617,6 +634,41 @@ public class BCQT_18B_2024 extends ActionNhaptaycnMain
         }
         String code = String.valueOf(200);
         this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        return SUCCESS;
+    }
+
+    public String addlinec1() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            String sdanhmuc = ServletActionContext.getRequest().getParameter("sdanhmuc");
+            String sGL = ServletActionContext.getRequest().getParameter("sGL");
+            String ssotien = ServletActionContext.getRequest().getParameter("ssotien");
+            String snguyennhan = ServletActionContext.getRequest().getParameter("snguyennhan");
+            String stype = ServletActionContext.getRequest().getParameter("stype");
+            String skey1 = ServletActionContext.getRequest().getParameter("skey1");
+            String skey2 = ServletActionContext.getRequest().getParameter("skey2");
+            String dateStr = (String) ActionContext.getContext().getSession().get("dateStr");
+            String smapgd = (String) ActionContext.getContext().getSession().get("pos_cd_username");
+            String smacn = (String) ActionContext.getContext().getSession().get("main_pos_username");
+            String UserName = (String) ActionContext.getContext().getSession().get("UserName");
+            DaoBcqtMain daoMain = new DaoBcqtMain();
+            GenericResult<String> _result = daoMain.addline_data_19a("BCQT_MS18B_ADDLINE", dateStr, smapgd, smacn, sdanhmuc, sGL, ssotien, snguyennhan, skey1, skey2, UserName, stype);
+//            String skhoa, String sngaybc, String smapgd, String smacn, String sdanhmuc, String sgl, String ssotien, String snguyenhan, String skey1, String skey2, String sUser
+            if (_result.isIsSuccess()) {
+                status = "1";
+                message = "";
+            } else {
+                status = "0";
+                message = _result.getMessage();
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            status = "0";
+            message = e.getMessage();
+        }
         return SUCCESS;
     }
 }

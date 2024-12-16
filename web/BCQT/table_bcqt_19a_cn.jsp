@@ -122,7 +122,7 @@
         <body>
             <div style="overflow:scroll; width: 98%;height: 400px;">    
                 <div id="divTitle">
-                    THUYẾT MINH CHI TIẾT CÁC KHOẢN PHẢI THU (TỪ 365 NGÀY TRỞ LÊN)<br>
+                    THUYẾT MINH CHI TIẾT CÁC KHOẢN PHẢI TRẢ (TRÊN 365 NGÀY)<br>VÀ CÁC KHOẢN BẢO LÃNH BẰNG TIỀN ĐÃ HẾT THỜI HẠN BẢO LÃNH<br>
                     <s:if test="chotsl.equalsIgnoreCase('1')" ><a class="color_11">(Đơn vị đã gửi dữ liệu)</a></s:if>
                     <s:if test="chotsl.equalsIgnoreCase('2')" ><a class="color_11">(Đã chốt dữ liệu lên TW)</a></s:if>
                     <input type="hidden" value="<s:property value="chotsl"/>" name="chotsl" id="chotsl"/> 
@@ -133,10 +133,10 @@
                 <table border="1" class="editDelete" id="subTable" align="center">               
                     <tr> 
                         <th class="STT1">STT</th>                           
-                        <th>DANH MỤC CÁC KHOẢN PHẢI THU TỪ 365 NGÀY TRỞ LÊN</th>  
-                        <th class="STT4">TÀI KHOẢN HẠCH TOÁN (GL)</th>  
-                        <th class="STT5">SỐ TIỀN</th>  
-                        <th style="width: 30%">NGUYÊN NHÂN, BIỆN PHÁP XỬ LÝ</th>
+                        <th>Danh mục các khoản phải trả</th>  
+                        <th class="STT4">Tài khoản hạch toán (GL)</th>  
+                        <th class="STT5">Số tiền</th>  
+                        <th style="width: 30%">Nguyên nhân, biện pháp xử lý</th>
                             <th class="STT6">Trạng thái</th>  
                         </tr>
                         <tr>
@@ -185,7 +185,7 @@
                                     <td class="D0" ></td>
                                 <input type="hidden" value="<s:property value='MA' />" name="skey1" id="skey1_<s:property value='%{#rowstatus.index}' />"/>
                                 <input type="hidden" value="<s:property value='D12' />" name="skey2" id="skey2_<s:property value='%{#rowstatus.index}' />"/>
-                                <td class="D0"><input type="text" style="font-size: 12px;width: 98%" placeholder="Nhập danh mục các khoản phải thu từ 365 ngày trở lên" id="sdanhmuc_<s:property value='%{#rowstatus.index}' />" 
+                                <td class="D0"><input type="text" style="font-size: 12px;width: 98%" placeholder="Nhập danh mục các khoản phải trả" id="sdanhmuc_<s:property value='%{#rowstatus.index}' />" 
                                                       name="sdanhmuc_<s:property value='%{#rowstatus.index}' />" maxlength="500"/>
                                 </td>
                                 <td class="D0"><input type="text" placeholder="Nhập tài khoản GL" maxlength="10" id="sGL_<s:property value='%{#rowstatus.index}' />" name="sGL_<s:property value='%{#rowstatus.index}' />" style="font-size: 12px;text-align: right"/></td>
