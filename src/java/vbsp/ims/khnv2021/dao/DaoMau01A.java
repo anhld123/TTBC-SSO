@@ -560,5 +560,46 @@ public class DaoMau01A {
         }
         return lstData;
     }
+    
+    
+    public String summaryDataQt11(String mainPos, String posFlag, String reportDate, String userName) 
+    {
+        String _outputMessage = "";
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = daoconnect.getConnect();            
+            
+            String strStoreproce = "{call PK_NV_QT_UPLOAD.P_SUMMARY_DATA(?, ?, ?, ?, ?)}";
+                        
+            try {
+                //Khoi tao goi store
+                CallableStatement calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                //Truyen vao username
+                calstatement.setString(1, mainPos);
+                calstatement.setString(2, posFlag);
+                calstatement.setString(3, reportDate);          
+                calstatement.setString(4, userName);
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.VARCHAR);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //Lay cursor ra resultset
+                _outputMessage = (String) calstatement.getObject(5);                              
+
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Loi trong ham DaoMau01A.getSummaryDataQt11 " + e.getMessage());
+                CoreLogger.error(DaoMau01A.class.getCanonicalName() + " getSummaryDataQt11  -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham DaoMau01A.getSummaryDataQt11 " + e.getMessage());
+            CoreLogger.error(DaoMau01A.class.getCanonicalName() + " getSummaryDataQt11  -> " + e.getMessage());
+        }
+        return _outputMessage;
+    }
 
 }

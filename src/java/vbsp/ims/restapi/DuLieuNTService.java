@@ -804,52 +804,54 @@ public class DuLieuNTService extends ReportService {
         return response.getStatus();
     }
 
-    static String sendDataNV_QTByApi(List<QT_DULIEU_NT> lstDulieuNt, String file) {
-        ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
-        SimpleDateFormat sdf;
-        sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-
-        for (QT_DULIEU_NT tmp : lstDulieuNt) {
-            DuLieuNTRow tempadd = new DuLieuNTRow();
-            tempadd.setKey(tmp.getKHOA());
-//                tempadd.setOrderValue(tmp.getTHUTU());
-            tempadd.setOrderDescription(tmp.getTT_HIENTHI());
-            tempadd.setCode(tmp.getMA());
-            tempadd.setName(tmp.getTEN());
-
-            String text = sdf.format(tmp.getNGAYBC());
-            tempadd.setReportDate(text);
-            tempadd.setReportYear(tmp.getNAMBC());
-            tempadd.setPosCode(tmp.getMAPGD());
-
-            tempadd.setPosFlag(tmp.getCO_TONGHOP());
-            tempadd.setBranchCode(tmp.getMACN());
-            tempadd.setMakerId(tmp.getNGUOI_NHAP());
-//                tempadd.setMakerDate(tmp.getNGAY_NHAP());
-//                tempadd.setAuthoriseId(tmp.getN());
-            tempadd.setPosFlag(tmp.getCO_TONGHOP());
-            tempadd.setD1(tmp.getD1());
-            tempadd.setD2(tmp.getD2());
-            tempadd.setD3(tmp.getD3());
-            tempadd.setD4(tmp.getD4());
-            tempadd.setD5(tmp.getD5());
-            tempadd.setD6(tmp.getD6());
-            tempadd.setD7(tmp.getD7());
-            tempadd.setD8(tmp.getD8());
-            tempadd.setD9(tmp.getD9());
-
-            lstUpdateDate.add(tempadd);
-        }
-        DuLieuNTService service = new DuLieuNTService();
-        service = new DuLieuNTService();
-//        int status = service.insertData("insert", "system", lstUpdateDate);
-        int status = service.updateData(Define.NV_QT, "001801", "S", "20211231", "quyennv", "quyen1", lstUpdateDate);
-        if (status == 200) {
-            return "";
-        }
-
-        return "";
-    }
+    
+    // Chuyen thanh ham sendDataNV_QTByApi o ExcelUploadAction
+//    static String sendDataNV_QTByApi(List<QT_DULIEU_NT> lstDulieuNt, String file) {
+//        ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
+//        SimpleDateFormat sdf;
+//        sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+//
+//        for (QT_DULIEU_NT tmp : lstDulieuNt) {
+//            DuLieuNTRow tempadd = new DuLieuNTRow();
+//            tempadd.setKey(tmp.getKHOA());
+////                tempadd.setOrderValue(tmp.getTHUTU());
+//            tempadd.setOrderDescription(tmp.getTT_HIENTHI());
+//            tempadd.setCode(tmp.getMA());
+//            tempadd.setName(tmp.getTEN());
+//
+//            String text = sdf.format(tmp.getNGAYBC());
+//            tempadd.setReportDate(text);
+//            tempadd.setReportYear(tmp.getNAMBC());
+//            tempadd.setPosCode(tmp.getMAPGD());
+//
+//            tempadd.setPosFlag(tmp.getCO_TONGHOP());
+//            tempadd.setBranchCode(tmp.getMACN());
+//            tempadd.setMakerId(tmp.getNGUOI_NHAP());
+////                tempadd.setMakerDate(tmp.getNGAY_NHAP());
+////                tempadd.setAuthoriseId(tmp.getN());
+//            tempadd.setPosFlag(tmp.getCO_TONGHOP());
+//            tempadd.setD1(tmp.getD1());
+//            tempadd.setD2(tmp.getD2());
+//            tempadd.setD3(tmp.getD3());
+//            tempadd.setD4(tmp.getD4());
+//            tempadd.setD5(tmp.getD5());
+//            tempadd.setD6(tmp.getD6());
+//            tempadd.setD7(tmp.getD7());
+//            tempadd.setD8(tmp.getD8());
+//            tempadd.setD9(tmp.getD9());
+//
+//            lstUpdateDate.add(tempadd);
+//        }
+//        DuLieuNTService service = new DuLieuNTService();
+//        service = new DuLieuNTService();
+////        int status = service.insertData("insert", "system", lstUpdateDate);
+//        int status = service.updateData(Define.NV_QT, "001801", "S", "20211231", "quyennv", "quyen1", lstUpdateDate);
+//        if (status == 200) {
+//            return "";
+//        }
+//
+//        return "";
+//    }
 
     public int summaryData(String posCode, String posFlag, String reportDate, String makerId) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();

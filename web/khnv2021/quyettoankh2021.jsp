@@ -26,7 +26,11 @@
             /*height: 1000px;*/
         }
 
-        table thead { position: sticky; top: 0; z-index: 1; }
+        table thead {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
 
         th, td {
             text-align: left;
@@ -35,7 +39,9 @@
             /*text-align: center;*/
         }
 
-        tr:nth-child(even){background-color: #f2f2f2}
+        tr:nth-child(even){
+            background-color: #f2f2f2
+        }
 
         th {
             background-color: #04AA6D;
@@ -61,22 +67,39 @@
             overflow-y: scroll;
             height: 76vh;
         }
-        .cmd, input[type="submit"]{
+
+        .cmd{
             padding: 5px;
             background-image: linear-gradient(#f2f2f2,#c2c2c2);
             border: 1px solid #c2c2c2;
             border-radius: 2px;
+            color: blue;
+        }
+
+        /*        .cmd {
+                    padding: 5px;
+                    background-image: linear-gradient(#f2f2f2,#c2c2c2);
+                    border: 1px solid #c2c2c2;
+                    border-radius: 2px;
+                    color: blue;
+                }*/
+
+        .cmd_red{
+            padding: 5px;
+            background-image: linear-gradient(#f2f2f2,#c2c2c2);
+            border: 1px solid #c2c2c2;
+            border-radius: 2px;
+            color: red;
         }
 
         .CLS-BOLD{
             font-weight: bold;
         }
-        
-        
+
         .CLS-ITALIC{
             font-style: italic;
         }
-        
+
         iframe:focus {
             outline: none;
         }
@@ -85,10 +108,31 @@
         }
     </style>
     <SCRIPT language="javascript">
-        $.subscribe("beforediv_send", function (event, data) {
+        
+        $.subscribe("before_thkh", function (event, data) {                        
+            if(!confirm("Khi tổng hợp từ PGD dữ liệu đã nhập sẽ bị mất. Bạn có chắc chắn muốn tổng hợp?")) {                  
+                event.originalEvent.options.submit=false;                  
+            } else {            
+                $('#loadingImage_next').slideDown("slow");
+                $('#loadingImage_next').empty();
+                $('#divKhDetail').empty();
+            }
+        });
+        
+        $.subscribe("before_chotsl", function (event, data) {                        
+            if(!confirm("Sau khi chốt số liệu, bạn sẽ không thể chỉnh sửa. Bạn có chắc chắn muốn chốt số liệu?")) {                  
+                event.originalEvent.options.submit=false;                  
+            } else {            
+                $('#loadingImage_next').slideDown("slow");
+                $('#loadingImage_next').empty();
+                $('#divKhDetail').empty();
+            }
+        });
+        
+        $.subscribe("beforediv_send", function (event, data) {                                                
             $('#loadingImage_next').slideDown("slow");
             $('#loadingImage_next').empty();
-            $('#divKhDetail').empty();
+            $('#divKhDetail').empty();            
         });
 
         $.subscribe("completediv_send", function (event, data) {
@@ -97,12 +141,12 @@
 
         });
 
-        function onReloadSubCommune()
-        {
-            $('#divKhDetail').empty();
-            var commune_cd = $("#commune_cd").val();
-
-        }
+//        function onReloadSubCommune()
+//        {
+//            $('#divKhDetail').empty();
+//            var commune_cd = $("#commune_cd").val();
+//
+//        }
 
         function callDirectLink(link) {
             var ht = screen.availHeight / 5 + 35;
@@ -151,65 +195,73 @@
                               name="donvi" id="donvi"
                               listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
                     &nbsp;
-                </s:if>
-                
+                </s:if>                
 
-                     
-                    <!--<input type="button" id="cmdTai" name="cmdTai" value="Tải dữ liệu" class="cmd">-->
+                <!--<input type="button" id="cmdTai" name="cmdTai" value="Tải dữ liệu" class="cmd">-->
                 <s:url id="idLoadDataQtKhnv" action="loadDataQuyettoan2021.action"></s:url>                                      
                 <sj:submit id="idloadDataQtKhnvtmp" name="nameSend" href="%{idLoadDataQtKhnv}" value="Xem dữ liệu" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
-                           onCompleteTopics="completediv_send" class="cmd"/>
+                           onCompleteTopics="completediv_send" cssClass="cmd"/>
 
                 <s:if test="!reportGrade.equalsIgnoreCase('3')">
                     <s:url id="idChotQtKehoach" action="ChotQtKehoach.action"></s:url>                                      
-                    <sj:submit id="idloadDataQtKhnvtmp2" name="nameSend2" href="%{idChotQtKehoach}" value="Chốt số liệu" targets="divKhDetail"
-                               onBeforeTopics="beforediv_send"
-                               onCompleteTopics="completediv_send" class="cmd"/>
-                
-                                                   
+                    <sj:submit id="idloadDataQtKhnvtmp2" 
+                               name="nameSend2" 
+                               href="%{idChotQtKehoach}" 
+                               value="Chốt số liệu" 
+                               targets="divKhDetail"
+                               onBeforeTopics="before_chotsl"
+                               onCompleteTopics="completediv_send" cssClass="cmd"/>
+
+
                 </s:if>
-               
-                
-                 <s:if test="reportGrade.equalsIgnoreCase('2')">
-                      <s:url id="idMoChotQtKehoach" action="MoChotQtKehoach.action"></s:url>                                      
-                        <sj:submit id="idloadDataMoChotQtKhnvtmp2" name="nameChot2" href="%{idMoChotQtKehoach}" value="Mở chốt số liệu" targets="divKhDetail"
-                                   onBeforeTopics="beforediv_send"
-                                   onCompleteTopics="completediv_send" class="cmd"/>
-                
-                        <s:if test="reportGrade.equalsIgnoreCase('2')">
-                             &nbsp;&nbsp;|&nbsp;&nbsp;
-                                <s:url id="idTongHopKehoach" action="TongHopQtKehoach.action"></s:url>                                      
-                                <sj:submit id="idloadTongHopQtKhnvtmp2" name="nameTongHop" href="%{idTongHopKehoach}" value="Tổng hợp số liệu" targets="divKhDetail"
-                                           onBeforeTopics="beforediv_send"
-                                           onCompleteTopics="completediv_send" class="cmd"/>   
-                        </s:if>
-                     
-                 </s:if>
-                                      
-                    
-      
+
+
+                <s:if test="reportGrade.equalsIgnoreCase('2')">
+                    <s:url id="idMoChotQtKehoach" action="MoChotQtKehoach.action"></s:url>                                      
+                    <sj:submit id="idloadDataMoChotQtKhnvtmp2" 
+                               name="nameChot2" 
+                               href="%{idMoChotQtKehoach}" 
+                               value="Mở chốt số liệu" 
+                               targets="divKhDetail"
+                               onBeforeTopics="beforediv_send"
+                               onCompleteTopics="completediv_send" cssClass="cmd"/>
+
+                    <s:if test="reportGrade.equalsIgnoreCase('2')">
+                        <!--                             &nbsp;&nbsp;|&nbsp;&nbsp;-->
+                        <s:url id="idTongHopKehoach" action="TongHopQtKehoach.action"></s:url>                                      
+                        <sj:submit id="idloadTongHopQtKhnvtmp2"                                    
+                                   name="nameTongHop" 
+                                   href="%{idTongHopKehoach}" 
+                                   value="Tổng hợp từ PGD" 
+                                   targets="divKhDetail"
+                                   onBeforeTopics="before_thkh"
+                                   onCompleteTopics="completediv_send" cssClass="cmd_red"
+                                   />   
+                    </s:if>
+
+                </s:if>
+
             </div>
             <hr/>
             <div>
-
                 <s:url id="idExpEcelQtKhnv11" action="khnv/dk/ExpExcelEcelQtKhnv11"></s:url>                                      
-                <sj:submit id="idExpEcelKhnvtmp01a" name="nameSend01a" href="%{idExpEcelQtKhnv11}" value="Xuất xls mẫu" targets="divKhDetail"
+                <sj:submit id="idExpEcelKhnvtmp01a" name="nameSend01a" href="%{idExpEcelQtKhnv11}" value="Tải file Excel" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
-                           onCompleteTopics="completediv_send" class="cmd"/>
+                           onCompleteTopics="completediv_send" cssClass="cmd"/>
 
-
-<!--                &nbsp;&nbsp;|&nbsp;&nbsp;-->
-                <sj:submit class="cmd" href="#" onclick="callDirectLink('khvn_open_upload_qt_kh?');" cssClass="metroButtonStyle" value="Upload Excel">
-                    </sj:submit>                        
-                </div>
-                <hr/>
+                <!--                &nbsp;&nbsp;|&nbsp;&nbsp;-->
+                <sj:submit class="cmd" href="#" onclick="callDirectLink('khvn_open_upload_qt_kh?');" 
+                           cssClass="cmd" value="Upload Excel & Gửi số liệu">
+                </sj:submit>                        
             </div>
-            <div class="cls-over">
-                <img id="loadingImage_next" src="img/loading.gif" style="display:none"/>
-                <div id="divKhDetail">
-                </div>
+            <hr/>
+        </div>
+        <div class="cls-over">
+            <img id="loadingImage_next" src="img/loading.gif" style="display:none"/>
+            <div id="divKhDetail">
             </div>
+        </div>
     </s:form>
     <script>
         $(document).ready(function () {

@@ -4,6 +4,7 @@ import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.math.BigInteger;
 import vbsp.ims.khnv2021.dao.XDKHDao2021;
+import vbsp.ims.khnv2021.dao.DaoMau01A;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -31,6 +32,7 @@ import vbsp.ims.util.DateUtil;
 public class QuyetToanKeHoach20211 extends ActionMainKHNV {
 
     private XDKHDao2021 daoXdkh = new XDKHDao2021();
+    private DaoMau01A daoMau01 = new DaoMau01A();
 
     private List<POSModel> custCommuneList = new ArrayList<>();
     private List<POSModel> custSubCommuneList = new ArrayList<>();
@@ -85,6 +87,7 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
         }
     }
 //    Lấy số liệu từ api
+
     public String getDataQtKehoach() {
         try {
             HashMap hmParameter = getParameter();
@@ -99,22 +102,14 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
             ArrayList<DuLieuNTRow> lstData = new ArrayList<>();
             if (reportGrade.equals("1")) {
                 lstData = service.getData(Define.NV_QT, pos_cd_username, "S", namBc + "1231");
-            }
-            else if(donvi.equals("000000") && reportGrade.equals("2"))
-            {
+            } else if (donvi.equals("000000") && reportGrade.equals("2")) {
                 lstData = service.getData(Define.NV_QT, pos_cd_username, "M", namBc + "1231");
-            }
-            else if(!donvi.equals("000000") && reportGrade.equals("2"))
-            {
+            } else if (!donvi.equals("000000") && reportGrade.equals("2")) {
                 lstData = service.getData(Define.NV_QT, donvi, "S", namBc + "1231");
-            }
-            else if(reportGrade.equals("3"))
-            {
+            } else if (reportGrade.equals("3")) {
                 lstData = service.getData(Define.NV_QT, donvi, "M", namBc + "1231");
             }
-           
-                                            
-            
+
             lstData.sort(Comparator.comparing(o -> Integer.parseInt(o.getOrderValue())));
             for (DuLieuNTRow item : lstData) {
                 try {
@@ -157,7 +152,7 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
 
         return SUCCESS;
     }
-    
+
     public String TongHopQtKehoach() {
         try {
             HashMap hmParameter = getParameter();
@@ -167,45 +162,44 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
             namBc_2pre = String.valueOf(year2Pre);
 
             getInfo();
-            service = new DuLieuNTService();
             
-            
-            ArrayList<DuLieuNTRow> lstData = new ArrayList<>();
-            int sTonghop =service.summaryData(pos_cd_username,  "M", namBc + "1231", userId);
-            
-            lstData = service.getData(Define.NV_QT, pos_cd_username, "M", namBc + "1231");
-                                            
-            
-            lstData.sort(Comparator.comparing(o -> Integer.parseInt(o.getOrderValue())));
-            for (DuLieuNTRow item : lstData) {
-                try {
-                    QT_DULIEU_NT row = new QT_DULIEU_NT();
-                    row.setKHOA(Define.NV_QT);
-                    row.setTHUTU(Integer.parseInt(item.getOrderValue()));
-                    row.setTT_HIENTHI(item.getOrderDescription());
-                    row.setTEN(item.getName());
+            service = new DuLieuNTService();            
+            int _status = service.summaryData(pos_cd_username, "M", namBc + "1231", userId);
+            String _outputMessage = daoMau01.summaryDataQt11(pos_cd_username, "M", "31-DEC-" + namBc, userId);
 
-                    Date reportDate = DateUtil.toDate(item.getReportDate());
-                    row.setNGAYBC(reportDate);
-                    row.setMAPGD(item.getPosCode());
-                    row.setMACN(item.getBranchCode());
+            if (_status == 200) {
+                ArrayList<DuLieuNTRow> lstData = service.getData(Define.NV_QT, pos_cd_username, "M", namBc + "1231");
+                lstData.sort(Comparator.comparing(o -> Integer.parseInt(o.getOrderValue())));
+                for (DuLieuNTRow item : lstData) {
+                    try {
+                        QT_DULIEU_NT row = new QT_DULIEU_NT();
+                        row.setKHOA(Define.NV_QT);
+                        row.setTHUTU(Integer.parseInt(item.getOrderValue()));
+                        row.setTT_HIENTHI(item.getOrderDescription());
+                        row.setTEN(item.getName());
 
-                    row.setD1(item.getD1());
-                    row.setD2(item.getD2());
-                    row.setD3(item.getD3());
-                    row.setD4(item.getD4());
-                    row.setD5(item.getD5());
-                    row.setD6(item.getD6());
-                    row.setD7(item.getD7());
-                    row.setD8(item.getD8());
-                    row.setD9(item.getD9());
-                    row.setD10(item.getD10());
+                        Date reportDate = DateUtil.toDate(item.getReportDate());
+                        row.setNGAYBC(reportDate);
+                        row.setMAPGD(item.getPosCode());
+                        row.setMACN(item.getBranchCode());
 
-                    row.setD19(item.getD19());
-                    lstDulieuNt.add(row);
-                } catch (Exception e) {
-                    CoreLogger.error(this.getClass().getName() + " Exception -> getDataQtKehoach: " + e.getMessage());
-                    System.err.println(this.getClass().getName() + " Exception -> getDataQtKehoach: " + e.getMessage());
+                        row.setD1(item.getD1());
+                        row.setD2(item.getD2());
+                        row.setD3(item.getD3());
+                        row.setD4(item.getD4());
+                        row.setD5(item.getD5());
+                        row.setD6(item.getD6());
+                        row.setD7(item.getD7());
+                        row.setD8(item.getD8());
+                        row.setD9(item.getD9());
+                        row.setD10(item.getD10());
+
+                        row.setD19(item.getD19());
+                        lstDulieuNt.add(row);
+                    } catch (Exception e) {
+                        CoreLogger.error(this.getClass().getName() + " Exception -> getDataQtKehoach: " + e.getMessage());
+                        System.err.println(this.getClass().getName() + " Exception -> getDataQtKehoach: " + e.getMessage());
+                    }
                 }
             }
 
@@ -226,17 +220,13 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
             ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
             service = new DuLieuNTService();
             if (reportGrade.equals("1")) {
-                service.getSetLockDataManual(Define.NV_QT,pos_cd_username,"S",namBc + "1231",Define.NHAPTAY_CHOT,userId);
-            }   
-            else if(donvi.equals("000000") && reportGrade.equals("2"))
-            {       
-                service.getSetLockDataManual(Define.NV_QT,pos_cd_username,"M",namBc + "1231",Define.NHAPTAY_CHOT,userId);
+                service.getSetLockDataManual(Define.NV_QT, pos_cd_username, "S", namBc + "1231", Define.NHAPTAY_CHOT, userId);
+            } else if (donvi.equals("000000") && reportGrade.equals("2")) {
+                service.getSetLockDataManual(Define.NV_QT, pos_cd_username, "M", namBc + "1231", Define.NHAPTAY_CHOT, userId);
+            } else if (!donvi.equals("000000") && reportGrade.equals("2")) {
+                service.getSetLockDataManual(Define.NV_QT, donvi, "S", namBc + "1231", Define.NHAPTAY_CHOT, userId);
             }
-            else if(!donvi.equals("000000") && reportGrade.equals("2"))
-            {
-                service.getSetLockDataManual(Define.NV_QT,donvi,"S",namBc + "1231",Define.NHAPTAY_CHOT,userId);
-            }
-                                 
+
             addActionMessage("Bạn đã chốt thành công số liệu.");
             return SUCCESS;
         } catch (Exception ex) {
@@ -246,26 +236,22 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
             return ERROR;
         }
     }
-    
+
     public String MoChotQtKehoach() {
         try {
             getInfo();
 
             ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
             service = new DuLieuNTService();
-            if(donvi.equals("000000") && reportGrade.equals("2"))
-            {       
+            if (donvi.equals("000000") && reportGrade.equals("2")) {
 //                service.getSetLockDataManual(Define.NV_QT,pos_cd_username,reportGrade,namBc + "1231",Define.NHAPTAY_MOCHOT,userId);
-                 addActionError("Không thể mở dữ liệu của chi nhánh!");
-                return ERROR;   
+                addActionError("Không thể mở dữ liệu của chi nhánh!");
+                return ERROR;
+            } else if (!donvi.equals("000000") && reportGrade.equals("2")) {
+                service.getSetLockDataManual(Define.NV_QT, donvi, "S", namBc + "1231", Define.NHAPTAY_MOCHOT, userId);
+            } else if (reportGrade.equals("1")) {
+                service.getSetLockDataManual(Define.NV_QT, pos_cd_username, "S", namBc + "1231", Define.NHAPTAY_MOCHOT, userId);
             }
-            else if(!donvi.equals("000000") && reportGrade.equals("2"))
-            {
-                service.getSetLockDataManual(Define.NV_QT,donvi,"S",namBc + "1231",Define.NHAPTAY_MOCHOT,userId);
-            }
-            else if (reportGrade.equals("1")) {
-                service.getSetLockDataManual(Define.NV_QT,pos_cd_username,"S",namBc + "1231",Define.NHAPTAY_MOCHOT,userId);
-            }                        
             addActionMessage("Bạn đã mở chốt thành công số liệu.");
             return SUCCESS;
         } catch (Exception ex) {
@@ -276,14 +262,12 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
         }
     }
 
-
-
     public String Lock_Unlock() {
         try {
             getInfo();
             service = new DuLieuNTService();
             ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
-            int icheck = service.updateLockManual(Define.NV_QT, pos_cd_username, "S", namBc + "1231", "1",userId,lstUpdateDateLock);
+            int icheck = service.updateLockManual(Define.NV_QT, pos_cd_username, "S", namBc + "1231", "1", userId, lstUpdateDateLock);
 
         } catch (Exception ex) {
             CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv01 " + ex.getMessage());
@@ -293,17 +277,16 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
         return SUCCESS;
     }
 
-
-
     public String openExcelUploadQtKh() {
         try {
             getInfo();
             service = new DuLieuNTService();
             ArrayList<LockSendModel> lstDataLock = new ArrayList<>();
-            if (reportGrade.equals("1"))
+            if (reportGrade.equals("1")) {
                 lstDataLock = service.getDataLockManual(Define.NV_QT, pos_cd_username, "S", namBc + "1231");
-            else if (reportGrade.equals("2"))
+            } else if (reportGrade.equals("2")) {
                 lstDataLock = service.getDataLockManual(Define.NV_QT, pos_cd_username, "M", namBc + "1231");
+            }
             if (lstDataLock.size() > 0) {
                 if (lstDataLock.get(0).getStatus().equals("1")) {
                     addActionError("Đơn vị đã chốt số liệu. Vui lòng liên hệ với cấp trên để mở khóa");
