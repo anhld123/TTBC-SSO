@@ -21,9 +21,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import org.apache.struts2.ServletActionContext;
+import vbsp.ims.action.ktktnb.DULIEU_NT_TQ;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.define.GenericResult;
@@ -514,7 +516,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
             int table = lstDulieuNt.size();
-            lstData_Api = _serverAPI.getDataKTKSNB_2024("KKTS_01", main_pos_username, "M", _reportDate, conditions, "1");
+            lstData_Api = _serverAPI.getDataKTKSNB_2024("KKTS_01", main_pos_username, "M", _reportDate, conditions, "0");
             int tableapi = lstData_Api.size();
 //            System.out.println("table= "+ table +" tableapi="+tableapi);
             if (table != tableapi) {
@@ -524,6 +526,44 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             }
             int status = _serverAPI.updateChotSL(sKyeLock, main_pos_username, "M", _reportDate, "2", UserName, null);
             if (status == 200) {
+                ArrayList<DULIEU_NT_TQ> lstLocalDataUpdate = new ArrayList<>();
+                for (DuLieuNTRow tmp : lstData_Api) {
+                    DULIEU_NT_TQ tempadd = new DULIEU_NT_TQ();
+                    tempadd.setKHOA("KKTS_01");
+                    tempadd.setTHUTU(Integer.valueOf(tmp.getOrderValue()));
+                    tempadd.setTT_HIENTHI(tmp.getOrderDescription());
+                    tempadd.setTEN(tmp.getName());
+                    tempadd.setMA(tmp.getCode());
+                    tempadd.setNGUOI_NHAP(tmp.getMakerId());
+                    tempadd.setNGUOI_DUYET(tmp.getAuthoriseId());
+                    Date reportDate = DateUtil.toDate(dateStr);
+                    tempadd.setNGAYBC(reportDate);
+                    tempadd.setNAMBC(tmp.getReportYear());
+                    tempadd.setMAPGD(tmp.getPosCode());
+                    tempadd.setCO_TONGHOP(tmp.getPosFlag());
+                    tempadd.setMACN(tmp.getBranchCode());
+                    tempadd.setD1(tmp.getD1());
+                    tempadd.setD2(tmp.getD2());
+                    tempadd.setD3(tmp.getD3());
+                    tempadd.setD4(tmp.getD4());
+                    tempadd.setD5(tmp.getD5());
+                    tempadd.setD6(tmp.getD6());
+                    tempadd.setD7(tmp.getD7());
+                    tempadd.setD8(tmp.getD8());
+                    tempadd.setD9(tmp.getD9());
+                    tempadd.setD10(tmp.getD10());
+                    tempadd.setD11(tmp.getD11());
+                    tempadd.setD12(tmp.getD12());
+                    tempadd.setD13(tmp.getD13());
+                    tempadd.setD14(tmp.getD14());
+                    tempadd.setD15(tmp.getD15());
+                    tempadd.setD16(tmp.getD16());
+                    lstLocalDataUpdate.add(tempadd);
+
+                }
+                DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
+//                System.out.println("dateStr=== " + dateStr +" main_pos_username== " +main_pos_username+" sDu_an=== " +sDu_an +" UserName== " +UserName);
+                daoMain.saveKKTS2024("KKTS_01", UserName, main_pos_username, "M", dateStr, sDu_an, lstLocalDataUpdate);
                 String code = String.valueOf(status);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
                 return SUCCESS;
@@ -806,8 +846,10 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             String sUserName = (String) ActionContext.getContext().getSession().get("sUserName");
             String _reportDate = (String) ActionContext.getContext().getSession().get("_reportDate");
             String snambc = _reportDate.substring(4);
-//            System.out.println("skhoa= " + skhoa + " sngaybc= " + sngaybc + " _reportDate= " + _reportDate);
             final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00.000").format(new SimpleDateFormat("yyyyMMdd").parse(_reportDate));
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00.000");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+            String formattedDate = outputFormat.format(inputFormat.parse(_reportDate1));
             ArrayList<DuLieuNTRowX> lstUpdateDate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
                 UUID uuid = UUID.randomUUID(); // Tạo UUID mới
@@ -847,6 +889,46 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
             _serverAPI = new DuLieuNTService();
             int status = _serverAPI.updateKTKSNB("KKTS_01_HDKK", smacn, "M", _reportDate, "", "", lstUpdateDate);
             if (status == 200) {
+                lstData_Api = _serverAPI.getDataKTKSNB_2024("KKTS_01_HDKK", smacn, "M", _reportDate, "", "0");
+                ArrayList<DULIEU_NT_TQ> lstLocalDataUpdate = new ArrayList<>();
+                for (DuLieuNTRow tmp : lstData_Api) {
+                    DULIEU_NT_TQ tempadd = new DULIEU_NT_TQ();
+                    tempadd.setKHOA("KKTS_01_HDKK");
+                    tempadd.setTHUTU(Integer.valueOf(tmp.getOrderValue()));
+                    tempadd.setTT_HIENTHI(tmp.getOrderDescription());
+                    tempadd.setTEN(tmp.getName());
+                    tempadd.setMA(tmp.getCode());
+                    tempadd.setNGUOI_NHAP(tmp.getMakerId());
+                    tempadd.setNGUOI_DUYET(tmp.getAuthoriseId());
+                    Date reportDate = DateUtil.toDate(tmp.getReportDate());
+                    tempadd.setNGAYBC(reportDate);
+                    tempadd.setNAMBC(tmp.getReportYear());
+                    tempadd.setMAPGD(tmp.getPosCode());
+                    tempadd.setCO_TONGHOP(tmp.getPosFlag());
+                    tempadd.setMACN(tmp.getBranchCode());
+                    tempadd.setD1(tmp.getD1());
+                    tempadd.setD2(tmp.getD2());
+                    tempadd.setD3(tmp.getD3());
+                    tempadd.setD4(tmp.getD4());
+                    tempadd.setD5(tmp.getD5());
+                    tempadd.setD6(tmp.getD6());
+                    tempadd.setD7(tmp.getD7());
+                    tempadd.setD8(tmp.getD8());
+                    tempadd.setD9(tmp.getD9());
+                    tempadd.setD10(tmp.getD10());
+                    tempadd.setD11(tmp.getD11());
+                    tempadd.setD12(tmp.getD12());
+                    tempadd.setD13(tmp.getD13());
+                    tempadd.setD14(tmp.getD14());
+                    tempadd.setD15(tmp.getD15());
+                    tempadd.setD16(tmp.getD16());
+                    lstLocalDataUpdate.add(tempadd);
+
+                }
+                DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
+//                System.out.println("sngaybc=== " + formattedDate);
+
+                daoMain.saveKKTS2024_HDKT("KKTS_01_HDKK", sUserName, smacn, "M", formattedDate, "", lstLocalDataUpdate);
                 String code = String.valueOf(status);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
                 return SUCCESS;
