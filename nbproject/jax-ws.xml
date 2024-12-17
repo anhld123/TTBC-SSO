@@ -5,6 +5,39 @@
       <implementation-class>vbsp.ims.web.services.ims_services</implementation-class>
     </service>
   </services>
-  <clients/>
+  <clients>
+    <client name="ims_services">
+      <wsdl-url>http://vbsp.ims.report:8080/IMS_REPORTS/ims_services?wsdl</wsdl-url>
+      <local-wsdl-file>vbsp.ims.report_8080/IMS_REPORTS/ims_services.wsdl</local-wsdl-file>
+      <package-name>vbsp.ims.web.services</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>http://vbsp.ims.report:8080/IMS_REPORTS/ims_services?wsdl</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </client>
+  </clients>
   <jsr109>false</jsr109>
 </jax-ws>
