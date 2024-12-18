@@ -718,7 +718,7 @@
                 <param name="inputName">pageResult</param>
             </result>      
         </action> 
-        <action name="loadDMChtrinh"  class="vbsp.ims.gqvl_2023.Mua_Tsan_2024" method="loadDMChtrinh">
+        <action name="loadDMChtrinh1"  class="vbsp.ims.gqvl_2023.Mua_Tsan_2024" method="loadDMChtrinh">
             <result name="success" type="json">/muasam_taisan_2024/viewmuasamts_2024.jsp</result>
             <result name="error">/BCQT/success.jsp</result>
         </action>     
