@@ -7,39 +7,22 @@ package vbsp.ims.nhaptaycn.action;
 
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
-import java.io.File;
 import java.math.BigInteger;
 import vbsp.ims.nhaptaycn.action.*;
-import vbsp.ims.nhaptaycn.action.*;
-import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.ServletContext;
-import org.apache.struts2.ServletActionContext;
 import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
-import vbsp.ims.bcqt.model.DULIEU_NT;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
-import vbsp.ims.dao.DaoConnect;
-import vbsp.ims.define.Define;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.restapi.IntDeductionModel;
 import vbsp.ims.restapi.DuLieuNTService;
-import vbsp.ims.restapi.InvestorModel;
 import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.restapi.UpdateLockModel;
-import vbsp.ims.syn.ProcessReportSyn;
-import vbsp.ims.tdnn.DaoTdnnMain;
 import vbsp.ims.util.DateUtil;
-import vbsp.ims.xml.XmlKtgsSync;
 
 /**
  *
@@ -69,7 +52,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                 pos_cd_username = posMainModel.getPosCd();
                 service = new DuLieuNTService();
                 //Kiểm tra xem đã chốt số liệu chưa
-                String chotsl = "0";
+                String chotsl = "1";
                 ArrayList<LockSendModel> lstDataLock = service.getDataLockSendS2021(pos_cd_username, "S", dateStr);
                 //Check xem khóa chưa
                 if (!lstDataLock.isEmpty()) {
@@ -283,7 +266,9 @@ public class HTLS2024 extends ActionNhaptaycnMain
                 
                 tong.setD14(df.format(lai_t09));
                 tong.setD15(df.format(lai_t09dc));
+                
                 lstDulieuNt_tong.add(tong);
+                
                 if (chotsl.equals("1")) {
                     return "xacnhanht";
                 }
@@ -478,8 +463,8 @@ public class HTLS2024 extends ActionNhaptaycnMain
             if (!getParaSession()) {
                 return ERROR;
             }
-            if (lstDulieuNt == null || lstDulieuNt.size() == 0) {
-                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");;
+            if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
+                addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;
             }
 
@@ -502,40 +487,48 @@ public class HTLS2024 extends ActionNhaptaycnMain
             if (Grade.equals("1")) {
                 ArrayList<LockSendModel> lstDataLock = service.getDataLockSendS2021(pos_cd_username, "S", strDate);
                 ArrayList<IntDeductionModel> lstUpdateDate = new ArrayList<>();
-                if (lstDataLock.size() > 0) {
+                if (!lstDataLock.isEmpty() && lstDataLock.get(0).getStatus().equals("1")) {
                     //Lưu phần phân loại hạch toán
-                    if (lstDataLock.get(0).getStatus().equals("1")) {
-                        for (QT_DULIEU_NT tmp : lstDulieuNt) {
-                            if (tmp.getD33() != null) {
-                                IntDeductionModel tempadd = new IntDeductionModel();
-                                tempadd.setMainPos(tmp.getMACN());
-                                tempadd.setPosCode(tmp.getMAPGD());
-                                tempadd.setLoanId(tmp.getD3());
-                                tempadd.setCasaAmt(new BigInteger(tmp.getD30()));
-                                tempadd.setCashAmt(new BigInteger(tmp.getD31()));
-                                tempadd.setPosTranRef(tmp.getD32());
-                                lstUpdateDate.add(tempadd);
-                            }
+                    
+                    for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                        if (tmp.getD33() != null) {
+                            IntDeductionModel tempadd = new IntDeductionModel();
+                            tempadd.setMainPos(tmp.getMACN());
+                            tempadd.setPosCode(tmp.getMAPGD());
+                            tempadd.setLoanId(tmp.getD3());
+                            tempadd.setCasaAmt(new BigInteger(tmp.getD30()));
+                            tempadd.setCashAmt(new BigInteger(tmp.getD31()));
+                            tempadd.setPosTranRef(tmp.getD32());
+                            lstUpdateDate.add(tempadd);
                         }
-                        int status = service.updateData2021HTLS_HT(pos_cd_username, strDate, UserName, lstUpdateDate);
-                        if (status == 200) {
-                            ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
-                            DecimalFormat df = new DecimalFormat("#.##");
-                            for (IntDeductionModel item : lstUpdateDate) {
-                                QT_DULIEU_NT updateRow = new QT_DULIEU_NT();
-                                updateRow.setD1(item.getLoanId());
-                                updateRow.setD2(df.format(item.getCasaAmt()));
-                                updateRow.setD3(df.format(item.getCashAmt()));
-//                                updateRow.setD4(df.format(item.getIntDeductionAdjustM12Amt()));
-                                updateRow.setD4(item.getPosTranRef());
+                    }
+                    int status = service.updateData2021HTLS_HT(pos_cd_username, strDate, UserName, lstUpdateDate);
+                    if (status == 200) {
+                        ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
+                        DecimalFormat df = new DecimalFormat("#.##");
+                        for (IntDeductionModel item : lstUpdateDate) {
+                            QT_DULIEU_NT updateRow = new QT_DULIEU_NT();
+                            updateRow.setD1(item.getLoanId());
+                            updateRow.setD2(df.format(item.getCasaAmt()));
+                            updateRow.setD3(df.format(item.getCashAmt()));
+                            updateRow.setD4(item.getPosTranRef());
 
-                                lstLocalDataUpdate.add(updateRow);
-                            }
-                            daoMain.saveGiamLai1990(UserName, pos_cd_username, strDate1, lstLocalDataUpdate, "2");
+                            lstLocalDataUpdate.add(updateRow);
                         }
-                    } //Lưu phần xác nhận lãi giảm                    
+                        daoMain.saveGiamLai2024(UserName, pos_cd_username, strDate1, lstLocalDataUpdate, "2");
+                    }
+                    //Lưu phần xác nhận lãi giảm     
+                    addActionMessage("Bạn đã lưu dữ liệu thành công");
+                    return SUCCESS;
+                }
+                else {
+                    addActionError("Chi nhánh chưa chốt số liệu. Bạn chỉ cập nhật thông tin hạch toán sau khi PGD đã được chốt số liệu!");
+                    return ERROR;
                 }
 
+            } else {
+                addActionError("Chức năng nay chỉ hỗ trợ cấp Phòng giao dịch!");
+                return ERROR;
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2021: " + e.getMessage());
@@ -543,7 +536,6 @@ public class HTLS2024 extends ActionNhaptaycnMain
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
             return ERROR;
         }
-        addActionMessage("Bạn đã lưu dữ liệu thành công");
-        return SUCCESS;
+        
     }
 }

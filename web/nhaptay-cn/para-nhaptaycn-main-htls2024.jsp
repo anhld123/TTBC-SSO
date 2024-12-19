@@ -241,7 +241,7 @@
             {
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
-                var poscd = getposfromtreecheck();
+                //var poscd = getposfromtreecheck();
                 var khoa = $("#khoa_nhaptaycn").val() + "_save_htlai";
                 if (!bsubmit)
                 {

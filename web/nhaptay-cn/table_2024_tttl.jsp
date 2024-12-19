@@ -11,30 +11,11 @@
 <html>
     <head>        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
         <script>
             var max_row = 0;
-            $(document).ready(function () {
-                $('input.number').css({"text-align": "right"});
-                $('input.number2').css({"text-align": "right"});
-                $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
-                $(".datepicker_month").datepicker({dateFormat: 'mm/yy'});
-                $('.D0').css({"text-align": "center"});
-                $('.number').number(true, 0);
-//            //Cac truong bang so --> se co so truong = 0
-                $('.number2').number(true, 2);
-                $(".TD_STT").css({"width": "20px"});
-                $(".TD_MAKH").css({"width": "70px"});
-                $(".TD_TOTIEN").css({"width": "90px"});
-                $(".TD_NGAY").css({"width": "55px"});
-                $(".TD_TENKH").css({"width": "130px"});
-                $(".TD_SOKU").css({"width": "120px"});
-                $(".TD_NGAY").css({"width": "40px"});
-                $(".TD_CHITIEU").css({"width": "300px"});
-                $(".TEN_KH").css({"width": "100%"});
-            });
+            
             $('.TEN_KH').focus(function () {
                 $(this).closest('tr').addClass('highlight_row');
             });
@@ -44,41 +25,7 @@
             $("#allCheck_dat").change(function () {
                 $(".checkboxdat").prop('checked', $(this).prop("checked"));
             });
-        </script>     
-
-        <script>
-
-            function initTable()
-            {
-                var table = document.getElementById("tblTable");
-                var rowcount = table.rows.length;
-                rowcount = rowcount > max_row ? rowcount : max_row;
-                for (var i = 0; i < rowcount; i++)
-                {
-                    //cho combox 1
-                    var matmp1 = getMabyNumber1(i);//                       
-                    if (matmp1 == 1)
-                    {
-                        $('input:checkbox[id=idc11' + i + ']').attr('checked', true);
-                    }
-                }
-            }
-
-            function getMabyNumber1(idx)
-            {
-                var ma = '';
-                try {
-                    var ma_id = 'id9_' + idx;
-                    ma = document.getElementById(ma_id).value;
-                } catch (e)
-                {
-                    ma = '999999';
-                }
-                return ma;
-            }
-
-        </script>
-
+        </script>            
         <style>     
 
             table.editDelete{
@@ -107,13 +54,7 @@
                 color: #e67300;
             }
 
-
-            *{
-                font-family: Tahoma, Arial, Helvetica, sans-serif;
-                font-size: 12px;
-            }
             #tblTable {
-
                 border-collapse: collapse;
                 width: 100%;
             }
@@ -160,28 +101,6 @@
                 border: 0px !important;
                 outline: none;
             }
-
-            #loadDatatmp, #idsaveDatatmp{
-                cursor: pointer;
-                display: inline-block;
-                min-height: 1em;
-                outline: none;
-                border: none;
-                vertical-align: baseline;
-                background: #fafafa linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.09));
-                color: rgba(0, 0, 0, 0.6);
-                padding: 8px 24px 8px 24px;
-                text-transform: none;
-                text-shadow: none;
-                font-weight: bold;
-                line-height: 1em;
-                font-style: normal;
-                text-align: center;
-                text-decoration: none;
-                border-radius: 0.28571429rem;
-                box-shadow: 0px 0px 0px 1px rgb(34 36 38 / 15%) inset, 0px 0em 0px 0px rgb(34 36 38 / 15%) inset;
-            }
-
         </style>
         <link href="css/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
@@ -193,12 +112,10 @@
             </s:iterator>   
             </br>
             <div id="divTitle">
-                CẬP NHẬT THÔNG TIN GIẢM LÃI TRẢ CHO KHÁCH HÀNG TỪ TÀI KHOẢN PHẢI TRẢ THEO QUYẾT ĐỊNH 1990/QĐ-TTg CỦA THỦ TƯỚNG CHÍNH PHỦ
+                CẬP NHẬT THÔNG TIN GIẢM LÃI TRẢ CHO KHÁCH HÀNG TỪ TÀI KHOẢN PHẢI TRẢ THEO QUYẾT ĐỊNH .../QĐ-TTg CỦA THỦ TƯỚNG CHÍNH PHỦ (2024)
                 <div id="luu_thanhcong_del"></div>
             </div>
-            <s:hidden name="khoa_nhaptaycn"/>
-            <!--            <div class="cls-over">
-                            <div id="scrolling_table_1"  style="width: 98%; max-height:45vh">-->
+            <s:hidden name="khoa_nhaptaycn"/>            
             <table id="tblTable12" class="tblTable" style="width: 88%;">
                 <tr>      
                     <th rowspan="2" class="TD_TOTIEN">Tổng cộng</th> 
@@ -207,15 +124,11 @@
                     <th  class="TD_SOKU">Quá hạn</th>
                     <th  class="TD_SOKU">Khoanh</th>                            
 
+                    <th  class="TD_TOTIEN">Lãi giảm tháng 09</th>                                                        
                     <th  class="TD_TOTIEN">Lãi giảm tháng 10</th>                                                        
-                    <!--<th  class="TD_TOTIEN">Lãi giảm tháng 10 - điều chỉnh</th>--> 
-
                     <th  class="TD_TOTIEN">Lãi giảm tháng 11</th>   
-                    <!--<th  class="TD_TOTIEN">Lãi giảm tháng 11 - diều chỉnh</th>-->
                     <th  class="TD_TOTIEN">Lãi giảm tháng 12</th> 
-                    <!--<th  class="TD_TOTIEN">Lãi giảm tháng 12 - diều chỉnh</th>--> 
-
-
+                    
                     <th rowspan="1"  class="TD_TOTIEN">Số tiền hạch toán giảm lãi</th>                              
                     <th rowspan="1"  class="TD_TOTIEN">Số tiền lãi giảm chuyển vào CASA</th>  
                     <th rowspan="1"  class="TD_TOTIEN">Số tiền giảm lãi chuyển vào chi bằng tiền mặt</th>  
@@ -250,38 +163,33 @@
                         </td>
 
                         <!--lai suat-->
+                        
+                        <td align = "right" class="TD_TOTIEN" >
+                            <input type="text"   value="<s:property  value="D14" />" 
+                                   name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D14" class="TEN_KH number" onfocus="this.select();" 
+                                   readonly="true"/>
+                        </td>
+                        
                         <td align = "right" class="TD_TOTIEN" >
                             <input type="text"   value="<s:property  value="D5" />" 
                                    name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number" onfocus="this.select();" 
                                    readonly="true"/>
                         </td>
-                        <!--                                     <td align = "right" class="TD_TOTIEN" >
-                                                                <input type="text"   value="<s:property  value="D8" />" 
-                                                                       name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH number" onfocus="this.select();" />
-                                                            </td>-->
-
+                        
                         <td align = "right" class="TD_TOTIEN" >
                             <input type="text"   value="<s:property  value="D6" />" 
                                    name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH number" onfocus="this.select();" 
                                    readonly="true"/>
                         </td>
-                        <!--                                    <td align = "right" class="TD_TOTIEN" >
-                                                                <input type="text"   value="<s:property  value="D9" />" 
-                                                                       name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D9" class="TEN_KH number" onfocus="this.select();" />
-                                                            </td>-->
-
-                        <!--Du no: trong qua khoanh-->
+                        
+                        <!--Du no: trong han, qua han, khoanh-->
 
                         <td align = "right" class="TD_TOTIEN" >
                             <input type="text"   value="<s:property  value="D7" />" 
                                    name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D7" class="TEN_KH number" onfocus="this.select();" 
                                    readonly="true"/>
                         </td>
-                        <!--                                    <td align = "right" class="TD_TOTIEN" >
-                                                                <input type="text"   value="<s:property  value="D10" />" 
-                                                                       name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D10" class="TEN_KH number" onfocus="this.select();" />
-                                                            </td>-->
-
+                        
                         <td align = "right" class="TD_TOTIEN" >
                             <input type="text"   value="<s:property  value="D11" />" 
                                    name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH number" onfocus="this.select();" 
@@ -318,47 +226,26 @@
                             <th rowspan="2"  class="TD_NGAY">Lãi suất</th>   
                             <th rowspan="2"  class="TD_NGAY">Trạng thái món vay</th>   
                             <th colspan="3"  class="TD_MAKH">Dư nợ</th>                             
-                            <th colspan="3"  class="TD_MAKH">Lãi giảm các tháng trong năm 2021</th>                             
-                            
-                            <!--<th rowspan="2"  class="TD_MAKH">Tổng số tiền lãi được giảm</th>-->            
-
-                            <th rowspan="2"  class="TD_MAKH">Phân loại RPA hoặc Phải trả</th>  
-                            <!--<th rowspan="2"  class="TD_MAKH">Đơn vị xác nhận số tiền giảm lãi</th>-->                              
-                            <!--<th rowspan="2"  class="TD_MAKH">Số tham chiếu giao dịch hạch toán giảm lãi trên Intellect</th>-->  
-                            <!--<th rowspan="2"  class="TD_MAKH">Ngày hạch toán giảm lãi</th>-->  
+                            <th colspan="4"  class="TD_MAKH">Lãi giảm các tháng trong năm 2024</th>                                                         
+                            <th rowspan="2"  class="TD_MAKH">Phân loại RPA hoặc Phải trả</th>                             
                             <th rowspan="2"  class="TD_MAKH">Số tiền hạch toán giảm lãi</th>  
-                            <!--<th rowspan="2"  class="TD_MAKH">Số tiền lãi giảm chuyển vào RPA</th>-->  
-                            <!--<th colspan="3"  class="TD_MAKH">Tháng 10</th>-->    
                             <th colspan="3"  class="TD_MAKH">Tháng <s:property  value="thangbc"/></th>
-                            <!--<th colspan="3"  class="TD_MAKH">Tháng 12</th>-->
-                           
                             <th rowspan="2"  class="TD_MAKH">Cập nhật</th>  
-
-
                         </tr>         
                         <tr>
                             <th  class="TD_TOTIEN">Trong hạn</th>
                             <th  class="TD_TOTIEN">Quá hạn</th>
                             <th  class="TD_TOTIEN">Khoanh</th>
+                            <th  class="TD_NGAY">Tháng 09</th>                                                        
                             <th  class="TD_NGAY">Tháng 10</th>                                                        
                             <th  class="TD_NGAY">Tháng 11</th>                                                        
                             <th  class="TD_NGAY">Tháng 12</th>  
-                             <th rowspan="1"  class="TD_MAKH">Số tiền lãi giảm chuyển vào CASA</th>  
+                            <th rowspan="1"  class="TD_MAKH">Số tiền lãi giảm chuyển vào CASA</th>  
                             <th rowspan="1"  class="TD_MAKH">Số tiền giảm lãi đã chi bằng tiền mặt</th>  
-
                             <th rowspan="1"  class="TD_MAKH">Số bút hạch toán lãi giảm vào CASA hoặc chi tiền mặt</th>  
-<!--                             <th rowspan="1"  class="TD_MAKH">Số tiền lãi giảm chuyển vào CASA</th>  
-                            <th rowspan="1"  class="TD_MAKH">Số tiền giảm lãi đã chi bằng tiền mặt</th>  
-
-                            <th rowspan="1"  class="TD_MAKH">Số bút hạch toán lãi giảm vào CASA hoặc chi tiền mặt</th>  
-                             <th rowspan="1"  class="TD_MAKH">Số tiền lãi giảm chuyển vào CASA</th>  
-                            <th rowspan="1"  class="TD_MAKH">Số tiền giảm lãi đã chi bằng tiền mặt</th>  
-
-                            <th rowspan="1"  class="TD_MAKH">Số bút hạch toán lãi giảm vào CASA hoặc chi tiền mặt</th>  -->
                         </tr>
                         <tr style="font-style: italic;">
                             <td style="text-align: center">(1)</td>
-                            <!--<td style="text-align: center">(2)</td>-->
                             <td style="text-align: center">(2)</td>
                             <td style="text-align: center">(3)</td>
                             <td style="text-align: center">(4)</td>
@@ -369,22 +256,14 @@
                             <td style="text-align: center">(9)</td>
                             <td style="text-align: center">(10)</td>
                             <td style="text-align: center">(11)</td>
-                            <td style="text-align: center">(12)</td>
-                            <!--<td style="text-align: center">(13)</td>-->
-                            <td style="text-align: center">(13)</td>
-                            <!--<td style="text-align: center">(15)</td>-->
-<!--                            <th  class="TD_STT">
-                                <input type="checkbox" id ="allCheck_dat" name="allCheck_dat"  />
-                            </th>  -->
-                            <!--<td style="text-align: center">(15)</td>-->
-                            <!--<td style="text-align: center">(16)</td>-->
-                            <td style="text-align: center">(17)</td>
-                            <!--<td style="text-align: center">(19)</td>-->
+                            <td style="text-align: center">(12)</td>                            
+                            <td style="text-align: center">(13)</td>                            
+                            <td style="text-align: center">(17)</td>                            
                             <td style="text-align: center">(18)</td>
                             <td style="text-align: center">(19)</td>
                             <td style="text-align: center">(20)</td>
                             <td style="text-align: center">(21)</td>
-
+                            <td style="text-align: center">(22)</td>
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                             <tr>                               
@@ -396,8 +275,8 @@
 
 
                                 <td align = "right" class="TD_TENKH" >
-                                    <input type="text"   value="<s:property  value="D50" />" style="background: #C0C0C0 !important;"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D50" class=" TEN_KH " onfocus="this.select();" 
+                                    <input type="text"   value="<s:property  value="D51" />" style="background: #C0C0C0 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D51" class=" TEN_KH " onfocus="this.select();" 
                                            readonly="true"/> 
 
                                     <input type="hidden" value="<s:property  value="D25" />"  id="id9_<s:property  value="%{#rowstatus.index}" />" 
@@ -445,6 +324,12 @@
                                 </td>
                                 <!--Lai giam cac tháng-->
                                 <td align = "right" class="TD_MAKH" >
+                                    <input type="text"   value="<s:property  value="D47" />" style="background: #C0C0C0 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D47" class="TEN_KH number" onfocus="this.select();" 
+                                           readonly="true"/>
+                                </td>
+                                
+                                <td align = "right" class="TD_MAKH" >
                                     <input type="text"   value="<s:property  value="D18" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number" onfocus="this.select();" 
                                            readonly="true"/>
@@ -465,14 +350,6 @@
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24" class="TEN_KH D0" onfocus="this.select();" readonly="true"/>
                                 </td>
 
-<!--                                <td align = "right" class="TD_SOKU" >
-                                    <input type="text"   value="<s:property  value="D26" />" style="background: #C0C0C0 !important;"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26" class="TEN_KH" onfocus="this.select();" readonly="true"/>
-                                </td>
-                                <td align = "right" class="TD_NGAY" >
-                                    <input type="text"   value="<s:property  value="D27" />" style="background: #C0C0C0 !important;"
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27" class="TEN_KH" onfocus="this.select();" readonly="true"/>
-                                </td>-->
                                 <td align = "right" class="TD_MAKH" >
                                     <input type="text"   value="<s:property  value="D28" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28" class="TEN_KH number" onfocus="this.select();" readonly="true"
@@ -497,42 +374,7 @@
                                     <input type="text"   value="<s:property  value="D32" />" 
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D32" class="TEN_KH " onfocus="this.select();" />
                                 </td>
-<!--                                <td align = "right" class="TD_MAKH" >
-                                    <input type="text"   value="<s:property  value="D30" />"  
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" class="TEN_KH number" onfocus="fncSetVal('D30',<s:property  value="%{#rowstatus.index}" />)"
-                                           onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D30<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" 
-                                           id  ='D30<s:property  value="%{#rowstatus.index}" />'
-                                    />
-                                </td>
-                                <td align = "right" class="TD_MAKH" >
-                                    <input type="text"   value="<s:property  value="D31" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D31" class="TEN_KH number" onfocus="fncSetVal('D31',<s:property  value="%{#rowstatus.index}" />)"
-                                           onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D31<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" 
-                                           id  ='D31<s:property  value="%{#rowstatus.index}" />'
-                                    />
-                                </td>
-                                <td align = "right" class="TD_TENKH" >
-                                    <input type="text"   value="<s:property  value="D32" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D32" class="TEN_KH " onfocus="this.select();" />
-                                </td>
-                                <td align = "right" class="TD_MAKH" >
-                                    <input type="text"   value="<s:property  value="D30" />"  
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30" class="TEN_KH number" onfocus="fncSetVal('D30',<s:property  value="%{#rowstatus.index}" />)"
-                                           onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D30<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" 
-                                           id  ='D30<s:property  value="%{#rowstatus.index}" />'
-                                    />
-                                </td>
-                                <td align = "right" class="TD_MAKH" >
-                                    <input type="text"   value="<s:property  value="D31" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D31" class="TEN_KH number" onfocus="fncSetVal('D31',<s:property  value="%{#rowstatus.index}" />)"
-                                           onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D31<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" 
-                                           id  ='D31<s:property  value="%{#rowstatus.index}" />'
-                                    />
-                                </td>
-                                <td align = "right" class="TD_TENKH" >
-                                    <input type="text"   value="<s:property  value="D32" />" 
-                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D32" class="TEN_KH " onfocus="this.select();" />
-                                </td>-->
+
                                 <td  align="center" class="TD_CHECKBOX">    
                                     <input type="checkbox" id ='idchk<s:property  value="%{#rowstatus.index}" />' class="checkboxdat TEN_KH" 
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D33" value="<s:property  value="D33"/>"                                            
@@ -550,7 +392,7 @@
         <div id="luu_thanhcong"></div>
 
         <script>
-            initTable();    
+            
             function CheckUpdate(idchk, iddata, status) {
                 if (status === "ChangeVal") {
                     var val = $('#' + iddata).val();
@@ -579,6 +421,57 @@
                  
                  $('#' + obj + index).val(D28);
             }
+            
+            function initTable()
+            {
+                var table = document.getElementById("tblTable");
+                var rowcount = table.rows.length;
+                rowcount = rowcount > max_row ? rowcount : max_row;
+                for (var i = 0; i < rowcount; i++)
+                {
+                    //cho combox 1
+                    var matmp1 = getMabyNumber1(i);//                       
+                    if (matmp1 === 1)
+                    {
+                        $('input:checkbox[id=idc11' + i + ']').attr('checked', true);
+                    }
+                }
+            }
+
+            function getMabyNumber1(idx)
+            {
+                var ma = '';
+                try {
+                    var ma_id = 'id9_' + idx;
+                    ma = document.getElementById(ma_id).value;
+                } catch (e)
+                {
+                    ma = '999999';
+                }
+                return ma;
+            }
+
+            $(document).ready(function () {
+                $('input.number').css({"text-align": "right"});
+                $('input.number2').css({"text-align": "right"});
+                $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
+                $(".datepicker_month").datepicker({dateFormat: 'mm/yy'});
+                $('.D0').css({"text-align": "center"});
+                $('.number').number(true, 0);
+//            //Cac truong bang so --> se co so truong = 0
+                $('.number2').number(true, 2);
+                $(".TD_STT").css({"width": "20px"});
+                $(".TD_MAKH").css({"width": "70px"});
+                $(".TD_TOTIEN").css({"width": "90px"});
+                $(".TD_NGAY").css({"width": "55px"});
+                $(".TD_TENKH").css({"width": "130px"});
+                $(".TD_SOKU").css({"width": "120px"});
+                $(".TD_NGAY").css({"width": "40px"});
+                $(".TD_CHITIEU").css({"width": "300px"});
+                $(".TEN_KH").css({"width": "100%"});
+                
+                initTable();    
+            });
         </script>
     </body>
 </html>

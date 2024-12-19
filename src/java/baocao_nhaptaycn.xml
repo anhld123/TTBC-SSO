@@ -663,6 +663,11 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>
         
+        <action name="HTL_SAVE_HTLS_2024" class="vbsp.ims.nhaptaycn.action.HTLS2024"  method="save_htl">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
         <action name="NDT2021" class="vbsp.ims.nhaptaycn.action.NDT2021"  method="load">
             <result name="success">/nhaptay-cn/table_2021_ndt.jsp</result>     
             <result name="error">/nhaptay-cn/success.jsp</result>       
