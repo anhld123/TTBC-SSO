@@ -12,6 +12,7 @@
         <action name="LoadParaNhaptaycn" class="vbsp.ims.nhaptaycn.action.ActionNhaptaycnMain"  method="loadPataNhaptaycn">
             <result name="success">/nhaptay-cn/para-nhaptaycn-main.jsp</result>
             <result name="htls2021">/nhaptay-cn/para-nhaptaycn-main-htls2021.jsp</result>
+            <result name="HTLS_2024">/nhaptay-cn/para-nhaptaycn-main-htls2024.jsp</result>
             <result name="PHIUT_001">/nhaptay-cn/para-nhaptaycn-main_phiut.jsp</result>
             <result name="LEAVELOCAL">/leavelocal/index.jsp</result>
             <!--<result name="KTTC_MUASAM_01">/muasam-taisan/index.jsp</result>-->
@@ -638,7 +639,19 @@
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
         
+        <action name="HTLS_2024" class="vbsp.ims.nhaptaycn.action.HTLS2024"  method="load">
+            <result name="success">/nhaptay-cn/table_2024_htls.jsp</result>     
+            <result name="xacnhanht">/nhaptay-cn/table_2024_tttl.jsp</result>     
+            <result name="cap2_chot">/nhaptay-cn/table_2024_htls_cnchot.jsp</result> 
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        
         <action name="SAVE_HTLS2021" class="vbsp.ims.nhaptaycn.action.HTLS2021"  method="save">
+            <result name="success">/BCQT/success.jsp</result>
+            <result name="error">/BCQT/success.jsp</result>        
+        </action>
+        
+        <action name="SAVE_HTLS_2024" class="vbsp.ims.nhaptaycn.action.HTLS2024"  method="save">
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>

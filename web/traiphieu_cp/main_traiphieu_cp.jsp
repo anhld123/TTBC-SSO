@@ -184,7 +184,7 @@
                 border-radius: 0.28571429rem;
                 box-shadow: 0px 0px 0px 1px rgb(34 36 38 / 15%) inset, 0px 0em 0px 0px rgb(34 36 38 / 15%) inset;
             }
-            .DataHiden{
+            .hidenDataClass{
                 display: none;
             }
         </style>

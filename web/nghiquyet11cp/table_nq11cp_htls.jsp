@@ -304,14 +304,14 @@
                                     <input type="text"   value="<s:property  value="D19" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH number" onfocus="this.select();" id='D19<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D19<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" readonly="true"/>
                                     <input type="text"   value="<s:property  value="D19" />"
-                                           class="DataHiden" id='D19<s:property  value="%{#rowstatus.index}" />BK'/>    
+                                           class="hidenDataClass" id='D19<s:property  value="%{#rowstatus.index}" />BK'/>    
                                 </td>
                                 
                                 <td align = "right" class="TD_MAKH" >
                                     <input type="text"   value="<s:property  value="D18" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number" onfocus="this.select();" id='D66<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D18<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" readonly="true"/>
                                     <input type="text"   value="<s:property  value="D18" />"
-                                           class="DataHiden" id='D18<s:property  value="%{#rowstatus.index}" />BK'/>
+                                           class="hidenDataClass" id='D18<s:property  value="%{#rowstatus.index}" />BK'/>
                                  </td>
                                 
                             </s:if>
@@ -331,13 +331,13 @@
                                     <input type="text"   value="<s:property  value="D19" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH number" onfocus="this.select();" id='D19<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D19<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" readonly="true"/>
                                     <input type="text"   value="<s:property  value="D19" />"
-                                           class="DataHiden" id='D19<s:property  value="%{#rowstatus.index}" />BK'/>
+                                           class="hidenDataClass" id='D19<s:property  value="%{#rowstatus.index}" />BK'/>
                                  </td>    
                                 <td align = "right" class="TD_MAKH" >
                                     <input type="text"   value="<s:property  value="D18" />" <s:if test="MA.equalsIgnoreCase('1')">style="background: #C0C0C0 !important;"</s:if>
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number" onfocus="this.select();" id='D18<s:property  value="%{#rowstatus.index}" />' onblur="CheckUpdate('idchk<s:property  value="%{#rowstatus.index}" />', 'D18<s:property  value="%{#rowstatus.index}" />', 'ChangeVal')" />
                                     <input type="text"   value="<s:property  value="D18" />"
-                                           class="DataHiden" id='D18<s:property  value="%{#rowstatus.index}" />BK'/>
+                                           class="hidenDataClass" id='D18<s:property  value="%{#rowstatus.index}" />BK'/>
                                 </td>
                             </s:else>
 

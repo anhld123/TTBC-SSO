@@ -43,6 +43,9 @@ private String mainPos;
  private BigInteger intDeductionTotalAmt;
  
  @XmlElement(defaultValue = "0")
+ private BigInteger intDeductionM09Amt;
+ 
+ @XmlElement(defaultValue = "0")
  private BigInteger intDeductionM10Amt;
  
  @XmlElement(defaultValue = "0")
@@ -50,6 +53,9 @@ private String mainPos;
  
  @XmlElement(defaultValue = "0")
  private BigInteger intDeductionM12Amt;
+ 
+ @XmlElement(defaultValue = "0")
+ private BigInteger intDeductionAdjustM09Amt;
  
  @XmlElement(defaultValue = "0")
  private BigInteger intDeductionAdjustM10Amt;
@@ -69,17 +75,21 @@ private String mainPos;
  private BigInteger casaAmt;
  private BigInteger cashAmt;
  private String posTranRef;
+ private String m09Status;
  private String m10Status;
  private String m11Status;
  private String m12Status;
  private String makerId;
  private String makerDate;
+ private String m09UpdateId;
+ private String m09UpdateDate;
  private String m10UpdateId;
  private String m10UpdateDate;
  private String m11UpdateId;
  private String m11UpdateDate;
  private String m12UpdateId;
  private String m12UpdateDate;
+ private double intTotalM09Amt;
  private double intTotalM10Amt;
  private double intTotalM11Amt;
  private double intTotalM12Amt;
@@ -487,9 +497,7 @@ private String mainPos;
 
     public void setIntTotalM12Amt(double intTotalM12Amt) {
         this.intTotalM12Amt = intTotalM12Amt;
-    }
-
-    
+    }    
 
     public String getCommuneId() {
         return communeId;
@@ -505,6 +513,54 @@ private String mainPos;
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public BigInteger getIntDeductionM09Amt() {
+        return intDeductionM09Amt ==null? new BigInteger("0"): intDeductionM09Amt;
+    }
+
+    public void setIntDeductionM09Amt(BigInteger intDeductionM09Amt) {
+        this.intDeductionM09Amt = intDeductionM09Amt;
+    }
+
+    public BigInteger getIntDeductionAdjustM09Amt() {
+        return intDeductionAdjustM09Amt ==null? new BigInteger("0"): intDeductionAdjustM09Amt;
+    }
+
+    public void setIntDeductionAdjustM09Amt(BigInteger intDeductionAdjustM09Amt) {
+        this.intDeductionAdjustM09Amt = intDeductionAdjustM09Amt;
+    }
+
+    public String getM09UpdateId() {
+        return m09UpdateId;
+    }
+
+    public void setM09UpdateId(String m09UpdateId) {
+        this.m09UpdateId = m09UpdateId;
+    }
+
+    public String getM09UpdateDate() {
+        return m09UpdateDate;
+    }
+
+    public void setM09UpdateDate(String m09UpdateDate) {
+        this.m09UpdateDate = m09UpdateDate;
+    }
+
+    public double getIntTotalM09Amt() {
+        return intTotalM09Amt;
+    }
+
+    public void setIntTotalM09Amt(double intTotalM09Amt) {
+        this.intTotalM09Amt = intTotalM09Amt;
+    }
+
+    public String getM09Status() {
+        return m09Status;
+    }
+
+    public void setM09Status(String m09Status) {
+        this.m09Status = m09Status;
     }
 
     

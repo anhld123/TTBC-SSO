@@ -856,7 +856,8 @@ public class ActionNhaptaycnMain extends ActionSupport {
             }
             if (khoa_nhaptaycn.equals("QD23_001")) {
                 setLstTide(daoMain.getCanBo(UserName, "TIDE595"));
-            } else if (khoa_nhaptaycn.equals("HTLS2021")) {
+            } 
+            else if (khoa_nhaptaycn.equals("HTLS2021")) {
 //                setLstGiaiNgan(daoMain.getCanBo(UserName, "TIDE595"));
                 setLstNhadautu(daoMain.getCanBo(UserName, "NHADT"));
             }
@@ -1010,6 +1011,10 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 //System.err.println("iRol= " + String.valueOf(iRol) );
                 //setGradeAuthor1(String.valueOf(iRol));
                 return "KTTC_QSDD_01";
+            }
+            
+            if (khoa_nhaptaycn.equals("HTLS_2024")) {
+                return "HTLS_2024";    
             }
 
             if (conn != null) {
