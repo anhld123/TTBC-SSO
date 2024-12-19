@@ -7,19 +7,26 @@ package vbsp.ims.nhaptaycn.action;
 
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
+import com.opensymphony.xwork2.ActionContext;
 import java.math.BigInteger;
-import vbsp.ims.nhaptaycn.action.*;
+import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import org.apache.struts2.ServletActionContext;
 import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
+import vbsp.ims.dao.DaoConnect;
+import vbsp.ims.define.GenericResult;
 import vbsp.ims.log.CoreLogger;
+import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.restapi.IntDeductionModel;
 import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.ListPosCode;
 import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.restapi.UpdateLockModel;
 import vbsp.ims.util.DateUtil;
@@ -32,6 +39,42 @@ public class HTLS2024 extends ActionNhaptaycnMain
         implements NhaptaycnFunction {
 
     DuLieuNTService service;
+    private List<ListPosCode> lstPGD_API;
+    protected String main_pos_username;
+    private String status;
+    private String message;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMain_pos_username() {
+        return main_pos_username;
+    }
+
+    public void setMain_pos_username(String main_pos_username) {
+        this.main_pos_username = main_pos_username;
+    }
+
+    public List<ListPosCode> getLstPGD_API() {
+        return lstPGD_API;
+    }
+
+    public void setLstPGD_API(List<ListPosCode> lstPGD_API) {
+        this.lstPGD_API = lstPGD_API;
+    }
 
     @Override
     public String load() {
@@ -64,7 +107,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                 String _chuongTrinh = hmParameter.get("chuongtrinh").toString();
                 String _maXa = hmParameter.get("maxa").toString();
                 String _maTo = hmParameter.get("mato").toString();
-                
+
                 ArrayList<IntDeductionModel> lstData = service.getDataHTLS2021(pos_cd_username, dateStr, _chuongTrinh, _maXa, _maTo);
                 int i = 1;
 
@@ -93,7 +136,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
 
                 String sPhanloai = hmParameter.get("phanloai").toString();
                 String sGiaingan = hmParameter.get("giaingan").toString();
-               // String sNhadt = hmParameter.get("nha_dt").toString();
+                // String sNhadt = hmParameter.get("nha_dt").toString();
                 for (IntDeductionModel item : lstData) {
                     try {
                         QT_DULIEU_NT row = new QT_DULIEU_NT();
@@ -136,23 +179,19 @@ public class HTLS2024 extends ActionNhaptaycnMain
 
                         row.setD17(df.format(item.getIntDeductionTotalAmt()));
                         //BigInteger ad = item.getIntDeductionM10Amt();
-                        
+
                         row.setD47(df.format(item.getIntDeductionM09Amt()));
                         row.setD18(df.format(item.getIntDeductionM10Amt()));
                         row.setD19(df.format(item.getIntDeductionM11Amt()));
                         row.setD20(df.format(item.getIntDeductionM12Amt()));
-                        
-                        if(item.getLoanStatus().equals("C") && dateStr.equals("20211130") && item.getCasaAccount() == null &&
-                                item.getIntDeductionM10Amt().add(item.getIntDeductionM11Amt()).compareTo(new BigInteger("5000")) <0 )
-                        {
+
+                        if (item.getLoanStatus().equals("C") && dateStr.equals("20211130") && item.getCasaAccount() == null
+                                && item.getIntDeductionM10Amt().add(item.getIntDeductionM11Amt()).compareTo(new BigInteger("5000")) < 0) {
                             row.setMA("1");
-                        }
-                        else if (item.getLoanStatus().equals("C") && dateStr.equals("20211231") && item.getCasaAccount() == null &&
-                                item.getIntDeductionM12Amt().compareTo(new BigInteger("5000")) <0 )
-                        {
+                        } else if (item.getLoanStatus().equals("C") && dateStr.equals("20211231") && item.getCasaAccount() == null
+                                && item.getIntDeductionM12Amt().compareTo(new BigInteger("5000")) < 0) {
                             row.setMA("1");
-                        }
-                        else{
+                        } else {
                             row.setMA("0");
                         }
 
@@ -186,8 +225,8 @@ public class HTLS2024 extends ActionNhaptaycnMain
                         row.setD43(df.format(item.getIntTotalM10Amt()));
                         row.setD44(df.format(item.getIntTotalM11Amt()));
                         row.setD45(df.format(item.getIntTotalM12Amt()));
-                        row.setD46(item.getCommuneId());                       
-                        
+                        row.setD46(item.getCommuneId());
+
                         row.setD51(item.getCustomerName());
 //                    Lấy món vay xác nhận lãi
                         if (!chotsl.equals("1")) {
@@ -239,14 +278,14 @@ public class HTLS2024 extends ActionNhaptaycnMain
                                 }
                             }
                         }
-                        
+
                     } catch (Exception e) {
                         CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2024: " + e.getMessage());
-                        System.err.println(this.getClass().getName() + " Exception -> HTLS2024: " + e.getMessage());            
+                        System.err.println(this.getClass().getName() + " Exception -> HTLS2024: " + e.getMessage());
                     }
                 }
 //                lstDulieuNt.sort(Comparator.comparing(o -> o.getD1() + o.getD2() + o.getD3()));
-            
+
                 tong.setD1(df.format(dn_tronhan + dn_quahan + dn_khoanh));
                 tong.setD2(df.format(dn_tronhan));
                 tong.setD3(df.format(dn_quahan));
@@ -263,12 +302,12 @@ public class HTLS2024 extends ActionNhaptaycnMain
 //                tong.setD11(df.format(lai_20 + lai_21));
                 tong.setD12(df.format(lai_20));
                 tong.setD13(df.format(lai_21));
-                
+
                 tong.setD14(df.format(lai_t09));
                 tong.setD15(df.format(lai_t09dc));
-                
+
                 lstDulieuNt_tong.add(tong);
-                
+
                 if (chotsl.equals("1")) {
                     return "xacnhanht";
                 }
@@ -286,43 +325,98 @@ public class HTLS2024 extends ActionNhaptaycnMain
 
                 posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                 pos_cd_username = posMainModel.getPosCd();
+                main_pos_username = posMainModel.getMainPosCd();
                 service = new DuLieuNTService();
-                ArrayList<LockSendModel> lstData = service.getDataLockSendS2021(pos_cd_username, "M", dateStr);
-                int i = 0;
+                lstPGD_API = service.getListPgd(main_pos_username, "");
 
-                DecimalFormat df = new DecimalFormat("#.##");
-                //String formatted = df.format(2.00023);
-
-                for (LockSendModel item : lstData) {
-                    i++;
-                    QT_DULIEU_NT row = new QT_DULIEU_NT();
-                    row.setKHOA("ID_002");
-                    row.setTHUTU(i);
-
-//                row.setTT_HIENTHI(item.getOrderDescription());
-//                row.setMA(item.getCode());
-//                row.setTEN(item.getName());
-                    Date reportDate = DateUtil.toDate(item.getReportDate());
-                    row.setNGAYBC(reportDate);
-                    //row.setNAMBC(item.getReportYear());
-                    row.setMAPGD(item.getPosCode());
-//                row.setCO_TONGHOP(item.getPosFlag());
-                    row.setMACN(item.getMainPos());
-                    row.setTEN(item.getPosName());
-                    row.setD1(df.format(item.getLoanTotal()));
-                    row.setD2(df.format(item.getPrinTotal()));
-                    row.setD3(df.format(item.getIntTotal()));
-                    row.setD4(df.format(item.getDeductionIntTotal()));
-                    row.setD5(df.format(item.getDeductionLoanTotal()));
-                    row.setD6(df.format(item.getNoDeductionLoanTotal()));
-                    row.setD7(df.format(item.getNoDeductionIntTotal()));
-                    row.setD25(item.getStatus());
-//                    row.setD7(df.format(item.getDeductionIntTotal()));                   
-                    lstDulieuNt.add(row);
+                if (lstPGD_API == null || lstPGD_API.isEmpty()) {
+                    addActionError("Lỗi khi gọi API!");
+                    return ERROR;
                 }
-                return "cap2_chot";
-            }
 
+                for (ListPosCode pgdItem : lstPGD_API) {
+                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+                    row.setMAPGD(pgdItem.getPosCode());
+                    row.setMACN(pgdItem.getMainPos());
+                    row.setTEN(pgdItem.getPosName());
+                    row.setD1("0");
+                    row.setD2("0");
+                    row.setD3("0");
+                    row.setD4("0");
+                    row.setD5("0");
+                    row.setD6("0");
+                    row.setD7("0");
+                    row.setD25("0");
+                    try {
+                        ArrayList<LockSendModel> lstData_tmp = service.getDataLockManual("QD1990", pgdItem.getPosCode(), "S", dateStr);
+                        if (lstData_tmp.isEmpty() || lstData_tmp == null) {
+                            service.updateChotSL("QD1990", pgdItem.getPosCode(), "S", dateStr, "0", UserName, null);
+                        }
+                        ArrayList<LockSendModel> lstData = service.getDataLockSendS2021(pgdItem.getPosCode(), "S", dateStr);
+
+                        if (!lstData.isEmpty()) {
+                            int i = 0;
+                            DecimalFormat df = new DecimalFormat("#.##");
+
+                            for (LockSendModel dataItem : lstData) {
+                                i++;
+                                QT_DULIEU_NT dataRow = new QT_DULIEU_NT();
+                                dataRow.setKHOA("ID_002");
+                                dataRow.setTHUTU(i);
+                                Date reportDate = DateUtil.toDate(dataItem.getReportDate());
+                                dataRow.setNGAYBC(reportDate);
+                                dataRow.setMAPGD(pgdItem.getPosCode());
+                                dataRow.setMACN(pgdItem.getMainPos());
+                                dataRow.setTEN(pgdItem.getPosName());
+                                dataRow.setD1(df.format(dataItem.getLoanTotal()));
+                                dataRow.setD2(df.format(dataItem.getPrinTotal()));
+                                dataRow.setD3(df.format(dataItem.getIntTotal()));
+                                dataRow.setD4(df.format(dataItem.getDeductionIntTotal()));
+                                dataRow.setD5(df.format(dataItem.getDeductionLoanTotal()));
+                                dataRow.setD6(df.format(dataItem.getNoDeductionLoanTotal()));
+                                dataRow.setD7(df.format(dataItem.getNoDeductionIntTotal()));
+                                dataRow.setD25(dataItem.getStatus());
+
+                                lstDulieuNt.add(dataRow);
+                            }
+                        } else {
+                            lstDulieuNt.add(row);
+                        }
+                    } catch (Exception e) {
+                        System.err.println("Lỗi khi gọi API chốt dữ liệu: " + e.getMessage());
+                    }
+                }
+
+                return "cap2_chot";
+            } else if (Grade.equals("3")) {
+                try {
+                    if (!getParaSession()) {
+                        return ERROR;
+                    }
+                    HashMap hmParameter = getParameter();
+                    String sngaybc = hmParameter.get("ngay_bc").toString();
+                    String smacn = hmParameter.get("lstCN").toString();
+                    Connection conn = new DaoConnect().getConnect();
+                    DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
+                    ActionContext.getContext().getSession().put("sUserName", UserName);
+                    ActionContext.getContext().getSession().put("skhoa", "QD1990");
+                    if (smacn.equals("000000")) {
+                        addActionError("Vui lòng chọn mã chi nhánh!");
+                        return ERROR;
+                    }
+//            System.out.println("txtGetData= "+ txtGetData);
+                    lstDulieuNt = daoMain.getData_THTK_c3(conn, sngaybc, "QD1990", smacn, "S");
+//            System.out.println(sngaybc + " " + smacn +" " +Pos_Flag);
+                    if (conn != null) {
+                        conn.close();
+                    }
+
+                } catch (Exception e) {
+                    CoreLogger.error(this.getClass().getName() + " Exception -> gdx: " + e.getMessage());
+                    System.err.println(this.getClass().getName() + " Exception -> gdx: " + e.getMessage());
+                }
+                return "cap3_chot";
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2024: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> HTLS2024: " + e.getMessage());
@@ -363,7 +457,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
             if (Grade.equals("1")) {
                 ArrayList<LockSendModel> lstDataLock = service.getDataLockSendS2021(pos_cd_username, "S", strDate);
                 ArrayList<IntDeductionModel> lstUpdateDate = new ArrayList<>();
-                if (lstDataLock.isEmpty() || lstDataLock.get(0).getStatus().equals("0")) {                    
+                if (lstDataLock.isEmpty() || lstDataLock.get(0).getStatus().equals("0")) {
                     for (QT_DULIEU_NT tmp : lstDulieuNt) {
                         if (tmp.getD33() != null) {
                             IntDeductionModel tempadd = new IntDeductionModel();
@@ -393,7 +487,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                                 tempadd.setM09Status("1");
                                 tempadd.setM10Status("1");
                                 tempadd.setM11Status("1");
-                                tempadd.setM12Status("1");                                    
+                                tempadd.setM12Status("1");
                                 tempadd.setIntConfirmFlag("1");
 
                                 lstUpdateDate.add(tempadd);
@@ -411,8 +505,8 @@ public class HTLS2024 extends ActionNhaptaycnMain
                             updateRow.setD6(df.format(item.getIntDeductionAdjustM09Amt()));
 
                             updateRow.setD2(df.format(item.getIntDeductionAdjustM10Amt()));
-                            updateRow.setD3(df.format(item.getIntDeductionAdjustM11Amt()));                                
-                            updateRow.setD4(df.format(item.getIntDeductionAdjustM12Amt()));                               
+                            updateRow.setD3(df.format(item.getIntDeductionAdjustM11Amt()));
+                            updateRow.setD4(df.format(item.getIntDeductionAdjustM12Amt()));
                             updateRow.setD5(item.getIntConfirmFlag());
 
                             lstLocalDataUpdate.add(updateRow);
@@ -441,7 +535,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                         tempadd.setPosCode(tmp.getMAPGD());
 //                        tempadd.setReportDate(strDate);
 //                        tempadd.setPosFlag("S");
-                        tempadd.setStatus("1");
+                        tempadd.setStatus("2");
                         lstUpdateDateLock.add(tempadd);
                     }
                 }
@@ -454,7 +548,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
             return ERROR;
         }
-        
+
         return SUCCESS;
     }
 
@@ -489,7 +583,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                 ArrayList<IntDeductionModel> lstUpdateDate = new ArrayList<>();
                 if (!lstDataLock.isEmpty() && lstDataLock.get(0).getStatus().equals("1")) {
                     //Lưu phần phân loại hạch toán
-                    
+
                     for (QT_DULIEU_NT tmp : lstDulieuNt) {
                         if (tmp.getD33() != null) {
                             IntDeductionModel tempadd = new IntDeductionModel();
@@ -520,8 +614,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                     //Lưu phần xác nhận lãi giảm     
                     addActionMessage("Bạn đã lưu dữ liệu thành công");
                     return SUCCESS;
-                }
-                else {
+                } else {
                     addActionError("Chi nhánh chưa chốt số liệu. Bạn chỉ cập nhật thông tin hạch toán sau khi PGD đã được chốt số liệu!");
                     return ERROR;
                 }
@@ -536,6 +629,39 @@ public class HTLS2024 extends ActionNhaptaycnMain
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
             return ERROR;
         }
-        
+
+    }
+
+    public String unlock_c3() {
+        try {
+            String D1 = ServletActionContext.getRequest().getParameter("madiemgd");
+            String D5 = ServletActionContext.getRequest().getParameter("ngaybc");
+            String D6 = ServletActionContext.getRequest().getParameter("pos_flag");
+            String D7 = ServletActionContext.getRequest().getParameter("key_lock");
+            String D8 = ServletActionContext.getRequest().getParameter("skhoa");
+            String UserName = (String) ActionContext.getContext().getSession().get("sUserName");
+            String skhoa = (String) ActionContext.getContext().getSession().get("skhoa");
+
+            SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MMM/yyyy");
+            Date date = inputFormat.parse(D5);
+            String formattedDate = outputFormat.format(date);
+            DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
+            GenericResult<String> _result = daoMain.unlock_c3_THTK(skhoa, D1, UserName, formattedDate, D7);
+
+            if (_result.isIsSuccess()) {
+                status = "1";
+                message = "";
+            } else {
+                status = "0";
+                message = _result.getMessage();
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            status = "0";
+            message = e.getMessage();
+        }
+        return SUCCESS;
     }
 }

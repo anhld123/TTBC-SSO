@@ -227,14 +227,16 @@
                 // Trung bo sung phan validate data
                 if (typeof validateData !== 'undefined' && typeof validateData === 'function') {
                     if (!validateData())
-                    {                        
+                    {
                         return false;
                     }
                 }
                 if (validateRequiredFields())
                 {
-                    $("#" + khoa)[0].click();                
+                    $("#" + khoa)[0].click();
                 }
+                alert("Thao tác thành công!");
+                $("#loadData")[0].click();
             }
 
             function onSaveDataHTLai()
@@ -388,7 +390,7 @@
                 {
                     if ((poscd === null || poscd === '') && khoa_ktgs !== 'QD23_004')
                     {
-                        $('#divExportReport').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần gửi số liệu ! </h2>");                        
+                        $('#divExportReport').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần gửi số liệu ! </h2>");
                         return;
                     }
                 }
@@ -405,7 +407,7 @@
                 $("#idExpEceltmp")[0].click();
                 bsubmit = false;
             }
-            
+
             function ExpEcelTemp()
             {
                 $('#message_suc_err').empty();
@@ -413,7 +415,7 @@
 
                 $("#idExpEceltmpTemp")[0].click();
                 bsubmit = false;
-            }            
+            }
 
             function getDaysOfMonth(month, year) {
                 switch (month) {
@@ -445,65 +447,85 @@
                     case 12:
                         return 31;
                 }
-            }            
+            }
         </script>
     </head>
 
     <body>
         <s:form id="id_%{khoa_nhaptaycn}" name="name_%{khoa_nhaptaycn}" action="%{khoa_nhaptaycn}" theme="simple">
-                <s:hidden name="khoa_nhaptaycn" id="khoa"/>
-                <s:hidden name="ReportDate" id="ReportDate" value=""/>
-                <s:hidden name="Grade" id="Grade"/>
-                <s:hidden name="UserName" id="UserName"/>
-        <div id="container" >            
-                <div id="navParamUp" >                                       
-                    <table>
-                        <tr style="height: 30px;">
-                            
-                            <s:iterator value="lstNhaptaycnParams">                                            
-                                <td style="padding-left: 10px; padding-right: 10px;">
-                                    <s:property value="label"></s:property>:
-                                    &nbsp;&nbsp;
-                                    <s:if test="type.equalsIgnoreCase('T')">                                      
-                                        <input type="text" value="" id="D_<s:property  value="%{fieldName}"/>" name="<s:property value="%{fieldName}"/>_TEXT" placeholder="<s:property value="label"/>"/>                                    
-                                    </s:if>                                              
+            <s:hidden name="khoa_nhaptaycn" id="khoa"/>
+            <s:hidden name="ReportDate" id="ReportDate" value=""/>
+            <s:hidden name="Grade" id="Grade"/>
+            <s:hidden name="UserName" id="UserName"/>
+            <div id="container" >            
+                <div id="navParamUp" > 
+                    <s:if test="Grade.equalsIgnoreCase('1')">
+                        <table>
+                            <tr style="height: 30px;">
 
-                                    <!-- Tungnv Neu: la L thi gen List -->
-                                    <s:if test="type.equalsIgnoreCase('L')">
-                                        <s:select  list="comboList" name="%{fieldName}_LIST" listKey="key" listValue="value" id="%{fieldName}"></s:select>
-                                    </s:if>
-                                    <!-- Tungnv: Neu la D thi gen Date -->
-                                    <s:if test="type.equalsIgnoreCase('D')">  
-                                        <sj:datepicker name="%{fieldName}_DATE" value="%{new java.util.Date()}"  id="%{fieldName}_DATE"
-                                                       placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/>                                           
+                                <s:iterator value="lstNhaptaycnParams">                                            
+                                    <td style="padding-left: 10px; padding-right: 10px;">
+                                        <s:property value="label"></s:property>:
+                                            &nbsp;&nbsp;
+                                        <s:if test="type.equalsIgnoreCase('T')">                                      
+                                            <input type="text" value="" id="D_<s:property  value="%{fieldName}"/>" name="<s:property value="%{fieldName}"/>_TEXT" placeholder="<s:property value="label"/>"/>                                    
+                                        </s:if>                                              
 
-                                    </s:if>
-                                </td>
-                            </s:iterator>     
-                        </tr>
-                    </table>
+                                        <!-- Tungnv Neu: la L thi gen List -->
+                                        <s:if test="type.equalsIgnoreCase('L')">
+                                            <s:select  list="comboList" name="%{fieldName}_LIST" listKey="key" listValue="value" id="%{fieldName}"></s:select>
+                                        </s:if>
+                                        <!-- Tungnv: Neu la D thi gen Date -->
+                                        <s:if test="type.equalsIgnoreCase('D')">  
+                                            <sj:datepicker name="%{fieldName}_DATE" value="%{new java.util.Date()}"  id="%{fieldName}_DATE"
+                                                           placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/>                                           
+
+                                        </s:if>
+                                    </td>
+                                </s:iterator>     
+                            </tr>
+                        </table>
+                    </s:if>
                     <table>
                         <tr>
-                            <td style="padding-left: 10px; padding-right: 10px;">Giải ngân:
-                                &nbsp;&nbsp;
-                                <select name="giaingan" id="giaingan">
-                                    <option value="-1">--Tất cả--</option>
-                                    <option value="1">Giải ngân 12/2024</option>                                    
-                                </select>
-                            </td> 
+                            <s:if test="Grade.equalsIgnoreCase('1')">
+                                <td style="padding-left: 10px; padding-right: 10px;">Giải ngân:
+                                    &nbsp;&nbsp;
+                                    <select name="giaingan" id="giaingan">
+                                        <option value="-1">--Tất cả--</option>
+                                        <option value="1">Giải ngân 12/2024</option>                                    
+                                    </select>
+                                </td> 
+                            </s:if>
+                            <s:else>
+                                <td>Ngày báo cáo: 
+                                    <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
+                                                   placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
+                                </td>
+                            </s:else>
+                            <s:if test="Grade.equalsIgnoreCase('3')">
+                                <td>   &nbsp; Mã chi nhánh: 
+                                    <select id="lstCN"  name="lstCN">
+                                        <option value="000000">----Chọn mã chi nhánh----</option>
+                                        <s:iterator value="lstCN_API">
+                                            <option value="<s:property value="branchCode"/>"><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>               
+                                        </s:iterator>
+                                    </select> 
+                                </td>
+                            </s:if>
                             <td style="padding-left: 10px; padding-right: 10px;">                                
                                 <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                            onBeforeTopics="beforediv_data"
                                            onCompleteTopics="completediv_data" cssStyle="display:none"/>
                                 <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
-                            
-                            <s:if test="Grade.equalsIgnoreCase('1')">
-                                &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/> 
-                                &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="Cập nhật hạch toán GL"/>
-                            </s:if>     
-                            <s:elseif test="Grade.equalsIgnoreCase('2')">
-                                &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/> 
-                            </s:elseif>
+
+                                <s:if test="Grade.equalsIgnoreCase('1')">
+                                    &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/> 
+                                    &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="Cập nhật hạch toán GL"/>
+                                </s:if>     
+                                <s:elseif test="Grade.equalsIgnoreCase('2')">
+                                    &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/> 
+                                </s:elseif>
                             </td>   
                             <td>
                                 <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
@@ -517,90 +539,90 @@
                         </tr>                        
                     </table>    
                 </div>                                
-            <div>                                
-            <s:if test="Grade.equalsIgnoreCase('1')">
-                <div id="containParm_full" align="center">
-                    <div id="divExportReport"></div>
-                    <div align="right" id="divExportReportLink"></div>
-                </div>
-            </s:if>
-            <s:else>
-                <div id="containTree">
-                    <sjt:tree
-                        name="poscd"
-                        id="treeDynamicCheckboxes"
-                        jstreetheme="apple"
-                        rootNode="nodes_pos"
-                        childCollectionProperty="children"
-                        nodeTitleProperty="title"
-                        nodeIdProperty="id"
-                        openAllOnLoad="true"
-                        checkbox="true"
-                        showThemeDots="false"
-                        showThemeIcons="true" 
-                        />
-                </div>
-                <div id="containParm" align="center">
-                    <div id="divExportReport"></div>                    
-                </div>
-            </s:else>                     
-        
-        </div>   
-        </div>
-        
-</s:form>
-<script>
-    function callDirectLink(link) {
-        var ht = screen.availHeight / 5 + 35;
-        var wt = screen.availWidth / 5 + 20;
+                <div>                                
+                    <s:if test="!Grade.equalsIgnoreCase('4')">
+                        <div id="containParm_full" align="center">
+                            <div id="divExportReport"></div>
+                            <div align="right" id="divExportReportLink"></div>
+                        </div>
+                    </s:if>
+                    <s:else>
+                        <div id="containTree">
+                            <sjt:tree
+                                name="poscd"
+                                id="treeDynamicCheckboxes"
+                                jstreetheme="apple"
+                                rootNode="nodes_pos"
+                                childCollectionProperty="children"
+                                nodeTitleProperty="title"
+                                nodeIdProperty="id"
+                                openAllOnLoad="true"
+                                checkbox="true"
+                                showThemeDots="false"
+                                showThemeIcons="true" 
+                                />
+                        </div>
+                        <div id="containParm" align="center">
+                            <div id="divExportReport"></div>                    
+                        </div>
+                    </s:else>                     
 
-        var resize = window.open(link
-                + "random=" + Math.random(),
-                "IMS_REPORTS_FRM2", "height=" + ht + ",width=" + wt
-                + ",left=0,top=0,directories=no,status=no,menubar=no,\n\
-personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+                </div>   
+            </div>
 
-        if (navigator.userAgent.indexOf('Chrome') !== -1
-                && parseFloat(
-                        navigator.userAgent.substring(
-                                navigator.userAgent.indexOf('Chrome') + 7
-                                ).split(' ')[0]) >= 15) {
-            resize.resizeBy(wt, ht);
-        } else {
-            resize.resizeTo(wt, ht);
-        }
-        resize.moveTo(wt, ht);
-        resize.focus();
-    }
+        </s:form>
+        <script>
+            function callDirectLink(link) {
+                var ht = screen.availHeight / 5 + 35;
+                var wt = screen.availWidth / 5 + 20;
 
-    $(function () {
-        $("#dtNgayBC").datepicker({
-            dateFormat: 'dd/mm/yy',
-            showOn: "button",
-            buttonImage: "img/icon-ui_datepicker.png",
-            buttonImageOnly: true,
-            showButtonPanel: true,
-            buttonText: "icono",
-            changeMonth: true,
-            changeYear: true,        
-        }).val(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toLocaleDateString("zh-HK", {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit'
-        }));
-    });
+                var resize = window.open(link
+                        + "random=" + Math.random(),
+                        "IMS_REPORTS_FRM2", "height=" + ht + ",width=" + wt
+                        + ",left=0,top=0,directories=no,status=no,menubar=no,\n\
+        personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
 
-    // Tính ngày cuối tháng hiện tại
-    var currentDate = new Date();
-    var lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-    var formattedDate = lastDayOfMonth.toLocaleDateString("zh-HK", {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-    });
-    // Đặt giá trị cho #dtNgayBC
-    $("#dtNgayBC_temp").val(formattedDate);
-    document.getElementById('ngay_bc_DATE').value = formattedDate;
-</script>
-</body>
+                if (navigator.userAgent.indexOf('Chrome') !== -1
+                        && parseFloat(
+                                navigator.userAgent.substring(
+                                        navigator.userAgent.indexOf('Chrome') + 7
+                                        ).split(' ')[0]) >= 15) {
+                    resize.resizeBy(wt, ht);
+                } else {
+                    resize.resizeTo(wt, ht);
+                }
+                resize.moveTo(wt, ht);
+                resize.focus();
+            }
+
+            $(function () {
+                $("#dtNgayBC").datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    showOn: "button",
+                    buttonImage: "img/icon-ui_datepicker.png",
+                    buttonImageOnly: true,
+                    showButtonPanel: true,
+                    buttonText: "icono",
+                    changeMonth: true,
+                    changeYear: true
+                }).val(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toLocaleDateString("zh-HK", {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                }));
+            });
+
+            // Tính ngày cuối tháng hiện tại
+            var currentDate = new Date();
+            var lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+            var formattedDate = lastDayOfMonth.toLocaleDateString("zh-HK", {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
+            // Đặt giá trị cho #dtNgayBC
+            $("#dtNgayBC_temp").val(formattedDate);
+            document.getElementById('ngay_bc_DATE').value = formattedDate;
+        </script>
+    </body>
 </html>

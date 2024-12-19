@@ -1018,9 +1018,12 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 //setGradeAuthor1(String.valueOf(iRol));
                 return "KTTC_QSDD_01";
             }
-            
+
             if (khoa_nhaptaycn.equals("HTLS_2024")) {
-                return "HTLS_2024";    
+                main_pos = posMainModel.getMainPosCd();
+                _server_tmp = new LeaveHomeService();
+                lstCN_API = _server_tmp.getListCn("");
+                return "HTLS_2024";
             }
 
             if (conn != null) {
