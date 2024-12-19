@@ -28,6 +28,8 @@
             <result name="TDKT_01">/TDKT_2024/para_thiduakhenthuong.jsp</result>
             <result name="KPBL_01">/KP_Baoso3/para_baoso3.jsp</result>
             <result name="KKTS_01">/KKTS_2024/para_kiemketaisan.jsp</result>
+            <result name="TTCN_01">/thongtincanhan_2024/para_thongtincanhan.jsp</result>
+<!--            <result name="HTLS_2024">/htls_2024/para_htls_2024.jsp</result>-->
             <result name="error">/nhaptay-cn/success.jsp</result>    
                 
         </action>  
@@ -633,7 +635,7 @@
         </action>
         
         <action name="HTLS2021" class="vbsp.ims.nhaptaycn.action.HTLS2021"  method="load">
-            <result name="success">/nhaptay-cn/table_2021_htls.jsp</result>     
+            <result name="success">/nhaptay-cn/table_2021_htls.jsp</result>       
             <result name="xacnhanht">/nhaptay-cn/table_2021_tttl.jsp</result>     
             <result name="cap2_chot">/nhaptay-cn/table_2021_htls_cnchot.jsp</result> 
             <result name="error">/nhaptay-cn/success.jsp</result>       
@@ -729,7 +731,7 @@
                 <param name="inputName">pageResult</param>
             </result>      
         </action> 
-        <action name="loadDMChtrinh"  class="vbsp.ims.gqvl_2023.Mua_Tsan_2024" method="loadDMChtrinh">
+        <action name="loadDMChtrinh1"  class="vbsp.ims.gqvl_2023.Mua_Tsan_2024" method="loadDMChtrinh">
             <result name="success" type="json">/muasam_taisan_2024/viewmuasamts_2024.jsp</result>
             <result name="error">/BCQT/success.jsp</result>
         </action>     
@@ -845,7 +847,7 @@
         </action>
         <action name="KKTS_01" class="vbsp.ims.gqvl_2023.Service_KKTS_2024"  method="load">
             <result name="success_1">/KKTS_2024/table_kiemketaisan_cn.jsp</result>
-                        <result name="success_2">/KKTS_2024/table_kiemketaisan_tw.jsp</result>
+            <result name="success_2">/KKTS_2024/table_kiemketaisan_tw.jsp</result>
             <!--<result name="success_3">/KP_Baoso3/table_baoso3_3.jsp</result>-->                                                            
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
@@ -861,11 +863,11 @@
             <result name="success" type="json">/KKTS_2024/table_kiemketaisan_cn.jsp</result>
             <result name="error">/BCQT/success.jsp</result>
         </action>
-           <action name="loadDmKhac113"  class="vbsp.ims.gqvl_2023.Service_KKTS_2024" method="loadDmKhac113">
+        <action name="loadDmKhac113"  class="vbsp.ims.gqvl_2023.Service_KKTS_2024" method="loadDmKhac113">
             <result name="success" type="json">/KKTS_2024/table_kiemketaisan_cn.jsp</result>
             <result name="error">/BCQT/success.jsp</result>
         </action>
-          <action name="loadDmKhac114"  class="vbsp.ims.gqvl_2023.Service_KKTS_2024" method="loadDmKhac114">
+        <action name="loadDmKhac114"  class="vbsp.ims.gqvl_2023.Service_KKTS_2024" method="loadDmKhac114">
             <result name="success" type="json">/KKTS_2024/table_kiemketaisan_cn.jsp</result>
             <result name="error">/BCQT/success.jsp</result>
         </action>
@@ -894,7 +896,7 @@
         <action name="unlock_KKTS_2024_c3" class="vbsp.ims.gqvl_2023.Service_KKTS_2024" method="unlock_c3">
             <result name="success" type="json"></result>
         </action>
-         <action name="popupTableHoidong" class="vbsp.ims.gqvl_2023.Service_KKTS_2024" method="popupTableHoidong">
+        <action name="popupTableHoidong" class="vbsp.ims.gqvl_2023.Service_KKTS_2024" method="popupTableHoidong">
             <result name="success">/KKTS_2024/table_kiemketaisan_hoidong.jsp</result>
         </action>
         <action name="save_KKTS_HDKT_2024" class="vbsp.ims.gqvl_2023.Service_KKTS_2024" method="save_popup">
@@ -903,7 +905,7 @@
                 <param name="inputName">pageResult</param>
             </result>  
         </action>
-         <action name="delete_KKTS_HDKT_2024" class="vbsp.ims.gqvl_2023.Service_KKTS_2024" method="delete_popup">
+        <action name="delete_KKTS_HDKT_2024" class="vbsp.ims.gqvl_2023.Service_KKTS_2024" method="delete_popup">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
@@ -926,5 +928,41 @@
             <result name="success" type="json">/KKTS_2024/table_kiemketaisan_hoidong.jsp</result>
             <result name="error">/BCQT/success.jsp</result>
         </action>
+        
+        <!--thong tin ca nhan 2024-->
+        <action name="TTCN_01" class="vbsp.ims.gqvl_2023.Service_TTCN_2024"  method="load">
+            <result name="success_1">/thongtincanhan_2024/table_thongtincanhan_pgd.jsp</result>
+            <result name="success_2">/thongtincanhan_2024/table_thongtincanhan_cn.jsp</result>
+            <result name="success_3">/thongtincanhan_2024/table_thongtincanhan_tw.jsp</result>                                                            
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        <action name="save_TTCN01_2024" class="vbsp.ims.gqvl_2023.Service_TTCN_2024"  method="save">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action> 
+        <action name="send_TTCN01_2024_C1" class="vbsp.ims.gqvl_2023.Service_TTCN_2024"  method="send">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action> 
+        <action name="status_TTCN01_2024_C2" class="vbsp.ims.gqvl_2023.Service_TTCN_2024" method="status">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>  
+        </action>
+        <action name="unlock_TTCN01_2024_c3" class="vbsp.ims.gqvl_2023.Service_TTCN_2024" method="unlock_c3">
+            <result name="success" type="json"></result>
+        </action>
+        <!--htls 2024-->
+<!--        <action name="HTLS_2024" class="vbsp.ims.gqvl_2023.HTLS_2024"  method="load">
+            <result name="success_1">/htls_2024/table_htls_2024_pgd.jsp</result>
+            <result name="success_2">/htls_2024/table_htls_2024_cn.jsp</result>
+            <result name="success_3">/htls_2024/table_htls_2024_tw.jsp</result>                                                            
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>-->
     </package>
 </struts>

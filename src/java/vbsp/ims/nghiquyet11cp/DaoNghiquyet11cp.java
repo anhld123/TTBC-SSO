@@ -2735,6 +2735,75 @@ public class DaoNghiquyet11cp {
         return lstBcqt_NT;
     }
 
+    public boolean saveKKTS2024(String khoa, String username, String sposcd, String sGrade, String ngaybc, String stype, List<DULIEU_NT_TQ> lstData) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(DULIEU_NT_TQ.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+        ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("POS_CD", connection);
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_SAVE_KKTS_2024(?, ?, ?, ? ,?,?,?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, username);
+            cs.setString(3, sposcd);
+            cs.setString(4, sGrade);
+            cs.setString(5, ngaybc);
+            cs.setString(6, stype);
+            cs.setArray(7, array_to_pass);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham kkts " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " kkts -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
+    
+    public boolean saveKKTS2024_HDKT(String khoa, String username, String sposcd, String sGrade, String ngaybc, String stype, List<DULIEU_NT_TQ> lstData) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(DULIEU_NT_TQ.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+        ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("POS_CD", connection);
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_SAVE_KKTS_HDKT_2024(?, ?, ?, ? ,?,?,?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, username);
+            cs.setString(3, sposcd);
+            cs.setString(4, sGrade);
+            cs.setString(5, ngaybc);
+            cs.setString(6, stype);
+            cs.setArray(7, array_to_pass);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham kkts " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " kkts -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
     public static void main(String[] args) throws Exception {
         String s = "30-APR-2022";
         Date date_ngay_bc = new SimpleDateFormat("dd-MMM-yyyy").parse(s);

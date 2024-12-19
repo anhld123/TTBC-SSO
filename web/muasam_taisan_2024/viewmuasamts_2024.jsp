@@ -199,7 +199,7 @@
                 $(".TEN_KH").css({"width": "100%"});
 
                 // Fetch data and populate the new select elements
-                $.getJSON('loadDMChtrinh', {
+                $.getJSON('loadDMChtrinh1', {
                     Message: 'fileTemplate',
                     khoa_nhaptaycn: 'KTTC_MUASAM_01'
                 }, function (jsonResponse) {

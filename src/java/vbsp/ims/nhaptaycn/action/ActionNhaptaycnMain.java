@@ -856,9 +856,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
             }
             if (khoa_nhaptaycn.equals("QD23_001")) {
                 setLstTide(daoMain.getCanBo(UserName, "TIDE595"));
-            } 
-            else if (khoa_nhaptaycn.equals("HTLS2021")) {
-//                setLstGiaiNgan(daoMain.getCanBo(UserName, "TIDE595"));
+            } else if (khoa_nhaptaycn.equals("HTLS2021")) {//                setLstGiaiNgan(daoMain.getCanBo(UserName, "TIDE595"));
                 setLstNhadautu(daoMain.getCanBo(UserName, "NHADT"));
             }
 
@@ -905,6 +903,14 @@ public class ActionNhaptaycnMain extends ActionSupport {
                     lstCN_API = _server_tmp.getListCn("");
                 }
                 return "KTTC_MUASAM_01";
+            }
+            if (this.khoa_nhaptaycn.equals("TTCN_01")) {
+                DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
+                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));
+                setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
+                _server_tmp = new LeaveHomeService();
+                lstCN_API = _server_tmp.getListCn("");
+                return "TTCN_01";
             }
             if (khoa_nhaptaycn.equals("KPBL_01")) {
                 DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
