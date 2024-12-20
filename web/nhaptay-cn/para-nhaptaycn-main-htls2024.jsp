@@ -236,7 +236,7 @@
                     $("#" + khoa)[0].click();
                 }
                 alert("Thao tác thành công!");
-                $("#loadData")[0].click();
+                onLoadData();
             }
 
             function onSaveDataHTLai()
