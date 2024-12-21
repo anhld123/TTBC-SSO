@@ -462,7 +462,6 @@
                     <s:if test="Grade.equalsIgnoreCase('1')">
                         <table>
                             <tr style="height: 30px;">
-
                                 <s:iterator value="lstNhaptaycnParams">                                            
                                     <td style="padding-left: 10px; padding-right: 10px;">
                                         <s:property value="label"></s:property>:
@@ -520,13 +519,9 @@
                                 <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
 
                                 <s:if test="Grade.equalsIgnoreCase('1')">
-                                    <s:if test="schot.equalsIgnoreCase('0')">
-                                        &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/> 
-                                    </s:if>  
-                                    <s:else>
-                                        &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="Cập nhật hạch toán GL"/>
-                                    </s:else>
-                                </s:if>     
+                                    &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp1" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/> 
+                                    &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp2" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="Cập nhật hạch toán GL"/>
+                                </s:if>  
                                 <s:elseif test="Grade.equalsIgnoreCase('2')">
                                     &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/> 
                                 </s:elseif>
@@ -576,6 +571,7 @@
 
         </s:form>
         <script>
+            
             function callDirectLink(link) {
                 var ht = screen.availHeight / 5 + 35;
                 var wt = screen.availWidth / 5 + 20;
