@@ -175,7 +175,13 @@
             <result name="success">/khnv2021/downfile_excel.jsp</result>  
             <result name="error">/khnv2021/error.jsp</result>        
         </action> 
-        
+        <action name="seach_QTNV_2024" class="vbsp.ims.khnv2021.QuyetToanKeHoach20211"  method="seach">
+            <result name="success">/khnv2021/seach.jsp</result>                              
+            <result name="error">/khnv2021/success.jsp</result>       
+        </action>
+        <action name="unlock_QTNV_2024" class="vbsp.ims.khnv2021.QuyetToanKeHoach20211" method="unlock_c3">
+            <result name="success" type="json"></result>
+        </action>
         <action name="loadDataQuyettoan2021" class="vbsp.ims.khnv2021.QuyetToanKeHoach20211" method="getDataQtKehoach">
             <!--<result name="success">/khnv2021/xaydung-kh-detail.jsp</result>-->
             <!--<result name="loadAllCommuneAuth">/khnv2021/table_auth_commune.jsp</result>-->
@@ -207,7 +213,7 @@
             <result name="error">/khnv2021/error.jsp</result>      
                    
         </action>
-          <action name="lock_khnv_02c" class="vbsp.ims.khnv2021.AuthorAction" method="lock">
+        <action name="lock_khnv_02c" class="vbsp.ims.khnv2021.AuthorAction" method="lock">
             <result name="success" type="json"></result>
         </action>             
     </package>

@@ -108,31 +108,31 @@
         }
     </style>
     <SCRIPT language="javascript">
-        
-        $.subscribe("before_thkh", function (event, data) {                        
-            if(!confirm("Khi tổng hợp từ PGD dữ liệu đã nhập sẽ bị mất. Bạn có chắc chắn muốn tổng hợp?")) {                  
-                event.originalEvent.options.submit=false;                  
-            } else {            
+
+        $.subscribe("before_thkh", function (event, data) {
+            if (!confirm("Khi tổng hợp từ PGD dữ liệu đã nhập sẽ bị mất. Bạn có chắc chắn muốn tổng hợp?")) {
+                event.originalEvent.options.submit = false;
+            } else {
                 $('#loadingImage_next').slideDown("slow");
                 $('#loadingImage_next').empty();
                 $('#divKhDetail').empty();
             }
         });
-        
-        $.subscribe("before_chotsl", function (event, data) {                        
-            if(!confirm("Sau khi chốt số liệu, bạn sẽ không thể chỉnh sửa. Bạn có chắc chắn muốn chốt số liệu?")) {                  
-                event.originalEvent.options.submit=false;                  
-            } else {            
+
+        $.subscribe("before_chotsl", function (event, data) {
+            if (!confirm("Sau khi chốt số liệu, bạn sẽ không thể chỉnh sửa. Bạn có chắc chắn muốn chốt số liệu?")) {
+                event.originalEvent.options.submit = false;
+            } else {
                 $('#loadingImage_next').slideDown("slow");
                 $('#loadingImage_next').empty();
                 $('#divKhDetail').empty();
             }
         });
-        
-        $.subscribe("beforediv_send", function (event, data) {                                                
+
+        $.subscribe("beforediv_send", function (event, data) {
             $('#loadingImage_next').slideDown("slow");
             $('#loadingImage_next').empty();
-            $('#divKhDetail').empty();            
+            $('#divKhDetail').empty();
         });
 
         $.subscribe("completediv_send", function (event, data) {
@@ -241,7 +241,9 @@
                     </s:if>
 
                 </s:if>
-
+                <s:if test="reportGrade.equalsIgnoreCase('3')"> 
+                    &nbsp;|&nbsp;<input type="button" id="idSearch" value="Danh sách gửi dữ liệu" style="color: red" targets="divKhDetail" class="cmd" >
+                </s:if>
             </div>
             <hr/>
             <div>
@@ -266,6 +268,31 @@
     <script>
         $(document).ready(function () {
             $("#ifPrint").hide();
+        });
+        $("#idSearch").click(function () {
+            var url, sdata;
+            url = "seach_QTNV_2024.action";
+            sdata = jQuery("#id_khnv2021").serialize();
+            $("#divKhDetail").html('<img src="img/loading.gif"/>');
+//                btnDisabled(1);
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: sdata,
+                success: function (data) {
+                    $("#divKhDetail").html(data);
+                    $("#idSend").prop('disabled', true);
+                    $("#idSave").prop('disabled', false);
+                    $("#idDelete").prop('disabled', false);
+                },
+                complete: function () {
+//                        btnDisabled(0);
+                },
+                error: function (request) {
+                    console.log(request);
+                    alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                }
+            });
         });
     </script>
 </body>

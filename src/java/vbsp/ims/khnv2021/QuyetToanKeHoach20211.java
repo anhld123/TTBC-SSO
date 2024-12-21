@@ -2,7 +2,10 @@ package vbsp.ims.khnv2021;
 
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
+import com.opensymphony.xwork2.ActionContext;
 import java.math.BigInteger;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import vbsp.ims.khnv2021.dao.XDKHDao2021;
 import vbsp.ims.khnv2021.dao.DaoMau01A;
 import java.util.ArrayList;
@@ -13,11 +16,14 @@ import java.util.List;
 import org.apache.struts2.ServletActionContext;
 import vbsp.ims.action.Utilities;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
+import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.define.Define;
+import vbsp.ims.define.GenericResult;
 import vbsp.ims.khnv2021.excel.ExcelExport;
 import vbsp.ims.khnv2021.model.FileExportInfo;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.khnv.POSModel;
+import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.IntDeductionModel;
@@ -33,10 +39,29 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
 
     private XDKHDao2021 daoXdkh = new XDKHDao2021();
     private DaoMau01A daoMau01 = new DaoMau01A();
-
+    DaoNghiquyet11cp _serverlocal;
     private List<POSModel> custCommuneList = new ArrayList<>();
     private List<POSModel> custSubCommuneList = new ArrayList<>();
     DuLieuNTService service;
+
+    private String status;
+    private String message;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public QuyetToanKeHoach20211() {
     }
@@ -147,7 +172,7 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
 
         } catch (Exception ex) {
             CoreLogger.error(this.getClass().getName() + " getDataQtKehoach " + ex.getMessage());
-            System.err.println(this.getClass().getName() + " loi getDataQtKehoach " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " loi getDataQtKehoach 1 " + ex.getMessage());
         }
 
         return SUCCESS;
@@ -162,8 +187,8 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
             namBc_2pre = String.valueOf(year2Pre);
 
             getInfo();
-            
-            service = new DuLieuNTService();            
+
+            service = new DuLieuNTService();
             int _status = service.summaryData(pos_cd_username, "M", namBc + "1231", userId);
             String _outputMessage = daoMau01.summaryDataQt11(pos_cd_username, "M", "31-DEC-" + namBc, userId);
 
@@ -207,7 +232,7 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
 
         } catch (Exception ex) {
             CoreLogger.error(this.getClass().getName() + " getDataQtKehoach " + ex.getMessage());
-            System.err.println(this.getClass().getName() + " loi getDataQtKehoach " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " loi getDataQtKehoach 2 " + ex.getMessage());
         }
 
         return SUCCESS;
@@ -220,11 +245,12 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
             ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
             service = new DuLieuNTService();
             if (reportGrade.equals("1")) {
-                service.getSetLockDataManual(Define.NV_QT, pos_cd_username, "S", namBc + "1231", Define.NHAPTAY_CHOT, userId);
+                service.updateLockManual(Define.NV_QT, pos_cd_username, "S", namBc + "1231", Define.NHAPTAY_CHOT, userId, null);
             } else if (donvi.equals("000000") && reportGrade.equals("2")) {
-                service.getSetLockDataManual(Define.NV_QT, pos_cd_username, "M", namBc + "1231", Define.NHAPTAY_CHOT, userId);
+                service.updateLockManual(Define.NV_QT, pos_cd_username, "M", namBc + "1231", Define.NHAPTAY_CHOT, userId, null);
+//                System.out.println("1= " + Define.NV_QT + " 2= " + pos_cd_username + " 3= " + namBc);
             } else if (!donvi.equals("000000") && reportGrade.equals("2")) {
-                service.getSetLockDataManual(Define.NV_QT, donvi, "S", namBc + "1231", Define.NHAPTAY_CHOT, userId);
+                service.updateLockManual(Define.NV_QT, donvi, "S", namBc + "1231", Define.NHAPTAY_CHOT, userId, null);
             }
 
             addActionMessage("Bạn đã chốt thành công số liệu.");
@@ -317,5 +343,49 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
 
     public void setCustSubCommuneList(List<POSModel> custSubCommuneList) {
         this.custSubCommuneList = custSubCommuneList;
+    }
+
+    public String seach() {
+        try {
+            Connection conn = new DaoConnect().getConnect();
+            HashMap hmParameter = getParameter();
+            String ssnambc = hmParameter.get("namBc").toString();
+            DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
+            lstDulieuNt = daoMain.getData_THTK_c3(conn, "", "NV_QT", ssnambc, "M");
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    public String unlock_c3() {
+        try {
+            String D1 = ServletActionContext.getRequest().getParameter("madiemgd");
+            String D5 = ServletActionContext.getRequest().getParameter("ngaybc");
+            String D7 = ServletActionContext.getRequest().getParameter("key_lock");
+            SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MMM/yyyy");
+            Date date = inputFormat.parse(D5);
+            String formattedDate = outputFormat.format(date);
+            DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
+            GenericResult<String> _result = daoMain.unlock_c3_THTK("NV_QT", D1, "", formattedDate, D7);
+
+            if (_result.isIsSuccess()) {
+                status = "1";
+                message = "";
+            } else {
+                status = "0";
+                message = _result.getMessage();
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            status = "0";
+            message = e.getMessage();
+        }
+        return SUCCESS;
     }
 }
