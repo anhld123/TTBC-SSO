@@ -449,6 +449,8 @@
                 $(".TD_CHITIEU").css({"width": "300px"});
                 $(".TEN_KH").css({"width": "100%"});
                 
+                $("#idsaveDatatmp1").show();
+                $("#idsaveDatatmp2").hide();
                 initTable();
             });
         </script>
