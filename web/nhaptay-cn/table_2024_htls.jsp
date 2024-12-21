@@ -16,7 +16,7 @@
         <script src="js/format_num.js"></script>
         <script>
             var max_row = 0;
-            
+
             $('.TEN_KH').focus(function () {
                 $(this).closest('tr').addClass('highlight_row');
             });
@@ -56,11 +56,11 @@
                 color: #e67300;
             }
 
-/*            *{
-                font-family: Tahoma, Arial, Helvetica, sans-serif;
-                font-size: 12px;
-            }*/
-            
+            /*            *{
+                            font-family: Tahoma, Arial, Helvetica, sans-serif;
+                            font-size: 12px;
+                        }*/
+
             #tblTable {
 
                 border-collapse: collapse;
@@ -140,7 +140,7 @@
                     <th  class="TD_TOTIEN">Giảm lãi tháng 10</th>                                                                             
                     <th  class="TD_TOTIEN">Giảm lãi tháng 11</th>                      
                     <th  class="TD_TOTIEN">Giảm lãi tháng 12</th> 
-                    
+
                     <th rowspan="1"  class="TD_TOTIEN">Số tiền hạch toán giảm lãi</th>                              
                     <th rowspan="1"  class="TD_TOTIEN">Số tiền giảm lãi chuyển vào CASA</th>  
                     <th rowspan="1"  class="TD_TOTIEN">Số tiền giảm lãi chuyển vào chi bằng tiền mặt</th>  
@@ -188,7 +188,7 @@
                                    name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH number" onfocus="this.select();" 
                                    readonly="true"/>
                         </td>                        
-                        
+
                         <td align = "right" class="TD_TOTIEN" >
                             <input type="text"   value="<s:property  value="D7" />" 
                                    name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D7" class="TEN_KH number" onfocus="this.select();" 
@@ -199,7 +199,7 @@
                                    name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D11" class="TEN_KH number" onfocus="this.select();" 
                                    readonly="true"/>
                         </td>
-                        
+
                         <td align = "right" class="TD_TOTIEN" >
                             <input type="text"   value="<s:property  value="D12" />"
                                    name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D12" class="TEN_KH number" onfocus="this.select();" 
@@ -210,7 +210,7 @@
                                    name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D13" class="TEN_KH number" onfocus="this.select();" 
                                    readonly="true"/>
                         </td>
-                                           
+
                     </tr>                                                                                                                                                                                   
                 </s:iterator>
             </table>     
@@ -319,37 +319,37 @@
                                            readonly="true"/>
                                 </td>
                                 <!--Lai giam cac tháng-->
-                                
-                                    <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D47" />" style="background: #DFFFD6 !important;"
-                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D47" class="TEN_KH number" onfocus="this.select();" id='D47<s:property  value="%{#rowstatus.index}" />' />
-                                        <input type="text"   value="<s:property  value="D47" />"
-                                               class="hidenDataClass" id='D47<s:property  value="%{#rowstatus.index}" />BK'/>
-                                    </td>
-                                    <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D18" />" style="background: #DFFFD6 !important;"
-                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number" onfocus="this.select();" id='D18<s:property  value="%{#rowstatus.index}" />' />
-                                        <input type="text"   value="<s:property  value="D18" />"
-                                               class="hidenDataClass" id='D19<s:property  value="%{#rowstatus.index}" />BK'/>
-                                    </td>
-                                    <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D19" />" style="background: #DFFFD6 !important;"
-                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH number" onfocus="this.select();" id='D19<s:property  value="%{#rowstatus.index}" />' />
-                                        <input type="text"   value="<s:property  value="D19" />"
-                                               class="hidenDataClass" id='D19<s:property  value="%{#rowstatus.index}" />BK'/>
-                                    </td>
-                                    <td align = "right" class="TD_MAKH" >
-                                        <input type="text"   value="<s:property  value="D20" />" style="background: #DFFFD6 !important;"
-                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" class="TEN_KH number" onfocus="this.select();" id='D20<s:property  value="%{#rowstatus.index}" />' />
-                                        <input type="text"   value="<s:property  value="D20" />"
-                                               class="hidenDataClass" id='D20<s:property  value="%{#rowstatus.index}" />BK'/>
-                                    </td>
-                                                                
+
+                                <td align = "right" class="TD_MAKH" >
+                                    <input type="text"   value="<s:property  value="D47" />" style="background: #DFFFD6 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D47" class="TEN_KH number" onfocus="this.select();" id='D47<s:property  value="%{#rowstatus.index}" />' />
+                                    <input type="text"   value="<s:property  value="D47" />"
+                                           class="hidenDataClass" id='D47<s:property  value="%{#rowstatus.index}" />BK'/>
+                                </td>
+                                <td align = "right" class="TD_MAKH" >
+                                    <input type="text"   value="<s:property  value="D18" />" style="background: #DFFFD6 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="TEN_KH number" onfocus="this.select();" id='D18<s:property  value="%{#rowstatus.index}" />' />
+                                    <input type="text"   value="<s:property  value="D18" />"
+                                           class="hidenDataClass" id='D19<s:property  value="%{#rowstatus.index}" />BK'/>
+                                </td>
+                                <td align = "right" class="TD_MAKH" >
+                                    <input type="text"   value="<s:property  value="D19" />" style="background: #DFFFD6 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" class="TEN_KH number" onfocus="this.select();" id='D19<s:property  value="%{#rowstatus.index}" />' />
+                                    <input type="text"   value="<s:property  value="D19" />"
+                                           class="hidenDataClass" id='D19<s:property  value="%{#rowstatus.index}" />BK'/>
+                                </td>
+                                <td align = "right" class="TD_MAKH" >
+                                    <input type="text"   value="<s:property  value="D20" />" style="background: #DFFFD6 !important;"
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" class="TEN_KH number" onfocus="this.select();" id='D20<s:property  value="%{#rowstatus.index}" />' />
+                                    <input type="text"   value="<s:property  value="D20" />"
+                                           class="hidenDataClass" id='D20<s:property  value="%{#rowstatus.index}" />BK'/>
+                                </td>
+
                                 <td align = "right" class="TD_MAKH" >
                                     <input type="text"   value="<s:property  value="D24" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24" class="TEN_KH D0" onfocus="this.select();" readonly="true"/>
                                 </td>                                
-                                 <s:if test="MA.equalsIgnoreCase('1')">
+                                <s:if test="MA.equalsIgnoreCase('1')">
                                     <td></td>
                                 </s:if>    
                                 <s:else>
@@ -365,11 +365,12 @@
                                 <s:else>
                                     <td  align="center" class="TD_CHECKBOX">    
                                         <input type="checkbox" id ='idchk<s:property  value="%{#rowstatus.index}" />' class="checkboxdat TEN_KH" 
+                                               oninput="onSelectChange_dnht3(this.value, <s:property  value='%{#rowstatus.index}'/>)"
                                                name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D33" value="<s:property  value="D33"/>"                                            
                                                />
                                     </td> 
                                 </s:else>    
-                                
+
                             </tr>                                                                                                                                                                                   
                         </s:iterator>
                     </table>        
@@ -382,7 +383,7 @@
         <div id="luu_thanhcong"></div>
 
         <script>
-            
+
             function CheckUpdate(idchk, iddata, status) {
                 if (status === "ChangeVal") {
                     var val = $('#' + iddata).val();
@@ -400,6 +401,17 @@
                     }
                 }
             }
+            function onSelectChange_dnht3(value, index) {
+                if (value === '1')
+                {
+                    document.getElementById("idc11" + index).checked = true;
+                    document.getElementById("idchk" + index).checked = false;
+                } else
+                {
+                    document.getElementById("idc11" + index).checked = false;
+                    document.getElementById("idchk" + index).checked = true;
+                }
+            }
             function initTable()
             {
                 var table = document.getElementById("tblTable");
@@ -409,7 +421,7 @@
                 {
                     //cho combox 1
                     var matmp1 = getMabyNumber1(i);//                       
-                    if (matmp1 === 1)
+                    if (matmp1 === '1')
                     {
                         $('input:checkbox[id=idc11' + i + ']').attr('checked', true);
                     }
@@ -448,7 +460,7 @@
                 $(".TD_NGAY").css({"width": "40px"});
                 $(".TD_CHITIEU").css({"width": "300px"});
                 $(".TEN_KH").css({"width": "100%"});
-                
+
                 $("#idsaveDatatmp1").show();
                 $("#idsaveDatatmp2").hide();
                 initTable();

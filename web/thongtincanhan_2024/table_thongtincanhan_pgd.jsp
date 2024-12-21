@@ -193,22 +193,24 @@
                             <input type="hidden" value="<s:property  value="D21" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D21"/>
                             <input type="hidden" value="<s:property  value="D22" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D22"/>
                             <input type="hidden" value="<s:property  value="D23" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D23"/>
+                            <input type="hidden" value="<s:property  value="D24" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24"/>
+                            <input type="hidden" value="<s:property  value="D25" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25"/>
                         </td>
                         <td class="D0"><s:property  value="D1" /></td>
                         <td class="D0"><s:property  value="D4" /></td>
                         <td class="D0"><s:property  value="D5" /></td>
-                        <td></td>
-                        <td></td>
+                        <td class="D0"><s:property  value="D24" /></td>
+                        <td class="D0"><s:property  value="D25" /></td>
                         <td class="D0"><s:property  value="D7" /></td>
                         <td class="D0"><s:property  value="D3" /></td>
                         <td class="D0"><s:property  value="D16" /></td>
                         <td class="D0"><s:property  value="D17" /></td>
                         <td class="D0"><s:property  value="D18" /></td>
                         <td class="D0"><s:property  value="D19" /></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class="D0"><s:property  value="D20" /></td>
+                        <td class="D0"><s:property  value="D21" /></td>
+                        <td class="D0"><s:property  value="D22" /></td>
+                        <td class="D0"><s:property  value="D23" /></td>
                         <td class="D0">
                             <select style="border: hidden" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" id="D11_<s:property  value='%{#rowstatus.index}' />" > 
                                 <option value="1" <s:if test="D11.equalsIgnoreCase('1')"> selected </s:if>>Chưa rà soát</option>

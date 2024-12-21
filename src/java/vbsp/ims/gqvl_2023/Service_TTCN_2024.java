@@ -272,6 +272,8 @@ public class Service_TTCN_2024 extends ActionNhaptaycnMain
                     row.setD21(item.getD21());
                     row.setD22(item.getD22());
                     row.setD23(item.getD23());
+                    row.setD24(item.getD24());
+                    row.setD25(item.getD25());
                     lstDulieuNt.add(row);
                 } catch (Exception e) {
                 }
@@ -452,6 +454,8 @@ public class Service_TTCN_2024 extends ActionNhaptaycnMain
                 tempadd.setD21(tmp.getD21());
                 tempadd.setD22(tmp.getD22());
                 tempadd.setD23(tmp.getD23());
+                tempadd.setD24(tmp.getD24());
+                tempadd.setD25(tmp.getD25());
                 lstUpdateDate.add(tempadd);
 
             }
