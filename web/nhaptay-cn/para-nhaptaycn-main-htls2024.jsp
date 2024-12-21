@@ -520,8 +520,12 @@
                                 <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
 
                                 <s:if test="Grade.equalsIgnoreCase('1')">
-                                    &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/> 
-                                    &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="Cập nhật hạch toán GL"/>
+                                    <s:if test="schot.equalsIgnoreCase('0')">
+                                        &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/> 
+                                    </s:if>  
+                                    <s:else>
+                                        &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="Cập nhật hạch toán GL"/>
+                                    </s:else>
                                 </s:if>     
                                 <s:elseif test="Grade.equalsIgnoreCase('2')">
                                     &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/> 
