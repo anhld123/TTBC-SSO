@@ -498,8 +498,8 @@
                                 <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                             
                             <s:if test="Grade.equalsIgnoreCase('1')">
-                                &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Xác nhận lãi giảm"/> 
-                                &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveDataHTLai()" value="Cập nhật hạch toán GL"/>
+                                &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp1" name="namesaveDatatmp1"  onclick="onSaveData()" value="Xác nhận lãi giảm"/> 
+                                &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp2" name="namesaveDatatmp2"  onclick="onSaveDataHTLai()" value="Cập nhật hạch toán GL"/>
                             </s:if>     
                             <s:elseif test="Grade.equalsIgnoreCase('2')">
                                 &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/> 

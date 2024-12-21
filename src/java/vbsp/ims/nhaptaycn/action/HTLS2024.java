@@ -52,7 +52,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                 pos_cd_username = posMainModel.getPosCd();
                 service = new DuLieuNTService();
                 //Kiểm tra xem đã chốt số liệu chưa
-                String chotsl = "1";
+                String chotsl = "0";
                 ArrayList<LockSendModel> lstDataLock = service.getDataLockSendS2021(pos_cd_username, "S", dateStr);
                 //Check xem khóa chưa
                 if (!lstDataLock.isEmpty()) {
