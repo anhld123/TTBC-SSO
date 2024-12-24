@@ -124,7 +124,7 @@
             </s:iterator>   
             </br>
             <div id="divTitle">
-                XÁC NHẬN GIẢM LÃI CHO VAY CÁC CHƯƠNG TRÌNH TÍN DỤNG CHÍNH SÁCH THEO QUYẾT ĐỊNH .../QĐ-TTg CỦA THỦ TƯỚNG CHÍNH PHỦ (2024)
+                XÁC NHẬN SỐ TIỀN LÃI GIẢM THEO QUYẾT ĐỊNH SỐ 1629/QĐ-TTg
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nhaptaycn"/>            
