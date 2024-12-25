@@ -115,7 +115,7 @@
         <div style="overflow:scroll; width: 98%;height: 400px;">    
 
             <div id="divTitle">
-                DANH SÁCH KHÁCH HÀNG TÀI KHOẢN THANH TOÁN CẦN CẬP NHẬT THÔNG TIN CÁ NHÂN<br> 
+                XÁC NHẬN RÀ SOÁT THÔNG TIN TÀI KHOẢN THANH TOÁN<br> 
                 <s:if test="chotsl.equalsIgnoreCase('2')" ><a class="color_11">(Đơn vị đã gửi dữ liệu)</a></s:if>
                 <input type="hidden" value="<s:property value="chotsl"/>" name="chotsl" id="chotsl"/> 
             </div>
