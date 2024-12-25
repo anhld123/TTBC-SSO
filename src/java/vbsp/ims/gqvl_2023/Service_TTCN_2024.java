@@ -274,11 +274,16 @@ public class Service_TTCN_2024 extends ActionNhaptaycnMain
                     row.setD23(item.getD23());
                     row.setD24(item.getD24());
                     row.setD25(item.getD25());
+                    row.setD26(item.getD26());
+                    row.setD27(item.getD27());
+                    row.setD28(item.getD28());
+                    row.setD29(item.getD29());
+                    row.setD30(item.getD30());
                     lstDulieuNt.add(row);
                 } catch (Exception e) {
                 }
             }
-            lstDulieuNt.sort(Comparator.comparingInt((QT_DULIEU_NT obj) -> Integer.parseInt(obj.getD1())));
+//            lstDulieuNt.sort(Comparator.comparingInt((QT_DULIEU_NT obj) -> Integer.parseInt(obj.getD1().toString())));
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> thong tin ca nhan sms : " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> thong tin ca nhan sms: " + e.getMessage());
@@ -456,6 +461,11 @@ public class Service_TTCN_2024 extends ActionNhaptaycnMain
                 tempadd.setD23(tmp.getD23());
                 tempadd.setD24(tmp.getD24());
                 tempadd.setD25(tmp.getD25());
+                tempadd.setD26(tmp.getD26());
+                tempadd.setD27(tmp.getD27());
+                tempadd.setD28(tmp.getD28());
+                tempadd.setD29(tmp.getD29());
+                tempadd.setD30(tmp.getD30());
                 lstUpdateDate.add(tempadd);
 
             }
@@ -534,7 +544,7 @@ public class Service_TTCN_2024 extends ActionNhaptaycnMain
             String D8 = ServletActionContext.getRequest().getParameter("skhoa");
             String UserName = (String) ActionContext.getContext().getSession().get("sUserName");
             String skhoa = (String) ActionContext.getContext().getSession().get("skhoa");
-            
+
             SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MMM/yyyy");
             Date date = inputFormat.parse(D5);

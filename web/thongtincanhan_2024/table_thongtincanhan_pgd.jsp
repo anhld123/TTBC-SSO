@@ -14,7 +14,7 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         border-spacing: 0;
-        width: 98%;
+        width: 110%;
     }
     #subTable th{
         background-color: #ddd;
@@ -124,25 +124,29 @@
                 <tr> 
                     <th class="STT1" rowspan="2">STT</th>                           
                     <th class="STT2" rowspan="2">Mã khách hàng</th>  
+                    <th class="STT2" rowspan="2">Mã Pos quản lý khách hàng</th>  
                     <th class="STT3" rowspan="2">Số tài khoản</th>  
                     <th class="STT2" rowspan="2">Sản phẩm</th>
                     <th class="STT2" rowspan="2">Loại tài khoản</th>
                     <th class="STT2" rowspan="2">Đối tượng</th>
                     <th class="STT3" rowspan="2">Mã POS quản lý tài khoản</th>
                     <th class="STT3" rowspan="2">Số điện thoại</th>
-                    <th class="STT4" colspan="4">DỮ LIỆU GTTT TRÊN INTELLECT</th> 
-                    <th class="STT4" colspan="4">DỮ LIỆU GTTT TRÊN EKYC</th>
+                    <th class="STT4" colspan="6">DỮ LIỆU GTTT TRÊN INTELLECT</th> 
+                    <th class="STT4" colspan="5">DỮ LIỆU GTTT TRÊN EKYC</th>
                     <th class="STT2" rowspan="2">Trạng thái rà soát</th>  
                 </tr>
                 <tr>
                     <th class="STT3">Tên khách hàng</th>      
                     <th class="STT3">Số GTTT</th> 
+                    <th class="STT3">Loại GTTT</th> 
                     <th class="STT3">Ngày cấp</th> 
                     <th class="STT3">Ngày hết hạn</th> 
+                    <th class="STT3" >Số điện thoại</th>
                     <th class="STT3">Tên khách hàng</th>      
                     <th class="STT3">Số GTTT</th> 
                     <th class="STT3">Ngày cấp</th> 
                     <th class="STT3">Ngày hết hạn</th>
+                    <th class="STT3" >Số điện thoại</th>
                 </tr>         
 
                 <tr>
@@ -163,6 +167,10 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(15)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(16)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(17)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(18)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(19)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(20)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(21)</th>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr id="tablefix"> 
@@ -195,8 +203,13 @@
                             <input type="hidden" value="<s:property  value="D23" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D23"/>
                             <input type="hidden" value="<s:property  value="D24" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D24"/>
                             <input type="hidden" value="<s:property  value="D25" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D25"/>
+                            <input type="hidden" value="<s:property  value="D26" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D26"/>
+                            <input type="hidden" value="<s:property  value="D27" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27"/>
+                            <input type="hidden" value="<s:property  value="D28" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28"/>
+                            <input type="hidden" value="<s:property  value="D29" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29"/>
                         </td>
                         <td class="D0"><s:property  value="D1" /></td>
+                        <td class="D0"><s:property  value="D26" /></td>
                         <td class="D0"><s:property  value="D4" /></td>
                         <td class="D0"><s:property  value="D5" /></td>
                         <td class="D0"><s:property  value="D24" /></td>
@@ -205,14 +218,17 @@
                         <td class="D0"><s:property  value="D3" /></td>
                         <td class="D0"><s:property  value="D16" /></td>
                         <td class="D0"><s:property  value="D17" /></td>
+                        <td class="D0"><s:property  value="D27" /></td>
                         <td class="D0"><s:property  value="D18" /></td>
                         <td class="D0"><s:property  value="D19" /></td>
+                        <td class="D0"><s:property  value="D28" /></td>
                         <td class="D0"><s:property  value="D20" /></td>
                         <td class="D0"><s:property  value="D21" /></td>
                         <td class="D0"><s:property  value="D22" /></td>
                         <td class="D0"><s:property  value="D23" /></td>
+                        <td class="D0"><s:property  value="D29" /></td>
                         <td class="D0">
-                            <select style="border: hidden" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" id="D11_<s:property  value='%{#rowstatus.index}' />" > 
+                            <select style="border: hidden;width: 100px" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" id="D11_<s:property  value='%{#rowstatus.index}' />" > 
                                 <option value="1" <s:if test="D11.equalsIgnoreCase('1')"> selected </s:if>>Chưa rà soát</option>
                                 <option value="2" <s:if test="D11.equalsIgnoreCase('2')"> selected </s:if>>Đã rà soát</option>                        
                                 <option value="3" <s:if test="D11.equalsIgnoreCase('3')"> selected </s:if>>Đã cập nhật trên CoreBanking</option>
