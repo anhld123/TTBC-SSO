@@ -203,15 +203,6 @@ public class Service_TTCN_2024 extends ActionNhaptaycnMain
             main_pos_username = posMainModel.getMainPosCd();
             String dateStr = hmParameter.get("ngay_bc").toString();
             String txtGetData = hmParameter.get("txtGetData").toString();
-            String smaxa = hmParameter.get("maxa").toString();
-            String smato = hmParameter.get("mato").toString();
-            String[] values = smato.split("\\_");
-            String ssmato = values[1];
-
-            if (smaxa.equals("000000")) {
-                addActionError("Vui lòng nhập mã xã để rà soát số liệu!");
-                return ERROR;
-            }
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("TTCN_01_" + txtGetData, pos_cd_username, "S", _reportDate);
             try {
@@ -219,16 +210,31 @@ public class Service_TTCN_2024 extends ActionNhaptaycnMain
             } catch (Exception e) {
                 setChotsl("0");
             }
-            String condition1 = "D13=" + smaxa + "|D15=" + txtGetData + "|";
-            String condition = "D13=" + smaxa + "|D14=" + ssmato + "|D15=" + txtGetData + "|";
-            if (ssmato.equals("0000000")) {
-                lstData_Api = _serverAPI.getData_condition("TTCN_01", pos_cd_username, "S", _reportDate, condition1);
-                if (lstData_Api.size() > 150) {
-                    addActionError("Dữ liệu của xã quá lớn, vui lòng chọn từng tổ để tải dữ liệu!");
+            
+            if (pos_cd_username.equals("000101")) {
+                lstData_Api = _serverAPI.getData_condition("TTCN_01", pos_cd_username, "S", _reportDate, "");
+            } else {
+                String smaxa = hmParameter.get("maxa").toString();
+                String smato = hmParameter.get("mato").toString();
+                String[] values = smato.split("\\_");
+                String ssmato = values[1];
+
+                if (smaxa.equals("000000")) {
+                    addActionError("Vui lòng nhập mã xã để rà soát số liệu!");
                     return ERROR;
                 }
-            } else {
-                lstData_Api = _serverAPI.getData_condition("TTCN_01", pos_cd_username, "S", _reportDate, condition);
+
+                String condition1 = "D13=" + smaxa + "|D15=" + txtGetData + "|";
+                String condition = "D13=" + smaxa + "|D14=" + ssmato + "|D15=" + txtGetData + "|";
+                if (ssmato.equals("0000000")) {
+                    lstData_Api = _serverAPI.getData_condition("TTCN_01", pos_cd_username, "S", _reportDate, condition1);
+                    if (lstData_Api.size() > 150) {
+                        addActionError("Dữ liệu của xã quá lớn, vui lòng chọn từng tổ để tải dữ liệu!");
+                        return ERROR;
+                    }
+                } else {
+                    lstData_Api = _serverAPI.getData_condition("TTCN_01", pos_cd_username, "S", _reportDate, condition);
+                }
             }
             if (lstData_Api == null || lstData_Api.isEmpty()) {
                 addActionError("Chưa có dữ liệu!");
@@ -279,6 +285,8 @@ public class Service_TTCN_2024 extends ActionNhaptaycnMain
                     row.setD28(item.getD28());
                     row.setD29(item.getD29());
                     row.setD30(item.getD30());
+                    row.setD31(item.getD31());
+                    row.setD32(item.getD32());
                     lstDulieuNt.add(row);
                 } catch (Exception e) {
                 }
@@ -466,6 +474,8 @@ public class Service_TTCN_2024 extends ActionNhaptaycnMain
                 tempadd.setD28(tmp.getD28());
                 tempadd.setD29(tmp.getD29());
                 tempadd.setD30(tmp.getD30());
+                tempadd.setD31(tmp.getD31());
+                tempadd.setD32(tmp.getD32());
                 lstUpdateDate.add(tempadd);
 
             }

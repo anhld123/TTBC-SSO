@@ -14,7 +14,7 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         border-spacing: 0;
-        width: 110%;
+        width: 130%;
     }
     #subTable th{
         background-color: #ddd;
@@ -122,31 +122,33 @@
             <div style="height: 10px"></div>
             <table border="1" class="editDelete" id="subTable" align="center">               
                 <tr> 
-                    <th class="STT1" rowspan="2">STT</th>                           
-                    <th class="STT2" rowspan="2">Mã khách hàng</th>  
-                    <th class="STT2" rowspan="2">Mã Pos quản lý khách hàng</th>  
-                    <th class="STT3" rowspan="2">Số tài khoản</th>  
-                    <th class="STT2" rowspan="2">Sản phẩm</th>
-                    <th class="STT2" rowspan="2">Loại tài khoản</th>
-                    <th class="STT2" rowspan="2">Đối tượng</th>
-                    <th class="STT3" rowspan="2">Mã POS quản lý tài khoản</th>
-                    <th class="STT3" rowspan="2">Số điện thoại</th>
-                    <th class="STT4" colspan="6">DỮ LIỆU GTTT TRÊN INTELLECT</th> 
-                    <th class="STT4" colspan="5">DỮ LIỆU GTTT TRÊN EKYC</th>
-                    <th class="STT2" rowspan="2">Trạng thái rà soát</th>  
+                    <th style="width: 50px" rowspan="2">STT</th>                           
+                    <th style="width: 75px" rowspan="2">Mã khách hàng</th>  
+                    <th style="width: 65px" rowspan="2">Mã Pos quản lý khách hàng</th>  
+                    <th style="width: 110px" rowspan="2">Số tài khoản</th>  
+                    <th style="width: 75px" rowspan="2">Sản phẩm</th>
+                    <th style="width: 100px"rowspan="2">Loại tài khoản</th>
+                    <th style="width: 100px" rowspan="2">Đối tượng</th>
+                    <th style="width: 65px" rowspan="2">Mã POS quản lý tài khoản</th>
+                    <th style="width: 100px" rowspan="2">Số điện thoại</th>
+                    <th colspan="7">DỮ LIỆU GTTT TRÊN INTELLECT</th> 
+                    <th  colspan="6">DỮ LIỆU GTTT TRÊN EKYC</th>
+                    <th  style="width: 100px" rowspan="2">Trạng thái rà soát</th>  
                 </tr>
                 <tr>
-                    <th class="STT3">Tên khách hàng</th>      
-                    <th class="STT3">Số GTTT</th> 
-                    <th class="STT3">Loại GTTT</th> 
-                    <th class="STT3">Ngày cấp</th> 
-                    <th class="STT3">Ngày hết hạn</th> 
-                    <th class="STT3" >Số điện thoại</th>
-                    <th class="STT3">Tên khách hàng</th>      
-                    <th class="STT3">Số GTTT</th> 
-                    <th class="STT3">Ngày cấp</th> 
-                    <th class="STT3">Ngày hết hạn</th>
-                    <th class="STT3" >Số điện thoại</th>
+                    <th style="width: 150px">Tên khách hàng</th>   
+                    <th style="width: 65px">Ngày tháng năm sinh</th> 
+                    <th style="width: 100px">Số GTTT</th> 
+                    <th style="width: 75px">Loại GTTT</th> 
+                    <th style="width: 65px">Ngày cấp</th> 
+                    <th style="width: 65px">Ngày hết hạn</th> 
+                    <th style="width: 100px">Số điện thoại</th>
+                    <th style="width: 150px">Tên khách hàng</th> 
+                    <th style="width: 65px">Ngày tháng năm sinh</th> 
+                    <th style="width: 100px">Số GTTT</th> 
+                    <th style="width: 65px">Ngày cấp</th> 
+                    <th style="width: 65px">Ngày hết hạn</th>
+                    <th style="width: 100px">Số điện thoại</th>
                 </tr>         
 
                 <tr>
@@ -171,6 +173,8 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(19)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(20)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(21)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(22)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(23)</th>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr id="tablefix"> 
@@ -207,6 +211,9 @@
                             <input type="hidden" value="<s:property  value="D27" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D27"/>
                             <input type="hidden" value="<s:property  value="D28" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D28"/>
                             <input type="hidden" value="<s:property  value="D29" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29"/>
+                            <input type="hidden" value="<s:property  value="D30" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30"/>
+                            <input type="hidden" value="<s:property  value="D31" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D31"/>
+
                         </td>
                         <td class="D0"><s:property  value="D1" /></td>
                         <td class="D0"><s:property  value="D26" /></td>
@@ -215,18 +222,20 @@
                         <td class="D0"><s:property  value="D24" /></td>
                         <td class="D0"><s:property  value="D25" /></td>
                         <td class="D0"><s:property  value="D7" /></td>
-                        <td class="D0"><s:property  value="D3" /></td>
-                        <td class="D0"><s:property  value="D16" /></td>
+                        <td><s:property  value="D3" /></td>
+                        <td><s:property  value="D16" /></td>
+                        <td class="D0"><s:property  value="D30" /></td>
                         <td class="D0"><s:property  value="D17" /></td>
                         <td class="D0"><s:property  value="D27" /></td>
                         <td class="D0"><s:property  value="D18" /></td>
                         <td class="D0"><s:property  value="D19" /></td>
-                        <td class="D0"><s:property  value="D28" /></td>
-                        <td class="D0"><s:property  value="D20" /></td>
+                        <td><s:property  value="D28" /></td>
+                        <td><s:property  value="D20" /></td>
+                        <td class="D0"><s:property  value="D31" /></td>
                         <td class="D0"><s:property  value="D21" /></td>
                         <td class="D0"><s:property  value="D22" /></td>
                         <td class="D0"><s:property  value="D23" /></td>
-                        <td class="D0"><s:property  value="D29" /></td>
+                        <td><s:property  value="D29" /></td>
                         <td class="D0">
                             <select style="border: hidden;width: 100px" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" id="D11_<s:property  value='%{#rowstatus.index}' />" > 
                                 <option value="1" <s:if test="D11.equalsIgnoreCase('1')"> selected </s:if>>Chưa rà soát</option>

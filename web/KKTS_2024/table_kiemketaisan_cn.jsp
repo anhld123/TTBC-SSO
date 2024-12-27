@@ -136,7 +136,7 @@
                         '<td><input readonly type="text" value="0" id="D8' + max_row + '" name="lstDulieuNt[' + max_row + '].D8" class="number" onfocus="this.select();"/></td>' +
                         '<td class="D0"><textarea type="text" value="" id="D9' + max_row + '" name="lstDulieuNt[' + max_row + '].D9" placeholder="Nhập tối đa 500 ký tự" maxlength="500" onfocus="this.select();" style="width: 98%"></textarea></td>' +
                         '<td class="D0"><textarea type="text" value="" id="D10' + max_row + '" name="lstDulieuNt[' + max_row + '].D10" placeholder="Nhập tối đa 500 ký tự" maxlength="500" onfocus="this.select();" style="width: 98%"></textarea></td>' +
-                        '<td class="D0"><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D5" id="' + idThuctrang + '"></select></td>' +
+                        '<td class="D0"><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D11" id="' + idThuctrang + '"></select></td>' +
                         '<td class="D0"><input type="button" style="color: red" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)"/></td>' +
                         '</tr>';
 
