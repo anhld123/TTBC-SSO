@@ -228,7 +228,7 @@ public class Service_TTCN_2024 extends ActionNhaptaycnMain
                 String condition = "D13=" + smaxa + "|D14=" + ssmato + "|D15=" + txtGetData + "|";
                 if (ssmato.equals("0000000")) {
                     lstData_Api = _serverAPI.getData_condition("TTCN_01", pos_cd_username, "S", _reportDate, condition1);
-                    if (lstData_Api.size() > 150) {
+                    if (lstData_Api.size() > 500) {
                         addActionError("Dữ liệu của xã quá lớn, vui lòng chọn từng tổ để tải dữ liệu!");
                         return ERROR;
                     }

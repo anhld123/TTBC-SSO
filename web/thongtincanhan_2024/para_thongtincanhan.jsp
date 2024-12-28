@@ -502,29 +502,63 @@
         </s:form>
 
         <script>
+//            $(document).ready(function () {
+//                function updateDatepicker() {
+//                    var datepicker = $('#ngay_bc_DATE');
+//                    var currentDate = new Date();
+//                    var year = currentDate.getFullYear();
+//                    var lastDayOfYear = new Date(year, 11, 31);
+//                    var formattedDate = ('0' + lastDayOfYear.getDate()).slice(-2) + '/' +
+//                            ('0' + (lastDayOfYear.getMonth() + 1)).slice(-2) + '/' +
+//                            lastDayOfYear.getFullYear();
+//
+//                    datepicker.val(formattedDate);
+//
+//                    datepicker.datepicker("option", {
+//                        beforeShowDay: function (date) {
+//                            return [date.getDate() === 31 && date.getMonth() === 11, ""];
+//                        }
+//                    });
+//
+//                }
+//
+//                // Initialize the datepicker with the default settings
+//                updateDatepicker();
+//            });
             $(document).ready(function () {
                 function updateDatepicker() {
                     var datepicker = $('#ngay_bc_DATE');
                     var currentDate = new Date();
                     var year = currentDate.getFullYear();
-                    var lastDayOfYear = new Date(year, 11, 31);
-                    var formattedDate = ('0' + lastDayOfYear.getDate()).slice(-2) + '/' +
-                            ('0' + (lastDayOfYear.getMonth() + 1)).slice(-2) + '/' +
-                            lastDayOfYear.getFullYear();
+                    var month = currentDate.getMonth(); // Tháng hiện tại (0-based)
 
+                    // Tính ngày cuối cùng của tháng hiện tại
+                    var lastDayOfMonth = new Date(year, month + 1, 0);
+                    var formattedDate = ('0' + lastDayOfMonth.getDate()).slice(-2) + '/' +
+                            ('0' + (lastDayOfMonth.getMonth() + 1)).slice(-2) + '/' +
+                            lastDayOfMonth.getFullYear();
+
+                    // Đặt giá trị mặc định cho datepicker
                     datepicker.val(formattedDate);
 
+                    // Cập nhật cấu hình datepicker để chỉ cho phép chọn ngày cuối cùng của tháng
                     datepicker.datepicker("option", {
                         beforeShowDay: function (date) {
-                            return [date.getDate() === 31 && date.getMonth() === 11, ""];
+                            var lastDayOfShownMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                            return [date.getTime() === lastDayOfShownMonth.getTime(), ""];
                         }
                     });
-
                 }
 
-                // Initialize the datepicker with the default settings
+                // Khởi tạo datepicker với cấu hình mới
+                $('#ngay_bc_DATE').datepicker({
+                    dateFormat: 'dd/mm/yy' // Định dạng ngày
+                });
+
+                // Gọi hàm cập nhật datepicker
                 updateDatepicker();
             });
+
             function callDirectLink(link) {
                 PopupCenter(link, 'Upload excel', 800, 400);
             }

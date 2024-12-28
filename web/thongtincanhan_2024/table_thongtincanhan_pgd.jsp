@@ -237,10 +237,10 @@
                         <td class="D0"><s:property  value="D23" /></td>
                         <td><s:property  value="D29" /></td>
                         <td class="D0">
-                            <select style="border: hidden;width: 100px" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" id="D11_<s:property  value='%{#rowstatus.index}' />" > 
-                                <option value="1" <s:if test="D11.equalsIgnoreCase('1')"> selected </s:if>>Chưa rà soát</option>
-                                <option value="2" <s:if test="D11.equalsIgnoreCase('2')"> selected </s:if>>Đã rà soát</option>                        
-                                <option value="3" <s:if test="D11.equalsIgnoreCase('3')"> selected </s:if>>Đã cập nhật trên CoreBanking</option>
+                            <select onchange="updateSelectColor(this)" style="border: hidden;width: 100px" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" id="D11_<s:property  value='%{#rowstatus.index}' />" > 
+                                <option style="color: red" value="1" <s:if test="D11.equalsIgnoreCase('1')"> selected </s:if>>Chưa rà soát</option>
+                                <option style="color: #003eff" value="2" <s:if test="D11.equalsIgnoreCase('2')"> selected </s:if>>Đã rà soát</option>                        
+                                <option style="color: #009900" value="3" <s:if test="D11.equalsIgnoreCase('3')"> selected </s:if>>Đã cập nhật trên CoreBanking</option>
                                 </select>
                             </td>
 
@@ -250,7 +250,17 @@
         </div>
         <div id="luu_thanhcong"></div>
         <script>
-
+            function updateSelectColor(selectElement) {
+                const selectedOption = selectElement.options[selectElement.selectedIndex];
+                const selectedColor = selectedOption.style.color; // Lấy màu từ tùy chọn được chọn
+                selectElement.style.color = selectedColor;       // Áp dụng màu cho <select>
+            }
+            function initTable1()
+            {
+                const selects = document.querySelectorAll('select[id^="D11_"]'); // Chọn tất cả các <select> có id bắt đầu bằng "D11_"
+                selects.forEach(updateSelectColor);
+            }
+            initTable1();
         </script>
     </body>
 </html>
