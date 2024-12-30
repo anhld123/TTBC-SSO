@@ -216,7 +216,7 @@
                                     name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" class="number"/>
                         </td>  
                         <td> <input type="text" value="<s:property  value="D18 != null ? D18 : 0" />" id="D18_<s:property  value='%{#rowstatus.index}' />" 
-                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" class="number"/>
+                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18" />
                         </td> 
                         <td class="D0">
                             <input style="width: 75px; text-align: center" type="text" readonly="readonly" class="cssDate" 

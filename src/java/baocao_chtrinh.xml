@@ -93,6 +93,11 @@
         <action name="unlock_KTKSNB_2024_c3" class="vbsp.ims.ktksnb2024.KTKSNB_01" method="unlock_c3">
             <result name="success" type="json"></result>
         </action>
+        
+         <action name="load_data_dky_2024" class="vbsp.ims.ktksnb2024.KTKSNB_01"  method="seach">
+            <result name="success">/ktksnb_2024/table_dky_ktksnb2024_seach.jsp</result>                              
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
         <!--điều chỉnh--> 
         <action name="KTKSNB_02" class="vbsp.ims.ktksnb2024.KTKSNB_02"  method="load">
             <result name="success_1">/ktksnb_2024/table_dchinh_ktksnb2024.jsp</result>

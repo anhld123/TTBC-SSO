@@ -222,24 +222,25 @@
             $(document).ready(function () {
                 $(".NGAY_SL").css({"width": "80px"});
             });
-            
+
             function onLoadData() {
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
                 $('#divExportReportLink').empty();
                 $("#loadData")[0].click();
+                btnDisabled(0);
                 // Thực hiện lần click thứ hai sau 100ms
 //                setTimeout(function () {
 //                    $("#loadData")[0].click();
 //                }, 0, 00001);
                 bsubmit = true;
             }
-            
+
             $("#idSave").click(function () {
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
-                
-                
+
+
                 let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo?");
                 if (aCheck) {
                     var table = document.getElementById("subTable");
@@ -273,7 +274,7 @@
                         isValid = false;
                         onLoadData();
                     }
-                    
+
                     for (var i = 0; i < rowcount; i++) {
                         try {
                             // Xử lý mỗi hàng ở đây nếu cần
@@ -281,7 +282,7 @@
                             // Xử lý lỗi nếu có
                         }
                     }
-                    
+
                     if (isValid) {
                         var url, sdata;
                         url = "save_KTKSNB_01_2024.action";
@@ -313,9 +314,9 @@
                     }
                 }
             });
-            
-            
-            
+
+
+
             function btnDisabled(status) {
                 if (status === 1) {
                     $("#loadDatatmp").prop('disabled', true);
@@ -323,16 +324,25 @@
                     $("#idSave").prop('disabled', true);
                     $("#idSaveLock").prop('disabled', true);
                     $("#idDelete").prop('disabled', true);
+                    $("#idSeach").prop('disabled', true);
+                    $("#idSend").prop('disabled', true);
+                } else if (status === 2) {
+                    $("#loadDatatmp").prop('disabled', false);
+                    $("#idSend").prop('disabled', true);
+                    $("#idSave").prop('disabled', true);
+                    $("#idDelete").prop('disabled', true);
                 } else {
                     $("#idPheduyet").prop('disabled', false);
                     $("#idSave").prop('disabled', false);
                     $("#loadDatatmp").prop('disabled', false);
                     $("#idSaveLock").prop('disabled', false);
                     $("#idDelete").prop('disabled', false);
+                    $("#idSeach").prop('disabled', false);
+                    $("#idSend").prop('disabled', false);
                 }
             }
             ;
-            
+
             function countCheckedItem() {
                 let counter = 0;
                 $('.myCheckBox').each(function () {
@@ -348,7 +358,7 @@
                     end = new Date().getTime();
                 }
             }
-            
+
             function onUpExcel()
             {
                 $('#message_suc_err').empty();
@@ -356,9 +366,9 @@
                 $("#idUpExcel")[0].click();
                 bsubmit = true;
             }
-            
+
             // TRUNG BO SUNG PHAN THUYET MINH
-            
+
             $.subscribe("beforediv_data", function (event, data) {
                 $("#loadingImageDiv_data").show();
             });
@@ -385,12 +395,12 @@
                     return false;
                 }
             }
-            
+
             //Disable enter key form submit            
             document.onkeypress = stopRKey;
             function getposfromtreecheck()
             {
-                
+
                 var pos_cd = '';
                 var idform = 'id_' + '<s:property value="khoa_nhaptaycn"/>';
                 var element = document.forms[idform].elements;
@@ -411,7 +421,7 @@
 //                alert('bat dau goi submit pos_cd='+pos_cd);
                 return pos_cd;
             }
-            
+
             function openClick()
             {
                 var khoa = $("#khoa").val() + "_open";
@@ -429,7 +439,7 @@
             $("#idSend").click(function () {
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
-                
+
                 let aCheck = confirm("Bạn chắc chắn muốn gửi số liệu báo cáo ?");
                 if (aCheck) {
                     var table = document.getElementById("subTable");
@@ -503,7 +513,7 @@
                         });
                     }
                 }
-                
+
             });
         </script>
     </head>
@@ -600,17 +610,19 @@
                     <s:if test="!Grade.equalsIgnoreCase('3')">
                         &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/>  
                         &nbsp;<input type="button" id="idDelete" value="Xóa dữ liệu" style="color: red"/>  
-                        &nbsp;<input type="button" id="idSend" value="Chốt dữ liệu" style="color: red"/></s:if>
-                    </table>    
-                </fieldset>
-                <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
-                    <img id="loadingImage" src='img/loading.gif' border='0' >                  
-                </div>   
-                <div id="message_suc_err" style="height: 10px"></div>
-                <div id="containParm_full" align="center">
-                    <div id="divExportReport"></div>
-                    <div align="right"  id="divExportReportLink"></div>
-                </div>
+                        &nbsp;<input type="button" id="idSend" value="Chốt dữ liệu" style="color: red"/>
+                        &nbsp;<input type="button" id="idSeach" value="Danh sách đã đăng ký" style="color: #0000FF"/>
+                    </s:if>
+                </table>    
+            </fieldset>
+            <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
+                <img id="loadingImage" src='img/loading.gif' border='0' >                  
+            </div>   
+            <div id="message_suc_err" style="height: 10px"></div>
+            <div id="containParm_full" align="center">
+                <div id="divExportReport"></div>
+                <div align="right"  id="divExportReportLink"></div>
+            </div>
         </s:form>
 
         <script>
@@ -690,13 +702,13 @@
                 document.getElementById("lstXa").style.display = "none";
             </s:if>
             }
-            
+
             initTable();
-            
+
             $("#idDelete").click(function () {
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
-                
+
                 let aCheck = confirm("Bạn chắc chắn muốn xóa dữ liệu báo cáo ?");
                 if (aCheck) {
                     var table = document.getElementById("subTable");
@@ -770,7 +782,7 @@
                         });
                     }
                 }
-                
+
             });
             <%--<s:if test="Grade.equalsIgnoreCase('1')">--%>
             $(document).ready(function () {
@@ -782,17 +794,17 @@
                     var formattedDate = ('0' + lastDayOfYear.getDate()).slice(-2) + '/' +
                             ('0' + (lastDayOfYear.getMonth() + 1)).slice(-2) + '/' +
                             lastDayOfYear.getFullYear();
-                    
+
                     datepicker.val(formattedDate);
-                    
+
                     datepicker.datepicker("option", {
                         beforeShowDay: function (date) {
                             return [date.getDate() === 31 && date.getMonth() === 11, ""];
                         }
                     });
-                    
+
                 }
-                
+
                 // Initialize the datepicker with the default settings
                 updateDatepicker();
             });
@@ -837,6 +849,30 @@
 //                updateDatepicker();
 //            });
             <%--</s:if>--%>
+
+            $("#idSeach").click(function () {
+                var url, sdata;
+                url = "load_data_dky_2024.action";
+                sdata = jQuery("#frmdata").serialize();
+                $("#divExportReport").html('<img src="img/loading.gif"/>');
+                btnDisabled(1);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: sdata,
+                    success: function (data) {
+                        $("#divExportReport").html(data);
+                    },
+                    complete: function () {
+                        btnDisabled(2);
+                    },
+                    error: function (request) {
+                        console.log(request);
+                        alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                    }
+                });
+            }
+            );
         </script>
     </body>
 </html>
