@@ -102,7 +102,7 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt_tong" var="modelView" status="rowstatus">
-                    <tr id="tablefix" style="font-weight: bold"> 
+                    <tr id="tablefix"> 
                         <td class="D0" ><s:property value="%{#rowstatus.index + 1}" /></td>
                         <td ><s:if test="Grade.equalsIgnoreCase('1')">
                                 <s:property value="D1"/><s:property value="D2"/><s:property value="D3"/>

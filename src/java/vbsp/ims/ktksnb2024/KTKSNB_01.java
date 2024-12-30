@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -871,6 +872,7 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
                     for (DuLieuNTRow dataItem : lstData_Api) {
                         try {
                             QT_DULIEU_NT row = new QT_DULIEU_NT();
+                            row.setMAPGD(dataItem.getPosCode());
                             row.setD1(dataItem.getD1());
                             row.setD2(dataItem.getD2());
                             row.setD3(dataItem.getD3());
@@ -898,6 +900,7 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
                             for (DuLieuNTRow dataItem : lstData_Api) {
                                 try {
                                     QT_DULIEU_NT row = new QT_DULIEU_NT();
+                                    row.setMAPGD(dataItem.getPosCode());
                                     for (ListPosCode posRow : lstPGD_API) {
                                         if (posRow.getPosCode() != null && posRow.getPosCode().trim().equals(dataItem.getPosCode().trim())) {
                                             row.setD1(dataItem.getD1() + " " + posRow.getPosName());
@@ -923,6 +926,8 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
                     }
                 }
             }
+            lstDulieuNt_tong.sort(Comparator.comparingInt((QT_DULIEU_NT obj) -> Integer.parseInt(obj.getMAPGD()))
+                    .thenComparingInt(obj -> Integer.parseInt(obj.getD4())));
 //            System.out.println("datazzz: lstData == " + lstDulieuNt_tong.size());
             return SUCCESS;
         } catch (Exception e) {
