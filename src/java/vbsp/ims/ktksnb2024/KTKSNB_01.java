@@ -565,7 +565,11 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
                 tempadd.setAuthoriseDate(_reportDate1);
                 tempadd.setReportDate(_reportDate1);
                 tempadd.setReportYear(tmp.getNAMBC());
-                tempadd.setPosCode(smapgd);
+                if (Grade.equals("1")) {
+                    tempadd.setPosCode(smapgd);
+                } else {
+                    tempadd.setPosCode(tmp.getD3());
+                };
                 tempadd.setPosFlag(tmp.getCO_TONGHOP());
                 tempadd.setBranchCode(main_pos_username);
                 tempadd.setD1(tmp.getD1());
