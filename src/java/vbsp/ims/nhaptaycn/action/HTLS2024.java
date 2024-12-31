@@ -37,54 +37,54 @@ import vbsp.ims.util.DateUtil;
  */
 public class HTLS2024 extends ActionNhaptaycnMain
         implements NhaptaycnFunction {
-    
+
     DuLieuNTService service;
     private List<ListPosCode> lstPGD_API;
     protected String main_pos_username;
     private String status;
     private String message;
     private String schot;
-    
+
     public String getSchot() {
         return schot;
     }
-    
+
     public void setSchot(String schot) {
         this.schot = schot;
     }
-    
+
     public String getStatus() {
         return status;
     }
-    
+
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
     public String getMessage() {
         return message;
     }
-    
+
     public void setMessage(String message) {
         this.message = message;
     }
-    
+
     public String getMain_pos_username() {
         return main_pos_username;
     }
-    
+
     public void setMain_pos_username(String main_pos_username) {
         this.main_pos_username = main_pos_username;
     }
-    
+
     public List<ListPosCode> getLstPGD_API() {
         return lstPGD_API;
     }
-    
+
     public void setLstPGD_API(List<ListPosCode> lstPGD_API) {
         this.lstPGD_API = lstPGD_API;
     }
-    
+
     @Override
     public String load() {
         try {
@@ -118,6 +118,10 @@ public class HTLS2024 extends ActionNhaptaycnMain
                     String _maXa = hmParameter.get("maxa").toString();
                     String _maTo = hmParameter.get("mato").toString();
                     ArrayList<IntDeductionModel> lstData = service.getDataHTLS2021(pos_cd_username, dateStr, _chuongTrinh, _maXa, _maTo);
+                    if (lstData.size() > 400) {
+                        addActionError("Dữ liệu quá lớn vui lòng chọn mã xã hoặc mã tổ, để tải dữ liệu!");
+                        return ERROR;
+                    }
                     int i = 1;
                     QT_DULIEU_NT tong = new QT_DULIEU_NT();
                     double dn_tronhan = 0;
@@ -169,7 +173,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                             row.setD5(df.format(item.getNormalAmt()));
                             row.setD6(df.format(item.getOverdueAmt()));
                             row.setD7(df.format(item.getFreezeAmt()));
-                            
+
                             row.setD8(df.format(item.getInterestRate()));
                             row.setD9(item.getLoanProgram());
                             row.setD10(item.getSpecificProductCode());
@@ -179,7 +183,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                             row.setD14(item.getInvestorCode());
                             row.setD15(item.getCasaAccount());
                             row.setD16(df.format(item.getIntTotalAmt()));
-                            
+
                             row.setD17(df.format(item.getIntDeductionTotalAmt()));
 //BigInteger ad = item.getIntDeductionM10Amt();
 
@@ -187,7 +191,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                             row.setD18(df.format(item.getIntDeductionM10Amt()));
                             row.setD19(df.format(item.getIntDeductionM11Amt()));
                             row.setD20(df.format(item.getIntDeductionM12Amt()));
-                            
+
                             if (item.getLoanStatus().equals("C") && dateStr.equals("20211130") && item.getCasaAccount() == null
                                     && item.getIntDeductionM10Amt().add(item.getIntDeductionM11Amt()).compareTo(new BigInteger("5000")) < 0) {
                                 row.setMA("1");
@@ -197,17 +201,17 @@ public class HTLS2024 extends ActionNhaptaycnMain
                             } else {
                                 row.setMA("0");
                             }
-                            
+
                             row.setD48(df.format(item.getIntDeductionAdjustM09Amt()));
                             row.setD21(df.format(item.getIntDeductionAdjustM10Amt()));
                             row.setD22(df.format(item.getIntDeductionAdjustM11Amt()));
                             row.setD23(df.format(item.getIntDeductionAdjustM12Amt()));
-                            
+
                             row.setD24(item.getPaymentFlag().equals("0") ? "RPA" : "HT phải trả");
                             row.setD25(item.getIntConfirmFlag());
                             row.setD26(item.getDeductionTranRef());
                             row.setD27(item.getDeductionTranDate());
-                            
+
                             row.setD28(df.format(item.getAccountingIntAmt()));
                             row.setD29(df.format(item.getRpaAmt()));
                             row.setD30(df.format(item.getCasaAmt()));
@@ -229,7 +233,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                             row.setD44(df.format(item.getIntTotalM11Amt()));
                             row.setD45(df.format(item.getIntTotalM12Amt()));
                             row.setD46(item.getCommuneId());
-                            
+
                             row.setD51(item.getCustomerName());
 //                    Lấy món vay xác nhận lãi
                             if (!chotsl.equals("2")) {
@@ -240,17 +244,17 @@ public class HTLS2024 extends ActionNhaptaycnMain
                                     dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
                                     dn_quahan = dn_quahan + (long) item.getOverdueAmt();
                                     dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
-                                    
+
                                     lai_t09 = lai_t09.add(item.getIntDeductionM09Amt());
                                     lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
                                     lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
                                     lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
-                                    
+
                                     lai_t09dc = lai_t10dc.add(item.getIntDeductionAdjustM09Amt());
                                     lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
                                     lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
                                     lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
-                                    
+
                                     lai_20 = lai_20.add(item.getCasaAmt());
                                     lai_21 = lai_21.add(item.getCashAmt());
                                     lstDulieuNt.add(row);
@@ -264,24 +268,24 @@ public class HTLS2024 extends ActionNhaptaycnMain
                                         dn_tronhan = dn_tronhan + (long) item.getNormalAmt();
                                         dn_quahan = dn_quahan + (long) item.getOverdueAmt();
                                         dn_khoanh = dn_khoanh + (long) item.getFreezeAmt();
-                                        
+
                                         lai_t09 = lai_t09.add(item.getIntDeductionM09Amt());
                                         lai_t10 = lai_t10.add(item.getIntDeductionM10Amt());
                                         lai_t11 = lai_t11.add(item.getIntDeductionM11Amt());
                                         lai_t12 = lai_t12.add(item.getIntDeductionM12Amt());
-                                        
+
                                         lai_t09dc = lai_t10dc.add(item.getIntDeductionAdjustM09Amt());
                                         lai_t10dc = lai_t10dc.add(item.getIntDeductionAdjustM10Amt());
                                         lai_t11dc = lai_t11dc.add(item.getIntDeductionAdjustM11Amt());
                                         lai_t12dc = lai_t12dc.add(item.getIntDeductionAdjustM12Amt());
-                                        
+
                                         lai_20 = lai_20.add(item.getCasaAmt());
                                         lai_21 = lai_21.add(item.getCashAmt());
                                         lstDulieuNt.add(row);
                                     }
                                 }
                             }
-                            
+
                         } catch (Exception e) {
                             CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2024: " + e.getMessage());
                             System.err.println(this.getClass().getName() + " Exception -> HTLS2024: " + e.getMessage());
@@ -310,7 +314,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                     break;
                 }
                 case "2": {
-                    
+
                     if (!getParaSession()) {
                         return ERROR;
                     }
@@ -318,18 +322,18 @@ public class HTLS2024 extends ActionNhaptaycnMain
                     Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                     String dateStr = sdf.format(date1);
-                    
+
                     posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                     pos_cd_username = posMainModel.getPosCd();
                     main_pos_username = posMainModel.getMainPosCd();
                     service = new DuLieuNTService();
                     lstPGD_API = service.getListPgd(main_pos_username, "");
-                    
+
                     if (lstPGD_API == null || lstPGD_API.isEmpty()) {
                         addActionError("Lỗi khi gọi API!");
                         return ERROR;
                     }
-                    
+
                     for (ListPosCode pgdItem : lstPGD_API) {
                         QT_DULIEU_NT row = new QT_DULIEU_NT();
                         row.setMAPGD(pgdItem.getPosCode());
@@ -355,7 +359,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                             if (lstData != null && !lstData.isEmpty()) {
                                 int i = 0;
                                 DecimalFormat df = new DecimalFormat("#.##");
-                                
+
                                 for (LockSendModel dataItem : lstData) {
                                     if (dataItem != null) {
                                         i++;
@@ -375,7 +379,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                                         dataRow.setD6(df.format(dataItem.getNoDeductionLoanTotal()));
                                         dataRow.setD7(df.format(dataItem.getNoDeductionIntTotal()));
                                         dataRow.setD25(dataItem.getStatus());
-                                        
+
                                         lstDulieuNt.add(dataRow);
                                     }
                                 }
@@ -386,7 +390,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                             System.err.println("Lỗi khi gọi API chốt dữ liệu: " + e.getMessage());
                         }
                     }
-                    
+
                     return "cap2_chot";
                 }
                 case "3":
@@ -411,7 +415,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                         if (conn != null) {
                             conn.close();
                         }
-                        
+
                     } catch (Exception e) {
                         CoreLogger.error(this.getClass().getName() + " Exception -> gdx: " + e.getMessage());
                         System.err.println(this.getClass().getName() + " Exception -> gdx: " + e.getMessage());
@@ -425,11 +429,11 @@ public class HTLS2024 extends ActionNhaptaycnMain
             System.err.println(this.getClass().getName() + " Exception -> HTLS2024: " + e.getMessage());
             return ERROR;
         }
-        
+
         return SUCCESS;
-        
+
     }
-    
+
     @Override
     public String save() {
         try {
@@ -440,7 +444,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;
             }
-            
+
             DaoNhaptaycnMain daoMain = DaoNhaptaycnMain.newInstance();
             HashMap hmParameter = getParameter();
             String sngaybc = hmParameter.get("ngay_bc").toString();
@@ -449,14 +453,14 @@ public class HTLS2024 extends ActionNhaptaycnMain
 //            Date date = Calendar.getInstance().getTime();  
             DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
             String strDate = dateFormat.format(date1);
-            
+
             DateFormat dateFormat1 = new SimpleDateFormat("dd-MMM-yyyy");
             String strDate1 = dateFormat1.format(date1);
-            
+
             service = new DuLieuNTService();
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
-            
+
             if (Grade.equals("1")) {
                 ArrayList<LockSendModel> lstDataLock = service.getDataLockSendS2021(pos_cd_username, "S", strDate);
                 ArrayList<IntDeductionModel> lstUpdateDate = new ArrayList<>();
@@ -468,31 +472,31 @@ public class HTLS2024 extends ActionNhaptaycnMain
                                 tempadd.setMainPos(tmp.getMACN());
                                 tempadd.setPosCode(tmp.getMAPGD());
                                 tempadd.setLoanId(tmp.getD3());
-                                
+
                                 tempadd.setIntDeductionAdjustM09Amt(new BigInteger(tmp.getD47()));
                                 tempadd.setIntDeductionAdjustM10Amt(new BigInteger(tmp.getD18()));
                                 tempadd.setIntDeductionAdjustM11Amt(new BigInteger(tmp.getD19()));
                                 tempadd.setIntDeductionAdjustM12Amt(new BigInteger(tmp.getD20()));
-                                
+
                                 tempadd.setIntConfirmFlag("0");
-                                
+
                                 lstUpdateDate.add(tempadd);
                             } else {
                                 tempadd.setMainPos(tmp.getMACN());
                                 tempadd.setPosCode(tmp.getMAPGD());
                                 tempadd.setLoanId(tmp.getD3());
-                                
+
                                 tempadd.setIntDeductionAdjustM09Amt(new BigInteger(tmp.getD47()));
                                 tempadd.setIntDeductionAdjustM10Amt(new BigInteger(tmp.getD18()));
                                 tempadd.setIntDeductionAdjustM11Amt(new BigInteger(tmp.getD19()));
                                 tempadd.setIntDeductionAdjustM12Amt(new BigInteger(tmp.getD20()));
-                                
+
                                 tempadd.setM09Status("1");
                                 tempadd.setM10Status("1");
                                 tempadd.setM11Status("1");
                                 tempadd.setM12Status("1");
                                 tempadd.setIntConfirmFlag("1");
-                                
+
                                 lstUpdateDate.add(tempadd);
                             }
                         }
@@ -506,12 +510,12 @@ public class HTLS2024 extends ActionNhaptaycnMain
                             updateRow.setD1(item.getLoanId());
                             // Bo sung cho thang 9 tai local
                             updateRow.setD6(df.format(item.getIntDeductionAdjustM09Amt()));
-                            
+
                             updateRow.setD2(df.format(item.getIntDeductionAdjustM10Amt()));
                             updateRow.setD3(df.format(item.getIntDeductionAdjustM11Amt()));
                             updateRow.setD4(df.format(item.getIntDeductionAdjustM12Amt()));
                             updateRow.setD5(item.getIntConfirmFlag());
-                            
+
                             lstLocalDataUpdate.add(updateRow);
                         }
                         daoMain.saveGiamLai2024(UserName, pos_cd_username, strDate1, lstLocalDataUpdate, "1");
@@ -521,7 +525,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                     addActionError("Chi nhánh dã chốt số liệu. Bạn không thể điều chỉnh.");
                     return ERROR;
                 }
-                
+
             } else if (Grade.equals("2")) {
                 ArrayList<UpdateLockModel> lstUpdateDateLock = new ArrayList<>();
                 for (QT_DULIEU_NT tmp : lstDulieuNt) {
@@ -544,17 +548,17 @@ public class HTLS2024 extends ActionNhaptaycnMain
                 }
                 int status = service.updateData2021HTLS_ChotSL(pos_cd_username, strDate, UserName, lstUpdateDateLock);
             }
-            
+
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> HTLS2024: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> HTLS2024: " + e.getMessage());
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
             return ERROR;
         }
-        
+
         return SUCCESS;
     }
-    
+
     public String save_htl() {
         try {
             if (!getParaSession()) {
@@ -564,7 +568,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;
             }
-            
+
             DaoNhaptaycnMain daoMain = DaoNhaptaycnMain.newInstance();
             HashMap hmParameter = getParameter();
             String sngaybc = hmParameter.get("ngay_bc").toString();
@@ -573,14 +577,14 @@ public class HTLS2024 extends ActionNhaptaycnMain
 //            Date date = Calendar.getInstance().getTime();  
             DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
             String strDate = dateFormat.format(date1);
-            
+
             DateFormat dateFormat1 = new SimpleDateFormat("dd-MMM-yyyy");
             String strDate1 = dateFormat1.format(date1);
-            
+
             service = new DuLieuNTService();
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
-            
+
             if (Grade.equals("1")) {
                 ArrayList<LockSendModel> lstDataLock = service.getDataLockSendS2021(pos_cd_username, "S", strDate);
                 ArrayList<IntDeductionModel> lstUpdateDate = new ArrayList<>();
@@ -609,7 +613,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                             updateRow.setD2(df.format(item.getCasaAmt()));
                             updateRow.setD3(df.format(item.getCashAmt()));
                             updateRow.setD4(item.getPosTranRef());
-                            
+
                             lstLocalDataUpdate.add(updateRow);
                         }
                         daoMain.saveGiamLai2024(UserName, pos_cd_username, strDate1, lstLocalDataUpdate, "2");
@@ -621,7 +625,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                     addActionError("Chi nhánh chưa chốt số liệu. Bạn chỉ cập nhật thông tin hạch toán sau khi PGD đã được chốt số liệu!");
                     return ERROR;
                 }
-                
+
             } else {
                 addActionError("Chức năng nay chỉ hỗ trợ cấp Phòng giao dịch!");
                 return ERROR;
@@ -632,9 +636,9 @@ public class HTLS2024 extends ActionNhaptaycnMain
             addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
             return ERROR;
         }
-        
+
     }
-    
+
     public String unlock_c3() {
         try {
             String D1 = ServletActionContext.getRequest().getParameter("madiemgd");
@@ -644,14 +648,14 @@ public class HTLS2024 extends ActionNhaptaycnMain
             String D8 = ServletActionContext.getRequest().getParameter("skhoa");
             String UserName = (String) ActionContext.getContext().getSession().get("sUserName");
             String skhoa = (String) ActionContext.getContext().getSession().get("skhoa");
-            
+
             SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MMM/yyyy");
             Date date = inputFormat.parse(D5);
             String formattedDate = outputFormat.format(date);
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
             GenericResult<String> _result = daoMain.unlock_c3_THTK(skhoa, D1, UserName, formattedDate, D7);
-            
+
             if (_result.isIsSuccess()) {
                 status = "1";
                 message = "";
