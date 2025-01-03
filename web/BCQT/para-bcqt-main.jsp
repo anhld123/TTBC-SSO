@@ -228,7 +228,7 @@
                 var khoa_bcqt = $("#khoa_bcqt").val();                
                 $("#loadingImageDiv_data").hide();                
                 //if (khoa_bcqt === 'KHOANTC001')
-                $("#loadData")[0].click();
+                $("#loadData").click();
             });
             $.subscribe("beforediv_send", function (event, data) {
                 $("#loadingImageDiv_data").show();

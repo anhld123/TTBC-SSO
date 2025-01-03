@@ -148,25 +148,22 @@
                     return;
                 }
 
-                if (<s:property value="Grade"/> == '2')
+                if (<s:property value="Grade"/> === '2')
                 {
-                    if (khoa_bcqt == 'BCQT_M26A' || khoa_bcqt == 'BCQT_M26B')
+                    if (khoa_bcqt === 'BCQT_M26A' || khoa_bcqt === 'BCQT_M26B')
                     {
                         $('#message_suc_err').html("<h2 style='color: red'>Mẫu báo cáo này chỉ được phép gửi số liệu, không xem được dữ liệu! </h2>");
                         return;
                     }
                     var poscd = getposfromtreecheck();
 //                alert(poscd);
-                    if ((poscd == null || poscd == '') && (khoa_bcqt != 'KHOANTC001' && khoa_bcqt != 'BCQT_26A' && khoa_bcqt != 'BCQT_26B' && khoa_bcqt != 'BCQT_LAITONAM' && khoa_bcqt != 'BCQT_HOAHONG'))
+                    if ((poscd === null || poscd === '') && (khoa_bcqt !== 'KHOANTC001' && khoa_bcqt !== 'BCQT_26A' && khoa_bcqt !== 'BCQT_26B' && khoa_bcqt !== 'BCQT_LAITONAM' && khoa_bcqt !== 'BCQT_HOAHONG'))
                     {
                         $('#message_suc_err').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần xem số liệu ! </h2>");
 //                        alert('Bạn phải chọn phòng giao dịch cần gửi số liệu !');
                         return;
                     }
-
-
                 }
-
                 $("#loadData")[0].click();
                 bsubmit = true;
 //                return true;
@@ -182,10 +179,10 @@
                     return;
                 }
 //                alert(khoa);
-                if (khoa != 'BCQT_LAITONAM_save' && khoa != 'BCQT_HOAHONG_save')
+                if (khoa !== 'BCQT_LAITONAM_save' && khoa !== 'BCQT_HOAHONG_save')
                 {
                     var poscd = getposfromtreecheck();
-                    if (poscd == null || poscd == "")
+                    if (poscd === null || poscd === "")
                     {
                         $("#loadData")[0].click();
                         bsubmit = true;
@@ -209,7 +206,7 @@
                         });
                     }
                     saveData().then(onLoadData);
-                    alert("Lưu dữ liệu thành công!")
+                    alert("Lưu dữ liệu thành công!");
                 } 
 //                alert(khoa);
             }
@@ -228,13 +225,10 @@
                 $("#loadingImageDiv_data").show();
             });
             $.subscribe("completediv_ss", function (event, data) {
-
-
-                var khoa_bcqt = $("#khoa_bcqt").val();
-                if (khoa_bcqt == 'KHOANTC001')
-                    $("#loadData")[0].click();
-
-                $("#loadingImageDiv_data").hide();
+                var khoa_bcqt = $("#khoa_bcqt").val();                
+                $("#loadingImageDiv_data").hide();                
+                //if (khoa_bcqt === 'KHOANTC001')
+                $("#loadData").click();
             });
             $.subscribe("beforediv_send", function (event, data) {
                 $("#loadingImageDiv_data").show();
@@ -246,7 +240,7 @@
             function stopRKey(evt) {
                 var evt = (evt) ? evt : ((event) ? event : null);
                 var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
-                if ((evt.keyCode == 13) && (node.type == "text")) {
+                if ((evt.keyCode === 13) && (node.type === "text")) {
                     return false;
                 }
             }
@@ -264,11 +258,11 @@
                 var i = element.length;
                 for (var k = 0; k < i; k++)
                 {
-                    if (element[k].name == 'poscd')
+                    if (element[k].name === 'poscd')
                     {
-                        if (element[k].checked == true)
+                        if (element[k].checked === true)
                         {
-                            if (element[k].value != '999999')
+                            if (element[k].value !== '999999')
 //                            alert(document.loadFormRisk.elements[k].value);
                                 pos_cd = pos_cd + element[k].value + ',';
                         }
@@ -282,7 +276,7 @@
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
                 var khoa_bcqt = $("#khoa").val();
-                if (khoa_bcqt != 'BCQT_M26A' && khoa_bcqt != 'BCQT_M26B' && khoa_bcqt != 'KHOANTC001')
+                if (khoa_bcqt !== 'BCQT_M26A' && khoa_bcqt !== 'BCQT_M26B' && khoa_bcqt !== 'KHOANTC001')
                 {
                     if (!bsubmit)
                     {
@@ -293,7 +287,7 @@
                 }
                 var poscd = getposfromtreecheck();
 //                alert(poscd);
-                if (poscd == null || poscd == '')
+                if (poscd === null || poscd === '')
                 {
                     $('#divExportReport').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần gửi số liệu ! </h2>");
 //                    alert('Bạn phải chọn phòng giao dịch cần gửi số liệu !');
@@ -315,7 +309,7 @@
                 }
 
                 var r = confirm("Chương trình sẽ xóa dữ liệu PGD đã nhập. Bạn có chắc chắn muốn reset để cho PGD làm lại ? OK : Đồng ý, Cancel : Hủy bỏ");
-                if (r != true) {
+                if (r !== true) {
                     return;
                 }
                 $("#idResettmpTemp")[0].click();
@@ -329,7 +323,7 @@
                 $('#divExportReport').empty();
 
                 var khoa_bcqt = $("#khoa").val();
-                if (khoa_bcqt != 'BCQT_M26A' && khoa_bcqt != 'BCQT_M26B')
+                if (khoa_bcqt !== 'BCQT_M26A' && khoa_bcqt !== 'BCQT_M26B')
                 {
                     if (!bsubmit)
                     {
@@ -340,14 +334,14 @@
                 }
                 var poscd = getposfromtreecheck();
 //                alert(poscd);
-                if (poscd == null || poscd == '')
+                if (poscd === null || poscd === '')
                 {
                     $('#divExportReport').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần gửi số liệu ! </h2>");
 //                    alert('Bạn phải chọn phòng giao dịch cần gửi số liệu !');
                     return;
                 }
                 var r = confirm("Khi chốt số liệu bạn sẽ không gửi dữ liệu về TW thêm lần nữa, Vậy bạn có thật sự muốn chốt số liệu không ? OK : Đồng ý, Cancel : Hủy bỏ");
-                if (r != true) {
+                if (r !== true) {
                     return;
                 }
                 $("#idSendLock")[0].click();
