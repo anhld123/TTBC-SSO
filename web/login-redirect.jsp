@@ -54,7 +54,9 @@
                 border-radius: 10px;
                 padding: 80px; 
                 width: 100%; 
-                max-width: 900px;
+                height: 100%; 
+                max-width: 1000px;
+                max-height: 800px;
                 margin: 0 auto;
             }
 
@@ -155,10 +157,19 @@
 
                     // Khi hết thời gian, hiển thị thông báo
                     if (timeDiff <= 0) {
+                        // Xóa bộ đếm thời gian và ẩn các tiêu đề
                         clearInterval(updateTime);
                         document.getElementById("title98").style.display = "none";
                         document.getElementById("title99").style.display = "none";
-                        document.querySelector(".countdown").innerHTML = "<h class='color_11' style='font-size: 50px; font-weight: bold'>Chúc mừng năm mới!</h>";
+
+// Tạo nội dung video và nút bật/tắt âm thanh
+                        const countdownContainer = document.querySelector(".countdown");
+                        countdownContainer.innerHTML = `
+    <video autoplay loop muted playsinline id="background-video" 
+           style="position: relative; width: 100%; height: 100%; object-fit: cover" controls>
+        <source src="img/videotet.mp4" type="video/mp4">  
+    </video>
+  `;
                     }
                 }
                 setInterval(updateTime, 1000);
@@ -257,7 +268,7 @@
                             <div class="container" style="font-family: Brush Script MT">
                                 <h1 id="title99" style="font-family: Comic Sans MS">Đếm ngược</h1>
                                 <h2 id="title98" style="font-family: Bradley Hand">Tết Ất Tỵ, 2025</h2>
-                                <div class="countdown">
+                                <div class="countdown" style="position: relative; width: 100%; height: 300px; background-color: #000; border-radius: 10px; overflow: hidden; padding: 0;">
                                     <div class="time-box">
                                         <span id="days" class="time">00</span><br>
                                         <span class="label">Ngày</span>
@@ -277,6 +288,9 @@
                                 </div>
 
                             </div>
+<!--                            <div class="container" style="font-family: Brush Script MT">
+                                title2 ở đây
+                            </div>-->
                         </table>
                     </td>
                     <td>&nbsp;</td>    

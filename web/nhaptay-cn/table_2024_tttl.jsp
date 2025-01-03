@@ -112,7 +112,7 @@
             </s:iterator>   
             </br>
             <div id="divTitle">
-                CẬP NHẬT THÔNG TIN GIẢM LÃI TRẢ CHO KHÁCH HÀNG TỪ TÀI KHOẢN PHẢI TRẢ THEO QUYẾT ĐỊNH .../QĐ-TTg CỦA THỦ TƯỚNG CHÍNH PHỦ (2024)
+                CẬP NHẬT THÔNG TIN SỐ TIỀN LÃI GIẢM THEO QUYẾT ĐỊNH SỐ 1629/QĐ-TTg
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nhaptaycn"/>            

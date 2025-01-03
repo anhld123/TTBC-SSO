@@ -11,19 +11,16 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import vbsp.ims.canhbaosaisottt.P0001;
 import vbsp.ims.define.Define;
@@ -46,12 +43,10 @@ import vbsp.ims.zip.FileZip;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
@@ -1517,7 +1512,7 @@ public class ExcelExport {
                         }
                     }
                 }
-                
+
                 CellStyle defaultStyle = workbook.createCellStyle();
 
                 int startRow = lstData.size() + 11;
@@ -2203,32 +2198,6 @@ public class ExcelExport {
                 XSSFCellStyle codeStyle;
                 XSSFCellStyle nameStyle;
                 XSSFCellStyle lockStyle;
-
-//                    String strTitle = "NHU CẦU VAY VỐN TÍN DỤNG CHÍNH SÁCH NĂM " + namBc;
-//                    XSSFCell xssfCellTitle = sheet.getRow(4).getCell(0, Row.CREATE_NULL_AS_BLANK);
-//                    fillTitle(xssfCellTitle, strTitle);
-//                    titleStyle = xssfCellTitle.getCellStyle();
-//                    titleStyle.setLocked(true);
-//                    xssfCellTitle.setCellStyle(titleStyle);
-//                    xssfCellTitle.setCellValue(strTitle);
-//                    String strSubCommuneName = lstData.get(0).subCommuneName;
-//                    String strSubTitle = "THÔN: " + strSubCommuneName + " XÃ/PHƯỜNG/THỊ TRẤN: " + "communeName";
-//                    XSSFCell xssfCellSubTitle = sheet.getRow(5).getCell(0, Row.CREATE_NULL_AS_BLANK);
-                //subTitleStyle = xssfCellTitle.getCellStyle();
-                //subTitleStyle.setLocked(true);
-                //xssfCellSubTitle.setCellStyle(subTitleStyle);
-                //xssfCellSubTitle.setCellValue(strSubTitle);
-//                    fillTitle(xssfCellSubTitle, strSubTitle);
-//                    String colTitle3 = "Ước dư nợ đến 31/12/" + strPreYear;
-//                    XSSFCell colTitle = sheet.getRow(7).getCell(3, Row.CREATE_NULL_AS_BLANK);
-//                    fillTitle(colTitle, colTitle3);
-//
-//                    String colTitle5 = "Nhu cầu vốn năm " + namBc;
-//                    colTitle = sheet.getRow(7).getCell(4, Row.CREATE_NULL_AS_BLANK);
-//                    fillTitle(colTitle, colTitle5);
-//                    String colTitle6 = "Tăng, giảm so với 31/12/" + strPreYear;
-//                    colTitle = sheet.getRow(8).getCell(5, Row.CREATE_NULL_AS_BLANK);
-//                    fillTitle(colTitle, colTitle6);
                 for (int i = 0; i < lstData.size(); i++) {
                     XSSFRow xssfRow = sheet.getRow(i + ReportTemplate.MAU_01A_START_ROW);
                     if (xssfRow == null) {
@@ -2278,64 +2247,30 @@ public class ExcelExport {
                     xssfCell02.setCellStyle(nameStyle);
                     xssfCell02.setCellValue(lstData.get(i).name);
 
-                    XSSFCell xssfCell03 = xssfRow.getCell(3, Row.CREATE_NULL_AS_BLANK);
-                    numberStyle = xssfCell03.getCellStyle();
-                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
-                    numberStyle.setAlignment(HorizontalAlignment.RIGHT);
-                    numberStyle.setFont(font);
+                    XSSFWorkbook workbook = sheet.getWorkbook();
+                    XSSFCellStyle numberStyletmp = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
+                    XSSFCellStyle numberStyletmp1 = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, false);
 
-                    if (lstData.get(i).getSubCommuneName().equals("1")) {
-                        numberStyle.setLocked(true);
-                    } else {
-                        numberStyle.setLocked(false);
-                    }
-                    xssfCell03.setCellStyle(numberStyle);
+                    XSSFCell xssfCell03 = xssfRow.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    XSSFCellStyle cellStyle = (i == 0 || i == 1 || i == 2 || i == 3 
+                            || i == 7 || i == 8 || i == 29 || i == 36) ? numberStyletmp : numberStyletmp1;
+                    cellStyle.setDataFormat(format.getFormat("#,##0.00"));
+
+                    cellStyle.setBorderTop(BorderStyle.THIN);
+                    cellStyle.setBorderBottom(BorderStyle.THIN);
+                    cellStyle.setBorderLeft(BorderStyle.THIN);
+                    cellStyle.setBorderRight(BorderStyle.THIN);
+                    xssfCell03.setCellStyle(cellStyle);
                     xssfCell03.setCellValue(lstData.get(i).d1);
 
                     XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
-                    numberStyle = xssfCell04.getCellStyle();
-                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
-                    numberStyle.setAlignment(HorizontalAlignment.RIGHT);
-                    numberStyle.setFont(font);
-                    if (lstData.get(i).getSubCommuneName().equals("1")) {
-                        numberStyle.setLocked(true);
-                    } else {
-                        numberStyle.setLocked(false);
-                    }
-                    xssfCell04.setCellStyle(numberStyle);
+                    xssfCell04.setCellStyle(cellStyle);
                     xssfCell04.setCellValue(lstData.get(i).d2);
 
                     XSSFCell xssfCell05 = xssfRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
-                    numberStyle = xssfCell05.getCellStyle();
-                    numberStyle.setDataFormat(format.getFormat("#,##0.00"));
-                    numberStyle.setAlignment(HorizontalAlignment.RIGHT);
-                    numberStyle.setFont(font);
-                    if (lstData.get(i).getSubCommuneName().equals("1")) {
-                        numberStyle.setLocked(true);
-                    } else {
-                        numberStyle.setLocked(false);
-                    }
-                    xssfCell05.setCellStyle(numberStyle);
+                    xssfCell05.setCellStyle(cellStyle);
                     xssfCell05.setCellValue(lstData.get(i).d3);
 
-//                        XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
-//                        lockStyle = xssfCell04.getCellStyle();
-//                        lockStyle.setDataFormat(format.getFormat("#,##0.00"));
-//                        lockStyle.setAlignment(HorizontalAlignment.RIGHT);
-//                        lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-//                        lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-//                        lockStyle.setFont(font);
-//                        lockStyle.setLocked(false);
-//                        xssfCell04.setCellStyle(lockStyle);
-//                        XSSFCell xssfCell06 = xssfRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
-//                        lockStyle = xssfCell06.getCellStyle();
-//                        lockStyle.setDataFormat(format.getFormat("#,##0.00"));
-//                        lockStyle.setAlignment(HorizontalAlignment.RIGHT);
-//                        lockStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-//                        lockStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-//                        lockStyle.setFont(font);
-//                        lockStyle.setLocked(true);
-//                        xssfCell06.setCellStyle(lockStyle);
                 }
 
                 FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();

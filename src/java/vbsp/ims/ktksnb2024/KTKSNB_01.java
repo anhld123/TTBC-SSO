@@ -11,8 +11,6 @@ import vbsp.ims.gqvl_2023.*;
 import com.opensymphony.xwork2.ActionContext;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import static java.lang.Integer.parseInt;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import vbsp.ims.nhaptaycn.action.*;
 import java.sql.Connection;
@@ -20,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -566,7 +565,11 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
                 tempadd.setAuthoriseDate(_reportDate1);
                 tempadd.setReportDate(_reportDate1);
                 tempadd.setReportYear(tmp.getNAMBC());
-                tempadd.setPosCode(smapgd);
+                if (Grade.equals("1")) {
+                    tempadd.setPosCode(smapgd);
+                } else {
+                    tempadd.setPosCode(tmp.getD3());
+                };
                 tempadd.setPosFlag(tmp.getCO_TONGHOP());
                 tempadd.setBranchCode(main_pos_username);
                 tempadd.setD1(tmp.getD1());
@@ -845,4 +848,96 @@ public class KTKSNB_01 extends ActionChtrinhcnMain
         this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
+
+    public String seach() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            HashMap hmParameter = getParameter();
+            String sngaybc = hmParameter.get("ngay_bc").toString();
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(sngaybc));
+
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd_username = posMainModel.getPosCd();
+            main_pos_username = posMainModel.getMainPosCd();
+
+            if (Grade.equals("1")) {
+                for (int month = 1; month <= 12; month++) {
+                    String sThangkt = String.valueOf(month);
+
+                    lstData_Api = _serverAPI.getListKTKSNB_2024("KH_HUYEN", pos_cd_username, "S", _reportDate, sThangkt);
+
+                    if (lstData_Api == null || lstData_Api.isEmpty()) {
+                        CoreLogger.info("No data found for month: " + sThangkt);
+                        continue;
+                    }
+
+                    for (DuLieuNTRow dataItem : lstData_Api) {
+                        try {
+                            QT_DULIEU_NT row = new QT_DULIEU_NT();
+                            row.setMAPGD(dataItem.getPosCode());
+                            row.setD1(dataItem.getD1());
+                            row.setD2(dataItem.getD2());
+                            row.setD3(dataItem.getD3());
+                            row.setD4(dataItem.getD4());
+                            row.setD5(dataItem.getD5());
+                            row.setD6(dataItem.getD6());
+                            row.setD7(dataItem.getD7());
+                            row.setD8(dataItem.getD8());
+                            row.setD9(dataItem.getD9());
+                            row.setD10(dataItem.getD10());
+                            lstDulieuNt_tong.add(row);
+                        } catch (Exception e) {
+                            CoreLogger.error("Error processing dataItem for month " + sThangkt + ": " + e.getMessage());
+                        }
+                    }
+                }
+            } else {
+                lstPGD_API = _serverAPI.getListPgd(main_pos_username, "");
+                for (ListPosCode item : lstPGD_API) {
+                    for (int month = 1; month <= 12; month++) {
+                        String sThangkt = String.valueOf(month);
+
+                        try {
+                            lstData_Api = _serverAPI.getListKTKSNB_2024("KH_TINH", item.getPosCode(), "S", _reportDate, sThangkt);
+                            for (DuLieuNTRow dataItem : lstData_Api) {
+                                try {
+                                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+                                    row.setMAPGD(dataItem.getPosCode());
+                                    for (ListPosCode posRow : lstPGD_API) {
+                                        if (posRow.getPosCode() != null && posRow.getPosCode().trim().equals(dataItem.getPosCode().trim())) {
+                                            row.setD1(dataItem.getD1() + " " + posRow.getPosName());
+                                        }
+                                    }
+                                    row.setD2(dataItem.getD2());
+                                    row.setD3(dataItem.getD3());
+                                    row.setD4(dataItem.getD4());
+                                    row.setD5(dataItem.getD5());
+                                    row.setD6(dataItem.getD6());
+                                    row.setD7(dataItem.getD7());
+                                    row.setD8(dataItem.getD8());
+                                    row.setD9(dataItem.getD9());
+                                    row.setD10(dataItem.getD10());
+                                    lstDulieuNt_tong.add(row);
+                                } catch (Exception e) {
+                                    CoreLogger.error("Error processing dataItem for posCode " + item.getPosCode() + ", month " + sThangkt + ": " + e.getMessage());
+                                }
+                            }
+                        } catch (Exception e) {
+                            CoreLogger.error("Exception in processing posCode " + item.getPosCode() + ", month " + sThangkt + ": " + e.getMessage());
+                        }
+                    }
+                }
+            }
+            lstDulieuNt_tong.sort(Comparator.comparingInt((QT_DULIEU_NT obj) -> Integer.parseInt(obj.getMAPGD()))
+                    .thenComparingInt(obj -> Integer.parseInt(obj.getD4())));
+//            System.out.println("datazzz: lstData == " + lstDulieuNt_tong.size());
+            return SUCCESS;
+        } catch (Exception e) {
+            CoreLogger.error("Exception in seach 2024: " + e.getMessage());
+            return ERROR;
+        }
+    }
+
 }
