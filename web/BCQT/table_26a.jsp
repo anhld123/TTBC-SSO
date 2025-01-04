@@ -81,13 +81,21 @@
             // Tinh cho dong A2001 2.1. Các khoản được cộng:
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Các khoản được cộng"
-                let rawValue = $(arrCot[i]).eq(11).val();
-                let value = rawValue === null || rawValue === "" ? 0 : parseFloat(rawValue);
+                let rawValue11 = $(arrCot[i]).eq(11).val();
+                let value11 = rawValue11 === null || rawValue11 === "" ? 0 : parseFloat(rawValue11);
+                
+                let rawValue12 = $(arrCot[i]).eq(12).val();
+                let value12 = rawValue12 === null || rawValue12 === "" ? 0 : parseFloat(rawValue12);
+                
+                let rawValue13 = $(arrCot[i]).eq(13).val();
+                let value13 = rawValue13 === null || rawValue13 === "" ? 0 : parseFloat(rawValue13);
+                
                 $(arrCot[i]).eq(8).val(parseFloat($(arrCot[i]).eq(9).val())
                         + parseFloat($(arrCot[i]).eq(10).val())
-                        + value
-                        + parseFloat($(arrCot[i]).eq(12).val())
-                        + parseFloat($(arrCot[i]).eq(13).val()));
+                        + value11
+                        + value12
+                        + value13
+                        );
             }
 
             // Tinh cho dong A2002
