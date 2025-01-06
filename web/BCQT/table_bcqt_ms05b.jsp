@@ -113,19 +113,16 @@
                 //var code = (ma + indx).toString();
                 order = rowCount + 1;
                 max_row1 = rowCount + 1;
-               
                 var newTr = '<tr>\n\
                                 <td ><input type="text" value="' + max_row1 + '" id="TT_HIENTHI" name="lstDulieuNt[' + rowCount + '].TT_HIENTHI" class="D0 number" readonly="readonly" onfocus="this.select();" /></td>\n\
                                 <td ><input type="text" value="' + ten + '" id ="D2' + rowCount + '/>" name="lstDulieuNt[' + rowCount + '].D2" class="TD_CHITIEU" onfocus="this.select()" readonly="readonly"></td>\n\
                                 <td ><input type="text" value="' + ma + '" id ="D1' + rowCount + '/>" name="lstDulieuNt[' + rowCount + '].D1" class="TD_CHITIEU" onfocus="this.select()"></td>\n\
                                 <td ><input type="text" value="' + mapgd + '" name="lstDulieuNt[' + rowCount + '].MAPGD" id ="MAPGD_' + rowCount + '/>" class="D0" onfocus="this.select()" readonly="readonly" ></td>\n\
                                 <td ><input type="text" value="0" id="D3" name="lstDulieuNt[' + rowCount + '].D3" class="number2" onfocus="this.select();"/></td>\n\
-\n\<td ><input type="text" value="0" id="D13" name="lstDulieuNt[' + rowCount + '].D13" class="SOKU number" onfocus="this.select();"/></td>\n\
-\n\<td ><input type="text" value="0" id="D5" name="lstDulieuNt[' + rowCount + '].D5" class="SOKU number2" onfocus="this.select();"/></td>\n\
-\n\<td ><input type="text" value="0" id="D6" name="lstDulieuNt[' + rowCount + '].D6" class="SOKU number" onfocus="this.select();"/></td>\n\
-                               \n\
+                                <td ><input type="text" value="0" id="D4" style="text-align:right" name="lstDulieuNt[' + rowCount + '].D4"  onfocus="this.select();"/></td>\n\
+                                <td ><input type="hidden"> <select name="lstDulieuNt[' + rowCount + '].D5"><option value="1">1. Đất giao có thu tiền sử dụng đất</option><option value="2">2. Đất giao không thu tiền sử dụng đất</option><option value="3">3. Đất thuê</option><option value="4">4. Đất khác</option></select></td>\n\
+                                <td ><input type="text" value="0" id="D6" name="lstDulieuNt[' + rowCount + '].D6" class="SOKU number" onfocus="this.select();"/></td>\n\
                                 <td ><input type="hidden"> <select name="lstDulieuNt[' + rowCount + '].D7"><option value="1">1. Có</option><option value="2">2. Chưa có</option><option value="3">3. Đang làm thủ tục</option></select></td>\n\
-\n\ <td ><input type="text" value="0" id="D4" style="text-align:right" name="lstDulieuNt[' + rowCount + '].D4"  onfocus="this.select();"/></td>\n\
                                 <td ><input type="text" value="0" id="D8" name="lstDulieuNt[' + rowCount + '].D8" class="SOKU" onfocus="this.select();"/></td>\n\
                                 <td><input type="button" value="Xóa" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" class="D0 TD_TEN_KH"/></td>\n\
                                 </tr>';
@@ -172,15 +169,10 @@
                     <th rowspan="1" style="width: 200px">Mã tài sản</th>
                     <th rowspan="1" style="width: 150px">Mã Pos</th>
                     <th rowspan="1" style="width: 100px">Diện tích (m2)</th>
-                    <th rowspan="1" style="width: 100px">Đơn giá đất</th>
-                    <th rowspan="1" style="width: 100px">Hệ số điều chỉnh giá đất</th>
-                    <th rowspan="1" style="width: 100px">Giá trị QSD đất đánh giá lại</th>
-                    <th rowspan="1" style="width: 100px">Giấy CN QSD đất</th>
                     <th rowspan="1" style="width: 100px">Thời hạn sử dụng</th>
-                    <!--<th rowspan="1" style="width: 100px">Thời hạn sử dụng</th>-->
-                    <!--<th rowspan="1" style="width: 100px">Nguồn gốc sử dụng đất</th>-->
-                    <!--<th rowspan="1" style="width: 150px">Giá trị QSD đất hạch toán</th>-->     
-                    <!--<th rowspan="1" style="width: 100px">Tình trạng giấy CN QSD đất</th>-->
+                    <th rowspan="1" style="width: 100px">Nguồn gốc sử dụng đất</th>
+                    <th rowspan="1" style="width: 150px">Giá trị QSD đất hạch toán</th>     
+                    <th rowspan="1" style="width: 100px">Tình trạng giấy CN QSD đất</th>
                     <th rowspan="1" style="width: 100px">Ghi chú</th>
                         <s:if test="Grade.equalsIgnoreCase('1')">
                         <th rowspan="2" style="width: 30px;" class="TD_TEN_KH">Thêm/Xóa</th>
@@ -189,7 +181,6 @@
                 <tr>  
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;"></th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
@@ -226,20 +217,30 @@
                             <input type="text" value="<s:property  value="D3" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="TEN_KH number2" onfocus="this.select()" />                                                  
                         </td>
-                         <td>  
-                            <input type="text" value="<s:property  value="D13" />" 
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" class="TEN_KH number" onfocus="this.select()" />                                                  
-                        </td>
                         <td>  
-                            <input type="text" value="<s:property  value="D5" />" style="text-align :right"
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number2" onfocus="this.select()" />                                                  
+                            <input type="text" value="<s:property  value="D4" />"  style="text-align:right"
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="TEN_KH" onfocus="this.select()" />                                                  
+                        </td>
+                        <td>
+                            <s:if test="Grade.equalsIgnoreCase('1')">
+                                <select  name="lstDulieuNt[<s:property value="%{#rowstatus.index}" />].D5" id="D5<s:property value="%{#rowstatus.index}" />">
+                                    <option value="1" <s:if test="D5.equalsIgnoreCase('1')"> selected </s:if>>1. Đất giao có thu tiền sử dụng đất</option>
+                                    <option value="2" <s:if test="D5.equalsIgnoreCase('2')"> selected </s:if>>2. Đất giao không thu tiền sử dụng đất</option>
+                                    <option value="3" <s:if test="D5.equalsIgnoreCase('3')"> selected </s:if>>3. Đất thuê</option>
+                                    <option value="4" <s:if test="D5.equalsIgnoreCase('4')"> selected </s:if>>4. Đất khác</option>
+                                    </select>
+                            </s:if>
+                            <s:else>
+                                <s:if test="D5.equalsIgnoreCase('1')"><a>1. Đất giao có thu tiền sử dụng đất</a></s:if>
+                                <s:elseif test="D5.equalsIgnoreCase('2')"><a>2. Đất giao không thu tiền sử dụng đất</a></s:elseif>
+                                <s:elseif test="D5.equalsIgnoreCase('3')"><a>3. Đất thuê</a></s:elseif>
+                                <s:elseif test="D5.equalsIgnoreCase('4')"><a>4. Đất khác</a></s:elseif>
+                            </s:else>                   
                         </td>
                         <td>  
                             <input type="text" value="<s:property  value="D6" />" style="text-align :right"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH number" onfocus="this.select()" />                                                  
                         </td>
-                        
-                       
 
                         <td>
                             <s:if test="Grade.equalsIgnoreCase('1')">
@@ -256,10 +257,6 @@
 
                             </s:else>
                         </td> 
-                         <td>  
-                            <input type="text" value="<s:property  value="D4" />"  style="text-align:right"
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="TEN_KH" onfocus="this.select()" />                                                  
-                        </td>
                         <td>  
                             <input type="text" value="<s:property  value="D8" />" style="text-align :right"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" class="TEN_KH" onfocus="this.select()" />                                                  
