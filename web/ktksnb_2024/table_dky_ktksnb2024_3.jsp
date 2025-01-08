@@ -107,6 +107,7 @@
                     <th style="width: 100px">Người gửi dữ liệu</th>
                     <th style="width: 100px">Ngày gửi dữ liệu</th>
                     <th style="width: 100px">Trạng thái</th>
+                    <th style="width: 100px">Thêm ngày nhập</th>
                 </tr>  
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
@@ -115,6 +116,7 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
                 </tr>
 
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
@@ -161,6 +163,15 @@
                             </s:elseif>  
                             <s:else><s:property  value="D3" /></s:else>
                             </td>
+                            <td class="D0">
+                            <s:if test="D7.equalsIgnoreCase('1') && D11.toString().equalsIgnoreCase('0')">
+                                <a style="text-decoration: underline"  href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', 3, '<s:property value="D10"/>');">Thêm thời gian nhập</a>
+                            </s:if>
+                            <s:elseif test="D7.equalsIgnoreCase('1') && D11.toString().equalsIgnoreCase('1')">
+                                <a style="text-decoration: underline"  href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', 4, '<s:property value="D10"/>');">Cập nhật ngày hiện tại</a>
+                            </s:elseif>
+                            <s:else></s:else>
+                            </td>
                         </tr>
                 </s:iterator>
             </table>
@@ -184,7 +195,13 @@
                         var status = parseInt(res.status);
                         //alert(status);
                         if (status === 1) {
-                            alert('Mở phê duyệt thành công!');
+                            if (D7.toString() === "3") {
+                                alert('Thêm thời gian nhập cho ngày ' + D5 + ' thành công, thời hạn nhập đến 00h ngày hiện tại!');
+                            } else if (D7.toString() === "4") {
+                                alert('Cập nhật ngày hiện tại thành công!');
+                            } else {
+                                alert('Mở phê duyệt thành công!');
+                            }
                             onLoadData();
                         } else {
                             alert('Mở phê duyệt lỗi: ' + res.message);

@@ -113,7 +113,7 @@
                             <td style="color: #003eff;text-align: center"><s:property value="D9"/></td>
                             <td style="color: #003eff;text-align: center"><s:property value="D3"/></td>
                             <td style="color: #003eff;text-align: center"> 
-                                <!--<a style="text-decoration: underline"  href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', '<s:property value="D7"/>', '<s:property value="D10"/>');">Mở dữ liệu</a>-->
+                                <a style="text-decoration: underline"  href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D5"/>', '<s:property value="D6"/>', '<s:property value="D7"/>', '<s:property value="D10"/>');">Mở dữ liệu</a>
                             </td>
                         </s:if>
                         <s:else>
