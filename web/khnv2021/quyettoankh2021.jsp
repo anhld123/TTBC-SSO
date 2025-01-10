@@ -186,7 +186,7 @@
                 &nbsp;
                 <span class="clss-lable">Quyết toán năm:</span>
                 <s:select list="lstNamBC" theme="simple"
-                          name="namBc" id="namBc"
+                          name="namBc" id="namBc" onchange="updatenamBc()"
                           listKey="sKey" listValue="sDesc" /> </b> &nbsp;&nbsp;
                 &nbsp;
                 <s:if test="reportGrade.equalsIgnoreCase('2') || reportGrade.equalsIgnoreCase('3')">
@@ -200,7 +200,7 @@
                 <!--<input type="button" id="cmdTai" name="cmdTai" value="Tải dữ liệu" class="cmd">-->
                 <s:url id="idLoadDataQtKhnv" action="loadDataQuyettoan2021.action"></s:url>                                      
                 <sj:submit id="idloadDataQtKhnvtmp" name="nameSend" href="%{idLoadDataQtKhnv}" value="Xem dữ liệu" targets="divKhDetail"
-                           onBeforeTopics="beforediv_send"
+                           onBeforeTopics="beforediv_send" 
                            onCompleteTopics="completediv_send" cssClass="cmd"/>
 
                 <s:if test="!reportGrade.equalsIgnoreCase('3')">
@@ -253,9 +253,13 @@
                            onCompleteTopics="completediv_send" cssClass="cmd"/>
 
                 <!--                &nbsp;&nbsp;|&nbsp;&nbsp;-->
-                <sj:submit class="cmd" href="#" onclick="callDirectLink('khvn_open_upload_qt_kh?');" 
-                           cssClass="cmd" value="Upload Excel & Gửi số liệu">
-                </sj:submit>                        
+                <!--                <sj:submit class="cmd" href="#" onclick="callDirectLink('khvn_open_upload_qt_kh?');" 
+                           id="upload_tmp" cssClass="cmd" value="Upload Excel & Gửi số liệu">
+                </sj:submit>       -->
+                <a href="#" id="upload_tmp" class="cmd" onclick="callDirectLink('khvn_open_upload_qt_kh?');" style="text-decoration: none;">
+                    Upload Excel & Gửi số liệu
+                </a>
+
             </div>
             <hr/>
         </div>
@@ -294,6 +298,20 @@
                 }
             });
         });
+
+        function updatenamBc() {
+            var namBc = document.getElementById("namBc");
+            var selectedValue = namBc.value;
+            var selectLink = document.getElementById("upload_tmp");
+
+            // Kiểm tra giá trị chọn và cập nhật nội dung link
+            if (selectedValue !== "000000") {
+                selectLink.innerText = "Upload Excel & Gửi số liệu năm " + selectedValue;
+            } else {
+                selectLink.innerText = "Upload Excel & Gửi số liệu";
+            }
+        }
+
     </script>
 </body>
 </html>

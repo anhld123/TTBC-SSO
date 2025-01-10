@@ -604,7 +604,7 @@ public class BCQT_18B_2024 extends ActionNhaptaycnMain
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
                 return SUCCESS;
             } else {
-                List<QT_DULIEU_NT> lstDulieuNt_temp = daoMain.getbcqt_11c_2024(conn, "AAA2", dateStr, UserName, smapgd);
+                List<QT_DULIEU_NT> lstDulieuNt_temp = daoMain.getbcqt_11c_2024(conn, "BBB1", dateStr, UserName, smapgd);
                 ArrayList<DULIEU_NT_TQ> lstLocalDataUpdate = new ArrayList<>();
                 for (QT_DULIEU_NT tmp : lstDulieuNt_temp) {
                     DULIEU_NT_TQ temlocal = new DULIEU_NT_TQ();
