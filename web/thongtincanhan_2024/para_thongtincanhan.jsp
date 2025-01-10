@@ -243,7 +243,7 @@
                     var rowcount = table.rows.length;
                     var isValid = true;
                     var chot = document.getElementById("chotsl").value;
-                    if (chot === "2") {
+                    if (chot === "2" ||chot === "1") {
                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Dữ liệu đã gửi, không thể chỉnh sửa!</h>");
                         return;
                     }
@@ -349,7 +349,7 @@
                     var rowcount = table.rows.length;
                     var chot = document.getElementById("chotsl").value;
                     var isValid = true;
-                    if (chot === "2") {
+                    if (chot === "2"|| chot === "1") {
                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Dữ liệu đã gửi, không thể tiếp tục gửi!</h>");
                         return;
                     }
