@@ -125,7 +125,7 @@
                             parseFloat($(arrCot[i]).eq(26).val()) + parseFloat($(arrCot[i]).eq(27).val()) + 
                             parseFloat($(arrCot[i]).eq(28).val()) + parseFloat($(arrCot[i]).eq(29).val()) + 
                             parseFloat($(arrCot[i]).eq(30).val())
-                    )/28);
+                    )/29);
                 }
 //                $(".D13").eq(31).val(0);
             }

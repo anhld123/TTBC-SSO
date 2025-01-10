@@ -244,12 +244,12 @@
                 }
                 //Kiem tra chi tieu CD270 và CD440 phải bằng nhau
                 var loai_module = $("#loaimodule").val();
-                if (loai_module === 'CIC001')
+                if (loai_module === 'CIC20001')
+//                    alert(loai_module);
                 {
                     var nambc = $("#idnambc").val();
                     var D5_cd270 = getvalue('D5_CD270');
                     var D5_cd440 = getvalue('D5_CD440');
-
                     if (D5_cd270 !== D5_cd440)
                     {
                         alert('Số liệu chỉ tiêu CD270 và chỉ tiêu CD440 năm báo cáo ' + (nambc - 1).toString() + ' đang lệch ! CD270=' + (D5_cd270).toString() + ' CD440=' + D5_cd440.toString());
@@ -345,7 +345,7 @@
                 <div id="navParam" >
                     <table border="0">
                         <tr style="width: 100%">
-                            <td style="width: 70%">
+                            <td style="width: 100%">
                                 <div id="navParam2">
                                     Loại chỉ tiêu:
                                     <s:select
@@ -362,19 +362,19 @@
                                         onCompleteTopics="myCompleteTopics1"></s:select> 
                                         <!--<div id="pgdtruyvan">-->
                                     <s:if test="!Grade.equalsIgnoreCase('3')">
-                                        <label id="lbldv" > Đơn vị:
+                                        <label id="lbldv" >&nbsp; Đơn vị:
                                             <s:select
                                                 id="idma_dn"
                                                 name="ma_dn"
                                                 list="doanhNghiepList" 
                                                 listKey="sKey"
                                                 listValue="sDesc"                              
-                                                cssStyle="font-weight: bold;vertical-align: middle;width: 170px;"
+                                                cssStyle="font-weight: bold;vertical-align: middle;width: 150px;"
                                                 onBeforeTopics="BeforeHandler_loaibc" 
                                                 onCompleteTopics="myCompleteTopics1"></s:select> 
                                             </label> 
                                     </s:if>
-                                    Năm bc:
+                                    &nbsp;Năm bc:
                                     <s:select
                                         id="idnambc"
                                         name="nambc"
@@ -385,8 +385,29 @@
                                         cssStyle="font-weight: bold;vertical-align: middle;width: 70px;"
                                         onBeforeTopics="BeforeHandler_loaibc" 
                                         onCompleteTopics="myCompleteTopics1"></s:select> 
-                                        <!--</div>-->
-                                        <!--<input type="button" id="idload" name="nameloadap"  onclick="onchange_ab()" value="Tải dữ liệu"/>-->
+                                    <s:if test="!Grade.equalsIgnoreCase('3')">
+                                        &nbsp;Kiểm toán:
+                                        <select name="txtKiemtoan" id="txtKiemtoan" style="font-weight: bold;width: 100px">  
+                                            <option value=""> --- Chọn ---</option>     
+                                            <option value="0">0 - Không kiểm toán</option>                                                    
+                                            <option value="1">1 - Có kiểm toán</option>
+                                        </select> 
+                                        &nbsp; Báo cáo:
+                                        <select name="txtBchopnhat" id="txtBchopnhat"  style="font-weight: bold;width: 100px">   
+                                            <option value=""> --- Chọn ---</option>
+                                            <option value="0">0 - Báo cáo tài chính riêng lẻ</option>                                                    
+                                            <option value="1">1 - Báo cáo tài chính hợp nhất</option>
+                                        </select> 
+                                        <!--<div style="height: 2px"></div>-->
+                                        &nbsp; Thông tư:
+                                        <select name="txtThongtu" id="txtThongtu"  style="font-weight: bold;width: 100px">   
+                                            <option value=""> --- Chọn ---</option>
+                                            <option value="TT2002014">1 - Thông tư 200/2014/TT-BTC</option>                                                    
+                                            <option value="TT1332016">2 - Thông tư 133/2016/TT-BTC</option>
+                                        </select> 
+                                    </s:if>
+                                    <!--</div>-->
+                                    <!--<input type="button" id="idload" name="nameloadap"  onclick="onchange_ab()" value="Tải dữ liệu"/>-->
                                     <sj:submit id="idtruyvan" name="nametruyvan" value="Tải dữ liệu" targets="table_data"
                                                onBeforeTopics="beforediv" onCompleteTopics="completediv" onclick="loaddata()"/>
                                     <%--<sj:submit id="idluudulieu" name="savedata" value="Lưu dữ liệu" targets="para_api"--%> 
@@ -405,18 +426,16 @@
 
                                 </div>
                             </td>
-                            <td style="width: 30%">
-                                <div id="loadingImageDivSave" style="display: none;">
-                                    <img id="loadingImage" src='img/loading.gif' border='0' >
-                                </div>
-                                <div id="para_api">
 
-                                </div>
-                            </td>
                         </tr>
                     </table>
                 </div>
+                <div id="loadingImageDivSave" style="display: none;">
+                    <img id="loadingImage" src='img/loading.gif' border='0' >
+                </div>
+                <div id="para_api">
 
+                </div>
                 <s:if test="!Grade.equalsIgnoreCase('1')">
                     <div id="containTree">
                         <sjt:tree

@@ -38,13 +38,6 @@
             var i = 0;
             var inter = setInterval(function () {
                 i++;
-                if(i < 5){
-                    if (elem.css('visibility') == 'hidden') {
-                        elem.css('visibility', 'visible');
-                    } else {
-                        elem.css('visibility', 'hidden');
-                    }
-                }
                 if (i == 20) {
                     clearInterval(inter);
                     $('#messError').css('display', 'none');

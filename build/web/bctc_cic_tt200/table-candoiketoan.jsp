@@ -145,51 +145,56 @@
                     </s:else>
 
                 </td>
+            <input type="hidden" value="<s:property value='D9'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9"/>
+            <input type="hidden" value="<s:property value='D10'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10"/>
+            <input type="hidden" value="<s:property value='D11'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11"/>
+            <input type="hidden" value="<s:property value='NHAPTAY'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NHAPTAY"/>
+            <input type="hidden" value="<s:property value='KIEUIN'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KIEUIN"/>
 
-                <td align = "left" style="width: 250px">
-                    <%--<s:property value='TEN'/>--%>
-                    <s:if test="NHAPTAY.equalsIgnoreCase('N') ">
-                        <input type="text" style="font-weight:bold; background-color: #e1edf7;" value="<s:property value='TEN'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN"  class="TEXT_VIEW" readonly="true"/>
-                    </s:if>
-                    <s:else>
-                        <input type="text" value="<s:property value='TEN'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN"  class="TEXT_VIEW" readonly="true"/>
-                    </s:else>
+            <td align = "left" style="width: 250px">
+                <%--<s:property value='TEN'/>--%>
+                <s:if test="NHAPTAY.equalsIgnoreCase('N') ">
+                    <input type="text" style="font-weight:bold; background-color: #e1edf7;" value="<s:property value='TEN'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN"  class="TEXT_VIEW" readonly="true"/>
+                </s:if>
+                <s:else>
+                    <input type="text" value="<s:property value='TEN'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN"  class="TEXT_VIEW" readonly="true"/>
+                </s:else>
 
-                </td>
+            </td>
 
-                <td align = "right" class="TD_DU_NO" style="width: 50px">
-                    <s:if test="NHAPTAY.equalsIgnoreCase('N') ">
-                        <input type="text" id="D5_<s:property value='MA'/>" value="<s:property value='D5'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" onblur="congcapcongthuc('<s:property value='MA'/>', 'D5_')" class="NHAP_SO number2" readonly="true"  style="font-weight:bold; background-color: #e1edf7;"/>
-                    </s:if>
-                    <s:else>
-                        <input type="text" id="D5_<s:property value='MA'/>" value="<s:property value='D5'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" onblur="congcapcongthuc('<s:property value='MA'/>', 'D5_')"  class="NHAP_SO number2" />
-                    </s:else>
+            <td align = "right" class="TD_DU_NO" style="width: 50px">
+                <s:if test="NHAPTAY.equalsIgnoreCase('N') ">
+                    <input type="text" id="D5_<s:property value='MA'/>" value="<s:property value='D5'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" onblur="congcapcongthuc('<s:property value='MA'/>', 'D5_')" class="NHAP_SO number2" readonly="true"  style="font-weight:bold; background-color: #e1edf7;"/>
+                </s:if>
+                <s:else>
+                    <input type="text" id="D5_<s:property value='MA'/>" value="<s:property value='D5'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" onblur="congcapcongthuc('<s:property value='MA'/>', 'D5_')"  class="NHAP_SO number2" />
+                </s:else>
 
-                </td>
+            </td>
 
-                <td align = "right" class="TD_DU_NO" style="width: 50px">
-                    <s:if test="NHAPTAY.equalsIgnoreCase('N') ">
-                        <input type="text" id="D6_<s:property value='MA'/>" value="<s:property value='D6'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6"  onblur="congcapcongthuc('<s:property value='MA'/>', 'D6_')" class="NHAP_SO number2" readonly="true" style="font-weight:bold; background-color: #e1edf7;"/>
-                    </s:if>
-                    <s:else>
-                        <input type="text" id="D6_<s:property value='MA'/>" value="<s:property value='D6'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" onblur="congcapcongthuc('<s:property value='MA'/>', 'D6_')"   class="NHAP_SO number2"/>
-                    </s:else>
+            <td align = "right" class="TD_DU_NO" style="width: 50px">
+                <s:if test="NHAPTAY.equalsIgnoreCase('N') ">
+                    <input type="text" id="D6_<s:property value='MA'/>" value="<s:property value='D6'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6"  onblur="congcapcongthuc('<s:property value='MA'/>', 'D6_')" class="NHAP_SO number2" readonly="true" style="font-weight:bold; background-color: #e1edf7;"/>
+                </s:if>
+                <s:else>
+                    <input type="text" id="D6_<s:property value='MA'/>" value="<s:property value='D6'/>" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" onblur="congcapcongthuc('<s:property value='MA'/>', 'D6_')"   class="NHAP_SO number2"/>
+                </s:else>
 
-                </td>               
+            </td>               
 
 
-                <td class="hideColumn">
-                    <input type="text" value="<s:property value='D7'/>" name="D7" class="KH_CONGTHUC"/>
-                </td>
-                <td class="hideColumn">
-                    <input type="text" value="<s:property value='MA'/>" name="<s:property value='MA'/>" class="CIC_MA"/>
-                </td>
-            </tr>
-        </s:iterator>
-    </table>  
-        
-        <sj:submit id="idluudulieu" name="savedata" value="Lưu dữ liệu" targets="para_api" 
-               onBeforeTopics="beforedivsave" onCompleteTopics="completedivsave" cssStyle="display: none;"/> 
+            <td class="hideColumn">
+                <input type="text" value="<s:property value='D7'/>" name="D7" class="KH_CONGTHUC"/>
+            </td>
+            <td class="hideColumn">
+                <input type="text" value="<s:property value='MA'/>" name="<s:property value='MA'/>" class="CIC_MA"/>
+            </td>
+        </tr>
+    </s:iterator>
+</table>  
+
+<sj:submit id="idluudulieu" name="savedata" value="Lưu dữ liệu" targets="para_api" 
+           onBeforeTopics="beforedivsave" onCompleteTopics="completedivsave" cssStyle="display: none;"/> 
 
 </s:form>
 

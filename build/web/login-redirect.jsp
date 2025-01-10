@@ -9,18 +9,170 @@
         <link rel="shortcut icon" type="image/x-icon" href="img/Logo_VBSP.ico"/>
         <title>Ngân hàng chính sách xã hội VN</title>
         <script type="text/javascript" src="js/jquery-1.4.3.js"></script>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                background-color: #f9f9f9;
+                color: #333;
+            }
+
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            h1 {
+                font-size: 36px;
+                color: #444;
+            }
+
+            h2 {
+                font-size: 28px;
+                color: #222;
+                font-weight: bold;
+            }
+
+            p {
+                font-size: 18px;
+                color: #666;
+            }
+
+            .countdown-container {
+                text-align: center;
+                font-size: 36px; /* Increase title font size */
+                margin-top: 20px;
+            }
+
+            .countdown {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-image: url('img/tet2025.jpg');
+                background-size: cover; 
+                background-position: center; 
+                border-radius: 10px;
+                padding: 80px; 
+                width: 100%; 
+                height: 100%; 
+                max-width: 1000px;
+                max-height: 800px;
+                margin: 0 auto;
+            }
+
+            .time-box {
+                background-color: rgba(255, 193, 7, 0.8); 
+                padding: 30px; 
+                margin: 0 15px; 
+                border-radius: 10px; 
+                font-size: 48px; 
+                font-weight: bold;
+                text-align: center;
+                color: #000;
+            }
+
+            .time-box {
+                background-color: rgba(255, 217, 102, 0.8); /* Đặt màu nền với độ trong suốt */
+                border-radius: 15px;
+                padding: 20px;
+                margin: 10px;
+                width: 100px;
+                text-align: center;
+            }
+
+            .time {
+                font-size: 48px;
+                font-weight: bold;
+                color: #333;
+            }
+
+            .label {
+                font-size: 20px;
+                color: #666;
+            }
+
+            .footer-text {
+                font-size: 14px;
+                color: #888;
+                margin-top: 20px;
+            }
+            @-webkit-keyframes my {
+                0% { color: red; } 
+                50% { color: #fff;  } 
+                100% { color: red;  } 
+            }
+            @-moz-keyframes my { 
+                0% { color: red;  } 
+                50% { color: #fff;  }
+                100% { color: red;  } 
+            }
+            @-o-keyframes my { 
+                0% { color: red; } 
+                50% { color: #fff; } 
+                100% { color: red;  } 
+            }
+            @keyframes my { 
+                0% { color: red;  } 
+                50% { color: #fff;  }
+                100% { color: red;  } 
+            } 
+            .color_11 {
+                background: none;
+                font-size:14px;
+                font-weight:bold;
+                -webkit-animation: my 700ms infinite;
+                -moz-animation: my 700ms infinite; 
+                -o-animation: my 700ms infinite; 
+                animation: my 700ms infinite;
+            }
+        </style>
         <script type="text/javascript">
-            $(document).ready(function()
+            $(document).ready(function ()
             {
                 $.ajaxSetup({
                     // Disable caching of AJAX responses */
                     cache: false
                 });
 
-                var refreshId = setInterval(function()
-                {
-                    $("#vbspnews").load('vbsp-news.jsp').fadeIn("slow");
-                }, 5000);
+//                var refreshId = setInterval(function ()
+//                {
+//                    $("#vbspnews").load('vbsp-news.jsp').fadeIn("slow");
+//                }, 5000);
+                function updateTime() {
+                    var endOfYear = new Date(2025, 0, 29, 0, 0, 0); // Thời gian Tết Ất Tỵ
+                    var now = new Date();
+                    var timeDiff = endOfYear - now;
+
+                    // Tính số ngày, giờ, phút, giây còn lại
+                    var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+                    // Hiển thị trên giao diện
+                    document.getElementById("days").textContent = days;
+                    document.getElementById("hours").textContent = (hours < 10 ? "0" : "") + hours;
+                    document.getElementById("minutes").textContent = (minutes < 10 ? "0" : "") + minutes;
+                    document.getElementById("seconds").textContent = (seconds < 10 ? "0" : "") + seconds;
+
+                    // Khi hết thời gian, hiển thị thông báo
+                    if (timeDiff <= 0) {
+                        // Xóa bộ đếm thời gian và ẩn các tiêu đề
+                        clearInterval(updateTime);
+                        document.getElementById("title98").style.display = "none";
+                        document.getElementById("title99").style.display = "none";
+
+// Tạo nội dung video và nút bật/tắt âm thanh
+                        const countdownContainer = document.querySelector(".countdown");
+                        countdownContainer.innerHTML = `
+    <video autoplay loop muted playsinline id="background-video" 
+           style="position: relative; width: 100%; height: 100%; object-fit: cover" controls>
+        <source src="img/videotet.mp4" type="video/mp4">  
+    </video>
+  `;
+                    }
+                }
+                setInterval(updateTime, 1000);
             });
             function CheckKey(e)
             {
@@ -46,13 +198,13 @@
                     var js_hidden_obj = document.getElementById(js_hidden_id);
                     var js_searchusr = js_hidden_obj.name.toString().substr(6);
                     var js_grade = parseInt(js_hidden_obj.value);
-                    if (jo_user === js_searchusr){                        
+                    if (jo_user === js_searchusr) {
                         if (js_grade === 1)
                             document.getElementById("js_r1").checked = true;
                         else if (js_grade === 2)
                             document.getElementById("js_r2").checked = true;
                         else
-                            document.getElementById("js_r3").checked = true;                        
+                            document.getElementById("js_r3").checked = true;
                     }
                 }
 //                alert('aaa');
@@ -111,14 +263,36 @@
                         </table></td>
                 </tr>
                 <tr>                    
-                    <td height="100%" valign="top"><table border="0"  cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td width="5%"></td>
-                                <td align="left" style="font-size: 12px;" width="90%">
-                                    <div id="vbspnews"></div>
-                                </td>
-                            </tr>
-                        </table></td>
+                    <td height="50" valign="top">
+                        <table border="0"  cellpadding="0" cellspacing="0">
+                            <div class="container" style="font-family: Brush Script MT">
+                                <h1 id="title99" style="font-family: Comic Sans MS">Đếm ngược</h1>
+                                <h2 id="title98" style="font-family: Bradley Hand">Tết Ất Tỵ, 2025</h2>
+                                <div class="countdown" style="position: relative; width: 100%; height: 300px; background-color: #000; border-radius: 10px; overflow: hidden; padding: 0;">
+                                    <div class="time-box">
+                                        <span id="days" class="time">00</span><br>
+                                        <span class="label">Ngày</span>
+                                    </div>
+                                    <div class="time-box">
+                                        <span id="hours" class="time">00</span><br>
+                                        <span class="label">Giờ</span>
+                                    </div>
+                                    <div class="time-box">
+                                        <span id="minutes" class="time">00</span><br>
+                                        <span class="label">Phút</span>
+                                    </div>
+                                    <div class="time-box">
+                                        <span id="seconds" class="time">00</span><br>
+                                        <span class="label">Giây</span>
+                                    </div>
+                                </div>
+
+                            </div>
+<!--                            <div class="container" style="font-family: Brush Script MT">
+                                title2 ở đây
+                            </div>-->
+                        </table>
+                    </td>
                     <td>&nbsp;</td>    
                     <td><img src="img/linelogin.jpg" width="188" height="330" /></td>
                     <td valign="top" align="center">

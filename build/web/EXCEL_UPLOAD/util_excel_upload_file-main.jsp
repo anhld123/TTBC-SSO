@@ -53,13 +53,18 @@
                             </p>
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="2" align="right">
+                    <tr>                        
+                        <td colspan="2" align="right"> 
                             <sj:submit value="Upload" 
                                        targets="upload_result_div" 
                                        onBeforeTopics="before-next"
                                        onCompleteTopics="after-next"
                                        theme="simple"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <span style="color: red; font-size: 8pt;">(*) Báo cáo Quyết toán kế hoạch khi upload Excel dữ liệu sẽ được gửi về TW</span>
                         </td>
                     </tr>
                 </table>
