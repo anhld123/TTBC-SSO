@@ -343,6 +343,11 @@ public class BCQT_18B_2024 extends ActionNhaptaycnMain
             HashMap hmParameter = getParameter();
             String sngaybc = hmParameter.get("ngay_bc").toString();
             String smacn = hmParameter.get("lstCN").toString();
+            if (smacn.equals("000000")) {
+                setSoku("1");
+            } else {
+                setSoku("2");
+            }
             Connection conn = new DaoConnect().getConnect();
             setSkhoa("BCQT_MS18B");
             ActionContext.getContext().getSession().put("UserName", UserName);

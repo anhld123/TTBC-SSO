@@ -269,6 +269,11 @@ public class BCQT_11C_2024 extends ActionNhaptaycnMain
             String sngaybc = hmParameter.get("ngay_bc").toString();
             String smacn = hmParameter.get("lstCN").toString();
             Connection conn = new DaoConnect().getConnect();
+            if (smacn.equals("000000")) {
+                setSoku("1");
+            } else {
+                setSoku("2");
+            }
             setSkhoa("BCQT_MS11C");
             ActionContext.getContext().getSession().put("UserName", UserName);
             DaoBcqtMain daoMain = new DaoBcqtMain();
