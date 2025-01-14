@@ -93,9 +93,10 @@
                 <s:hidden name="khoa_tdnn" id="khoa"/>
                 DANH SÁCH PGD/CN ĐÃ GỬI DỮ LIỆU
             </div> 
-            <s:if test="!sSoku.equalsIgnoreCase('000000')">
+            
                 <div style="height:10px"></div>  
-                <table border="1" class="editDelete" id="subTable" align="center" style="padding-top: 10px">   
+                <table border="1" class="editDelete" id="subTable" align="center" style="padding-top: 10px">  
+                    <s:if test="!soku.equalsIgnoreCase('1')">
                     <tr>
                         <th style="width: 50px">STT</th>
                         <th style="width: 80px">Mã PGD</th>
@@ -138,9 +139,7 @@
                     </s:iterator>
                 </s:if>
                 <s:else>
-                    <div style="height:10px"></div>  
-                    <table border="1" class="editDelete" id="subTable" align="center" style="padding-top: 10px">   
-                        <tr>
+                     <tr>
                             <th style="width: 50px">STT</th>
                             <th style="width: 80px">Mã CN</th>
                             <th style="width: 100px">Tên Chi nhánh</th>
@@ -185,7 +184,7 @@
                             </tr>
                         </s:iterator>
                     </s:else>
-
+                </table>
                     </div>      
                     <div id="luu_thanhcong"></div>
                     <script>
