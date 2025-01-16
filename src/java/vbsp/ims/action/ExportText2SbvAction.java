@@ -20,6 +20,7 @@ import vbsp.ims.define.DefineFun;
 import vbsp.ims.model.DownloadFileInfor;
 import vbsp.ims.model.ExportText2SbvManager;
 import vbsp.ims.model.Indicator;
+import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
 
 /**
@@ -50,28 +51,44 @@ public class ExportText2SbvAction extends ActionSupport
     private String sbvSendIndiGroup = "";
     private boolean send2sbv = false;
     private boolean send9acc = false;
-    
+    protected List<ListValue> lstPara = new ArrayList<ListValue>();
     HttpServletRequest request;
     ExportText2SbvManager export = new ExportText2SbvManager();
 
+    public List<ListValue> getLstPara() {
+        return lstPara;
+    }
+
+    public void setLstPara(List<ListValue> lstPara) {
+        this.lstPara = lstPara;
+    }
+
     //--------------------------------------------------------------------------
     public String buildReportGroupCombo() {
-        
+
         reportGrade = Integer.parseInt(
                 request.getSession().getAttribute("reportGrade").toString());
         userName = request.getSession().getAttribute("username").toString();
-        
+
         ExportText2SbvManager exporter = new ExportText2SbvManager();
-        
+
         this.lstRptGroupObj = exporter.getLstRptGroupObj(userName, reportGrade);
-        
+
         System.err.println("selectedReport -->" + selectedReport);
-        
+
         if (selectedReport == null || selectedReport.isEmpty()) {
             lstRptPeriod = exporter.getLstRptPeriod("ALL");
         } else {
             lstRptPeriod = exporter.getLstRptPeriod(selectedReport);
         }
+        return "success";
+    }
+
+    public String buildPara() {
+
+        DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
+        lstPara = daoMain11.getDanhMuc("", "PCRT", "");
+        System.out.println("lstPara= " +lstPara);
         return "success";
     }
 
@@ -83,25 +100,26 @@ public class ExportText2SbvAction extends ActionSupport
 
     //--------------------------------------------------------------------------
     public String exportFile() {
-        if (reportPeriod == null || selectedReport == null
+        if (!selectedReport.equals("EX050001") && (reportPeriod == null || selectedReport == null
                 || reportPeriod.isEmpty() || selectedReport.isEmpty()
-                || reportPeriod.trim().equals("NULL")) {
+                || reportPeriod.trim().equals("NULL"))) {
             this.message = "(*) Bạn chưa chọn báo cáo hoặc kỳ báo cáo.";
             return "error";
         } else {
             String strDateExport = "";
+            String gennew = "";
             try {
                 strDateExport = new SimpleDateFormat("dd-MMM-yyyy").format(
                         new SimpleDateFormat("dd/MM/yyyy").parse(reportDate));
             } catch (ParseException ex) {
                 Logger.getLogger(ExportText2SbvAction.class.getName()).log(Level.SEVERE, null, ex);
             }
-            String gennew = request.getParameter("gennew");
+            gennew = request.getParameter("gennew");
 //            System.err.println(gennew);
-            if (gennew == null || gennew.trim().equals("Y")) {
+            if ((gennew == null || gennew.trim().equals("Y")) && !selectedReport.equals("EX050001")) {
                 String lstOfPos = getListOfPos();
                 if (export.exportTextFile(selectedReport, lstOfPos, strDateExport,
-                        consolidateFlag, reportPeriod,sbvSendIndiGroup,send2sbv,send9acc)) {
+                        consolidateFlag, reportPeriod, sbvSendIndiGroup, send2sbv, send9acc)) {
                     System.err.println(sbvSendIndiGroup);
                     lstOfFile = ExportText2SbvManager.getLstOfTextFile();
                     filesList = ExportText2SbvManager.getFilesList();
@@ -113,28 +131,39 @@ public class ExportText2SbvAction extends ActionSupport
                     return "error";
                 }
             } else {
-                lstOfFile = ExportText2SbvManager.getLstOfTextFile();
-                filesList = ExportText2SbvManager.getFilesList();
-                filereport = ExportText2SbvManager.getZipFileList().get(0);
-                fileNamelocal = ExportText2SbvManager.getZipFileList().get(1);
+                if (selectedReport.equals("EX050001")) {
+                    String txtGetData = request.getParameter("txtGetData");
+                    System.out.println("txtGetData== " +txtGetData);
+                    export.exportTextFile(selectedReport, txtGetData, strDateExport,
+                            consolidateFlag, reportPeriod, sbvSendIndiGroup, send2sbv, send9acc);
+                    lstOfFile = ExportText2SbvManager.getLstOfTextFile();
+                    filesList = ExportText2SbvManager.getFilesList();
+                    filereport = ExportText2SbvManager.getZipFileList().get(0);
+                    fileNamelocal = ExportText2SbvManager.getZipFileList().get(1);
+                } else {
+                    lstOfFile = ExportText2SbvManager.getLstOfTextFile();
+                    filesList = ExportText2SbvManager.getFilesList();
+                    filereport = ExportText2SbvManager.getZipFileList().get(0);
+                    fileNamelocal = ExportText2SbvManager.getZipFileList().get(1);
+                }
             }
 
             System.err.println("genfile ~" + filesList.size());
-            
-            for (int i = 1; i <= filesList.size(); i++){
-                DownloadFileInfor downloadfile = (DownloadFileInfor)filesList.get(i-1);
-                System.err.println(downloadfile.getFileName()+"~"+downloadfile.getFilePath());
+
+            for (int i = 1; i <= filesList.size(); i++) {
+                DownloadFileInfor downloadfile = (DownloadFileInfor) filesList.get(i - 1);
+                System.err.println(downloadfile.getFileName() + "~" + downloadfile.getFilePath());
             }
-            
+
             System.err.println("success ~" + filesList.size());
             return "success";
         }
     }
-    
-    public String selectIndicator(){
+
+    public String selectIndicator() {
         userName = request.getSession().getAttribute("username").toString();
         ExportText2SbvDao exporter = new ExportText2SbvDao();
-        sendIndiList = exporter.getIndicatorList(1,Integer.parseInt(reportPeriod));
+        sendIndiList = exporter.getIndicatorList(1, Integer.parseInt(reportPeriod));
         return "success";
     }
 
@@ -175,7 +204,7 @@ public class ExportText2SbvAction extends ActionSupport
     public void setSbvSendIndiGroup(String sbvSendIndiGroup) {
         this.sbvSendIndiGroup = sbvSendIndiGroup;
     }
-            
+
     public void setMessage(String message) {
         this.message = message;
     }
@@ -207,7 +236,7 @@ public class ExportText2SbvAction extends ActionSupport
     public void setSendIndiList(List<Indicator> sendIndiList) {
         this.sendIndiList = sendIndiList;
     }
-    
+
     public void setReportPeriod(String reportPeriod) {
         this.reportPeriod = reportPeriod;
     }
@@ -255,8 +284,7 @@ public class ExportText2SbvAction extends ActionSupport
     public void setSend9acc(boolean send9acc) {
         this.send9acc = send9acc;
     }
-    
-    
+
     public void setFilesList(List<DownloadFileInfor> filesList) {
         this.filesList = filesList;
     }
@@ -289,7 +317,7 @@ public class ExportText2SbvAction extends ActionSupport
             String pos_cd;
             if (listOfId.size() > 0) {
                 for (String id : listOfId) {
-                    isAdded = false;        
+                    isAdded = false;
                     pos_cd = IMSRptDao.getPosbyTreeId(Integer.parseInt(id));
                     for (String added_pos : pos_stack) {
                         if (added_pos.equals(pos_cd)) {
@@ -300,7 +328,7 @@ public class ExportText2SbvAction extends ActionSupport
                     if (!isAdded && pos_cd != null && !"999999".equals(pos_cd)) {
                         posString += pos_cd + ",";
                         pos_stack.add(pos_cd);
-                    }                    
+                    }
                 }
             }
             posString = posString.substring(0, posString.length() - 1);
@@ -321,6 +349,5 @@ public class ExportText2SbvAction extends ActionSupport
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    
-    
+
 }

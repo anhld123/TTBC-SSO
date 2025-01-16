@@ -13,6 +13,10 @@
         <action  name="buildReportPeriodCombo" class="vbsp.ims.action.ExportText2SbvAction"
                  method="buildReportPeridoCombo" >                                            
             <result name="success" type="json"></result>                          
+        </action>  
+        <action  name="buildPara" class="vbsp.ims.action.ExportText2SbvAction"
+                 method="buildPara" >                                            
+            <result name="success" type="json"></result>                          
         </action>                      
         <action  name="exportText2Sbv" class="vbsp.ims.action.ExportText2SbvAction"
                  method="exportFile" >                                            

@@ -167,6 +167,11 @@ public class ExportText2SbvManager {
                         exportCommisionFee(textFilePath, pos_cd, apiReportDate, "F");
                         zipPath = Define.M_ROOT + Define.M_REPORT_TXT + zipFile;
                         break;
+                    case "EX050001":                        
+                        textFilePath = exportDao.getDataExportFile(mapReport, pos_cd, considateFlag,
+                                reportDate, period, "", Define.M_ROOT + Define.M_REPORT_XLS);
+                        zipPath = Define.M_ROOT + Define.M_REPORT_TXT + zipFile;
+                        break;
                     default:
                         textFilePath = exportDao.getDataExportFile(
                                 mapReport, 

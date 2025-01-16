@@ -26,7 +26,7 @@
         }
         if (report === "EX220002") {
             $("#to2sbvchkid").show();
-        }else {
+        } else {
             $("#to2sbvchkid").hide();
         }
     }
@@ -43,8 +43,7 @@
         {
             alert('(Msg)Bạn chưa chọn kỳ báo cáo.');
             event.preventDefault();
-        }
-        else {
+        } else {
             if (strPeriod === "D")
                 period = 1;
             else if (strPeriod === "10D")
@@ -65,13 +64,13 @@
         }
     }
 
-    $.subscribe('beforediv1', function(event, data) {
+    $.subscribe('beforediv1', function (event, data) {
         $("#contentDiv").empty();
         $("#contentDiv").hide();
         $("#loadingImageDiv").show();
     });
 
-    $.subscribe('completediv1', function(event, data) {
+    $.subscribe('completediv1', function (event, data) {
         com.mudrick.onPeopleTableLoad();
         $("#loadingImageDiv").hide();
         $("#contentDiv").show();
@@ -81,25 +80,25 @@
     function clk_glkhtd() {
         var lstPos = "";
         $('#treeView').jstree("get_checked", null, true).each(
-                function() {
+                function () {
                     lstPos = lstPos + this.id + ',';
                 });
         document.getElementById("selectedPos").value = lstPos;
     }
-    $(function() {
+    $(function () {
         new DateMask("dd/MM/yyyy", "reportDate");
     });
 
     if (!com)
         var com = {};
     com.mudrick = {
-        onPeopleTableLoad: function() {
+        onPeopleTableLoad: function () {
             // Gets called when the data loads
-            $("#studentTable th.sortable").each(function() {
+            $("#studentTable th.sortable").each(function () {
                 // Iterate over each column header containing the sortable class, so
                 // we can setup overriding click handlers to load via ajax, rather than
                 // allowing the browser to follow a normal link
-                $(this).click(function() {
+                $(this).click(function () {
                     // "this" is scoped as the sortable th element
                     var link = $(this).find("a").attr("href");
                     $("#contentDiv").load(link, {}, com.mudrick.onPeopleTableLoad);
@@ -108,9 +107,9 @@
                 });
             });
 
-            $("#contentDiv .pagelinks a").each(function() {
+            $("#contentDiv .pagelinks a").each(function () {
                 // Iterate over the pagination-generated links to override also
-                $(this).click(function() {
+                $(this).click(function () {
                     var link = $(this).attr("href");
                     var rplink = link.replace("gennew=Y", "gennew=N");
                     $("#contentDiv").load(rplink, {}, com.mudrick.onPeopleTableLoad);
@@ -118,7 +117,7 @@
                 });
             });
 
-            $("#contentDiv .pagelinks strong").each(function() {
+            $("#contentDiv .pagelinks strong").each(function () {
                 var htmlString = $(this).html();
                 $(this).text("Trang " + htmlString);
             });
@@ -169,7 +168,7 @@
                 <table style="border:solid 3px #cccccc;width: 75%; padding: 5px 5px 10px 5px;"
                        CELLSPACING="5px">
                     <tr>
-                        <td>Báo cáo: </td>
+                        <td>Báo cáo:</td>
                         <td>
                             <s:url var="buildComboUrl1" action="buildReportGroupCombo"></s:url>
                             <sj:select href="%{buildComboUrl1}" 
@@ -181,28 +180,24 @@
                                        listValue="sDesc"
                                        emptyOption="false" 
                                        headerKey="NULL"
-                                       onchange="js_changetopic();"
-                                       headerValue="--- Chọn báo cáo ---" theme="simple"
-                                       ></sj:select>   
+                                       onchange="js_changetopic(); toggleParameters(this.value);"
+                                       headerValue="--- Chọn báo cáo ---" 
+                                       theme="simple"></sj:select>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                Ngày báo cáo: 
-                            </td>
+                        <tr class="optional-parameter1">
+                            <td>Ngày báo cáo:</td>
                             <td>                        
-                            <sj:datepicker name="reportDate" value="%{new java.util.Date()}"  onblur="validatedate(this.value)"
+                            <sj:datepicker name="reportDate" value="%{new java.util.Date()}" onblur="validatedate(this.value)"
                                            placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy"
                                            id="selectedrptDate" size="15"/>
                         </td>                    
                     </tr>
-                    <tr>
-                        <td>
-                            Kỳ báo cáo: 
-                        </td>
+                    <tr class="optional-parameter2">
+                        <td>Kỳ báo cáo:</td>
                         <td>                        
                             <s:url var="buildComboUrl2" action="buildReportPeriodCombo"></s:url>
-                            <sj:select href="%{buildComboUrl1}" 
+                            <sj:select href="%{buildComboUrl2}" 
                                        name="reportPeriod"
                                        id="reportPeriod"
                                        list="lstRptPeriod"      
@@ -211,40 +206,65 @@
                                        listValue="sDesc"
                                        emptyOption="false" 
                                        headerKey="NULL"
-                                       headerValue="--- Chọn kỳ báo cáo ---" theme="simple"
-                                       ></sj:select>
+                                       headerValue="--- Chọn kỳ báo cáo ---" 
+                                       theme="simple"></sj:select>
                             </td>                    
                         </tr>
-                        <!--                        <tr>
-                                                    <td colspan="2"><br/></td>
-                                                </tr>-->
-                        <tr>
-                            <td></td>
-                            <td>
-                                <a href="#" onclick="javascript:openSelectWindow();"
-                                   style="display:none;" id="js_select_id">
-                                    <u><b>&gt;&gt;Gửi lại PN</b></u>
-                                </a>        
-                                <p id="to2sbvchkid" style="display:none;">
-                                    <s:checkbox name="send2sbv"
-                                    fieldValue="true" />
-                                    <b>Gửi NHNN</b>
-                                    
-                                    <s:checkbox name="send9acc"
-                                    fieldValue="true" />
-                                    <b>Gửi ngoại bảng</b>
-                                    </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <hr/>
-                            </td>
-                        </tr>                    
-                        <tr>
-                            <td></td>
-                            <td align="left">
-                                <div class="clicklink">
+
+                        <tr class="optional-parameter3">
+                            <td>Tên file:</td>
+                            <td>                        
+                            <s:url var="buildComboUrl3" action="buildPara"></s:url>
+                            <sj:select href="%{buildComboUrl3}" 
+                                       name="txtGetData"
+                                       id="txtGetData"
+                                       list="lstPara"
+                                       reloadTopics="reloadModuleList"
+                                       listKey="sKey"
+                                       listValue="sDesc"
+                                       emptyOption="false"
+                                       headerKey="NULL"
+                                       headerValue="--- Chọn file báo cáo ---"
+                                       theme="simple" />
+                            <!--                            <td>                        
+                                                            <select name="txtGetData" id="txtGetData">                                                    
+                                                                <option value="1">KYC_01</option>                                                    
+                                                                <option value="2">KYC_02</option>
+                                                                <option value="3">KYC_03</option>
+                                                            </select> 
+                                                        </td>                    -->
+                    </tr>
+                    <%--</s:else>--%>
+                    <!--                        <tr>
+                                                <td colspan="2"><br/></td>
+                                            </tr>-->
+                    <tr>
+                        <td></td>
+                        <td>
+                            <a href="#" onclick="javascript:openSelectWindow();"
+                               style="display:none;" id="js_select_id">
+                                <u><b>&gt;&gt;Gửi lại PN</b></u>
+                            </a>        
+                            <p id="to2sbvchkid" style="display:none;">
+                                <s:checkbox name="send2sbv"
+                                            fieldValue="true" />
+                                <b>Gửi NHNN</b>
+
+                                <s:checkbox name="send9acc"
+                                            fieldValue="true" />
+                                <b>Gửi ngoại bảng</b>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <hr/>
+                        </td>
+                    </tr>                    
+                    <tr>
+                        <td></td>
+                        <td align="left">
+                            <div class="clicklink">
                                 <s:url var="exportUrl" action="exportText2Sbv.action"></s:url>                                                                              
                                 <sj:a id="export2Sbv"  href="%{exportUrl}" targets="contentDiv"
                                       formIds="export2sbvform" 
@@ -267,4 +287,30 @@
         </s:form>
     </div>    
 </div>
+<script>
+    function toggleParameters(selectedValue) {
+        const optionalRows1 = document.querySelectorAll('.optional-parameter1');
+        const optionalRows2 = document.querySelectorAll('.optional-parameter2');
+        const optionalRows3 = document.querySelectorAll('.optional-parameter3');
+
+        if (selectedValue === 'EX050001') {
+            // Ẩn các tham số
+            optionalRows1.forEach(row => row.style.display = 'none');
+            optionalRows2.forEach(row => row.style.display = 'none');
+            optionalRows3.forEach(row => row.style.display = '');
+        } else {
+            // Hiển thị các tham số
+            optionalRows1.forEach(row => row.style.display = '');
+            optionalRows2.forEach(row => row.style.display = '');
+            optionalRows3.forEach(row => row.style.display = 'none');
+        }
+    }
+
+// Gọi hàm khi trang được tải lần đầu để đảm bảo trạng thái đúng
+    document.addEventListener('DOMContentLoaded', function () {
+        const selectedValue = document.getElementById('selectedReport').value;
+        toggleParameters(selectedValue);
+    });
+
+</script>
 
