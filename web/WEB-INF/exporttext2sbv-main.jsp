@@ -305,12 +305,7 @@
             optionalRows3.forEach(row => row.style.display = 'none');
         }
     }
-
-// Gọi hàm khi trang được tải lần đầu để đảm bảo trạng thái đúng
-    document.addEventListener('DOMContentLoaded', function () {
-        const selectedValue = document.getElementById('selectedReport').value;
-        toggleParameters(selectedValue);
-    });
-
+    ;
+    toggleParameters();
 </script>
 
