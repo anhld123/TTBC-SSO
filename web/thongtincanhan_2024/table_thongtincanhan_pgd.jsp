@@ -134,7 +134,8 @@
                     <th style="width: 100px" rowspan="2">Số điện thoại</th>
                     <th colspan="7">DỮ LIỆU GTTT TRÊN INTELLECT</th> 
                     <th  colspan="6">DỮ LIỆU GTTT TRÊN EKYC</th>
-                    <th  style="width: 100px" rowspan="2">Trạng thái rà soát</th>  
+                    <th  style="width: 100px" rowspan="2">Trạng thái rà soát 1</th>  
+                    <th  style="width: 100px" rowspan="2">Trạng thái rà soát 2</th>  
                 </tr>
                 <tr>
                     <th style="width: 150px">Tên khách hàng</th>   
@@ -214,6 +215,12 @@
                             <input type="hidden" value="<s:property  value="D29" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D29"/>
                             <input type="hidden" value="<s:property  value="D30" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30"/>
                             <input type="hidden" value="<s:property  value="D31" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D31"/>
+                            <input type="hidden" value="<s:property  value="D32" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D32"/>
+
+                            <input type="hidden" value="<s:property  value="D33" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D33"/>
+
+                            <input type="hidden" value="<s:property  value="D34" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D34"/>
+                            <input type="hidden" value="<s:property  value="D35" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D35"/>
 
                         </td>
                         <td class="D0"><s:property  value="D1" /></td>
@@ -238,13 +245,17 @@
                         <td class="D0"><s:property  value="D23" /></td>
                         <td><s:property  value="D29" /></td>
                         <td class="D0">
-                            <select onchange="updateSelectColor(this)" style="border: hidden;width: 100px" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" id="D11_<s:property  value='%{#rowstatus.index}' />" > 
+                            <select <s:if test="D35.equalsIgnoreCase('1')"> onmousedown="return false"</s:if>
+                                onchange="updateSelectColor(this)" style="border: hidden;width: 100px" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" id="D11_<s:property  value='%{#rowstatus.index}' />" > 
                                 <option style="color: red" value="1" <s:if test="D11.equalsIgnoreCase('1')"> selected </s:if>>Chưa rà soát</option>
                                 <option style="color: #003eff" value="2" <s:if test="D11.equalsIgnoreCase('2')"> selected </s:if>>Đã rà soát</option>                        
                                 <option style="color: #009900" value="3" <s:if test="D11.equalsIgnoreCase('3')"> selected </s:if>>Đã cập nhật trên CoreBanking</option>
                                 </select>
                             </td>
-
+                            <td>
+                            <s:if test="D35.equalsIgnoreCase('1')"><a style="color: red">Tiếp tục rà soát</a></s:if>
+                            <s:elseif test="D35.equalsIgnoreCase('2')"><a>Không cần rà soát</a></s:elseif>
+                            </td>  
                     </s:iterator>
 
             </table>

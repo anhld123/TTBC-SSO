@@ -210,7 +210,7 @@ public class Service_TTCN_2024 extends ActionNhaptaycnMain
             } catch (Exception e) {
                 setChotsl("0");
             }
-            
+
             if (pos_cd_username.equals("000101")) {
                 lstData_Api = _serverAPI.getData_condition("TTCN_01", pos_cd_username, "S", _reportDate, "");
             } else {
@@ -287,6 +287,9 @@ public class Service_TTCN_2024 extends ActionNhaptaycnMain
                     row.setD30(item.getD30());
                     row.setD31(item.getD31());
                     row.setD32(item.getD32());
+                    row.setD33(item.getD33());
+                    row.setD34(item.getD34());
+                    row.setD35(item.getD35());
                     lstDulieuNt.add(row);
                 } catch (Exception e) {
                 }
@@ -476,6 +479,10 @@ public class Service_TTCN_2024 extends ActionNhaptaycnMain
                 tempadd.setD30(tmp.getD30());
                 tempadd.setD31(tmp.getD31());
                 tempadd.setD32(tmp.getD32());
+                tempadd.setD33(tmp.getD33());
+                tempadd.setD34(tmp.getD34());
+                tempadd.setD35(tmp.getD35());
+
                 lstUpdateDate.add(tempadd);
 
             }
