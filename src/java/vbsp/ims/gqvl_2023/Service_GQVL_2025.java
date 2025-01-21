@@ -52,12 +52,21 @@ public class Service_GQVL_2025 extends ActionNhaptaycnMain
     private InputStream pageResult;
     DuLieuNTService _serverAPI = new DuLieuNTService();
     private String chotsl;
+    private String chotsl_tw;
     private String txtGetData;
     private String status;
     private String message;
     private String sCode;
     private String stype;
 //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public String getChotsl_tw() {
+        return chotsl_tw;
+    }
+
+    public void setChotsl_tw(String chotsl_tw) {
+        this.chotsl_tw = chotsl_tw;
+    }
 
     public Service_GQVL2023 getServer() {
         return _server;
@@ -210,7 +219,12 @@ public class Service_GQVL_2025 extends ActionNhaptaycnMain
             } catch (Exception e) {
                 setChotsl("0");
             }
-
+            ArrayList<LockSendModel> lstData_tmp1 = _serverAPI.getDataLockManual("GQVL_2024", main_pos_username, "M", _reportDate);
+            try {
+                setChotsl_tw(lstData_tmp1.get(0).getStatus());
+            } catch (Exception e) {
+                setChotsl_tw("0");
+            }
             lstData_Api = _serverAPI.getData_condition("GQVL_2024", pos_cd_username, "S", _reportDate, "");
 
             if (lstData_Api == null || lstData_Api.isEmpty()) {
@@ -295,8 +309,10 @@ public class Service_GQVL_2025 extends ActionNhaptaycnMain
             ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("GQVL_2024", main_pos_username, "M", _reportDate);
             try {
                 setChotsl(lstData_tmp.get(0).getStatus());
+                setChotsl_tw(lstData_tmp.get(0).getStatus());
             } catch (Exception e) {
                 setChotsl("0");
+                setChotsl_tw("0");
             }
             lstPGD_API = _serverAPI.getListPgd(main_pos_username, "");
             for (ListPosCode item : lstPGD_API) {
@@ -418,6 +434,7 @@ public class Service_GQVL_2025 extends ActionNhaptaycnMain
                 return ERROR;
             }
             HashMap hmParameter = getParameter();
+            DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
             String dateStr = hmParameter.get("ngay_bc").toString();
             String[] values1 = dateStr.split("\\-");
             String snambc = values1[2];
@@ -426,7 +443,7 @@ public class Service_GQVL_2025 extends ActionNhaptaycnMain
             main_pos_username = posMainModel.getMainPosCd();
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00.000").format(new SimpleDateFormat("yyyyMMdd").parse(_reportDate));
-
+             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
             ArrayList<DuLieuNTRowX> lstUpdateDate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
                 int Stt = 0;
@@ -483,12 +500,13 @@ public class Service_GQVL_2025 extends ActionNhaptaycnMain
                 tempadd.setD35(tmp.getD35());
 
                 lstUpdateDate.add(tempadd);
+                lstLocalDataUpdate.add(tmp);
 
             }
 
             _serverAPI = new DuLieuNTService();
             int status = _serverAPI.getGQVL2023("GQVL_2024", pos_cd_username, "S", _reportDate, "", "", lstUpdateDate);
-            if (status == 200) {
+            if (status == 200 && !daoMain.saveGQVL2023("GQVL_2024", UserName, dateStr, lstLocalDataUpdate)) {
                 String code = String.valueOf(status);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
                 return SUCCESS;

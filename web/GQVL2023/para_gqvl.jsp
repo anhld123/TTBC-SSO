@@ -244,7 +244,8 @@
                     var rowcount = table.rows.length;
                     var isValid = true;
                     var chot = document.getElementById("chotsl").value;
-                    if (chot === "2" || chot === "1") {
+                    var chot2 = document.getElementById("chotsl_tw").value;
+                    if (chot2 === "2" || chot === "1") {
                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Dữ liệu đã gửi, không thể chỉnh sửa!</h>");
                         return;
                     }
@@ -274,7 +275,7 @@
                             var t2 = new Intl.NumberFormat('en-US').format(total);
 
                             if (CT_D1 !== total) {
-                                $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'> Thất bại: Tổng số trích 10% trong tháng là " + t2 + " không khớp số tiền Hạch toán là " + t1 + ")!</h>");
+                                $('#message_suc_err').html("<h style='color: red; font-size: 13px ; font-weight: bold'> Thất bại: Tổng số trích 10% trong tháng là " + t2 + " không khớp số tiền Hạch toán là " + t1 + "!</h>");
                                 return;
                             }
 
@@ -383,8 +384,9 @@
                     var rowcount = table.rows.length;
                     var chot = document.getElementById("chotsl").value;
                     var capbc = document.getElementById("Grade").value;
+                    var chot2 = document.getElementById("chotsl_tw").value;
                     var isValid = true;
-                    if (chot === "2" || chot === "1") {
+                    if (chot2 === "2" || chot === "1") {
                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Dữ liệu đã gửi, không thể tiếp tục gửi!</h>");
                         return;
                     }
