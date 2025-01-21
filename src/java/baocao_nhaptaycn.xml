@@ -29,6 +29,7 @@
             <result name="KPBL_01">/KP_Baoso3/para_baoso3.jsp</result>
             <result name="KKTS_01">/KKTS_2024/para_kiemketaisan.jsp</result>
             <result name="TTCN_01">/thongtincanhan_2024/para_thongtincanhan.jsp</result>
+             <result name="GQVL_01">/GQVL2023/para_gqvl.jsp</result>
 <!--            <result name="HTLS_2024">/htls_2024/para_htls_2024.jsp</result>-->
             <result name="error">/nhaptay-cn/success.jsp</result>    
                 
@@ -964,6 +965,33 @@
             <result name="success" type="json"></result>
         </action>
         <action name="unlock_HTLS_2024_c3" class="vbsp.ims.nhaptaycn.action.HTLS2024" method="unlock_c3">
+            <result name="success" type="json"></result>
+        </action>
+        <action name="GQVL_01" class="vbsp.ims.gqvl_2023.Service_GQVL_2025"  method="load">
+            <result name="success_1">/GQVL2023/table_giaiquyetvieclam_pgd.jsp</result> 
+            <result name="success_2">/GQVL2023/table_giaiquyetvieclam_cn.jsp</result> 
+            <result name="success_3">/GQVL2023/table_giaiquyetvieclam_tw.jsp</result>                                                        
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        <action name="save_GQVL_01" class="vbsp.ims.gqvl_2023.Service_GQVL_2025"  method="save">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action> 
+        <action name="send_GQVL_01" class="vbsp.ims.gqvl_2023.Service_GQVL_2025"  method="send">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action>
+        <action name="unlock_GQVL_01" class="vbsp.ims.gqvl_2023.Service_GQVL_2025" method="unlock_c2">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>  
+        </action>
+          <action name="unlock_GQVL_01_c3" class="vbsp.ims.gqvl_2023.Service_GQVL_2025" method="unlock_c3">
             <result name="success" type="json"></result>
         </action>
     </package>

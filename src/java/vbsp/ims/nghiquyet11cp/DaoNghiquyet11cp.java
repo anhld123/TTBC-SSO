@@ -1951,18 +1951,10 @@ public class DaoNghiquyet11cp {
         return true;
     }
 
-    public List<QT_DULIEU_NT> getData_GQVL_2023(Connection conn, String sKhoa, String sNgaybc, String sUser,
-            String sGrade, List<String> lstArrPoscd) {
+     public List<QT_DULIEU_NT> getData_GQVL_2023(Connection conn, String sNgaybc, String sKhoa, String sUser, String sPosCd, String sPos_Flag) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
-            ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
-            String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
-            ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
-//            DaoConnect daoconnect = new DaoConnect();
-//            Connection conn = null;
-//            conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
-            //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call VBSP_IMS_NGHIQUYET11CP.SP_GET_DATA_GQVL_2023(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
 
@@ -1972,11 +1964,11 @@ public class DaoNghiquyet11cp {
                 calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(8, oracle.jdbc.OracleTypes.CURSOR);
-                calstatement.setString(1, sKhoa);
-                calstatement.setString(2, sUser);
-                calstatement.setString(3, sGrade);
-                calstatement.setString(4, sNgaybc);
-                calstatement.setArray(5, oracle_arrayPoscd);
+                calstatement.setString(1, sNgaybc);
+                calstatement.setString(2, sKhoa);
+                calstatement.setString(3, sUser);
+                calstatement.setString(4, sPosCd);
+                calstatement.setString(5, sPos_Flag);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -1988,48 +1980,53 @@ public class DaoNghiquyet11cp {
                 while (reset.next()) {
 
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
-                    value.setKHOA(reset.getString(1));
-                    value.setTHUTU(reset.getInt(2));
-                    value.setTT_HIENTHI(reset.getString(3));
-                    value.setMA(reset.getString(4));
-                    value.setTEN(reset.getString(5));
-                    value.setNGAYBC(reset.getDate(6));
-                    value.setNAMBC(reset.getInt(7));
-                    value.setMAPGD(reset.getString(8));
-                    value.setMACN(reset.getString(10));
-//                    value.setD1(reset.getString(14));
-                    value.setD1(reset.getString(14));
-                    value.setD2(reset.getString(15));
-                    value.setD3(reset.getString(17));
-                    value.setD4(reset.getString(18));
-                    value.setD5(reset.getString(19));
-                    value.setD6(reset.getString(20));
-                    value.setD7(reset.getString(21));
-                    value.setD8(reset.getString(22));
-                    value.setD9(reset.getString(23));
-                    value.setD10(reset.getString(24));
-                    value.setD11(reset.getString(25));
-                    value.setD12(reset.getString(26));
-                    value.setD13(reset.getString(27));
-                    value.setD14(reset.getString(28));
-                    value.setD15(reset.getString(29));
-                    value.setD16(reset.getString(30));
-                    value.setD17(reset.getString(31));
-                    value.setD18(reset.getString(32));
-                    value.setD19(reset.getString(33));
-                    value.setD20(reset.getString(34));
-                    value.setD21(reset.getString(35));
-                    value.setD22(reset.getString(36));
-                    value.setD23(reset.getString(37));
-                    value.setD24(reset.getString(38));
-                    value.setD25(reset.getString(39));
-                    value.setD26(reset.getString(40));
-                    value.setD27(reset.getString(41));
-                    value.setD28(reset.getString(42));
-                    value.setD29(reset.getString(43));
-                    value.setD30(reset.getString(44));
-                    value.setD31(reset.getString(45));
-                    value.setD32(reset.getString(46));
+                    value.setKHOA(reset.getString("KHOA"));
+                    value.setTHUTU(reset.getInt("THUTU"));
+                    value.setTT_HIENTHI(reset.getString("TT_HIENTHI"));
+                    value.setMA(reset.getString("MA"));
+                    value.setTEN(reset.getString("TEN"));
+                    value.setNGAYBC(reset.getDate("NGAYBC"));
+                    value.setNAMBC(reset.getInt("NAMBC"));
+                    value.setMAPGD(reset.getString("MAPGD"));
+                    value.setCO_TONGHOP(reset.getString("CO_TONGHOP"));
+                    value.setMACN(reset.getString("MACN"));
+                    value.setNGUOI_NHAP(reset.getString("NGUOI_NHAP"));
+                    value.setNGAY_NHAP(reset.getDate("NGAY_NHAP"));
+                    value.setNGUOI_DUYET(reset.getString("NGUOI_DUYET"));
+                    value.setNGAY_DUYET(reset.getDate("NGAY_DUYET"));
+                    value.setD1(reset.getString("D1"));
+                    value.setD2(reset.getString("D2"));
+                    value.setD3(reset.getString("D3"));
+                    value.setD4(reset.getString("D4"));
+                    value.setD5(reset.getString("D5"));
+                    value.setD6(reset.getString("D6"));
+                    value.setD7(reset.getString("D7"));
+                    value.setD8(reset.getString("D8"));
+                    value.setD9(reset.getString("D9"));
+                    value.setD10(reset.getString("D10"));
+                    value.setD11(reset.getString("D11"));
+                    value.setD12(reset.getString("D12"));
+                    value.setD13(reset.getString("D13"));
+                    value.setD14(reset.getString("D14"));
+                    value.setD15(reset.getString("D15"));
+                    value.setD16(reset.getString("D16"));
+                    value.setD17(reset.getString("D17"));
+                    value.setD18(reset.getString("D18"));
+                    value.setD19(reset.getString("D19"));
+                    value.setD20(reset.getString("D20"));
+                    value.setD21(reset.getString("D21"));
+                    value.setD22(reset.getString("D22"));
+                    value.setD23(reset.getString("D23"));
+                    value.setD24(reset.getString("D24"));
+                    value.setD25(reset.getString("D25"));
+                    value.setD26(reset.getString("D26"));
+                    value.setD27(reset.getString("D27"));
+                    value.setD28(reset.getString("D28"));
+                    value.setD29(reset.getString("D29"));
+                    value.setD30(reset.getString("D30"));
+                    value.setD31(reset.getString("D31"));
+                    value.setD32(reset.getString("D32"));
+                    value.setD35(reset.getString("D35"));
                     lstBcqt_NT.add(value);
                 }
 
@@ -2039,9 +2036,6 @@ public class DaoNghiquyet11cp {
                 if (calstatement != null) {
                     calstatement.close();
                 }
-//                if (conn != null) {
-//                    conn.close();
-//                }
             } catch (SQLException e) {
                 System.err.print(e.getMessage());
                 CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());

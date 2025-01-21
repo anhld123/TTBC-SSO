@@ -920,11 +920,11 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 lstCN_API = _server_tmp.getListCn("");
                 return "KPBL_01";
             }
-            if (this.khoa_nhaptaycn.equals("THTK_2024")) {
+            if (this.khoa_nhaptaycn.equals("THTK_2024") || this.khoa_nhaptaycn.equals("GQVL_01")) {
                 main_pos = posMainModel.getMainPosCd();
                 _server_tmp = new LeaveHomeService();
                 lstCN_API = _server_tmp.getListCn("");
-                return "THTK_2024";
+                return this.khoa_nhaptaycn.equals("GQVL_01") ? "GQVL_01" : "THTK_2024";
             }
             if (this.khoa_nhaptaycn.equals("KKTS_01")) {
                 main_pos = posMainModel.getMainPosCd();

@@ -23,7 +23,7 @@
             <result name="error">/BCQT/success.jsp</result>        
         </action>     
         
-      <action name="GQVL_01" class="vbsp.ims.gqvl_2023.Local_GQVL2023"  method="load">
+<!--      <action name="GQVL_01" class="vbsp.ims.gqvl_2023.Local_GQVL2023"  method="load">
             <result name="success">/GQVL2023/viewdata_author.jsp</result>                                 
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action> 
@@ -31,7 +31,7 @@
        <action name="SAVE_GQVL_01" class="vbsp.ims.gqvl_2023.Local_GQVL2023"  method="save">
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
-        </action>    
+        </action>    -->
         
          <action name="HTLS_2023" class="vbsp.ims.gqvl_2023.HTLS_2023"  method="load">
             <result name="success">/GQVL2023/table_bcqt_htls_2023.jsp</result>                                 
