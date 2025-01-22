@@ -816,28 +816,49 @@ public class ActionChtrinhcnMain extends ActionSupport {
                 DuLieuNTService _serverAPI = new DuLieuNTService();
 
                 Date currentDate = new Date();
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
-                String format = simpleDateFormat.format(currentDate);
-                lstData_Api = _serverAPI.getDataKTKSNB("CB_KTKSNB", pos_cd_username, "S", format + "1231", "", "0");
+                SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+                String currentYear = yearFormat.format(currentDate);
                 final String _reportDate = new SimpleDateFormat("ddMMyyyy").format(currentDate);
-                for (DuLieuNTRow item : lstData_Api) {
-                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+                List<String> years = new ArrayList<>();
+                for (int i = 0; i <= 5; i++) {
+                    int year = Integer.parseInt(currentYear) - i;
+                    years.add(String.valueOf(year));
+                }
+
+                for (String year : years) {
                     try {
-                        if ("1".equals(item.getD14())) {
-                            String[] values = item.getD16().split("\\/");
-                            String value1 = values[0];
-                            String value2 = values[1];
-                            String value3 = values[2];
-                            String _reportDate1 = value1 + value2 + value3; if (_reportDate1.compareTo(_reportDate) >= 0) {
-                                row.setD1(item.getD1());
-                                row.setD2(item.getD2());
-                                row.setD3(item.getD3());
-                                lstDulieuNt.add(row);
+                        // Gọi API với năm tương ứng
+                        List<DuLieuNTRow> lstData_Api = _serverAPI.getDataKTKSNB("CB_KTKSNB", pos_cd_username, "S", year + "1231", "", "0");
+
+                        for (DuLieuNTRow item : lstData_Api) {
+                            QT_DULIEU_NT row = new QT_DULIEU_NT();
+                            if ("1".equals(item.getD14())) {
+                                try {
+                                    String[] values = item.getD16().split("\\/");
+                                    String value1 = values[0];
+                                    String value2 = values[1];
+                                    String value3 = values[2];
+                                    String _reportDate1 = value1 + value2 + value3;
+
+                                    if (_reportDate1.compareTo(_reportDate) >= 0) {
+                                        row.setD1(item.getD1());
+                                        row.setD2(item.getD2());
+                                        row.setD3(item.getD3());
+                                        lstDulieuNt.add(row);
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        System.out.println("Không có dữ liệu cho năm " + year);
                     }
+                }
+
+                // Hiển thị danh sách dữ liệu
+                for (QT_DULIEU_NT row : lstDulieuNt) {
+                    System.out.println("D1: " + row.getD1() + ", D2: " + row.getD2() + ", D3: " + row.getD3());
                 }
                 lstXa_API = _serverAPI.getListXa("", "", "", pos_cd);
                 lstPGD_API = _serverAPI.getListPgd(main_pos, "");
