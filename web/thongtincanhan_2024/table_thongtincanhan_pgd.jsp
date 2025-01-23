@@ -177,6 +177,7 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(21)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(22)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(23)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(24)</th>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr id="tablefix"> 
@@ -245,7 +246,7 @@
                         <td class="D0"><s:property  value="D23" /></td>
                         <td><s:property  value="D29" /></td>
                         <td class="D0">
-                            <select <s:if test="D35.equalsIgnoreCase('1')"> onmousedown="return false"</s:if>
+                            <select <s:if test="D35.equalsIgnoreCase('2')"> onmousedown="return false"</s:if>
                                 onchange="updateSelectColor(this)" style="border: hidden;width: 100px" name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" id="D11_<s:property  value='%{#rowstatus.index}' />" > 
                                 <option style="color: red" value="1" <s:if test="D11.equalsIgnoreCase('1')"> selected </s:if>>Chưa rà soát</option>
                                 <option style="color: #003eff" value="2" <s:if test="D11.equalsIgnoreCase('2')"> selected </s:if>>Đã rà soát</option>                        

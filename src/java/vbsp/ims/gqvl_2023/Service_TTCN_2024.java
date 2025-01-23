@@ -210,7 +210,7 @@ public class Service_TTCN_2024 extends ActionNhaptaycnMain
             } catch (Exception e) {
                 setChotsl("0");
             }
-
+ 
             if (pos_cd_username.equals("000101")) {
                 lstData_Api = _serverAPI.getData_condition("TTCN_01", pos_cd_username, "S", _reportDate, "");
             } else {
@@ -219,20 +219,28 @@ public class Service_TTCN_2024 extends ActionNhaptaycnMain
                 String[] values = smato.split("\\_");
                 String ssmato = values[1];
 
-                if (smaxa.equals("000000")) {
-                    addActionError("Vui lòng nhập mã xã để rà soát số liệu!");
-                    return ERROR;
-                }
-
                 String condition1 = "D13=" + smaxa + "|D15=" + txtGetData + "|";
                 String condition = "D13=" + smaxa + "|D14=" + ssmato + "|D15=" + txtGetData + "|";
-                if (ssmato.equals("0000000")) {
+                if (smaxa.equals("000000")) {
+                    // Tải dữ liệu toàn bộ xã
+                    lstData_Api = _serverAPI.getData_condition("TTCN_01", pos_cd_username, "S", _reportDate, "");
+
+                    // Kiểm tra nếu dữ liệu quá lớn
+                    if (lstData_Api.size() > 500) {
+                        addActionError("Dữ liệu quá lớn, vui lòng chọn từng xã để tải dữ liệu!");
+                        return ERROR;
+                    }
+                } else if (ssmato.equals("0000000")) {
+                    // Tải dữ liệu toàn bộ tổ trong xã
                     lstData_Api = _serverAPI.getData_condition("TTCN_01", pos_cd_username, "S", _reportDate, condition1);
+
+                    // Kiểm tra nếu dữ liệu của xã quá lớn
                     if (lstData_Api.size() > 500) {
                         addActionError("Dữ liệu của xã quá lớn, vui lòng chọn từng tổ để tải dữ liệu!");
                         return ERROR;
                     }
                 } else {
+                    // Tải dữ liệu của tổ cụ thể
                     lstData_Api = _serverAPI.getData_condition("TTCN_01", pos_cd_username, "S", _reportDate, condition);
                 }
             }
