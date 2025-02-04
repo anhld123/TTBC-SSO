@@ -31,6 +31,7 @@ import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.define.GenericResult;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.chtrinh_cn.DaoChtrinhcnMain;
+import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.DuLieuNTRowX;
 import vbsp.ims.restapi.DuLieuNTService;
@@ -651,6 +652,19 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
             Connection conn = new DaoConnect().getConnect();
             ActionContext.getContext().getSession().put("sUserName", UserName);
             DaoChtrinhcnMain daoMain = new DaoChtrinhcnMain();
+            DaoNghiquyet11cp daoMain_tmp = new DaoNghiquyet11cp();
+            lstData = daoMain_tmp.getCheck_user(conn, UserName);
+
+            try {
+                setCheck_cn(lstData.get(0).getD2());
+            } catch (Exception e) {
+                setCheck_cn("0");
+            }
+//            System.out.println("check_cn= " + check_cn);
+            if (!check_cn.equals("USRGRP16")) {
+                addActionError("User không có quyền sử dụng chương trình");
+                return ERROR;
+            }
             String ssskhoa;
             if (ssNghiepvu.equals("1")) {
                 ssskhoa = "KH_HUYEN_DC";

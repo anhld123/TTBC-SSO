@@ -15,6 +15,13 @@
                 text-align: center;
                 background-color: #f9f9f9;
                 color: #333;
+                background-image: url('img/backgroud_logo.jpg');
+                background-size: contain; /* Hiển thị ảnh đầy đủ trong khung */
+                background-repeat: no-repeat; /* Không lặp lại ảnh */
+                background-position: center; /* Căn giữa ảnh */
+                background-attachment: fixed; /* Giữ ảnh cố định khi cuộn trang */
+                background-blend-mode: multiply; /* Hòa trộn màu nền với ảnh */
+                background-position: center 50px;
             }
 
             .container {
@@ -127,53 +134,53 @@
             }
         </style>
         <script type="text/javascript">
-            $(document).ready(function ()
-            {
-                $.ajaxSetup({
-                    // Disable caching of AJAX responses */
-                    cache: false
-                });
-
-//                var refreshId = setInterval(function ()
-//                {
-//                    $("#vbspnews").load('vbsp-news.jsp').fadeIn("slow");
-//                }, 5000);
-                function updateTime() {
-                    var endOfYear = new Date(2025, 0, 29, 0, 0, 0); // Thời gian Tết Ất Tỵ
-                    var now = new Date();
-                    var timeDiff = endOfYear - now;
-
-                    // Tính số ngày, giờ, phút, giây còn lại
-                    var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-                    var hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-                    var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-                    // Hiển thị trên giao diện
-                    document.getElementById("days").textContent = days;
-                    document.getElementById("hours").textContent = (hours < 10 ? "0" : "") + hours;
-                    document.getElementById("minutes").textContent = (minutes < 10 ? "0" : "") + minutes;
-                    document.getElementById("seconds").textContent = (seconds < 10 ? "0" : "") + seconds;
-
-                    // Khi hết thời gian, hiển thị thông báo
-                    if (timeDiff <= 0) {
-                        // Xóa bộ đếm thời gian và ẩn các tiêu đề
-                        clearInterval(updateTime);
-                        document.getElementById("title98").style.display = "none";
-                        document.getElementById("title99").style.display = "none";
-
-// Tạo nội dung video và nút bật/tắt âm thanh
-                        const countdownContainer = document.querySelector(".countdown");
-                        countdownContainer.innerHTML = `
-    <video autoplay loop muted playsinline id="background-video" 
-           style="position: relative; width: 100%; height: 100%; object-fit: cover" controls>
-        <source src="img/videotet.mp4" type="video/mp4">  
-    </video>
-  `;
-                    }
-                }
-                setInterval(updateTime, 1000);
-            });
+//            $(document).ready(function ()
+//            {
+//                $.ajaxSetup({
+//                    // Disable caching of AJAX responses */
+//                    cache: false
+//                });
+//
+////                var refreshId = setInterval(function ()
+////                {
+////                    $("#vbspnews").load('vbsp-news.jsp').fadeIn("slow");
+////                }, 5000);
+//                function updateTime() {
+//                    var endOfYear = new Date(2025, 0, 29, 0, 0, 0); // Thời gian Tết Ất Tỵ
+//                    var now = new Date();
+//                    var timeDiff = endOfYear - now;
+//
+//                    // Tính số ngày, giờ, phút, giây còn lại
+//                    var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+//                    var hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//                    var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+//                    var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+//
+//                    // Hiển thị trên giao diện
+//                    document.getElementById("days").textContent = days;
+//                    document.getElementById("hours").textContent = (hours < 10 ? "0" : "") + hours;
+//                    document.getElementById("minutes").textContent = (minutes < 10 ? "0" : "") + minutes;
+//                    document.getElementById("seconds").textContent = (seconds < 10 ? "0" : "") + seconds;
+//
+//                    // Khi hết thời gian, hiển thị thông báo
+//                    if (timeDiff <= 0) {
+//                        // Xóa bộ đếm thời gian và ẩn các tiêu đề
+//                        clearInterval(updateTime);
+//                        document.getElementById("title98").style.display = "none";
+//                        document.getElementById("title99").style.display = "none";
+//
+//// Tạo nội dung video và nút bật/tắt âm thanh
+//                        const countdownContainer = document.querySelector(".countdown");
+//                        countdownContainer.innerHTML = `
+//    <video autoplay loop muted playsinline id="background-video" 
+//           style="position: relative; width: 100%; height: 100%; object-fit: cover" controls>
+//        <source src="img/videotet.mp4" type="video/mp4">  
+//    </video>
+//  `;
+//                    }
+//                }
+//                setInterval(updateTime, 1000);
+//            });
             function CheckKey(e)
             {
                 var code = e.keyCode ? e.keyCode : e.which;
@@ -263,38 +270,40 @@
                         </table></td>
                 </tr>
                 <tr>                    
-                    <td height="50" valign="top">
-                        <table border="0"  cellpadding="0" cellspacing="0">
-                            <div class="container" style="font-family: Brush Script MT">
-                                <h1 id="title99" style="font-family: Comic Sans MS">Đếm ngược</h1>
-                                <h2 id="title98" style="font-family: Bradley Hand">Tết Ất Tỵ, 2025</h2>
-                                <div class="countdown" style="position: relative; width: 100%; height: 300px; background-color: #000; border-radius: 10px; overflow: hidden; padding: 0;">
-                                    <div class="time-box">
-                                        <span id="days" class="time">00</span><br>
-                                        <span class="label">Ngày</span>
-                                    </div>
-                                    <div class="time-box">
-                                        <span id="hours" class="time">00</span><br>
-                                        <span class="label">Giờ</span>
-                                    </div>
-                                    <div class="time-box">
-                                        <span id="minutes" class="time">00</span><br>
-                                        <span class="label">Phút</span>
-                                    </div>
-                                    <div class="time-box">
-                                        <span id="seconds" class="time">00</span><br>
-                                        <span class="label">Giây</span>
-                                    </div>
-                                </div>
-
-                            </div>
-<!--                            <div class="container" style="font-family: Brush Script MT">
-                                title2 ở đây
-                            </div>-->
-                        </table>
-                    </td>
-                    <td>&nbsp;</td>    
-                    <td><img src="img/linelogin.jpg" width="188" height="330" /></td>
+<!--                                        <td height="50" valign="top">
+                                            <table border="0"  cellpadding="0" cellspacing="0">
+                                                <div class="container" style="font-family: Brush Script MT">
+                                                    <h1 id="title99" style="font-family: Comic Sans MS">Đếm ngược</h1>
+                                                    <h2 id="title98" style="font-family: Bradley Hand">Tết Ất Tỵ, 2025</h2>
+                                                    <div class="countdown" style="position: relative; width: 100%; height: 300px; background-color: #000; border-radius: 10px; overflow: hidden; padding: 0;">
+                                                        <div class="time-box">
+                                                            <span id="days" class="time">00</span><br>
+                                                            <span class="label">Ngày</span>
+                                                        </div>
+                                                        <div class="time-box">
+                                                            <span id="hours" class="time">00</span><br>
+                                                            <span class="label">Giờ</span>
+                                                        </div>
+                                                        <div class="time-box">
+                                                            <span id="minutes" class="time">00</span><br>
+                                                            <span class="label">Phút</span>
+                                                        </div>
+                                                        <div class="time-box">
+                                                            <span id="seconds" class="time">00</span><br>
+                                                            <span class="label">Giây</span>
+                                                        </div>
+                                                    </div>
+                    
+                                                </div>
+                                                <div class="container" style="font-family: Brush Script MT">
+                                                    title2 ở đây
+                                                </div>
+                                            </table>
+                                        </td>-->
+                    <td >&nbsp;</td> 
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td> 
+                    <!--<td><img src="img/linelogin.jpg" width="188" height="330" /></td>-->
                     <td valign="top" align="center">
                         <table border="0"  cellspacing="10" cellpadding="0" width="310px">
                             <tr>
