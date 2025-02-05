@@ -385,7 +385,7 @@
             ;
             var popWindow;
             var max_row = 0;
-  
+
         </script>
     </head>
     <!--new java.util.Date()-->
@@ -399,41 +399,43 @@
             <fieldset>
                 <legend><b>Tìm kiếm dữ liệu</b></legend> 
                 <table>
-                    
+
                     <tr>
                         <td>
-                                &nbsp;<label>Ngày báo cáo: </label>
+                            &nbsp;<label>Ngày báo cáo: </label>
                             <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
                                            placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
+                            <s:if test="khoa_tdnn.equalsIgnoreCase('GDX_UNLOCK')">
+                                &nbsp;&nbsp;<label>Mã chi nhánh: </label>
+                                <select id="lstCN" onchange="onSelectChange()" name="lstCN">
+                                    <option value="000000">----Chọn mã chi nhánh----</option>
+                                    <s:iterator value="lstCN_API">
+                                        <option value="<s:property value="branchCode"/>"><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>               
+                                    </s:iterator>
+                                </select>   
 
-                            &nbsp;&nbsp;<label>Mã chi nhánh: </label>
-                            <select id="lstCN" onchange="onSelectChange()" name="lstCN">
-                                <option value="000000">----Chọn mã chi nhánh----</option>
-                                <s:iterator value="lstCN_API">
-                                    <option value="<s:property value="branchCode"/>"><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>               
-                                </s:iterator>
-                            </select>    
-                            &nbsp;&nbsp;<label>Loại báo cáo: </label>
-                            <select name="skhoa" id="skhoa">                                                    
-                            <option value="KTGS_01GDX">Mẫu 01</option>                                                    
-                            <option value="KTGS_01GDX_CBCT">Mẫu 01 CBCT</option>
-                            <option value="KTGS_04GDX">Mẫu 04</option>                                                    
-                            <option value="KTGS_04GDX_CBCT">Mẫu 04 CBCT</option>
-                        </select> 
+                                &nbsp;&nbsp;<label>Loại báo cáo: </label>
+                                <select name="skhoa" id="skhoa">                                                    
+                                    <option value="KTGS_01GDX">Mẫu 01</option>                                                    
+                                    <option value="KTGS_01GDX_CBCT">Mẫu 01 CBCT</option>
+                                    <option value="KTGS_04GDX">Mẫu 04</option>                                                    
+                                    <option value="KTGS_04GDX_CBCT">Mẫu 04 CBCT</option>
+                                </select> 
+                            </s:if>
                         </td>
-                         <td>
-                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                        <td>
+                            <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                        onBeforeTopics="beforediv_data"
                                        onCompleteTopics="completediv_data" cssStyle="display:none"/>
                             &nbsp;<input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
-                             </td>  </tr>
-                    </table>    
-                </fieldset>
-                <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
-                    <img id="loadingImage" src='img/loading.gif' border='0' >                  
-                </div>   
-                <div id="message_suc_err"></div>
-            <s:if test="khoa_tdnn.equalsIgnoreCase('GDX_UNLOCK')">
+                        </td>  </tr>
+                </table>    
+            </fieldset>
+            <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
+                <img id="loadingImage" src='img/loading.gif' border='0' >                  
+            </div>   
+            <div id="message_suc_err"></div>
+            <s:if test="khoa_tdnn.equalsIgnoreCase('GDX_UNLOCK') ||khoa_tdnn.equalsIgnoreCase('GDX_TIME')">
                 <div id="containParm_full" align="center">
                     <div id="divExportReport"></div>
                     <div align="right"  id="divExportReportLink"></div>
@@ -473,7 +475,7 @@
                 document.getElementById('ngay_bc_DATE').value = formattedDate;
             });
 
-            
+
             $(function () {
                 $('#select-all').click(function (event) {
                     // Iterate each checkbox

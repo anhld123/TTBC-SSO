@@ -7,12 +7,7 @@ package vbsp.ims.tdnn;
 
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
@@ -23,8 +18,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import javax.servlet.ServletContext;
-import static org.apache.struts2.ServletActionContext.getServletContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
@@ -34,8 +27,10 @@ import vbsp.ims.leavelocal.LeaveHomeService;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.restapi.DuLieuNTRow;
+import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.ListCommune;
 import vbsp.ims.restapi.ListMainPos;
+import vbsp.ims.restapi.ListOfValue;
 import vbsp.ims.restapi.ListPosCode;
 import vbsp.ims.restapi.ListTransactionPoint;
 import vbsp.ims.util.DateUtil;
@@ -70,7 +65,58 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
     private List<ListPosCode> lstPGD_API;
     private List<ListCommune> lstXa_API;
     private List<ListTransactionPoint> lstPoint_API;
+    DuLieuNTService _serverAPI = new DuLieuNTService();
+    private String sngay_sys;
+    private List<ListOfValue> lstDmKhac;
     //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public Service_GQVL2023 getServer() {
+        return _server;
+    }
+
+    public void setServer(Service_GQVL2023 _server) {
+        this._server = _server;
+    }
+
+    public List<DuLieuNTRow> getLstData() {
+        return lstData;
+    }
+
+    public void setLstData(List<DuLieuNTRow> lstData) {
+        this.lstData = lstData;
+    }
+
+    public List<DuLieuNTRow> getLstData_tmp() {
+        return lstData_tmp;
+    }
+
+    public void setLstData_tmp(List<DuLieuNTRow> lstData_tmp) {
+        this.lstData_tmp = lstData_tmp;
+    }
+
+    public DuLieuNTService getServerAPI() {
+        return _serverAPI;
+    }
+
+    public void setServerAPI(DuLieuNTService _serverAPI) {
+        this._serverAPI = _serverAPI;
+    }
+
+    public String getSngay_sys() {
+        return sngay_sys;
+    }
+
+    public void setSngay_sys(String sngay_sys) {
+        this.sngay_sys = sngay_sys;
+    }
+
+    public List<ListOfValue> getLstDmKhac() {
+        return lstDmKhac;
+    }
+
+    public void setLstDmKhac(List<ListOfValue> lstDmKhac) {
+        this.lstDmKhac = lstDmKhac;
+    }
 
     public String getAlfet_canhbao() {
         return alfet_canhbao;
@@ -273,13 +319,23 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd = posMainModel.getPosCd();
             main_pos = posMainModel.getMainPosCd();
-            String PosFlag = "";
-            if (Grade.equals("3")) {
-                PosFlag = "H";
-            } else if (Grade.equals("2")) {
-                PosFlag = "M";
-            } else {
-                PosFlag = "S";
+            String PosFlag;
+            switch (Grade) {
+                case "3":
+                    PosFlag = "H";
+                    break;
+                case "2":
+                    PosFlag = "M";
+                    break;
+                default:
+                    PosFlag = "S";
+                    break;
+            }
+            lstDmKhac = _serverAPI.getListOfValue("200", main_pos);
+            try {
+                setSngay_sys(lstDmKhac.get(0).getValue());
+            } catch (Exception e) {
+                setSngay_sys("0");
             }
             if (hmParameter.size() < 9) {
                 addActionError("Bạn chưa chọn đủ thông tin để tải dữ liệu!");
@@ -457,13 +513,17 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
             }
             ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
             HashMap hmParameter = getParameter();
-            String PosFlag = "";
-            if (Grade.equals("3")) {
-                PosFlag = "H";
-            } else if (Grade.equals("2")) {
-                PosFlag = "M";
-            } else {
-                PosFlag = "S";
+            String PosFlag;
+            switch (Grade) {
+                case "3":
+                    PosFlag = "H";
+                    break;
+                case "2":
+                    PosFlag = "M";
+                    break;
+                default:
+                    PosFlag = "S";
+                    break;
             }
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd = posMainModel.getPosCd();
@@ -677,13 +737,17 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
             }
             ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
             HashMap hmParameter = getParameter();
-            String PosFlag = "";
-            if (Grade.equals("3")) {
-                PosFlag = "M";
-            } else if (Grade.equals("2")) {
-                PosFlag = "S";
-            } else {
-                PosFlag = "S";
+            String PosFlag;
+            switch (Grade) {
+                case "3":
+                    PosFlag = "M";
+                    break;
+                case "2":
+                    PosFlag = "S";
+                    break;
+                default:
+                    PosFlag = "S";
+                    break;
             }
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd = posMainModel.getPosCd();

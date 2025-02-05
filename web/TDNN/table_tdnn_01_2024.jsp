@@ -101,6 +101,7 @@
                     <input type="hidden" name="checkD50" id="id_D50" value="<s:property value="disintctD50"/>">
                 <!--<input type="hidden" name="check_image" id="check_image" value="<s:property value="inmage"/>">-->
                 <input type="hidden" value="<s:property value="check_Flag"/>">
+                <input type="hidden" id="stoday" value="<s:property  value="sngay_sys" />" name="stoday"/> 
                 <tr>
                     <th>Thông tin cán bộ kiểm tra</th>
                     <th>Nội Dung</th>                

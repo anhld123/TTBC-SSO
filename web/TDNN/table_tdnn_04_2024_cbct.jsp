@@ -101,6 +101,7 @@
                 <!--<input type="hidden" name="check_image" id="check_image" value="<s:property value="inmage"/>">-->
                 <input type="hidden" value="<s:property value="check_form"/>" name="check_form1">
                 <input type="hidden" value="<s:property value="check_Flag"/>">
+                <input type="hidden" id="stoday" value="<s:property  value="sngay_sys" />" name="stoday"/> 
                 <tr>
                     <th>Thông tin cán bộ chuyên trách</th>
                     <th>Nội Dung</th>

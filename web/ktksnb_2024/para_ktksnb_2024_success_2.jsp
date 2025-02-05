@@ -229,7 +229,7 @@
                         return;
                     }
                     if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
-                        window.alert(snambc + " " + currentYear + " " + sthangbc + " " + currentMonth);
+//                        window.alert(snambc + " " + currentYear + " " + sthangbc + " " + currentMonth);
                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng " + currentMonth + "</h>");
                         return;
                     }
