@@ -14,8 +14,11 @@ import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.log.CoreLogger;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import org.apache.struts2.ServletActionContext;
+import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.define.GenericResult;
+import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 
 /**
  *
@@ -25,7 +28,25 @@ public class Unlock_Time_GDX extends ActionTdnnMain implements TdnnFunction {
 
     private String status;
     private String message;
+    private List<QT_DULIEU_NT> lstData;
+    private String check_cn;
 
+    public String getCheck_cn() {
+        return check_cn;
+    }
+
+    public void setCheck_cn(String check_cn) {
+        this.check_cn = check_cn;
+    }
+    
+    public List<QT_DULIEU_NT> getLstData() {
+        return lstData;
+    }
+
+    public void setLstData(List<QT_DULIEU_NT> lstData) {
+        this.lstData = lstData;
+    }
+    
     public String getStatus() {
         return status;
     }
@@ -55,6 +76,19 @@ public class Unlock_Time_GDX extends ActionTdnnMain implements TdnnFunction {
 //            String skhoa = hmParameter.get("skhoa").toString();
             Connection conn = new DaoConnect().getConnect();
             DaoTdnnMain daoMain = new DaoTdnnMain();
+            DaoNghiquyet11cp daoMain_tmp = new DaoNghiquyet11cp();
+            lstData = daoMain_tmp.getCheck_user(conn, UserName);
+
+            try {
+                setCheck_cn(lstData.get(0).getD2());
+            } catch (Exception e) {
+                setCheck_cn("0");
+            }
+//            System.out.println("check_cn= " + check_cn);
+            if (!check_cn.equals("USRGRP21")) {
+                addActionError("User không có quyền sử dụng chương trình");
+                return ERROR;
+            }
             lstDulieuNt = daoMain.getData_UnlocTimekGdx(conn, sngaybc, "", "");
 //            System.out.println(sngaybc +" " + skhoa +" " + smacn);
             if (conn != null) {
