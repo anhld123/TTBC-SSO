@@ -151,6 +151,7 @@
                 <s:if test="chotsl.equalsIgnoreCase('1')" ><a class="color_11">(Đơn vị đã gửi dữ liệu)</a></s:if>
                 <s:if test="chotsl.equalsIgnoreCase('2')" ><a class="color_11">(CN đã gửi dữ liệu)</a></s:if>
                 <input type="hidden" value="<s:property value="chotsl"/>" name="chotsl" id="chotsl"/> 
+                <input type="hidden" value="<s:property value="chotsl_tw"/>" name="chotsl_tw" id="chotsl_tw"/> 
             </div>
             <div id="divDonvitinh">
                 Đơn vị tính: Đồng
