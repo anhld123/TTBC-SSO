@@ -194,12 +194,21 @@
                 var sparts = stoday.split('/');
                 var currentYear = sparts[2];
                 var currentMonth = sparts[1];
-                if (dc_nam.toString() > currentYear.toString()) {
-                    alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + (parseInt(dc_nam) + 1));
+                var ssnam;
+                var sthangbc = dc_thang.padStart(2, '0');
+                if (dc_khoa === 'KH_HUYEN' || dc_khoa === 'KH_TINH')
+                {
+                    ssnam = parseInt(dc_nam) + 1;
+                } else {
+                    ssnam = dc_nam;
+                }
+//                window.alert(ssnam + " " + currentYear);
+                if (ssnam.toString() > currentYear.toString()) {
+                    alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + parseInt(ssnam));
                     isValid = false;
                 }
-                if (dc_nam.toString() === currentYear.toString() && dc_thang.toString() !== currentMonth.toString()) {
-                    alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + (parseInt(dc_nam) + 1));
+                if (ssnam.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
+                    alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + sthangbc);
                     isValid = false;
                 }
                 if (isValid) {
