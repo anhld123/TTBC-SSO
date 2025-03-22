@@ -67,7 +67,7 @@
             <div>
                 <p style="text-align: left;padding-left: 30px;">[x/y]: Chỉ tiêu được phép loại trừ, x: số được loại trừ, y: tổng số</p>            
                 <div id="divDonvitinh">                
-                    Đơn vị tính: Triệu đồng, số điểm, tỷ lệ %, số lỗi
+                    <s:property  value="months" /> Đơn vị tính: Triệu đồng, số điểm, tỷ lệ %, số lỗi
                 </div>  
             </div>
 
@@ -125,8 +125,7 @@
                             <input type="text" value="<s:property  value="D2" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="D0 TEN_KH" onfocus="this.select()"    readonly="readonly" />                                  
                         </td>
-                        <s:if test="(!months.ToString().equalsIgnoreCase('03')||!months.ToString().equalsIgnoreCase('06')||
-                              !months.ToString().equalsIgnoreCase('09')||!months.ToString().equalsIgnoreCase('12'))">
+                        <s:if test="!(months.toString() in {'03','06','09','12'})">
                             <s:if test="NHAPTAY.equalsIgnoreCase('N')">
                                 <td align = "right" class="TD_NGUYENGIA">
                                     <input type="text" id="D4_<s:property value='MA'/>" value="<s:property value='D4'/>" 
@@ -215,11 +214,10 @@
                                            <s:else> 
                                                class="number2 TEN_KH"
                                            </s:else> 
-                                           <%--<s:if test="!MA.equalsIgnoreCase('CDTT1101')&&!MA.equalsIgnoreCase('CDTT1102')&&!MA.equalsIgnoreCase('CDTT1103')&&!MA.equalsIgnoreCase('CDTT100101')&&!MA.equalsIgnoreCase('CDTT100102')&&!MA.equalsIgnoreCase('CDTT100103')&&!MA.equalsIgnoreCase('CDTT100104')&&!MA.equalsIgnoreCase('CDTT100105')&&!MA.equalsIgnoreCase('CDTT100106')&&!MA.equalsIgnoreCase('CDTT100107')&&!MA.equalsIgnoreCase('CDTT100108')&&!MA.equalsIgnoreCase('CDTT100201')&&!MA.equalsIgnoreCase('CDTT100202')&&!MA.equalsIgnoreCase('CDTT100203')&&!MA.equalsIgnoreCase('CDTT100204')&&!MA.equalsIgnoreCase('CDTT120101')&&!MA.equalsIgnoreCase('CDTT120103')&&!MA.equalsIgnoreCase('CDTT120201')&&!MA.equalsIgnoreCase('CDTT120202')">readonly="readonly"</s:if>--%>
-                                           />
-                                </td>  
-                                <td align = "right" class="hideColumn">                            
-                                    <input type="text" id="D6_<s:property value='MA'/>" value="<s:property value='D6'/>" 
+                                           <s:if test="!MA.equalsIgnoreCase('CDTT1101')&&!MA.equalsIgnoreCase('CDTT1102')&&!MA.equalsIgnoreCase('CDTT1103')&&!MA.equalsIgnoreCase('CDTT100101')&&!MA.equalsIgnoreCase('CDTT100102')&&!MA.equalsIgnoreCase('CDTT100103')&&!MA.equalsIgnoreCase('CDTT100104')&&!MA.equalsIgnoreCase('CDTT100105')&&!MA.equalsIgnoreCase('CDTT100106')&&!MA.equalsIgnoreCase('CDTT100107')&&!MA.equalsIgnoreCase('CDTT100108')&&!MA.equalsIgnoreCase('CDTT100201')&&!MA.equalsIgnoreCase('CDTT100202')&&!MA.equalsIgnoreCase('CDTT100203')&&!MA.equalsIgnoreCase('CDTT100204')&&!MA.equalsIgnoreCase('CDTT120101')&&!MA.equalsIgnoreCase('CDTT120103')&&!MA.equalsIgnoreCase('CDTT120201')&&!MA.equalsIgnoreCase('CDTT120202')">readonly="readonly"</s:if>/>
+                                    </td>  
+                                    <td align = "right" class="hideColumn">                            
+                                        <input type="text" id="D6_<s:property value='MA'/>" value="<s:property value='D6'/>" 
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" 
                                            onblur="if (this.value == '') {
                                                        this.value = 0
@@ -240,7 +238,7 @@
                                                    evaluateSum('CHAMDIEMTT_001', 'D10')"   class="number2 TEN_KH" 
                                            <s:if test="!MA.equalsIgnoreCase('CDTT1101')&&!MA.equalsIgnoreCase('CDTT1102')&&!MA.equalsIgnoreCase('CDTT1103')">readonly="readonly"</s:if>/>
                                     </td>                                   
-                            </s:else>
+                            </s:else>   
                         </s:if>
                         <!--bo sung ngay 21-03-2025-->
                         <s:else>

@@ -85,9 +85,9 @@ public class CDTT_CN extends ActionChamdiemttMain implements CdttFunction {
             }
             String days = hmParameter.get("ngay_bc").toString();
             String[] values = days.split("\\-");
-            String ssThang = values[1]; 
-            SimpleDateFormat inputFormat = new SimpleDateFormat("MMM", Locale.ENGLISH); 
-            SimpleDateFormat outputFormat = new SimpleDateFormat("MM"); 
+            String ssThang = values[1];
+            SimpleDateFormat inputFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
+            SimpleDateFormat outputFormat = new SimpleDateFormat("MM");
 
             try {
                 Date date = inputFormat.parse(ssThang);
@@ -95,7 +95,7 @@ public class CDTT_CN extends ActionChamdiemttMain implements CdttFunction {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            setMonths(ssThang); 
+            setMonths(ssThang);
             int input = daoMain.isCheckPGDInput(khoa_cdtt, UserName, hmParameter.get("ngay_bc").toString(), Grade, "1", UserName);
             if (input == 2 && Grade.equals("3")) {
                 addActionError("Ban CMNV chưa duyệt hết số liệu");
@@ -325,10 +325,23 @@ public class CDTT_CN extends ActionChamdiemttMain implements CdttFunction {
             String pattern = "dd-MMM-yyyy";
             String sNgayBC = hmParameter.get("ngay_bc").toString();
 
+            String[] values = sNgayBC.split("\\-");
+            String ssThang = values[1];
+            SimpleDateFormat inputFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
+            SimpleDateFormat outputFormat = new SimpleDateFormat("MM");
+
+            try {
+                Date date = inputFormat.parse(ssThang);
+                ssThang = outputFormat.format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            setMonths(ssThang);
             Date sdf = new SimpleDateFormat("dd/MM/yyyy").parse(sNgayBC);
             sNgayBC = new SimpleDateFormat("dd-MMM-yyyy").format(sdf);
 
-            if (!sNgayBC.toLowerCase().equals(vbsp.ims.define.DefineFun.getLastDayOfMonth(sNgayBC, pattern, pattern).toLowerCase())) // If last day of month
+            if (!months.equals("03") && !months.equals("06") && !months.equals("09") && !months.equals("12")
+                    && !sNgayBC.toLowerCase().equals(vbsp.ims.define.DefineFun.getLastDayOfMonth(sNgayBC, pattern, pattern).toLowerCase())) // If last day of month
             {
                 tableDetail = "<th> Ngày báo cáo không phải là ngày cuối tháng " + sNgayBC + "</th>";
                 excelDetail = "<th> Ngày báo cáo không phải là ngày cuối tháng " + sNgayBC + "</th>";

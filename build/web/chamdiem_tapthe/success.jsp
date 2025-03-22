@@ -15,6 +15,7 @@
         actionMessages += '<s:property escape="false"/>' + '\n';
         </s:iterator>
         swal('Thành công', actionMessages, 'success');
+        $("#loadData").click();
     </script>
 </s:if>
 <s:if test="hasActionErrors()">
