@@ -326,23 +326,11 @@ public class CDTT_CN extends ActionChamdiemttMain implements CdttFunction {
             String pattern = "dd-MMM-yyyy";
             String sNgayBC = hmParameter.get("ngay_bc").toString();
 
-            String[] values = sNgayBC.split("\\-");
-            String ssThang = values[1];
-            SimpleDateFormat inputFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
-            SimpleDateFormat outputFormat = new SimpleDateFormat("MM");
-
-            try {
-                Date date = inputFormat.parse(ssThang);
-                ssThang = outputFormat.format(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            setMonths(ssThang);
             Date sdf = new SimpleDateFormat("dd/MM/yyyy").parse(sNgayBC);
             sNgayBC = new SimpleDateFormat("dd-MMM-yyyy").format(sdf);
-
+            //2025_03: Kiểm tra thêm ngày 24
             if (!sNgayBC.toLowerCase().equals(vbsp.ims.define.DefineFun.getLastDayOfMonth(sNgayBC, pattern, pattern).toLowerCase())&&
-                    !isDay24(sNgayBC))  // If last day of month
+                    !isDay24(sNgayBC)) // If last day of month
             {
                 tableDetail = "<th> Ngày báo cáo không phải là ngày 24 hoặc ngày cuối tháng " + sNgayBC + "</th>";
                 excelDetail = "<th> Ngày báo cáo không phải là ngày 24 hoặc ngày cuối tháng " + sNgayBC + "</th>";
