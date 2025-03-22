@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-<!--        <link  rel="stylesheet" type="text/css" href="chamdiem_tapthe/css/cdtt.css"/>-->
+        <!--        <link  rel="stylesheet" type="text/css" href="chamdiem_tapthe/css/cdtt.css"/>-->
         <style>
 
             #container{
@@ -23,7 +23,7 @@
                 height: 500px;
                 border: 0px solid;
                 padding-left: 0px;      
-                
+
                 /*color: #FFE6B0*/
             }
 
@@ -35,7 +35,7 @@
                 float: left;
                 overflow: scroll;
             }            
-            
+
             #containParm{
                 width: 84%;
                 height: 450px;
@@ -57,7 +57,7 @@
                 float: left;
                 overflow: auto;
             }
-            
+
             .ui-datepicker{
                 font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; 
                 font-size: 12px;
@@ -99,6 +99,11 @@
                 padding-bottom: 0px;
                 padding-top: 0px;
             }
+        
+            input[type="button"]:read-only,
+            input[type="submit"]:read-only {
+                background-color: #009944; /* Hoặc màu bạn muốn */
+            }
         </style>
         <script>
             var bsubmit = false;
@@ -122,7 +127,7 @@
             }
             function fnResetVal()
             {
-                
+
             }
             function onReLoadData1()
             {
@@ -132,7 +137,7 @@
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
                 var khoa_cdtt = $("#khoa_cdtt").val() + "_reload";
-                
+
                 if (!bsubmit)
                 {
 //                    alert('Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !');
@@ -140,14 +145,14 @@
                     return;
                 }
                 //alert(khoa_cdtt);
-                
+
 
                 //$("#idreloadData")[0].click();
-                 $('#divExportReport').load(khoa_cdtt+'.action');
+                $('#divExportReport').load(khoa_cdtt + '.action');
                 bsubmit = false;
 //                return true;
             }
-            
+
             function onSaveData()
             {
                 $('#message_suc_err').empty();
@@ -228,21 +233,21 @@
 
                 var poscd = getposfromtreecheck();
 //                alert(khoa_cdtt);
-                if(khoa_cdtt != 'BC00230032' && khoa_cdtt != 'BC00230033' && khoa_cdtt != 'CDTT_CN')
+                if (khoa_cdtt != 'BC00230032' && khoa_cdtt != 'BC00230033' && khoa_cdtt != 'CDTT_CN')
                 {
                     if (poscd == null || poscd == '')
                     {
                         $('#divExportReport').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần gửi số liệu ! </h2>");
-    //                    alert('Bạn phải chọn phòng giao dịch cần gửi số liệu !');
+                        //                    alert('Bạn phải chọn phòng giao dịch cần gửi số liệu !');
                         return;
                     }
                 }
-                
+
                 $("#idSend")[0].click();
                 bsubmit = false;
             }
-            
-            
+
+
             function onMokhoaData()
             {
                 $('#message_suc_err').empty();
@@ -252,11 +257,11 @@
                 var poscd = getposfromtreecheck();
 //                alert(khoa_cdtt);
 
-                
+
                 $("#idmokhoa")[0].click();
                 bsubmit = false;
             }
-            
+
             function onResetData()
             {
                 $('#message_suc_err').empty();
@@ -266,11 +271,11 @@
 //                var poscd = getposfromtreecheck();
 //                alert(khoa_cdtt);
 
-                
+
                 $("#idReset")[0].click();
                 bsubmit = true;
             }
-            
+
             function onChot()
             {
                 $('#message_suc_err').empty();
@@ -280,11 +285,11 @@
                 var poscd = getposfromtreecheck();
 //                alert(khoa_cdtt);
 
-                
+
                 $("#idTV")[0].click();
                 bsubmit = false;
             }
-            
+
             function onHoiDongDuyet()
             {
                 $('#message_suc_err').empty();
@@ -294,11 +299,11 @@
                 var poscd = getposfromtreecheck();
 //                alert(khoa_cdtt);
 
-                
+
                 $("#idHoiDongDuyetTV")[0].click();
                 bsubmit = false;
             }
-            
+
             function onReLoadData()
             {
                 $('#message_suc_err').empty();
@@ -313,7 +318,7 @@
                     $('#message_suc_err').html("<h2 style='color: red'>Bạn phải tải dữ liệu và sửa mới lưu được dữ liệu !</h2>");
                     return;
                 }
-                
+
                 $("#idReLoad")[0].click();
 //                bsubmit = false;
             }
@@ -355,38 +360,38 @@
                 }
                 return result;
             }
-            
+
             function getDaysOfMonth(month, year) {
-            switch (month) {
-                case 1:
-                    return 31;
-                case 2:
-                    if (year % 4 === 0)
-                        return 29;
-                    else
-                        return 28;
-                case 3:
-                    return 31;
-                case 4:
-                    return 30;
-                case 5:
-                    return 31;
-                case 6:
-                    return 30;
-                case 7:
-                    return 31;
-                case 8:
-                    return 31;
-                case 9:
-                    return 30;
-                case 10:
-                    return 31;
-                case 11:
-                    return 30;
-                case 12:
-                    return 31;
+                switch (month) {
+                    case 1:
+                        return 31;
+                    case 2:
+                        if (year % 4 === 0)
+                            return 29;
+                        else
+                            return 28;
+                    case 3:
+                        return 31;
+                    case 4:
+                        return 30;
+                    case 5:
+                        return 31;
+                    case 6:
+                        return 30;
+                    case 7:
+                        return 31;
+                    case 8:
+                        return 31;
+                    case 9:
+                        return 30;
+                    case 10:
+                        return 31;
+                    case 11:
+                        return 30;
+                    case 12:
+                        return 31;
+                }
             }
-        }
         </script>
     </head>
 
@@ -395,7 +400,7 @@
             <s:form id="id_%{khoa_cdtt}" name="name_%{khoa_cdtt}" action="%{khoa_cdtt}" theme="simple">
                 <s:hidden name="khoa_cdtt" id="khoa"/>
                 <s:hidden name="Grade" id="Grade"/>
-                
+
                 <s:hidden name="RULEUSER"/>
                 <div id="navParam" >
                     <div id="navParam3">     
@@ -403,7 +408,7 @@
                             <tr style="height: 30px;">
                                 <s:iterator value="lstCdttParams">
                                     <td class="<s:property  value="action"/>"> <label> <s:property value="label"></s:property></label></td>
-                                        <td class="<s:property  value="action"/>">
+                                    <td class="<s:property  value="action"/>">
                                         <s:if test="type.equalsIgnoreCase('T')">                                     
                                             <%--<s:textfield  name="%{fieldName}_TEXT"></s:textfield>--%>
                                             <input type="text" value="" id="D_<s:property  value="%{#rowstatus.index}"/>" name="<s:property value="fieldName"/>_TEXT" placeholder="<s:property value="label"/>"/>
@@ -425,7 +430,7 @@
                                     </td>
 
                                 </s:iterator>     
-                                    <td >
+                                <td >
                                     <s:if test="RULEUSER.equalsIgnoreCase('9')">
                                         &nbsp;&nbsp;&nbsp;
                                         <sj:submit id="loadData" name="loadData" value="HĐ xét duyệt" targets="divExportReport"
@@ -436,33 +441,33 @@
                                         <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Phê duyệt" class="metroButtonStyle"/>                                            
                                         &nbsp;&nbsp;&nbsp;
                                         <s:if test="!Grade.equalsIgnoreCase('3') && khoa_cdtt.equalsIgnoreCase('CDTT_CN')">
-                                         <s:url id="idSendData" action="sendCDTT.action"></s:url>                                      
+                                            <s:url id="idSendData" action="sendCDTT.action"></s:url>                                      
                                             <sj:submit id="idSend" name="nameSend" href="%{idSendData}" value="Gửi dữ liệu" targets="divExportReport"
                                                        onBeforeTopics="beforediv_send"
                                                        onCompleteTopics="completediv_send" cssStyle="display:none"/>
                                             <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu" class="metroButtonStyle"/>
-                                                &nbsp;&nbsp;&nbsp;  
+                                            &nbsp;&nbsp;&nbsp;  
                                         </s:if>  
-                                        
+
                                         <s:if test="Grade.equalsIgnoreCase('3') && khoa_cdtt.equalsIgnoreCase('CDTT_TCCB01')">
-                                         <s:url id="idReset" action="resetCDTT.action"></s:url>                                      
+                                            <s:url id="idReset" action="resetCDTT.action"></s:url>                                      
                                             <sj:submit id="idReset" name="nameSend" href="%{idReset}" value="Khôi phục" targets="divExportReport"
                                                        onBeforeTopics="beforediv_send"
                                                        onCompleteTopics="completediv_send" cssStyle="display:none"/>
                                             <input type="button" id="idResettmp" name="nameidSendtmp"  onclick="onResetData()" value="Khôi phục" class="metroButtonStyle"/>
-                                                &nbsp;&nbsp;&nbsp;  
+                                            &nbsp;&nbsp;&nbsp;  
                                         </s:if>          
-                                                
+
                                         <s:if test="khoa_cdtt.equalsIgnoreCase('CDTT_PGD')||khoa_cdtt.equalsIgnoreCase('CDTT_CMNV06')||khoa_cdtt.equalsIgnoreCase('CDTT_CMNV07')">
-                                         <s:url id="idMokhoa" action="unlockPL05.action"></s:url>                                      
+                                            <s:url id="idMokhoa" action="unlockPL05.action"></s:url>                                      
                                             <sj:submit id="idmokhoa" name="namemokhoa" href="%{idMokhoa}" value="Mở duyệt" targets="divExportReport"
                                                        onBeforeTopics="beforediv_send"
                                                        onCompleteTopics="completediv_send" cssStyle="display:none"/>
                                             <input type="button" id="idmkhoatmp" name="nameidmokhoatmp"  onclick="onMokhoaData()" value="Mở duyệt" class="metroButtonStyle"/>
-                                                &nbsp;&nbsp;&nbsp;  
+                                            &nbsp;&nbsp;&nbsp;  
                                         </s:if>          
                                     </s:if>  
-                                        
+
                                     <s:else>  
                                         &nbsp;&nbsp;&nbsp;
                                         <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
@@ -470,16 +475,16 @@
                                                    onCompleteTopics="completediv_data" cssStyle="display:none"/>
                                         <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu" class="metroButtonStyle"/>
                                         &nbsp;&nbsp;&nbsp;
-                                        
+
                                         <s:if test="Grade.equalsIgnoreCase('3') && khoa_cdtt.equalsIgnoreCase('CDTT_TCCB01')">
-                                         <s:url id="idReset" action="resetCDTT.action"></s:url>                                      
+                                            <s:url id="idReset" action="resetCDTT.action"></s:url>                                      
                                             <sj:submit id="idReset" name="nameSend" href="%{idReset}" value="Khôi phục" targets="divExportReport"
                                                        onBeforeTopics="beforediv_send"
                                                        onCompleteTopics="completediv_send" cssStyle="display:none"/>
                                             <input type="button" id="idResettmp" name="nameidSendtmp"  onclick="onResetData()" value="Khôi phục" class="metroButtonStyle"/>
-                                                &nbsp;&nbsp;&nbsp;  
+                                            &nbsp;&nbsp;&nbsp;  
                                         </s:if>
-                                                
+
                                         <s:if test="khoa_cdtt.equalsIgnoreCase('CDTT_CMNV07') || khoa_cdtt.equalsIgnoreCase('CDTT_CMNV06') || khoa_cdtt.equalsIgnoreCase('CDTT_CN')">                                        
                                             <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu" class="metroButtonStyle"/>                                                                                   
                                         </s:if>
@@ -493,12 +498,12 @@
                                                                onBeforeTidSendopics="beforediv_send"
                                                                onCompleteTopics="completediv_send" cssStyle="display:none"/>
                                                     <input type="button" id="idChottmp" name="nameidSendtmp"  onclick="onChot()" value="Phê duyệt" class="metroButtonStyle"/>
-                                                    </s:if>
+                                                </s:if>
                                             </s:if>
-                                        <s:else>                                                     
+                                            <s:else>                                                     
                                                 <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Phê duyệt" class="metroButtonStyle"/>                                            
-                                                 &nbsp;&nbsp;&nbsp;
-                                        </s:else>
+                                                &nbsp;&nbsp;&nbsp;
+                                            </s:else>
                                         </s:else>
                                     </s:else>                                                 
                                     &nbsp;&nbsp;&nbsp;                                                                        
@@ -557,62 +562,62 @@
                 </s:if>                
             </s:form>
             <s:if test="(Grade.equalsIgnoreCase('1') && !khoa_cdtt.equalsIgnoreCase('CDTT_CN08A') && !khoa_cdtt.equalsIgnoreCase('CDTT_CN08B'))                        
-                        || (Grade.equalsIgnoreCase('2') && khoa_cdtt.equalsIgnoreCase('CDTT_CN'))
-                        || (Grade.equalsIgnoreCase('2') && khoa_cdtt.equalsIgnoreCase('CDTT_CMNV06'))
-                        || (Grade.equalsIgnoreCase('2') && khoa_cdtt.equalsIgnoreCase('CDTT_CMNV07'))
-                        || (Grade.equalsIgnoreCase('3') && khoa_cdtt.equalsIgnoreCase('CDTT_CMNV06'))
-                        || (Grade.equalsIgnoreCase('3') && khoa_cdtt.equalsIgnoreCase('CDTT_CMNV07'))
-                        || (Grade.equalsIgnoreCase('3') && khoa_cdtt.equalsIgnoreCase('CDTT_CNTT'))
-                        || (Grade.equalsIgnoreCase('3') && khoa_cdtt.equalsIgnoreCase('CDTT_TTDT'))
-                        || (Grade.equalsIgnoreCase('3') && khoa_cdtt.equalsIgnoreCase('CDTT_SGD'))
-                        ||khoa_cdtt.equalsIgnoreCase('CDTT_CN08TH')
-                        ||khoa_cdtt.equalsIgnoreCase('CDTT_TCCB01')                        
-                        ||khoa_cdtt.equalsIgnoreCase('CDTT_CN99')">
+                  || (Grade.equalsIgnoreCase('2') && khoa_cdtt.equalsIgnoreCase('CDTT_CN'))
+                  || (Grade.equalsIgnoreCase('2') && khoa_cdtt.equalsIgnoreCase('CDTT_CMNV06'))
+                  || (Grade.equalsIgnoreCase('2') && khoa_cdtt.equalsIgnoreCase('CDTT_CMNV07'))
+                  || (Grade.equalsIgnoreCase('3') && khoa_cdtt.equalsIgnoreCase('CDTT_CMNV06'))
+                  || (Grade.equalsIgnoreCase('3') && khoa_cdtt.equalsIgnoreCase('CDTT_CMNV07'))
+                  || (Grade.equalsIgnoreCase('3') && khoa_cdtt.equalsIgnoreCase('CDTT_CNTT'))
+                  || (Grade.equalsIgnoreCase('3') && khoa_cdtt.equalsIgnoreCase('CDTT_TTDT'))
+                  || (Grade.equalsIgnoreCase('3') && khoa_cdtt.equalsIgnoreCase('CDTT_SGD'))
+                  ||khoa_cdtt.equalsIgnoreCase('CDTT_CN08TH')
+                  ||khoa_cdtt.equalsIgnoreCase('CDTT_TCCB01')                        
+                  ||khoa_cdtt.equalsIgnoreCase('CDTT_CN99')">
                 <div id="containParm_full" align="center">
                 </s:if>
                 <s:elseif test="khoa_cdtt.equalsIgnoreCase('CDTT_TCCB02')">                    
                     <div id="containParm_full130" align="center">
-                </s:elseif>    
-                <s:else>
-                    <s:if test="(khoa_cdtt.equalsIgnoreCase('CDTT_CN08A') && !RULEUSER.equalsIgnoreCase('9'))
-                          ||(khoa_cdtt.equalsIgnoreCase('CDTT_CN08B') && !RULEUSER.equalsIgnoreCase('9'))">
-                        <div id="containParm_full" align="center">
-                    </s:if>  
+                    </s:elseif>    
                     <s:else>
-                        <div id="containParm" align="center">  
-                    </s:else>        
-                    
-                </s:else>
-                <div id="divExportReport"></div>
-                </div>
-            </div>
-                        
-            <script>
-            //CuongBM: 31Jul14
-            //Desc: Xu truong hop dat gia tri mac dich cho combox Quy (Quater), la quy hien tai
-            //      Cac bao cao Quy phai co id la PARA_QUY           
-            // TrungNT88 sua
-           
-            var date = new Date(); 
-            
-                                   
-            var month = date.getMonth();
-            var year = date.getFullYear(); //nam
-            if (month===0)
-            {
-                month = 12;
-                year = year -1;
-            }
-            var day = getDaysOfMonth(month,year)
-            
-            var daynow = day + "/" + month + "/" + year;
-            
-            document.getElementById("ngay_bc_DATE").value = daynow;
-            //Gan quy mac dinh
-//            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
-            
-            
-            
-        </script>
-    </body>
-</html>
+                        <s:if test="(khoa_cdtt.equalsIgnoreCase('CDTT_CN08A') && !RULEUSER.equalsIgnoreCase('9'))
+                              ||(khoa_cdtt.equalsIgnoreCase('CDTT_CN08B') && !RULEUSER.equalsIgnoreCase('9'))">
+                            <div id="containParm_full" align="center">
+                            </s:if>  
+                            <s:else>
+                                <div id="containParm" align="center">  
+                                </s:else>        
+
+                            </s:else>
+                            <div id="divExportReport"></div>
+                        </div>
+                    </div>
+
+                    <script>
+                        //CuongBM: 31Jul14
+                        //Desc: Xu truong hop dat gia tri mac dich cho combox Quy (Quater), la quy hien tai
+                        //      Cac bao cao Quy phai co id la PARA_QUY           
+                        // TrungNT88 sua
+
+                        var date = new Date();
+
+
+                        var month = date.getMonth();
+                        var year = date.getFullYear(); //nam
+                        if (month === 0)
+                        {
+                            month = 12;
+                            year = year - 1;
+                        }
+                        var day = getDaysOfMonth(month, year)
+
+                        var daynow = day + "/" + month + "/" + year;
+
+                        document.getElementById("ngay_bc_DATE").value = daynow;
+                        //Gan quy mac dinh
+                        //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
+
+
+
+                    </script>
+                    </body>
+                    </html>

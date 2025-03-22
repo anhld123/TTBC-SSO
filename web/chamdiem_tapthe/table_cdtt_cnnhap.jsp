@@ -39,7 +39,7 @@
                 $(".TEN_KH").css({"width": "100%"});
 //                $(".TEN_KH").css({"height": "100%"});
                 $(".hideColumn").hide();
-                if ('<s:property value="Grade"/>' == '2')
+                if ('<s:property value="Grade"/>' === '2')
                 {
                     evaluateSum('CHAMDIEMTT_001', 'D10');
                 }
