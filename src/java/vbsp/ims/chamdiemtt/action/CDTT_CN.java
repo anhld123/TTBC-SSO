@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -340,11 +341,11 @@ public class CDTT_CN extends ActionChamdiemttMain implements CdttFunction {
             Date sdf = new SimpleDateFormat("dd/MM/yyyy").parse(sNgayBC);
             sNgayBC = new SimpleDateFormat("dd-MMM-yyyy").format(sdf);
 
-            if (!months.equals("03") && !months.equals("06") && !months.equals("09") && !months.equals("12")
-                    && !sNgayBC.toLowerCase().equals(vbsp.ims.define.DefineFun.getLastDayOfMonth(sNgayBC, pattern, pattern).toLowerCase())) // If last day of month
+            if (!sNgayBC.toLowerCase().equals(vbsp.ims.define.DefineFun.getLastDayOfMonth(sNgayBC, pattern, pattern).toLowerCase())&&
+                    !isDay24(sNgayBC))  // If last day of month
             {
-                tableDetail = "<th> Ngày báo cáo không phải là ngày cuối tháng " + sNgayBC + "</th>";
-                excelDetail = "<th> Ngày báo cáo không phải là ngày cuối tháng " + sNgayBC + "</th>";
+                tableDetail = "<th> Ngày báo cáo không phải là ngày 24 hoặc ngày cuối tháng " + sNgayBC + "</th>";
+                excelDetail = "<th> Ngày báo cáo không phải là ngày 24 hoặc ngày cuối tháng " + sNgayBC + "</th>";
                 return SUCCESS;
             }
 
@@ -499,5 +500,19 @@ public class CDTT_CN extends ActionChamdiemttMain implements CdttFunction {
         }
         return SUCCESS;
     }
+     private boolean isDay24(String dateStr) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+            sdf.setLenient(false); // Không cho phép nhập ngày không hợp lệ
+
+            try {
+                Date date = sdf.parse(dateStr);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+
+                return cal.get(Calendar.DAY_OF_MONTH) == 24;
+            } catch (ParseException e) {
+                return false; // Nếu ngày không hợp lệ, trả về false
+            }
+        }
 
 }
