@@ -219,6 +219,14 @@
             <result name="error">/chamdiem_tapthe/success.jsp</result>        
         </action>
         
+        <action name="CDTT_UNLOCK" class="vbsp.ims.chamdiemtt.action.CDTT_UNLOCK"  method="load">
+            <result name="success">/chamdiem_tapthe/table_cdtt_unlock.jsp</result>
+            <result name="error">/chamdiem_tapthe/success.jsp</result>        
+        </action>
+        
+        <action name="CDTT_Lock_Change_Status" class="vbsp.ims.chamdiemtt.action.CDTT_UNLOCK" method="save">
+            <result name="success" type="json"></result>
+        </action>
     </package>
     <package name="Upload_file" extends="struts-default,json-default">    
         <action name="UploadFile" class="vbsp.ims.chamdiemtt.action.UploadFileKHNV"

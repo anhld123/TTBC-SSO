@@ -4396,4 +4396,96 @@ public class DaoChamdiemttMain {
 	   System.out.println(s);
 	}
     }
+    
+    public List<QT_DULIEU_NT> getBranchLockStatus(List<String> lstBranchCode, String reportDate) throws SQLException {
+        List<QT_DULIEU_NT> _lstData = new ArrayList();
+        DaoConnect daoconnect = new DaoConnect();
+        Connection conn = daoconnect.getConnect();
+        CallableStatement calstatement = null;
+        ResultSet reset = null;
+        String strStoreproce = "{call VBSP_IMS_CHAMDIEMTT.SP_GET_BRANCH_SEND_STATUS(?,?,?)}";
+        ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
+        String[] arrayPoscd = (String[]) lstBranchCode.toArray(new String[0]);
+        ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
+
+        try {
+            calstatement = conn.prepareCall(strStoreproce, 1003, 1007);
+            calstatement.setArray(1, oracle_arrayPoscd);
+            calstatement.setString(2, reportDate);
+            calstatement.registerOutParameter(3, -10);
+            calstatement.execute();
+
+            QT_DULIEU_NT _item;
+            for (reset = (ResultSet) calstatement.getObject(3); reset.next(); _lstData.add(_item)) {
+                _item = new QT_DULIEU_NT();
+                _item.setKHOA(reset.getString(1));
+                _item.setMA(reset.getString(2));
+                _item.setTEN(reset.getString(3));
+                _item.setMAPGD(reset.getString(5));
+                _item.setCO_TONGHOP(reset.getString(6));
+                _item.setMACN(reset.getString(7));
+                _item.setD1(reset.getString(8));
+                if (reset.getString(8).equals("0")) {
+                    _item.setD2("Trạng thái mở");
+                } else {
+                    _item.setD2("Trạng thái đóng");
+                }
+            }
+        } catch (SQLException var16) {
+            System.err.print(var16.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getPosByName -> " + var16.getMessage());
+            throw new SQLException(var16);
+        } finally {
+            if (reset != null) {
+                reset.close();
+            }
+
+            if (calstatement != null) {
+                calstatement.close();
+            }
+
+            if (conn != null) {
+                conn.close();
+            }
+
+        }
+
+        return _lstData;
+    }
+
+    public int unlockLockStatus(List<String> lstBranchCode, String reportDate, String status) throws SQLException {
+        DaoConnect daoconnect = new DaoConnect();
+        Connection conn = daoconnect.getConnect();
+        CallableStatement calstatement = null;
+        String _status = "0";
+        String strStoreproce = "{call VBSP_IMS_CHAMDIEMTT.SP_SEND_DATA_UNLOCK_LOCK(?,?,?,?)}";
+        ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
+        String[] arrayPoscd = (String[]) lstBranchCode.toArray(new String[0]);
+        ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
+
+        try {
+            calstatement = conn.prepareCall(strStoreproce, 1003, 1007);
+            calstatement.setString(1, reportDate);
+            calstatement.setArray(2, oracle_arrayPoscd);
+            calstatement.setString(3, status);
+            calstatement.registerOutParameter(4, -9);
+            calstatement.execute();
+            _status = (String) calstatement.getObject(4);
+        } catch (SQLException var16) {
+            System.err.print(var16.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getPosByName -> " + var16.getMessage());
+            throw new SQLException(var16);
+        } finally {
+            if (calstatement != null) {
+                calstatement.close();
+            }
+
+            if (conn != null) {
+                conn.close();
+            }
+
+        }
+
+        return Integer.parseInt(_status);
+    }
 }
