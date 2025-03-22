@@ -8,11 +8,13 @@ package vbsp.ims.chamdiemtt.action;
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import java.sql.Connection;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.chamdiemtt.dao.DaoChamdiemttMain;
 import vbsp.ims.dao.DaoConnect;
@@ -24,10 +26,20 @@ import vbsp.ims.log.CoreLogger;
  */
 public class CDTT_CN extends ActionChamdiemttMain implements CdttFunction {
 
+    private String months;
+
+    public String getMonths() {
+        return months;
+    }
+
+    public void setMonths(String months) {
+        this.months = months;
+    }
+
     @Override
     public String load() {
         try {
-            System.err.println("CDTT_PGD");
+//            System.err.println("CDTT_PGD");
             if (!getParaSession()) {
                 return ERROR;
             }
@@ -61,17 +73,29 @@ public class CDTT_CN extends ActionChamdiemttMain implements CdttFunction {
 
     public String loadDulieuCN() {
         try {
-            System.err.println("CDTT_CN");
+//            System.err.println("CDTT_CN");
             if (!getParaSession()) {
                 return ERROR;
             }
             HashMap hmParameter = getParameter();
             DaoChamdiemttMain daoMain = new DaoChamdiemttMain();
-            if (poscd.size() > 15)
-            {
+            if (poscd.size() > 15) {
                 addActionError("Bạn chỉ được chọn tối đa 14 đơn vị để duyệt.");
                 return ERROR;
             }
+            String days = hmParameter.get("ngay_bc").toString();
+            String[] values = days.split("\\-");
+            String ssThang = values[1]; 
+            SimpleDateFormat inputFormat = new SimpleDateFormat("MMM", Locale.ENGLISH); 
+            SimpleDateFormat outputFormat = new SimpleDateFormat("MM"); 
+
+            try {
+                Date date = inputFormat.parse(ssThang);
+                ssThang = outputFormat.format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            setMonths(ssThang); 
             int input = daoMain.isCheckPGDInput(khoa_cdtt, UserName, hmParameter.get("ngay_bc").toString(), Grade, "1", UserName);
             if (input == 2 && Grade.equals("3")) {
                 addActionError("Ban CMNV chưa duyệt hết số liệu");
@@ -313,7 +337,7 @@ public class CDTT_CN extends ActionChamdiemttMain implements CdttFunction {
 
             int iRule = daoMain.checkRuleUser(UserName, Grade);
             setRULEUSER(String.valueOf(iRule));
-            
+
             //Khoi tao cho treeview cac pos
             //lstDulieuNt = daoMain.get_DetailCT(conn, khoa_cdtt, sNgayBC, UserName, Grade, poscd, MACT);
             HashMap<String, String> mapValue = daoMain.getQueryTableDetail(khoa_cdtt, MACT, sNgayBC, "000100", UserName, Grade, poscd);
@@ -396,52 +420,53 @@ public class CDTT_CN extends ActionChamdiemttMain implements CdttFunction {
         addActionMessage("Bạn đã lưu dữ liệu thành công");
         return SUCCESS;
     }
-    
-    public String SaveDeNghiLoaiTru() {        
+
+    public String SaveDeNghiLoaiTru() {
         List<DeNghiLoaiTru> saveData = lstDeNghiLoaiTru;
         String key = khoa_cdtt;
         String ngayBC = getNgay_bc();
-        int capBC =  Integer.parseInt(Grade);
+        int capBC = Integer.parseInt(Grade);
         String username = UserName;
         DaoChamdiemttMain daoMain = new DaoChamdiemttMain();
         try {
-            Boolean valid = true; 
+            Boolean valid = true;
             int denghiTotal = 0;
-            switch(capBC) {
-                case 2:                    
-                    for(int i = 0; i < saveData.size(); i++) {
-                        int denghi = saveData.get(i).getCN_DeNghi_LoaiTru()!= null && saveData.get(i).getCN_DeNghi_LoaiTru()==true?1:0;
-                        String lydo = saveData.get(i).getCN_LyDo()==null?"":saveData.get(i).getCN_LyDo().trim();
+            switch (capBC) {
+                case 2:
+                    for (int i = 0; i < saveData.size(); i++) {
+                        int denghi = saveData.get(i).getCN_DeNghi_LoaiTru() != null && saveData.get(i).getCN_DeNghi_LoaiTru() == true ? 1 : 0;
+                        String lydo = saveData.get(i).getCN_LyDo() == null ? "" : saveData.get(i).getCN_LyDo().trim();
                         if (denghi == 1 && lydo.isEmpty()) {
                             valid = false;
                             break;
                         }
                     }
-                    if (valid){        
+                    if (valid) {
 //                        if (RULEUSER.equals("9")) {
 //                            setMessage("Bạn không được quyền thực hiện chức năng này!");
 //                        } else {
-                            daoMain.save_LOAI_TRU_CDTT_CN(key, username, ngayBC, capBC, saveData);
-                            setMessage("Cập nhật dữ liệu thành công!");
+                        daoMain.save_LOAI_TRU_CDTT_CN(key, username, ngayBC, capBC, saveData);
+                        setMessage("Cập nhật dữ liệu thành công!");
 //                        }
                     } else {
                         setMessage("Bạn phải nhập đầy đủ lý do trong trường hợp đề nghị loại trừ!");
                     }
                     break;
-                case 3:                    
-                    for(int i = 0; i < saveData.size(); i++) {
-                        int denghi = saveData.get(i).getCN_DeNghi_LoaiTru()!= null && saveData.get(i).getCN_DeNghi_LoaiTru()==true?1:0;
-                        int pheduyet = saveData.get(i).getTW_Duyet_DeNghi()!= null && saveData.get(i).getTW_Duyet_DeNghi()==true?1:0;
-                        String lydo = saveData.get(i).getTW_LyDo()==null?"":saveData.get(i).getTW_LyDo().trim();
+                case 3:
+                    for (int i = 0; i < saveData.size(); i++) {
+                        int denghi = saveData.get(i).getCN_DeNghi_LoaiTru() != null && saveData.get(i).getCN_DeNghi_LoaiTru() == true ? 1 : 0;
+                        int pheduyet = saveData.get(i).getTW_Duyet_DeNghi() != null && saveData.get(i).getTW_Duyet_DeNghi() == true ? 1 : 0;
+                        String lydo = saveData.get(i).getTW_LyDo() == null ? "" : saveData.get(i).getTW_LyDo().trim();
                         if ((denghi == 1 && pheduyet == 0 && lydo.isEmpty())
                                 || (denghi == 1 && pheduyet == 1 && !lydo.isEmpty())) {
                             valid = false;
                             break;
                         }
-                        if (denghi==1)
+                        if (denghi == 1) {
                             denghiTotal++;
+                        }
                     }
-                    if (valid){
+                    if (valid) {
                         if (denghiTotal == 0) {
                             setMessage("Trường hợp chi nhánh không đề nghị loại trừ thì bạn không cần lưu dữ liệu!");
                         } else {
@@ -453,12 +478,12 @@ public class CDTT_CN extends ActionChamdiemttMain implements CdttFunction {
                     }
                     break;
             }
-        }catch(Exception e) {
+        } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> save SaveDeNghiLoaiTru: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> save SaveDeNghiLoaiTru: " + e.getMessage());
             addActionError("Có lỗi xảy ra: " + e.getMessage());
             return ERROR;
-        }        
+        }
         return SUCCESS;
     }
 
