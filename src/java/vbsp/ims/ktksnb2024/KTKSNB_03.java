@@ -667,9 +667,9 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
             }
             String ssskhoa;
             if (ssNghiepvu.equals("1")) {
-                ssskhoa = "KH_HUYEN_DC";
+                ssskhoa = "KH_HUYEN_TH";
             } else {
-                ssskhoa = "KH_TINH_DC";
+                ssskhoa = "KH_TINH_TH";
             }
             lstDulieuNt = daoMain.getData_Ktksnb_c3(conn, lastFourChars, ssskhoa, smacn, "S");
             if (conn != null) {
@@ -865,9 +865,9 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
             String D8 = ServletActionContext.getRequest().getParameter("type");
             int status;
             if (D8.equals("1")) {
-                status = _serverAPI.updateChotSL("KH_HUYEN_DC", D1, "S", D7, "0", UserName, null);
+                status = _serverAPI.updateChotSL("KH_HUYEN_TH", D1, "S", D7, "0", UserName, null);
             } else {
-                status = _serverAPI.updateChotSL("KH_HUYEN_DC", D1, "S", D7, "2", UserName, null);
+                status = _serverAPI.updateChotSL("KH_HUYEN_TH", D1, "S", D7, "2", UserName, null);
             }
             if (status != 200) {
                 String code = String.valueOf(1);
