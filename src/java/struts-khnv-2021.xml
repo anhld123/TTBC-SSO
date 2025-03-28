@@ -208,6 +208,12 @@
             <result name="error">/khnv2021/success.jsp</result>     
         </action>  
         
+        <action name="khvn_open_upload_qt_kh1" class="vbsp.ims.khnv2021.QuyetToanKeHoach20211"
+                method="openExcelUploadQtKh1">
+            <result name="success">/EXCEL_UPLOAD/util_excel_upload_file-main.jsp</result>       
+            <result name="error">/khnv2021/success.jsp</result>     
+        </action>  
+        
         <action name="TongHopQtKehoach" class="vbsp.ims.khnv2021.QuyetToanKeHoach20211" method="TongHopQtKehoach">          
             <result name="success">/khnv2021/table_detal_qt_kehoach.jsp</result>                 
             <result name="error">/khnv2021/error.jsp</result>      

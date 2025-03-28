@@ -311,7 +311,7 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
         return SUCCESS;
     }
 
-    public String openExcelUploadQtKh() {
+    public String openExcelUploadQtKh1() {
         try {
             getInfo();
             String namBc = (String) ActionContext.getContext().getSession().get("ssnambc");
@@ -342,7 +342,32 @@ public class QuyetToanKeHoach20211 extends ActionMainKHNV {
         }
         return SUCCESS;
     }
+    
+    public String openExcelUploadQtKh() {
+        try {
+            getInfo();
+            service = new DuLieuNTService();
+            ArrayList<LockSendModel> lstDataLock = new ArrayList<>();
+            if (reportGrade.equals("1")) {
+                lstDataLock = service.getDataLockManual(Define.NV_QT, pos_cd_username, "S", namBc + "1231");
+            } else if (reportGrade.equals("2")) {
+                lstDataLock = service.getDataLockManual(Define.NV_QT, pos_cd_username, "M", namBc + "1231");
+            }
+            if (lstDataLock.size() > 0) {
+                if (lstDataLock.get(0).getStatus().equals("1")) {
+                    addActionError("Đơn vị đã chốt số liệu. Vui lòng liên hệ với cấp trên để mở khóa");
+                    return ERROR;
+                }
+            }
+        } catch (Exception ex) {
+            CoreLogger.error(this.getClass().getName() + " ExpExcelKhnv01 " + ex.getMessage());
+            System.err.println(this.getClass().getName() + " Loi ExpExcelKhnv01 " + ex.getMessage());
+            return ERROR;
+        }
+        return SUCCESS;
+    }
 
+    
 //<editor-fold defaultstate="collapsed" desc="Getter Setter">
 //</editor-fold>    
     public List<POSModel> getCustCommuneList() {
