@@ -59,9 +59,9 @@ public class Local_GQVL2023 extends ActionNhaptaycnMain
                     addActionError("Bạn chỉ được xem 1 chi nhánh, hoặc bỏ tích chọn -- NHCSXH Việt Nam -- để xem dữ liệu tất cả các chi nhánh");
                     return ERROR;
                 } else if (poscd.isEmpty()) {
-                    lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2024", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
+                    lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2024", hmParameter.get("ngay_bc").toString(), UserName, Grade, "");
                 } else {
-                    lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2024", hmParameter.get("ngay_bc").toString(), UserName, "4", poscd);
+                    lstDulieuNt = daoMain.getData_GQVL_2023(conn, "GQVL_2024", hmParameter.get("ngay_bc").toString(), UserName, "4", "");
                 }
             } else if (Grade.equals("2")) {
                 if (poscd.size() > 1) {
