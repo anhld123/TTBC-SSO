@@ -531,7 +531,8 @@
                 document.getElementById('ngay_bc_DATE').value = formattedDate;
             });
             function callDirectLink(link) {
-                PopupCenter(link, 'Upload excel', 800, 400);
+                const curentYear = new Date().getFullYear();
+                PopupCenter(link+'ssnambc='+curentYear, 'Upload excel', 800, 400);
 
             }
             function PopupCenter(pageURL, title, w, h) {
