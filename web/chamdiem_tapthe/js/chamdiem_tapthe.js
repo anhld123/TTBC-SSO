@@ -101,7 +101,7 @@ function evaluateSum(table_id, subid) {
 
                     if (ma_ct === 'CDTT99' && (subid === "D4" || subid === "D5" || subid === "D11" || subid === "D16"))
                         continue;
-                    else if (ma_ct === 'CDTT11' && ( subid === "D5" || subid === "D11" || subid === "D16"))
+                    else if (ma_ct === 'CDTT11' && ( subid === "D11" || subid === "D16"))
                         continue;
                     else if (Grade === '3' && (ma_ct === 'CDTT1001' || ma_ct === 'CDTT1002') && RULEUSER != 9 && (subid === "D10" || subid === "D12" || subid === "D16"))
                     {
