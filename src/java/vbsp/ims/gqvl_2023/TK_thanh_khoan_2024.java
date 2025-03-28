@@ -450,13 +450,12 @@ public class TK_thanh_khoan_2024 extends ActionNhaptaycnMain
             _serverAPI = new DuLieuNTService();
             int status = _serverAPI.getGQVL2023("THTK_2024", pos_cd_username, Pos_Flag, _reportDate, "", "", lstUpdateDate);
             if (status == 200) {
-                _serverAPI.updateChotSL("THTK_2024", pos_cd_username, Pos_Flag, _reportDate, "0", UserName, null);
+//                _serverAPI.updateChotSL("THTK_2024", pos_cd_username, Pos_Flag, _reportDate, "0", UserName, null);
                 if (!daoMain.save_THTK_2024("THTK_2024", UserName, Pos_Flag, hmParameter.get("ngay_bc").toString(), lstLocalDataUpdate, pos_cd_username)) {
-                    addActionError("Bạn chưa lưu được báo cáo tại chi nhánh vui lòng liên hệ quản trị viên!");
+//                    addActionError("Bạn chưa lưu được báo cáo tại chi nhánh vui lòng liên hệ quản trị viên!");
                     String code = String.valueOf(2);
                     this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
                     return ERROR;
-
                 }
             }
         } catch (Exception e) {
