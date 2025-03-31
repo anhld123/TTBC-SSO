@@ -248,7 +248,12 @@
                                                class="TEN_KH number3"
                                            </s:else>   
                                            <%--<s:if test="MA.equalsIgnoreCase('CDTT11')">readonly="readonly"</s:if>--%>
-                                            <s:if test="MA.equalsIgnoreCase('CDTT10')||MA.equalsIgnoreCase('CDTT11')||MA.equalsIgnoreCase('CDTT1101')||MA.equalsIgnoreCase('CDTT1102')||MA.equalsIgnoreCase('CDTT110201')||MA.equalsIgnoreCase('CDTT110202')||MA.equalsIgnoreCase('CDTT13')||MA.equalsIgnoreCase('CDTT14')||MA.equalsIgnoreCase('CDTT1401')||MA.equalsIgnoreCase('CDTT1402')||MA.equalsIgnoreCase('CDTT1403')||MA.equalsIgnoreCase('CDTT99')">readonly="readonly"</s:if>
+                                            <s:if test="MA.equalsIgnoreCase('CDTT10')||MA.equalsIgnoreCase('CDTT11')
+                                                  ||MA.equalsIgnoreCase('CDTT1101')||MA.equalsIgnoreCase('CDTT1102')
+                                                  ||MA.equalsIgnoreCase('CDTT110201')||MA.equalsIgnoreCase('CDTT110202')
+                                                  ||MA.equalsIgnoreCase('CDTT13')||MA.equalsIgnoreCase('CDTT14')
+                                                  ||MA.equalsIgnoreCase('CDTT1401')||MA.equalsIgnoreCase('CDTT1402')
+                                                  ||MA.equalsIgnoreCase('CDTT1403')||MA.equalsIgnoreCase('CDTT99')">readonly="readonly"</s:if>
                               
                                     </td> 
                                     <td align = "right" class="TD_NGUYENGIA">                            
@@ -312,7 +317,26 @@
                                        <s:else> 
                                            class="TEN_KH number3"
                                        </s:else>   
-                                       <s:if test="MA.equalsIgnoreCase('CDTT10')||MA.equalsIgnoreCase('CDTT11')||MA.equalsIgnoreCase('CDTT1101')||MA.equalsIgnoreCase('CDTT1102')||MA.equalsIgnoreCase('CDTT110201')||MA.equalsIgnoreCase('CDTT110202')||MA.equalsIgnoreCase('CDTT13')||MA.equalsIgnoreCase('CDTT14')||MA.equalsIgnoreCase('CDTT1401')||MA.equalsIgnoreCase('CDTT1402')||MA.equalsIgnoreCase('CDTT1403')||MA.equalsIgnoreCase('CDTT99')">readonly="readonly"</s:if>
+                                       <s:if test="MA.equalsIgnoreCase('CDTT10')||MA.equalsIgnoreCase('CDTT11')
+                                             ||MA.equalsIgnoreCase('CDTT1101')||MA.equalsIgnoreCase('CDTT1102')
+                                             ||MA.equalsIgnoreCase('CDTT110201')||MA.equalsIgnoreCase('CDTT110202')
+                                             ||MA.equalsIgnoreCase('CDTT13')||MA.equalsIgnoreCase('CDTT14')
+                                             ||MA.equalsIgnoreCase('CDTT1401')||MA.equalsIgnoreCase('CDTT1402')
+                                             ||MA.equalsIgnoreCase('CDTT1403')||MA.equalsIgnoreCase('CDTT99')
+                                             ||MA.equalsIgnoreCase('CDTT11')||MA.equalsIgnoreCase('CDTT1101')
+                                             ||MA.equalsIgnoreCase('CDTT110101')||MA.equalsIgnoreCase('CDTT110102')
+                                             ||MA.equalsIgnoreCase('CDTT110103')||MA.equalsIgnoreCase('CDTT110104')
+                                             ||MA.equalsIgnoreCase('CDTT110105')||MA.equalsIgnoreCase('CDTT110106')
+                                             ||MA.equalsIgnoreCase('CDTT110107')||MA.equalsIgnoreCase('CDTT110108')
+                                             ||MA.equalsIgnoreCase('CDTT110109')||MA.equalsIgnoreCase('CDTT110110')
+                                             ||MA.equalsIgnoreCase('CDTT110111')||MA.equalsIgnoreCase('CDTT110112')
+                                             ||MA.equalsIgnoreCase('CDTT110113')||MA.equalsIgnoreCase('CDTT110114')
+                                             ||MA.equalsIgnoreCase('CDTT110115')||MA.equalsIgnoreCase('CDTT110116')
+                                             ||MA.equalsIgnoreCase('CDTT110117')||MA.equalsIgnoreCase('CDTT110118')
+                                             ||MA.equalsIgnoreCase('CDTT110119')||MA.equalsIgnoreCase('CDTT110120')
+                                             ||MA.equalsIgnoreCase('CDTT110121')||MA.equalsIgnoreCase('CDTT110124')
+                                             ||MA.equalsIgnoreCase('CDTT110125')||MA.equalsIgnoreCase('CDTT110130')
+                                             ||MA.equalsIgnoreCase('CDTT110131')">readonly="readonly"</s:if>
                                 />
                                 </td> 
                                 <td align = "right" class="TD_NGUYENGIA">                            
@@ -324,7 +348,7 @@
                                                ;
                                                isInputMark('D1_<s:property value='MA'/>', 'D12_<s:property value='MA'/>_<s:property value="MAPGD"/>');
                                                evaluateSum_Mapgd('CHAMDIEMTT_001', 'D12', '<s:property value="MAPGD"/>')"   class="number2 TEN_KH"
-                                       <s:if test="!MA.equalsIgnoreCase('CDTT1301')&&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')">readonly="readonly"</s:if>
+                                       <s:if test="!MA.equalsIgnoreCase('CDTT1301')&&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')&&!MA.equalsIgnoreCase('CDTT1304')">readonly="readonly"</s:if>
                                          />
                                 </td>
                                 <td align="center" class="TD_CHITIEU">
