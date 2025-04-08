@@ -308,9 +308,20 @@
                             <th class="STT1" >STT</th>                           
                             <th class="STT4" >Nội dung</th>  
                             <th class="STT2" >Đơn vị</th> 
+                            <s:iterator value="#attr.lstDulieuNt" status="rowStatus">
+                                <s:if test="#rowStatus.first">
+                            <s:if test="KHOA.equalsIgnoreCase('KH_HUYEN_BS') ||KHOA.equalsIgnoreCase('KH_HUYEN_TH_BS')
+                                  ||KHOA.equalsIgnoreCase('KH_TINH_BS')||KHOA.equalsIgnoreCase('KH_TINH_TH_BS')">
+                            <th class="STT6" >Kế hoạch bổ sung</th>
+                            <th class="STT6" ></th>
+                            <th class="STT6" >Thực hiện bổ sung</th>
+                            </s:if>
+                            <s:else>
                             <th class="STT6" >Kế hoạch gốc</th>
                             <th class="STT6" >Kế hoạch điều chỉnh</th>
                             <th class="STT6" >Thực hiện kế hoạch</th>
+                            </s:else>
+                            </s:if></s:iterator>
                         </tr>
                         <tr>
                             <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
@@ -417,10 +428,10 @@
                         alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + snambc);
                         isValid = false;
                     }
-                    if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
-                        alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + snambc);
-                        isValid = false;
-                    }
+//                    if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
+//                        alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + sthangbc);
+//                        isValid = false;
+//                    }
                     if (chot === "1" || chot === "2") {
                         alert("Dữ liệu đã gửi, không thể lưu!");
                         isValid = false;
