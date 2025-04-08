@@ -164,15 +164,6 @@
                                        <s:if test="MA.equalsIgnoreCase('CDTT09')"> class="number505 TEN_KH" </s:if>  <s:else> class="number4 TEN_KH" </s:else>
                                            readonly="readonly"/>
                                 </td>
-                                <!--                                <td align = "right" class="hideColumn">                            
-                                                                        <input type="text" id="D6_<s:property value='MA'/>" value="<s:property value='D6'/>" 
-                                                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" 
-                                                                       onblur="if (this.value == '') {
-                                                                                   this.value = 0
-                                                                               }
-                                                                               ;"   class="number4 TEN_KH" 
-                                                                       readonly="readonly"
-                                                            </td>    -->
                             <td align = "right" class="TD_SOLUONG">
                                 <input type="text" id="D10_<s:property value='MA'/>" value="<s:property value='D10'/>" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" 
@@ -191,15 +182,6 @@
                                                    ;"   <s:if test="MA.equalsIgnoreCase('CDTT09')"> class="number505 TEN_KH" </s:if>  <s:else> class="number4 TEN_KH" </s:else> readonly="readonly"/>
 
                                     </td>
-                                    <!--                                    <td align = "right" class="hideColumn">                            
-                                                                                <input type="text" id="D8_<s:property value='MA'/>" value="<s:property value='D8'/>" 
-                                                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" 
-                                                                               onblur="if (this.value == '') {
-                                                                                           this.value = 0
-                                                                                       }
-                                                                                       ;"   class="number4 TEN_KH" 
-                                <s:if test="!MA.equalsIgnoreCase('CDTT03') || D16.equalsIgnoreCase('1')">readonly="readonly"</s:if> />
-                         </td>-->
                                     <td align = "right" class="TD_SOLUONG">
                                         <input type="text" id="D12_<s:property value='MA'/>" value="<s:property value='D12'/>" 
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" 
@@ -232,17 +214,7 @@
                                                <s:if test="MA.equalsIgnoreCase('CDTT11')||MA.equalsIgnoreCase('CDTT1201')|| MA.equalsIgnoreCase('CDTT1203')|| D16.equalsIgnoreCase('1')">readonly="readonly"</s:if>/>
                                     </s:else>
                                 </td>
-                                <!--                                <td align = "right" class="hideColumn">                            
-                                                                    <input type="text" id="D8_<s:property value='MA'/>" value="<s:property value='D8'/>" 
-                                                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" 
-                                                                           onblur="if (this.value == '') {
-                                                                                       this.value = 0
-                                                                                   }
-                                                                                   ;"   class="number4 TEN_KH" 
-                                <%--<s:if test="!MA.equalsIgnoreCase('CDTT03')|| D16.equalsIgnoreCase('1')">readonly="readonly"</s:if>--%> 
-                                readonly="readonly"
-                                />
-                     </td>-->
+                                
                                 <td align = "right" class="TD_SOLUONG">
                                     <input type="text" id="D12_<s:property value='MA'/>" value="<s:property value='D12'/>" 
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" 
@@ -252,18 +224,13 @@
                                                    ;
                                                    isInputMark('D1_<s:property value='MA'/>', 'D12_<s:property value='MA'/>');
                                                    evaluateSum('CHAMDIEMTT_001', 'D12')"   class="number4 TEN_KH"
-                                           <s:if test="(!MA.equalsIgnoreCase('CDTT1101')&& !MA.equalsIgnoreCase('CDTT1102')&&!MA.equalsIgnoreCase('CDTT1103')&&!MA.equalsIgnoreCase('CDTT1201') && !MA.equalsIgnoreCase('CDTT1203')) || D16.equalsIgnoreCase('1')">readonly="readonly"</s:if>/>                                                             
-                                    </td>
+                                          <s:if test="!MA.equalsIgnoreCase('CDTT1301')&&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')&&!MA.equalsIgnoreCase('CDTT1304')">readonly="readonly"</s:if>
+                                                    </td>
 
                                     <td  align="center" class="TD_CHITIEU"> 
                                         <input type="text" value="<s:property  value="D13" />" 
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" class="TEN_KH" onfocus="this.select()"/>                                  
                                 </td> 
-                                <!--                                <td  align="center" class="TD_CHITIEU"> 
-                                                                    <input type="text" value="<s:property  value="D16" />" 
-                                                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" class="TEN_KH" onfocus="this.select()"/>                                  
-                                                                </td> -->
-
                             </s:else>    
 
                             <td class="hideColumn"><input type="text" value="<s:property value='D3'/>" name="KH_CONGTHUC" class="KH_CONGTHUC"/></td>
@@ -330,15 +297,6 @@
                                            <s:if test="MA.equalsIgnoreCase('CDTT09')"> class="number505 TEN_KH" </s:if>  <s:else> class="number4 TEN_KH" </s:else>
                                                readonly="readonly"/>
                                     </td>
-                                    <!--                                    <td align = "right" class="hideColumn">                            
-                                                                                <input type="text" id="D6_<s:property value='MA'/>" value="<s:property value='D6'/>" 
-                                                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" 
-                                                                               onblur="if (this.value == '') {
-                                                                                           this.value = 0
-                                                                                       }
-                                                                                       ;"   class="number4 TEN_KH" 
-                                                                               readonly="readonly"
-                                                                    </td>    -->
                                 <td align = "right" class="TD_SOLUONG">
                                     <input type="text" id="D10_<s:property value='MA'/>" value="<s:property value='D10'/>" 
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" 
@@ -355,15 +313,6 @@
                                                    }
                                                    ;"   <s:if test="MA.equalsIgnoreCase('CDTT09')"> class="number505 TEN_KH" </s:if>  <s:else> class="number4 TEN_KH" </s:else> readonly="readonly"/>
                                     </td>
-                                    <!--                                    <td align = "right" class="hideColumn">                            
-                                                                                <input type="text" id="D8_<s:property value='MA'/>" value="<s:property value='D8'/>" 
-                                                                               name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8" 
-                                                                               onblur="if (this.value == '') {
-                                                                                           this.value = 0
-                                                                                       }
-                                                                                       ;"   class="number4 TEN_KH" 
-                                                                               readonly="readonly"/>
-                                                                    </td>-->
                                 <td align = "right" class="TD_SOLUONG">
                                     <input type="text" id="D12_<s:property value='MA'/>" value="<s:property value='D12'/>" 
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" 
@@ -372,8 +321,6 @@
                                                    }
                                                    ;"   class="number4 TEN_KH" readonly="readonly"/>
                                 </td>
-
-
                                 <td  align="center" class="TD_CHITIEU"> 
                                     <input type="text" value="<s:property  value="D13" />" 
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13" class="TEN_KH" onfocus="this.select()" readonly="readonly"/>                                  
