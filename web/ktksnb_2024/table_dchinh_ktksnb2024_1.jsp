@@ -582,8 +582,8 @@
             alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + snambc);
             isValid = false;
         }
-        if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
-            alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + snambc);
+        if (parseInt(sthangbc) < parseInt(currentMonth)) {
+            alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + sthangbc);
             isValid = false;
         }
         if (isValid) {
@@ -612,12 +612,10 @@
                     } else if (data === "1") {
                         alert("Lỗi: Xã " + D3 + " - Tháng " + monthSelect + " đã có kế hoạch kiểm tra, không thể điều chỉnh tiếp!");
                         tai_lai_trang();
-                    } 
-                    else if (data === "5") {
+                    } else if (data === "5") {
                         alert("Lỗi: PGD " + D3 + " - Tháng " + monthSelect + " đã có kế hoạch kiểm tra, không thể điều chỉnh tiếp!");
                         tai_lai_trang();
-                    }
-                    else if (data === "100") {
+                    } else if (data === "100") {
                         alert("Lỗi: Đơn vị đã gửi dữ liệu không thể thao tác!");
                         tai_lai_trang();
                     } else {
@@ -653,8 +651,8 @@
                 alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + snambc);
                 isValid = false;
             }
-            if (snambc.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
-                alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + snambc);
+            if (parseInt(sthangbc) < parseInt(currentMonth)) {
+                alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + sthangbc);
                 isValid = false;
             }
             if (chot === "2") {

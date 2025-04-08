@@ -207,7 +207,7 @@
                     alert("Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + parseInt(ssnam));
                     isValid = false;
                 }
-                if (ssnam.toString() === currentYear.toString() && sthangbc.toString() !== currentMonth.toString()) {
+                if (parseInt(sthangbc) < parseInt(currentMonth)) {
                     alert("Cảnh báo: Chỉ được phép chỉnh sửa dữ liệu tháng hiện tại là tháng " + sthangbc);
                     isValid = false;
                 }

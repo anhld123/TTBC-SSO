@@ -809,7 +809,8 @@ public class ActionChtrinhcnMain extends ActionSupport {
 
             lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn, UserName, Grade);
 
-            if (this.khoa_nhaptaycn.equals("KTKSNB_01") || this.khoa_nhaptaycn.equals("KTKSNB_02") || this.khoa_nhaptaycn.equals("KTKSNB_03")) {
+            if (this.khoa_nhaptaycn.equals("KTKSNB_01") || this.khoa_nhaptaycn.equals("KTKSNB_02") || this.khoa_nhaptaycn.equals("KTKSNB_03")
+                    || this.khoa_nhaptaycn.equals("KTKSNB_04")) {
                 posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
                 pos_cd = posMainModel.getPosCd();
                 main_pos = posMainModel.getMainPosCd();
@@ -871,6 +872,8 @@ public class ActionChtrinhcnMain extends ActionSupport {
                         return "success_2";
                     case "KTKSNB_03":
                         return "success_3";
+                    case "KTKSNB_04":
+                        return "success_4";
                     default:
                         return "success";
                 }

@@ -217,7 +217,9 @@
                 animation: my 700ms infinite;
             }
         </style>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
+
             var bsubmit = false;
             $(document).ready(function () {
                 $(".NGAY_SL").css({"width": "80px"});
@@ -229,91 +231,114 @@
                 $('#divExportReportLink').empty();
                 $("#loadData")[0].click();
                 btnDisabled(0);
-                // Thực hiện lần click thứ hai sau 100ms
-//                setTimeout(function () {
-//                    $("#loadData")[0].click();
-//                }, 0, 00001);
                 bsubmit = true;
             }
 
             $("#idSave").click(function () {
-                $('#message_suc_err').empty();
-                $('#divExportReportLink').empty();
+                $('#message_suc_err, #divExportReportLink').empty();
 
-
-                let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo?");
-                if (aCheck) {
-                    var table = document.getElementById("subTable");
-                    var rowcount = table.rows.length;
-                    var isValid = true;
-                    var chot = document.getElementById("chotsl").value;
-                    var ngaybc = document.getElementById("ngay_bc_DATE").value;
-                    var parts = ngaybc.split('/');
-                    var snam = parts[2];
-                    var stoday = document.getElementById("stoday").value;
-                    var sparts = stoday.split('/');
-                    var currentYear = sparts[2];
-                    var currentMonth = sparts[1];
-                    var currentDate = sparts[0];
-//                    window.alert(currentYear + currentMonth + currentDate);
-                    if (currentYear.toString() > snam.toString()) {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + snam + "</h>");
-                        return;
-                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + snam + "</h>");
-                        return;
+                showConfirmationDialog("Thông báo", "Bạn chắc chắn muốn lưu số liệu báo cáo?", function () {
+                    const chot = $("#chotsl").val();
+                    const chotsl_th = $("#chotsl_th").val();
+                    const check_kehoach = $("#check_kehoach").val();
+                    const check_dieuchinh = $("#check_dieuchinh").val();
+                    if (chot === "4") {
+                        return showErrorDialog("Cảnh báo!", "Kế hoạch đã nhập thực hiện!, không thể thay đổi!",onLoadData);
                     }
-                    if (chot === "2") {
-                        alert("Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!");
-//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
-                        isValid = false;
-                        onLoadData();
-                    } else if (chot === "1") {
-                        alert("Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!");
-//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
-                        isValid = false;
-                        onLoadData();
+                    if (chotsl_th !== "0") {
+                        return showWarningDialog("Cảnh báo!", "Kế hoạch đã được thực hiện!, không thể bổ sung!",onLoadData);
                     }
-
-                    for (var i = 0; i < rowcount; i++) {
-                        try {
-                            // Xử lý mỗi hàng ở đây nếu cần
-                        } catch (e) {
-                            // Xử lý lỗi nếu có
-                        }
+                    if (check_kehoach !== "0" || check_dieuchinh !== "0") {
+                        showConfirmationDialog("Cảnh báo!", "Kế hoạch đã tồn tại! Bạn có muốn tiếp tục không?", saveData, onLoadData);
+                    } else {
+                        saveData();
                     }
-
-                    if (isValid) {
-                        var url, sdata;
-                        url = "save_KTKSNB_01_2024.action";
-                        sdata = jQuery("#frmdata").serialize();
-                        $("#viewData").html('<img src="img/loading.gif"/>');
-                        btnDisabled(1);
-                        $.ajax({
-                            type: "POST",
-                            url: url,
-                            data: sdata,
-                            success: function (data) {
-                                if (data === "200") {
-                                    alert("Thành công: Lưu dữ liệu.");
-//                                    $('#message_suc_err').html("<h style='color: green; font-size: 13px; font-weight: bold'>Bạn đã lưu dữ liệu thành công!</h>");
-                                    onLoadData();
-                                } else {
-                                    alert("Lỗi: Lưu dữ liệu.");
-                                    onLoadData();
-                                }
-                            },
-                            complete: function () {
-                                btnDisabled(0);
-                            },
-                            error: function (request) {
-                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
-                                onLoadData();
-                            }
-                        });
-                    }
-                }
+                });
             });
+
+
+            function saveData() {
+                const url = "save_KTKSNB_04_2025.action";
+                const sdata = $("#frmdata").serialize();
+
+                $("#viewData").html('<img src="img/loading.gif"/>');
+                btnDisabled(1);
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: sdata,
+                    success: function (data) {
+                        showSuccessDialog("Thông báo", data === "200" ? "Thành công: Lưu dữ liệu." : "Lỗi: Lưu dữ liệu.");
+                        onLoadData();
+                    },
+                    complete: function () {
+                        btnDisabled(0);
+                    },
+                    error: function () {
+                        showWarningDialog("Lỗi", "Vui lòng liên hệ với quản trị viên.");
+                        btnDisabled(0);
+                    }
+                });
+            }
+
+            // Hàm hiển thị cảnh báo
+            function showWarningDialog(title, text, callback) {
+                Swal.fire({
+                    title: title,
+                    text: text,
+                    icon: "warning",
+                    confirmButtonColor: "#d33",
+                    confirmButtonText: "OK"
+                }).then(() => {
+                    if (callback)
+                        callback();
+                });
+            }
+
+            // Hàm hiển thị cảnh báo lỗi
+            function showErrorDialog(title, text, callback) {
+                Swal.fire({
+                    title: title,
+                    text: text,
+                    icon: "error",
+                    confirmButtonColor: "#red",
+                    confirmButtonText: "OK"
+                }).then(() => {
+                    if (callback)
+                        callback();
+                });
+            }
+// Hàm hiển thị thông báo thành công với icon chữ V màu xanh
+            function showSuccessDialog(title, text) {
+                Swal.fire({
+                    title: title,
+                    text: text,
+                    icon: "success", // Biểu tượng dấu ✔ màu xanh
+                    confirmButtonColor: "#28a745", // Xanh lá cây
+                    confirmButtonText: "OK"
+                });
+            }
+
+// Hàm chung hiển thị hộp thoại xác nhận
+            function showConfirmationDialog(title, text, confirmCallback, cancelCallback) {
+                Swal.fire({
+                    title: title,
+                    text: text,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Tiếp tục",
+                    cancelButtonText: "Dừng lại"
+                }).then((result) => {
+                    if (result.isConfirmed && confirmCallback) {
+                        confirmCallback();
+                    } else if (cancelCallback) {
+                        cancelCallback();
+                    }
+                });
+            }
 
 
 
@@ -446,21 +471,12 @@
                     var rowcount = table.rows.length;
                     var chot = document.getElementById("chotsl").value;
                     var chot_tw = document.getElementById("chotsl_tw").value;
+                    var chotsl_th = document.getElementById("chotsl_th").value;
                     var isValid = true;
-                    var ngaybc = document.getElementById("ngay_bc_DATE").value;
-                    var parts = ngaybc.split('/');
-                    var snam = parts[2];
-                    var stoday = document.getElementById("stoday").value;
-                    var sparts = stoday.split('/');
-                    var currentYear = sparts[2];
-                    var currentMonth = sparts[1];
-                    var currentDate = sparts[0];
-                    if (currentYear.toString() > snam.toString()) {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + snam + "</h>");
-                        return;
-                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + snam + "</h>");
-                        return;
+                    if (chotsl_th !== "0") {
+                        alert("Cảnh báo: Kế hoạch đã được thực hiện!, không thể bổ sung!");
+                        isValid = false;
+                        onLoadData();
                     }
                     if (chot === "2") {
                         alert("Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!");
@@ -485,7 +501,7 @@
                     }
                     if (isValid) {
                         var url, sdata;
-                        url = "send_KTKSNB_01_2024.action";
+                        url = "send_KTKSNB_04_2025.action";
                         sdata = jQuery("#frmdata").serialize();
                         $("#viewData").html('<img src="img/loading.gif"/>');
                         btnDisabled(1);
@@ -527,19 +543,25 @@
             <fieldset>
                 <legend><b>Tìm kiếm dữ liệu</b></legend> 
                 <table>
-                    Ngày báo cáo: 
-                    <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
-                                   placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
-                    <s:iterator value="lstDmKhac">      
-                        <input type="hidden" id="stoday" value="<s:property  value="value" />" name="stoday"/>                                
-                    </s:iterator>   
+                    <label id="title5">&nbsp; Bổ sung tháng: </label>
+                    <select id="monthSelect" name="monthSelect">
+                        <option value="0">---Chọn---</option>
+                        <option value="1">Tháng 1</option>
+                        <option value="2">Tháng 2</option>
+                        <option value="3">Tháng 3</option>
+                        <option value="4">Tháng 4</option>
+                        <option value="5">Tháng 5</option>
+                        <option value="6">Tháng 6</option>
+                        <option value="7">Tháng 7</option>
+                        <option value="8">Tháng 8</option>
+                        <option value="9">Tháng 9</option>
+                        <option value="10">Tháng 10</option>
+                        <option value="11">Tháng 11</option>
+                        <option value="12">Tháng 12</option>
+                    </select>  
+                    <label style="font-weight: bold">&nbsp; Năm </label>
+                    <select id="yearSelect" name="yearSelect"></select>
                     <s:if test="!Grade.equalsIgnoreCase('3')">
-                        <%--<s:if test="Grade.equalsIgnoreCase('2')">--%>
-                        <label id="title21">&nbsp; Nghiệp vụ :</label>
-                        <select name="txtGetData" id="txtGetData" onchange="toggleButton()">                                                    
-                            <option value="1">1. Nhập dữ liệu cấp tỉnh</option>                                                    
-                            <option value="2">2. Tình trạng nhập dữ liệu PGD</option>
-                        </select> 
                         <label id="title22">&nbsp; PGD kiểm tra :</label>
                         <select id="lstPGD" name="lstPGD" style="width: 100px">
                             <option value="000000">---Chọn PGD---</option>
@@ -547,8 +569,6 @@
                                 <option value="<s:property value='posCode'/>|<s:property value='posName'/>"><s:property value="posCode"/> - <s:property value="posName"/></option>                                         
                             </s:iterator>   
                         </select>
-                        <%--</s:if>--%>
-                        <%--<s:if test="Grade.equalsIgnoreCase('1')">--%>
                         <label id="title3">&nbsp; Kế hoạch :</label>
                         <select name="txtKehoach" id="txtKehoach" style="width: 300px" onchange="toggleSelect()">                                                    
                             <option value="1">1. Đoàn kiểm tra của NHCSXH cấp huyện đối với cấp xã</option>   
@@ -564,22 +584,7 @@
                         </select>
 
                         <%--</s:if>--%>
-                        <label id="title5">&nbsp; Tháng kiểm tra: </label>
-                        <select id="monthSelect" name="monthSelect">
-                            <option value="0">---Chọn---</option>
-                            <option value="1">Tháng 1</option>
-                            <option value="2">Tháng 2</option>
-                            <option value="3">Tháng 3</option>
-                            <option value="4">Tháng 4</option>
-                            <option value="5">Tháng 5</option>
-                            <option value="6">Tháng 6</option>
-                            <option value="7">Tháng 7</option>
-                            <option value="8">Tháng 8</option>
-                            <option value="9">Tháng 9</option>
-                            <option value="10">Tháng 10</option>
-                            <option value="11">Tháng 11</option>
-                            <option value="12">Tháng 12</option>
-                        </select>
+
                         <label id="title2">&nbsp; Cán bộ kiểm tra :</label>
                         <select name="txtCanbo" id="txtCanbo" style="width: 100px">   
                             <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
@@ -589,12 +594,6 @@
                         </select> 
                     </s:if>
                     <s:if test="Grade.equalsIgnoreCase('3')">
-                        <!--                        <label id="title31">&nbsp; Nghiệp vụ :</label>
-                                                <select name="txtGetData3" id="txtGetData3" >
-                                                    onchange="toggleCap3()">                                                    
-                                                    <option value="1">1. Phê duyệt kế hoạch PGD</option>                                                    
-                                                    <option value="2">2. Phê duyệt kế hoạch Tỉnh</option>
-                                                </select> -->
                         <label id="title31">&nbsp; Mã chi nhánh: </label>
                         <select id="lstCN"  name="lstCN">
                             <option value="000000">----Chọn mã chi nhánh----</option>
@@ -610,8 +609,8 @@
                     <s:if test="!Grade.equalsIgnoreCase('3')">
                         &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/>  
                         &nbsp;<input type="button" id="idDelete" value="Xóa dữ liệu" style="color: red"/>  
-                        &nbsp;<input type="button" id="idSend" value="Chốt dữ liệu" style="color: red"/>
-                        &nbsp;<input type="button" id="idSeach" value="Danh sách đã đăng ký" style="color: #0000FF"/>
+                        <!--&nbsp;<input type="button" id="idSend" value="Chốt dữ liệu" style="color: red"/>-->
+                        &nbsp;<input type="button" id="idSeach" value="Danh sách bổ sung" style="color: #0000FF"/>
                     </s:if>
                 </table>    
             </fieldset>
@@ -626,6 +625,25 @@
         </s:form>
 
         <script>
+            const yearSelect = document.getElementById("yearSelect");
+            const currentYear = new Date().getFullYear();
+            const startYear = 2025; // Năm bắt đầu
+            const yearsToShow = 10; // Số năm cần hiển thị
+
+            // Lặp từ năm bắt đầu đến số năm muốn hiển thị
+            for (let i = 0; i < yearsToShow; i++) {
+                let option = document.createElement("option");
+                let year = startYear + i; // Tính toán năm
+                option.value = year;
+                option.text = year;
+
+                // Đặt năm hiện tại là mặc định
+                if (year === currentYear) {
+                    option.selected = true;
+                }
+
+                yearSelect.appendChild(option);
+            }
             function toggleButton() {
             <s:if test="Grade.equalsIgnoreCase('2')">
                 var selectedValue = document.getElementById("txtGetData").value;
@@ -674,8 +692,8 @@
                 document.getElementById("txtKehoach").style.display = "inline";
                 document.getElementById("title4").style.display = "inline";
                 document.getElementById("lstXa").style.display = "inline";
-                document.getElementById("title21").style.display = "none";
-                document.getElementById("txtGetData").style.display = "none";
+//                document.getElementById("title21").style.display = "none";
+//                document.getElementById("txtGetData").style.display = "none";
                 document.getElementById("title22").style.display = "none";
                 document.getElementById("lstPGD").style.display = "none";
                 var D1 = document.getElementById("txtKehoach").value;
@@ -690,8 +708,8 @@
                 }
             </s:if>
             <s:if test="Grade.equalsIgnoreCase('2')">
-                document.getElementById("title21").style.display = "inline";
-                document.getElementById("txtGetData").style.display = "inline";
+//                document.getElementById("title21").style.display = "inline";
+//                document.getElementById("txtGetData").style.display = "inline";
                 document.getElementById("title22").style.display = "inline";
                 document.getElementById("lstPGD").style.display = "inline";
                 document.getElementById("title2").style.display = "none";
@@ -706,154 +724,62 @@
             initTable();
 
             $("#idDelete").click(function () {
-                $('#message_suc_err').empty();
-                $('#divExportReportLink').empty();
+                $('#message_suc_err, #divExportReportLink').empty();
 
-                let aCheck = confirm("Bạn chắc chắn muốn xóa dữ liệu báo cáo ?");
-                if (aCheck) {
-                    var table = document.getElementById("subTable");
-                    var rowcount = table.rows.length;
-                    var chot = document.getElementById("chotsl").value;
-                    var chot_tw = document.getElementById("chotsl_tw").value;
-                    var isValid = true;
-                    var ngaybc = document.getElementById("ngay_bc_DATE").value;
-                    var parts = ngaybc.split('/');
-                    var snam = parts[2];
-                    var stoday = document.getElementById("stoday").value;
-                    var sparts = stoday.split('/');
-                    var currentYear = sparts[2];
-                    var currentMonth = sparts[1];
-                    var currentDate = sparts[0];
-//                    window.alert(currentYear + currentMonth + currentDate);
-                    if (currentYear.toString() > snam.toString()) {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng chỉ lưu tại năm hiện tại " + snam + "</h>");
-                        return;
-                    } else if (currentMonth.toString() !== "12" || currentDate.toString() < 10) {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Chức năng lưu chỉ được thực hiện từ ngày 10 đến 31 của tháng 12 năm " + snam + "</h>");
-                        return;
+                showConfirmationDialog("Thông báo", "Bạn chắc chắn muốn xóa số liệu báo cáo?", function () {
+                    const chot = $("#chotsl").val();
+                    const chotsl_th = $("#chotsl_th").val();
+                    const check_kehoach = $("#check_kehoach").val();
+                    const check_dieuchinh = $("#check_dieuchinh").val();
+                    if (chot === "4") {
+                        showConfirmationDialog("Cảnh báo!", "Kế hoạch đã nhập thực hiện, bạn chắc chắn muốn xóa dữ liệu!", function () {
+                            // Nếu xác nhận lần 2
+                            DeleteData();
+                        }, "Dữ liệu sẽ bị xóa cả bên thực hiện và bổ sung");
+                        return; // Dừng ở đây nếu chờ xác nhận lần 2
                     }
-                    if (chot === "2") {
-                        alert("Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!");
-//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không thể lưu dữ liệu, Chi nhánh đã chốt dữ liệu lên Tw!</h>");
-                        isValid = false;
-                        onLoadData();
-                    } else if (chot === "1") {
-                        alert("Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!");
-//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Dữ liệu đã được gửi. Không thể thực hiện thay đổi!</h>");
-                        isValid = false;
-                        onLoadData();
-                    } else if (chot_tw === "0") {
-                        alert("Cảnh báo: Không có dữ liệu để xóa!");
-//                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px; font-weight: bold'>Cảnh báo: Không có dữ liệu để xóa!</h>");
-                        isValid = false;
+                    if (chotsl_th !== "0") {
+                        return showWarningDialog("Cảnh báo!", "Kế hoạch đã được thực hiện!, không thể xóa!");
                         onLoadData();
                     }
-                    for (var i = 0; i < rowcount; i++) {
-                        try {
-                        } catch (e) {
-                        }
+                    if (chot === "0") {
+                        return showWarningDialog("", "Chưa có kế hoạch bổ sung!");
+                        onLoadData();
+                    } else {
+                        DeleteData(); // Nếu không có cảnh báo, lưu dữ liệu ngay
                     }
-                    if (isValid) {
-                        var url, sdata;
-                        url = "delete_KTKSNB_2024.action";
-                        sdata = jQuery("#frmdata").serialize();
-                        $("#viewData").html('<img src="img/loading.gif"/>');
-                        btnDisabled(1);
-                        $.ajax({
-                            type: "POST",
-                            url: url,
-                            data: sdata,
-                            success: function (data) {
-                                if (data === "200") {
-                                    alert("Thành công: Xóa dữ liệu.");
-                                    $('#message_suc_err').html("<h style='color: green; font-size: 13px ; font-weight: bold'>Bạn đã xóa dữ liệu thành công!</h>");
-                                    onLoadData();
-                                } else {
-                                    alert("Lỗi: Xóa dữ liệu.");
-                                    onLoadData();
-                                }
-                            },
-                            complete: function () {
-                                btnDisabled(0);
-                            },
-                            error: function (request) {
-                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
-                                onLoadData();
-                            }
-                        });
-                    }
-                }
-
+                });
             });
-            <%--<s:if test="Grade.equalsIgnoreCase('1')">--%>
-            $(document).ready(function () {
-                function updateDatepicker() {
-                    var datepicker = $('#ngay_bc_DATE');
-                    var currentDate = new Date();
-                    var year = currentDate.getFullYear();
-                    var lastDayOfYear = new Date(year, 11, 31);
-                    var formattedDate = ('0' + lastDayOfYear.getDate()).slice(-2) + '/' +
-                            ('0' + (lastDayOfYear.getMonth() + 1)).slice(-2) + '/' +
-                            lastDayOfYear.getFullYear();
 
-                    datepicker.val(formattedDate);
 
-                    datepicker.datepicker("option", {
-                        beforeShowDay: function (date) {
-                            return [date.getDate() === 31 && date.getMonth() === 11, ""];
-                        }
-                    });
+            function DeleteData() {
+                const url = "delete_KTKSNB_2025.action";
+                const sdata = $("#frmdata").serialize();
 
-                }
+                $("#viewData").html('<img src="img/loading.gif"/>');
+                btnDisabled(1);
 
-                // Initialize the datepicker with the default settings
-                updateDatepicker();
-            });
-            <%--
-    </s:if>
-    <s:if test="!Grade.equalsIgnoreCase('1')"> --%>
-//            $(document).ready(function () {
-//                function updateDatepicker() {
-//                    var selectedPeriod = "2"; // Assuming period "2" corresponds to 'Kỳ tháng'
-//                    var datepicker = $('#ngay_bc_DATE');
-//                    var currentDate = new Date();
-//                    var year = currentDate.getFullYear();
-//
-//                    if (selectedPeriod === "2") { // Kỳ tháng
-//                        datepicker.datepicker("option", {
-//                            beforeShowDay: function (date) {
-//                                var month = date.getMonth(); // 0 = January, 11 = December
-//                                var day = date.getDate();
-//
-//                                // Only allow from December 10 to December 31
-//                                if (month === 11 && day >= 10 && day <= 31) {
-//                                    return [true, ""]; // Enable the date
-//                                } else {
-//                                    return [false, ""]; // Disable the date
-//                                }
-//                            }
-//                        });
-//                    }
-//
-//                    // Automatically set date based on the selected period
-//                    var newDate = selectedPeriod === "2" ? new Date(year, 11, 10) : currentDate;
-//
-//                    // Format the date as dd/mm/yyyy
-//                    var formattedDate = ('0' + newDate.getDate()).slice(-2) + '/' +
-//                            ('0' + (newDate.getMonth() + 1)).slice(-2) + '/' +
-//                            newDate.getFullYear();
-//
-//                    datepicker.val(formattedDate);
-//                }
-//
-//                // Initialize the datepicker with default settings
-//                updateDatepicker();
-//            });
-            <%--</s:if>--%>
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: sdata,
+                    success: function (data) {
+                        showSuccessDialog("Thông báo", data === "200" ? "Thành công: Xóa dữ liệu." : "Lỗi: Xóa dữ liệu.");
+                        onLoadData();
+                    },
+                    complete: function () {
+                        btnDisabled(0);
+                    },
+                    error: function () {
+                        showWarningDialog("Lỗi", "Vui lòng liên hệ với quản trị viên.");
+                        btnDisabled(0);
+                    }
+                });
+            }
 
             $("#idSeach").click(function () {
                 var url, sdata;
-                url = "load_data_dky_2024.action";
+                url = "load_data_bsung_2024.action";
                 sdata = jQuery("#frmdata").serialize();
                 $("#divExportReport").html('<img src="img/loading.gif"/>');
                 btnDisabled(1);

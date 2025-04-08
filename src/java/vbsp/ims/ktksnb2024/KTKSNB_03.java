@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -348,20 +349,25 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
             }
             List<DuLieuNTRow> lstDataApi1 = null;
             List<DuLieuNTRow> lstDataApi2 = null;
+            List<DuLieuNTRow> lstDataApi4;
             List<DuLieuNTRow> lstDataApi3;
             if (!chotsl.equals("0")) {
                 lstDataApi3 = _serverAPI.getListKTKSNB_2024("KH_HUYEN_TH", pos_cd_username, "S", _reportDate3, selectedMonth);
+                lstDataApi4 = _serverAPI.getListKTKSNB_2024("KH_HUYEN_BS", pos_cd_username, "S", _reportDate3, selectedMonth);
             } else {
                 if (!sChot_kh.equals("0") && !sChot_dc.equals("0")) {
                     lstDataApi1 = _serverAPI.getListKTKSNB_2024("KH_HUYEN", pos_cd_username, "S", _reportDate1, selectedMonth);
                     lstDataApi2 = _serverAPI.getListKTKSNB_2024("KH_HUYEN_DC", pos_cd_username, "S", _reportDate3, selectedMonth);
                     lstDataApi3 = _serverAPI.getListKTKSNB_2024("KH_HUYEN_TH", pos_cd_username, "S", _reportDate3, selectedMonth);
+                    lstDataApi4 = _serverAPI.getListKTKSNB_2024("KH_HUYEN_BS", pos_cd_username, "S", _reportDate3, selectedMonth);
                 } else if (!sChot_kh.equals("0")) {
                     lstDataApi1 = _serverAPI.getListKTKSNB_2024("KH_HUYEN", pos_cd_username, "S", _reportDate1, selectedMonth);
                     lstDataApi3 = _serverAPI.getListKTKSNB_2024("KH_HUYEN_TH", pos_cd_username, "S", _reportDate3, selectedMonth);
+                    lstDataApi4 = _serverAPI.getListKTKSNB_2024("KH_HUYEN_BS", pos_cd_username, "S", _reportDate3, selectedMonth);
                 } else if (!sChot_dc.equals("0")) {
                     lstDataApi2 = _serverAPI.getListKTKSNB_2024("KH_HUYEN_DC", pos_cd_username, "S", _reportDate3, selectedMonth);
                     lstDataApi3 = _serverAPI.getListKTKSNB_2024("KH_HUYEN_TH", pos_cd_username, "S", _reportDate3, selectedMonth);
+                    lstDataApi4 = _serverAPI.getListKTKSNB_2024("KH_HUYEN_BS", pos_cd_username, "S", _reportDate3, selectedMonth);
                 } else {
                     addActionError("Chưa chốt dữ liệu kế hoạch kiểm tra hoặc chưa có dữ liệu điều chỉnh!");
                     return ERROR;
@@ -403,7 +409,12 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
                     }
                 }
             }
-
+            if (lstDataApi4 != null) {
+                for (DuLieuNTRow item : lstDataApi4) {
+                    QT_DULIEU_NT row = cvQT_DULIEU_NT(item, pos_cd_username, main_pos_username, selectedMonth, selectedYear, _reportDate3, Grade);
+                    lstDulieuNt.add(row);
+                }
+            }
             if (lstDulieuNt.isEmpty()) {
                 addActionError("Chưa có dữ liệu kiểm tra!");
                 return ERROR;
@@ -413,6 +424,7 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
             System.err.println(this.getClass().getName() + " Exception -> ktksnb2024: " + e.getMessage());
             return ERROR;
         }
+
         return "success_1";
     }
 
@@ -512,26 +524,32 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
                         List<DuLieuNTRow> lstDataApi1 = null;
                         List<DuLieuNTRow> lstDataApi2 = null;
                         List<DuLieuNTRow> lstDataApi3;
+                        List<DuLieuNTRow> lstDataApi4;
                         if (!"0".equals(chotsl)) {
                             lstDataApi3 = _serverAPI.getListKTKSNB_2024("KH_TINH_TH", item.getPosCode(), "S", _reportDate3, sThangkt);
+                            lstDataApi4 = _serverAPI.getListKTKSNB_2024("KH_TINH_BS", item.getPosCode(), "S", _reportDate3, sThangkt);
+
                         } else {
                             if (!"0".equals(sChot_kh) && !"0".equals(sChot_dc)) {
                                 lstDataApi1 = _serverAPI.getListKTKSNB_2024("KH_TINH", item.getPosCode(), "S", _reportDate1, sThangkt);
                                 lstDataApi2 = _serverAPI.getListKTKSNB_2024("KH_TINH_DC", item.getPosCode(), "S", _reportDate3, sThangkt);
                                 lstDataApi3 = _serverAPI.getListKTKSNB_2024("KH_TINH_TH", item.getPosCode(), "S", _reportDate3, sThangkt);
+                                lstDataApi4 = _serverAPI.getListKTKSNB_2024("KH_TINH_BS", item.getPosCode(), "S", _reportDate3, sThangkt);
                             } else if (!"0".equals(sChot_kh)) {
                                 lstDataApi1 = _serverAPI.getListKTKSNB_2024("KH_TINH", item.getPosCode(), "S", _reportDate1, sThangkt);
                                 lstDataApi3 = _serverAPI.getListKTKSNB_2024("KH_TINH_TH", item.getPosCode(), "S", _reportDate3, sThangkt);
+                                lstDataApi4 = _serverAPI.getListKTKSNB_2024("KH_TINH_BS", item.getPosCode(), "S", _reportDate3, sThangkt);
                             } else if (!"0".equals(sChot_dc)) {
                                 lstDataApi2 = _serverAPI.getListKTKSNB_2024("KH_TINH_DC", item.getPosCode(), "S", _reportDate3, sThangkt);
                                 lstDataApi3 = _serverAPI.getListKTKSNB_2024("KH_TINH_TH", item.getPosCode(), "S", _reportDate3, sThangkt);
+                                lstDataApi4 = _serverAPI.getListKTKSNB_2024("KH_TINH_BS", item.getPosCode(), "S", _reportDate3, sThangkt);
                             } else {
                                 addActionError("Chưa chốt dữ liệu kế hoạch kiểm tra hoặc chưa có dữ liệu điều chỉnh!");
                                 return ERROR;
                             }
                         }
                         if ((lstDataApi1 == null || lstDataApi1.isEmpty()) && (lstDataApi2 == null || lstDataApi2.isEmpty())
-                                && (lstDataApi3 == null || lstDataApi3.isEmpty())) {
+                                && (lstDataApi3 == null || lstDataApi3.isEmpty()) && (lstDataApi4 == null || lstDataApi4.isEmpty())) {
                             continue; // Bỏ qua mục này và tiếp tục xử lý các mục khác
                         }
                         Set<String> d3d4SetApi3 = new HashSet<>();
@@ -563,6 +581,12 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
                                     QT_DULIEU_NT row = cvQT_DULIEU_NT(api1Item, item.getPosCode(), main_pos_username, sThangkt, sNam, _reportDate1, Grade);
                                     lstDulieuNt.add(row);
                                 }
+                            }
+                        }
+                        if (lstDataApi4 != null) {
+                            for (DuLieuNTRow api4Item : lstDataApi4) {
+                                QT_DULIEU_NT row = cvQT_DULIEU_NT(api4Item, item.getPosCode(), main_pos_username, sThangkt, ssNam, _reportDate3, Grade);
+                                lstDulieuNt.add(row);
                             }
                         }
 
@@ -699,11 +723,14 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
             } else {
                 snam = (String) ActionContext.getContext().getSession().get("dc_nam");
             }
-            if (Grade.equals("1")) {
+            if (Arrays.asList("KH_HUYEN", "KH_HUYEN_DC", "KH_HUYEN_TH").contains(sskhoa)) {
                 setSkhoa("KH_HUYEN_TH");
-            } else {
+            } else if (Arrays.asList("KH_TINH", "KH_TINH_DC", "KH_TINH_TH").contains(sskhoa)) {
                 setSkhoa("KH_TINH_TH");
+            } else {
+                setSkhoa(sskhoa);
             }
+
             int year = Integer.parseInt(snam);
             int month = Integer.parseInt(sthang);
             LocalDate firstDayOfMonth = LocalDate.of(year, month, 1);
@@ -733,7 +760,11 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
                 tempadd.setD4(tmp.getD4());
                 tempadd.setD5(tmp.getD5());
                 tempadd.setD6(tmp.getD6());
-                tempadd.setD7(tmp.getD7());
+                if (Arrays.asList("KH_HUYEN_BS", "KH_TINH_BS").contains(sskhoa)) {
+                    tempadd.setD7("4");
+                } else {
+                    tempadd.setD7(tmp.getD7());
+                }
                 tempadd.setD8(tmp.getD8());
                 tempadd.setD9(tmp.getD9());
                 tempadd.setD10(tmp.getD10());
@@ -757,6 +788,7 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
             return SUCCESS;
         }
         String code = String.valueOf(200);
+
         this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
@@ -781,28 +813,30 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
             List<DuLieuNTRow> lstDataApi1 = new ArrayList<>();
+            List<DuLieuNTRow> lstDataApi2 = new ArrayList<>();
             if (Grade.equals("1")) {
                 skhoa = "KH_HUYEN_TH";
                 smapgd = pos_cd_username;
                 lstDataApi1 = _serverAPI.getListKTKSNB_2024("KH_HUYEN_TH", pos_cd_username, "S", _reportDate2, sthang);
+                lstDataApi2 = _serverAPI.getListKTKSNB_2024("KH_HUYEN_BS", pos_cd_username, "S", _reportDate2, sthang);
             } else {
                 skhoa = "KH_TINH_TH";
                 smapgd = main_pos_username;
                 lstPGD_API = _serverAPI.getListPgd(main_pos_username, "");
                 for (ListPosCode item : lstPGD_API) {
                     try {
-                        List<DuLieuNTRow> tempData = _serverAPI.getListKTKSNB_2024("KH_TINH_TH", item.getPosCode(), "S", _reportDate2, sthang);
-                        if (tempData != null && !tempData.isEmpty()) {
-                            lstDataApi1.addAll(tempData);
+                        List<DuLieuNTRow> tempData1 = _serverAPI.getListKTKSNB_2024("KH_TINH_TH", item.getPosCode(), "S", _reportDate2, sthang);
+                        if (tempData1 != null && !tempData1.isEmpty()) {
+                            lstDataApi1.addAll(tempData1);
+                        }
+                        List<DuLieuNTRow> tempData2 = _serverAPI.getListKTKSNB_2024("KH_TINH_BS", item.getPosCode(), "S", _reportDate2, sthang);
+                        if (tempData2 != null && !tempData2.isEmpty()) {
+                            lstDataApi2.addAll(tempData2);
                         }
                     } catch (Exception e) {
-                        System.err.println("Lỗi khi xử lý PGD: " + item.getPosCode());
                         e.printStackTrace();
                     }
                 }
-            }
-            if (lstDataApi1.isEmpty()) {
-                System.out.println("Không có dữ liệu sau khi gọi API cho tất cả PGD.");
             }
 
             ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual(skhoa, smapgd, "S", _reportDate2);
@@ -814,7 +848,7 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
             }
             int status;
 
-            if (!lstDataApi1.isEmpty()) {
+            if (!lstDataApi1.isEmpty() || !lstDataApi2.isEmpty()) {
                 status = _serverAPI.updateChotSL(skhoa, smapgd, "S", _reportDate2, Grade, UserName, null);
                 this.pageResult = new ByteArrayInputStream(String.valueOf(status).getBytes(StandardCharsets.UTF_8));
                 return SUCCESS;
@@ -827,7 +861,6 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
             CoreLogger.error(this.getClass().getName() + " Exception -> send ktksnb 2024: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> send ktksnb 2024: " + e.getMessage());
         }
-        addActionMessage("Bạn gửi lưu dữ liệu thành công");
         String code = String.valueOf(200);
         this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
@@ -1004,6 +1037,7 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
             ActionContext.getContext().getSession().put("dc_thang", dc_thang);
             ActionContext.getContext().getSession().put("dc_nam", dc_nam);
             lstData_Api = _serverAPI.getDataKTKSNB_2024(dc_khoa, dc_mapgd, "S", _reportDate, conditions, "0");
+//            System.out.println("dc_khoa= " + dc_khoa + " dc_mapgd= " + dc_mapgd + " _reportDate= " + _reportDate + " conditions= " + conditions);
             for (DuLieuNTRow item : lstData_Api) {
                 QT_DULIEU_NT row = new QT_DULIEU_NT();
                 try {
@@ -1020,11 +1054,6 @@ public class KTKSNB_03 extends ActionChtrinhcnMain
                     row.setMAPGD(item.getPosCode());
                     row.setMACN(item.getBranchCode());
                     row.setD1(item.getD1());
-//                    if (check_cn.equals("1")) {
-//                        row.setD2(item.getD2());
-//                    } else {
-//                        row.setD2(item.getD6());
-//                    }
                     row.setD2(item.getD2());
                     row.setD3(dc_maxa);
                     row.setD4(dc_macb);

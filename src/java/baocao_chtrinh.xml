@@ -11,10 +11,11 @@
         
         <action name="LoadParachtrinhcn" class="vbsp.ims.chtrinh_cn.ActionChtrinhcnMain"  method="loadPataNhaptaycn">
             <!--            <result name="success">/chtrinh_cn/para-nhaptaycn-main.jsp</result>-->
+            <result name="success">/ktksnb_2024/para_ktksnb_2024_success.jsp</result>
             <result name="success_1">/ktksnb_2024/para_ktksnb_2024_success_1.jsp</result>
             <result name="success_2">/ktksnb_2024/para_ktksnb_2024_success_2.jsp</result>
-            <result name="success">/ktksnb_2024/para_ktksnb_2024_success.jsp</result>
             <result name="success_3">/ktksnb_2024/para_ktksnb_2024_success_2.jsp</result>
+            <result name="success_4">/ktksnb_2024/para_ktksnb_2024_success_3.jsp</result>
             <result name="error">/chtrinh_cn/success.jsp</result>    
                 
         </action>  
@@ -64,6 +65,35 @@
         <action name="popupTableCanbo" class="vbsp.ims.ktksnb2024.KTKSNB_00" method="popupTableCanbo">
             <result name="success">/ktksnb_2024/table_canbo_ktksnb.jsp</result>
         </action>
+        <!--bổ sung-->
+        <action name="KTKSNB_04" class="vbsp.ims.ktksnb2024.KTKSNB_04"  method="load">
+            <result name="success_1">/ktksnb_2024/table_bsung_ktksnb2024_1.jsp</result>
+            <result name="success_2">/ktksnb_2024/table_bsung_ktksnb2024_2.jsp</result>
+            <result name="success_3">/ktksnb_2024/table_bsung_ktksnb2024_3.jsp</result>                                                            
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+         <action name="save_KTKSNB_04_2025" class="vbsp.ims.ktksnb2024.KTKSNB_04"  method="save">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action> 
+        <action name="load_data_bsung_2024" class="vbsp.ims.ktksnb2024.KTKSNB_04"  method="seach">
+            <result name="success">/ktksnb_2024/table_bsung_ktksnb2024_seach.jsp</result>                              
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        <action name="delete_KTKSNB_2025" class="vbsp.ims.ktksnb2024.KTKSNB_04" method="delete">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>  
+        </action>
+         <action name="send_KTKSNB_04_2025" class="vbsp.ims.ktksnb2024.KTKSNB_04"  method="send">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action> 
         <!--đăng ký--> 
         <action name="KTKSNB_01" class="vbsp.ims.ktksnb2024.KTKSNB_01"  method="load">
             <result name="success_1">/ktksnb_2024/table_dky_ktksnb2024_1.jsp</result>
@@ -94,7 +124,7 @@
             <result name="success" type="json"></result>
         </action>
         
-         <action name="load_data_dky_2024" class="vbsp.ims.ktksnb2024.KTKSNB_01"  method="seach">
+        <action name="load_data_dky_2024" class="vbsp.ims.ktksnb2024.KTKSNB_01"  method="seach">
             <result name="success">/ktksnb_2024/table_dky_ktksnb2024_seach.jsp</result>                              
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
