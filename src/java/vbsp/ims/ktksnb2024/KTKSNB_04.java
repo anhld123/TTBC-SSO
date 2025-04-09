@@ -414,7 +414,10 @@ public class KTKSNB_04 extends ActionChtrinhcnMain
             } catch (Exception e) {
                 setChotsl_th("0");
             }
-
+            if (!chotsl_th.equals("0")) {
+                addActionError("Kế hoạch tháng " + smonth + " đã được thực hiện, không thể bổ sung!");
+                return ERROR;
+            }
             String sMapgd;
             String sTenpgd;
             String ssMapgd = hmParameter.get("lstPGD").toString();
