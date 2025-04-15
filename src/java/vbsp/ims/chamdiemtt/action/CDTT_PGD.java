@@ -43,6 +43,7 @@ public class CDTT_PGD extends ActionChamdiemttMain implements CdttFunction {
                 addActionError("Bạn phải chọn đơn vị để xem dữ liệu và duyệt!");
                 return ERROR;
             }
+            
             HashMap hmParameter = getParameter();
 //            if (poscd.size() > 1) {
 //                addActionError("Chỉ được phép chọn 1 đơn vị để kiểm tra!");
