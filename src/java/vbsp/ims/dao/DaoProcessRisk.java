@@ -100,7 +100,7 @@ public class DaoProcessRisk {
         }
         return lstPo;
     }
-    
+
     public List<ModelTreeNode> getDataPosTreeNode_QD62(String strUserName) {
         List<ModelTreeNode> lstPo = new ArrayList<ModelTreeNode>();
         try {
@@ -395,7 +395,7 @@ public class DaoProcessRisk {
         }
         return lstModelRisk;
     }
-    
+
     public List<ModelRiskProcess> getDataRiskQD62(Connection conn, String strUserName, String sGrade, ArrayList<String> lstArrPoscd,
             String sNambc, String sDotrr, String sNhomrr, String sTrangthai, String sChuongtrinh, String sNguon_von, int startRow, int EndRow, String sVbXln) {
         //Duyet list dua ra danh sach main pos la dang "000314","000401","000501"....
@@ -648,16 +648,16 @@ public class DaoProcessRisk {
                     modelRisk.setsInt_pduyet_ngay_cn(reset.getDate(54) == null ? "" : new SimpleDateFormat("dd/MM/yyyy").format(reset.getDate(54)));
                     modelRisk.setsInt_pduyet_nguoi_cn(reset.getString(55));
                     modelRisk.setsNguyennhan_tc_cn(reset.getString(56));
-                    
+
                     modelRisk.setsNgay_giahan(reset.getString(57));
                     modelRisk.setdSotien_giahan(reset.getBigDecimal(58));
-                     modelRisk.setsNgay_giaodichgn(reset.getString(59));
+                    modelRisk.setsNgay_giaodichgn(reset.getString(59));
                     modelRisk.setdSodu_Casa105(reset.getBigDecimal(60));
                     modelRisk.setdRPA(reset.getBigDecimal(61));
-                    
+
                     modelRisk.setsTenHSSV(reset.getString(62));
                     modelRisk.setsMucdicVV(reset.getString(63));
-                    
+
                     lstModelRisk.add(modelRisk);
                 }
 
@@ -809,7 +809,7 @@ public class DaoProcessRisk {
         }
         return lstModelRisk;
     }
-    
+
     public List<ModelRiskProcess> getDetailCustomerSearch62(String strUserName, String sGrade,
             String sNambc, String sDotrr, String sSoku, String sKhoa) {
         //Duyet list dua ra danh sach main pos la dang "000314","000401","000501"....
@@ -1003,7 +1003,7 @@ public class DaoProcessRisk {
 
         return nRowTotal;
     }
-    
+
     public int getCountTotalRowRiskQD62(Connection conn, String strUserName, String sGrade, ArrayList<String> lstArrPoscd,
             String sNambc, String sDotrr, String sNhomrr, String sTrangthai, String sChuongtrinh, String sNguon_von, String strVbXln) {
         int nRowTotal = 0;
@@ -1061,13 +1061,13 @@ public class DaoProcessRisk {
 
         return nRowTotal;
     }
-    
+
     public int getCapPheduyetQD62(String strUserName, String sGrade) {
         int nRowTotal = 0;
         String strStringPosCd = "";
 
         try {
-             DaoConnect daoconnect = new DaoConnect();
+            DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
@@ -1080,7 +1080,7 @@ public class DaoProcessRisk {
                 calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
                 //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
                 calstatement.setString(2, strUserName);
-                calstatement.setString(3, sGrade);                
+                calstatement.setString(3, sGrade);
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
                 nRowTotal = calstatement.getInt(1);
@@ -1104,9 +1104,9 @@ public class DaoProcessRisk {
 
         return nRowTotal;
     }
-    
+
     public int checkReadDataCheckLock(String sKhoa, String strUserName, String capbc, String nambc, String dotbc, ArrayList<String> lstArrPoscd) {
-        int nRowTotal = 0;        
+        int nRowTotal = 0;
         String strStringPosCd = "";
         for (int i = 0; i < lstArrPoscd.size(); i++) {
             if (i != lstArrPoscd.size() - 1) {
@@ -1117,7 +1117,7 @@ public class DaoProcessRisk {
         }
 
         try {
-             DaoConnect daoconnect = new DaoConnect();
+            DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
@@ -1130,11 +1130,11 @@ public class DaoProcessRisk {
                 calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
                 //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
                 calstatement.setString(2, sKhoa);
-                calstatement.setString(3, strUserName);     
+                calstatement.setString(3, strUserName);
                 calstatement.setString(4, capbc);
-                calstatement.setString(5, nambc);  
+                calstatement.setString(5, nambc);
                 calstatement.setString(6, dotbc);
-                calstatement.setString(7, strStringPosCd);  
+                calstatement.setString(7, strStringPosCd);
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
                 nRowTotal = calstatement.getInt(1);
@@ -1173,7 +1173,7 @@ public class DaoProcessRisk {
      * @return
      */
     public boolean setStatusReject(String strUserName, String sGrade, ArrayList<String> lstArrPoscd,
-            String sNambc, String sDotrr, String sNhomrr, String sChuongtrinh, String sSoku, String snguyennhan_tuchoi,String sKhoa) {
+            String sNambc, String sDotrr, String sNhomrr, String sChuongtrinh, String sSoku, String snguyennhan_tuchoi, String sKhoa) {
         //Duyet list dua ra danh sach main pos la dang "000314","000401","000501"....
         String strStringPosCd = "";
         for (int i = 0; i < lstArrPoscd.size(); i++) {
@@ -1231,9 +1231,9 @@ public class DaoProcessRisk {
         }
         return true;
     }
-    
+
     public boolean setStatusRejectQD62(String strUserName, String sGrade, ArrayList<String> lstArrPoscd,
-            String sNambc, String sDotrr, String sNhomrr, String sChuongtrinh, String sSoku, String snguyennhan_tuchoi,String sKhoa) {
+            String sNambc, String sDotrr, String sNhomrr, String sChuongtrinh, String sSoku, String snguyennhan_tuchoi, String sKhoa) {
         //Duyet list dua ra danh sach main pos la dang "000314","000401","000501"....
         String strStringPosCd = "";
         for (int i = 0; i < lstArrPoscd.size(); i++) {
@@ -1352,7 +1352,7 @@ public class DaoProcessRisk {
         }
         return true;
     }
-    
+
     public boolean setStatusRejectSearch62(String strUserName, String sGrade, String sNambc,
             String sDotrr, String sSoku, String snguyennhan_tuchoi, String sKhoa) {
         //Duyet list dua ra danh sach main pos la dang "000314","000401","000501"....
@@ -1526,7 +1526,7 @@ public class DaoProcessRisk {
         }
         return bSuccess;
     }
-    
+
     public boolean setStatusRiskQd62(String strUserName, String sGrade, ArrayList<String> lstArrPoscd,
             String sNambc, String sDotrr, String sNhomrr, String sChuongtrinh, List<ListRisk> lstRisk, String sKhoa) {
         boolean bSuccess = false;
@@ -1807,7 +1807,7 @@ public class DaoProcessRisk {
                 ARRAY oracleArray = new ARRAY(desc, calstatement.getConnection(), structs);
 
                 //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
-                 calstatement.setString(1, Vbxlrr);
+                calstatement.setString(1, Vbxlrr);
                 calstatement.setString(2, strUserName);
                 calstatement.setString(3, sGrade);
                 calstatement.setString(4, sPoscd);
@@ -1842,6 +1842,7 @@ public class DaoProcessRisk {
         }
         return bSuccess;
     }
+
     //Update du lieu khi phe duyet procedure sp_browse_risk_syn(pv_arr_lagecy_id in varchar2, pv_status_risk in varchar2, pv_Sys_date in varchar2, PN_ERR_CD OUT NUMBER, PV_ERR_TXT OUT VARCHAR2)
     /**
      *
@@ -2029,7 +2030,7 @@ public class DaoProcessRisk {
         }
         return hm;
     }
-    
+
     public HashMap<Integer, List<ListValue>> getDmKhacQD62(String username) {
         HashMap<Integer, List<ListValue>> hm = new HashMap<Integer, List<ListValue>>();
 
@@ -2319,7 +2320,7 @@ public class DaoProcessRisk {
 
         return nRowTotal;
     }
-    
+
     public int getCountSearchRowRisk62(Connection conn, String sUserName, String sGrade, String sNambc, String sDotrr, String sSoku_Search, String sKhoa) {
         int nRowTotal = 0;
         try {
@@ -2493,6 +2494,7 @@ public class DaoProcessRisk {
         }
         return lstModelRisk;
     }
+
     public List<ModelRiskProcess> getDataSearchRisk62(Connection conn, String sUserName, String srGrade, String sNambc, String sDotrr, String sSoku_Search, int startRow, int EndRow, String sKhoa, String sNhomRR) {
         //Duyet list dua ra danh sach main pos la dang "000314","000401","000501"....
         List<ModelRiskProcess> lstModelRisk = new ArrayList<ModelRiskProcess>();
@@ -2623,7 +2625,7 @@ public class DaoProcessRisk {
      * @param sNguon_von
      * @return
      */
-    public DescTableBrower setStatusRiskDv(String khoa,String strUserName, String sGrade, String sPoscd, String sNambc, String sDotrr, String sNhomrr, String sNguon_von) {
+    public DescTableBrower setStatusRiskDv(String khoa, String strUserName, String sGrade, String sPoscd, String sNambc, String sDotrr, String sNhomrr, String sNguon_von) {
         DescTableBrower objTableDesc = new DescTableBrower();
         int pn_err_cd = 0;
         String strEdd_txt = "";
@@ -2638,7 +2640,7 @@ public class DaoProcessRisk {
             //Khoi tao goi store
             calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
-              calstatement.setString(1, khoa);
+            calstatement.setString(1, khoa);
             calstatement.setString(2, strUserName);
             calstatement.setString(3, sGrade);
             calstatement.setString(4, sPoscd);
@@ -2703,8 +2705,8 @@ public class DaoProcessRisk {
         }
         return objTableDesc;
     }
-    
-    public DescTableBrower setStatusRiskDv62(String khoa,String strUserName, String sGrade, String sPoscd, String sNambc, String sDotrr, String sNhomrr, String sNguon_von) {
+
+    public DescTableBrower setStatusRiskDv62(String khoa, String strUserName, String sGrade, String sPoscd, String sNambc, String sDotrr, String sNhomrr, String sNguon_von) {
         DescTableBrower objTableDesc = new DescTableBrower();
         int pn_err_cd = 0;
         String strEdd_txt = "";
@@ -2719,7 +2721,7 @@ public class DaoProcessRisk {
             //Khoi tao goi store
             calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
-              calstatement.setString(1, khoa);
+            calstatement.setString(1, khoa);
             calstatement.setString(2, strUserName);
             calstatement.setString(3, sGrade);
             calstatement.setString(4, sPoscd);
@@ -2798,7 +2800,7 @@ public class DaoProcessRisk {
      * @return
      */
     public List<DescTableBrower> getDataBrowerView(String strUserName, String sGrade, ArrayList<String> lstPoscd,
-            String sNambc, String sDotrr, String sNhomrr, String sTrangthai, String sNguon_von,String sKhoa) {
+            String sNambc, String sDotrr, String sNhomrr, String sTrangthai, String sNguon_von, String sKhoa) {
         List<DescTableBrower> lstTableDesc = new ArrayList<DescTableBrower>();
         int pn_err_cd = 0;
         String strEdd_txt = "";
@@ -2876,9 +2878,9 @@ public class DaoProcessRisk {
         }
         return lstTableDesc;
     }
-    
+
     public List<DescTableBrower> getDataBrowerView62(String strUserName, String sGrade, ArrayList<String> lstPoscd,
-            String sNambc, String sDotrr, String sNhomrr, String sTrangthai, String sNguon_von,String sKhoa) {
+            String sNambc, String sDotrr, String sNhomrr, String sTrangthai, String sNguon_von, String sKhoa) {
         List<DescTableBrower> lstTableDesc = new ArrayList<DescTableBrower>();
         int pn_err_cd = 0;
         String strEdd_txt = "";
@@ -2937,7 +2939,7 @@ public class DaoProcessRisk {
                 modelRisk.setsTongLai(format.format(bTonglai));
                 modelRisk.setsSoKh(format.format(reset.getBigDecimal(6)));
                 modelRisk.setsTongtien(format.format(bTongtien));
-                
+
                 BigDecimal bTonggoc_1 = reset.getBigDecimal(7);
                 BigDecimal bTonglai_1 = reset.getBigDecimal(8);
                 modelRisk.setsSoKh_1(format.format(reset.getBigDecimal(9)));
@@ -2946,7 +2948,7 @@ public class DaoProcessRisk {
                 BigDecimal bTongtien_1 = BigDecimal.ZERO;
                 bTongtien_1 = bTongtien_1.add(bTonggoc_1);
                 bTongtien_1 = bTongtien_1.add(bTonglai_1);
-                 modelRisk.setsTongtien_1(format.format(bTongtien_1));
+                modelRisk.setsTongtien_1(format.format(bTongtien_1));
                 lstTableDesc.add(modelRisk);
                 System.err.println("pos_cd=" + modelRisk.getsPoscd());
             }
@@ -2967,7 +2969,7 @@ public class DaoProcessRisk {
         return lstTableDesc;
     }
 
-    public List<DescTableBrower> getDataRejectMainPos(String khoa,ArrayList<String> lstPoscd,
+    public List<DescTableBrower> getDataRejectMainPos(String khoa, ArrayList<String> lstPoscd,
             String sNambc, String sDotrr, String sNhomrr, String sNguon_von) {
         List<DescTableBrower> lstTableDesc = new ArrayList<DescTableBrower>();
         int pn_err_cd = 0;
@@ -3282,7 +3284,7 @@ public class DaoProcessRisk {
      * @return
      */
     public List<DescTableBrower> getDataViewLoan(Connection conn, String strUserName, String sGrade, ArrayList<String> lstArrPoscd,
-            String sNambc, String sDotrr, String sNhomrr, String sTrangthai, String sChuongtrinh, String sNguon_von , String sVbXln) {
+            String sNambc, String sDotrr, String sNhomrr, String sTrangthai, String sChuongtrinh, String sNguon_von, String sVbXln) {
         List<DescTableBrower> lstTableDesc = new ArrayList<DescTableBrower>();
         int pn_err_cd = 0;
         String strEdd_txt = "";
@@ -3388,9 +3390,9 @@ public class DaoProcessRisk {
         }
         return lstTableDesc;
     }
-    
+
     public List<DescTableBrower> getDataViewLoanQD62(Connection conn, String strUserName, String sGrade, ArrayList<String> lstArrPoscd,
-            String sNambc, String sDotrr, String sNhomrr, String sTrangthai, String sChuongtrinh, String sNguon_von , String sVbXln) {
+            String sNambc, String sDotrr, String sNhomrr, String sTrangthai, String sChuongtrinh, String sNguon_von, String sVbXln) {
         List<DescTableBrower> lstTableDesc = new ArrayList<DescTableBrower>();
         int pn_err_cd = 0;
         String strEdd_txt = "";
@@ -3674,7 +3676,7 @@ public class DaoProcessRisk {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
                 //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
-                 calstatement.setString(1, vbxlrr);
+                calstatement.setString(1, vbxlrr);
                 calstatement.setString(2, sPoscd);
                 calstatement.setString(3, sNambc);
                 calstatement.setString(4, sDotrr);
@@ -3814,7 +3816,7 @@ public class DaoProcessRisk {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
                 //Tham so thu nhat truyen vao la co lay theo pos hay main pos  
-                calstatement.setString(1, sKhoa);        
+                calstatement.setString(1, sKhoa);
                 calstatement.setString(2, sNambc);
                 calstatement.setString(3, sDotrr);
                 calstatement.setString(4, sNhomrr);
@@ -3891,7 +3893,7 @@ public class DaoProcessRisk {
             calstatement.setString(8, sKhoa);
             calstatement.registerOutParameter(9, oracle.jdbc.OracleTypes.NUMBER);
             calstatement.registerOutParameter(10, oracle.jdbc.OracleTypes.VARCHAR);
-            
+
             //Thuc hien execute lay du lieu
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -3917,7 +3919,7 @@ public class DaoProcessRisk {
         return true;
     }
 
-    public boolean setContentRejectMainPos(String vb_xlrr,String sUserName, String sGrade, List<String> lstMacn,
+    public boolean setContentRejectMainPos(String vb_xlrr, String sUserName, String sGrade, List<String> lstMacn,
             String sNambc, String sDotrr, String sNhomrr, String sNguon_von, String sNguyennhan) {
         boolean bSuccess = false;
         try {
@@ -3967,7 +3969,7 @@ public class DaoProcessRisk {
         return true;
     }
 
-     public boolean setContentRejectMainPos1(String sUserName, String sGrade, List<String> lstMacn,
+    public boolean setContentRejectMainPos1(String sUserName, String sGrade, List<String> lstMacn,
             String sNambc, String sDotrr, String sNhomrr, String sNguon_von, String sNguyennhan) {
         boolean bSuccess = false;
         try {
@@ -4015,6 +4017,7 @@ public class DaoProcessRisk {
         }
         return true;
     }
+
     public List<HistorySendData> getViewHistorySend(String macn, String nam_rr, String dot_rr, String nhom_rr, String khoa, String sKhoaRR) {
         List<HistorySendData> lstViewHis = new ArrayList<HistorySendData>();
         try {
@@ -4079,11 +4082,11 @@ public class DaoProcessRisk {
         }
         return lstViewHis;
     }
-    
+
     public boolean updateInfoLoan(String strUserName, String sGrade, ArrayList<String> lstArrPoscd,
             String sNambc, String sDotrr, String sNhomrr, String sChuongtrinh, String sSoku, String sKhoa,
-            String sTenkh,String sNgayvay, String dbMdthiethai,String sNgayrr,String dbDnghi_Tg,String dbPduyet_Tg,
-            String dbHt_Dno,String dbHt_Lai,  String dbDnghi_Lai, String sNguyennhan) {
+            String sTenkh, String sNgayvay, String dbMdthiethai, String sNgayrr, String dbDnghi_Tg, String dbPduyet_Tg,
+            String dbHt_Dno, String dbHt_Lai, String dbDnghi_Lai, String sNguyennhan, String dbDnghi_Dno) {
         //Duyet list dua ra danh sach main pos la dang "000314","000401","000501"....
         String strStringPosCd = "";
         for (int i = 0; i < lstArrPoscd.size(); i++) {
@@ -4100,7 +4103,7 @@ public class DaoProcessRisk {
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{ call vbsp_ims_risk.SP_UPDATE_INFO_RISK(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String strStoreproce = "{ call vbsp_ims_risk.SP_UPDATE_INFO_RISK(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
 
             calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -4127,6 +4130,7 @@ public class DaoProcessRisk {
             calstatement.registerOutParameter(19, oracle.jdbc.OracleTypes.VARCHAR);
             calstatement.setString(20, dbDnghi_Lai);
             calstatement.setString(21, sNguyennhan);
+            calstatement.setString(22, dbDnghi_Dno);
 //            calstatement.setString(21, dbDnghi_Lai);
 //                calstatement.setString(2, strCommuneFlg);
             calstatement.execute();
@@ -4151,9 +4155,9 @@ public class DaoProcessRisk {
         }
         return true;
     }
-    
+
     public List<QT_DULIEU_NT_50> getData_clech(String strUserName, String sGrade, ArrayList<String> lstPoscd,
-            String sNambc, String sDotrr, String sNhomrr, String sTrangthai, String sNguon_von,String sKhoa) {
+            String sNambc, String sDotrr, String sNhomrr, String sTrangthai, String sNguon_von, String sKhoa) {
         List<QT_DULIEU_NT_50> lstBcqt_NT = new ArrayList<QT_DULIEU_NT_50>();
         int pn_err_cd = 0;
         String strEdd_txt = "";
@@ -4196,7 +4200,7 @@ public class DaoProcessRisk {
             //thu hien lay mo ta loi
             strEdd_txt = calstatement.getString(11);
             //Lay cursor ra resultset
-                //Lay cursor ra resultset
+            //Lay cursor ra resultset
             reset = (ResultSet) calstatement.getObject(12);
             while (reset.next()) {
 
@@ -4266,7 +4270,6 @@ public class DaoProcessRisk {
                 value.setD48(reset.getString(65));
                 value.setD49(reset.getString(66));
 
-
                 lstBcqt_NT.add(value);
             }
 
@@ -4279,13 +4282,13 @@ public class DaoProcessRisk {
 //                if (conn != null) {
 //                    conn.close();
 //                }
-            } catch (SQLException e) {
-                System.err.print(e.getMessage());
-                CoreLogger.error(this.getClass().getName() + " getData_clech -> " + e.getMessage());
-            }       
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getData_clech -> " + e.getMessage());
+        }
         return lstBcqt_NT;
     }
-    
+
     public String AUTDataRisk(String strUserName, String sGrade, String sNambc, String sDotrr) {
 
         String Code = "";
@@ -4307,10 +4310,10 @@ public class DaoProcessRisk {
             calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.VARCHAR);
             //Thuc hien execute lay du lieu
             calstatement.execute();
-            
+
             //thu hien lay mo ta loi
             Code = calstatement.getString(5);
-           
+
             if (conn != null) {
                 conn.close();
             }
@@ -4321,7 +4324,7 @@ public class DaoProcessRisk {
         }
         return Code;
     }
-    
+
     public String checkAutRisk(String sGrade, String sNambc, String sDotrr, String username) {
 
         String Code = "";
@@ -4343,10 +4346,10 @@ public class DaoProcessRisk {
             calstatement.setString(5, username);
             //Thuc hien execute lay du lieu ra biểu
             calstatement.execute();
-            
+
             //thu hien lay mo ta loi
             Code = calstatement.getString(4);
-           
+
             if (conn != null) {
                 conn.close();
             }
