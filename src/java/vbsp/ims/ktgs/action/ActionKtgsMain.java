@@ -51,9 +51,10 @@ public class ActionKtgsMain extends ActionSupport {
     protected String Message;
     protected List<ListValue> lstAllKtgs = new ArrayList<>();
     protected List<ReportParam> lstKtgsParams = new ArrayList<>();
-    protected String khoa_ktgs;   
+    protected String khoa_ktgs;
     protected TreeNode nodes_pos = new TreeNode();
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
+    protected List<QT_DULIEU_NT> lstDulieuNtSBV = new ArrayList<>();
     protected List<ListValue> lstParameters = new ArrayList<>();
     private List<ListValue> lstCBTindung = new ArrayList<ListValue>();
     private List<ListValue> lstCBKetoan = new ArrayList<ListValue>();
@@ -63,9 +64,9 @@ public class ActionKtgsMain extends ActionSupport {
     protected List<ModelViewSend> lstViewSend = new ArrayList<>();
     private String tt_khoa;
     private String macn;
-    private String ngay_bc;    
-    private String trangthaichotsl;  
-    
+    private String ngay_bc;
+    private String trangthaichotsl;
+
     private List<ListValue> lstGioiTinh = new ArrayList<ListValue>();
     private List<ListValue> lstDanToc = new ArrayList<ListValue>();
     private List<ListValue> lstDonVi = new ArrayList<ListValue>();
@@ -73,13 +74,17 @@ public class ActionKtgsMain extends ActionSupport {
     private List<ListValue> lstTrangThai = new ArrayList<ListValue>();
     private List<ListValue> lstThanhVien = new ArrayList<ListValue>();
     private List<ListValue> lstBDD = new ArrayList<ListValue>();
-    
+
     protected String MATV;
     protected String addedit;
-    
 
-    
+    public List<QT_DULIEU_NT> getLstDulieuNtSBV() {
+        return lstDulieuNtSBV;
+    }
 
+    public void setLstDulieuNtSBV(List<QT_DULIEU_NT> lstDulieuNtSBV) {
+        this.lstDulieuNtSBV = lstDulieuNtSBV;
+    }
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Xu ly cho action">
@@ -244,15 +249,11 @@ public class ActionKtgsMain extends ActionSupport {
             if (!getParaSession()) {
                 return ERROR;
             }
-            if(DaoKtgsMain.newInstance().checkUser(UserName)>0)
-            {
+            if (DaoKtgsMain.newInstance().checkUser(UserName) > 0) {
                 setLstAllKtgs(DaoKtgsMain.newInstance().getAllKtgs_SUB());
-            }
-            else
-            {
+            } else {
                 setLstAllKtgs(DaoKtgsMain.newInstance().getAllKtgs());
             }
-            
 
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> execute: " + e.getMessage());
@@ -277,12 +278,11 @@ public class ActionKtgsMain extends ActionSupport {
                 setTreeNodeGrade12(lstModelTree);
             }
             if (khoa_ktgs.equals("99")) {
+                lstDulieuNtSBV = daoMain.getData_SBV(conn, "", "");
                 return "UNLOCK_99";
             }
             lstKtgsParams = daoMain.getReportParmamsKtgs(conn, khoa_ktgs);
-            // BO SUNG PHAN KIEM TRA XEM CO THUYET MINH HAY KO
-//            TmDao tmDao = new TmDao();
-//            isDisplayTM = tmDao.getCO_TM(khoa_ktgs);
+
             if (conn != null) {
                 conn.close();
             }
@@ -354,8 +354,7 @@ public class ActionKtgsMain extends ActionSupport {
             List<String> lstPos = (List<String>) hmParameter.get("poscd");
             DaoKtgsMain daosync = DaoKtgsMain.newInstance();
             Map<String, Integer> mapStatusSend = new HashMap();
-            if(khoa_ktgs.equals("BC00230032") || khoa_ktgs.equals("BC00230033") || khoa_ktgs.equals("BC00230034"))
-            {
+            if (khoa_ktgs.equals("BC00230032") || khoa_ktgs.equals("BC00230033") || khoa_ktgs.equals("BC00230034")) {
                 lstPos = daosync.getAllPosUser(UserName);
             }
 
@@ -368,7 +367,6 @@ public class ActionKtgsMain extends ActionSupport {
                 strPathSave += hmParameter.get("khoa_ktgs").toString() + "_" + mapgd
                         + "_" + UserName + "_"
                         + Long.toString(System.currentTimeMillis()).substring(Long.toString(System.currentTimeMillis()).length() - 6) + ".xml";
-
 
                 List<String> lstData = new ArrayList<>();
                 boolean bStatus_file = false;
@@ -437,9 +435,7 @@ public class ActionKtgsMain extends ActionSupport {
 
         return SUCCESS;
     }
-   
-    
-    
+
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Cho phan khoa va mo khoa">
     public String LoadParaKtgs_unlock() {
@@ -475,7 +471,7 @@ public class ActionKtgsMain extends ActionSupport {
         }
         return SUCCESS;
     }
-    
+
     public String LoadStatusSendCnKtgs() {
         try {
             if (!getParaSession()) {
@@ -486,8 +482,8 @@ public class ActionKtgsMain extends ActionSupport {
 
             HashMap hmParameter = getParameter();
             lstDulieuNt = daosync.getStatusSendCn(getType_bcqt(), hmParameter.get("khoa_ktgs").toString(),
-                    macn, hmParameter.get("ngay_bc").toString(), 
-                    hmParameter.get("khoa_ktgs").toString().equals("ALL")?tt_khoa:Define.WEB_SERVICES_STATUS_SEND);
+                    macn, hmParameter.get("ngay_bc").toString(),
+                    hmParameter.get("khoa_ktgs").toString().equals("ALL") ? tt_khoa : Define.WEB_SERVICES_STATUS_SEND);
 
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> LoadStatusSendCnKtgs: " + e.getMessage());
@@ -498,7 +494,7 @@ public class ActionKtgsMain extends ActionSupport {
 //        addActionMessage("Bạn gửi dữ liệu về trung ương thành công !");
         return SUCCESS;
     }
-    
+
     public String OpenPgdKTGS() {
         try {
             if (!getParaSession()) {
@@ -529,7 +525,7 @@ public class ActionKtgsMain extends ActionSupport {
         addActionMessage("Đã mở khóa thành công");
         return SUCCESS;
     }
-    
+
     public String ChotKtgs() {
         System.err.println("Save - ChotKtgs");
         try {
@@ -547,8 +543,8 @@ public class ActionKtgsMain extends ActionSupport {
                 addActionError("Bạn phải chọn ngày cuối tháng");
                 return ERROR;
             }
-            
-            int result = daoMain.ChotKtgs(khoa_ktgs, UserName,  hmParameter.get("ngay_bc").toString(),Grade);
+
+            int result = daoMain.ChotKtgs(khoa_ktgs, UserName, hmParameter.get("ngay_bc").toString(), Grade);
             if (result == 0) {
                 addActionError("Bạn chưa chốt được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;
@@ -566,7 +562,7 @@ public class ActionKtgsMain extends ActionSupport {
         addActionMessage("Bạn đã chốt dữ liệu thành công");
         return SUCCESS;
     }
-    
+
     public String MoChotKtgsPGD() {
         System.err.println("Save - MoChotKtgsPGD");
         try {
@@ -584,20 +580,18 @@ public class ActionKtgsMain extends ActionSupport {
                 addActionError("Bạn phải chọn ngày cuối tháng");
                 return ERROR;
             }
-            if (poscd.size() <= 0)
-                {
+            if (poscd.size() <= 0) {
                 addActionError("Bạn phải chọn PGD để mở chốt");
                 return ERROR;
             }
-            
-            if (Grade.equals("2"))
-            {
-                int result = daoMain.MoChotKtgsPGD(khoa_ktgs, UserName, hmParameter.get("ngay_bc").toString(),  poscd);
+
+            if (Grade.equals("2")) {
+                int result = daoMain.MoChotKtgsPGD(khoa_ktgs, UserName, hmParameter.get("ngay_bc").toString(), poscd);
                 if (result == 0) {
                     addActionError("Bạn chưa mở duyệt được báo cáo xin liên hệ với quản trị để khắc phục");
                     return ERROR;
                 }
-            }                        
+            }
 
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> MoChotKtgsPGD: " + e.getMessage());
@@ -612,7 +606,6 @@ public class ActionKtgsMain extends ActionSupport {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
-
     public String getTrangthaichotsl() {
         return trangthaichotsl;
     }
@@ -620,8 +613,7 @@ public class ActionKtgsMain extends ActionSupport {
     public void setTrangthaichotsl(String trangthaichotsl) {
         this.trangthaichotsl = trangthaichotsl;
     }
-    
-    
+
     public List<ListValue> getLstParameters() {
         return lstParameters;
     }
@@ -772,7 +764,7 @@ public class ActionKtgsMain extends ActionSupport {
 
     public void setLstAllKtgs(List<ListValue> lstAllKtgs) {
         this.lstAllKtgs = lstAllKtgs;
-    }    
+    }
 
     public List<String> getPoscd() {
         return poscd;
@@ -797,7 +789,7 @@ public class ActionKtgsMain extends ActionSupport {
     public void setLstViewSend(List<ModelViewSend> lstViewSend) {
         this.lstViewSend = lstViewSend;
     }
-    
+
     public String getKhoa_ktgs() {
         return khoa_ktgs;
     }
@@ -805,7 +797,7 @@ public class ActionKtgsMain extends ActionSupport {
     public void setKhoa_ktgs(String khoa_ktgs) {
         this.khoa_ktgs = khoa_ktgs;
     }
-    
+
     public String getTt_khoa() {
         return tt_khoa;
     }
@@ -813,7 +805,7 @@ public class ActionKtgsMain extends ActionSupport {
     public void setTt_khoa(String tt_khoa) {
         this.tt_khoa = tt_khoa;
     }
-    
+
     public String getMacn() {
         return macn;
     }
@@ -821,7 +813,7 @@ public class ActionKtgsMain extends ActionSupport {
     public void setMacn(String macn) {
         this.macn = macn;
     }
-    
+
     public String getNgay_bc() {
         return ngay_bc;
     }
@@ -839,5 +831,4 @@ public class ActionKtgsMain extends ActionSupport {
     }
 //</editor-fold>
 
-    
 }

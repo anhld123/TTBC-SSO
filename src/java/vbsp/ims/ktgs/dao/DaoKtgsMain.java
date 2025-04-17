@@ -376,6 +376,53 @@ public class DaoKtgsMain {
         return lstBcqt_NT;
     }
      
+      public List<QT_DULIEU_NT> getData_SBV(Connection conn, String sKhoa,String sPoscd) {
+        List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
+        try {
+            CallableStatement calstatement = null;
+            String strStoreproce = "{call VBSP_IMS_NGHIQUYET11CP.GET_DMBCAO_SBV(?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(1, sKhoa);
+                calstatement.setString(2, sPoscd);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+                int pn_err_cd = calstatement.getInt(3);
+                //thu hien lay mo ta loi
+                String strEdd_txt = calstatement.getString(4);
+                //Lay cursor ra resultset
+                reset = (ResultSet) calstatement.getObject(5);
+                while (reset.next()) {
+
+                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();             
+                    value.setD1(reset.getString("D1"));
+                    value.setD2(reset.getString("D2"));
+                    lstBcqt_NT.add(value);
+                }
+
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getDataKH04 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+        }
+        return lstBcqt_NT;
+    }
     public List<QT_DULIEU_NT> getDataKTGS_01(Connection conn, String sKhoa, String sNgaybc, String sUser,
             String sGrade, List<String> lstArrPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();

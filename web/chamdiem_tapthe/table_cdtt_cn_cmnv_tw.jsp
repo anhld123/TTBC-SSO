@@ -57,6 +57,7 @@
             $('.TEN_KH').blur(function () {
                 $(this).closest('tr').removeClass('highlight_row');
             });
+
         </script>
 
     </head>
@@ -88,8 +89,7 @@
                 <tr height="23">
                     <th rowspan="2" class="TD_THUTU">Đơn vị</th>
                     <th rowspan="2" class="TD_THUTU">TT</th>
-                    <th rowspan="2" class="TD_CHITIEU">Chỉ tiêu</th>                                         
-                    <!--<th rowspan="2" class="TD_SOLUONG">Mã</th>-->  
+                    <th rowspan="2" class="TD_CHITIEU">Chỉ tiêu</th>    
                     <th rowspan="2"  class="TD_SOLUONG">Điểm tối đa</th>                                            
                     <th colspan="2" class="TD_NGUYENGIA">Chi nhánh</th>  
                     <th colspan="3" class="TD_NGUYENGIA">Ban CMNV</th>                          
@@ -248,13 +248,13 @@
                                                class="TEN_KH number3"
                                            </s:else>   
                                            <%--<s:if test="MA.equalsIgnoreCase('CDTT11')">readonly="readonly"</s:if>--%>
-                                            <s:if test="MA.equalsIgnoreCase('CDTT10')||MA.equalsIgnoreCase('CDTT11')
-                                                  ||MA.equalsIgnoreCase('CDTT1101')||MA.equalsIgnoreCase('CDTT1102')
-                                                  ||MA.equalsIgnoreCase('CDTT110201')||MA.equalsIgnoreCase('CDTT110202')
-                                                  ||MA.equalsIgnoreCase('CDTT13')||MA.equalsIgnoreCase('CDTT14')
-                                                  ||MA.equalsIgnoreCase('CDTT1401')||MA.equalsIgnoreCase('CDTT1402')
-                                                  ||MA.equalsIgnoreCase('CDTT1403')||MA.equalsIgnoreCase('CDTT99')">readonly="readonly"</s:if>
-                              
+                                           <s:if test="MA.equalsIgnoreCase('CDTT10')||MA.equalsIgnoreCase('CDTT11')
+                                                 ||MA.equalsIgnoreCase('CDTT1101')||MA.equalsIgnoreCase('CDTT1102')
+                                                 ||MA.equalsIgnoreCase('CDTT110201')||MA.equalsIgnoreCase('CDTT110202')
+                                                 ||MA.equalsIgnoreCase('CDTT13')||MA.equalsIgnoreCase('CDTT14')
+                                                 ||MA.equalsIgnoreCase('CDTT1401')||MA.equalsIgnoreCase('CDTT1402')
+                                                 ||MA.equalsIgnoreCase('CDTT1403')||MA.equalsIgnoreCase('CDTT99')">readonly="readonly"</s:if>
+
                                     </td> 
                                     <td align = "right" class="TD_NGUYENGIA">                            
                                         <input type="text" id="D12_<s:property value='MA'/>_<s:property value="MAPGD"/>" value="<s:property value='D12'/>" 
@@ -265,8 +265,9 @@
                                                    ;
                                                    isInputMark('D1_<s:property value='MA'/>', 'D12_<s:property value='MA'/>_<s:property value="MAPGD"/>');
                                                    evaluateSum_Mapgd('CHAMDIEMTT_001', 'D12', '<s:property value="MAPGD"/>')"   class="number2 TEN_KH"
-                                          <s:if test="!MA.equalsIgnoreCase('CDTT1301')&&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')">readonly="readonly"</s:if>
-                                         />
+                                           <s:if test="!MA.equalsIgnoreCase('CDTT1301')&&!MA.equalsIgnoreCase('CDTT1302')
+                                                 &&!MA.equalsIgnoreCase('CDTT1303')&&!MA.equalsIgnoreCase('CDTT1304')">readonly="readonly"</s:if>
+                                               />
                                     </td>
                                     <td align="center" class="TD_CHITIEU">
                                         <input type="text" value="<s:property  value="D13" />" 
@@ -274,7 +275,7 @@
                                 </td>                                    
                             </s:else> 
                         </s:if>
-                                <!--bo sung ngày 27/03/2025-->
+                        <!--bo sung ngày 27/03/2025-->
                         <s:else>
                             <td align = "right" class="TD_NGUYENGIA">                            
                                 <input type="text" id="D5_<s:property value='MA'/>" value="<s:property value='D5'/>" 
@@ -290,9 +291,9 @@
                                            class="number2 TEN_KH"
                                        </s:else>  readonly
                                        />
-                                </td>
-                                <td align = "right" class="TD_NGUYENGIA">                            
-                                    <input type="text" id="D10_<s:property value='MA'/>_<s:property value="MAPGD"/>" value="<s:property value='D10'/>" 
+                            </td>
+                            <td align = "right" class="TD_NGUYENGIA">                            
+                                <input type="text" id="D10_<s:property value='MA'/>_<s:property value="MAPGD"/>" value="<s:property value='D10'/>" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" 
                                        onblur="if (this.value == '') {
                                                    this.value = 0
@@ -300,7 +301,7 @@
                                                ;
                                                isInputMark('D1_<s:property value='MA'/>', 'D10_<s:property value='MA'/>');
                                                evaluateSum_Mapgd('CHAMDIEMTT_001', 'D10', '<s:property value="MAPGD"/>')"   class="number2 TEN_KH" 
-                                      readonly/>
+                                       readonly/>
                             </td>                               
 
                             <td align = "right" class="TD_NGUYENGIA">                            
@@ -315,7 +316,7 @@
                                            class="number5 TEN_KH" 
                                        </s:if>     
                                        <s:else> 
-                                           class="TEN_KH number3"
+                                           class="TEN_KH number"
                                        </s:else>   
                                        <s:if test="MA.equalsIgnoreCase('CDTT10')||MA.equalsIgnoreCase('CDTT11')
                                              ||MA.equalsIgnoreCase('CDTT1101')||MA.equalsIgnoreCase('CDTT1102')
@@ -336,20 +337,25 @@
                                              ||MA.equalsIgnoreCase('CDTT110119')||MA.equalsIgnoreCase('CDTT110120')
                                              ||MA.equalsIgnoreCase('CDTT110121')||MA.equalsIgnoreCase('CDTT110124')
                                              ||MA.equalsIgnoreCase('CDTT110125')||MA.equalsIgnoreCase('CDTT110130')
-                                             ||MA.equalsIgnoreCase('CDTT110131')">readonly="readonly"</s:if>
-                                />
+                                             ||MA.equalsIgnoreCase('CDTT110131')||MA.equalsIgnoreCase('CDTT110204')
+                                             ||MA.equalsIgnoreCase('CDTT110203')">readonly="readonly"</s:if>
+                                           />
                                 </td> 
                                 <td align = "right" class="TD_NGUYENGIA">                            
-                                    <input type="text" id="D12_<s:property value='MA'/>_<s:property value="MAPGD"/>" value="<s:property value='D12'/>" 
+                                    <input type="text" id="D12_<s:property value='MA'/>_<s:property value="MAPGD"/>" 
+                                       value="<s:property value='D12'/>" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" 
                                        onblur="if (this.value == '') {
                                                    this.value = 0
                                                }
                                                ;
                                                isInputMark('D1_<s:property value='MA'/>', 'D12_<s:property value='MA'/>_<s:property value="MAPGD"/>');
-                                               evaluateSum_Mapgd('CHAMDIEMTT_001', 'D12', '<s:property value="MAPGD"/>')"   class="number2 TEN_KH"
-                                       <s:if test="!MA.equalsIgnoreCase('CDTT1301')&&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')&&!MA.equalsIgnoreCase('CDTT1304')">readonly="readonly"</s:if>
-                                         />
+                                               evaluateSum_Mapgd('CHAMDIEMTT_001', 'D12', '<s:property value="MAPGD"/>')"  
+                                       class="number2 TEN_KH"
+                                       <s:if test="!MA.equalsIgnoreCase('CDTT1301')&&!MA.equalsIgnoreCase('CDTT1302')
+                                             &&!MA.equalsIgnoreCase('CDTT1303')&&!MA.equalsIgnoreCase('CDTT1304')
+                                             &&!MA.equalsIgnoreCase('CDTT110203')&&!MA.equalsIgnoreCase('CDTT110204')">readonly="readonly"</s:if>
+                                           />
                                 </td>
                                 <td align="center" class="TD_CHITIEU">
                                     <input type="text" value="<s:property  value="D13" />" 
@@ -369,4 +375,22 @@
         </s:form>
         <div id="luu_thanhcong"></div>        
     </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll("input[id^='D12_']").forEach(function (input) {
+                if (input.value.trim() === '') {
+                    input.value = 0;
+
+                    // Lấy lại các phần từ ID để gọi đúng hàm
+                    const parts = input.id.split('_'); // vd: ["D12", "CDTT1234", "PGD01"]
+                    const ma = parts[1];
+                    const mapgd = parts[2];
+
+                    isInputMark('D1_' + ma, input.id);
+                    evaluateSum_Mapgd('CHAMDIEMTT_001', 'D12', mapgd);
+                }
+            });
+        });
+    </script>
+
 </html>

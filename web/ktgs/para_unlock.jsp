@@ -385,7 +385,7 @@
             ;
             var popWindow;
             var max_row = 0;
-  
+
         </script>
     </head>
     <!--new java.util.Date()-->
@@ -399,85 +399,88 @@
             <fieldset>
                 <legend><b>Tìm kiếm dữ liệu</b></legend> 
                 <table>
-                    
+
                     <tr>
                         <td>
-                                &nbsp;<label>Ngày báo cáo: </label>
+                            &nbsp;<label>Ngày báo cáo: </label>
                             <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
                                            placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
 
                             &nbsp;&nbsp;<label>Loại báo cáo: </label>
-                            <select name="skhoa" id="skhoa">                                                    
-                            <option value="KTNB06A">KTNB06A - Báo cáo các vụ việc do chiếm dụng, tham ô và kết quả thu hồi</option>    
-                        </select> 
-                        </td>
-                         <td>
-                     <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
-                                       onBeforeTopics="beforediv_data"
-                                       onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                            &nbsp;<input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
-                             </td>  </tr>
-                    </table>    
-                </fieldset>
-                <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
-                    <img id="loadingImage" src='img/loading.gif' border='0' >      
-                    <div id="message_suc_err"></div>
-                </div>   
-                
-            <s:if test="khoa_ktgs.equalsIgnoreCase('99')">
-                <div id="containParm_full" align="center">
-                    <div id="divExportReport"></div>
-                    <div align="right"  id="divExportReportLink"></div>
-                </div>
-            </s:if>
-            <s:else>
-                <div id="containTree">
-                    <sjt:tree
-                        name="poscd"
-                        id="treeDynamicCheckboxes"
-                        jstreetheme="apple"
-                        rootNode="nodes_pos"
-                        childCollectionProperty="children"
-                        nodeTitleProperty="title"
-                        nodeIdProperty="id"
-                        openAllOnLoad="true"
-                        checkbox="true"
-                        showThemeDots="false"
-                        showThemeIcons="true" 
-                        />
-                </div>
-                <div id="containParm" align="center">
-                    <div id="divExportReport"></div>
-                    <div id="divExportReport"></div>
-                </div>
-            </s:else>                     
+                            <select id="skhoa" name="skhoa">
+                                <option value="000000">---Chọn báo cáo---</option>
+                                <s:iterator value="lstDulieuNtSBV">                                    
+                                    <option value="<s:property value='D2'/>"><s:property value="D1"/></option>                                         
+                                    </s:iterator>   
+                                    </select>
+                                    </td>
+                                    <td>
+                                    <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                                               onBeforeTopics="beforediv_data"
+                                               onCompleteTopics="completediv_data" cssStyle="display:none"/>
+                                    &nbsp;<input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
+                                    </td>  </tr>
+                                    </table>    
+                                    </fieldset>
+                                <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
+                                    <img id="loadingImage" src='img/loading.gif' border='0' >      
+                                    <div id="message_suc_err"></div>
+                                </div>   
 
-        </s:form>
+                                <s:if test="khoa_ktgs.equalsIgnoreCase('99')">
+                                    <div id="containParm_full" align="center">
+                                        <div id="divExportReport"></div>
+                                        <div align="right"  id="divExportReportLink"></div>
+                                    </div>
+                                </s:if>
+                                <s:else>
+                                    <div id="containTree">
+                                        <sjt:tree
+                                            name="poscd"
+                                            id="treeDynamicCheckboxes"
+                                            jstreetheme="apple"
+                                            rootNode="nodes_pos"
+                                            childCollectionProperty="children"
+                                            nodeTitleProperty="title"
+                                            nodeIdProperty="id"
+                                            openAllOnLoad="true"
+                                            checkbox="true"
+                                            showThemeDots="false"
+                                            showThemeIcons="true" 
+                                            />
+                                    </div>
+                                    <div id="containParm" align="center">
+                                        <div id="divExportReport"></div>
+                                        <div id="divExportReport"></div>
+                                    </div>
+                                </s:else>                     
 
-        <script>
-            $(document).ready(function () {
-                var currentDate = new Date();
-                var day = currentDate.getDate();
-                var month = currentDate.getMonth() + 1; // Note: January is 0
-                var year = currentDate.getFullYear();
-                var formattedDate = day + '/' + month + '/' + year;
-                document.getElementById('ngay_bc_DATE').value = formattedDate;
-            });
+                            </s:form>
 
-            
-            $(function () {
-                $('#select-all').click(function (event) {
-                    // Iterate each checkbox
-                    $('.myCheckBox').each(function () {
-                        if (!this.disabled) {
-                            this.checked = $('#select-all').prop('checked');
-                            this.value = this.checked ? '1' : '2';
-                        }
-                    });
-                });
-            });
+                            <script>
+                                $(document).ready(function () {
+                                    var currentDate = new Date();
+                                    var day = currentDate.getDate();
+                                    var month = currentDate.getMonth() + 1; // Note: January is 0
+                                    var year = currentDate.getFullYear();
+                                    var formattedDate = day + '/' + month + '/' + year;
+                                    document.getElementById('ngay_bc_DATE').value = formattedDate;
+                                });
 
 
-        </script>
-    </body>
-</html>
+                                $(function () {
+                                    $('#select-all').click(function (event) {
+                                        // Iterate each checkbox
+                                        $('.myCheckBox').each(function () {
+                                            if (!this.disabled) {
+                                                this.checked = $('#select-all').prop('checked');
+                                                this.value = this.checked ? '1' : '2';
+                                            }
+                                        });
+                                    });
+                                });
+
+
+                            </script>
+                            </body>
+                            </html>
