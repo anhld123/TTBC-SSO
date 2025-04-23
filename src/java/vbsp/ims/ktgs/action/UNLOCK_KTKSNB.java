@@ -14,17 +14,17 @@ import vbsp.ims.log.CoreLogger;
 import java.util.Date;
 import java.util.HashMap;
 import org.apache.struts2.ServletActionContext;
-import vbsp.ims.define.GenericResult; 
+import vbsp.ims.define.GenericResult;
 import vbsp.ims.ktgs.dao.DaoKtgsMain;
 import vbsp.ims.tdnn.DaoTdnnMain;
-
 
 /**
  *
  * @author HP
  */
-public class UNLOCK_KTKSNB extends ActionKtgsMain implements KtgsFunction{
-     private String status;
+public class UNLOCK_KTKSNB extends ActionKtgsMain implements KtgsFunction {
+
+    private String status;
     private String message;
 
     public String getStatus() {
@@ -42,20 +42,20 @@ public class UNLOCK_KTKSNB extends ActionKtgsMain implements KtgsFunction{
     public void setMessage(String message) {
         this.message = message;
     }
-    
+
     @Override
-    public String load(){
+    public String load() {
         try {
             if (!getParaSession()) {
                 return ERROR;
             }
-             HashMap hmParameter = getParameter();
+            HashMap hmParameter = getParameter();
             String sngaybc = hmParameter.get("ngay_bc").toString();
-            String skhoa =hmParameter.get("skhoa").toString();
+            String skhoa = hmParameter.get("skhoa").toString();
             Connection conn = new DaoConnect().getConnect();
             DaoKtgsMain daoMain = new DaoKtgsMain();
-            lstDulieuNt = daoMain.getData_Unlock99(conn,sngaybc,skhoa);
-            System.out.println(sngaybc +" " + skhoa );
+            lstDulieuNt = daoMain.getData_Unlock99(conn, sngaybc, skhoa);
+            System.out.println(sngaybc + " " + skhoa);
             if (conn != null) {
                 conn.close();
             }
@@ -66,24 +66,23 @@ public class UNLOCK_KTKSNB extends ActionKtgsMain implements KtgsFunction{
         }
         return SUCCESS;
     }
-    
-   public String save() {
+
+    public String save() {
         System.err.println("Save - TDNN - 01");
 
         return SUCCESS;
-   } 
-   public String cancelAssign() {
+    }
+
+    public String cancelAssign() {
         try {
-            String D2 = ServletActionContext.getRequest().getParameter("madiemgd");
-            String D5 = ServletActionContext.getRequest().getParameter("ssngaybc");
-             SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
-             SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MMM/yyyy");
-            Date date = inputFormat.parse(D5);
-            String formattedDate = outputFormat.format(date);
-            String D6 = ServletActionContext.getRequest().getParameter("skhoa");
-            System.out.println(D6 +" " + formattedDate +" " +D2);
-            DaoTdnnMain daoMain = new DaoTdnnMain();
-            GenericResult<String> _result = daoMain.cancelAssign(D6,D2,formattedDate);
+            String D1 = ServletActionContext.getRequest().getParameter("madiemgd");
+            String D7 = ServletActionContext.getRequest().getParameter("ssngaybc");
+            String D8 = ServletActionContext.getRequest().getParameter("ssngaybc");
+            String D9 = ServletActionContext.getRequest().getParameter("ssngaybc");
+
+            System.out.println(D1 + D7 + D8 + D9);
+            DaoKtgsMain daoMain = new DaoKtgsMain();
+            GenericResult<String> _result = daoMain.unlock_c3_ktksnb(D1, D7, D8, D9);
 
             if (_result.isIsSuccess()) {
                 status = "1";

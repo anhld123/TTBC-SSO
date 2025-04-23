@@ -20,6 +20,7 @@ import oracle.sql.ArrayDescriptor;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.DaoLoadReportParams;
+import vbsp.ims.define.GenericResult;
 import vbsp.ims.loadparams.Combo;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
@@ -356,6 +357,10 @@ public class DaoKtgsMain {
                     value.setD4(reset.getString("D4"));
                     value.setD5(reset.getString("D5"));  
                     value.setD6(reset.getString("D6"));  
+                    value.setD7(reset.getString("D7"));  
+                    value.setD8(reset.getString("D8"));  
+                    value.setD9(reset.getString("D9"));  
+                    value.setD10(reset.getString("D10"));  
                     lstBcqt_NT.add(value);
                 }
 
@@ -376,6 +381,43 @@ public class DaoKtgsMain {
         return lstBcqt_NT;
     }
      
+     public GenericResult<String> unlock_c3_ktksnb(String d1, String d7, String d8, String d9) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_UNLOCK_KTNB_2025(?, ?, ?, ?, ? ,?)}");
+            cs.setString(1, d1);
+            cs.setString(2, d7);
+            cs.setString(3, d8);
+            cs.setString(4, d9);
+            cs.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
+            cs.registerOutParameter(6, oracle.jdbc.OracleTypes.VARCHAR);
+            cs.execute();
+
+            //Lay ma loi neu co
+            int errorCode = cs.getInt(5);
+            String errorMessage = cs.getString(6);
+
+            if (errorCode == 0) {
+                return (new GenericResult<String>()).Success("Success");
+            } else {
+                return (new GenericResult<String>()).Fail(errorMessage, errorCode);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham cancelAssign " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " cancelAssign -> " + e.getMessage());
+            return (new GenericResult<String>()).Fail(e.getMessage(), e.getErrorCode());
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+    }
       public List<QT_DULIEU_NT> getData_SBV(Connection conn, String sKhoa,String sPoscd) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {

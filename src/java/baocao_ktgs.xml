@@ -139,7 +139,9 @@
             <result name="success">/BCQT/success.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action>
-        
+        <action name="Unlock_ktnb_2025" class="vbsp.ims.ktgs.action.UNLOCK_KTKSNB" method="cancelAssign">
+            <result name="success" type="json"></result>
+        </action>
     </package>
     
 </struts>
