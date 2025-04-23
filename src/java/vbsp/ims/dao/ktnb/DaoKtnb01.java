@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
+import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.khnv.DaoXdkh;
 import vbsp.ims.log.CoreLogger;
@@ -21,6 +22,7 @@ import vbsp.ims.model.ktnb.*;
  * @author CuongBM0211
  */
 public class DaoKtnb01 {
+
     public ArrayList<Ktnb01Model> get_ktnb01(String posCD, int namBc, int quyBc) {
         ArrayList<Ktnb01Model> dataList = new ArrayList<Ktnb01Model>();
         boolean bSuccess = false;
@@ -42,20 +44,20 @@ public class DaoKtnb01 {
                 calstatement.setString(1, posCD);
                 calstatement.setInt(2, namBc);
                 calstatement.setInt(3, quyBc);
-        
+
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
-                
+
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
-                
+
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(6);
-                
+
                 while (reset.next()) {
                     Ktnb01Model obj = new Ktnb01Model();
-                    
+
                     obj.setKT_KHOA(reset.getString("KT_KHOA"));
                     obj.setKT_MAPGD(reset.getString("KT_MAPGD"));
                     obj.setKT_MACN(reset.getString("KT_MACN"));
@@ -77,11 +79,11 @@ public class DaoKtnb01 {
                     obj.setKT_CAPHT(reset.getDouble("KT_CAPHT"));
                     obj.setKT_STT(reset.getDouble("KT_STT"));
                     obj.setNG_CAPNHAT(reset.getString("NG_CAPNHAT"));
-                    
+
                     //Them vao list
                     dataList.add(obj);
                 }
-                
+
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
                 int pn_err_cd = calstatement.getInt(4);
                 //thu hien lay mo ta loi
@@ -101,11 +103,11 @@ public class DaoKtnb01 {
             }
         } catch (Exception e) {
             System.err.println("Loi trong ham get_ktnb01 " + e.getMessage());
-            CoreLogger.error(this.getClass().getName()+ " get_ktnb01 -> " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " get_ktnb01 -> " + e.getMessage());
         }
         return dataList;
     }
-    
+
     public ArrayList<Ktnb01Model> get_ktnb01_default(String posCD, int namBc, int quyBc) {
         ArrayList<Ktnb01Model> dataList = new ArrayList<Ktnb01Model>();
         boolean bSuccess = false;
@@ -127,20 +129,20 @@ public class DaoKtnb01 {
                 calstatement.setString(1, posCD);
                 calstatement.setInt(2, namBc);
                 calstatement.setInt(3, quyBc);
-        
+
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
-                
+
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
-                
+
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(6);
-                
+
                 while (reset.next()) {
                     Ktnb01Model obj = new Ktnb01Model();
-                    
+
                     obj.setKT_KHOA(reset.getString("KT_KHOA"));
                     obj.setKT_MAPGD(reset.getString("KT_MAPGD"));
                     obj.setKT_MACN(reset.getString("KT_MACN"));
@@ -162,12 +164,11 @@ public class DaoKtnb01 {
                     obj.setKT_CAPHT(reset.getDouble("KT_CAPHT"));
                     obj.setKT_STT(reset.getDouble("KT_STT"));
                     obj.setNG_CAPNHAT(reset.getString("NG_CAPNHAT"));
-  
 
                     //Them vao list
                     dataList.add(obj);
                 }
-                
+
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
                 int pn_err_cd = calstatement.getInt(4);
                 //thu hien lay mo ta loi
@@ -187,12 +188,12 @@ public class DaoKtnb01 {
             }
         } catch (Exception e) {
             System.err.println("Loi trong ham get_ktnb01 " + e.getMessage());
-            CoreLogger.error(this.getClass().getName()+ " get_ktnb01 -> " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " get_ktnb01 -> " + e.getMessage());
         }
         return dataList;
     }
-    
-    public ArrayList<Ktnb01Model> get_ktnb01_auth(String posCD, int namBc, int quyBc,String auth) {
+
+    public ArrayList<Ktnb01Model> get_ktnb01_auth(String posCD, int namBc, int quyBc, String auth) {
         ArrayList<Ktnb01Model> dataList = new ArrayList<Ktnb01Model>();
         boolean bSuccess = false;
         try {
@@ -213,21 +214,21 @@ public class DaoKtnb01 {
                 calstatement.setString(1, posCD);
                 calstatement.setInt(2, namBc);
                 calstatement.setInt(3, quyBc);
-        
+
                 calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
                 calstatement.setString(7, auth);
-                
+
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
-                
+
                 //Lay cursor ra resultset
                 reset = (ResultSet) calstatement.getObject(6);
-                
+
                 while (reset.next()) {
                     Ktnb01Model obj = new Ktnb01Model();
-                    
+
                     obj.setKT_KHOA(reset.getString("KT_KHOA"));
                     obj.setKT_MAPGD(reset.getString("KT_MAPGD"));
                     obj.setKT_MACN(reset.getString("KT_MACN"));
@@ -249,12 +250,11 @@ public class DaoKtnb01 {
                     obj.setKT_CAPHT(reset.getDouble("KT_CAPHT"));
                     obj.setKT_STT(reset.getDouble("KT_STT"));
                     obj.setNG_CAPNHAT(reset.getString("NG_CAPNHAT"));
-  
 
                     //Them vao list
                     dataList.add(obj);
                 }
-                
+
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
                 int pn_err_cd = calstatement.getInt(4);
                 //thu hien lay mo ta loi
@@ -274,38 +274,38 @@ public class DaoKtnb01 {
             }
         } catch (Exception e) {
             System.err.println("Loi trong ham get_ktnb01 " + e.getMessage());
-            CoreLogger.error(this.getClass().getName()+ " get_ktnb01 -> " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " get_ktnb01 -> " + e.getMessage());
         }
         return dataList;
     }
-    
-    public boolean save_ktnb01(String posCD,String maCn,String quyBc,String namBc,String userId,
-            List<String> KT_KHOA,List<String> KT_SLT,List<String> KT_SLH,
-            List<String> KT_SL_DGD,List<String> KT_SL_TKVV, String strAuth){
-    
+
+    public boolean save_ktnb01(String posCD, String maCn, String quyBc, String namBc, String userId,
+            List<String> KT_KHOA, List<String> KT_SLT, List<String> KT_SLH,
+            List<String> KT_SL_DGD, List<String> KT_SL_TKVV, String strAuth) {
+
         boolean bSuccess = false;
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
-            
+
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("ARRAY_TABLE", conn);
-            
+
             //CuongBM: Convert List to array
             String[] arrayKhoa = KT_KHOA.toArray(new String[0]);   //Ma Chi Tieu
             String[] arrayKT_SLT = KT_SLT.toArray(new String[0]); //Uoc Thuc Hien
             String[] arrayKT_SLH = KT_SLH.toArray(new String[0]); //KH nam
             String[] arrayKT_SL_DGD = KT_SL_DGD.toArray(new String[0]); //Uoc Thuc Hien
             String[] arrayKT_SL_TKVV = KT_SL_TKVV.toArray(new String[0]); //KH nam
-            
+
             //CuongBM: Convert array --> array oracle su dung
-            ARRAY oracle_arrayKhoa = new ARRAY(des,conn,arrayKhoa);
-            ARRAY oracle_arrayKT_SLT = new ARRAY(des,conn,arrayKT_SLT);
-            ARRAY oracle_arrayKT_SLH = new ARRAY(des,conn,arrayKT_SLH);
-            ARRAY oracle_arrayKT_SL_DGD = new ARRAY(des,conn,arrayKT_SL_DGD);
-            ARRAY oracle_arrayKT_SL_TKVV = new ARRAY(des,conn,arrayKT_SL_TKVV);
-            
+            ARRAY oracle_arrayKhoa = new ARRAY(des, conn, arrayKhoa);
+            ARRAY oracle_arrayKT_SLT = new ARRAY(des, conn, arrayKT_SLT);
+            ARRAY oracle_arrayKT_SLH = new ARRAY(des, conn, arrayKT_SLH);
+            ARRAY oracle_arrayKT_SL_DGD = new ARRAY(des, conn, arrayKT_SL_DGD);
+            ARRAY oracle_arrayKT_SL_TKVV = new ARRAY(des, conn, arrayKT_SL_TKVV);
+
             //CuongBM: 06Nov14
             String strStoreproce = "{call VBSP_RPT_KTKTNB.p_save_ktnb01(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 //            ResultSet reset = null;
@@ -313,7 +313,7 @@ public class DaoKtnb01 {
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                
+
                 calstatement.setString(1, posCD);
                 calstatement.setString(2, maCn);
                 calstatement.setString(3, namBc);
@@ -327,19 +327,20 @@ public class DaoKtnb01 {
                 calstatement.registerOutParameter(11, oracle.jdbc.OracleTypes.NUMBER);
                 calstatement.registerOutParameter(12, oracle.jdbc.OracleTypes.VARCHAR);
                 calstatement.setString(13, strAuth);
-                
+
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
-                
+
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
                 int pn_err_cd = calstatement.getInt(11);
-                
+
                 //thu hien lay mo ta loi
                 String strEdd_txt = calstatement.getString(12);
                 //Lay cursor ra resultset
                 System.err.print(strEdd_txt);
-                if(pn_err_cd != 0)
-                        return false;
+                if (pn_err_cd != 0) {
+                    return false;
+                }
                 if (calstatement != null) {
                     calstatement.close();
                 }
@@ -352,18 +353,18 @@ public class DaoKtnb01 {
                 CoreLogger.error(this.getClass().getName() + " save_ktnb01 -> " + e.getMessage());
                 return false;
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DaoXdkh.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("Loi trong ham save_ktnb01_ "+posCD+" " + ex.getMessage());
-            CoreLogger.error(this.getClass().getName()+ " save_ktnb01 -> "+posCD+" " + ex.getMessage());
+            System.err.println("Loi trong ham save_ktnb01_ " + posCD + " " + ex.getMessage());
+            CoreLogger.error(this.getClass().getName() + " save_ktnb01 -> " + posCD + " " + ex.getMessage());
             return false;
         }
-        return true; 
+        return true;
     }
-    
-    public boolean save_ktnb01_auth(String posCD ,String quyBc,String namBc){
-    
+
+    public boolean save_ktnb01_auth(String posCD, String quyBc, String namBc) {
+
         try {
             //Khai bao các biến để nhận dữ liệu đẩy về
             DaoConnect daoConnect = new DaoConnect();
@@ -372,34 +373,138 @@ public class DaoKtnb01 {
 
             //2. INSERT DU LIEU MOI
             String sqlInsert = "";
-            sqlInsert = "INSERT INTO KTNB01(KT_KHOA,KT_MAPGD,KT_MACN,KT_QUYBC,KT_NAMBC,KT_NGAY_NHAP,KT_NGUOI_NHAP,KT_STT_HT,KT_DKT,KT_SLT,KT_SLH,KT_SL_DGD,KT_SL_TKVV,KT_DN,KT_CO_DINH,KT_THEM,KT_XOA,KT_FONTWEIGHT,KT_CAPHT,KT_STT,NG_CAPNHAT,KT_AUTH)\n" +
-"                   SELECT KT_KHOA,KT_MAPGD,KT_MACN,KT_QUYBC,KT_NAMBC,KT_NGAY_NHAP,KT_NGUOI_NHAP,KT_STT_HT,KT_DKT,KT_SLT,KT_SLH,KT_SL_DGD,KT_SL_TKVV,KT_DN,KT_CO_DINH,KT_THEM,KT_XOA,KT_FONTWEIGHT,KT_CAPHT,KT_STT,sysdate,'Y'          \n" +
-"                   FROM KTNB01 A\n" +
-"                   WHERE KT_MAPGD = '"+ posCD +
-"' AND KT_NAMBC = " + namBc +
-"                   AND KT_QUYBC = "+ quyBc +
-"                   and KT_AUTH is null and NG_CAPNHAT = (select max(NG_CAPNHAT) FROM KTNB01\n" +
-"                    WHERE KT_MAPGD = '" + posCD +
-"'                    AND KT_NAMBC = " + namBc +
-"                    AND KT_QUYBC = " + quyBc + " and KT_AUTH is null)"; 
-                     
-            stm.executeUpdate(sqlInsert);  
-            
-            
+            sqlInsert = "INSERT INTO KTNB01(KT_KHOA,KT_MAPGD,KT_MACN,KT_QUYBC,KT_NAMBC,KT_NGAY_NHAP,KT_NGUOI_NHAP,KT_STT_HT,KT_DKT,KT_SLT,KT_SLH,KT_SL_DGD,KT_SL_TKVV,KT_DN,KT_CO_DINH,KT_THEM,KT_XOA,KT_FONTWEIGHT,KT_CAPHT,KT_STT,NG_CAPNHAT,KT_AUTH)\n"
+                    + "                   SELECT KT_KHOA,KT_MAPGD,KT_MACN,KT_QUYBC,KT_NAMBC,KT_NGAY_NHAP,KT_NGUOI_NHAP,KT_STT_HT,KT_DKT,KT_SLT,KT_SLH,KT_SL_DGD,KT_SL_TKVV,KT_DN,KT_CO_DINH,KT_THEM,KT_XOA,KT_FONTWEIGHT,KT_CAPHT,KT_STT,sysdate,'Y'          \n"
+                    + "                   FROM KTNB01 A\n"
+                    + "                   WHERE KT_MAPGD = '" + posCD
+                    + "' AND KT_NAMBC = " + namBc
+                    + "                   AND KT_QUYBC = " + quyBc
+                    + "                   and KT_AUTH is null and NG_CAPNHAT = (select max(NG_CAPNHAT) FROM KTNB01\n"
+                    + "                    WHERE KT_MAPGD = '" + posCD
+                    + "'                    AND KT_NAMBC = " + namBc
+                    + "                    AND KT_QUYBC = " + quyBc + " and KT_AUTH is null)";
+
+            stm.executeUpdate(sqlInsert);
+
             if (stm != null) {
-                    stm.close();
-                }            
-            
+                stm.close();
+            }
+
             if (con != null) {
                 con.close();
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DaoKtnb01.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("Loi trong ham save_ktnb01_auth "+posCD+" " + ex.getMessage());
-            CoreLogger.error(this.getClass().getName()+ " save_ktnb01_auth ---------> "+posCD+" " + ex.getMessage());
+            System.err.println("Loi trong ham save_ktnb01_auth " + posCD + " " + ex.getMessage());
+            CoreLogger.error(this.getClass().getName() + " save_ktnb01_auth ---------> " + posCD + " " + ex.getMessage());
             return false;
         }
-        return true;        
+        return true;
+    }
+
+    public boolean lock_ktnb(String khoa, String username, String sposcd, String squy, String sNam, String sGrade, String ngaybc) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_RPT_KTKTNB.P_LOCK_KTNB(?, ?, ?, ? ,?,?,?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, username);
+            cs.setString(3, sposcd);
+            cs.setString(4, squy);
+            cs.setString(5, sNam);
+            cs.setString(6, sGrade);
+            cs.setString(7, ngaybc);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham kkts " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " kkts -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
+
+    public List<QT_DULIEU_NT> getData_lock_ktnb(Connection conn, String khoa, String username, String sposcd, String squy, String sNam, String sGrade, String ngaybc) {
+        List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
+        try {
+            CallableStatement calstatement = null;
+            String strStoreproce = "{call VBSP_RPT_KTKTNB.P_GET_LOCK2025(?,?,?,?,?,?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+
+                calstatement.setString(1, khoa);
+                calstatement.setString(2, username);
+                calstatement.setString(3, sposcd);
+                calstatement.setString(4, squy);
+                calstatement.setString(5, sNam);
+                calstatement.setString(6, sGrade);
+                calstatement.setString(7, ngaybc);
+                calstatement.registerOutParameter(8, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(9, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(10, oracle.jdbc.OracleTypes.CURSOR);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+                int pn_err_cd = calstatement.getInt(8);
+                //thu hien lay mo ta loi
+                String strEdd_txt = calstatement.getString(9);
+                //Lay cursor ra resultset
+                reset = (ResultSet) calstatement.getObject(10);
+                while (reset.next()) {
+
+                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+                    value.setKHOA(reset.getString("KHOA"));
+                    value.setTHUTU(reset.getInt("THUTU"));
+                    value.setTT_HIENTHI(reset.getString("TT_HIENTHI"));
+                    value.setMA(reset.getString("MA"));
+                    value.setTEN(reset.getString("TEN"));
+                    value.setNGAYBC(reset.getDate("NGAYBC"));
+                    value.setNAMBC(reset.getInt("NAMBC"));
+                    value.setMAPGD(reset.getString("MAPGD"));
+                    value.setCO_TONGHOP(reset.getString("CO_TONGHOP"));
+                    value.setMACN(reset.getString("MACN"));
+                    value.setNGUOI_NHAP(reset.getString("NGUOI_NHAP"));
+                    value.setNGAY_NHAP(reset.getDate("NGAY_NHAP"));
+                    value.setNGUOI_DUYET(reset.getString("NGUOI_DUYET"));
+                    value.setNGAY_DUYET(reset.getDate("NGAY_DUYET"));
+                    value.setD1(reset.getString("D1"));
+                    value.setD2(reset.getString("D2"));
+                    value.setD3(reset.getString("D3"));
+                    value.setD4(reset.getString("D4"));
+                    value.setD5(reset.getString("D5"));
+                    value.setD6(reset.getString("D6"));
+                    value.setD7(reset.getString("D7"));
+                    value.setD8(reset.getString("D8"));
+                    value.setD9(reset.getString("D9"));
+                    value.setD10(reset.getString("D10"));
+                    lstBcqt_NT.add(value);
+                }
+
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getDataKH04 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+        }
+        return lstBcqt_NT;
     }
 }

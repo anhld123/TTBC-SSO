@@ -2,6 +2,7 @@ package vbsp.ims.action.ktktnb;
 
 import com.jgeppert.struts2.jquery.tree.result.TreeNode;
 import com.opensymphony.xwork2.ActionSupport;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,7 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.BuildPosTreeDao;
+import vbsp.ims.dao.DaoConnect;
+import vbsp.ims.dao.ktnb.DaoKtnb01;
 import vbsp.ims.dao.ktnb.DaoKtnb06;
 import vbsp.ims.dao.ktnb.ListKTNBDA;
 import vbsp.ims.define.Define;
@@ -31,7 +35,7 @@ public class Ktnb06ActionSupport extends ActionSupport implements ServletRequest
     private DaoKtnb06 daoKtnb06 = new DaoKtnb06();
     private ListKTNBDA listKTNBDA = new ListKTNBDA();
     private List<Ktnb06Model> ktnb06ModelList;  //Lay du lieu load len table
-    
+    private DaoKtnb01 daoKtnb01 = new DaoKtnb01();
     //Cac truong dung cho luu du lieu
     private List<String> KT_STT_HT;
     private List<String> KT_DT;
@@ -236,6 +240,20 @@ public class Ktnb06ActionSupport extends ActionSupport implements ServletRequest
             } catch (SQLException ex) {
             }
         }
+        String reportGrade1 = Integer.toString(reportGrade);
+        Connection conn = new DaoConnect().getConnect();
+        List<QT_DULIEU_NT> lstDulieuNt = daoKtnb01.getData_lock_ktnb(conn, "KTNB06", userName, maCn, quyBc, namBc, reportGrade1, "");
+        System.out.println("para = " + userName + maCn + quyBc + namBc);
+        String Check_lock;
+        try {
+            Check_lock = lstDulieuNt.get(0).getD2();
+        } catch (Exception e) {
+            Check_lock = "0";
+        }
+        System.out.println("Check_lock= " + Check_lock);
+        if (!Check_lock.equals("0")) {
+            return "error-lock";
+        }
         String listOfPos = getListOfPos();
         String lsPos = listKTNBDA.getListPos(maCn);
         if (lsPos.length() != listOfPos.length())
@@ -381,6 +399,9 @@ public class Ktnb06ActionSupport extends ActionSupport implements ServletRequest
                 System.err.println("Ban chua dong bo du lieu duoc ve TW");
                 return false;
             }
+            else {
+                    daoKtnb01.lock_ktnb(Define.SYN_REPORT_KTNB05, userName, sPOS, quyBc, namBc, reporGrade, reportDate);
+                }
         }
       } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Loi tao file vao gui TW " + e.getMessage());

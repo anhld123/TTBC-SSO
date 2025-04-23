@@ -1,0 +1,2 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<span style="font-weight: bold; color: green">Thông báo:</span>  <span style="color: red">Dữ liệu đã gửi, không thể gửi tiếp. Liên hệ về ban KTKSNB để mở!</span>
