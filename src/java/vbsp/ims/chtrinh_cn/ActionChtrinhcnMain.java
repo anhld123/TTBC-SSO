@@ -865,6 +865,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
                 lstPGD_API = _serverAPI.getListPgd(main_pos, "");
                 lstCN_API = _serverAPI.getListCn("");
                 lstDmKhac = _serverAPI.getListOfValue("199", main_pos);
+
                 switch (this.khoa_nhaptaycn) {
                     case "KTKSNB_01":
                         return "success_1";
@@ -873,7 +874,8 @@ public class ActionChtrinhcnMain extends ActionSupport {
                     case "KTKSNB_03":
                         return "success_3";
                     case "KTKSNB_04":
-                        return "success_4";
+                        addActionError("Chương trình đang chờ ban chuyên môn nghiệp vụ ban hành!");
+                        return ERROR;
                     default:
                         return "success";
                 }

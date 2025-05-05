@@ -224,7 +224,7 @@ public class Ktnb01ActionSupport extends ActionSupport implements ServletRequest
         String reportGrade1 = Integer.toString(reportGrade);
         Connection conn = new DaoConnect().getConnect();
         List<QT_DULIEU_NT> lstDulieuNt = daoKtnb01.getData_lock_ktnb(conn, "KTNB01", userName, maCn, quyBc, namBc, reportGrade1, "");
-        System.out.println("para = " + userName + maCn + quyBc + namBc);
+//        System.out.println("para = " + userName + maCn + quyBc + namBc);
         String Check_lock;
         try {
             Check_lock = lstDulieuNt.get(0).getD2();
@@ -247,12 +247,11 @@ public class Ktnb01ActionSupport extends ActionSupport implements ServletRequest
 
             for (int var5 = 0; var5 < var4; ++var5) {
                 String pos_auth = var3[var5];
-//            System.out.println(pos_auth);
                 if (!this.daoKtnb01.save_ktnb01_auth(pos_auth, this.quyBc, this.namBc)) {
                     return "error";
                 }
-
-                if (!this.maCn.equals("000101") && !this.syn_data_HO(pos_auth)) {
+                boolean status = this.syn_data_HO(pos_auth);
+                if (var5 == 0 && status != true && !this.maCn.equals("000101")) {
                     return "error-send";
                 }
             }

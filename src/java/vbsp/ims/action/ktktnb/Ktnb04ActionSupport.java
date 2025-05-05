@@ -206,7 +206,7 @@ public class Ktnb04ActionSupport extends ActionSupport implements ServletRequest
             return "error-pos";
         }
         String strPosCD = listOfPos.substring(0, 6);
-        System.err.print(strPosCD);
+//        System.err.print(strPosCD);
         getInfo();
         ktnb04ModelList = daoKtnb04.get_ktnb04_auth(strPosCD, Integer.parseInt(namBc), Integer.parseInt(quyBc), "N");
         return "success";
@@ -228,14 +228,14 @@ public class Ktnb04ActionSupport extends ActionSupport implements ServletRequest
         String reportGrade1 = Integer.toString(reportGrade);
         Connection conn = new DaoConnect().getConnect();
         List<QT_DULIEU_NT> lstDulieuNt = daoKtnb01.getData_lock_ktnb(conn, "KTNB04", userName, maCn, quyBc, namBc, reportGrade1, "");
-        System.out.println("para = " + userName + maCn + quyBc + namBc);
+//        System.out.println("para = " + userName + maCn + quyBc + namBc);
         String Check_lock;
         try {
             Check_lock = lstDulieuNt.get(0).getD2();
         } catch (Exception e) {
             Check_lock = "0";
         }
-        System.out.println("Check_lock= " + Check_lock);
+//        System.out.println("Check_lock= " + Check_lock);
         if (!Check_lock.equals("0")) {
             return "error-lock";
         }
@@ -243,14 +243,17 @@ public class Ktnb04ActionSupport extends ActionSupport implements ServletRequest
         String lsPos = listKTNBDA.getListPos(maCn);
         if (lsPos.length() != listOfPos.length()) {
             return "error-pos";
-        }
-        for (String pos_auth : listOfPos.split(",")) {
-            System.out.println(pos_auth);
-            if (!daoKtnb04.save_ktnb04_auth(pos_auth, quyBc, namBc)) {
-                return "error";
-            }
-            if (!maCn.equals("000101")) {
-                if (!syn_data_HO(pos_auth)) {
+        } else {
+            String[] var3 = listOfPos.split(",");
+            int var4 = var3.length;
+
+            for (int var5 = 0; var5 < var4; ++var5) {
+                String pos_auth = var3[var5];
+                if (!daoKtnb04.save_ktnb04_auth(pos_auth, quyBc, namBc)) {
+                    return "error";
+                }
+                boolean status = this.syn_data_HO(pos_auth);
+                if (var5 == 0 && status != true && !this.maCn.equals("000101")) {
                     return "error-send";
                 }
             }
