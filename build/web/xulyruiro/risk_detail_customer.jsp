@@ -152,7 +152,9 @@
                     var vb_xlrr = $("#vb_xlrr").val();
                     var poscd = $('#poscd').val();
                     var sNguyennhan = $("#sNguyennhan").val();
-
+                    
+                    var dbDnghi_Dno = $("#dbDnghi_Dno").val();
+                    dbDnghi_Dno = dbDnghi_Dno.replace(/^\s*|\s*$/g, "");
                     var url = "khonglamgica.action?soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nhom_xlrr=" + nhom_xlrr
                             + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd
                             + "&vb_xlrr=" + vb_xlrr
@@ -161,6 +163,7 @@
                             + "&dbHt_Dno=" + dbHt_Dno + "&dbHt_Lai=" + dbHt_Lai
                             + "&dbSolanxl=" + dbSolanxl + "&dbDnghi_Lai=" + dbDnghi_Lai
                             + "&sNguyennhan=" + sNguyennhan
+                            + "&dbDnghi_Dno=" + dbDnghi_Dno
                             ;
 
                     var data1 = "soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nhom_xlrr=" + nhom_xlrr
@@ -290,8 +293,8 @@
                                 <td><input type="text" value="<s:property value='dbLaiqh'/>" name="giaoKh number2" class="giaoKh number2" onfocus="this.select()" readonly="readonly"/></td>
                             </tr>
                             <tr class="cscontent">
-                                <td><input type="text" value="Gốc đề nghị" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                <td><input type="text" value="<s:property value='dbDnghi_Dno'/>" name="giaoKh number2" class="giaoKh number2" onfocus="this.select()" readonly="readonly"/></td>
+                                <td><input type="text" value="Gốc đề nghị" name="maPGD"  style="color: red" class="maPGD" readonly="readonly"/></td>
+                                <td><input type="text" value="<s:property value='dbDnghi_Dno'/>" id="dbDnghi_Dno" name="giaoKh number2" class="giaoKh number2" onfocus="this.select()" style="color: red"/></td>
                             </tr>
                             <tr class="cscontent">
                                 <td><input type="text" value="Lãi đề nghị" name="maPGD" style="color: red" class="maPGD" readonly="readonly"/></td>
@@ -355,10 +358,10 @@
                                     <td><input type="text" value="Số tháng phê duyệt" name="maPGD" class="maPGD" readonly="readonly"/></td>
                                     <td><input type="text" value="<s:property value='dbPduyet_Tg'/>" id="dbPduyet_Tg" name="tenPGD" class="tenPGD"  onfocus="this.select()" readonly="readonly"/></td>
                                 </tr>
-<!--                                <tr class="cscontent">
-                                    <td><input type="text" value="Nguyên nhân rủi ro" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                    <td><input type="text" value="<s:property value='sNguyennhan'/>" name="tenPGD" class="tenPGD" id="sNguyennhan" onfocus="this.select()" readonly="readonly"/></td>
-                                </tr>-->
+                                <!--                                <tr class="cscontent">
+                                                                    <td><input type="text" value="Nguyên nhân rủi ro" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                                                                    <td><input type="text" value="<s:property value='sNguyennhan'/>" name="tenPGD" class="tenPGD" id="sNguyennhan" onfocus="this.select()" readonly="readonly"/></td>
+                                                                </tr>-->
 
                             </s:else> 
                             <tr class="cscontent">

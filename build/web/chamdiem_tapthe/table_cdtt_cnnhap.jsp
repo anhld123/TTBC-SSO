@@ -39,7 +39,7 @@
                 $(".TEN_KH").css({"width": "100%"});
 //                $(".TEN_KH").css({"height": "100%"});
                 $(".hideColumn").hide();
-                if ('<s:property value="Grade"/>' == '2')
+                if ('<s:property value="Grade"/>' === '2')
                 {
                     evaluateSum('CHAMDIEMTT_001', 'D10');
                 }
@@ -63,19 +63,17 @@
             </div>    
             <s:hidden name="khoa_cdtt"/>
             <s:hidden name="tt_cdtt"/>
-            
+
             <div>
                 <p style="text-align: left;padding-left: 30px;">[x/y]: Chỉ tiêu được phép loại trừ, x: số được loại trừ, y: tổng số</p>            
-                <div id="divDonvitinh">                
-                    Đơn vị tính: Triệu đồng, số điểm, tỷ lệ %, số lỗi
+                <div id="divDonvitinh"> Đơn vị tính: Triệu đồng, số điểm, tỷ lệ %, số lỗi
                 </div>  
             </div>
 
             <table border="1" class="editDelete" id="CHAMDIEMTT_001" align="center" style="height: 60%;">
                 <tr height="23">
                     <th rowspan="2" class="TD_THUTU">TT</th>
-                    <th rowspan="2" class="TD_CHITIEU">Chỉ tiêu</th>                                         
-                    <!--<th rowspan="2" class="TD_SOLUONG">Mã</th>-->  
+                    <th rowspan="2" class="TD_CHITIEU">Chỉ tiêu</th>       
                     <th rowspan="2"  class="TD_SOLUONG">Điểm tối đa</th>  
                     <th rowspan="2"  class="TD_SOLUONG">% điểm</th>                           
                     <th colspan="4" class="TD_NGUYENGIA">Chi nhánh</th>  
@@ -83,7 +81,6 @@
                 <tr height="21">
                     <th  class="TD_SOLUONG">Số kế hoạch</th>   
                     <th  class="TD_SOLUONG">Số Thực hiện, Điểm, Tỷ lệ %, Số lỗi</th>   
-                    <!--<th  class="TD_SOLUONG">Tăng giảm kế hoạch</th>-->   
                     <th  class="TD_SOLUONG">Điểm</th> 
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                    
@@ -98,7 +95,7 @@
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU"/> 
                             <input type="hidden" value="<s:property  value="NGAYBC" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].NGAYBC"/> 
-                            
+
                             <input type="hidden" value="<s:property  value="MA" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/> 
                             <input type="hidden" value="<s:property  value="MAPGD" />" 
@@ -125,65 +122,143 @@
                             <input type="text" value="<s:property  value="D2" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D2" class="D0 TEN_KH" onfocus="this.select()"    readonly="readonly" />                                  
                         </td>
-                        <s:if test="NHAPTAY.equalsIgnoreCase('N')">
+                        <s:if test="!months.equalsIgnoreCase('03') && !months.equalsIgnoreCase('06')&&
+                              !months.equalsIgnoreCase('09')&&!months.equalsIgnoreCase('12')">
+                            <s:if test="NHAPTAY.equalsIgnoreCase('N')">
+                                <td align = "right" class="TD_NGUYENGIA">
+                                    <input type="text" id="D4_<s:property value='MA'/>" value="<s:property value='D4'/>" 
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
+                                           onblur="if (this.value == '') {
+                                                       this.value = 0
+                                                   }
+                                                   ;
+                                                   evaluateSum('CHAMDIEMTT_001', 'D4')"   
+                                           <s:if test="MA.equalsIgnoreCase('CDTT09')">
+                                               class="number5 TEN_KH" 
+                                           </s:if>     
+                                           <s:else> 
+                                               class="number2 TEN_KH"
+                                           </s:else> 
+                                           readonly="readonly"/>
+                                </td>
+                                <td align = "right" class="TD_NGUYENGIA">                            
+                                    <input type="text" id="D5_<s:property value='MA'/>" value="<s:property value='D5'/>" 
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
+                                           onblur="if (this.value == '') {
+                                                       this.value = 0
+                                                   }
+                                                   ;
+                                                   evaluateSum('CHAMDIEMTT_001', 'D5')"   
+                                           <s:if test="MA.equalsIgnoreCase('CDTT09')">
+                                               class="number5 TEN_KH" 
+                                           </s:if>     
+                                           <s:else> 
+                                               class="number2 TEN_KH"
+                                           </s:else> 
+                                           <s:if test="MA.equalsIgnoreCase('CDTT08') && NGUOI_NHAP.equalsIgnoreCase('AAA')"></s:if>
+                                           <s:else>readonly="readonly"</s:else>
+                                               />
+                                    </td>      
+                                    <td align = "right" class="hideColumn">                            
+                                        <input type="text" id="D6_<s:property value='MA'/>" value="<s:property value='D6'/>" 
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" 
+                                           onblur="if (this.value == '') {
+                                                       this.value = 0
+                                                   }
+                                                   ;
+                                                   evaluateSum('CHAMDIEMTT_001', 'D6')"   class="number2 TEN_KH" readonly="readonly"/>
+                                </td> 
+                                <td align = "right" class="TD_NGUYENGIA">                            
+                                    <input type="text" id="D10_<s:property value='MA'/>" value="<s:property value='D10'/>" 
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" 
+                                           onblur="if (this.value == '') {
+                                                       this.value = 0
+                                                   }
+                                                   ;
+                                                   isInputMark('D1_<s:property value='MA'/>', 'D10_<s:property value='MA'/>');
+                                                   evaluateSum('CHAMDIEMTT_001', 'D10')"   class="number2 TEN_KH" readonly="readonly"/>
+                                </td>                                    
+                            </s:if>
+                            <s:else>
+
+                                <td align = "right" class="TD_NGUYENGIA">
+                                    <input type="text" id="D4_<s:property value='MA'/>" value="<s:property value='D4'/>" 
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
+                                           onblur="if (this.value == '') {
+                                                       this.value = 0
+                                                   }
+                                                   ;
+                                                   evaluateSum('CHAMDIEMTT_001', 'D4')"  
+                                           <s:if test="MA.equalsIgnoreCase('CDTT09')">
+                                               class="number5 TEN_KH" 
+                                           </s:if>     
+                                           <s:else> 
+                                               class="number2 TEN_KH"
+                                           </s:else> 
+                                           <s:if test="!MA.equalsIgnoreCase('CDTT01')&&!MA.equalsIgnoreCase('CDTT00')
+                                                 &&!MA.equalsIgnoreCase('CDTT02')&&!MA.equalsIgnoreCase('CDTT02A')
+                                                 &&!MA.equalsIgnoreCase('CDTT03')&&!MA.equalsIgnoreCase('CDTT08')
+                                                 &&!MA.equalsIgnoreCase('CDTT09')">readonly="readonly"</s:if>
+                                               />
+                                    </td>
+                                    <td align = "right" class="TD_NGUYENGIA">                                                        
+                                        <input type="text" id="D5_<s:property value='MA'/>" value="<s:property value='D5'/>" 
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
+                                           onblur="if (this.value == '') {
+                                                       this.value = 0
+                                                   }
+                                                   ;
+                                                   evaluateSum('CHAMDIEMTT_001', 'D5')"   
+                                           <s:if test="MA.equalsIgnoreCase('CDTT09')">
+                                               class="number5 TEN_KH" 
+                                           </s:if>     
+                                           <s:else> 
+                                               class="number2 TEN_KH"
+                                           </s:else> 
+                                           <%--<s:if test="!MA.equalsIgnoreCase('CDTT1101')&&!MA.equalsIgnoreCase('CDTT1102')&&!MA.equalsIgnoreCase('CDTT1103')&&!MA.equalsIgnoreCase('CDTT100101')&&!MA.equalsIgnoreCase('CDTT100102')&&!MA.equalsIgnoreCase('CDTT100103')&&!MA.equalsIgnoreCase('CDTT100104')&&!MA.equalsIgnoreCase('CDTT100105')&&!MA.equalsIgnoreCase('CDTT100106')&&!MA.equalsIgnoreCase('CDTT100107')&&!MA.equalsIgnoreCase('CDTT100108')&&!MA.equalsIgnoreCase('CDTT100201')&&!MA.equalsIgnoreCase('CDTT100202')&&!MA.equalsIgnoreCase('CDTT100203')&&!MA.equalsIgnoreCase('CDTT100204')&&!MA.equalsIgnoreCase('CDTT120101')&&!MA.equalsIgnoreCase('CDTT120103')&&!MA.equalsIgnoreCase('CDTT120201')&&!MA.equalsIgnoreCase('CDTT120202')">readonly="readonly"</s:if>--%>
+                                           <s:if test="!MA.equalsIgnoreCase('CDTT1301')&&!MA.equalsIgnoreCase('CDTT1302')
+                                                 &&!MA.equalsIgnoreCase('CDTT1304')
+                                                 &&!MA.equalsIgnoreCase('CDTT1303')&&!MA.equalsIgnoreCase('CDTT140201')
+                                                 &&!MA.equalsIgnoreCase('CDTT140202')&&!MA.equalsIgnoreCase('CDTT140301')
+                                                 &&!MA.equalsIgnoreCase('CDTT140302')">readonly="readonly"</s:if>
+                                               />
+                                    </td>  
+                                    <td align = "right" class="hideColumn">                            
+                                        <input type="text" id="D6_<s:property value='MA'/>" value="<s:property value='D6'/>" 
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" 
+                                           onblur="if (this.value == '') {
+                                                       this.value = 0
+                                                   }
+                                                   ;
+                                                   evaluateSum('CHAMDIEMTT_001', 'D6')"   class="number2 TEN_KH"  
+                                           readonly="readonly"
+                                           />
+                                </td> 
+                                <td align = "right" class="TD_NGUYENGIA">                            
+                                    <input type="text" id="D10_<s:property value='MA'/>" value="<s:property value='D10'/>" 
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" 
+                                           onblur="if (this.value == '') {
+                                                       this.value = 0
+                                                   }
+                                                   ;
+                                                   isInputMark('D1_<s:property value='MA'/>', 'D10_<s:property value='MA'/>');
+                                                   evaluateSum('CHAMDIEMTT_001', 'D10')"   class="number2 TEN_KH" 
+                                           <s:if test="!MA.equalsIgnoreCase('CDTT1301')&&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')&&!MA.equalsIgnoreCase('CDTT1304')">readonly="readonly"</s:if>
+                                           <%--<s:if test="!MA.equalsIgnoreCase('CDTT1101')&&!MA.equalsIgnoreCase('CDTT1102')&&!MA.equalsIgnoreCase('CDTT1103')">readonly="readonly"</s:if>--%>
+                                           />
+                                </td>                                   
+                            </s:else>   
+                        </s:if>
+                        <!--bo sung ngay 21-03-2025-->
+                        <s:else>
                             <td align = "right" class="TD_NGUYENGIA">
                                 <input type="text" id="D4_<s:property value='MA'/>" value="<s:property value='D4'/>" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
-                                       onblur="if (this.value == '') {
-                                                   this.value = 0
-                                               };
-                                               evaluateSum('CHAMDIEMTT_001', 'D4')"   
-										<s:if test="MA.equalsIgnoreCase('CDTT09')">
-                                           class="number5 TEN_KH" 
-                                       </s:if>     
-                                       <s:else> 
-                                           class="number2 TEN_KH"
-                                       </s:else> 
-									   readonly="readonly"/>
-                            </td>
-                            <td align = "right" class="TD_NGUYENGIA">                            
-                                <input type="text" id="D5_<s:property value='MA'/>" value="<s:property value='D5'/>" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
-                                       onblur="if (this.value == '') {
-                                                   this.value = 0
-                                               } ;
-                                               evaluateSum('CHAMDIEMTT_001', 'D5')"   
-											    <s:if test="MA.equalsIgnoreCase('CDTT09')">
-                                           class="number5 TEN_KH" 
-                                       </s:if>     
-                                       <s:else> 
-                                           class="number2 TEN_KH"
-                                       </s:else> 
-                                       <s:if test="MA.equalsIgnoreCase('CDTT08') && NGUOI_NHAP.equalsIgnoreCase('AAA')"></s:if>
-                                        <s:else>readonly="readonly"</s:else>
-											 />
-                            </td>      
-                            <td align = "right" class="hideColumn">                            
-                                <input type="text" id="D6_<s:property value='MA'/>" value="<s:property value='D6'/>" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" 
-                                       onblur="if (this.value == '') {
-                                                   this.value = 0
-                                               };
-                                               evaluateSum('CHAMDIEMTT_001', 'D6')"   class="number2 TEN_KH" readonly="readonly"/>
-                            </td> 
-                            <td align = "right" class="TD_NGUYENGIA">                            
-                                <input type="text" id="D10_<s:property value='MA'/>" value="<s:property value='D10'/>" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" 
                                        onblur="if (this.value == '') {
                                                    this.value = 0
                                                }
-                                               ;isInputMark('D1_<s:property value='MA'/>', 'D10_<s:property value='MA'/>');
-                                               evaluateSum('CHAMDIEMTT_001', 'D10')"   class="number2 TEN_KH" readonly="readonly"/>
-                            </td>                                    
-                        </s:if>
-                        <s:else>
-
-                            <td align = "right" class="TD_NGUYENGIA">
-                                <input type="text" id="D4_<s:property value='MA'/>" value="<s:property value='D4'/>" 
-                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" 
-                                       onblur="if (this.value == '') {
-                                                   this.value = 0
-                                               }; evaluateSum('CHAMDIEMTT_001', 'D4')"  
+                                               ;
+                                               evaluateSum('CHAMDIEMTT_001', 'D4')"  
                                        <s:if test="MA.equalsIgnoreCase('CDTT09')">
                                            class="number5 TEN_KH" 
                                        </s:if>     
@@ -191,28 +266,67 @@
                                            class="number2 TEN_KH"
                                        </s:else> 
 
-                                       <s:if test="MA.equalsIgnoreCase('CDTT11')||MA.equalsIgnoreCase('CDTT1101')||MA.equalsIgnoreCase('CDTT1102')||MA.equalsIgnoreCase('CDTT1103')||MA.equalsIgnoreCase('CDTT120101')||MA.equalsIgnoreCase('CDTT120103')||MA.equalsIgnoreCase('CDTT120201')||MA.equalsIgnoreCase('CDTT120202')||MA.equalsIgnoreCase('CDTT100101')||MA.equalsIgnoreCase('CDTT100102')||MA.equalsIgnoreCase('CDTT100103')||MA.equalsIgnoreCase('CDTT100104')||MA.equalsIgnoreCase('CDTT100105')||MA.equalsIgnoreCase('CDTT100106')||MA.equalsIgnoreCase('CDTT100107')||MA.equalsIgnoreCase('CDTT100108')||MA.equalsIgnoreCase('CDTT100201')||MA.equalsIgnoreCase('CDTT100202')||MA.equalsIgnoreCase('CDTT100203')||MA.equalsIgnoreCase('CDTT100204')">readonly="readonly"</s:if>/>
+                                       <s:if test="!MA.equalsIgnoreCase('CDTT01')&&!MA.equalsIgnoreCase('CDTT02')
+                                             && !MA.equalsIgnoreCase('CDTT00')&&!MA.equalsIgnoreCase('CDTT02A')
+                                             &&!MA.equalsIgnoreCase('CDTT03')&&!MA.equalsIgnoreCase('CDTT04')
+                                             &&!MA.equalsIgnoreCase('CDTT05')&&!MA.equalsIgnoreCase('CDTT06')
+                                             &&!MA.equalsIgnoreCase('CDTT06A')
+                                             &&!MA.equalsIgnoreCase('CDTT07')&&!MA.equalsIgnoreCase('CDTT08')
+                                             &&!MA.equalsIgnoreCase('CDTT09')&&!MA.equalsIgnoreCase('CDTT1301')
+                                             &&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')
+                                             &&!MA.equalsIgnoreCase('CDTT1304')&&!MA.equalsIgnoreCase('CDTT11020301')
+                                             &&!MA.equalsIgnoreCase('CDTT11020302')&&!MA.equalsIgnoreCase('CDTT11020303')
+                                             &&!MA.equalsIgnoreCase('CDTT11020304')&&!MA.equalsIgnoreCase('CDTT11020401')
+                                             &&!MA.equalsIgnoreCase('CDTT11020402')&&!MA.equalsIgnoreCase('CDTT11020101')
+                                             &&!MA.equalsIgnoreCase('CDTT11020102')&&!MA.equalsIgnoreCase('CDTT11020103')
+                                             &&!MA.equalsIgnoreCase('CDTT11020104')&&!MA.equalsIgnoreCase('CDTT11020105')
+                                             &&!MA.equalsIgnoreCase('CDTT11020106')&&!MA.equalsIgnoreCase('CDTT11020201')
+                                             &&!MA.equalsIgnoreCase('CDTT11020202')">readonly="readonly"</s:if>
+                                           />
                                 </td>
                                 <td align = "right" class="TD_NGUYENGIA">                                                        
                                     <input type="text" id="D5_<s:property value='MA'/>" value="<s:property value='D5'/>" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" 
                                        onblur="if (this.value == '') {
                                                    this.value = 0
-                                               };evaluateSum('CHAMDIEMTT_001', 'D5')"   
+                                               }
+                                               ;
+                                               evaluateSum('CHAMDIEMTT_001', 'D5')"   
                                        <s:if test="MA.equalsIgnoreCase('CDTT09')">
                                            class="number5 TEN_KH" 
                                        </s:if>     
                                        <s:else> 
                                            class="number2 TEN_KH"
                                        </s:else> 
-                                       <s:if test="!MA.equalsIgnoreCase('CDTT1101')&&!MA.equalsIgnoreCase('CDTT1102')&&!MA.equalsIgnoreCase('CDTT1103')&&!MA.equalsIgnoreCase('CDTT100101')&&!MA.equalsIgnoreCase('CDTT100102')&&!MA.equalsIgnoreCase('CDTT100103')&&!MA.equalsIgnoreCase('CDTT100104')&&!MA.equalsIgnoreCase('CDTT100105')&&!MA.equalsIgnoreCase('CDTT100106')&&!MA.equalsIgnoreCase('CDTT100107')&&!MA.equalsIgnoreCase('CDTT100108')&&!MA.equalsIgnoreCase('CDTT100201')&&!MA.equalsIgnoreCase('CDTT100202')&&!MA.equalsIgnoreCase('CDTT100203')&&!MA.equalsIgnoreCase('CDTT100204')&&!MA.equalsIgnoreCase('CDTT120101')&&!MA.equalsIgnoreCase('CDTT120103')&&!MA.equalsIgnoreCase('CDTT120201')&&!MA.equalsIgnoreCase('CDTT120202')">readonly="readonly"</s:if>/>
+                                       <s:if test="!MA.equalsIgnoreCase('CDTT01')&&!MA.equalsIgnoreCase('CDTT02')
+                                             && !MA.equalsIgnoreCase('CDTT00')&&!MA.equalsIgnoreCase('CDTT02A')
+                                             &&!MA.equalsIgnoreCase('CDTT03')&&!MA.equalsIgnoreCase('CDTT04')
+                                             &&!MA.equalsIgnoreCase('CDTT05')&&!MA.equalsIgnoreCase('CDTT06')
+                                             &&!MA.equalsIgnoreCase('CDTT06A')
+                                             &&!MA.equalsIgnoreCase('CDTT07')&&!MA.equalsIgnoreCase('CDTT08')
+                                             &&!MA.equalsIgnoreCase('CDTT09')&&!MA.equalsIgnoreCase('CDTT140102')&&!MA.equalsIgnoreCase('CDTT140201')
+                                             &&!MA.equalsIgnoreCase('CDTT140202')&&!MA.equalsIgnoreCase('CDTT140301')
+                                             &&!MA.equalsIgnoreCase('CDTT140302')&&!MA.equalsIgnoreCase('CDTT1301')
+                                             &&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')
+                                             &&!MA.equalsIgnoreCase('CDTT1304')&&!MA.equalsIgnoreCase('CDTT11020301')
+                                             &&!MA.equalsIgnoreCase('CDTT11020302')&&!MA.equalsIgnoreCase('CDTT11020303')
+                                             &&!MA.equalsIgnoreCase('CDTT11020304')&&!MA.equalsIgnoreCase('CDTT11020401')
+                                             &&!MA.equalsIgnoreCase('CDTT11020402')&&!MA.equalsIgnoreCase('CDTT11020101')
+                                             &&!MA.equalsIgnoreCase('CDTT11020102')
+                                             &&!MA.equalsIgnoreCase('CDTT11020103')&&!MA.equalsIgnoreCase('CDTT11020104')
+                                             &&!MA.equalsIgnoreCase('CDTT11020105')&&!MA.equalsIgnoreCase('CDTT11020106')
+                                             &&!MA.equalsIgnoreCase('CDTT11020201')
+                                             &&!MA.equalsIgnoreCase('CDTT11020202')">readonly="readonly"</s:if>
+                                           />
                                 </td>  
                                 <td align = "right" class="hideColumn">                            
                                     <input type="text" id="D6_<s:property value='MA'/>" value="<s:property value='D6'/>" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" 
                                        onblur="if (this.value == '') {
                                                    this.value = 0
-                                               };evaluateSum('CHAMDIEMTT_001', 'D6')"   class="number2 TEN_KH"  
+                                               }
+                                               ;
+                                               evaluateSum('CHAMDIEMTT_001', 'D6')"   class="number2 TEN_KH"  
                                        readonly="readonly"
                                        />
                             </td> 
@@ -221,21 +335,33 @@
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" 
                                        onblur="if (this.value == '') {
                                                    this.value = 0
-                                               };isInputMark('D1_<s:property value='MA'/>', 'D10_<s:property value='MA'/>');
+                                               }
+                                               ;
+                                               isInputMark('D1_<s:property value='MA'/>', 'D10_<s:property value='MA'/>');
                                                evaluateSum('CHAMDIEMTT_001', 'D10')"   class="number2 TEN_KH" 
-                                       <s:if test="!MA.equalsIgnoreCase('CDTT1101')&&!MA.equalsIgnoreCase('CDTT1102')&&!MA.equalsIgnoreCase('CDTT1103')">readonly="readonly"</s:if>/>
-                                </td>                                   
-                            </s:else>   
-                                <td class="hideColumn"><input type="text" value="<s:property value='D3'/>" name="KH_CONGTHUC" class="KH_CONGTHUC"/></td>
-                            <td class="hideColumn"><input type="text" value="<s:property value='D15'/>" name="KH_CAPHT" class="KH_CAPHT"/></td>
-                            <td class="hideColumn"><input type="text" value="<s:property value='MA'/>" name="MA_CT" class="MA_CT" onfocus="this.select()" readonly="readonly"/></td>
+                                       <s:if test="!MA.equalsIgnoreCase('CDTT140102')&&!MA.equalsIgnoreCase('CDTT140201')
+                                             &&!MA.equalsIgnoreCase('CDTT140202')&&!MA.equalsIgnoreCase('CDTT140301')
+                                             &&!MA.equalsIgnoreCase('CDTT140302')&&!MA.equalsIgnoreCase('CDTT1301')
+                                             &&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')
+                                             &&!MA.equalsIgnoreCase('CDTT1304')&&!MA.equalsIgnoreCase('CDTT110203')
+                                             &&!MA.equalsIgnoreCase('CDTT110204')&&!MA.equalsIgnoreCase('CDTT11020101')&&!MA.equalsIgnoreCase('CDTT11020102')
+                                             &&!MA.equalsIgnoreCase('CDTT11020103')&&!MA.equalsIgnoreCase('CDTT11020104')
+                                             &&!MA.equalsIgnoreCase('CDTT11020105')&&!MA.equalsIgnoreCase('CDTT11020106')
+                                             &&!MA.equalsIgnoreCase('CDTT11020201')
+                                             &&!MA.equalsIgnoreCase('CDTT11020202')">readonly="readonly"</s:if>
+                                           />
+                                </td>
+                        </s:else>
+                        <td class="hideColumn"><input type="text" value="<s:property value='D3'/>" name="KH_CONGTHUC" class="KH_CONGTHUC"/></td>
+                        <td class="hideColumn"><input type="text" value="<s:property value='D15'/>" name="KH_CAPHT" class="KH_CAPHT"/></td>
+                        <td class="hideColumn"><input type="text" value="<s:property value='MA'/>" name="MA_CT" class="MA_CT" onfocus="this.select()" readonly="readonly"/></td>
                     </tr>                    
 
                 </s:iterator>
             </table>
 
             <br/>
-                        
+
             <sj:submit id="%{khoa_cdtt}_save" name="%{khoa_cdtt}_save" value="save" targets="message_suc_err" onBeforeTopics="beforediv_ss"
                        onCompleteTopics="completediv_ss" cssStyle="display: none"/>
         </s:form>

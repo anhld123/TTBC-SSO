@@ -83,10 +83,9 @@ function evaluateSum(table_id, subid) {
                     var Grade = document.getElementById('Grade').value;
 
                     var RULEUSER = document.getElementById('RULEUSER').value;
-//                    console.log('arrCapht[k]=' + arrCapht[k] + ' ma_ct=' + ma_ct + ' tongcong=' + tongcong);
-                    if (khoa === 'CDTT_PGD' && ma_ct.indexOf('CDTT10') >= 0 && Grade === '1')
+                    if (khoa === 'CDTT_PGD' && (ma_ct.indexOf('CDTT10') >= 0 || ma_ct.indexOf('CDTT11') >= 0) && Grade === '1')
                         continue;
-                    if (khoa === 'CDTT_CN' && ma_ct.indexOf('CDTT10') >= 0 && Grade === '2' && (subid === "D10" || subid === "D12" || subid === "D16"))
+                    if (khoa === 'CDTT_CN' && (ma_ct.indexOf('CDTT10') >= 0 || ma_ct.indexOf('CDTT11') >= 0) && Grade === '2' && (subid === "D10" || subid === "D12" || subid === "D16"))
                         continue;
 //                    if (khoa === 'CDTT_CN' && ma_ct.indexOf('CDTT10') >= 0 && Grade === '3' && (subid === "D10" || subid === "D12" || subid === "D16"))
 //                        continue;
@@ -101,7 +100,7 @@ function evaluateSum(table_id, subid) {
 
                     if (ma_ct === 'CDTT99' && (subid === "D4" || subid === "D5" || subid === "D11" || subid === "D16"))
                         continue;
-                    else if (ma_ct === 'CDTT11' && ( subid === "D5" || subid === "D11" || subid === "D16"))
+                    else if (ma_ct === 'CDTT13' && (subid === "D5" || subid === "D11" || subid === "D16"))
                         continue;
                     else if (Grade === '3' && (ma_ct === 'CDTT1001' || ma_ct === 'CDTT1002') && RULEUSER != 9 && (subid === "D10" || subid === "D12" || subid === "D16"))
                     {
@@ -165,9 +164,9 @@ function evaluateSum_Mapgd(table_id, subid, Mapgd) {
 //                    console.log('-------------- congthuc = ' + congthuc);
                     //cắt công thức đưa về mảng
                     var valNew = congthuc.split('+');
-                    
+
                     valNew = addMapgdToMACT(valNew, Mapgd);
-                    
+
                     var tongcong = tongcongthuc(valNew, subid);
 //                    console.log('arrCapht[k]=' + arrCapht[k] + ' ma_ct=' + ma_ct + ' tongcong=' + tongcong + ' RULEUSER=' + RULEUSER + ' subid=' + subid);
 
@@ -181,13 +180,12 @@ function evaluateSum_Mapgd(table_id, subid, Mapgd) {
                     {
                         if (subid + '_' + ma_ct === 'D11_CDTT11')
                         {
-                            document.getElementById(subid + '_' + ma_ct+'_'+Mapgd).value = tongcong/3;
+                            document.getElementById(subid + '_' + ma_ct + '_' + Mapgd).value = tongcong / 3;
+                        } else {
+                            document.getElementById(subid + '_' + ma_ct + '_' + Mapgd).value = tongcong;
                         }
-                        else{
-                            document.getElementById(subid + '_' + ma_ct+'_'+Mapgd).value = tongcong;
-                        }
-                        
-                        }
+
+                    }
                 }
             }
 
@@ -288,20 +286,19 @@ function hienthichitiet(ma, stt, khoa_cdtt) {
         window.dataChange = false;
         //$.post(url,param,function(data){});
         var popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
-        
-        window.refreshData = function(){            
+
+        window.refreshData = function () {
             try {
                 //alert(dataChange);
                 if (dataChange === true) {
-                    $( "#loadDatatmp" ).trigger( "click" );     
+                    $("#loadDatatmp").trigger("click");
                 }
+            } catch (err) {
+                alert(err);
+                $("#loadDatatmp").trigger("click");
             }
-            catch(err) {
-              alert(err);
-              $( "#loadDatatmp" ).trigger( "click" );     
-            }           
         };
-        
+
     } catch (e)
     {
         swal('Lỗi', 'Lỗi: ' + e.toString(), 'error');
