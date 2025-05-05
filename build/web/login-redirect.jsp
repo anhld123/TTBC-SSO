@@ -248,8 +248,9 @@
     <body style="height:100%;" topmargin="0" leftmargin="0">
         <s:form action="User_login" theme="simple" id="loginform">
             <table width="100%" border="0"  cellpadding="0" cellspacing="0" style="height:100%;">
-                <td width="50%" height="60" bgcolor="#017230" align="left" valign="top"> <img border="0" src="img/baner1_2025.jpg" style="max-width: 760px; max-height: 60px;"></td> 
+                <!--<td width="50%" height="60" bgcolor="#017230" align="left" valign="top"> <img border="0" src="img/baner1_2025.jpg" style="max-width: 760px; max-height: 60px;"></td>--> 
                <!--<td width="20%" height="60" bgcolor="#017230" align="left" valign="top"> <img border="0" src="img/baner2_2025.jpg" style="max-height: 60px;"></td>--> 
+               <td width="50%" height="60" bgcolor="#017230" align="left" valign="top"> <img border="0" src="img/baner1_2025.jpg" style="max-width: 760px; max-height: 60px;"></td>
                <td width="20%" bgcolor="#017230" valign="bottom" height="60">
                 </td>     
                 <td width="5%" bgcolor="#017230" valign="top" height="60" align="right">                    

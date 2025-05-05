@@ -10,20 +10,33 @@
         <title>Ngân hàng chính sách xã hội VN</title>
         <script type="text/javascript" src="js/jquery-1.4.3.js"></script>
         <style>
-            body {
+                        body {
+                            font-family: Arial, sans-serif;
+                            text-align: center;
+                            background-color: #f9f9f9;
+                            color: #333;
+                            background-image: url('img/anh33.jpg');
+                            /*background-image: url('img/backgroud_logo.jpg');*/
+                            background-size: contain;   
+                            background-repeat: no-repeat;  
+                            background-position: center;  
+                            background-attachment: fixed;  
+                            background-blend-mode: multiply;
+                            background-position: center 50px;
+                        }
+/*            body {
                 font-family: Arial, sans-serif;
                 text-align: center;
                 background-color: #f9f9f9;
                 color: #333;
-                background-image: url('img/backgroud_logo.jpg');
-                background-size: contain; /* Hiển thị ảnh đầy đủ trong khung */
-                background-repeat: no-repeat; /* Không lặp lại ảnh */
-                background-position: center; /* Căn giữa ảnh */
-                background-attachment: fixed; /* Giữ ảnh cố định khi cuộn trang */
-                background-blend-mode: multiply; /* Hòa trộn màu nền với ảnh */
-                background-position: center 50px;
-            }
-
+                background-image: url('img/anh30.jpg');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center 5px;
+                background-attachment: fixed;
+                background-blend-mode: multiply;
+                transition: background-image 1s ease-in-out;
+            }*/
             .container {
                 max-width: 600px;
                 margin: 0 auto;
@@ -216,15 +229,33 @@
                 }
 //                alert('aaa');
             }
+
+//            const images = [
+//                'img/anh30.jpg',
+//                'img/anh32.png',
+//                'img/anh33.jpg'
+//            ];
+//
+//            let index = 0;
+//
+//            function changeBackground() {
+//                document.body.style.backgroundImage = "url('" + images[index] + "')";
+//                index = (index + 1) % images.length;
+//            }
+//            setInterval(changeBackground, 3000); // thay đổi mỗi 3 giây
         </script>
     </head>
     <body style="height:100%;" topmargin="0" leftmargin="0">
         <s:form action="User_login" theme="simple" id="loginform">
             <table width="100%" border="0"  cellpadding="0" cellspacing="0" style="height:100%;">
-                <td width="50%" height="60" bgcolor="#017230" align="left" valign="top"> <img border="0" src="img/banner.gif" width="444" height="60"></td>
+                <!--<td width="50%" height="60" bgcolor="#017230" align="left" valign="top"> <img border="0" src="img/baner1_2025.jpg" style="max-width: 760px; max-height: 60px;"></td>--> 
+               <!--<td width="20%" height="60" bgcolor="#017230" align="left" valign="top"> <img border="0" src="img/baner2_2025.jpg" style="max-height: 60px;"></td>--> 
+               <td width="50%" height="60" bgcolor="#017230" align="left" valign="top"> <img border="0" src="img/baner1_2025.jpg" style="max-width: 760px; max-height: 60px;"></td>
+               <td width="20%" bgcolor="#017230" valign="bottom" height="60">
+                </td>     
                 <td width="5%" bgcolor="#017230" valign="top" height="60" align="right">                    
                     <img border="0" src="img/bgr1.gif" width="50" height="60"></td>
-                <td width="20%" bgcolor="#017230" valign="bottom" background="img/bgr2.gif" height="60">
+                <td width="25%" bgcolor="#017230" background="img/bgr2.gif" align="right" valign="bottom" height="60">
                     <p align="center" style="margin-top:0; margin-bottom:0">&nbsp;
                     <p align="center" style="margin-top:0; margin-bottom:3px">
                         <script language="javascript">
@@ -238,8 +269,6 @@
                             date += dt.getDate() + " tháng " + strMonth[dt.getMonth()] + " năm " + years;
                             document.write("<i><font face='Tahoma' style='font-size: 9pt' color='#FFFFFF'>" + date + '</i>&nbsp;');
                         </script>
-                </td>                
-                <td width="25%" bgcolor="#017230" background="img/bgr3.gif" align="right" valign="bottom" height="60">&nbsp;            
                 </td>
                 <tr>
                     <td height="26">&nbsp;</td>
@@ -252,7 +281,7 @@
                     <td height="28" colspan="4">
                         <table width="100%" height="100%" border="0"  cellpadding="0" cellspacing="0">
                             <tr>
-                                <td width="5%" height="30"><img src="img/logo.jpg" width="27" height="27" /></td>
+                                <td width="5%" height="30"></td>
                                 <td width="95%" align="left" style="text-transform: uppercase;font-size: 12px;font-weight: bold;">
                                     Thông báo mới <br><hr height="1px" width="90%" align="left"><br>
                                 </td>
@@ -262,7 +291,7 @@
                                 <td align="center">
                                     <table border="0"  cellpadding="0" cellspacing="0" width="325px">
                                         <tr>
-                                            <td height="28" align="left"><img src="img/user.jpg" width="27" height="24" /></td>
+                                            <td height="28" align="left"><img src="img/login2025.png" width="27" height="24" /></td>
                                             <td align="left" style="text-transform: uppercase;font-size: 12px;font-weight: bold;">Đăng nhập hệ thống <br><hr height="1px"></td>
                                         </tr>
                                     </table></td>
@@ -270,36 +299,37 @@
                         </table></td>
                 </tr>
                 <tr>                    
-<!--                                        <td height="50" valign="top">
-                                            <table border="0"  cellpadding="0" cellspacing="0">
-                                                <div class="container" style="font-family: Brush Script MT">
-                                                    <h1 id="title99" style="font-family: Comic Sans MS">Đếm ngược</h1>
-                                                    <h2 id="title98" style="font-family: Bradley Hand">Tết Ất Tỵ, 2025</h2>
-                                                    <div class="countdown" style="position: relative; width: 100%; height: 300px; background-color: #000; border-radius: 10px; overflow: hidden; padding: 0;">
-                                                        <div class="time-box">
-                                                            <span id="days" class="time">00</span><br>
-                                                            <span class="label">Ngày</span>
-                                                        </div>
-                                                        <div class="time-box">
-                                                            <span id="hours" class="time">00</span><br>
-                                                            <span class="label">Giờ</span>
-                                                        </div>
-                                                        <div class="time-box">
-                                                            <span id="minutes" class="time">00</span><br>
-                                                            <span class="label">Phút</span>
-                                                        </div>
-                                                        <div class="time-box">
-                                                            <span id="seconds" class="time">00</span><br>
-                                                            <span class="label">Giây</span>
-                                                        </div>
-                                                    </div>
-                    
-                                                </div>
-                                                <div class="container" style="font-family: Brush Script MT">
-                                                    title2 ở đây
-                                                </div>
-                                            </table>
-                                        </td>-->
+                    <!--                                        <td height="50" valign="top">
+                                                                <table border="0"  cellpadding="0" cellspacing="0">
+                                                                    <div class="container" style="font-family: Brush Script MT">
+                                                                        <h1 id="title99" style="font-family: Comic Sans MS">Đếm ngược</h1>
+                                                                        <h2 id="title98" style="font-family: Bradley Hand">Tết Ất Tỵ, 2025</h2>
+                                                                        <div class="countdown" style="position: relative; width: 100%; height: 300px; background-color: #000; border-radius: 10px; overflow: hidden; padding: 0;">
+                                                                            <div class="time-box">
+                                                                                <span id="days" class="time">00</span><br>
+                                                                                <span class="label">Ngày</span>
+                                                                            </div>
+                                                                            <div class="time-box">
+                                                                                <span id="hours" class="time">00</span><br>
+                                                                                <span class="label">Giờ</span>
+                                                                            </div>
+                                                                            <div class="time-box">
+                                                                                <span id="minutes" class="time">00</span><br>
+                                                                                <span class="label">Phút</span>
+                                                                            </div>
+                                                                            <div class="time-box">
+                                                                                <span id="seconds" class="time">00</span><br>
+                                                                                <span class="label">Giây</span>
+                                                                            </div>
+                                                                        </div>
+                                        
+                                                                    </div>
+                                                                    <div class="container" style="font-family: Brush Script MT">
+                                                                        title2 ở đây
+                                                                    </div>
+                                                                </table>
+                                                            </td>-->
+                    <!--<td><img src="img/anh3004_0105.jpg"/></td>-->                    
                     <td >&nbsp;</td> 
                     <td>&nbsp;</td>
                     <td>&nbsp;</td> 
