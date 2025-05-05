@@ -64,12 +64,19 @@
 
             // Tinh cho dong A1
             for (i = 0; i < arrCot.length; i++) {
+                
+                let rawValue06 = $(arrCot[i]).eq(6).val();
+                let value06 = rawValue06 === null || rawValue06 === "" ? 0 : parseFloat(rawValue06);
+                
                 //Tinh tong cho dong "Các khoan thu noi bang"
-                $(arrCot[i]).eq(1).val(parseFloat($(arrCot[i]).eq(2).val())
+                $(arrCot[i]).eq(1).val(
+                        parseFloat($(arrCot[i]).eq(2).val())
                         + parseFloat($(arrCot[i]).eq(3).val())
                         + parseFloat($(arrCot[i]).eq(4).val())
                         + parseFloat($(arrCot[i]).eq(5).val())
-                        + parseFloat($(arrCot[i]).eq(6).val()));
+                        + value06
+                        //+ parseFloat($(arrCot[i]).eq(6).val())
+                        );
             }
             //tính cho dòng A20013
 //                for (i = 0; i < arrCot.length; i++) { 
