@@ -149,10 +149,7 @@
                                          &&!MA.equalsIgnoreCase('CDTT1304')&&!MA.equalsIgnoreCase('CDTT11020301')
                                          &&!MA.equalsIgnoreCase('CDTT11020302')&&!MA.equalsIgnoreCase('CDTT11020303')
                                          &&!MA.equalsIgnoreCase('CDTT11020304')&&!MA.equalsIgnoreCase('CDTT11020401')
-                                         &&!MA.equalsIgnoreCase('CDTT11020402')&&!MA.equalsIgnoreCase('CDTT11020101')
-                                         &&!MA.equalsIgnoreCase('CDTT11020102')&&!MA.equalsIgnoreCase('CDTT11020103')
-                                         &&!MA.equalsIgnoreCase('CDTT11020104')&&!MA.equalsIgnoreCase('CDTT11020105')
-                                         &&!MA.equalsIgnoreCase('CDTT11020106')&&!MA.equalsIgnoreCase('CDTT11020201')
+                                         &&!MA.equalsIgnoreCase('CDTT11020402')&&!MA.equalsIgnoreCase('CDTT11020201')
                                          &&!MA.equalsIgnoreCase('CDTT11020202')">readonly="readonly"</s:if>
                                        />
                             </td>
@@ -183,10 +180,7 @@
                                          &&!MA.equalsIgnoreCase('CDTT1304')&&!MA.equalsIgnoreCase('CDTT11020301')
                                          &&!MA.equalsIgnoreCase('CDTT11020302')&&!MA.equalsIgnoreCase('CDTT11020303')
                                          &&!MA.equalsIgnoreCase('CDTT11020304')&&!MA.equalsIgnoreCase('CDTT11020401')
-                                         &&!MA.equalsIgnoreCase('CDTT11020402')&&!MA.equalsIgnoreCase('CDTT11020101')
-                                         &&!MA.equalsIgnoreCase('CDTT11020102')
-                                         &&!MA.equalsIgnoreCase('CDTT11020103')&&!MA.equalsIgnoreCase('CDTT11020104')
-                                         &&!MA.equalsIgnoreCase('CDTT11020105')&&!MA.equalsIgnoreCase('CDTT11020106')
+                                         &&!MA.equalsIgnoreCase('CDTT11020402')
                                          &&!MA.equalsIgnoreCase('CDTT11020201')
                                          &&!MA.equalsIgnoreCase('CDTT11020202')">readonly="readonly"</s:if>
                                        />
@@ -214,14 +208,10 @@
                                    class="number2 TEN_KH" 
                                    <s:if test="!MA.equalsIgnoreCase('CDTT1301')
                                          &&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')
-                                         &&!MA.equalsIgnoreCase('CDTT1304')&&!MA.equalsIgnoreCase('CDTT110203')
-                                         &&!MA.equalsIgnoreCase('CDTT110204')&&!MA.equalsIgnoreCase('CDTT11020101')&&!MA.equalsIgnoreCase('CDTT11020102')
-                                         &&!MA.equalsIgnoreCase('CDTT11020103')&&!MA.equalsIgnoreCase('CDTT11020104')
-                                         &&!MA.equalsIgnoreCase('CDTT11020105')&&!MA.equalsIgnoreCase('CDTT11020106')
-                                         ">readonly="readonly"</s:if>
+                                         &&!MA.equalsIgnoreCase('CDTT1304')">readonly="readonly"</s:if>
                                        />
                             </td>
-                        <td class="hideColumn"><input type="text" value="<s:property value='D3'/>" name="KH_CONGTHUC" class="KH_CONGTHUC"/></td>
+                            <td class="hideColumn"><input type="text" value="<s:property value='D3'/>" name="KH_CONGTHUC" class="KH_CONGTHUC"/></td>
                         <td class="hideColumn"><input type="text" value="<s:property value='D15'/>" name="KH_CAPHT" class="KH_CAPHT"/></td>
                         <td class="hideColumn"><input type="text" value="<s:property value='MA'/>" name="MA_CT" class="MA_CT" onfocus="this.select()" readonly="readonly"/></td>
                     </tr>                    
@@ -247,39 +237,43 @@
                 const setValue = (id, idsToSum) => {
                     const el = document.getElementById(id);
                     if (el)
-                        el.value = sum(idsToSum);
+                        el.value = sum(idsToSum).toFixed(2);
                 };
 
                 const setDifference = (id, groupA, groupB) => {
                     const el = document.getElementById(id);
                     if (el) {
                         const value = sum(groupA) - sum(groupB);
-                        el.value = Math.max(value, 0);
+                        el.value = Math.max(value, 0).toFixed(2);
                     }
                 };
+                // chỉ tiêu CDTT11
+//                setValue("D10_CDTT110201", ["D10_CDTT11020101", "D10_CDTT11020102", "D10_CDTT11020103", "D10_CDTT11020104", "D10_CDTT11020105", "D10_CDTT11020106"]);
 
-                // Phép cộng
-                setValue("D10_CDTT11", ["D10_CDTT1101", "D10_CDTT1102"]);
-                setValue("D10_CDTT1102", ["D10_CDTT110201", "D10_CDTT110202", "D10_CDTT110203", "D10_CDTT110204"]);
-                setValue("D10_CDTT110201", ["D10_CDTT11020101", "D10_CDTT11020102", "D10_CDTT11020103", "D10_CDTT11020104", "D10_CDTT11020105", "D10_CDTT11020106"]);
+                setDifference("D10_CDTT110201", ["D1_CDTT110201"], ["D5_CDTT110201"]);
                 setValue("D10_CDTT110202", ["D10_CDTT11020201", "D10_CDTT11020202"]);
+                setDifference("D10_CDTT110202", ["D1_CDTT110202"], ["D5_CDTT110202"]);
+                setDifference("D10_CDTT110203", ["D1_CDTT110203"], ["D5_CDTT110203"]);
+                setDifference("D10_CDTT110204", ["D1_CDTT110204"], ["D5_CDTT110204"]);
+                setValue("D10_CDTT1102", ["D10_CDTT110201", "D10_CDTT110202", "D10_CDTT110203", "D10_CDTT110204"]);
 
+                setValue("D10_CDTT11", ["D10_CDTT1101", "D10_CDTT1102"]);
+                // chỉ tiêu CDTT13     
                 setValue("D10_CDTT13", ["D10_CDTT1301", "D10_CDTT1302", "D10_CDTT1303", "D10_CDTT1304"]);
-                
-                
-                // Phép trừ
+
+                // chỉ tiêu CDTT14
                 setDifference("D10_CDTT140102", ["D1_CDTT140102"], ["D5_CDTT140102"]);
                 setDifference("D10_CDTT140201", ["D1_CDTT140201"], ["D5_CDTT140201"]);
                 setDifference("D10_CDTT140202", ["D1_CDTT140202"], ["D5_CDTT140202"]);
                 setDifference("D10_CDTT140301", ["D1_CDTT140301"], ["D5_CDTT140301"]);
                 setDifference("D10_CDTT140302", ["D1_CDTT140302"], ["D5_CDTT140302"]);
-                
+
                 setValue("D10_CDTT1401", ["D10_CDTT140101", "D10_CDTT140102"]);
                 setValue("D10_CDTT1402", ["D10_CDTT140201", "D10_CDTT140202"]);
                 setValue("D10_CDTT1403", ["D10_CDTT140301", "D10_CDTT140302"]);
-                
+
                 setValue("D10_CDTT14", ["D10_CDTT1401", "D10_CDTT1402", "D10_CDTT1403"]);
-                
+
                 // D5
                 setValue("D5_CDTT11", ["D5_CDTT1101", "D5_CDTT1102"]);
                 setValue("D5_CDTT1102", ["D5_CDTT110201", "D5_CDTT110202", "D5_CDTT110203", "D5_CDTT110204"]);

@@ -603,13 +603,13 @@
                 setDifference("D12_CDTT140202", ["D1_CDTT140202"], ["D11_CDTT140202"]);
                 setDifference("D12_CDTT140301", ["D1_CDTT140301"], ["D11_CDTT140301"]);
                 setDifference("D12_CDTT140302", ["D1_CDTT140302"], ["D11_CDTT140302"]);
+                setDifference("D12_CDTT140101", ["D1_CDTT140101"], ["D11_CDTT140101"]);
                 
                 setValue("D12_CDTT1401", ["D12_CDTT140101", "D12_CDTT140102"]);
                 setValue("D12_CDTT1402", ["D12_CDTT140201", "D12_CDTT140202"]);
                 setValue("D12_CDTT1403", ["D12_CDTT140301", "D12_CDTT140302"]);
                 
                 setValue("D12_CDTT14", ["D12_CDTT1401", "D12_CDTT1402", "D12_CDTT1403"]);
-                
                 // D11
                 setValue("D11_CDTT11", ["D11_CDTT1101", "D11_CDTT1102"]);
                 setValue("D11_CDTT1102", ["D11_CDTT110201", "D11_CDTT110202", "D11_CDTT110203", "D11_CDTT110204"]);
