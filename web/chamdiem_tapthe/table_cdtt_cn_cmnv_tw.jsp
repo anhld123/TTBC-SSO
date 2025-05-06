@@ -350,9 +350,7 @@
                                                isInputMark('D1_<s:property value='MA'/>', 'D12_<s:property value='MA'/>_<s:property value="MAPGD"/>');
                                                evaluateSum_Mapgd('CHAMDIEMTT_001', 'D12', '<s:property value="MAPGD"/>')"  
                                        class="number2 TEN_KH"
-                                       <s:if test="!MA.equalsIgnoreCase('CDTT140102')&&!MA.equalsIgnoreCase('CDTT140201')
-                                             &&!MA.equalsIgnoreCase('CDTT140202')&&!MA.equalsIgnoreCase('CDTT140301')
-                                             &&!MA.equalsIgnoreCase('CDTT140302')&&!MA.equalsIgnoreCase('CDTT1301')
+                                       <s:if test="!MA.equalsIgnoreCase('CDTT1301')
                                              &&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')
                                              &&!MA.equalsIgnoreCase('CDTT1304')&&!MA.equalsIgnoreCase('CDTT110203')
                                              &&!MA.equalsIgnoreCase('CDTT110204')&&!MA.equalsIgnoreCase('CDTT11020101')&&!MA.equalsIgnoreCase('CDTT11020102')
@@ -396,6 +394,67 @@
                 }
             });
         });
+
+         function calc() {
+                const getValue = id => {
+                    const el = document.getElementById(id);
+                    return el ? parseFloat(el.value || "0") : 0;
+                };
+
+                const sum = ids => ids.reduce((acc, id) => acc + getValue(id), 0);
+
+                const setValue = (id, idsToSum) => {
+                    const el = document.getElementById(id);
+                    if (el)
+                        el.value = sum(idsToSum);
+                };
+
+                const setDifference = (id, groupA, groupB) => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        const value = sum(groupA) - sum(groupB);
+                        el.value = Math.max(value, 0);
+                    }
+                };
+
+                // Phép cộng
+                setValue("D12_CDTT11", ["D12_CDTT1101", "D12_CDTT1102"]);
+                setValue("D12_CDTT1102", ["D12_CDTT110201", "D12_CDTT110202", "D12_CDTT110203", "D12_CDTT110204"]);
+                setValue("D12_CDTT110201", ["D12_CDTT11020101", "D12_CDTT11020102", "D12_CDTT11020103", "D12_CDTT11020104", "D12_CDTT11020105", "D12_CDTT11020106"]);
+                setValue("D12_CDTT110202", ["D12_CDTT11020201", "D12_CDTT11020202"]);
+
+                setValue("D12_CDTT13", ["D12_CDTT1301", "D12_CDTT1302", "D12_CDTT1303", "D12_CDTT1304"]);
+                
+                
+                // Phép trừ
+                setDifference("D12_CDTT140102", ["D1_CDTT140102"], ["D11_CDTT140102"]);
+                setDifference("D12_CDTT140201", ["D1_CDTT140201"], ["D11_CDTT140201"]);
+                setDifference("D12_CDTT140202", ["D1_CDTT140202"], ["D11_CDTT140202"]);
+                setDifference("D12_CDTT140301", ["D1_CDTT140301"], ["D11_CDTT140301"]);
+                setDifference("D12_CDTT140302", ["D1_CDTT140302"], ["D11_CDTT140302"]);
+                
+                setValue("D12_CDTT1401", ["D12_CDTT140101", "D12_CDTT140102"]);
+                setValue("D12_CDTT1402", ["D12_CDTT140201", "D12_CDTT140202"]);
+                setValue("D12_CDTT1403", ["D12_CDTT140301", "D12_CDTT140302"]);
+                
+                setValue("D12_CDTT14", ["D12_CDTT1401", "D12_CDTT1402", "D12_CDTT1403"]);
+                
+                // D5
+                setValue("D11_CDTT11", ["D11_CDTT1101", "D11_CDTT1102"]);
+                setValue("D11_CDTT1102", ["D11_CDTT110201", "D11_CDTT110202", "D11_CDTT110203", "D11_CDTT110204"]);
+                setValue("D11_CDTT110201", ["D11_CDTT11020101", "D11_CDTT11020102", "D11_CDTT11020103", "D11_CDTT11020104", "D11_CDTT11020105", "D11_CDTT11020106"]);
+                setValue("D11_CDTT110202", ["D11_CDTT11020201", "D11_CDTT11020202"]);
+                setValue("D11_CDTT110203", ["D11_CDTT11020301", "D11_CDTT11020302", "D11_CDTT11020303", "D11_CDTT11020304"]);
+                setValue("D11_CDTT110204", ["D11_CDTT11020401", "D11_CDTT11020402"]);
+
+                setValue("D11_CDTT13", ["D11_CDTT1301", "D11_CDTT1302", "D11_CDTT1303", "D11_CDTT1304"]);
+                setValue("D11_CDTT14", ["D11_CDTT1401", "D11_CDTT1402", "D11_CDTT1403"]);
+                setValue("D11_CDTT1401", ["D11_CDTT140101", "D11_CDTT140102"]);
+                setValue("D11_CDTT1402", ["D11_CDTT140201", "D11_CDTT140202"]);
+                setValue("D11_CDTT1403", ["D11_CDTT140301", "D11_CDTT140302"]);
+            }
+            calc();
+
     </script>
 
 </html>
