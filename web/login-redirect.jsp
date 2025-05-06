@@ -10,33 +10,34 @@
         <title>Ngân hàng chính sách xã hội VN</title>
         <script type="text/javascript" src="js/jquery-1.4.3.js"></script>
         <style>
-                        body {
+            body {
+                font-family: Arial, sans-serif;
+                text-align: left;
+                background-color: #f9f9f9;
+                color: #333;
+                background-image: url('img/anh33.jpg');
+                /*background-image: url('img/backgroud_logo.jpg');*/
+                background-size: contain;   
+                background-size: 65%;
+                background-repeat: no-repeat;  
+                background-position: left;  
+                background-attachment: fixed;  
+                background-blend-mode: multiply;
+                background-position: 50px;
+            }
+            /*            body {
                             font-family: Arial, sans-serif;
                             text-align: center;
                             background-color: #f9f9f9;
                             color: #333;
-                            background-image: url('img/anh33.jpg');
-                            /*background-image: url('img/backgroud_logo.jpg');*/
-                            background-size: contain;   
-                            background-repeat: no-repeat;  
-                            background-position: center;  
-                            background-attachment: fixed;  
+                            background-image: url('img/anh30.jpg');
+                            background-size: cover;
+                            background-repeat: no-repeat;
+                            background-position: center 5px;
+                            background-attachment: fixed;
                             background-blend-mode: multiply;
-                            background-position: center 50px;
-                        }
-/*            body {
-                font-family: Arial, sans-serif;
-                text-align: center;
-                background-color: #f9f9f9;
-                color: #333;
-                background-image: url('img/anh30.jpg');
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center 5px;
-                background-attachment: fixed;
-                background-blend-mode: multiply;
-                transition: background-image 1s ease-in-out;
-            }*/
+                            transition: background-image 1s ease-in-out;
+                        }*/
             .container {
                 max-width: 600px;
                 margin: 0 auto;
@@ -248,28 +249,30 @@
     <body style="height:100%;" topmargin="0" leftmargin="0">
         <s:form action="User_login" theme="simple" id="loginform">
             <table width="100%" border="0"  cellpadding="0" cellspacing="0" style="height:100%;">
-                <!--<td width="50%" height="60" bgcolor="#017230" align="left" valign="top"> <img border="0" src="img/baner1_2025.jpg" style="max-width: 760px; max-height: 60px;"></td>--> 
-               <!--<td width="20%" height="60" bgcolor="#017230" align="left" valign="top"> <img border="0" src="img/baner2_2025.jpg" style="max-height: 60px;"></td>--> 
-               <td width="50%" height="60" bgcolor="#017230" align="left" valign="top"> <img border="0" src="img/baner1_2025.jpg" style="max-width: 760px; max-height: 60px;"></td>
-               <td width="20%" bgcolor="#017230" valign="bottom" height="60">
-                </td>     
-                <td width="5%" bgcolor="#017230" valign="top" height="60" align="right">                    
-                    <img border="0" src="img/bgr1.gif" width="50" height="60"></td>
-                <td width="25%" bgcolor="#017230" background="img/bgr2.gif" align="right" valign="bottom" height="60">
-                    <p align="center" style="margin-top:0; margin-bottom:0">&nbsp;
-                    <p align="center" style="margin-top:0; margin-bottom:3px">
-                        <script language="javascript">
-                            var dt = new Date();
-                            var strMonth = new Array(" 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", " 10", " 11", " 12");
-                            var strDay = new Array("Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy");
-                            var date = strDay[dt.getDay()] + ", ngày ";
-                            var years = dt.getYear();
-                            if (years < 1900)
-                                years += 1900;
-                            date += dt.getDate() + " tháng " + strMonth[dt.getMonth()] + " năm " + years;
-                            document.write("<i><font face='Tahoma' style='font-size: 9pt' color='#FFFFFF'>" + date + '</i>&nbsp;');
-                        </script>
-                </td>
+                <tr>
+                    <td colspan="4" height="60" 
+                        style="background-image: url('img/baner11_2025.png'); 
+                        background-size: cover; 
+                        background-position: left; 
+                        background-repeat: no-repeat; 
+                        position: relative; 
+                        padding: 0;">
+                        <div style="position: absolute; bottom: 5px; right: 10px;">
+                            <script language="javascript">
+                                var dt = new Date();
+                                var strMonth = new Array(" 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", " 10", " 11", " 12");
+                                var strDay = new Array("Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy");
+                                var date = strDay[dt.getDay()] + ", ngày ";
+                                var years = dt.getYear();
+                                if (years < 1900)
+                                    years += 1900;
+                                date += dt.getDate() + " tháng " + strMonth[dt.getMonth()] + " năm " + years;
+                                document.write("<i><font face='Tahoma' style='font-size: 9pt' color='#FFFFFF'>" + date + "</font></i>");
+                            </script>
+                        </div>
+                    </td>
+                </tr>
+
                 <tr>
                     <td height="26">&nbsp;</td>
                     <td>&nbsp;</td>
@@ -334,7 +337,7 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td> 
                     <!--<td><img src="img/linelogin.jpg" width="188" height="330" /></td>-->
-                    <td valign="top" align="center">
+                    <td valign="top" align="right">
                         <table border="0"  cellspacing="10" cellpadding="0" width="310px">
                             <tr>
                                 <td style="font-size: 12px;">
