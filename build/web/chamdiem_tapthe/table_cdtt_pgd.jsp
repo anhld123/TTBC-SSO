@@ -217,22 +217,20 @@
                                                        ;"  
                                                onkeyup="calc(this);"  onchange="calc(this);"    
                                                <s:if test="MA.equalsIgnoreCase('CDTT09')"> class="number505 TEN_KH" </s:if>  <s:else> class="number4 TEN_KH" </s:else>
-                                                <s:if test="!MA.equalsIgnoreCase('CDTT01')&&!MA.equalsIgnoreCase('CDTT02')
-                                                             &&!MA.equalsIgnoreCase('CDTT03')&&!MA.equalsIgnoreCase('CDTT04')
-                                                             &&!MA.equalsIgnoreCase('CDTT05')&&!MA.equalsIgnoreCase('CDTT06')
-                                                             &&!MA.equalsIgnoreCase('CDTT06A')
-                                                             &&!MA.equalsIgnoreCase('CDTT07')&&!MA.equalsIgnoreCase('CDTT08')
-                                                             &&!MA.equalsIgnoreCase('CDTT09')&&!MA.equalsIgnoreCase('CDTT1301')
-                                                             &&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')
-                                                             &&!MA.equalsIgnoreCase('CDTT1304')&&!MA.equalsIgnoreCase('CDTT11020301')
-                                                             &&!MA.equalsIgnoreCase('CDTT11020302')&&!MA.equalsIgnoreCase('CDTT11020303')
-                                                             &&!MA.equalsIgnoreCase('CDTT11020304')&&!MA.equalsIgnoreCase('CDTT11020401')
-                                                             &&!MA.equalsIgnoreCase('CDTT11020402')&&!MA.equalsIgnoreCase('CDTT11020101')
-                                                             &&!MA.equalsIgnoreCase('CDTT11020102')&&!MA.equalsIgnoreCase('CDTT11020103')
-                                                             &&!MA.equalsIgnoreCase('CDTT11020104')&&!MA.equalsIgnoreCase('CDTT11020105')
-                                                             &&!MA.equalsIgnoreCase('CDTT11020106')&&!MA.equalsIgnoreCase('CDTT11020201')
-                                                             &&!MA.equalsIgnoreCase('CDTT11020202')">readonly="readonly"</s:if>
-                                                             />
+                                               <s:if test="!MA.equalsIgnoreCase('CDTT140102')&&!MA.equalsIgnoreCase('CDTT140201')
+                                                     &&!MA.equalsIgnoreCase('CDTT140202')&&!MA.equalsIgnoreCase('CDTT140301')
+                                                     &&!MA.equalsIgnoreCase('CDTT140302')&&!MA.equalsIgnoreCase('CDTT1301')
+                                                     &&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')
+                                                     &&!MA.equalsIgnoreCase('CDTT1304')&&!MA.equalsIgnoreCase('CDTT11020301')
+                                                     &&!MA.equalsIgnoreCase('CDTT11020302')&&!MA.equalsIgnoreCase('CDTT11020303')
+                                                     &&!MA.equalsIgnoreCase('CDTT11020304')&&!MA.equalsIgnoreCase('CDTT11020401')
+                                                     &&!MA.equalsIgnoreCase('CDTT11020402')&&!MA.equalsIgnoreCase('CDTT11020101')
+                                                     &&!MA.equalsIgnoreCase('CDTT11020102')
+                                                     &&!MA.equalsIgnoreCase('CDTT11020103')&&!MA.equalsIgnoreCase('CDTT11020104')
+                                                     &&!MA.equalsIgnoreCase('CDTT11020105')&&!MA.equalsIgnoreCase('CDTT11020106')
+                                                     &&!MA.equalsIgnoreCase('CDTT11020201')
+                                                     &&!MA.equalsIgnoreCase('CDTT11020202')">readonly="readonly"</s:if>
+                                                   />
                                     </s:else>
                                 </td>
 
@@ -551,17 +549,16 @@
                         const setValue = (id, idsToSum) => {
                             const el = document.getElementById(id);
                             if (el)
-                                el.value = sum(idsToSum);
+                                el.value = sum(idsToSum).toFixed(2);
                         };
 
                         const setDifference = (id, groupA, groupB) => {
                             const el = document.getElementById(id);
                             if (el) {
                                 const value = sum(groupA) - sum(groupB);
-                                el.value = Math.max(value, 0);
+                                el.value = Math.max(value, 0).toFixed(2);
                             }
                         };
-
                         // Phép cộng
                         setValue("D10_CDTT11", ["D10_CDTT1101", "D10_CDTT1102"]);
                         setValue("D10_CDTT1102", ["D10_CDTT110201", "D10_CDTT110202", "D10_CDTT110203", "D10_CDTT110204"]);

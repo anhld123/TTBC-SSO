@@ -250,7 +250,7 @@
         <s:form action="User_login" theme="simple" id="loginform">
             <table width="100%" border="0"  cellpadding="0" cellspacing="0" style="height:100%;">
                 <tr>
-                    <td colspan="4" height="60" 
+                    <td colspan="4" height=65"
                         style="background-image: url('img/baner11_2025.png'); 
                         background-size: cover; 
                         background-position: left; 
@@ -288,9 +288,6 @@
                                 <td width="95%" align="left" style="text-transform: uppercase;font-size: 12px;font-weight: bold;">
                                     Thông báo mới <br><hr height="1px" width="90%" align="left"><br>
                                 </td>
-
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
                                 <td align="center">
                                     <table border="0"  cellpadding="0" cellspacing="0" width="325px">
                                         <tr>
