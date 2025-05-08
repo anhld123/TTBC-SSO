@@ -46,7 +46,7 @@
                     var d11 = document.getElementById('D11_' + ma).value;
                     d11 = d11.replace(',', '');
 
-                    if (parseFloat(d11) > 100 || parseFloat(d11) < 0 )
+                    if (parseFloat(d11) > 100 || parseFloat(d11) < 0)
                     {
                         swal('Lỗi', 'Bạn không được nhập điểm lớn hơn 100 hoặc nhỏ hơn 0', 'warning');
                         document.getElementById('D11_' + ma).style.background = '#ff0000';
@@ -62,20 +62,17 @@
                             document.getElementById('D5_' + ma).value = Math.round(d5)
                             d12 = getValue('D1_' + ma) - getValue('D11_' + ma) * 50 / 100 * getValue('D1_' + ma);
                             document.getElementById('D12_' + ma).value = d12 < 0 ? 0 : d12;
-                        }
-                        else if (D28 === 'LOI20')
+                        } else if (D28 === 'LOI20')
                         {
                             document.getElementById('D5_' + ma).value = Math.round(d5)
                             d12 = getValue('D1_' + ma) - getValue('D11_' + ma) * 20 / 100 * getValue('D1_' + ma);
                             document.getElementById('D12_' + ma).value = d12 < 0 ? 0 : d12;
-                        }
-                        else if (D28 === 'LOI02')
+                        } else if (D28 === 'LOI02')
                         {
                             document.getElementById('D11_' + ma).value = d11 > 5 ? 5 : d11;
                             d12 = getValue('D1_' + ma) - (getValue('D11_' + ma) * 2);
                             document.getElementById('D12_' + ma).value = d12;
-                        }
-                        else
+                        } else
                         {
                             d10 = getValue('D1_' + ma) * getValue('D11_' + ma) / 100;
                             document.getElementById('D12_' + ma).value = d10;
@@ -117,7 +114,7 @@
                 $(".TD_NOIDUNG06A").css({"width": "35%"});
                 $(".hideColumn").hide();
                 $(".TEN_KH").css({"width": "100%"});
-                 evaluateSum_col('CHAMDIEMTT_001', 'D12');
+                evaluateSum_col('CHAMDIEMTT_001', 'D12');
             });
             $('.TEN_KH').focus(function () {
                 $(this).closest('tr').addClass('highlight_row');
@@ -125,133 +122,136 @@
             $('.TEN_KH').blur(function () {
                 $(this).closest('tr').removeClass('highlight_row');
             });
+            const chot = $("#KHOA").val();
+            console.log(chot);
 
             function evaluateSum_col(table_id, subid) {
 
                 try {
+                    if ($("#KHOA").val() !== 'CN_PGD') {
 //                                alert('vao tinh tong');
-                    var heso_k = $("#heso_k").val();
+                        var heso_k = $("#heso_k").val();
 //                     alert('vao tinh tong ' +heso_k);
-                    console.log('Bat dau evaluateSum_col');
-                    var temp = 0;
-                    var kh_capht = ".KH_CAPHT";
-                    var kh_congthuc = ".KH_CONGTHUC";
-                    var kh_ma_ct = ".MA_CT";
-                    var tinhkhac = "AAA";
-                    var trungbinh = "AAA";
-                    //Thu tu cua i tinh tu 0
-                    var arrCapht = [6.0, 5.0, 4.0, 3.0, 2.0, 1.0]; //Luu cac cot cua du lieu can tinh toan
+                        console.log('Bat dau evaluateSum_col');
+                        var temp = 0;
+                        var kh_capht = ".KH_CAPHT";
+                        var kh_congthuc = ".KH_CONGTHUC";
+                        var kh_ma_ct = ".MA_CT";
+                        var tinhkhac = "AAA";
+                        var trungbinh = "AAA";
+                        //Thu tu cua i tinh tu 0
+                        var arrCapht = [6.0, 5.0, 4.0, 3.0, 2.0, 1.0]; //Luu cac cot cua du lieu can tinh toan
 
-                    var rowCount = $("#" + table_id + " td").closest("tr").length;
-                    var D28_CN010102 = document.getElementById('D28_CN010102').value;
-                    if (D28_CN010102 === 'CN010102_NEW')
-                    {
-                        console.log('')
-                        var riengD11 = document.getElementById('D11_CN010102').value;
-                        if (riengD11 < 0)
-                        {
-                            document.getElementById('D11_CN010102').value = 0;
-                            riengD11 = document.getElementById('D11_CN010102').value;
-                        }
-                        document.getElementById('D11_CN010102').value = Math.round(riengD11)
-                        var riengD1 = document.getElementById('D1_CN010102').value;
-                        document.getElementById('D12_CN010102').value = riengD1 - riengD11 * 5 * 10 / 100 < 0 ? 0 : riengD1 - riengD11 * 5 * 10 / 100
+                        var rowCount = $("#" + table_id + " td").closest("tr").length;
 
-                    }
-//                    document.getElementById('D10_CN02').value = 20;
-                    //duyệt cấp cộng tổng hợp
-                    for (k = 0; k < arrCapht.length; k++)
-                    {//duyệt số row của bảng để lấy ra công thức.
-                        for (i = 0; i < rowCount; i++)
+                        var D28_CN010102 = document.getElementById('D28_CN010102').value;
+                        if (D28_CN010102 === 'CN010102_NEW')
                         {
-                            var D28_khoa = $('.D28_DIEM').eq(i).val();
-                            //nếu cấp báo cáo bằng với danh sách mảng của câp báo cáo ở trên và công thức khác null hoặc rỗng
-                            if ($(kh_capht).eq(i).val() == arrCapht[k] && $(kh_congthuc).eq(i).val().length > 0)
+                            console.log('')
+                            var riengD11 = document.getElementById('D11_CN010102').value;
+                            if (riengD11 < 0)
                             {
-                                var ma_ct = $(kh_ma_ct).eq(i).val();
-                                var congthuc = $(kh_congthuc).eq(i).val();
-                                //lấy ra công thức
+                                document.getElementById('D11_CN010102').value = 0;
+                                riengD11 = document.getElementById('D11_CN010102').value;
+                            }
+                            document.getElementById('D11_CN010102').value = Math.round(riengD11)
+                            var riengD1 = document.getElementById('D1_CN010102').value;
+                            document.getElementById('D12_CN010102').value = riengD1 - riengD11 * 5 * 10 / 100 < 0 ? 0 : riengD1 - riengD11 * 5 * 10 / 100
 
-                                //                                var tong_dc = sum_mact(valNew, kh_dc, table_id);
+                        }
 
-                                //                                console.log('ma_ct=' + ma_ct + ' tongcong=' + tongcong);
-                                //Lấy ra khóa của báo cáo
-                                var khoa = document.getElementById('khoa').value;
-
-                                var Grade = document.getElementById('Grade').value;
-
-                                var RULEUSER = document.getElementById('RULEUSER').value;
-                                //cắt công thức đưa về mảng
-                                //var valNew = congthuc.replace(/-/g, '+').split('+');
-
-                                var valNew = catcongthuc(congthuc);
-                                var tongcong = tongcongthuc_08TH(valNew, subid, congthuc);
-
-
-                                if (D28_khoa === 'DIEM_HT_CV')
+//                    document.getElementById('D10_CN02').value = 20;
+                        //duyệt cấp cộng tổng hợp
+                        for (k = 0; k < arrCapht.length; k++)
+                        {//duyệt số row của bảng để lấy ra công thức.
+                            for (i = 0; i < rowCount; i++)
+                            {
+                                var D28_khoa = $('.D28_DIEM').eq(i).val();
+                                //nếu cấp báo cáo bằng với danh sách mảng của câp báo cáo ở trên và công thức khác null hoặc rỗng
+                                if ($(kh_capht).eq(i).val() == arrCapht[k] && $(kh_congthuc).eq(i).val().length > 0)
                                 {
+                                    var ma_ct = $(kh_ma_ct).eq(i).val();
+                                    var congthuc = $(kh_congthuc).eq(i).val();
+                                    //lấy ra công thức
+
+                                    //                                var tong_dc = sum_mact(valNew, kh_dc, table_id);
+
+                                    //                                console.log('ma_ct=' + ma_ct + ' tongcong=' + tongcong);
+                                    //Lấy ra khóa của báo cáo
+                                    var khoa = document.getElementById('khoa').value;
+
+                                    var Grade = document.getElementById('Grade').value;
+
+                                    var RULEUSER = document.getElementById('RULEUSER').value;
+                                    //cắt công thức đưa về mảng
+                                    //var valNew = congthuc.replace(/-/g, '+').split('+');
+
+                                    var valNew = catcongthuc(congthuc);
+                                    var tongcong = tongcongthuc_08TH(valNew, subid, congthuc);
+
+
+                                    if (D28_khoa === 'DIEM_HT_CV')
+                                    {
 //                                     console.log('xx_valNew=' + valNew + ' subid=' + subid + ' congthuc=' + congthuc + ' RULEUSER=' + RULEUSER + ' subid=' + subid);
-                                    tongcong = tongcongthuc_08TH(valNew, subid, congthuc);
-                                    resetvalue(subid, ma_ct);
-                                    console.log(tongcong);
-                                    laydiemHoanthanh(subid, ma_ct, tongcong);
-                                } 
-                                else if (D28_khoa === 'DIEM_HT_CV_NEW')
-                                {
-                                    tongcong = tongcongthuc_08TH(valNew, subid, congthuc);
-                                    resetvalue(subid, ma_ct);
+                                        tongcong = tongcongthuc_08TH(valNew, subid, congthuc);
+                                        resetvalue(subid, ma_ct);
+                                        console.log(tongcong);
+                                        laydiemHoanthanh(subid, ma_ct, tongcong);
+                                    } else if (D28_khoa === 'DIEM_HT_CV_NEW')
+                                    {
+                                        tongcong = tongcongthuc_08TH(valNew, subid, congthuc);
+                                        resetvalue(subid, ma_ct);
 //                                    console.log('DIEM_HT_CV=' + tongcong);
 //                                    console.log('valNew=' + valNew + ' subid=' + subid + ' congthuc=' + congthuc + ' ma_ct=' + ma_ct);
-                                    var D1_CN0102 = document.getElementById('D1_CN0102').value
-                                    laydiemHoanthanh_new(subid, ma_ct, tongcong + parseFloat(D1_CN0102));
-                                } 
-                                else if (D28_khoa === 'TINHKHAC')
-                                {
-                                    tinhkhac = "TINHKHAC";
-                                    document.getElementById(subid + '_' + ma_ct).value = tongcong;
-                                } else if (D28_khoa === 'TRUNGBINH')
-                                {
-                                    trungbinh = "TRUNGBINH";
-                                    document.getElementById(subid + '_' + ma_ct).value = tongcong;
-                                } else if (D28_khoa === 'PGD_TD_TTDX')
-                                {
-                                    trungbinh = "PGD_TD_TTDX";
-                                    document.getElementById(subid + '_' + ma_ct).value = tongcong;
-                                } else if (D28_khoa === 'TONGCONG')
-                                {
-                                    document.getElementById(subid + '_' + ma_ct).value = (tongcong * parseFloat(heso_k)).toFixed(2)
-                                    document.getElementById('D13_' + ma_ct).value = tongcong.toFixed(2) + ' (Điểm với k = 1.0)'
-                                } else if (D28_khoa === 'XEPLOAI')
-                                {
-                                    resetvalue(subid, ma_ct);
+                                        var D1_CN0102 = document.getElementById('D1_CN0102').value
+                                        laydiemHoanthanh_new(subid, ma_ct, tongcong + parseFloat(D1_CN0102));
+                                    } else if (D28_khoa === 'TINHKHAC')
+                                    {
+                                        tinhkhac = "TINHKHAC";
+                                        document.getElementById(subid + '_' + ma_ct).value = tongcong;
+                                    } else if (D28_khoa === 'TRUNGBINH')
+                                    {
+                                        trungbinh = "TRUNGBINH";
+                                        document.getElementById(subid + '_' + ma_ct).value = tongcong;
+                                    } else if (D28_khoa === 'PGD_TD_TTDX')
+                                    {
+                                        trungbinh = "PGD_TD_TTDX";
+                                        document.getElementById(subid + '_' + ma_ct).value = tongcong;
+                                    } else if (D28_khoa === 'TONGCONG')
+                                    {
+                                        document.getElementById(subid + '_' + ma_ct).value = (tongcong * parseFloat(heso_k)).toFixed(2)
+                                        document.getElementById('D13_' + ma_ct).value = tongcong.toFixed(2) + ' (Điểm với k = 1.0)'
+                                    } else if (D28_khoa === 'XEPLOAI')
+                                    {
+                                        resetvalue(subid, ma_ct);
 //                                   
 //                                    91-100, 81-90, 71-80, dưới 70 HTXS, HTT, HT, KHT
-                                    if (tongcong >= 90 && tongcong <= 100)
-                                    {
-                                        document.getElementById(subid + '_' + ma_ct).value = tongcong;//'HTXS';
-                                        document.getElementById(subid + '_' + ma_ct + '01').value = tongcong;//'HTXS';
+                                        if (tongcong >= 90 && tongcong <= 100)
+                                        {
+                                            document.getElementById(subid + '_' + ma_ct).value = tongcong;//'HTXS';
+                                            document.getElementById(subid + '_' + ma_ct + '01').value = tongcong;//'HTXS';
+                                        }
+                                        if (tongcong >= 80 && tongcong < 90)
+                                        {
+                                            document.getElementById(subid + '_' + ma_ct).value = tongcong;//'HTT';
+                                            document.getElementById(subid + '_' + ma_ct + '02').value = tongcong;//'HTT';
+                                        }
+                                        if (tongcong >= 70 && tongcong < 80)
+                                        {
+                                            document.getElementById(subid + '_' + ma_ct).value = tongcong;//'HT';
+                                            document.getElementById(subid + '_' + ma_ct + '03').value = tongcong;//'HT';
+                                        }
+                                        if (tongcong < 70)
+                                        {
+                                            document.getElementById(subid + '_' + ma_ct).value = tongcong;//'KHT';
+                                            document.getElementById(subid + '_' + ma_ct + '04').value = tongcong;//'KHT';
+                                        }
+                                    } else {
+                                        document.getElementById(subid + '_' + ma_ct).value = tongcong;
                                     }
-                                    if (tongcong >= 80 && tongcong < 90)
-                                    {
-                                        document.getElementById(subid + '_' + ma_ct).value = tongcong;//'HTT';
-                                        document.getElementById(subid + '_' + ma_ct + '02').value = tongcong;//'HTT';
-                                    }
-                                    if (tongcong >= 70 && tongcong < 80)
-                                    {
-                                        document.getElementById(subid + '_' + ma_ct).value = tongcong;//'HT';
-                                        document.getElementById(subid + '_' + ma_ct + '03').value = tongcong;//'HT';
-                                    }
-                                    if (tongcong < 70)
-                                    {
-                                        document.getElementById(subid + '_' + ma_ct).value = tongcong;//'KHT';
-                                        document.getElementById(subid + '_' + ma_ct + '04').value = tongcong;//'KHT';
-                                    }
-                                } else {
-                                    document.getElementById(subid + '_' + ma_ct).value = tongcong;
-                                }
-                                // document.getElementById(subid + '_' + ma_ct).value = tongcong;
-                            } else
-                            {
+                                    // document.getElementById(subid + '_' + ma_ct).value = tongcong;
+                                } else
+                                {
 //                                if (D28_khoa === 'DIEM_HT_CV')
 //                                {
 //                                    tongcong = tongcongthuc_08TH(valNew, subid, congthuc);
@@ -273,72 +273,73 @@
 //                                    cur.value = 0;
 //                                    return;
 //                                }
+                                }
+
                             }
 
                         }
+                        var diemct_CN0102 = 0, id_mact_diem = subid + '_CN010101';
+                        var giatri = getvalue(id_mact_diem);
+                        diemct_CN0102 = Math.round((giatri / 30) * 10 * 100) / 100;
+                        var khoa_main = document.getElementById('khoa').value;
+                        console.log('khoa_main=' + khoa_main);
 
-                    }
-                    var diemct_CN0102 = 0, id_mact_diem = subid + '_CN010101';
-                    var giatri = getvalue(id_mact_diem);
-                    diemct_CN0102 = Math.round((giatri / 30) * 10 * 100) / 100;
-                    var khoa_main = document.getElementById('khoa').value;
-                    console.log('khoa_main=' + khoa_main);
-
-                    if (tinhkhac === 'TINHKHAC')
-                    {
+                        if (tinhkhac === 'TINHKHAC')
+                        {
 //                        document.getElementById('D10_CN010102').value = giatri;
-                    } else
-                    {
-                        var D28_CN010102 = document.getElementById('D28_CN010102').value;
-                        if (D28_CN010102 === 'CN010102_NEW')
+                        } else
                         {
-                            console.log('')
-                            var riengD11 = document.getElementById('D11_CN010102').value;
-                            if (riengD11 < 0)
+                            var D28_CN010102 = document.getElementById('D28_CN010102').value;
+                            if (D28_CN010102 === 'CN010102_NEW')
                             {
-                                document.getElementById('D11_CN010102').value = 0;
-                                riengD11 = document.getElementById('D11_CN010102').value;
+                                console.log('')
+                                var riengD11 = document.getElementById('D11_CN010102').value;
+                                if (riengD11 < 0)
+                                {
+                                    document.getElementById('D11_CN010102').value = 0;
+                                    riengD11 = document.getElementById('D11_CN010102').value;
+                                }
+                                document.getElementById('D11_CN010102').value = Math.round(riengD11)
+                                var riengD1 = document.getElementById('D1_CN010102').value;
+                                document.getElementById('D12_CN010102').value = riengD1 - riengD11 * 5 * 10 / 100 < 0 ? 0 : riengD1 - riengD11 * 5 * 10 / 100
+
+                            } else
+                            {
+                                document.getElementById(subid + '_CN010102').value = diemct_CN0102;
+                                document.getElementById('D11_CN010102').value = Math.round((giatri / 30) * 100 * 100) / 100;
                             }
-                            document.getElementById('D11_CN010102').value = Math.round(riengD11)
-                            var riengD1 = document.getElementById('D1_CN010102').value;
-                            document.getElementById('D12_CN010102').value = riengD1 - riengD11 * 5 * 10 / 100 < 0 ? 0 : riengD1 - riengD11 * 5 * 10 / 100
-
-                        } else
-                        {
-                            document.getElementById(subid + '_CN010102').value = diemct_CN0102;
-                            document.getElementById('D11_CN010102').value = Math.round((giatri / 30) * 100 * 100) / 100;
                         }
-                    }
 
-                    if (trungbinh === 'TRUNGBINH')
-                    {
-                        console.log('Vao!!');
-                        var CN01 = document.getElementById(subid + '_CN0101010501').value;
-                        var CN02 = document.getElementById(subid + '_CN0101010502').value;
-                        var CN03 = document.getElementById(subid + '_CN0101010503').value;
+                        if (trungbinh === 'TRUNGBINH')
+                        {
+                            console.log('Vao!!');
+                            var CN01 = document.getElementById(subid + '_CN0101010501').value;
+                            var CN02 = document.getElementById(subid + '_CN0101010502').value;
+                            var CN03 = document.getElementById(subid + '_CN0101010503').value;
 //                        console.log('CN01='+CN01+'=--CN02'+CN02+'--CN03='+CN03);
-                        if (parseFloat(CN01) > 0 && parseFloat(CN02) > 0 && parseFloat(CN03) > 0)
+                            if (parseFloat(CN01) > 0 && parseFloat(CN02) > 0 && parseFloat(CN03) > 0)
+                            {
+                                document.getElementById(subid + '_CN01010105').value = (parseFloat(CN01) + parseFloat(CN02) + parseFloat(CN03)) / 3;
+                            } else if ((parseFloat(CN01) > 0 && parseFloat(CN02) > 0 && parseFloat(CN03) === 0)
+                                    || (parseFloat(CN01) > 0 && parseFloat(CN02) === 0 && parseFloat(CN03) > 0)
+                                    || (parseFloat(CN01) === 0 && parseFloat(CN02) > 0 && parseFloat(CN03) > 0))
+                            {
+                                document.getElementById(subid + '_CN01010105').value = (parseFloat(CN01) + parseFloat(CN02) + parseFloat(CN03)) / 2;
+                            } else
+                            {
+                                document.getElementById(subid + '_CN01010105').value = (parseFloat(CN01) + parseFloat(CN02) + parseFloat(CN03));
+                            }
+
+                        } else if (trungbinh === 'PGD_TD_TTDX')
                         {
-                            document.getElementById(subid + '_CN01010105').value = (parseFloat(CN01) + parseFloat(CN02) + parseFloat(CN03)) / 3;
-                        } else if ((parseFloat(CN01) > 0 && parseFloat(CN02) > 0 && parseFloat(CN03) === 0)
-                                || (parseFloat(CN01) > 0 && parseFloat(CN02) === 0 && parseFloat(CN03) > 0)
-                                || (parseFloat(CN01) === 0 && parseFloat(CN02) > 0 && parseFloat(CN03) > 0))
-                        {
-                            document.getElementById(subid + '_CN01010105').value = (parseFloat(CN01) + parseFloat(CN02) + parseFloat(CN03)) / 2;
-                        } else
-                        {
-                            document.getElementById(subid + '_CN01010105').value = (parseFloat(CN01) + parseFloat(CN02) + parseFloat(CN03));
+                            console.log('Vao!!');
+                            var CN01 = document.getElementById(subid + '_CN01010101').value;
+                            var CN02 = document.getElementById(subid + '_CN01010102').value;
+                            document.getElementById(subid + '_CN010101').value = (parseFloat(CN01) + parseFloat(CN02)) / 2;
+
                         }
-
-                    } else if (trungbinh === 'PGD_TD_TTDX')
-                    {
-                        console.log('Vao!!');
-                        var CN01 = document.getElementById(subid + '_CN01010101').value;
-                        var CN02 = document.getElementById(subid + '_CN01010102').value;
-                        document.getElementById(subid + '_CN010101').value = (parseFloat(CN01) + parseFloat(CN02)) / 2;
-
+                        $('.number2').number(true, 2);
                     }
-                    $('.number2').number(true, 2);
                 } catch (e) {
                     swal('Lỗi', 'ERROR evaluateSum ' + e.toString());
                     console.log('ERROR evaluateSum ' + e.toString());
@@ -396,7 +397,7 @@
                     }
                 }
             }
-            
+
             function laydiemHoanthanh_new(subid, ma_ct, tongcong)
             {
                 console.log('tongcong----------= laydiemHoanthanh_new' + tongcong);
@@ -498,19 +499,22 @@
                 var tong_congthuc = eval(cong_dulieu);
                 return tong_congthuc;
             }
+
             function getvalue(id_input)
             {
                 var value = 0;
                 var outvalue = 0;
-                try
-                {
-                    value = document.getElementById(id_input).value;
-                    //                    console.log('id_input=' + id_input + ' value=' + value);
-                    value = value.replace(/,/g, "");
-                    return parseFloat(value);
-                } catch (e) {
-                    console.log('ERROR=' + e.toString() + " " + id_input);
-                    return 0;
+                if ($("#KHOA").val() !== 'CN_PGD') {
+                    try
+                    {
+                        value = document.getElementById(id_input).value;
+                        //                    console.log('id_input=' + id_input + ' value=' + value);
+                        value = value.replace(/,/g, "");
+                        return parseFloat(value);
+                    } catch (e) {
+                        console.log('ERROR=' + e.toString() + " " + id_input);
+                        return 0;
+                    }
                 }
             }
 
@@ -566,26 +570,28 @@
             function lanhdao_danhgia(ma) {
                 try
                 {
-                    if (ma === 'HTXS')
-                    {
-                        document.getElementById("D13_HTT").value = '';
-                        document.getElementById("D13_HT").value = '';
-                        document.getElementById("D13_KHT").value = '';
-                    } else if (ma === 'HTT')
-                    {
-                        document.getElementById("D13_HTXS").value = '';
-                        document.getElementById("D13_HT").value = '';
-                        document.getElementById("D13_KHT").value = '';
-                    } else if (ma === 'HT')
-                    {
-                        document.getElementById("D13_HTXS").value = '';
-                        document.getElementById("D13_HTT").value = '';
-                        document.getElementById("D13_KHT").value = '';
-                    } else
-                    {
-                        document.getElementById("D13_HTXS").value = '';
-                        document.getElementById("D13_HTT").value = '';
-                        document.getElementById("D13_HT").value = '';
+                    if ($("#KHOA").val() !== 'CN_PGD') {
+                        if (ma === 'HTXS')
+                        {
+                            document.getElementById("D13_HTT").value = '';
+                            document.getElementById("D13_HT").value = '';
+                            document.getElementById("D13_KHT").value = '';
+                        } else if (ma === 'HTT')
+                        {
+                            document.getElementById("D13_HTXS").value = '';
+                            document.getElementById("D13_HT").value = '';
+                            document.getElementById("D13_KHT").value = '';
+                        } else if (ma === 'HT')
+                        {
+                            document.getElementById("D13_HTXS").value = '';
+                            document.getElementById("D13_HTT").value = '';
+                            document.getElementById("D13_KHT").value = '';
+                        } else
+                        {
+                            document.getElementById("D13_HTXS").value = '';
+                            document.getElementById("D13_HTT").value = '';
+                            document.getElementById("D13_HT").value = '';
+                        }
                     }
                 } catch (e)
                 {
@@ -596,36 +602,37 @@
             function set_lanhdao_danhgia(ma) {
                 try
                 {
-                    if (ma === 'HTXS')
-                    {
-                        if (document.getElementById("D13_HTXS").value === '')
-                            document.getElementById("D13_HTXS").value = 'HTXS: ';
-                        document.getElementById("D13_HTT").value = '';
-                        document.getElementById("D13_HT").value = '';
-                        document.getElementById("D13_KHT").value = '';
-                    } else if (ma === 'HTT')
-                    {
-                        if (document.getElementById("D13_HTT").value === '')
-                            document.getElementById("D13_HTT").value = 'HTT: ';
-                        document.getElementById("D13_HTXS").value = '';
-                        document.getElementById("D13_HT").value = '';
-                        document.getElementById("D13_KHT").value = '';
-                    } else if (ma === 'HT')
-                    {
-                        if (document.getElementById("D13_HT").value === '')
-                            document.getElementById("D13_HT").value = 'HT: ';
-                        document.getElementById("D13_HTXS").value = '';
-                        document.getElementById("D13_HTT").value = '';
-                        document.getElementById("D13_KHT").value = '';
-                    } else
-                    {
-                        if (document.getElementById("D13_KHT").value === '')
-                            document.getElementById("D13_KHT").value = 'KHT: ';
-                        document.getElementById("D13_HTXS").value = '';
-                        document.getElementById("D13_HTT").value = '';
-                        document.getElementById("D13_HT").value = '';
+                    if ($("#KHOA").val() !== 'CN_PGD') {
+                        if (ma === 'HTXS')
+                        {
+                            if (document.getElementById("D13_HTXS").value === '')
+                                document.getElementById("D13_HTXS").value = 'HTXS: ';
+                            document.getElementById("D13_HTT").value = '';
+                            document.getElementById("D13_HT").value = '';
+                            document.getElementById("D13_KHT").value = '';
+                        } else if (ma === 'HTT')
+                        {
+                            if (document.getElementById("D13_HTT").value === '')
+                                document.getElementById("D13_HTT").value = 'HTT: ';
+                            document.getElementById("D13_HTXS").value = '';
+                            document.getElementById("D13_HT").value = '';
+                            document.getElementById("D13_KHT").value = '';
+                        } else if (ma === 'HT')
+                        {
+                            if (document.getElementById("D13_HT").value === '')
+                                document.getElementById("D13_HT").value = 'HT: ';
+                            document.getElementById("D13_HTXS").value = '';
+                            document.getElementById("D13_HTT").value = '';
+                            document.getElementById("D13_KHT").value = '';
+                        } else
+                        {
+                            if (document.getElementById("D13_KHT").value === '')
+                                document.getElementById("D13_KHT").value = 'KHT: ';
+                            document.getElementById("D13_HTXS").value = '';
+                            document.getElementById("D13_HTT").value = '';
+                            document.getElementById("D13_HT").value = '';
+                        }
                     }
-
                 } catch (e)
                 {
                     swal('Lỗi', 'Lỗi: ' + e.toString(), 'error');
@@ -706,7 +713,7 @@
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA" value="<s:property  value="MA"/>"/>
                             <input type="hidden" value="<s:property  value="D14" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14" id="D14_<s:property  value="MA" />"/>
-                            <input type="hidden" value="<s:property  value="KHOA" />" 
+                            <input type="hidden" value="<s:property  value="KHOA" />" id="KHOA"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].KHOA"/>
 
                             <input type="hidden" value="<s:property  value="THUTU" />" 

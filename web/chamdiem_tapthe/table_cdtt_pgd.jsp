@@ -217,7 +217,8 @@
                                                        ;"  
                                                onkeyup="calc(this);"  onchange="calc(this);"    
                                                <s:if test="MA.equalsIgnoreCase('CDTT09')"> class="number505 TEN_KH" </s:if>  <s:else> class="number4 TEN_KH" </s:else>
-                                               <s:if test="!MA.equalsIgnoreCase('CDTT140102')&&!MA.equalsIgnoreCase('CDTT140201')
+                                               <s:if test="!MA.equalsIgnoreCase('CDTT140102')&&!MA.equalsIgnoreCase('CDTT140101')
+                                                     &&!MA.equalsIgnoreCase('CDTT140201')
                                                      &&!MA.equalsIgnoreCase('CDTT140202')&&!MA.equalsIgnoreCase('CDTT140301')
                                                      &&!MA.equalsIgnoreCase('CDTT140302')&&!MA.equalsIgnoreCase('CDTT1301')
                                                      &&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')
@@ -229,7 +230,10 @@
                                                      &&!MA.equalsIgnoreCase('CDTT11020103')&&!MA.equalsIgnoreCase('CDTT11020104')
                                                      &&!MA.equalsIgnoreCase('CDTT11020105')&&!MA.equalsIgnoreCase('CDTT11020106')
                                                      &&!MA.equalsIgnoreCase('CDTT11020201')
-                                                     &&!MA.equalsIgnoreCase('CDTT11020202')">readonly="readonly"</s:if>
+                                                     &&!MA.equalsIgnoreCase('CDTT11020202')&&!MA.equalsIgnoreCase('CDTT1007')
+                                                     &&!MA.equalsIgnoreCase('CDTT1001')&&!MA.equalsIgnoreCase('CDTT1002')
+                                                     &&!MA.equalsIgnoreCase('CDTT1003')&&!MA.equalsIgnoreCase('CDTT1004')
+                                                     &&!MA.equalsIgnoreCase('CDTT1005')&&!MA.equalsIgnoreCase('CDTT1006')">readonly="readonly"</s:if>
                                                    />
                                     </s:else>
                                 </td>
@@ -471,6 +475,7 @@
                                                    onkeyup="calc(this);"  onchange="calc(this);"    
                                                    <s:if test="MA.equalsIgnoreCase('CDTT09')"> class="number505 TEN_KH" </s:if>  <s:else> class="number4 TEN_KH" </s:else>               
                                                    <s:if test="!MA.equalsIgnoreCase('CDTT140102')&&!MA.equalsIgnoreCase('CDTT140201')
+                                                         &&!MA.equalsIgnoreCase('CDTT140101')
                                                          &&!MA.equalsIgnoreCase('CDTT140202')&&!MA.equalsIgnoreCase('CDTT140301')
                                                          &&!MA.equalsIgnoreCase('CDTT140302')&&!MA.equalsIgnoreCase('CDTT1301')
                                                          &&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')
@@ -620,6 +625,8 @@
 
                         setValue("D12_CDTT14", ["D12_CDTT1401", "D12_CDTT1402", "D12_CDTT1403"]);
                         // D11
+                        setValue("D11_CDTT10", ["D11_CDTT1001", "D11_CDTT1002", "D11_CDTT1003", "D11_CDTT1004", "D11_CDTT1005", "D11_CDTT1006", "D11_CDTT1007"]);
+                        
                         setValue("D11_CDTT11", ["D11_CDTT1101", "D11_CDTT1102"]);
                         setValue("D11_CDTT1102", ["D11_CDTT110201", "D11_CDTT110202", "D11_CDTT110203", "D11_CDTT110204"]);
                         setValue("D11_CDTT110201", ["D11_CDTT11020101", "D11_CDTT11020102", "D11_CDTT11020103", "D11_CDTT11020104", "D11_CDTT11020105", "D11_CDTT11020106"]);
@@ -632,6 +639,8 @@
                         setValue("D11_CDTT1401", ["D11_CDTT140101", "D11_CDTT140102"]);
                         setValue("D11_CDTT1402", ["D11_CDTT140201", "D11_CDTT140202"]);
                         setValue("D11_CDTT1403", ["D11_CDTT140301", "D11_CDTT140302"]);
+                        
+                        setDifference("D12_CDTT10", ["D1_CDTT10"], ["D11_CDTT10"]);
                     }
                     calc();
                 </script>
