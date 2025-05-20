@@ -206,8 +206,9 @@
                                          &&!MA.equalsIgnoreCase('CDTT11020102')
                                          &&!MA.equalsIgnoreCase('CDTT11020103')&&!MA.equalsIgnoreCase('CDTT11020104')
                                          &&!MA.equalsIgnoreCase('CDTT11020105')&&!MA.equalsIgnoreCase('CDTT11020106')
-                                         &&!MA.equalsIgnoreCase('CDTT11020201')
-                                         &&!MA.equalsIgnoreCase('CDTT11020202')">readonly="readonly"</s:if>
+                                         &&!MA.equalsIgnoreCase('CDTT11020201')&&!MA.equalsIgnoreCase('CDTT11020202')
+                                         &&!MA.equalsIgnoreCase('CDTT110117')&&!MA.equalsIgnoreCase('CDTT110124')
+                                         &&!MA.equalsIgnoreCase('CDTT110125')">readonly="readonly"</s:if>
                                        />
                             </td> 
                             <td align = "right" class="TD_NGUYENGIA">                            
@@ -223,8 +224,7 @@
                                    class="number2 TEN_KH"
                                    <s:if test="!MA.equalsIgnoreCase('CDTT1301')
                                          &&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')
-                                         &&!MA.equalsIgnoreCase('CDTT1304')&&!MA.equalsIgnoreCase('CDTT110203')
-                                         &&!MA.equalsIgnoreCase('CDTT110204')
+                                         &&!MA.equalsIgnoreCase('CDTT1304')
                                          ">readonly="readonly"</s:if>
                                        />
                             </td>
@@ -301,13 +301,16 @@
 
             setDifference("D12_CDTT11020202_" + mapgd, ["D1_CDTT11020202"], ["D11_CDTT11020202_" + mapgd]);
 
-            setValue("D12_CDTT110202_" + mapgd, ["D12_CDTT11020201_" + mapgd, "D12_CDTT11020202_" + mapgd]);
+            
+            
             setDifference("D12_CDTT110203_" + mapgd, ["D1_CDTT110203"], ["D11_CDTT110203_" + mapgd]);
             setDifference("D12_CDTT110204_" + mapgd, ["D1_CDTT110204"], ["D11_CDTT110204_" + mapgd]);
 
             setValue("D12_CDTT1102_" + mapgd, ["D12_CDTT110201_" + mapgd, "D12_CDTT110202_" + mapgd, "D12_CDTT110203_" + mapgd, "D12_CDTT110204_" + mapgd]);
-
+            setValue("D12_CDTT110202_" + mapgd, ["D12_CDTT11020201_" + mapgd, "D12_CDTT11020202_" + mapgd]);
             setValue("D12_CDTT11_" + mapgd, ["D12_CDTT1101_" + mapgd, "D12_CDTT1102_" + mapgd]);
+            
+            
             // chỉ tiêu CDTT13     
             setValue("D12_CDTT13_" + mapgd, ["D12_CDTT1301_" + mapgd, "D12_CDTT1302_" + mapgd, "D12_CDTT1303_" + mapgd, "D12_CDTT1304_" + mapgd]);
 
@@ -326,13 +329,16 @@
 
 
             // D5
-            setValue("D11_CDTT11_" + mapgd, ["D11_CDTT1101_" + mapgd, "D11_CDTT1102_" + mapgd]);
+            
             setValue("D11_CDTT1102_" + mapgd, ["D11_CDTT110201_" + mapgd, "D11_CDTT110202_" + mapgd, "D11_CDTT110203_" + mapgd, "D11_CDTT110204_" + mapgd]);
             setValue("D11_CDTT110201_" + mapgd, ["D11_CDTT11020101_" + mapgd, "D11_CDTT11020102_" + mapgd, "D11_CDTT11020103_" + mapgd, "D11_CDTT11020104_" + mapgd, "D11_CDTT11020105_" + mapgd, "D11_CDTT11020106_" + mapgd]);
-            setValue("D11_CDTT110202_" + mapgd, ["D11_CDTT11020201_" + mapgd, "D11_CDTT11020202_" + mapgd]);
+           
             setValue("D11_CDTT110203_" + mapgd, ["D11_CDTT11020301_" + mapgd, "D11_CDTT11020302_" + mapgd, "D11_CDTT11020303_" + mapgd, "D11_CDTT11020304_" + mapgd]);
             setValue("D11_CDTT110204_" + mapgd, ["D11_CDTT11020401_" + mapgd, "D11_CDTT11020402_" + mapgd]);
-
+            
+            setValue("D11_CDTT11_" + mapgd, ["D11_CDTT1101_" + mapgd, "D11_CDTT1102_" + mapgd]);
+             setValue("D11_CDTT110202_" + mapgd, ["D11_CDTT11020201_" + mapgd, "D11_CDTT11020202_" + mapgd]);
+             
             setValue("D11_CDTT13_" + mapgd, ["D11_CDTT1301_" + mapgd, "D11_CDTT1302_" + mapgd, "D11_CDTT1303_" + mapgd, "D11_CDTT1304_" + mapgd]);
             setValue("D11_CDTT14_" + mapgd, ["D11_CDTT1401_" + mapgd, "D11_CDTT1402_" + mapgd, "D11_CDTT1403_" + mapgd]);
             setValue("D11_CDTT1401_" + mapgd, ["D11_CDTT140101_" + mapgd, "D11_CDTT140102_" + mapgd]);

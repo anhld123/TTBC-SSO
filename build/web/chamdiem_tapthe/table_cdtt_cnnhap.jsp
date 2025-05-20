@@ -146,11 +146,7 @@
                                          &&!MA.equalsIgnoreCase('CDTT07')&&!MA.equalsIgnoreCase('CDTT08')
                                          &&!MA.equalsIgnoreCase('CDTT09')&&!MA.equalsIgnoreCase('CDTT1301')
                                          &&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')
-                                         &&!MA.equalsIgnoreCase('CDTT1304')&&!MA.equalsIgnoreCase('CDTT11020301')
-                                         &&!MA.equalsIgnoreCase('CDTT11020302')&&!MA.equalsIgnoreCase('CDTT11020303')
-                                         &&!MA.equalsIgnoreCase('CDTT11020304')&&!MA.equalsIgnoreCase('CDTT11020401')
-                                         &&!MA.equalsIgnoreCase('CDTT11020402')&&!MA.equalsIgnoreCase('CDTT11020201')
-                                         &&!MA.equalsIgnoreCase('CDTT11020202')">readonly="readonly"</s:if>
+                                         &&!MA.equalsIgnoreCase('CDTT1304')">readonly="readonly"</s:if>
                                        />
                             </td>
                             <td align = "right" class="TD_NGUYENGIA">                                                        
@@ -174,11 +170,7 @@
                                          !MA.equalsIgnoreCase('CDTT140202') && !MA.equalsIgnoreCase('CDTT140301') &&
                                          !MA.equalsIgnoreCase('CDTT140302') && !MA.equalsIgnoreCase('CDTT1301') &&
                                          !MA.equalsIgnoreCase('CDTT1302') && !MA.equalsIgnoreCase('CDTT1303') &&
-                                         !MA.equalsIgnoreCase('CDTT1304') && !MA.equalsIgnoreCase('CDTT11020301') &&
-                                         !MA.equalsIgnoreCase('CDTT11020302') && !MA.equalsIgnoreCase('CDTT11020303') &&
-                                         !MA.equalsIgnoreCase('CDTT11020304') && !MA.equalsIgnoreCase('CDTT11020401') &&
-                                         !MA.equalsIgnoreCase('CDTT11020402') && !MA.equalsIgnoreCase('CDTT11020201') &&
-                                         !MA.equalsIgnoreCase('CDTT11020202'))
+                                         !MA.equalsIgnoreCase('CDTT1304'))
                                          ||
                                          (months.equalsIgnoreCase('03') || months.equalsIgnoreCase('06') ||
                                          months.equalsIgnoreCase('09') || months.equalsIgnoreCase('12')) &&
@@ -192,12 +184,7 @@
                                          !MA.equalsIgnoreCase('CDTT140202') && !MA.equalsIgnoreCase('CDTT140301') &&
                                          !MA.equalsIgnoreCase('CDTT140302') && !MA.equalsIgnoreCase('CDTT1301') &&
                                          !MA.equalsIgnoreCase('CDTT1302') && !MA.equalsIgnoreCase('CDTT1303') &&
-                                         !MA.equalsIgnoreCase('CDTT1304') && !MA.equalsIgnoreCase('CDTT11020301') &&
-                                         !MA.equalsIgnoreCase('CDTT11020302') && !MA.equalsIgnoreCase('CDTT11020303') &&
-                                         !MA.equalsIgnoreCase('CDTT11020304') && !MA.equalsIgnoreCase('CDTT11020401') &&
-                                         !MA.equalsIgnoreCase('CDTT11020402') && !MA.equalsIgnoreCase('CDTT11020201') &&
-                                         !MA.equalsIgnoreCase('CDTT11020202'))
-                                         ">
+                                         !MA.equalsIgnoreCase('CDTT1304'))">
                                        readonly="readonly"
                                    </s:if>
                                    />
