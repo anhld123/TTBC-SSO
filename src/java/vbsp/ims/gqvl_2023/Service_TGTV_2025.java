@@ -393,64 +393,26 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
             if (!getParaSession()) {
                 return ERROR;
             }
+            DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
+            Connection conn = new DaoConnect().getConnect();
             HashMap hmParameter = getParameter();
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
             String mainpos = hmParameter.get("lstCN").toString();
             String dateStr = hmParameter.get("ngay_bc").toString();
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
-            lstPGD_API = _serverAPI.getListPgd(mainpos, "");
             ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("TGTV_2025", mainpos, "M", _reportDate);
             try {
                 setChotsl(lstData_tmp.get(0).getStatus());
             } catch (Exception e) {
                 setChotsl("0");
             }
-            if (lstPGD_API == null || lstPGD_API.isEmpty()) {
-                addActionError("Lỗi khi gọi API!");
+
+            lstDulieuNt = daoMain.getTGTV_2025(conn, "TGTV_2025", mainpos, dateStr, "S", "");
+            if (lstDulieuNt == null || lstDulieuNt.isEmpty()) {
+                addActionError("Chưa có dữ liệu!");
                 return ERROR;
             }
-
-            for (ListPosCode item : lstPGD_API) {
-                QT_DULIEU_NT row = new QT_DULIEU_NT();
-                try {
-                    row.setD1(item.getPosCode());
-                    row.setD2(item.getPosName());
-                    row.setD3(item.getMainPos());
-                    row.setD4("0");
-                    row.setD5(dateStr);
-                    row.setD6(null);
-                    row.setD7(_reportDate);
-                    ArrayList<LockSendModel> lstData_tmp1 = _serverAPI.getDataLockManual("TGTV_2025", item.getPosCode(), "S", _reportDate);
-                    try {
-                        setChotCic(lstData_tmp1.get(0).getStatus());
-                    } catch (Exception e) {
-                        setChotCic("0");
-                    }
-                    row.setD8(chotCic);
-//                    row.setD9("TTCN_01_" + txtGetData);
-                    lstData_Api = _serverAPI.getData_condition("TGTV_2025", item.getPosCode(), "S", _reportDate, "");
-                    int countD9_1 = 0;
-                    int countD9_0 = 0;
-                    if (lstData_Api != null) {
-                        for (DuLieuNTRow apiRow : lstData_Api) {
-                            if ("1".equals(apiRow.getD9())) {
-                                countD9_1++;
-                            } else if ("0".equals(apiRow.getD9())) {
-                                countD9_0++;
-                            }
-                        }
-                    }
-                    int countD9 = countD9_1 + countD9_0;
-                    row.setD10(String.valueOf(countD9_1));
-                    row.setD11(String.valueOf(countD9_0));
-                    row.setD12(String.valueOf(countD9));
-                    lstDulieuNt.add(row);
-                } catch (Exception e) {
-                    System.err.println("Error processing posCode " + item.getPosCode() + ": " + e.getMessage());
-                }
-            }
-
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> tin dung 2024: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> tin dung 2024: " + e.getMessage());
