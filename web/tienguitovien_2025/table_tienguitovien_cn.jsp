@@ -147,7 +147,7 @@
                     <th style="width: 100px">Hoàn thành cập nhật hồ sơ</th>
                     <th style="width: 100px">Chưa hoàn thành cập nhật hồ sơ</th>
                     <th style="width: 100px">Tổng cộng</th>
-                    <th style="width: 100px">Chốt dữ liệu gửi TW</th>
+                    <th style="width: 120px">Chốt dữ liệu gửi TW</th>
                         <s:if test="Grade.equalsIgnoreCase('2')">
                         <th style="width: 120px">Chốt dữ liệu CN</th>
                         </s:if>
@@ -179,10 +179,13 @@
                         <td style="color: #ff0000" class="D0"><s:property value="D12" /></td> 
                         <s:if test="Grade.equalsIgnoreCase('2')">
                             <td class="D0">
-                                <s:if test="D8.equalsIgnoreCase('1')">
-                                    <a style="text-decoration: underline" href="#" onclick="sendData('<s:property value="D1"/>', '<s:property value="D3"/>', '<s:property value="D5"/>', '<s:property value="D7"/>');">Chốt dữ liệu TW</a>
+                                <s:if test="chotsl.equalsIgnoreCase('2')">
+                                    <a style="color: orange">TW khóa nhập dữ liệu</a>
                                 </s:if>
-                                <s:elseif test="D8.equalsIgnoreCase('0')">
+                                <s:elseif test="D8.equalsIgnoreCase('1')">
+                                    <a style="text-decoration: underline" href="#" onclick="sendData('<s:property value="D1"/>', '<s:property value="D3"/>', '<s:property value="D5"/>', '<s:property value="D7"/>');">Chốt dữ liệu TW</a>
+                                </s:elseif>
+                                <s:elseif test="D8.equalsIgnoreCase('0') && !chotsl.equalsIgnoreCase('2')">
                                     <a style="color: red">Chưa chốt dữ liệu</a>
                                 </s:elseif>
                                 <s:else>
@@ -190,9 +193,12 @@
                                 </s:else>
                             </td>
                             <td class="D0">
-                                <s:if test="D8.equalsIgnoreCase('1')">
+                                <s:if test="chotsl.equalsIgnoreCase('2')">
+                                    <a style="color: orange">TW khóa nhập dữ liệu</a>
+                                </s:if>
+                                <s:elseif test="D8.equalsIgnoreCase('1')">
                                     <a style="text-decoration: underline" href="#" onclick="idUnlock('<s:property value="D1"/>', $('#ngay_bc_DATE').val(), '<s:property value="D8"/>', '3');">Mở chốt dữ liệu PGD</a>
-                                </s:if> 
+                                </s:elseif> 
                                 <s:elseif test="D8.equalsIgnoreCase('0')">
                                     <a style="color: red">Chưa chốt dữ liệu</a>
                                 </s:elseif>
@@ -295,7 +301,7 @@
                 }
             });
         }
-        
+
         function idUnlock(D1, D2, D3, D4) {
             var table = document.getElementById("subTable");
             var rows = table.querySelectorAll("td a");
@@ -317,7 +323,7 @@
                 data: sdata,
                 success: function (data) {
                     if (data === "200") {
-                            alert("Mở khóa dữ liệu thành công!");
+                        alert("Mở khóa dữ liệu thành công!");
                         onLoadData();
                     } else {
                         alert("Lỗi: Mở dữ liệu.");

@@ -333,7 +333,12 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
             String dateStr = hmParameter.get("ngay_bc").toString();
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             lstPGD_API = _serverAPI.getListPgd(main_pos_username, "");
-
+            ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("TGTV_2025", main_pos_username, "M", _reportDate);
+            try {
+                setChotsl(lstData_tmp.get(0).getStatus());
+            } catch (Exception e) {
+                setChotsl("0");
+            }
             if (lstPGD_API == null || lstPGD_API.isEmpty()) {
                 addActionError("Lỗi khi gọi API!");
                 return ERROR;
@@ -363,13 +368,13 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
                             }
                         }
                     }
-                    ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("TGTV_2025", item.getPosCode(), "S", _reportDate);
+                    ArrayList<LockSendModel> lstData_tmp1 = _serverAPI.getDataLockManual("TGTV_2025", item.getPosCode(), "S", _reportDate);
                     try {
-                        setChotsl(lstData_tmp.get(0).getStatus());
+                        setChotCic(lstData_tmp1.get(0).getStatus());
                     } catch (Exception e) {
-                        setChotsl("0");
+                        setChotCic("0");
                     }
-                    row.setD8(chotsl);
+                    row.setD8(chotCic);
                     int countD9 = countD9_1 + countD9_0;
                     row.setD10(String.valueOf(countD9_1));
                     row.setD11(String.valueOf(countD9_0));

@@ -244,7 +244,7 @@
                     }
                     var chotcic = document.getElementById("chotcic").value;
                     if (chotcic === "2" || chotcic === "1") {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Dữ liệu đã chốt, khoogn thể thao tác!</h>");
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Dữ liệu đã chốt, không thể thao tác!</h>");
                         return;
                     }
                     if (isValid) {
