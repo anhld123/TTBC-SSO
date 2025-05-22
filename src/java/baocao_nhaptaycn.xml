@@ -31,6 +31,7 @@
             <result name="TTCN_01">/thongtincanhan_2024/para_thongtincanhan.jsp</result>
              <result name="GQVL_01">/GQVL2023/para_gqvl.jsp</result>
 <!--            <result name="HTLS_2024">/htls_2024/para_htls_2024.jsp</result>-->
+            <result name="TGTV_2025">/tienguitovien_2025/para_tienguitovien.jsp</result>
             <result name="error">/nhaptay-cn/success.jsp</result>    
                 
         </action>  
@@ -50,25 +51,6 @@
             <result name="success">/nhaptay-cn/table_list_bc.jsp</result>
             <result name="error">sbv/success.jsp</result>
         </action>
-        
-<!--        <action name="HUYDONG_2024" class="vbsp.ims.huydongtk.huydongtk_2024" method="load">
-            <result name="success">/GQVL2023/huydongtietkiem.jsp</result>                                 
-            <result name="error">/nhaptay-cn/success.jsp</result>       
-        </action> 
-        
-        <action name="cancelAssign_HUYDONG_2024" class="vbsp.ims.huydongtk.huydongtk_2024" method="cancelAssign">
-            <result name="success" type="json"></result>
-        </action>
-        
-        <action name="search_HUYDONG_2024" class="vbsp.ims.huydongtk.huydongtk_2024"  method="search">
-            <result name="success">/GQVL2023/huydongtietkiem.jsp</result>                                 
-            <result name="error">/nhaptay-cn/success.jsp</result>       
-        </action> 
-     
-          <action name="save_HUYDONG_2024" class="vbsp.ims.huydongtk.huydongtk_2024"  method="save">
-            <result name="success">/BCQT/success.jsp</result>
-            <result name="error">/BCQT/success.jsp</result>        
-        </action>  -->
          <action name="CIC_002" class="vbsp.ims.gqvl_2023.CIC_2024"  method="load">
             <result name="success">/CIC_2024/table_cic_2024.jsp</result>                              
             <result name="error">/nhaptay-cn/success.jsp</result>       
@@ -991,8 +973,47 @@
                 <param name="inputName">pageResult</param>
             </result>  
         </action>
-          <action name="unlock_GQVL_01_c3" class="vbsp.ims.gqvl_2023.Service_GQVL_2025" method="unlock_c3">
+        <action name="unlock_GQVL_01_c3" class="vbsp.ims.gqvl_2023.Service_GQVL_2025" method="unlock_c3">
             <result name="success" type="json"></result>
+        </action>
+        <!--tien gui to vien 2025-->
+        <action name="TGTV_2025" class="vbsp.ims.gqvl_2023.Service_TGTV_2025"  method="load">
+            <result name="success_1">/tienguitovien_2025/table_tienguitovien_pgd.jsp</result>
+            <result name="success_2">/tienguitovien_2025/table_tienguitovien_cn.jsp</result>                                                           
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        <action name="save_TGTV_2025" class="vbsp.ims.gqvl_2023.Service_TGTV_2025" method="save">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>  
+        </action>
+        <action name="popuptienguitovien" class="vbsp.ims.gqvl_2023.Service_TGTV_2025" method="popupTablePos">
+            <result name="success">/tienguitovien_2025/popupTableToVien.jsp</result>
+        </action>
+        <action name="senCn_TGTV_2025" class="vbsp.ims.gqvl_2023.Service_TGTV_2025"  method="sendCn">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action>
+        <action name="lock_TGTV_2025" class="vbsp.ims.gqvl_2023.Service_TGTV_2025"  method="send">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action>
+        <action name="lock_TGTV_2025_c1" class="vbsp.ims.gqvl_2023.Service_TGTV_2025"  method="send_c1">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action>
+         <action name="unlock_TGTV_2025_c1" class="vbsp.ims.gqvl_2023.Service_TGTV_2025"  method="unlock_c1">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
         </action>
     </package>
 </struts>

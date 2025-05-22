@@ -904,13 +904,13 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 }
                 return "KTTC_MUASAM_01";
             }
-            if (this.khoa_nhaptaycn.equals("TTCN_01")) {
+            if (this.khoa_nhaptaycn.equals("TTCN_01")|| this.khoa_nhaptaycn.equals("TGTV_2025")) {
                 DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
                 setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));
                 setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
                 _server_tmp = new LeaveHomeService();
                 lstCN_API = _server_tmp.getListCn("");
-                return "TTCN_01";
+                return this.khoa_nhaptaycn.equals("TTCN_01") ? "TTCN_01" : "TGTV_2025";
             }
             if (khoa_nhaptaycn.equals("KPBL_01")) {
                 DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();

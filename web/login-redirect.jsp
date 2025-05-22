@@ -10,34 +10,35 @@
         <title>Ngân hàng chính sách xã hội VN</title>
         <script type="text/javascript" src="js/jquery-1.4.3.js"></script>
         <style>
-            body {
-                font-family: Arial, sans-serif;
-                text-align: left;
-                background-color: #f9f9f9;
-                color: #333;
-                background-image: url('img/anh33.jpg');
-                /*background-image: url('img/backgroud_logo.jpg');*/
-                background-size: contain;   
-                background-size: 65%;
-                background-repeat: no-repeat;  
-                background-position: left;  
-                background-attachment: fixed;  
-                background-blend-mode: multiply;
-                background-position: 50px;
-            }
             /*            body {
                             font-family: Arial, sans-serif;
-                            text-align: center;
+                            text-align: left;
                             background-color: #f9f9f9;
                             color: #333;
-                            background-image: url('img/anh30.jpg');
+                            background-image: url('img/anh33.jpg');
+                            background-image: url('img/backgroud_logo.jpg');
+                            background-size: contain;   
                             background-size: cover;
-                            background-repeat: no-repeat;
-                            background-position: center 5px;
-                            background-attachment: fixed;
+                            background-repeat: no-repeat;  
+                            background-position: left;  
+                            background-attachment: fixed;  
                             background-blend-mode: multiply;
-                            transition: background-image 1s ease-in-out;
+                            background-position: 50px;
                         }*/
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                background-color: #f9f9f9;
+                color: #333;
+                background-image: url('img/backgroud_logo.jpg');
+                background-size: contain; /* Hiển thị ảnh đầy đủ trong khung */
+                background-repeat: no-repeat; /* Không lặp lại ảnh */
+                background-position: center; /* Căn giữa ảnh */
+                background-attachment: fixed; /* Giữ ảnh cố định khi cuộn trang */
+                background-blend-mode: multiply; /* Hòa trộn màu nền với ảnh */
+                background-position: center 50px;
+            }
+
             .container {
                 max-width: 600px;
                 margin: 0 auto;

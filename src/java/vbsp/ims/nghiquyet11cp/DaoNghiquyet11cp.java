@@ -1951,7 +1951,7 @@ public class DaoNghiquyet11cp {
         return true;
     }
 
-     public List<QT_DULIEU_NT> getData_GQVL_2023(Connection conn, String sNgaybc, String sKhoa, String sUser, String sPosCd, String sPos_Flag) {
+    public List<QT_DULIEU_NT> getData_GQVL_2023(Connection conn, String sNgaybc, String sKhoa, String sUser, String sPosCd, String sPos_Flag) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
             CallableStatement calstatement = null;
@@ -2763,7 +2763,7 @@ public class DaoNghiquyet11cp {
         }
         return true;
     }
-    
+
     public boolean saveKKTS2024_HDKT(String khoa, String username, String sposcd, String sGrade, String ngaybc, String stype, List<DULIEU_NT_TQ> lstData) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -2798,6 +2798,42 @@ public class DaoNghiquyet11cp {
         }
         return true;
     }
+
+    public boolean save_TGTV_2025(String khoa, String ngaybc, String sposcd, String smaxa, String sposfl, List<DULIEU_NT_TQ> lstData, String stype) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(DULIEU_NT_TQ.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+        ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("POS_CD", connection);
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_TDNN.P_SAVE_TGTV_2025(?, ?, ?, ? ,?,?,?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, ngaybc);
+            cs.setString(3, sposcd);
+            cs.setString(4, smaxa);
+            cs.setString(5, sposfl);
+            cs.setArray(6, array_to_pass);
+            cs.setString(7, stype);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham to vien " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " to vien -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) throws Exception {
         String s = "30-APR-2022";
         Date date_ngay_bc = new SimpleDateFormat("dd-MMM-yyyy").parse(s);
