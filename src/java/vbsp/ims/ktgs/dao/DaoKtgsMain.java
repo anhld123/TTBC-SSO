@@ -2208,7 +2208,7 @@ public class DaoKtgsMain {
         CallableStatement calstatement = null;
         ResultSet reset = null;
         //Khoi tao procedure cung voi tham so truyen vao la dau ?
-        String strStoreproce = "{ ? = call VBSP_IMS_KTGS.F_CHECK_CHOTVBSP_IMS_KTGS_KTGS(?, ?, ?, ?) }";
+        String strStoreproce = "{ ? = call VBSP_IMS_KTGS.F_CHECK_CHOT_KTGS(?, ?, ?, ?) }";
         
         try {
             //Khoi tao goi Store
