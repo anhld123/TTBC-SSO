@@ -217,6 +217,40 @@
             window.close();
         });
         function idUnlockCif(D1, D2, D3, D4) {
+            var parts = D2.split("/");
+            var inputDay = parseInt(parts[0], 10);
+            var inputMonth = parseInt(parts[1], 10) - 1; // tháng JS bắt đầu từ 0
+            var inputYear = parseInt(parts[2], 10);
+            var inputDate = new Date(inputYear, inputMonth, inputDay);
+
+            var today = new Date();
+            var currentYear = today.getFullYear();
+            var currentMonth = today.getMonth(); // 0-based
+            var lastDayOfCurrentMonth = new Date(currentYear, currentMonth + 1, 0);
+
+            let allowedMonth, allowedYear;
+
+            if (today.getDate() < lastDayOfCurrentMonth.getDate()) {
+                // Chưa đến ngày cuối tháng → thao tác dữ liệu tháng trước
+                if (currentMonth === 0) {
+                    allowedMonth = 11;        // Tháng 12 năm trước
+                    allowedYear = currentYear - 1;
+                } else {
+                    allowedMonth = currentMonth - 1;
+                    allowedYear = currentYear;
+                }
+            } else {
+                // Đúng hoặc sau ngày cuối tháng → thao tác tháng hiện tại
+                allowedMonth = currentMonth;
+                allowedYear = currentYear;
+            }
+//            alert(inputMonth + " " + currentMonth + " " + inputYear + " " + currentYear + " " + inputDate + " " + lastDayOfCurrentMonth);
+
+            if (inputMonth !== allowedMonth || inputYear !== allowedYear) {
+                alert("Chỉ được thao tác với dữ liệu tháng " + (allowedMonth + 1) + "/" + allowedYear);
+                return;
+            }
+
             var table = document.getElementById("subTable");
             var rows = table.querySelectorAll("td a");
 
