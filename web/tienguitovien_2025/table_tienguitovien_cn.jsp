@@ -113,7 +113,7 @@
             });
 
             function funcTableFile(D1, D7, type) {
-                var w = 900, h = 500;
+                var w = 1500, h = 700;
                 var left = (screen.width / 2) - (w / 2);
                 var top = (screen.height / 2) - (h / 2);
                 var urlParam = "madiemgd=" + D1 + "&ngaybc=" + D7 + "&type=" + type;
@@ -126,7 +126,7 @@
         <div style="overflow:scroll; width: 80%;">     
             <div id="divTitle">
                 DANH SÁCH GỬI DỮ LIỆU 
-                <s:if test="Grade.equalsIgnoreCase('3')">
+                <%--<s:if test="Grade.equalsIgnoreCase('3')">
                     &nbsp;|&nbsp;
                     <button type="button"
                             onclick="idSend($('#lstCN').val(), $('#ngay_bc_DATE').val(), '<s:property value="chotsl"/>', '1')">
@@ -135,7 +135,7 @@
                         </button>
 
                 </s:if>
-                <s:if test="chotsl.equalsIgnoreCase('2')&& Grade.equalsIgnoreCase('2')"><a class="color_11">(TW đã khóa nhập dữ liệu)</a></s:if>
+                <s:if test="chotsl.equalsIgnoreCase('2')&& Grade.equalsIgnoreCase('2')"><a class="color_11">(TW đã khóa nhập dữ liệu)</a></s:if>--%>
                 <input type="hidden" value="<s:property value="chotsl"/>" name="chotsl" id="chotsl"/> 
             </div>
             <div style="height:20px"></div>  
@@ -147,10 +147,11 @@
                     <th style="width: 100px">Hoàn thành cập nhật hồ sơ</th>
                     <th style="width: 100px">Chưa hoàn thành cập nhật hồ sơ</th>
                     <th style="width: 100px">Tổng cộng</th>
-                    <th style="width: 120px">Chốt dữ liệu gửi TW</th>
+                    <th style="width: 100px">Trạng thái</th>
+                    <!--<th style="width: 120px">Chốt dữ liệu gửi TW</th>
                         <s:if test="Grade.equalsIgnoreCase('2')">
                         <th style="width: 120px">Chốt dữ liệu CN</th>
-                        </s:if>
+                        </s:if>-->
                 </tr>  
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
@@ -160,9 +161,9 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
-                        <s:if test="Grade.equalsIgnoreCase('2')">
+                        <%--<s:if test="Grade.equalsIgnoreCase('2')">
                         <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
-                        </s:if>
+                     </s:if>--%>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr>
@@ -177,22 +178,22 @@
                                           href="javascript:funcTableFile('<s:property value="D1"/>', '<s:property value="D7"/>', '0')">
                                 <s:property value="D11" /></a></td> 
                         <td style="color: #ff0000" class="D0"><s:property value="D12" /></td> 
-                        <s:if test="Grade.equalsIgnoreCase('2')">
+                       <s:if test="Grade.equalsIgnoreCase('2')">
                             <td class="D0">
-                                <s:if test="chotsl.equalsIgnoreCase('2')">
+                                <%--<s:if test="chotsl.equalsIgnoreCase('2')">
                                     <a style="color: orange">TW khóa nhập dữ liệu</a>
                                 </s:if>
-                                <s:elseif test="D8.equalsIgnoreCase('1')">
-                                    <a style="text-decoration: underline" href="#" onclick="sendData('<s:property value="D1"/>', '<s:property value="D3"/>', '<s:property value="D5"/>', '<s:property value="D7"/>');">Chốt dữ liệu TW</a>
-                                </s:elseif>
+                                <s:elseif test="D8.equalsIgnoreCase('1')">--%>
+                                    <a style="text-decoration: underline" href="#" onclick="sendData('<s:property value="D1"/>', '<s:property value="D3"/>', '<s:property value="D5"/>', '<s:property value="D7"/>');">Lưu dữ liệu tại CN</a>
+                                <%--</s:elseif>
                                 <s:elseif test="D8.equalsIgnoreCase('0') && !chotsl.equalsIgnoreCase('2')">
                                     <a style="color: red">Chưa chốt dữ liệu</a>
                                 </s:elseif>
                                 <s:else>
                                     <a style="color: #009900">Đã chốt dữ liệu TW</a>
-                                </s:else>
+                                </s:else>--%>
                             </td>
-                            <td class="D0">
+                          <%--   <td class="D0">
                                 <s:if test="chotsl.equalsIgnoreCase('2')">
                                     <a style="color: orange">TW khóa nhập dữ liệu</a>
                                 </s:if>
@@ -216,7 +217,7 @@
                                     <a style="color: #ff0000">Chưa gửi dữ liệu</a>
                                 </s:else>
                             </td>
-                        </s:if>
+                        --%></s:if>
                     </tr>
                 </s:iterator>
             </table>

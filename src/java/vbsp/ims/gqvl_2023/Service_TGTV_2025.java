@@ -501,11 +501,8 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
                 tempadd.setD33(tmp.getD33());
                 tempadd.setD34(tmp.getD34());
                 tempadd.setD35(tmp.getD35());
-
                 lstUpdateDate.add(tempadd);
-
             }
-
             _serverAPI = new DuLieuNTService();
             int status = _serverAPI.getGQVL2023("TGTV_2025", pos_cd_username, "S", _reportDate, "", "", lstUpdateDate);
             if (status == 200) {
@@ -750,4 +747,74 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
         this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
+
+    public String unlock_cif() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            String macif = ServletActionContext.getRequest().getParameter("macif");
+            String dateStr = ServletActionContext.getRequest().getParameter("ngayss");
+            String sotk = ServletActionContext.getRequest().getParameter("sotk");
+            String mapgd = ServletActionContext.getRequest().getParameter("mapgd");
+            String[] values = dateStr.split("\\/");
+            String sngay = values[0];
+            String sthang = values[1];
+            String snam = values[2];
+            String _reportDate = snam + sthang + sngay;
+            String condition = "D1=" + macif + "|D6=" + sotk + "|";
+
+            // Lấy dữ liệu từ API
+            lstData_Api = _serverAPI.getData_condition("TGTV_2025", mapgd, "S", _reportDate, condition);
+            ArrayList<DuLieuNTRowX> lstLocalDataUpdate = new ArrayList<>();
+            for (DuLieuNTRow tmp : lstData_Api) {
+                DuLieuNTRowX tempadd = new DuLieuNTRowX();
+                int iStt = 1;
+                iStt++;
+                tempadd.setKey(tmp.getKey());
+                tempadd.setOrderValue(iStt);
+                tempadd.setOrderDescription(tmp.getOrderDescription());
+                tempadd.setCode(tmp.getCode());
+                tempadd.setMakerId(tmp.getMakerId());
+                tempadd.setAuthoriseId(tmp.getAuthoriseId());
+                tempadd.setReportDate(tmp.getReportDate());
+                tempadd.setName(tmp.getName());
+                tempadd.setReportYear(tmp.getReportYear());
+                tempadd.setPosCode(mapgd);
+                tempadd.setPosFlag(tmp.getPosCode());
+                tempadd.setBranchCode(tmp.getBranchCode());
+                tempadd.setD1(tmp.getD1());
+                tempadd.setD2(tmp.getD2());
+                tempadd.setD3(tmp.getD3());
+                tempadd.setD4(tmp.getD4());
+                tempadd.setD5(tmp.getD5());
+                tempadd.setD6(tmp.getD6());
+                tempadd.setD7(tmp.getD7());
+                tempadd.setD8(tmp.getD8());
+                tempadd.setD9("0");
+                tempadd.setD10(tmp.getD10());
+                tempadd.setD11(tmp.getD11());
+                tempadd.setD12(tmp.getD12());
+                tempadd.setD13(tmp.getD13());
+                tempadd.setD14(tmp.getD14());
+                tempadd.setD15(tmp.getD15());
+
+                lstLocalDataUpdate.add(tempadd);
+            }
+            int status = _serverAPI.getGQVL2023("TGTV_2025", mapgd, "S", _reportDate, "", "", lstLocalDataUpdate);
+            if (status != 200) {
+                this.pageResult = new ByteArrayInputStream(String.valueOf(status).getBytes(StandardCharsets.UTF_8));
+                return ERROR;
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> send 23: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> send 23: " + e.getMessage());
+            this.pageResult = new ByteArrayInputStream("500".getBytes(StandardCharsets.UTF_8));
+            return ERROR;
+        }
+        String code = String.valueOf(200);
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        return SUCCESS;
+    }
+
 }

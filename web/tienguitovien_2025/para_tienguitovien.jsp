@@ -237,6 +237,52 @@
                 let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
                 if (aCheck) {
                     var isValid = true;
+                    var ngaybc = document.getElementById('ngay_bc_DATE').value.trim();
+                    var ngaybcParts = ngaybc.split('/');
+
+                    var ngaybcDay = parseInt(ngaybcParts[0], 10);
+                    var ngaybcMonth = parseInt(ngaybcParts[1], 10);
+                    var ngaybcYear = parseInt(ngaybcParts[2], 10);
+
+                    var currentDate = new Date();
+                    var currentDay = currentDate.getDate();
+                    var currentMonth = currentDate.getMonth() + 1; // JS month = 0-11
+                    var currentYear = currentDate.getFullYear();
+
+// Lấy ngày cuối cùng của tháng hiện tại
+                    var lastDayOfCurrentMonth = new Date(currentYear, currentMonth, 0).getDate();
+
+// Nếu hôm nay < ngày cuối tháng => cho nhập ngày cuối tháng trước
+                    if (currentDay < lastDayOfCurrentMonth) {
+                        var allowedMonth = currentMonth - 1;
+                        var allowedYear = currentYear;
+                        if (allowedMonth === 0) {
+                            allowedMonth = 12;
+                            allowedYear--;
+                        }
+                        var lastDayOfAllowedMonth = new Date(allowedYear, allowedMonth, 0).getDate();
+
+                        if (!(ngaybcDay === lastDayOfAllowedMonth && ngaybcMonth === allowedMonth && ngaybcYear === allowedYear)) {
+                            alert("Hết hạn nhập dữ liệu, chọn tháng "+currentDate.getMonth()+" để thao tác!");
+                            return;
+                        }
+                    } else {
+                        // Hôm nay >= ngày cuối tháng => chỉ được nhập ngày cuối tháng kế tiếp - 1
+                        var nextMonth = currentMonth + 1;
+                        var nextYear = currentYear;
+                        if (nextMonth > 12) {
+                            nextMonth = 1;
+                            nextYear++;
+                        }
+
+                        var lastDayOfNextMonth = new Date(nextYear, nextMonth, 0).getDate();
+                        var allowedDay = lastDayOfNextMonth - 1;
+
+                        if (!(ngaybcDay === allowedDay && ngaybcMonth === nextMonth && ngaybcYear === nextYear)) {
+                            alert("Chỉ được nhập ngày trước ngày cuối của tháng kế tiếp!");
+                            return;
+                        }
+                    }
                     var chot = document.getElementById("chotsl").value;
                     if (chot === "2" || chot === "1") {
                         $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: TW đã khóa nhập dữ liệu!</h>");
@@ -339,7 +385,6 @@
             $.subscribe("completediv_send", function (event, data) {
                 $("#loadingImageDiv_data").hide();
             });
-
             $("#idSend").click(function () {
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
@@ -390,7 +435,6 @@
             function reLoadValue(val) {
                 var var2, vartxt, selected;
                 $("#mato").children().remove().end();
-
                 $("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
                 $("#mato").prepend("<option value='000000_NOGROUP' " + selected + "> NOGROUP -> Trực tiếp</option>");
                 $("#mato_data > option").each(function () {
@@ -400,7 +444,6 @@
                         $("#mato").prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
                     }
                 });
-
                 $("#mato").html($("#mato option").sort(function (a, b) {
                     return a.text === b.text ? 0 : a.text < b.text ? -1 : 1;
                 }));
@@ -445,8 +488,7 @@
                         </select> 
                     </s:if>
                     <s:if test="Grade.equalsIgnoreCase('1')">
-                        &nbsp;<a style="color: #0000FF; font-weight: bold">Hoàn thành</a>
-                        <a style="color: red; font-weight: bold">/Chưa hoàn thành</a>
+                        &nbsp;<a style="color: #0000FF; font-weight: bold">Danh sách KH đã hoàn thành</a>
                         <input type="hidden" name="txtGetData" value="0" />
                         <input type="checkbox" onclick="$(this).val(this.checked ? 1 : 0)" 
                                oninput="onSelectChange_dnht1(this.value, <s:property  value='%{#rowstatus.index}'/>)"
@@ -455,7 +497,7 @@
                     &nbsp;<input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                     <s:if test="Grade.equalsIgnoreCase('1')">
                         &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/> 
-                        &nbsp;|&nbsp;<input style="color: red" type="button" id="idSend" value="Chốt dữ liệu PGD"/> 
+                        <!--&nbsp;|&nbsp;<input style="color: red" type="button" id="idSend" value="Chốt dữ liệu PGD"/>--> 
                     </s:if>
                     <a id="message_suc_err"/>
                 </table>     
@@ -510,10 +552,8 @@
                     var formattedDate = ('0' + lastDayOfMonth.getDate()).slice(-2) + '/' +
                             ('0' + (lastDayOfMonth.getMonth() + 1)).slice(-2) + '/' +
                             lastDayOfMonth.getFullYear();
-
                     // Đặt giá trị mặc định cho datepicker
                     datepicker.val(formattedDate);
-
                     // Cập nhật cấu hình datepicker để chỉ cho phép chọn ngày cuối cùng của tháng
                     datepicker.datepicker("option", {
                         beforeShowDay: function (date) {
@@ -527,11 +567,9 @@
                 $('#ngay_bc_DATE').datepicker({
                     dateFormat: 'dd/mm/yy' // Định dạng ngày
                 });
-
                 // Gọi hàm cập nhật datepicker
                 updateDatepicker();
             });
-
             function callDirectLink(link) {
                 PopupCenter(link, 'Upload excel', 800, 400);
             }
@@ -566,7 +604,6 @@
                         $('#idSave').hide();
                     }
                 });
-
                 // Kiểm tra giá trị ban đầu nếu đã được chọn sẵn
                 if ($('#txtGetData').val() === '0') {
                     $('#idSave').show();
