@@ -43,6 +43,15 @@
             });
         </script>
         <style>
+            body {
+                background-image: url('img/backgroud_logo.jpg');
+                background-size: 40% auto;
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-attachment: fixed;
+                background-blend-mode: multiply;
+                background-position: center 120px;
+            }
             #menuBcttv{
                 width: 100%;
                 height: 30px;                

@@ -186,7 +186,7 @@
                 <tr>
                     <th class="D0" rowspan="2">Hoàn thành cập nhật hồ sơ</th>   
                     <!--<th style="width: 100px" rowspan="3">Ngày hiệu lực tài khoản tổ viên</th>--> 
-                    <th colspan="3">Chưa hoàn thành cập nhật hồ sơ</th> 
+                    <th colspan="2">Chưa hoàn thành cập nhật hồ sơ</th> 
                 </tr>         
                 <tr>  
                     <th class="D0">Khách hàng đi làm ăn xa/ khách hàng đi khỏi nơi cư trú có thông tin địa chỉ cụ thể và nhận nợ</th> 

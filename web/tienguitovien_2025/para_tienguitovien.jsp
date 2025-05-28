@@ -497,7 +497,7 @@
                     &nbsp;<input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu"/>
                     <s:if test="Grade.equalsIgnoreCase('1')">
                         &nbsp;<input type="button" id="idSave" value="Lưu dữ liệu"/> 
-                        <!--&nbsp;|&nbsp;<input style="color: red" type="button" id="idSend" value="Chốt dữ liệu PGD"/>--> 
+                        &nbsp;|&nbsp;<input style="color: red" type="button" id="idSend" value="Chốt dữ liệu PGD"/> 
                     </s:if>
                     <a id="message_suc_err"/>
                 </table>     
@@ -579,21 +579,21 @@
                 var targetWin = window.open(pageURL, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
                 return targetWin;
             }
-//            $(document).ready(function () {
-//                $('#mato').on('change', function () {
-//                    const mato = $("#mato").val();
-//                    if (mato === '000000_0000000') {
-//                        $('#idSaveLock').show();
-//                    } else {
-//                        $('#idSaveLock').hide();
-//                    }
-//                });
-//
-//                // Kiểm tra giá trị ban đầu nếu đã được chọn sẵn
-//                if ($('#mato').val() === '000000_0000000') {
-//                    $('#idSaveLock').show();
-//                }
-//            });
+            $(document).ready(function () {
+                $('#mato').on('change', function () {
+                    const mato = $("#mato").val();
+                    if (mato === '000000_0000000') {
+                        $('#idSaveLock').show();
+                    } else {
+                        $('#idSaveLock').hide();
+                    }
+                });
+
+                // Kiểm tra giá trị ban đầu nếu đã được chọn sẵn
+                if ($('#mato').val() === '000000_0000000') {
+                    $('#idSaveLock').show();
+                }
+            });
 
             $(document).ready(function () {
                 $('#txtGetData').on('change', function () {

@@ -229,12 +229,12 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
                 String smato = hmParameter.get("mato").toString();
                 String[] values = smato.split("\\_");
                 String ssmato = values[1];
-
+                String condition2 = "D9=" + txtGetData + "|";
                 String condition1 = "D15=" + smaxa + "|D9=" + txtGetData + "|";
                 String condition = "D15=" + smaxa + "|D7=" + ssmato + "|D9=" + txtGetData + "|";
                 if (smaxa.equals("000000")) {
                     // Tải dữ liệu toàn bộ xã
-                    lstData_Api = _serverAPI.getData_condition("TGTV_2025", pos_cd_username, "S", _reportDate, "");
+                    lstData_Api = _serverAPI.getData_condition("TGTV_2025", pos_cd_username, "S", _reportDate, condition2);
 
                     // Kiểm tra nếu dữ liệu quá lớn
                     if (lstData_Api.size() > 2000) {
