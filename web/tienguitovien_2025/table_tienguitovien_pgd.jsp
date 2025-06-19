@@ -120,33 +120,59 @@
                 {
                     try {
                         var D9 = document.getElementById("D9_" + i).value;
-//                        var D11 = document.getElementById("D11_" + i).value;
+                        var D11 = document.getElementById("D11_" + i).value;
                         var D12 = document.getElementById("D12_" + i).value;
                         var D13 = document.getElementById("D13_" + i).value;
+                        var D16 = document.getElementById("D16_" + i).value;
                         const txtGetData = $("#txtGetData").val();
                         if (txtGetData === "1")
                         {
-//                            document.getElementById("D11_" + i).disabled = true;
+                            document.getElementById("D11_" + i).disabled = true;
                             document.getElementById("D12_" + i).disabled = true;
                             document.getElementById("D13_" + i).disabled = true;
                             document.getElementById("D14_" + i).disabled = true;
+                            document.getElementById("D16_" + i).disabled = true;
                             document.getElementById("select-all1").disabled = true;
-//                            document.getElementById("select-all2").disabled = true;
+                            document.getElementById("select-all2").disabled = true;
                             document.getElementById("select-all3").disabled = true;
                             document.getElementById("select-all4").disabled = true;
+                            document.getElementById("select-all5").disabled = true;
                             document.getElementById("D9_" + i).disabled = true;
-                             document.getElementById("D9_" + i).checked = true;
-//                            document.getElementById("D10_" + i).disabled = true;
-                        } 
+                            document.getElementById("D9_" + i).checked = true;
+                            document.getElementById("D10_" + i).disabled = true;
+                        }
+                        if (D11 === "1")
+                        {
+                            document.getElementById("D11_" + i).checked = true;
+                            document.getElementById("D12_" + i).disabled = true;
+                            document.getElementById("D13_" + i).disabled = true;
+                            document.getElementById("D16_" + i).disabled = true;
+                            document.getElementById("D9_" + i).disabled = true;
+
+                        }
                         if (D12 === "1")
                         {
                             document.getElementById("D12_" + i).checked = true;
                             document.getElementById("D9_" + i).disabled = true;
+                            document.getElementById("D11_" + i).disabled = true;
+                            document.getElementById("D13_" + i).disabled = true;
+                            document.getElementById("D16_" + i).disabled = true;
                         }
                         if (D13 === "1")
                         {
                             document.getElementById("D13_" + i).checked = true;
                             document.getElementById("D9_" + i).disabled = true;
+                            document.getElementById("D12_" + i).disabled = true;
+                            document.getElementById("D11_" + i).disabled = true;
+                            document.getElementById("D16_" + i).disabled = true;
+                        }
+                        if (D16 === "1")
+                        {
+                            document.getElementById("D16_" + i).checked = true;
+                            document.getElementById("D9_" + i).disabled = true;
+                            document.getElementById("D12_" + i).disabled = true;
+                            document.getElementById("D13_" + i).disabled = true;
+                            document.getElementById("D11_" + i).disabled = true;
                         }
                     } catch (e) {
                     }
@@ -172,32 +198,37 @@
             </div>
             <div style="height: 10px"></div>
             <table border="1" class="editDelete" id="subTable" align="center">               
-                <tr> 
-                    <th style="width: 50px" rowspan="4">STT</th>                           
-                    <th style="width: 100px" rowspan="4">Mã khách hàng</th>  
-                    <th style="width: 150px" rowspan="4">Tên khách hàng</th>  
-                    <th style="width: 100px" rowspan="4">CCCD/Thẻ căn cước</th>  
-                    <th style="width: 100px" rowspan="4">Ngày tháng năm sinh</th>  
-                    <th style="width: 100px" rowspan="4">Số điện thoại</th>
-                    <th style="width: 150px"rowspan="4">Số tài khoản tiền gửi tổ viên 105</th>
-                    <th colspan="3">Kết quả cập nhật hồ sơ</th> 
-                    <th  style="width: 200px" rowspan="4">Ghi chú (Nguyên nhân chi tiết chưa hoàn thành cập nhật hồ sơ, thông tin sai lệch,...)</th>  
+                <tr>
+                    <th rowspan="4" style="width: 50px">STT</th>
+                    <th rowspan="4" style="width: 80px">Mã khách hàng</th>
+                    <th rowspan="4" style="width: 100px">Họ và tên khách hàng</th>
+                    <th rowspan="4" style="width: 70px">Ngày, tháng, năm sinh</th>
+                    <th colspan="4">Thông tin CMND/CCCD</th>
+                    <th rowspan="4" style="width: 100px">Điện thoại</th>
+                    <th rowspan="4" style="width: 100px">Số tài khoản CASA105</th>
+                    <th colspan="5">Kết quả thực hiện bổ sung hồ sơ</th>
+                    <th rowspan="4" style="width: 200px">Ghi chú<br>(Nguyên nhân chưa hoàn thành bổ sung hồ sơ)</th>
                 </tr>
                 <tr>
-                    <th class="D0" rowspan="2">Hoàn thành cập nhật hồ sơ</th>   
-                    <!--<th style="width: 100px" rowspan="3">Ngày hiệu lực tài khoản tổ viên</th>--> 
-                    <th colspan="2">Chưa hoàn thành cập nhật hồ sơ</th> 
-                </tr>         
-                <tr>  
-                    <th class="D0">Khách hàng đi làm ăn xa/ khách hàng đi khỏi nơi cư trú có thông tin địa chỉ cụ thể và nhận nợ</th> 
-                    <th class="D0">Khách hàng đi khỏi nơi cú trú không có thông tin địa chỉ cụ thể/không nhận nợ</th>   
-
+                    <th rowspan="3" style="width: 100px">Số CMND/CCCD</th>
+                    <th rowspan="3" style="width: 70px">Ngày cấp</th>
+                    <th rowspan="3" style="width: 70px">Ngày hết hạn</th>
+                    <th rowspan="3" style="width: 100px">Nơi cấp</th>
+                    <th rowspan="2">Đã hoàn thành</th>
+                    <th colspan="4">Chưa hoàn thành</th>
+                </tr>
+                <tr>
+                    <th>Khách hàng đi làm ăn xa</th>
+                    <th>Khách hàng đi khỏi nơi cư trú có thông tin địa chỉ cụ thể và nhận nợ</th>
+                    <th>Khách hàng đi khỏi nơi cư trú không có thông tin địa chỉ/không nhận nợ</th>
+                    <th>Khách hàng đi tù</th>
                 </tr>
                 <tr>
                     <th><input type="checkbox" id ="select-all1"/></th>
-                    <!--<th><input type="checkbox" id ="select-all2"/></th>-->  
+                    <th><input type="checkbox" id ="select-all2"/></th>  
                     <th><input type="checkbox" id ="select-all3"/></th>  
                     <th><input type="checkbox" id ="select-all4"/></th>  
+                    <th><input type="checkbox" id ="select-all5"/></th>  
                 </tr>
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
@@ -211,7 +242,11 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(10)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
-                    <!--<th style="color: #000; font-style: italic; font-size: xx-small;">(12)</th>-->
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(12)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(13)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(14)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(15)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(16)</th>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr id="tablefix"> 
@@ -228,23 +263,24 @@
                             <input type="hidden" value="<s:property  value="D6" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6"/>
                             <input type="hidden" value="<s:property  value="D7" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7"/>
                             <input type="hidden" value="<s:property  value="D8" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8"/>
-<!--                            <input type="hidden" value="<s:property  value="D9" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9"/>
-                            <input type="hidden" value="<s:property  value="D10" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10"/>
-                            <input type="hidden" value="<s:property  value="D12" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12"/>
-                            <input type="hidden" value="<s:property  value="D13" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D13"/>
-                            <input type="hidden" value="<s:property  value="D14" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D14"/>-->
                             <input type="hidden" value="<s:property  value="D15" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15"/>
-                            <input type="hidden" value="<s:property  value="D16" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16"/>
                             <input type="hidden" value="<s:property  value="D17" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17"/>
                             <input type="hidden" value="<s:property  value="D18" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D18"/>
                             <input type="hidden" value="<s:property  value="D19" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19"/>
                             <input type="hidden" value="<s:property  value="D20" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20"/>
+                            <input type="hidden" value="<s:property  value="D21" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D21"/>
+                            <input type="hidden" value="<s:property  value="D22" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D22"/>
+
                             <input type="hidden" value="<s:property  value="D30" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D30"/>
                         </td>
                         <td class="D0"><s:property  value="D1" /></td>
                         <td><s:property  value="D2" /></td>
-                        <td class="D0"><s:property  value="D3" /></td>
+
                         <td class="D0"><s:property  value="D4" /></td>
+                        <td class="D0"><s:property  value="D3" /></td>
+                        <td class="D0"><s:property  value="D17" /></td>
+                        <td class="D0"><s:property  value="D18" /></td>
+                        <td class="D0"><s:property  value="D19" /></td>
                         <td class="D0"><s:property  value="D5" /></td>
                         <td class="D0"><s:property  value="D6" /></td>
                         <td class="D0">
@@ -252,6 +288,12 @@
                                    onclick="$(this).val(this.checked ? 1 : 0)" class="myCheckBox1"
                                    oninput="onSelectChange_dnht1(this.value, <s:property  value='%{#rowstatus.index}'/>)"
                                    name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D9" value="<s:property  value="D9" />"/>      
+                        </td>
+                        <td class="D0">
+                            <input type="checkbox" id ="D11_<s:property value="%{#rowstatus.index}" />" 
+                                   onclick="$(this).val(this.checked ? 1 : 0)" class="myCheckBox2"
+                                   oninput="onSelectChange_dnht2(this.value, <s:property  value='%{#rowstatus.index}'/>)"
+                                   name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D11" value="<s:property  value="D11" />"/>      
                         </td>
                         <td class="D0">
                             <input type="checkbox" id ="D12_<s:property value="%{#rowstatus.index}" />" 
@@ -264,6 +306,12 @@
                                    onclick="$(this).val(this.checked ? 1 : 0)" class="myCheckBox4"
                                    oninput="onSelectChange_dnht4(this.value, <s:property  value='%{#rowstatus.index}'/>)"
                                    name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D13" value="<s:property  value="D13" />"/>      
+                        </td>
+                        <td class="D0">
+                            <input type="checkbox" id ="D16_<s:property value="%{#rowstatus.index}" />" 
+                                   onclick="$(this).val(this.checked ? 1 : 0)" class="myCheckBox5"
+                                   oninput="onSelectChange_dnht5(this.value, <s:property  value='%{#rowstatus.index}'/>)"
+                                   name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D16" value="<s:property  value="D16" />"/>      
                         </td>
                         <td class="D0">
                             <textarea style="width: 98%" placeholder="Nhập tối đa 500 ký tự" id="D14_<s:property  value='%{#rowstatus.index}' />" 
@@ -321,52 +369,47 @@
             function onSelectChange_dnht1(value, index) {
                 if (value === '1')
                 {
-                    [ "D12_", "D13_", "D14_"].forEach(id => {
+                    ["D11_", "D12_", "D13_", "D14_", "D16_"].forEach(id => {
                         document.getElementById(id + index).disabled = true;
                     });
                     document.getElementById("D14_" + index).value = "";
-//                    setTodayForEmptyCssDate();
-//                    var d10 = document.getElementById("D10_" + index).value;
-//                    if (d10 === "") {
-//                        document.getElementById("D10_" + index).value = formattedDate1;
-//                    }
                 } else
                 {
-                    [ "D12_", "D13_", "D14_"].forEach(id => {
+                    ["D11_", "D12_", "D13_", "D14_", "D16_"].forEach(id => {
                         document.getElementById(id + index).disabled = false;
                     });
                 }
             }
-//            $(function () {
-//                $('#select-all2').click(function () {
-//                    const isChecked = $('#select-all2').prop('checked');
-//                    // Lặp qua các checkbox và cập nhật trạng thái
-//                    $('.myCheckBox2').each(function (index) {
-//                        if (!this.disabled) {
-//                            this.checked = isChecked;
-//                            this.value = isChecked ? '1' : '0';
-//                            onSelectChange_dnht2(this.value, index);
-//                        }
-//                    });
-//                });
-//            });
-//            function onSelectChange_dnht2(value, index) {
-//                if (value === '1')
-//                {
-//                    ["D9_", "D12_", "D13_"].forEach(id => {
-//                        document.getElementById(id + index).disabled = true;
-//                    });
-//                    document.getElementById("D14_" + index).disabled = false;
-//
-//                } else
-//                {
-//                    ["D9_", "D12_", "D13_"].forEach(id => {
-//                        document.getElementById(id + index).disabled = false;
-//                    });
-//                    document.getElementById("D14_" + index).disabled = true;
-//                    document.getElementById("D14_" + index).value = "";
-//                }
-//            }
+            $(function () {
+                $('#select-all2').click(function () {
+                    const isChecked = $('#select-all2').prop('checked');
+                    // Lặp qua các checkbox và cập nhật trạng thái
+                    $('.myCheckBox2').each(function (index) {
+                        if (!this.disabled) {
+                            this.checked = isChecked;
+                            this.value = isChecked ? '1' : '0';
+                            onSelectChange_dnht2(this.value, index);
+                        }
+                    });
+                });
+            });
+            function onSelectChange_dnht2(value, index) {
+                if (value === '1')
+                {
+                    ["D9_", "D12_", "D13_", "D16_"].forEach(id => {
+                        document.getElementById(id + index).disabled = true;
+                    });
+                    document.getElementById("D14_" + index).disabled = false;
+
+                } else
+                {
+                    ["D9_", "D12_", "D13_", "D16_"].forEach(id => {
+                        document.getElementById(id + index).disabled = false;
+                    });
+                    document.getElementById("D14_" + index).disabled = true;
+                    document.getElementById("D14_" + index).value = "";
+                }
+            }
             $(function () {
                 $('#select-all3').click(function () {
                     const isChecked = $('#select-all3').prop('checked');
@@ -381,16 +424,16 @@
                     });
                 });
             });
-             function onSelectChange_dnht3(value, index) {
+            function onSelectChange_dnht3(value, index) {
                 if (value === '1')
                 {
-                    ["D9_", "D13_"].forEach(id => {
+                    ["D9_", "D11_", "D13_", "D16_"].forEach(id => {
                         document.getElementById(id + index).disabled = true;
                     });
                     document.getElementById("D14_" + index).disabled = false;
                 } else
                 {
-                    ["D9_", "D13_"].forEach(id => {
+                    ["D9_", "D11_", "D13_", "D16_"].forEach(id => {
                         document.getElementById(id + index).disabled = false;
                     });
                     document.getElementById("D14_" + index).disabled = true;
@@ -414,13 +457,13 @@
             function onSelectChange_dnht4(value, index) {
                 if (value === '1')
                 {
-                    ["D9_", "D12_"].forEach(id => {
+                    ["D9_", "D11_", "D12_", "D16_"].forEach(id => {
                         document.getElementById(id + index).disabled = true;
                     });
                     document.getElementById("D14_" + index).disabled = false;
                 } else
                 {
-                    ["D9_", "D12_"].forEach(id => {
+                    ["D9_", "D11_", "D12_", "D16_"].forEach(id => {
                         document.getElementById(id + index).disabled = false;
                     });
                     document.getElementById("D14_" + index).disabled = true;
@@ -428,6 +471,36 @@
                 }
             }
 
+            $(function () {
+                $('#select-all5').click(function () {
+                    const isChecked = $('#select-all5').prop('checked');
+
+                    // Lặp qua các checkbox và cập nhật trạng thái
+                    $('.myCheckBox5').each(function (index) {
+                        if (!this.disabled) {
+                            this.checked = isChecked;
+                            this.value = isChecked ? '1' : '0';
+                            onSelectChange_dnht4(this.value, index);
+                        }
+                    });
+                });
+            });
+            function onSelectChange_dnht5(value, index) {
+                if (value === '1')
+                {
+                    ["D9_", "D11_", "D13_", "D12_"].forEach(id => {
+                        document.getElementById(id + index).disabled = true;
+                    });
+                    document.getElementById("D14_" + index).disabled = false;
+                } else
+                {
+                    ["D9_", "D11_", "D13_", "D12_"].forEach(id => {
+                        document.getElementById(id + index).disabled = false;
+                    });
+                    document.getElementById("D14_" + index).disabled = true;
+                    document.getElementById("D14_" + index).value = "";
+                }
+            }
         </script>
     </body>
 </html>
