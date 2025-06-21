@@ -527,7 +527,7 @@
                     </div>
                 </div>
                 <s:if test="!Grade.equalsIgnoreCase('1') && !khoa_bcqt.equalsIgnoreCase('BCQT_LAITONAM')&& !khoa_bcqt.equalsIgnoreCase('BCQT_HOAHONG')">
-                    <div id="containTree">
+                    <div id="containTree" align="left">
                         <sjt:tree
                             name="poscd"
                             id="treeDynamicCheckboxes"

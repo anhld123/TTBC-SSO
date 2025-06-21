@@ -219,10 +219,10 @@
                                                <s:if test="MA.equalsIgnoreCase('CDTT09')"> class="number505 TEN_KH" </s:if>  <s:else> class="number4 TEN_KH" </s:else>
                                                <s:if test="!MA.equalsIgnoreCase('CDTT140102')&&!MA.equalsIgnoreCase('CDTT140101')
                                                      &&!MA.equalsIgnoreCase('CDTT140201')&&!MA.equalsIgnoreCase('CDTT01')
-                                                     &&!MA.equalsIgnoreCase('CDTT02')&&!MA.equalsIgnoreCase('CDTT04')
+                                                     &&!MA.equalsIgnoreCase('CDTT02')
                                                      &&!MA.equalsIgnoreCase('CDTT05')&&!MA.equalsIgnoreCase('CDTT06')
                                                      &&!MA.equalsIgnoreCase('CDTT06a')&&!MA.equalsIgnoreCase('CDTT09')
-                                                     &&!MA.equalsIgnoreCase('CDTT07')&&!MA.equalsIgnoreCase('CDTT08')
+                                                     &&!MA.equalsIgnoreCase('CDTT08')
                                                      &&!MA.equalsIgnoreCase('CDTT140202')&&!MA.equalsIgnoreCase('CDTT140301')
                                                      &&!MA.equalsIgnoreCase('CDTT140302')&&!MA.equalsIgnoreCase('CDTT1301')
                                                      &&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')
@@ -451,10 +451,9 @@
                                                                }
                                                                ;"   <s:if test="MA.equalsIgnoreCase('CDTT09')"> class="number505 TEN_KH" </s:if>  <s:else> class="number4 TEN_KH" </s:else>  
                                                        <s:if test="!MA.equalsIgnoreCase('CDTT01')&&!MA.equalsIgnoreCase('CDTT02')
-                                                             &&!MA.equalsIgnoreCase('CDTT03')&&!MA.equalsIgnoreCase('CDTT04')
+                                                             &&!MA.equalsIgnoreCase('CDTT03')
                                                              &&!MA.equalsIgnoreCase('CDTT05')&&!MA.equalsIgnoreCase('CDTT06')
-                                                             &&!MA.equalsIgnoreCase('CDTT06A')
-                                                             &&!MA.equalsIgnoreCase('CDTT07')&&!MA.equalsIgnoreCase('CDTT08')
+                                                             &&!MA.equalsIgnoreCase('CDTT06A')&&!MA.equalsIgnoreCase('CDTT08')
                                                              &&!MA.equalsIgnoreCase('CDTT09')&&!MA.equalsIgnoreCase('CDTT1301')
                                                              &&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')
                                                              &&!MA.equalsIgnoreCase('CDTT1304')&&!MA.equalsIgnoreCase('CDTT11020301')

@@ -105,7 +105,9 @@
                 <table border="1" class="editDelete" id="tablesptdb01" style="width: 90%"  align="center">
                     <tr >                                            
                         <!--<th  class="TD_BUTTON1">TT</th>-->                  
-                        <th class="TD_CHECKBOX">Điều chuyển</th>                          
+                        <th class="TD_CHECKBOX">Điều chuyển
+                            <br><input type="checkbox" id ="select-all"/>
+                        </th>                          
                         <th  class="TD_TENTS">Họ tên</th>    
                         <th  class="TD_TO">Mã KH</th>   
                         <th  class="TD_SOTIEN">Chương trinh</th>                                                   
@@ -178,6 +180,18 @@
         <div id="luu_thanhcong"></div>
         <script>
             initTable();
+            $(function () {
+                $('#select-all').click(function () {
+                    const isChecked = $('#select-all').prop('checked');
+
+                    // Lặp qua các checkbox và cập nhật trạng thái
+                    $('.checkboxdat').each(function (index) {
+                        if (!this.disabled) {
+                            this.checked = isChecked;
+                        }
+                    });
+                });
+            });
         </script>
     </body>
     

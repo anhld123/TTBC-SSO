@@ -481,7 +481,7 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
                 tempadd.setD13(tmp.getD13() == null ? "0" : tmp.getD13());
                 tempadd.setD14(tmp.getD14());
                 tempadd.setD15(tmp.getD15());
-                tempadd.setD16(tmp.getD16());
+                tempadd.setD16(tmp.getD16() == null ? "0" : tmp.getD16());
                 tempadd.setD17(tmp.getD17());
                 tempadd.setD18(tmp.getD18());
                 tempadd.setD19(tmp.getD19());
@@ -591,6 +591,11 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
                     row.setD13(item.getD13());
                     row.setD14(item.getD14());
                     row.setD15(item.getD15());
+                    row.setD16(item.getD16());
+                    row.setD17(item.getD17());
+                    row.setD18(item.getD18());
+                    row.setD19(item.getD19());
+                    row.setD20(item.getD20());
                     lstDulieuNt.add(row);
                 } catch (Exception e) {
                 }
@@ -798,7 +803,11 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
                 tempadd.setD13(tmp.getD13());
                 tempadd.setD14(tmp.getD14());
                 tempadd.setD15(tmp.getD15());
-
+                tempadd.setD16(tmp.getD16());
+                tempadd.setD17(tmp.getD17());
+                tempadd.setD18(tmp.getD18());
+                tempadd.setD19(tmp.getD19());
+                tempadd.setD20(tmp.getD20());
                 lstLocalDataUpdate.add(tempadd);
             }
             int status = _serverAPI.getGQVL2023("TGTV_2025", mapgd, "S", _reportDate, "", "", lstLocalDataUpdate);
