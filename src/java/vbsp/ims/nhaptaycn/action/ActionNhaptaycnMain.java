@@ -800,23 +800,52 @@ public class ActionNhaptaycnMain extends ActionSupport {
             }
             Connection conn = new DaoConnect().getConnect();
             DaoNhaptaycnMain daoMain = new DaoNhaptaycnMain();
+            DuLieuNTService _serverAPI = new DuLieuNTService();
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd = posMainModel.getPosCd();
+            System.out.println("pos_cd= " +pos_cd);
+            main_pos = posMainModel.getMainPosCd();
+            System.out.println("main_pos= " +main_pos);
             //khoi tao cho treeview cac pos
-            List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_nhaptaycn);
-
+//            List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_nhaptaycn);
+            List<ModelTreeNode> lstModelTree = new ArrayList<>();
+            switch (Grade) {
+                case "3":
+                    lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_nhaptaycn);
+                    break;
+                case "2":
+                    lstCN_API = _serverAPI.getListCn(main_pos.substring(2, 4));
+                    String MainName = lstCN_API.get(0).getProvinceName();
+                    lstPGD_API = _serverAPI.getListPgd(main_pos, "");
+                    for (ListPosCode item : lstPGD_API) {
+                        ModelTreeNode row = new ModelTreeNode(
+                                item.getMainPos(), // strParentCd
+                                item.getMainPos() + " -> " + MainName, // strParentDesc
+                                item.getPosCode(), // strChildCd
+                                item.getPosCode() + " -> " + item.getPosName() // strChildDesc
+                        );
+                        lstModelTree.add(row);
+                    }
+                    break;
+                default:
+                    lstPGD_API = _serverAPI.getListPgd("", pos_cd);
+                    String PosName = lstPGD_API.get(0).getPosName();
+                    lstXa_API = _serverAPI.getListXa("", "", "", pos_cd);
+                    for (ListCommune item : lstXa_API) {
+                        ModelTreeNode row = new ModelTreeNode(
+                                item.getPosCode(), // strParentCd
+                                item.getCommuneCode() + " -> " + PosName, // strParentDesc
+                                item.getCommuneCode(), // strChildCd
+                                item.getCommuneCode() + " -> " + item.getCommuneName() // strChildDesc
+                        );
+                        lstModelTree.add(row);
+                    }
+                    break;
+            }
             lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn, UserName, Grade);
 
             if (khoa_nhaptaycn.equals("HSSV_001")) {
                 setTreeNodeGrade3(lstModelTree);
-//                if (Grade.equals("3")) {
-//                    setTreeNodeGrade3(lstModelTree);
-//                } 
-//                else if(Grade.equals("1"))
-//                {
-//                    setTreeNodeGrade3(lstModelTree);
-//                }
-//                else {
-//                    setTreeNodeGrade12(lstModelTree);
-//                }
             } else {
                 if (!this.khoa_nhaptaycn.equals("LEAVELOCAL")) {
                     if (Grade.equals("3")) {
@@ -826,7 +855,6 @@ public class ActionNhaptaycnMain extends ActionSupport {
                     }
                 }
             }
-
             if (khoa_nhaptaycn.equals("PHIUT_001") && !Grade.equals("3")) {
                 lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, "PHIUT_001", UserName, Grade);
                 if (conn != null) {
@@ -867,24 +895,9 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 setGradeAuthor1(String.valueOf(iRol));
                 return "LEAVELOCAL";
 
-//                return "LEAVELOCAL";
             }
 
-//            if (this.khoa_nhaptaycn.equals("GQVL_01")) {
-//                System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
-//                //Lấy danh sách Pos theo User đăng nhập
-//                epsModel dao = new epsModel();
-//                System.err.println("iRol= 1" );
-//                lstDonvi = dao.getDonvi(Grade, UserName);
-//                System.err.println("iRol= 2" );
-//                //User thuộc nhóm 39 có quyền phê duyệt
-//                int iRol = new LeaveHomeDao().checkRuleUser(UserName, Grade);
-//                System.err.println("iRol= " + String.valueOf(iRol) );
-//                setGradeAuthor1(String.valueOf(iRol));
-//                return "GQVL_01";
-//            }
             if (this.khoa_nhaptaycn.equals("KTTC_MUASAM_01")) {
-//             pos_cd = posMainModel.getPosCd();
                 main_pos = posMainModel.getMainPosCd();
                 _server_tmp = new LeaveHomeService();
                 String PosFlag = "";
@@ -904,7 +917,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 }
                 return "KTTC_MUASAM_01";
             }
-            if (this.khoa_nhaptaycn.equals("TTCN_01")|| this.khoa_nhaptaycn.equals("TGTV_2025")) {
+            if (this.khoa_nhaptaycn.equals("TTCN_01") || this.khoa_nhaptaycn.equals("TGTV_2025")) {
                 DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
                 setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));
                 setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
