@@ -214,7 +214,7 @@
                     <tr id="tablefix"> 
                         <td class="D0">
                             <s:if test="check_Username.equalsIgnoreCase('USRGRP21')">
-                                <s:if test="D1.equalsIgnoreCase('1')"> 
+                                <s:if test="check_D1.equalsIgnoreCase('1')"> 
                                     <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4>
                                 </s:if>
                                 <s:else>
@@ -224,7 +224,7 @@
                                 </s:else>
                             </s:if>
                             <s:elseif test="check_Username.equalsIgnoreCase('USRGRP49')">
-                                <s:if test="D1.equalsIgnoreCase('1')">
+                                <s:if test="check_D1.equalsIgnoreCase('1')">
                                     <a style="text-decoration: underline; color: #0000FF" href="#" 
                                        onclick="cancelAssign('<s:property value="sngaybc"/>', '211', '<s:property value="chotsl"/>')"> Mở dữ liệu
                                     </a>
@@ -232,13 +232,13 @@
                                 <s:else> Chưa chốt </s:else>
                             </s:elseif>
                             <s:else>
-                                <s:if test="D1.equalsIgnoreCase('1')"> <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4></s:if>
+                                <s:if test="check_D1.equalsIgnoreCase('1')"> <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4></s:if>
                                 <s:else>Chưa chốt</s:else>
                             </s:else>
                         </td>
                         <td class="D0">
                             <s:if test="check_Username.equalsIgnoreCase('USRGRP23')">
-                                <s:if test="D2.equalsIgnoreCase('1')"> 
+                                <s:if test="check_D2.equalsIgnoreCase('1')"> 
                                     <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4>
                                 </s:if>
                                 <s:else>
@@ -248,7 +248,7 @@
                                 </s:else>
                             </s:if>
                             <s:elseif test="check_Username.equalsIgnoreCase('USRGRP49')">
-                                <s:if test="D2.equalsIgnoreCase('1')">
+                                <s:if test="check_D2.equalsIgnoreCase('1')">
                                     <a style="text-decoration: underline; color: #0000FF" href="#" 
                                        onclick="cancelAssign('<s:property value="sngaybc"/>', '233', '<s:property value="chotsl"/>')"> Mở dữ liệu
                                     </a>
@@ -256,14 +256,14 @@
                                 <s:else> Chưa chốt </s:else>
                             </s:elseif>
                             <s:else>
-                                <s:if test="D2.equalsIgnoreCase('1')"><h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4></s:if>
+                                <s:if test="check_D2.equalsIgnoreCase('1')"><h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4></s:if>
                                 <s:else>Chưa chốt</s:else>
                             </s:else>
                         </td>
 
                         <td class="D0">
                             <s:if test="check_Username.equalsIgnoreCase('USRGRP24')">
-                                <s:if test="D3.equalsIgnoreCase('1')">
+                                <s:if test="check_D3.equalsIgnoreCase('1')">
                                     <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4>
                                 </s:if>
                                 <s:else>
@@ -273,7 +273,7 @@
                                 </s:else>
                             </s:if>
                             <s:elseif test="check_Username.equalsIgnoreCase('USRGRP49')">
-                                <s:if test="D3.equalsIgnoreCase('1')">
+                                <s:if test="check_D3.equalsIgnoreCase('1')">
                                     <a style="text-decoration: underline; color: #0000FF" href="#" 
                                        onclick="cancelAssign('<s:property value="sngaybc"/>', '244', '<s:property value="chotsl"/>')"> Mở dữ liệu
                                     </a>
@@ -281,14 +281,14 @@
                                 <s:else> Chưa chốt </s:else>
                             </s:elseif>
                             <s:else>
-                                <s:if test="D3.equalsIgnoreCase('1')"><h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4> </s:if>
+                                <s:if test="check_D3.equalsIgnoreCase('1')"><h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4> </s:if>
                                 <s:else>Chưa chốt</s:else>
                             </s:else>
                         </td>
 
                         <td class="D0">
                             <s:if test="check_Username.equalsIgnoreCase('USRGRP19')">
-                                <s:if test="D4.equalsIgnoreCase('1')">
+                                <s:if test="check_D4.equalsIgnoreCase('1')">
                                     <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4>
                                 </s:if>
                                 <s:else>
@@ -298,7 +298,7 @@
                                 </s:else>
                             </s:if>
                             <s:elseif test="check_Username.equalsIgnoreCase('USRGRP49')">
-                                <s:if test="D4.equalsIgnoreCase('1')">
+                                <s:if test="check_D4.equalsIgnoreCase('1')">
                                     <a style="text-decoration: underline; color: #0000FF" href="#" 
                                        onclick="cancelAssign('<s:property value="sngaybc"/>', '199', '<s:property value="chotsl"/>')"> Mở dữ liệu
                                     </a>
@@ -306,14 +306,14 @@
                                 <s:else> Chưa chốt </s:else>
                             </s:elseif>
                             <s:else>
-                                <s:if test="D4.equalsIgnoreCase('1')"> <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4></s:if>
+                                <s:if test="check_D4.equalsIgnoreCase('1')"> <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4></s:if>
                                 <s:else>Chưa chốt</s:else>
                             </s:else>
                         </td>
 
                         <td class="D0">
                             <s:if test="check_Username.equalsIgnoreCase('USRGRP15')">
-                                <s:if test="D5.equalsIgnoreCase('1')">
+                                <s:if test="check_D5.equalsIgnoreCase('1')">
                                     <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4>
                                 </s:if>
                                 <s:else>
@@ -323,7 +323,7 @@
                                 </s:else>
                             </s:if>
                             <s:elseif test="check_Username.equalsIgnoreCase('USRGRP49')">
-                                <s:if test="D5.equalsIgnoreCase('1')">
+                                <s:if test="check_D5.equalsIgnoreCase('1')">
                                     <a style="text-decoration: underline; color: #0000FF" href="#" 
                                        onclick="cancelAssign('<s:property value="sngaybc"/>', '155', '<s:property value="chotsl"/>')"> Mở dữ liệu
                                     </a>
@@ -331,14 +331,14 @@
                                 <s:else> Chưa chốt </s:else>
                             </s:elseif>
                             <s:else>
-                                <s:if test="D5.equalsIgnoreCase('1')"> <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4></s:if>
+                                <s:if test="check_D5.equalsIgnoreCase('1')"> <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4></s:if>
                                 <s:else>Chưa chốt</s:else>
                             </s:else>
                         </td>
 
                         <td class="D0">
                             <s:if test="check_Username.equalsIgnoreCase('USRGRP18')">
-                                <s:if test="D6.equalsIgnoreCase('1')">
+                                <s:if test="check_D6.equalsIgnoreCase('1')">
                                     <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4>
                                 </s:if>
                                 <s:else>
@@ -348,7 +348,7 @@
                                 </s:else>
                             </s:if>
                             <s:elseif test="check_Username.equalsIgnoreCase('USRGRP49')">
-                                <s:if test="D6.equalsIgnoreCase('1')">
+                                <s:if test="check_D6.equalsIgnoreCase('1')">
                                     <a style="text-decoration: underline; color: #0000FF" href="#" 
                                        onclick="cancelAssign('<s:property value="sngaybc"/>', '188', '<s:property value="chotsl"/>')"> Mở dữ liệu
                                     </a>
@@ -356,7 +356,7 @@
                                 <s:else> Chưa chốt </s:else>
                             </s:elseif>
                             <s:else>
-                                <s:if test="D6.equalsIgnoreCase('1')"> <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4></s:if>
+                                <s:if test="check_D6.equalsIgnoreCase('1')"> <h4 style="color: #3dc21b; margin: auto" >Đã chốt</h4></s:if>
                                 <s:else>Chưa chốt</s:else>
                             </s:else>
                         </td>
