@@ -508,16 +508,18 @@
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP21') || check_D1.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D43.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="number2"/></td>
+                        <td><input type="text" value="<s:property  value="D12" />" 
+                                   <s:if test="!D46.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" placeholder="Ví dụ 1A2B3C"/></td>
+                        <td><input type="text" value="<s:property  value="D11" />" 
+                                   <s:if test="!D45.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" class="number"/></td>
+                        
                         <td><input type="text" value="<s:property  value="D10" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP15') || check_D5.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D44.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="number"/></td>
-                        <td><input type="text" value="<s:property  value="D11" />" 
-                                   <s:if test="!D45.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" class="number"/></td>
-                        <td><input type="text" value="<s:property  value="D12" />" 
-                                   <s:if test="!D46.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
-                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D12" placeholder="Ví dụ 1A2B3C"/></td>
+                        
                         <td><input type="text" value="<s:property  value="D13" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP49')">readonly="true"</s:if>
                                    <s:if test="!D47.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
