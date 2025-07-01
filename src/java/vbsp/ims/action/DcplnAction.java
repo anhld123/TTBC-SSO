@@ -31,6 +31,9 @@ import vbsp.ims.model.Pagination;
 import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.ListCommune;
+import vbsp.ims.restapi.ListMainPos;
+import vbsp.ims.restapi.ListPosCode;
 
 /**
  *
@@ -39,7 +42,6 @@ import vbsp.ims.restapi.DuLieuNTService;
 public class DcplnAction extends ActionSupport {
 
     DuLieuNTService service;
-    
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao bien">
     protected PosMainModel posMainModel;
@@ -56,7 +58,12 @@ public class DcplnAction extends ActionSupport {
     private String soku_dcpln;
     private String trangthai;
     private String ma_ngnhan_dcpln;
-
+    private List<ListPosCode> lstPGD_API;
+    private List<ListMainPos> lstCN_API;
+    private List<ListCommune> lstXa_API;
+    private String pos_cd;
+    private String main_pos;
+    protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     private List<ListValue> lstDvutDcpln = new ArrayList<ListValue>();
     private List<ListValue> lstTotruongDcpln = new ArrayList<ListValue>();
     private List<ListValue> lstChuongtrinh = new ArrayList<ListValue>();
@@ -71,6 +78,62 @@ public class DcplnAction extends ActionSupport {
     private List<String> poscd = new ArrayList<String>();
     private List<PLNO_DULIEU> lstSavePln = new ArrayList<PLNO_DULIEU>();
 
+    public DuLieuNTService getService() {
+        return service;
+    }
+
+    public void setService(DuLieuNTService service) {
+        this.service = service;
+    }
+
+    public List<ListPosCode> getLstPGD_API() {
+        return lstPGD_API;
+    }
+
+    public void setLstPGD_API(List<ListPosCode> lstPGD_API) {
+        this.lstPGD_API = lstPGD_API;
+    }
+
+    public List<ListMainPos> getLstCN_API() {
+        return lstCN_API;
+    }
+
+    public void setLstCN_API(List<ListMainPos> lstCN_API) {
+        this.lstCN_API = lstCN_API;
+    }
+
+    public List<ListCommune> getLstXa_API() {
+        return lstXa_API;
+    }
+
+    public void setLstXa_API(List<ListCommune> lstXa_API) {
+        this.lstXa_API = lstXa_API;
+    }
+
+    public String getPos_cd() {
+        return pos_cd;
+    }
+
+    public void setPos_cd(String pos_cd) {
+        this.pos_cd = pos_cd;
+    }
+
+    public String getMain_pos() {
+        return main_pos;
+    }
+
+    public void setMain_pos(String main_pos) {
+        this.main_pos = main_pos;
+    }
+
+    public DaoListPosFromUser getListKTNBDA() {
+        return listKTNBDA;
+    }
+
+    public void setListKTNBDA(DaoListPosFromUser listKTNBDA) {
+        this.listKTNBDA = listKTNBDA;
+    }
+
     public PosMainModel getPosMainModel() {
         return posMainModel;
     }
@@ -78,8 +141,6 @@ public class DcplnAction extends ActionSupport {
     public void setPosMainModel(PosMainModel posMainModel) {
         this.posMainModel = posMainModel;
     }
-    
-    
 
     public List<ListValue> getLstDMNgNhanC2() {
         return lstDMNgNhanC2;
@@ -413,11 +474,51 @@ public class DcplnAction extends ActionSupport {
                 return ERROR;
             }
             DaoDCPLNO daoRisk = new DaoDCPLNO();
-            List<ModelTreeNode> lstModelTree = daoRisk.getDataPosTreeNode(UserName, Grade);
-            if (Grade.equals("3")) {
-                setTreeNodeGrade3(lstModelTree);
-            } else {
-                setTreeNodeGrade12(lstModelTree);
+//            List<ModelTreeNode> lstModelTree = daoRisk.getDataPosTreeNode(UserName, Grade);
+            DuLieuNTService _serverAPI = new DuLieuNTService();
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd = posMainModel.getPosCd();
+            main_pos = posMainModel.getMainPosCd();
+            List<ModelTreeNode> lstModelTree = new ArrayList<>();
+            switch (Grade) {
+                case "3":
+                    lstModelTree = daoRisk.getDataPosTreeNode(UserName, Grade);
+                    setTreeNodeGrade3(lstModelTree);
+                    break;
+                case "2":
+                    lstCN_API = _serverAPI.getListCn(main_pos.substring(2, 4));
+                    String MainName = lstCN_API.get(0).getProvinceName();
+                    lstPGD_API = _serverAPI.getListPgd(main_pos, "");
+                    for (ListPosCode item : lstPGD_API) {
+                        if (item.getStatus().equals("O")) {
+                            ModelTreeNode row = new ModelTreeNode(
+                                    item.getMainPos(), // strParentCd
+                                    MainName, // strParentDesc
+                                    item.getPosCode(), // strChildCd
+                                    item.getPosName() // strChildDesc
+                            );
+                            lstModelTree.add(row);
+                        }
+                    }
+                    setTreeNodeGrade12(lstModelTree);
+                    break;
+                default:
+                    lstPGD_API = _serverAPI.getListPgd("", pos_cd);
+                    String PosName = lstPGD_API.get(0).getPosName();
+                    lstXa_API = _serverAPI.getListXa("", "", "", pos_cd);
+                    for (ListCommune item : lstXa_API) {
+                        if (!item.getStatus().equals("C")) {
+                            ModelTreeNode row = new ModelTreeNode(
+                                    item.getPosCode(), // strParentCd
+                                    PosName, // strParentDesc
+                                    item.getCommuneCode(), // strChildCd
+                                    item.getCommuneName() // strChildDesc
+                            );
+                            lstModelTree.add(row);
+                        }
+                    }
+                    setTreeNodeGrade12(lstModelTree);
+                    break;
             }
             setDmKhac();
         } catch (Exception e) {
@@ -726,14 +827,13 @@ public class DcplnAction extends ActionSupport {
                 Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(sNgaySl);
                 DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
                 String strDate = dateFormat.format(date1);
-                
-                posMainModel = new DaoListPosFromUser().get_pos_main_pos(UserName, Grade);                
+
+                posMainModel = new DaoListPosFromUser().get_pos_main_pos(UserName, Grade);
                 String kkk = service.sendDataPLN_ByApi(posMainModel.getPosCd(), "N", strDate, lstDataSend, UserName);
                 if (kkk.equals("1")) {
                     addActionError("Đã cập nhật số liệu thông tin Phân loại nợ thành công!");
                     setMessage("SUCCESS");
-                }
-                else{
+                } else {
                     addActionError("Lưu thành công nhưng chưa cập nhật được lên tw! ");
                     setMessage("Lưu thành công nhưng chưa cập nhật được lên tw! ");
                     return ERROR;
@@ -796,14 +896,13 @@ public class DcplnAction extends ActionSupport {
                 Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(sNgaySl);
                 DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
                 String strDate = dateFormat.format(date1);
-                
-                posMainModel = new DaoListPosFromUser().get_pos_main_pos(UserName, Grade);                
+
+                posMainModel = new DaoListPosFromUser().get_pos_main_pos(UserName, Grade);
                 String kkk = service.sendDataPLN_ByApi(posMainModel.getPosCd(), "N", strDate, lstDataSend, UserName);
                 if (kkk.equals("1")) {
                     addActionError("Đã cập nhật số liệu thông tin Phân loại nợ thành công!");
                     setMessage("SUCCESS");
-                }
-                else{
+                } else {
                     addActionError("Lưu thành công nhưng chưa cập nhật được lên tw! ");
                     setMessage("Lưu thành công nhưng chưa cập nhật được lên tw! ");
                     return ERROR;

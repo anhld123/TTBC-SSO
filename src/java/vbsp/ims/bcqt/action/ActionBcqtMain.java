@@ -337,13 +337,15 @@ public class ActionBcqtMain extends ActionSupport {
 //                    System.out.println("MainName = " + MainName);
                     lstPGD_API = _serverAPI.getListPgd(main_pos, "");
                     for (ListPosCode item : lstPGD_API) {
-                        ModelTreeNode row = new ModelTreeNode(
-                                item.getMainPos(), // strParentCd
-                                item.getMainPos() + " -> " + MainName, // strParentDesc
-                                item.getPosCode(), // strChildCd
-                                item.getPosCode() + " -> " + item.getPosName() // strChildDesc
-                        );
-                        lstModelTree.add(row);
+                        if (item.getStatus().equals("O")) {
+                            ModelTreeNode row = new ModelTreeNode(
+                                    item.getMainPos(), // strParentCd
+                                    item.getMainPos() + " -> " + MainName, // strParentDesc
+                                    item.getPosCode(), // strChildCd
+                                    item.getPosCode() + " -> " + item.getPosName() // strChildDesc
+                            );
+                            lstModelTree.add(row);
+                        }
                     }
                     setTreeNodeGrade12(lstModelTree);
                     break;
@@ -351,14 +353,17 @@ public class ActionBcqtMain extends ActionSupport {
                     lstPGD_API = _serverAPI.getListPgd("", pos_cd);
                     String PosName = lstPGD_API.get(0).getPosName();
                     lstXa_API = _serverAPI.getListXa("", "", "", pos_cd);
+
                     for (ListCommune item : lstXa_API) {
-                        ModelTreeNode row = new ModelTreeNode(
-                                item.getPosCode(), // strParentCd
-                                item.getCommuneCode() + " -> " + PosName, // strParentDesc
-                                item.getCommuneCode(), // strChildCd
-                                item.getCommuneCode() + " -> " + item.getCommuneName() // strChildDesc
-                        );
-                        lstModelTree.add(row);
+                        if (item.getStatus().equals("A")) {
+                            ModelTreeNode row = new ModelTreeNode(
+                                    item.getPosCode(), // strParentCd
+                                    item.getCommuneCode() + " -> " + PosName, // strParentDesc
+                                    item.getCommuneCode(), // strChildCd
+                                    item.getCommuneCode() + " -> " + item.getCommuneName() // strChildDesc
+                            );
+                            lstModelTree.add(row);
+                        }
                     }
                     setTreeNodeGrade12(lstModelTree);
                     break;

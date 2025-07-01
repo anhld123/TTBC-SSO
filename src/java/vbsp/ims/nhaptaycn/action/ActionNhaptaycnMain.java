@@ -803,9 +803,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
             DuLieuNTService _serverAPI = new DuLieuNTService();
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd = posMainModel.getPosCd();
-            System.out.println("pos_cd= " +pos_cd);
             main_pos = posMainModel.getMainPosCd();
-            System.out.println("main_pos= " +main_pos);
             //khoi tao cho treeview cac pos
 //            List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_nhaptaycn);
             List<ModelTreeNode> lstModelTree = new ArrayList<>();
@@ -818,13 +816,15 @@ public class ActionNhaptaycnMain extends ActionSupport {
                     String MainName = lstCN_API.get(0).getProvinceName();
                     lstPGD_API = _serverAPI.getListPgd(main_pos, "");
                     for (ListPosCode item : lstPGD_API) {
-                        ModelTreeNode row = new ModelTreeNode(
-                                item.getMainPos(), // strParentCd
-                                item.getMainPos() + " -> " + MainName, // strParentDesc
-                                item.getPosCode(), // strChildCd
-                                item.getPosCode() + " -> " + item.getPosName() // strChildDesc
-                        );
-                        lstModelTree.add(row);
+                        if (item.getStatus().equals("O")) {
+                            ModelTreeNode row = new ModelTreeNode(
+                                    item.getMainPos(), // strParentCd
+                                    item.getMainPos() + " -> " + MainName, // strParentDesc
+                                    item.getPosCode(), // strChildCd
+                                    item.getPosCode() + " -> " + item.getPosName() // strChildDesc
+                            );
+                            lstModelTree.add(row);
+                        }
                     }
                     break;
                 default:
@@ -832,13 +832,15 @@ public class ActionNhaptaycnMain extends ActionSupport {
                     String PosName = lstPGD_API.get(0).getPosName();
                     lstXa_API = _serverAPI.getListXa("", "", "", pos_cd);
                     for (ListCommune item : lstXa_API) {
-                        ModelTreeNode row = new ModelTreeNode(
-                                item.getPosCode(), // strParentCd
-                                item.getCommuneCode() + " -> " + PosName, // strParentDesc
-                                item.getCommuneCode(), // strChildCd
-                                item.getCommuneCode() + " -> " + item.getCommuneName() // strChildDesc
-                        );
-                        lstModelTree.add(row);
+                        if (!item.getStatus().equals("C")) {
+                            ModelTreeNode row = new ModelTreeNode(
+                                    item.getPosCode(), // strParentCd
+                                    item.getCommuneCode() + " -> " + PosName, // strParentDesc
+                                    item.getCommuneCode(), // strChildCd
+                                    item.getCommuneCode() + " -> " + item.getCommuneName() // strChildDesc
+                            );
+                            lstModelTree.add(row);
+                        }
                     }
                     break;
             }

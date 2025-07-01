@@ -479,7 +479,7 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
                 tempadd.setD11(tmp.getD11() == null ? "0" : tmp.getD11());
                 tempadd.setD12(tmp.getD12() == null ? "0" : tmp.getD12());
                 tempadd.setD13(tmp.getD13() == null ? "0" : tmp.getD13());
-                tempadd.setD14(tmp.getD14());
+                tempadd.setD14(tmp.getD9() != null ? "" : tmp.getD14());
                 tempadd.setD15(tmp.getD15());
                 tempadd.setD16(tmp.getD16() == null ? "0" : tmp.getD16());
                 tempadd.setD17(tmp.getD17());
