@@ -15,6 +15,7 @@ import vbsp.ims.nhaptaycn.action.*;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -345,46 +346,47 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
             }
 
             for (ListPosCode item : lstPGD_API) {
-                QT_DULIEU_NT row = new QT_DULIEU_NT();
-                try {
-                    row.setD1(item.getPosCode());
-                    row.setD2(item.getPosName());
-                    row.setD3(item.getMainPos());
-                    row.setD4("0");
-                    row.setD5(dateStr);
-                    row.setD6(null);
-                    row.setD7(_reportDate);
+                if (!Arrays.asList("001114", "000197", "002734", "002821", "004532").contains(item.getPosCode()) && item.getStatus().equals("O")) {
+                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+                    try {
+                        row.setD1(item.getPosCode());
+                        row.setD2(item.getPosName());
+                        row.setD3(item.getMainPos());
+                        row.setD4("0");
+                        row.setD5(dateStr);
+                        row.setD6(null);
+                        row.setD7(_reportDate);
 //                    row.setD8(null);
 //                    row.setD9("TTCN_01_" + txtGetData);
-                    lstData_Api = _serverAPI.getData_condition("TGTV_2025", item.getPosCode(), "S", _reportDate, "");
-                    int countD9_1 = 0;
-                    int countD9_0 = 0;
-                    if (lstData_Api != null) {
-                        for (DuLieuNTRow apiRow : lstData_Api) {
-                            if ("1".equals(apiRow.getD9())) {
-                                countD9_1++;
-                            } else if ("0".equals(apiRow.getD9())) {
-                                countD9_0++;
+                        lstData_Api = _serverAPI.getData_condition("TGTV_2025", item.getPosCode(), "S", _reportDate, "");
+                        int countD9_1 = 0;
+                        int countD9_0 = 0;
+                        if (lstData_Api != null) {
+                            for (DuLieuNTRow apiRow : lstData_Api) {
+                                if ("1".equals(apiRow.getD9())) {
+                                    countD9_1++;
+                                } else if ("0".equals(apiRow.getD9())) {
+                                    countD9_0++;
+                                }
                             }
                         }
-                    }
-                    ArrayList<LockSendModel> lstData_tmp1 = _serverAPI.getDataLockManual("TGTV_2025", item.getPosCode(), "S", _reportDate);
-                    try {
-                        setChotCic(lstData_tmp1.get(0).getStatus());
+                        ArrayList<LockSendModel> lstData_tmp1 = _serverAPI.getDataLockManual("TGTV_2025", item.getPosCode(), "S", _reportDate);
+                        try {
+                            setChotCic(lstData_tmp1.get(0).getStatus());
+                        } catch (Exception e) {
+                            setChotCic("0");
+                        }
+                        row.setD8(chotCic);
+                        int countD9 = countD9_1 + countD9_0;
+                        row.setD10(String.valueOf(countD9_1));
+                        row.setD11(String.valueOf(countD9_0));
+                        row.setD12(String.valueOf(countD9));
+                        lstDulieuNt.add(row);
                     } catch (Exception e) {
-                        setChotCic("0");
+                        System.err.println("Error processing posCode " + item.getPosCode() + ": " + e.getMessage());
                     }
-                    row.setD8(chotCic);
-                    int countD9 = countD9_1 + countD9_0;
-                    row.setD10(String.valueOf(countD9_1));
-                    row.setD11(String.valueOf(countD9_0));
-                    row.setD12(String.valueOf(countD9));
-                    lstDulieuNt.add(row);
-                } catch (Exception e) {
-                    System.err.println("Error processing posCode " + item.getPosCode() + ": " + e.getMessage());
                 }
             }
-
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> tin dung 2024: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> tin dung 2024: " + e.getMessage());
