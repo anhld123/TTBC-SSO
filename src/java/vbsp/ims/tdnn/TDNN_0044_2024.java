@@ -529,6 +529,7 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
             pos_cd = posMainModel.getPosCd();
             main_pos = posMainModel.getMainPosCd();
             String maxa = hmParameter.get("lstXa").toString();
+            String tranPoint = hmParameter.get("transactionPoint").toString();
             String mapgd = hmParameter.get("lstPGD").toString();
             String macn = hmParameter.get("lstCN").toString();
             String macb = hmParameter.get("cboCanBo").toString();
@@ -540,7 +541,7 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
             String dateStr = sdf.format(date1);
             int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(date1));
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-            String tranPoint = "TXN0" + maxa;
+//            String tranPoint = "TXN0" + maxa;
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
                 DuLieuNTRow tempadd = new DuLieuNTRow();
@@ -622,6 +623,7 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
             pos_cd = posMainModel.getPosCd();
             main_pos = posMainModel.getMainPosCd();
             String maxa = hmParameter.get("lstXa").toString();
+            String tranPoint = hmParameter.get("transactionPoint").toString();
             String mapgd = hmParameter.get("lstPGD").toString();
             String macn = hmParameter.get("lstCN").toString();
             String macb = hmParameter.get("cboCanBo").toString();
@@ -636,8 +638,8 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
             if (macb.equals("000000")) {
                 addActionError("Bạn chưa chọn cán bộ kiểm tra!");
             }
-            String tranPoint = "TXN0" + maxa;
-            System.out.println(macb + " " + tranPoint);
+//            String tranPoint = "TXN0" + maxa;
+//            System.out.println(macb + " " + tranPoint);
 
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
@@ -753,6 +755,7 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
             pos_cd = posMainModel.getPosCd();
             main_pos = posMainModel.getMainPosCd();
             String maxa = hmParameter.get("lstXa").toString();
+            String tranPoint = hmParameter.get("transactionPoint").toString();
             String mapgd = hmParameter.get("lstPGD").toString();
             String macn = hmParameter.get("lstCN").toString();
             String macb = hmParameter.get("cboCanBo").toString();
@@ -764,8 +767,8 @@ public class TDNN_0044_2024 extends ActionTdnnMain implements TdnnFunction {
             String dateStr = sdf.format(date1);
             int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(date1));
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-            String tranPoint = "TXN0" + maxa;
-            System.out.println(macb + " " + tranPoint);
+//            String tranPoint = "TXN0" + maxa;
+//            System.out.println(macb + " " + tranPoint);
 
             ArrayList<QT_DULIEU_NT> lstLocalDataUpdate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
